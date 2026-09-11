@@ -12,7 +12,11 @@ class AccompanyingEquipmentService:
     """Helper xử lý danh mục phụ kiện đi kèm theo phân tích của AI."""
 
     @staticmethod
-    def format_accessories(accessories: Optional[List[Dict[str, Any]]]) -> List[Dict[str, Any]]:
+    def format_accessories(
+        accessories: Optional[List[Dict[str, Any]]],
+        parent_brand: Optional[str] = None,
+        parent_category: Optional[str] = None
+    ) -> List[Dict[str, Any]]:
         """Chuẩn hóa dữ liệu phụ kiện do AI trả về."""
         if not accessories:
             return []
@@ -34,9 +38,18 @@ class AccompanyingEquipmentService:
                 display_name = f"   ↳ [Thiết bị đi kèm] {name}"
             else:
                 display_name = name
+
+            category = acc.get("category")
+            if not category:
+                category = f"Phụ kiện {parent_category}" if parent_category else "Phụ kiện đi kèm"
+
+            brand = acc.get("brand") or parent_brand or ""
+
             formatted.append({
                 "code": acc.get("code") or f"ACC_{idx}",
                 "name": display_name,
+                "category": category,
+                "brand": brand,
                 "spec": acc.get("spec") or "",
                 "sku": acc.get("sku") or "-",
                 "origin": acc.get("origin") or "VN",

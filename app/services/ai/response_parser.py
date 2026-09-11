@@ -156,9 +156,10 @@ class ResponseParserService:
                     orig_box = item.get("box_2d")
                     if isinstance(orig_box, list) and len(orig_box) == 4:
                         ymin, xmin, ymax, xmax = orig_box
-                        mid_x = (xmin + xmax) // 2
-                        light_item["box_2d"] = [ymin, xmin, ymax, max(xmin + 1, mid_x)]
-                        fuse_item["box_2d"] = [ymin, mid_x, ymax, xmax]
+                        # Trên sơ đồ SLD, Cầu chì luôn nằm phía trên, Đèn báo pha nằm phía dưới theo phương đứng
+                        mid_y = (ymin + ymax) // 2
+                        fuse_item["box_2d"] = [ymin, xmin, max(ymin + 1, mid_y), xmax]
+                        light_item["box_2d"] = [mid_y, xmin, ymax, xmax]
 
                     expanded_items.append(fuse_item)
                     expanded_items.append(light_item)

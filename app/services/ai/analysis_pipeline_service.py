@@ -1035,7 +1035,11 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             elif pool:
                 chosen_brand = pool[0]
                 dev.selection_source = "catalog_auto"
-            # 4. Không có hãng/catalog phù hợp: không tự gán nhà cung cấp.
+            # 4. Với thiết bị cơ bản/phụ kiện tủ (đèn báo, cầu chì, nút nhấn, đồng hồ...), mặc định hãng Asia (Á Châu phổ thông)
+            elif is_accessory:
+                chosen_brand = "Asia"
+                dev.selection_source = "default_basic"
+            # 5. Không có hãng/catalog phù hợp: không tự gán nhà cung cấp.
             else:
                 chosen_brand = ""
                 dev.selection_source = "unresolved"
@@ -1046,6 +1050,9 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 chosen_price = m_info["price"]
                 icu_info = f", Icu {m_info['icu']}kA" if m_info.get("icu") else ""
                 dev.technical_match_note = f"Đối chiếu Catalog: {chosen_brand} {chosen_sku}{icu_info} ({chosen_price:,} đ)"
+            elif chosen_brand == "Asia":
+                chosen_price = 0
+                dev.technical_match_note = "Thiết bị phụ trợ/cơ bản mặc định hãng Asia (Á Châu phổ thông)."
             else:
                 chosen_price = 0
                 dev.technical_match_note = "Chưa có bản ghi khớp trong catalog.json; giữ nguyên dữ liệu đọc từ nguồn và cần xác nhận khi báo giá."
@@ -1068,7 +1075,9 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             # PHỤ KIỆN ĐI KÈM DO AI PHÂN TÍCH TỪ BẢN VẼ (KHÔNG HARD-CODE)
             if getattr(dev, "accompanying_accessories", None):
                 dev.accompanying_accessories = AccompanyingEquipmentService.format_accessories(
-                    dev.accompanying_accessories
+                    dev.accompanying_accessories,
+                    parent_brand=chosen_brand or dev.brand,
+                    parent_category=dev.category
                 )
 
             # Gợi ý danh sách hãng khả dụng
@@ -1077,6 +1086,8 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 dev.suggested_brands = list(dict.fromkeys(combined_brands))
             else:
                 fallback_brands = ([chosen_brand] if chosen_brand else []) + ai_suggested_brands
+                if is_accessory and "Asia" not in fallback_brands:
+                    fallback_brands.append("Asia")
                 dev.suggested_brands = list(dict.fromkeys(fallback_brands))
 
             # Tự động áp dụng lựa chọn kỹ thuật ở cả bảng bóc tách. Người dùng
@@ -1295,6 +1306,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         enclosure_width = enclosure_spec.get("width", 500 if not is_3phase else 800)
         enclosure_depth = enclosure_spec.get("depth", 200 if not is_3phase else 350)
         
+        surface_m2 = 2 * (enclosure_height * enclosure_width + enclosure_height * enclosure_depth + enclosure_width * enclosure_depth) / 1e6
         min_enc_p = int(getattr(settings, "ENCLOSURE_MIN_PRICE", 1200000))
         enclosure_unit_price = max(min_enc_p, int(surface_m2 * 1200000))
         enclosure_unit_price = int(round(enclosure_unit_price / float(PRICE_ROUNDING_STEP_VND)) * PRICE_ROUNDING_STEP_VND)
@@ -3470,7 +3482,9 @@ Chỉ trả một JSON hợp lệ, không markdown:
             # 4. Chuẩn hóa phụ kiện đi kèm đã bóc tách từ AI (nếu có)
             if getattr(dev, "accompanying_accessories", None):
                 dev.accompanying_accessories = AccompanyingEquipmentService.format_accessories(
-                    dev.accompanying_accessories
+                    dev.accompanying_accessories,
+                    parent_brand=dev.brand,
+                    parent_category=dev.category
                 )
 
         # 2. Phân tích kỹ thuật vỏ tủ & thanh cái

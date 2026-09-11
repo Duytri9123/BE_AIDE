@@ -15,6 +15,9 @@ import re
 from pathlib import Path
 import ezdxf
 from app.core.config import settings
+import logging
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
