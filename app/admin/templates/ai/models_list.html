@@ -3,24 +3,27 @@
 <div class="container-fluid p-0">
   
   <!-- Page Header -->
-  <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+  <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3 mb-md-4">
     <div>
       <h4 class="fw-bold mb-1 text-dark" style="font-size: 1.25rem;">
         <i class="fa-solid fa-robot me-2 text-primary"></i>Danh Sách Mô Hình AI (AI Models)
       </h4>
-      <p class="text-muted small mb-0">Quản lý và kiểm tra từng Model AI được cấu hình trong hệ thống</p>
+      <p class="text-muted small mb-0">
+        <span class="d-none d-sm-inline">Quản lý và kiểm tra từng Model AI được cấu hình trong hệ thống</span>
+        <span class="d-sm-none">Quản lý &amp; kiểm tra Model AI hệ thống</span>
+      </p>
     </div>
 
-    <div class="d-flex align-items-center gap-2">
-      <a href="/admin/ai-provider/list" class="btn btn-sm btn-outline-secondary fw-semibold px-3 py-2" style="border-radius: 8px; font-size: 12.5px;">
-        <i class="fa-solid fa-arrow-left me-1"></i> Quay lại Providers
+    <div class="models-header-actions d-flex align-items-center gap-1.5 gap-sm-2 flex-wrap">
+      <a href="/admin/ai-provider/list" class="btn btn-sm btn-outline-secondary fw-semibold px-2.5 px-sm-3 py-2 rounded-3 text-nowrap" style="font-size: 12.5px;">
+        <i class="fa-solid fa-arrow-left me-1"></i> <span class="d-none d-sm-inline">Quay lại </span>Providers
       </a>
-      <a href="/admin/ai-connection/list" class="btn btn-sm btn-outline-secondary fw-semibold px-3 py-2" style="border-radius: 8px; font-size: 12.5px;">
-        <i class="fa-solid fa-key me-1"></i> Quản lý API Keys
+      <a href="/admin/ai-connection/list" class="btn btn-sm btn-outline-secondary fw-semibold px-2.5 px-sm-3 py-2 rounded-3 text-nowrap" style="font-size: 12.5px;">
+        <i class="fa-solid fa-key me-1"></i> <span class="d-none d-sm-inline">Quản lý </span>API Keys
       </a>
       {% if model_view.check_can_create(request) %}
-        <a href="{{ url_for('admin:create', identity=model_view.identity) }}" class="btn btn-sm btn-primary fw-bold px-3 py-2 shadow-sm" style="border-radius: 8px; font-size: 12.5px;">
-          <i class="fa-solid fa-plus me-1"></i> Thêm Model Mới
+        <a href="{{ url_for('admin:create', identity=model_view.identity) }}" class="btn btn-sm btn-primary fw-bold px-3 py-2 shadow-sm rounded-3 text-nowrap" style="font-size: 12.5px;">
+          <i class="fa-solid fa-plus me-1"></i> Thêm Model<span class="d-none d-sm-inline"> Mới</span>
         </a>
       {% endif %}
     </div>
@@ -28,13 +31,13 @@
 
   <!-- Smart Filter & Search Bar -->
   <div class="card border-0 shadow-sm rounded-4 mb-3">
-    <div class="card-body p-3">
-      <div class="d-flex align-items-center gap-2 flex-wrap">
+    <div class="card-body p-2.5 p-sm-3">
+      <div class="d-flex align-items-center gap-2 flex-wrap models-filter-row">
         <!-- Live Instant Search -->
-        <div class="input-group input-group-sm flex-grow-1" style="min-width: 250px;">
-          <span class="input-group-text bg-white border-end-0 text-muted"><i class="fa-solid fa-magnifying-glass"></i></span>
-          <input type="text" id="live-search-input" class="form-control border-start-0 ps-0"
-                 placeholder="Tìm nhanh theo mã model, tên hiển thị..."
+        <div class="input-group input-group-sm flex-grow-1 model-filter-search">
+          <span class="input-group-text bg-white border-end-0 text-muted ps-2.5 pe-1"><i class="fa-solid fa-magnifying-glass fs-8"></i></span>
+          <input type="text" id="live-search-input" class="form-control border-start-0 ps-1"
+                 placeholder="Tìm nhanh theo mã model, tên..."
                  value="{{ request.query_params.get('search', '') }}"
                  oninput="handleFilterChange()">
           <button type="button" id="btn-clear-search" class="btn btn-outline-secondary border-start-0 border-end"
@@ -43,10 +46,10 @@
           </button>
         </div>
 
-        <!-- Provider Select Dropdown (theo yeu cau hien thi select) -->
-        <div style="min-width: 200px;">
-          <select id="provider-filter-select" class="form-select form-select-sm" style="border-radius: 8px; font-size: 13px;" onchange="handleFilterChange()">
-            <option value="all">Tất cả nhà cung cấp ({{ pagination.count }})</option>
+        <!-- Provider Select Dropdown -->
+        <div class="model-filter-select">
+          <select id="provider-filter-select" class="form-select form-select-sm" style="border-radius: 8px; font-size: 12.5px;" onchange="handleFilterChange()">
+            <option value="all">Tất cả NCC ({{ pagination.count }})</option>
             <option value="antigravity">Antigravity</option>
             <option value="openai">OpenAI</option>
             <option value="anthropic">Anthropic</option>
@@ -59,8 +62,8 @@
         </div>
 
         <!-- Status Dropdown -->
-        <div style="min-width: 160px;">
-          <select id="status-filter-select" class="form-select form-select-sm" style="border-radius: 8px; font-size: 13px;" onchange="handleFilterChange()">
+        <div class="model-filter-select">
+          <select id="status-filter-select" class="form-select form-select-sm" style="border-radius: 8px; font-size: 12.5px;" onchange="handleFilterChange()">
             <option value="all">Tất cả trạng thái</option>
             <option value="active">Đang hoạt động</option>
             <option value="inactive">Đã tắt</option>
@@ -68,7 +71,7 @@
         </div>
 
         <!-- Reset Filter Button -->
-        <button type="button" id="btn-reset-filters" class="btn btn-sm btn-outline-secondary fw-semibold" style="border-radius: 8px; font-size: 12.5px; display: none;" onclick="resetAllFilters()">
+        <button type="button" id="btn-reset-filters" class="btn btn-sm btn-outline-secondary fw-semibold model-filter-reset" style="border-radius: 8px; font-size: 12px; display: none;" onclick="resetAllFilters()">
           <i class="fa-solid fa-rotate-left me-1"></i>Đặt lại
         </button>
       </div>
@@ -81,16 +84,16 @@
       <table class="table table-hover align-middle mb-0" id="models-table" style="font-size: 13.5px;">
         <thead class="table-light">
           <tr>
-            <th class="ps-3 text-center" style="width: 125px;" title="Kéo thả biểu tượng để thay đổi độ ưu tiên gọi">
+            <th class="ps-3 text-center" style="width: 120px;" title="Kéo thả biểu tượng để thay đổi độ ưu tiên gọi">
               <i class="fa-solid fa-arrows-up-down text-primary me-1"></i>Ưu tiên
             </th>
-            <th style="width: 65px;">ID</th>
-            <th style="width: 140px;">Nhà cung cấp</th>
-            <th>Mã Model (model_key)</th>
-            <th>Tên hiển thị (Label)</th>
-            <th style="width: 110px;" class="text-center">Trạng thái</th>
-            <th style="width: 110px;" class="text-center">Kiểm tra</th>
-            <th class="pe-4 text-end" style="width: 95px;">Thao tác</th>
+            <th style="width: 55px;">ID</th>
+            <th style="width: 130px;"><span class="d-none d-sm-inline">Nhà cung cấp</span><span class="d-sm-none">NCC</span></th>
+            <th>Mã Model <span class="d-none d-sm-inline text-muted fs-9 fw-normal">(model_key)</span></th>
+            <th>Tên hiển thị <span class="d-none d-sm-inline text-muted fs-9 fw-normal">(Label)</span></th>
+            <th style="width: 105px;" class="text-center">Trạng thái</th>
+            <th style="width: 105px;" class="text-center">Kiểm tra</th>
+            <th class="pe-3 pe-sm-4 text-end" style="width: 90px;">Thao tác</th>
           </tr>
         </thead>
         <tbody id="models-tbody">
@@ -708,4 +711,52 @@ function initDeleteModal() {
   });
 }
 </script>
+
+<style>
+  .model-filter-search {
+    min-width: 240px;
+  }
+  .model-filter-select {
+    min-width: 170px;
+  }
+  @media (max-width: 768px) {
+    .models-header-actions {
+      width: 100% !important;
+      display: flex !important;
+      gap: 6px !important;
+    }
+    .models-header-actions .btn {
+      flex: 1 1 auto !important;
+      justify-content: center !important;
+      padding: 7px 8px !important;
+      font-size: 11.5px !important;
+      text-align: center !important;
+    }
+    .models-filter-row {
+      gap: 6px !important;
+    }
+    .model-filter-search {
+      width: 100% !important;
+      min-width: 100% !important;
+      flex: 1 1 100% !important;
+    }
+    .model-filter-select {
+      flex: 1 1 calc(50% - 3px) !important;
+      min-width: 0 !important;
+      width: calc(50% - 3px) !important;
+    }
+    .model-filter-select select {
+      font-size: 12px !important;
+      padding: 6px 8px !important;
+    }
+    .model-filter-reset {
+      width: 100% !important;
+      justify-content: center !important;
+    }
+    #models-table th, #models-table td {
+      padding: 8px 8px !important;
+      font-size: 12px !important;
+    }
+  }
+</style>
 {% endblock %}
