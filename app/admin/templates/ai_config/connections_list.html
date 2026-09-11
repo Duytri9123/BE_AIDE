@@ -1,0 +1,10 @@
+{% extends "sqladmin/list.html" %}
+
+{% block model_menu_bar %}
+  <div class="d-flex align-items-center gap-2">
+    <button class="btn btn-sm btn-outline-success d-flex align-items-center gap-1.5 fw-bold px-3 py-1.5" style="border-radius: 8px; font-size: 12.5px;" onclick="testAllAiConnections()">
+      <i class="fa-solid fa-bolt"></i> Test Ping Tất Cả API
+    </button>
+    {{ super() }}
+  </div>
+{% endblock %}

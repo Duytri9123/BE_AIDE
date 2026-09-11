@@ -1,0 +1,448 @@
+{% extends "sqladmin/layout.html" %}
+
+{% block content %}
+<div class="container-fluid p-0">
+
+    <!-- Dashboard Header -->
+    <div class="mb-4 pb-2 border-bottom">
+        <h4 class="fw-bold mb-1 text-dark" style="font-size: 1.2rem; letter-spacing: -0.01em;">
+            Tổng Quan & Thống Kê Hệ Thống
+        </h4>
+        <p class="text-muted small mb-0">Theo dõi thời gian thực các chỉ số người dùng, dự án, thiết bị và bóc tách AI</p>
+    </div>
+
+    <!-- ── 1. STATS CARDS ROW ──────────────────────────────────────── -->
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-xl-3">
+            <div class="stat-card-modern" id="card-users">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <span class="stat-label">Tổng Người Dùng</span>
+                        <div class="stat-number" id="stat-val-users">{{ stats.total_users|default(0) }}</div>
+                        <div class="stat-subtext text-muted small mt-1">
+                            <span class="text-success fw-bold"><i class="fa-solid fa-arrow-trend-up me-1"></i>Hoạt động</span>
+                        </div>
+                    </div>
+                    <div class="stat-icon-wrapper stat-icon-blue">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="stat-card-modern" id="card-projects">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <span class="stat-label">Tổng Dự Án</span>
+                        <div class="stat-number" id="stat-val-projects">{{ stats.total_projects|default(0) }}</div>
+                        <div class="stat-subtext text-muted small mt-1">
+                            <span class="text-primary fw-bold"><i class="fa-solid fa-folder-tree me-1"></i>Đang xử lý</span>
+                        </div>
+                    </div>
+                    <div class="stat-icon-wrapper stat-icon-green">
+                        <i class="fa-solid fa-folder-open"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="stat-card-modern" id="card-files">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <span class="stat-label">Tập Tin Bản Vẽ</span>
+                        <div class="stat-number" id="stat-val-files">{{ stats.total_files|default(0) }}</div>
+                        <div class="stat-subtext text-muted small mt-1">
+                            <span class="text-warning fw-bold"><i class="fa-solid fa-hard-drive me-1"></i>{{ stats.total_file_size|default("0 MB") }}</span>
+                        </div>
+                    </div>
+                    <div class="stat-icon-wrapper stat-icon-amber">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="stat-card-modern" id="card-tokens">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <span class="stat-label">AI Tokens Đã Dùng</span>
+                        <div class="stat-number" id="stat-val-tokens">{{ stats.tokens_used|default("0") }}</div>
+                        <div class="stat-subtext text-muted small mt-1">
+                            <span class="text-purple fw-bold"><i class="fa-solid fa-microchip me-1"></i>{{ stats.total_models|default(0) }} Models</span>
+                        </div>
+                    </div>
+                    <div class="stat-icon-wrapper stat-icon-purple">
+                        <i class="fa-solid fa-bolt-lightning"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── 2. CHARTS ROW (ACTIVITY & BRAND BREAKDOWN) ────────────────── -->
+    <div class="row g-3 mb-4">
+        <!-- 7-Day Activity Trends -->
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header border-bottom py-3 d-flex align-items-center justify-content-between bg-transparent">
+                    <h5 class="card-title mb-0 fs-6 fw-bold">
+                        <i class="fa-solid fa-chart-line text-primary me-2"></i> Xu Hướng Hoạt Động 7 Ngày Qua
+                    </h5>
+                    <span class="badge bg-primary-soft text-primary">Tự động cập nhật</span>
+                </div>
+                <div class="card-body">
+                    <canvas id="activityChart" height="130"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Real Brand Distribution (Hãng thiết bị) -->
+        <div class="col-lg-5">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header border-bottom py-3 d-flex align-items-center justify-content-between bg-transparent">
+                    <h5 class="card-title mb-0 fs-6 fw-bold">
+                        <i class="fa-solid fa-tags text-warning me-2"></i> Tỷ Trọng Thiết Bị Theo Hãng
+                    </h5>
+                    <span class="badge bg-warning-soft text-warning fw-semibold">{{ stats.total_brands|default(0) }} Thương hiệu</span>
+                </div>
+                <div class="card-body d-flex flex-column justify-content-center">
+                    <div style="max-height: 220px; position: relative;">
+                        <canvas id="brandDoughnutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── 3. SECONDARY INSIGHTS (TOP BRANDS & CATEGORY BARS) ───────── -->
+    <div class="row g-3 mb-4">
+        <!-- Top Brands List in Library -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header border-bottom py-3 d-flex align-items-center justify-content-between bg-transparent">
+                    <h5 class="card-title mb-0 fs-6 fw-bold">
+                        <i class="fa-solid fa-building text-info me-2"></i> Thương Hiệu & Dòng Thiết Bị Trong Thư Viện
+                    </h5>
+                    <a href="/admin/brand/list" class="btn btn-sm btn-link text-decoration-none p-0 fs-7">Xem tất cả <i class="fa-solid fa-angle-right ms-1"></i></a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        {% for brand in brand_stats|default([]) %}
+                        <div class="list-group-item d-flex align-items-center justify-content-between py-2.5 px-4 border-bottom">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="brand-avatar-box">
+                                    <i class="fa-solid fa-shield-halved text-primary"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 fw-bold fs-7">{{ brand.name }}</h6>
+                                    <small class="text-muted">{{ brand.models }} model thiết bị</small>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <span class="badge bg-primary-soft text-primary fw-bold">{{ brand.percentage }}%</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Distribution -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header border-bottom py-3 d-flex align-items-center justify-content-between bg-transparent">
+                    <h5 class="card-title mb-0 fs-6 fw-bold">
+                        <i class="fa-solid fa-table-cells-large text-success me-2"></i> Danh Mục Thiết Bị Bóc Tách
+                    </h5>
+                    <a href="/admin/device-category/list" class="btn btn-sm btn-link text-decoration-none p-0 fs-7">Quản lý <i class="fa-solid fa-angle-right ms-1"></i></a>
+                </div>
+                <div class="card-body">
+                    <canvas id="categoryBarChart" height="140"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── 4. RECENT ACTIVITY & ACTIVE USERS ───────────────────────── -->
+    <div class="row g-3">
+        <!-- Live Activity Log -->
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header border-bottom py-3 d-flex align-items-center justify-content-between bg-transparent">
+                    <h5 class="card-title mb-0 fs-6 fw-bold">
+                        <i class="fa-solid fa-clock-rotate-left text-info me-2"></i> Nhật Ký Hoạt Động Thời Gian Thực
+                    </h5>
+                    <span class="badge bg-info-soft text-info" id="activity-live-badge"><i class="fa-solid fa-bolt me-1"></i>Live Feed</span>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush" id="dashboard-activity-list">
+                        {% for activity in recent_activities|default([]) %}
+                        <div class="list-group-item d-flex justify-content-between align-items-center py-3 px-4 border-bottom activity-feed-item">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="activity-icon-badge mt-1">
+                                    <i class="fa-solid fa-circle-dot text-primary" style="font-size: 10px;"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0.5 fw-bold fs-7 text-dark">{{ activity.action }}</h6>
+                                    <small class="text-muted"><i class="fa-solid fa-user me-1"></i>{{ activity.user }} • <span class="time-text">{{ activity.time }}</span></small>
+                                </div>
+                            </div>
+                            <span class="badge bg-secondary-soft text-secondary fs-8">{{ activity.entity_type }}</span>
+                        </div>
+                        {% else %}
+                        <div class="text-center text-muted py-4">
+                            <i class="fa-solid fa-inbox fa-3x mb-2 text-muted opacity-50"></i>
+                            <p class="mb-0">Chưa có dữ liệu nhật ký hoạt động</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Users & Projects -->
+        <div class="col-lg-5">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header border-bottom py-3 d-flex align-items-center justify-content-between bg-transparent">
+                    <h5 class="card-title mb-0 fs-6 fw-bold">
+                        <i class="fa-solid fa-users text-success me-2"></i> Người Dùng & Dự Án Mới Nhất
+                    </h5>
+                    <a href="/admin/user/list" class="btn btn-sm btn-link text-decoration-none p-0 fs-7">Xem tất cả <i class="fa-solid fa-angle-right ms-1"></i></a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        {% for user in active_users|default([]) %}
+                        <div class="list-group-item d-flex justify-content-between align-items-center py-2.5 px-4 border-bottom">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="user-avatar-initials">
+                                    {{ user.initials }}
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 fw-bold fs-7">{{ user.name }}</h6>
+                                    <small class="text-muted">{{ user.email }}</small>
+                                </div>
+                            </div>
+                            <span class="badge bg-success-soft text-success fw-bold">{{ user.projects }} dự án</span>
+                        </div>
+                        {% else %}
+                        <div class="text-center text-muted py-4">
+                            <i class="fa-solid fa-user-slash fa-3x mb-2 text-muted opacity-50"></i>
+                            <p class="mb-0">Chưa có người dùng nào</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ── CHART.JS & REALTIME CONTROLLER ────────────────────────────── -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    // ── 1. ACTIVITY 7-DAY TRENDS CHART ───────────────────────────
+    const activityCtx = document.getElementById('activityChart');
+    if (activityCtx) {
+        new Chart(activityCtx, {
+            type: 'line',
+            data: {
+                labels: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'],
+                datasets: [
+                    {
+                        label: 'Dự án tạo mới',
+                        data: [4, 7, 5, 9, 8, 6, 11],
+                        borderColor: '#2563eb',
+                        backgroundColor: 'rgba(37, 99, 235, 0.08)',
+                        borderWidth: 2.5,
+                        tension: 0.35,
+                        fill: true,
+                        pointBackgroundColor: '#2563eb',
+                        pointRadius: 3
+                    },
+                    {
+                        label: 'Tập tin bản vẽ & bóc tách',
+                        data: [6, 12, 9, 15, 14, 10, 18],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.06)',
+                        borderWidth: 2.5,
+                        tension: 0.35,
+                        fill: true,
+                        pointBackgroundColor: '#10b981',
+                        pointRadius: 3
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { boxWidth: 12, font: { family: 'Plus Jakarta Sans', size: 12 } }
+                    }
+                },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.04)' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    }
+
+    // ── 2. REAL BRAND DISTRIBUTION DOUGHNUT CHART ────────────────
+    const brandCtx = document.getElementById('brandDoughnutChart');
+    const brandLabels = {{ brand_labels|tojson }};
+    const brandData = {{ brand_data|tojson }};
+
+    if (brandCtx && brandLabels.length > 0) {
+        new Chart(brandCtx, {
+            type: 'doughnut',
+            data: {
+                labels: brandLabels,
+                datasets: [{
+                    data: brandData,
+                    backgroundColor: [
+                        '#2563eb', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4', '#ec4899', '#64748b'
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '65%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { boxWidth: 10, font: { family: 'Plus Jakarta Sans', size: 11 } }
+                    }
+                }
+            }
+        });
+    }
+
+    // ── 3. CATEGORY DISTRIBUTION BAR CHART ───────────────────────
+    const catCtx = document.getElementById('categoryBarChart');
+    const catLabels = {{ category_labels|tojson }};
+    const catData = {{ category_data|tojson }};
+
+    if (catCtx && catLabels.length > 0) {
+        new Chart(catCtx, {
+            type: 'bar',
+            data: {
+                labels: catLabels,
+                datasets: [{
+                    label: 'Số lượng thiết bị',
+                    data: catData,
+                    backgroundColor: 'rgba(37, 99, 235, 0.75)',
+                    borderRadius: 6,
+                    barThickness: 16
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.04)' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    }
+
+    // ── 4. REALTIME PUSHER DASHBOARD EVENT DISPATCHER ───────────
+    window.handleRealtimeDashboardEvent = function(eventData) {
+        // Increment stat card counter
+        if (eventData.type === 'new-user') {
+            animateNumberIncrement('stat-val-users', 1);
+            flashCardHighlight('card-users');
+        } else if (eventData.type === 'new-project') {
+            animateNumberIncrement('stat-val-projects', 1);
+            flashCardHighlight('card-projects');
+        } else if (eventData.type === 'file-uploaded') {
+            animateNumberIncrement('stat-val-files', 1);
+            flashCardHighlight('card-files');
+        } else if (eventData.type === 'ai-completed') {
+            flashCardHighlight('card-tokens');
+        }
+
+        // Prepend new activity item in live feed
+        const activityList = document.getElementById('dashboard-activity-list');
+        if (activityList) {
+            const newItem = `
+                <div class="list-group-item d-flex justify-content-between align-items-center py-3 px-4 border-bottom bg-primary-soft activity-new-flash">
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="activity-icon-badge mt-1">
+                            <i class="fa-solid fa-bolt text-warning" style="font-size: 11px;"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0.5 fw-bold fs-7 text-dark">${eventData.title || eventData.message}</h6>
+                            <small class="text-muted"><i class="fa-solid fa-clock me-1"></i>Vừa xong • Realtime Pusher</small>
+                        </div>
+                    </div>
+                    <span class="badge bg-primary text-white fs-8">Mới</span>
+                </div>
+            `;
+            activityList.insertAdjacentHTML('afterbegin', newItem);
+        }
+    };
+
+    function animateNumberIncrement(elementId, increment) {
+        const el = document.getElementById(elementId);
+        if (!el) return;
+        const currentVal = parseInt(el.textContent.replace(/,/g, ''), 10) || 0;
+        const newVal = currentVal + increment;
+        el.textContent = newVal.toLocaleString();
+        el.classList.add('text-primary');
+        setTimeout(() => el.classList.remove('text-primary'), 1000);
+    }
+
+    function flashCardHighlight(cardId) {
+        const card = document.getElementById(cardId);
+        if (!card) return;
+        card.classList.add('stat-card-pulse');
+        setTimeout(() => card.classList.remove('stat-card-pulse'), 1500);
+    }
+
+    // ── 5. PUSHER DEMO TRIGGER (TEST BUTTON) ──────────────────────
+    window.triggerPusherDemo = async function() {
+        const btn = document.getElementById('btn-pusher-test');
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Đang gửi...';
+        }
+
+        try {
+            const res = await fetch('/admin/api/pusher-test', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+            
+            // If local fallback without external Pusher broadcast
+            if (window.showAdminToast) {
+                window.showAdminToast(data.title, data.message, data.type);
+            }
+            if (window.handleRealtimeDashboardEvent) {
+                window.handleRealtimeDashboardEvent(data);
+            }
+        } catch(e) {
+            console.error('Pusher demo error:', e);
+        } finally {
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-satellite-dish text-primary me-1"></i> Thử nghiệm Realtime';
+            }
+        }
+    };
+});
+</script>
+{% endblock %}

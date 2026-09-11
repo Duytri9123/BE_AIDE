@@ -1,0 +1,258 @@
+{% extends "admin_custom/layout.html" %}
+
+{% block content %}
+<div class="main-content">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Dashboard</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">Tổng quan hệ thống</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Stats Cards Row -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="stat-card-modern">
+                <span class="stat-label">Tổng Users</span>
+                <div class="stat-number">{{ stats.total_users|default(0) }}</div>
+                <div class="stat-change positive mt-2 small text-success">
+                    <i class="fas fa-arrow-up"></i> +{{ stats.new_users_today|default(0) }} hôm nay
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stat-card-modern">
+                <span class="stat-label">Tổng Projects</span>
+                <div class="stat-number">{{ stats.total_projects|default(0) }}</div>
+                <div class="stat-change positive mt-2 small text-success">
+                    <i class="fas fa-arrow-up"></i> +{{ stats.new_projects_today|default(0) }} hôm nay
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stat-card-modern">
+                <span class="stat-label">Files Uploaded</span>
+                <div class="stat-number">{{ stats.total_files|default(0) }}</div>
+                <div class="stat-change mt-2 small text-muted">
+                    <i class="fas fa-file"></i> {{ stats.total_file_size|default("0 MB") }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stat-card-modern">
+                <span class="stat-label">AI Tokens Used</span>
+                <div class="stat-number">{{ stats.tokens_used|default("0K") }}</div>
+                <div class="stat-change mt-2 small text-muted">
+                    <i class="fas fa-bolt"></i> Hôm nay: {{ stats.tokens_today|default("0") }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-chart-line"></i> Hoạt động 7 ngày qua
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="activityChart" height="80"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-chart-pie"></i> Phân loại Projects
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-clock"></i> Hoạt động gần đây
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        {% for activity in recent_activities|default([]) %}
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1">{{ activity.action }}</h6>
+                                <small class="text-muted">{{ activity.user }} - {{ activity.time }}</small>
+                            </div>
+                            <span class="badge bg-primary">{{ activity.entity_type }}</span>
+                        </div>
+                        {% else %}
+                        <div class="text-center text-muted py-4">
+                            <i class="fas fa-inbox fa-3x mb-3"></i>
+                            <p>Chưa có hoạt động nào</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-users"></i> Users hoạt động
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        {% for user in active_users|default([]) %}
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar me-3">
+                                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                        {{ user.name[0]|upper }}
+                                    </div>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0">{{ user.name }}</h6>
+                                    <small class="text-muted">{{ user.email }}</small>
+                                </div>
+                            </div>
+                            <span class="badge bg-success">{{ user.projects }} projects</span>
+                        </div>
+                        {% else %}
+                        <div class="text-center text-muted py-4">
+                            <i class="fas fa-user-slash fa-3x mb-3"></i>
+                            <p>Không có user nào hoạt động</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-bolt"></i> Quick Actions
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <a href="{{ request.url_for('admin:create', identity='user') }}" class="btn btn-primary w-100">
+                                <i class="fas fa-user-plus"></i> Tạo User
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="{{ request.url_for('admin:create', identity='project') }}" class="btn btn-success w-100">
+                                <i class="fas fa-folder-plus"></i> Tạo Project
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="{{ request.url_for('admin:list', identity='brand') }}" class="btn btn-info w-100">
+                                <i class="fas fa-tag"></i> Quản lý Brands
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="{{ request.url_for('admin:list', identity='aiprovider') }}" class="btn btn-warning w-100">
+                                <i class="fas fa-robot"></i> Quản lý AI
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script>
+    // Activity Chart
+    const activityCtx = document.getElementById('activityChart');
+    if (activityCtx) {
+        new Chart(activityCtx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [
+                    {
+                        label: 'Projects',
+                        data: [12, 19, 15, 25, 22, 18, 20],
+                        borderColor: '#2563eb',
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Files Uploaded',
+                        data: [8, 14, 10, 18, 16, 12, 15],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    // Category Chart
+    const categoryCtx = document.getElementById('categoryChart');
+    if (categoryCtx) {
+        new Chart(categoryCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Tủ điện', 'Trạm sạc', 'Tủ điều khiển', 'Khác'],
+                datasets: [{
+                    data: [35, 25, 20, 20],
+                    backgroundColor: [
+                        '#2563eb',
+                        '#10b981',
+                        '#f59e0b',
+                        '#8b5cf6'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    }
+</script>
+{% endblock %}

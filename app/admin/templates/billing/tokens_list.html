@@ -1,0 +1,10 @@
+{% extends "sqladmin/list.html" %}
+
+{% block model_menu_bar %}
+  <div class="d-flex align-items-center gap-2">
+    <span class="badge bg-primary-soft text-primary d-none d-md-inline-flex align-items-center px-2.5 py-1.5" style="border-radius: 8px; font-size: 11.5px;">
+      <i class="fa-solid fa-coins me-1"></i> Nhật ký tiêu thụ Token
+    </span>
+    {{ super() }}
+  </div>
+{% endblock %}

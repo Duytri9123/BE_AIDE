@@ -1,0 +1,1089 @@
+{% extends "sqladmin/base.html" %}
+
+{% block head_css %}
+{{ super() }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="{{ url_for('admin_static', path='favicon.ico') }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('admin_static', path='favicon-32x32.png') }}">
+<link rel="apple-touch-icon" href="{{ url_for('admin_static', path='favicon.png') }}">
+<link rel="stylesheet" href="{{ url_for('admin_static', path='admin_custom.css') }}">
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+
+<script>
+  // Apply saved theme instantly to prevent Flash of Unstyled Content (FOUC)
+  (function() {
+    try {
+      const savedTheme = localStorage.getItem('aide_admin_theme') || 'light';
+      const savedColor = localStorage.getItem('aide_admin_primary_color') || '#2563eb';
+      const savedSidebarTheme = localStorage.getItem('aide_admin_sidebar_theme') || 'dark';
+      const savedRadius = localStorage.getItem('aide_admin_radius') || '8px';
+      const savedSidebarCollapsed = localStorage.getItem('aide_admin_sidebar_collapsed') === 'true';
+
+      const root = document.documentElement;
+      root.setAttribute('data-bs-theme', savedTheme);
+      root.setAttribute('data-sidebar-theme', savedSidebarTheme);
+      root.style.setProperty('--admin-primary', savedColor);
+      root.style.setProperty('--admin-radius', savedRadius);
+      
+      if (savedSidebarCollapsed) {
+        root.classList.add('sidebar-collapsed');
+      }
+    } catch(e) {
+      console.warn('Theme preload error:', e);
+    }
+  })();
+</script>
+{% endblock %}
+
+{% block body %}
+<div class="admin-layout" id="admin-app">
+  
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- SIDEBAR                                                    -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <aside class="admin-sidebar" id="admin-sidebar" data-bs-theme="dark">
+    <!-- Sidebar Brand -->
+    <div class="sidebar-brand-wrapper">
+      <a href="/admin/analytics" class="sidebar-brand text-decoration-none d-flex align-items-center gap-2.5">
+        <div class="brand-icon-box">
+          <img src="{{ url_for('admin_static', path='logo-icon.png') }}" alt="DGP ELECTRIC">
+        </div>
+        <div class="brand-info">
+          <div class="brand-title"><span class="brand-dgp">DGP</span> <span class="brand-electric">ELECTRIC</span> <span class="badge-tag">ADMIN</span></div>
+          <div class="brand-subtitle">Hệ Thống Bóc Tách & Báo Giá</div>
+        </div>
+      </a>
+      <button class="btn-sidebar-close d-md-none" id="btn-sidebar-close" title="Đóng menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- Quick Search Filter -->
+    <div class="sidebar-search px-3 py-2">
+      <div class="sidebar-search-box">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="sidebar-filter-input" class="sidebar-search-input" placeholder="Lọc menu nhanh..." autocomplete="off">
+      </div>
+    </div>
+
+    <!-- Sidebar Menu Nav -->
+    <nav class="sidebar-nav-container">
+      <div class="sidebar-menu-list" id="sidebar-menu-list">
+        
+        <!-- Dashboard Direct Link -->
+        <div class="menu-section-header">
+          <span>TỔNG QUAN</span>
+        </div>
+        <a href="/admin/analytics" class="sidebar-menu-item {% if '/admin/analytics' in request.url.path %}active{% endif %}">
+          <span class="menu-icon"><i class="fa-solid fa-chart-pie"></i></span>
+          <span class="menu-label">Dashboard Thống Kê</span>
+          <span class="badge bg-primary-soft text-primary ms-auto" style="font-size: 10px;">Live</span>
+        </a>
+
+        <!-- Dynamic Loop over Categories & Views -->
+        {% for item in admin._menu.items %}
+          {% if item.name not in ["Tổng quan", "Analytics", "Dashboard", "Dashboard Thống Kê"] and item.display_name not in ["Tổng quan", "Analytics", "Dashboard", "Dashboard Thống Kê"] %}
+            {% if item.type_ == "Category" and item.is_visible(request) and item.is_accessible(request) %}
+              <div class="menu-category-group" data-category-name="{{ item.name }}">
+                <div class="menu-category-header" data-bs-toggle="collapse" data-bs-target="#cat-{{ loop.index }}" aria-expanded="true">
+                  <span class="category-icon">
+                    {% if 'User' in item.display_name or 'Người dùng' in item.display_name %}
+                      <i class="fa-solid fa-user-group text-info"></i>
+                    {% elif 'Dự án' in item.display_name or 'Project' in item.display_name %}
+                      <i class="fa-solid fa-diagram-project text-primary"></i>
+                    {% elif 'Thiết bị' in item.display_name or 'Device' in item.display_name %}
+                      <i class="fa-solid fa-microchip text-warning"></i>
+                    {% elif 'AI' in item.display_name %}
+                      <i class="fa-solid fa-robot text-purple"></i>
+                    {% elif 'Thanh toán' in item.display_name or 'Gói' in item.display_name or 'Billing' in item.display_name %}
+                      <i class="fa-solid fa-wallet text-success"></i>
+                    {% elif 'Phiên' in item.display_name or 'Bóc' in item.display_name or 'Hội thoại' in item.display_name %}
+                      <i class="fa-solid fa-comments text-cyan"></i>
+                    {% elif 'Cài đặt' in item.display_name or 'System' in item.display_name %}
+                      <i class="fa-solid fa-sliders text-secondary"></i>
+                    {% else %}
+                      <i class="fa-solid fa-folder text-muted"></i>
+                    {% endif %}
+                  </span>
+                  <span class="category-title">{{ item.display_name }}</span>
+                  <i class="fa-solid fa-chevron-down category-arrow ms-auto"></i>
+                </div>
+                
+                <div class="collapse show menu-category-body" id="cat-{{ loop.index }}">
+                  {% for sub_item in item.children %}
+                    {% if sub_item.is_visible(request) and sub_item.is_accessible(request) %}
+                      <a href="{{ sub_item.url(request) }}" class="sidebar-menu-item {% if sub_item.is_active(request) %}active{% endif %}">
+                        <span class="menu-icon">
+                          {% if sub_item.icon %}
+                            <i class="{{ sub_item.icon }}"></i>
+                          {% else %}
+                            <i class="fa-solid fa-circle-dot"></i>
+                          {% endif %}
+                        </span>
+                        <span class="menu-label">{{ sub_item.display_name }}</span>
+                      </a>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            {% elif item.type_ == "View" and item.is_visible(request) and item.is_accessible(request) %}
+              <a href="{{ item.url(request) }}" class="sidebar-menu-item {% if item.is_active(request) %}active{% endif %}">
+                <span class="menu-icon">
+                  {% if item.icon %}
+                    <i class="{{ item.icon }}"></i>
+                  {% else %}
+                    <i class="fa-solid fa-file"></i>
+                  {% endif %}
+                </span>
+                <span class="menu-label">{{ item.display_name }}</span>
+              </a>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- MAIN PAGE WRAPPER                                          -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <div class="admin-main-wrapper" id="main-content-wrapper">
+    
+    <!-- TOP HEADER NAVBAR -->
+    <header class="admin-top-header" id="admin-top-header">
+      <div class="header-left">
+        <!-- Sidebar Toggle Button -->
+        <button class="header-icon-btn" id="btn-sidebar-toggle" title="Thu gọn/Mở rộng Sidebar">
+          <i class="fa-solid fa-bars-staggered"></i>
+        </button>
+
+        <!-- Current Location Breadcrumb (Clean & Dynamic) -->
+        <nav class="header-breadcrumb d-none d-sm-flex align-items-center" aria-label="breadcrumb">
+          <a href="{{ url_for('admin:index') }}" class="breadcrumb-link breadcrumb-home-link" title="Trang chủ Admin">
+            <i class="fa-solid fa-house-chimney breadcrumb-home-icon"></i>
+          </a>
+          {% if model_view and model_view.category %}
+          <span class="breadcrumb-separator">/</span>
+          <span class="breadcrumb-parent">{{ model_view.category }}</span>
+          {% endif %}
+          <span class="breadcrumb-separator">/</span>
+          <span class="breadcrumb-current">
+            {% if model_view %}
+              {{ model_view.name_plural or model_view.name }}
+            {% else %}
+              {{ title or "Dashboard" }}
+            {% endif %}
+          </span>
+        </nav>
+      </div>
+
+      <div class="header-right">
+        <!-- Quick App Switcher -->
+        <a href="/" target="_blank" class="header-nav-btn d-none d-lg-inline-flex" title="Mở trang Client Frontend">
+          <i class="fa-solid fa-arrow-up-right-from-square text-primary" style="font-size: 11px;"></i>
+          <span>Client App</span>
+        </a>
+
+        <!-- Language Switcher Dropdown (VI / EN) with Crisp SVG Flags -->
+        <div class="dropdown">
+          <button class="header-lang-btn" id="lang-dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false" title="Chuyển đổi Ngôn ngữ / Switch Language">
+            <span class="lang-flag-box" id="current-lang-flag">
+              <svg class="flag-svg" viewBox="0 0 640 480" width="18" height="13.5"><path fill="#da251d" d="M0 0h640v480H0z"/><path fill="#ff0" d="M320 90l24.7 76.1h80l-64.7 47 24.7 76.1-64.7-47-64.7 47 24.7-76.1-64.7-47h80z"/></svg>
+            </span>
+            <span class="lang-code-text" id="current-lang-code">VI</span>
+            <i class="fa-solid fa-chevron-down lang-chevron"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end shadow-sm border-0 header-lang-dropdown">
+            <a class="dropdown-item lang-item active" href="javascript:void(0)" onclick="setAdminLanguage('vi')" id="lang-opt-vi">
+              <span class="lang-menu-flag me-2">
+                <svg class="flag-svg" viewBox="0 0 640 480" width="18" height="13.5"><path fill="#da251d" d="M0 0h640v480H0z"/><path fill="#ff0" d="M320 90l24.7 76.1h80l-64.7 47 24.7 76.1-64.7-47-64.7 47 24.7-76.1-64.7-47h80z"/></svg>
+              </span>
+              <span class="fw-semibold">Tiếng Việt</span>
+              <i class="fa-solid fa-check ms-auto check-icon text-primary" id="check-vi"></i>
+            </a>
+            <a class="dropdown-item lang-item" href="javascript:void(0)" onclick="setAdminLanguage('en')" id="lang-opt-en">
+              <span class="lang-menu-flag me-2">
+                <svg class="flag-svg" viewBox="0 0 640 480" width="18" height="13.5"><path fill="#012169" d="M0 0h640v480H0z"/><path fill="#fff" d="M75 0l245 180L565 0h75v60L435 240l205 180v60h-75L320 300 75 480H0v-60l205-180L0 60V0h75z"/><path fill="#c8102e" d="M424 281l216 159v40l-244-180h28zm141-281l-245 180h28L640 40V0h-75zM0 440l215-159h-28L0 460v-20zM0 0l245 180H217L0 20V0z"/><path fill="#fff" d="M256 0h128v480H256zM0 176h640v128H0z"/><path fill="#c8102e" d="M280 0h80v480h-80zM0 200h640v80H0z"/></svg>
+              </span>
+              <span class="fw-semibold">English</span>
+              <i class="fa-solid fa-check ms-auto check-icon text-primary d-none" id="check-en"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- User Notifications Dropdown (Clean Modern Popover - Dynamic Real Data) -->
+        <div class="dropdown">
+          <button class="header-notif-btn" id="notif-dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false" title="Thông báo Người dùng & Hệ thống">
+            <i class="fa-solid fa-bell header-bell-icon" id="header-bell-icon"></i>
+            <span class="notif-badge-dot" id="header-notif-badge" style="display: none;">0</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end border-0 shadow-lg header-notif-dropdown p-0">
+            <div class="notif-popover-header">
+              <div class="d-flex align-items-center gap-2">
+                <span class="notif-header-title">Thông báo</span>
+                <span class="notif-badge-pill" id="notif-count-badge">0 mới</span>
+              </div>
+              <button class="notif-mark-read-btn" onclick="markAllNotificationsRead(event)">
+                <i class="fa-solid fa-check-double me-1"></i> Đã đọc tất cả
+              </button>
+            </div>
+            <div class="notif-list-body" id="header-notif-list">
+              <div class="p-4 text-center text-muted" id="notif-loading-indicator">
+                <div class="spinner-border spinner-border-sm text-primary mb-2" role="status"></div>
+                <p class="mb-0 fs-8">Đang tải thông báo hệ thống...</p>
+              </div>
+            </div>
+            <div class="notif-popover-footer">
+              <a href="/admin/notification/list" class="notif-view-all-link">
+                <span>Xem tất cả thông báo</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="header-divider d-none d-sm-block"></div>
+
+        <!-- Admin Profile Dropdown -->
+        <div class="dropdown">
+          <a href="#" class="header-profile-pill" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="header-avatar-sm">AD</div>
+            <div class="header-profile-meta d-none d-md-flex flex-column text-start">
+              <span class="profile-name">Administrator</span>
+              <span class="profile-role">Super Admin</span>
+            </div>
+            <i class="fa-solid fa-chevron-down profile-chevron"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-end shadow-lg border-0 header-profile-dropdown animated--fade-in">
+            <div class="dropdown-header d-flex align-items-center gap-2 py-3 px-3">
+              <div class="header-avatar-lg">AD</div>
+              <div>
+                <strong class="d-block text-dark">System Administrator</strong>
+                <small class="text-muted">admin@aide.com</small>
+              </div>
+            </div>
+            <div class="dropdown-divider my-1"></div>
+            <a class="dropdown-item py-2" href="/admin/user/list">
+              <i class="fa-solid fa-users-gear me-2 text-primary"></i> Quản lý Người dùng
+            </a>
+            <a class="dropdown-item py-2" href="/admin/system-setting/list">
+              <i class="fa-solid fa-gears me-2 text-info"></i> Cấu hình Hệ thống
+            </a>
+            <a class="dropdown-item py-2" href="/admin/activity-log/list">
+              <i class="fa-solid fa-clock-rotate-left me-2 text-warning"></i> Nhật ký Hoạt động
+            </a>
+            <a class="dropdown-item py-2" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasThemeSettings">
+              <i class="fa-solid fa-wand-magic-sparkles me-2 text-purple"></i> Tùy chỉnh Màu sắc & UI
+            </a>
+            <div class="dropdown-divider my-1"></div>
+            {% if admin.authentication_backend %}
+            <a class="dropdown-item py-2 text-danger font-weight-bold" href="{{ request.url_for('admin:logout') }}">
+              <i class="fa-solid fa-arrow-right-from-bracket me-2"></i> Đăng xuất
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Floating Animated Theme Customizer Button (Right middle) -->
+    <button class="floating-theme-customizer-btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasThemeSettings" aria-controls="offcanvasThemeSettings" title="Tùy chỉnh Giao diện & Màu sắc">
+      <i class="fa-solid fa-gear spinning-gear-icon"></i>
+    </button>
+
+    <!-- CONTENT BODY WRAPPER -->
+    <main class="admin-content-area">
+      <!-- Flash notifications -->
+      {% block flash %}
+        {% include 'sqladmin/flash.html' %}
+      {% endblock %}
+
+      <!-- Content Header (Title + Subtitle) -->
+      {% block content_header %}
+      <div class="content-header-bar mb-3">
+        <div class="d-flex align-items-center justify-content-between">
+          <div>
+            <h1 class="page-main-title">{{ title }}</h1>
+            {% if subtitle %}
+            <p class="page-subtitle text-muted mb-0">{{ subtitle }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endblock %}
+
+      <!-- Main Injected Content (Table, Details, Edit, Create, etc.) -->
+      <div class="content-body-inner">
+        {% block content %}{% endblock %}
+      </div>
+
+      <!-- Secret modal if needed -->
+      {% block secret_modal %}
+        {% include 'sqladmin/secret_modal.html' %}
+      {% endblock %}
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="admin-footer text-center py-3 text-muted">
+      <small>© 2026 <strong>BE_BOM Admin</strong> • Hệ Thống Bóc Tách & Dự Toán Tủ Bảng Điện • Powered by FastAPI & SQLAdmin</small>
+    </footer>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- THEME & UI CUSTOMIZER OFFCANVAS DRAWER                     -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="offcanvas offcanvas-end theme-customizer-drawer" tabindex="-1" id="offcanvasThemeSettings" aria-labelledby="offcanvasThemeSettingsLabel">
+  <div class="offcanvas-header border-bottom py-3 px-4">
+    <div class="d-flex align-items-center gap-2">
+      <div class="customizer-icon-badge">
+        <i class="fa-solid fa-palette text-primary"></i>
+      </div>
+      <div>
+        <h5 class="offcanvas-title fw-bold mb-0" id="offcanvasThemeSettingsLabel">Cài đặt Giao diện Admin</h5>
+        <small class="text-muted">Tùy biến màu sắc, chế độ hiển thị & UI</small>
+      </div>
+    </div>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+
+  <div class="offcanvas-body p-4">
+    
+    <!-- 1. Color Palette Presets -->
+    <div class="customizer-section mb-4">
+      <label class="customizer-label">
+        <i class="fa-solid fa-droplet text-primary me-1"></i> Màu sắc Chủ đạo (Primary Color)
+      </label>
+      <p class="customizer-help">Chọn bảng màu đại diện cho giao diện quản trị</p>
+      
+      <div class="color-preset-grid" id="color-preset-container">
+        <button class="color-preset-btn active" data-color="#2563eb" title="Ocean Blue" style="--btn-color: #2563eb;">
+          <span class="color-dot"></span>
+          <span class="color-name">Ocean Blue</span>
+        </button>
+        <button class="color-preset-btn" data-color="#4f46e5" title="Royal Indigo" style="--btn-color: #4f46e5;">
+          <span class="color-dot"></span>
+          <span class="color-name">Royal Indigo</span>
+        </button>
+        <button class="color-preset-btn" data-color="#7c3aed" title="Electric Violet" style="--btn-color: #7c3aed;">
+          <span class="color-dot"></span>
+          <span class="color-name">Violet</span>
+        </button>
+        <button class="color-preset-btn" data-color="#059669" title="Emerald Green" style="--btn-color: #059669;">
+          <span class="color-dot"></span>
+          <span class="color-name">Emerald</span>
+        </button>
+        <button class="color-preset-btn" data-color="#ea580c" title="Sunset Orange" style="--btn-color: #ea580c;">
+          <span class="color-dot"></span>
+          <span class="color-name">Sunset</span>
+        </button>
+        <button class="color-preset-btn" data-color="#e11d48" title="Ruby Rose" style="--btn-color: #e11d48;">
+          <span class="color-dot"></span>
+          <span class="color-name">Ruby Rose</span>
+        </button>
+        <button class="color-preset-btn" data-color="#0891b2" title="Teal Cyan" style="--btn-color: #0891b2;">
+          <span class="color-dot"></span>
+          <span class="color-name">Cyan</span>
+        </button>
+        <button class="color-preset-btn" data-color="#334155" title="Slate Obsidian" style="--btn-color: #334155;">
+          <span class="color-dot"></span>
+          <span class="color-name">Slate</span>
+        </button>
+      </div>
+
+      <div class="custom-color-picker-box mt-3 d-flex align-items-center justify-content-between p-2 rounded-3 border">
+        <span class="small fw-semibold text-muted">Tùy chọn mã màu HEX:</span>
+        <div class="d-flex align-items-center gap-2">
+          <input type="color" id="custom-hex-color" class="form-control form-control-color border-0 p-0" value="#2563eb" title="Chọn màu bất kỳ">
+          <span id="hex-color-display" class="badge bg-light text-dark font-monospace">#2563eb</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Dark / Light Theme Mode -->
+    <div class="customizer-section mb-4">
+      <label class="customizer-label">
+        <i class="fa-solid fa-circle-half-stroke text-warning me-1"></i> Chế độ Hiển thị (Theme Mode)
+      </label>
+      <div class="theme-mode-switch-grid">
+        <button class="theme-mode-card" data-theme-mode="light" id="theme-btn-light">
+          <div class="theme-preview light-preview">
+            <div class="prev-sidebar"></div>
+            <div class="prev-content"></div>
+          </div>
+          <span class="theme-mode-title"><i class="fa-solid fa-sun text-warning me-1"></i> Sáng (Light)</span>
+        </button>
+
+        <button class="theme-mode-card" data-theme-mode="dark" id="theme-btn-dark">
+          <div class="theme-preview dark-preview">
+            <div class="prev-sidebar"></div>
+            <div class="prev-content"></div>
+          </div>
+          <span class="theme-mode-title"><i class="fa-solid fa-moon text-info me-1"></i> Tối (Dark)</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. Sidebar Style -->
+    <div class="customizer-section mb-4">
+      <label class="customizer-label">
+        <i class="fa-solid fa-table-columns text-info me-1"></i> Kiểu dáng Sidebar
+      </label>
+      <div class="row g-2">
+        <div class="col-6">
+          <button class="sidebar-style-btn active w-100" data-sidebar-style="dark">
+            <i class="fa-solid fa-moon me-1"></i> Dark Slate
+          </button>
+        </div>
+        <div class="col-6">
+          <button class="sidebar-style-btn w-100" data-sidebar-style="light">
+            <i class="fa-solid fa-sun me-1"></i> Clean Light
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Border Radius & Rounding -->
+    <div class="customizer-section mb-4">
+      <label class="customizer-label">
+        <i class="fa-solid fa-shapes text-success me-1"></i> Độ bo tròn góc (Border Radius)
+      </label>
+      <div class="btn-group w-100" role="group">
+        <button type="button" class="btn btn-outline-secondary radius-option-btn" data-radius="4px">Vuông (4px)</button>
+        <button type="button" class="btn btn-outline-secondary radius-option-btn active" data-radius="8px">Vừa (8px)</button>
+        <button type="button" class="btn btn-outline-secondary radius-option-btn" data-radius="14px">Tròn (14px)</button>
+      </div>
+    </div>
+
+    <!-- 5. Reset button -->
+    <div class="customizer-actions pt-3 border-top">
+      <button class="btn btn-outline-danger w-100 py-2 fw-semibold" id="btn-reset-theme">
+        <i class="fa-solid fa-rotate-left me-1"></i> Khôi phục Giao diện Mặc định
+      </button>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block tail_js %}
+{{ super() }}
+<script>
+  // ── THEME CUSTOMIZATION ENGINE ──────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', function() {
+    const root = document.documentElement;
+    const colorButtons = document.querySelectorAll('.color-preset-btn');
+    const hexInput = document.getElementById('custom-hex-color');
+    const hexDisplay = document.getElementById('hex-color-display');
+    const themeModeButtons = document.querySelectorAll('.theme-mode-card');
+    const sidebarStyleButtons = document.querySelectorAll('.sidebar-style-btn');
+    const radiusButtons = document.querySelectorAll('.radius-option-btn');
+    const quickThemeToggle = document.getElementById('quick-theme-toggle');
+    const themeToggleIcon = document.getElementById('theme-toggle-icon');
+    const btnResetTheme = document.getElementById('btn-reset-theme');
+    
+    // Sidebar toggle controls
+    const sidebarToggleBtn = document.getElementById('btn-sidebar-toggle');
+    const sidebarCloseBtn = document.getElementById('btn-sidebar-close');
+    const sidebar = document.getElementById('admin-sidebar');
+
+    // Filter menu input
+    const filterInput = document.getElementById('sidebar-filter-input');
+    const menuItems = document.querySelectorAll('.sidebar-menu-item');
+    const categoryGroups = document.querySelectorAll('.menu-category-group');
+
+    // 1. Initialize State from LocalStorage
+    let currentTheme = localStorage.getItem('aide_admin_theme') || 'light';
+    let currentColor = localStorage.getItem('aide_admin_primary_color') || '#2563eb';
+    let currentSidebarTheme = localStorage.getItem('aide_admin_sidebar_theme') || 'dark';
+    let currentRadius = localStorage.getItem('aide_admin_radius') || '8px';
+
+    function hexToRgb(hex) {
+      hex = hex.replace('#', '');
+      if (hex.length === 3) {
+        hex = hex.split('').map(c => c + c).join('');
+      }
+      const num = parseInt(hex, 16);
+      return `${(num >> 16) & 255}, ${(num >> 8) & 255}, ${num & 255}`;
+    }
+
+    function applyPrimaryColor(color) {
+      currentColor = color;
+      root.style.setProperty('--admin-primary', color);
+      root.style.setProperty('--admin-primary-rgb', hexToRgb(color));
+      
+      if (hexInput) hexInput.value = color;
+      if (hexDisplay) hexDisplay.textContent = color.toUpperCase();
+
+      colorButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-color').toLowerCase() === color.toLowerCase());
+      });
+
+      localStorage.setItem('aide_admin_primary_color', color);
+    }
+
+    function applyThemeMode(mode) {
+      currentTheme = mode;
+      root.setAttribute('data-bs-theme', mode);
+      
+      if (themeToggleIcon) {
+        if (mode === 'dark') {
+          themeToggleIcon.className = 'fa-solid fa-sun text-warning';
+        } else {
+          themeToggleIcon.className = 'fa-solid fa-moon text-primary';
+        }
+      }
+
+      themeModeButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-theme-mode') === mode);
+      });
+
+      localStorage.setItem('aide_admin_theme', mode);
+    }
+
+    function applySidebarStyle(style) {
+      currentSidebarTheme = style;
+      root.setAttribute('data-sidebar-theme', style);
+      if (sidebar) sidebar.setAttribute('data-bs-theme', style);
+
+      sidebarStyleButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-sidebar-style') === style);
+      });
+
+      localStorage.setItem('aide_admin_sidebar_theme', style);
+    }
+
+    function applyRadius(radius) {
+      currentRadius = radius;
+      root.style.setProperty('--admin-radius', radius);
+
+      radiusButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-radius') === radius);
+      });
+
+      localStorage.setItem('aide_admin_radius', radius);
+    }
+
+    // Initialize UI elements
+    applyPrimaryColor(currentColor);
+    applyThemeMode(currentTheme);
+    applySidebarStyle(currentSidebarTheme);
+    applyRadius(currentRadius);
+
+    // Event Listeners for Color Presets
+    colorButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const color = this.getAttribute('data-color');
+        applyPrimaryColor(color);
+      });
+    });
+
+    if (hexInput) {
+      hexInput.addEventListener('input', function() {
+        applyPrimaryColor(this.value);
+      });
+    }
+
+    // Theme Mode Click
+    themeModeButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        applyThemeMode(this.getAttribute('data-theme-mode'));
+      });
+    });
+
+    // Quick Theme Toggle in Header
+    if (quickThemeToggle) {
+      quickThemeToggle.addEventListener('click', function() {
+        const nextMode = currentTheme === 'dark' ? 'light' : 'dark';
+        applyThemeMode(nextMode);
+      });
+    }
+
+    // Sidebar Style Click
+    sidebarStyleButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        applySidebarStyle(this.getAttribute('data-sidebar-style'));
+      });
+    });
+
+    // Radius Click
+    radiusButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        applyRadius(this.getAttribute('data-radius'));
+      });
+    });
+
+    // Reset Theme
+    if (btnResetTheme) {
+      btnResetTheme.addEventListener('click', function() {
+        applyPrimaryColor('#2563eb');
+        applyThemeMode('light');
+        applySidebarStyle('dark');
+        applyRadius('8px');
+      });
+    }
+
+    // Sidebar Toggle (Mobile & Desktop)
+    if (sidebarToggleBtn) {
+      sidebarToggleBtn.addEventListener('click', function() {
+        if (window.innerWidth < 768) {
+          sidebar.classList.toggle('mobile-open');
+        } else {
+          const isCollapsed = root.classList.toggle('sidebar-collapsed');
+          localStorage.setItem('aide_admin_sidebar_collapsed', isCollapsed ? 'true' : 'false');
+        }
+      });
+    }
+
+    if (sidebarCloseBtn) {
+      sidebarCloseBtn.addEventListener('click', function() {
+        sidebar.classList.remove('mobile-open');
+      });
+    }
+
+    // Real-time Sidebar Filter
+    if (filterInput) {
+      filterInput.addEventListener('input', function() {
+        const query = this.value.toLowerCase().trim();
+        
+        categoryGroups.forEach(group => {
+          let hasMatchInGroup = false;
+          const items = group.querySelectorAll('.sidebar-menu-item');
+          
+          items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            if (text.includes(query)) {
+              item.style.display = 'flex';
+              hasMatchInGroup = true;
+            } else {
+              item.style.display = 'none';
+            }
+          });
+
+          if (hasMatchInGroup || query === '') {
+            group.style.display = 'block';
+            const collapseElem = group.querySelector('.collapse');
+            if (collapseElem && query !== '') {
+              collapseElem.classList.add('show');
+            }
+          } else {
+            group.style.display = 'none';
+          }
+        });
+      });
+    }
+
+    // SVG Flags
+    const FLAG_VI_SVG = '<svg class="flag-svg" viewBox="0 0 640 480" width="18" height="13.5"><path fill="#da251d" d="M0 0h640v480H0z"/><path fill="#ff0" d="M320 90l24.7 76.1h80l-64.7 47 24.7 76.1-64.7-47-64.7 47 24.7-76.1-64.7-47h80z"/></svg>';
+    const FLAG_EN_SVG = '<svg class="flag-svg" viewBox="0 0 640 480" width="18" height="13.5"><path fill="#012169" d="M0 0h640v480H0z"/><path fill="#fff" d="M75 0l245 180L565 0h75v60L435 240l205 180v60h-75L320 300 75 480H0v-60l205-180L0 60V0h75z"/><path fill="#c8102e" d="M424 281l216 159v40l-244-180h28zm141-281l-245 180h28L640 40V0h-75zM0 440l215-159h-28L0 460v-20zM0 0l245 180H217L0 20V0z"/><path fill="#fff" d="M256 0h128v480H256zM0 176h640v128H0z"/><path fill="#c8102e" d="M280 0h80v480h-80zM0 200h640v80H0z"/></svg>';
+
+    const I18N_TERMS = {
+      // Categories
+      "TỔNG QUAN": { en: "OVERVIEW", vi: "TỔNG QUAN" },
+      "Tổng quan": { en: "Overview", vi: "Tổng quan" },
+      "Quản lý User": { en: "User Management", vi: "Quản lý Người dùng" },
+      "Quản lý Dự án": { en: "Project Management", vi: "Quản lý Dự án" },
+      "Thư viện Thiết bị": { en: "Device Library", vi: "Thư viện Thiết bị" },
+      "Cấu hình AI": { en: "AI Configuration", vi: "Cấu hình AI" },
+      "Gói cước & Thanh toán": { en: "Billing & Payments", vi: "Gói cước & Thanh toán" },
+      "Cài đặt Hệ thống": { en: "System Settings", vi: "Cài đặt Hệ thống" },
+      "Phiên Bóc tách AI": { en: "AI Extraction Sessions", vi: "Phiên Bóc tách AI" },
+
+      // Menu views
+      "Dashboard Thống Kê": { en: "Analytics Dashboard", vi: "Dashboard Thống Kê" },
+      "Users": { en: "Users", vi: "Người dùng" },
+      "Projects": { en: "Projects", vi: "Dự án" },
+      "Project Versions": { en: "Project Versions", vi: "Phiên bản Dự án" },
+      "Project Files": { en: "Project Files", vi: "Tập tin Bản vẽ" },
+      "Brands": { en: "Brands", vi: "Thương hiệu" },
+      "Categories": { en: "Categories", vi: "Danh mục Thiết bị" },
+      "Device Series": { en: "Device Series", vi: "Dòng Thiết bị" },
+      "Device Models": { en: "Device Models", vi: "Model Thiết bị" },
+      "Danh mục AI Providers": { en: "AI Providers", vi: "Nhà cung cấp AI" },
+      "Danh sách Model AI": { en: "AI Models", vi: "Danh sách Model AI" },
+      "Quản lý API Keys & Connections": { en: "API Connections", vi: "Quản lý API Keys & Kết nối" },
+      "Prompt Templates": { en: "Prompt Templates", vi: "Mẫu Prompt AI" },
+      "Plans": { en: "Plans", vi: "Gói cước" },
+      "Subscriptions": { en: "Subscriptions", vi: "Đăng ký Gói" },
+      "Payments": { en: "Payments", vi: "Lịch sử Thanh toán" },
+      "Token Logs": { en: "Token Logs", vi: "Nhật ký AI Tokens" },
+      "System Settings": { en: "System Settings", vi: "Cấu hình Hệ thống" },
+      "Notifications": { en: "Notifications", vi: "Thông báo" },
+      "Page Contents": { en: "Page Contents", vi: "Nội dung Trang" },
+      "Activity Logs": { en: "Activity Logs", vi: "Nhật ký Hoạt động" },
+      "Phiên Chat AI": { en: "Chat Sessions", vi: "Phiên Chat AI" },
+      "Lần Bóc tách": { en: "Extraction Runs", vi: "Lần Bóc tách" },
+
+      // UI
+      "Client App": { en: "Client App", vi: "Client App" },
+      "Administrator": { en: "Administrator", vi: "Quản Trị Viên" },
+      "Super Admin": { en: "Super Admin", vi: "Quản trị cấp cao" }
+    };
+
+    function translatePageElements(lang) {
+      // 1. Sidebar menu items
+      document.querySelectorAll('.sidebar-menu-item .menu-label').forEach(el => {
+        const text = el.getAttribute('data-original-text') || el.textContent.trim();
+        if (!el.getAttribute('data-original-text')) {
+          el.setAttribute('data-original-text', text);
+        }
+        for (const [key, val] of Object.entries(I18N_TERMS)) {
+          if (text === key || text === val.vi || text === val.en) {
+            el.textContent = val[lang] || text;
+            break;
+          }
+        }
+      });
+
+      // 2. Sidebar category headers
+      document.querySelectorAll('.menu-category-header .category-title').forEach(el => {
+        const text = el.getAttribute('data-original-text') || el.textContent.trim();
+        if (!el.getAttribute('data-original-text')) {
+          el.setAttribute('data-original-text', text);
+        }
+        for (const [key, val] of Object.entries(I18N_TERMS)) {
+          if (text === key || text === val.vi || text === val.en) {
+            el.textContent = val[lang] || text;
+            break;
+          }
+        }
+      });
+
+      // 3. Section headers
+      document.querySelectorAll('.menu-section-header span').forEach(el => {
+        const text = el.getAttribute('data-original-text') || el.textContent.trim();
+        if (!el.getAttribute('data-original-text')) {
+          el.setAttribute('data-original-text', text);
+        }
+        for (const [key, val] of Object.entries(I18N_TERMS)) {
+          if (text === key || text === val.vi || text === val.en) {
+            el.textContent = (val[lang] || text).toUpperCase();
+            break;
+          }
+        }
+      });
+
+      // 4. Breadcrumbs
+      const parentCrumb = document.querySelector('.header-breadcrumb .breadcrumb-parent');
+      if (parentCrumb) {
+        const text = parentCrumb.getAttribute('data-original-text') || parentCrumb.textContent.trim();
+        if (!parentCrumb.getAttribute('data-original-text')) {
+          parentCrumb.setAttribute('data-original-text', text);
+        }
+        for (const [key, val] of Object.entries(I18N_TERMS)) {
+          if (text === key || text === val.vi || text === val.en) {
+            parentCrumb.textContent = val[lang] || text;
+            break;
+          }
+        }
+      }
+
+      const currentCrumb = document.querySelector('.header-breadcrumb .breadcrumb-current');
+      if (currentCrumb) {
+        const text = currentCrumb.getAttribute('data-original-text') || currentCrumb.textContent.trim();
+        if (!currentCrumb.getAttribute('data-original-text')) {
+          currentCrumb.setAttribute('data-original-text', text);
+        }
+        for (const [key, val] of Object.entries(I18N_TERMS)) {
+          if (text === key || text === val.vi || text === val.en) {
+            currentCrumb.textContent = val[lang] || text;
+            break;
+          }
+        }
+      }
+
+      // 5. Sidebar Search Input Placeholder
+      const searchInput = document.getElementById('sidebar-filter-input');
+      if (searchInput) {
+        searchInput.placeholder = lang === 'en' ? 'Quick menu filter...' : 'Lọc menu nhanh...';
+      }
+    }
+
+    // Language Switcher Handler
+    window.setAdminLanguage = function(lang) {
+      localStorage.setItem('aide_admin_lang', lang);
+      applyLanguage(lang);
+    };
+
+    function applyLanguage(lang) {
+      const flagEl = document.getElementById('current-lang-flag');
+      const codeEl = document.getElementById('current-lang-code');
+      const checkVi = document.getElementById('check-vi');
+      const checkEn = document.getElementById('check-en');
+      const optVi = document.getElementById('lang-opt-vi');
+      const optEn = document.getElementById('lang-opt-en');
+
+      if (lang === 'en') {
+        if (flagEl) flagEl.innerHTML = FLAG_EN_SVG;
+        if (codeEl) codeEl.textContent = 'EN';
+        if (checkVi) checkVi.classList.add('d-none');
+        if (checkEn) checkEn.classList.remove('d-none');
+        if (optVi) optVi.classList.remove('active');
+        if (optEn) optEn.classList.add('active');
+        document.documentElement.setAttribute('lang', 'en');
+      } else {
+        if (flagEl) flagEl.innerHTML = FLAG_VI_SVG;
+        if (codeEl) codeEl.textContent = 'VI';
+        if (checkVi) checkVi.classList.remove('d-none');
+        if (checkEn) checkEn.classList.add('d-none');
+        if (optVi) optVi.classList.add('active');
+        if (optEn) optEn.classList.remove('active');
+        document.documentElement.setAttribute('lang', 'vi');
+      }
+
+      translatePageElements(lang);
+    }
+
+    const savedLang = localStorage.getItem('aide_admin_lang') || 'vi';
+    applyLanguage(savedLang);
+
+    // ── NOTIFICATION DROPDOWN MANAGER (REAL DATA FROM DB) ────────────
+    async function loadRealNotifications() {
+      const list = document.getElementById('header-notif-list');
+      const badge = document.getElementById('header-notif-badge');
+      const countBadge = document.getElementById('notif-count-badge');
+      if (!list) return;
+
+      try {
+        const resp = await fetch('/admin/api/notifications?limit=12');
+        if (!resp.ok) throw new Error('Network response not ok');
+        const data = await resp.json();
+
+        // 1. Update Badge
+        const unreadCount = data.unread_count || 0;
+        if (badge) {
+          badge.textContent = unreadCount;
+          badge.style.display = unreadCount > 0 ? 'inline-block' : 'none';
+        }
+        if (countBadge) {
+          countBadge.textContent = unreadCount > 0 ? `${unreadCount} mới` : '0 mới';
+          countBadge.className = unreadCount > 0 ? 'notif-badge-pill' : 'badge bg-secondary-soft text-secondary fs-8';
+        }
+
+        // 2. Render List
+        if (!data.items || data.items.length === 0) {
+          list.innerHTML = `
+            <div class="p-4 text-center text-muted">
+              <i class="fa-solid fa-bell-slash fa-2x mb-2 opacity-50"></i>
+              <p class="mb-0 fs-8">Chưa có thông báo nào</p>
+            </div>
+          `;
+          return;
+        }
+
+        const iconMap = {
+          'new-user': '<div class="notif-icon-box bg-indigo-soft text-indigo"><i class="fa-solid fa-user-plus"></i></div>',
+          'new-project': '<div class="notif-icon-box bg-blue-soft text-blue"><i class="fa-solid fa-folder-plus"></i></div>',
+          'file-uploaded': '<div class="notif-icon-box bg-warning-soft text-warning"><i class="fa-solid fa-file-arrow-up"></i></div>',
+          'ai-completed': '<div class="notif-icon-box bg-emerald-soft text-emerald"><i class="fa-solid fa-bolt"></i></div>',
+          'system-alert': '<div class="notif-icon-box bg-danger-soft text-danger"><i class="fa-solid fa-triangle-exclamation"></i></div>'
+        };
+
+        let itemsHtml = '';
+        data.items.forEach(item => {
+          const iconHtml = iconMap[item.type] || '<div class="notif-icon-box bg-primary-soft text-primary"><i class="fa-solid fa-bell"></i></div>';
+          const unreadClass = !item.is_read ? 'unread' : '';
+          const dotHtml = !item.is_read ? '<span class="notif-unread-dot"></span>' : '';
+
+          itemsHtml += `
+            <a href="${item.link || '/admin/activity-log/list'}" class="notif-item ${unreadClass}">
+              ${iconHtml}
+              <div class="notif-content">
+                <div class="d-flex align-items-center justify-content-between mb-0.5">
+                  <span class="notif-item-title">${item.title}</span>
+                  ${dotHtml}
+                </div>
+                <p class="notif-item-msg">${item.body || ''}</p>
+                <span class="notif-item-time"><i class="fa-regular fa-clock me-1"></i>${item.time_ago}</span>
+              </div>
+            </a>
+          `;
+        });
+
+        list.innerHTML = itemsHtml;
+      } catch(err) {
+        console.warn('Lỗi tải thông báo admin:', err);
+        if (list) {
+          list.innerHTML = `
+            <div class="p-3 text-center text-muted fs-8">
+              <i class="fa-solid fa-triangle-exclamation me-1 text-warning"></i> Không thể tải thông báo
+            </div>
+          `;
+        }
+      }
+    }
+
+    // Load dynamic notifications immediately
+    loadRealNotifications();
+
+    window.markAllNotificationsRead = async function(e) {
+      if (e) e.preventDefault();
+      const badge = document.getElementById('header-notif-badge');
+      const countBadge = document.getElementById('notif-count-badge');
+      if (badge) badge.style.display = 'none';
+      if (countBadge) {
+        countBadge.textContent = '0 mới';
+        countBadge.className = 'badge bg-secondary-soft text-secondary fs-8';
+      }
+      document.querySelectorAll('.notif-item.unread').forEach(item => {
+        item.classList.remove('unread');
+      });
+      document.querySelectorAll('.notif-unread-dot').forEach(dot => {
+        dot.style.display = 'none';
+      });
+
+      try {
+        await fetch('/admin/api/notifications/mark-read', { method: 'POST' });
+      } catch(err) {
+        console.warn('Lỗi mark notifications read:', err);
+      }
+    };
+
+    function prependNotificationToHeader(data) {
+      const list = document.getElementById('header-notif-list');
+      const badge = document.getElementById('header-notif-badge');
+      const countBadge = document.getElementById('notif-count-badge');
+      const bell = document.getElementById('header-bell-icon');
+
+      // 1. Shake Bell
+      if (bell) {
+        bell.classList.add('bell-ringing');
+        setTimeout(() => bell.classList.remove('bell-ringing'), 1000);
+      }
+
+      // 2. Increment Badge
+      if (badge) {
+        badge.style.display = 'inline-block';
+        const current = parseInt(badge.textContent.trim(), 10) || 0;
+        badge.textContent = current + 1;
+      }
+      if (countBadge) {
+        const current = parseInt(countBadge.textContent.trim(), 10) || 0;
+        countBadge.textContent = (current + 1) + ' mới';
+        countBadge.className = 'notif-badge-pill';
+      }
+
+      // 3. Prepend Item to Dropdown
+      if (list) {
+        const iconMap = {
+          'new-user': '<div class="notif-icon-box bg-indigo-soft text-indigo"><i class="fa-solid fa-user-plus"></i></div>',
+          'new-project': '<div class="notif-icon-box bg-blue-soft text-blue"><i class="fa-solid fa-folder-plus"></i></div>',
+          'file-uploaded': '<div class="notif-icon-box bg-warning-soft text-warning"><i class="fa-solid fa-file-arrow-up"></i></div>',
+          'ai-completed': '<div class="notif-icon-box bg-emerald-soft text-emerald"><i class="fa-solid fa-bolt"></i></div>',
+          'system-alert': '<div class="notif-icon-box bg-danger-soft text-danger"><i class="fa-solid fa-triangle-exclamation"></i></div>'
+        };
+        const iconHtml = iconMap[data.type] || '<div class="notif-icon-box bg-primary-soft text-primary"><i class="fa-solid fa-bell"></i></div>';
+
+        // Remove empty state if present
+        const emptyMsg = list.querySelector('.text-center');
+        if (emptyMsg) emptyMsg.remove();
+
+        const newItem = `
+          <a href="${data.link || '/admin/activity-log/list'}" class="notif-item unread">
+            ${iconHtml}
+            <div class="notif-content">
+              <div class="d-flex align-items-center justify-content-between mb-0.5">
+                <span class="notif-item-title">${data.title || 'Thông báo mới'}</span>
+                <span class="notif-unread-dot"></span>
+              </div>
+              <p class="notif-item-msg">${data.message || ''}</p>
+              <span class="notif-item-time"><i class="fa-regular fa-clock me-1"></i>Vừa xong • Realtime</span>
+            </div>
+          </a>
+        `;
+        list.insertAdjacentHTML('afterbegin', newItem);
+      }
+    }
+
+    // ── PUSHER REALTIME CLIENT & TOAST MANAGER ─────────────────────────
+    window.showAdminToast = function(title, message, type = 'info') {
+      const container = document.getElementById('adminToastContainer');
+      if (!container) return;
+
+      // Strip any emoji from title & message
+      const cleanTitle = (title || 'Thông báo mới').replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, '').trim();
+      const cleanMessage = (message || '').replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, '').trim();
+
+      const toastId = 'toast-' + Date.now();
+      const iconMap = {
+        'new-user': '<div class="toast-icon-box bg-info-soft text-info"><i class="fa-solid fa-user-plus"></i></div>',
+        'new-project': '<div class="toast-icon-box bg-primary-soft text-primary"><i class="fa-solid fa-folder-plus"></i></div>',
+        'file-uploaded': '<div class="toast-icon-box bg-warning-soft text-warning"><i class="fa-solid fa-file-arrow-up"></i></div>',
+        'ai-completed': '<div class="toast-icon-box bg-success-soft text-success"><i class="fa-solid fa-bolt"></i></div>',
+        'system-alert': '<div class="toast-icon-box bg-danger-soft text-danger"><i class="fa-solid fa-triangle-exclamation"></i></div>',
+        'info': '<div class="toast-icon-box bg-primary-soft text-primary"><i class="fa-solid fa-bell"></i></div>'
+      };
+
+      const iconHtml = iconMap[type] || iconMap['info'];
+
+      const toastHtml = `
+        <div id="${toastId}" class="toast align-items-center show modern-admin-toast mb-2" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="d-flex align-items-start gap-3 p-3">
+            ${iconHtml}
+            <div class="toast-content flex-grow-1 min-w-0">
+              <div class="d-flex align-items-center justify-content-between mb-1">
+                <span class="toast-title fw-bold text-dark fs-7">${cleanTitle}</span>
+                <small class="toast-time text-muted">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'})}</small>
+              </div>
+              <div class="toast-msg text-muted fs-8">
+                ${cleanMessage}
+              </div>
+            </div>
+            <button type="button" class="btn-close ms-1" style="font-size: 9px; opacity: 0.6;" data-bs-dismiss="toast" aria-label="Close" onclick="document.getElementById('${toastId}').remove()"></button>
+          </div>
+        </div>
+      `;
+
+      container.insertAdjacentHTML('beforeend', toastHtml);
+      const toastEl = document.getElementById(toastId);
+      
+      setTimeout(() => {
+        if (toastEl) {
+          toastEl.classList.remove('show');
+          setTimeout(() => toastEl.remove(), 300);
+        }
+      }, 6000);
+    };
+
+    // Initialize Pusher Client
+    try {
+      const PUSHER_KEY = "{{ pusher_key|default('pusher_aide_key') }}";
+      const PUSHER_CLUSTER = "{{ pusher_cluster|default('ap1') }}";
+      const PUSHER_CHANNEL = "{{ pusher_channel|default('aide-admin-channel') }}";
+
+      if (typeof Pusher !== 'undefined' && PUSHER_KEY) {
+        const pusher = new Pusher(PUSHER_KEY, {
+          cluster: PUSHER_CLUSTER,
+          forceTLS: true
+        });
+
+        const channel = pusher.subscribe(PUSHER_CHANNEL);
+        channel.bind('admin-notification', function(data) {
+          window.showAdminToast(data.title || 'Thông báo Hệ thống', data.message || '', data.type || 'info');
+          prependNotificationToHeader(data);
+
+          if (window.handleRealtimeDashboardEvent) {
+            window.handleRealtimeDashboardEvent(data);
+          }
+        });
+
+        pusher.connection.bind('connected', function() {
+          const indicator = document.getElementById('pusher-live-indicator');
+          if (indicator) {
+            indicator.className = 'badge bg-success-soft text-success d-inline-flex align-items-center gap-1';
+            indicator.innerHTML = '<span class="live-dot bg-success"></span> Pusher Realtime Live';
+          }
+        });
+      }
+    } catch(e) {
+      console.warn('Pusher initialization:', e);
+    }
+  });
+</script>
+
+<!-- Toast Container for Realtime Notifications -->
+<div class="toast-container position-fixed top-0 end-0 p-3" id="adminToastContainer" style="z-index: 1095;"></div>
+{% endblock %}

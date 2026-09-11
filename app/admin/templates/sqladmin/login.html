@@ -1,0 +1,375 @@
+{% extends "sqladmin/base.html" %}
+
+{% block head_css %}
+{{ super() }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="{{ url_for('admin_static', path='favicon.ico') }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('admin_static', path='favicon-32x32.png') }}">
+<link rel="apple-touch-icon" href="{{ url_for('admin_static', path='favicon.png') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --primary-light: #eff6ff;
+    --primary-gradient: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+    --bg-gradient: radial-gradient(at 0% 0%, #f0fdf4 0, transparent 50%), 
+                   radial-gradient(at 50% 0%, #eff6ff 0, transparent 50%), 
+                   radial-gradient(at 100% 100%, #f8fafc 0, transparent 50%),
+                   #f1f5f9;
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --border-color: #e2e8f0;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', 'Roboto', sans-serif !important;
+    background: var(--bg-gradient) !important;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 24px;
+    box-sizing: border-box;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Decorative background shapes */
+  .bg-shape-1 {
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0) 70%);
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .bg-shape-2 {
+    position: absolute;
+    bottom: -10%;
+    left: -5%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, rgba(16, 185, 129, 0) 70%);
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .login-wrapper {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 440px;
+  }
+
+  .login-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08), 
+                0 0 1px 1px rgba(226, 232, 240, 0.8);
+    padding: 36px 32px;
+    transition: all 0.3s ease;
+  }
+
+  .login-header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .brand-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    background: #ffffff;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.15);
+  }
+
+  .brand-badge img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .brand-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-main);
+    letter-spacing: -0.5px;
+    margin: 0 0 6px 0;
+  }
+
+  .brand-title span {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .brand-subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 8px;
+  }
+
+  .input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .input-icon {
+    position: absolute;
+    left: 14px;
+    color: #94a3b8;
+    font-size: 15px;
+    pointer-events: none;
+    transition: color 0.2s;
+  }
+
+  .custom-input {
+    width: 100%;
+    padding: 12px 14px 12px 42px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-main);
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+  }
+
+  .custom-input:focus {
+    background: #ffffff;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+  }
+
+  .custom-input:focus + .input-icon,
+  .input-wrapper:focus-within .input-icon {
+    color: var(--primary);
+  }
+
+  .custom-input.is-invalid {
+    border-color: #ef4444 !important;
+    background: #fff5f5 !important;
+  }
+
+  .toggle-password {
+    position: absolute;
+    right: 14px;
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 0;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+  }
+
+  .toggle-password:hover {
+    color: #475569;
+  }
+
+  .error-alert {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fef2f2;
+    border: 1px solid #fee2e2;
+    color: #b91c1c;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 13.5px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    animation: shake 0.4s ease-in-out;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-4px); }
+    40%, 80% { transform: translateX(4px); }
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 13px 20px;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    background: var(--primary-gradient);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+  }
+
+  .btn-submit:active {
+    transform: translateY(0);
+  }
+
+  .login-footer {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .security-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #f1f5f9;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #475569;
+    margin-top: 12px;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="bg-shape-1"></div>
+<div class="bg-shape-2"></div>
+
+<div class="login-wrapper">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="brand-badge">
+        <img src="{{ url_for('admin_static', path='logo-icon.png') }}" alt="DGP ELECTRIC">
+      </div>
+      <h1 class="brand-title"><span>DGP ELECTRIC</span> Admin</h1>
+      <p class="brand-subtitle">Hệ Thống Bóc Tách Bản Vẽ & Báo Giá Tủ Bảng Điện</p>
+    </div>
+
+    {% if error %}
+    <div class="error-alert">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span>Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại!</span>
+    </div>
+    {% endif %}
+
+    <form action="{{ url_for('admin:login') }}" method="POST" autocomplete="off">
+      <div class="form-group">
+        <label class="form-label" for="username">Email / Tên đăng nhập</label>
+        <div class="input-wrapper">
+          <input 
+            id="username"
+            name="username" 
+            type="text" 
+            class="custom-input {% if error %}is-invalid{% endif %}" 
+            placeholder="admin@webbaogia.com" 
+            required
+            autocomplete="username"
+            autofocus
+          >
+          <i class="fa-regular fa-envelope input-icon"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <label class="form-label" for="password" style="margin-bottom: 0;">Mật khẩu</label>
+        </div>
+        <div class="input-wrapper">
+          <input 
+            id="password"
+            name="password" 
+            type="password" 
+            class="custom-input {% if error %}is-invalid{% endif %}" 
+            placeholder="••••••••" 
+            required
+            autocomplete="current-password"
+          >
+          <i class="fa-solid fa-lock input-icon"></i>
+          <button type="button" class="toggle-password" id="togglePasswordBtn" title="Hiện/Ẩn mật khẩu" tabindex="-1">
+            <i class="fa-regular fa-eye" id="eyeIcon"></i>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit">
+        <span>Đăng Nhập</span>
+        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+      </button>
+    </form>
+
+    <div class="login-footer">
+      <div class="security-tag">
+        <i class="fa-solid fa-shield-halved text-success"></i>
+        <span>Khu vực quản trị nội bộ bảo mật</span>
+      </div>
+      <p style="margin-top: 10px; margin-bottom: 0;">© 2025 BE_BOM System • All rights reserved</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const toggleBtn = document.getElementById('togglePasswordBtn');
+    const passwordInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('eyeIcon');
+
+    if (toggleBtn && passwordInput && eyeIcon) {
+      toggleBtn.addEventListener('click', function() {
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+          eyeIcon.classList.remove('fa-eye');
+          eyeIcon.classList.add('fa-eye-slash');
+        } else {
+          passwordInput.type = 'password';
+          eyeIcon.classList.remove('fa-eye-slash');
+          eyeIcon.classList.add('fa-eye');
+        }
+      });
+    }
+  });
+</script>
+{% endblock %}

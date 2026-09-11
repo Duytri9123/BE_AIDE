@@ -1,0 +1,12 @@
+{% extends "sqladmin/layout.html" %}
+
+{% block content %}
+<script>
+  window.location.replace("/admin/analytics");
+</script>
+<div class="d-flex align-items-center justify-content-center p-5">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading Dashboard...</span>
+  </div>
+</div>
+{% endblock %}

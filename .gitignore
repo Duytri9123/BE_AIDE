@@ -1,0 +1,37 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments
+venv/
+.venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Environment Variables & Secrets
+.env
+.env.local
+
+# SQLite Temporary WAL / Lock files (webbaogia.db is tracked)
+*.db-shm
+*.db-wal
+*.db-journal
+
+# Unit test / coverage reports
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Temporary / Scratch files
+tmp/
+scratch/
+scratch_list_files.py
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

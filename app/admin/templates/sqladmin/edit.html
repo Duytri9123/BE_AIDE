@@ -1,0 +1,76 @@
+{% extends "sqladmin/layout.html" %}
+{% from 'sqladmin/_macros.html' import render_form_fields %}
+{% block content %}
+<div class="container-fluid p-0">
+  <div class="card modern-admin-card shadow-sm border-0">
+    <div class="card-header bg-transparent d-flex align-items-center justify-content-between py-3 px-4 border-bottom">
+      <div class="d-flex align-items-center gap-3">
+        <h4 class="card-title fw-bold m-0 text-dark" style="font-size: 1.15rem;">
+          <i class="fa-solid fa-pen-to-square text-primary me-2"></i>Chỉnh sửa {{ model_view.name }}
+        </h4>
+      </div>
+      <a href="{{ url_for('admin:list', identity=model_view.identity) }}" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center fw-semibold px-3 py-1.5" style="border-radius: 8px; font-size: 12.5px; gap: 6px;">
+        <i class="fa-solid fa-arrow-left"></i> <span>Quay lại danh sách</span>
+      </a>
+    </div>
+
+    <div class="card-body p-4">
+      {% block edit_form %}
+      <form action="{{ model_view._build_url_for('admin:edit', request, obj) }}{% if request.url.query %}?{{ request.url.query }}{% endif %}" method="POST" enctype="multipart/form-data">
+        {% if error %}
+          <div class="alert alert-danger rounded-3 mb-4" role="alert">
+            <i class="fa-solid fa-circle-exclamation me-2"></i>{{ error }}
+          </div>
+        {% endif %}
+
+        <fieldset class="form-fieldset border-0 p-0 mb-4">
+          {{ render_form_fields(form, form_opts=form_opts, ajax_lookup_url=url_for('admin:ajax_lookup', identity=model_view.identity)) }}
+        </fieldset>
+
+        <div class="d-flex align-items-center justify-content-between pt-3 border-top gap-3 flex-wrap">
+          <a href="{{ url_for('admin:list', identity=model_view.identity) }}" class="btn btn-outline-secondary fw-semibold px-3.5 py-2 d-inline-flex align-items-center" style="border-radius: 8px; font-size: 13px; gap: 6px;">
+            <i class="fa-solid fa-xmark"></i> <span>Hủy bỏ</span>
+          </a>
+
+          <div class="d-flex align-items-center" style="gap: 8px;">
+            {% block submit_buttons_bottom %}
+              <button type="submit" name="save" value="Save and continue editing" class="btn btn-outline-primary fw-semibold px-3.5 py-2 d-inline-flex align-items-center" style="border-radius: 8px; font-size: 13px; gap: 6px;">
+                <i class="fa-solid fa-pen-to-square"></i> <span>Lưu &amp; Tiếp tục sửa</span>
+              </button>
+              <button type="submit" name="save" value="Save" class="btn btn-primary fw-bold px-4 py-2 shadow-sm d-inline-flex align-items-center" style="border-radius: 8px; font-size: 13px; gap: 6px;">
+                <i class="fa-solid fa-check"></i> <span>Lưu thay đổi</span>
+              </button>
+            {% endblock %}
+          </div>
+        </div>
+      </form>
+      {% endblock %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block head_css %}
+{{ super() }}
+{% if form is defined %}
+  {% set form_media = collect_form_media(form) %}
+  {% for url in form_media.css %}
+  <link rel="stylesheet" href="{{ url }}">
+  {% endfor %}
+{% endif %}
+{% endblock %}
+
+{% block tail %}
+{{ super() }}
+{% if form is defined %}
+  {% set form_media = collect_form_media(form) %}
+  {% for url in form_media.js %}
+  <script src="{{ url }}"></script>
+  {% endfor %}
+  {% for field in form if field.editor_init_template is defined %}
+    {% with field = field %}
+      {% include field.editor_init_template %}
+    {% endwith %}
+  {% endfor %}
+{% endif %}
+{% endblock %}

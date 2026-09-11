@@ -1,0 +1,361 @@
+{% extends "sqladmin/layout.html" %}
+{% block content %}
+<div class="container-fluid p-0">
+
+  <!-- Page Header -->
+  <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+    <div>
+      <h4 class="fw-bold mb-1 text-dark" style="font-size: 1.25rem;">
+        <i class="fa-solid fa-key me-2 text-primary"></i>Quản lý API Keys &amp; Connections
+      </h4>
+      <p class="text-muted small mb-0">Thêm và kiểm tra kết nối đến các nhà cung cấp AI</p>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+      <a href="/admin/ai-provider/list"
+        class="btn btn-sm btn-outline-secondary fw-semibold px-3 py-2 d-inline-flex align-items-center"
+        style="border-radius:8px;font-size:12.5px;gap:6px;">
+        <i class="fa-solid fa-arrow-left"></i> <span>Quay lại Providers</span>
+      </a>
+      {% if model_view.check_can_create(request) %}
+      <a href="{{ url_for('admin:create', identity=model_view.identity) }}"
+        class="btn btn-sm btn-primary fw-bold px-3 py-2 shadow-sm d-inline-flex align-items-center"
+        style="border-radius:8px;font-size:12.5px;gap:6px;">
+        <i class="fa-solid fa-plus"></i> <span>Thêm Tài khoản &amp; API Key</span>
+      </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Stats Bar -->
+  <div class="row g-2 mb-4">
+    <div class="col-auto">
+      <div class="d-flex align-items-center gap-2 px-3 py-1.5 rounded-3"
+        style="background:#f8fafc;border:1px solid #e2e8f0;">
+        <i class="fa-solid fa-circle-nodes text-primary" style="font-size:13px;"></i>
+        <span class="fw-semibold text-dark" style="font-size:13px;">{{ pagination.count }} kết nối</span>
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="d-flex align-items-center gap-2 px-3 py-1.5 rounded-3"
+        style="background:#f0fdf4;border:1px solid #bbf7d0;">
+        <i class="fa-solid fa-circle-check text-success" style="font-size:13px;"></i>
+        <span class="fw-semibold text-dark" style="font-size:13px;">
+          {% set ns = namespace(count=0) %}
+          {% for row in pagination.rows %}{% if row.is_active %}{% set ns.count = ns.count + 1 %}{% endif %}{% endfor %}
+          {{ ns.count }} đang hoạt động
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connections Cards -->
+  {% if not pagination.rows %}
+  <div class="text-center py-5">
+    <div class="card border-0 shadow-sm rounded-4 p-5 mx-auto" style="max-width:480px;">
+      <i class="fa-solid fa-key fs-1 text-muted opacity-40 mb-3"></i>
+      <h5 class="fw-bold text-dark">Chưa có API Key nào</h5>
+      <p class="text-muted small mb-4">Thêm API Key để kết nối với Antigravity, Google Gemini, OpenAI hoặc các AI khác.
+      </p>
+      {% if model_view.check_can_create(request) %}
+      <a href="{{ url_for('admin:create', identity=model_view.identity) }}" class="btn btn-primary fw-bold px-4">
+        <i class="fa-solid fa-plus me-2"></i>Thêm API Key đầu tiên
+      </a>
+      {% endif %}
+    </div>
+  </div>
+  {% else %}
+  {% set provider_names = {
+  'antigravity': 'Antigravity',
+  'google': 'Google Gemini',
+  'codex': 'Codex / OpenAI API',
+  'openai': 'OpenAI',
+  'anthropic': 'Anthropic',
+  'deepseek': 'DeepSeek',
+  'openrouter': 'OpenRouter',
+  'groq': 'Groq',
+  'mistral': 'Mistral AI',
+  'ollama': 'Ollama',
+  'xai': 'xAI'
+  } %}
+
+  <div class="row g-3">
+    {% for row in pagination.rows %}
+    {% set prov_title = provider_names.get(row.provider, row.provider|upper) %}
+    <div class="col-xl-4 col-md-6 col-12">
+      <div id="conn-card-{{ row.id }}" class="card shadow-sm h-100"
+        style="border: 1px solid #e2e8f0; border-radius: 14px; background: #fff; opacity: {% if row.is_active %}1{% else %}0.65{% endif %}; transition: opacity 0.2s;">
+        <div class="card-body d-flex flex-column" style="padding: 14px 16px 12px;">
+
+          <!-- Header: Icon + Provider Name + Status -->
+          <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
+            <div class="d-flex align-items-center gap-2 min-w-0">
+              <div
+                style="width:30px;height:30px;border-radius:8px;background:#f4f6f8;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:3px;flex-shrink:0;">
+                <img src="/admin/static/providers/{{ row.provider }}.png" alt="{{ row.provider }}"
+                  style="width:100%;height:100%;object-fit:contain;"
+                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <span
+                  style="display:none;font-size:12px;font-weight:700;color:#6366f1;width:100%;height:100%;align-items:center;justify-content:center;">
+                  {{ row.provider[0]|upper }}
+                </span>
+              </div>
+              <span class="fw-bold text-dark text-truncate" style="font-size:14px;">{{ prov_title }}</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <span class="badge fw-semibold flex-shrink-0"
+                style="background:#e0e7ff;color:#3730a3;border-radius:6px;padding:3px 7px;font-size:10.5px;"
+                title="Thứ tự xoay ưu tiên: số nhỏ được ưu tiên gọi trước">
+                <i class="fa-solid fa-arrow-down-1-9 me-1" style="font-size:9px;"></i>Ưu tiên {{ row.priority if
+                (row.priority and row.priority > 0) else loop.index }}
+              </span>
+              <!-- Nút bật/tắt (Toggle Switch) thay chỗ 'Đang dùng' -->
+              <div class="form-check form-switch m-0 d-flex align-items-center gap-1.5"
+                title="Bấm để Bật/Tắt sử dụng kết nối này">
+                <input class="form-check-input" type="checkbox" role="switch" id="switch-conn-{{ row.id }}" {% if
+                  row.is_active %}checked{% endif %} onchange="toggleConnectionActive('{{ row.id }}', this)"
+                  style="cursor: pointer; width: 34px; height: 18px; margin: 0;">
+                <label class="form-check-label fw-bold cursor-pointer user-select-none" for="switch-conn-{{ row.id }}"
+                  id="label-conn-{{ row.id }}"
+                  style="font-size: 11px; cursor: pointer; color: {% if row.is_active %}#059669{% else %}#94a3b8{% endif %}; white-space: nowrap;">
+                  {% if row.is_active %}{% else %}{% endif %}
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Connection Name -->
+          <div class="d-flex align-items-center justify-content-between mb-2 pb-1 border-bottom border-light">
+            <span class="text-truncate fw-bold text-dark" style="font-size:13px;" title="{{ row.name }}">{{ row.name
+              }}</span>
+          </div>
+
+          <!-- Test Result Box (hiển thị TRÊN ô API KEY) -->
+          <div id="conn-test-result-{{ row.id }}" class="mb-2" style="display:none;"></div>
+
+          <!-- API Key Box -->
+          <div class="mb-2" style="background:#f6f8fa;border-radius:10px;padding:9px 11px;">
+            <div class="d-flex align-items-center justify-content-between gap-2">
+              <div class="min-w-0 flex-grow-1">
+                <span class="text-muted text-uppercase fw-bold d-block"
+                  style="font-size:9px;letter-spacing:0.05em;margin-bottom:2px;">API KEY</span>
+                <code id="key-display-{{ loop.index }}"
+                  class="fw-semibold text-dark text-truncate d-block font-monospace" style="font-size:12px;">
+                      {% if row.api_key and row.api_key|length > 12 %}
+                        {{ row.api_key[:8] }}••••••••{{ row.api_key[-4:] }}
+                      {% elif row.api_key %}
+                        {{ row.api_key }}
+                      {% else %}
+                        <em class="text-muted fw-normal" style="font-style:italic;font-family:sans-serif;font-size:11.5px;">Chưa nhập key</em>
+                      {% endif %}
+                    </code>
+              </div>
+              <button type="button"
+                class="btn btn-link text-muted p-0 text-decoration-none flex-shrink-0"
+                onclick="toggleKey('{{ loop.index }}', '{{ row.api_key or '' }}')" title="Hiện/Ẩn key"
+                style="font-size:13px;line-height:1;">
+                <i class="fa-regular fa-eye" id="eye-{{ loop.index }}"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="d-flex align-items-center justify-content-between gap-2 mt-auto">
+            <button type="button" class="btn btn-sm fw-bold d-inline-flex align-items-center"
+              style="border-radius:7px;font-size:12px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;gap:5px;padding:5px 11px;"
+              onclick="testConnectionInline('{{ row.id }}', this)">
+              <i class="fa-solid fa-bolt" style="font-size:10px;"></i><span>Test API</span>
+            </button>
+            <div class="d-flex align-items-center" style="gap:5px;">
+              {% if model_view.check_can_edit(request, row) %}
+              <a href="{{ model_view._build_url_for('admin:edit', request, row) }}"
+                class="btn btn-sm btn-outline-secondary fw-semibold d-inline-flex align-items-center"
+                style="border-radius:7px;font-size:11.5px;gap:4px;padding:4px 10px;">
+                <i class="fa-solid fa-pen-to-square"></i><span>Sửa</span>
+              </a>
+              {% endif %}
+              {% if model_view.check_can_delete(request, row) %}
+              <button type="button" class="btn btn-sm btn-outline-danger fw-semibold d-inline-flex align-items-center"
+                style="border-radius:7px;font-size:11.5px;gap:4px;padding:4px 10px;" data-bs-toggle="modal"
+                data-bs-target="#modal-delete" data-pk="{{ row.id }}" data-name="{{ prov_title }}"
+                data-url="{{ model_view._url_for_delete(request, row) }}" onclick="setDeleteTarget(this)">
+                <i class="fa-regular fa-trash-can"></i><span>Xóa</span>
+              </button>
+              {% endif %}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination -->
+  {% if pagination.count > pagination.page_size %}
+  {% set total_pages = ((pagination.count - 1) // pagination.page_size) + 1 %}
+  <div class="d-flex justify-content-center mt-4">
+    <nav>
+      <ul class="pagination pagination-sm mb-0">
+        {% for p in range(1, total_pages + 1) %}
+        <li class="page-item {% if p == pagination.page %}active{% endif %}">
+          <a class="page-link"
+            href="?page={{ p }}{% if request.query_params.get('search') %}&search={{ request.query_params.get('search') }}{% endif %}">{{
+            p }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+  {% endif %}
+  {% endif %}
+
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="modal-delete" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content border-0 shadow rounded-4">
+      <div class="modal-body p-4 text-center">
+        <div
+          style="width:48px;height:48px;border-radius:50%;background:#fee2e2;color:#dc2626;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:20px;">
+          <i class="fa-solid fa-trash-can"></i>
+        </div>
+        <h6 class="fw-bold text-dark mb-1">Xác nhận xóa</h6>
+        <p class="text-muted small mb-4" id="delete-modal-text">Bạn có chắc muốn xóa kết nối này?</p>
+        <div class="d-flex gap-2">
+          <button type="button" class="btn btn-outline-secondary w-50 fw-semibold" data-bs-dismiss="modal"
+            style="border-radius:8px;font-size:12.5px;">Hủy</button>
+          <button type="button" class="btn btn-danger w-50 fw-bold" id="btn-confirm-delete"
+            style="border-radius:8px;font-size:12.5px;">Xóa ngay</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  async function toggleConnectionActive(connId, switchEl) {
+    const isChecked = switchEl.checked;
+    const labelEl = document.getElementById('label-conn-' + connId);
+    const cardEl = document.getElementById('conn-card-' + connId);
+
+    // Cập nhật nhãn và độ mờ thẻ ngay lập tức
+    if (labelEl) {
+      labelEl.textContent = isChecked ? 'Đang dùng' : 'Đã tắt';
+      labelEl.style.color = isChecked ? '#059669' : '#94a3b8';
+    }
+    if (cardEl) {
+      cardEl.style.opacity = isChecked ? '1' : '0.65';
+    }
+
+    try {
+      const resp = await fetch(`/api/v1/admin-api/connections/${connId}/toggle-active`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ is_active: isChecked })
+      });
+
+      if (!resp.ok) {
+        throw new Error('Lỗi cập nhật');
+      }
+    } catch (err) {
+      alert('Không thể cập nhật trạng thái kết nối: ' + err.message);
+      // Hoàn tác lại trạng thái switch nếu lỗi
+      switchEl.checked = !isChecked;
+      if (labelEl) {
+        labelEl.textContent = !isChecked ? 'Đang dùng' : 'Đã tắt';
+        labelEl.style.color = !isChecked ? '#059669' : '#94a3b8';
+      }
+      if (cardEl) {
+        cardEl.style.opacity = !isChecked ? '1' : '0.65';
+      }
+    }
+  }
+
+  function toggleKey(idx, fullKey) {
+    const el = document.getElementById('key-display-' + idx);
+    const eye = document.getElementById('eye-' + idx);
+    if (!fullKey) return;
+    if (eye.classList.contains('fa-eye')) {
+      el.textContent = fullKey;
+      eye.classList.replace('fa-eye', 'fa-eye-slash');
+    } else {
+      const masked = fullKey.length > 12 ? fullKey.slice(0, 8) + '••••••••' + fullKey.slice(-4) : fullKey;
+      el.textContent = masked;
+      eye.classList.replace('fa-eye-slash', 'fa-eye');
+    }
+  }
+
+  async function testConnectionInline(connId, btn) {
+    const resultBox = document.getElementById('conn-test-result-' + connId);
+    if (!resultBox) return;
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="font-size:10px;"></i> <span>Đang test...</span>';
+
+    try {
+      const resp = await fetch('/api/v1/admin-api/test-connection', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ connection_id: connId })
+      });
+      const data = await resp.json();
+
+      resultBox.style.display = 'block';
+      if (data.success) {
+        // Chỉ hiển thị trạng thái thành công + latency + model (KHÔNG hiện response text dài)
+        resultBox.innerHTML = `
+        <div style="background:#ecfdf5;border-radius:9px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;">
+          <div class="d-flex align-items-center gap-1.5 fw-bold text-success" style="font-size:12px;flex-wrap:wrap;gap:4px;">
+            <i class="fa-solid fa-circle-check" style="font-size:12px;flex-shrink:0;"></i>
+            <span>Kết nối thành công</span>
+            ${data.model_used ? `<span class="font-monospace fw-normal" style="font-size:10.5px;color:#059669;opacity:0.9;">· ${data.model_used}</span>` : ''}
+          </div>
+          <span class="badge bg-success text-white fw-bold flex-shrink-0" style="font-size:10px;padding:2px 7px;border-radius:20px;">${data.latency_ms} ms</span>
+        </div>
+      `;
+      } else {
+        resultBox.innerHTML = `
+        <div style="background:#fef2f2;border-radius:9px;padding:7px 10px;">
+          <div class="d-flex align-items-center justify-content-between gap-2">
+            <div class="d-flex align-items-center gap-1.5 fw-bold text-danger" style="font-size:12px;">
+              <i class="fa-solid fa-circle-xmark" style="font-size:12px;flex-shrink:0;"></i>
+              <span>Kết nối thất bại</span>
+            </div>
+            ${data.model_used ? `<span class="font-monospace text-danger" style="font-size:10px;flex-shrink:0;">${data.model_used}</span>` : ''}
+          </div>
+          <div style="font-size:11px;color:#dc2626;margin-top:3px;word-break:break-word;">${data.message || 'Không thể kết nối tới Provider'}</div>
+        </div>
+      `;
+      }
+    } catch (e) {
+      resultBox.style.display = 'block';
+      resultBox.innerHTML = `
+      <div style="background:#fffbeb;border-radius:9px;padding:7px 10px;">
+        <div class="fw-bold text-warning d-flex align-items-center gap-1.5" style="font-size:12px;">
+          <i class="fa-solid fa-triangle-exclamation"></i><span>Lỗi kết nối</span>
+        </div>
+        <div style="font-size:11px;color:#92400e;margin-top:3px;">${e.message}</div>
+      </div>
+    `;
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-rotate-right" style="font-size:10px;"></i> <span>Test lại</span>';
+    }
+  }
+
+  function setDeleteTarget(btn) {
+    const name = btn.getAttribute('data-name');
+    const url = btn.getAttribute('data-url');
+    document.getElementById('delete-modal-text').innerHTML = `Xóa kết nối <strong>"${name}"</strong>?`;
+    const confirmBtn = document.getElementById('btn-confirm-delete');
+    confirmBtn.onclick = function () {
+      this.disabled = true;
+      this.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i>Đang xóa...';
+      fetch(url, { method: 'DELETE', headers: { 'Accept': 'text/html,application/json' } })
+        .then(r => { window.location.reload(); })
+        .catch(e => { alert('Lỗi: ' + e); window.location.reload(); });
+    };
+  }
+</script>
+{% endblock %}

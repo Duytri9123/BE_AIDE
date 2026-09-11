@@ -1,0 +1,353 @@
+{% extends "sqladmin/list.html" %}
+
+{% block content %}
+<div class="container-fluid p-0">
+
+  <!-- ── 1. KPI STATS CARDS ──────────────────────────────────────── -->
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-sm-6 col-xl-3">
+      <div class="stat-card-modern p-3.5 bg-white rounded-3 shadow-xs border d-flex align-items-center justify-content-between">
+        <div>
+          <div class="text-muted fs-8 fw-semibold text-uppercase tracking-wider">Tổng số gói cước</div>
+          <div class="fs-3 fw-bold text-dark mt-1">{{ pagination.count }}</div>
+          <small class="text-primary fw-medium"><i class="fa-solid fa-layer-group me-1"></i>Đã cấu hình</small>
+        </div>
+        <div class="stat-icon-box rounded-3 bg-primary-soft text-primary d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; font-size: 20px;">
+          <i class="fa-solid fa-paper-plane"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3">
+      <div class="stat-card-modern p-3.5 bg-white rounded-3 shadow-xs border d-flex align-items-center justify-content-between">
+        <div>
+          <div class="text-muted fs-8 fw-semibold text-uppercase tracking-wider">Gói đang kích hoạt</div>
+          <div class="fs-3 fw-bold text-success mt-1">
+            {% set active_count = namespace(val=0) %}
+            {% for row in pagination.rows %}
+              {% if row.is_active %}{% set active_count.val = active_count.val + 1 %}{% endif %}
+            {% endfor %}
+            {{ active_count.val }}
+          </div>
+          <small class="text-success fw-medium"><i class="fa-solid fa-circle-check me-1"></i>Đang mở đăng ký</small>
+        </div>
+        <div class="stat-icon-box rounded-3 bg-success-soft text-success d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; font-size: 20px;">
+          <i class="fa-solid fa-bolt"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3">
+      <div class="stat-card-modern p-3.5 bg-white rounded-3 shadow-xs border d-flex align-items-center justify-content-between">
+        <div>
+          <div class="text-muted fs-8 fw-semibold text-uppercase tracking-wider">Mức giá cao nhất</div>
+          <div class="fs-3 fw-bold text-purple mt-1">
+            {% set max_price = namespace(val=0) %}
+            {% for row in pagination.rows %}
+              {% if row.price and row.price > max_price.val %}{% set max_price.val = row.price %}{% endif %}
+            {% endfor %}
+            {{ "{:,.0f}".format(max_price.val) }} <small class="fs-7 text-muted">đ</small>
+          </div>
+          <small class="text-muted fw-medium"><i class="fa-solid fa-crown text-warning me-1"></i>Gói Doanh nghiệp</small>
+        </div>
+        <div class="stat-icon-box rounded-3 bg-purple-soft text-purple d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; font-size: 20px;">
+          <i class="fa-solid fa-gem"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3">
+      <div class="stat-card-modern p-3.5 bg-white rounded-3 shadow-xs border d-flex align-items-center justify-content-between">
+        <div>
+          <div class="text-muted fs-8 fw-semibold text-uppercase tracking-wider">Token cấp tối đa</div>
+          <div class="fs-3 fw-bold text-warning mt-1">
+            {% set max_tokens = namespace(val=0) %}
+            {% for row in pagination.rows %}
+              {% if row.token_amount and row.token_amount > max_tokens.val %}{% set max_tokens.val = row.token_amount %}{% endif %}
+            {% endfor %}
+            {{ "{:,.0f}".format(max_tokens.val) }}
+          </div>
+          <small class="text-warning fw-medium"><i class="fa-solid fa-coins me-1"></i>Hạn ngạch cao nhất</small>
+        </div>
+        <div class="stat-icon-box rounded-3 bg-warning-soft text-warning d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; font-size: 20px;">
+          <i class="fa-solid fa-coins"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2. VIEW CONTROLS & ACTION HEADER ──────────────────────── -->
+  <div class="card modern-admin-card shadow-sm border-0 mb-4">
+    <div class="card-header bg-transparent d-flex flex-wrap align-items-center justify-content-between py-3 px-4 gap-3 border-bottom">
+      <div class="d-flex align-items-center gap-3">
+        <h4 class="card-title fw-bold m-0 text-dark" style="font-size: 1.15rem;">
+          {{ model_view.name_plural }}
+        </h4>
+        <span class="badge bg-primary-soft text-primary fw-bold" style="font-size: 11px; padding: 4px 10px; border-radius: 20px;">
+          {{ pagination.count }} gói dịch vụ
+        </span>
+      </div>
+
+      <div class="d-flex align-items-center gap-2">
+        <!-- View Mode Switcher -->
+        <div class="btn-group btn-group-sm p-0.5 bg-light border rounded-2" role="group" aria-label="Chế độ xem">
+          <button type="button" class="btn btn-sm px-3 py-1.5 fw-semibold active" id="btn-view-cards" onclick="switchPlansView('cards')">
+            <i class="fa-solid fa-table-cells-large me-1.5"></i> Thẻ Gói (Card)
+          </button>
+          <button type="button" class="btn btn-sm px-3 py-1.5 fw-semibold text-muted" id="btn-view-table" onclick="switchPlansView('table')">
+            <i class="fa-solid fa-list me-1.5"></i> Bảng (Table)
+          </button>
+        </div>
+
+        {% if model_view.check_can_create(request) %}
+          <a href="{{ url_for('admin:create', identity=model_view.identity) }}" class="btn btn-sm btn-primary d-flex align-items-center gap-1.5 fw-bold px-3 py-1.5 shadow-sm" style="border-radius: 8px;">
+            <i class="fa-solid fa-plus"></i> Thêm Gói Mới
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- ── 3. PRICING CARDS VIEW ──────────────────────────────────── -->
+    <div class="card-body p-4" id="plans-card-view">
+      <div class="row g-4">
+        {% for plan in pagination.rows %}
+          <div class="col-12 col-md-6 col-xl-4 d-flex">
+            <div class="plan-card w-100 rounded-3 border p-4 bg-white shadow-xs d-flex flex-column justify-content-between position-relative transition-all {% if plan.is_active and plan.price > 0 and plan.price < 1000000 %}border-primary ring-1{% endif %}" style="min-height: 420px;">
+              
+              <!-- Top Highlight Ribbon / Badges -->
+              <div class="d-flex align-items-center justify-content-between mb-3">
+                {% if plan.price == 0 %}
+                  <span class="badge bg-secondary-soft text-secondary fw-bold px-2.5 py-1.5" style="border-radius: 6px; font-size: 11px;">
+                    <i class="fa-solid fa-seedling me-1"></i> KHỞI ĐẦU
+                  </span>
+                {% elif plan.price >= 1000000 %}
+                  <span class="badge bg-purple-soft text-purple fw-bold px-2.5 py-1.5" style="border-radius: 6px; font-size: 11px;">
+                    <i class="fa-solid fa-crown me-1"></i> DOANH NGHIỆP
+                  </span>
+                {% else %}
+                  <span class="badge bg-primary-soft text-primary fw-bold px-2.5 py-1.5" style="border-radius: 6px; font-size: 11px;">
+                    <i class="fa-solid fa-fire text-danger me-1"></i> PHỔ BIẾN NHẤT
+                  </span>
+                {% endif %}
+
+                <span class="badge {% if plan.is_active %}bg-success-soft text-success{% else %}bg-danger-soft text-danger{% endif %} fw-bold px-2 py-1" style="border-radius: 6px; font-size: 11px;">
+                  {% if plan.is_active %}● Kích hoạt{% else %}○ Tạm khóa{% endif %}
+                </span>
+              </div>
+
+              <!-- Plan Name & Price -->
+              <div>
+                <h4 class="fw-bold text-dark mb-2" style="font-size: 1.25rem;">{{ plan.name }}</h4>
+                
+                <div class="my-3">
+                  {% if plan.price and plan.price > 0 %}
+                    <div class="d-flex align-items-baseline gap-1">
+                      <span class="fs-2 fw-extrabold text-primary">{{ "{:,.0f}".format(plan.price) }}</span>
+                      <span class="text-muted fw-semibold fs-7">VNĐ / {{ plan.duration_months or 1 }} tháng</span>
+                    </div>
+                  {% else %}
+                    <div class="d-flex align-items-baseline gap-1">
+                      <span class="fs-2 fw-extrabold text-success">Miễn phí</span>
+                      <span class="text-muted fw-semibold fs-7">/ Trọn đời</span>
+                    </div>
+                  {% endif %}
+                </div>
+
+                <!-- Token Quota Pill -->
+                <div class="p-2.5 rounded-2 bg-light border mb-3.5 d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-coins text-warning fs-5"></i>
+                    <span class="fs-8 fw-semibold text-muted">Hạn mức Token:</span>
+                  </div>
+                  <span class="fw-bold text-dark fs-7">{{ "{:,.0f}".format(plan.token_amount or 0) }} Tokens</span>
+                </div>
+
+                <!-- Features Checklist -->
+                <div class="plan-features mb-4">
+                  <div class="fs-8 fw-bold text-muted text-uppercase tracking-wider mb-2">Quyền lợi gói:</div>
+                  <ul class="list-unstyled mb-0 d-flex flex-column gap-2 fs-8">
+                    {% if plan.description %}
+                      {% for feat in plan.description.split('\n') %}
+                        {% if feat.strip() %}
+                          <li class="d-flex align-items-start gap-2 text-dark">
+                            <i class="fa-solid fa-circle-check text-success mt-0.5" style="font-size: 13px;"></i>
+                            <span>{{ feat.strip() }}</span>
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+                    {% else %}
+                      <li class="text-muted fst-italic">Chưa nhập mô tả quyền lợi</li>
+                    {% endif %}
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Card Action Buttons -->
+              <div class="pt-3 border-top d-flex align-items-center gap-2 mt-auto">
+                {% if model_view.can_edit %}
+                  <a href="{{ url_for('admin:edit', identity=model_view.identity, pk=plan.id) }}" class="btn btn-sm btn-outline-primary flex-grow-1 fw-semibold py-1.5" style="border-radius: 7px;">
+                    <i class="fa-regular fa-pen-to-square me-1"></i> Sửa gói
+                  </a>
+                {% endif %}
+                {% if model_view.can_view_details %}
+                  <a href="{{ url_for('admin:details', identity=model_view.identity, pk=plan.id) }}" class="btn btn-sm btn-light border px-2.5 py-1.5" title="Xem chi tiết" style="border-radius: 7px;">
+                    <i class="fa-regular fa-eye"></i>
+                  </a>
+                {% endif %}
+                {% if model_view.can_delete %}
+                  <button type="button" class="btn btn-sm btn-outline-danger px-2.5 py-1.5" title="Xóa gói" style="border-radius: 7px;" data-bs-toggle="modal" data-bs-target="#modal-delete-single-{{ plan.id }}">
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
+
+                  <!-- Modal Delete Single Confirmation -->
+                  <div class="modal fade" id="modal-delete-single-{{ plan.id }}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-sm">
+                      <div class="modal-content rounded-3 shadow">
+                        <div class="modal-body p-4 text-center">
+                          <i class="fa-solid fa-triangle-exclamation text-danger display-5 mb-3"></i>
+                          <h5 class="fw-bold mb-2">Xác nhận xóa?</h5>
+                          <p class="text-muted fs-8 mb-4">Bạn có chắc chắn muốn xóa gói <strong>{{ plan.name }}</strong> không? Thao tác này không thể hoàn tác.</p>
+                          <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-sm btn-light border flex-grow-1" data-bs-dismiss="modal">Hủy</button>
+                            <form action="{{ url_for('admin:delete', identity=model_view.identity) }}" method="POST" class="flex-grow-1">
+                              <input type="hidden" name="pks" value="{{ plan.id }}">
+                              <button type="submit" class="btn btn-sm btn-danger w-100 fw-bold">Xóa ngay</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+
+            </div>
+          </div>
+        {% endfor %}
+
+        <!-- Add New Plan Card -->
+        {% if model_view.check_can_create(request) %}
+          <div class="col-12 col-md-6 col-xl-4 d-flex">
+            <a href="{{ url_for('admin:create', identity=model_view.identity) }}" class="plan-add-card w-100 rounded-3 border border-2 border-dashed p-4 d-flex flex-column align-items-center justify-content-center text-center text-decoration-none transition-all" style="min-height: 420px; background: #fafafa;">
+              <div class="add-icon-circle rounded-circle bg-white shadow-xs border d-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px; font-size: 24px; color: var(--admin-primary);">
+                <i class="fa-solid fa-plus"></i>
+              </div>
+              <h5 class="fw-bold text-dark mb-1">Tạo Gói Cước Mới</h5>
+              <p class="text-muted fs-8 mb-3" style="max-width: 240px;">Thiết lập giá, hạn mức Token và danh sách đặc quyền cho khách hàng</p>
+              <span class="btn btn-sm btn-primary fw-semibold px-3 py-1.5" style="border-radius: 8px;">
+                <i class="fa-solid fa-wand-magic-sparkles me-1"></i> Bắt đầu tạo gói
+              </span>
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- ── 4. TABLE VIEW (Original Data Table) ───────────────────── -->
+    <div id="plans-table-view" style="display: none;">
+      <!-- Toolbar (Batch actions + Search) -->
+      <div class="card-body py-2.5 px-4 border-bottom" style="background-color: var(--admin-border-subtle);">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+          <div class="dropdown">
+            <button {% if not model_view.can_delete and not model_view._custom_actions_in_list %} disabled {% endif %} class="btn btn-sm btn-light border dropdown-toggle d-flex align-items-center gap-1.5 fw-semibold px-3 py-1.5" style="border-radius: 8px; font-size: 12px; background: var(--admin-card-bg);" type="button" id="dropdownBatchActions" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa-solid fa-list-check text-muted"></i> Thao tác chọn
+            </button>
+            {% if model_view.can_delete %}
+              <div class="dropdown-menu shadow-sm" aria-labelledby="dropdownBatchActions">
+                <a class="dropdown-item text-danger d-flex align-items-center gap-2 py-2 fs-8 fw-semibold" id="action-delete" href="#" data-name="{{ model_view.name }}" data-url="{{ url_for('admin:delete', identity=model_view.identity) }}" data-bs-toggle="modal" data-bs-target="#modal-delete">
+                  <i class="fa-regular fa-trash-can"></i> Xóa các mục đã chọn
+                </a>
+              </div>
+            {% endif %}
+          </div>
+
+          {% if model_view.column_searchable_list %}
+            <div class="ms-auto position-relative" style="min-width: 240px; max-width: 320px; width: 100%;">
+              <div class="input-group input-group-sm modern-search-box shadow-none">
+                <span class="input-group-text bg-transparent border-end-0 text-muted ps-2.5 pe-1" style="border-radius: 8px 0 0 8px; background: var(--admin-card-bg) !important; border-color: var(--admin-border);">
+                  <i class="fa-solid fa-magnifying-glass fs-8 text-muted opacity-60"></i>
+                </span>
+                <input id="search-input" type="text" class="form-control border-start-0 ps-1" style="background: var(--admin-card-bg); font-size: 12.5px; border-color: var(--admin-border); border-radius: 0 8px 8px 0;" placeholder="Tìm kiếm gói cước..." value="{{ request.query_params.get('search', '') }}">
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Modern Table -->
+      {{ super() }}
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .stat-card-modern {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .stat-card-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  }
+  .plan-card {
+    border-radius: 12px !important;
+    transition: all 0.2s ease;
+  }
+  .plan-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08) !important;
+  }
+  .plan-add-card:hover {
+    border-color: var(--admin-primary) !important;
+    background: #f0f7ff !important;
+  }
+  .plan-add-card:hover .add-icon-circle {
+    transform: scale(1.08);
+    background: var(--admin-primary) !important;
+    color: white !important;
+  }
+  .plan-features li {
+    line-height: 1.45;
+  }
+  .btn-group .active {
+    background: white !important;
+    color: var(--admin-primary) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+  }
+</style>
+
+<script>
+  function switchPlansView(mode) {
+    const cardView = document.getElementById('plans-card-view');
+    const tableView = document.getElementById('plans-table-view');
+    const btnCards = document.getElementById('btn-view-cards');
+    const btnTable = document.getElementById('btn-view-table');
+
+    if (mode === 'table') {
+      cardView.style.display = 'none';
+      tableView.style.display = 'block';
+      btnTable.classList.add('active');
+      btnTable.classList.remove('text-muted');
+      btnCards.classList.remove('active');
+      btnCards.classList.add('text-muted');
+      localStorage.setItem('aide_plans_view_mode', 'table');
+    } else {
+      cardView.style.display = 'block';
+      tableView.style.display = 'none';
+      btnCards.classList.add('active');
+      btnCards.classList.remove('text-muted');
+      btnTable.classList.remove('active');
+      btnTable.classList.add('text-muted');
+      localStorage.setItem('aide_plans_view_mode', 'cards');
+    }
+  }
+
+  // Restore saved view preference
+  document.addEventListener('DOMContentLoaded', function() {
+    const saved = localStorage.getItem('aide_plans_view_mode');
+    if (saved === 'table') {
+      switchPlansView('table');
+    }
+  });
+</script>
+{% endblock %}

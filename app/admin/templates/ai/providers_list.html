@@ -1,0 +1,446 @@
+{% extends "sqladmin/layout.html" %}
+{% block content %}
+<div class="container-fluid p-0">
+  
+  <!-- Page Header -->
+  <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+    <div>
+      <h4 class="fw-bold mb-1 text-dark" style="font-size: 1.25rem; letter-spacing: -0.01em;">
+        <i class="fa-solid fa-server me-2 text-primary"></i>Nhà Cung Cấp AI (AI Providers)
+      </h4>
+      <p class="text-muted small mb-0">Cấu hình các cổng kết nối mô hình trí tuệ nhân tạo &amp; kiểm tra API thực tế</p>
+    </div>
+
+    <div class="d-flex align-items-center gap-2 flex-wrap">
+      <!-- Quick Test All AI Button -->
+      <button type="button" class="btn btn-sm btn-success d-flex align-items-center gap-2 fw-bold px-3 py-2 shadow-sm"
+              style="border-radius: 8px; font-size: 12.5px;" onclick="openUniversalTestModal()">
+        <i class="fa-solid fa-flask"></i> Test API &amp; Model
+      </button>
+      <a href="/admin/ai-connection/list" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2 fw-semibold px-3 py-2" style="border-radius: 8px; font-size: 12.5px;">
+        <i class="fa-solid fa-key text-muted"></i> Quản lý API Keys
+      </a>
+      <a href="/admin/ai-provider-model/list" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2 fw-semibold px-3 py-2" style="border-radius: 8px; font-size: 12.5px;">
+        <i class="fa-solid fa-robot text-muted"></i> Danh mục Models
+      </a>
+      {% if model_view.check_can_create(request) %}
+        <a href="{{ url_for('admin:create', identity=model_view.identity) }}" class="btn btn-sm btn-primary d-flex align-items-center gap-2 fw-bold px-3.5 py-2 shadow-sm" style="border-radius: 8px; font-size: 12.5px;">
+          <i class="fa-solid fa-plus"></i> Thêm Nhà cung cấp
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Cards Grid -->
+  <div class="row g-4 mb-4">
+    {% if not pagination.rows %}
+      <div class="col-12 text-center py-5">
+        <div class="card border-0 shadow-sm rounded-4 p-5">
+          <i class="fa-solid fa-server fs-1 text-muted opacity-40 mb-3"></i>
+          <h5 class="fw-bold text-dark">Chưa có Nhà cung cấp AI nào</h5>
+          <p class="text-muted small mb-3">Bấm nút "Thêm Nhà cung cấp" để tích hợp dịch vụ AI đầu tiên.</p>
+        </div>
+      </div>
+    {% endif %}
+
+    {% for row in pagination.rows %}
+      {% set conn_count = row.connections|length if row.connections else 0 %}
+      {% set model_count = row.models|length if row.models else 0 %}
+      <div class="col-xl-4 col-md-6 col-12">
+        <div class="ai-provider-card-clean h-100 d-flex flex-column justify-content-between">
+          
+          <!-- Card Top: Brand Icon + Title + Connections Count Badge -->
+          <div>
+            <div class="d-flex align-items-center gap-3 mb-2.5">
+              <div class="brand-avatar-box brand-avatar-{{ row.id }}">
+                {% if row.icon %}
+                  <img src="{{ row.icon }}" alt="{{ row.name }}" 
+                       style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+                       onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                  <span style="display:none;width:34px;height:34px;align-items:center;justify-content:center;font-size:17px;border-radius:8px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;">
+                    {{ row.name[0]|upper }}
+                  </span>
+                {% else %}
+                  <span style="display:flex;width:34px;height:34px;align-items:center;justify-content:center;font-size:17px;border-radius:8px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-weight:700;">
+                    {{ row.name[0]|upper }}
+                  </span>
+                {% endif %}
+              </div>
+
+              <div class="flex-grow-1">
+                <h5 class="fw-bold mb-1 text-dark" style="font-size: 15.5px;">{{ row.name }}</h5>
+                <div class="d-flex align-items-center gap-2">
+                  {% if conn_count > 0 %}
+                    <a href="/admin/ai-connection/list?search={{ row.id }}" class="badge text-decoration-none fw-bold d-inline-flex align-items-center gap-1.5" style="background:#d1fae5;color:#065f46;font-size: 11px; padding: 3px 8px; border-radius: 6px;">
+                      <i class="fa-solid fa-link"></i> <span>{{ conn_count }} kết nối</span>
+                    </a>
+                  {% else %}
+                    <a href="/admin/ai-connection/list?search={{ row.id }}" class="badge text-decoration-none fw-semibold d-inline-flex align-items-center gap-1.5" style="background:#f1f5f9;color:#64748b;font-size: 11px; padding: 3px 8px; border-radius: 6px;">
+                      <i class="fa-solid fa-link-slash opacity-50"></i> <span>0 kết nối</span>
+                    </a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Bottom Action Bar -->
+          <div class="mt-3">
+            <div class="d-flex align-items-center justify-content-between flex-nowrap gap-2">
+              <div class="d-flex align-items-center gap-2">
+                <!-- Models Link -->
+                <a href="/admin/ai-provider-model/list?search={{ row.id }}" class="btn btn-sm btn-outline-primary fw-bold d-inline-flex align-items-center gap-2 px-3 py-1.5" style="font-size: 12px; border-radius: 8px;">
+                  <i class="fa-solid fa-robot"></i> <span>Models ({{ model_count }})</span>
+                </a>
+                <!-- API Key Link -->
+                <a href="/admin/ai-connection/list?search={{ row.id }}" class="btn btn-sm btn-outline-secondary fw-semibold d-inline-flex align-items-center gap-2 px-3 py-1.5" style="font-size: 12px; border-radius: 8px;">
+                  <i class="fa-solid fa-key"></i> <span>API Key ({{ conn_count }})</span>
+                </a>
+              </div>
+
+              <div class="d-flex align-items-center gap-1">
+                {% if model_view.check_can_edit(request, row) %}
+                  <a href="{{ model_view._build_url_for('admin:edit', request, row) }}" class="table-action-btn edit-btn" title="Chỉnh sửa">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </a>
+                {% endif %}
+                {% if model_view.check_can_delete(request, row) %}
+                  <a href="#" data-name="{{ row.name }}" data-pk="{{ row.id }}" data-url="{{ model_view._url_for_delete(request, row) }}" data-bs-toggle="modal" data-bs-target="#modal-delete" class="table-action-btn delete-btn btn-delete-provider" title="Xóa">
+                    <i class="fa-regular fa-trash-can"></i>
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Delete Modal -->
+  <div class="modal modal-blur fade" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+      <div class="modal-content rounded-4">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-status bg-danger"></div>
+        <div class="modal-body text-center py-4">
+          <i class="text-danger fa-solid fa-triangle-exclamation fa-2x mb-3"></i>
+          <h4 class="fw-bold">Xác nhận xóa Nhà cung cấp</h4>
+          <div id="modal-delete-text" class="text-muted small">Bạn có chắc chắn muốn xóa vĩnh viễn nhà cung cấp này không?</div>
+        </div>
+        <div class="modal-footer">
+          <div class="w-100">
+            <div class="row g-2">
+              <div class="col">
+                <button type="button" class="btn btn-outline-secondary w-100" data-bs-dismiss="modal">Hủy bỏ</button>
+              </div>
+              <div class="col">
+                <button id="modal-delete-button" data-url="" class="btn btn-danger w-100 fw-bold">Xác nhận Xóa</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════ GLOBAL TEST MODAL ═══════════════════════════════ -->
+<div class="modal modal-blur fade" id="modal-provider-test" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content rounded-4 border-0 shadow-lg">
+      <div class="modal-header border-0 pb-0" style="background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border-radius:16px 16px 0 0;">
+        <div class="d-flex align-items-center gap-3">
+          <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#10b981,#059669);display:flex;align-items:center;justify-content:center;">
+            <i class="fa-solid fa-flask text-white"></i>
+          </div>
+          <div>
+            <h5 class="fw-bold mb-0 text-dark" id="modal-test-title">Kiểm tra Kết Nối &amp; Model AI</h5>
+            <p class="text-muted small mb-0" id="modal-test-sub">Test API Key, tốc độ phản hồi và kết quả thực tế</p>
+          </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body p-4">
+        <!-- Provider Selection -->
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <label class="fw-semibold text-dark mb-1" style="font-size:13px;">
+              <i class="fa-solid fa-server me-1.5 text-primary"></i>Nhà cung cấp (Provider)
+            </label>
+            <select id="sel-provider" class="form-select form-select-sm" style="border-radius:8px;" onchange="onProviderChanged()">
+              <option value="codex">Codex / OpenAI API</option>
+              <option value="openai">OpenAI (ChatGPT)</option>
+              <option value="anthropic">Anthropic Claude</option>
+              <option value="openrouter">OpenRouter</option>
+              <option value="groq">Groq</option>
+              <option value="mistral">Mistral AI</option>
+              <option value="ollama">Ollama (Local)</option>
+              <option value="xai">xAI Grok</option>
+              <option value="antigravity">Google Antigravity AI</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="fw-semibold text-dark mb-1" style="font-size:13px;">
+              <i class="fa-solid fa-robot me-1.5 text-primary"></i>Chọn Model AI
+            </label>
+            <select id="sel-model" class="form-select form-select-sm" style="border-radius:8px;">
+              <option value="">Đang tải models...</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Connection or Custom Key -->
+        <div class="mb-3" id="provider-test-key-field">
+          <label class="fw-semibold text-dark mb-1" style="font-size:13px;">
+            <i class="fa-solid fa-key me-1.5 text-primary"></i>API Key dùng để test
+          </label>
+          <div class="input-group input-group-sm">
+            <input type="password" id="input-api-key" class="form-control"
+                   placeholder="Để trống để dùng API Key đã lưu trong hệ thống..."
+                   style="border-radius:8px 0 0 8px;">
+            <button class="btn btn-outline-secondary" type="button" onclick="toggleTestKeyVisibility()" style="border-radius:0 8px 8px 0;">
+              <i class="fa-regular fa-eye" id="icon-test-key-eye"></i>
+            </button>
+          </div>
+          <div id="conn-hint" class="text-muted mt-1" style="font-size:11.5px;">
+            <i class="fa-solid fa-info-circle me-1"></i>Đang kiểm tra key đã lưu...
+          </div>
+        </div>
+
+        <!-- Prompt Textarea -->
+        <div class="mb-3">
+          <label class="fw-semibold text-dark mb-1" style="font-size:13px;">
+            <i class="fa-solid fa-comment-dots me-1.5 text-primary"></i>Câu hỏi kiểm tra (Test Prompt)
+          </label>
+          <textarea id="input-prompt" class="form-control" rows="2" style="border-radius:8px;font-size:13px;resize:none;">Xin chào! Hãy xác nhận kết nối và trả lời ngắn gọn: 1+1 bằng mấy?</textarea>
+        </div>
+
+        <!-- Test Result Output -->
+        <div id="box-test-result" style="display:none;">
+          <div id="box-test-content"></div>
+        </div>
+      </div>
+
+      <div class="modal-footer border-0 pt-0">
+        <button type="button" class="btn btn-outline-secondary fw-semibold" data-bs-dismiss="modal" style="border-radius:8px;">
+          Đóng
+        </button>
+        <button type="button" class="btn btn-success fw-bold px-4 shadow-sm" id="btn-execute-test" onclick="executeTest()"
+                style="border-radius:8px;background:linear-gradient(135deg,#10b981,#059669);border:none;">
+          <i class="fa-solid fa-bolt me-1.5"></i> Chạy Kiểm Tra (Test)
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let testModalInstance = null;
+
+function openUniversalTestModal() {
+  const modalEl = document.getElementById('modal-provider-test');
+  if (!testModalInstance) {
+    testModalInstance = new bootstrap.Modal(modalEl);
+  }
+  document.getElementById('modal-test-title').textContent = 'Kiểm tra Kết Nối & Model AI';
+  onProviderChanged();
+  testModalInstance.show();
+}
+
+function openProviderTestModal(providerId, providerName) {
+  const modalEl = document.getElementById('modal-provider-test');
+  if (!testModalInstance) {
+    testModalInstance = new bootstrap.Modal(modalEl);
+  }
+  document.getElementById('modal-test-title').textContent = 'Test Provider: ' + providerName;
+  document.getElementById('sel-provider').value = providerId;
+  onProviderChanged();
+  testModalInstance.show();
+}
+
+async function onProviderChanged() {
+  const provider = document.getElementById('sel-provider').value;
+  const selModel = document.getElementById('sel-model');
+  const connHint = document.getElementById('conn-hint');
+  const resultBox = document.getElementById('box-test-result');
+  resultBox.style.display = 'none';
+
+  selModel.innerHTML = '<option value="">Đang tải models...</option>';
+  connHint.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Đang tải dữ liệu kết nối...';
+
+  try {
+    // 1. Fetch models for this provider
+    const mResp = await fetch('/api/v1/admin-api/provider-models/' + provider);
+    const models = await mResp.json();
+    selModel.innerHTML = '';
+    if (models.length === 0) {
+      selModel.innerHTML = '<option value="default">Model mặc định</option>';
+    } else {
+      models.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m.model_key;
+        opt.textContent = m.label + ' (' + m.model_key + ')';
+        selModel.appendChild(opt);
+      });
+    }
+
+    // 2. Fetch saved connections for this provider
+    const cResp = await fetch('/api/v1/admin-api/connections-by-provider/' + provider);
+    const conns = await cResp.json();
+    if (conns.length > 0 && conns[0].has_key) {
+      connHint.innerHTML = `<span class="text-success fw-bold"><i class="fa-solid fa-circle-check me-1"></i>Đã có API Key được lưu: <code>${conns[0].api_key_masked}</code></span> (${conns[0].name})`;
+      if (conns[0].selected_model) {
+        selModel.value = conns[0].selected_model;
+      }
+    } else {
+      connHint.innerHTML = `<span class="text-warning fw-semibold"><i class="fa-solid fa-triangle-exclamation me-1"></i>Chưa lưu API Key cho provider này. Vui lòng nhập key trực tiếp bên trên.</span>`;
+    }
+  } catch (e) {
+    selModel.innerHTML = '<option value="">Không thể tải</option>';
+    connHint.innerHTML = `<span class="text-danger">Lỗi nạp dữ liệu: ${e.message}</span>`;
+  }
+}
+
+function toggleTestKeyVisibility() {
+  const input = document.getElementById('input-api-key');
+  const eye = document.getElementById('icon-test-key-eye');
+  if (input.type === 'password') {
+    input.type = 'text';
+    eye.classList.replace('fa-eye', 'fa-eye-slash');
+  } else {
+    input.type = 'password';
+    eye.classList.replace('fa-eye-slash', 'fa-eye');
+  }
+}
+
+async function executeTest() {
+  const provider = document.getElementById('sel-provider').value;
+  const model = document.getElementById('sel-model').value;
+  const customKey = document.getElementById('input-api-key').value.trim();
+  const prompt = document.getElementById('input-prompt').value.trim();
+  const btn = document.getElementById('btn-execute-test');
+  const resultBox = document.getElementById('box-test-result');
+  const resultContent = document.getElementById('box-test-content');
+
+  if (!prompt) {
+    alert('Vui lòng nhập câu hỏi kiểm tra');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>Đang gửi yêu cầu...';
+  resultBox.style.display = 'none';
+
+  try {
+    const payload = {
+      provider_id: provider,
+      model: model || undefined,
+      prompt: prompt,
+    };
+    if (customKey) {
+      payload.api_key = customKey;
+    }
+
+    const resp = await fetch('/api/v1/admin-api/test-connection', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await resp.json();
+
+    resultBox.style.display = 'block';
+
+    if (data.success) {
+      resultContent.innerHTML = `
+        <div class="alert alert-success border-0 rounded-3 mb-2 p-3">
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <span class="fw-bold text-success"><i class="fa-solid fa-circle-check me-1.5"></i>${data.message}</span>
+            <span class="badge bg-success text-white fw-bold px-2 py-1">${data.latency_ms} ms</span>
+          </div>
+          <div class="small text-muted mb-1">
+            <strong>Nhà cung cấp:</strong> ${data.provider} | <strong>Model:</strong> <code>${data.model_used}</code>
+          </div>
+        </div>
+        <div class="p-3 rounded-3 border" style="background:#f8fafc;">
+          <div class="text-muted small fw-bold mb-1 text-uppercase" style="font-size:11px;">Phản hồi từ AI:</div>
+          <div class="text-dark" style="font-size:13.5px;line-height:1.6;">${(data.response_text || '').replace(/\n/g, '<br>')}</div>
+        </div>
+      `;
+    } else {
+      resultContent.innerHTML = `
+        <div class="alert alert-danger border-0 rounded-3 p-3">
+          <div class="fw-bold text-danger mb-1"><i class="fa-solid fa-circle-xmark me-1.5"></i>Kiểm tra thất bại</div>
+          <div class="text-dark small">${data.message}</div>
+          ${data.model_used ? `<div class="text-muted small mt-1">Model: <code>${data.model_used}</code></div>` : ''}
+        </div>
+      `;
+    }
+  } catch (e) {
+    resultBox.style.display = 'block';
+    resultContent.innerHTML = `
+      <div class="alert alert-danger border-0 rounded-3 p-3">
+        <div class="fw-bold text-danger mb-1"><i class="fa-solid fa-triangle-exclamation me-1.5"></i>Lỗi kết nối máy chủ</div>
+        <div class="text-dark small">${e.message}</div>
+      </div>
+    `;
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-bolt me-1.5"></i> Chạy Lại (Test)';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Handle Delete Modal trigger
+  document.querySelectorAll('.btn-delete-provider').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      const name = this.getAttribute('data-name');
+      const pk = this.getAttribute('data-pk');
+      const url = this.getAttribute('data-url');
+      
+      const modalText = document.getElementById('modal-delete-text');
+      const modalBtn = document.getElementById('modal-delete-button');
+      
+      if (modalText) {
+        modalText.innerHTML = `Bạn có chắc chắn muốn xóa vĩnh viễn nhà cung cấp <strong>"${name}"</strong> cùng tất cả models liên quan không?`;
+      }
+      if (modalBtn) {
+        modalBtn.setAttribute('data-url', url);
+      }
+    });
+  });
+
+  // Handle Delete submit
+  const deleteBtn = document.getElementById('modal-delete-button');
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', function() {
+      const url = this.getAttribute('data-url');
+      if (!url) return;
+      
+      this.disabled = true;
+      this.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Đang xóa...';
+      
+      fetch(url, {
+        method: 'DELETE',
+        headers: { 'Accept': 'text/html, application/json' }
+      })
+      .then(res => {
+        if (res.ok) {
+          window.location.reload();
+        } else {
+          return res.text().then(t => { alert('Lỗi khi xóa: ' + t); window.location.reload(); });
+        }
+      })
+      .catch(err => {
+        alert('Lỗi kết nối khi xóa: ' + err);
+        window.location.reload();
+      });
+    });
+  }
+});
+</script>
+{% endblock %}

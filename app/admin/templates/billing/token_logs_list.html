@@ -1,0 +1,77 @@
+{% extends "sqladmin/list.html" %}
+
+{% block content %}
+<div class="container-fluid p-0">
+
+  <!-- ── 1. KPI STATS CARDS ──────────────────────────────────────── -->
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-sm-6 col-xl-4">
+      <div class="stat-card-modern p-3.5 bg-white rounded-3 shadow-xs border d-flex align-items-center justify-content-between">
+        <div>
+          <div class="text-muted fs-8 fw-semibold text-uppercase tracking-wider">Tổng Token nạp / cộng</div>
+          <div class="fs-3 fw-bold text-success mt-1">
+            {% set added_tokens = namespace(val=0) %}
+            {% for row in pagination.rows %}
+              {% if row.amount_changed and row.amount_changed > 0 %}
+                {% set added_tokens.val = added_tokens.val + row.amount_changed %}
+              {% endif %}
+            {% endfor %}
+            +{{ "{:,.0f}".format(added_tokens.val) }}
+          </div>
+          <small class="text-success fw-medium"><i class="fa-solid fa-circle-arrow-up me-1"></i>Từ gói cước & nạp tiền</small>
+        </div>
+        <div class="stat-icon-box rounded-3 bg-success-soft text-success d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; font-size: 20px;">
+          <i class="fa-solid fa-circle-plus"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-4">
+      <div class="stat-card-modern p-3.5 bg-white rounded-3 shadow-xs border d-flex align-items-center justify-content-between">
+        <div>
+          <div class="text-muted fs-8 fw-semibold text-uppercase tracking-wider">Tổng Token tiêu thụ</div>
+          <div class="fs-3 fw-bold text-danger mt-1">
+            {% set consumed_tokens = namespace(val=0) %}
+            {% for row in pagination.rows %}
+              {% if row.amount_changed and row.amount_changed < 0 %}
+                {% set consumed_tokens.val = consumed_tokens.val + (-row.amount_changed) %}
+              {% endif %}
+            {% endfor %}
+            -{{ "{:,.0f}".format(consumed_tokens.val) }}
+          </div>
+          <small class="text-danger fw-medium"><i class="fa-solid fa-circle-arrow-down me-1"></i>Bóc tách AI & báo giá</small>
+        </div>
+        <div class="stat-icon-box rounded-3 bg-danger-soft text-danger d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; font-size: 20px;">
+          <i class="fa-solid fa-microchip"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-4">
+      <div class="stat-card-modern p-3.5 bg-white rounded-3 shadow-xs border d-flex align-items-center justify-content-between">
+        <div>
+          <div class="text-muted fs-8 fw-semibold text-uppercase tracking-wider">Số lượt giao dịch</div>
+          <div class="fs-3 fw-bold text-primary mt-1">{{ pagination.count }}</div>
+          <small class="text-primary fw-medium"><i class="fa-solid fa-coins me-1"></i>Nhật ký ghi nhận</small>
+        </div>
+        <div class="stat-icon-box rounded-3 bg-primary-soft text-primary d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; font-size: 20px;">
+          <i class="fa-solid fa-list-ol"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{ super() }}
+
+</div>
+
+<style>
+  .stat-card-modern {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .stat-card-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  }
+</style>
+{% endblock %}

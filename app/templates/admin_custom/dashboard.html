@@ -1,0 +1,58 @@
+{% extends "sqladmin/layout.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">Total Users: 150</div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">Active Projects: 45</div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">Token Usage: 1.2M</div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">AI Sessions: 320</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <canvas id="activityChart"></canvas>
+    </div>
+    
+    <div class="row mt-4">
+        <table class="table">
+            <thead>
+                <tr><th>Recent Activity</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>User A logged in</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('activityChart');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar'],
+            datasets: [{
+                label: 'Activity Trend',
+                data: [12, 19, 3],
+            }]
+        }
+    });
+</script>
+{% endblock %}
