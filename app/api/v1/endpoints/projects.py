@@ -499,8 +499,18 @@ async def download_project_file(
         raise HTTPException(status_code=404, detail="File not found")
         
     from fastapi.responses import FileResponse
+    media_type = project_file.file_type
+    ext = os.path.splitext(project_file.filename)[1].lower()
+    if ext == ".pdf":
+        media_type = "application/pdf"
+    elif ext in [".png", ".jpg", ".jpeg", ".webp"]:
+        media_type = f"image/{ext.lstrip('.')}"
+    elif ext in [".dwg", ".dxf"]:
+        media_type = "application/octet-stream"
+
     return FileResponse(
         path=project_file.file_path,
         filename=project_file.filename,
-        media_type=project_file.file_type or "application/octet-stream"
+        media_type=media_type or "application/octet-stream",
+        content_disposition_type="inline"
     )
