@@ -4,6 +4,17 @@ from app.models.system_setting import SystemSetting
 from app.models.notification import Notification
 from app.models.page_content import PageContent
 from app.models.activity_log import ActivityLog
+import datetime
+
+VN_TZ = datetime.timezone(datetime.timedelta(hours=7))
+
+def format_vn_datetime(dt: datetime.datetime | None) -> str:
+    """Chuyển đổi datetime UTC sang định dạng hiển thị giờ Việt Nam dd/mm/YYYY HH:MM."""
+    if not dt:
+        return ""
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=datetime.timezone.utc)
+    return dt.astimezone(VN_TZ).strftime("%d/%m/%Y %H:%M")
 
 class SystemSettingAdmin(ModelView, model=SystemSetting):
     name = "Cấu hình Hệ thống"
@@ -40,7 +51,7 @@ class NotificationAdmin(ModelView, model=Notification):
     }
     column_formatters = {
         Notification.is_read: lambda m, a: Markup(f'<span class="badge bg-{"success-soft text-success" if m.is_read else "warning-soft text-warning"} fw-bold">{"Đã đọc" if m.is_read else "Chưa đọc"}</span>'),
-        Notification.created_at: lambda m, a: m.created_at.strftime("%d/%m/%Y %H:%M") if m.created_at else "",
+        Notification.created_at: lambda m, a: format_vn_datetime(m.created_at),
     }
     can_create = True
     can_edit = True
@@ -62,7 +73,7 @@ class PageContentAdmin(ModelView, model=PageContent):
         PageContent.updated_at: "Cập nhật lúc"
     }
     column_formatters = {
-        PageContent.updated_at: lambda m, a: m.updated_at.strftime("%d/%m/%Y %H:%M") if m.updated_at else "",
+        PageContent.updated_at: lambda m, a: format_vn_datetime(m.updated_at),
     }
     can_create = True
     can_edit = True
@@ -86,7 +97,7 @@ class ActivityLogAdmin(ModelView, model=ActivityLog):
     }
     column_formatters = {
         ActivityLog.action: lambda m, a: Markup(f'<span class="badge bg-info-soft text-info fw-bold">{m.action}</span>'),
-        ActivityLog.created_at: lambda m, a: m.created_at.strftime("%d/%m/%Y %H:%M") if m.created_at else "",
+        ActivityLog.created_at: lambda m, a: format_vn_datetime(m.created_at),
     }
     can_create = False
     can_edit = False

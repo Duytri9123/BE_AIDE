@@ -18,6 +18,33 @@ from app.services.pusher_service import pusher_service
 from app.core.config import settings
 import datetime
 
+VN_TIMEZONE = datetime.timezone(datetime.timedelta(hours=7))
+
+def calculate_time_ago(dt: datetime.datetime | None, now_utc: datetime.datetime | None = None) -> str:
+    """Tính toán thời gian tương đối chính xác dựa trên múi giờ UTC và hiển thị giờ Việt Nam."""
+    if not dt:
+        return "Vừa xong"
+    if now_utc is None:
+        now_utc = datetime.datetime.now(datetime.timezone.utc)
+    
+    if dt.tzinfo is None:
+        dt_utc = dt.replace(tzinfo=datetime.timezone.utc)
+    else:
+        dt_utc = dt.astimezone(datetime.timezone.utc)
+    
+    diff_sec = max(0, (now_utc - dt_utc).total_seconds())
+    if diff_sec < 60:
+        return "Vừa xong"
+    elif diff_sec < 3600:
+        return f"{int(diff_sec // 60)} phút trước"
+    elif diff_sec < 86400:
+        return f"{int(diff_sec // 3600)} giờ trước"
+    elif diff_sec < 86400 * 7:
+        return f"{int(diff_sec // 86400)} ngày trước"
+    else:
+        local_dt = dt_utc.astimezone(VN_TIMEZONE)
+        return local_dt.strftime("%d/%m/%Y %H:%M")
+
 class AnalyticsView(BaseView):
     name = "Dashboard Thống Kê"
     icon = "fa-solid fa-chart-pie"
@@ -117,19 +144,9 @@ class AnalyticsView(BaseView):
             recent_activities = recent_activities_result.scalars().all()
             
             activity_list = []
-            now_dt = datetime.datetime.now()
+            now_utc = datetime.datetime.now(datetime.timezone.utc)
             for activity in recent_activities:
-                time_str = "Vừa xong"
-                if activity.created_at:
-                    diff_sec = (now_dt - activity.created_at).total_seconds()
-                    if diff_sec < 60:
-                        time_str = "Vừa xong"
-                    elif diff_sec < 3600:
-                        time_str = f"{int(diff_sec // 60)} phút trước"
-                    elif diff_sec < 86400:
-                        time_str = f"{int(diff_sec // 3600)} giờ trước"
-                    else:
-                        time_str = activity.created_at.strftime("%H:%M - %d/%m")
+                time_str = calculate_time_ago(activity.created_at, now_utc)
 
                 activity_list.append({
                     "action": activity.action,
@@ -229,21 +246,15 @@ class AnalyticsView(BaseView):
             notifs = notifs_result.scalars().all()
 
             items = []
-            now_dt = datetime.datetime.now()
+            now_utc = datetime.datetime.now(datetime.timezone.utc)
             for n in notifs:
-                time_ago = "Vừa xong"
+                time_ago = calculate_time_ago(n.created_at, now_utc)
+                iso_created_at = None
                 if n.created_at:
-                    diff_sec = (now_dt - n.created_at).total_seconds()
-                    if diff_sec < 60:
-                        time_ago = "Vừa xong"
-                    elif diff_sec < 3600:
-                        time_ago = f"{int(diff_sec // 60)} phút trước"
-                    elif diff_sec < 86400:
-                        time_ago = f"{int(diff_sec // 3600)} giờ trước"
-                    elif diff_sec < 86400 * 7:
-                        time_ago = f"{int(diff_sec // 86400)} ngày trước"
+                    if n.created_at.tzinfo is None:
+                        iso_created_at = n.created_at.isoformat() + "Z"
                     else:
-                        time_ago = n.created_at.strftime("%d/%m/%Y")
+                        iso_created_at = n.created_at.astimezone(datetime.timezone.utc).isoformat()
 
                 items.append({
                     "id": n.id,
@@ -252,7 +263,7 @@ class AnalyticsView(BaseView):
                     "type": n.type or "info",
                     "link": n.link or "/admin/activity-log/list",
                     "is_read": n.is_read,
-                    "created_at": n.created_at.isoformat() if n.created_at else None,
+                    "created_at": iso_created_at,
                     "time_ago": time_ago
                 })
 

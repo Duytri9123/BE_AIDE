@@ -8,7 +8,7 @@
 <link rel="icon" type="image/x-icon" href="{{ url_for('admin_static', path='favicon.ico') }}">
 <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('admin_static', path='favicon-32x32.png') }}">
 <link rel="apple-touch-icon" href="{{ url_for('admin_static', path='favicon.png') }}">
-<link rel="stylesheet" href="{{ url_for('admin_static', path='admin_custom.css') }}">
+<link rel="stylesheet" href="{{ url_for('admin_static', path='admin_custom.css') }}?v=2.2">
 <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 
 <script>
@@ -81,6 +81,11 @@
           <span class="menu-label">Dashboard Thống Kê</span>
           <span class="badge bg-primary-soft text-primary ms-auto" style="font-size: 10px;">Live</span>
         </a>
+        <a href="/" target="_blank" class="sidebar-menu-item sidebar-client-app-link">
+          <span class="menu-icon"><i class="fa-solid fa-arrow-up-right-from-square text-info"></i></span>
+          <span class="menu-label">Giao diện Khách hàng</span>
+          <span class="badge bg-info-soft text-info ms-auto" style="font-size: 10px;">Client App ↗</span>
+        </a>
 
         <!-- Dynamic Loop over Categories & Views -->
         {% for item in admin._menu.items %}
@@ -147,6 +152,9 @@
     </nav>
   </aside>
 
+  <!-- Mobile Sidebar Backdrop Overlay -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop" title="Chạm để đóng menu"></div>
+
   <!-- ══════════════════════════════════════════════════════════ -->
   <!-- MAIN PAGE WRAPPER                                          -->
   <!-- ══════════════════════════════════════════════════════════ -->
@@ -178,11 +186,22 @@
             {% endif %}
           </span>
         </nav>
+
+        <!-- Compact Page Title for Mobile Screens (< 576px) -->
+        <div class="mobile-header-title d-flex d-sm-none align-items-center">
+          <span class="mobile-title-text text-truncate">
+            {% if model_view %}
+              {{ model_view.name_plural or model_view.name }}
+            {% else %}
+              {{ title or "Dashboard" }}
+            {% endif %}
+          </span>
+        </div>
       </div>
 
       <div class="header-right">
-        <!-- Quick App Switcher -->
-        <a href="/" target="_blank" class="header-nav-btn d-none d-lg-inline-flex" title="Mở trang Client Frontend">
+        <!-- Quick App Switcher (Desktop only to prevent mobile topbar squishing) -->
+        <a href="/" target="_blank" class="header-nav-btn d-none d-xl-inline-flex" title="Mở trang Client Frontend">
           <i class="fa-solid fa-arrow-up-right-from-square text-primary" style="font-size: 11px;"></i>
           <span>Client App</span>
         </a>
@@ -193,8 +212,8 @@
             <span class="lang-flag-box" id="current-lang-flag">
               <svg class="flag-svg" viewBox="0 0 640 480" width="18" height="13.5"><path fill="#da251d" d="M0 0h640v480H0z"/><path fill="#ff0" d="M320 90l24.7 76.1h80l-64.7 47 24.7 76.1-64.7-47-64.7 47 24.7-76.1-64.7-47h80z"/></svg>
             </span>
-            <span class="lang-code-text" id="current-lang-code">VI</span>
-            <i class="fa-solid fa-chevron-down lang-chevron"></i>
+            <span class="lang-code-text d-none d-sm-inline" id="current-lang-code">VI</span>
+            <i class="fa-solid fa-chevron-down lang-chevron d-none d-sm-inline"></i>
           </button>
           <div class="dropdown-menu dropdown-menu-end shadow-sm border-0 header-lang-dropdown">
             <a class="dropdown-item lang-item active" href="javascript:void(0)" onclick="setAdminLanguage('vi')" id="lang-opt-vi">
@@ -266,6 +285,13 @@
               </div>
             </div>
             <div class="dropdown-divider my-1"></div>
+            <a class="dropdown-item py-2" href="/" target="_blank">
+              <i class="fa-solid fa-desktop me-2 text-primary"></i> Giao diện Khách hàng (Client App)
+            </a>
+            <a class="dropdown-item py-2" href="/admin/plan/list">
+              <i class="fa-solid fa-layer-group me-2 text-success"></i> Quản lý Gói cước (Plans)
+            </a>
+            <div class="dropdown-divider my-1"></div>
             <a class="dropdown-item py-2" href="/admin/user/list">
               <i class="fa-solid fa-users-gear me-2 text-primary"></i> Quản lý Người dùng
             </a>
@@ -289,8 +315,8 @@
       </div>
     </header>
 
-    <!-- Floating Animated Theme Customizer Button (Right middle) -->
-    <button class="floating-theme-customizer-btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasThemeSettings" aria-controls="offcanvasThemeSettings" title="Tùy chỉnh Giao diện & Màu sắc">
+    <!-- Floating Animated Theme Customizer Button (Desktop only, hidden on mobile/tablet) -->
+    <button class="floating-theme-customizer-btn d-none d-xl-flex" data-bs-toggle="offcanvas" data-bs-target="#offcanvasThemeSettings" aria-controls="offcanvasThemeSettings" title="Tùy chỉnh Giao diện & Màu sắc">
       <i class="fa-solid fa-gear spinning-gear-icon"></i>
     </button>
 
@@ -301,9 +327,9 @@
         {% include 'sqladmin/flash.html' %}
       {% endblock %}
 
-      <!-- Content Header (Title + Subtitle) -->
+      <!-- Content Header (Title + Subtitle - Hidden on mobile to avoid triple-title clutter) -->
       {% block content_header %}
-      <div class="content-header-bar mb-3">
+      <div class="content-header-bar mb-3 d-none d-md-block">
         <div class="d-flex align-items-center justify-content-between">
           <div>
             <h1 class="page-main-title">{{ title }}</h1>
@@ -489,6 +515,7 @@
     const sidebarToggleBtn = document.getElementById('btn-sidebar-toggle');
     const sidebarCloseBtn = document.getElementById('btn-sidebar-close');
     const sidebar = document.getElementById('admin-sidebar');
+    const sidebarBackdrop = document.getElementById('sidebar-backdrop');
 
     // Filter menu input
     const filterInput = document.getElementById('sidebar-filter-input');
@@ -626,11 +653,29 @@
       });
     }
 
+    // Helper functions for Mobile Sidebar Drawer
+    function openMobileSidebar() {
+      if (sidebar) sidebar.classList.add('mobile-open');
+      if (sidebarBackdrop) sidebarBackdrop.classList.add('show');
+      document.body.classList.add('sidebar-mobile-locked');
+    }
+
+    function closeMobileSidebar() {
+      if (sidebar) sidebar.classList.remove('mobile-open');
+      if (sidebarBackdrop) sidebarBackdrop.classList.remove('show');
+      document.body.classList.remove('sidebar-mobile-locked');
+    }
+
     // Sidebar Toggle (Mobile & Desktop)
     if (sidebarToggleBtn) {
-      sidebarToggleBtn.addEventListener('click', function() {
-        if (window.innerWidth < 768) {
-          sidebar.classList.toggle('mobile-open');
+      sidebarToggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (window.innerWidth <= 992) {
+          if (sidebar && sidebar.classList.contains('mobile-open')) {
+            closeMobileSidebar();
+          } else {
+            openMobileSidebar();
+          }
         } else {
           const isCollapsed = root.classList.toggle('sidebar-collapsed');
           localStorage.setItem('aide_admin_sidebar_collapsed', isCollapsed ? 'true' : 'false');
@@ -639,10 +684,34 @@
     }
 
     if (sidebarCloseBtn) {
-      sidebarCloseBtn.addEventListener('click', function() {
-        sidebar.classList.remove('mobile-open');
+      sidebarCloseBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeMobileSidebar();
       });
     }
+
+    if (sidebarBackdrop) {
+      sidebarBackdrop.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeMobileSidebar();
+      });
+    }
+
+    // Auto-close sidebar on mobile when tapping any menu item or navigation link
+    document.querySelectorAll('.sidebar-menu-item').forEach(item => {
+      item.addEventListener('click', function() {
+        if (window.innerWidth <= 992) {
+          closeMobileSidebar();
+        }
+      });
+    });
+
+    // Cleanup on window resize
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 992) {
+        closeMobileSidebar();
+      }
+    });
 
     // Real-time Sidebar Filter
     if (filterInput) {
@@ -882,11 +951,28 @@
           'system-alert': '<div class="notif-icon-box bg-danger-soft text-danger"><i class="fa-solid fa-triangle-exclamation"></i></div>'
         };
 
+        function formatNotificationTime(isoStr, fallback) {
+          if (!isoStr) return fallback || 'Vừa xong';
+          try {
+            const d = new Date(isoStr);
+            const now = new Date();
+            const diffSec = Math.floor((now.getTime() - d.getTime()) / 1000);
+            if (isNaN(diffSec) || diffSec < 60) return 'Vừa xong';
+            if (diffSec < 3600) return `${Math.floor(diffSec / 60)} phút trước`;
+            if (diffSec < 86400) return `${Math.floor(diffSec / 3600)} giờ trước`;
+            if (diffSec < 86400 * 7) return `${Math.floor(diffSec / 86400)} ngày trước`;
+            return d.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' });
+          } catch(e) {
+            return fallback || 'Vừa xong';
+          }
+        }
+
         let itemsHtml = '';
         data.items.forEach(item => {
           const iconHtml = iconMap[item.type] || '<div class="notif-icon-box bg-primary-soft text-primary"><i class="fa-solid fa-bell"></i></div>';
           const unreadClass = !item.is_read ? 'unread' : '';
           const dotHtml = !item.is_read ? '<span class="notif-unread-dot"></span>' : '';
+          const displayTime = formatNotificationTime(item.created_at, item.time_ago);
 
           itemsHtml += `
             <a href="${item.link || '/admin/activity-log/list'}" class="notif-item ${unreadClass}">
@@ -897,7 +983,7 @@
                   ${dotHtml}
                 </div>
                 <p class="notif-item-msg">${item.body || ''}</p>
-                <span class="notif-item-time"><i class="fa-regular fa-clock me-1"></i>${item.time_ago}</span>
+                <span class="notif-item-time"><i class="fa-regular fa-clock me-1"></i>${displayTime}</span>
               </div>
             </a>
           `;

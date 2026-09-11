@@ -3,7 +3,7 @@
 <div class="container-fluid p-0">
   <div class="row g-3">
     <div class="col-12">
-      <div class="d-flex min-w-0">
+      <div class="d-flex flex-column flex-lg-row min-w-0">
         <div class="flex-grow-1 min-w-0">
           <div class="card modern-admin-card shadow-sm border-0">
             
@@ -18,7 +18,7 @@
                 </span>
               </div>
 
-              <div class="d-flex align-items-center gap-2">
+              <div class="card-header-actions-wrapper d-flex align-items-center gap-2">
                 {% block model_menu_bar %}
                 {% if model_view.can_export %}
                   {% if model_view.export_types | length > 1 %}
@@ -59,8 +59,8 @@
             </div>
 
             <!-- Toolbar (Batch actions + Search) -->
-            <div class="card-body py-2.5 px-4 border-bottom" style="background-color: var(--admin-border-subtle);">
-              <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div class="card-body py-2.5 px-4 border-bottom card-toolbar-wrapper" style="background-color: var(--admin-border-subtle);">
+              <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 card-toolbar-inner">
                 
                 <!-- Batch Actions Dropdown -->
                 <div class="dropdown">
@@ -91,7 +91,7 @@
 
                 <!-- Search Input Bar -->
                 {% if model_view.column_searchable_list %}
-                  <div class="ms-auto position-relative" style="min-width: 240px; max-width: 320px; width: 100%;">
+                  <div class="ms-auto position-relative card-toolbar-search" style="min-width: 240px; max-width: 320px; width: 100%;">
                     <div class="input-group input-group-sm modern-search-box shadow-none">
                       <span class="input-group-text bg-transparent border-end-0 text-muted ps-2.5 pe-1" style="border-radius: 8px 0 0 8px; background: var(--admin-card-bg) !important; border-color: var(--admin-border);">
                         <i class="fa-solid fa-magnifying-glass fs-8 text-muted opacity-60"></i>
@@ -226,7 +226,7 @@
             {% endblock %}
 
             <!-- Card Footer Pagination -->
-            <div class="card-footer d-flex flex-wrap justify-content-between align-items-center gap-3 py-3 px-4 bg-transparent border-top">
+            <div class="card-footer d-flex flex-wrap justify-content-between align-items-center gap-3 py-3 px-4 bg-transparent border-top card-pagination-footer">
               <span class="text-muted fs-8">
                 {% if pagination.count > 0 %}
                   Hiển thị <strong class="text-dark">{{ ((pagination.page - 1) * pagination.page_size) + 1 }}</strong> - <strong class="text-dark">{{ min(pagination.page * pagination.page_size, pagination.count) }}</strong> trong tổng số <strong class="text-dark">{{ pagination.count }}</strong> mục

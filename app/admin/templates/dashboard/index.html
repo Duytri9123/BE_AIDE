@@ -4,23 +4,23 @@
 <div class="container-fluid p-0">
 
     <!-- Dashboard Header -->
-    <div class="mb-4 pb-2 border-bottom">
-        <h4 class="fw-bold mb-1 text-dark" style="font-size: 1.2rem; letter-spacing: -0.01em;">
+    <div class="mb-3 mb-md-4 pb-2 border-bottom dashboard-intro-header">
+        <h4 class="fw-bold mb-1 text-dark" style="font-size: 1.15rem; letter-spacing: -0.01em;">
             Tổng Quan & Thống Kê Hệ Thống
         </h4>
-        <p class="text-muted small mb-0">Theo dõi thời gian thực các chỉ số người dùng, dự án, thiết bị và bóc tách AI</p>
+        <p class="text-muted small mb-0 d-none d-sm-block">Theo dõi thời gian thực các chỉ số người dùng, dự án, thiết bị và bóc tách AI</p>
     </div>
 
     <!-- ── 1. STATS CARDS ROW ──────────────────────────────────────── -->
-    <div class="row g-3 mb-4">
-        <div class="col-sm-6 col-xl-3">
+    <div class="row g-2 g-sm-3 mb-4">
+        <div class="col-6 col-xl-3">
             <div class="stat-card-modern" id="card-users">
                 <div class="d-flex align-items-center justify-content-between">
-                    <div>
+                    <div class="min-w-0 flex-grow-1 me-2">
                         <span class="stat-label">Tổng Người Dùng</span>
                         <div class="stat-number" id="stat-val-users">{{ stats.total_users|default(0) }}</div>
                         <div class="stat-subtext text-muted small mt-1">
-                            <span class="text-success fw-bold"><i class="fa-solid fa-arrow-trend-up me-1"></i>Hoạt động</span>
+                            <span class="text-success fw-bold text-truncate d-inline-block"><i class="fa-solid fa-arrow-trend-up me-1"></i>Hoạt động</span>
                         </div>
                     </div>
                     <div class="stat-icon-wrapper stat-icon-blue">
@@ -29,14 +29,14 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-xl-3">
+        <div class="col-6 col-xl-3">
             <div class="stat-card-modern" id="card-projects">
                 <div class="d-flex align-items-center justify-content-between">
-                    <div>
+                    <div class="min-w-0 flex-grow-1 me-2">
                         <span class="stat-label">Tổng Dự Án</span>
                         <div class="stat-number" id="stat-val-projects">{{ stats.total_projects|default(0) }}</div>
                         <div class="stat-subtext text-muted small mt-1">
-                            <span class="text-primary fw-bold"><i class="fa-solid fa-folder-tree me-1"></i>Đang xử lý</span>
+                            <span class="text-primary fw-bold text-truncate d-inline-block"><i class="fa-solid fa-folder-tree me-1"></i>Đang xử lý</span>
                         </div>
                     </div>
                     <div class="stat-icon-wrapper stat-icon-green">
@@ -45,14 +45,14 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-xl-3">
+        <div class="col-6 col-xl-3">
             <div class="stat-card-modern" id="card-files">
                 <div class="d-flex align-items-center justify-content-between">
-                    <div>
+                    <div class="min-w-0 flex-grow-1 me-2">
                         <span class="stat-label">Tập Tin Bản Vẽ</span>
                         <div class="stat-number" id="stat-val-files">{{ stats.total_files|default(0) }}</div>
                         <div class="stat-subtext text-muted small mt-1">
-                            <span class="text-warning fw-bold"><i class="fa-solid fa-hard-drive me-1"></i>{{ stats.total_file_size|default("0 MB") }}</span>
+                            <span class="text-warning fw-bold text-truncate d-inline-block"><i class="fa-solid fa-hard-drive me-1"></i>{{ stats.total_file_size|default("0 MB") }}</span>
                         </div>
                     </div>
                     <div class="stat-icon-wrapper stat-icon-amber">
@@ -61,14 +61,14 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-xl-3">
+        <div class="col-6 col-xl-3">
             <div class="stat-card-modern" id="card-tokens">
                 <div class="d-flex align-items-center justify-content-between">
-                    <div>
+                    <div class="min-w-0 flex-grow-1 me-2">
                         <span class="stat-label">AI Tokens Đã Dùng</span>
                         <div class="stat-number" id="stat-val-tokens">{{ stats.tokens_used|default("0") }}</div>
                         <div class="stat-subtext text-muted small mt-1">
-                            <span class="text-purple fw-bold"><i class="fa-solid fa-microchip me-1"></i>{{ stats.total_models|default(0) }} Models</span>
+                            <span class="text-purple fw-bold text-truncate d-inline-block"><i class="fa-solid fa-microchip me-1"></i>{{ stats.total_models|default(0) }} Models</span>
                         </div>
                     </div>
                     <div class="stat-icon-wrapper stat-icon-purple">
@@ -84,7 +84,7 @@
         <!-- 7-Day Activity Trends -->
         <div class="col-lg-7">
             <div class="card border-0 shadow-sm h-100">
-                <div class="card-header border-bottom py-3 d-flex align-items-center justify-content-between bg-transparent">
+                <div class="card-header border-bottom py-3 d-flex align-items-center justify-content-between flex-wrap gap-2 bg-transparent">
                     <h5 class="card-title mb-0 fs-6 fw-bold">
                         <i class="fa-solid fa-chart-line text-primary me-2"></i> Xu Hướng Hoạt Động 7 Ngày Qua
                     </h5>
