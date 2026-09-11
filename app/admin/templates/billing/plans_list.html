@@ -7,9 +7,12 @@
   <div class="row g-2 g-sm-3 mb-3 mb-md-4">
     <!-- Tổng gói cước -->
     <div class="col-6 col-lg-3">
-      <div class="stat-pill-card p-2.5 p-sm-3 rounded-3 border bg-card shadow-xs d-flex flex-column justify-content-between h-100">
-        <div class="d-flex align-items-center justify-content-between gap-1 mb-1.5">
-          <span class="text-muted fs-8 fw-semibold text-uppercase tracking-wider text-truncate">Tổng gói cước</span>
+      <div class="stat-pill-card p-2 p-sm-3 rounded-3 border bg-card shadow-xs d-flex flex-column justify-content-between h-100">
+        <div class="d-flex align-items-center justify-content-between gap-1 mb-1">
+          <span class="stat-pill-label text-muted fs-8 fw-semibold text-uppercase tracking-wider text-truncate">
+            <span class="d-none d-sm-inline">Tổng gói cước</span>
+            <span class="d-sm-none">Tổng gói</span>
+          </span>
           <div class="stat-icon-pill-sm bg-primary-soft text-primary flex-shrink-0">
             <i class="fa-solid fa-layer-group"></i>
           </div>
@@ -23,9 +26,12 @@
 
     <!-- Gói đang kích hoạt -->
     <div class="col-6 col-lg-3">
-      <div class="stat-pill-card p-2.5 p-sm-3 rounded-3 border bg-card shadow-xs d-flex flex-column justify-content-between h-100">
-        <div class="d-flex align-items-center justify-content-between gap-1 mb-1.5">
-          <span class="text-muted fs-8 fw-semibold text-uppercase tracking-wider text-truncate">Đang kích hoạt</span>
+      <div class="stat-pill-card p-2 p-sm-3 rounded-3 border bg-card shadow-xs d-flex flex-column justify-content-between h-100">
+        <div class="d-flex align-items-center justify-content-between gap-1 mb-1">
+          <span class="stat-pill-label text-muted fs-8 fw-semibold text-uppercase tracking-wider text-truncate">
+            <span class="d-none d-sm-inline">Đang kích hoạt</span>
+            <span class="d-sm-none">Kích hoạt</span>
+          </span>
           <div class="stat-icon-pill-sm bg-success-soft text-success flex-shrink-0">
             <i class="fa-solid fa-bolt"></i>
           </div>
@@ -45,9 +51,12 @@
 
     <!-- Mức giá cao nhất -->
     <div class="col-6 col-lg-3">
-      <div class="stat-pill-card p-2.5 p-sm-3 rounded-3 border bg-card shadow-xs d-flex flex-column justify-content-between h-100">
-        <div class="d-flex align-items-center justify-content-between gap-1 mb-1.5">
-          <span class="text-muted fs-8 fw-semibold text-uppercase tracking-wider text-truncate">Giá cao nhất</span>
+      <div class="stat-pill-card p-2 p-sm-3 rounded-3 border bg-card shadow-xs d-flex flex-column justify-content-between h-100">
+        <div class="d-flex align-items-center justify-content-between gap-1 mb-1">
+          <span class="stat-pill-label text-muted fs-8 fw-semibold text-uppercase tracking-wider text-truncate">
+            <span class="d-none d-sm-inline">Giá cao nhất</span>
+            <span class="d-sm-none">Giá max</span>
+          </span>
           <div class="stat-icon-pill-sm bg-purple-soft text-purple flex-shrink-0">
             <i class="fa-solid fa-gem"></i>
           </div>
@@ -67,9 +76,12 @@
 
     <!-- Token cấp tối đa -->
     <div class="col-6 col-lg-3">
-      <div class="stat-pill-card p-2.5 p-sm-3 rounded-3 border bg-card shadow-xs d-flex flex-column justify-content-between h-100">
-        <div class="d-flex align-items-center justify-content-between gap-1 mb-1.5">
-          <span class="text-muted fs-8 fw-semibold text-uppercase tracking-wider text-truncate">Token tối đa</span>
+      <div class="stat-pill-card p-2 p-sm-3 rounded-3 border bg-card shadow-xs d-flex flex-column justify-content-between h-100">
+        <div class="d-flex align-items-center justify-content-between gap-1 mb-1">
+          <span class="stat-pill-label text-muted fs-8 fw-semibold text-uppercase tracking-wider text-truncate">
+            <span class="d-none d-sm-inline">Token tối đa</span>
+            <span class="d-sm-none">Token max</span>
+          </span>
           <div class="stat-icon-pill-sm bg-warning-soft text-warning flex-shrink-0">
             <i class="fa-solid fa-coins"></i>
           </div>
@@ -129,23 +141,23 @@
       </div>
 
       <!-- Mobile Layout (< 768px): Structured 2-row layout with ZERO wrapping or squishing -->
-      <div class="d-flex d-md-none flex-column gap-2.5">
+      <div class="d-flex d-md-none flex-column gap-2">
         <!-- Row 1: Title + Count badge on left, Add Plan Button on right -->
         <div class="d-flex align-items-center justify-content-between gap-2">
           <div class="d-flex align-items-center gap-2 min-w-0">
-            <div class="header-badge-icon rounded-3 bg-primary-soft text-primary d-flex align-items-center justify-content-center flex-shrink-0" style="width: 32px; height: 32px;">
+            <div class="header-badge-icon rounded-3 bg-primary-soft text-primary d-flex align-items-center justify-content-center flex-shrink-0">
               <i class="fa-solid fa-paper-plane fs-7"></i>
             </div>
-            <h4 class="card-title fw-bold m-0 text-dark text-nowrap" style="font-size: 1.05rem;">
+            <h4 class="card-title fw-bold m-0 text-dark text-nowrap" style="font-size: 1.02rem;">
               {{ model_view.name_plural }}
             </h4>
-            <span class="badge bg-primary-soft text-primary fw-bold flex-shrink-0" style="font-size: 10.5px; padding: 2px 7px; border-radius: 20px;">
+            <span class="badge bg-primary-soft text-primary fw-bold flex-shrink-0" style="font-size: 10px; padding: 2.5px 7px; border-radius: 12px;">
               {{ pagination.count }} gói
             </span>
           </div>
 
           {% if model_view.check_can_create(request) %}
-            <a href="{{ url_for('admin:create', identity=model_view.identity) }}" class="btn btn-sm btn-primary d-inline-flex align-items-center gap-1 fw-bold px-2.5 py-1.5 shadow-sm rounded-3 flex-shrink-0" style="font-size: 12px;">
+            <a href="{{ url_for('admin:create', identity=model_view.identity) }}" class="btn btn-sm btn-primary d-inline-flex align-items-center gap-1 fw-bold px-2.5 py-1.5 shadow-xs rounded-3 flex-shrink-0" style="font-size: 11.5px;">
               <i class="fa-solid fa-plus"></i> <span>Thêm gói</span>
             </a>
           {% endif %}
@@ -154,10 +166,10 @@
         <!-- Row 2: Clean 50/50 full-width Segmented View Switcher -->
         <div class="view-switch-box p-1 rounded-3 border d-flex gap-1 w-100" role="group" aria-label="Chế độ xem">
           <button type="button" class="view-switch-btn flex-fill text-center active" id="btn-view-cards-mobile" onclick="switchPlansView('cards')">
-            <i class="fa-solid fa-table-cells-large me-1.5"></i> Thẻ Gói (Cards)
+            <i class="fa-solid fa-table-cells-large me-1.5"></i> Thẻ Gói
           </button>
           <button type="button" class="view-switch-btn flex-fill text-center" id="btn-view-table-mobile" onclick="switchPlansView('table')">
-            <i class="fa-solid fa-list me-1.5"></i> Bảng (Table)
+            <i class="fa-solid fa-list me-1.5"></i> Bảng
           </button>
         </div>
       </div>
@@ -238,7 +250,7 @@
                 </div>
 
                 <!-- Token Quota Box -->
-                <div class="plan-token-pill p-2.5 p-sm-3 rounded-3 border mb-3.5 d-flex align-items-center justify-content-between">
+                <div class="plan-token-pill p-2 p-sm-3 rounded-3 border mb-3 d-flex align-items-center justify-content-between">
                   <div class="d-flex align-items-center gap-2 gap-sm-2.5 min-w-0">
                     <div class="token-coin-avatar rounded-circle d-flex align-items-center justify-content-center flex-shrink-0">
                       {% if is_enterprise %}
@@ -250,8 +262,11 @@
                       {% endif %}
                     </div>
                     <div class="min-w-0">
-                      <div class="fs-8 text-muted fw-semibold">Hạn mức Token:</div>
-                      <div class="fs-7 fw-bold text-dark lh-1 mt-0.5">
+                      <div class="plan-token-label fs-8 text-muted fw-semibold">
+                        <span class="d-none d-sm-inline">Hạn mức Token:</span>
+                        <span class="d-sm-none">Hạn mức:</span>
+                      </div>
+                      <div class="plan-token-val fs-7 fw-bold text-dark lh-1 mt-0.5">
                         {{ "{:,.0f}".format(plan.token_amount or 0) }} <span class="fs-8 fw-medium text-muted">Tokens</span>
                       </div>
                     </div>
@@ -457,12 +472,20 @@
   /* ── Compact Stat Pill Cards ────────────────────────────────── */
   .stat-pill-card {
     background: var(--admin-card-bg, #ffffff);
-    border-color: var(--admin-border, #e2e8f0) !important;
-    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+    border: 1px solid var(--admin-border, #e2e8f0) !important;
+    border-radius: 12px;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
   }
   .stat-pill-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05) !important;
+  }
+  .stat-pill-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--admin-text-muted, #64748b);
   }
   .stat-icon-pill {
     width: 44px;
@@ -477,11 +500,11 @@
   .stat-icon-pill-sm {
     width: 28px;
     height: 28px;
-    border-radius: 7px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 13px;
+    font-size: 12.5px;
     flex-shrink: 0;
   }
 
