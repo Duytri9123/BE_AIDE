@@ -845,12 +845,12 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         else:
             for dev in extracted_devices:
                 c = (dev.panel_code or "").strip()
-                if c and c not in ["-", "DB FACADE 12F", "TU_DIEN", "THIET BI", "CHUA_RO"]:
+                if c and c not in ["-", "TU_DIEN", "THIET BI", "CHUA_RO", "CHƯA_RÕ", "CHƯA-XÁC-ĐỊNH"]:
                     detected_panel_code = c
                     break
             for dev in extracted_devices:
                 n = (dev.panel_name or "").strip()
-                if n and "DB FACADE" not in n and "Tủ điện DB FACADE" not in n:
+                if n and n not in ["-", "Tủ điện", "Tủ điện chưa xác định"]:
                     detected_panel_name = n
                     break
             for dev in extracted_devices:
@@ -859,9 +859,9 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                     break
 
             if not detected_panel_code:
-                detected_panel_code = "CHƯA-XÁC-ĐỊNH"
+                detected_panel_code = "DB-01"
             if not detected_panel_name:
-                detected_panel_name = "Tủ điện chưa xác định"
+                detected_panel_name = f"Tủ phân phối điện {detected_panel_code}"
 
         # Tự động gán đồng bộ mã tủ & hãng phù hợp cho toàn bộ thiết bị
         preferred_brand = None
