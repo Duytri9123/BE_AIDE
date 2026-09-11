@@ -60,84 +60,51 @@ async def _call_openai_compatible(base_url: str, api_key: str, model: str, promp
         return {"text": text, "latency_ms": elapsed}
 
 
-async def _call_google_gemini(api_key: str, model: str, prompt: str) -> dict:
-    # Handle versioned model names
-    cleaned_model = model
-    if cleaned_model.startswith("models/"):
-        cleaned_model = cleaned_model[7:]
-    
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{cleaned_model}:generateContent?key={api_key}"
-    gen_config = {
-        "maxOutputTokens": 150,
-        "temperature": 0.2,
-        "thinkingConfig": {"thinkingLevel": "LOW"} if "gemini-3" in cleaned_model.lower() else {"thinkingBudget": 0}
-    }
-    payload = {
-        "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": gen_config
-    }
-    start = time.time()
-    async with httpx.AsyncClient(timeout=25.0) as client:
-        resp = await client.post(url, json=payload)
-        elapsed = int((time.time() - start) * 1000)
-        resp.raise_for_status()
-        data = resp.json()
-        candidates = data.get("candidates", [])
-        if candidates and "content" in candidates[0]:
-            parts = candidates[0]["content"].get("parts", [])
-            text = parts[0].get("text", "") if parts else ""
-        else:
-            text = str(data)
-        return {"text": text, "latency_ms": elapsed}
-
-
 async def _call_antigravity(api_key: str, model: str, prompt: str) -> dict:
     start = time.time()
     clean_key = api_key.strip()
+    auth_header = clean_key if clean_key.lower().startswith("bearer ") else f"Bearer {clean_key}"
+    target_model = normalize_antigravity_model(model)
 
-    # Case 1: Google OAuth Bearer Token (ya29...) -> Antigravity Cloud Code Endpoint
-    if clean_key.startswith("ya29."):
-        target_model = normalize_antigravity_model(model)
-
-        url = "https://daily-cloudcode-pa.googleapis.com/v1internal:generateContent"
-        headers = {
-            "Authorization": f"Bearer {clean_key}",
-            "Content-Type": "application/json",
-            "User-Agent": "antigravity/ide/2.1.1 darwin/arm64",
-            "x-request-source": "local",
-        }
-        payload = {
-            "project": "cloudaicompanion-project",
-            "model": target_model,
-            "userAgent": "antigravity",
-            "requestType": "agent",
-            "requestId": f"agent/{uuid.uuid4()}/{int(time.time() * 1000)}/{uuid.uuid4()}/1",
-            "request": {
-                "sessionId": f"-{int(time.time() * 1000)}",
-                "contents": [{"role": "user", "parts": [{"text": prompt}]}],
-                "generationConfig": {
-                    "maxOutputTokens": 150,
-                    "temperature": 0.2,
-                    "thinkingConfig": {"thinkingLevel": "LOW"} if "gemini-3" in target_model.lower() else {"thinkingBudget": 0}
-                }
+    url = "https://daily-cloudcode-pa.googleapis.com/v1internal:generateContent"
+    headers = {
+        "Authorization": auth_header,
+        "Content-Type": "application/json",
+        "User-Agent": "antigravity/ide/2.1.1 darwin/arm64",
+        "x-request-source": "local",
+    }
+    payload = {
+        "project": "cloudaicompanion-project",
+        "model": target_model,
+        "userAgent": "antigravity",
+        "requestType": "agent",
+        "requestId": f"agent/{uuid.uuid4()}/{int(time.time() * 1000)}/{uuid.uuid4()}/1",
+        "request": {
+            "sessionId": f"-{int(time.time() * 1000)}",
+            "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+            "generationConfig": {
+                "maxOutputTokens": 150,
+                "temperature": 0.2,
             }
         }
-        async with httpx.AsyncClient(timeout=25.0) as client:
-            resp = await client.post(url, headers=headers, json=payload)
-            elapsed = int((time.time() - start) * 1000)
-            resp.raise_for_status()
-            data = resp.json()
-            resp_obj = data.get("response", data)
-            candidates = resp_obj.get("candidates", [])
-            if candidates and "content" in candidates[0]:
-                parts = candidates[0]["content"].get("parts", [])
-                text = "".join(p.get("text", "") for p in parts if "text" in p)
-            else:
-                text = str(data)
-            return {"text": text, "latency_ms": elapsed}
-
-    # Fallback cho Antigravity nếu dùng Google API Key thông thường (AIza...)
-    return await _call_google_gemini(api_key, model, prompt)
+    }
+    async with httpx.AsyncClient(timeout=httpx.Timeout(15.0, connect=5.0)) as client:
+        resp = await client.post(url, headers=headers, json=payload)
+        elapsed = int((time.time() - start) * 1000)
+        if resp.status_code == 401:
+            raise Exception("HTTP 401: Antigravity OAuth Bearer token không hợp lệ hoặc đã hết hạn.")
+        elif resp.status_code == 429:
+            raise Exception(f"HTTP 429 (Antigravity): Vượt quá giới hạn request cho model '{target_model}'.")
+        resp.raise_for_status()
+        data = resp.json()
+        resp_obj = data.get("response", data)
+        candidates = resp_obj.get("candidates", [])
+        if candidates and "content" in candidates[0]:
+            parts = candidates[0]["content"].get("parts", [])
+            text = "".join(p.get("text", "") for p in parts if isinstance(p, dict) and "text" in p)
+        else:
+            text = str(data)
+        return {"text": text, "latency_ms": elapsed}
 
 
 async def _call_google_gemini(api_key: str, model: str, prompt: str) -> dict:
@@ -175,13 +142,12 @@ async def _call_google_gemini(api_key: str, model: str, prompt: str) -> dict:
     gen_config = {
         "maxOutputTokens": 150,
         "temperature": 0.2,
-        "thinkingConfig": {"thinkingLevel": "LOW"} if "gemini-3" in cleaned_model.lower() else {"thinkingBudget": 0}
     }
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": gen_config
     }
-    async with httpx.AsyncClient(timeout=25.0) as client:
+    async with httpx.AsyncClient(timeout=httpx.Timeout(15.0, connect=5.0)) as client:
         resp = await client.post(url, json=payload)
         elapsed = int((time.time() - start) * 1000)
         if resp.status_code == 200:

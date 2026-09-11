@@ -93,10 +93,8 @@ class Settings(BaseSettings):
     SUPPORTED_PDF_FORMATS: List[str] = ["pdf"]
     
     # AI Vision Settings
-    # A stalled Vision request used to hold one PDF page for two minutes;
-    # 60s is sufficient for the rendered SLD pages and lets the pool move
-    # to the next active account when a provider is unresponsive.
-    AI_VISION_TIMEOUT: int = 60  # seconds
+    # Giảm timeout từ 60s xuống 15s để xử lý nhanh gọn, ngắt ngay khi kết nối bị treo/timeout
+    AI_VISION_TIMEOUT: int = 15  # seconds
     AI_VISION_MAX_RETRIES: int = 3
     AI_VISION_RETRY_BACKOFF: int = 2  # seconds
     AI_MAX_OUTPUT_TOKENS: int = 8192  # Tăng từ 4096 để hỗ trợ bản vẽ nhiều tủ lớn

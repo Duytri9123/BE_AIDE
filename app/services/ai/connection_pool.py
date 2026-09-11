@@ -173,7 +173,22 @@ class ConnectionPoolService:
                 continue
 
             disabled_account_ids: set[int] = set()
+            failed_base_models: set[str] = set()
             for model_idx, model_to_use in enumerate(candidate_models):
+                # Rút ngắn thời gian chờ: nếu model gốc của biến thể này đã thất bại trên toàn bộ tài khoản
+                # thì bỏ qua các biến thể tiered tiếp theo (ví dụ: gemini-3.6-flash đã timeout ở high thì bỏ qua medium & low)
+                raw_base = (model_to_use or "").removeprefix("ag/").removeprefix("models/")
+                for sfx in ["-tiered(high)", "-tiered(medium)", "-tiered(low)", "-high", "-medium", "-low"]:
+                    raw_base = raw_base.replace(sfx, "")
+                raw_base = raw_base.strip().lower()
+
+                if raw_base in failed_base_models:
+                    logger.info(
+                        "ConnectionPool: Bỏ qua biến thể '%s' vì model gốc '%s' đã thất bại trên toàn bộ tài khoản.",
+                        model_to_use, raw_base
+                    )
+                    continue
+
                 attempted_accounts = 0
                 for provider_conn_idx, conn in enumerate(provider_accounts):
                     if conn.id in disabled_account_ids:
@@ -239,12 +254,14 @@ class ConnectionPoolService:
                             )
                             break
 
-                if attempted_accounts and model_idx + 1 < len(candidate_models):
-                    next_model = candidate_models[model_idx + 1]
-                    logger.warning(
-                        "ConnectionPool: tất cả tài khoản %s đã lỗi với model '%s'; mới hạ xuống model '%s'.",
-                        provider, model_to_use, next_model,
-                    )
+                if attempted_accounts:
+                    failed_base_models.add(raw_base)
+                    if model_idx + 1 < len(candidate_models):
+                        next_model = candidate_models[model_idx + 1]
+                        logger.warning(
+                            "ConnectionPool: tất cả tài khoản %s đã lỗi với model '%s'; chuyển sang model '%s'.",
+                            provider, model_to_use, next_model,
+                        )
 
         # Toàn bộ connections và candidate models đều thất bại
         formatted_chain = "\n".join(f"  • {err}" for err in errors_log)

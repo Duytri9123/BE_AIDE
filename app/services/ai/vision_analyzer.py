@@ -97,11 +97,13 @@ class VisionAnalyzerService:
             result = None
             if prov in ["openai", "codex"]:
                 result = await VisionAnalyzerService._call_openai(img_b64, prompt, api_key, model, provider_name=provider)
-            elif prov in ["gemini", "google", "antigravity"]:
+            elif prov == "antigravity":
+                result = await VisionAnalyzerService._call_antigravity(img_b64, prompt, api_key, model)
+            elif prov in ["gemini", "google"]:
                 cleaned_model = model
                 if cleaned_model.startswith("ag/"):
                     cleaned_model = cleaned_model[3:]
-                result = await VisionAnalyzerService._call_gemini(img_b64, prompt, api_key, cleaned_model)
+                result = await VisionAnalyzerService._call_google_genai(img_b64, prompt, api_key, cleaned_model, provider_name="Google")
             else:
                 raise AIVisionError(
                     f"Provider không được hỗ trợ: {provider}",
@@ -143,11 +145,13 @@ class VisionAnalyzerService:
         result = None
         if prov in ["openai", "codex"]:
             result = await VisionAnalyzerService._call_openai("", prompt, api_key, model, provider_name=provider)
-        elif prov in ["gemini", "google", "antigravity"]:
+        elif prov == "antigravity":
+            result = await VisionAnalyzerService._call_antigravity("", prompt, api_key, model)
+        elif prov in ["gemini", "google"]:
             cleaned_model = model
             if cleaned_model.startswith("ag/"):
                 cleaned_model = cleaned_model[3:]
-            result = await VisionAnalyzerService._call_gemini("", prompt, api_key, cleaned_model)
+            result = await VisionAnalyzerService._call_google_genai("", prompt, api_key, cleaned_model, provider_name="Google")
         else:
             raise AIVisionError(
                 f"Provider không được hỗ trợ: {provider}",
@@ -224,15 +228,14 @@ class VisionAnalyzerService:
         if any(r in (model or "").lower() for r in ["o1", "o3", "o4"]):
             payload["reasoning_effort"] = "low"
         
-        timeout = settings.AI_VISION_TIMEOUT
+        timeout = float(settings.AI_VISION_TIMEOUT)
         
         try:
-            async with httpx.AsyncClient() as client:
+            async with httpx.AsyncClient(timeout=httpx.Timeout(timeout, connect=5.0)) as client:
                 resp = await client.post(
                     f"{(base_url or settings.AI_COMPATIBLE_DEFAULT_BASE_URL).rstrip('/')}/chat/completions",
                     json=payload,
                     headers=headers,
-                    timeout=timeout
                 )
                 
                 if resp.status_code == 401:
@@ -265,7 +268,7 @@ class VisionAnalyzerService:
         except httpx.TimeoutException as e:
             logger.error(f"{provider_name} timeout after {timeout}s: {str(e)}")
             raise AITimeoutError(
-                f"Hết thời gian chờ {timeout}s khi gọi {provider_name}",
+                f"Hết thời gian chờ {int(timeout)}s khi gọi {provider_name}",
                 {"timeout": timeout, "error": str(e)}
             )
         except httpx.NetworkError as e:
@@ -284,32 +287,23 @@ class VisionAnalyzerService:
             )
 
     @staticmethod
-    async def _call_gemini(img_b64: str, prompt: str, api_key: str, model: str) -> str:
-        """Call Gemini API using the model explicitly selected in BE."""
+    async def _call_gemini(img_b64: str, prompt: str, api_key: str, model: str, provider_name: str = "Google") -> str:
+        """Gọi Google Generative AI trực tiếp."""
         clean_key = api_key.strip()
         target_model = (model or "").strip()
-        if not target_model:
-            raise AIVisionError(
-                "Chưa chọn model cho kết nối AI trong BE. Vui lòng chọn model trước khi phân tích.",
-                {"hint": "missing_selected_model"},
-            )
         if target_model.startswith("ag/"):
             target_model = target_model[3:]
-
-        # Case 1: Antigravity OAuth Bearer Token (ya29...)
-        if clean_key.startswith("ya29."):
-            return await VisionAnalyzerService._call_antigravity(img_b64, prompt, clean_key, target_model)
-
-        # Case 2: Google Generative Language API Key (AIzaSy...)
-        return await VisionAnalyzerService._call_google_genai(img_b64, prompt, clean_key, target_model)
+        return await VisionAnalyzerService._call_google_genai(img_b64, prompt, clean_key, target_model, provider_name=provider_name)
     
     @staticmethod
     async def _call_antigravity(img_b64: str, prompt: str, token: str, model: str) -> str:
-        """Call Antigravity API với OAuth token"""
+        """Call Antigravity API với OAuth token (xử lý độc lập)"""
+        clean_token = token.strip()
+        auth_header = clean_token if clean_token.lower().startswith("bearer ") else f"Bearer {clean_token}"
         mapped_model = normalize_antigravity_model(model)
         url = "https://daily-cloudcode-pa.googleapis.com/v1internal:generateContent"
         headers = {
-            "Authorization": f"Bearer {token}",
+            "Authorization": auth_header,
             "Content-Type": "application/json",
             "User-Agent": "antigravity/ide/2.1.1 darwin/arm64",
             "x-request-source": "local",
@@ -333,13 +327,13 @@ class VisionAnalyzerService:
                 "generationConfig": {
                     "maxOutputTokens": settings.AI_MAX_OUTPUT_TOKENS,
                     "temperature": 0.1,
-                    "thinkingConfig": {"thinkingLevel": "LOW"} if "gemini-3" in mapped_model.lower() else {"thinkingBudget": 0}
                 }
             }
         }
         
+        timeout = float(settings.AI_VISION_TIMEOUT)
         try:
-            async with httpx.AsyncClient(timeout=float(settings.AI_VISION_TIMEOUT)) as client:
+            async with httpx.AsyncClient(timeout=httpx.Timeout(timeout, connect=5.0)) as client:
                 resp = await client.post(url, headers=headers, json=payload)
                 
                 if resp.status_code == 401:
@@ -371,10 +365,10 @@ class VisionAnalyzerService:
                 )
                 
         except httpx.TimeoutException as e:
-            logger.error(f"Antigravity timeout: {str(e)}")
+            logger.error(f"Antigravity timeout sau {int(timeout)}s: {str(e)}")
             raise AITimeoutError(
-                f"Hết thời gian chờ {settings.AI_VISION_TIMEOUT}s khi gọi Antigravity API",
-                {"timeout": settings.AI_VISION_TIMEOUT, "error": str(e)}
+                f"Hết thời gian chờ {int(timeout)}s khi gọi Antigravity API",
+                {"timeout": timeout, "error": str(e)}
             )
         except (AIAuthenticationError, AIRateLimitError, AITimeoutError, AIVisionError):
             raise
@@ -386,9 +380,15 @@ class VisionAnalyzerService:
             )
     
     @staticmethod
-    async def _call_google_genai(img_b64: str, prompt: str, api_key: str, target_model: str) -> str:
-        """Call Google Generative Language API — chỉ dùng model được chỉ định, không tự ý fallback sang model khác."""
-        # Làm sạch suffix tiered/quality khỏi tên model (chỉ áp dụng cho Antigravity naming)
+    async def _call_google_genai(
+        img_b64: str,
+        prompt: str,
+        api_key: str,
+        target_model: str,
+        provider_name: str = "Google"
+    ) -> str:
+        """Call Google Generative AI API (Google API key) — chỉ dùng model được chỉ định, không tự ý fallback sang model khác."""
+        # Làm sạch suffix tiered/quality khỏi tên model
         clean_model_name = (
             target_model
             .replace("-tiered(high)", "")
@@ -411,12 +411,12 @@ class VisionAnalyzerService:
             raise AIVisionError(
                 f"Model '{clean_model_name}' không tương thích với Google API Key. "
                 "Vui lòng kiểm tra lại cấu hình provider và model trong Admin → Kết nối AI. "
-                "Chỉ sử dụng Google API Key với các model Gemini (ví dụ: gemini-2.5-flash).",
-                {"model": clean_model_name, "provider": "google", "hint": "use_gemini_model"}
+                "Chỉ sử dụng API Key này với các model Gemini (ví dụ: gemini-2.5-flash, gemini-2.5-pro).",
+                {"model": clean_model_name, "provider": provider_name, "hint": "use_gemini_model"}
             )
 
         # Gọi DUY NHẤT model được chỉ định — tắt thinking/reasoning để tối ưu tốc độ
-        timeout = settings.AI_VISION_TIMEOUT
+        timeout = float(settings.AI_VISION_TIMEOUT)
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{clean_model_name}:generateContent?key={api_key}"
         gen_parts = [{"text": prompt}]
         if img_b64:
@@ -426,11 +426,6 @@ class VisionAnalyzerService:
             "maxOutputTokens": settings.AI_MAX_OUTPUT_TOKENS,
             "temperature": 0.1,
         }
-        # Tắt hoặc tối thiểu hoá thinking/reasoning để rút ngắn tối đa thời gian phản hồi
-        if "gemini-3" in clean_model_name.lower():
-            generation_config["thinkingConfig"] = {"thinkingLevel": "LOW"}
-        else:
-            generation_config["thinkingConfig"] = {"thinkingBudget": 0}
 
         payload = {
             "contents": [{
@@ -439,18 +434,10 @@ class VisionAnalyzerService:
             "generationConfig": generation_config
         }
 
-        async with httpx.AsyncClient(timeout=float(timeout)) as client:
+        async with httpx.AsyncClient(timeout=httpx.Timeout(timeout, connect=5.0)) as client:
             try:
-                logger.info(f"Calling exact model: {clean_model_name} (thinking disabled)")
+                logger.info(f"Calling exact model: {clean_model_name} via {provider_name} (thinking disabled, timeout={timeout}s)")
                 resp = await client.post(url, json=payload)
-                if resp.status_code == 400 and "thinking" in resp.text.lower():
-                    # Fallback phòng thủ nếu model không hỗ trợ thinkingConfig
-                    logger.warning(f"Model {clean_model_name} không nhận thinkingConfig, retry không kèm thinkingConfig")
-                    fallback_payload = {
-                        "contents": [{"parts": gen_parts}],
-                        "generationConfig": {"maxOutputTokens": settings.AI_MAX_OUTPUT_TOKENS, "temperature": 0.1}
-                    }
-                    resp = await client.post(url, json=fallback_payload)
                 if resp.status_code == 200:
                     data = resp.json()
                     if "candidates" in data and len(data["candidates"]) > 0:
@@ -467,7 +454,7 @@ class VisionAnalyzerService:
 
                 if resp.status_code == 401:
                     raise AIAuthenticationError(
-                        "Google API Key không hợp lệ hoặc đã hết hạn",
+                        f"Khóa API {provider_name} không hợp lệ hoặc đã hết hạn",
                         {"status_code": 401}
                     )
                 elif resp.status_code == 429:
@@ -482,22 +469,22 @@ class VisionAnalyzerService:
                     except Exception:
                         pass
                     raise AIRateLimitError(
-                        f"Google Gemini API (model '{clean_model_name}') trả về HTTP 429: Vượt quá giới hạn hạn ngạch{retry_note}.",
+                        f"{provider_name} API (model '{clean_model_name}') trả về HTTP 429: Vượt quá giới hạn hạn ngạch{retry_note}.",
                         {"status_code": 429, "model": clean_model_name, "detail": resp.text[:300]}
                     )
                 elif resp.status_code == 404:
                     raise AIVisionError(
-                        f"Model '{clean_model_name}' không tồn tại hoặc không được hỗ trợ trên Google API.",
+                        f"Model '{clean_model_name}' không tồn tại hoặc không được hỗ trợ trên cổng {provider_name}.",
                         {"status_code": 404, "model": clean_model_name}
                     )
                 elif resp.status_code == 400:
                     raise AIVisionError(
-                        f"Yêu cầu không hợp lệ khi gọi model '{clean_model_name}': {resp.text[:300]}",
+                        f"Yêu cầu không hợp lệ khi gọi {provider_name} model '{clean_model_name}': {resp.text[:300]}",
                         {"status_code": 400, "model": clean_model_name}
                     )
                 elif resp.status_code == 503:
                     raise AIVisionError(
-                        f"Google Gemini service tạm thời không khả dụng (503) — model: {clean_model_name}.",
+                        f"{provider_name} service tạm thời không khả dụng (503) — model: {clean_model_name}.",
                         {"status_code": 503, "model": clean_model_name}
                     )
                 else:
@@ -505,13 +492,13 @@ class VisionAnalyzerService:
 
             except httpx.TimeoutException as e:
                 raise AITimeoutError(
-                    f"Hết thời gian chờ {timeout}s khi gọi Gemini model '{clean_model_name}'",
+                    f"Hết thời gian chờ {int(timeout)}s khi gọi {provider_name} model '{clean_model_name}'",
                     {"timeout": timeout, "model": clean_model_name, "error": str(e)}
                 )
             except (AIAuthenticationError, AIRateLimitError, AITimeoutError, AIVisionError):
                 raise
             except Exception as ex:
                 raise AIVisionError(
-                    f"Lỗi khi gọi Google Gemini model '{clean_model_name}': {str(ex)}",
+                    f"Lỗi khi gọi {provider_name} model '{clean_model_name}': {str(ex)}",
                     {"model": clean_model_name, "error": str(ex)}
                 )
