@@ -18,4 +18,4 @@ Write-Host "Starting uvicorn server on port 8000..." -ForegroundColor Yellow
 Write-Host "API Docs will be available at: http://localhost:8000/docs" -ForegroundColor Cyan
 Write-Host "Admin Panel: http://localhost:8000/admin`n" -ForegroundColor Cyan
 
-python -m uvicorn app.main:app --reload --port 8000 --host 0.0.0.0
+python -m uvicorn app.main:app --reload --port 8000 --host 0.0.0.0 --proxy-headers --forwarded-allow-ips="*"

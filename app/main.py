@@ -24,9 +24,16 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title=settings.PROJECT_NAME, version=settings.VERSION, lifespan=lifespan)
 
+from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
+app.add_middleware(ProxyHeadersMiddleware, trusted_hosts="*")
+
+# Filter out wildcard '*' from explicit origins when allow_credentials=True to satisfy Starlette CORS constraints
+cors_origins = [o.strip() for o in settings.CORS_ORIGINS if o.strip() != "*"] if isinstance(settings.CORS_ORIGINS, list) else []
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
+    allow_origins=cors_origins if cors_origins else ["*"],
+    allow_origin_regex=r"https?://.*",  # Hỗ trợ mọi domain Cloudflare Tunnel (*.trycloudflare.com, *.dgpelectric.top, localhost)
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
