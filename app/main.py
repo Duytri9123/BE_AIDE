@@ -54,7 +54,7 @@ app.include_router(api_router, prefix=settings.API_V1_STR)
 
 @app.get("/")
 async def root():
-    return RedirectResponse(url="https://dgpelectric.top", status_code=302)
+    return RedirectResponse(url="/admin", status_code=302)
 
 @app.get("/health")
 async def health_check():
