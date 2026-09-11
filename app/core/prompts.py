@@ -31,7 +31,7 @@ Quy tắc bóc tách bắt buộc:
 4. MÃ TỦ VÀ TÊN TỦ BÓC TÁCH TỪ BẢN VẼ (KHÔNG BỊA MÃ MẪU):
    - panel_code: Đọc chính xác mã tủ ghi trên bản vẽ (ví dụ: MSB-01, DB-01, LP-01, TD-A1, TS-A2.1). Nếu bản vẽ không ghi mã rõ ràng, để chuỗi rỗng; không suy luận hoặc tự tạo mã.
    - panel_name: Tên tiếng Việt phân tích theo chức năng kỹ thuật của tủ trên bản vẽ (ví dụ: 'Tủ phân phối tổng MSB', 'Tủ điện chiếu sáng & điều khiển LP', 'Tủ phân phối điện tầng DB').
-5. TỌA ĐỘ VÙNG DẪN CHỨNG (box_2d): Trả về toạ độ [ymin, xmin, ymax, xmax] (chuẩn hóa 0-1000) bao quanh chính xác ký hiệu và nhãn của từng thiết bị trên ảnh.
+5. TỌA ĐỘ VÙNG DẪN CHỨNG (box_2d): Trả về toạ độ [ymin, xmin, ymax, xmax] (chuẩn hóa 0-1000) bao quanh chính xác ký hiệu và nhãn của từng thiết bị trên ảnh. ĐẶC BIỆT: Thiết bị nào thì đóng khung đúng vị trí ký hiệu của thiết bị đó trên sơ đồ, TUYỆT ĐỐI KHÔNG đóng khung lệch lên đoạn cáp nguồn phía trên hay điểm đấu nối ngoài vùng ký hiệu.
 6. ĐÁNH GIÁ TÍNH PHÙ HỢP CỦA TỆP: Đánh giá xem hình ảnh có phải là sơ đồ nguyên lý điện / bản vẽ tủ điện không. Nếu không liên quan (ví dụ mặt bằng kiến trúc, hồ sơ xây dựng, ảnh linh tinh), ghi rõ lý do và cảnh báo.
 7. KÍCH THƯỚC VỎ TỦ: Tìm kiếm và trích xuất kích thước vỏ tủ trên bản vẽ nếu có (ví dụ: 'TỦ 1200X800X400', '1200x800x400', 'W800xH1200xD400'). Nếu có ghi kích thước vỏ tủ, ghi chính xác vào trường 'enclosure_dimensions'.
 8. NHÀ CUNG CẤP CHO TỪNG THIẾT BỊ: Nhận diện chính xác thương hiệu ghi trên bản vẽ (Mitsubishi, Schneider, LS, ABB, Selec, Mikro, Emic...). Nếu không có hãng, để brand rỗng. Chỉ đưa hãng/model vào suggested_brands/catalog proposal khi đủ thông số đối chiếu; không bịa mã hàng.
@@ -42,7 +42,13 @@ Quy tắc bóc tách bắt buộc:
 10. PHÂN BIỆT THIẾT BỊ THỂ HIỆN VÀ THIẾT BỊ ĐI KÈM:
    - MỌI ký hiệu, nhãn, mã lộ, nhánh dây hoặc phần tử được thể hiện độc lập trên sơ đồ PHẢI là một dòng trong `devices`, kể cả thiết bị điều khiển/phụ trợ.
    - `accompanying_accessories` CHỈ được dùng khi trên chính sơ đồ có bằng chứng liên kết rõ ràng (dây, tiếp điểm, ghi chú hoặc ký hiệu nằm trong cùng cụm) nhưng phần tử không có tag độc lập. Không thêm phụ kiện chỉ vì thông lệ thiết kế. Không đưa một phần tử đang vẽ độc lập trên SLD vào danh sách thiết bị đi kèm.
-11. TỐI ƯU TỐC ĐỘ (BỎ QUA THINKING): Bỏ qua hoàn toàn bước suy nghĩ/reasoning. TUYỆT ĐỐI KHÔNG xuất thẻ <thinking>, <thought>, <think> hay lời giải thích, mở đầu, kết luận. Bắt đầu trả về NGAY LẬP TỨC khối JSON ```json ... ```.
+11. TÁCH BIỆT HOÀN TOÀN CẦU CHÌ VÀ ĐÈN BÁO PHA (FUSE & PILOT LIGHT):
+   - Cầu chì (FUSE / ký hiệu hình chữ nhật có đường gạch hoặc chữ FUSE, FU, 1x6A) và Đèn báo pha (LIGHT / ký hiệu tròn dấu chéo ⊗ hoặc chữ R, S, T, Đèn báo) là HAI THIẾT BỊ VẬT LÝ HOÀN TOÀN ĐỘC LẬP.
+   - TUYỆT ĐỐI KHÔNG GỘP thành một dòng như "Cầu chì & Đèn báo pha". BẮT BUỘC TÁCH THÀNH 2 DÒNG THIẾT BỊ RIÊNG BIỆT:
+     + Dòng 1: tag 'FU1' (hoặc 'FU'), category: 'FUSE', name: 'Cầu chì bảo vệ tín hiệu' (hoặc 'Cầu chì 1x6A'), spec: '1x6A', quantity: 1, section: 'Đo lường & Giám sát', box_2d: bao quanh đúng ký hiệu cầu chì và chữ FUSE/1x6A.
+     + Dòng 2: tag 'HL1' (hoặc 'R'), category: 'LIGHT', name: 'Đèn báo pha R', spec: 'Đèn báo pha 220V', quantity: 1, section: 'Đo lường & Giám sát', box_2d: bao quanh đúng ký hiệu hình tròn ⊗ và nhãn R.
+   - TUYỆT ĐỐI KHÔNG lấy vùng dẫn chứng box_2d của Cầu chì hoặc Đèn báo pha đặt lên đoạn cáp nguồn cấp (Cu/PVC...) ở phía trên!
+12. TỐI ƯU TỐC ĐỘ (BỎ QUA THINKING): Bỏ qua hoàn toàn bước suy nghĩ/reasoning. TUYỆT ĐỐI KHÔNG xuất thẻ <thinking>, <thought>, <think> hay lời giải thích, mở đầu, kết luận. Bắt đầu trả về NGAY LẬP TỨC khối JSON ```json ... ```.
 
 Định dạng trả về duy nhất trong khối ```json ... ``` theo cấu trúc JSON:
 {
@@ -132,7 +138,7 @@ Quy tắc bóc tách bắt buộc:
    - TUYỆT ĐỐI KHÔNG gộp các nhánh hoặc các contactor có cùng thông số thành quantity > 1 (ví dụ TUYỆT ĐỐI KHÔNG gộp 8 contactor C thành 1 dòng quantity = 8), vì mỗi thiết bị có vị trí lắp đặt và tọa độ box_2d ảnh dẫn chứng riêng.
    - Trường hợp duy nhất được đặt quantity > 1 là cụm đèn báo pha 3 pha R-Y-B (quantity = 3).
 5. NHẬN DIỆN NHÀ CUNG CẤP: Nhận diện chính xác tên hoặc logo hãng ghi trên bản vẽ. Nếu bản vẽ không ghi hãng, để brand là chuỗi rỗng. Chỉ đề xuất hãng/model khác trong suggested_brands khi đủ thông số để đối chiếu; không bịa mã hàng.
-6. TỌA ĐỘ VÙNG DẪN CHỨNG (box_2d): Trả về toạ độ [ymin, xmin, ymax, xmax] (chuẩn hóa 0-1000) bao quanh chính xác ký hiệu và nhãn của từng thiết bị.
+6. TỌA ĐỘ VÙNG DẪN CHỨNG (box_2d): Trả về toạ độ [ymin, xmin, ymax, xmax] (chuẩn hóa 0-1000) bao quanh chính xác ký hiệu và nhãn của từng thiết bị. ĐẶC BIỆT: Đóng khung đúng vị trí ký hiệu của thiết bị đó trên sơ đồ, TUYỆT ĐỐI KHÔNG đóng khung lệch lên đoạn cáp nguồn phía trên.
 7. BÓC TÁCH CỤM THIẾT BỊ & PHỤ KIỆN ĐI KÈM (accompanying_accessories):
    - MỌI phần tử có ký hiệu, nhãn hoặc nhánh độc lập trên SLD phải nằm trong `devices`, không được đưa vào danh sách này.
    - Chỉ phân tích phụ kiện đi kèm khi có bằng chứng cụ thể ngay trên SLD qua dây nối, tiếp điểm, chú thích hoặc ký hiệu trong cùng cụm. Không được tự thêm CT, cầu chì, shunt trip, rơ-le nhiệt, khóa liên động hay bất kỳ phụ kiện nào chỉ vì chúng thường được sử dụng cùng thiết bị chính.
@@ -151,8 +157,12 @@ Quy tắc bóc tách bắt buộc:
    - Quét từng thanh cái, lộ nhánh, ký hiệu và nhãn trên trang. Mọi phần tử được vẽ hoặc ghi độc lập phải thành một dòng trong `devices`: MCCB/MCB/RCBO, contactor, nút nhấn, đèn báo, cầu chì, shunt trip FA, CT, relay, timer, đồng hồ...
    - `accompanying_accessories` chỉ chứa phần tử có bằng chứng liên kết trên SLD nhưng không có tag độc lập. Không dùng nó cho contactor, nút nhấn, FA hay cầu chì đã hiện riêng trên sơ đồ, và không suy diễn phụ kiện ngoài sơ đồ.
    - TUYỆT ĐỐI KHÔNG gộp các thiết bị cùng loại (như Contactor, MCB, Nút ấn) thành một dòng quantity > 1. Mỗi thiết bị ứng với một nhánh/mã lộ trên sơ đồ SLD phải là một dòng riêng biệt với quantity = 1.
-10. XÁC MINH TRANG PDF: Chỉ trả thiết bị nếu trang đang xem thật sự có sơ đồ điện hoặc phần tử điện có thể đọc được. Với trang mặt bằng, bìa, ghi chú chung hoặc bản vẽ không có thiết bị điện, trả `devices: []` và ghi rõ trong `file_assessment`; tuyệt đối không suy đoán hoặc tạo thiết bị mẫu.
-11. TỐI ƯU TỐC ĐỘ (BỎ QUA THINKING): Bỏ qua hoàn toàn bước suy nghĩ/reasoning. TUYỆT ĐỐI KHÔNG xuất thẻ <thinking>, <thought>, <think> hay lời giải thích, mở đầu, kết luận. Bắt đầu trả về NGAY LẬP TỨC khối JSON ```json ... ```.
+10. TÁCH BIỆT HOÀN TOÀN CẦU CHÌ VÀ ĐÈN BÁO PHA (FUSE & PILOT LIGHT):
+   - Cầu chì (FUSE) và Đèn báo pha (LIGHT / R, S, T) là HAI THIẾT BỊ VẬT LÝ HOÀN TOÀN ĐỘC LẬP.
+   - TUYỆT ĐỐI KHÔNG GỘP thành một dòng như "Cầu chì & Đèn báo pha". BẮT BUỘC TÁCH THÀNH 2 DÒNG THIẾT BỊ: một dòng cho Cầu chì (category: FUSE, tag FU) và một dòng cho Đèn báo pha (category: LIGHT, tag HL).
+   - TUYỆT ĐỐI KHÔNG đóng khung box_2d lệch lên đường cáp nguồn (Cu/PVC) phía trên.
+11. XÁC MINH TRANG PDF: Chỉ trả thiết bị nếu trang đang xem thật sự có sơ đồ điện hoặc phần tử điện có thể đọc được. Với trang mặt bằng, bìa, ghi chú chung hoặc bản vẽ không có thiết bị điện, trả `devices: []` và ghi rõ trong `file_assessment`; tuyệt đối không suy đoán hoặc tạo thiết bị mẫu.
+12. TỐI ƯU TỐC ĐỘ (BỎ QUA THINKING): Bỏ qua hoàn toàn bước suy nghĩ/reasoning. TUYỆT ĐỐI KHÔNG xuất thẻ <thinking>, <thought>, <think> hay lời giải thích, mở đầu, kết luận. Bắt đầu trả về NGAY LẬP TỨC khối JSON ```json ... ```.
 
 Định dạng trả về duy nhất trong khối ```json ... ``` theo cấu trúc JSON:
 {

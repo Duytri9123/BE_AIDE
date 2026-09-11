@@ -119,7 +119,53 @@ class ResponseParserService:
                     items_to_process = block["devices"]
                 elif "items" in block and isinstance(block["items"], list):
                     items_to_process = block["items"]
-            
+
+            # Auto-split any mistakenly merged Fuse & Pilot Light items
+            expanded_items = []
+            for item in items_to_process:
+                if not isinstance(item, dict):
+                    continue
+                name_lower = str(item.get("name") or "").lower()
+                cat_lower = str(item.get("category") or "").lower()
+                tag_lower = str(item.get("tag") or "").lower()
+                is_merged = (
+                    ("cầu chì" in name_lower or "fuse" in name_lower or cat_lower == "fuse" or "fu" in tag_lower)
+                    and ("đèn" in name_lower or "báo pha" in name_lower or "pilot" in name_lower or "light" in name_lower or cat_lower == "light" or "hl" in tag_lower)
+                )
+                if is_merged:
+                    fuse_item = dict(item)
+                    fuse_item["category"] = "FUSE"
+                    fuse_item["tag"] = item.get("tag") if (item.get("tag") and "fu" in str(item.get("tag")).lower()) else "FU1"
+                    fuse_item["name"] = "Cầu chì bảo vệ tín hiệu (1x6A)"
+                    fuse_item["spec"] = item.get("spec") or "1x6A"
+                    fuse_item["quantity"] = 1
+                    fuse_item["section"] = item.get("section") or "Đo lường & Giám sát"
+                    fuse_item["electrical_function"] = "MEASUREMENT"
+                    fuse_item["notes"] = "Bảo vệ mạch tín hiệu đèn báo pha đầu vào tủ điện."
+
+                    light_item = dict(item)
+                    light_item["category"] = "LIGHT"
+                    light_item["tag"] = "HL1"
+                    light_item["name"] = "Đèn báo pha R"
+                    light_item["spec"] = "Đèn báo pha 220V"
+                    light_item["quantity"] = 1
+                    light_item["section"] = item.get("section") or "Đo lường & Giám sát"
+                    light_item["electrical_function"] = "MEASUREMENT"
+                    light_item["notes"] = "Đèn báo có điện nguồn cấp pha R đầu vào tủ điện."
+
+                    orig_box = item.get("box_2d")
+                    if isinstance(orig_box, list) and len(orig_box) == 4:
+                        ymin, xmin, ymax, xmax = orig_box
+                        mid_x = (xmin + xmax) // 2
+                        light_item["box_2d"] = [ymin, xmin, ymax, max(xmin + 1, mid_x)]
+                        fuse_item["box_2d"] = [ymin, mid_x, ymax, xmax]
+
+                    expanded_items.append(fuse_item)
+                    expanded_items.append(light_item)
+                else:
+                    expanded_items.append(item)
+            items_to_process = expanded_items
+
             for item_idx, item in enumerate(items_to_process):
                 try:
                     is_block = str(item.get("category", "")).upper() == "BLOCK"

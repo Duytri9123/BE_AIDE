@@ -1603,12 +1603,20 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                             left = int(xmin * w / 1000)
                             bottom = int(ymax * h / 1000)
                             right = int(xmax * w / 1000)
-                            pad_x = int(w * 0.015)
-                            pad_y = int(h * 0.02)
+                            pad_x = max(int(w * 0.025), 20)
+                            pad_y = max(int(h * 0.025), 20)
                             left = max(0, left - pad_x)
                             top = max(0, top - pad_y)
                             right = min(w, right + pad_x)
                             bottom = min(h, bottom + pad_y)
+                            if (right - left) < 80:
+                                extra_x = (80 - (right - left)) // 2
+                                left = max(0, left - extra_x)
+                                right = min(w, right + extra_x)
+                            if (bottom - top) < 60:
+                                extra_y = (60 - (bottom - top)) // 2
+                                top = max(0, top - extra_y)
+                                bottom = min(h, bottom + extra_y)
                         else:
                             # Never invent a crop from device category or array
                             # position. A missing coordinate remains visibly
