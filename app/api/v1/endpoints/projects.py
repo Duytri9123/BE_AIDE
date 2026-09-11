@@ -6,7 +6,7 @@ from app.models.user import User
 from app.models.project import Project
 from app.models.project_file import ProjectFile
 from app.api.deps import get_current_active_user
-from pydantic import BaseModel
+from pydantic import BaseModel, field_serializer
 from typing import List, Optional
 from datetime import datetime, timezone
 import aiofiles
@@ -28,6 +28,14 @@ class ProjectResponse(BaseModel):
     file_count: int = 0
     device_count: int = 0
     total_value: float = 0
+    
+    @field_serializer('created_at', 'updated_at', mode='plain')
+    def serialize_dt(self, v: Optional[datetime]) -> Optional[str]:
+        if v is None:
+            return None
+        if v.tzinfo is None:
+            v = v.replace(tzinfo=timezone.utc)
+        return v.isoformat()
     
     class Config:
         from_attributes = True
@@ -52,6 +60,14 @@ class ProjectFileResponse(BaseModel):
     file_type: str
     is_generated: Optional[bool] = False
     created_at: datetime
+    
+    @field_serializer('created_at', mode='plain')
+    def serialize_dt(self, v: Optional[datetime]) -> Optional[str]:
+        if v is None:
+            return None
+        if v.tzinfo is None:
+            v = v.replace(tzinfo=timezone.utc)
+        return v.isoformat()
     
     class Config:
         from_attributes = True
