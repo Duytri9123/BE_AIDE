@@ -35,12 +35,13 @@ def normalize_antigravity_model(model: str) -> str:
     )
     if tiered:
         base, direct_tier, existing_tier = tiered.groups()
-        return f"{base}-tiered({direct_tier or existing_tier or 'medium'})"
+        return f"{base}-tiered({direct_tier or existing_tier or 'low'})"
 
     # These are provider-specific endpoint aliases, not fallback candidates.
     return {
         "claude-sonnet-4.6": "claude-sonnet-4-6",
-        "claude-opus-4.6": "claude-opus-4-6-thinking",
+        "claude-opus-4.6": "claude-opus-4-6",
+        "claude-opus-4.6-thinking": "claude-opus-4-6",
         "gpt-oss-120b": "gpt-oss-120b-medium",
     }.get(clean_model, clean_model)
 
@@ -220,6 +221,8 @@ class VisionAnalyzerService:
             "model": model,
             "messages": [{"role": "user", "content": content}],
         }
+        if any(r in (model or "").lower() for r in ["o1", "o3", "o4"]):
+            payload["reasoning_effort"] = "low"
         
         timeout = settings.AI_VISION_TIMEOUT
         
@@ -327,7 +330,11 @@ class VisionAnalyzerService:
                     "role": "user",
                     "parts": req_parts
                 }],
-                "generationConfig": {"maxOutputTokens": settings.AI_MAX_OUTPUT_TOKENS, "temperature": 0.1}
+                "generationConfig": {
+                    "maxOutputTokens": settings.AI_MAX_OUTPUT_TOKENS,
+                    "temperature": 0.1,
+                    "thinkingConfig": {"thinkingLevel": "LOW"} if "gemini-3" in mapped_model.lower() else {"thinkingBudget": 0}
+                }
             }
         }
         
@@ -408,22 +415,42 @@ class VisionAnalyzerService:
                 {"model": clean_model_name, "provider": "google", "hint": "use_gemini_model"}
             )
 
-        # Gọi DUY NHẤT model được chỉ định — tuyệt đối không dùng fallback, không tự ý tráo model
+        # Gọi DUY NHẤT model được chỉ định — tắt thinking/reasoning để tối ưu tốc độ
         timeout = settings.AI_VISION_TIMEOUT
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{clean_model_name}:generateContent?key={api_key}"
         gen_parts = [{"text": prompt}]
         if img_b64:
             gen_parts.append({"inline_data": {"mime_type": "image/jpeg", "data": img_b64}})
+
+        generation_config = {
+            "maxOutputTokens": settings.AI_MAX_OUTPUT_TOKENS,
+            "temperature": 0.1,
+        }
+        # Tắt hoặc tối thiểu hoá thinking/reasoning để rút ngắn tối đa thời gian phản hồi
+        if "gemini-3" in clean_model_name.lower():
+            generation_config["thinkingConfig"] = {"thinkingLevel": "LOW"}
+        else:
+            generation_config["thinkingConfig"] = {"thinkingBudget": 0}
+
         payload = {
             "contents": [{
                 "parts": gen_parts
-            }]
+            }],
+            "generationConfig": generation_config
         }
 
         async with httpx.AsyncClient(timeout=float(timeout)) as client:
             try:
-                logger.info(f"Calling exact model: {clean_model_name}")
+                logger.info(f"Calling exact model: {clean_model_name} (thinking disabled)")
                 resp = await client.post(url, json=payload)
+                if resp.status_code == 400 and "thinking" in resp.text.lower():
+                    # Fallback phòng thủ nếu model không hỗ trợ thinkingConfig
+                    logger.warning(f"Model {clean_model_name} không nhận thinkingConfig, retry không kèm thinkingConfig")
+                    fallback_payload = {
+                        "contents": [{"parts": gen_parts}],
+                        "generationConfig": {"maxOutputTokens": settings.AI_MAX_OUTPUT_TOKENS, "temperature": 0.1}
+                    }
+                    resp = await client.post(url, json=fallback_payload)
                 if resp.status_code == 200:
                     data = resp.json()
                     if "candidates" in data and len(data["candidates"]) > 0:

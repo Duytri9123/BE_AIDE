@@ -67,9 +67,14 @@ async def _call_google_gemini(api_key: str, model: str, prompt: str) -> dict:
         cleaned_model = cleaned_model[7:]
     
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{cleaned_model}:generateContent?key={api_key}"
+    gen_config = {
+        "maxOutputTokens": 150,
+        "temperature": 0.2,
+        "thinkingConfig": {"thinkingLevel": "LOW"} if "gemini-3" in cleaned_model.lower() else {"thinkingBudget": 0}
+    }
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"maxOutputTokens": 150, "temperature": 0.2}
+        "generationConfig": gen_config
     }
     start = time.time()
     async with httpx.AsyncClient(timeout=25.0) as client:
@@ -110,7 +115,11 @@ async def _call_antigravity(api_key: str, model: str, prompt: str) -> dict:
             "request": {
                 "sessionId": f"-{int(time.time() * 1000)}",
                 "contents": [{"role": "user", "parts": [{"text": prompt}]}],
-                "generationConfig": {"maxOutputTokens": 150, "temperature": 0.2}
+                "generationConfig": {
+                    "maxOutputTokens": 150,
+                    "temperature": 0.2,
+                    "thinkingConfig": {"thinkingLevel": "LOW"} if "gemini-3" in target_model.lower() else {"thinkingBudget": 0}
+                }
             }
         }
         async with httpx.AsyncClient(timeout=25.0) as client:
@@ -163,9 +172,14 @@ async def _call_google_gemini(api_key: str, model: str, prompt: str) -> dict:
         raise Exception("Vui lòng chọn model cần kiểm tra.")
 
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{cleaned_model}:generateContent?key={clean_key}"
+    gen_config = {
+        "maxOutputTokens": 150,
+        "temperature": 0.2,
+        "thinkingConfig": {"thinkingLevel": "LOW"} if "gemini-3" in cleaned_model.lower() else {"thinkingBudget": 0}
+    }
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"maxOutputTokens": 150, "temperature": 0.2}
+        "generationConfig": gen_config
     }
     async with httpx.AsyncClient(timeout=25.0) as client:
         resp = await client.post(url, json=payload)

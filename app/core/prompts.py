@@ -42,6 +42,7 @@ Quy tắc bóc tách bắt buộc:
 10. PHÂN BIỆT THIẾT BỊ THỂ HIỆN VÀ THIẾT BỊ ĐI KÈM:
    - MỌI ký hiệu, nhãn, mã lộ, nhánh dây hoặc phần tử được thể hiện độc lập trên sơ đồ PHẢI là một dòng trong `devices`, kể cả thiết bị điều khiển/phụ trợ.
    - `accompanying_accessories` CHỈ được dùng khi trên chính sơ đồ có bằng chứng liên kết rõ ràng (dây, tiếp điểm, ghi chú hoặc ký hiệu nằm trong cùng cụm) nhưng phần tử không có tag độc lập. Không thêm phụ kiện chỉ vì thông lệ thiết kế. Không đưa một phần tử đang vẽ độc lập trên SLD vào danh sách thiết bị đi kèm.
+11. TỐI ƯU TỐC ĐỘ (BỎ QUA THINKING): Bỏ qua hoàn toàn bước suy nghĩ/reasoning. TUYỆT ĐỐI KHÔNG xuất thẻ <thinking>, <thought>, <think> hay lời giải thích, mở đầu, kết luận. Bắt đầu trả về NGAY LẬP TỨC khối JSON ```json ... ```.
 
 Định dạng trả về duy nhất trong khối ```json ... ``` theo cấu trúc JSON:
 {
@@ -151,6 +152,7 @@ Quy tắc bóc tách bắt buộc:
    - `accompanying_accessories` chỉ chứa phần tử có bằng chứng liên kết trên SLD nhưng không có tag độc lập. Không dùng nó cho contactor, nút nhấn, FA hay cầu chì đã hiện riêng trên sơ đồ, và không suy diễn phụ kiện ngoài sơ đồ.
    - TUYỆT ĐỐI KHÔNG gộp các thiết bị cùng loại (như Contactor, MCB, Nút ấn) thành một dòng quantity > 1. Mỗi thiết bị ứng với một nhánh/mã lộ trên sơ đồ SLD phải là một dòng riêng biệt với quantity = 1.
 10. XÁC MINH TRANG PDF: Chỉ trả thiết bị nếu trang đang xem thật sự có sơ đồ điện hoặc phần tử điện có thể đọc được. Với trang mặt bằng, bìa, ghi chú chung hoặc bản vẽ không có thiết bị điện, trả `devices: []` và ghi rõ trong `file_assessment`; tuyệt đối không suy đoán hoặc tạo thiết bị mẫu.
+11. TỐI ƯU TỐC ĐỘ (BỎ QUA THINKING): Bỏ qua hoàn toàn bước suy nghĩ/reasoning. TUYỆT ĐỐI KHÔNG xuất thẻ <thinking>, <thought>, <think> hay lời giải thích, mở đầu, kết luận. Bắt đầu trả về NGAY LẬP TỨC khối JSON ```json ... ```.
 
 Định dạng trả về duy nhất trong khối ```json ... ``` theo cấu trúc JSON:
 {
@@ -425,6 +427,9 @@ def append_canonical_output_contract(prompt: str) -> str:
     """
     return (
         f"{prompt}\n\n"
+        "QUY TẮC TỐC ĐỘ (BỎ QUA THINKING): Bỏ qua hoàn toàn bước suy nghĩ/reasoning. "
+        "TUYỆT ĐỐI KHÔNG xuất thẻ <thinking>, <thought>, <think> hay lời giải thích, mở đầu, kết luận. "
+        "Bắt đầu trả về NGAY LẬP TỨC khối JSON ```json ... ```.\n\n"
         "HỢP ĐỒNG ĐẦU RA CHUNG (ƯU TIÊN CAO NHẤT): Bất kể đầu vào là văn bản, ảnh, PDF, "
         "DXF hay DWG, chỉ trả về MỘT JSON object có cùng cấu trúc top-level sau: "
         "`file_assessment`, `panels`, `technical_proposals`, `completeness_review`. "
