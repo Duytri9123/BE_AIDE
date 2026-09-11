@@ -36,6 +36,9 @@ from app.services.bom.enclosure_sizer import EnclosureSizerService
 from app.services.bom.busbar_calculator import BusbarCalculatorService
 from app.services.cad.enclosure_cad_generator import EnclosureCadGeneratorService
 from app.services.cad.physical_layout_engine import PhysicalLayoutEngine
+from celery.result import AsyncResult
+from app.tasks.celery_app import celery_app
+from app.tasks.worker_tasks import analyze_project_async_task
 import logging
 
 logger = logging.getLogger(__name__)
@@ -1260,3 +1263,113 @@ async def analyze_prompt(
         analysis_mode="sld_takeoff",
         log_version=2,
     )
+
+
+# ---------------------------------------------------------------------------
+# Celery Background Task Processing Endpoints (Async Queue qua Redis)
+# ---------------------------------------------------------------------------
+
+@router.post("/async-start")
+async def start_analysis_async(
+    request: AnalyzeStartRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_active_user),
+):
+    """
+    Đẩy tác vụ bóc tách dự án vào hàng đợi Celery chạy nền qua Redis.
+    Trả về ngay task_id để client theo dõi tiến độ thời gian thực (% tiến độ).
+    """
+    proj_stmt = select(Project).where(Project.id == request.project_id)
+    proj_res = await db.execute(proj_stmt)
+    project = proj_res.scalar_one_or_none()
+    if not project:
+        raise HTTPException(status_code=404, detail="Dự án không tồn tại")
+
+    try:
+        task = analyze_project_async_task.delay(
+            project_id=request.project_id,
+            user_id=current_user.id,
+            file_id=request.file_id,
+            user_prompt=request.user_prompt,
+            fallback_to_standard_template=bool(request.fallback_to_standard_template),
+        )
+        return {
+            "success": True,
+            "task_id": task.id,
+            "status": "PENDING",
+            "project_id": request.project_id,
+            "message": "Đã tiếp nhận yêu cầu bóc tách vào hàng đợi Celery (Redis Broker)."
+        }
+    except Exception as e:
+        logger.error(f"Lỗi khi gửi task vào Celery: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Không thể khởi chạy tác vụ ngầm: {str(e)}")
+
+
+@router.get("/task/{task_id}")
+async def get_analysis_task_status(
+    task_id: str,
+    current_user: User = Depends(get_current_active_user),
+):
+    """
+    Tra cứu trạng thái và tiến độ xử lý của tác vụ bóc tách Celery qua Redis Backend.
+    """
+    task = AsyncResult(task_id, app=celery_app)
+    state = task.state
+
+    if state == "PENDING":
+        return {
+            "task_id": task_id,
+            "status": "PENDING",
+            "progress": 0,
+            "message": "Đang xếp hàng chờ worker tiếp nhận..."
+        }
+    elif state == "PROGRESS":
+        info = task.info if isinstance(task.info, dict) else {}
+        return {
+            "task_id": task_id,
+            "status": "PROGRESS",
+            "progress": info.get("progress", 0),
+            "stage": info.get("stage", ""),
+            "message": info.get("message", "Đang xử lý...")
+        }
+    elif state == "SUCCESS":
+        return {
+            "task_id": task_id,
+            "status": "SUCCESS",
+            "progress": 100,
+            "message": "Bóc tách hoàn tất thành công!",
+            "result": task.result
+        }
+    elif state == "FAILURE":
+        return {
+            "task_id": task_id,
+            "status": "FAILURE",
+            "progress": 0,
+            "error": str(task.info) if task.info else "Đã xảy ra lỗi trong quá trình xử lý ngầm."
+        }
+    else:
+        return {
+            "task_id": task_id,
+            "status": state,
+            "progress": 50 if state == "STARTED" else 0,
+            "message": f"Trạng thái hiện tại: {state}"
+        }
+
+
+@router.post("/task/{task_id}/cancel")
+async def cancel_analysis_task(
+    task_id: str,
+    current_user: User = Depends(get_current_active_user),
+):
+    """
+    Hủy bỏ tác vụ Celery đang chạy ngầm.
+    """
+    try:
+        celery_app.control.revoke(task_id, terminate=True)
+        return {
+            "task_id": task_id,
+            "status": "CANCELLED",
+            "message": "Đã gửi lệnh hủy tác vụ thành công."
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Không thể hủy tác vụ: {str(e)}")

@@ -7,7 +7,9 @@ import json
 import os
 import re
 import unicodedata
+import hashlib
 from typing import Dict, List, Optional, Any, Tuple
+from app.services.cache_service import cache_service
 
 def strip_accents(s: str) -> str:
     if not s:
@@ -219,6 +221,12 @@ class DeviceCatalogEngine:
             except Exception as e:
                 print(f"[WARN] Failed to load catalog_accessories.json: {e}")
 
+        # Xóa cache catalog cũ nếu nạp lại catalog mới
+        try:
+            cache_service.clear_prefix_sync("catalog:")
+        except Exception:
+            pass
+
         print(f"[DeviceCatalogEngine] Loaded and indexed {len(self.items)} devices across {len(self.brand_index)} brands and {len(self.accessories)} accessory groups in RAM.")
 
     def get_accessory(self, item_id: str) -> Optional[Dict[str, Any]]:
@@ -239,6 +247,11 @@ class DeviceCatalogEngine:
             return None
         cat_lower = (category or "").lower().strip()
         kw_lower = (keyword or "").lower().strip()
+
+        cache_key = f"catalog:acc:{cat_lower}:{kw_lower}"
+        cached = cache_service.get_json_sync(cache_key)
+        if cached is not None:
+            return cached if cached != "__NONE__" else None
 
         # Nhóm cần tra cứu: nếu chỉ định đúng nhóm (door_accessories, accessories, busbar, din_rail, cable_duct) thì chỉ tìm trong nhóm đó
         target_groups = []
@@ -305,20 +318,31 @@ class DeviceCatalogEngine:
                     best_item = it
 
         if best_score > 0 and best_item:
+            cache_service.set_json_sync(cache_key, best_item, expire=86400)
             return best_item
 
+        cache_service.set_json_sync(cache_key, "__NONE__", expire=86400)
         return None
 
     def get_by_sku(self, sku: str) -> Optional[Dict[str, Any]]:
-        """Exact SKU lookup (sub-millisecond O(1))."""
+        """Exact SKU lookup (sub-millisecond O(1) with Redis Cache)."""
         if not sku:
             return None
         sku_clean = sku.strip().lower()
+        cache_key = f"catalog:sku:{sku_clean}"
+        cached = cache_service.get_json_sync(cache_key)
+        if cached is not None:
+            return cached if cached != "__NONE__" else None
+
+        item = None
         if sku_clean in self.sku_index:
-            return self.sku_index[sku_clean]
+            item = self.sku_index[sku_clean]
+        else:
+            compact = re.sub(r'[^a-z0-9]', '', sku_clean)
+            item = self.sku_index.get(compact)
         
-        compact = re.sub(r'[^a-z0-9]', '', sku_clean)
-        return self.sku_index.get(compact)
+        cache_service.set_json_sync(cache_key, item if item else "__NONE__", expire=86400)
+        return item
 
     def filter_devices(
         self,
@@ -406,6 +430,10 @@ class DeviceCatalogEngine:
             return []
 
         text_clean = text.strip()
+        cache_key = f"catalog:match:{hashlib.md5(text_clean.lower().encode('utf-8')).hexdigest()}"
+        cached = cache_service.get_json_sync(cache_key)
+        if cached is not None:
+            return [(it, float(score)) for it, score in cached]
         
         # 1. Direct SKU exact check
         exact_item = self.get_by_sku(text_clean)
@@ -525,7 +553,9 @@ class DeviceCatalogEngine:
             scored.append((it, round(final_score, 2)))
 
         scored.sort(key=lambda x: x[1], reverse=True)
-        return scored[:5]
+        result = scored[:5]
+        cache_service.set_json_sync(cache_key, result, expire=86400)
+        return result
 
     def get_ai_function_tool_schema(self) -> Dict[str, Any]:
         """Returns standard Function Tool schema for LLMs (OpenAI, Gemini, Claude)."""

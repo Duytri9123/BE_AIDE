@@ -5,10 +5,12 @@ import httpx
 import logging
 import asyncio
 import re
+import hashlib
 from pathlib import Path
 from typing import Optional
 
 from app.core.config import settings
+from app.services.cache_service import cache_service
 from app.core.exceptions import (
     AIVisionError,
     AITimeoutError,
@@ -58,7 +60,8 @@ class VisionAnalyzerService:
             # Read and encode image
             try:
                 with open(image_path, "rb") as f:
-                    img_b64 = base64.b64encode(f.read()).decode()
+                    img_bytes = f.read()
+                    img_b64 = base64.b64encode(img_bytes).decode()
             except PermissionError:
                 raise ImageParsingError(
                     f"Không có quyền đọc file: {image_path}",
@@ -70,25 +73,48 @@ class VisionAnalyzerService:
                     {"path": image_path, "error": str(e)}
                 )
             
+            prov = provider.lower()
+            img_hash = hashlib.sha256(img_bytes).hexdigest()
+            prompt_hash = hashlib.sha256(prompt.encode("utf-8")).hexdigest()[:16]
+            cache_key = f"ai_vision:{img_hash}:{prov}:{model.lower()}:{prompt_hash}"
+
+            # Kiểm tra cache trước khi gọi API
+            try:
+                cached_res = await cache_service.get(cache_key)
+                if cached_res:
+                    logger.info(f"[VisionAnalyzerService] Cache HIT cho {image_path} ({provider}/{model}). Trả về ngay lập tức.")
+                    return cached_res
+            except Exception as ce:
+                logger.warning(f"[VisionAnalyzerService] Lỗi đọc cache: {ce}")
+
             logger.info(f"Analyzing image with {provider} ({model})", extra={
                 "provider": provider,
                 "model": model,
                 "image_path": image_path
             })
             
-            prov = provider.lower()
+            result = None
             if prov in ["openai", "codex"]:
-                return await VisionAnalyzerService._call_openai(img_b64, prompt, api_key, model, provider_name=provider)
+                result = await VisionAnalyzerService._call_openai(img_b64, prompt, api_key, model, provider_name=provider)
             elif prov in ["gemini", "google", "antigravity"]:
                 cleaned_model = model
                 if cleaned_model.startswith("ag/"):
                     cleaned_model = cleaned_model[3:]
-                return await VisionAnalyzerService._call_gemini(img_b64, prompt, api_key, cleaned_model)
+                result = await VisionAnalyzerService._call_gemini(img_b64, prompt, api_key, cleaned_model)
             else:
                 raise AIVisionError(
                     f"Provider không được hỗ trợ: {provider}",
                     {"provider": provider, "supported": ["openai", "codex", "gemini", "google", "antigravity"]}
                 )
+
+            # Lưu vào cache (TTL 7 ngày = 604800s)
+            if result and len(result) > 20:
+                try:
+                    await cache_service.set(cache_key, result, expire=604800)
+                except Exception as se:
+                    logger.warning(f"[VisionAnalyzerService] Lỗi ghi cache: {se}")
+
+            return result
         except (AIVisionError, ImageParsingError):
             raise
         except Exception as e:
@@ -102,18 +128,38 @@ class VisionAnalyzerService:
     async def analyze_text(prompt: str, provider: str, api_key: str, model: str) -> str:
         """Gọi API AI LLM để phân tích dữ liệu văn bản/sơ đồ kỹ thuật."""
         prov = provider.lower()
+        prompt_hash = hashlib.sha256(prompt.encode("utf-8")).hexdigest()
+        cache_key = f"ai_text:{prov}:{model.lower()}:{prompt_hash}"
+
+        try:
+            cached_res = await cache_service.get(cache_key)
+            if cached_res:
+                logger.info(f"[VisionAnalyzerService] Cache HIT cho text prompt ({provider}/{model}). Trả về ngay lập tức.")
+                return cached_res
+        except Exception:
+            pass
+
+        result = None
         if prov in ["openai", "codex"]:
-            return await VisionAnalyzerService._call_openai("", prompt, api_key, model, provider_name=provider)
+            result = await VisionAnalyzerService._call_openai("", prompt, api_key, model, provider_name=provider)
         elif prov in ["gemini", "google", "antigravity"]:
             cleaned_model = model
             if cleaned_model.startswith("ag/"):
                 cleaned_model = cleaned_model[3:]
-            return await VisionAnalyzerService._call_gemini("", prompt, api_key, cleaned_model)
+            result = await VisionAnalyzerService._call_gemini("", prompt, api_key, cleaned_model)
         else:
             raise AIVisionError(
                 f"Provider không được hỗ trợ: {provider}",
                 {"provider": provider, "supported": ["openai", "codex", "gemini", "google", "antigravity"]}
             )
+
+        if result and len(result) > 20:
+            try:
+                await cache_service.set(cache_key, result, expire=604800)
+            except Exception:
+                pass
+
+        return result
 
     @staticmethod
     async def analyze_document(file_paths: list[str], prompt: str, provider: str, api_key: str, model: str) -> str:
