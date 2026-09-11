@@ -7,7 +7,7 @@ import asyncio
 import re
 import hashlib
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Dict, Any, List
 
 from app.core.config import settings
 from app.services.cache_service import cache_service
@@ -20,6 +20,20 @@ from app.core.exceptions import (
 )
 
 logger = logging.getLogger(__name__)
+
+ANTIGRAVITY_IDE_USER_AGENT = "antigravity/ide/2.11.0 darwin/arm64"
+CODEX_CLI_USER_AGENT = "codex_cli_rs/0.154.0"
+
+# Mặc định base URL cho các provider OpenAI-compatible
+DEFAULT_PROVIDER_BASE_URLS = {
+    "openai": "https://api.openai.com/v1",
+    "openrouter": "https://openrouter.ai/api/v1",
+    "groq": "https://api.groq.com/openai/v1",
+    "xai": "https://api.x.ai/v1",
+    "mistral": "https://api.mistral.ai/v1",
+    "ollama": "http://localhost:11434/v1",
+    "deepseek": "https://api.deepseek.com/v1",
+}
 
 
 def normalize_antigravity_model(model: str) -> str:
@@ -48,8 +62,17 @@ def normalize_antigravity_model(model: str) -> str:
 
 class VisionAnalyzerService:
     @staticmethod
-    async def analyze_image(image_path: str, prompt: str, provider: str, api_key: str, model: str) -> str:
-        """Gọi API AI Vision (Gemini/OpenAI/Claude/Antigravity) để phân tích hình ảnh."""
+    async def analyze_image(
+        image_path: str,
+        prompt: str,
+        provider: str,
+        api_key: str,
+        model: str,
+        base_url: Optional[str] = None,
+        enable_web_search: bool = False,
+        project_id: Optional[str] = None,
+    ) -> str:
+        """Gọi API AI Vision (Gemini/OpenAI/Claude/Antigravity/Codex/OpenRouter/Groq/etc.) để phân tích hình ảnh."""
         try:
             # Validate file exists
             if not Path(image_path).exists():
@@ -74,10 +97,10 @@ class VisionAnalyzerService:
                     {"path": image_path, "error": str(e)}
                 )
             
-            prov = provider.lower()
+            prov = (provider or "").lower().strip()
             img_hash = hashlib.sha256(img_bytes).hexdigest()
             prompt_hash = hashlib.sha256(prompt.encode("utf-8")).hexdigest()[:16]
-            cache_key = f"ai_vision:{img_hash}:{prov}:{model.lower()}:{prompt_hash}"
+            cache_key = f"ai_vision:{img_hash}:{prov}:{model.lower()}:{prompt_hash}:{enable_web_search}"
 
             # Kiểm tra cache trước khi gọi API
             try:
@@ -95,19 +118,38 @@ class VisionAnalyzerService:
             })
             
             result = None
-            if prov in ["openai", "codex"]:
-                result = await VisionAnalyzerService._call_openai(img_b64, prompt, api_key, model, provider_name=provider)
-            elif prov == "antigravity":
-                result = await VisionAnalyzerService._call_antigravity(img_b64, prompt, api_key, model)
-            elif prov in ["gemini", "google"]:
+            if prov == "antigravity":
+                result = await VisionAnalyzerService._call_antigravity(
+                    img_b64, prompt, api_key, model, enable_web_search=enable_web_search, project_id=project_id
+                )
+            elif prov == "codex":
+                result = await VisionAnalyzerService._call_codex(
+                    img_b64, prompt, api_key, model, base_url=base_url
+                )
+            elif prov in ("anthropic", "claude"):
+                result = await VisionAnalyzerService._call_anthropic(
+                    img_b64, prompt, api_key, model
+                )
+            elif prov in ("gemini", "google"):
                 cleaned_model = model
                 if cleaned_model.startswith("ag/"):
                     cleaned_model = cleaned_model[3:]
-                result = await VisionAnalyzerService._call_google_genai(img_b64, prompt, api_key, cleaned_model, provider_name="Google")
+                result = await VisionAnalyzerService._call_google_genai(
+                    img_b64, prompt, api_key, cleaned_model, provider_name="Google", enable_web_search=enable_web_search
+                )
+            elif prov == "openai":
+                result = await VisionAnalyzerService._call_openai(
+                    img_b64, prompt, api_key, model, base_url=base_url, provider_name="OpenAI"
+                )
+            elif prov in DEFAULT_PROVIDER_BASE_URLS or base_url:
+                # OpenRouter, Groq, xAI, Mistral, Ollama, DeepSeek...
+                result = await VisionAnalyzerService._call_openai_compatible(
+                    img_b64, prompt, api_key, model, base_url=base_url, provider_name=provider
+                )
             else:
                 raise AIVisionError(
                     f"Provider không được hỗ trợ: {provider}",
-                    {"provider": provider, "supported": ["openai", "codex", "gemini", "google", "antigravity"]}
+                    {"provider": provider, "supported": ["antigravity", "codex", "openai", "anthropic", "gemini", "google", "openrouter", "groq", "xai", "mistral", "ollama"]}
                 )
 
             # Lưu vào cache (TTL 7 ngày = 604800s)
@@ -128,11 +170,19 @@ class VisionAnalyzerService:
             )
 
     @staticmethod
-    async def analyze_text(prompt: str, provider: str, api_key: str, model: str) -> str:
+    async def analyze_text(
+        prompt: str,
+        provider: str,
+        api_key: str,
+        model: str,
+        base_url: Optional[str] = None,
+        enable_web_search: bool = False,
+        project_id: Optional[str] = None,
+    ) -> str:
         """Gọi API AI LLM để phân tích dữ liệu văn bản/sơ đồ kỹ thuật."""
-        prov = provider.lower()
+        prov = (provider or "").lower().strip()
         prompt_hash = hashlib.sha256(prompt.encode("utf-8")).hexdigest()
-        cache_key = f"ai_text:{prov}:{model.lower()}:{prompt_hash}"
+        cache_key = f"ai_text:{prov}:{model.lower()}:{prompt_hash}:{enable_web_search}"
 
         try:
             cached_res = await cache_service.get(cache_key)
@@ -143,19 +193,38 @@ class VisionAnalyzerService:
             pass
 
         result = None
-        if prov in ["openai", "codex"]:
-            result = await VisionAnalyzerService._call_openai("", prompt, api_key, model, provider_name=provider)
-        elif prov == "antigravity":
-            result = await VisionAnalyzerService._call_antigravity("", prompt, api_key, model)
-        elif prov in ["gemini", "google"]:
+        if prov == "antigravity":
+            result = await VisionAnalyzerService._call_antigravity(
+                "", prompt, api_key, model, enable_web_search=enable_web_search, project_id=project_id
+            )
+        elif prov == "codex":
+            result = await VisionAnalyzerService._call_codex(
+                "", prompt, api_key, model, base_url=base_url
+            )
+        elif prov in ("anthropic", "claude"):
+            result = await VisionAnalyzerService._call_anthropic(
+                "", prompt, api_key, model
+            )
+        elif prov in ("gemini", "google"):
             cleaned_model = model
             if cleaned_model.startswith("ag/"):
                 cleaned_model = cleaned_model[3:]
-            result = await VisionAnalyzerService._call_google_genai("", prompt, api_key, cleaned_model, provider_name="Google")
+            result = await VisionAnalyzerService._call_google_genai(
+                "", prompt, api_key, cleaned_model, provider_name="Google", enable_web_search=enable_web_search
+            )
+        elif prov == "openai":
+            result = await VisionAnalyzerService._call_openai(
+                "", prompt, api_key, model, base_url=base_url, provider_name="OpenAI"
+            )
+        elif prov in DEFAULT_PROVIDER_BASE_URLS or base_url:
+            # OpenRouter, Groq, xAI, Mistral, Ollama, DeepSeek...
+            result = await VisionAnalyzerService._call_openai_compatible(
+                "", prompt, api_key, model, base_url=base_url, provider_name=provider
+            )
         else:
             raise AIVisionError(
                 f"Provider không được hỗ trợ: {provider}",
-                {"provider": provider, "supported": ["openai", "codex", "gemini", "google", "antigravity"]}
+                {"provider": provider, "supported": ["antigravity", "codex", "openai", "anthropic", "gemini", "google", "openrouter", "groq", "xai", "mistral", "ollama"]}
             )
 
         if result and len(result) > 20:
@@ -167,7 +236,15 @@ class VisionAnalyzerService:
         return result
 
     @staticmethod
-    async def analyze_document(file_paths: list[str], prompt: str, provider: str, api_key: str, model: str) -> str:
+    async def analyze_document(
+        file_paths: list[str],
+        prompt: str,
+        provider: str,
+        api_key: str,
+        model: str,
+        base_url: Optional[str] = None,
+        enable_web_search: bool = False
+    ) -> str:
         """Phân tích nhiều file tài liệu/bản vẽ — gọi analyze_image cho từng file ảnh, tổng hợp kết quả."""
         if not file_paths:
             return "```json\n[]\n```"
@@ -179,7 +256,9 @@ class VisionAnalyzerService:
             try:
                 suffix = Path(fp).suffix.lower()
                 if suffix in image_exts:
-                    res = await VisionAnalyzerService.analyze_image(fp, prompt, provider, api_key, model)
+                    res = await VisionAnalyzerService.analyze_image(
+                        fp, prompt, provider, api_key, model, base_url=base_url, enable_web_search=enable_web_search
+                    )
                 else:
                     # Đọc nội dung text của file và phân tích bằng LLM
                     try:
@@ -188,17 +267,17 @@ class VisionAnalyzerService:
                         file_prompt = f"{prompt}\n\nNội dung file:\n{content}"
                     except Exception:
                         file_prompt = prompt
-                    res = await VisionAnalyzerService.analyze_text(file_prompt, provider, api_key, model)
+                    res = await VisionAnalyzerService.analyze_text(
+                        file_prompt, provider, api_key, model, base_url=base_url, enable_web_search=enable_web_search
+                    )
                 results.append(res)
             except Exception as e:
                 logger.warning(f"analyze_document error on {fp}: {e}")
                 continue
 
-        # Ghép nhiều kết quả thành 1 JSON array
         if len(results) == 1:
             return results[0]
 
-        # Khi nhiều file: trả về kết quả của file đầu tiên hợp lệ có dữ liệu
         for r in results:
             if r and "[]" not in r:
                 return r
@@ -214,7 +293,11 @@ class VisionAnalyzerService:
         provider_name: str = "OpenAI",
     ) -> str:
         """Call OpenAI Vision API với error handling chi tiết"""
-        headers = {"Authorization": f"Bearer {api_key}"}
+        target_base = (base_url or settings.AI_COMPATIBLE_DEFAULT_BASE_URL).rstrip("/")
+        headers = {
+            "Authorization": f"Bearer {api_key.strip()}",
+            "Content-Type": "application/json"
+        }
         content = [{"type": "text", "text": prompt}]
         if img_b64:
             content.append({
@@ -233,7 +316,7 @@ class VisionAnalyzerService:
         try:
             async with httpx.AsyncClient(timeout=httpx.Timeout(timeout, connect=5.0)) as client:
                 resp = await client.post(
-                    f"{(base_url or settings.AI_COMPATIBLE_DEFAULT_BASE_URL).rstrip('/')}/chat/completions",
+                    f"{target_base}/chat/completions",
                     json=payload,
                     headers=headers,
                 )
@@ -259,7 +342,7 @@ class VisionAnalyzerService:
                 
                 if "choices" not in data or len(data["choices"]) == 0:
                     raise AIVisionError(
-                    f"{provider_name} response không có choices",
+                        f"{provider_name} response không có choices",
                         {"response": data}
                     )
                 
@@ -287,6 +370,294 @@ class VisionAnalyzerService:
             )
 
     @staticmethod
+    async def _call_openai_compatible(
+        img_b64: str,
+        prompt: str,
+        api_key: str,
+        model: str,
+        base_url: Optional[str] = None,
+        provider_name: str = "OpenAI Compatible",
+    ) -> str:
+        """Call các nhà cung cấp chuẩn OpenAI-compatible (OpenRouter, Groq, xAI, Mistral, Ollama)."""
+        prov_key = (provider_name or "").lower().strip()
+        default_url = DEFAULT_PROVIDER_BASE_URLS.get(prov_key, settings.AI_COMPATIBLE_DEFAULT_BASE_URL)
+        target_base = (base_url or default_url).rstrip("/")
+
+        headers = {
+            "Content-Type": "application/json"
+        }
+        if api_key and api_key.strip():
+            headers["Authorization"] = f"Bearer {api_key.strip()}"
+
+        content = [{"type": "text", "text": prompt}]
+        if img_b64:
+            content.append({
+                "type": "image_url",
+                "image_url": {"url": f"data:image/jpeg;base64,{img_b64}"},
+            })
+
+        payload: Dict[str, Any] = {
+            "model": model,
+            "messages": [{"role": "user", "content": content}],
+            "temperature": 0.1,
+        }
+
+        timeout = float(settings.AI_VISION_TIMEOUT)
+        try:
+            async with httpx.AsyncClient(timeout=httpx.Timeout(timeout, connect=5.0)) as client:
+                resp = await client.post(
+                    f"{target_base}/chat/completions",
+                    json=payload,
+                    headers=headers,
+                )
+
+                if resp.status_code == 401:
+                    raise AIAuthenticationError(
+                        f"Khóa API {provider_name} không hợp lệ hoặc đã hết hạn",
+                        {"status_code": 401, "provider": provider_name}
+                    )
+                elif resp.status_code == 429:
+                    raise AIRateLimitError(
+                        f"Vượt quá giới hạn request {provider_name} (429)",
+                        {"status_code": 429, "provider": provider_name}
+                    )
+                elif resp.status_code >= 500:
+                    raise AIVisionError(
+                        f"{provider_name} server error: {resp.status_code}",
+                        {"status_code": resp.status_code, "response": resp.text[:300]}
+                    )
+
+                resp.raise_for_status()
+                data = resp.json()
+                choices = data.get("choices", [])
+                if not choices:
+                    raise AIVisionError(
+                        f"{provider_name} không trả về choices",
+                        {"response": data}
+                    )
+                return choices[0].get("message", {}).get("content", "")
+
+        except httpx.TimeoutException as e:
+            raise AITimeoutError(
+                f"Hết thời gian chờ {int(timeout)}s khi gọi {provider_name}",
+                {"timeout": timeout, "error": str(e)}
+            )
+        except (AIAuthenticationError, AIRateLimitError, AITimeoutError, AIVisionError):
+            raise
+        except Exception as e:
+            logger.error(f"Unexpected {provider_name} error: {str(e)}", exc_info=True)
+            raise AIVisionError(
+                f"Lỗi khi gọi {provider_name}: {str(e)}",
+                {"error": str(e)}
+            )
+
+    @staticmethod
+    async def _call_codex(
+        img_b64: str,
+        prompt: str,
+        api_key: str,
+        model: str,
+        base_url: Optional[str] = None
+    ) -> str:
+        """
+        Call OpenAI Codex Engine:
+        - Nếu API Key là OpenAI API key thông thường (sk-...) -> gọi qua OpenAI API standard.
+        - Nếu là Codex OAuth Token hoặc kết nối ChatGPT Backend -> gọi qua Responses API
+          https://chatgpt.com/backend-api/codex/responses với header codex_cli_rs/0.154.0.
+        """
+        clean_key = api_key.strip()
+        is_standard_openai_key = clean_key.startswith("sk-") or (base_url and "api.openai.com" in base_url)
+
+        if is_standard_openai_key and not (base_url and "backend-api/codex" in base_url):
+            # Gọi qua OpenAI API tiêu chuẩn
+            return await VisionAnalyzerService._call_openai(
+                img_b64, prompt, clean_key, model, base_url=base_url, provider_name="Codex (OpenAI API)"
+            )
+
+        # Gọi qua OpenAI Codex Responses API (Chuẩn 9router)
+        codex_url = (base_url or "https://chatgpt.com/backend-api/codex/responses").rstrip("/")
+        if not codex_url.endswith("/responses"):
+            codex_url = f"{codex_url}/responses"
+
+        auth_header = clean_key if clean_key.lower().startswith("bearer ") else f"Bearer {clean_key}"
+        session_id = f"sess-{uuid.uuid4().hex[:12]}"
+
+        headers = {
+            "Authorization": auth_header,
+            "Content-Type": "application/json",
+            "User-Agent": CODEX_CLI_USER_AGENT,
+            "originator": "codex_cli_rs",
+            "session_id": session_id,
+        }
+
+        content_parts: List[Dict[str, Any]] = [{"type": "input_text", "text": prompt}]
+        if img_b64:
+            content_parts.append({
+                "type": "input_image",
+                "image_url": f"data:image/jpeg;base64,{img_b64}"
+            })
+
+        payload = {
+            "model": model,
+            "input": [
+                {
+                    "type": "message",
+                    "role": "user",
+                    "content": content_parts
+                }
+            ],
+            "store": False,
+            "stream": False,
+            "instructions": "You are an expert AI assistant specializing in CAD drawings, electrical single-line diagrams, and BOM extraction.",
+            "reasoning": {
+                "effort": "low",
+                "summary": "auto"
+            },
+            "include": ["reasoning.encrypted_content"]
+        }
+
+        timeout = float(settings.AI_VISION_TIMEOUT)
+        try:
+            async with httpx.AsyncClient(timeout=httpx.Timeout(timeout, connect=5.0)) as client:
+                resp = await client.post(codex_url, headers=headers, json=payload)
+                resp_text = resp.text
+
+                # Bắt lỗi capacity / overloaded ẩn
+                lower_text = resp_text.lower()
+                if "selected model is at capacity" in lower_text or "model_at_capacity" in lower_text:
+                    raise AIRateLimitError(
+                        f"Codex: Mô hình '{model}' hiện đang quá tải (at capacity). Vui lòng thử lại sau.",
+                        {"model": model, "error": "model_at_capacity"}
+                    )
+                if "server_is_overloaded" in lower_text:
+                    raise AIRateLimitError(
+                        "Codex: Máy chủ quá tải (server_is_overloaded). Vui lòng thử lại sau.",
+                        {"model": model, "error": "server_is_overloaded"}
+                    )
+
+                if resp.status_code == 401:
+                    raise AIAuthenticationError(
+                        "Codex access token không hợp lệ hoặc đã hết hạn",
+                        {"status_code": 401}
+                    )
+                elif resp.status_code == 429:
+                    raise AIRateLimitError(
+                        "Vượt quá giới hạn sử dụng OpenAI Codex (429)",
+                        {"status_code": 429}
+                    )
+
+                resp.raise_for_status()
+                data = resp.json()
+
+                # Responses API extraction
+                if "output" in data and isinstance(data["output"], list):
+                    for item in data["output"]:
+                        if item.get("type") == "message":
+                            parts = item.get("content", [])
+                            text = "".join(p.get("text", "") for p in parts if p.get("type") in ("output_text", "text"))
+                            if text:
+                                return text
+
+                # Fallback format: choices
+                if "choices" in data and len(data["choices"]) > 0:
+                    return data["choices"][0]["message"]["content"]
+
+                raise AIVisionError(
+                    "Codex response không có nội dung văn bản hợp lệ",
+                    {"response": data}
+                )
+
+        except (AIAuthenticationError, AIRateLimitError, AITimeoutError, AIVisionError):
+            raise
+        except httpx.TimeoutException as e:
+            raise AITimeoutError(
+                f"Hết thời gian chờ {int(timeout)}s khi gọi Codex API",
+                {"timeout": timeout, "error": str(e)}
+            )
+        except Exception as e:
+            logger.error(f"Unexpected Codex error: {str(e)}", exc_info=True)
+            raise AIVisionError(
+                f"Lỗi khi gọi Codex: {str(e)}",
+                {"error": str(e)}
+            )
+
+    @staticmethod
+    async def _call_anthropic(
+        img_b64: str,
+        prompt: str,
+        api_key: str,
+        model: str
+    ) -> str:
+        """Call Anthropic Messages API (Claude 3.5 / Claude 3) với Vision & Text."""
+        url = "https://api.anthropic.com/v1/messages"
+        headers = {
+            "x-api-key": api_key.strip(),
+            "anthropic-version": "2023-06-01",
+            "Content-Type": "application/json"
+        }
+
+        content_parts: List[Dict[str, Any]] = []
+        if img_b64:
+            content_parts.append({
+                "type": "image",
+                "source": {
+                    "type": "base64",
+                    "media_type": "image/jpeg",
+                    "data": img_b64
+                }
+            })
+        content_parts.append({
+            "type": "text",
+            "text": prompt
+        })
+
+        payload = {
+            "model": model,
+            "max_tokens": settings.AI_MAX_OUTPUT_TOKENS,
+            "messages": [{"role": "user", "content": content_parts}]
+        }
+
+        timeout = float(settings.AI_VISION_TIMEOUT)
+        try:
+            async with httpx.AsyncClient(timeout=httpx.Timeout(timeout, connect=5.0)) as client:
+                resp = await client.post(url, headers=headers, json=payload)
+                if resp.status_code == 401:
+                    raise AIAuthenticationError(
+                        "Khóa API Anthropic không hợp lệ",
+                        {"status_code": 401}
+                    )
+                elif resp.status_code == 429:
+                    raise AIRateLimitError(
+                        "Vượt quá giới hạn request Anthropic (429)",
+                        {"status_code": 429}
+                    )
+                elif resp.status_code >= 500:
+                    raise AIVisionError(
+                        f"Anthropic server error: {resp.status_code}",
+                        {"status_code": resp.status_code, "response": resp.text[:300]}
+                    )
+
+                resp.raise_for_status()
+                data = resp.json()
+                content = data.get("content", [])
+                text_parts = [p.get("text", "") for p in content if p.get("type") == "text"]
+                result = "".join(text_parts).strip()
+                if result:
+                    return result
+                raise AIVisionError("Anthropic response không chứa text", {"response": data})
+
+        except (AIAuthenticationError, AIRateLimitError, AITimeoutError, AIVisionError):
+            raise
+        except httpx.TimeoutException as e:
+            raise AITimeoutError(
+                f"Hết thời gian chờ {int(timeout)}s khi gọi Anthropic",
+                {"timeout": timeout, "error": str(e)}
+            )
+        except Exception as e:
+            logger.error(f"Unexpected Anthropic error: {str(e)}", exc_info=True)
+            raise AIVisionError(f"Lỗi khi gọi Anthropic: {str(e)}", {"error": str(e)})
+
+    @staticmethod
     async def _call_gemini(img_b64: str, prompt: str, api_key: str, model: str, provider_name: str = "Google") -> str:
         """Gọi Google Generative AI trực tiếp."""
         clean_key = api_key.strip()
@@ -296,24 +667,37 @@ class VisionAnalyzerService:
         return await VisionAnalyzerService._call_google_genai(img_b64, prompt, clean_key, target_model, provider_name=provider_name)
     
     @staticmethod
-    async def _call_antigravity(img_b64: str, prompt: str, token: str, model: str) -> str:
-        """Call Antigravity API với OAuth token (xử lý độc lập)"""
+    async def _call_antigravity(
+        img_b64: str,
+        prompt: str,
+        token: str,
+        model: str,
+        enable_web_search: bool = False,
+        project_id: Optional[str] = None
+    ) -> str:
+        """Call Antigravity API với OAuth token (chuẩn 9router: User-Agent 2.11.0, requestId, anti-ban)."""
         clean_token = token.strip()
         auth_header = clean_token if clean_token.lower().startswith("bearer ") else f"Bearer {clean_token}"
         mapped_model = normalize_antigravity_model(model)
+        pid = project_id or "cloudaicompanion-project"
+
         url = "https://daily-cloudcode-pa.googleapis.com/v1internal:generateContent"
         headers = {
             "Authorization": auth_header,
             "Content-Type": "application/json",
-            "User-Agent": "antigravity/ide/2.1.1 darwin/arm64",
+            "User-Agent": ANTIGRAVITY_IDE_USER_AGENT,
             "x-request-source": "local",
         }
         req_parts = [{"text": prompt}]
         if img_b64:
             req_parts.append({"inline_data": {"mime_type": "image/jpeg", "data": img_b64}})
 
-        payload = {
-            "project": "cloudaicompanion-project",
+        tools = []
+        if enable_web_search:
+            tools.append({"googleSearch": {}})
+
+        payload: Dict[str, Any] = {
+            "project": pid,
             "model": mapped_model,
             "userAgent": "antigravity",
             "requestType": "agent",
@@ -330,6 +714,8 @@ class VisionAnalyzerService:
                 }
             }
         }
+        if tools:
+            payload["request"]["tools"] = tools
         
         timeout = float(settings.AI_VISION_TIMEOUT)
         try:
@@ -343,8 +729,13 @@ class VisionAnalyzerService:
                     )
                 elif resp.status_code == 429:
                     raise AIRateLimitError(
-                        "Vượt quá giới hạn request Antigravity",
-                        {"status_code": 429}
+                        f"Vượt quá giới hạn request Antigravity cho model '{mapped_model}' (429)",
+                        {"status_code": 429, "model": mapped_model}
+                    )
+                elif resp.status_code >= 500:
+                    raise AIVisionError(
+                        f"Antigravity server error ({resp.status_code}): {resp.text[:300]}",
+                        {"status_code": resp.status_code}
                     )
                 
                 resp.raise_for_status()
@@ -354,7 +745,7 @@ class VisionAnalyzerService:
                 
                 if candidates and "content" in candidates[0]:
                     parts = candidates[0]["content"].get("parts", [])
-                    result = "".join(p.get("text", "") for p in parts if "text" in p)
+                    result = "".join(p.get("text", "") for p in parts if isinstance(p, dict) and "text" in p)
                     if result:
                         return result
                 
@@ -385,10 +776,10 @@ class VisionAnalyzerService:
         prompt: str,
         api_key: str,
         target_model: str,
-        provider_name: str = "Google"
+        provider_name: str = "Google",
+        enable_web_search: bool = False,
     ) -> str:
         """Call Google Generative AI API (Google API key) — chỉ dùng model được chỉ định, không tự ý fallback sang model khác."""
-        # Làm sạch suffix tiered/quality khỏi tên model
         clean_model_name = (
             target_model
             .replace("-tiered(high)", "")
@@ -399,14 +790,12 @@ class VisionAnalyzerService:
             .replace("-low", "")
         )
 
-        # A model must be selected in BE; never silently select a default.
         if not clean_model_name:
             raise AIVisionError(
                 "Chưa chọn model cho kết nối AI trong BE.",
                 {"hint": "missing_selected_model"},
             )
 
-        # Nếu model không phải Gemini (ví dụ claude-*, gpt-*) → báo lỗi ngay, không chuyển ngầm
         if "claude" in clean_model_name.lower() or "gpt" in clean_model_name.lower():
             raise AIVisionError(
                 f"Model '{clean_model_name}' không tương thích với Google API Key. "
@@ -415,7 +804,6 @@ class VisionAnalyzerService:
                 {"model": clean_model_name, "provider": provider_name, "hint": "use_gemini_model"}
             )
 
-        # Gọi DUY NHẤT model được chỉ định — tắt thinking/reasoning để tối ưu tốc độ
         timeout = float(settings.AI_VISION_TIMEOUT)
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{clean_model_name}:generateContent?key={api_key}"
         gen_parts = [{"text": prompt}]
@@ -427,16 +815,17 @@ class VisionAnalyzerService:
             "temperature": 0.1,
         }
 
-        payload = {
+        payload: Dict[str, Any] = {
             "contents": [{
                 "parts": gen_parts
             }],
             "generationConfig": generation_config
         }
+        if enable_web_search:
+            payload["tools"] = [{"google_search": {}}]
 
         async with httpx.AsyncClient(timeout=httpx.Timeout(timeout, connect=5.0)) as client:
             try:
-                logger.info(f"Calling exact model: {clean_model_name} via {provider_name} (thinking disabled, timeout={timeout}s)")
                 resp = await client.post(url, json=payload)
                 if resp.status_code == 200:
                     data = resp.json()

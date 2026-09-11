@@ -19,6 +19,7 @@ from app.models.ai_provider import AiProvider
 from app.models.ai_provider_model import AiProviderModel
 from app.core.config import settings
 from app.services.ai.vision_analyzer import normalize_antigravity_model
+from app.services.ai.web_search_service import WebSearchService
 
 router = APIRouter(prefix="/admin-api", tags=["Admin Helpers"])
 
@@ -60,6 +61,10 @@ async def _call_openai_compatible(base_url: str, api_key: str, model: str, promp
         return {"text": text, "latency_ms": elapsed}
 
 
+ANTIGRAVITY_IDE_USER_AGENT = "antigravity/ide/2.11.0 darwin/arm64"
+CODEX_CLI_USER_AGENT = "codex_cli_rs/0.154.0"
+
+
 async def _call_antigravity(api_key: str, model: str, prompt: str) -> dict:
     start = time.time()
     clean_key = api_key.strip()
@@ -70,7 +75,7 @@ async def _call_antigravity(api_key: str, model: str, prompt: str) -> dict:
     headers = {
         "Authorization": auth_header,
         "Content-Type": "application/json",
-        "User-Agent": "antigravity/ide/2.1.1 darwin/arm64",
+        "User-Agent": ANTIGRAVITY_IDE_USER_AGENT,
         "x-request-source": "local",
     }
     payload = {
@@ -105,6 +110,59 @@ async def _call_antigravity(api_key: str, model: str, prompt: str) -> dict:
         else:
             text = str(data)
         return {"text": text, "latency_ms": elapsed}
+
+
+async def _call_codex(api_key: str, model: str, prompt: str, base_url: Optional[str] = None) -> dict:
+    clean_key = api_key.strip()
+    is_standard_openai_key = clean_key.startswith("sk-") or (base_url and "api.openai.com" in base_url)
+    if is_standard_openai_key and not (base_url and "backend-api/codex" in base_url):
+        return await _call_openai_compatible(base_url or "https://api.openai.com/v1", clean_key, model, prompt)
+
+    start = time.time()
+    codex_url = (base_url or "https://chatgpt.com/backend-api/codex/responses").rstrip("/")
+    if not codex_url.endswith("/responses"):
+        codex_url = f"{codex_url}/responses"
+
+    auth_header = clean_key if clean_key.lower().startswith("bearer ") else f"Bearer {clean_key}"
+    headers = {
+        "Authorization": auth_header,
+        "Content-Type": "application/json",
+        "User-Agent": CODEX_CLI_USER_AGENT,
+        "originator": "codex_cli_rs",
+        "session_id": f"sess-{uuid.uuid4().hex[:12]}",
+    }
+    payload = {
+        "model": model,
+        "input": [{"type": "message", "role": "user", "content": [{"type": "input_text", "text": prompt}]}],
+        "store": False,
+        "stream": False,
+        "instructions": "You are an expert AI assistant specializing in CAD drawings and BOM extraction.",
+        "reasoning": {"effort": "low", "summary": "auto"},
+        "include": ["reasoning.encrypted_content"]
+    }
+    async with httpx.AsyncClient(timeout=httpx.Timeout(20.0, connect=5.0)) as client:
+        resp = await client.post(codex_url, headers=headers, json=payload)
+        elapsed = int((time.time() - start) * 1000)
+        resp_text = resp.text
+        if "selected model is at capacity" in resp_text.lower():
+            raise Exception(f"HTTP 429 (Codex): Mô hình '{model}' hiện đang quá tải (at capacity).")
+        if resp.status_code == 401:
+            raise Exception("HTTP 401: Codex OAuth Token không hợp lệ hoặc đã hết hạn.")
+        elif resp.status_code == 429:
+            raise Exception("HTTP 429: Vượt quá giới hạn rate limit OpenAI Codex.")
+        resp.raise_for_status()
+        data = resp.json()
+        if "output" in data and isinstance(data["output"], list):
+            for item in data["output"]:
+                if item.get("type") == "message":
+                    parts = item.get("content", [])
+                    text = "".join(p.get("text", "") for p in parts if p.get("type") in ("output_text", "text"))
+                    if text:
+                        return {"text": text, "latency_ms": elapsed}
+        if "choices" in data and len(data["choices"]) > 0:
+            text = data["choices"][0]["message"]["content"]
+            return {"text": text, "latency_ms": elapsed}
+        return {"text": str(data), "latency_ms": elapsed}
 
 
 async def _call_google_gemini(api_key: str, model: str, prompt: str) -> dict:
@@ -346,6 +404,8 @@ async def test_ai_connection(
     try:
         if api_type == "antigravity_engine" or provider_id == "antigravity":
             result_data = await _call_antigravity(api_key, model, prompt)
+        elif provider_id == "codex":
+            result_data = await _call_codex(api_key, model, prompt, base_url=base_url)
         elif api_type == "google_gemini" or provider_id == "google":
             result_data = await _call_google_gemini(api_key, model, prompt)
         elif api_type == "anthropic" or provider_id == "anthropic":
@@ -518,3 +578,92 @@ async def toggle_connection_active(
     conn.is_active = req.is_active
     await db.commit()
     return {"success": True, "id": str(conn.id), "is_active": conn.is_active}
+
+
+class TestWebSearchRequest(BaseModel):
+    query: str
+    provider_id: Optional[str] = "antigravity"
+    connection_id: Optional[str] = None
+    model: Optional[str] = None
+    max_results: Optional[int] = 5
+
+
+class TestWebSearchResponse(BaseModel):
+    success: bool
+    provider: str
+    query: str
+    answer: str
+    results: List[dict]
+    latency_ms: int
+    error: Optional[str] = None
+
+
+@router.post("/test-websearch", response_model=TestWebSearchResponse)
+async def test_web_search(
+    req: TestWebSearchRequest,
+    db: AsyncSession = Depends(get_db)
+):
+    """Kiểm tra tìm kiếm trực tuyến và AI Grounding qua WebSearchService (chuẩn 9router)."""
+    provider_id = (req.provider_id or "antigravity").lower().strip()
+    api_key = None
+    model = req.model
+    base_url = None
+
+    # Lấy API Key từ connection nếu có connection_id
+    if req.connection_id:
+        conn_id_val = req.connection_id
+        if isinstance(conn_id_val, str):
+            try:
+                conn_id_val = uuid.UUID(conn_id_val)
+            except Exception:
+                pass
+        result = await db.execute(select(AiConnection).where(AiConnection.id == conn_id_val))
+        conn = result.scalar_one_or_none()
+        if conn:
+            api_key = conn.api_key
+            provider_id = conn.provider.lower()
+            if not model and conn.selected_model:
+                model = conn.selected_model
+
+    # Nếu chưa có api_key, tìm connection active đầu tiên của provider này
+    if not api_key:
+        conn_res = await db.execute(
+            select(AiConnection)
+            .where(AiConnection.provider == provider_id, AiConnection.is_active == True)
+            .order_by(AiConnection.priority.asc())
+        )
+        active_conn = conn_res.scalars().first()
+        if active_conn and active_conn.api_key:
+            api_key = active_conn.api_key
+            if not model:
+                model = active_conn.selected_model
+
+    # Lấy base_url từ AiProvider nếu có
+    prov_res = await db.execute(select(AiProvider).where(AiProvider.id == provider_id))
+    prov_obj = prov_res.scalar_one_or_none()
+    if prov_obj and prov_obj.base_url:
+        base_url = prov_obj.base_url
+
+    if not api_key:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Chưa có API Key hoặc OAuth token khả dụng cho provider '{provider_id}'."
+        )
+
+    res = await WebSearchService.search(
+        query=req.query,
+        provider=provider_id,
+        api_key=api_key,
+        model=model,
+        max_results=req.max_results or 5,
+        base_url=base_url
+    )
+    return TestWebSearchResponse(
+        success=res.get("success", False),
+        provider=res.get("provider", provider_id),
+        query=res.get("query", req.query),
+        answer=res.get("answer", ""),
+        results=res.get("results", []),
+        latency_ms=res.get("latency_ms", 0),
+        error=res.get("error")
+    )

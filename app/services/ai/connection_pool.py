@@ -165,8 +165,20 @@ class ConnectionPoolService:
                 provider_order.append(provider)
             provider_connections[provider].append(conn)
 
+        # Lấy thông tin metadata các provider (base_url, api_type) để truyền cho các provider OpenAI-compatible
+        prov_map: dict[str, AiProvider] = {}
+        try:
+            p_stmt = select(AiProvider).where(AiProvider.id.in_(provider_order))
+            p_res = await db.execute(p_stmt)
+            prov_map = {p.id.lower(): p for p in p_res.scalars().all()}
+        except Exception as pe:
+            logger.warning("ConnectionPool: Không thể load metadata provider: %s", pe)
+
         for provider in provider_order:
             provider_accounts = provider_connections[provider]
+            prov_obj = prov_map.get(provider)
+            provider_base_url = prov_obj.base_url if prov_obj else None
+
             candidate_models = await ConnectionPoolService.get_ordered_models_for_provider(db, provider)
             if not candidate_models:
                 logger.warning("ConnectionPool: bỏ qua provider %s vì không có model đang hoạt động.", provider)
@@ -202,11 +214,14 @@ class ConnectionPoolService:
                     for attempt in range(1, max_attempts + 1):
                         try:
                             logger.info("ConnectionPool: Đang thử %s (Lần thử %s/%s)", conn_label, attempt, max_attempts)
+                            call_args = dict(call_kwargs)
+                            if provider_base_url and "base_url" not in call_args:
+                                call_args["base_url"] = provider_base_url
                             result = await call_fn(
                                 provider=provider,
                                 api_key=conn.api_key,
                                 model=model_to_use,
-                                **call_kwargs,
+                                **call_args,
                             )
                             logger.info("ConnectionPool: Thành công với %s", conn_label)
                             setattr(conn, "actual_model", model_to_use)
