@@ -1,5 +1,7 @@
 from sqladmin import ModelView
 from markupsafe import Markup
+from starlette.requests import Request
+from typing import Any, Dict
 from app.models.ai_provider import AiProvider
 from app.models.ai_provider_model import AiProviderModel
 from app.models.ai_connection import AiConnection
@@ -95,6 +97,30 @@ class AiConnectionAdmin(ModelView, model=AiConnection):
     can_delete = True
     can_export = True
     can_view_details = True
+
+    async def on_model_change(
+        self, data: dict, model: Any, is_created: bool, request: Request
+    ) -> None:
+        """Xử lý dữ liệu trước khi lưu connection: lưu base_url vào quotas và đồng bộ auth_type kiểu 9router"""
+        form_data = await request.form()
+        custom_base_url = form_data.get("base_url")
+
+        quotas: Dict[str, Any] = dict(model.quotas) if isinstance(model.quotas, dict) else {}
+        if custom_base_url and str(custom_base_url).strip():
+            quotas["base_url"] = str(custom_base_url).strip()
+            model.quotas = quotas
+        elif "base_url" in quotas:
+            quotas.pop("base_url", None)
+            model.quotas = quotas
+
+        # Tự động đồng bộ auth_type nếu phát hiện token đặc biệt kiểu 9router
+        if model.api_key:
+            key_str = model.api_key.strip()
+            if key_str.startswith("1//"):
+                model.auth_type = "oauth2"
+            elif key_str.startswith("ya29.") or key_str.startswith("sess-"):
+                model.auth_type = "bearer_token"
+
 
 
 class AiProviderAdmin(ModelView, model=AiProvider):

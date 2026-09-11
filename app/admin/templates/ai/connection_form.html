@@ -17,7 +17,7 @@
               Thêm mới Kết Nối &amp; API Key
             {% endif %}
           </h4>
-          <p class="text-muted small mb-0">Cấu hình thông tin API Key, chọn Provider và Model AI</p>
+          <p class="text-muted small mb-0">Cấu hình API Key, đăng nhập Google OAuth / Antigravity kiểu 9router, hoặc kết nối bất kỳ AI Provider nào</p>
         </div>
       </div>
       
@@ -40,6 +40,47 @@
           {{ form.hidden_tag() }}
         {% endif %}
 
+        <!-- QUICK PRESETS / ĐĂNG NHẬP NHANH KIỂU 9ROUTER -->
+        <div class="mb-4 p-3 rounded-3" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2.5">
+            <label class="fw-bold text-dark d-flex align-items-center gap-1.5 m-0" style="font-size: 13px;">
+              <i class="fa-solid fa-wand-magic-sparkles text-primary"></i>
+              <span>Chọn mẫu cấu hình nhanh (Quick Presets kiểu 9router)</span>
+            </label>
+            <span class="badge bg-primary-subtle text-primary fw-medium px-2 py-1" style="font-size: 11px;">1-Click Setup</span>
+          </div>
+          <p class="text-muted small mb-2.5" style="font-size: 11.5px;">Bấm chọn nhà cung cấp bên dưới để tự động điền các thông số chuẩn, Base URL và danh sách model tương ứng:</p>
+          <div class="d-flex flex-wrap gap-2" id="quick-presets-container">
+            <button type="button" class="btn btn-sm btn-light border fw-semibold d-inline-flex align-items-center gap-1.5 px-2.5 py-1.5" style="font-size: 12px; border-radius: 8px; background: #fff;" onclick="applyPreset('antigravity')">
+              <i class="fa-solid fa-shield-halved text-primary"></i> Antigravity (Google OAuth)
+            </button>
+            <button type="button" class="btn btn-sm btn-light border fw-semibold d-inline-flex align-items-center gap-1.5 px-2.5 py-1.5" style="font-size: 12px; border-radius: 8px; background: #fff;" onclick="applyPreset('codex')">
+              <i class="fa-solid fa-terminal text-success"></i> Codex / ChatGPT
+            </button>
+            <button type="button" class="btn btn-sm btn-light border fw-semibold d-inline-flex align-items-center gap-1.5 px-2.5 py-1.5" style="font-size: 12px; border-radius: 8px; background: #fff;" onclick="applyPreset('deepseek')">
+              <i class="fa-solid fa-brain text-info"></i> DeepSeek V3 / R1
+            </button>
+            <button type="button" class="btn btn-sm btn-light border fw-semibold d-inline-flex align-items-center gap-1.5 px-2.5 py-1.5" style="font-size: 12px; border-radius: 8px; background: #fff;" onclick="applyPreset('google')">
+              <i class="fa-brands fa-google text-danger"></i> Google Gemini
+            </button>
+            <button type="button" class="btn btn-sm btn-light border fw-semibold d-inline-flex align-items-center gap-1.5 px-2.5 py-1.5" style="font-size: 12px; border-radius: 8px; background: #fff;" onclick="applyPreset('anthropic')">
+              <i class="fa-solid fa-atom text-warning"></i> Anthropic Claude
+            </button>
+            <button type="button" class="btn btn-sm btn-light border fw-semibold d-inline-flex align-items-center gap-1.5 px-2.5 py-1.5" style="font-size: 12px; border-radius: 8px; background: #fff;" onclick="applyPreset('openai')">
+              <i class="fa-solid fa-bolt text-dark"></i> OpenAI Chuẩn
+            </button>
+            <button type="button" class="btn btn-sm btn-light border fw-semibold d-inline-flex align-items-center gap-1.5 px-2.5 py-1.5" style="font-size: 12px; border-radius: 8px; background: #fff;" onclick="applyPreset('groq')">
+              <i class="fa-solid fa-gauge-high text-danger"></i> Groq Cloud
+            </button>
+            <button type="button" class="btn btn-sm btn-light border fw-semibold d-inline-flex align-items-center gap-1.5 px-2.5 py-1.5" style="font-size: 12px; border-radius: 8px; background: #fff;" onclick="applyPreset('openrouter')">
+              <i class="fa-solid fa-network-wired text-primary"></i> OpenRouter
+            </button>
+            <button type="button" class="btn btn-sm btn-light border fw-semibold d-inline-flex align-items-center gap-1.5 px-2.5 py-1.5" style="font-size: 12px; border-radius: 8px; background: #fff;" onclick="applyPreset('ollama')">
+              <i class="fa-solid fa-laptop-code text-secondary"></i> Ollama / Local AI
+            </button>
+          </div>
+        </div>
+
         <div class="row g-4">
           <!-- Left Column: Primary AI Settings (8 cols) -->
           <div class="col-lg-8 col-12">
@@ -55,38 +96,67 @@
                 </label>
                 {% set cur_prov = form.provider.data if form.provider is defined and form.provider.data else (obj.provider if obj else 'antigravity') %}
                 <select name="provider" id="input_provider" class="form-select" style="border-radius: 8px; font-size: 13px; font-weight: 600;" onchange="onProviderSelectChanged()">
-                  <option value="antigravity" {% if cur_prov == 'antigravity' %}selected{% endif %}>Antigravity</option>
-                  <option value="codex" {% if cur_prov == 'codex' %}selected{% endif %}>Codex / OpenAI API</option>
-                  <option value="openai" {% if cur_prov == 'openai' %}selected{% endif %}>OpenAI</option>
-                  <option value="anthropic" {% if cur_prov == 'anthropic' %}selected{% endif %}>Anthropic</option>
-                  <option value="openrouter" {% if cur_prov == 'openrouter' %}selected{% endif %}>OpenRouter</option>
-                  <option value="groq" {% if cur_prov == 'groq' %}selected{% endif %}>Groq</option>
+                  <option value="antigravity" {% if cur_prov == 'antigravity' %}selected{% endif %}>🌟 Antigravity (Google OAuth 2.0)</option>
+                  <option value="codex" {% if cur_prov == 'codex' %}selected{% endif %}>🤖 Codex / OpenAI API</option>
+                  <option value="deepseek" {% if cur_prov == 'deepseek' %}selected{% endif %}>⚡ DeepSeek AI (V3 &amp; R1 Reasoner)</option>
+                  <option value="google" {% if cur_prov == 'google' %}selected{% endif %}>💎 Google Gemini API</option>
+                  <option value="openai" {% if cur_prov == 'openai' %}selected{% endif %}>OpenAI (Official)</option>
+                  <option value="anthropic" {% if cur_prov == 'anthropic' %}selected{% endif %}>Anthropic Claude</option>
+                  <option value="openrouter" {% if cur_prov == 'openrouter' %}selected{% endif %}>OpenRouter (200+ models)</option>
+                  <option value="groq" {% if cur_prov == 'groq' %}selected{% endif %}>Groq Cloud LPU (Ultra-fast)</option>
                   <option value="mistral" {% if cur_prov == 'mistral' %}selected{% endif %}>Mistral AI</option>
-                  <option value="ollama" {% if cur_prov == 'ollama' %}selected{% endif %}>Ollama</option>
-                  <option value="xai" {% if cur_prov == 'xai' %}selected{% endif %}>xAI</option>
+                  <option value="ollama" {% if cur_prov == 'ollama' %}selected{% endif %}>Ollama (Local / Self-hosted)</option>
+                  <option value="xai" {% if cur_prov == 'xai' %}selected{% endif %}>xAI (Grok)</option>
                 </select>
-                <small class="text-muted mt-1 d-block" style="font-size: 11.5px;">Chính xác nhà cung cấp AI tương ứng.</small>
+                <small class="text-muted mt-1 d-block" style="font-size: 11.5px;" id="provider-desc-note">Hãng cung cấp dịch vụ AI tương ứng.</small>
               </div>
 
-              <!-- 2. API Key Input with Eye Toggle -->
+              <!-- 2. API Key / Token Input with Eye Toggle & Smart Key Detection -->
               <div class="mb-3" id="api-key-field">
-                <label class="form-label fw-bold text-dark mb-1.5" style="font-size: 13px;">
-                  Khóa bí mật (API Key) <span class="text-danger">*</span>
-                </label>
+                <div class="d-flex align-items-center justify-content-between mb-1.5">
+                  <label class="form-label fw-bold text-dark mb-0" style="font-size: 13px;">
+                    <span id="label-api-key-text">Khóa bí mật (API Key / OAuth Token)</span> <span class="text-danger">*</span>
+                  </label>
+                  <span id="key-detect-status" class="small fw-semibold text-muted" style="font-size: 11px;"></span>
+                </div>
                 {% set cur_key = form.api_key.data if form.api_key is defined and form.api_key.data else (obj.api_key if obj else '') %}
                 <div class="input-group">
                   <span class="input-group-text bg-light text-muted border-end-0" style="border-radius: 8px 0 0 8px;">
                     <i class="fa-solid fa-key fs-8"></i>
                   </span>
-                  <input type="password" name="api_key" id="input_api_key" class="form-control border-start-0 border-end-0 font-monospace" style="font-size: 13px;" placeholder="Dán khóa API Key của bạn vào đây..." value="{{ cur_key or '' }}">
+                  <input type="password" name="api_key" id="input_api_key" class="form-control border-start-0 border-end-0 font-monospace" style="font-size: 13px;" placeholder="Dán API Key hoặc chuỗi OAuth Token (1//... hoặc ya29...) vào đây..." value="{{ cur_key or '' }}" oninput="onApiKeyInputChanged()">
                   <button type="button" class="btn btn-outline-secondary border-start-0" style="border-radius: 0 8px 8px 0;" onclick="toggleFormKeyVisibility()" title="Hiện / Ẩn khóa">
                     <i class="fa-regular fa-eye" id="form-eye-icon"></i>
                   </button>
                 </div>
-                <small class="text-muted mt-1 d-block" style="font-size: 11.5px;">API Key được mã hóa và bảo mật an toàn.</small>
+                
+                <!-- Auto-Detection Dynamic Alert Banner -->
+                <div id="key-detect-alert" class="mt-2 p-2.5 rounded-2" style="display:none; font-size:12px; border:1px solid #dbeafe; background:#eff6ff;"></div>
+
+                <small class="text-muted mt-1 d-block" id="api-key-helper-text" style="font-size: 11.5px;">
+                  Hỗ trợ cả API Key thông thường và Google OAuth Refresh Token (bắt đầu bằng <code>1//</code>) hoặc Bearer Token (<code>ya29...</code>) như 9router.
+                </small>
               </div>
 
-              <!-- 3. Model Select Dropdown -->
+              <!-- 3. Base URL / Endpoint (Tùy biến cho DeepSeek, Ollama, Proxy, Localhost, v.v.) -->
+              {% set cur_base_url = (obj.quotas.get('base_url') if (obj and obj.quotas and obj.quotas is mapping) else '') %}
+              <div class="mb-3" id="base-url-wrapper">
+                <div class="d-flex align-items-center justify-content-between mb-1.5">
+                  <label class="form-label fw-bold text-dark mb-0" style="font-size: 13px;">
+                    <i class="fa-solid fa-globe text-secondary me-1"></i>
+                    Địa chỉ máy chủ (Base URL / Endpoint) <span class="text-muted fw-normal" style="font-size:11px;">(Tùy chọn)</span>
+                  </label>
+                  <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none" style="font-size: 11.5px;" onclick="resetBaseUrlToDefault()">
+                    <i class="fa-solid fa-arrow-rotate-left me-1"></i>Dùng URL mặc định
+                  </button>
+                </div>
+                <input type="text" name="base_url" id="input_base_url" class="form-control font-monospace" style="border-radius: 8px; font-size: 12.5px;" placeholder="https://api.deepseek.com/v1" value="{{ cur_base_url or '' }}" oninput="onBaseUrlChanged()">
+                <small class="text-muted mt-1 d-block" style="font-size: 11px;">
+                  Để trống để dùng máy chủ chính thức. Hỗ trợ bất kỳ dịch vụ OpenAI-compatible nào (Ollama <code>http://localhost:11434/v1</code>, 9router gateway <code>http://localhost:20128/v1</code>, vLLM, DeepSeek riêng, v.v.).
+                </small>
+              </div>
+
+              <!-- 4. Model Select Dropdown -->
               <div class="mb-3">
                 <label class="form-label fw-bold text-dark mb-1.5 d-flex align-items-center justify-content-between" style="font-size: 13px;">
                   <span><i class="fa-solid fa-robot text-primary me-1"></i> Mô hình AI (Model) <span class="text-danger">*</span></span>
@@ -99,32 +169,32 @@
                   <option value="">-- Đang nạp danh sách Model... --</option>
                 </select>
                 <div id="custom_model_wrapper" style="display:none;" class="mt-2">
-                  <input type="text" id="custom_model_input" class="form-control font-monospace" style="border-radius: 8px; font-size: 12.5px;" placeholder="Nhập mã Model AI tùy chỉnh..." oninput="onCustomModelInputChanged()">
+                  <input type="text" id="custom_model_input" class="form-control font-monospace" style="border-radius: 8px; font-size: 12.5px;" placeholder="Nhập mã Model AI tùy chỉnh (vd: deepseek-chat, llama3.3:70b)..." oninput="onCustomModelInputChanged()">
                   <small class="text-muted mt-1 d-block" style="font-size: 11px;">Nhập trực tiếp mã định danh Model nếu không có trong danh sách trên.</small>
                 </div>
                 <input type="hidden" name="selected_model" id="input_selected_model" value="{{ cur_model or '' }}">
                 <small class="text-muted mt-1 d-block" style="font-size: 11.5px;">Mô hình AI được kết nối này sử dụng (tự động cập nhật theo Hãng AI).</small>
               </div>
 
-              <!-- 4. Connection Name / Note -->
+              <!-- 5. Connection Name / Note -->
               <div class="mb-0">
                 <label class="form-label fw-bold text-dark mb-1.5" style="font-size: 13px;">
                   Tên kết nối / Ghi chú
                 </label>
                 {% set cur_name = form.name.data if form.name is defined and form.name.data else (obj.name if obj else 'Tài khoản 1') %}
-                <input type="text" name="name" id="input_name" class="form-control" style="border-radius: 8px; font-size: 13px;" placeholder="Ví dụ: Tài khoản 1, Tài khoản 2..." value="{{ cur_name or '' }}">
+                <input type="text" name="name" id="input_name" class="form-control" style="border-radius: 8px; font-size: 13px;" placeholder="Ví dụ: Google OAuth Chính, DeepSeek V3 Backup..." value="{{ cur_name or '' }}">
               </div>
 
             </div>
 
-            <!-- 5. INLINE LIVE TEST BOX with Outer Border & Comfortable Padding -->
+            <!-- 6. INLINE LIVE TEST BOX with Real-time Latency & Response -->
             <div class="rounded-4 border" style="background: #f8fafc; border: 1px solid var(--admin-border, #e2e8f0) !important; padding: 18px 20px;">
               <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2.5">
                 <div>
                   <h6 class="fw-bold text-dark mb-0 d-flex align-items-center gap-2" style="font-size: 13.5px;">
                     <i class="fa-solid fa-flask text-success"></i> Kiểm Tra Kết Nối Thực Tế (Live Test)
                   </h6>
-                  <small class="text-muted" style="font-size: 11.5px;">Gửi yêu cầu thử nghiệm để xác thực Key tương tác thành công</small>
+                  <small class="text-muted" style="font-size: 11.5px;">Gửi yêu cầu thử nghiệm trực tiếp đến API Provider để xác thực Key &amp; Endpoint</small>
                 </div>
                 <button type="button" class="btn btn-success fw-bold px-3.5 py-1.5 shadow-sm d-inline-flex align-items-center" id="btn-form-test-api" onclick="runFormTestApi()" style="border-radius: 8px; font-size: 12.5px; background: linear-gradient(135deg,#10b981,#059669); border:none; gap:6px;">
                   <i class="fa-solid fa-bolt"></i> <span>Kiểm Tra Kết Nối Ngay</span>
@@ -165,7 +235,21 @@
                 </label>
                 {% set cur_priority = form.priority.data if form.priority is defined and form.priority.data is not none else (obj.priority if obj and obj.priority is not none else 1) %}
                 <input type="number" name="priority" id="input_priority" class="form-control" style="border-radius: 8px; font-size: 12.5px; max-width: 120px;" min="1" max="99" value="{{ cur_priority if (cur_priority and cur_priority > 0) else 1 }}" placeholder="1">
-                <small class="text-muted mt-1 d-block" style="font-size: 11px;">Thứ tự 1, 2, 3... (1 = ưu tiên cao nhất). Khi connection chính bị lỗi, hệ thống tự động xoay sang connection tiếp theo.</small>
+                <small class="text-muted mt-1 d-block" style="font-size: 11px;">Thứ tự 1, 2, 3... (1 = ưu tiên cao nhất). Khi connection chính bị rate limit / lỗi, hệ thống tự động xoay sang connection tiếp theo.</small>
+              </div>
+
+              <!-- Auth Type Select -->
+              <div class="mb-3" id="auth-type-field">
+                <label class="form-label fw-bold text-dark mb-1.5" style="font-size: 13px;">
+                  Loại xác thực (Auth Type)
+                </label>
+                {% set cur_auth = form.auth_type.data if form.auth_type is defined and form.auth_type.data else (obj.auth_type if obj else 'api_key') %}
+                <select name="auth_type" id="input_auth_type" class="form-select" style="border-radius: 8px; font-size: 12.5px;">
+                  <option value="api_key" {% if cur_auth == 'api_key' %}selected{% endif %}>API Key (sk-..., AIza..., gsk_...)</option>
+                  <option value="oauth2" {% if cur_auth == 'oauth2' %}selected{% endif %}>OAuth 2.0 Refresh Token (1//...)</option>
+                  <option value="bearer_token" {% if cur_auth == 'bearer_token' %}selected{% endif %}>Bearer Access Token (ya29..., sess-...)</option>
+                </select>
+                <small class="text-muted mt-1 d-block" style="font-size: 11px;">Tự động nhận diện khi dán token.</small>
               </div>
 
               <!-- Status Select -->
@@ -179,29 +263,18 @@
                 </select>
               </div>
 
-              <!-- Auth Type Select -->
-              <div class="mb-3" id="auth-type-field">
-                <label class="form-label fw-bold text-dark mb-1.5" style="font-size: 13px;">Loại xác thực</label>
-                {% set cur_auth = form.auth_type.data if form.auth_type is defined and form.auth_type.data else (obj.auth_type if obj else 'api_key') %}
-                <select name="auth_type" id="input_auth_type" class="form-select" style="border-radius: 8px; font-size: 12.5px;">
-                  <option value="api_key" {% if cur_auth == 'api_key' %}selected{% endif %}>API Key (Mặc định)</option>
-                  <option value="bearer_token" {% if cur_auth == 'bearer_token' %}selected{% endif %}>Bearer Token</option>
-                  <option value="oauth2" {% if cur_auth == 'oauth2' %}selected{% endif %}>OAuth 2.0</option>
-                </select>
-              </div>
-
               <!-- Email Field -->
               <div class="mb-3">
                 <label class="form-label fw-bold text-dark mb-1.5" style="font-size: 13px;">Email tài khoản</label>
                 {% set cur_email = form.email.data if form.email is defined and form.email.data else (obj.email if obj else '') %}
-                <input type="email" name="email" id="input_email" class="form-control" style="border-radius: 8px; font-size: 12.5px;" placeholder="admin@example.com (tùy chọn)" value="{{ cur_email or '' }}">
+                <input type="email" name="email" id="input_email" class="form-control" style="border-radius: 8px; font-size: 12.5px;" placeholder="email@example.com (tùy chọn)" value="{{ cur_email or '' }}">
               </div>
 
               <!-- Tag Field -->
               <div class="mb-0">
                 <label class="form-label fw-bold text-dark mb-1.5" style="font-size: 13px;">Thẻ phân loại</label>
                 {% set cur_tag = form.tag.data if form.tag is defined and form.tag.data else (obj.tag if obj else 'Chính thức') %}
-                <input type="text" name="tag" id="input_tag" class="form-control" style="border-radius: 8px; font-size: 12.5px;" placeholder="Ví dụ: Production, Sandbox..." value="{{ cur_tag or '' }}">
+                <input type="text" name="tag" id="input_tag" class="form-control" style="border-radius: 8px; font-size: 12.5px;" placeholder="Ví dụ: 9router OAuth, Production, Backup..." value="{{ cur_tag or '' }}">
               </div>
 
             </div>
@@ -230,8 +303,85 @@
 </div>
 
 <script>
-// Danh sách model được lấy từ Backend API — KHÔNG hardcode
+// Cache danh mục providers và models
 let _providerModelsCache = {};
+let _providersSummaryCache = null;
+
+// Cấu hình mẫu mặc định theo từng Provider
+const DEFAULT_PRESET_MAP = {
+  antigravity: {
+    name: 'Antigravity Google OAuth',
+    auth_type: 'oauth2',
+    base_url: '',
+    tag: 'Google OAuth',
+    placeholder: 'Dán Refresh Token (1//...) hoặc Bearer Token (ya29...) từ Antigravity...',
+    helper: 'Khuyên dùng Refresh Token (1//...) để hệ thống tự động làm mới token vĩnh viễn.'
+  },
+  codex: {
+    name: 'Codex / OpenAI API',
+    auth_type: 'bearer_token',
+    base_url: 'https://chatgpt.com/backend-api/codex/responses',
+    tag: 'Codex CLI',
+    placeholder: 'Dán Codex Session Token (sess-...) hoặc OpenAI API Key...',
+    helper: 'Dùng token lấy từ đăng nhập ChatGPT Codex hoặc OpenAI API Key.'
+  },
+  deepseek: {
+    name: 'DeepSeek Official',
+    auth_type: 'api_key',
+    base_url: 'https://api.deepseek.com/v1',
+    tag: 'DeepSeek',
+    placeholder: 'Dán DeepSeek API Key (sk-...)',
+    helper: 'Tương thích chuẩn OpenAI với chi phí siêu rẻ và khả năng suy luận mạnh mẽ.'
+  },
+  google: {
+    name: 'Google Gemini Official',
+    auth_type: 'api_key',
+    base_url: 'https://generativelanguage.googleapis.com',
+    tag: 'Google AI Studio',
+    placeholder: 'Dán Google AI Studio API Key (AIzaSy...)',
+    helper: 'Lấy miễn phí từ Google AI Studio (aistudio.google.com).'
+  },
+  openai: {
+    name: 'OpenAI Platform',
+    auth_type: 'api_key',
+    base_url: 'https://api.openai.com/v1',
+    tag: 'OpenAI',
+    placeholder: 'Dán OpenAI API Key (sk-proj-... hoặc sk-...)',
+    helper: 'Dùng API Key chính thức của OpenAI.'
+  },
+  anthropic: {
+    name: 'Anthropic Claude',
+    auth_type: 'api_key',
+    base_url: 'https://api.anthropic.com',
+    tag: 'Anthropic',
+    placeholder: 'Dán Claude API Key (sk-ant-...)',
+    helper: 'Truy cập trực tiếp mô hình Claude 3.5 Sonnet / Haiku / Opus.'
+  },
+  groq: {
+    name: 'Groq Cloud LPU',
+    auth_type: 'api_key',
+    base_url: 'https://api.groq.com/openai/v1',
+    tag: 'Groq',
+    placeholder: 'Dán Groq API Key (gsk_...)',
+    helper: 'Tốc độ suy luận siêu tốc (LPU inference engine).'
+  },
+  openrouter: {
+    name: 'OpenRouter AI',
+    auth_type: 'api_key',
+    base_url: 'https://openrouter.ai/api/v1',
+    tag: 'OpenRouter',
+    placeholder: 'Dán OpenRouter Key (sk-or-v1-...)',
+    helper: 'Hỗ trợ tổng hợp 200+ mô hình AI từ nhiều hãng khác nhau.'
+  },
+  ollama: {
+    name: 'Ollama Local Host',
+    auth_type: 'api_key',
+    base_url: 'http://localhost:11434/v1',
+    tag: 'Local AI',
+    placeholder: 'ollama (hoặc để trống)',
+    helper: 'Máy chủ LLM chạy trên máy tính cục bộ hoặc mạng nội bộ.'
+  }
+};
 
 function toggleFormKeyVisibility() {
   const input = document.getElementById('input_api_key');
@@ -322,20 +472,86 @@ async function populateModelDropdown(provider, currentModel) {
     if (inputModel) inputModel.value = currentModel;
     if (customWrapper) customWrapper.style.display = 'none';
   } else if (!matchFound && models.length > 0) {
-    // Model cũ không khớp với provider mới (hoặc rỗng) -> CHỌN NGAY MODEL #1 CỦA PROVIDER MỚI
+    // Model cũ không khớp với provider mới -> CHỌN MODEL #1 CỦA PROVIDER MỚI
     select.value = models[0].key;
     if (inputModel) inputModel.value = models[0].key;
     if (customWrapper) customWrapper.style.display = 'none';
   }
 }
 
+function applyPreset(providerKey) {
+  const provSelect = document.getElementById('input_provider');
+  if (provSelect) {
+    provSelect.value = providerKey;
+  }
+  
+  const preset = DEFAULT_PRESET_MAP[providerKey];
+  if (preset) {
+    const nameInput = document.getElementById('input_name');
+    if (nameInput && (!nameInput.value || nameInput.value === 'Tài khoản 1')) {
+      nameInput.value = preset.name;
+    }
+
+    const authSelect = document.getElementById('input_auth_type');
+    if (authSelect) {
+      authSelect.value = preset.auth_type;
+    }
+
+    const baseInput = document.getElementById('input_base_url');
+    if (baseInput) {
+      baseInput.value = preset.base_url;
+    }
+
+    const tagInput = document.getElementById('input_tag');
+    if (tagInput && (!tagInput.value || tagInput.value === 'Chính thức')) {
+      tagInput.value = preset.tag;
+    }
+
+    const keyInput = document.getElementById('input_api_key');
+    if (keyInput) {
+      keyInput.placeholder = preset.placeholder;
+    }
+
+    const helper = document.getElementById('api-key-helper-text');
+    if (helper) {
+      helper.innerHTML = preset.helper;
+    }
+  }
+
+  onProviderSelectChanged();
+}
+
+function resetBaseUrlToDefault() {
+  const provider = document.getElementById('input_provider').value;
+  const preset = DEFAULT_PRESET_MAP[provider];
+  const baseInput = document.getElementById('input_base_url');
+  if (baseInput) {
+    baseInput.value = preset ? preset.base_url : '';
+  }
+}
+
 function onProviderSelectChanged() {
   const provider = document.getElementById('input_provider').value;
-  // Đóng kết quả test cũ khi chuyển provider
   const resultBox = document.getElementById('form-test-result-box');
   if (resultBox) resultBox.style.display = 'none';
 
-  // Nạp danh sách model mới của Provider và tự chọn model #1 mặc định
+  // Điều chỉnh placeholder gợi ý theo provider
+  const preset = DEFAULT_PRESET_MAP[provider];
+  if (preset) {
+    const keyInput = document.getElementById('input_api_key');
+    if (keyInput && !keyInput.value) {
+      keyInput.placeholder = preset.placeholder;
+    }
+    const baseInput = document.getElementById('input_base_url');
+    if (baseInput && !baseInput.value) {
+      baseInput.value = preset.base_url;
+    }
+    const helper = document.getElementById('api-key-helper-text');
+    if (helper) {
+      helper.innerHTML = preset.helper;
+    }
+  }
+
   populateModelDropdown(provider, '');
 }
 
@@ -367,9 +583,131 @@ function onCustomModelInputChanged() {
   }
 }
 
+function onBaseUrlChanged() {
+  const resultBox = document.getElementById('form-test-result-box');
+  if (resultBox) resultBox.style.display = 'none';
+}
+
+// SMART AUTO-DETECTION KHI DÁN API KEY
+let _detectTimer = null;
+
+function onApiKeyInputChanged() {
+  clearTimeout(_detectTimer);
+  const key = document.getElementById('input_api_key').value.trim();
+  const alertBox = document.getElementById('key-detect-alert');
+  const statusEl = document.getElementById('key-detect-status');
+
+  if (!key) {
+    if (alertBox) alertBox.style.display = 'none';
+    if (statusEl) statusEl.textContent = '';
+    return;
+  }
+
+  // Client-side quick check
+  if (key.startsWith('1//')) {
+    setDetectedUi({
+      provider: 'antigravity',
+      auth_type: 'oauth2',
+      title: 'Google OAuth Refresh Token (9router Antigravity)',
+      desc: 'Hệ thống sẽ tự động đổi lấy token mới mỗi 50 phút — Chạy vĩnh viễn không lo hết hạn!'
+    });
+    return;
+  } else if (key.startsWith('ya29.')) {
+    setDetectedUi({
+      provider: 'antigravity',
+      auth_type: 'bearer_token',
+      title: 'Antigravity Google OAuth Bearer Token',
+      desc: 'Token tạm thời (thời hạn 1 giờ). Bạn có thể dùng Refresh Token (1//...) để duy trì lâu dài.'
+    });
+    return;
+  } else if (key.startsWith('sess-')) {
+    setDetectedUi({
+      provider: 'codex',
+      auth_type: 'bearer_token',
+      title: 'Codex / ChatGPT Session Token',
+      desc: 'Xác thực thông qua phiên ChatGPT Codex CLI.'
+    });
+    return;
+  }
+
+  // Debounce gọi backend API detect-key
+  _detectTimer = setTimeout(async () => {
+    try {
+      if (statusEl) statusEl.textContent = 'Đang nhận diện key...';
+      const resp = await fetch('/api/v1/admin-api/detect-key', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key: key })
+      });
+      if (resp.ok) {
+        const data = await resp.json();
+        if (data.detected && data.provider) {
+          setDetectedUi({
+            provider: data.provider,
+            auth_type: data.auth_type,
+            title: `Đã nhận diện: ${data.provider.toUpperCase()} (${data.auth_type})`,
+            desc: `Định dạng chuỗi khớp với ${data.provider}. Bấm "Áp dụng" để chuyển đổi cấu hình phù hợp.`
+          });
+        } else {
+          if (alertBox) alertBox.style.display = 'none';
+          if (statusEl) statusEl.textContent = '';
+        }
+      }
+    } catch (e) {
+      if (statusEl) statusEl.textContent = '';
+    }
+  }, 400);
+}
+
+function setDetectedUi(info) {
+  const alertBox = document.getElementById('key-detect-alert');
+  const statusEl = document.getElementById('key-detect-status');
+  const provSelect = document.getElementById('input_provider');
+  const authSelect = document.getElementById('input_auth_type');
+
+  if (statusEl) {
+    statusEl.innerHTML = `<span class="text-success"><i class="fa-solid fa-check me-1"></i>${info.title}</span>`;
+  }
+
+  if (alertBox) {
+    alertBox.style.display = 'block';
+    const isCurrentProv = provSelect && provSelect.value === info.provider;
+    alertBox.innerHTML = `
+      <div class="d-flex align-items-center justify-content-between gap-2">
+        <div>
+          <strong class="text-primary"><i class="fa-solid fa-sparkles me-1"></i>${info.title}</strong>
+          <div class="text-muted mt-0.5" style="font-size:11.5px;">${info.desc}</div>
+        </div>
+        ${!isCurrentProv ? `
+          <button type="button" class="btn btn-sm btn-primary fw-bold text-nowrap px-2.5 py-1" style="font-size:11.5px; border-radius:6px;" onclick="applyDetected('${info.provider}', '${info.auth_type}')">
+            Áp dụng ngay
+          </button>
+        ` : ''}
+      </div>
+    `;
+  }
+
+  // Tự động set auth_type nếu phát hiện token đặc biệt
+  if (authSelect && info.auth_type) {
+    authSelect.value = info.auth_type;
+  }
+}
+
+function applyDetected(provider, authType) {
+  applyPreset(provider);
+  const authSelect = document.getElementById('input_auth_type');
+  if (authSelect && authType) {
+    authSelect.value = authType;
+  }
+  const alertBox = document.getElementById('key-detect-alert');
+  if (alertBox) alertBox.style.display = 'none';
+}
+
+// KIỂM TRA KẾT NỐI THỰC TẾ (LIVE TEST)
 async function runFormTestApi() {
   const provider = document.getElementById('input_provider').value;
   const apiKey = document.getElementById('input_api_key').value.trim();
+  const baseUrl = document.getElementById('input_base_url') ? document.getElementById('input_base_url').value.trim() : '';
   let model = document.getElementById('input_selected_model') ? document.getElementById('input_selected_model').value.trim() : '';
   const select = document.getElementById('model_dropdown_select');
   if (!model && select && select.value && select.value !== '__custom__') {
@@ -383,13 +721,13 @@ async function runFormTestApi() {
   const resultBox = document.getElementById('form-test-result-box');
 
   if (!apiKey) {
-    alert('Vui lòng dán mã API Key trước khi kiểm tra');
+    alert('Vui lòng dán mã API Key hoặc OAuth Token trước khi kiểm tra');
     document.getElementById('input_api_key').focus();
     return;
   }
 
   btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right:5px;"></i> <span>Đang kiểm tra API...</span>';
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right:5px;"></i> <span>Đang kiểm tra kết nối...</span>';
   resultBox.style.display = 'none';
 
   try {
@@ -397,6 +735,7 @@ async function runFormTestApi() {
       provider_id: provider,
       api_key: apiKey,
       model: model || undefined,
+      base_url: baseUrl || undefined,
       prompt: 'Xin chào! Hãy trả lời đúng 1 câu ngắn: Xác nhận kết nối API hoạt động hoàn hảo.'
     };
 
@@ -409,20 +748,23 @@ async function runFormTestApi() {
 
     resultBox.style.display = 'block';
     if (data.success) {
+      const lat = data.latency_ms || 0;
+      const latBadgeClass = lat < 1500 ? 'bg-success' : (lat < 3500 ? 'bg-warning text-dark' : 'bg-danger');
       resultBox.innerHTML = `
         <div class="conn-test-box p-3 rounded-3" style="background:#ecfdf5;border:1px solid #a7f3d0 !important;display:block;">
           <div class="d-flex align-items-center justify-content-between gap-2 mb-2" style="width:100%;">
             <div class="d-flex align-items-center gap-1.5 fw-bold text-success" style="font-size:13px;">
               <i class="fa-solid fa-circle-check flex-shrink-0" style="font-size:14px;"></i>
-              <span>${data.message || 'Kết nối API Key thành công!'}</span>
+              <span>${data.message || 'Kết nối thành công!'}</span>
             </div>
-            <span class="badge bg-success text-white fw-bold px-2.5 py-1 flex-shrink-0" style="font-size:11px;">${data.latency_ms} ms</span>
+            <span class="badge ${latBadgeClass} fw-bold px-2.5 py-1 flex-shrink-0" style="font-size:11px;">${lat} ms</span>
           </div>
           <div class="text-muted small mb-2">
-            <strong>Provider:</strong> ${data.provider} | <strong>Model:</strong> <code>${data.model_used || model}</code>
+            <strong>Nhà cung cấp:</strong> ${data.provider} | <strong>Model:</strong> <code>${data.model_used || model}</code>
+            ${baseUrl ? `| <strong>Endpoint:</strong> <code>${baseUrl}</code>` : ''}
           </div>
           <div class="p-3 rounded-2 bg-white text-dark" style="font-size:12.5px;line-height:1.55;border:1px solid #d1fae5;">
-            <strong>Phản hồi từ AI:</strong><br>${(data.response_text || '').replace(/\\n/g, '<br>')}
+            <strong>Phản hồi trực tiếp từ AI:</strong><br>${(data.response_text || '').replace(/\\n/g, '<br>')}
           </div>
         </div>
       `;
@@ -433,8 +775,16 @@ async function runFormTestApi() {
             <i class="fa-solid fa-circle-xmark flex-shrink-0" style="font-size:14px;"></i>
             <span>Kết nối thất bại</span>
           </div>
-          <div class="text-danger small p-2.5 rounded-2 bg-white" style="font-size:12px;line-height:1.45;border:1px solid #fee2e2;">${data.message || 'Không thể xác thực API Key'}</div>
-          ${data.model_used ? `<div class="text-muted small mt-1.5">Model: <code>${data.model_used}</code></div>` : ''}
+          <div class="text-danger small p-2.5 rounded-2 bg-white" style="font-size:12px;line-height:1.45;border:1px solid #fee2e2;">
+            ${data.message || 'Không thể xác thực API Key'}
+          </div>
+          <div class="text-muted small mt-2">
+            ${data.model_used ? `<span>Model: <code>${data.model_used}</code></span>` : ''}
+            ${baseUrl ? `<span class="ms-2">Endpoint: <code>${baseUrl}</code></span>` : ''}
+          </div>
+          <div class="mt-2 pt-2 border-top small text-muted" style="font-size:11px;">
+            <i class="fa-solid fa-circle-info me-1"></i><strong>Gợi ý:</strong> Kiểm tra lại API Key, kết nối mạng hoặc đổi Base URL/Model tương thích.
+          </div>
         </div>
       `;
     }
@@ -444,7 +794,7 @@ async function runFormTestApi() {
       <div class="conn-test-box p-3 rounded-3" style="background:#fffbeb;border:1px solid #fde68a !important;display:block;">
         <div class="fw-bold text-warning mb-1 d-flex align-items-center gap-1.5" style="font-size:12.5px;">
           <i class="fa-solid fa-triangle-exclamation flex-shrink-0"></i>
-          <span>Lỗi kết nối máy chủ</span>
+          <span>Lỗi kết nối máy chủ Backend</span>
         </div>
         <div class="text-muted small">${e.message}</div>
       </div>
@@ -459,6 +809,12 @@ document.addEventListener('DOMContentLoaded', function() {
   const provider = document.getElementById('input_provider').value;
   const currentModel = document.getElementById('input_selected_model') ? document.getElementById('input_selected_model').value : '';
   populateModelDropdown(provider, currentModel);
+
+  // Trigger detect ban đầu nếu có sẵn key
+  const existingKey = document.getElementById('input_api_key').value.trim();
+  if (existingKey) {
+    onApiKeyInputChanged();
+  }
 });
 </script>
 {% endblock %}

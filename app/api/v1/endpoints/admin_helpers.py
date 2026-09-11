@@ -20,6 +20,7 @@ from app.models.ai_provider_model import AiProviderModel
 from app.core.config import settings
 from app.services.ai.vision_analyzer import normalize_antigravity_model
 from app.services.ai.web_search_service import WebSearchService
+from app.services.ai.token_refresh_service import TokenRefreshService
 
 router = APIRouter(prefix="/admin-api", tags=["Admin Helpers"])
 
@@ -30,6 +31,8 @@ class TestConnectionRequest(BaseModel):
     api_key: Optional[str] = None
     model: Optional[str] = None
     prompt: Optional[str] = None
+    base_url: Optional[str] = None
+    auth_type: Optional[str] = None
 
 
 class TestConnectionResponse(BaseModel):
@@ -39,6 +42,38 @@ class TestConnectionResponse(BaseModel):
     model_used: Optional[str] = None
     response_text: Optional[str] = None
     latency_ms: Optional[int] = None
+
+
+class DetectKeyRequest(BaseModel):
+    raw_key: Optional[str] = None
+    key: Optional[str] = None
+
+    def get_raw_key(self) -> str:
+        return (self.raw_key or self.key or "").strip()
+
+
+class DetectKeyResponse(BaseModel):
+    detected: bool
+    provider_id: Optional[str] = None
+    provider: Optional[str] = None
+    provider_name: Optional[str] = None
+    auth_type: Optional[str] = None
+    format_name: str
+    suggested_model: Optional[str] = None
+    base_url: Optional[str] = None
+    note: Optional[str] = None
+
+    def __init__(self, **data):
+        if "provider_id" in data and "provider" not in data:
+            data["provider"] = data["provider_id"]
+        elif "provider" in data and "provider_id" not in data:
+            data["provider_id"] = data["provider"]
+        super().__init__(**data)
+
+
+async def _refresh_google_oauth_token(refresh_token: str, client_id: str = None, client_secret: str = None) -> str:
+    """Đổi Google OAuth Refresh Token (1//...) lấy Access Token (ya29...) mới nhất qua TokenRefreshService."""
+    return await TokenRefreshService.get_active_token(refresh_token, client_id=client_id, client_secret=client_secret)
 
 
 async def _call_openai_compatible(base_url: str, api_key: str, model: str, prompt: str) -> dict:
@@ -397,7 +432,23 @@ async def test_ai_connection(
 
     # 5. Xác định phương thức gọi dựa trên api_type hoặc provider
     api_type = provider.api_type if provider else ("google_gemini" if provider_id == "google" else "openai_compatible")
-    base_url = (provider.base_url if provider and provider.base_url else settings.AI_COMPATIBLE_DEFAULT_BASE_URL)
+    base_url = (req.base_url.strip() if (req.base_url and req.base_url.strip()) else None) or (provider.base_url if provider and provider.base_url else settings.AI_COMPATIBLE_DEFAULT_BASE_URL)
+
+    # Xử lý tự động làm mới nếu là Google OAuth Refresh Token (bắt đầu bằng 1//)
+    was_refreshed = False
+    if api_key and api_key.strip().startswith("1//"):
+        try:
+            active_token = await _refresh_google_oauth_token(api_key.strip())
+            if active_token:
+                api_key = active_token
+                was_refreshed = True
+        except Exception as ref_err:
+            return TestConnectionResponse(
+                success=False,
+                provider=provider_name,
+                model_used=model,
+                message=f"Lỗi làm mới Google OAuth Refresh Token: {str(ref_err)}"
+            )
 
     prompt = req.prompt or settings.AI_CONNECTION_TEST_PROMPT
 
@@ -411,12 +462,13 @@ async def test_ai_connection(
         elif api_type == "anthropic" or provider_id == "anthropic":
             result_data = await _call_anthropic(api_key, model, prompt)
         else:
-            # openai_compatible (OpenAI, DeepSeek, OpenRouter, Groq, Mistral, Ollama, xAI, etc.)
+            # openai_compatible (OpenAI, DeepSeek, OpenRouter, Groq, Mistral, Ollama, xAI, Custom, etc.)
             result_data = await _call_openai_compatible(base_url, api_key, model, prompt)
 
+        success_msg = f"Đã làm mới OAuth Token và kết nối thành công với {provider_name}!" if was_refreshed else f"Kết nối thành công với {provider_name}!"
         return TestConnectionResponse(
             success=True,
-            message=f"Kết nối thành công với {provider_name}!",
+            message=success_msg,
             provider=provider_name,
             model_used=model,
             response_text=result_data["text"].strip(),
@@ -667,3 +719,192 @@ async def test_web_search(
         latency_ms=res.get("latency_ms", 0),
         error=res.get("error")
     )
+
+
+@router.post("/detect-key", response_model=DetectKeyResponse)
+async def detect_ai_key(req: DetectKeyRequest):
+    """Tự động phát hiện loại API Key / OAuth Token (tương tự 9router) và đề xuất Provider, Model phù hợp."""
+    raw = req.get_raw_key()
+    if not raw:
+        return DetectKeyResponse(
+            detected=False,
+            format_name="Chưa nhập key",
+            note="Vui lòng dán chuỗi API Key hoặc Token cần kiểm tra."
+        )
+
+    # 1. Antigravity OAuth Access Token (bắt đầu bằng ya29.)
+    if raw.startswith("ya29."):
+        return DetectKeyResponse(
+            detected=True,
+            provider_id="antigravity",
+            provider_name="Antigravity",
+            auth_type="bearer_token",
+            format_name="Google Cloud Code / Antigravity OAuth Bearer Token",
+            suggested_model="ag/gemini-3.7-flash-high",
+            base_url="https://daily-cloudcode-pa.googleapis.com",
+            note="Token Bearer chuẩn Antigravity (hiệu lực ~1 giờ). Tự động gắn User-Agent 2.11.0."
+        )
+
+    # 2. Antigravity OAuth Refresh Token (bắt đầu bằng 1//)
+    if raw.startswith("1//"):
+        return DetectKeyResponse(
+            detected=True,
+            provider_id="antigravity",
+            provider_name="Antigravity",
+            auth_type="oauth2",
+            format_name="Google OAuth 2.0 Refresh Token (Tự Động Gia Hạn Vĩnh Viễn)",
+            suggested_model="ag/gemini-3.7-flash-high",
+            base_url="https://daily-cloudcode-pa.googleapis.com",
+            note="Refresh Token chuẩn! Hệ thống sẽ tự động đổi lấy Access Token mới mỗi khi hết hạn."
+        )
+
+    # 3. Google Gemini Developer API Key (AI Studio)
+    if raw.startswith("AIza"):
+        return DetectKeyResponse(
+            detected=True,
+            provider_id="google",
+            provider_name="Google Gemini",
+            auth_type="api_key",
+            format_name="Google Gemini Developer API Key (Google AI Studio)",
+            suggested_model="gemini-2.5-flash",
+            base_url="https://generativelanguage.googleapis.com",
+            note="Khóa API chính thức của Google AI Studio (hỗ trợ cả Gemini 2.5 Flash, 2.5 Pro)."
+        )
+
+    # 4. Anthropic Claude API Key
+    if raw.startswith("sk-ant-"):
+        return DetectKeyResponse(
+            detected=True,
+            provider_id="anthropic",
+            provider_name="Anthropic Claude",
+            auth_type="api_key",
+            format_name="Anthropic Claude Secret API Key",
+            suggested_model="claude-3-5-sonnet-20241022",
+            base_url="https://api.anthropic.com/v1",
+            note="Khóa Claude chính hãng từ Anthropic Console (hỗ trợ Vision và bóc tách tài liệu)."
+        )
+
+    # 5. Groq LPU API Key
+    if raw.startswith("gsk_"):
+        return DetectKeyResponse(
+            detected=True,
+            provider_id="groq",
+            provider_name="Groq",
+            auth_type="api_key",
+            format_name="Groq LPU Inference API Key",
+            suggested_model="llama-3.3-70b-versatile",
+            base_url="https://api.groq.com/openai/v1",
+            note="Tốc độ suy luận siêu tốc (LPU). Thích hợp bóc tách và phản hồi cực nhanh."
+        )
+
+    # 6. OpenRouter API Key
+    if raw.startswith("sk-or-v1-") or raw.startswith("sk-or-"):
+        return DetectKeyResponse(
+            detected=True,
+            provider_id="openrouter",
+            provider_name="OpenRouter",
+            auth_type="api_key",
+            format_name="OpenRouter Unified API Key",
+            suggested_model="google/gemini-2.0-flash-001",
+            base_url="https://openrouter.ai/api/v1",
+            note="Cổng kết nối đa mô hình OpenRouter (gọi Claude, GPT, DeepSeek, Llama... qua 1 key)."
+        )
+
+    # 7. xAI (Grok) API Key
+    if raw.startswith("xai-"):
+        return DetectKeyResponse(
+            detected=True,
+            provider_id="xai",
+            provider_name="xAI (Grok)",
+            auth_type="api_key",
+            format_name="xAI Grok API Key",
+            suggested_model="grok-2-vision-1212",
+            base_url="https://api.x.ai/v1",
+            note="Mô hình đa phương thức Grok từ xAI (Elon Musk)."
+        )
+
+    # 8. OpenAI Project / Standard Key
+    if raw.startswith("sk-proj-"):
+        return DetectKeyResponse(
+            detected=True,
+            provider_id="openai",
+            provider_name="OpenAI",
+            auth_type="api_key",
+            format_name="OpenAI Project API Key",
+            suggested_model="gpt-6-astra",
+            base_url="https://api.openai.com/v1",
+            note="Khóa Project chính thức từ OpenAI Platform."
+        )
+
+    # 9. Codex / ChatGPT Session Token
+    if raw.startswith("sess-") or (len(raw) > 300 and "." in raw):
+        return DetectKeyResponse(
+            detected=True,
+            provider_id="codex",
+            provider_name="Codex / OpenAI API",
+            auth_type="bearer_token",
+            format_name="OpenAI / ChatGPT OAuth Bearer Token (Codex Responses API)",
+            suggested_model="gpt-5.6-terra",
+            base_url="https://chatgpt.com/backend-api/codex/responses",
+            note="Token phiên ChatGPT tương tự cơ chế 9router."
+        )
+
+    # 10. DeepSeek hoặc OpenAI standard sk-...
+    if raw.startswith("sk-"):
+        return DetectKeyResponse(
+            detected=True,
+            provider_id="deepseek",
+            provider_name="DeepSeek",
+            auth_type="api_key",
+            format_name="DeepSeek / OpenAI-Compatible API Key",
+            suggested_model="deepseek-chat",
+            base_url="https://api.deepseek.com/v1",
+            note="Khóa chuẩn OpenAI format (mặc định định tuyến DeepSeek hoặc đổi sang OpenAI / Mistral)."
+        )
+
+    # 11. Local instance / Ollama
+    if raw.lower() in ("ollama", "local", "none", "test") or "localhost" in raw or "127.0.0.1" in raw:
+        return DetectKeyResponse(
+            detected=True,
+            provider_id="ollama",
+            provider_name="Ollama (Local)",
+            auth_type="api_key",
+            format_name="Ollama Local Instance",
+            suggested_model="llama3.1:8b",
+            base_url="http://localhost:11434/v1",
+            note="Mô hình chạy offline nội bộ trên máy cá nhân hoặc server riêng (không tốn token)."
+        )
+
+    return DetectKeyResponse(
+        detected=False,
+        format_name="Khóa tùy biến (Custom API Key)",
+        note="Định dạng chưa nhận diện tự động. Vui lòng tự chọn Provider và kiểm tra kết nối."
+    )
+
+
+@router.get("/providers-summary")
+async def get_providers_summary(db: AsyncSession = Depends(get_db)):
+    """Lấy danh sách tóm tắt tất cả các provider đang có cùng endpoint mặc định và danh sách model."""
+    stmt = select(AiProvider).where(AiProvider.is_active == True).order_by(AiProvider.sort_order.asc())
+    res = await db.execute(stmt)
+    providers = res.scalars().all()
+
+    out = []
+    for p in providers:
+        m_stmt = select(AiProviderModel).where(
+            AiProviderModel.provider_id == p.id,
+            AiProviderModel.is_active == True
+        ).order_by(AiProviderModel.sort_order.asc(), AiProviderModel.id.asc())
+        m_res = await db.execute(m_stmt)
+        models = m_res.scalars().all()
+
+        out.append({
+            "id": p.id,
+            "name": p.name,
+            "slug": p.slug,
+            "api_type": p.api_type,
+            "base_url": p.base_url or "",
+            "description": p.description or "",
+            "models": [{"key": m.model_key, "label": m.label} for m in models]
+        })
+    return out

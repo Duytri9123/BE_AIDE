@@ -126,10 +126,31 @@
             </div>
           </div>
 
-          <!-- Connection Name -->
-          <div class="d-flex align-items-center justify-content-between mb-2 pb-1 border-bottom border-light">
-            <span class="text-truncate fw-bold text-dark" style="font-size:13px;" title="{{ row.name }}">{{ row.name
-              }}</span>
+          <!-- Connection Name & Badges -->
+          <div class="d-flex align-items-center justify-content-between mb-2 pb-1 border-bottom border-light flex-wrap gap-1">
+            <span class="text-truncate fw-bold text-dark" style="font-size:13px;" title="{{ row.name }}">{{ row.name }}</span>
+            <div class="d-flex align-items-center gap-1 flex-wrap">
+              {% if row.auth_type == 'oauth2' or (row.api_key and row.api_key.startswith('1//')) %}
+                <span class="badge bg-primary-subtle text-primary fw-bold" style="font-size:9.5px; padding:2px 6px;" title="Tự động cấp phát token mới định kỳ theo chuẩn Google OAuth 9router">
+                  <i class="fa-solid fa-arrows-rotate me-1"></i>OAuth 2.0 (9router)
+                </span>
+              {% elif row.auth_type == 'bearer_token' or (row.api_key and (row.api_key.startswith('ya29.') or row.api_key.startswith('sess-'))) %}
+                <span class="badge bg-info-subtle text-info fw-bold" style="font-size:9.5px; padding:2px 6px;">
+                  <i class="fa-solid fa-shield-halved me-1"></i>Bearer Token
+                </span>
+              {% endif %}
+              {% if row.quotas and row.quotas.get('base_url') %}
+                <span class="badge bg-secondary-subtle text-secondary fw-normal" style="font-size:9.5px; padding:2px 6px;" title="{{ row.quotas.get('base_url') }}">
+                  <i class="fa-solid fa-globe me-0.5"></i>Custom URL
+                </span>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Model info -->
+          <div class="d-flex align-items-center justify-content-between mb-2 text-muted" style="font-size:11.5px;">
+            <span><i class="fa-solid fa-robot me-1 text-primary"></i>Model:</span>
+            <code class="fw-semibold text-dark" style="font-size:11px;">{{ row.selected_model or 'Mặc định (#1)' }}</code>
           </div>
 
           <!-- Test Result Box (hiển thị TRÊN ô API KEY) -->

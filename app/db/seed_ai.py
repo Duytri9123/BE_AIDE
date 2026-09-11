@@ -83,6 +83,37 @@ DEFAULT_PROVIDERS = [
         ]
     },
     {
+        "id": "deepseek",
+        "name": "DeepSeek",
+        "slug": "deepseek",
+        "api_type": "openai_compatible",
+        "base_url": "https://api.deepseek.com/v1",
+        "description": "DeepSeek-V3 & DeepSeek-R1 (Suy luận chuyên sâu, giá rẻ)",
+        "icon": "/admin/static/providers/deepseek.png",
+        "is_active": True,
+        "sort_order": 4,
+        "models": [
+            {"model_key": "deepseek-chat", "label": "DeepSeek-V3 (Chat & Trích xuất nhanh)", "sort_order": 1},
+            {"model_key": "deepseek-reasoner", "label": "DeepSeek-R1 (Suy luận logic & toán học)", "sort_order": 2},
+        ]
+    },
+    {
+        "id": "google",
+        "name": "Google Gemini",
+        "slug": "google",
+        "api_type": "google_gemini",
+        "base_url": "https://generativelanguage.googleapis.com",
+        "description": "Google Gemini Developer API (Sử dụng API Key AIza...)",
+        "icon": "/admin/static/providers/google.png",
+        "is_active": True,
+        "sort_order": 0,
+        "models": [
+            {"model_key": "gemini-2.5-flash", "label": "Gemini 2.5 Flash (Khuyên dùng)", "sort_order": 1},
+            {"model_key": "gemini-2.5-pro", "label": "Gemini 2.5 Pro (Suy luận sâu)", "sort_order": 2},
+            {"model_key": "gemini-2.0-flash", "label": "Gemini 2.0 Flash (Tốc độ cao)", "sort_order": 3},
+        ]
+    },
+    {
         "id": "openrouter",
         "name": "OpenRouter",
         "slug": "openrouter",

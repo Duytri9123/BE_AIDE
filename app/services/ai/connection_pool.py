@@ -21,6 +21,7 @@ from app.core.exceptions import (
     AIAuthenticationError,
     ImageParsingError,
 )
+from app.services.ai.token_refresh_service import TokenRefreshService
 
 logger = logging.getLogger(__name__)
 
@@ -215,11 +216,15 @@ class ConnectionPoolService:
                         try:
                             logger.info("ConnectionPool: Đang thử %s (Lần thử %s/%s)", conn_label, attempt, max_attempts)
                             call_args = dict(call_kwargs)
-                            if provider_base_url and "base_url" not in call_args:
-                                call_args["base_url"] = provider_base_url
+                            conn_base_url = (conn.quotas or {}).get("base_url") if isinstance(conn.quotas, dict) else None
+                            eff_base_url = conn_base_url or provider_base_url
+                            if eff_base_url and "base_url" not in call_args:
+                                call_args["base_url"] = eff_base_url
+                            
+                            active_api_key = await TokenRefreshService.get_active_token(conn.api_key)
                             result = await call_fn(
                                 provider=provider,
-                                api_key=conn.api_key,
+                                api_key=active_api_key,
                                 model=model_to_use,
                                 **call_args,
                             )
