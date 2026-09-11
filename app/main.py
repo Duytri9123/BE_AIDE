@@ -1,5 +1,6 @@
 import contextlib
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -53,13 +54,7 @@ app.include_router(api_router, prefix=settings.API_V1_STR)
 
 @app.get("/")
 async def root():
-    return {
-        "message": f"{settings.PROJECT_NAME} Server",
-        "version": settings.VERSION,
-        "docs": "/docs",
-        "admin": "/admin",
-        "api": settings.API_V1_STR
-    }
+    return RedirectResponse(url="https://dgpelectric.top", status_code=302)
 
 @app.get("/health")
 async def health_check():
