@@ -189,6 +189,12 @@ class Settings(BaseSettings):
     PUSHER_CHANNEL: str = "aide-admin-channel"
     PUSHER_SSL: bool = True
 
+    # SePay Payment Gateway Configuration
+    SEPAY_API_KEY: Optional[str] = None
+    SEPAY_BANK_NAME: str = "MBBank"
+    SEPAY_ACCOUNT_NUMBER: str = "0388888888"
+    SEPAY_ACCOUNT_NAME: str = "DGP ELECTRIC"
+
     model_config = SettingsConfigDict(
         env_file=".env", env_file_encoding="utf-8", case_sensitive=True, extra="ignore"
     )

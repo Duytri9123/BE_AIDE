@@ -1,11 +1,12 @@
 from fastapi import APIRouter
-from .endpoints import analyze, analyze_multi_agent, bom, export, chat, user_library, auth, users, projects, devices, providers, admin_helpers, plans
+from .endpoints import analyze, analyze_multi_agent, bom, export, chat, user_library, auth, users, projects, devices, providers, admin_helpers, plans, payments
 
 api_router = APIRouter()
 
 api_router.include_router(auth.router, prefix="/auth", tags=["Auth"])
 api_router.include_router(users.router, prefix="/users", tags=["Users"])
 api_router.include_router(plans.router, prefix="/plans", tags=["Plans"])
+api_router.include_router(payments.router, prefix="/payments", tags=["Payments"])
 api_router.include_router(projects.router, prefix="/projects", tags=["Projects"])
 api_router.include_router(devices.router, prefix="/device-library", tags=["Devices"])
 api_router.include_router(analyze.router, prefix="/analyze", tags=["Analyze"])
