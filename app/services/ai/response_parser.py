@@ -271,6 +271,51 @@ class ResponseParserService:
 
         # 4. Xử lý chuỗi bị cắt cụt (truncated JSON do giới hạn max tokens)
         try:
+            # Tìm ngược từ cuối chuỗi về các dấu đóng ngoặc '}' hoặc ']' gần nhất
+            for i in range(len(cleaned) - 1, -1, -1):
+                ch = cleaned[i]
+                if ch in ('}', ']'):
+                    sub = cleaned[:i + 1]
+                    stack = []
+                    in_str = False
+                    escape = False
+                    for c in sub:
+                        if escape:
+                            escape = False
+                            continue
+                        if c == '\\':
+                            escape = True
+                            continue
+                        if c == '"':
+                            in_str = not in_str
+                            continue
+                        if not in_str:
+                            if c in ('{', '['):
+                                stack.append(c)
+                            elif c == '}' and stack and stack[-1] == '{':
+                                stack.pop()
+                            elif c == ']' and stack and stack[-1] == '[':
+                                stack.pop()
+
+                    if not in_str and stack:
+                        tail = ""
+                        for opener in reversed(stack):
+                            if opener == '{':
+                                tail += '}'
+                            elif opener == '[':
+                                tail += ']'
+                        candidate = sub + tail
+                        candidate = re.sub(r',\s*([}\]])', r'\1', candidate)
+                        try:
+                            res = json.loads(candidate, strict=False)
+                            return res
+                        except Exception:
+                            pass
+        except Exception:
+            pass
+
+        # 5. Dự phòng đơn giản cho chuỗi cắt cụt không chứa '}' hoặc ']'
+        try:
             open_braces = cleaned.count('{') - cleaned.count('}')
             open_brackets = cleaned.count('[') - cleaned.count(']')
             if open_braces > 0 or open_brackets > 0:

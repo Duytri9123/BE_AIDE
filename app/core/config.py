@@ -93,11 +93,11 @@ class Settings(BaseSettings):
     SUPPORTED_PDF_FORMATS: List[str] = ["pdf"]
     
     # AI Vision Settings
-    # Timeout 60s đảm bảo AI Vision có đủ thời gian đọc bản vẽ sơ đồ 1 sợi và sinh JSON chi tiết
-    AI_VISION_TIMEOUT: int = 60  # seconds
+    # Timeout 120s đảm bảo AI Vision có đủ thời gian đọc bản vẽ sơ đồ 1 sợi và sinh JSON chi tiết
+    AI_VISION_TIMEOUT: int = 120  # seconds
     AI_VISION_MAX_RETRIES: int = 3
     AI_VISION_RETRY_BACKOFF: int = 2  # seconds
-    AI_MAX_OUTPUT_TOKENS: int = 8192  # Tăng từ 4096 để hỗ trợ bản vẽ nhiều tủ lớn
+    AI_MAX_OUTPUT_TOKENS: int = 32768  # Tăng lên 32768 để xuất đầy đủ thiết bị bản vẽ lớn không bị cắt cụt JSON
     # Thứ tự ưu tiên hãng mặc định (có thể override qua .env)
     DEFAULT_BRAND_PRIORITY_GENERAL: str = "Schneider Electric,LS Electric,Mitsubishi,ABB,Chint"
     DEFAULT_BRAND_PRIORITY_ACB: str = "ABB,Schneider Electric,Mitsubishi,LS Electric,Chint"
