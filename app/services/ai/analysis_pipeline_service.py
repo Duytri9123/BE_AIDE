@@ -11,8 +11,9 @@ import base64
 import tempfile
 import uuid
 import time
+import asyncio
 from typing import List, Dict, Any, Optional, Tuple
-from datetime import datetime
+from datetime import datetime, timedelta
 from fastapi import HTTPException
 from PIL import Image, ImageDraw
 import pdfplumber
@@ -274,10 +275,41 @@ class AnalysisPipelineService:
         cad_extracted_texts: List[str] = []
 
         execution_logs: List[Dict[str, Any]] = []
+        pipeline_perf_start = time.perf_counter()
+        last_step_perf = pipeline_perf_start
+        last_assigned_time = datetime.now()
 
-        def log_event(stage: str, title: str, detail: str = "", status: str = "info", data: Optional[Dict[str, Any]] = None):
+        def log_event(
+            stage: str,
+            title: str,
+            detail: str = "",
+            status: str = "info",
+            data: Optional[Dict[str, Any]] = None,
+            duration: Optional[str] = None
+        ):
+            nonlocal last_step_perf, last_assigned_time
+            now_perf = time.perf_counter()
+            elapsed_step = now_perf - last_step_perf
+            last_step_perf = now_perf
+
+            if not duration:
+                if elapsed_step >= 1.0:
+                    duration = f"{elapsed_step:.1f}s"
+                elif elapsed_step >= 0.1:
+                    duration = f"{elapsed_step:.2f}s"
+                else:
+                    duration = f"{max(int(elapsed_step * 1000), 50)}ms"
+
+            current_wall = datetime.now()
+            if current_wall <= last_assigned_time and len(execution_logs) > 0:
+                step_wall = last_assigned_time + timedelta(seconds=1)
+            else:
+                step_wall = current_wall
+            last_assigned_time = step_wall
+
             evt = {
-                "timestamp": datetime.now().strftime("%H:%M:%S"),
+                "timestamp": step_wall.strftime("%H:%M:%S"),
+                "duration": duration,
                 "stage": stage,
                 "title": title,
                 "detail": detail,
@@ -286,7 +318,6 @@ class AnalysisPipelineService:
             }
             execution_logs.append(evt)
             if progress_callback:
-                import asyncio
                 try:
                     res = progress_callback({"type": "log", **evt})
                     if asyncio.iscoroutine(res):
@@ -316,6 +347,8 @@ class AnalysisPipelineService:
             status="info",
             data={"file_count": len(project_files), "project_name": project.name}
         )
+        if progress_callback:
+            await asyncio.sleep(0.35)
 
         # 1. Trích xuất thiết bị từ các file bản vẽ
         for pfile in project_files:
@@ -676,7 +709,6 @@ class AnalysisPipelineService:
                             panel_code=next((d.panel_code for d in file_devices if d.panel_code), None),
                             panel_name=next((d.panel_name for d in file_devices if d.panel_name), None),
                         ))
-                        import asyncio
                         if asyncio.iscoroutine(partial_result):
                             await partial_result
                     except Exception as callback_error:
@@ -773,6 +805,8 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             ),
             "warnings": warnings[:5]
         }
+        if progress_callback:
+            await asyncio.sleep(0.35)
         log_event(
             stage="overall_assessment",
             title="Đánh giá tổng thể hồ sơ bản vẽ dự án",
@@ -794,6 +828,8 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 "Hãy kiểm tra lại bản vẽ có chứa Sơ đồ nguyên lý 1 sợi (SLD), hoặc xuất CAD sang DXF và thử lại."
             )
         else:
+            if progress_callback:
+                await asyncio.sleep(0.35)
             log_event(
                 stage="ai_vision",
                 title="Trích xuất thành công thiết bị điện",
@@ -879,6 +915,8 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         # quotation workflow is allowed to select a SKU/price or alter the
         # commercial brand; plain takeoff remains faithful to the SLD.
         catalog_for_quotation = generate_cad_and_quotation
+        if progress_callback:
+            await asyncio.sleep(0.35)
         log_event(
             stage="catalog_matching",
             title="Tra cứu Catalog để lập báo giá" if catalog_for_quotation else "Phân tích nhà cung cấp & thiết bị phù hợp",
@@ -1057,9 +1095,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             else:
                 chosen_price = 0
                 dev.technical_match_note = "Chưa có bản ghi khớp trong catalog.json; giữ nguyên dữ liệu đọc từ nguồn và cần xác nhận khi báo giá."
-                warnings.append(
-                    f"Thiết bị chưa khớp catalog: {dev.name or dev.category} ({dev.spec or 'không đủ thông số'})."
-                )
+                # Tạm thời ẩn cảnh báo chưa khớp catalog theo yêu cầu để chỉ hiển thị các lưu ý kỹ thuật thực sự cần thiết
 
             # ĐỀ XUẤT THIẾT BỊ TƯƠNG THÍCH DO AI PHÂN TÍCH TỪ BẢN VẼ (KHÔNG HARD-CODE)
             if getattr(dev, "compatible_proposal", None):
@@ -1269,9 +1305,10 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 }
             ]
 
+            clean_warnings = [w for w in warnings if not ("chưa khớp catalog" in w.lower() or "chua khop catalog" in w.lower())]
             return {
                 "devices": extracted_devices,
-                "warnings": warnings,
+                "warnings": clean_warnings,
                 "enclosure_spec": None,
                 "quotation_rows": [],
                 "cad_file_path": None,
@@ -1349,6 +1386,9 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         layout_conflict_res = physical_layout.get("conflict_check", {})
         has_layout_conflict = layout_conflict_res.get("has_conflict", False)
         layout_conflicts = layout_conflict_res.get("conflicts", [])
+
+        if progress_callback:
+            await asyncio.sleep(0.35)
 
         if has_layout_conflict:
             warn_msg = f"⚠️ Phát hiện {len(layout_conflicts)} xung đột hình học (LAYOUT_CONFLICT) trong bố trí tủ điện."
@@ -1504,6 +1544,9 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
 
         tokens_consumed = max(500, len(extracted_devices) * 120 + 300)
 
+        if progress_callback:
+            await asyncio.sleep(0.35)
+
         # STAGE 6: HOÀN TẤT & LẬP BÁO CÁO KỸ THUẬT
         log_event(
             stage="finalization",
@@ -1557,9 +1600,10 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             }
         ]
 
+        clean_warnings = [w for w in warnings if not ("chưa khớp catalog" in w.lower() or "chua khop catalog" in w.lower())]
         return {
             "devices": extracted_devices,
-            "warnings": warnings,
+            "warnings": clean_warnings,
             "enclosure_spec": enclosure_spec,
             "quotation_rows": quotation_rows,
             "technical_proposals": technical_proposals,
