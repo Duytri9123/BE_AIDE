@@ -119,9 +119,18 @@ class VisionAnalyzerService:
             
             result = None
             if prov == "antigravity":
-                result = await VisionAnalyzerService._call_antigravity(
-                    img_b64, prompt, api_key, model, enable_web_search=enable_web_search, project_id=project_id
-                )
+                if api_key and api_key.strip().startswith("AIza"):
+                    logger.info("[VisionAnalyzerService] Phát hiện API Key Google Studio (AIza) trong cấu hình Antigravity -> Tự động chuyển hướng sang Google Gemini API an toàn.")
+                    cleaned_model = model.removeprefix("ag/") if model.startswith("ag/") else model
+                    if not cleaned_model or "gemini" not in cleaned_model.lower():
+                        cleaned_model = "gemini-2.5-flash"
+                    result = await VisionAnalyzerService._call_google_genai(
+                        img_b64, prompt, api_key, cleaned_model, provider_name="Google", enable_web_search=enable_web_search
+                    )
+                else:
+                    result = await VisionAnalyzerService._call_antigravity(
+                        img_b64, prompt, api_key, model, enable_web_search=enable_web_search, project_id=project_id
+                    )
             elif prov == "codex":
                 result = await VisionAnalyzerService._call_codex(
                     img_b64, prompt, api_key, model, base_url=base_url
@@ -194,9 +203,18 @@ class VisionAnalyzerService:
 
         result = None
         if prov == "antigravity":
-            result = await VisionAnalyzerService._call_antigravity(
-                "", prompt, api_key, model, enable_web_search=enable_web_search, project_id=project_id
-            )
+            if api_key and api_key.strip().startswith("AIza"):
+                logger.info("[VisionAnalyzerService] Phát hiện API Key Google Studio (AIza) trong cấu hình Antigravity -> Tự động chuyển hướng sang Google Gemini API an toàn.")
+                cleaned_model = model.removeprefix("ag/") if model.startswith("ag/") else model
+                if not cleaned_model or "gemini" not in cleaned_model.lower():
+                    cleaned_model = "gemini-2.5-flash"
+                result = await VisionAnalyzerService._call_google_genai(
+                    "", prompt, api_key, cleaned_model, provider_name="Google", enable_web_search=enable_web_search
+                )
+            else:
+                result = await VisionAnalyzerService._call_antigravity(
+                    "", prompt, api_key, model, enable_web_search=enable_web_search, project_id=project_id
+                )
         elif prov == "codex":
             result = await VisionAnalyzerService._call_codex(
                 "", prompt, api_key, model, base_url=base_url
