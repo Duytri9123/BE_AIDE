@@ -2,7 +2,8 @@
 Admin helper API routes - Test AI connections & Models.
 Provides live testing of API Keys and Model outputs with latency measurement.
 """
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, update
 from pydantic import BaseModel
@@ -113,8 +114,17 @@ async def _call_antigravity(api_key: str, model: str, prompt: str) -> dict:
         "User-Agent": ANTIGRAVITY_IDE_USER_AGENT,
         "x-request-source": "local",
     }
+    # Lấy Google Cloud Project ID thực tế qua loadCodeAssist (chuẩn 9router)
+    pid = "cloudaicompanion-project"
+    try:
+        real_pid = await TokenRefreshService.get_project_id(clean_key)
+        if real_pid:
+            pid = real_pid
+    except Exception:
+        pass
+
     payload = {
-        "project": "cloudaicompanion-project",
+        "project": pid,
         "model": target_model,
         "userAgent": "antigravity",
         "requestType": "agent",
@@ -908,3 +918,113 @@ async def get_providers_summary(db: AsyncSession = Depends(get_db)):
             "models": [{"key": m.model_key, "label": m.label} for m in models]
         })
     return out
+
+
+@router.get("/antigravity/auth-url")
+async def get_antigravity_auth_url(request: Request):
+    """Tạo URL đăng nhập Google OAuth 2.0 Antigravity trực tiếp tương tự 9router."""
+    base_url = str(request.base_url).rstrip("/")
+    redirect_uri = f"{base_url}/api/v1/admin-api/antigravity/callback"
+    auth_url = TokenRefreshService.build_auth_url(redirect_uri=redirect_uri)
+    return {"auth_url": auth_url, "redirect_uri": redirect_uri}
+
+
+@router.get("/antigravity/callback")
+async def antigravity_oauth_callback(
+    code: Optional[str] = None,
+    error: Optional[str] = None,
+    request: Request = None,
+    db: AsyncSession = Depends(get_db)
+):
+    """Nhận code từ Google, tự đổi lấy Refresh Token và lấy Project ID thực tế qua loadCodeAssist."""
+    if error:
+        return HTMLResponse(f"<h3>Đăng nhập Google thất bại: {error}</h3><p><button onclick='window.close()'>Đóng</button></p>")
+    if not code:
+        return HTMLResponse("<h3>Không nhận được mã ủy quyền từ Google.</h3><p><button onclick='window.close()'>Đóng</button></p>")
+
+    base_url = str(request.base_url).rstrip("/")
+    redirect_uri = f"{base_url}/api/v1/admin-api/antigravity/callback"
+
+    try:
+        token_data = await TokenRefreshService.exchange_code_for_tokens(code, redirect_uri)
+        refresh_token = token_data.get("refresh_token") or token_data.get("access_token")
+        email = token_data.get("email") or "Google Antigravity User"
+        project_id = token_data.get("project_id") or "cloudaicompanion-project"
+
+        stmt = select(AiConnection).where(AiConnection.provider == "antigravity", AiConnection.email == email)
+        res = await db.execute(stmt)
+        conn = res.scalar_one_or_none()
+
+        if not conn:
+            conn = AiConnection(
+                provider="antigravity",
+                auth_type="oauth2",
+                name=f"Antigravity OAuth ({email})",
+                email=email,
+                api_key=refresh_token,
+                selected_model="ag/gemini-3.6-flash-high",
+                is_active=True,
+                status="active",
+                tag="Google OAuth Direct",
+                priority=1,
+                quotas={"project_id": project_id}
+            )
+            db.add(conn)
+        else:
+            conn.api_key = refresh_token
+            conn.auth_type = "oauth2"
+            conn.is_active = True
+            conn.status = "active"
+            quotas = dict(conn.quotas) if isinstance(conn.quotas, dict) else {}
+            quotas["project_id"] = project_id
+            conn.quotas = quotas
+            db.add(conn)
+
+        await db.commit()
+
+        return HTMLResponse(f"""
+        <!DOCTYPE html>
+        <html>
+        <head><title>Đăng nhập Antigravity Thành Công</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+          body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #f8fafc; }}
+          .card {{ background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 32px; text-align: center; max-width: 440px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08); }}
+          .icon {{ width: 64px; height: 64px; border-radius: 50%; background: #ecfdf5; color: #10b981; display: flex; align-items: center; justify-content: center; font-size: 30px; margin: 0 auto 16px; }}
+          h2 {{ margin: 0 0 8px; color: #0f172a; font-size: 19px; }}
+          p {{ color: #64748b; font-size: 13px; line-height: 1.55; margin: 0 0 20px; }}
+          .btn {{ background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 10px 22px; font-weight: 600; cursor: pointer; text-decoration: none; font-size: 13px; }}
+          code {{ background: #f1f5f9; padding: 2px 6px; border-radius: 4px; color: #334155; font-size: 12px; }}
+        </style>
+        </head>
+        <body>
+          <div class="card">
+            <div class="icon"><i class="fa-solid fa-check"></i></div>
+            <h2>Liên Kết Google Antigravity Thành Công!</h2>
+            <p>Tài khoản: <strong>{email}</strong><br>Google Cloud Project: <code>{project_id}</code><br>Hệ thống tự động cấp phát token định kỳ, sẵn sàng bóc tách bản vẽ.</p>
+            <button class="btn" onclick="finishAndClose()">Hoàn tất &amp; Quay lại Quản Trị</button>
+          </div>
+          <script>
+            function finishAndClose() {{
+              if (window.opener) {{
+                window.opener.location.reload();
+                window.close();
+              }} else {{
+                window.location.href = '/admin/ai-connection/list';
+              }}
+            }}
+            setTimeout(function() {{
+              if (window.opener) {{
+                window.opener.location.reload();
+                window.close();
+              }}
+            }}, 2000);
+          </script>
+        </body>
+        </html>
+        """)
+
+    except Exception as ex:
+        return HTMLResponse(f"<h3>Lỗi cấu hình OAuth: {str(ex)}</h3><p><button onclick='window.close()'>Đóng</button></p>")
+

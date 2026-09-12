@@ -14,6 +14,10 @@
       </p>
     </div>
     <div class="models-header-actions d-flex align-items-center gap-1.5 gap-sm-2 flex-wrap">
+      <button type="button" class="btn btn-sm btn-outline-danger fw-bold px-2.5 px-sm-3 py-2 shadow-sm d-inline-flex align-items-center rounded-3 text-nowrap"
+        onclick="loginGoogleAntigravityDirect()" style="font-size:12.5px;gap:6px;background:#fff;">
+        <i class="fa-brands fa-google text-danger"></i> <span>Đăng nhập Antigravity (1-Click)</span>
+      </button>
       <a href="/admin/ai-provider/list"
         class="btn btn-sm btn-outline-secondary fw-semibold px-2.5 px-sm-3 py-2 d-inline-flex align-items-center rounded-3 text-nowrap"
         style="font-size:12.5px;gap:6px;">
@@ -365,6 +369,26 @@
     } finally {
       btn.disabled = false;
       btn.innerHTML = '<i class="fa-solid fa-rotate-right" style="font-size:10px;"></i> <span>Test lại</span>';
+    }
+  }
+
+  async function loginGoogleAntigravityDirect() {
+    try {
+      const resp = await fetch('/api/v1/admin-api/antigravity/auth-url');
+      const data = await resp.json();
+      if (data.auth_url) {
+        const w = 540, h = 680;
+        const left = Math.max(0, (window.screen.width - w) / 2);
+        const top = Math.max(0, (window.screen.height - h) / 2);
+        const popup = window.open(data.auth_url, 'antigravity_oauth_popup', `width=${w},height=${h},top=${top},left=${left},status=no,toolbar=no,menubar=no`);
+        if (!popup || popup.closed || typeof popup.closed === 'undefined') {
+          window.location.href = data.auth_url;
+        }
+      } else {
+        alert('Không thể tạo URL xác thực Google Antigravity.');
+      }
+    } catch(e) {
+      alert('Lỗi: ' + e.message);
     }
   }
 

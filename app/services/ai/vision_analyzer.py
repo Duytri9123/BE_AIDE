@@ -11,6 +11,7 @@ from typing import Optional, Dict, Any, List
 
 from app.core.config import settings
 from app.services.cache_service import cache_service
+from app.services.ai.token_refresh_service import TokenRefreshService
 from app.core.exceptions import (
     AIVisionError,
     AITimeoutError,
@@ -697,7 +698,13 @@ class VisionAnalyzerService:
         clean_token = token.strip()
         auth_header = clean_token if clean_token.lower().startswith("bearer ") else f"Bearer {clean_token}"
         mapped_model = normalize_antigravity_model(model)
-        pid = project_id or "cloudaicompanion-project"
+        pid = project_id
+        if not pid or pid == "cloudaicompanion-project":
+            try:
+                real_pid = await TokenRefreshService.get_project_id(clean_token)
+                pid = real_pid or "cloudaicompanion-project"
+            except Exception:
+                pid = "cloudaicompanion-project"
 
         url = "https://daily-cloudcode-pa.googleapis.com/v1internal:generateContent"
         headers = {

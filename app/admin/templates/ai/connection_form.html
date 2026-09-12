@@ -113,11 +113,16 @@
 
               <!-- 2. API Key / Token Input with Eye Toggle & Smart Key Detection -->
               <div class="mb-3" id="api-key-field">
-                <div class="d-flex align-items-center justify-content-between mb-1.5">
+                <div class="d-flex align-items-center justify-content-between mb-1.5 flex-wrap gap-1">
                   <label class="form-label fw-bold text-dark mb-0" style="font-size: 13px;">
                     <span id="label-api-key-text">Khóa bí mật (API Key / OAuth Token)</span> <span class="text-danger">*</span>
                   </label>
-                  <span id="key-detect-status" class="small fw-semibold text-muted" style="font-size: 11px;"></span>
+                  <div class="d-flex align-items-center gap-2">
+                    <button type="button" class="btn btn-sm btn-outline-primary d-inline-flex align-items-center gap-1.5 px-2.5 py-0.5 fw-bold shadow-sm" id="btn-oauth-google-login" onclick="loginGoogleAntigravity()" style="border-radius:6px; font-size:11.5px; background:#fff;">
+                      <i class="fa-brands fa-google text-danger"></i> <span>Đăng nhập Google Antigravity (1-Click)</span>
+                    </button>
+                    <span id="key-detect-status" class="small fw-semibold text-muted" style="font-size: 11px;"></span>
+                  </div>
                 </div>
                 {% set cur_key = form.api_key.data if form.api_key is defined and form.api_key.data else (obj.api_key if obj else '') %}
                 <div class="input-group">
@@ -521,6 +526,37 @@ function applyPreset(providerKey) {
   onProviderSelectChanged();
 }
 
+async function loginGoogleAntigravity() {
+  const btn = document.getElementById('btn-oauth-google-login');
+  const origHtml = btn ? btn.innerHTML : '';
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang mở xác thực...';
+  }
+  try {
+    const resp = await fetch('/api/v1/admin-api/antigravity/auth-url');
+    const data = await resp.json();
+    if (data.auth_url) {
+      const w = 540, h = 680;
+      const left = Math.max(0, (window.screen.width - w) / 2);
+      const top = Math.max(0, (window.screen.height - h) / 2);
+      const popup = window.open(data.auth_url, 'antigravity_oauth_popup', `width=${w},height=${h},top=${top},left=${left},status=no,toolbar=no,menubar=no`);
+      if (!popup || popup.closed || typeof popup.closed === 'undefined') {
+        window.location.href = data.auth_url;
+      }
+    } else {
+      alert('Không thể tạo URL xác thực Google.');
+    }
+  } catch(e) {
+    alert('Lỗi: ' + e.message);
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = origHtml;
+    }
+  }
+}
+
 function resetBaseUrlToDefault() {
   const provider = document.getElementById('input_provider').value;
   const preset = DEFAULT_PRESET_MAP[provider];
@@ -534,6 +570,11 @@ function onProviderSelectChanged() {
   const provider = document.getElementById('input_provider').value;
   const resultBox = document.getElementById('form-test-result-box');
   if (resultBox) resultBox.style.display = 'none';
+
+  const oauthBtn = document.getElementById('btn-oauth-google-login');
+  if (oauthBtn) {
+    oauthBtn.style.display = (provider === 'antigravity') ? 'inline-flex' : 'none';
+  }
 
   // Điều chỉnh placeholder gợi ý theo provider
   const preset = DEFAULT_PRESET_MAP[provider];
@@ -809,6 +850,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const provider = document.getElementById('input_provider').value;
   const currentModel = document.getElementById('input_selected_model') ? document.getElementById('input_selected_model').value : '';
   populateModelDropdown(provider, currentModel);
+
+  const oauthBtn = document.getElementById('btn-oauth-google-login');
+  if (oauthBtn) {
+    oauthBtn.style.display = (provider === 'antigravity') ? 'inline-flex' : 'none';
+  }
 
   // Trigger detect ban đầu nếu có sẵn key
   const existingKey = document.getElementById('input_api_key').value.trim();
