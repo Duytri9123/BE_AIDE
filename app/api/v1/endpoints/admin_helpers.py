@@ -923,10 +923,111 @@ async def get_providers_summary(db: AsyncSession = Depends(get_db)):
 @router.get("/antigravity/auth-url")
 async def get_antigravity_auth_url(request: Request):
     """Tạo URL đăng nhập Google OAuth 2.0 Antigravity trực tiếp tương tự 9router."""
-    base_url = str(request.base_url).rstrip("/")
-    redirect_uri = f"{base_url}/api/v1/admin-api/antigravity/callback"
+    # Chuẩn Desktop OAuth Client ID yêu cầu redirect_uri là localhost
+    redirect_uri = "http://localhost:8000/api/v1/admin-api/antigravity/callback"
     auth_url = TokenRefreshService.build_auth_url(redirect_uri=redirect_uri)
     return {"auth_url": auth_url, "redirect_uri": redirect_uri}
+
+
+class ExchangeAntigravityRequest(BaseModel):
+    code: Optional[str] = None
+    callback_url: Optional[str] = None
+    redirect_uri: Optional[str] = None
+
+
+@router.post("/antigravity/exchange")
+async def exchange_antigravity_code(
+    payload: ExchangeAntigravityRequest,
+    db: AsyncSession = Depends(get_db)
+):
+    """Đổi mã ủy quyền hoặc URL chuyển hướng từ Google lấy Refresh Token và Project ID cá nhân."""
+    from urllib.parse import urlparse, parse_qs
+
+    code = (payload.code or "").strip()
+    redirect_uri = payload.redirect_uri or "http://localhost:8000/api/v1/admin-api/antigravity/callback"
+
+    if payload.callback_url:
+        cb = payload.callback_url.strip()
+        if "?" in cb:
+            parsed = urlparse(cb)
+            qs = parse_qs(parsed.query)
+            if "code" in qs:
+                code = qs["code"][0]
+        elif not code and (cb.startswith("4/") or cb.startswith("1//") or cb.startswith("ya29.")):
+            code = cb
+
+    if not code:
+        raise HTTPException(
+            status_code=400,
+            detail="Vui lòng cung cấp Authorization Code (4/...) hoặc toàn bộ Callback URL từ trình duyệt."
+        )
+
+    # Nếu dán trực tiếp Refresh Token (1//...) hoặc Access Token (ya29.)
+    if code.startswith("1//") or code.startswith("ya29."):
+        refresh_token = code
+        try:
+            active_token = await TokenRefreshService.get_active_token(refresh_token)
+            project_id = await TokenRefreshService.get_project_id(active_token)
+            email = "Google Antigravity User"
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    u_resp = await client.get(
+                        "https://www.googleapis.com/oauth2/v1/userinfo",
+                        headers={"Authorization": f"Bearer {active_token}"}
+                    )
+                    if u_resp.status_code == 200:
+                        email = u_resp.json().get("email", email)
+            except Exception:
+                pass
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=f"Token không hợp lệ: {str(e)}")
+    else:
+        try:
+            token_data = await TokenRefreshService.exchange_code_for_tokens(code, redirect_uri)
+            refresh_token = token_data.get("refresh_token") or token_data.get("access_token")
+            email = token_data.get("email") or "Google Antigravity User"
+            project_id = token_data.get("project_id") or "cloudaicompanion-project"
+        except Exception as ex:
+            raise HTTPException(status_code=400, detail=f"Lỗi xác thực với Google: {str(ex)}")
+
+    stmt = select(AiConnection).where(AiConnection.provider == "antigravity", AiConnection.email == email)
+    res = await db.execute(stmt)
+    conn = res.scalar_one_or_none()
+
+    if not conn:
+        conn = AiConnection(
+            provider="antigravity",
+            auth_type="oauth2",
+            name=f"Antigravity OAuth ({email})",
+            email=email,
+            api_key=refresh_token,
+            selected_model="ag/gemini-3.6-flash-high",
+            is_active=True,
+            status="active",
+            tag="Google OAuth Direct",
+            priority=1,
+            quotas={"project_id": project_id}
+        )
+        db.add(conn)
+    else:
+        conn.api_key = refresh_token
+        conn.auth_type = "oauth2"
+        conn.is_active = True
+        conn.status = "active"
+        quotas = dict(conn.quotas) if isinstance(conn.quotas, dict) else {}
+        quotas["project_id"] = project_id
+        conn.quotas = quotas
+        db.add(conn)
+
+    await db.commit()
+
+    return {
+        "success": True,
+        "email": email,
+        "project_id": project_id,
+        "token_preview": refresh_token[:15] + "...",
+        "message": f"Liên kết thành công tài khoản Google: {email} (Project ID: {project_id})"
+    }
 
 
 @router.get("/antigravity/callback")
@@ -942,8 +1043,7 @@ async def antigravity_oauth_callback(
     if not code:
         return HTMLResponse("<h3>Không nhận được mã ủy quyền từ Google.</h3><p><button onclick='window.close()'>Đóng</button></p>")
 
-    base_url = str(request.base_url).rstrip("/")
-    redirect_uri = f"{base_url}/api/v1/admin-api/antigravity/callback"
+    redirect_uri = "http://localhost:8000/api/v1/admin-api/antigravity/callback"
 
     try:
         token_data = await TokenRefreshService.exchange_code_for_tokens(code, redirect_uri)
