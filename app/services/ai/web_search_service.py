@@ -18,6 +18,7 @@ import httpx
 from app.core.config import settings
 from app.services.cache_service import cache_service
 from app.services.ai.vision_analyzer import normalize_antigravity_model
+from app.services.ai.token_refresh_service import TokenRefreshService
 
 logger = logging.getLogger(__name__)
 
@@ -178,9 +179,13 @@ class WebSearchService:
         Tool: googleSearch
         """
         clean_token = token.strip()
-        auth_header = clean_token if clean_token.lower().startswith("bearer ") else f"Bearer {clean_token}"
-        target_model = normalize_antigravity_model(model or "ag/gemini-2.5-flash")
-        pid = project_id or "cloudaicompanion-project"
+        if clean_token.startswith("1//"):
+            active_token = await TokenRefreshService.get_active_token(clean_token)
+        else:
+            active_token = clean_token
+        auth_header = active_token if active_token.lower().startswith("bearer ") else f"Bearer {active_token}"
+        target_model = normalize_antigravity_model(model or "gemini-2.5-flash")
+        pid = project_id or "aicode-consumers"
 
         url = "https://daily-cloudcode-pa.googleapis.com/v1internal:generateContent"
         headers = {

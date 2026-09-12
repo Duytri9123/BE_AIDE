@@ -38,27 +38,46 @@ DEFAULT_PROVIDER_BASE_URLS = {
 
 
 def normalize_antigravity_model(model: str) -> str:
-    """Translate a DB model key to Antigravity's tiered model identifier.
+    """Chuẩn hóa tên model cho Google Antigravity (daily-cloudcode-pa.googleapis.com).
 
-    Flash versions are handled by pattern, so adding a new Gemini version in the
-    database does not require another hard-coded mapping table.
+    Endpoint Google Cloud Code v1internal chỉ chấp nhận chính xác các model sau:
+    - 'gemini-2.5-flash' cho các model Gemini Flash (mọi biến thể 3.x/2.x flash, tiered)
+    - 'gemini-2.5-pro' cho Gemini Pro
+    - 'claude-sonnet-4-6' cho Claude Sonnet / Opus
+    - 'gpt-oss-120b-medium' cho GPT-OSS
+    Lưu ý: Google API sẽ trả về HTTP 404 nếu gắn hậu tố -tiered(...) hoặc -high/-medium/-low.
     """
-    clean_model = (model or "").removeprefix("ag/")
-    tiered = re.fullmatch(
-        r"(gemini-[\d.]+-flash)(?:-(high|medium|low)|-tiered\((high|medium|low)\))?",
-        clean_model,
-    )
-    if tiered:
-        base, direct_tier, existing_tier = tiered.groups()
-        return f"{base}-tiered({direct_tier or existing_tier or 'low'})"
+    clean_model = (model or "").lower().strip()
+    if clean_model.startswith("ag/"):
+        clean_model = clean_model[3:]
+    if clean_model.startswith("models/"):
+        clean_model = clean_model[7:]
 
-    # These are provider-specific endpoint aliases, not fallback candidates.
-    return {
-        "claude-sonnet-4.6": "claude-sonnet-4-6",
-        "claude-opus-4.6": "claude-opus-4-6",
-        "claude-opus-4.6-thinking": "claude-opus-4-6",
-        "gpt-oss-120b": "gpt-oss-120b-medium",
-    }.get(clean_model, clean_model)
+    # Loại bỏ các hậu tố tiered và priority
+    clean_model = re.sub(r"-tiered\([a-z]+\)", "", clean_model)
+    clean_model = re.sub(r"-(high|medium|low)$", "", clean_model)
+    clean_model = clean_model.strip()
+
+    if not clean_model:
+        return "gemini-2.5-flash"
+
+    # Claude models
+    if any(k in clean_model for k in ("claude", "sonnet", "opus")):
+        return "claude-sonnet-4-6"
+
+    # GPT / OSS models
+    if any(k in clean_model for k in ("gpt", "oss")):
+        return "gpt-oss-120b-medium"
+
+    # Gemini Pro
+    if "pro" in clean_model:
+        return "gemini-2.5-pro"
+
+    # Tất cả các biến thể Gemini Flash (3.8, 3.7, 3.6, 3.5, 2.5, 2.0, 1.5, flash)
+    if "flash" in clean_model or "gemini" in clean_model:
+        return "gemini-2.5-flash"
+
+    return clean_model
 
 
 class VisionAnalyzerService:
@@ -696,15 +715,24 @@ class VisionAnalyzerService:
     ) -> str:
         """Call Antigravity API với OAuth token (chuẩn 9router: User-Agent 2.11.0, requestId, anti-ban)."""
         clean_token = token.strip()
-        auth_header = clean_token if clean_token.lower().startswith("bearer ") else f"Bearer {clean_token}"
+        # 1. Đổi refresh token 1//... sang access token ya29... nếu cần
+        if clean_token.startswith("1//"):
+            active_token = await TokenRefreshService.get_active_token(clean_token)
+        else:
+            active_token = clean_token
+        auth_header = active_token if active_token.lower().startswith("bearer ") else f"Bearer {active_token}"
         mapped_model = normalize_antigravity_model(model)
+
+        # 2. Lấy project ID thực tế hoặc dùng default 'aicode-consumers'
         pid = project_id
-        if not pid or pid == "cloudaicompanion-project":
+        if not pid or pid in ("cloudaicompanion-project", ""):
             try:
-                real_pid = await TokenRefreshService.get_project_id(clean_token)
-                pid = real_pid or "cloudaicompanion-project"
+                real_pid = await TokenRefreshService.get_project_id(active_token)
+                pid = real_pid or "aicode-consumers"
             except Exception:
-                pid = "cloudaicompanion-project"
+                pid = "aicode-consumers"
+        if not pid:
+            pid = "aicode-consumers"
 
         url = "https://daily-cloudcode-pa.googleapis.com/v1internal:generateContent"
         headers = {
@@ -757,6 +785,11 @@ class VisionAnalyzerService:
                         f"Vượt quá giới hạn request Antigravity cho model '{mapped_model}' (429)",
                         {"status_code": 429, "model": mapped_model}
                     )
+                elif resp.status_code == 404:
+                    raise AIVisionError(
+                        f"Mô hình Antigravity '{mapped_model}' không tồn tại trên máy chủ Google (HTTP 404).",
+                        {"status_code": 404, "model": mapped_model, "response": resp.text[:300]}
+                    )
                 elif resp.status_code >= 500:
                     raise AIVisionError(
                         f"Antigravity server error ({resp.status_code}): {resp.text[:300]}",
@@ -770,7 +803,10 @@ class VisionAnalyzerService:
                 
                 if candidates and "content" in candidates[0]:
                     parts = candidates[0]["content"].get("parts", [])
-                    result = "".join(p.get("text", "") for p in parts if isinstance(p, dict) and "text" in p)
+                    text_parts = [p.get("text", "") for p in parts if isinstance(p, dict) and p.get("text") and not p.get("thought")]
+                    if not text_parts:
+                        text_parts = [p.get("text", "") for p in parts if isinstance(p, dict) and p.get("text")]
+                    result = "".join(text_parts).strip()
                     if result:
                         return result
                 
