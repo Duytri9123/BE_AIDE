@@ -13,6 +13,7 @@ import time
 import json
 import os
 import uuid
+import re
 
 from app.db.session import get_db
 from app.models.ai_connection import AiConnection
@@ -104,8 +105,19 @@ CODEX_CLI_USER_AGENT = "codex_cli_rs/0.154.0"
 async def _call_antigravity(api_key: str, model: str, prompt: str) -> dict:
     start = time.time()
     clean_key = api_key.strip()
-    auth_header = clean_key if clean_key.lower().startswith("bearer ") else f"Bearer {clean_key}"
+
+    # 1. Đổi refresh token 1//... sang access token ya29... nếu cần
+    if clean_key.startswith("1//"):
+        active_token = await TokenRefreshService.get_active_token(clean_key)
+    else:
+        active_token = clean_key
+    auth_header = active_token if active_token.lower().startswith("bearer ") else f"Bearer {active_token}"
+
+    # 2. Xử lý model chuẩn cho Google Antigravity
     target_model = normalize_antigravity_model(model)
+    target_model = re.sub(r"-tiered\([a-z]+\)", "", target_model)
+    if not target_model or "3.6" in target_model or target_model.startswith("ag/"):
+        target_model = "gemini-2.5-flash"
 
     url = "https://daily-cloudcode-pa.googleapis.com/v1internal:generateContent"
     headers = {
@@ -115,7 +127,7 @@ async def _call_antigravity(api_key: str, model: str, prompt: str) -> dict:
         "x-request-source": "local",
     }
     # Lấy Google Cloud Project ID thực tế qua loadCodeAssist (chuẩn 9router)
-    pid = "cloudaicompanion-project"
+    pid = "aicode-consumers"
     try:
         real_pid = await TokenRefreshService.get_project_id(clean_key)
         if real_pid:
@@ -138,7 +150,7 @@ async def _call_antigravity(api_key: str, model: str, prompt: str) -> dict:
             }
         }
     }
-    async with httpx.AsyncClient(timeout=httpx.Timeout(15.0, connect=5.0)) as client:
+    async with httpx.AsyncClient(timeout=httpx.Timeout(20.0, connect=5.0)) as client:
         resp = await client.post(url, headers=headers, json=payload)
         elapsed = int((time.time() - start) * 1000)
         if resp.status_code == 401:
@@ -151,7 +163,7 @@ async def _call_antigravity(api_key: str, model: str, prompt: str) -> dict:
         candidates = resp_obj.get("candidates", [])
         if candidates and "content" in candidates[0]:
             parts = candidates[0]["content"].get("parts", [])
-            text = "".join(p.get("text", "") for p in parts if isinstance(p, dict) and "text" in p)
+            text = "".join(p.get("text", "") for p in parts if isinstance(p, dict) and p.get("text"))
         else:
             text = str(data)
         return {"text": text, "latency_ms": elapsed}
@@ -951,6 +963,48 @@ async def get_antigravity_auth_url(request: Request):
     return {"auth_url": auth_url, "redirect_uri": redirect_uri}
 
 
+@router.get("/antigravity/check-status")
+async def check_antigravity_status(
+    since: Optional[float] = None,
+    db: AsyncSession = Depends(get_db)
+):
+    """Kiểm tra xem tài khoản Google Antigravity vừa được kết nối thành công chưa (Hỗ trợ cross-origin & cross-network)."""
+    from datetime import datetime, timezone, timedelta
+
+    now_utc = datetime.now(timezone.utc)
+    # Mặc định lấy trong vòng 5 phút qua
+    threshold = now_utc - timedelta(minutes=5)
+    if since and since > 0:
+        try:
+            since_dt = datetime.fromtimestamp(since / 1000.0, tz=timezone.utc)
+            # Trừ 30s buffer để phòng ngừa lệch đồng hồ giữa máy client và máy server
+            threshold = since_dt - timedelta(seconds=30)
+        except Exception:
+            pass
+
+    stmt = select(AiConnection).where(
+        AiConnection.provider == "antigravity",
+        AiConnection.is_active == True,
+        AiConnection.email.isnot(None),
+        AiConnection.updated_at >= threshold
+    ).order_by(AiConnection.updated_at.desc()).limit(1)
+
+    res = await db.execute(stmt)
+    conn = res.scalar_one_or_none()
+
+    if conn and conn.email:
+        project_id = conn.quotas.get("project_id") if isinstance(conn.quotas, dict) else "cloudaicompanion-project"
+        return {
+            "connected": True,
+            "id": str(conn.id),
+            "email": conn.email or "Google Antigravity User",
+            "project_id": project_id,
+            "token": conn.api_key
+        }
+
+    return {"connected": False}
+
+
 class ExchangeAntigravityRequest(BaseModel):
     code: Optional[str] = None
     callback_url: Optional[str] = None
@@ -1016,6 +1070,7 @@ async def exchange_antigravity_code(
     res = await db.execute(stmt)
     conn = res.scalar_one_or_none()
 
+    from datetime import datetime, timezone
     if not conn:
         conn = AiConnection(
             provider="antigravity",
@@ -1028,7 +1083,8 @@ async def exchange_antigravity_code(
             status="active",
             tag="Google OAuth Direct",
             priority=1,
-            quotas={"project_id": project_id}
+            quotas={"project_id": project_id},
+            updated_at=datetime.now(timezone.utc)
         )
         db.add(conn)
     else:
@@ -1036,6 +1092,7 @@ async def exchange_antigravity_code(
         conn.auth_type = "oauth2"
         conn.is_active = True
         conn.status = "active"
+        conn.updated_at = datetime.now(timezone.utc)
         quotas = dict(conn.quotas) if isinstance(conn.quotas, dict) else {}
         quotas["project_id"] = project_id
         conn.quotas = quotas
@@ -1077,6 +1134,7 @@ async def antigravity_oauth_callback(
         res = await db.execute(stmt)
         conn = res.scalar_one_or_none()
 
+        from datetime import datetime, timezone
         if not conn:
             conn = AiConnection(
                 provider="antigravity",
@@ -1089,7 +1147,8 @@ async def antigravity_oauth_callback(
                 status="active",
                 tag="Google OAuth Direct",
                 priority=1,
-                quotas={"project_id": project_id}
+                quotas={"project_id": project_id},
+                updated_at=datetime.now(timezone.utc)
             )
             db.add(conn)
         else:
@@ -1097,6 +1156,7 @@ async def antigravity_oauth_callback(
             conn.auth_type = "oauth2"
             conn.is_active = True
             conn.status = "active"
+            conn.updated_at = datetime.now(timezone.utc)
             quotas = dict(conn.quotas) if isinstance(conn.quotas, dict) else {}
             quotas["project_id"] = project_id
             conn.quotas = quotas
@@ -1151,9 +1211,12 @@ async def antigravity_oauth_callback(
             <div style="font-weight: 700; font-size: 16px; color: #16a34a; margin-bottom: 6px;">
               Đăng nhập thành công!
             </div>
-            <div style="font-size: 13px; color: #64748b;">
-              Đang hoàn tất và tự động đóng cửa sổ...
+            <div style="font-size: 13px; color: #64748b; margin-bottom: 12px;">
+              Tài khoản <strong>{email}</strong> đã kết nối thành công.
             </div>
+            <button onclick="try{{window.close();}}catch(e){{}};window.location.href='/admin/ai-connection/list';" style="background:#16a34a;color:#fff;border:none;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">
+              Đóng cửa sổ
+            </button>
           </div>
           <script>
             const payload = {{
@@ -1177,16 +1240,20 @@ async def antigravity_oauth_callback(
               }}));
             }} catch(e) {{}}
 
-            // 3. Thử gọi trực tiếp hàm xử lý của window.opener
+            // 3. Thử gọi trực tiếp hàm xử lý của window.opener (bọc an toàn tránh lỗi COOP)
             try {{
-              if (window.opener && !window.opener.closed) {{
-                if (typeof window.opener.onAntigravitySuccess === 'function') {{
-                  window.opener.onAntigravitySuccess(payload);
-                }}
-                if (typeof window.opener.onAntigravitySuccessList === 'function') {{
-                  window.opener.onAntigravitySuccessList(payload);
-                }}
-                window.opener.postMessage(payload, '*');
+              if (window.opener) {{
+                try {{
+                  if (typeof window.opener.onAntigravitySuccess === 'function') {{
+                    window.opener.onAntigravitySuccess(payload);
+                  }}
+                  if (typeof window.opener.onAntigravitySuccessList === 'function') {{
+                    window.opener.onAntigravitySuccessList(payload);
+                  }}
+                }} catch(openerFnErr) {{}}
+                try {{
+                  window.opener.postMessage(payload, '*');
+                }} catch(openerMsgErr) {{}}
               }}
             }} catch(e) {{}}
 
@@ -1198,14 +1265,17 @@ async def antigravity_oauth_callback(
             }}
 
             closeSelf();
-            setTimeout(closeSelf, 80);
-            setTimeout(closeSelf, 250);
-            setTimeout(closeSelf, 500);
+            setTimeout(closeSelf, 100);
+            setTimeout(closeSelf, 400);
+            setTimeout(closeSelf, 1000);
 
             // 5. Fallback nếu trình duyệt chặn hoàn toàn window.close
             setTimeout(function() {{
+              try {{
+                window.close();
+              }} catch(e) {{}}
               window.location.href = '/admin/ai-connection/list';
-            }}, 800);
+            }}, 1500);
           </script>
         </body>
         </html>

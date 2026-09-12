@@ -443,13 +443,23 @@
         }
       }
     });
+
+    window.addEventListener('message', function(event) {
+      if (event.data && (event.data.status === 'success' || event.data.connected) && (event.data.email || event.data.token)) {
+        window.onAntigravitySuccessList(event.data);
+      }
+    });
   }
 
   window.onAntigravitySuccessList = function(data) {
-    clearInterval(_antigravityListPollTimer);
-    if (_antigravityListWindow && !_antigravityListWindow.closed) {
-      try { _antigravityListWindow.close(); } catch(e) {}
-    }
+    if (_antigravityListPollTimer) clearInterval(_antigravityListPollTimer);
+    _antigravityListPollTimer = null;
+
+    // Đóng cửa sổ popup an toàn (không crash bởi COOP)
+    try {
+      if (_antigravityListWindow) _antigravityListWindow.close();
+    } catch(e) {}
+
     const modalEl = document.getElementById('modalAntigravityOAuth');
     if (modalEl) {
       modalEl.style.display = 'none';
@@ -487,6 +497,8 @@
     btn.disabled = true;
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang mở Google...';
 
+    const startTime = Date.now();
+
     try {
       const resp = await fetch('/api/v1/admin-api/antigravity/auth-url');
       const data = await resp.json();
@@ -499,24 +511,57 @@
         if (alertBox) {
           alertBox.style.display = 'block';
           alertBox.className = 'p-2.5 rounded-2 mt-3 border bg-light text-primary small';
-          alertBox.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1.5"></i> Đã mở cửa sổ Google. Hãy đăng nhập và cấp quyền, sau đó cửa sổ sẽ tự đóng...';
+          alertBox.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1.5"></i> Đã mở cửa sổ Google. Hãy đăng nhập và cấp quyền, sau đó hệ thống sẽ tự nhận diện kết nối...';
         }
 
-        clearInterval(_antigravityListPollTimer);
-        _antigravityListPollTimer = setInterval(function() {
-          if (_antigravityListWindow && _antigravityListWindow.closed) {
-            clearInterval(_antigravityListPollTimer);
+        // Check if popup completed - poll backend to support cross-origin/IP and bypass COOP policy errors
+        if (_antigravityListPollTimer) clearInterval(_antigravityListPollTimer);
+
+        let pollCount = 0;
+        _antigravityListPollTimer = setInterval(async function() {
+          pollCount++;
+
+          // 1. Kiểm tra trạng thái từ backend DB (xuyên IP / ngrok / IPv6 / localhost)
+          try {
+            const stResp = await fetch('/api/v1/admin-api/antigravity/check-status?since=' + startTime);
+            if (stResp.ok) {
+              const stData = await stResp.json();
+              if (stData && stData.connected) {
+                clearInterval(_antigravityListPollTimer);
+                _antigravityListPollTimer = null;
+                if (alertBox) {
+                  alertBox.className = 'p-2.5 rounded-2 mt-3 border border-success bg-success-subtle text-success small';
+                  alertBox.innerHTML = `<i class="fa-solid fa-circle-check me-1.5"></i> Đã kết nối thành công: <strong>${stData.email}</strong>! Đang làm mới...`;
+                }
+                setTimeout(() => {
+                  window.onAntigravitySuccessList(stData);
+                }, 400);
+                return;
+              }
+            }
+          } catch(netErr) {}
+
+          // 2. Kiểm tra cùng origin qua localStorage (nếu có)
+          try {
             const authSuccess = localStorage.getItem('antigravity_oauth_success');
             if (authSuccess) {
-              try {
-                const parsed = JSON.parse(authSuccess);
-                if (Date.now() - parsed.time < 30000) {
-                  window.onAntigravitySuccessList(parsed);
-                }
-              } catch(e) {}
+              const parsed = JSON.parse(authSuccess);
+              if (parsed && (Date.now() - parsed.time < 60000)) {
+                clearInterval(_antigravityListPollTimer);
+                _antigravityListPollTimer = null;
+                localStorage.removeItem('antigravity_oauth_success');
+                window.onAntigravitySuccessList(parsed);
+                return;
+              }
             }
+          } catch(e) {}
+
+          // 3. Tự động dừng sau 5 phút
+          if (pollCount > 300) {
+            clearInterval(_antigravityListPollTimer);
+            _antigravityListPollTimer = null;
           }
-        }, 800);
+        }, 1000);
 
       } else {
         throw new Error('Máy chủ không tạo được Auth URL');
@@ -569,9 +614,9 @@
           <div class="text-muted mt-1">Đang hoàn tất và nạp lại trang quản trị...</div>`;
       }
 
-      if (_antigravityListWindow && !_antigravityListWindow.closed) {
-        _antigravityListWindow.close();
-      }
+      try {
+        if (_antigravityListWindow) _antigravityListWindow.close();
+      } catch(e) {}
 
       setTimeout(() => {
         window.location.reload();

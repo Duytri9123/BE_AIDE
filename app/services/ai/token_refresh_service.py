@@ -84,6 +84,17 @@ class TokenRefreshService:
             except Exception:
                 pass
 
+            # Tự động kích hoạt Onboard free-tier cho Google Antigravity
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as ob_client:
+                    await ob_client.post(
+                        "https://cloudcode-pa.googleapis.com/v1internal:onboardUser",
+                        headers={"Authorization": f"Bearer {access_token}", "Content-Type": "application/json", "User-Agent": ANTIGRAVITY_IDE_USER_AGENT},
+                        json={"tierId": "free-tier"}
+                    )
+            except Exception as ob_ex:
+                logger.warning(f"[TokenRefreshService] OnboardUser warning: {ob_ex}")
+
             # Lấy project ID thực tế qua loadCodeAssist
             project_id = await TokenRefreshService.get_project_id(access_token)
 
@@ -146,7 +157,7 @@ class TokenRefreshService:
     async def get_project_id(access_token: str) -> str:
         """
         Lấy Google Cloud Project ID thực tế của tài khoản thông qua loadCodeAssist API (cơ chế cốt lõi của 9router).
-        Nếu không lấy được, fallback về 'cloudaicompanion-project'.
+        Nếu không lấy được, fallback về 'aicode-consumers' hoặc 'cloudaicompanion-project'.
         """
         clean_token = access_token.strip()
         if clean_token.startswith("1//"):
@@ -180,9 +191,15 @@ class TokenRefreshService:
                 )
                 if resp.status_code == 200:
                     data = resp.json()
-                    # Cấu trúc: data.cloudaicompanionProject.id hoặc data.project
-                    companion_proj = data.get("cloudaicompanionProject", {})
-                    pid = companion_proj.get("id") or data.get("project")
+                    # Cấu trúc: data.cloudaicompanionProject (str hoặc dict) hoặc data.project
+                    companion_proj = data.get("cloudaicompanionProject")
+                    if isinstance(companion_proj, dict):
+                        pid = companion_proj.get("id") or data.get("project")
+                    elif isinstance(companion_proj, str):
+                        pid = companion_proj
+                    else:
+                        pid = data.get("project")
+
                     if pid:
                         logger.info(f"[TokenRefreshService] Tìm thấy Google Project ID: {pid}")
                         _PROJECT_CACHE[token_key] = pid
@@ -191,4 +208,4 @@ class TokenRefreshService:
             logger.warning(f"[TokenRefreshService] Không thể lấy project ID từ loadCodeAssist: {e}")
 
         # Fallback an toàn
-        return "cloudaicompanion-project"
+        return "aicode-consumers"

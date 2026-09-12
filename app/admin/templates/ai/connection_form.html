@@ -44,11 +44,16 @@
           .provider-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 9px;
+            gap: 8px;
           }
-          @media (max-width: 576px) {
+          @media (max-width: 768px) {
             .provider-grid {
               grid-template-columns: repeat(2, 1fr);
+            }
+          }
+          @media (max-width: 420px) {
+            .provider-grid {
+              grid-template-columns: 1fr;
             }
           }
           .btn-provider-chip {
@@ -56,8 +61,9 @@
             border: 1px solid #cbd5e1;
             color: #334155;
             font-weight: 600;
-            font-size: 12.5px;
-            padding: 8px 10px;
+            font-size: 12px;
+            padding: 8px 6px;
+            min-height: 42px;
             border-radius: 9px;
             transition: all 0.15s ease-in-out;
             cursor: pointer;
@@ -67,7 +73,11 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            white-space: nowrap;
+            box-sizing: border-box;
+            white-space: normal;
+            word-break: break-word;
+            line-height: 1.25;
+            overflow: hidden;
           }
           .btn-provider-chip:hover {
             background: #f8fafc;
@@ -126,7 +136,7 @@
               {% set cur_prov = form.provider.data if form.provider is defined and form.provider.data else (obj.provider if obj else 'antigravity') %}
               <div class="provider-grid" id="provider-selector-group">
                 <button type="button" class="btn btn-provider-chip {% if cur_prov == 'antigravity' %}active{% endif %}" data-provider="antigravity" onclick="selectProvider('antigravity')">
-                  Antigravity (Google OAuth)
+                  Google Antigravity
                 </button>
                 <button type="button" class="btn btn-provider-chip {% if cur_prov == 'google' %}active{% endif %}" data-provider="google" onclick="selectProvider('google')">
                   Google Gemini
@@ -747,6 +757,12 @@ function setupAntigravitySyncListeners() {
       }
     }
   });
+
+  window.addEventListener('message', function(event) {
+    if (event.data && (event.data.status === 'success' || event.data.connected) && (event.data.email || event.data.token)) {
+      window.onAntigravitySuccess(event.data);
+    }
+  });
 }
 
 async function startAntigravityPopup() {
@@ -755,6 +771,8 @@ async function startAntigravityPopup() {
   const origHtml = btn.innerHTML;
   btn.disabled = true;
   btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang mở Google...';
+
+  const startTime = Date.now();
 
   try {
     const resp = await fetch('/api/v1/admin-api/antigravity/auth-url');
@@ -768,25 +786,57 @@ async function startAntigravityPopup() {
       if (alertBox) {
         alertBox.style.display = 'block';
         alertBox.className = 'p-2.5 rounded-2 mt-3 border bg-light text-primary small';
-        alertBox.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1.5"></i> Đã mở cửa sổ Google. Hãy đăng nhập và cấp quyền, sau đó cửa sổ sẽ tự đóng...';
+        alertBox.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1.5"></i> Đã mở cửa sổ Google. Hãy đăng nhập và cấp quyền, sau đó hệ thống sẽ tự nhận diện kết nối...';
       }
 
-      // Check if popup closed or completed
-      clearInterval(_antigravityPollTimer);
-      _antigravityPollTimer = setInterval(function() {
-        if (_antigravityAuthWindow && _antigravityAuthWindow.closed) {
-          clearInterval(_antigravityPollTimer);
+      // Check if popup completed - poll backend to support cross-origin/IP and bypass COOP policy errors
+      if (_antigravityPollTimer) clearInterval(_antigravityPollTimer);
+
+      let pollCount = 0;
+      _antigravityPollTimer = setInterval(async function() {
+        pollCount++;
+
+        // 1. Kiểm tra trạng thái từ backend DB (xuyên IP / ngrok / IPv6 / localhost)
+        try {
+          const stResp = await fetch('/api/v1/admin-api/antigravity/check-status?since=' + startTime);
+          if (stResp.ok) {
+            const stData = await stResp.json();
+            if (stData && stData.connected) {
+              clearInterval(_antigravityPollTimer);
+              _antigravityPollTimer = null;
+              if (alertBox) {
+                alertBox.className = 'p-2.5 rounded-2 mt-3 border border-success bg-success-subtle text-success small';
+                alertBox.innerHTML = `<i class="fa-solid fa-circle-check me-1.5"></i> Đã kết nối thành công: <strong>${stData.email}</strong>! Đang hoàn tất...`;
+              }
+              setTimeout(() => {
+                window.onAntigravitySuccess(stData);
+              }, 400);
+              return;
+            }
+          }
+        } catch(netErr) {}
+
+        // 2. Kiểm tra cùng origin qua localStorage (nếu có)
+        try {
           const authSuccess = localStorage.getItem('antigravity_oauth_success');
           if (authSuccess) {
-            try {
-              const parsed = JSON.parse(authSuccess);
-              if (Date.now() - parsed.time < 30000) {
-                window.onAntigravitySuccess(parsed);
-              }
-            } catch(e) {}
+            const parsed = JSON.parse(authSuccess);
+            if (parsed && (Date.now() - parsed.time < 60000)) {
+              clearInterval(_antigravityPollTimer);
+              _antigravityPollTimer = null;
+              localStorage.removeItem('antigravity_oauth_success');
+              window.onAntigravitySuccess(parsed);
+              return;
+            }
           }
+        } catch(e) {}
+
+        // 3. Tự động dừng sau 5 phút
+        if (pollCount > 300) {
+          clearInterval(_antigravityPollTimer);
+          _antigravityPollTimer = null;
         }
-      }, 800);
+      }, 1000);
 
     } else {
       throw new Error('Máy chủ không tạo được Auth URL');
@@ -839,9 +889,9 @@ async function submitAntigravityCode() {
         <div class="text-muted mt-1">Đang hoàn tất và nạp lại trang quản trị...</div>`;
     }
 
-    if (_antigravityAuthWindow && !_antigravityAuthWindow.closed) {
-      _antigravityAuthWindow.close();
-    }
+    try {
+      if (_antigravityAuthWindow) _antigravityAuthWindow.close();
+    } catch(e) {}
 
     setTimeout(() => {
       window.location.href = '/admin/ai-connection/list';
@@ -859,12 +909,13 @@ async function submitAntigravityCode() {
 }
 
 window.onAntigravitySuccess = function(data) {
-  clearInterval(_antigravityPollTimer);
+  if (_antigravityPollTimer) clearInterval(_antigravityPollTimer);
+  _antigravityPollTimer = null;
 
-  // Đóng cửa sổ popup ngay
-  if (_antigravityAuthWindow && !_antigravityAuthWindow.closed) {
-    try { _antigravityAuthWindow.close(); } catch(e) {}
-  }
+  // Đóng cửa sổ popup an toàn (không crash bởi COOP)
+  try {
+    if (_antigravityAuthWindow) _antigravityAuthWindow.close();
+  } catch(e) {}
 
   // Đóng modal Google ngay
   closeAntigravityModal();
