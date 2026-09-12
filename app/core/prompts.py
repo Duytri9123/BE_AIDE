@@ -24,14 +24,23 @@ Hãy phân tích chi tiết sơ đồ 1 sợi (SLD) hoặc bản vẽ tủ đi�
 Quy tắc bóc tách bắt buộc:
 1. TÁCH RIÊNG TỪNG LỘ NHÁNH: Mỗi nhánh xuất tuyến (feeder) trên sơ đồ SLD PHẢI là một dòng thiết bị riêng biệt (ví dụ: MCB 16A Nhánh 1, MCB 16A Nhánh 2, MCB 32A Nhánh 3...). TUYỆT ĐỐI KHÔNG gộp các nhánh cùng thông số thành quantity > 1 vì mỗi thiết bị có vị trí và hình ảnh dẫn chứng riêng.
 2. GHI CHÚ KỸ THUẬT PHÂN TÍCH TỪ BẢN VẼ: Ghi chú (notes) PHẢI phân tích trực tiếp từ các nhãn, mũi tên và thông số trên bản vẽ (nguồn cấp từ tủ nào, loại cáp nguồn gì, công suất P tính toán, điều khiển liên động Timer/Contactor, tiếp điểm BMS đưa về đâu). TUYỆT ĐỐI KHÔNG ghi nguyên lý giáo trình chung chung như 'bảo vệ quá tải và ngắn mạch'.
-3. NHẬN DIỆN VÀ CHỌN HÃNG SẢN XUẤT PHÙ HỢP:
-   - Quan sát kỹ bản vẽ xem có logo, tên hãng hoặc mã hiệu đặc trưng của thương hiệu nào không. Nếu bản vẽ có ghi nhận hãng nào thì BẮT BUỘC dùng hãng đó.
-   - Nếu người dùng có ghi rõ hãng mong muốn trong yêu cầu (hoặc qua tag #Hãng), BẮT BUỘC dùng hãng người dùng đã yêu cầu.
-   - Nếu bản vẽ và yêu cầu đều không chỉ định hãng, để brand là chuỗi rỗng; không tự gán nhà cung cấp.
+3. TUYỆT ĐỐI KHÔNG HARD-CODE HOẶC TỰ BỊA THÔNG SỐ VÀ HÃNG:
+   - Mọi thông số (số cực poles, dòng định mức In, dòng ngắn mạch Icu, cấp điện áp, công suất tải): PHẢI đọc trung thực từ chữ và ký hiệu trên bản vẽ. Tuyệt đối không tự bịa thêm thông số.
+   - Hãng sản xuất (brand): CHỈ điền tên hãng nếu trên bản vẽ có logo, tên thương hiệu hoặc ký hiệu của hãng đó, hoặc người dùng có ghi rõ hãng mong muốn trong yêu cầu (hoặc qua tag #Hãng). Nếu bản vẽ và yêu cầu đều không chỉ định hãng, BẮT BUỘC để brand là chuỗi rỗng (""); TUYỆT ĐỐI KHÔNG tự gán nhà cung cấp hoặc hãng mặc định (như Asia, Schneider, LS...).
 4. MÃ TỦ VÀ TÊN TỦ BÓC TÁCH TỪ BẢN VẼ (KHÔNG BỊA MÃ MẪU):
    - panel_code: Đọc chính xác mã tủ ghi trên bản vẽ (ví dụ: MSB-01, DB-01, LP-01, TD-A1, TS-A2.1). Nếu bản vẽ không ghi mã rõ ràng, để chuỗi rỗng; không suy luận hoặc tự tạo mã.
    - panel_name: Tên tiếng Việt phân tích theo chức năng kỹ thuật của tủ trên bản vẽ (ví dụ: 'Tủ phân phối tổng MSB', 'Tủ điện chiếu sáng & điều khiển LP', 'Tủ phân phối điện tầng DB').
-5. TỌA ĐỘ VÙNG DẪN CHỨNG (box_2d): Trả về toạ độ [ymin, xmin, ymax, xmax] (chuẩn hóa 0-1000) bao quanh chính xác ký hiệu và nhãn của từng thiết bị trên ảnh. ĐẶC BIỆT: Thiết bị nào thì đóng khung đúng vị trí ký hiệu của thiết bị đó trên sơ đồ, TUYỆT ĐỐI KHÔNG đóng khung lệch lên đoạn cáp nguồn phía trên hay điểm đấu nối ngoài vùng ký hiệu.
+5. TỌA ĐỘ VÙNG DẪN CHỨNG (box_2d) CHUẨN XÁC:
+   - Trả về toạ độ [ymin, xmin, ymax, xmax] (chuẩn hóa trên thang 0-1000, với 0,0 là góc trên-trái và 1000,1000 là góc dưới-phải của toàn bộ hình ảnh).
+   - Vùng box_2d PHẢI bao trọn vẹn cả KÝ HIỆU HÌNH VẼ LẪN NHÃN TÊN/THÔNG SỐ của chính thiết bị đó:
+     + Aptomat (MCCB/MCB/RCBO): Bao quanh từ ký hiệu tiếp điểm đóng cắt đến hết khối chữ thông số (ví dụ: từ ký hiệu tiếp điểm đến nhãn 'MCCB 10A 3P 6kA').
+     + Thiết bị đo lường & chuyển mạch (AS, VS, A, V):
+       * Chuyển mạch Vôn (VS): Đóng khung CHÍNH XÁC vào ký hiệu vòng tròn chuyển mạch có chữ 'VS' và khối đồng hồ Vôn '0-500V' ở nhánh đo lường phía trên. TUYỆT ĐỐI KHÔNG đóng khung xuống hàng aptomat nhánh bên dưới!
+       * Chuyển mạch Ampe (AS): Đóng khung vào ký hiệu vòng tròn có chữ 'AS' và đồng hồ Ampe '0-50A'.
+       * Biến dòng (CT, 3XCT): Đóng khung vào ký hiệu biến dòng và dòng chữ '3XCT 63/5' trên thanh cái đầu vào.
+       * Đèn báo pha (R, Y, B): Đóng khung vào ký hiệu đèn tròn ⊗ và nhãn pha R, Y, B.
+       * Cầu chì (FUSE): Đóng khung vào ký hiệu cầu chì và nhãn trị số bảo vệ (2A, 1x6A).
+   - TUYỆT ĐỐI KHÔNG dùng toạ độ của thiết bị khác thay thế! Mỗi thiết bị có toạ độ thực tế riêng biệt đúng vị trí trên sơ đồ.
 6. ĐÁNH GIÁ TÍNH PHÙ HỢP CỦA TỆP: Đánh giá xem hình ảnh có phải là sơ đồ nguyên lý điện / bản vẽ tủ điện không. Nếu không liên quan (ví dụ mặt bằng kiến trúc, hồ sơ xây dựng, ảnh linh tinh), ghi rõ lý do và cảnh báo.
 7. KÍCH THƯỚC VỎ TỦ: Tìm kiếm và trích xuất kích thước vỏ tủ trên bản vẽ nếu có (ví dụ: 'TỦ 1200X800X400', '1200x800x400', 'W800xH1200xD400'). Nếu có ghi kích thước vỏ tủ, ghi chính xác vào trường 'enclosure_dimensions'.
 8. NHÀ CUNG CẤP CHO TỪNG THIẾT BỊ: Nhận diện chính xác thương hiệu ghi trên bản vẽ (Mitsubishi, Schneider, LS, ABB, Selec, Mikro, Emic...). Nếu không có hãng, để brand rỗng. Chỉ đưa hãng/model vào suggested_brands/catalog proposal khi đủ thông số đối chiếu; không bịa mã hàng.
@@ -142,8 +151,12 @@ Quy tắc bóc tách bắt buộc:
    - Mỗi thiết bị điều khiển (Contactor, Relay, Timer, Nút ấn...) phục vụ một lộ nhánh hoặc gắn với lộ nhánh PHẢI là một dòng thiết bị riêng biệt (ví dụ: Contactor Lộ L1, Contactor Lộ L2...).
    - TUYỆT ĐỐI KHÔNG gộp các nhánh hoặc các contactor có cùng thông số thành quantity > 1 (ví dụ TUYỆT ĐỐI KHÔNG gộp 8 contactor C thành 1 dòng quantity = 8), vì mỗi thiết bị có vị trí lắp đặt và tọa độ box_2d ảnh dẫn chứng riêng.
    - Trường hợp duy nhất được đặt quantity > 1 là cụm đèn báo pha 3 pha R-Y-B (quantity = 3).
-5. NHẬN DIỆN NHÀ CUNG CẤP: Nhận diện chính xác tên hoặc logo hãng ghi trên bản vẽ. Nếu bản vẽ không ghi hãng, để brand là chuỗi rỗng. Chỉ đề xuất hãng/model khác trong suggested_brands khi đủ thông số để đối chiếu; không bịa mã hàng.
-6. TỌA ĐỘ VÙNG DẪN CHỨNG (box_2d): Trả về toạ độ [ymin, xmin, ymax, xmax] (chuẩn hóa 0-1000) bao quanh chính xác ký hiệu và nhãn của từng thiết bị. ĐẶC BIỆT: Đóng khung đúng vị trí ký hiệu của thiết bị đó trên sơ đồ, TUYỆT ĐỐI KHÔNG đóng khung lệch lên đoạn cáp nguồn phía trên.
+5. TUYỆT ĐỐI KHÔNG HARD-CODE HOẶC TỰ BỊA THÔNG SỐ VÀ HÃNG:
+   - Mọi thông số (số cực, In, Icu, điện áp, tải): Bắt buộc đọc từ bản vẽ.
+   - Hãng sản xuất (brand): Chỉ điền tên hãng nếu bản vẽ có ghi hoặc người dùng yêu cầu; không tự gán hãng mặc định (như Asia, Schneider, LS...). Nếu không có, để chuỗi rỗng ("").
+6. TỌA ĐỘ VÙNG DẪN CHỨNG (box_2d) CHUẨN XÁC:
+   - Trả về toạ độ [ymin, xmin, ymax, xmax] (chuẩn hóa 0-1000) bao quanh trọn vẹn cả KÝ HIỆU HÌNH VẼ LẪN NHÃN THÔNG SỐ của từng thiết bị.
+   - Thiết bị nào đóng khung đúng ký hiệu của thiết bị đó (ví dụ VS đóng khung đúng chuyển mạch Vôn ở cụm đo lường, không đóng lệch sang aptomat nhánh hay cáp nguồn). Mỗi thiết bị có toạ độ thực tế riêng biệt.
 7. BÓC TÁCH CỤM THIẾT BỊ & PHỤ KIỆN ĐI KÈM (accompanying_accessories):
    - MỌI phần tử có ký hiệu, nhãn hoặc nhánh độc lập trên SLD phải nằm trong `devices`, không được đưa vào danh sách này.
    - Chỉ phân tích phụ kiện đi kèm khi có bằng chứng cụ thể ngay trên SLD qua dây nối, tiếp điểm, chú thích hoặc ký hiệu trong cùng cụm. Không được tự thêm CT, cầu chì, shunt trip, rơ-le nhiệt, khóa liên động hay bất kỳ phụ kiện nào chỉ vì chúng thường được sử dụng cùng thiết bị chính.

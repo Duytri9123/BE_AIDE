@@ -1074,14 +1074,10 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             elif pool:
                 chosen_brand = pool[0]
                 dev.selection_source = "catalog_auto"
-            # 4. Với thiết bị cơ bản/phụ kiện tủ (đèn báo, cầu chì, nút nhấn, đồng hồ...), mặc định hãng Asia (Á Châu phổ thông)
-            elif is_accessory:
-                chosen_brand = "Asia"
-                dev.selection_source = "default_basic"
-            # 5. Không có hãng/catalog phù hợp: không tự gán nhà cung cấp.
+            # 4. Không có hãng/catalog phù hợp: giữ nguyên dữ liệu gốc từ bản vẽ, không tự ý gán nhà cung cấp
             else:
-                chosen_brand = ""
-                dev.selection_source = "unresolved"
+                chosen_brand = dev_raw_brand if has_explicit_brand else ""
+                dev.selection_source = "drawing" if has_explicit_brand else "unresolved"
 
             if chosen_brand in catalog_matches:
                 m_info = catalog_matches[chosen_brand]
@@ -1089,9 +1085,6 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 chosen_price = m_info["price"]
                 icu_info = f", Icu {m_info['icu']}kA" if m_info.get("icu") else ""
                 dev.technical_match_note = f"Đối chiếu Catalog: {chosen_brand} {chosen_sku}{icu_info} ({chosen_price:,} đ)"
-            elif chosen_brand == "Asia":
-                chosen_price = 0
-                dev.technical_match_note = "Thiết bị phụ trợ/cơ bản mặc định hãng Asia (Á Châu phổ thông)."
             else:
                 chosen_price = 0
                 dev.technical_match_note = "Chưa có bản ghi khớp trong catalog.json; giữ nguyên dữ liệu đọc từ nguồn và cần xác nhận khi báo giá."
@@ -1123,8 +1116,6 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 dev.suggested_brands = list(dict.fromkeys(combined_brands))
             else:
                 fallback_brands = ([chosen_brand] if chosen_brand else []) + ai_suggested_brands
-                if is_accessory and "Asia" not in fallback_brands:
-                    fallback_brands.append("Asia")
                 dev.suggested_brands = list(dict.fromkeys(fallback_brands))
 
             # Tự động áp dụng lựa chọn kỹ thuật ở cả bảng bóc tách. Người dùng
@@ -1660,18 +1651,18 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                             left = int(xmin * w / 1000)
                             bottom = int(ymax * h / 1000)
                             right = int(xmax * w / 1000)
-                            pad_x = max(int(w * 0.025), 20)
-                            pad_y = max(int(h * 0.025), 20)
+                            pad_x = max(int(w * 0.045), 35)
+                            pad_y = max(int(h * 0.045), 30)
                             left = max(0, left - pad_x)
                             top = max(0, top - pad_y)
                             right = min(w, right + pad_x)
                             bottom = min(h, bottom + pad_y)
-                            if (right - left) < 80:
-                                extra_x = (80 - (right - left)) // 2
+                            if (right - left) < 100:
+                                extra_x = (100 - (right - left)) // 2
                                 left = max(0, left - extra_x)
                                 right = min(w, right + extra_x)
-                            if (bottom - top) < 60:
-                                extra_y = (60 - (bottom - top)) // 2
+                            if (bottom - top) < 80:
+                                extra_y = (80 - (bottom - top)) // 2
                                 top = max(0, top - extra_y)
                                 bottom = min(h, bottom + extra_y)
                         else:
@@ -1980,6 +1971,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                     sig = f"{str(dev.panel_code or '').strip()}_{cat}_{final_name}".lower()
                     if sig not in existing_signatures:
                         existing_signatures.add(sig)
+                        acc_box = acc.get("box_2d") if isinstance(acc.get("box_2d"), list) and len(acc.get("box_2d")) == 4 else None
                         newly_promoted.append(ExtractedDeviceSchema(
                             category=cat,
                             name=final_name,
@@ -1998,8 +1990,11 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                             upstream_device=dev.tag or dev.name or "Nguồn đầu vào",
                             downstream_device=None,
                             confidence=dev.confidence or 0.95,
-                            box_2d=dev.box_2d,
-                            evidence_image=dev.evidence_image,
+                            box_2d=acc_box,
+                            evidence_image=None,
+                            source_filename=dev.source_filename,
+                            source_type=dev.source_type,
+                            source_page=dev.source_page,
                         ))
                 else:
                     remaining_accs.append(acc)
