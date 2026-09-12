@@ -187,25 +187,9 @@
                 </small>
               </div>
 
-              <!-- 4. Model Select Dropdown -->
-              <div class="mb-3">
-                <label class="form-label fw-bold text-dark mb-1.5 d-flex align-items-center justify-content-between" style="font-size: 13px;">
-                  <span><i class="fa-solid fa-robot text-primary me-1"></i> Mô hình AI (Model) <span class="text-danger">*</span></span>
-                  <span id="model-loading-indicator" class="text-muted small" style="display:none; font-size:11.5px; font-weight:normal;">
-                    <i class="fa-solid fa-spinner fa-spin text-primary me-1"></i>Đang nạp model...
-                  </span>
-                </label>
-                {% set cur_model = form.selected_model.data if form.selected_model is defined and form.selected_model.data else (obj.selected_model if obj else '') %}
-                <select id="model_dropdown_select" class="form-select" style="border-radius: 8px; font-size: 13px; font-weight: 600;" onchange="onModelDropdownChanged()">
-                  <option value="">-- Đang nạp danh sách Model... --</option>
-                </select>
-                <div id="custom_model_wrapper" style="display:none;" class="mt-2">
-                  <input type="text" id="custom_model_input" class="form-control font-monospace" style="border-radius: 8px; font-size: 12.5px;" placeholder="Nhập mã Model AI tùy chỉnh (vd: deepseek-chat, llama3.3:70b)..." oninput="onCustomModelInputChanged()">
-                  <small class="text-muted mt-1 d-block" style="font-size: 11px;">Nhập trực tiếp mã định danh Model nếu không có trong danh sách trên.</small>
-                </div>
-                <input type="hidden" name="selected_model" id="input_selected_model" value="{{ cur_model or '' }}">
-                <small class="text-muted mt-1 d-block" style="font-size: 11.5px;">Mô hình AI được kết nối này sử dụng (tự động cập nhật theo Hãng AI).</small>
-              </div>
+              <!-- Model is dynamically managed per Provider (Hidden) -->
+              {% set cur_model = form.selected_model.data if form.selected_model is defined and form.selected_model.data else (obj.selected_model if obj else '') %}
+              <input type="hidden" name="selected_model" id="input_selected_model" value="{{ cur_model or '' }}">
 
               <!-- 5. Connection Name / Note -->
               <div class="mb-0">
@@ -266,46 +250,34 @@
                 </label>
                 {% set cur_priority = form.priority.data if form.priority is defined and form.priority.data is not none else (obj.priority if obj and obj.priority is not none else 1) %}
                 <input type="number" name="priority" id="input_priority" class="form-control" style="border-radius: 8px; font-size: 12.5px; max-width: 120px;" min="1" max="99" value="{{ cur_priority if (cur_priority and cur_priority > 0) else 1 }}" placeholder="1">
-                <small class="text-muted mt-1 d-block" style="font-size: 11px;">Thứ tự 1, 2, 3... (1 = ưu tiên cao nhất). Khi connection chính bị rate limit / lỗi, hệ thống tự động xoay sang connection tiếp theo.</small>
+                <small class="text-muted mt-1 d-block" style="font-size: 11px;">1 = Ưu tiên cao nhất. Hệ thống tự động xoay tua sang kết nối kế tiếp khi gặp sự cố hoặc giới hạn ngạch.</small>
               </div>
 
-              <!-- Auth Type Select -->
-              <div class="mb-3" id="auth-type-field">
-                <label class="form-label fw-bold text-dark mb-1.5" style="font-size: 13px;">
-                  Loại xác thực (Auth Type)
-                </label>
-                {% set cur_auth = form.auth_type.data if form.auth_type is defined and form.auth_type.data else (obj.auth_type if obj else 'api_key') %}
-                <select name="auth_type" id="input_auth_type" class="form-select" style="border-radius: 8px; font-size: 12.5px;">
-                  <option value="api_key" {% if cur_auth == 'api_key' %}selected{% endif %}>API Key (sk-..., AIza..., gsk_...)</option>
-                  <option value="oauth2" {% if cur_auth == 'oauth2' %}selected{% endif %}>OAuth 2.0 Refresh Token (1//...)</option>
-                  <option value="bearer_token" {% if cur_auth == 'bearer_token' %}selected{% endif %}>Bearer Access Token (ya29..., sess-...)</option>
-                </select>
-                <small class="text-muted mt-1 d-block" style="font-size: 11px;">Tự động nhận diện khi dán token.</small>
-              </div>
+              <!-- Hidden Technical Fields (Managed automatically by system) -->
+              {% set cur_auth = form.auth_type.data if form.auth_type is defined and form.auth_type.data else (obj.auth_type if obj else 'api_key') %}
+              <input type="hidden" name="auth_type" id="input_auth_type" value="{{ cur_auth or 'api_key' }}">
 
-              <!-- Status Select -->
-              <div class="mb-3">
-                <label class="form-label fw-bold text-dark mb-1.5" style="font-size: 13px;">Trạng thái</label>
-                {% set cur_status = form.status.data if form.status is defined and form.status.data else (obj.status if obj else 'active') %}
-                <select name="status" id="input_status" class="form-select" style="border-radius: 8px; font-size: 12.5px;">
-                  <option value="active" {% if cur_status == 'active' %}selected{% endif %}>Hoạt động (Active)</option>
-                  <option value="inactive" {% if cur_status == 'inactive' %}selected{% endif %}>Tạm dừng (Inactive)</option>
-                  <option value="rate_limited" {% if cur_status == 'rate_limited' %}selected{% endif %}>Hết hạn ngạch (Rate limited)</option>
-                </select>
-              </div>
+              {% set cur_status = form.status.data if form.status is defined and form.status.data else (obj.status if obj else 'active') %}
+              <input type="hidden" name="status" id="input_status" value="{{ cur_status or 'active' }}">
 
-              <!-- Email Field -->
-              <div class="mb-3">
-                <label class="form-label fw-bold text-dark mb-1.5" style="font-size: 13px;">Email tài khoản</label>
-                {% set cur_email = form.email.data if form.email is defined and form.email.data else (obj.email if obj else '') %}
-                <input type="email" name="email" id="input_email" class="form-control" style="border-radius: 8px; font-size: 12.5px;" placeholder="email@example.com (tùy chọn)" value="{{ cur_email or '' }}">
-              </div>
+              {% set cur_email = form.email.data if form.email is defined and form.email.data else (obj.email if obj else '') %}
+              <input type="hidden" name="email" id="input_email" value="{{ cur_email or '' }}">
 
-              <!-- Tag Field -->
-              <div class="mb-0">
-                <label class="form-label fw-bold text-dark mb-1.5" style="font-size: 13px;">Thẻ phân loại</label>
-                {% set cur_tag = form.tag.data if form.tag is defined and form.tag.data else (obj.tag if obj else 'Chính thức') %}
-                <input type="text" name="tag" id="input_tag" class="form-control" style="border-radius: 8px; font-size: 12.5px;" placeholder="Ví dụ: 9router OAuth, Production, Backup..." value="{{ cur_tag or '' }}">
+              {% set cur_tag = form.tag.data if form.tag is defined and form.tag.data else (obj.tag if obj else 'Chính thức') %}
+              <input type="hidden" name="tag" id="input_tag" value="{{ cur_tag or '' }}">
+
+              <!-- Thông tin cơ chế tự động -->
+              <div class="p-3 rounded-3 border" style="background: #f8fafc; border: 1px solid var(--admin-border, #e2e8f0) !important; border-radius: 10px;">
+                <div class="d-flex align-items-center gap-2 mb-1.5 text-primary fw-bold" style="font-size: 12.5px;">
+                  <i class="fa-solid fa-circle-nodes"></i>
+                  <span>Tự động đa mô hình &amp; Xoay tua</span>
+                </div>
+                <p class="text-muted mb-1" style="font-size: 11.5px; line-height: 1.45;">
+                  1 kết nối có thể sử dụng cho tất cả các mô hình của hãng AI đã chọn.
+                </p>
+                <p class="text-muted mb-0" style="font-size: 11.5px; line-height: 1.45;">
+                  Khi tài khoản chạm ngưỡng hạn ngạch (Rate Limit 429), hệ thống tự động đổi sang kết nối dự phòng tiếp theo.
+                </p>
               </div>
 
             </div>

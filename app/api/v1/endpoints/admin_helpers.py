@@ -394,10 +394,32 @@ async def test_ai_connection(
                     model = top_model_obj.model_key
 
     if not model:
-        raise HTTPException(
-            status_code=400,
-            detail="Chưa chọn model trong cấu hình BE. Hãy chọn model cụ thể trước khi kiểm tra kết nối.",
-        )
+        fallback_models = {
+            "antigravity": "ag/gemini-3.6-flash-high",
+            "google": "gemini-2.5-flash",
+            "codex": "gpt-5.6-sol",
+            "deepseek": "deepseek-chat",
+            "openai": "gpt-4o",
+            "anthropic": "claude-3-5-sonnet-20241022",
+            "groq": "llama-3.3-70b-versatile",
+            "openrouter": "google/gemini-2.5-flash",
+            "ollama": "llama3.2",
+            "mistral": "mistral-large-latest",
+            "xai": "grok-2-latest",
+        }
+        if provider_id:
+            m_res = await db.execute(
+                select(AiProviderModel)
+                .where(AiProviderModel.provider_id == provider_id, AiProviderModel.is_active == True)
+                .order_by(AiProviderModel.sort_order.asc(), AiProviderModel.id.asc())
+            )
+            top_m = m_res.scalars().first()
+            if top_m and top_m.model_key:
+                model = top_m.model_key
+            else:
+                model = fallback_models.get(provider_id, "default")
+        else:
+            model = "default"
 
     # 4. Kiểm tra API Key (tự động lấy từ DB AiConnection nếu có, ưu tiên priority)
     if not api_key and provider_id:
