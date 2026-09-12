@@ -1106,47 +1106,193 @@ async def antigravity_oauth_callback(
 
         return HTMLResponse(f"""
         <!DOCTYPE html>
-        <html>
-        <head><title>Đăng nhập Antigravity Thành Công</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <style>
-          body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #f8fafc; }}
-          .card {{ background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 32px; text-align: center; max-width: 440px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08); }}
-          .icon {{ width: 64px; height: 64px; border-radius: 50%; background: #ecfdf5; color: #10b981; display: flex; align-items: center; justify-content: center; font-size: 30px; margin: 0 auto 16px; }}
-          h2 {{ margin: 0 0 8px; color: #0f172a; font-size: 19px; }}
-          p {{ color: #64748b; font-size: 13px; line-height: 1.55; margin: 0 0 20px; }}
-          .btn {{ background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 10px 22px; font-weight: 600; cursor: pointer; text-decoration: none; font-size: 13px; }}
-          code {{ background: #f1f5f9; padding: 2px 6px; border-radius: 4px; color: #334155; font-size: 12px; }}
-        </style>
+        <html lang="vi">
+        <head>
+          <title>Đăng nhập Google Antigravity Thành Công</title>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+          <style>
+            * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+            body {{
+              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              min-height: 100vh;
+              background: #f1f5f9;
+              padding: 20px;
+            }}
+            .card {{
+              background: #ffffff;
+              border: 1px solid #e2e8f0;
+              border-radius: 20px;
+              padding: 36px 32px;
+              text-align: center;
+              max-width: 440px;
+              width: 100%;
+              box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+              animation: popIn 0.3s ease-out;
+            }}
+            @keyframes popIn {{
+              from {{ opacity: 0; transform: scale(0.95); }}
+              to {{ opacity: 1; transform: scale(1); }}
+            }}
+            .icon-circle {{
+              width: 72px;
+              height: 72px;
+              border-radius: 50%;
+              background: #dcfce7;
+              color: #16a34a;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 32px;
+              margin: 0 auto 20px;
+              box-shadow: 0 4px 12px rgba(22, 163, 74, 0.15);
+            }}
+            h2 {{
+              color: #0f172a;
+              font-size: 20px;
+              font-weight: 700;
+              margin-bottom: 12px;
+            }}
+            .info-box {{
+              background: #f8fafc;
+              border: 1px solid #e2e8f0;
+              border-radius: 12px;
+              padding: 14px 16px;
+              margin-bottom: 20px;
+              font-size: 13px;
+              color: #475569;
+              text-align: left;
+              line-height: 1.6;
+            }}
+            .info-box strong {{ color: #1e293b; }}
+            .info-box code {{
+              background: #e2e8f0;
+              padding: 2px 6px;
+              border-radius: 4px;
+              font-family: monospace;
+              color: #0f172a;
+              font-size: 12px;
+            }}
+            .btn-primary {{
+              background: #2563eb;
+              color: #ffffff;
+              border: none;
+              border-radius: 10px;
+              padding: 12px 24px;
+              font-weight: 600;
+              font-size: 13.5px;
+              cursor: pointer;
+              width: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 8px;
+              transition: background 0.15s;
+              text-decoration: none;
+            }}
+            .btn-primary:hover {{
+              background: #1d4ed8;
+            }}
+            .countdown {{
+              font-size: 12px;
+              color: #94a3b8;
+              margin-top: 14px;
+            }}
+          </style>
         </head>
         <body>
           <div class="card">
-            <div class="icon"><i class="fa-solid fa-check"></i></div>
-            <h2>Liên Kết Google Antigravity Thành Công!</h2>
-            <p>Tài khoản: <strong>{email}</strong><br>Google Cloud Project: <code>{project_id}</code><br>Hệ thống tự động cấp phát token định kỳ, sẵn sàng bóc tách bản vẽ.</p>
-            <button class="btn" onclick="finishAndClose()">Hoàn tất &amp; Quay lại Quản Trị</button>
+            <div class="icon-circle"><i class="fa-solid fa-check"></i></div>
+            <h2>Liên Kết Google Thành Công!</h2>
+            <div class="info-box">
+              <div><strong>Tài khoản:</strong> {email}</div>
+              <div><strong>Project ID:</strong> <code>{project_id}</code></div>
+              <div style="font-size: 12px; color: #16a34a; margin-top: 4px;">
+                <i class="fa-solid fa-bolt me-1"></i>Đã kích hoạt tự động gia hạn token vĩnh viễn.
+              </div>
+            </div>
+            <button class="btn-primary" onclick="finishAndClose()">
+              <span>Hoàn tất &amp; Quay lại Quản Trị</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+            <div class="countdown" id="countdown-text">Đang tự động chuyển hướng sau <span id="timer">2</span>s...</div>
           </div>
           <script>
-            function finishAndClose() {{
-              if (window.opener) {{
-                window.opener.location.reload();
+            // Phát tín hiệu NGAY KHI TẢI TRANG để tab chính nhận diện tức thì
+            try {{
+              const bc = new BroadcastChannel('antigravity_oauth');
+              bc.postMessage({{ status: 'success', email: '{email}', project_id: '{project_id}' }});
+            }} catch(e) {{}}
+
+            try {{
+              localStorage.setItem('antigravity_oauth_success', JSON.stringify({{
+                time: Date.now(),
+                email: '{email}',
+                project_id: '{project_id}'
+              }}));
+            }} catch(e) {{}}
+
+            function notifyParentAndClose() {{
+              try {{
+                const bc = new BroadcastChannel('antigravity_oauth');
+                bc.postMessage({{ status: 'success', email: '{email}', project_id: '{project_id}' }});
+              }} catch(e) {{}}
+
+              try {{
+                localStorage.setItem('antigravity_oauth_success', JSON.stringify({{
+                  time: Date.now(),
+                  email: '{email}',
+                  project_id: '{project_id}'
+                }}));
+              }} catch(e) {{}}
+
+              // Thử cập nhật window.opener nếu trình duyệt cho phép
+              try {{
+                if (window.opener && !window.opener.closed) {{
+                  window.opener.location.href = '/admin/ai-connection/list';
+                }}
+              }} catch(e) {{}}
+
+              // Thử đóng cửa sổ popup
+              try {{
                 window.close();
-              }} else {{
+              }} catch(e) {{}}
+
+              // Fallback: Nếu popup không đóng được (do Chrome chặn window.close), chuyển hướng trang này về danh sách
+              setTimeout(function() {{
                 window.location.href = '/admin/ai-connection/list';
-              }}
+              }}, 300);
             }}
-            setTimeout(function() {{
-              if (window.opener) {{
-                window.opener.location.reload();
-                window.close();
+
+            function finishAndClose() {{
+              notifyParentAndClose();
+            }}
+
+            // Tự động đếm ngược và chuyển hướng sau 2 giây
+            let seconds = 2;
+            const timerEl = document.getElementById('timer');
+            const interval = setInterval(function() {{
+              seconds--;
+              if (timerEl) timerEl.textContent = seconds;
+              if (seconds <= 0) {{
+                clearInterval(interval);
+                notifyParentAndClose();
               }}
-            }}, 2000);
+            }}, 1000);
           </script>
         </body>
         </html>
         """)
 
     except Exception as ex:
-        return HTMLResponse(f"<h3>Lỗi cấu hình OAuth: {str(ex)}</h3><p><button onclick='window.close()'>Đóng</button></p>")
+        return HTMLResponse(f"""
+        <div style="font-family:sans-serif;padding:30px;text-align:center;">
+          <h3 style="color:#ef4444;">Lỗi xác thực OAuth: {str(ex)}</h3>
+          <p style="margin-top:15px;"><button onclick="window.close()" style="padding:8px 16px;cursor:pointer;">Đóng cửa sổ</button></p>
+        </div>
+        """)
 

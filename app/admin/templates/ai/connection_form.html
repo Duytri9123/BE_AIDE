@@ -92,6 +92,25 @@
             align-items: center;
             justify-content: space-between;
           }
+          #section-antigravity, #section-api-key {
+            box-sizing: border-box !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            overflow: hidden !important;
+          }
+          #section-antigravity .input-group,
+          #section-api-key .input-group {
+            width: 100% !important;
+            max-width: 100% !important;
+            display: flex !important;
+            flex-wrap: nowrap !important;
+          }
+          #section-antigravity .input-group .form-control,
+          #section-api-key .input-group .form-control {
+            min-width: 0 !important;
+            flex: 1 1 auto !important;
+            width: auto !important;
+          }
         </style>
 
         <div class="row g-4">
@@ -138,7 +157,7 @@
             </div>
 
             <!-- 2A. KHỐI XÁC THỰC GOOGLE ANTIGRAVITY (Chuẩn 9router, 1-Click Login) -->
-            <div class="form-item-group p-3.5 rounded-3 border" id="section-antigravity" style="display:none; background: #f8fafc; border: 1px solid var(--admin-border, #e2e8f0) !important; border-radius: 12px;">
+            <div class="form-item-group rounded-3 border" id="section-antigravity" style="display:none; background: #f8fafc; border: 1px solid var(--admin-border, #e2e8f0) !important; border-radius: 12px; padding: 16px; box-sizing: border-box; width: 100%; max-width: 100%; overflow: hidden;">
               <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2.5">
                 <div>
                   <h6 class="fw-bold text-dark mb-0.5" style="font-size: 13.5px;">
@@ -153,15 +172,15 @@
                   <span>Đăng Nhập Google (1-Click)</span>
                 </button>
               </div>
-              <div class="pt-2.5 mt-2 border-top">
+              <div class="pt-2.5 mt-2 border-top" style="width: 100%; box-sizing: border-box;">
                 <label class="form-label text-secondary mb-1.5" style="font-size: 12px;">Hoặc dán Refresh Token (1//...) / Access Token thủ công:</label>
-                <div class="input-group">
-                  <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 8px 0 0 8px;">
+                <div class="input-group" style="width: 100%; max-width: 100%; display: flex; flex-wrap: nowrap;">
+                  <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 8px 0 0 8px; flex-shrink: 0;">
                     <i class="fa-solid fa-key" style="font-size: 11px;"></i>
                   </span>
                   {% set cur_key = form.api_key.data if form.api_key is defined and form.api_key.data else (obj.api_key if obj else '') %}
-                  <input type="password" id="input_antigravity_token" class="form-control border-start-0 border-end-0 font-monospace" style="font-size: 12.5px; height: 42px;" placeholder="Dán mã Refresh Token (1//...) tại đây..." value="{{ cur_key or '' }}" oninput="syncAntigravityToken(this.value)">
-                  <button type="button" class="btn btn-outline-secondary border-start-0" style="border-radius: 0 8px 8px 0;" onclick="toggleTokenVisibility('input_antigravity_token')">
+                  <input type="password" id="input_antigravity_token" class="form-control border-start-0 border-end-0 font-monospace" style="font-size: 12.5px; height: 42px; min-width: 0; flex: 1 1 auto; width: auto;" placeholder="Dán mã Refresh Token (1//...) tại đây..." value="{{ cur_key or '' }}" oninput="syncAntigravityToken(this.value)">
+                  <button type="button" class="btn btn-outline-secondary border-start-0" style="border-radius: 0 8px 8px 0; flex-shrink: 0;" onclick="toggleTokenVisibility('input_antigravity_token')">
                     <i class="fa-regular fa-eye"></i>
                   </button>
                 </div>
@@ -318,59 +337,48 @@
   </div>
 </div>
 
-<!-- MODAL HỖ TRỢ ĐĂNG NHẬP GOOGLE ANTIGRAVITY (Chuẩn 9router, Tự Động & Hỗ Trợ Từ Xa) -->
+<!-- MODAL HỖ TRỢ ĐĂNG NHẬP GOOGLE ANTIGRAVITY -->
 <div class="modal fade" id="modalAntigravityOAuth" tabindex="-1" aria-labelledby="modalAntigravityLabel" aria-hidden="true" style="background: rgba(0,0,0,0.5);">
-  <div class="modal-dialog modal-dialog-centered" style="max-width: 520px;">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 460px;">
     <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
       <div class="modal-header border-bottom px-4 py-3" style="background: #f8fafc;">
         <h6 class="modal-title fw-bold text-dark d-flex align-items-center gap-2" id="modalAntigravityLabel" style="font-size: 14px;">
           <i class="fa-brands fa-google text-danger fs-5"></i>
-          <span>Liên Kết Tài Khoản Google Antigravity</span>
+          <span>Liên Kết Google Antigravity</span>
         </h6>
         <button type="button" class="btn-close" onclick="closeAntigravityModal()" aria-label="Close"></button>
       </div>
-      <div class="modal-body px-4 py-3.5">
-        <div class="p-3 rounded-3 mb-3" style="background: #f0fdf4; border: 1px solid #bbf7d0;">
-          <div class="d-flex align-items-center gap-2 fw-semibold text-success mb-1" style="font-size: 12.5px;">
-            <i class="fa-solid fa-circle-check"></i>
-            <span>Cơ Chế Dynamic Project Discovery &amp; Auto-Refresh</span>
-          </div>
-          <div class="text-muted small" style="font-size: 11.5px; line-height: 1.45;">
-            Hệ thống tự động cấp phát Google Cloud Project ID riêng và tự động gia hạn token trong RAM, đảm bảo 100% không bị lỗi hạn ngạch 429.
-          </div>
-        </div>
+      <div class="modal-body px-4 py-4 text-center">
+        <p class="text-muted mb-4" style="font-size: 13px; line-height: 1.5;">
+          Đăng nhập bằng tài khoản Google để hệ thống tự động liên kết Antigravity và tự động gia hạn token vĩnh viễn.
+        </p>
 
-        <div class="mb-3">
-          <label class="form-label fw-bold text-dark mb-1" style="font-size: 12.5px;">
-            Bước 1: Mở trang đăng nhập Google
-          </label>
-          <button type="button" class="btn btn-danger w-100 py-2.5 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2" id="btn-modal-open-google" onclick="startAntigravityPopup()" style="border-radius: 8px; font-size: 13px; background: #ea4335; border:none;">
-            <i class="fa-brands fa-google"></i>
-            <span>Mở Cửa Sổ Đăng Nhập Google</span>
-          </button>
-          <small class="text-muted mt-1.5 d-block text-center" style="font-size: 11px;">
-            Bấm nút trên để mở popup -> Chọn tài khoản Google và bấm "Tiếp tục" (Cho phép).
-          </small>
-        </div>
-
-        <div class="border-top pt-3 mb-2">
-          <label class="form-label fw-bold text-dark mb-1 d-flex align-items-center justify-content-between" style="font-size: 12.5px;">
-            <span>Bước 2: Xác nhận hoàn tất</span>
-            <span class="text-muted fw-normal" style="font-size: 11px;">(Dành cho truy cập từ xa)</span>
-          </label>
-          <p class="text-muted small mb-2" style="font-size: 11.5px; line-height: 1.4;">
-            Nếu cửa sổ Google không tự động đóng, hãy <strong>copy toàn bộ đường dẫn trên thanh địa chỉ</strong> của trang Google (dạng <code>.../callback?code=4/0A...</code>) hoặc mã Authorization Code dán vào ô bên dưới:
-          </p>
-          <div class="input-group mb-2">
-            <input type="text" id="input_modal_oauth_callback" class="form-control font-monospace" style="font-size: 12px; border-radius: 8px 0 0 8px;" placeholder="Dán URL callback hoặc mã code 4/0A... vào đây">
-            <button type="button" class="btn btn-primary fw-bold px-3" id="btn-modal-submit-code" onclick="submitAntigravityCode()" style="border-radius: 0 8px 8px 0; font-size: 12.5px;">
-              <i class="fa-solid fa-link me-1"></i> Xác Nhận
-            </button>
-          </div>
-        </div>
+        <button type="button" class="btn btn-danger w-100 py-2.5 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2" id="btn-modal-open-google" onclick="startAntigravityPopup()" style="border-radius: 10px; font-size: 13.5px; background: #ea4335; border:none; transition: all 0.15s ease;">
+          <i class="fa-brands fa-google fs-5"></i>
+          <span>Tiếp Tục Với Google</span>
+        </button>
+        <small class="text-muted mt-2 d-block" style="font-size: 11.5px;">
+          Cửa sổ đăng nhập sẽ tự động đóng và hoàn tất kết nối sau khi bạn cấp quyền.
+        </small>
 
         <!-- Real-time Alert Inside Modal -->
-        <div id="modal-oauth-alert" style="display:none;" class="p-2.5 rounded-2 mt-2"></div>
+        <div id="modal-oauth-alert" style="display:none;" class="p-2.5 rounded-2 mt-3 text-start"></div>
+
+        <!-- Collapsible Manual Fallback -->
+        <div class="mt-4 pt-3 border-top text-center">
+          <button type="button" class="btn btn-link btn-sm text-decoration-none text-muted p-0" onclick="toggleManualOAuthInput()" style="font-size: 11.5px;">
+            <i class="fa-solid fa-code me-1"></i> Gặp sự cố với popup? Nhập mã thủ công
+          </button>
+          <div id="manual-oauth-box" style="display:none;" class="mt-2.5 text-start">
+            <label class="form-label text-muted small mb-1" style="font-size: 11px;">Dán URL callback hoặc mã code:</label>
+            <div class="input-group">
+              <input type="text" id="input_modal_oauth_callback" class="form-control font-monospace" style="font-size: 12px; border-radius: 8px 0 0 8px;" placeholder="URL callback hoặc mã code 4/0A...">
+              <button type="button" class="btn btn-primary fw-bold px-3" id="btn-modal-submit-code" onclick="submitAntigravityCode()" style="border-radius: 0 8px 8px 0; font-size: 12px;">
+                Xác Nhận
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer border-top px-4 py-2.5" style="background: #f8fafc;">
         <button type="button" class="btn btn-light border btn-sm px-3 fw-semibold" onclick="closeAntigravityModal()" style="font-size: 12px; border-radius: 6px;">Đóng</button>
@@ -709,14 +717,44 @@ function closeAntigravityModal() {
   document.body.classList.remove('modal-open');
 }
 
+function toggleManualOAuthInput() {
+  const box = document.getElementById('manual-oauth-box');
+  if (box) {
+    box.style.display = box.style.display === 'none' ? 'block' : 'none';
+  }
+}
+
 let _antigravityAuthWindow = null;
+let _antigravityPollTimer = null;
+
+function setupAntigravitySyncListeners() {
+  try {
+    const bc = new BroadcastChannel('antigravity_oauth');
+    bc.onmessage = function(event) {
+      if (event.data && event.data.status === 'success') {
+        window.onAntigravitySuccess(event.data);
+      }
+    };
+  } catch(e) {}
+
+  window.addEventListener('storage', function(e) {
+    if (e.key === 'antigravity_oauth_success' && e.newValue) {
+      try {
+        const data = JSON.parse(e.newValue);
+        window.onAntigravitySuccess(data);
+      } catch(err) {
+        window.location.href = '/admin/ai-connection/list';
+      }
+    }
+  });
+}
 
 async function startAntigravityPopup() {
   const btn = document.getElementById('btn-modal-open-google');
   const alertBox = document.getElementById('modal-oauth-alert');
   const origHtml = btn.innerHTML;
   btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang khởi tạo URL Google...';
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang mở Google...';
 
   try {
     const resp = await fetch('/api/v1/admin-api/antigravity/auth-url');
@@ -729,16 +767,34 @@ async function startAntigravityPopup() {
 
       if (alertBox) {
         alertBox.style.display = 'block';
-        alertBox.className = 'p-2.5 rounded-2 mt-2 border bg-light text-primary small';
+        alertBox.className = 'p-2.5 rounded-2 mt-3 border bg-light text-primary small';
         alertBox.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1.5"></i> Đã mở cửa sổ Google. Hãy đăng nhập và cấp quyền, sau đó cửa sổ sẽ tự đóng...';
       }
+
+      // Check if popup closed or completed
+      clearInterval(_antigravityPollTimer);
+      _antigravityPollTimer = setInterval(function() {
+        if (_antigravityAuthWindow && _antigravityAuthWindow.closed) {
+          clearInterval(_antigravityPollTimer);
+          const authSuccess = localStorage.getItem('antigravity_oauth_success');
+          if (authSuccess) {
+            try {
+              const parsed = JSON.parse(authSuccess);
+              if (Date.now() - parsed.time < 30000) {
+                window.onAntigravitySuccess(parsed);
+              }
+            } catch(e) {}
+          }
+        }
+      }, 800);
+
     } else {
       throw new Error('Máy chủ không tạo được Auth URL');
     }
   } catch(e) {
     if (alertBox) {
       alertBox.style.display = 'block';
-      alertBox.className = 'p-2.5 rounded-2 mt-2 border border-danger bg-danger-subtle text-danger small';
+      alertBox.className = 'p-2.5 rounded-2 mt-3 border border-danger bg-danger-subtle text-danger small';
       alertBox.innerHTML = '<i class="fa-solid fa-circle-xmark me-1"></i> ' + e.message;
     }
   } finally {
@@ -789,7 +845,7 @@ async function submitAntigravityCode() {
 
     setTimeout(() => {
       window.location.href = '/admin/ai-connection/list';
-    }, 1500);
+    }, 1000);
 
   } catch(e) {
     if (alertBox) {
@@ -803,17 +859,21 @@ async function submitAntigravityCode() {
 }
 
 window.onAntigravitySuccess = function(data) {
+  clearInterval(_antigravityPollTimer);
   const alertBox = document.getElementById('modal-oauth-alert');
   if (alertBox) {
     alertBox.style.display = 'block';
-    alertBox.className = 'p-3 rounded-2 mt-2 border border-success bg-success-subtle text-success small';
+    alertBox.className = 'p-3 rounded-2 mt-3 border border-success bg-success-subtle text-success small';
     alertBox.innerHTML = `<div class="fw-bold"><i class="fa-solid fa-circle-check me-1.5"></i>Liên kết Google thành công!</div>
-      <div class="mt-1">Tài khoản: <strong>${data.email}</strong></div>
-      <div class="text-muted mt-1">Đang tự động chuyển hướng sau 1.5 giây...</div>`;
+      <div class="mt-1">Tài khoản: <strong>${data && data.email ? data.email : ''}</strong></div>
+      <div class="text-muted mt-1">Đang chuyển hướng về trang danh sách...</div>`;
+  }
+  if (_antigravityAuthWindow && !_antigravityAuthWindow.closed) {
+    try { _antigravityAuthWindow.close(); } catch(e) {}
   }
   setTimeout(() => {
     window.location.href = '/admin/ai-connection/list';
-  }, 1500);
+  }, 800);
 };
 
 // SMART AUTO-DETECTION KHI DÁN API KEY
@@ -1031,6 +1091,8 @@ async function runFormTestApi() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  setupAntigravitySyncListeners();
+
   const provInput = document.getElementById('input_provider');
   const currentProv = provInput ? provInput.value : 'antigravity';
   selectProvider(currentProv, true);
