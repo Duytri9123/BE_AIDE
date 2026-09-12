@@ -41,17 +41,33 @@
         {% endif %}
 
         <style>
+          .provider-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 9px;
+          }
+          @media (max-width: 576px) {
+            .provider-grid {
+              grid-template-columns: repeat(2, 1fr);
+            }
+          }
           .btn-provider-chip {
             background: #ffffff;
             border: 1px solid #cbd5e1;
             color: #334155;
             font-weight: 600;
             font-size: 12.5px;
-            padding: 7px 15px;
+            padding: 8px 10px;
             border-radius: 9px;
             transition: all 0.15s ease-in-out;
             cursor: pointer;
             box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            white-space: nowrap;
           }
           .btn-provider-chip:hover {
             background: #f8fafc;
@@ -64,20 +80,32 @@
             color: #ffffff;
             box-shadow: 0 2px 6px rgba(30, 41, 59, 0.25);
           }
+          .form-item-group {
+            margin-bottom: 22px;
+          }
+          .form-item-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
         </style>
 
         <div class="row g-4">
           <!-- Left Column: Primary AI Settings (8 cols) -->
           <div class="col-lg-8 col-12">
             
-            <!-- 1. CHỌN NHÀ CUNG CẤP AI (PROVIDER) - DẠNG CHIPS HIỆN ĐẠI DUY NHẤT -->
-            <div class="mb-4">
-              <label class="form-label fw-bold text-dark mb-2 d-flex align-items-center justify-content-between" style="font-size: 13.5px;">
+            <!-- 1. CHỌN NHÀ CUNG CẤP AI (PROVIDER) - 3 CỘT CÂN XỨNG -->
+            <div class="form-item-group">
+              <label class="form-item-label">
                 <span>Nhà Cung Cấp AI (Provider) <span class="text-danger">*</span></span>
-                <span class="text-muted fw-normal" style="font-size: 11.5px;">Bấm chọn hãng để áp dụng cấu hình tối ưu</span>
+                <span class="text-muted fw-normal" style="font-size: 11.5px;">Bấm chọn hãng để tự áp dụng thông số</span>
               </label>
               {% set cur_prov = form.provider.data if form.provider is defined and form.provider.data else (obj.provider if obj else 'antigravity') %}
-              <div class="d-flex flex-wrap gap-2" id="provider-selector-group">
+              <div class="provider-grid" id="provider-selector-group">
                 <button type="button" class="btn btn-provider-chip {% if cur_prov == 'antigravity' %}active{% endif %}" data-provider="antigravity" onclick="selectProvider('antigravity')">
                   Antigravity (Google OAuth)
                 </button>
@@ -110,7 +138,7 @@
             </div>
 
             <!-- 2A. KHỐI XÁC THỰC GOOGLE ANTIGRAVITY (Chuẩn 9router, 1-Click Login) -->
-            <div class="mb-4 p-3.5 rounded-3 border" id="section-antigravity" style="display:none; background: #f8fafc; border: 1px solid var(--admin-border, #e2e8f0) !important; border-radius: 12px;">
+            <div class="form-item-group p-3.5 rounded-3 border" id="section-antigravity" style="display:none; background: #f8fafc; border: 1px solid var(--admin-border, #e2e8f0) !important; border-radius: 12px;">
               <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2.5">
                 <div>
                   <h6 class="fw-bold text-dark mb-0.5" style="font-size: 13.5px;">
@@ -126,13 +154,13 @@
                 </button>
               </div>
               <div class="pt-2.5 mt-2 border-top">
-                <label class="form-label text-secondary mb-1" style="font-size: 12px;">Hoặc dán Refresh Token (1//...) / Access Token thủ công:</label>
+                <label class="form-label text-secondary mb-1.5" style="font-size: 12px;">Hoặc dán Refresh Token (1//...) / Access Token thủ công:</label>
                 <div class="input-group">
                   <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 8px 0 0 8px;">
                     <i class="fa-solid fa-key" style="font-size: 11px;"></i>
                   </span>
                   {% set cur_key = form.api_key.data if form.api_key is defined and form.api_key.data else (obj.api_key if obj else '') %}
-                  <input type="password" id="input_antigravity_token" class="form-control border-start-0 border-end-0 font-monospace" style="font-size: 12.5px;" placeholder="Dán mã Refresh Token (1//...) tại đây..." value="{{ cur_key or '' }}" oninput="syncAntigravityToken(this.value)">
+                  <input type="password" id="input_antigravity_token" class="form-control border-start-0 border-end-0 font-monospace" style="font-size: 12.5px; height: 42px;" placeholder="Dán mã Refresh Token (1//...) tại đây..." value="{{ cur_key or '' }}" oninput="syncAntigravityToken(this.value)">
                   <button type="button" class="btn btn-outline-secondary border-start-0" style="border-radius: 0 8px 8px 0;" onclick="toggleTokenVisibility('input_antigravity_token')">
                     <i class="fa-regular fa-eye"></i>
                   </button>
@@ -141,7 +169,7 @@
             </div>
 
             <!-- 2B. KHỐI API KEY (Cho các hãng AI thông thường) -->
-            <div class="mb-3.5" id="section-api-key">
+            <div class="form-item-group" id="section-api-key">
               <div class="d-flex align-items-center justify-content-between mb-1.5 flex-wrap gap-1">
                 <label class="form-label fw-bold text-dark mb-0" style="font-size: 13px;">
                   <span id="label-api-key-text">Khóa bí mật (API Key)</span> <span class="text-danger">*</span>
@@ -152,7 +180,7 @@
                 <span class="input-group-text bg-white text-muted border-end-0" style="border-radius: 8px 0 0 8px;">
                   <i class="fa-solid fa-key" style="font-size: 11px;"></i>
                 </span>
-                <input type="password" name="api_key" id="input_api_key" class="form-control border-start-0 border-end-0 font-monospace" style="font-size: 13px;" placeholder="Dán API Key vào đây..." value="{{ cur_key or '' }}" oninput="onApiKeyInputChanged()">
+                <input type="password" name="api_key" id="input_api_key" class="form-control border-start-0 border-end-0 font-monospace" style="font-size: 13px; height: 42px;" placeholder="Dán API Key vào đây..." value="{{ cur_key or '' }}" oninput="onApiKeyInputChanged()">
                 <button type="button" class="btn btn-outline-secondary border-start-0" style="border-radius: 0 8px 8px 0;" onclick="toggleTokenVisibility('input_api_key')" title="Hiện / Ẩn khóa">
                   <i class="fa-regular fa-eye" id="form-eye-icon"></i>
                 </button>
@@ -161,23 +189,23 @@
               <!-- Auto-Detection Dynamic Alert Banner -->
               <div id="key-detect-alert" class="mt-2 p-2.5 rounded-2" style="display:none; font-size:12px; border:1px solid #dbeafe; background:#eff6ff;"></div>
 
-              <small class="text-muted mt-1 d-block" id="api-key-helper-text" style="font-size: 11.5px;">
+              <small class="text-muted mt-1.5 d-block" id="api-key-helper-text" style="font-size: 11.5px;">
                 Nhập API Key tương ứng với nhà cung cấp đã chọn.
               </small>
             </div>
 
             <!-- 3. TÊN KẾT NỐI / GHI CHÚ -->
-            <div class="mb-3.5">
-              <label class="form-label fw-bold text-dark mb-1.5" style="font-size: 13px;">
-                Tên kết nối / Ghi chú
+            <div class="form-item-group">
+              <label class="form-item-label">
+                <span>Tên kết nối / Ghi chú</span>
               </label>
               {% set cur_name = form.name.data if form.name is defined and form.name.data else (obj.name if obj else 'Tài khoản chính') %}
-              <input type="text" name="name" id="input_name" class="form-control" style="border-radius: 8px; font-size: 13px;" placeholder="Ví dụ: Google Gemini Chính, DeepSeek Backup..." value="{{ cur_name or '' }}">
+              <input type="text" name="name" id="input_name" class="form-control" style="border-radius: 8px; font-size: 13px; height: 42px;" placeholder="Ví dụ: Google Gemini Chính, DeepSeek Backup..." value="{{ cur_name or '' }}">
             </div>
 
             <!-- 4. ĐỊA CHỈ MÁY CHỦ (BASE URL / ENDPOINT) -->
             {% set cur_base_url = (obj.quotas.get('base_url') if (obj and obj.quotas and obj.quotas is mapping) else '') %}
-            <div class="mb-3.5" id="base-url-wrapper">
+            <div class="form-item-group" id="base-url-wrapper">
               <div class="d-flex align-items-center justify-content-between mb-1.5">
                 <label class="form-label fw-bold text-dark mb-0" style="font-size: 13px;">
                   Địa chỉ máy chủ (Base URL / Endpoint) <span class="text-muted fw-normal" style="font-size:11px;">(Tùy chọn)</span>
@@ -186,8 +214,8 @@
                   Dùng URL mặc định
                 </button>
               </div>
-              <input type="text" name="base_url" id="input_base_url" class="form-control font-monospace" style="border-radius: 8px; font-size: 12.5px;" placeholder="" value="{{ cur_base_url or '' }}" oninput="onBaseUrlChanged()">
-              <small class="text-muted mt-1 d-block" style="font-size: 11px;">
+              <input type="text" name="base_url" id="input_base_url" class="form-control font-monospace" style="border-radius: 8px; font-size: 12.5px; height: 42px;" placeholder="" value="{{ cur_base_url or '' }}" oninput="onBaseUrlChanged()">
+              <small class="text-muted mt-1.5 d-block" style="font-size: 11px;">
                 Để trống để dùng máy chủ mặc định của hãng.
               </small>
             </div>
@@ -197,24 +225,24 @@
             <input type="hidden" name="selected_model" id="input_selected_model" value="{{ cur_model or '' }}">
 
             <!-- Test Result Output Box (Hiển thị ngay khi người dùng bấm Kiểm Tra Kết Nối) -->
-            <div id="form-test-result-box" style="display:none;" class="mt-3"></div>
+            <div id="form-test-result-box" style="display:none;" class="mb-3"></div>
 
           </div>
 
           <!-- Right Column: Status & Options (4 cols) -->
           <div class="col-lg-4 col-12">
-            <div class="mb-3">
-              <h6 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2" style="font-size: 14px;">
-                <i class="fa-solid fa-gear text-secondary"></i> Cài Đặt &amp; Trạng Thái
+            <div class="card border shadow-none" style="border: 1px solid #e2e8f0 !important; border-radius: 14px; background: #f8fafc; padding: 20px;">
+              <h6 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2" style="font-size: 13.5px;">
+                <i class="fa-solid fa-gear text-primary"></i> Cài Đặt &amp; Trạng Thái
               </h6>
 
               <!-- Toggle Active -->
-              <div class="mb-3 p-3 rounded-3 d-flex align-items-center justify-content-between border" style="background: #f8fafc; border: 1px solid var(--admin-border, #e2e8f0) !important; border-radius: 12px;">
+              <div class="p-3 bg-white rounded-3 border mb-3 d-flex align-items-center justify-content-between" style="border: 1px solid #e2e8f0 !important;">
                 <div>
                   <label class="form-check-label fw-bold text-dark d-block mb-0.5" for="input_is_active" style="font-size: 13px;">
                     Kích hoạt sử dụng
                   </label>
-                  <small class="text-muted" style="font-size: 11px;">Cho phép hệ thống sử dụng kết nối này</small>
+                  <small class="text-muted" style="font-size: 11px;">Bật kết nối này vào hệ thống</small>
                 </div>
                 {% set cur_active = form.is_active.data if form.is_active is defined and form.is_active.data is not none else (obj.is_active if obj and obj.is_active is not none else true) %}
                 <div class="form-check form-switch m-0">
@@ -223,14 +251,16 @@
               </div>
 
               <!-- Priority (Connection Rotation) -->
-              <div class="mb-3">
-                <label class="form-label fw-bold text-dark mb-1.5" style="font-size: 13px;">
-                  <i class="fa-solid fa-sort-numeric-down text-primary me-1" style="font-size: 11px;"></i>
-                  Thứ tự ưu tiên (Priority)
+              <div class="p-3 bg-white rounded-3 border mb-3" style="border: 1px solid #e2e8f0 !important;">
+                <label class="form-label fw-bold text-dark mb-1.5 d-flex align-items-center justify-content-between" style="font-size: 13px;">
+                  <span><i class="fa-solid fa-sort-numeric-down text-primary me-1"></i> Thứ tự ưu tiên</span>
+                  <span class="badge bg-light text-secondary border fw-normal" style="font-size: 10.5px;">1 = Cao nhất</span>
                 </label>
                 {% set cur_priority = form.priority.data if form.priority is defined and form.priority.data is not none else (obj.priority if obj and obj.priority is not none else 1) %}
-                <input type="number" name="priority" id="input_priority" class="form-control" style="border-radius: 8px; font-size: 12.5px; max-width: 120px;" min="1" max="99" value="{{ cur_priority if (cur_priority and cur_priority > 0) else 1 }}" placeholder="1">
-                <small class="text-muted mt-1 d-block" style="font-size: 11px;">1 = Ưu tiên cao nhất. Hệ thống tự động xoay tua sang kết nối kế tiếp khi gặp sự cố hoặc giới hạn ngạch.</small>
+                <input type="number" name="priority" id="input_priority" class="form-control" style="border-radius: 8px; font-size: 12.5px; height: 38px;" min="1" max="99" value="{{ cur_priority if (cur_priority and cur_priority > 0) else 1 }}" placeholder="1">
+                <small class="text-muted mt-1.5 d-block" style="font-size: 11px; line-height: 1.4;">
+                  Hệ thống tự động xoay tua sang kết nối kế tiếp khi gặp sự cố hoặc giới hạn ngạch.
+                </small>
               </div>
 
               <!-- Hidden Technical Fields (Managed automatically by system) -->
@@ -247,8 +277,8 @@
               <input type="hidden" name="tag" id="input_tag" value="{{ cur_tag or '' }}">
 
               <!-- Thông tin cơ chế tự động -->
-              <div class="p-3 rounded-3 border" style="background: #f8fafc; border: 1px solid var(--admin-border, #e2e8f0) !important; border-radius: 10px;">
-                <div class="d-flex align-items-center gap-2 mb-1.5 text-primary fw-bold" style="font-size: 12.5px;">
+              <div class="p-3 rounded-3" style="background: #eff6ff; border: 1px solid #bfdbfe !important; border-radius: 10px;">
+                <div class="d-flex align-items-center gap-1.5 mb-1.5 text-primary fw-bold" style="font-size: 12.5px;">
                   <i class="fa-solid fa-circle-nodes"></i>
                   <span>Tự động đa mô hình &amp; Xoay tua</span>
                 </div>
@@ -289,7 +319,7 @@
 </div>
 
 <!-- MODAL HỖ TRỢ ĐĂNG NHẬP GOOGLE ANTIGRAVITY (Chuẩn 9router, Tự Động & Hỗ Trợ Từ Xa) -->
-<div class="modal fade" id="modalAntigravityOAuth" tabindex="-1" aria-labelledby="modalAntigravityLabel" aria-hidden="true">
+<div class="modal fade" id="modalAntigravityOAuth" tabindex="-1" aria-labelledby="modalAntigravityLabel" aria-hidden="true" style="background: rgba(0,0,0,0.5);">
   <div class="modal-dialog modal-dialog-centered" style="max-width: 520px;">
     <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
       <div class="modal-header border-bottom px-4 py-3" style="background: #f8fafc;">
@@ -297,7 +327,7 @@
           <i class="fa-brands fa-google text-danger fs-5"></i>
           <span>Liên Kết Tài Khoản Google Antigravity</span>
         </h6>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" onclick="closeAntigravityModal()" aria-label="Close"></button>
       </div>
       <div class="modal-body px-4 py-3.5">
         <div class="p-3 rounded-3 mb-3" style="background: #f0fdf4; border: 1px solid #bbf7d0;">
@@ -343,7 +373,7 @@
         <div id="modal-oauth-alert" style="display:none;" class="p-2.5 rounded-2 mt-2"></div>
       </div>
       <div class="modal-footer border-top px-4 py-2.5" style="background: #f8fafc;">
-        <button type="button" class="btn btn-light border btn-sm px-3 fw-semibold" data-bs-dismiss="modal" style="font-size: 12px; border-radius: 6px;">Đóng</button>
+        <button type="button" class="btn btn-light border btn-sm px-3 fw-semibold" onclick="closeAntigravityModal()" style="font-size: 12px; border-radius: 6px;">Đóng</button>
       </div>
     </div>
   </div>
@@ -625,8 +655,6 @@ function onBaseUrlChanged() {
   if (resultBox) resultBox.style.display = 'none';
 }
 
-let _antigravityAuthWindow = null;
-
 function openAntigravityModal() {
   const modalEl = document.getElementById('modalAntigravityOAuth');
   if (!modalEl) return;
@@ -635,9 +663,53 @@ function openAntigravityModal() {
   const inputCb = document.getElementById('input_modal_oauth_callback');
   if (inputCb) inputCb.value = '';
 
-  const modal = new bootstrap.Modal(modalEl);
-  modal.show();
+  if (window.bootstrap && window.bootstrap.Modal) {
+    try {
+      const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+      modal.show();
+      return;
+    } catch(e) {}
+  }
+  if (window.$ && $.fn && $.fn.modal) {
+    try {
+      $(modalEl).modal('show');
+      return;
+    } catch(e) {}
+  }
+
+  // Pure JavaScript Fallback
+  modalEl.style.display = 'block';
+  modalEl.classList.add('show');
+  document.body.classList.add('modal-open');
 }
+
+function closeAntigravityModal() {
+  const modalEl = document.getElementById('modalAntigravityOAuth');
+  if (!modalEl) return;
+
+  if (window.bootstrap && window.bootstrap.Modal) {
+    try {
+      const modal = bootstrap.Modal.getInstance(modalEl);
+      if (modal) {
+        modal.hide();
+        return;
+      }
+    } catch(e) {}
+  }
+  if (window.$ && $.fn && $.fn.modal) {
+    try {
+      $(modalEl).modal('hide');
+      return;
+    } catch(e) {}
+  }
+
+  // Pure JavaScript Fallback
+  modalEl.style.display = 'none';
+  modalEl.classList.remove('show');
+  document.body.classList.remove('modal-open');
+}
+
+let _antigravityAuthWindow = null;
 
 async function startAntigravityPopup() {
   const btn = document.getElementById('btn-modal-open-google');
