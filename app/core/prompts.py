@@ -39,9 +39,14 @@ Quy tắc bóc tách bắt buộc:
    Schematic -> Circuit -> Device -> Load -> Physical Component -> Physical Location
    Mỗi thiết bị cần có: 'tag' (ví dụ: QF1, KM1, TB1, PE...), 'electrical_function' (INCOMING, MAIN_PROTECTION, MAIN_BUSBAR, OUTGOING_PROTECTION, CONTROL_AUXILIARY, TERMINAL_CONNECTION, MEASUREMENT, EARTHING), 'mounting' (DOOR_MOUNTED, INNER_COVER_MOUNTED, MOUNTING_PLATE_MOUNTED, DIN_RAIL_MOUNTED, BUSBAR_MOUNTED, CABINET_MOUNTED, NOT_PHYSICALLY_MOUNTED), 'upstream_device', 'downstream_device', 'connected_load' (tên tải/công suất tải).
    TUYỆT ĐỐI KHÔNG bỏ sót các thiết bị nhỏ: MCB, RCBO, Fuse, Contactor, Relay, Timer, Terminal Block domino, PE/N bar, Busbar, DIN rail, Máng cáp Duct, Biến dòng CT, Đèn báo, Đồng hồ.
-10. PHÂN BIỆT THIẾT BỊ THỂ HIỆN VÀ THIẾT BỊ ĐI KÈM:
-   - MỌI ký hiệu, nhãn, mã lộ, nhánh dây hoặc phần tử được thể hiện độc lập trên sơ đồ PHẢI là một dòng trong `devices`, kể cả thiết bị điều khiển/phụ trợ.
-   - `accompanying_accessories` CHỈ được dùng khi trên chính sơ đồ có bằng chứng liên kết rõ ràng (dây, tiếp điểm, ghi chú hoặc ký hiệu nằm trong cùng cụm) nhưng phần tử không có tag độc lập. Không thêm phụ kiện chỉ vì thông lệ thiết kế. Không đưa một phần tử đang vẽ độc lập trên SLD vào danh sách thiết bị đi kèm.
+10. TẤT CẢ THIẾT BỊ ĐO LƯỜNG, ĐÈN BÁO, BIẾN DÒNG, CHUYỂN MẠCH BẮT BUỘC LÀ THIẾT BỊ ĐỘC LẬP:
+   - Biến dòng đo lường (CT, 3XCT, Current Transformer), Đồng hồ Ampe (A), Đồng hồ Vôn (V), Chuyển mạch đo lường (AS, VS), Đèn báo pha (R, Y, B), Cầu chì bảo vệ (FUSE), Rơ le bảo vệ (PMR, ELR)... DÙ ĐƯỢC VẼ Ở NHÁNH ĐẦU VÀO HAY GẮN TRÊN CÁP ĐỀU LÀ CÁC THIẾT BỊ VẬT LÝ ĐỘC LẬP TRONG TỦ ĐIỆN.
+   - BẮT BUỘC PHẢI BÓC TÁCH THÀNH CÁC DÒNG RIÊNG BIỆT TRONG MẢNG `devices`, TUYỆT ĐỐI KHÔNG ĐƯỢC ĐƯA VÀO `accompanying_accessories`!
+   - Số lượng (quantity) tính đúng theo thực tế kỹ thuật:
+     + Ký hiệu '3XCT 63/5' hoặc '3CT' -> quantity: 3 (3 quả biến dòng cho 3 pha).
+     + Ký hiệu 'Đèn báo pha R, Y, B' hoặc '3 đèn báo pha' -> quantity: 3 (3 đèn cho 3 pha).
+     + Đồng hồ Ampe, Đồng hồ Vôn, Chuyển mạch AS, VS -> quantity: 1 mỗi loại.
+   - `accompanying_accessories` CHỈ dùng cho các phụ kiện cơ khí gắn bên trong aptomat (tiếp điểm phụ AX/AL, cuộn shunt trip gắn trong, khóa liên động, tay quay ngoài).
 11. TÁCH BIỆT HOÀN TOÀN CẦU CHÌ VÀ ĐÈN BÁO PHA (FUSE & PILOT LIGHT):
    - Cầu chì (FUSE / ký hiệu hình chữ nhật có đường gạch hoặc chữ FUSE, FU, 1x6A) và Đèn báo pha (LIGHT / ký hiệu tròn dấu chéo ⊗ hoặc chữ R, S, T, Đèn báo) là HAI THIẾT BỊ VẬT LÝ HOÀN TOÀN ĐỘC LẬP.
    - TUYỆT ĐỐI KHÔNG GỘP thành một dòng như "Cầu chì & Đèn báo pha". BẮT BUỘC TÁCH THÀNH 2 DÒNG THIẾT BỊ RIÊNG BIỆT:

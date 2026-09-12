@@ -805,6 +805,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         # Các phần tử được vẽ độc lập đôi khi bị Vision nhét vào mô tả của thiết
         # bị chính. Tách chúng ra trước khi deduplicate để BOM không làm mất FA.
         extracted_devices = AnalysisPipelineService._promote_drawn_fa_devices(extracted_devices)
+        extracted_devices = AnalysisPipelineService._promote_embedded_accessories_to_devices(extracted_devices)
 
         # 3. Chỉ gộp khi thực sự là cùng một thiết bị. Tag, lộ, tải hoặc quan hệ
         # nguồn khác nhau đều là thiết bị vật lý riêng, kể cả khi cùng thông số.
@@ -1835,6 +1836,135 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             break
 
         return promoted
+
+    @staticmethod
+    def _promote_embedded_accessories_to_devices(
+        devices: List[ExtractedDeviceSchema],
+    ) -> List[ExtractedDeviceSchema]:
+        """
+        Tự động tách các thiết bị đo lường, giám sát, hiển thị (Biến dòng CT, Đồng hồ Ampe/Vôn,
+        Đèn báo pha, Chuyển mạch AS/VS, Cầu chì, Rơ le) bị AI xếp nhầm vào 'accompanying_accessories'
+        để đưa ra thành các thiết bị độc lập trong BOM chính của tủ điện.
+        """
+        if not devices:
+            return devices
+
+        existing_signatures = {
+            f"{str(d.panel_code or '').strip()}_{str(d.category or '').strip()}_{str(d.name or '').strip()}".lower()
+            for d in devices
+        }
+
+        promoted: List[ExtractedDeviceSchema] = []
+        newly_promoted: List[ExtractedDeviceSchema] = []
+
+        for dev in devices:
+            accs = getattr(dev, "accompanying_accessories", None)
+            if not accs or not isinstance(accs, list):
+                promoted.append(dev)
+                continue
+
+            remaining_accs: List[Dict[str, Any]] = []
+            for acc in accs:
+                if not isinstance(acc, dict):
+                    continue
+
+                raw_name = str(acc.get("name") or "").strip()
+                clean_name = re.sub(r"^\s*↳\s*\[[^\]]+\]\s*", "", raw_name).strip()
+                spec = str(acc.get("spec") or "").strip()
+                notes = str(acc.get("notes") or acc.get("technical_reason") or "").strip()
+                evidence = str(acc.get("evidence") or "").strip()
+                searchable = f"{clean_name} {spec} {notes} {evidence}".lower()
+
+                # Nhận diện các loại thiết bị điện độc lập
+                is_ct = any(k in searchable for k in ["biến dòng", "bien dong", "3xct", "ct ", "ct/"]) or bool(re.search(r"\bct\b|\b3xct\b", searchable))
+                is_meter = any(k in searchable for k in ["đồng hồ", "dong ho", "ampe", "vôn", "volt", "meter", "kwh", "đa năng", "mfm"])
+                is_light = any(k in searchable for k in ["đèn báo", "den bao", "pilot light", "đèn pha", "indicator lamp"]) or ("đỏ, vàng, xanh" in searchable) or ("r, y, b" in searchable)
+                is_switch = any(k in searchable for k in ["chuyển mạch", "chuyen mach", "selector switch", "selector"]) or bool(re.search(r"\bas\b|\bvs\b", searchable))
+                is_fuse = any(k in searchable for k in ["cầu chì", "cau chi", "fuse"]) or bool(re.search(r"\bfuse\b|\bfu\b", searchable))
+                is_relay = any(k in searchable for k in ["rơ le", "ro le", "relay", "bảo vệ pha", "quá áp", "pmr", "elr", "ocr", "bảo vệ chạm đất"])
+
+                if is_ct or is_meter or is_light or is_switch or is_fuse or is_relay:
+                    if is_ct:
+                        cat = "BIẾN DÒNG CT"
+                        func = ElectricalFunction.MEASUREMENT
+                        mounting = MountingType.BUSBAR_MOUNTED
+                        sec = dev.section or "Đo lường & Giám sát"
+                        tag = "CT"
+                        qty = 3 if ("3x" in searchable or "3ct" in searchable or "3 pha" in searchable) else int(acc.get("quantity") or 3)
+                        final_name = clean_name if "biến dòng" in clean_name.lower() else f"Biến dòng CT {clean_name}"
+                    elif is_meter:
+                        cat = "ĐỒNG HỒ ĐO LƯỜNG"
+                        func = ElectricalFunction.MEASUREMENT
+                        mounting = MountingType.DOOR_MOUNTED
+                        sec = dev.section or "Đo lường & Giám sát"
+                        tag = "A" if ("ampe" in searchable or "a" in clean_name.lower()) else ("V" if ("vôn" in searchable or "volt" in searchable) else "M")
+                        qty = int(acc.get("quantity") or 1)
+                        final_name = clean_name
+                    elif is_light:
+                        cat = "ĐÈN BÁO PHA"
+                        func = ElectricalFunction.MEASUREMENT
+                        mounting = MountingType.DOOR_MOUNTED
+                        sec = dev.section or "Đo lường & Giám sát"
+                        tag = "PL"
+                        qty = 3 if ("r, y, b" in searchable or "đỏ" in searchable or "3 pha" in searchable or "3 màu" in searchable) else int(acc.get("quantity") or 3)
+                        final_name = clean_name if "đèn báo" in clean_name.lower() else f"Đèn báo pha {clean_name}"
+                    elif is_switch:
+                        cat = "CHUYỂN MẠCH"
+                        func = ElectricalFunction.MEASUREMENT
+                        mounting = MountingType.DOOR_MOUNTED
+                        sec = dev.section or "Đo lường & Giám sát"
+                        tag = "AS" if "as" in searchable else ("VS" if "vs" in searchable else "SW")
+                        qty = int(acc.get("quantity") or 1)
+                        final_name = clean_name
+                    elif is_fuse:
+                        cat = "CẦU CHÌ"
+                        func = ElectricalFunction.CONTROL_AUXILIARY
+                        mounting = MountingType.DIN_RAIL_MOUNTED
+                        sec = dev.section or "Đo lường & Giám sát"
+                        tag = "FU"
+                        qty = int(acc.get("quantity") or 1)
+                        final_name = clean_name
+                    else:
+                        cat = "RƠ LE BẢO VỆ"
+                        func = ElectricalFunction.CONTROL_AUXILIARY
+                        mounting = MountingType.DIN_RAIL_MOUNTED
+                        sec = dev.section or "Điều khiển & Bảo vệ"
+                        tag = "RL"
+                        qty = int(acc.get("quantity") or 1)
+                        final_name = clean_name
+
+                    sig = f"{str(dev.panel_code or '').strip()}_{cat}_{final_name}".lower()
+                    if sig not in existing_signatures:
+                        existing_signatures.add(sig)
+                        newly_promoted.append(ExtractedDeviceSchema(
+                            category=cat,
+                            name=final_name,
+                            spec=spec or "Theo sơ đồ nguyên lý",
+                            quantity=qty,
+                            brand=acc.get("brand") or dev.brand or "",
+                            part_number="",
+                            section=sec,
+                            location=dev.location,
+                            panel_code=dev.panel_code,
+                            panel_name=dev.panel_name,
+                            notes=f"{notes} (Phần tử đo lường/chỉ thị tại {dev.tag or dev.name})".strip(),
+                            tag=tag,
+                            mounting=mounting,
+                            electrical_function=func,
+                            upstream_device=dev.tag or dev.name or "Nguồn đầu vào",
+                            downstream_device=None,
+                            confidence=dev.confidence or 0.95,
+                            box_2d=dev.box_2d,
+                            evidence_image=dev.evidence_image,
+                        ))
+                else:
+                    remaining_accs.append(acc)
+
+            dev.accompanying_accessories = remaining_accs if remaining_accs else None
+            promoted.append(dev)
+
+        # Chèn các thiết bị mới được thăng cấp ngay sau thiết bị nguồn cấp của chúng
+        return promoted + newly_promoted
 
     @staticmethod
     async def _preflight_pdf_with_vision(
