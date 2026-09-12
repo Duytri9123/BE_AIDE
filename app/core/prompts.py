@@ -33,13 +33,22 @@ Quy tắc bóc tách bắt buộc:
 5. TỌA ĐỘ VÙNG DẪN CHỨNG (box_2d) CHUẨN XÁC:
    - Trả về toạ độ [ymin, xmin, ymax, xmax] (chuẩn hóa trên thang 0-1000, với 0,0 là góc trên-trái và 1000,1000 là góc dưới-phải của toàn bộ hình ảnh).
    - Vùng box_2d PHẢI bao trọn vẹn cả KÝ HIỆU HÌNH VẼ LẪN NHÃN TÊN/THÔNG SỐ của chính thiết bị đó:
-     + Aptomat (MCCB/MCB/RCBO): Bao quanh từ ký hiệu tiếp điểm đóng cắt đến hết khối chữ thông số (ví dụ: từ ký hiệu tiếp điểm đến nhãn 'MCCB 10A 3P 6kA').
+     + Aptomat tổng nguồn vào (MCCB/ACB tổng):
+       * Đóng khung CHÍNH XÁC vào tiếp điểm đóng cắt chính trên trục dây nguồn vào và KHỐI CHỮ THÔNG SỐ (ví dụ 'MCCB-3P 63A 18KA').
+       * ĐẶC BIỆT CHÚ Ý: Chữ 'MCCB-3P 63A 18KA' nằm ở BÊN TRÁI của tiếp điểm và trục đường dây nguồn chính (xmin khoảng 460-560). Vùng box_2d PHẢI bao trọn chữ bên trái và tiếp điểm trên trục dây nguồn.
+       * TUYỆT ĐỐI KHÔNG đóng khung lệch sang nhánh rẽ ngang bên phải (nơi có cầu chì 2A hoặc đèn báo pha)!
+     + Biến dòng đo lường (3XCT / CT nguồn):
+       * Đóng khung CHÍNH XÁC vào cuộn dây biến dòng trên trục nguồn chính và KHỐI CHỮ '3XCT 63/5' nằm ở BÊN TRÁI trục nguồn (xmin khoảng 450-560, ymin khoảng 90-150).
+       * TUYỆT ĐỐI KHÔNG đóng khung sang nhánh đồng hồ Ampe / chuyển mạch AS ở bên phải!
+     + Cầu chì bảo vệ (FUSE 2A):
+       * Đóng khung vào ký hiệu cầu chì và nhãn '2A' ở nhánh rẽ ngang bên phải (xmin khoảng 570-640, ymin khoảng 140-180).
+     + Đèn báo pha (R, Y, B):
+       * Đóng khung vào 3 ký hiệu đèn tròn ⊗ và nhãn pha R, Y, B (xmin khoảng 640-740, ymin khoảng 140-180).
      + Thiết bị đo lường & chuyển mạch (AS, VS, A, V):
-       * Chuyển mạch Vôn (VS): Đóng khung CHÍNH XÁC vào ký hiệu vòng tròn chuyển mạch có chữ 'VS' và khối đồng hồ Vôn '0-500V' ở nhánh đo lường phía trên. TUYỆT ĐỐI KHÔNG đóng khung xuống hàng aptomat nhánh bên dưới!
-       * Chuyển mạch Ampe (AS): Đóng khung vào ký hiệu vòng tròn có chữ 'AS' và đồng hồ Ampe '0-50A'.
-       * Biến dòng (CT, 3XCT): Đóng khung vào ký hiệu biến dòng và dòng chữ '3XCT 63/5' trên thanh cái đầu vào.
-       * Đèn báo pha (R, Y, B): Đóng khung vào ký hiệu đèn tròn ⊗ và nhãn pha R, Y, B.
-       * Cầu chì (FUSE): Đóng khung vào ký hiệu cầu chì và nhãn trị số bảo vệ (2A, 1x6A).
+       * Chuyển mạch Ampe (AS) và Đồng hồ Ampe (0-50A): Nằm ở nhánh đo lường phía trên bên phải (xmin khoảng 620-770, ymin khoảng 90-140).
+       * Chuyển mạch Vôn (VS) và Đồng hồ Vôn (0-500V): Nằm ở nhánh đo lường phía dưới bên phải (xmin khoảng 620-770, ymin khoảng 190-250).
+     + Các Aptomat nhánh (MCB/MCCB/RCBO M1, M2...):
+       * Mỗi nhánh xuất tuyến có một aptomat riêng. Đóng khung bao trọn từ tiếp điểm đóng cắt đến nhãn thông số của nhánh đó (ví dụ 'MCCB 6A 3P 6kA').
    - TUYỆT ĐỐI KHÔNG dùng toạ độ của thiết bị khác thay thế! Mỗi thiết bị có toạ độ thực tế riêng biệt đúng vị trí trên sơ đồ.
 6. ĐÁNH GIÁ TÍNH PHÙ HỢP CỦA TỆP: Đánh giá xem hình ảnh có phải là sơ đồ nguyên lý điện / bản vẽ tủ điện không. Nếu không liên quan (ví dụ mặt bằng kiến trúc, hồ sơ xây dựng, ảnh linh tinh), ghi rõ lý do và cảnh báo.
 7. KÍCH THƯỚC VỎ TỦ: Tìm kiếm và trích xuất kích thước vỏ tủ trên bản vẽ nếu có (ví dụ: 'TỦ 1200X800X400', '1200x800x400', 'W800xH1200xD400'). Nếu có ghi kích thước vỏ tủ, ghi chính xác vào trường 'enclosure_dimensions'.
