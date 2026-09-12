@@ -1055,7 +1055,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             is_breaker = any(k in cat_upper for k in ["ACB", "MCCB", "MCB", "RCBO", "CONTACTOR"])
 
             dev_raw_brand = (dev.brand or "").strip()
-            has_explicit_brand = bool(dev_raw_brand and dev_raw_brand.upper() not in ["---", "OEM", "KHÔNG", "CHƯA RÕ", "CHUA RO", "VN", "ASIA"])
+            has_explicit_brand = bool(dev_raw_brand and dev_raw_brand.upper() not in ["---", "OEM", "KHÔNG", "CHƯA RÕ", "CHUA RO", "VN", "ASIA", "ASIAN"])
 
             dev.detected_brand = dev_raw_brand if has_explicit_brand else ""
 
@@ -1074,7 +1074,11 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             elif pool:
                 chosen_brand = pool[0]
                 dev.selection_source = "catalog_auto"
-            # 4. Không có hãng/catalog phù hợp: giữ nguyên dữ liệu gốc từ bản vẽ, không tự ý gán nhà cung cấp
+            # 4. Với thiết bị cơ bản/phụ kiện tủ (đèn báo, cầu chì, nút nhấn, chuyển mạch cơ bản...), mặc định hãng Asian (Á Châu phổ thông)
+            elif is_accessory:
+                chosen_brand = "Asian"
+                dev.selection_source = "default_basic"
+            # 5. Không có hãng/catalog phù hợp: giữ nguyên dữ liệu gốc từ bản vẽ, không tự ý gán nhà cung cấp
             else:
                 chosen_brand = dev_raw_brand if has_explicit_brand else ""
                 dev.selection_source = "drawing" if has_explicit_brand else "unresolved"
@@ -1085,6 +1089,9 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 chosen_price = m_info["price"]
                 icu_info = f", Icu {m_info['icu']}kA" if m_info.get("icu") else ""
                 dev.technical_match_note = f"Đối chiếu Catalog: {chosen_brand} {chosen_sku}{icu_info} ({chosen_price:,} đ)"
+            elif chosen_brand in ["Asian", "Asia"]:
+                chosen_price = 0
+                dev.technical_match_note = "Thiết bị phụ trợ/cơ bản mặc định hãng Asian (Á Châu phổ thông)."
             else:
                 chosen_price = 0
                 dev.technical_match_note = "Chưa có bản ghi khớp trong catalog.json; giữ nguyên dữ liệu đọc từ nguồn và cần xác nhận khi báo giá."
@@ -1113,9 +1120,13 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             # Gợi ý danh sách hãng khả dụng
             if pool:
                 combined_brands = pool + [b for b in valid_brands if b not in pool] + ai_suggested_brands
+                if is_accessory and "Asian" not in combined_brands:
+                    combined_brands.append("Asian")
                 dev.suggested_brands = list(dict.fromkeys(combined_brands))
             else:
                 fallback_brands = ([chosen_brand] if chosen_brand else []) + ai_suggested_brands
+                if is_accessory and "Asian" not in fallback_brands:
+                    fallback_brands.append("Asian")
                 dev.suggested_brands = list(dict.fromkeys(fallback_brands))
 
             # Tự động áp dụng lựa chọn kỹ thuật ở cả bảng bóc tách. Người dùng
