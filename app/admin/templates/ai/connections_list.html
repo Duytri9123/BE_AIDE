@@ -447,20 +447,18 @@
 
   window.onAntigravitySuccessList = function(data) {
     clearInterval(_antigravityListPollTimer);
-    const alertBox = document.getElementById('list-modal-oauth-alert');
-    if (alertBox) {
-      alertBox.style.display = 'block';
-      alertBox.className = 'p-3 rounded-2 mt-3 border border-success bg-success-subtle text-success small';
-      alertBox.innerHTML = `<div class="fw-bold"><i class="fa-solid fa-circle-check me-1.5"></i>Liên kết Google thành công!</div>
-        <div class="mt-1">Tài khoản: <strong>${data && data.email ? data.email : ''}</strong></div>
-        <div class="text-muted mt-1">Đang nạp lại danh sách...</div>`;
-    }
     if (_antigravityListWindow && !_antigravityListWindow.closed) {
       try { _antigravityListWindow.close(); } catch(e) {}
     }
-    setTimeout(() => {
-      window.location.reload();
-    }, 800);
+    const modalEl = document.getElementById('modalAntigravityOAuth');
+    if (modalEl) {
+      modalEl.style.display = 'none';
+      modalEl.classList.remove('show');
+      document.body.classList.remove('modal-open');
+      const backdrop = document.querySelector('.modal-backdrop');
+      if (backdrop) backdrop.remove();
+    }
+    window.location.reload();
   };
 
   function loginGoogleAntigravityDirect() {

@@ -860,20 +860,17 @@ async function submitAntigravityCode() {
 
 window.onAntigravitySuccess = function(data) {
   clearInterval(_antigravityPollTimer);
-  const alertBox = document.getElementById('modal-oauth-alert');
-  if (alertBox) {
-    alertBox.style.display = 'block';
-    alertBox.className = 'p-3 rounded-2 mt-3 border border-success bg-success-subtle text-success small';
-    alertBox.innerHTML = `<div class="fw-bold"><i class="fa-solid fa-circle-check me-1.5"></i>Liên kết Google thành công!</div>
-      <div class="mt-1">Tài khoản: <strong>${data && data.email ? data.email : ''}</strong></div>
-      <div class="text-muted mt-1">Đang chuyển hướng về trang danh sách...</div>`;
-  }
+
+  // Đóng cửa sổ popup ngay
   if (_antigravityAuthWindow && !_antigravityAuthWindow.closed) {
     try { _antigravityAuthWindow.close(); } catch(e) {}
   }
-  setTimeout(() => {
-    window.location.href = '/admin/ai-connection/list';
-  }, 800);
+
+  // Đóng modal Google ngay
+  closeAntigravityModal();
+
+  // Chuyển hướng ngay về trang danh sách (kết nối đã được lưu sẵn trong DB)
+  window.location.href = '/admin/ai-connection/list';
 };
 
 // SMART AUTO-DETECTION KHI DÁN API KEY

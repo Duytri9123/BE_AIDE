@@ -1108,181 +1108,104 @@ async def antigravity_oauth_callback(
         <!DOCTYPE html>
         <html lang="vi">
         <head>
-          <title>Đăng nhập Google Antigravity Thành Công</title>
+          <title>Đang hoàn tất đăng nhập...</title>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
           <style>
             * {{ box-sizing: border-box; margin: 0; padding: 0; }}
             body {{
-              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
               display: flex;
               align-items: center;
               justify-content: center;
-              min-height: 100vh;
-              background: #f1f5f9;
-              padding: 20px;
-            }}
-            .card {{
-              background: #ffffff;
-              border: 1px solid #e2e8f0;
-              border-radius: 20px;
-              padding: 36px 32px;
-              text-align: center;
-              max-width: 440px;
-              width: 100%;
-              box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
-              animation: popIn 0.3s ease-out;
-            }}
-            @keyframes popIn {{
-              from {{ opacity: 0; transform: scale(0.95); }}
-              to {{ opacity: 1; transform: scale(1); }}
-            }}
-            .icon-circle {{
-              width: 72px;
-              height: 72px;
-              border-radius: 50%;
-              background: #dcfce7;
-              color: #16a34a;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              font-size: 32px;
-              margin: 0 auto 20px;
-              box-shadow: 0 4px 12px rgba(22, 163, 74, 0.15);
-            }}
-            h2 {{
-              color: #0f172a;
-              font-size: 20px;
-              font-weight: 700;
-              margin-bottom: 12px;
-            }}
-            .info-box {{
+              height: 100vh;
               background: #f8fafc;
+              color: #1e293b;
+              text-align: center;
+              padding: 16px;
+            }}
+            .box {{
+              padding: 28px 32px;
+              background: #ffffff;
+              border-radius: 16px;
+              box-shadow: 0 4px 20px rgba(0,0,0,0.06);
               border: 1px solid #e2e8f0;
-              border-radius: 12px;
-              padding: 14px 16px;
-              margin-bottom: 20px;
-              font-size: 13px;
-              color: #475569;
-              text-align: left;
-              line-height: 1.6;
-            }}
-            .info-box strong {{ color: #1e293b; }}
-            .info-box code {{
-              background: #e2e8f0;
-              padding: 2px 6px;
-              border-radius: 4px;
-              font-family: monospace;
-              color: #0f172a;
-              font-size: 12px;
-            }}
-            .btn-primary {{
-              background: #2563eb;
-              color: #ffffff;
-              border: none;
-              border-radius: 10px;
-              padding: 12px 24px;
-              font-weight: 600;
-              font-size: 13.5px;
-              cursor: pointer;
+              max-width: 360px;
               width: 100%;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              gap: 8px;
-              transition: background 0.15s;
-              text-decoration: none;
             }}
-            .btn-primary:hover {{
-              background: #1d4ed8;
+            .spinner {{
+              width: 40px;
+              height: 40px;
+              border: 3.5px solid #e2e8f0;
+              border-top-color: #16a34a;
+              border-radius: 50%;
+              animation: spin 0.7s linear infinite;
+              margin: 0 auto 14px;
             }}
-            .countdown {{
-              font-size: 12px;
-              color: #94a3b8;
-              margin-top: 14px;
-            }}
+            @keyframes spin {{ to {{ transform: rotate(360deg); }} }}
           </style>
         </head>
         <body>
-          <div class="card">
-            <div class="icon-circle"><i class="fa-solid fa-check"></i></div>
-            <h2>Liên Kết Google Thành Công!</h2>
-            <div class="info-box">
-              <div><strong>Tài khoản:</strong> {email}</div>
-              <div><strong>Project ID:</strong> <code>{project_id}</code></div>
-              <div style="font-size: 12px; color: #16a34a; margin-top: 4px;">
-                <i class="fa-solid fa-bolt me-1"></i>Đã kích hoạt tự động gia hạn token vĩnh viễn.
-              </div>
+          <div class="box">
+            <div class="spinner"></div>
+            <div style="font-weight: 700; font-size: 16px; color: #16a34a; margin-bottom: 6px;">
+              Đăng nhập thành công!
             </div>
-            <button class="btn-primary" onclick="finishAndClose()">
-              <span>Hoàn tất &amp; Quay lại Quản Trị</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </button>
-            <div class="countdown" id="countdown-text">Đang tự động chuyển hướng sau <span id="timer">2</span>s...</div>
+            <div style="font-size: 13px; color: #64748b;">
+              Đang hoàn tất và tự động đóng cửa sổ...
+            </div>
           </div>
           <script>
-            // Phát tín hiệu NGAY KHI TẢI TRANG để tab chính nhận diện tức thì
+            const payload = {{
+              status: 'success',
+              email: '{email}',
+              project_id: '{project_id}',
+              token: '{refresh_token}'
+            }};
+
+            // 1. Gửi qua BroadcastChannel cho tất cả tab cùng origin
             try {{
               const bc = new BroadcastChannel('antigravity_oauth');
-              bc.postMessage({{ status: 'success', email: '{email}', project_id: '{project_id}' }});
+              bc.postMessage(payload);
             }} catch(e) {{}}
 
+            // 2. Gửi qua localStorage
             try {{
               localStorage.setItem('antigravity_oauth_success', JSON.stringify({{
-                time: Date.now(),
-                email: '{email}',
-                project_id: '{project_id}'
+                ...payload,
+                time: Date.now()
               }}));
             }} catch(e) {{}}
 
-            function notifyParentAndClose() {{
-              try {{
-                const bc = new BroadcastChannel('antigravity_oauth');
-                bc.postMessage({{ status: 'success', email: '{email}', project_id: '{project_id}' }});
-              }} catch(e) {{}}
-
-              try {{
-                localStorage.setItem('antigravity_oauth_success', JSON.stringify({{
-                  time: Date.now(),
-                  email: '{email}',
-                  project_id: '{project_id}'
-                }}));
-              }} catch(e) {{}}
-
-              // Thử cập nhật window.opener nếu trình duyệt cho phép
-              try {{
-                if (window.opener && !window.opener.closed) {{
-                  window.opener.location.href = '/admin/ai-connection/list';
+            // 3. Thử gọi trực tiếp hàm xử lý của window.opener
+            try {{
+              if (window.opener && !window.opener.closed) {{
+                if (typeof window.opener.onAntigravitySuccess === 'function') {{
+                  window.opener.onAntigravitySuccess(payload);
                 }}
-              }} catch(e) {{}}
+                if (typeof window.opener.onAntigravitySuccessList === 'function') {{
+                  window.opener.onAntigravitySuccessList(payload);
+                }}
+                window.opener.postMessage(payload, '*');
+              }}
+            }} catch(e) {{}}
 
-              // Thử đóng cửa sổ popup
+            // 4. Đóng cửa sổ ngay lập tức
+            function closeSelf() {{
               try {{
                 window.close();
               }} catch(e) {{}}
-
-              // Fallback: Nếu popup không đóng được (do Chrome chặn window.close), chuyển hướng trang này về danh sách
-              setTimeout(function() {{
-                window.location.href = '/admin/ai-connection/list';
-              }}, 300);
             }}
 
-            function finishAndClose() {{
-              notifyParentAndClose();
-            }}
+            closeSelf();
+            setTimeout(closeSelf, 80);
+            setTimeout(closeSelf, 250);
+            setTimeout(closeSelf, 500);
 
-            // Tự động đếm ngược và chuyển hướng sau 2 giây
-            let seconds = 2;
-            const timerEl = document.getElementById('timer');
-            const interval = setInterval(function() {{
-              seconds--;
-              if (timerEl) timerEl.textContent = seconds;
-              if (seconds <= 0) {{
-                clearInterval(interval);
-                notifyParentAndClose();
-              }}
-            }}, 1000);
+            // 5. Fallback nếu trình duyệt chặn hoàn toàn window.close
+            setTimeout(function() {{
+              window.location.href = '/admin/ai-connection/list';
+            }}, 800);
           </script>
         </body>
         </html>
