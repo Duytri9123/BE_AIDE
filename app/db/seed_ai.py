@@ -18,13 +18,13 @@ DEFAULT_PROVIDERS = [
         "is_active": True,
         "sort_order": 0,
         "models": [
-            {"model_key": "gemini-2.5-flash", "label": "Gemini 2.5 Flash (Tốc độ cao, Khuyên dùng)", "sort_order": 0},
-            {"model_key": "claude-sonnet-4-6", "label": "Claude Sonnet 4.6 (Độ chính xác cao)", "sort_order": 1},
-            {"model_key": "gpt-oss-120b-medium", "label": "GPT-OSS 120B Medium", "sort_order": 2},
-            {"model_key": "gemini-2.5-pro", "label": "Gemini 2.5 Pro (Suy luận sâu)", "sort_order": 3},
-            {"model_key": "ag/gemini-3.6-flash-high", "label": "Gemini 3.6 Flash High (Deep Reasoning)", "sort_order": 4},
-            {"model_key": "ag/gemini-3.6-flash-medium", "label": "Gemini 3.6 Flash Medium (Standard)", "sort_order": 5},
-            {"model_key": "ag/gemini-3.5-flash", "label": "Gemini 3.5 Flash (Backup)", "sort_order": 6},
+            {"model_key": "ag/gemini-3.6-flash-high", "label": "Gemini 3.6 Flash High (Deep Reasoning, Khuyên dùng)", "sort_order": 0},
+            {"model_key": "ag/gemini-3.6-flash-medium", "label": "Gemini 3.6 Flash Medium (Standard)", "sort_order": 1},
+            {"model_key": "ag/gemini-3.5-flash", "label": "Gemini 3.5 Flash (Backup)", "sort_order": 2},
+            {"model_key": "claude-sonnet-4-6", "label": "Claude Sonnet 4.6 (Độ chính xác cao)", "sort_order": 3},
+            {"model_key": "gpt-oss-120b-medium", "label": "GPT-OSS 120B Medium", "sort_order": 4},
+            {"model_key": "gemini-2.5-flash", "label": "Gemini 2.5 Flash", "sort_order": 5},
+            {"model_key": "gemini-2.5-pro", "label": "Gemini 2.5 Pro", "sort_order": 6},
         ]
     },
     {
