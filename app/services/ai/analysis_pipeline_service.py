@@ -1631,51 +1631,23 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
     @staticmethod
     def _refine_device_bounding_boxes(devices: List[ExtractedDeviceSchema]) -> None:
         """
-        Hiệu chỉnh và bảo vệ tính chuẩn xác của tọa độ box_2d tránh tình trạng AI
-        nhận diện nhầm vị trí hoặc bị lệch sang các nhánh lân cận:
-        - MCCB/ACB tổng nguồn: Thường có tiếp điểm trên trục dây nguồn chính và nhãn chữ
-          nằm bên trái trục dây chính. Tránh bị AI đóng khung lệch sang nhánh rẽ bên phải (cầu chì 2A / đèn báo).
-        - Biến dòng 3XCT nguồn: Nằm trên trục nguồn chính phía trên MCCB tổng, tránh bị nhầm với ampe kế ở nhánh đo lường.
+        Kiểm tra và chuẩn hóa tính hợp lệ của tọa độ box_2d [ymin, xmin, ymax, xmax] (0-1000).
+        Giữ nguyên 100% tọa độ thực tế do AI thị giác trích xuất từ bản vẽ, không tự ý dịch chuyển hardcode.
+        Đảm bảo ymin <= ymax, xmin <= xmax và tất cả giá trị đều nằm gọn trong phạm vi chuẩn 0..1000.
         """
         for d in devices:
             box = getattr(d, "box_2d", None)
             if not box or not isinstance(box, list) or len(box) != 4:
                 continue
-            ymin, xmin, ymax, xmax = [float(v) for v in box]
-            cat = str(d.category or "").upper()
-            name = str(d.name or "").lower()
-            tag = str(d.tag or "").upper()
-
-            # 1. Bảo vệ tọa độ MCCB / ACB tổng nguồn
-            is_incomer_breaker = (
-                cat in ("MCCB", "ACB") and (
-                    any(k in name for k in ["tổng", "nguồn", "incomer", "mccb-3p", "qf0"]) or
-                    tag in ("QF0", "MCCB", "MCCB-3P", "INCOMER") or
-                    (getattr(d, "electrical_function", None) in (ElectricalFunction.INCOMING, ElectricalFunction.MAIN_PROTECTION))
-                )
-            )
-            if is_incomer_breaker:
-                # Nếu xmin bị lệch sang phải trục nguồn chính (>= 540) và ymin nằm ở vùng đầu vào (< 260)
-                if xmin >= 540 and ymin < 260:
-                    logger.info(f"[_refine_device_bounding_boxes] Tự động căn chỉnh MCCB tổng từ {box} sang vị trí khối chữ bên trái trục nguồn")
-                    corrected_xmin = max(0.0, xmin - 95.0)
-                    corrected_xmax = min(1000.0, xmin + 15.0)
-                    d.box_2d = [int(ymin), int(corrected_xmin), int(ymax), int(corrected_xmax)]
-
-            # 2. Bảo vệ tọa độ Biến dòng 3XCT
-            is_ct = (
-                "3XCT" in name.upper() or "BIẾN DÒNG" in name.upper() or
-                tag in ("3XCT", "CT") or cat in ("CT", "BIẾN DÒNG")
-            )
-            if is_ct:
-                # Nếu 3XCT bị đóng khung nhầm sang nhánh ampe kế bên phải (xmin >= 580)
-                if xmin >= 580:
-                    logger.info(f"[_refine_device_bounding_boxes] Tự động căn chỉnh 3XCT từ {box} sang vị trí trục nguồn chính")
-                    corrected_ymin = min(ymin, 100.0)
-                    corrected_ymax = min(ymax, 155.0)
-                    corrected_xmin = max(450.0, xmin - 160.0)
-                    corrected_xmax = max(corrected_xmin + 90.0, 560.0)
-                    d.box_2d = [int(corrected_ymin), int(corrected_xmin), int(corrected_ymax), int(corrected_xmax)]
+            try:
+                ymin, xmin, ymax, xmax = [float(v) for v in box]
+                norm_ymin = max(0.0, min(1000.0, min(ymin, ymax)))
+                norm_ymax = max(0.0, min(1000.0, max(ymin, ymax)))
+                norm_xmin = max(0.0, min(1000.0, min(xmin, xmax)))
+                norm_xmax = max(0.0, min(1000.0, max(xmin, xmax)))
+                d.box_2d = [int(norm_ymin), int(norm_xmin), int(norm_ymax), int(norm_xmax)]
+            except Exception:
+                continue
 
     @staticmethod
     def _attach_evidence_thumbnails(devices: List[ExtractedDeviceSchema], image_path: str):
@@ -2576,12 +2548,20 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             if box and len(box) == 4:
                                 try:
                                     ymin, xmin, ymax, xmax = box
-                                    pad_x = int(iw * 0.02)
-                                    pad_y = int(ih * 0.02)
+                                    pad_x = max(int(iw * 0.08), 75)
+                                    pad_y = max(int(ih * 0.06), 45)
                                     c_top = max(0, int(ymin * ih / 1000) - pad_y)
                                     c_left = max(0, int(xmin * iw / 1000) - pad_x)
                                     c_bottom = min(ih, int(ymax * ih / 1000) + pad_y)
                                     c_right = min(iw, int(xmax * iw / 1000) + pad_x)
+                                    if (c_right - c_left) < 180:
+                                        extra_x = (180 - (c_right - c_left)) // 2
+                                        c_left = max(0, c_left - extra_x)
+                                        c_right = min(iw, c_right + extra_x)
+                                    if (c_bottom - c_top) < 120:
+                                        extra_y = (120 - (c_bottom - c_top)) // 2
+                                        c_top = max(0, c_top - extra_y)
+                                        c_bottom = min(ih, c_bottom + extra_y)
                                     if c_right > c_left and c_bottom > c_top:
                                         crop = page_img.crop((c_left, c_top, c_right, c_bottom))
                                         if crop.mode in ("RGBA", "LA", "P"):
