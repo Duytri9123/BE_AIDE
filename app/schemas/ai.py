@@ -62,6 +62,10 @@ class ExtractedDeviceSchema(BaseModel):
     icu_ka: Optional[float] = None
     poles: Optional[int] = None
     quantity: int = 1
+    drawing_quantity: Optional[int] = None
+    procurement_quantity: Optional[int] = None
+    quantity_basis: Optional[str] = None
+    quantity_confidence: Optional[float] = None
     brand: Optional[str] = None
     detected_brand: Optional[str] = None
     selection_source: Optional[str] = None
@@ -94,6 +98,7 @@ class ExtractedDeviceSchema(BaseModel):
     compatibility_note: Optional[str] = None
     suggested_alternatives: Optional[List[dict]] = None
     accompanying_accessories: Optional[List[dict]] = None
+    inferred_components: Optional[List[dict]] = None
     compatible_proposal: Optional[dict] = None
     
     @field_validator('in_a')

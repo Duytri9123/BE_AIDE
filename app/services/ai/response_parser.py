@@ -447,7 +447,7 @@ class ResponseParserService:
                             dim_val = str(p.get("dimension") or p.get("enclosure_dimensions") or "").strip()
                             panels.append({
                                 "panel_code": p_code,
-                                "panel_name": str(p.get("panel_name") or f"Tủ {p_code}").strip(),
+                                "panel_name": str(p.get("panel_name") or "").strip(),
                                 "dimension": dim_val,
                                 "enclosure_dimensions": dim_val,
                                 "location": str(p.get("location") or "").strip(),
@@ -459,7 +459,7 @@ class ResponseParserService:
                         dim_val = str(block.get("dimension") or block.get("enclosure_dimensions") or "").strip()
                         panels.append({
                             "panel_code": p_code,
-                            "panel_name": str(block.get("panel_name") or f"Tủ {p_code}").strip(),
+                            "panel_name": str(block.get("panel_name") or "").strip(),
                             "dimension": dim_val,
                             "enclosure_dimensions": dim_val,
                             "location": str(block.get("location") or "").strip(),

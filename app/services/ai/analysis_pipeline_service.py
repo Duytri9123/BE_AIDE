@@ -116,8 +116,8 @@ class AnalysisPipelineService:
             "source_type": normalized_source,
             "filename": filename,
             "panel": {
-                "panel_code": panel_code or DEFAULT_PANEL_CODE,
-                "panel_name": panel_name or "Tủ điện chưa xác định",
+                "panel_code": panel_code or "",
+                "panel_name": panel_name or "",
                 "page": int(page_number),
             },
             "devices": [device.model_dump() for device in devices],
@@ -143,7 +143,7 @@ class AnalysisPipelineService:
             ).strip()
             panel = by_code.setdefault(code, {
                 "panel_code": code,
-                "panel_name": str(raw_panel.get("panel_name") or f"Tủ {code}").strip(),
+                "panel_name": str(raw_panel.get("panel_name") or "").strip(),
                 "location": str(raw_panel.get("location") or "").strip(),
                 "enclosure_dimensions": dimension,
                 "dimension": dimension,
@@ -155,12 +155,12 @@ class AnalysisPipelineService:
 
         sole_panel_code = next(iter(by_code)) if len(by_code) == 1 else None
         for device in devices:
-            code = str(device.panel_code or sole_panel_code or DEFAULT_PANEL_CODE).strip()
+            code = str(device.panel_code or sole_panel_code or "").strip()
             device.panel_code = code
             if not device.panel_name:
                 device.panel_name = str(
                     by_code.get(code, {}).get("panel_name")
-                    or "Tủ điện chưa xác định"
+                    or ""
                 )
             panel = by_code.setdefault(code, {
                 "panel_code": code,
@@ -685,8 +685,8 @@ class AnalysisPipelineService:
                         if cad_ai_error:
                             warnings.append(f"AI phân tích CAD gặp sự cố ({cad_ai_error}), chuyển sang bộ đọc CAD dự phòng.")
                         detected_cad_panels = CadParserService.extract_panels_from_texts(cad_res.texts)
-                        default_pcode = detected_cad_panels[0]["panel_code"] if detected_cad_panels else "DB"
-                        default_pname = detected_cad_panels[0]["panel_name"] if detected_cad_panels else "Tủ điện DB"
+                        default_pcode = detected_cad_panels[0]["panel_code"] if detected_cad_panels else ""
+                        default_pname = detected_cad_panels[0]["panel_name"] if detected_cad_panels else ""
                         if detected_cad_panels:
                             multi_panel_list.extend(detected_cad_panels)
 
@@ -1015,6 +1015,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         # bị chính. Tách chúng ra trước khi deduplicate để BOM không làm mất FA.
         extracted_devices = AnalysisPipelineService._promote_drawn_fa_devices(extracted_devices)
         extracted_devices = AnalysisPipelineService._promote_embedded_accessories_to_devices(extracted_devices)
+        AnalysisPipelineService._infer_practical_quantities(extracted_devices)
 
         # 3. Chỉ gộp khi thực sự là cùng một thiết bị. Tag, lộ, tải hoặc quan hệ
         # nguồn khác nhau đều là thiết bị vật lý riêng, kể cả khi cùng thông số.
@@ -1048,10 +1049,14 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         detected_location = None
 
         if multi_panel_list and len(multi_panel_list) > 1:
-            detected_panel_code = f"HỆ THỐNG {len(multi_panel_list)} TỦ ĐIỆN"
-            codes = [p.get("panel_code", "") for p in multi_panel_list if p.get("panel_code")]
-            detected_panel_name = f"Hệ thống {len(multi_panel_list)} tủ điện ({', '.join(codes[:5])})"
-            detected_location = "Mặt bằng trạm điện / Nhà xưởng"
+            # A multi-panel result is a collection, not a new panel whose name
+            # may be invented by the application. Keep document-derived values.
+            codes = [str(p.get("panel_code") or "").strip() for p in multi_panel_list if p.get("panel_code")]
+            names = [str(p.get("panel_name") or "").strip() for p in multi_panel_list if p.get("panel_name")]
+            locations = [str(p.get("location") or "").strip() for p in multi_panel_list if p.get("location")]
+            detected_panel_code = ", ".join(dict.fromkeys(codes))
+            detected_panel_name = ", ".join(dict.fromkeys(names))
+            detected_location = ", ".join(dict.fromkeys(locations))
         else:
             for dev in extracted_devices:
                 c = (dev.panel_code or "").strip()
@@ -1068,10 +1073,10 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                     detected_location = dev.location
                     break
 
-            if not detected_panel_code:
-                detected_panel_code = "DB-01"
-            if not detected_panel_name:
-                detected_panel_name = f"Tủ phân phối điện {detected_panel_code}"
+            # Unknown remains unknown. Do not turn absence of evidence into a
+            # plausible-looking code, name, location or system classification.
+            detected_panel_code = detected_panel_code or ""
+            detected_panel_name = detected_panel_name or ""
 
         # Tự động gán đồng bộ mã tủ & hãng phù hợp cho toàn bộ thiết bị
         preferred_brand = AnalysisPipelineService._detect_requested_brand(user_prompt, catalog_engine)
@@ -1794,6 +1799,75 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         }
 
     @staticmethod
+    def _infer_practical_quantities(devices: List[ExtractedDeviceSchema]) -> None:
+        """Separate drawn symbols from the material quantity required in practice.
+
+        A single-line diagram may use one grouped symbol for three physical
+        phase devices. Rules only expand quantity when the drawing text or the
+        surrounding measurement circuit provides a concrete basis.
+        """
+        panel_context: Dict[str, str] = {}
+        for device in devices:
+            panel = str(device.panel_code or "")
+            panel_context[panel] = panel_context.get(panel, "") + " " + " ".join(
+                str(value or "") for value in (
+                    device.tag, device.category, device.name, device.spec,
+                    device.notes, device.upstream_device, device.connected_load,
+                )
+            ).lower()
+
+        for device in devices:
+            drawn_qty = max(1, int(device.quantity or 1))
+            device.drawing_quantity = drawn_qty
+            device.procurement_quantity = drawn_qty
+            device.quantity_basis = "Theo số ký hiệu hoặc số lượng ghi trực tiếp trên sơ đồ."
+            device.quantity_confidence = float(device.confidence or 0.0)
+
+            searchable = " ".join(str(value or "") for value in (
+                device.tag, device.category, device.name, device.spec,
+                device.notes, device.section, device.upstream_device,
+            )).lower()
+            category = str(device.category or "").upper()
+            context = panel_context.get(str(device.panel_code or ""), "")
+
+            # Generic explicit multiplicity works for every device family and
+            # keeps model/vendor names out of the rule set. Avoid interpreting
+            # electrical values such as 3P, 3 pha or 3xCT here; those have
+            # dedicated semantic handling below.
+            explicit_qty_matches = [
+                int(value)
+                for value in re.findall(r"(?:\bx\s*(\d+)\b|\b(\d+)\s*[x×]\s*(?:cái|chiếc|bộ|pcs?|nos?\.?)(?:\b|$))", searchable, re.I)
+                for value in value if value
+            ]
+            if explicit_qty_matches:
+                explicit_qty = max(explicit_qty_matches)
+                device.quantity = device.procurement_quantity = explicit_qty
+                device.quantity_basis = f"Bản vẽ ghi rõ số lượng {explicit_qty} cho thiết bị này."
+                device.quantity_confidence = max(device.quantity_confidence or 0, 0.99)
+
+            if re.search(r"\b3\s*x?\s*ct\b|\b3xct\b", searchable, re.I):
+                device.quantity = device.procurement_quantity = 3
+                device.quantity_basis = (
+                    "Ký hiệu 3XCT/3CT đại diện ba biến dòng vật lý, mỗi pha R-S-T dùng một chiếc."
+                )
+                device.quantity_confidence = max(device.quantity_confidence or 0, 0.98)
+                continue
+
+            is_fuse = category == "FUSE" or "cầu chì" in searchable or re.search(r"\bfuse\b", searchable)
+            explicit_three_phase = bool(re.search(r"\b3\s*[x×]\b|\b3\s*(?:pha|phase|p)\b|\br\s*[-/,]\s*[sy]\s*[-/,]\s*[tb]\b", searchable, re.I))
+            measurement_fuse = bool(re.search(r"v[oô]n|volt|điện áp|dien ap|báo pha|bao pha", searchable, re.I))
+            panel_has_three_phase_measurement = bool(
+                re.search(r"3xct|\b3ct\b|\br\s*[-/,]\s*[sy]\s*[-/,]\s*[tb]\b|đèn báo pha|chon mach volt|vôn kế", context, re.I)
+            )
+            if is_fuse and (explicit_three_phase or (measurement_fuse and panel_has_three_phase_measurement)):
+                device.quantity = device.procurement_quantity = max(3, drawn_qty)
+                device.quantity_basis = (
+                    "Sơ đồ một sợi chỉ vẽ một cụm, nhưng mạch đo/báo điện áp ba pha cần ba cầu chì, "
+                    "tương ứng các pha R-S-T."
+                )
+                device.quantity_confidence = max(device.quantity_confidence or 0, 0.9)
+
+    @staticmethod
     def _refine_device_bounding_boxes(devices: List[ExtractedDeviceSchema]) -> None:
         """
         Kiểm tra và chuẩn hóa tính hợp lệ của tọa độ box_2d [ymin, xmin, ymax, xmax] (0-1000).
@@ -1830,7 +1904,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         left, top = int(xmin * width / 1000), int(ymin * height / 1000)
         right, bottom = int(xmax * width / 1000), int(ymax * height / 1000)
         box_w, box_h = right - left, bottom - top
-        pad_x = min(int(width * 0.05), max(24, int(box_w * 0.75)))
+        pad_x = min(int(width * 0.04), max(24, int(box_w * 0.65)))
         pad_y = min(int(height * 0.05), max(20, int(box_h * 0.75)))
         left, top = max(0, left - pad_x), max(0, top - pad_y)
         right, bottom = min(width, right + pad_x), min(height, bottom + pad_y)
@@ -1998,8 +2072,8 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 part_number=d.part_number or "",
                 section=d.section or "Đầu ra",
                 location=d.location or filename,
-                panel_code=d.panel_code or (extracted_panels[0]["panel_code"] if extracted_panels else "DB"),
-                panel_name=d.panel_name or (extracted_panels[0]["panel_name"] if extracted_panels else "Tủ điện DB"),
+                panel_code=d.panel_code or (extracted_panels[0]["panel_code"] if extracted_panels else ""),
+                panel_name=d.panel_name or (extracted_panels[0]["panel_name"] if extracted_panels else ""),
                 notes=d.notes,
                 tag=dev_tag,
                 mounting=dev_mounting,
@@ -2690,6 +2764,65 @@ Chỉ trả một JSON hợp lệ, không markdown:
                         )
 
                     parsed_devs = ResponseParserService.parse_device_list(ai_response)
+                    # Verify spatial evidence independently. The extraction pass
+                    # may identify a device correctly but borrow coordinates from
+                    # a neighbouring label or branch.
+                    box_candidates = [
+                        {
+                            "tag": getattr(device, "tag", None),
+                            "name": getattr(device, "name", None),
+                            "spec": getattr(device, "spec", None),
+                            "box_2d": getattr(device, "box_2d", None),
+                        }
+                        for device in parsed_devs
+                        if getattr(device, "box_2d", None)
+                    ]
+                    if box_candidates:
+                        verifier_prompt = (
+                            "Kiểm chứng tọa độ độc lập bằng cách quan sát lại TOÀN BỘ ảnh. "
+                            "Với từng thiết bị, tìm đúng ký hiệu điện và nhãn tag/thông số của chính nó; "
+                            "không dùng box cũ làm đáp án. Chỉ trả JSON "
+                            "{\"boxes\":[{\"tag\":...,\"name\":...,\"box_2d\":[ymin,xmin,ymax,xmax],"
+                            "\"verified\":true|false}]}. Tọa độ 0..1000. Box phải bao ký hiệu và nhãn "
+                            "riêng, không bao thiết bị hoặc nhánh kế bên. Nếu không chắc chắn, trả "
+                            "verified=false và box_2d=null. Danh sách:\n"
+                            + json.dumps(box_candidates, ensure_ascii=False)
+                        )
+                        try:
+                            if all_connections and db:
+                                verifier_response, _ = await ConnectionPoolService.call_with_fallback(
+                                    db=db, connections=all_connections,
+                                    call_fn=VisionAnalyzerService.analyze_image,
+                                    image_path=temp_img_path, prompt=verifier_prompt,
+                                )
+                            else:
+                                verifier_response = await VisionAnalyzerService.analyze_image(
+                                    image_path=temp_img_path, prompt=verifier_prompt,
+                                    provider=active_ai.provider.lower(), api_key=active_ai.api_key,
+                                    model=active_ai.selected_model,
+                                )
+                            verifier_blocks = ResponseParserService.extract_json_blocks(verifier_response)
+                            payload = next(
+                                (block for block in verifier_blocks if isinstance(block, dict) and isinstance(block.get("boxes"), list)),
+                                None,
+                            )
+                            verified_by_key = {}
+                            for candidate in (payload or {}).get("boxes", []):
+                                if not isinstance(candidate, dict):
+                                    continue
+                                candidate_box = candidate.get("box_2d")
+                                if candidate.get("verified") is not True or not isinstance(candidate_box, list) or len(candidate_box) != 4:
+                                    continue
+                                key = str(candidate.get("tag") or candidate.get("name") or "").strip().casefold()
+                                if key:
+                                    verified_by_key[key] = candidate_box
+                            for device in parsed_devs:
+                                key = str(getattr(device, "tag", None) or getattr(device, "name", None) or "").strip().casefold()
+                                device.box_2d = verified_by_key.get(key)
+                        except Exception as verify_error:
+                            logger.warning("Evidence verification failed on page %s: %s", page_num, verify_error)
+                            for device in parsed_devs:
+                                device.box_2d = None
                     # Keep all PDF-page warnings in the accumulator returned by this
                     # method.  Using an undefined `warnings` variable previously
                     # interrupted the AI pipeline after a successful model response.
@@ -2932,7 +3065,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
         rows = []
         if not extracted_devices and not multi_panel_list:
             return []
-        clean_pname = (panel_name or f"TỦ ĐIỆN {panel_code or 'DB'}").upper()
+        clean_pname = (panel_name or panel_code or "").upper()
 
         def _device_value(dev_obj: Any, key: str, default: Any = None) -> Any:
             """Read the same field from Pydantic models and streamed dict rows."""
@@ -3090,7 +3223,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
 
             for p_idx, panel in enumerate(consolidated_panels.values(), 1):
                 p_code = panel.get("panel_code") or f"P-{p_idx}"
-                p_name = panel.get("panel_name") or f"TỦ ĐIỆN {p_code}"
+                p_name = panel.get("panel_name") or ""
                 dim_str = panel.get("dimension") or ""
                 dim_h = panel.get("dim_h") or 1200
                 dim_w = panel.get("dim_w") or 700
@@ -3796,8 +3929,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     part_number=d.get("part_number", ""),
                     section=d.get("section"),
                     location=d.get("location"),
-                    panel_code=d.get("panel_code") or panel_code or DEFAULT_PANEL_CODE,
-                    panel_name=d.get("panel_name") or panel_name or f"Tủ phân phối điện {panel_code or DEFAULT_PANEL_CODE}",
+                    panel_code=d.get("panel_code") or panel_code or "",
+                    panel_name=d.get("panel_name") or panel_name or "",
                     notes=d.get("notes"),
                     tag=d.get("tag"),
                     mounting=d.get("mounting"),
@@ -3810,8 +3943,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     evidence_image=d.get("evidence_image")
                 ))
 
-        detected_panel_code = panel_code or (extracted_devices[0].panel_code if extracted_devices else DEFAULT_PANEL_CODE) or DEFAULT_PANEL_CODE
-        detected_panel_name = panel_name or (extracted_devices[0].panel_name if extracted_devices else f"Tủ phân phối điện {detected_panel_code}") or f"Tủ phân phối điện {detected_panel_code}"
+        detected_panel_code = panel_code or (extracted_devices[0].panel_code if extracted_devices else "") or ""
+        detected_panel_name = panel_name or (extracted_devices[0].panel_name if extracted_devices else "") or ""
 
         # Tra cứu Catalog & khớp đơn giá thiết bị
         catalog_engine = DeviceCatalogEngine.get_instance()

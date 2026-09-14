@@ -67,7 +67,7 @@ Quy tắc bóc tách bắt buộc:
 11. TÁCH BIỆT HOÀN TOÀN CẦU CHÌ VÀ ĐÈN BÁO PHA (FUSE & PILOT LIGHT):
    - Cầu chì (FUSE / ký hiệu hình chữ nhật có đường gạch hoặc chữ FUSE, FU, 1x6A) và Đèn báo pha (LIGHT / ký hiệu tròn dấu chéo ⊗ hoặc chữ R, S, T, Đèn báo) là HAI THIẾT BỊ VẬT LÝ HOÀN TOÀN ĐỘC LẬP.
    - TUYỆT ĐỐI KHÔNG GỘP thành một dòng như "Cầu chì & Đèn báo pha". BẮT BUỘC TÁCH THÀNH 2 DÒNG THIẾT BỊ RIÊNG BIỆT:
-     + Dòng 1: tag 'FU1' (hoặc 'FU'), category: 'FUSE', name: 'Cầu chì bảo vệ tín hiệu' (hoặc 'Cầu chì 1x6A'), spec: '1x6A', quantity: 1, section: 'Đo lường & Giám sát', box_2d: bao quanh đúng ký hiệu cầu chì và chữ FUSE/1x6A.
+     + Dòng 1: tag 'FU1' (hoặc 'FU'), category: 'FUSE', name: 'Cầu chì bảo vệ tín hiệu' (hoặc 'Cầu chì 1x6A'), spec: '1x6A', quantity theo vật tư thực tế: 3 nếu bảo vệ mạch đo/báo điện áp ba pha R-S-T, ngược lại 1; section: 'Đo lường & Giám sát', box_2d: bao quanh đúng ký hiệu cầu chì và chữ FUSE/1x6A.
      + Dòng 2: tag 'HL1' (hoặc 'R'), category: 'LIGHT', name: 'Đèn báo pha R', spec: 'Đèn báo pha 220V', quantity: 1, section: 'Đo lường & Giám sát', box_2d: bao quanh đúng ký hiệu hình tròn ⊗ và nhãn R.
    - TUYỆT ĐỐI KHÔNG lấy vùng dẫn chứng box_2d của Cầu chì hoặc Đèn báo pha đặt lên đoạn cáp nguồn cấp (Cu/PVC...) ở phía trên!
 12. TỐI ƯU TỐC ĐỘ (BỎ QUA THINKING): Bỏ qua hoàn toàn bước suy nghĩ/reasoning. TUYỆT ĐỐI KHÔNG xuất thẻ <thinking>, <thought>, <think> hay lời giải thích, mở đầu, kết luận. Bắt đầu trả về NGAY LẬP TỨC khối JSON ```json ... ```.
@@ -158,7 +158,7 @@ Quy tắc bóc tách bắt buộc:
    - Mỗi nhánh xuất tuyến (feeder) PHẢI là một dòng thiết bị riêng biệt.
    - Mỗi thiết bị điều khiển (Contactor, Relay, Timer, Nút ấn...) phục vụ một lộ nhánh hoặc gắn với lộ nhánh PHẢI là một dòng thiết bị riêng biệt (ví dụ: Contactor Lộ L1, Contactor Lộ L2...).
    - TUYỆT ĐỐI KHÔNG gộp các nhánh hoặc các contactor có cùng thông số thành quantity > 1 (ví dụ TUYỆT ĐỐI KHÔNG gộp 8 contactor C thành 1 dòng quantity = 8), vì mỗi thiết bị có vị trí lắp đặt và tọa độ box_2d ảnh dẫn chứng riêng.
-   - Trường hợp duy nhất được đặt quantity > 1 là cụm đèn báo pha 3 pha R-Y-B (quantity = 3).
+   - quantity là số lượng vật tư thực tế, không mặc định bằng số ký hiệu trên sơ đồ một sợi. Ví dụ 3XCT/3CT = 3 CT; cụm đèn R-Y-B = 3 đèn; cầu chì bảo vệ mạch đo/báo áp ba pha = 3 cầu chì. Ghi rõ căn cứ suy luận; nếu không đủ căn cứ thì giữ 1 và đánh dấu cần xác minh.
 5. TUYỆT ĐỐI KHÔNG HARD-CODE HOẶC TỰ BỊA THÔNG SỐ VÀ HÃNG:
    - Mọi thông số (số cực, In, Icu, điện áp, tải): Bắt buộc đọc từ bản vẽ.
    - Hãng sản xuất (brand): Chỉ điền tên hãng nếu bản vẽ có ghi hoặc người dùng yêu cầu; không tự gán hãng mặc định (như Asia, Schneider, LS...). Nếu không có, để chuỗi rỗng ("").
@@ -460,6 +460,20 @@ def append_canonical_output_contract(prompt: str) -> str:
     """
     return (
         f"{prompt}\n\n"
+        "AUTHORITATIVE LANGUAGE AND EVIDENCE POLICY: Follow these control rules in English, "
+        "but write every user-facing value (names, summaries, notes, reasons, warnings and proposals) "
+        "in clear Vietnamese. Preserve identifiers and technical symbols exactly as printed. "
+        "Never invent a panel code, panel name, project/system type, building type or location. "
+        "If it is not explicitly present or cannot be supported by the document, return an empty string. "
+        "Do not rename a collection of panels as a new system or panel. "
+        "For every device, distinguish schematic symbol count from physical procurement quantity. "
+        "Use `drawing_quantity` for what is explicitly drawn and `procurement_quantity`/`quantity` for "
+        "the physical installed quantity. Explain the evidence in Vietnamese in `quantity_basis`. "
+        "Expand grouped phase notation (for example xN, N×, R-S-T or a grouped three-phase measuring "
+        "symbol) only when the drawing/function supports it; otherwise keep quantity unchanged and state "
+        "that confirmation is required. Evaluate linked components for every device family, but add an "
+        "item to `accompanying_accessories` only when a tag, symbol, wire, note or supplied-as-assembly "
+        "statement provides evidence. Never add customary accessories as observed facts.\n\n"
         "QUY TẮC VAI TRÒ TỆP: Trước tiên xác định tệp là nguồn bóc tách, tài liệu tham chiếu, "
         "yêu cầu kỹ thuật, catalog/bảng giá, bằng chứng hay hỗn hợp. Tệp tham chiếu vẫn phải được "
         "tóm tắt để hỗ trợ yêu cầu nhưng không được biến nội dung tham khảo thành thiết bị BOM. "
@@ -477,11 +491,11 @@ def append_canonical_output_contract(prompt: str) -> str:
         "`technical_proposals`, `warnings`, `missing_devices` và "
         "`unanalysed_clusters` luôn là mảng, dùng [] khi không có dữ liệu. Mỗi phần "
         "tử devices phải có đủ cùng các khóa: tag, section, category, name, spec, "
-        "in_a, icu_ka, poles, quantity, brand, suggested_brands, part_number, "
+        "in_a, icu_ka, poles, quantity, drawing_quantity, procurement_quantity, quantity_basis, quantity_confidence, brand, suggested_brands, part_number, "
         "electrical_function, mounting, upstream_device, downstream_device, "
         "connected_load, panel_code, panel_name, location, notes, confidence, "
         "box_2d, source_type, source_filename, source_page, evidence_region, "
-        "accompanying_accessories, compatible_proposal. Trường chưa xác "
+        "accompanying_accessories, inferred_components, compatible_proposal. Trường chưa xác "
         "định dùng null, chuỗi chưa có dùng \"\", danh sách chưa có dùng []; không "
         "được bỏ khóa. Cấu trúc bắt buộc: "
         "{\"file_assessment\":{\"is_suitable\":true,\"document_type\":\"\","
