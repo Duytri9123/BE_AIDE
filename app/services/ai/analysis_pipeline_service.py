@@ -1815,6 +1815,34 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 continue
 
     @staticmethod
+    def _evidence_crop_pixels(box: List[int], width: int, height: int) -> Optional[Tuple[int, int, int, int]]:
+        """Convert normalized AI coordinates into a focused, contextual crop.
+
+        Padding follows the detected box size rather than a percentage of the
+        whole drawing. Wide SLD sheets previously added 8% of the complete page
+        on each side, often pulling several neighbouring feeders into a crop.
+        """
+        if not box or len(box) != 4 or width <= 0 or height <= 0:
+            return None
+        ymin, xmin, ymax, xmax = [max(0.0, min(1000.0, float(value))) for value in box]
+        if xmax <= xmin or ymax <= ymin:
+            return None
+        left, top = int(xmin * width / 1000), int(ymin * height / 1000)
+        right, bottom = int(xmax * width / 1000), int(ymax * height / 1000)
+        box_w, box_h = right - left, bottom - top
+        pad_x = min(int(width * 0.04), max(24, int(box_w * 0.65)))
+        pad_y = min(int(height * 0.05), max(20, int(box_h * 0.75)))
+        left, top = max(0, left - pad_x), max(0, top - pad_y)
+        right, bottom = min(width, right + pad_x), min(height, bottom + pad_y)
+        if right - left < 180:
+            missing = 180 - (right - left)
+            left, right = max(0, left - missing // 2), min(width, right + missing - missing // 2)
+        if bottom - top < 120:
+            missing = 120 - (bottom - top)
+            top, bottom = max(0, top - missing // 2), min(height, bottom + missing - missing // 2)
+        return (left, top, right, bottom) if right > left and bottom > top else None
+
+    @staticmethod
     def _attach_evidence_thumbnails(devices: List[ExtractedDeviceSchema], image_path: str):
         """Tự động cắt ảnh dẫn chứng (Visual Evidence Thumbnail) chuẩn xác từ file ảnh bản vẽ gốc."""
         try:
@@ -1849,26 +1877,10 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                         box = getattr(dev, "box_2d", None)
                         # Nếu có box_2d [ymin, xmin, ymax, xmax] (chuẩn hóa 0-1000)
                         if box and len(box) == 4:
-                            ymin, xmin, ymax, xmax = box
-                            top = int(ymin * h / 1000)
-                            left = int(xmin * w / 1000)
-                            bottom = int(ymax * h / 1000)
-                            right = int(xmax * w / 1000)
-                            # Cắt rộng và thoáng theo yêu cầu của người dùng để thấy rõ toàn cảnh mạch xung quanh thiết bị
-                            pad_x = max(int(w * 0.08), 75)
-                            pad_y = max(int(h * 0.06), 45)
-                            left = max(0, left - pad_x)
-                            top = max(0, top - pad_y)
-                            right = min(w, right + pad_x)
-                            bottom = min(h, bottom + pad_y)
-                            if (right - left) < 180:
-                                extra_x = (180 - (right - left)) // 2
-                                left = max(0, left - extra_x)
-                                right = min(w, right + extra_x)
-                            if (bottom - top) < 120:
-                                extra_y = (120 - (bottom - top)) // 2
-                                top = max(0, top - extra_y)
-                                bottom = min(h, bottom + extra_y)
+                            crop_pixels = AnalysisPipelineService._evidence_crop_pixels(box, w, h)
+                            if not crop_pixels:
+                                continue
+                            left, top, right, bottom = crop_pixels
                         else:
                             # Never invent a crop from device category or array
                             # position. A missing coordinate remains visibly
@@ -2713,21 +2725,10 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             box = d.box_2d
                             if box and len(box) == 4:
                                 try:
-                                    ymin, xmin, ymax, xmax = box
-                                    pad_x = max(int(iw * 0.08), 75)
-                                    pad_y = max(int(ih * 0.06), 45)
-                                    c_top = max(0, int(ymin * ih / 1000) - pad_y)
-                                    c_left = max(0, int(xmin * iw / 1000) - pad_x)
-                                    c_bottom = min(ih, int(ymax * ih / 1000) + pad_y)
-                                    c_right = min(iw, int(xmax * iw / 1000) + pad_x)
-                                    if (c_right - c_left) < 180:
-                                        extra_x = (180 - (c_right - c_left)) // 2
-                                        c_left = max(0, c_left - extra_x)
-                                        c_right = min(iw, c_right + extra_x)
-                                    if (c_bottom - c_top) < 120:
-                                        extra_y = (120 - (c_bottom - c_top)) // 2
-                                        c_top = max(0, c_top - extra_y)
-                                        c_bottom = min(ih, c_bottom + extra_y)
+                                    crop_pixels = AnalysisPipelineService._evidence_crop_pixels(box, iw, ih)
+                                    if not crop_pixels:
+                                        raise ValueError("Invalid evidence box")
+                                    c_left, c_top, c_right, c_bottom = crop_pixels
                                     if c_right > c_left and c_bottom > c_top:
                                         crop = page_img.crop((c_left, c_top, c_right, c_bottom))
                                         if crop.mode in ("RGBA", "LA", "P"):
