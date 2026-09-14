@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field, field_validator, model_validator
-from typing import Optional, List
+from typing import Optional, List, Dict
 from uuid import UUID
 
 from app.core.config import settings
@@ -145,11 +145,13 @@ class ExtractedDeviceSchema(BaseModel):
 
 class AnalysisResultSchema(BaseModel):
     session_id: UUID
+    iteration_id: Optional[int] = None
     iteration_number: int
     devices: List[ExtractedDeviceSchema]
     warnings: List[str]
     topology_preview: dict
     enclosure_spec: Optional[dict] = None
+    panel_images: Dict[str, str] = Field(default_factory=dict)
     cad_file: Optional[dict] = None
     quotation_file: Optional[dict] = None
     quotation_rows: List[dict] = Field(default_factory=list)

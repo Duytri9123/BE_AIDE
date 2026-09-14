@@ -1,4 +1,5 @@
 import os
+import uuid
 from datetime import datetime
 from pathlib import Path
 from typing import Optional, List
@@ -454,7 +455,7 @@ class QuotationExporterService:
         clean_proj = "".join(c for c in project_name if c.isalnum() or c in ("-", "_", " ")).strip().replace(" ", "_")
         clean_suffix = "".join(c for c in (filename_suffix or "") if c.isalnum() or c in ("-", "_", " ")).strip().replace(" ", "_")
         suffix_part = f"_{clean_suffix}" if clean_suffix else ""
-        filename = f"BaoGia_{clean_proj}{suffix_part}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
+        filename = f"BaoGia_{clean_proj}{suffix_part}_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:10]}.xlsx"
         file_path = out_dir / filename
         wb.save(file_path)
         return str(file_path)

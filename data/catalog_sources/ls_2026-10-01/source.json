@@ -1,0 +1,24 @@
+{
+  "source_id": "ls-price-2026-10-01",
+  "manufacturer": "LS Electric",
+  "brand_key": "ls",
+  "effective_date": "2026-10-01",
+  "currency": "VND",
+  "vat_included": false,
+  "price_file": "Bang-gia-LS-2026-10-01.pdf",
+  "cad_file": "LS-device-library.dwg",
+  "category_rules": {
+    "MCCB": ["MCCB", "loại khối", "Susol"],
+    "MCB": ["MCB", "loại tép"],
+    "ELCB": ["ELCB"],
+    "RCBO": ["RCBO", "quá tải và chống rò"],
+    "RCCB": ["RCCB", "chống rò điện"],
+    "SPD": ["Surge Protective", "chống sét"],
+    "ACB": ["ACB", "air circuit breaker"],
+    "CONTACTOR": ["CONTACTOR", "KHỞI ĐỘNG TỪ"],
+    "THERMAL_RELAY": ["RƠ LE NHIỆT"],
+    "MOTOR_STARTER": ["Manual Motor Starter"],
+    "PROTECTION_RELAY": ["Protection Relay", "RƠ LE ĐIỆN TỬ", "RƠ LE KỸ THUẬT SỐ"],
+    "METER": ["MultiMeter", "MultiMetering"]
+  }
+}

@@ -11,6 +11,7 @@ import os
 import re
 import math
 import unicodedata
+import uuid
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Any, Tuple, Optional
@@ -155,6 +156,12 @@ class EnclosureCadGeneratorService:
         Tính toán kích thước vỏ tủ điện thực tế dựa trên bố trí (Layout-Driven Sizing).
         Ưu tiên kích thước ghi rõ trên bản vẽ (preferred_dimensions: H, W, D) nếu có.
         """
+        # Ensure devices passed into layout calculations do not drag heavy base64 image strings
+        devices = [
+            {k: v for k, v in d.items() if k not in ("panel_evidence_image", "evidence_image")}
+            if isinstance(d, dict) else d
+            for d in devices
+        ]
         has_preferred = preferred_dimensions is not None and len(preferred_dimensions) >= 3 and preferred_dimensions[0] > 0
         incomer_dev = next(
             (d for d in devices if str(d.get("category", "")).upper() in ["ACB", "MCCB"] or str(d.get("section", "")).upper() in ["ĐẦU VÀO", "INCOMER", "NGUỒN CẤP"]),
@@ -1226,12 +1233,10 @@ class EnclosureCadGeneratorService:
         out_folder = Path(output_dir) / str(project_id)
         out_folder.mkdir(parents=True, exist_ok=True)
 
-        # Dọn dẹp các file DXF tự sinh cũ để đảm bảo trên đĩa chỉ có duy nhất 1 file CAD
-        for old_dxf in out_folder.glob("*.dxf"):
-            try:
-                old_dxf.unlink()
-            except Exception:
-                pass
+        # Không xóa file cũ tại đây: nhiều worker có thể cùng kết xuất một dự án.
+        # Mỗi lần sinh dùng một hậu tố duy nhất; việc chọn/dọn phiên bản cũ thuộc
+        # transaction publish của tầng orchestration.
+        run_suffix = uuid.uuid4().hex[:10]
 
         # Trích xuất danh sách tủ thực tế
         effective_panels = []
@@ -1290,7 +1295,7 @@ class EnclosureCadGeneratorService:
                 )
 
             suffix = "" if draw_busbar else "_FitCheck"
-            master_path = out_folder / f"BanVe_TongThe_{len(effective_panels)}_TuDien{suffix}.dxf"
+            master_path = out_folder / f"BanVe_TongThe_{len(effective_panels)}_TuDien{suffix}_{run_suffix}.dxf"
             doc.saveas(str(master_path))
             return str(master_path)
         else:
@@ -1307,6 +1312,6 @@ class EnclosureCadGeneratorService:
                 draw_busbar=draw_busbar
             )
             suffix = "" if draw_busbar else "_FitCheck"
-            file_path = out_folder / f"BanVe_TuDien_{clean_tag}_{specs['incomer_rating']}A{suffix}.dxf"
+            file_path = out_folder / f"BanVe_TuDien_{clean_tag}_{specs['incomer_rating']}A{suffix}_{run_suffix}.dxf"
             doc.saveas(str(file_path))
             return str(file_path)

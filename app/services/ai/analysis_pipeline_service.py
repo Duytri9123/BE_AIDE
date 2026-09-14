@@ -28,10 +28,11 @@ from app.schemas.ai import ExtractedDeviceSchema, AnalysisResultSchema
 from app.services.ingestion.pdf_extractor import PdfExtractorService
 from app.services.ingestion.pdf_drawing_indexer import PdfDrawingIndexerService, DrawingCategory
 from app.services.ingestion.cad_parser import CadParserService
+from app.services.ingestion.document_context import DocumentContextService
 from app.services.ai.vision_analyzer import VisionAnalyzerService
 from app.services.ai.response_parser import ResponseParserService
 from app.services.ai.connection_pool import ConnectionPoolService
-from app.services.device_catalog_engine import DeviceCatalogEngine, BRAND_SYNONYMS
+from app.services.device_catalog_engine import DeviceCatalogEngine
 from app.services.cad.enclosure_cad_generator import EnclosureCadGeneratorService
 from app.services.cad.physical_layout_engine import PhysicalLayoutEngine, MountingType, ElectricalFunction
 from app.services.export.quotation_exporter import QuotationExporterService
@@ -41,7 +42,6 @@ from app.services.ai.cluster_equipment_service import AccompanyingEquipmentServi
 from app.core.device_patterns import DevicePatterns
 from app.core.config import settings
 from app.core.constants import (
-    BRAND_CATALOG_MAPPING,
     PRICE_ROUNDING_STEP_VND,
     BUSBAR_REQUIRED_MIN_CURRENT_A,
     BUSBAR_INSULATOR_SPACING_M,
@@ -55,6 +55,46 @@ logger = logging.getLogger(__name__)
 
 class AnalysisPipelineService:
     """Dịch vụ điều phối bóc tách BOM chuyên nghiệp chuẩn công nghiệp."""
+
+    @staticmethod
+    def _compose_multifile_notes(
+        user_prompt: Optional[str],
+        contexts: List[Dict[str, Any]],
+        current_filename: str,
+    ) -> str:
+        """Build request-scoped context without assuming every file is a drawing."""
+        reference_context = DocumentContextService.build_prompt_context(contexts, max_total_chars=18_000)
+        parts = [
+            "Hãy xác định vai trò của tệp hiện tại theo yêu cầu của người dùng: nguồn bóc tách, "
+            "tài liệu tham chiếu, yêu cầu kỹ thuật, catalog/bảng giá, bằng chứng, hoặc hỗn hợp. "
+            "Không loại bỏ tài liệu chỉ vì không có thiết bị và không biến nội dung tham khảo thành "
+            "thiết bị BOM. Chỉ sinh devices khi tệp có bằng chứng thiết bị cụ thể. Dùng các tệp khác "
+            "để đối chiếu thông số, phạm vi và yêu cầu. Ghi vai trò vào file_assessment.document_role "
+            "và tóm tắt thông tin hữu ích vào file_assessment.context_summary.",
+            f"TỆP ĐANG XỬ LÝ: {current_filename}",
+        ]
+        if user_prompt:
+            parts.append(f"YÊU CẦU NGƯỜI DÙNG:\n{user_prompt.strip()}")
+        if reference_context:
+            parts.append(f"NGỮ CẢNH ĐỌC ĐƯỢC TỪ TOÀN BỘ TỆP ĐÍNH KÈM:\n{reference_context}")
+        return "\n\n".join(parts)
+
+    @staticmethod
+    def _detect_requested_brand(user_prompt: Optional[str], catalog_engine: Any) -> Optional[str]:
+        """Resolve a requested brand from catalog data instead of a fixed shortlist."""
+        if not user_prompt:
+            return None
+        normalized_prompt = re.sub(r"\s+", " ", user_prompt.casefold())
+        candidates: Dict[str, str] = {}
+        for item in getattr(catalog_engine, "items", []) or []:
+            for field in ("brand_display", "brand"):
+                value = str(item.get(field) or "").strip()
+                if len(value) >= 2:
+                    candidates[value.casefold()] = value
+        for normalized, display in sorted(candidates.items(), key=lambda pair: len(pair[0]), reverse=True):
+            if re.search(rf"(?<!\w){re.escape(normalized)}(?!\w)", normalized_prompt):
+                return display
+        return None
 
     @staticmethod
     def _partial_devices_payload(
@@ -325,16 +365,9 @@ class AnalysisPipelineService:
                 except Exception as cb_err:
                     logger.warning(f"Error in progress_callback: {cb_err}")
 
-        # LỌC BẢO VỆ: Chỉ bóc tách các file nguồn import, loại bỏ các file CAD kết quả tự sinh từ trước (BanVe_*, PhacThao_*)
-        input_files = [
-            f for f in project_files 
-            if not (
-                getattr(f, "is_generated", False) or 
-                (f.filename and (f.filename.startswith("BanVe_") or f.filename.startswith("PhacThao_")) and f.filename.lower().endswith((".dxf", ".dwg")))
-            )
-        ]
-        if input_files:
-            project_files = input_files
+        # Every attachment remains available as chat context. Generated artifacts
+        # are kept for reference but are never re-extracted into a new BOM.
+        document_contexts = [DocumentContextService.extract(file_obj) for file_obj in project_files]
 
         # STAGE 1: TIẾP NHẬN VÀ THẨM ĐỊNH TỆP BẢN VẼ
         files_assessment: List[Dict[str, Any]] = []
@@ -354,11 +387,47 @@ class AnalysisPipelineService:
         for pfile in project_files:
             file_path = pfile.file_path
             if not file_path or not os.path.exists(file_path):
+                files_assessment.append({
+                    "file_id": getattr(pfile, "id", None),
+                    "filename": pfile.filename,
+                    "file_type": (pfile.filename.rsplit(".", 1)[-1].lower() if pfile.filename and "." in pfile.filename else ""),
+                    "file_size": getattr(pfile, "file_size", 0),
+                    "status": "failed",
+                    "devices_count": 0,
+                    "document_type": "Tệp không khả dụng",
+                    "document_role": "unknown",
+                    "context_summary": "",
+                    "is_suitable": False,
+                    "assessment_summary": "Không tìm thấy tệp vật lý để đọc.",
+                    "warnings": ["file_not_found"],
+                })
                 continue
 
             ext = pfile.filename.split(".")[-1].lower() if pfile.filename else ""
             file_start_count = len(extracted_devices)
             cad_evidence_result = None
+            file_assessment = None
+            effective_user_prompt = AnalysisPipelineService._compose_multifile_notes(
+                user_prompt, document_contexts, pfile.filename or ""
+            )
+
+            if getattr(pfile, "is_generated", False):
+                context_info = next((c for c in document_contexts if c.get("file_id") == getattr(pfile, "id", None)), {})
+                files_assessment.append({
+                    "file_id": getattr(pfile, "id", None),
+                    "filename": pfile.filename,
+                    "file_type": ext,
+                    "file_size": getattr(pfile, "file_size", 0),
+                    "status": "reference",
+                    "devices_count": 0,
+                    "document_type": "Kết quả do hệ thống tạo",
+                    "document_role": "reference",
+                    "context_summary": str(context_info.get("text") or "")[:1000],
+                    "is_suitable": True,
+                    "assessment_summary": "Giữ làm ngữ cảnh tham chiếu; không bóc tách ngược để tránh nhân đôi BOM.",
+                    "warnings": [],
+                })
+                continue
 
             log_event(
                 stage="file_extraction",
@@ -378,7 +447,7 @@ class AnalysisPipelineService:
                             db, PROMPT_TYPES["SLD_VISION"], SLD_VISION_ANALYSIS_PROMPT
                         )
                         vision_prompt = append_user_notes(
-                            vision_template, user_prompt,
+                            vision_template, effective_user_prompt,
                             "ĐẶC BIỆT LƯU Ý VÀ TUÂN THỦ YÊU CẦU KỸ THUẬT / GHI CHÚ TỪ KHÁCH HÀNG:",
                         )
                         vision_prompt = append_completeness_review_instruction(vision_prompt)
@@ -521,7 +590,7 @@ class AnalysisPipelineService:
                         file_path=file_path,
                         filename=pfile.filename or "drawing.pdf",
                         active_ai=active_ai,
-                        user_prompt=user_prompt,
+                        user_prompt=effective_user_prompt,
                         db=db,
                         all_connections=all_connections,
                         target_page=target_page,
@@ -578,7 +647,7 @@ class AnalysisPipelineService:
                             file_path=file_path,
                             filename=pfile.filename or "drawing.dxf",
                             active_ai=active_ai,
-                            user_prompt=user_prompt,
+                            user_prompt=effective_user_prompt,
                             db=db,
                             all_connections=all_connections
                         )
@@ -648,6 +717,36 @@ class AnalysisPipelineService:
                     except Exception as e:
                         warnings.append(f"Lỗi khi xử lý file CAD {pfile.filename}: {str(e)}")
 
+            # D. Tài liệu/bảng dữ liệu khác: giữ nguyên làm ngữ cảnh của lượt chat.
+            # Nội dung đã được đưa vào effective_user_prompt của mọi file hình/bản
+            # vẽ; không ép một tài liệu tham khảo phải sinh thiết bị BOM.
+            else:
+                context_info = next(
+                    (c for c in document_contexts if c.get("file_id") == getattr(pfile, "id", None)),
+                    {},
+                )
+                readable_text = str(context_info.get("text") or "").strip()
+                read_error = str(context_info.get("read_error") or "").strip()
+                files_assessment.append({
+                    "file_id": getattr(pfile, "id", None),
+                    "filename": pfile.filename,
+                    "file_type": ext,
+                    "file_size": getattr(pfile, "file_size", 0),
+                    "status": "reference" if readable_text else "warning",
+                    "devices_count": 0,
+                    "document_type": "Tài liệu ngữ cảnh",
+                    "document_role": "reference",
+                    "context_summary": readable_text[:1000],
+                    "is_suitable": bool(readable_text),
+                    "assessment_summary": (
+                        "Đã đọc và dùng nội dung làm ngữ cảnh đối chiếu cho yêu cầu hiện tại."
+                        if readable_text else
+                        "Đã giữ tệp trong hồ sơ nhưng chưa trích được nội dung văn bản."
+                    ),
+                    "warnings": [read_error] if read_error else [],
+                })
+                continue
+
             # Chuẩn hóa các phần tử FA bị Vision gắn vào mô tả MCCB trước khi
             # phát dữ liệu từng phần, để UI trực tiếp và kết quả cuối giống nhau.
             current_file_devices = extracted_devices[file_start_count:]
@@ -661,6 +760,22 @@ class AnalysisPipelineService:
                 source_type=ext,
                 filename=pfile.filename or "",
             )
+            # Make an AI-produced summary from a visual/CAD file available to
+            # files processed later in the same request.  This keeps provenance
+            # while allowing a photo/note drawing to support another drawing.
+            if isinstance(file_assessment, dict):
+                context_summary = str(
+                    file_assessment.get("context_summary")
+                    or file_assessment.get("assessment_summary")
+                    or ""
+                ).strip()
+                if context_summary:
+                    context_entry = next(
+                        (c for c in document_contexts if c.get("file_id") == getattr(pfile, "id", None)),
+                        None,
+                    )
+                    if context_entry is not None and not context_entry.get("text"):
+                        context_entry["text"] = context_summary[:DocumentContextService.MAX_FILE_CHARS]
             if ext in ["dxf", "dwg"] and cad_evidence_result is not None:
                 AnalysisPipelineService._attach_cad_evidence_regions(
                     current_file_devices, cad_evidence_result
@@ -746,6 +861,59 @@ class AnalysisPipelineService:
                     "warnings": ["Bản vẽ không có ký hiệu thiết bị điện rõ ràng"]
                 })
 
+        # Tổng hợp như một lượt chat đa tài liệu. Kết quả này tồn tại độc lập với
+        # BOM, nên một yêu cầu hỏi thông tin vẫn có câu trả lời dù devices rỗng.
+        contextual_answer = ""
+        file_roles: List[Dict[str, Any]] = []
+        if active_ai and user_prompt:
+            synthesis_context = DocumentContextService.build_prompt_context(
+                document_contexts, max_total_chars=26_000
+            )
+            synthesis_prompt = f"""Bạn là trợ lý phân tích đa tài liệu. Trả lời yêu cầu người dùng dựa trên toàn bộ tệp đính kèm và dữ liệu đã đọc.
+Không mặc định mọi tệp là bản vẽ bóc tách. Mỗi tệp có thể là nguồn chính, tài liệu tham chiếu, yêu cầu kỹ thuật, bảng giá/catalog, bằng chứng hoặc hỗn hợp.
+Không bịa thông tin không có trong nguồn. Khi nguồn mâu thuẫn, nêu rõ tệp và giá trị mâu thuẫn. Không liệt kê hàng loạt hãng hoặc thiết bị nếu người dùng không yêu cầu.
+Chỉ trả JSON: {{"answer":"câu trả lời trực tiếp, rõ ràng","file_roles":[{{"filename":"...","role":"...","reason":"..."}}],"extraction_scope":{{"should_extract_devices":true,"files":[],"reason":"..."}},"warnings":[]}}.
+
+YÊU CẦU NGƯỜI DÙNG:
+{user_prompt}
+
+NỘI DUNG TỆP ĐỌC ĐƯỢC:
+{synthesis_context or '(Các tệp hình/CAD đã được xử lý trực tiếp; xem tóm tắt bên dưới.)'}
+
+TÓM TẮT XỬ LÝ TỪNG TỆP:
+{files_assessment}
+"""
+            try:
+                if all_connections and db:
+                    synthesis_response, _used = await ConnectionPoolService.call_with_fallback(
+                        db=db,
+                        connections=all_connections,
+                        call_fn=VisionAnalyzerService.analyze_text,
+                        prompt=synthesis_prompt,
+                    )
+                else:
+                    synthesis_response = await VisionAnalyzerService.analyze_text(
+                        prompt=synthesis_prompt,
+                        provider=active_ai.provider.lower(),
+                        api_key=active_ai.api_key,
+                        model=active_ai.selected_model,
+                    )
+                synthesis_blocks = ResponseParserService.extract_json_blocks(synthesis_response)
+                synthesis = next((block for block in synthesis_blocks if isinstance(block, dict)), {})
+                contextual_answer = str(synthesis.get("answer") or "").strip()
+                file_roles = synthesis.get("file_roles") if isinstance(synthesis.get("file_roles"), list) else []
+                roles_by_name = {
+                    str(role.get("filename") or "").strip(): role
+                    for role in file_roles if isinstance(role, dict)
+                }
+                for assessment in files_assessment:
+                    role = roles_by_name.get(str(assessment.get("filename") or "").strip())
+                    if role:
+                        assessment["document_role"] = str(role.get("role") or assessment.get("document_role") or "reference")
+                        assessment["role_reason"] = str(role.get("reason") or "")
+            except Exception as synthesis_error:
+                logger.warning("Không thể tổng hợp câu trả lời đa tài liệu: %s", synthesis_error)
+
         # Khi có nhiều file, AI đối chiếu kết quả đã đọc từ từng file để xác định
         # chúng bổ sung cùng một tủ/hệ thống hay là các phạm vi độc lập. Bước này
         # chỉ dùng dữ liệu thực tế đã trích xuất, không ghép nối theo tên file.
@@ -789,22 +957,27 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 logger.warning("Không thể đối chiếu liên kết giữa các file: %s", relation_error)
 
         # Đánh giá tổng thể toàn bộ các file dự án
-        successful_files = [f for f in files_assessment if f.get("status") == "success"]
+        successful_files = [f for f in files_assessment if f.get("status") in {"success", "reference"}]
+        failed_files = [f for f in files_assessment if f.get("status") == "failed"]
         overall_assessment = {
             "total_files": len(project_files),
             "successful_files": len(successful_files),
             "warning_files": len(project_files) - len(successful_files),
-            "failed_files": 0,
+            "failed_files": len(failed_files),
             "total_devices": len(extracted_devices),
-            "suitability": "SUITABLE" if len(extracted_devices) > 0 else "NEEDS_REVIEW",
-            "document_type": (file_assessment.get("document_type") if file_assessment else "Sơ đồ 1 sợi SLD") if len(extracted_devices) > 0 else "Chưa đạt chuẩn",
+            "suitability": "SUITABLE" if len(extracted_devices) > 0 else ("CONTEXT_ONLY" if contextual_answer else "NEEDS_REVIEW"),
+            "document_type": (file_assessment.get("document_type") if file_assessment else "Sơ đồ 1 sợi SLD") if len(extracted_devices) > 0 else ("Bộ tài liệu tham chiếu" if contextual_answer else "Chưa xác định"),
             "summary": (
                 f"Đã thẩm định {len(project_files)} tệp bản vẽ. Trích xuất thành công {len(extracted_devices)} thiết bị điện đạt chuẩn kỹ thuật ({len(successful_files)}/{len(project_files)} tệp hợp lệ)."
                 if len(extracted_devices) > 0 else
-                f"Đã thẩm định {len(project_files)} tệp bản vẽ nhưng chưa phát hiện sơ đồ nguyên lý điện rõ ràng."
+                (f"Đã đọc {len(project_files)} tệp làm ngữ cảnh và trả lời yêu cầu; không phát sinh BOM thiết bị."
+                 if contextual_answer else
+                 f"Đã thẩm định {len(project_files)} tệp nhưng chưa đủ thông tin để trả lời hoặc bóc tách thiết bị.")
             ),
             "warnings": warnings[:5]
         }
+        overall_assessment["contextual_answer"] = contextual_answer
+        overall_assessment["file_roles"] = file_roles
         if progress_callback:
             await asyncio.sleep(0.35)
         log_event(
@@ -816,7 +989,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         )
 
         # 2. Xử lý khi không trích xuất được thiết bị: Báo cáo trung thực
-        if len(extracted_devices) == 0:
+        if len(extracted_devices) == 0 and not contextual_answer:
             log_event(
                 stage="ai_vision",
                 title="Không phát hiện thiết bị rõ ràng",
@@ -827,7 +1000,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 "Không tìm thấy ký hiệu hoặc nhãn thiết bị điện rõ ràng trong bản vẽ. "
                 "Hãy kiểm tra lại bản vẽ có chứa Sơ đồ nguyên lý 1 sợi (SLD), hoặc xuất CAD sang DXF và thử lại."
             )
-        else:
+        elif len(extracted_devices) > 0:
             if progress_callback:
                 await asyncio.sleep(0.35)
             log_event(
@@ -901,15 +1074,9 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 detected_panel_name = f"Tủ phân phối điện {detected_panel_code}"
 
         # Tự động gán đồng bộ mã tủ & hãng phù hợp cho toàn bộ thiết bị
-        preferred_brand = None
-        if user_prompt:
-            p_lower = user_prompt.lower()
-            for syn, canonical in BRAND_SYNONYMS.items():
-                if syn in p_lower:
-                    preferred_brand = canonical
-                    break
-            if preferred_brand:
-                warnings.append(f"Áp dụng yêu cầu kỹ thuật: {preferred_brand}")
+        preferred_brand = AnalysisPipelineService._detect_requested_brand(user_prompt, catalog_engine)
+        if preferred_brand:
+            warnings.append(f"Áp dụng yêu cầu kỹ thuật: {preferred_brand}")
 
         # Catalog comparison is also shown in the takeoff table.  Only the
         # quotation workflow is allowed to select a SKU/price or alter the
@@ -984,20 +1151,22 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 if str(brand).strip()
             ]
 
-            # Đối chiếu Catalog theo đúng thông số kỹ thuật (Chủng loại, Số cực, Dòng In, Dòng cắt Icu)
+            dev_raw_brand = (dev.brand or "").strip()
+            unknown_brand_values = {"---", "OEM", "KHÔNG", "CHƯA RÕ", "CHUA RO", "VN"}
+            has_explicit_brand = bool(dev_raw_brand and dev_raw_brand.upper() not in unknown_brand_values)
+
+            # Chỉ tra các hãng có căn cứ từ yêu cầu, bản vẽ hoặc đề xuất AI;
+            # không quét và đẩy toàn bộ danh mục hãng vào từng thiết bị.
             catalog_matches = {}
-            seen_catalog_brands = set()
-            for b_display, b_key in BRAND_CATALOG_MAPPING.items():
-                # Some display aliases point to the same catalog brand. Show
-                # each real brand only once in takeoff recommendations.
-                if b_key in seen_catalog_brands:
-                    continue
-                seen_catalog_brands.add(b_key)
+            candidate_brands = list(dict.fromkeys(
+                [brand for brand in [preferred_brand, dev_raw_brand if has_explicit_brand else None, *ai_suggested_brands[:3]] if brand]
+            ))
+            for brand_name in candidate_brands:
                 matches = catalog_engine.filter_devices(
                     device_type=dev.category,
                     poles=poles_val,
                     in_current=in_val if in_val > 0 else None,
-                    brand=b_key,
+                    brand=brand_name,
                     limit=5
                 )
                 # "METER" covers several electrically different products.
@@ -1025,12 +1194,32 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 if matches:
                     exact_icu = [m for m in matches if icu_val and m.get("icu") and float(m.get("icu")) >= float(icu_val)]
                     best = exact_icu[0] if exact_icu else matches[0]
-                    catalog_matches[b_display] = {
+                    catalog_matches[brand_name] = {
                         "sku": best.get("ma") or best.get("sku") or "",
                         "name": best.get("n") or best.get("name") or "",
                         "icu": best.get("icu"),
                         "price": int(best.get("g") or best.get("price") or 0),
                         "meets_icu": bool(exact_icu) if icu_val else True
+                    }
+
+            # Khi lập báo giá mà không có chỉ định hãng, chỉ lấy một kết quả tốt
+            # nhất từ catalog thay vì sinh danh sách đề xuất dài.
+            if catalog_for_quotation and not catalog_matches and not candidate_brands:
+                best = catalog_engine.lookup_device_info(
+                    category=dev.category,
+                    in_a=in_val if in_val > 0 else None,
+                    poles=poles_val,
+                    part_number=dev.part_number,
+                    name=dev.name,
+                )
+                if best and best.get("catalog_matched"):
+                    best_brand = str(best.get("brand") or "Catalog").strip()
+                    catalog_matches[best_brand] = {
+                        "sku": best.get("sku") or "",
+                        "name": best.get("name") or "",
+                        "icu": None,
+                        "price": int(best.get("unit_price") or 0),
+                        "meets_icu": True,
                     }
 
             dev.catalog_matches = catalog_matches
@@ -1047,15 +1236,6 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             chosen_brand = None
             chosen_sku = (dev.part_number or "").strip()
             chosen_price = 0
-
-            is_accessory = (
-                any(k in cat_upper for k in ["METER", "LIGHT", "CT", "ACCESSORY", "PHU KIEN", "FUSE"]) or
-                any(k in (dev.name or "").upper() for k in ["ĐỒNG HỒ", "ĐÈN", "BIẾN DÒNG", "CHUYỂN MẠCH", "CẦU CHÌ", "VOLT", "AMPE"])
-            )
-            is_breaker = any(k in cat_upper for k in ["ACB", "MCCB", "MCB", "RCBO", "CONTACTOR"])
-
-            dev_raw_brand = (dev.brand or "").strip()
-            has_explicit_brand = bool(dev_raw_brand and dev_raw_brand.upper() not in ["---", "OEM", "KHÔNG", "CHƯA RÕ", "CHUA RO", "VN", "ASIA", "ASIAN"])
 
             dev.detected_brand = dev_raw_brand if has_explicit_brand else ""
 
@@ -1074,11 +1254,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             elif pool:
                 chosen_brand = pool[0]
                 dev.selection_source = "catalog_auto"
-            # 4. Với thiết bị cơ bản/phụ kiện tủ (đèn báo, cầu chì, nút nhấn, chuyển mạch cơ bản...), mặc định hãng Asian (Á Châu phổ thông)
-            elif is_accessory:
-                chosen_brand = "Asian"
-                dev.selection_source = "default_basic"
-            # 5. Không có hãng/catalog phù hợp: giữ nguyên dữ liệu gốc từ bản vẽ, không tự ý gán nhà cung cấp
+            # 4. Không có hãng/catalog phù hợp: giữ nguyên dữ liệu gốc, không tự gán hãng.
             else:
                 chosen_brand = dev_raw_brand if has_explicit_brand else ""
                 dev.selection_source = "drawing" if has_explicit_brand else "unresolved"
@@ -1089,9 +1265,6 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 chosen_price = m_info["price"]
                 icu_info = f", Icu {m_info['icu']}kA" if m_info.get("icu") else ""
                 dev.technical_match_note = f"Đối chiếu Catalog: {chosen_brand} {chosen_sku}{icu_info} ({chosen_price:,} đ)"
-            elif chosen_brand in ["Asian", "Asia"]:
-                chosen_price = 0
-                dev.technical_match_note = "Thiết bị phụ trợ/cơ bản mặc định hãng Asian (Á Châu phổ thông)."
             else:
                 chosen_price = 0
                 dev.technical_match_note = "Chưa có bản ghi khớp trong catalog.json; giữ nguyên dữ liệu đọc từ nguồn và cần xác nhận khi báo giá."
@@ -1118,16 +1291,8 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 )
 
             # Gợi ý danh sách hãng khả dụng
-            if pool:
-                combined_brands = pool + [b for b in valid_brands if b not in pool] + ai_suggested_brands
-                if is_accessory and "Asian" not in combined_brands:
-                    combined_brands.append("Asian")
-                dev.suggested_brands = list(dict.fromkeys(combined_brands))
-            else:
-                fallback_brands = ([chosen_brand] if chosen_brand else []) + ai_suggested_brands
-                if is_accessory and "Asian" not in fallback_brands:
-                    fallback_brands.append("Asian")
-                dev.suggested_brands = list(dict.fromkeys(fallback_brands))
+            concise_brands = ([chosen_brand] if chosen_brand else []) + ai_suggested_brands[:2]
+            dev.suggested_brands = list(dict.fromkeys(brand for brand in concise_brands if brand))[:3]
 
             # Tự động áp dụng lựa chọn kỹ thuật ở cả bảng bóc tách. Người dùng
             # có thể đổi sang các hãng khác từ `catalog_matches` trên giao diện.
@@ -1676,9 +1841,10 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 panel_buf = io.BytesIO()
                 panel_preview.save(panel_buf, format="JPEG", quality=88)
                 panel_data_url = f"data:image/jpeg;base64,{base64.b64encode(panel_buf.getvalue()).decode()}"
-                for dev in devices:
-                    dev.panel_evidence_image = dev.panel_evidence_image or panel_data_url
+                if devices:
+                    devices[0].panel_evidence_image = devices[0].panel_evidence_image or panel_data_url
 
+                for dev in devices:
                     try:
                         box = getattr(dev, "box_2d", None)
                         # Nếu có box_2d [ymin, xmin, ymax, xmax] (chuẩn hóa 0-1000)

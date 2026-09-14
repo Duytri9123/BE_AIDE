@@ -2,6 +2,7 @@ import asyncio
 import logging
 from typing import Optional, Dict, Any, List
 from sqlalchemy import select
+import redis
 
 from app.tasks.celery_app import celery_app
 from app.db.session import AsyncSessionLocal
@@ -12,6 +13,7 @@ from app.models.conversation_session import ConversationSession
 from app.models.analysis_iteration import AnalysisIteration
 from app.services.ai.analysis_pipeline_service import AnalysisPipelineService
 from app.services.ai.connection_pool import ConnectionPoolService
+from app.core.config import settings
 
 logger = logging.getLogger(__name__)
 
@@ -29,6 +31,21 @@ def analyze_project_async_task(
     Celery Background Task để bóc tách dự án CAD/PDF/Ảnh bất đồng bộ.
     Cập nhật trạng thái tiến độ thời gian thực (% tiến độ) và lưu kết quả vào DB.
     """
+    project_lock = None
+    try:
+        redis_client = redis.from_url(settings.REDIS_URL)
+        project_lock = redis_client.lock(
+            f"aide:analysis:project:{project_id}",
+            timeout=45 * 60,
+            blocking_timeout=2,
+        )
+        if not project_lock.acquire(blocking=True):
+            raise RuntimeError("Dự án này đang có một lượt phân tích khác đang chạy.")
+    except RuntimeError:
+        raise
+    except Exception as lock_error:
+        logger.warning("Không thiết lập được Redis project lock: %s", lock_error)
+
     self.update_state(
         state="PROGRESS",
         meta={"progress": 10, "stage": "init", "message": "Đang chuẩn bị file và dữ liệu dự án..."}
@@ -37,7 +54,7 @@ def analyze_project_async_task(
     async def _run():
         async with AsyncSessionLocal() as db:
             # 1. Tìm thông tin project
-            proj_stmt = select(Project).where(Project.id == project_id)
+            proj_stmt = select(Project).where(Project.id == project_id, Project.user_id == user_id)
             proj_res = await db.execute(proj_stmt)
             project = proj_res.scalar_one_or_none()
             if not project:
@@ -52,17 +69,12 @@ def analyze_project_async_task(
 
             # 3. Tìm files nguồn bóc tách
             if file_id:
-                target_stmt = select(ProjectFile).where(ProjectFile.id == file_id)
+                target_stmt = select(ProjectFile).where(ProjectFile.id == file_id, ProjectFile.project_id == project_id)
                 target_res = await db.execute(target_stmt)
                 target_file = target_res.scalar_one_or_none()
                 project_files = [target_file] if target_file else []
             else:
-                files_stmt = select(ProjectFile).where(
-                    ProjectFile.project_id == project_id,
-                    (ProjectFile.is_generated == False) | (ProjectFile.is_generated == None),
-                    ~ProjectFile.filename.like("BanVe_%"),
-                    ~ProjectFile.filename.like("PhacThao_%")
-                )
+                files_stmt = select(ProjectFile).where(ProjectFile.project_id == project_id)
                 files_res = await db.execute(files_stmt)
                 project_files = files_res.scalars().all()
 
@@ -178,6 +190,12 @@ def analyze_project_async_task(
             meta={"progress": 0, "stage": "error", "error": str(exc)}
         )
         raise exc
+    finally:
+        if project_lock is not None:
+            try:
+                project_lock.release()
+            except Exception:
+                pass
 
 
 @celery_app.task(name="app.tasks.worker_tasks.process_cad_file")

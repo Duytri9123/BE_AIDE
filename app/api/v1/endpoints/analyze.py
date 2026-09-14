@@ -46,6 +46,98 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
+def _build_analysis_result_schema(
+    session_id: Any,
+    iteration_number: int,
+    raw_devices: List[Any],
+    conf_scores: Optional[dict] = None,
+    iteration_id: Optional[int] = None,
+    cad_file_info: Optional[dict] = None,
+    quotation_file_info: Optional[dict] = None,
+    enclosure_spec: Optional[dict] = None,
+) -> AnalysisResultSchema:
+    conf = conf_scores or {}
+    panel_images: Dict[str, str] = {}
+    cleaned_devices = []
+
+    for d in raw_devices:
+        payload = dict(d) if isinstance(d, dict) else (d.model_dump() if hasattr(d, "model_dump") else dict(d))
+        payload.setdefault("category", "Thiết bị")
+        payload.setdefault("name", "Thiết bị")
+        payload.setdefault("spec", "")
+        payload.setdefault("quantity", 1)
+        payload.setdefault("confidence", 0.95)
+
+        # Deduplicate massive base64 panel_evidence_image to keep payload light
+        p_img = payload.get("panel_evidence_image")
+        if p_img and len(p_img) > 100:
+            key = payload.get("source_filename") or payload.get("panel_code") or "default"
+            if key not in panel_images:
+                panel_images[key] = p_img
+            if "default" not in panel_images:
+                panel_images["default"] = p_img
+            payload["panel_evidence_image"] = None
+
+        cleaned_devices.append(ExtractedDeviceSchema.model_validate(payload))
+
+    # Capture any existing panel_images map
+    if isinstance(conf.get("panel_images"), dict):
+        for k, v in conf["panel_images"].items():
+            if k not in panel_images:
+                panel_images[k] = v
+
+    enc_spec = enclosure_spec or conf.get("enclosure_spec")
+    if not enc_spec:
+        enc_devs = [
+            {k: v for k, v in d.model_dump().items() if k not in ("evidence_image", "panel_evidence_image")}
+            for d in cleaned_devices
+        ]
+        enc_spec = EnclosureCadGeneratorService.calculate_enclosure_specs(enc_devs)
+    elif isinstance(enc_spec, dict) and "branch_rows" in enc_spec:
+        clean_rows = []
+        for row in enc_spec["branch_rows"]:
+            if isinstance(row, list):
+                clean_rows.append([
+                    {k: v for k, v in b.items() if k not in ("evidence_image", "panel_evidence_image")}
+                    if isinstance(b, dict) else b
+                    for b in row
+                ])
+            else:
+                clean_rows.append(row)
+        enc_spec = {**enc_spec, "branch_rows": clean_rows}
+
+    return AnalysisResultSchema(
+        session_id=session_id,
+        iteration_id=iteration_id,
+        iteration_number=iteration_number,
+        devices=cleaned_devices,
+        warnings=conf.get("warnings", []),
+        topology_preview={
+            "incomer_a": enc_spec.get("incomer_rating", settings.DEFAULT_INCOMER_RATING) if enc_spec else settings.DEFAULT_INCOMER_RATING,
+            "feeders_count": len(cleaned_devices)
+        },
+        enclosure_spec=enc_spec,
+        panel_images=panel_images,
+        cad_file=cad_file_info,
+        quotation_file=quotation_file_info,
+        quotation_rows=conf.get("quotation_rows") or [],
+        technical_proposals=conf.get("technical_proposals") or [],
+        conclusion=conf.get("conclusion"),
+        panel_info=conf.get("panel_info"),
+        panels=conf.get("panels") or [],
+        technical_audit=conf.get("technical_audit"),
+        file_assessment=conf.get("file_assessment") or {},
+        files_assessment=conf.get("files_assessment") or [],
+        overall_assessment=conf.get("overall_assessment") or {},
+        execution_logs=conf.get("execution_logs") or [],
+        process_steps=conf.get("process_steps") or [],
+        physical_layout=conf.get("physical_layout"),
+        layout_conflicts=conf.get("layout_conflicts") or [],
+        analysis_mode=conf.get("analysis_mode", "sld_takeoff"),
+        log_version=conf.get("log_version", 2),
+    )
+
+
 @router.post("/start", response_model=AnalysisResultSchema)
 async def start_analysis(
     request: AnalyzeStartRequest,
@@ -57,16 +149,22 @@ async def start_analysis(
     Sử dụng pipeline dịch vụ AnalysisPipelineService kết hợp tra cứu Catalog thực tế.
     """
     # 1. Tìm thông tin project và các file đính kèm
-    proj_stmt = select(Project).where(Project.id == request.project_id)
+    proj_stmt = select(Project).where(
+        Project.id == request.project_id,
+        Project.user_id == current_user.id,
+    )
     proj_res = await db.execute(proj_stmt)
     project = proj_res.scalar_one_or_none()
     if not project:
         raise HTTPException(status_code=404, detail="Dự án không tồn tại")
 
-    # Phân loại danh sách file bóc tách:
-    # CHỈ nạp file nguồn import, TUYỆT ĐỐI KHÔNG nạp các file CAD đã bóc (is_generated=True, BanVe_%, PhacThao_%)
+    # Nạp tệp theo phạm vi người dùng chọn. Pipeline giữ mọi tệp làm ngữ cảnh
+    # và ngăn artifact sinh tự động quay lại BOM.
     if request.file_id:
-        target_stmt = select(ProjectFile).where(ProjectFile.id == request.file_id)
+        target_stmt = select(ProjectFile).where(
+            ProjectFile.id == request.file_id,
+            ProjectFile.project_id == request.project_id,
+        )
         target_res = await db.execute(target_stmt)
         target_file = target_res.scalar_one_or_none()
         
@@ -76,10 +174,7 @@ async def start_analysis(
             (target_file.filename and target_file.filename.startswith(("BanVe_", "PhacThao_")) and target_file.filename.lower().endswith((".dxf", ".dwg")))
         ):
             source_stmt = select(ProjectFile).where(
-                ProjectFile.project_id == request.project_id,
-                (ProjectFile.is_generated == False) | (ProjectFile.is_generated == None),
-                ~ProjectFile.filename.like("BanVe_%"),
-                ~ProjectFile.filename.like("PhacThao_%")
+                ProjectFile.project_id == request.project_id
             )
             source_res = await db.execute(source_stmt)
             project_files = source_res.scalars().all()
@@ -88,12 +183,10 @@ async def start_analysis(
         else:
             project_files = [target_file] if target_file else []
     else:
-        # Bóc tách toàn bộ file nguồn import của dự án
+        # Giữ toàn bộ tệp dự án làm ngữ cảnh; pipeline tự quyết định tệp nào là
+        # nguồn BOM và tệp nào là tài liệu tham chiếu.
         files_stmt = select(ProjectFile).where(
-            ProjectFile.project_id == request.project_id,
-            (ProjectFile.is_generated == False) | (ProjectFile.is_generated == None),
-            ~ProjectFile.filename.like("BanVe_%"),
-            ~ProjectFile.filename.like("PhacThao_%")
+            ProjectFile.project_id == request.project_id
         )
         files_res = await db.execute(files_stmt)
         project_files = files_res.scalars().all()
@@ -203,35 +296,17 @@ async def start_analysis(
     db.add(project)
     db.add(iteration)
     await db.commit()
+    await db.refresh(iteration)
 
-    # 6. Trong quá trình bóc tách: KHÔNG tạo file CAD và KHÔNG tạo file báo giá
-    cad_file_info = None
-    quotation_file_info = None
-
-    return AnalysisResultSchema(
+    return _build_analysis_result_schema(
         session_id=active_session.id,
         iteration_number=active_session.total_iterations,
-        devices=extracted_devices,
-        warnings=warnings,
-        topology_preview={"incomer_a": enclosure_spec.get("incomer_rating", settings.DEFAULT_INCOMER_RATING) if enclosure_spec else settings.DEFAULT_INCOMER_RATING, "feeders_count": len(extracted_devices)},
+        raw_devices=extracted_devices,
+        conf_scores=pipeline_result,
+        iteration_id=iteration.id,
+        cad_file_info=None,
+        quotation_file_info=None,
         enclosure_spec=enclosure_spec,
-        cad_file=cad_file_info,
-        quotation_file=quotation_file_info,
-        quotation_rows=quotation_rows,
-        technical_proposals=pipeline_result.get("technical_proposals", []),
-        conclusion=pipeline_result.get("conclusion"),
-        panel_info=pipeline_result.get("panel_info"),
-        panels=pipeline_result.get("panels"),
-        technical_audit=pipeline_result.get("technical_audit"),
-        file_assessment=pipeline_result.get("file_assessment"),
-        files_assessment=pipeline_result.get("files_assessment"),
-        overall_assessment=pipeline_result.get("overall_assessment"),
-        execution_logs=pipeline_result.get("execution_logs"),
-        process_steps=pipeline_result.get("process_steps"),
-        physical_layout=pipeline_result.get("physical_layout"),
-        layout_conflicts=pipeline_result.get("layout_conflicts"),
-        analysis_mode=pipeline_result.get("analysis_mode", "sld_takeoff"),
-        log_version=pipeline_result.get("log_version", 2),
     )
 
 
@@ -246,26 +321,21 @@ async def stream_analysis(
     Phát trực tiếp tiến trình từng trang, các sự kiện log thực tế và danh sách thiết bị
     ngay khi mỗi trang phân tích hoàn tất (không bắt người dùng chờ hết toàn bộ tệp).
     """
-    proj_stmt = select(Project).where(Project.id == request.project_id)
+    proj_stmt = select(Project).where(Project.id == request.project_id, Project.user_id == current_user.id)
     proj_res = await db.execute(proj_stmt)
     project = proj_res.scalar_one_or_none()
     if not project:
         raise HTTPException(status_code=404, detail="Dự án không tồn tại")
 
     if request.file_id:
-        target_stmt = select(ProjectFile).where(ProjectFile.id == request.file_id)
+        target_stmt = select(ProjectFile).where(ProjectFile.id == request.file_id, ProjectFile.project_id == request.project_id)
         target_res = await db.execute(target_stmt)
         target_file = target_res.scalar_one_or_none()
         if target_file and (
             getattr(target_file, "is_generated", False) or 
             (target_file.filename and target_file.filename.startswith(("BanVe_", "PhacThao_")) and target_file.filename.lower().endswith((".dxf", ".dwg")))
         ):
-            source_stmt = select(ProjectFile).where(
-                ProjectFile.project_id == request.project_id,
-                (ProjectFile.is_generated == False) | (ProjectFile.is_generated == None),
-                ~ProjectFile.filename.like("BanVe_%"),
-                ~ProjectFile.filename.like("PhacThao_%")
-            )
+            source_stmt = select(ProjectFile).where(ProjectFile.project_id == request.project_id)
             source_res = await db.execute(source_stmt)
             project_files = source_res.scalars().all()
             if not project_files:
@@ -273,12 +343,7 @@ async def stream_analysis(
         else:
             project_files = [target_file] if target_file else []
     else:
-        files_stmt = select(ProjectFile).where(
-            ProjectFile.project_id == request.project_id,
-            (ProjectFile.is_generated == False) | (ProjectFile.is_generated == None),
-            ~ProjectFile.filename.like("BanVe_%"),
-            ~ProjectFile.filename.like("PhacThao_%")
-        )
+        files_stmt = select(ProjectFile).where(ProjectFile.project_id == request.project_id)
         files_res = await db.execute(files_stmt)
         project_files = files_res.scalars().all()
         if not project_files:
@@ -479,7 +544,7 @@ async def generate_quotation_and_cad(
     2. Dựng bản vẽ AutoCAD DXF 4 hình chiếu và lưu vào tệp dự án (ProjectFile).
     3. Lập bảng báo giá chi tiết hoàn chỉnh.
     """
-    proj_stmt = select(Project).where(Project.id == payload.project_id)
+    proj_stmt = select(Project).where(Project.id == payload.project_id, Project.user_id == current_user.id)
     proj_res = await db.execute(proj_stmt)
     project = proj_res.scalar_one_or_none()
     if not project:
@@ -550,26 +615,6 @@ async def get_latest_project_analysis(
     if not latest_iter:
         latest_iter = all_iters[0]
 
-    raw_devs = latest_iter.ai_parsed_devices or []
-    devices = []
-    standard_brands = []
-    for d in raw_devs:
-        payload = dict(d)
-        payload.setdefault("category", "Thiết bị")
-        payload.setdefault("name", "Thiết bị")
-        payload.setdefault("spec", "")
-        payload.setdefault("quantity", 1)
-        payload.setdefault("confidence", 0.95)
-        devices.append(ExtractedDeviceSchema.model_validate(payload))
-
-    conf_scores = latest_iter.confidence_scores or {}
-    warnings = conf_scores.get("warnings", [])
-    quotation_rows = conf_scores.get("quotation_rows")
-    conclusion = conf_scores.get("conclusion")
-    panel_info = conf_scores.get("panel_info")
-
-    enclosure_spec = conf_scores.get("enclosure_spec") or EnclosureCadGeneratorService.calculate_enclosure_specs([d.model_dump() for d in devices])
-
     existing_cad_stmt = select(ProjectFile).where(
         ProjectFile.project_id == project_id,
         (ProjectFile.filename.like("BanVe_%") | ProjectFile.filename.like("PhacThao_%"))
@@ -583,32 +628,13 @@ async def get_latest_project_analysis(
         "file_size": cad_file.file_size
     } if cad_file else None
 
-    # Không tải file xlsx rác (dữ liệu báo giá lấy từ database)
-    quotation_file_info = None
-
-    return AnalysisResultSchema(
+    return _build_analysis_result_schema(
         session_id=session.id,
         iteration_number=latest_iter.iteration_number,
-        devices=devices,
-        warnings=warnings,
-        topology_preview={"incomer_a": enclosure_spec.get("incomer_rating", settings.DEFAULT_INCOMER_RATING), "feeders_count": len(devices)},
-        enclosure_spec=enclosure_spec,
-        cad_file=cad_file_info,
-        quotation_file=quotation_file_info,
-        quotation_rows=quotation_rows,
-        conclusion=conclusion,
-        panel_info=panel_info,
-        panels=conf_scores.get("panels"),
-        technical_audit=conf_scores.get("technical_audit"),
-        file_assessment=conf_scores.get("file_assessment"),
-        files_assessment=conf_scores.get("files_assessment"),
-        overall_assessment=conf_scores.get("overall_assessment"),
-        execution_logs=conf_scores.get("execution_logs"),
-        process_steps=conf_scores.get("process_steps"),
-        physical_layout=conf_scores.get("physical_layout"),
-        layout_conflicts=conf_scores.get("layout_conflicts"),
-        analysis_mode=conf_scores.get("analysis_mode", "sld_takeoff"),
-        log_version=conf_scores.get("log_version", 1),
+        raw_devices=latest_iter.ai_parsed_devices or [],
+        conf_scores=latest_iter.confidence_scores or {},
+        iteration_id=latest_iter.id,
+        cad_file_info=cad_file_info,
     )
 
 
@@ -635,42 +661,17 @@ async def refine_analysis(
     iter_res = await db.execute(iter_stmt)
     latest_iter = iter_res.scalars().first()
 
-    raw_devs = (latest_iter.ai_parsed_devices or []) if latest_iter else []
-    devices = []
-    for d in raw_devs:
-        payload = dict(d)
-        payload.setdefault("category", "Thiết bị")
-        payload.setdefault("name", "Thiết bị")
-        payload.setdefault("spec", "")
-        payload.setdefault("quantity", 1)
-        payload.setdefault("confidence", settings.DEFAULT_CONFIDENCE)
-        devices.append(ExtractedDeviceSchema.model_validate(payload))
-
-    conf_scores = (latest_iter.confidence_scores or {}) if latest_iter else {}
-    enclosure_spec = conf_scores.get("enclosure_spec") or EnclosureCadGeneratorService.calculate_enclosure_specs([d.model_dump() for d in devices])
-
     session.total_iterations += 1
     await db.commit()
 
-    return AnalysisResultSchema(
+    return _build_analysis_result_schema(
         session_id=request.session_id,
         iteration_number=session.total_iterations,
-        devices=devices,
-        warnings=conf_scores.get("warnings", ["Đã tải lại kết quả bóc tách từ phiên trước."]),
-        topology_preview={"incomer_a": enclosure_spec.get("incomer_rating", settings.DEFAULT_INCOMER_RATING), "feeders_count": len(devices)},
-        enclosure_spec=enclosure_spec,
-        cad_file=None,
-        quotation_file=None,
-        quotation_rows=conf_scores.get("quotation_rows"),
-        conclusion=conf_scores.get("conclusion"),
-        panel_info=conf_scores.get("panel_info"),
-        panels=conf_scores.get("panels"),
-        technical_audit=conf_scores.get("technical_audit"),
-        file_assessment=conf_scores.get("file_assessment"),
-        files_assessment=conf_scores.get("files_assessment"),
-        overall_assessment=conf_scores.get("overall_assessment"),
-        physical_layout=conf_scores.get("physical_layout"),
-        layout_conflicts=conf_scores.get("layout_conflicts")
+        raw_devices=raw_devs,
+        conf_scores=conf_scores,
+        iteration_id=latest_iter.id if latest_iter else None,
+        cad_file_info=None,
+        quotation_file_info=None,
     )
 
 
@@ -770,25 +771,6 @@ async def get_iteration_analysis(
     if not session:
         raise HTTPException(status_code=404, detail="Session không tồn tại")
 
-    raw_devs = it.ai_parsed_devices or []
-    devices = []
-    for d in raw_devs:
-        payload = dict(d)
-        payload.setdefault("category", "Thiết bị")
-        payload.setdefault("name", "Thiết bị")
-        payload.setdefault("spec", "")
-        payload.setdefault("quantity", 1)
-        payload.setdefault("confidence", 0.95)
-        devices.append(ExtractedDeviceSchema.model_validate(payload))
-
-    conf_scores = it.confidence_scores or {}
-    warnings = conf_scores.get("warnings", [])
-    quotation_rows = conf_scores.get("quotation_rows")
-    conclusion = conf_scores.get("conclusion")
-    panel_info = conf_scores.get("panel_info")
-
-    enclosure_spec = conf_scores.get("enclosure_spec") or EnclosureCadGeneratorService.calculate_enclosure_specs([d.model_dump() for d in devices])
-
     existing_cad_stmt = select(ProjectFile).where(
         ProjectFile.project_id == session.project_id,
         (ProjectFile.filename.like("BanVe_%") | ProjectFile.filename.like("PhacThao_%"))
@@ -802,29 +784,13 @@ async def get_iteration_analysis(
         "file_size": cad_file.file_size
     } if cad_file else None
 
-    return AnalysisResultSchema(
+    return _build_analysis_result_schema(
         session_id=session.id,
         iteration_number=it.iteration_number,
-        devices=devices,
-        warnings=warnings,
-        topology_preview={"incomer_a": enclosure_spec.get("incomer_rating", settings.DEFAULT_INCOMER_RATING), "feeders_count": len(devices)},
-        enclosure_spec=enclosure_spec,
-        cad_file=cad_file_info,
-        quotation_file=None,
-        quotation_rows=quotation_rows,
-        conclusion=conclusion,
-        panel_info=panel_info,
-        panels=conf_scores.get("panels"),
-        technical_audit=conf_scores.get("technical_audit"),
-        file_assessment=conf_scores.get("file_assessment"),
-        files_assessment=conf_scores.get("files_assessment"),
-        overall_assessment=conf_scores.get("overall_assessment"),
-        execution_logs=conf_scores.get("execution_logs"),
-        process_steps=conf_scores.get("process_steps"),
-        physical_layout=conf_scores.get("physical_layout"),
-        layout_conflicts=conf_scores.get("layout_conflicts"),
-        analysis_mode=conf_scores.get("analysis_mode", "sld_takeoff"),
-        log_version=conf_scores.get("log_version", 2),
+        raw_devices=it.ai_parsed_devices or [],
+        conf_scores=it.confidence_scores or {},
+        iteration_id=it.id,
+        cad_file_info=cad_file_info,
     )
 
 
@@ -945,7 +911,7 @@ async def analyze_prompt(
     from datetime import datetime, timezone
     from app.services.device_catalog_engine import BRAND_SYNONYMS
 
-    proj_stmt = select(Project).where(Project.id == request.project_id)
+    proj_stmt = select(Project).where(Project.id == request.project_id, Project.user_id == current_user.id)
     proj_res = await db.execute(proj_stmt)
     project = proj_res.scalar_one_or_none()
     if not project:
@@ -1239,9 +1205,11 @@ async def analyze_prompt(
     db.add(project)
     db.add(iteration)
     await db.commit()
+    await db.refresh(iteration)
 
     return AnalysisResultSchema(
         session_id=active_session.id,
+        iteration_id=iteration.id,
         iteration_number=active_session.total_iterations,
         devices=devices,
         warnings=[success_msg],
@@ -1279,7 +1247,7 @@ async def start_analysis_async(
     Đẩy tác vụ bóc tách dự án vào hàng đợi Celery chạy nền qua Redis.
     Trả về ngay task_id để client theo dõi tiến độ thời gian thực (% tiến độ).
     """
-    proj_stmt = select(Project).where(Project.id == request.project_id)
+    proj_stmt = select(Project).where(Project.id == request.project_id, Project.user_id == current_user.id)
     proj_res = await db.execute(proj_stmt)
     project = proj_res.scalar_one_or_none()
     if not project:

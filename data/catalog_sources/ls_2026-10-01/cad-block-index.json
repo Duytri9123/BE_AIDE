@@ -1,0 +1,1809 @@
+{
+  "format_version": 1,
+  "library_file": "catalog_sources/ls_2026-10-01/LS-device-library.dwg",
+  "source_dxf_version": "AC1032",
+  "units": 4,
+  "block_count": 150,
+  "blocks": [
+    {
+      "name": "MC 185a",
+      "entity_count": 350,
+      "bounds": {
+        "min_x": 3130.9768,
+        "min_y": 458.1852,
+        "max_x": 3268.5,
+        "max_y": 661.0757,
+        "width": 137.5232,
+        "height": 202.8905
+      }
+    },
+    {
+      "name": "CC MC185a",
+      "entity_count": 214,
+      "bounds": {
+        "min_x": 3310.111,
+        "min_y": 458.1852,
+        "max_x": 3496.001,
+        "max_y": 661.0799,
+        "width": 185.89,
+        "height": 202.8947
+      }
+    },
+    {
+      "name": "MC 265a",
+      "entity_count": 446,
+      "bounds": {
+        "min_x": 3602.8374,
+        "min_y": 411.6852,
+        "max_x": 3765.6325,
+        "max_y": 654.5361,
+        "width": 162.7951,
+        "height": 242.8509
+      }
+    },
+    {
+      "name": "CC MC 265a",
+      "entity_count": 217,
+      "bounds": {
+        "min_x": 3817.4131,
+        "min_y": 411.6852,
+        "max_x": 4021.5,
+        "max_y": 654.6852,
+        "width": 204.0869,
+        "height": 243.0
+      }
+    },
+    {
+      "name": "MC 500a",
+      "entity_count": 292,
+      "bounds": {
+        "min_x": 4156.1379,
+        "min_y": 374.3362,
+        "max_x": 4441.5776,
+        "max_y": 686.0,
+        "width": 285.4397,
+        "height": 311.6638
+      }
+    },
+    {
+      "name": "CC MC 500a",
+      "entity_count": 131,
+      "bounds": {
+        "min_x": 4533.7336,
+        "min_y": 375.5,
+        "max_x": 4779.2103,
+        "max_y": 687.1355,
+        "width": 245.4766,
+        "height": 311.6355
+      }
+    },
+    {
+      "name": "MT-63",
+      "entity_count": 2764,
+      "bounds": {
+        "min_x": -0.3,
+        "min_y": -0.0,
+        "max_x": 54.7,
+        "max_y": 80.6,
+        "width": 55.0,
+        "height": 80.6
+      }
+    },
+    {
+      "name": "mt12",
+      "entity_count": 957,
+      "bounds": {
+        "min_x": 18.4018,
+        "min_y": 881.1548,
+        "max_x": 63.7018,
+        "max_y": 954.3048,
+        "width": 45.3,
+        "height": 73.15
+      }
+    },
+    {
+      "name": "cc mt12",
+      "entity_count": 132,
+      "bounds": {
+        "min_x": 74.5969,
+        "min_y": 881.1548,
+        "max_x": 138.5538,
+        "max_y": 953.8237,
+        "width": 63.9569,
+        "height": 72.6689
+      }
+    },
+    {
+      "name": "CB LS 30AF 2P",
+      "entity_count": 53,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -130.0,
+        "max_x": 50.0,
+        "max_y": 0.0,
+        "width": 50.0,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "CB LS 30AF 3P",
+      "entity_count": 70,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -130.0,
+        "max_x": 75.0,
+        "max_y": 0.0,
+        "width": 75.0,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "MCCB LS 30AF 4P",
+      "entity_count": 94,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -130.0,
+        "max_x": 100.0,
+        "max_y": 0.0,
+        "width": 100.0,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "LS 30AF 2P",
+      "entity_count": 12,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -130.0,
+        "max_x": 50.0,
+        "max_y": 0.0,
+        "width": 50.0,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "LS 30AF 3P",
+      "entity_count": 18,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -130.0,
+        "max_x": 75.0,
+        "max_y": 0.0,
+        "width": 75.0,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "LS 30AF 4P",
+      "entity_count": 22,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -130.0,
+        "max_x": 100.0,
+        "max_y": 0.0,
+        "width": 100.0,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "LS 50AF 2P",
+      "entity_count": 12,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -130.0,
+        "max_x": 50.0,
+        "max_y": 0.0,
+        "width": 50.0,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "LS 50AF 3P",
+      "entity_count": 18,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -130.0,
+        "max_x": 75.0,
+        "max_y": 0.0,
+        "width": 75.0,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "LS 50AF 4P",
+      "entity_count": 22,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -130.0,
+        "max_x": 100.0,
+        "max_y": 0.0,
+        "width": 100.0,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "LS 60AF 2P",
+      "entity_count": 12,
+      "bounds": {
+        "min_x": -5640.648,
+        "min_y": 3710.2881,
+        "max_x": -5590.648,
+        "max_y": 3840.2881,
+        "width": 50.0,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "LS 100AF 2P",
+      "entity_count": 12,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -130.0,
+        "max_x": 50.0,
+        "max_y": 0.0,
+        "width": 50.0,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "LS 60AF 3P",
+      "entity_count": 18,
+      "bounds": {
+        "min_x": -5640.648,
+        "min_y": 3546.2013,
+        "max_x": -5565.648,
+        "max_y": 3676.2013,
+        "width": 75.0,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "LS 100AF 3P",
+      "entity_count": 18,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -130.0,
+        "max_x": 75.0,
+        "max_y": 0.0,
+        "width": 75.0,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "LS 60AF 4P",
+      "entity_count": 22,
+      "bounds": {
+        "min_x": -5640.648,
+        "min_y": 3342.6477,
+        "max_x": -5540.648,
+        "max_y": 3472.6477,
+        "width": 100.0,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "LS 100AF 4P",
+      "entity_count": 22,
+      "bounds": {
+        "min_x": -5136.9142,
+        "min_y": 3342.6477,
+        "max_x": -5036.9142,
+        "max_y": 3472.6477,
+        "width": 100.0,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "1 AF125 2P",
+      "entity_count": 78,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -155.0,
+        "max_x": 60.0,
+        "max_y": 0.0,
+        "width": 60.0,
+        "height": 155.0
+      }
+    },
+    {
+      "name": "1 AF125 3P",
+      "entity_count": 90,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -155.0,
+        "max_x": 90.0,
+        "max_y": 0.0,
+        "width": 90.0,
+        "height": 155.0
+      }
+    },
+    {
+      "name": "1 AF125 4P",
+      "entity_count": 116,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -155.0,
+        "max_x": 120.0,
+        "max_y": 0.0,
+        "width": 120.0,
+        "height": 155.0
+      }
+    },
+    {
+      "name": "LS 125AF 2P",
+      "entity_count": 13,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -155.0,
+        "max_x": 60.0,
+        "max_y": 0.0,
+        "width": 60.0,
+        "height": 155.0
+      }
+    },
+    {
+      "name": "LS 125AF 3P",
+      "entity_count": 18,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -155.0,
+        "max_x": 90.0,
+        "max_y": 0.0,
+        "width": 90.0,
+        "height": 155.0
+      }
+    },
+    {
+      "name": "LS 125AF 4P",
+      "entity_count": 22,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -155.0,
+        "max_x": 120.0,
+        "max_y": 0.0,
+        "width": 120.0,
+        "height": 155.0
+      }
+    },
+    {
+      "name": "LS ABH52C 2P",
+      "entity_count": 12,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -155.0,
+        "max_x": 60.0,
+        "max_y": 0.0,
+        "width": 60.0,
+        "height": 155.0
+      }
+    },
+    {
+      "name": "LS ABH53C 3P",
+      "entity_count": 18,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -155.0,
+        "max_x": 90.0,
+        "max_y": 0.0,
+        "width": 90.0,
+        "height": 155.0
+      }
+    },
+    {
+      "name": "LS ABH54C 4P",
+      "entity_count": 22,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -155.0,
+        "max_x": 120.0,
+        "max_y": 0.0,
+        "width": 120.0,
+        "height": 155.0
+      }
+    },
+    {
+      "name": "1 LS 250AF 2P",
+      "entity_count": 88,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -165.0,
+        "max_x": 105.0,
+        "max_y": 0.0,
+        "width": 105.0,
+        "height": 165.0
+      }
+    },
+    {
+      "name": "1 LS 250AF 3P",
+      "entity_count": 93,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -165.0,
+        "max_x": 105.0,
+        "max_y": 0.0,
+        "width": 105.0,
+        "height": 165.0
+      }
+    },
+    {
+      "name": "1 LS 250AF 4P",
+      "entity_count": 115,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -165.0,
+        "max_x": 140.0,
+        "max_y": 0.0,
+        "width": 140.0,
+        "height": 165.0
+      }
+    },
+    {
+      "name": "LS 250AF 2P",
+      "entity_count": 14,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -165.0,
+        "max_x": 105.0,
+        "max_y": 0.0,
+        "width": 105.0,
+        "height": 165.0
+      }
+    },
+    {
+      "name": "LS 250AF 3P",
+      "entity_count": 18,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -165.0,
+        "max_x": 105.0,
+        "max_y": 0.0,
+        "width": 105.0,
+        "height": 165.0
+      }
+    },
+    {
+      "name": "LS 250AF 4P",
+      "entity_count": 24,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -165.0,
+        "max_x": 140.0,
+        "max_y": 0.0,
+        "width": 140.0,
+        "height": 165.0
+      }
+    },
+    {
+      "name": "1 400AF 2P",
+      "entity_count": 78,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -257.0,
+        "max_x": 140.0,
+        "max_y": 0.0,
+        "width": 140.0,
+        "height": 257.0
+      }
+    },
+    {
+      "name": "1 400AF 3P",
+      "entity_count": 88,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -257.0,
+        "max_x": 140.0,
+        "max_y": 0.0,
+        "width": 140.0,
+        "height": 257.0
+      }
+    },
+    {
+      "name": "1 400AF 4P",
+      "entity_count": 114,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -257.0,
+        "max_x": 184.0,
+        "max_y": 0.0,
+        "width": 184.0,
+        "height": 257.0
+      }
+    },
+    {
+      "name": "LS 400AF 2P",
+      "entity_count": 18,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -257.0,
+        "max_x": 140.0,
+        "max_y": 0.0,
+        "width": 140.0,
+        "height": 257.0
+      }
+    },
+    {
+      "name": "LS 400AF 3P",
+      "entity_count": 18,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -257.0,
+        "max_x": 140.0,
+        "max_y": 0.0,
+        "width": 140.0,
+        "height": 257.0
+      }
+    },
+    {
+      "name": "LS 400AF 4P",
+      "entity_count": 24,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -257.0,
+        "max_x": 184.0,
+        "max_y": 0.0,
+        "width": 184.0,
+        "height": 257.0
+      }
+    },
+    {
+      "name": "1 LS 800 AF 2P",
+      "entity_count": 81,
+      "bounds": {
+        "min_x": 0.625,
+        "min_y": -280.0,
+        "max_x": 210.625,
+        "max_y": 0.0,
+        "width": 210.0,
+        "height": 280.0
+      }
+    },
+    {
+      "name": "1 LS 800 AF 3P",
+      "entity_count": 85,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -280.0,
+        "max_x": 210.0,
+        "max_y": 0.0,
+        "width": 210.0,
+        "height": 280.0
+      }
+    },
+    {
+      "name": "1 LS 800 AF 4P",
+      "entity_count": 114,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -280.0,
+        "max_x": 280.0,
+        "max_y": 0.0,
+        "width": 280.0,
+        "height": 280.0
+      }
+    },
+    {
+      "name": "LS 800AF 2P",
+      "entity_count": 16,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -280.0,
+        "max_x": 210.0,
+        "max_y": 0.0,
+        "width": 210.0,
+        "height": 280.0
+      }
+    },
+    {
+      "name": "LS 800AF 3P",
+      "entity_count": 18,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -280.0,
+        "max_x": 210.0,
+        "max_y": 0.0,
+        "width": 210.0,
+        "height": 280.0
+      }
+    },
+    {
+      "name": "LS 800AF 4P",
+      "entity_count": 24,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -280.0,
+        "max_x": 280.0,
+        "max_y": 0.0,
+        "width": 280.0,
+        "height": 280.0
+      }
+    },
+    {
+      "name": "1 1000-1200AF 3P",
+      "entity_count": 51,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -490.0379,
+        "max_x": 220.1766,
+        "max_y": 89.9643,
+        "width": 220.1766,
+        "height": 580.0021
+      }
+    },
+    {
+      "name": "1 1000-1200AF 4P",
+      "entity_count": 61,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -490.0379,
+        "max_x": 290.0,
+        "max_y": 89.9643,
+        "width": 290.0,
+        "height": 580.0021
+      }
+    },
+    {
+      "name": "HCC1 1000-1200AF",
+      "entity_count": 45,
+      "bounds": {
+        "min_x": -126.5656,
+        "min_y": -490.0072,
+        "max_x": 102.4297,
+        "max_y": 89.9949,
+        "width": 228.9953,
+        "height": 580.0021
+      }
+    },
+    {
+      "name": "HCC2 1000-1200AF",
+      "entity_count": 45,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -490.0072,
+        "max_x": 228.9953,
+        "max_y": 89.9949,
+        "width": 228.9953,
+        "height": 580.0021
+      }
+    },
+    {
+      "name": "LS 1000-1200AF 3P",
+      "entity_count": 36,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -490.0379,
+        "max_x": 220.1766,
+        "max_y": 89.9643,
+        "width": 220.1766,
+        "height": 580.0021
+      }
+    },
+    {
+      "name": "LS 1000-1200AF 4P",
+      "entity_count": 45,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -490.0379,
+        "max_x": 290.0,
+        "max_y": 89.9643,
+        "width": 290.0,
+        "height": 580.0021
+      }
+    },
+    {
+      "name": "ABE203",
+      "entity_count": 112,
+      "bounds": {
+        "min_x": 3743.7577,
+        "min_y": -3200.0312,
+        "max_x": 3848.7577,
+        "max_y": -3035.0312,
+        "width": 105.0,
+        "height": 165.0
+      }
+    },
+    {
+      "name": "HCC1 LS 30AF",
+      "entity_count": 150,
+      "bounds": {
+        "min_x": -27.6966,
+        "min_y": -130.0,
+        "max_x": 58.0,
+        "max_y": 0.0,
+        "width": 85.6966,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "HCC2 LS 30AF",
+      "entity_count": 150,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -130.0,
+        "max_x": 85.6966,
+        "max_y": 0.0,
+        "width": 85.6966,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "HCC1 LS 50AF",
+      "entity_count": 150,
+      "bounds": {
+        "min_x": -27.6966,
+        "min_y": -130.0,
+        "max_x": 58.0,
+        "max_y": 0.0,
+        "width": 85.6966,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "HCC2 LS 50AF",
+      "entity_count": 150,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -130.0,
+        "max_x": 85.6966,
+        "max_y": 0.0,
+        "width": 85.6966,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "HCC1 LS ABH50AF",
+      "entity_count": 208,
+      "bounds": {
+        "min_x": -85.6966,
+        "min_y": -155.0,
+        "max_x": 0.0,
+        "max_y": 0.0,
+        "width": 85.6966,
+        "height": 155.0
+      }
+    },
+    {
+      "name": "HCC2 LS ABH50AF",
+      "entity_count": 208,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -155.0,
+        "max_x": 85.6966,
+        "max_y": 0.0,
+        "width": 85.6966,
+        "height": 155.0
+      }
+    },
+    {
+      "name": "HCC1 LS 60AF",
+      "entity_count": 150,
+      "bounds": {
+        "min_x": -27.6966,
+        "min_y": -130.0,
+        "max_x": 58.0,
+        "max_y": 0.0,
+        "width": 85.6966,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "HCC2 LS 60AF",
+      "entity_count": 150,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -130.0,
+        "max_x": 85.6966,
+        "max_y": 0.0,
+        "width": 85.6966,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "HCC1 LS 100AF",
+      "entity_count": 150,
+      "bounds": {
+        "min_x": -27.6966,
+        "min_y": -130.0,
+        "max_x": 58.0,
+        "max_y": 0.0,
+        "width": 85.6966,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "HCC2 LS 100AF",
+      "entity_count": 150,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -130.0,
+        "max_x": 85.6966,
+        "max_y": 0.0,
+        "width": 85.6966,
+        "height": 130.0
+      }
+    },
+    {
+      "name": "HCC1 LS 125AF",
+      "entity_count": 208,
+      "bounds": {
+        "min_x": -85.6966,
+        "min_y": -155.0,
+        "max_x": 0.0,
+        "max_y": 0.0,
+        "width": 85.6966,
+        "height": 155.0
+      }
+    },
+    {
+      "name": "HCC2 LS 125AF",
+      "entity_count": 208,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -155.0,
+        "max_x": 85.6966,
+        "max_y": 0.0,
+        "width": 85.6966,
+        "height": 155.0
+      }
+    },
+    {
+      "name": "HCC1 LS 250AF",
+      "entity_count": 152,
+      "bounds": {
+        "min_x": -86.8466,
+        "min_y": -165.0,
+        "max_x": 0.0,
+        "max_y": 0.0,
+        "width": 86.8466,
+        "height": 165.0
+      }
+    },
+    {
+      "name": "HCC2 LS 250AF",
+      "entity_count": 152,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -165.0,
+        "max_x": 86.8466,
+        "max_y": 0.0,
+        "width": 86.8466,
+        "height": 165.0
+      }
+    },
+    {
+      "name": "HCC1 LS 400AF",
+      "entity_count": 73,
+      "bounds": {
+        "min_x": -50.0,
+        "min_y": -257.0,
+        "max_x": 95.0,
+        "max_y": 0.0,
+        "width": 145.0,
+        "height": 257.0
+      }
+    },
+    {
+      "name": "HCC2 LS 400AF",
+      "entity_count": 73,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -257.0,
+        "max_x": 145.0,
+        "max_y": 0.0,
+        "width": 145.0,
+        "height": 257.0
+      }
+    },
+    {
+      "name": "HCC1 LS 800AF",
+      "entity_count": 195,
+      "bounds": {
+        "min_x": -142.0689,
+        "min_y": -277.5,
+        "max_x": 0.0,
+        "max_y": 2.5,
+        "width": 142.0689,
+        "height": 280.0
+      }
+    },
+    {
+      "name": "HCC2 LS 800AF",
+      "entity_count": 195,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -277.5,
+        "max_x": 142.0689,
+        "max_y": 2.5,
+        "width": 142.0689,
+        "height": 280.0
+      }
+    },
+    {
+      "name": "Metasol 100AF",
+      "entity_count": 120,
+      "bounds": {
+        "min_x": -0.0,
+        "min_y": -68.0,
+        "max_x": 100.0,
+        "max_y": 84.8,
+        "width": 100.0,
+        "height": 152.8
+      }
+    },
+    {
+      "name": "Metasol 250AF",
+      "entity_count": 87,
+      "bounds": {
+        "min_x": -2.5,
+        "min_y": -82.5,
+        "max_x": 142.5,
+        "max_y": 84.8,
+        "width": 145.0,
+        "height": 167.3
+      }
+    },
+    {
+      "name": "Metasol 400AF",
+      "entity_count": 87,
+      "bounds": {
+        "min_x": -0.0,
+        "min_y": -170.0,
+        "max_x": 184.0,
+        "max_y": 170.0,
+        "width": 184.0,
+        "height": 340.0
+      }
+    },
+    {
+      "name": "Metasol 800AF",
+      "entity_count": 105,
+      "bounds": {
+        "min_x": -0.0,
+        "min_y": -215.0,
+        "max_x": 280.0,
+        "max_y": 215.0,
+        "width": 280.0,
+        "height": 430.0
+      }
+    },
+    {
+      "name": "Metasol 1000AF ELCB",
+      "entity_count": 120,
+      "bounds": {
+        "min_x": -0.0001,
+        "min_y": -455.0,
+        "max_x": 228.65,
+        "max_y": 290.0,
+        "width": 228.6501,
+        "height": 745.0
+      }
+    },
+    {
+      "name": "Metasol 1000AF MCCB",
+      "entity_count": 114,
+      "bounds": {
+        "min_x": -0.0,
+        "min_y": -290.0,
+        "max_x": 290.0,
+        "max_y": 290.0,
+        "width": 290.0,
+        "height": 580.0
+      }
+    },
+    {
+      "name": "Susol TD100.160",
+      "entity_count": 84,
+      "bounds": {
+        "min_x": -32.5,
+        "min_y": -70.0,
+        "max_x": 197.0,
+        "max_y": 113.0,
+        "width": 229.5,
+        "height": 183.0
+      }
+    },
+    {
+      "name": "Susol TD160",
+      "entity_count": 58,
+      "bounds": {
+        "min_x": -2.5,
+        "min_y": -70.0,
+        "max_x": 107.0,
+        "max_y": 113.0,
+        "width": 109.5,
+        "height": 183.0
+      }
+    },
+    {
+      "name": "Susol TS100.160.250",
+      "entity_count": 82,
+      "bounds": {
+        "min_x": -37.5,
+        "min_y": -80.0,
+        "max_x": 215.0,
+        "max_y": 122.5,
+        "width": 252.5,
+        "height": 202.5
+      }
+    },
+    {
+      "name": "Susol TS400.630",
+      "entity_count": 81,
+      "bounds": {
+        "min_x": -49.0,
+        "min_y": -130.0,
+        "max_x": 297.0,
+        "max_y": 155.5,
+        "width": 346.0,
+        "height": 285.5
+      }
+    },
+    {
+      "name": "Susol TS800",
+      "entity_count": 98,
+      "bounds": {
+        "min_x": -72.5,
+        "min_y": -241.5,
+        "max_x": 408.0,
+        "max_y": 241.5,
+        "width": 480.5,
+        "height": 483.0
+      }
+    },
+    {
+      "name": "rcbo 32KGR",
+      "entity_count": 42,
+      "bounds": {
+        "min_x": -2.5,
+        "min_y": -43.0,
+        "max_x": 86.5,
+        "max_y": 95.0,
+        "width": 89.0,
+        "height": 138.0
+      }
+    },
+    {
+      "name": "rccb BS32",
+      "entity_count": 42,
+      "bounds": {
+        "min_x": -2.5,
+        "min_y": -38.0,
+        "max_x": 59.2,
+        "max_y": 95.0,
+        "width": 61.7,
+        "height": 133.0
+      }
+    },
+    {
+      "name": "Vis MC LS",
+      "entity_count": 8,
+      "bounds": {
+        "min_x": -3.25,
+        "min_y": -3.25,
+        "max_x": 3.25,
+        "max_y": 3.25,
+        "width": 6.5,
+        "height": 6.5
+      }
+    },
+    {
+      "name": "Aux UA-1",
+      "entity_count": 33,
+      "bounds": {
+        "min_x": -0.0,
+        "min_y": -35.5,
+        "max_x": 68.0,
+        "max_y": 35.5,
+        "width": 68.0,
+        "height": 71.0
+      }
+    },
+    {
+      "name": "MC 12AF",
+      "entity_count": 74,
+      "bounds": {
+        "min_x": -0.0002,
+        "min_y": -37.75,
+        "max_x": 79.0,
+        "max_y": 37.85,
+        "width": 79.0002,
+        "height": 75.6
+      }
+    },
+    {
+      "name": "MC 32AF",
+      "entity_count": 70,
+      "bounds": {
+        "min_x": -0.0002,
+        "min_y": -41.5,
+        "max_x": 93.0,
+        "max_y": 41.5,
+        "width": 93.0002,
+        "height": 83.0
+      }
+    },
+    {
+      "name": "MC 63AF",
+      "entity_count": 77,
+      "bounds": {
+        "min_x": -0.0002,
+        "min_y": -53.0,
+        "max_x": 119.0,
+        "max_y": 53.0,
+        "width": 119.0002,
+        "height": 106.0
+      }
+    },
+    {
+      "name": "MC 95AF",
+      "entity_count": 103,
+      "bounds": {
+        "min_x": -0.0002,
+        "min_y": -70.0,
+        "max_x": 135.8,
+        "max_y": 70.0,
+        "width": 135.8002,
+        "height": 140.0
+      }
+    },
+    {
+      "name": "OLR MT-32",
+      "entity_count": 33,
+      "bounds": {
+        "min_x": -0.0,
+        "min_y": -56.4,
+        "max_x": 90.0,
+        "max_y": 18.15,
+        "width": 90.0,
+        "height": 74.55
+      }
+    },
+    {
+      "name": "OLR MT-63",
+      "entity_count": 51,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -59.8,
+        "max_x": 114.5,
+        "max_y": 23.3,
+        "width": 114.5,
+        "height": 83.1
+      }
+    },
+    {
+      "name": "ERYHR REH W4 TS1600AF",
+      "entity_count": 4802,
+      "bounds": {
+        "min_x": 76937.1625,
+        "min_y": 9170.0809,
+        "max_x": 78833.5124,
+        "max_y": 9497.0809,
+        "width": 1896.3499,
+        "height": 327.0
+      }
+    },
+    {
+      "name": "GYER HERH  WRE TS1600AF 4P",
+      "entity_count": 4927,
+      "bounds": {
+        "min_x": 77886.0693,
+        "min_y": 9169.2859,
+        "max_x": 79790.925,
+        "max_y": 9496.2859,
+        "width": 1904.8557,
+        "height": 327.0
+      }
+    },
+    {
+      "name": "Switch Volt Ampe",
+      "entity_count": 99,
+      "bounds": {
+        "min_x": -72.0,
+        "min_y": -32.0,
+        "max_x": 32.0,
+        "max_y": 47.0,
+        "width": 104.0,
+        "height": 79.0
+      }
+    },
+    {
+      "name": "eku10",
+      "entity_count": 3,
+      "bounds": {
+        "min_x": 53930.8528,
+        "min_y": -17418.7243,
+        "max_x": 53938.8528,
+        "max_y": -17401.7243,
+        "width": 8.0,
+        "height": 17.0
+      }
+    },
+    {
+      "name": "EKU 10",
+      "entity_count": 2,
+      "bounds": {
+        "min_x": -6.5367,
+        "min_y": 0.0,
+        "max_x": 6.2503,
+        "max_y": 17.0,
+        "width": 12.787,
+        "height": 17.0
+      }
+    },
+    {
+      "name": "khoét vol",
+      "entity_count": 5,
+      "bounds": {
+        "min_x": -25.25,
+        "min_y": -25.25,
+        "max_x": 25.25,
+        "max_y": 25.25,
+        "width": 50.5,
+        "height": 50.5
+      }
+    },
+    {
+      "name": "CẦU CHÌ",
+      "entity_count": 15985,
+      "bounds": {
+        "min_x": -41.458,
+        "min_y": -4.2526,
+        "max_x": 47.972,
+        "max_y": 79.4816,
+        "width": 89.43,
+        "height": 83.7342
+      }
+    },
+    {
+      "name": "CẦU TIẾP ĐỊA",
+      "entity_count": 1561,
+      "bounds": {
+        "min_x": -74.0,
+        "min_y": -21.0,
+        "max_x": 74.0,
+        "max_y": 15.0,
+        "width": 148.0,
+        "height": 36.0
+      }
+    },
+    {
+      "name": "kt12",
+      "entity_count": 89,
+      "bounds": {
+        "min_x": 11784.8758,
+        "min_y": 13789.5689,
+        "max_x": 16394.8758,
+        "max_y": 16700.9015,
+        "width": 4610.0,
+        "height": 2911.3326
+      }
+    },
+    {
+      "name": "s202",
+      "entity_count": 13,
+      "bounds": {
+        "min_x": 4740.1521,
+        "min_y": 11760.2066,
+        "max_x": 4850.1521,
+        "max_y": 11780.2066,
+        "width": 110.0,
+        "height": 20.0
+      }
+    },
+    {
+      "name": "Hex Head Screw - 10 mm top",
+      "entity_count": 7,
+      "bounds": {
+        "min_x": -7.874,
+        "min_y": -9.0921,
+        "max_x": 7.874,
+        "max_y": 9.0921,
+        "width": 15.748,
+        "height": 18.1842
+      }
+    },
+    {
+      "name": "Su 25",
+      "entity_count": 10,
+      "bounds": {
+        "min_x": -11.343,
+        "min_y": -9.8233,
+        "max_x": 11.343,
+        "max_y": 9.8233,
+        "width": 22.686,
+        "height": 19.6466
+      }
+    },
+    {
+      "name": "KHÓA TAY GẠT TRUNG B",
+      "entity_count": 74,
+      "bounds": {
+        "min_x": 885.6585,
+        "min_y": -1788.6782,
+        "max_x": 2711.4055,
+        "max_y": 1267.6102,
+        "width": 1825.747,
+        "height": 3056.2884
+      }
+    },
+    {
+      "name": "ĐỒNG HỒ SELEC",
+      "entity_count": 1107,
+      "bounds": {
+        "min_x": -1132.1762,
+        "min_y": -99.0,
+        "max_x": 1132.0423,
+        "max_y": 0.0,
+        "width": 2264.2186,
+        "height": 99.0
+      }
+    },
+    {
+      "name": "IDEC Selector Switch",
+      "entity_count": 42,
+      "bounds": {
+        "min_x": -15.0,
+        "min_y": -24.0,
+        "max_x": 15.0,
+        "max_y": 15.0,
+        "width": 30.0,
+        "height": 39.0
+      }
+    },
+    {
+      "name": "_Open30",
+      "entity_count": 3,
+      "bounds": {
+        "min_x": -1.0,
+        "min_y": -0.2679,
+        "max_x": 0.0,
+        "max_y": 0.2679,
+        "width": 1.0,
+        "height": 0.5359
+      }
+    },
+    {
+      "name": "Oval 20x9",
+      "entity_count": 1,
+      "bounds": {
+        "min_x": -10.0,
+        "min_y": -4.5,
+        "max_x": 10.0,
+        "max_y": 4.5,
+        "width": 20.0,
+        "height": 9.0
+      }
+    },
+    {
+      "name": "NXM400S",
+      "entity_count": 1068,
+      "bounds": {
+        "min_x": -74.3337,
+        "min_y": -82.5,
+        "max_x": 133.3665,
+        "max_y": 174.5,
+        "width": 207.7002,
+        "height": 257.0
+      }
+    },
+    {
+      "name": "NXM125S",
+      "entity_count": 1621,
+      "bounds": {
+        "min_x": -41.553,
+        "min_y": -42.0,
+        "max_x": 85.1808,
+        "max_y": 115.8,
+        "width": 126.7338,
+        "height": 157.8
+      }
+    },
+    {
+      "name": "CTS25",
+      "entity_count": 18,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -24.0,
+        "max_x": 12.0,
+        "max_y": 24.0,
+        "width": 12.0,
+        "height": 48.0
+      }
+    },
+    {
+      "name": "TEMINAL 10A",
+      "entity_count": 18,
+      "bounds": {
+        "min_x": 760.3377,
+        "min_y": 194.4867,
+        "max_x": 768.3377,
+        "max_y": 237.4867,
+        "width": 8.0,
+        "height": 43.0
+      }
+    },
+    {
+      "name": "TEMINAL CH",
+      "entity_count": 14,
+      "bounds": {
+        "min_x": 866.4958,
+        "min_y": 192.698,
+        "max_x": 874.4958,
+        "max_y": 237.698,
+        "width": 8.0,
+        "height": 45.0
+      }
+    },
+    {
+      "name": "CTS10",
+      "entity_count": 18,
+      "bounds": {
+        "min_x": -1716.4645,
+        "min_y": 40047.8809,
+        "max_x": -1706.4645,
+        "max_y": 40095.8809,
+        "width": 10.0,
+        "height": 48.0
+      }
+    },
+    {
+      "name": "CÔNG TƠ ĐIỆN TỬ",
+      "entity_count": 2060,
+      "bounds": {
+        "min_x": -4995.8476,
+        "min_y": -166.0,
+        "max_x": 103.2082,
+        "max_y": 89.4135,
+        "width": 5099.0558,
+        "height": 255.4135
+      }
+    },
+    {
+      "name": "TỤ KHÔ 20KVA",
+      "entity_count": 269,
+      "bounds": {
+        "min_x": -42.2898,
+        "min_y": -195.4432,
+        "max_x": 43.7552,
+        "max_y": 79.6496,
+        "width": 86.045,
+        "height": 275.0928
+      }
+    },
+    {
+      "name": "FUSE RT18",
+      "entity_count": 3,
+      "bounds": {
+        "min_x": -41.5,
+        "min_y": -81.0,
+        "max_x": 120.7037,
+        "max_y": 0.0,
+        "width": 162.2037,
+        "height": 81.0
+      }
+    },
+    {
+      "name": "12",
+      "entity_count": 4798,
+      "bounds": {
+        "min_x": 7602.6508,
+        "min_y": -6147.0175,
+        "max_x": 9499.0007,
+        "max_y": -5820.0175,
+        "width": 1896.3499,
+        "height": 327.0
+      }
+    },
+    {
+      "name": "HM10_FACE",
+      "entity_count": 4,
+      "bounds": {
+        "min_x": -9.2376,
+        "min_y": -8.0,
+        "max_x": 9.2376,
+        "max_y": 8.0,
+        "width": 18.4752,
+        "height": 16.0
+      }
+    },
+    {
+      "name": "KDE 800A-1",
+      "entity_count": 34,
+      "bounds": {
+        "min_x": 83031.7217,
+        "min_y": 41839.9432,
+        "max_x": 83111.7217,
+        "max_y": 41926.9432,
+        "width": 80.0,
+        "height": 87.0
+      }
+    },
+    {
+      "name": "KDE 800A-3",
+      "entity_count": 12,
+      "bounds": {
+        "min_x": 83143.2895,
+        "min_y": 41839.9432,
+        "max_x": 83194.2895,
+        "max_y": 41926.9432,
+        "width": 51.0,
+        "height": 87.0
+      }
+    },
+    {
+      "name": "Bảng thông số (Made by Tung)",
+      "entity_count": 22,
+      "bounds": {
+        "min_x": -80.0,
+        "min_y": 0.0,
+        "max_x": 0.0,
+        "max_y": 30.0,
+        "width": 80.0,
+        "height": 30.0
+      }
+    },
+    {
+      "name": "ABN-ABS-400AF-LS",
+      "entity_count": 960,
+      "bounds": {
+        "min_x": 469.9655,
+        "min_y": -3165.2594,
+        "max_x": 686.9655,
+        "max_y": -2498.3676,
+        "width": 217.0,
+        "height": 666.8918
+      }
+    },
+    {
+      "name": "ABN-ABS200AF-LS",
+      "entity_count": 260,
+      "bounds": {
+        "min_x": 329.7851,
+        "min_y": -3273.7845,
+        "max_x": 507.2851,
+        "max_y": -3108.7845,
+        "width": 177.5,
+        "height": 165.0
+      }
+    },
+    {
+      "name": "ABN-ABS-800AF-LS",
+      "entity_count": 963,
+      "bounds": {
+        "min_x": 710.6711,
+        "min_y": -3031.2549,
+        "max_x": 994.6711,
+        "max_y": -2611.2549,
+        "width": 284.0,
+        "height": 420.0
+      }
+    },
+    {
+      "name": "hwLS MCCB_Frame 250A_Metasol",
+      "entity_count": 295,
+      "bounds": {
+        "min_x": -26.85,
+        "min_y": -86.85,
+        "max_x": 140.0,
+        "max_y": 82.5,
+        "width": 166.85,
+        "height": 169.35
+      }
+    },
+    {
+      "name": "hwLS MCCB_Frame 800A_Metasol",
+      "entity_count": 277,
+      "bounds": {
+        "min_x": -36.0,
+        "min_y": -145.0,
+        "max_x": 280.0,
+        "max_y": 140.0,
+        "width": 316.0,
+        "height": 285.0
+      }
+    },
+    {
+      "name": "XANH630",
+      "entity_count": 3,
+      "bounds": {
+        "min_x": 16676.42,
+        "min_y": 3290.9903,
+        "max_x": 16802.42,
+        "max_y": 3422.4903,
+        "width": 126.0,
+        "height": 131.5
+      }
+    },
+    {
+      "name": "CHÔNG SET",
+      "entity_count": 10,
+      "bounds": {
+        "min_x": 24290.4211,
+        "min_y": 2766.7871,
+        "max_x": 24372.4211,
+        "max_y": 2886.7871,
+        "width": 82.0,
+        "height": 120.0
+      }
+    },
+    {
+      "name": "DH_VOLT-AMPE",
+      "entity_count": 58,
+      "bounds": {
+        "min_x": -62.0,
+        "min_y": -48.0,
+        "max_x": 48.0,
+        "max_y": 62.0,
+        "width": 110.0,
+        "height": 110.0
+      }
+    },
+    {
+      "name": "BIẾN DÒNG 300-400A EMIC",
+      "entity_count": 519,
+      "bounds": {
+        "min_x": -94.6997,
+        "min_y": -94.699,
+        "max_x": 158.4996,
+        "max_y": 85.4531,
+        "width": 253.1993,
+        "height": 180.1521
+      }
+    },
+    {
+      "name": "Cos 240-2",
+      "entity_count": 23,
+      "bounds": {
+        "min_x": 93.3444,
+        "min_y": 58.107,
+        "max_x": 121.9444,
+        "max_y": 157.107,
+        "width": 28.6,
+        "height": 99.0
+      }
+    },
+    {
+      "name": "SW_CENTERMARKSYMBOL_10",
+      "entity_count": 8,
+      "bounds": {
+        "min_x": -7.875,
+        "min_y": -7.875,
+        "max_x": 7.875,
+        "max_y": 7.875,
+        "width": 15.75,
+        "height": 15.75
+      }
+    },
+    {
+      "name": "hgm1000-1250",
+      "entity_count": 918,
+      "bounds": {
+        "min_x": 33428.7958,
+        "min_y": 7929.2519,
+        "max_x": 33638.7958,
+        "max_y": 8471.7071,
+        "width": 210.0,
+        "height": 542.4552
+      }
+    },
+    {
+      "name": "canh hgm250",
+      "entity_count": 362,
+      "bounds": {
+        "min_x": 29804.8325,
+        "min_y": 2556.5961,
+        "max_x": 29929.2529,
+        "max_y": 2744.4101,
+        "width": 124.4204,
+        "height": 187.814
+      }
+    },
+    {
+      "name": "250",
+      "entity_count": 2019,
+      "bounds": {
+        "min_x": 30132.0533,
+        "min_y": 2558.3849,
+        "max_x": 30309.1571,
+        "max_y": 2743.8772,
+        "width": 177.1038,
+        "height": 185.4924
+      }
+    },
+    {
+      "name": "hgm1000-1250-l",
+      "entity_count": 244,
+      "bounds": {
+        "min_x": 33853.8901,
+        "min_y": 7929.2519,
+        "max_x": 34167.7886,
+        "max_y": 8454.5019,
+        "width": 313.8985,
+        "height": 525.25
+      }
+    },
+    {
+      "name": "10d3.1",
+      "entity_count": 18,
+      "bounds": {
+        "min_x": 22121.4382,
+        "min_y": 2556.6008,
+        "max_x": 22341.4382,
+        "max_y": 2591.6008,
+        "width": 220.0,
+        "height": 35.0
+      }
+    },
+    {
+      "name": "Barrier 100mm_P4",
+      "entity_count": 1,
+      "bounds": {
+        "min_x": -3.5,
+        "min_y": -99.5052,
+        "max_x": 19.6378,
+        "max_y": 4.0,
+        "width": 23.1378,
+        "height": 103.5052
+      }
+    },
+    {
+      "name": "hwMIT_NF400-CW",
+      "entity_count": 172,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -228.5,
+        "max_x": 185.0,
+        "max_y": 228.0052,
+        "width": 185.0,
+        "height": 456.5052
+      }
+    },
+    {
+      "name": "hwMIT_Cu.NF400",
+      "entity_count": 12,
+      "bounds": {
+        "min_x": -11.88,
+        "min_y": -11.6,
+        "max_x": 142.65,
+        "max_y": -6.0,
+        "width": 154.53,
+        "height": 5.6
+      }
+    },
+    {
+      "name": "ac3200a",
+      "entity_count": 260,
+      "bounds": {
+        "min_x": -260.0,
+        "min_y": -356.8024,
+        "max_x": 215.0002,
+        "max_y": 64.2505,
+        "width": 475.0002,
+        "height": 421.0529
+      }
+    },
+    {
+      "name": "hw Din 35",
+      "entity_count": 12,
+      "bounds": {
+        "min_x": -0.0,
+        "min_y": -17.5,
+        "max_x": 70.0,
+        "max_y": 17.5,
+        "width": 70.0,
+        "height": 35.0
+      }
+    },
+    {
+      "name": "C100",
+      "entity_count": 5,
+      "bounds": {
+        "min_x": 0.0,
+        "min_y": -50.0688,
+        "max_x": 145.7313,
+        "max_y": 38.0,
+        "width": 145.7313,
+        "height": 88.0688
+      }
+    }
+  ]
+}

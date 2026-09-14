@@ -173,6 +173,7 @@ class DeviceCatalogEngine:
         self.items: List[Dict[str, Any]] = []
         self.sku_index: Dict[str, Dict[str, Any]] = {}
         self.brand_index: Dict[str, List[Dict[str, Any]]] = {}
+        self.brand_alias_index: Dict[str, str] = {}
         self.type_index: Dict[str, List[Dict[str, Any]]] = {}
         self.accessories: Dict[str, Any] = {}
         
@@ -191,6 +192,7 @@ class DeviceCatalogEngine:
         self.items = [_normalize_device_item(it) for it in raw_items]
         self.sku_index.clear()
         self.brand_index.clear()
+        self.brand_alias_index.clear()
         self.type_index.clear()
 
         for item in self.items:
@@ -205,6 +207,12 @@ class DeviceCatalogEngine:
             if brand not in self.brand_index:
                 self.brand_index[brand] = []
             self.brand_index[brand].append(item)
+            # Catalog data is authoritative for manufacturer aliases. This lets
+            # newly imported vendors work without changing Python constants.
+            for alias in (brand, item.get("brand_display"), item.get("manufacturer")):
+                alias_key = strip_accents(str(alias or "")).lower().strip()
+                if alias_key:
+                    self.brand_alias_index.setdefault(alias_key, brand)
 
             dev_type = (item.get("t") or "MCB").upper()
             if dev_type not in self.type_index:
@@ -228,6 +236,14 @@ class DeviceCatalogEngine:
             pass
 
         print(f"[DeviceCatalogEngine] Loaded and indexed {len(self.items)} devices across {len(self.brand_index)} brands and {len(self.accessories)} accessory groups in RAM.")
+
+    def resolve_brand(self, brand: Optional[str]) -> Optional[str]:
+        if not brand:
+            return None
+        raw = strip_accents(brand).lower().strip()
+        # Prefer a real key/display name present in the current catalog. Legacy
+        # aliases are only a fallback for older requests.
+        return self.brand_alias_index.get(raw) or BRAND_SYNONYMS.get(raw, raw)
 
     def get_accessory(self, item_id: str) -> Optional[Dict[str, Any]]:
         """Tra cứu phụ kiện (Busbar, DIN rail, Máng cáp, Đèn báo, Đồng hồ, Khóa...) theo ID từ catalog_accessories.json."""
@@ -357,7 +373,7 @@ class DeviceCatalogEngine:
         limit: int = 100
     ) -> List[Dict[str, Any]]:
         """Filter devices by parametric specifications."""
-        brand_key = BRAND_SYNONYMS.get(brand.lower(), brand.lower()) if brand else None
+        brand_key = self.resolve_brand(brand)
         
         # Start with brand or type subset if available for faster filtering
         if brand_key and brand_key in self.brand_index:
@@ -619,11 +635,13 @@ class DeviceCatalogEngine:
                     "unit_price": int(exact.get("g") or 0),
                     "dimensions": exact.get("dimensions", {}),
                     "parameters": exact.get("parameters", {}),
+                    "cad": exact.get("cad"),
+                    "source": exact.get("source"),
                     "catalog_matched": True
                 }
 
         # 2. Parametric lookup
-        brand_target = BRAND_SYNONYMS.get(brand.lower(), brand.lower()) if brand else None
+        brand_target = self.resolve_brand(brand)
         matches = self.filter_devices(
             brand=brand_target,
             device_type=category,
@@ -641,6 +659,8 @@ class DeviceCatalogEngine:
                 "unit_price": price,
                 "dimensions": best.get("dimensions", {}),
                 "parameters": best.get("parameters", {}),
+                "cad": best.get("cad"),
+                "source": best.get("source"),
                 "catalog_matched": True
             }
 
