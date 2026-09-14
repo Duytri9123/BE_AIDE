@@ -1830,7 +1830,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         left, top = int(xmin * width / 1000), int(ymin * height / 1000)
         right, bottom = int(xmax * width / 1000), int(ymax * height / 1000)
         box_w, box_h = right - left, bottom - top
-        pad_x = min(int(width * 0.04), max(24, int(box_w * 0.65)))
+        pad_x = min(int(width * 0.05), max(24, int(box_w * 0.75)))
         pad_y = min(int(height * 0.05), max(20, int(box_h * 0.75)))
         left, top = max(0, left - pad_x), max(0, top - pad_y)
         right, bottom = min(width, right + pad_x), min(height, bottom + pad_y)
