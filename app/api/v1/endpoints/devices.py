@@ -285,19 +285,97 @@ async def get_model_by_sku(sku: str, db: AsyncSession = Depends(get_db)):
 @router.get("/models/{model_id}/views")
 async def get_device_views(model_id: int, db: AsyncSession = Depends(get_db)):
     from app.services.cad.device_preview import device_views
+    from app.api.v1.endpoints.cad_library import render_layout_svg, resolve_model_asset, manifest, guess_view_label
+
     model = await db.get(DeviceModel, model_id)
     if model is None:
         raise HTTPException(status_code=404, detail="Không tìm thấy thiết bị")
+
     params = model.parameters or {}
-    from app.api.v1.endpoints.cad_library import render_layout_svg, resolve_model_asset
-    asset = resolve_model_asset(model.sku, params)
+    all_items = manifest()["items"]
+    asset = resolve_model_asset(model.sku, params, all_items)
+
     if asset:
-        return dict(sku=model.sku, source="cad_library", asset_id=asset['id'], manufacturer_drawing=False,
-                    note=f"{asset['source_block']} · {asset['source_file']} · {asset['units']}. Hướng nhìn và model chưa được xác minh.",
-                    views=[dict(id="source", title="Hình CAD gốc", svg=render_layout_svg(asset['id']), status="source_geometry")])
+        # Lấy parent_asset_id để tìm tất cả mặt nhìn liên quan
+        parent_id = asset.get("parent_asset_id") or asset["id"]
+
+        # Gom tất cả DXF cùng parent_asset_id (hoặc chính nó nếu không có parent)
+        siblings = [
+            item for item in all_items
+            if (item.get("parent_asset_id") or item["id"]) == parent_id
+        ]
+
+        # Nếu chỉ có 1 item (chính nó), dùng luôn
+        if not siblings:
+            siblings = [asset]
+
+        # Sắp xếp: mặt đứng (ratio cao) lên trước — giống endpoint /grouped
+        def _sort_key(m):
+            w = m.get("width", 1) or 1
+            h = m.get("height", 1) or 1
+            return -(h / w)
+        siblings.sort(key=_sort_key)
+
+        views_out = []
+        for item in siblings:
+            w, h = item.get("width", 0) or 0, item.get("height", 0) or 0
+            view_label = guess_view_label(w, h)
+            # Tên tab: "Mặt đứng · MDC"  hoặc chỉ "Mặt đứng" nếu block name không có ý nghĩa
+            block = item.get("source_block", "")
+            tab_title = f"{view_label} · {block}" if block and not block.startswith("*") else view_label
+
+            try:
+                svg = render_layout_svg(item["id"])
+            except Exception:
+                svg = None
+
+            views_out.append(dict(
+                id=item["id"],
+                title=tab_title,
+                view_label=view_label,
+                source_block=block,
+                source_file=item.get("source_file", ""),
+                width=w,
+                height=h,
+                units=item.get("units", ""),
+                svg=svg,
+                status="source_geometry",
+            ))
+
+        # Tìm số catalog model khác cùng dùng nhóm CAD này (same CAD, different specs)
+        all_view_ids = {it["id"] for it in siblings}
+        id_list = ",".join("'" + vid + "'" for vid in all_view_ids)
+        from sqlalchemy import text as sa_text
+        shared_res = await db.execute(
+            sa_text(f"SELECT COUNT(DISTINCT id) FROM device_models "
+                    f"WHERE json_extract(parameters,'$.cad.asset_id') IN ({id_list})")
+        )
+        shared_count = shared_res.scalar() or 1
+
+        note = (
+            f"{asset['source_block']} · {asset['source_file']} · {asset['units']}. "
+            f"Hướng nhìn và model chưa được xác minh."
+        )
+        if shared_count > 1:
+            note += f" Hình dạng CAD này áp dụng cho {shared_count} model có cùng form factor."
+
+        return dict(
+            sku=model.sku,
+            source="cad_library",
+            asset_id=asset["id"],
+            parent_asset_id=parent_id,
+            view_count=len(views_out),
+            shared_models_count=shared_count,
+            note=note,
+            views=views_out,
+        )
+
     if (params.get("cad") or {}).get("asset_id") or model.sku.startswith("CAD:"):
         raise HTTPException(status_code=404, detail="Liên kết CAD không còn file nguồn. Vui lòng nạp lại thư viện.")
+
+    # Fallback: vẽ kích thước từ dimensions (không có file DXF)
     return device_views(model.sku, model.dimensions, params.get("accessory_data"))
+
 
 
 @router.post("/busbar-calc")
