@@ -28,3 +28,10 @@ Nguồn: `E:/Downloads/catalog_data.json` và `E:/Downloads/catalog_accessories.
 - Frontend production build thành công. Chưa kiểm tra thao tác trên trình duyệt website công khai.
 - Đã sao lưu SQLite bằng cơ chế SQLite backup, cùng hai JSON cũ, tại `tmp/catalog_backup_20260923_132010/` trước đồng bộ.
 - File nguồn trong Downloads không bị sửa. Script `scripts/seed_devices_catalog.py` cập nhật/thêm theo SKU trong transaction; không xóa dữ liệu khác và không đặt lại chiết khấu của model đã tồn tại.
+
+## Điều chỉnh preview tự động
+
+- Chi tiết thiết bị mở trực tiếp tổng quan mặt trước, bên và trên; bỏ tìm kiếm/chọn block thủ công. Có thể chọn từng mặt để xem lớn.
+- API GET /device-library/models/{model_id}/views trả hình bao SVG từ W/H/D catalog, có cờ manufacturer_drawing=false. Đây là hình kích thước, không phải bản vẽ chi tiết nhà sản xuất. Không suy diễn đầu cực, lỗ gá hoặc phụ kiện.
+- LA63N chưa có block nhà sản xuất khớp model trong thư viện đã nhập. Mặt thiếu kích thước hợp lệ không được tạo. Thư viện DXF tham khảo riêng vẫn giữ nguyên.
+- Kiểm tra tự động: 29 tests backend, bao gồm thứ tự kích thước các mặt, XML escaping và dữ liệu thiếu/không hợp lệ.

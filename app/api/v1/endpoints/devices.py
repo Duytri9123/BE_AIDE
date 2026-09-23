@@ -272,6 +272,15 @@ async def get_model_by_sku(sku: str, db: AsyncSession = Depends(get_db)):
         raise HTTPException(status_code=404, detail=f"Không tìm thấy thiết bị mã '{sku}'")
     return _build_model_response(model)
 
+@router.get("/models/{model_id}/views")
+async def get_device_views(model_id: int, db: AsyncSession = Depends(get_db)):
+    from app.services.cad.device_preview import device_views
+    model = await db.get(DeviceModel, model_id)
+    if model is None:
+        raise HTTPException(status_code=404, detail="Không tìm thấy thiết bị")
+    return device_views(model.sku, model.dimensions)
+
+
 @router.post("/busbar-calc")
 async def calculate_device_busbar(
     req: BusbarCalcRequest,
