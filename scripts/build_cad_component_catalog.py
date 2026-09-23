@@ -1,8 +1,12 @@
 """Promote explicitly named CAD components to browsable, unpriced catalog entries."""
 import json
 import re
+import hashlib
+import sys
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from app.services.cad.library_taxonomy import classify, explicit_brands
 
 def component_type(name):
     key = name.casefold()
@@ -15,19 +19,53 @@ def component_type(name):
         (r'^(domino|tb-)', 'Cầu đấu'),
     ):
         if re.search(pattern, key): return category
-    return None
+    for pattern, category in (
+        (r'(mccb|mcb|acb|rccb|rcbo|elcb|\bcb\b|\bls \d+af)', 'Thiết bị đóng cắt'),
+        (r'(contactor|\bmc ?\d|lc1|ctt)', 'Contactor'),
+        (r'(relay|ro le|rơ le|\bmt[- ]?\d)', 'Rơ le'),
+        (r'(fan|quat|quạt|filter)', 'Quạt / Tấm lọc'),
+        (r'(button|nut|nút|emergency|coi|còi)', 'Nút nhấn / Còi'),
+        (r'(fuse|cau chi|cầu chì)', 'Cầu chì'),
+        (r'(bien dong|biến dòng|\bct\b)', 'Biến dòng'),
+        (r'(ats|apfc|controller|dieu khien)', 'Bộ điều khiển'),
+        (r'(meter|dong ho|đồng hồ)', 'Đồng hồ'),
+        (r'(busbar|thanh dong|thanh đồng)', 'Busbar'),
+    ):
+        if re.search(pattern, key): return category
+    return 'CAD khác'
 
 if __name__ == '__main__':
+    import ezdxf
+    from ezdxf.addons.drawing import RenderContext, Frontend, svg, layout
+    cache_file = ROOT / 'tmp/cad_geometry_fingerprints.json'
+    cache = json.loads(cache_file.read_text()) if cache_file.exists() else {}
+    canonical = {}
     rows = []
     for file in sorted((ROOT/'data/device_layouts').glob('*/manifest.json')):
         for item in json.loads(file.read_text(encoding='utf8'))['items']:
-            category = component_type(item['name'])
+            category = item.get('category') or component_type(item['name'])
             if not category: continue
-            rows.append(dict(ma='CAD:'+item['id'], n=category+' · '+item['name'],
-                brand='unspecified' if item['brand']=='Chưa xác định hãng' else item['brand'],
-                brand_display=item['brand'], series='Linh kiện CAD · '+file.parent.name,
-                t=category, g=None, _verified=False,
-                cad={'asset_id':item['id']}, source={'file':item['source_file'],'block':item['name']},
+            classification = classify(item['name'], category)
+            brands = explicit_brands(item.get('category', '') + ' ' + item['name'])
+            brand = brands[0] if len(brands) == 1 else item['brand']
+            path = file.parent / item['filename']
+            digest = hashlib.sha256(path.read_bytes()).hexdigest()
+            if digest not in cache:
+                doc = ezdxf.readfile(path)
+                backend = svg.SVGBackend()
+                Frontend(RenderContext(doc), backend).draw_layout(doc.modelspace(), finalize=True)
+                drawing = backend.get_string(layout.Page(0, 0, layout.Units.mm))
+                cache[digest] = hashlib.sha256(drawing.encode()).hexdigest()
+            # Preserve every original entry but point identical drawings to one asset.
+            key = (cache[digest], item.get('units'))
+            asset_id = canonical.setdefault(key, item['id'])
+            rows.append(dict(ma='CAD:'+item['id'], n=item['name'],
+                brand='unspecified' if brand=='Chưa xác định hãng' else brand,
+                brand_display=brand, series='Linh kiện CAD · '+file.parent.name,
+                t=classification['group'], g=None, _verified=False,
+                library_kind=classification['kind'], library_group=classification['group'],
+                cad={'asset_id':asset_id}, source={'file':item['source_file'],'block':item['name']},
                 note='Hình học CAD nguồn; chưa xác minh model, hướng nhìn và thông số đặt hàng.'))
     (ROOT/'data/catalog_cad_components.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2),encoding='utf8')
-    print(len(rows))
+    cache_file.write_text(json.dumps(cache), encoding='utf8')
+    print(f'{len(rows)} entries, {len(canonical)} distinct drawings')

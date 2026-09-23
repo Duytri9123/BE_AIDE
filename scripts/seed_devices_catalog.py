@@ -186,6 +186,8 @@ async def seed_catalog():
                 "accessory_data": item.get("accessory_data"),
                 "source": item.get("source"),
                 "cad": item.get("cad"),
+                "library_kind": item.get("library_kind"),
+                "library_group": item.get("library_group"),
                 "_pitch_src": item.get("_pitch_src"),
                 "note": item.get("note")
             }

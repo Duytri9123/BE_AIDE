@@ -150,6 +150,10 @@ class EnclosureCadGeneratorService:
 
     @staticmethod
     def _insert_device(msp, dev: Dict[str, Any], x: float, y: float, side: bool = False):
+        from app.services.cad.library_assets import requested_asset, insert_library_asset
+        linked, asset_id = requested_asset(dev, side)
+        if linked:
+            return insert_library_asset(msp, asset_id, x, y) if asset_id else (0, 0)
         front, side_name, w, h, d = EnclosureCadGeneratorService._ensure_device_blocks(msp.doc, dev)
         msp.add_blockref(side_name if side else front, (x, y), dxfattribs={"layer": "0_DEVICES"})
         return (d if side else w), h
@@ -157,6 +161,18 @@ class EnclosureCadGeneratorService:
     @staticmethod
     def _insert_device_rotated(msp, dev: Dict[str, Any], x: float, y: float):
         """Insert a front device block rotated 90 degrees inside its true H×W envelope."""
+        from app.services.cad.library_assets import requested_asset, insert_library_asset
+        linked, asset_id = requested_asset(dev)
+        if linked:
+            if not asset_id:
+                return 0, 0
+            from ezdxf import bbox
+            w, h = insert_library_asset(msp, asset_id, x, y, rotation=90)
+            # Rotate around the origin, then keep the geometry in the requested cell.
+            ref = list(msp)[-1]
+            bounds = bbox.extents([ref])
+            ref.translate(x - bounds.extmin.x, y - bounds.extmin.y, 0)
+            return h, w
         front, _, w, h, _ = EnclosureCadGeneratorService._ensure_device_blocks(msp.doc, dev)
         msp.add_blockref(front, (x + h, y), dxfattribs={"layer": "0_DEVICES", "rotation": 90})
         return h, w

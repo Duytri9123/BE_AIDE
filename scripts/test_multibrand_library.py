@@ -13,7 +13,7 @@ class MultiBrandTests(unittest.TestCase):
  def test_accessory_categories(self):
   self.assertEqual(component_type('Banlela-1'),'Bản lề')
   self.assertEqual(component_type('Ampere-Meter-front'),'Đồng hồ')
-  self.assertIsNone(component_type('3234t4etgewtew'))
+  self.assertEqual(component_type('3234t4etgewtew'), 'CAD khác')
  def test_round_lamp_and_unknown_depth(self):
   views=device_views('lamp',{}, {'outer_dia_mm':29})['views']
   self.assertIn('<circle',views[0]['svg'])

@@ -231,11 +231,13 @@ async def get_models(
             )
         )
     
-    stmt = stmt.offset(skip).limit(limit)
+    stmt = stmt.order_by(DeviceModel.id).offset(skip).limit(limit)
     result = await db.execute(stmt)
     models = result.scalars().all()
 
     # Filter by JSON parameters if specified (poles, in, icu)
+    from app.api.v1.endpoints.cad_library import manifest, resolve_model_asset
+    assets = manifest()["items"]
     filtered = []
     for m in models:
         params = m.parameters or {}
@@ -251,7 +253,15 @@ async def get_models(
             continue
         if min_icu is not None and (m_icu is None or m_icu < min_icu):
             continue
-        filtered.append(_build_model_response(m))
+        response = _build_model_response(m)
+        asset = resolve_model_asset(m.sku, m.parameters, assets)
+        from app.services.cad.library_taxonomy import classify
+        classification = classify(m.name, response.category_name or '')
+        response.parameters = {**(response.parameters or {}),
+                               "library_kind": classification['kind'] if classification['kind'] != 'unclassified' or not asset else asset['kind'],
+                               "library_group": classification['group'] if classification['kind'] != 'unclassified' or not asset else asset['group'],
+                               "cad": {**(params.get('cad') or {}), "asset_id": asset["id"], "is_collection": asset.get('is_collection', False)} if asset else None}
+        filtered.append(response)
 
     return filtered
 
@@ -279,14 +289,14 @@ async def get_device_views(model_id: int, db: AsyncSession = Depends(get_db)):
     if model is None:
         raise HTTPException(status_code=404, detail="Không tìm thấy thiết bị")
     params = model.parameters or {}
-    asset_id = (params.get("cad") or {}).get("asset_id")
-    if asset_id:
-        from app.api.v1.endpoints.cad_library import render_layout_svg, manifest
-        asset = next((item for item in manifest()["items"] if item["id"] == asset_id), None)
-        if asset:
-            return dict(sku=model.sku, source="cad_library", manufacturer_drawing=False,
-                        note=f"Block gốc {asset['source_block']} · {asset['source_file']} · {asset['units']}. Hướng nhìn và model chưa được xác minh.",
-                        views=[dict(id="source", title="Hình CAD gốc", svg=render_layout_svg(asset_id), status="source_geometry")])
+    from app.api.v1.endpoints.cad_library import render_layout_svg, resolve_model_asset
+    asset = resolve_model_asset(model.sku, params)
+    if asset:
+        return dict(sku=model.sku, source="cad_library", asset_id=asset['id'], manufacturer_drawing=False,
+                    note=f"{asset['source_block']} · {asset['source_file']} · {asset['units']}. Hướng nhìn và model chưa được xác minh.",
+                    views=[dict(id="source", title="Hình CAD gốc", svg=render_layout_svg(asset['id']), status="source_geometry")])
+    if (params.get("cad") or {}).get("asset_id") or model.sku.startswith("CAD:"):
+        raise HTTPException(status_code=404, detail="Liên kết CAD không còn file nguồn. Vui lòng nạp lại thư viện.")
     return device_views(model.sku, model.dimensions, params.get("accessory_data"))
 
 
