@@ -11,13 +11,18 @@ LIBRARY = Path(__file__).resolve().parents[4] / "data" / "device_layouts" / "ls"
 
 
 def manifest():
-    path = LIBRARY / "manifest.json"
-    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {"items": []}
+    items = []
+    for path in sorted(LIBRARY.parent.glob("*/manifest.json")):
+        for entry in json.loads(path.read_text(encoding="utf-8"))["items"]:
+            items.append({**entry, "library": path.parent.name})
+    return {"items": items}
 
 
 @router.get("")
-def list_layouts(q: str = ""):
-    return {"items": [item for item in manifest()["items"] if q.casefold() in item["name"].casefold()]}
+def list_layouts(q: str = "", brand: str = ""):
+    return {"items": [item for item in manifest()["items"]
+                      if q.casefold() in (item["name"] + " " + item.get("brand", "")).casefold()
+                      and (not brand or item.get("brand") == brand)]}
 
 
 @router.get("/{asset_id}/dxf")
@@ -25,10 +30,11 @@ def download_layout(asset_id: str):
     item = next((item for item in manifest()["items"] if item["id"] == asset_id), None)
     if not item:
         raise HTTPException(404, "Không tìm thấy hình thiết bị")
-    path = (LIBRARY / item["filename"]).resolve()
-    if path.parent != LIBRARY.resolve() or not path.is_file():
+    directory = (LIBRARY.parent / item["library"]).resolve()
+    path = (directory / item["filename"]).resolve()
+    if directory.parent != LIBRARY.parent.resolve() or path.parent != directory or not path.is_file():
         raise HTTPException(404, "Không tìm thấy file DXF")
-    return FileResponse(path, filename=f"LS_{asset_id}.dxf", media_type="application/dxf")
+    return FileResponse(path, filename=f"{item['library']}_{asset_id}.dxf", media_type="application/dxf")
 
 
 @lru_cache(maxsize=64)

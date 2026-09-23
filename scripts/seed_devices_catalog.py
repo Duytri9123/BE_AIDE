@@ -51,13 +51,17 @@ async def seed_catalog():
         for accessory in payload.get("items", []):
             items.append({
                 "ma": "ACC:" + accessory["id"], "n": accessory["name"],
-                "brand": "unspecified", "brand_display": "Chưa xác định hãng",
+                "brand": accessory.get("brand") or "unspecified", "brand_display": accessory.get("brand_display") or accessory.get("brand") or "Chưa xác định hãng",
                 "series": payload.get("title") or group,
                 "t": accessory.get("category") or accessory.get("type") or group,
                 "w": accessory.get("w_mm"), "h": accessory.get("h_mm"), "d": accessory.get("d_mm"),
                 "g": accessory.get("price"), "_verified": False,
                 "note": accessory.get("note"), "accessory_data": accessory,
             })
+    cad_path = os.path.join(os.path.dirname(data_path), "catalog_cad_components.json")
+    if os.path.exists(cad_path):
+        with open(cad_path, encoding="utf-8") as f:
+            items.extend(json.load(f))
     skus = [item.get("ma") for item in items]
     if any(not sku for sku in skus) or len(skus) != len(set(skus)):
         raise ValueError("Catalog contains missing or duplicate SKU")

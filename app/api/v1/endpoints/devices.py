@@ -278,7 +278,16 @@ async def get_device_views(model_id: int, db: AsyncSession = Depends(get_db)):
     model = await db.get(DeviceModel, model_id)
     if model is None:
         raise HTTPException(status_code=404, detail="Không tìm thấy thiết bị")
-    return device_views(model.sku, model.dimensions)
+    params = model.parameters or {}
+    asset_id = (params.get("cad") or {}).get("asset_id")
+    if asset_id:
+        from app.api.v1.endpoints.cad_library import render_layout_svg, manifest
+        asset = next((item for item in manifest()["items"] if item["id"] == asset_id), None)
+        if asset:
+            return dict(sku=model.sku, source="cad_library", manufacturer_drawing=False,
+                        note=f"Block gốc {asset['source_block']} · {asset['source_file']} · {asset['units']}. Hướng nhìn và model chưa được xác minh.",
+                        views=[dict(id="source", title="Hình CAD gốc", svg=render_layout_svg(asset_id), status="source_geometry")])
+    return device_views(model.sku, model.dimensions, params.get("accessory_data"))
 
 
 @router.post("/busbar-calc")
