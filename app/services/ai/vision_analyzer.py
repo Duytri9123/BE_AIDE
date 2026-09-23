@@ -80,6 +80,16 @@ def normalize_antigravity_model(model: str) -> str:
     return clean_model
 
 
+def antigravity_thinking_config(model: str) -> Dict[str, Any]:
+    """Translate the catalog tier into Gemini's internal reasoning budget."""
+    clean = (model or "").lower().strip()
+    if re.search(r"(?:-|tiered\()high\)?$", clean):
+        return {"thinkingBudget": 8192}
+    if re.search(r"(?:-|tiered\()low\)?$", clean):
+        return {"thinkingBudget": 1024}
+    return {"thinkingBudget": 4096}
+
+
 class VisionAnalyzerService:
     @staticmethod
     async def analyze_image(
@@ -722,6 +732,7 @@ class VisionAnalyzerService:
             active_token = clean_token
         auth_header = active_token if active_token.lower().startswith("bearer ") else f"Bearer {active_token}"
         mapped_model = normalize_antigravity_model(model)
+        thinking_config = antigravity_thinking_config(model)
 
         # 2. Lấy project ID thực tế hoặc dùng default 'aicode-consumers'
         pid = project_id
@@ -764,6 +775,7 @@ class VisionAnalyzerService:
                 "generationConfig": {
                     "maxOutputTokens": settings.AI_MAX_OUTPUT_TOKENS,
                     "temperature": 0.1,
+                    "thinkingConfig": thinking_config,
                 }
             }
         }

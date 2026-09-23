@@ -120,7 +120,9 @@ class DynamicGroupingEngine:
             norm_sku = sku.lower()
             norm_brand = brand.lower().replace(" electric", "")
 
-            key = (norm_cat, norm_name, norm_spec, norm_sku, norm_brand, in_a, poles, unit_price)
+            panel = str(DynamicGroupingEngine._get_val(dev, "panel_code") or "").strip().casefold()
+            icu = DynamicGroupingEngine._get_val(dev, "icu_ka")
+            key = (panel, norm_cat, norm_name, norm_spec, norm_sku, norm_brand, in_a, poles, icu, unit_price)
 
             is_pydantic = isinstance(dev, BaseModel)
             qty = float(DynamicGroupingEngine._get_val(dev, "quantity") or DynamicGroupingEngine._get_val(dev, "so_luong") or 1)
@@ -158,8 +160,7 @@ class DynamicGroupingEngine:
                     merged[key] = existing.model_copy(update=updates)
                 else:
                     existing["name"] = name_for_grouping
-                    if "quantity" in existing:
-                        existing["quantity"] = int(new_qty) if new_qty.is_integer() else new_qty
+                    existing["quantity"] = int(new_qty) if new_qty.is_integer() else new_qty
                     if "so_luong" in existing:
                         existing["so_luong"] = new_qty
                     if "line_total" in existing:

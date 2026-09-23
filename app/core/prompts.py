@@ -70,7 +70,7 @@ Quy tắc bóc tách bắt buộc:
      + Dòng 1: tag 'FU1' (hoặc 'FU'), category: 'FUSE', name: 'Cầu chì bảo vệ tín hiệu' (hoặc 'Cầu chì 1x6A'), spec: '1x6A', quantity theo vật tư thực tế: 3 nếu bảo vệ mạch đo/báo điện áp ba pha R-S-T, ngược lại 1; section: 'Đo lường & Giám sát', box_2d: bao quanh đúng ký hiệu cầu chì và chữ FUSE/1x6A.
      + Dòng 2: tag 'HL1' (hoặc 'R'), category: 'LIGHT', name: 'Đèn báo pha R', spec: 'Đèn báo pha 220V', quantity: 1, section: 'Đo lường & Giám sát', box_2d: bao quanh đúng ký hiệu hình tròn ⊗ và nhãn R.
    - TUYỆT ĐỐI KHÔNG lấy vùng dẫn chứng box_2d của Cầu chì hoặc Đèn báo pha đặt lên đoạn cáp nguồn cấp (Cu/PVC...) ở phía trên!
-12. TỐI ƯU TỐC ĐỘ (BỎ QUA THINKING): Bỏ qua hoàn toàn bước suy nghĩ/reasoning. TUYỆT ĐỐI KHÔNG xuất thẻ <thinking>, <thought>, <think> hay lời giải thích, mở đầu, kết luận. Bắt đầu trả về NGAY LẬP TỨC khối JSON ```json ... ```.
+12. SUY LUẬN NỘI BỘ: Dùng reasoning/thinking nội bộ để kiểm tra tính đầy đủ, số lượng vật tư, quan hệ và bằng chứng trước khi trả lời. Không xuất chuỗi suy nghĩ hoặc thẻ <thinking>/<thought>/<think>; chỉ trả JSON kết quả cuối.
 
 Định dạng trả về duy nhất trong khối ```json ... ``` theo cấu trúc JSON:
 {
@@ -188,7 +188,7 @@ Quy tắc bóc tách bắt buộc:
    - TUYỆT ĐỐI KHÔNG GỘP thành một dòng như "Cầu chì & Đèn báo pha". BẮT BUỘC TÁCH THÀNH 2 DÒNG THIẾT BỊ: một dòng cho Cầu chì (category: FUSE, tag FU) và một dòng cho Đèn báo pha (category: LIGHT, tag HL).
    - TUYỆT ĐỐI KHÔNG đóng khung box_2d lệch lên đường cáp nguồn (Cu/PVC) phía trên.
 11. XÁC MINH TRANG PDF: Chỉ trả thiết bị nếu trang đang xem thật sự có sơ đồ điện hoặc phần tử điện có thể đọc được. Với trang mặt bằng, bìa, ghi chú chung hoặc bản vẽ không có thiết bị điện, trả `devices: []` và ghi rõ trong `file_assessment`; tuyệt đối không suy đoán hoặc tạo thiết bị mẫu.
-12. TỐI ƯU TỐC ĐỘ (BỎ QUA THINKING): Bỏ qua hoàn toàn bước suy nghĩ/reasoning. TUYỆT ĐỐI KHÔNG xuất thẻ <thinking>, <thought>, <think> hay lời giải thích, mở đầu, kết luận. Bắt đầu trả về NGAY LẬP TỨC khối JSON ```json ... ```.
+12. SUY LUẬN NỘI BỘ: Dùng reasoning/thinking nội bộ để kiểm tra tính đầy đủ, số lượng vật tư, quan hệ và bằng chứng trước khi trả lời. Không xuất chuỗi suy nghĩ hoặc thẻ <thinking>/<thought>/<think>; chỉ trả JSON kết quả cuối.
 
 Định dạng trả về duy nhất trong khối ```json ... ``` theo cấu trúc JSON:
 {
@@ -474,13 +474,20 @@ def append_canonical_output_contract(prompt: str) -> str:
         "that confirmation is required. Evaluate linked components for every device family, but add an "
         "item to `accompanying_accessories` only when a tag, symbol, wire, note or supplied-as-assembly "
         "statement provides evidence. Never add customary accessories as observed facts.\n\n"
+        "KIỂM TRA CỤM VÀ HỆ THỐNG: Với mỗi cụm, liệt kê từng thành phần thấy rõ, "
+        "quan hệ với thiết bị cha và căn cứ số lượng. Đối chiếu mạch động lực, đo lường, "
+        "điều khiển, bảo vệ và các tham chiếu sang trang/tủ khác. Không coi một nhãn cụm "
+        "là toàn bộ vật tư: ví dụ đồng hồ và chuyển mạch phải xác định riêng hoặc chỉ rõ "
+        "phạm vi bộ. Thành phần nghi thiếu chỉ đưa vào inferred_components và "
+        "completeness_review, ghi lý do và nguồn cần xem thêm; không cộng vào BOM như "
+        "thiết bị đã quan sát. Không kết luận hệ thống phù hợp chỉ vì không tìm thấy lỗi.\n\n"
         "QUY TẮC VAI TRÒ TỆP: Trước tiên xác định tệp là nguồn bóc tách, tài liệu tham chiếu, "
         "yêu cầu kỹ thuật, catalog/bảng giá, bằng chứng hay hỗn hợp. Tệp tham chiếu vẫn phải được "
         "tóm tắt để hỗ trợ yêu cầu nhưng không được biến nội dung tham khảo thành thiết bị BOM. "
         "Ghi kết quả vào file_assessment.document_role và file_assessment.context_summary. "
-        "QUY TẮC TỐC ĐỘ (BỎ QUA THINKING): Bỏ qua hoàn toàn bước suy nghĩ/reasoning. "
-        "TUYỆT ĐỐI KHÔNG xuất thẻ <thinking>, <thought>, <think> hay lời giải thích, mở đầu, kết luận. "
-        "Bắt đầu trả về NGAY LẬP TỨC khối JSON ```json ... ```.\n\n"
+        "INTERNAL REASONING POLICY: Use the provider's reasoning/thinking capability to verify completeness, "
+        "physical quantities, relationships and evidence before answering. Never expose chain-of-thought or "
+        "thinking tags. Return only the final JSON result.\n\n"
         "HỢP ĐỒNG ĐẦU RA CHUNG (ƯU TIÊN CAO NHẤT): Bất kể đầu vào là văn bản, ảnh, PDF, "
         "DXF hay DWG, chỉ trả về MỘT JSON object có cùng cấu trúc top-level sau: "
         "`file_assessment`, `panels`, `technical_proposals`, `completeness_review`. "

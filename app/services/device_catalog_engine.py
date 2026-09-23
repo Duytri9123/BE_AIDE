@@ -616,7 +616,8 @@ class DeviceCatalogEngine:
         poles: Optional[int] = None,
         brand: Optional[str] = None,
         part_number: Optional[str] = None,
-        name: Optional[str] = None
+        name: Optional[str] = None,
+        min_icu: Optional[float] = None,
     ) -> Dict[str, Any]:
         """
         Tra cứu thông tin thiết bị, mã SKU và đơn giá thực tế từ Catalog 40.000+ sản phẩm.
@@ -628,6 +629,10 @@ class DeviceCatalogEngine:
         if part_number:
             exact = self.get_by_sku(part_number)
             if exact:
+                exact_icu = exact.get("icu")
+                rating_compatible = not min_icu or (
+                    exact_icu is not None and float(exact_icu) >= float(min_icu)
+                )
                 return {
                     "sku": exact.get("ma") or part_number,
                     "name": exact.get("n") or name or f"{category} {part_number}",
@@ -637,7 +642,12 @@ class DeviceCatalogEngine:
                     "parameters": exact.get("parameters", {}),
                     "cad": exact.get("cad"),
                     "source": exact.get("source"),
-                    "catalog_matched": True
+                    "catalog_matched": rating_compatible,
+                    "rating_compatible": rating_compatible,
+                    "compatibility_warning": None if rating_compatible else (
+                        f"SKU {exact.get('ma') or part_number} has Icu={exact_icu}kA, "
+                        f"below required {min_icu}kA; dimensions are used only as a frame proxy."
+                    ),
                 }
 
         # 2. Parametric lookup
@@ -647,6 +657,7 @@ class DeviceCatalogEngine:
             device_type=category,
             poles=poles,
             in_current=in_a,
+            min_icu=min_icu,
             limit=5
         )
         if matches:
@@ -661,8 +672,42 @@ class DeviceCatalogEngine:
                 "parameters": best.get("parameters", {}),
                 "cad": best.get("cad"),
                 "source": best.get("source"),
-                "catalog_matched": True
+                "catalog_matched": True,
+                "rating_compatible": True,
             }
+
+        # The requested electrical rating may not exist in the supplied
+        # catalog. Keep the nearest same-frame dimensions for spatial sizing,
+        # but never present the lower-rated product as a valid selection.
+        if min_icu:
+            frame_matches = self.filter_devices(
+                brand=brand_target,
+                device_type=category,
+                poles=poles,
+                in_current=in_a,
+                limit=5,
+            )
+            if frame_matches:
+                proxy = max(frame_matches, key=lambda item: float(item.get("icu") or 0))
+                proxy_icu = proxy.get("icu")
+                return {
+                    "sku": proxy.get("ma") or "",
+                    "name": proxy.get("n") or name or "",
+                    "brand": proxy.get("brand_display") or proxy.get("brand") or brand or "",
+                    "unit_price": 0,
+                    "dimensions": proxy.get("dimensions", {}),
+                    "parameters": proxy.get("parameters", {}),
+                    "cad": proxy.get("cad"),
+                    "source": proxy.get("source"),
+                    "catalog_matched": False,
+                    "rating_compatible": False,
+                    "dimension_proxy": True,
+                    "compatibility_warning": (
+                        f"No {brand or ''} {category} {poles or ''}P {in_a or ''}A "
+                        f"with Icu>={min_icu}kA exists in the supplied catalog. "
+                        f"Using {proxy.get('ma')} ({proxy_icu}kA) dimensions only."
+                    ).strip(),
+                }
 
         # 3. Fuzzy text matching
         search_query = f"{category} {poles or ''}P {in_a or ''}A {part_number or ''} {name or ''}".strip()
@@ -678,7 +723,8 @@ class DeviceCatalogEngine:
                     "unit_price": price,
                     "dimensions": best.get("dimensions", {}),
                     "parameters": best.get("parameters", {}),
-                    "catalog_matched": True
+                    "catalog_matched": True,
+                    "rating_compatible": True,
                 }
 
         # No synthetic SKU, brand, or market price: an unmatched item must be
@@ -690,7 +736,8 @@ class DeviceCatalogEngine:
             "unit_price": 0,
             "dimensions": {},
             "parameters": {},
-            "catalog_matched": False
+            "catalog_matched": False,
+            "rating_compatible": False,
         }
 
 # Global singleton instance

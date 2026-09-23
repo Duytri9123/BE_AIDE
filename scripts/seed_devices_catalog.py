@@ -44,6 +44,23 @@ async def seed_catalog():
 
     with open(data_path, "r", encoding="utf-8") as f:
         items = json.load(f)
+    accessory_path = os.path.join(os.path.dirname(data_path), "catalog_accessories.json")
+    with open(accessory_path, encoding="utf-8") as f:
+        accessory_groups = json.load(f)
+    for group, payload in accessory_groups.items():
+        for accessory in payload.get("items", []):
+            items.append({
+                "ma": "ACC:" + accessory["id"], "n": accessory["name"],
+                "brand": "unspecified", "brand_display": "Chưa xác định hãng",
+                "series": payload.get("title") or group,
+                "t": accessory.get("category") or accessory.get("type") or group,
+                "w": accessory.get("w_mm"), "h": accessory.get("h_mm"), "d": accessory.get("d_mm"),
+                "g": accessory.get("price"), "_verified": False,
+                "note": accessory.get("note"), "accessory_data": accessory,
+            })
+    skus = [item.get("ma") for item in items]
+    if any(not sku for sku in skus) or len(skus) != len(set(skus)):
+        raise ValueError("Catalog contains missing or duplicate SKU")
 
     print(f"[INFO] Loaded {len(items)} items from {data_path}. Starting database seed...")
 
@@ -160,7 +177,11 @@ async def seed_catalog():
                 "creepage": item.get("creepage"),
                 "busbar_holes": item.get("busbar_holes"),
                 "mount_holes": item.get("mount_holes"),
-                "_verified": item.get("_verified", True),
+                "_verified": item.get("_verified", False),
+                "price_available": item.get("g") is not None,
+                "accessory_data": item.get("accessory_data"),
+                "source": item.get("source"),
+                "cad": item.get("cad"),
                 "_pitch_src": item.get("_pitch_src"),
                 "note": item.get("note")
             }

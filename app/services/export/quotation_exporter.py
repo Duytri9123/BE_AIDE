@@ -19,9 +19,17 @@ class QuotationExporterService:
         proposals: Optional[list] = None,
         vat_percent: Optional[float] = None,
         filename_suffix: Optional[str] = None,
+        manufacturer_discounts: Optional[dict] = None,
     ) -> str:
         """Xuất bảng báo giá thiết bị tủ điện chuẩn kỹ thuật ra file Excel (.xlsx)."""
         wb = Workbook()
+        discounts = {}
+        import math
+        for brand, value in (manufacturer_discounts or {}).items():
+            rate = float(value)
+            if not math.isfinite(rate) or not 0 <= rate <= 100:
+                raise ValueError("Chiết khấu hãng phải từ 0 đến 100%")
+            discounts[str(brand).strip().casefold()] = rate
         ws = wb.active
         ws.title = "Bảng Báo Giá"
         ws.views.sheetView[0].showGridLines = True
@@ -56,7 +64,9 @@ class QuotationExporterService:
             "SỐ LƯỢNG",
             "ĐƠN GIÁ",
             "THÀNH TIỀN",
-            "GHI CHÚ"
+            "GHI CHÚ",
+            "GIÁ NIÊM YẾT",
+            "CHIẾT KHẤU HÃNG (%)"
         ]
 
         header_row = 1
@@ -70,6 +80,7 @@ class QuotationExporterService:
 
         current_row = 2
         item_rows_indices = []
+        panel_item_rows = {}
 
         def write_section(title: str):
             nonlocal current_row
@@ -94,6 +105,8 @@ class QuotationExporterService:
 
         def write_item(name: str, sku: str, origin: str, unit: str, qty: float, price: int, notes: str = "", tt: str = "+"):
             nonlocal current_row
+            discount = discounts.get(origin.strip().casefold(), 0)
+            net_price = f"=J{current_row}*(1-K{current_row}/100)"
             item_cells = [
                 (tt, align_center, False),
                 (name, align_left, False),
@@ -101,9 +114,11 @@ class QuotationExporterService:
                 (origin, align_center, False),
                 (unit, align_center, False),
                 (qty, align_center, False),
-                (price, align_right, False),
+                (net_price, align_right, False),
                 (f"=F{current_row}*G{current_row}", align_right, True),
                 (notes, align_left, False),
+                (price, align_right, False),
+                (discount, align_right, False),
             ]
             for col_idx, (val, al, is_b) in enumerate(item_cells, 1):
                 cell = ws.cell(row=current_row, column=col_idx, value=val)
@@ -116,6 +131,7 @@ class QuotationExporterService:
                     cell.number_format = '#,##0.00'
             ws.row_dimensions[current_row].height = 24
             item_rows_indices.append(current_row)
+            panel_item_rows.setdefault(panel_row_idx, []).append(current_row)
             current_row += 1
 
         # Check if devices is already a full structured spreadsheet rows list
@@ -276,12 +292,12 @@ class QuotationExporterService:
                     )
 
         # 4. Summary Rows (Matching template)
-        first_r = item_rows_indices[0] if item_rows_indices else 3
-        last_r = item_rows_indices[-1] if item_rows_indices else current_row - 1
-
-        # Update panel row total
-        ws.cell(row=panel_row_idx, column=7, value=f"=H{current_row}")
-        ws.cell(row=panel_row_idx, column=8, value=f"=F{panel_row_idx}*G{panel_row_idx}")
+        # Each panel totals only its own detail rows. Referencing the grand
+        # total here creates a cycle when a later panel lies in its SUM range.
+        for panel_row, detail_rows in panel_item_rows.items():
+            refs = f"H{detail_rows[0]}:H{detail_rows[-1]}"
+            ws.cell(row=panel_row, column=7, value=f"=SUM({refs})")
+            ws.cell(row=panel_row, column=8, value=f"=F{panel_row}*G{panel_row}")
 
         # Row: TỔNG GIÁ TRỊ TRƯỚC THUẾ
         ws.merge_cells(start_row=current_row, start_column=1, end_row=current_row, end_column=7)
@@ -289,7 +305,8 @@ class QuotationExporterService:
         c_sub.font = font_grand_total
         c_sub.alignment = align_right
 
-        tot_formula = f"=SUM(H{first_r}:H{last_r})"
+        panel_refs = ",".join(f"H{row}" for row in panel_item_rows)
+        tot_formula = f"=SUM({panel_refs})" if panel_refs else "=0"
         c_sub_val = ws.cell(row=current_row, column=8, value=tot_formula)
         c_sub_val.font = font_grand_total
         c_sub_val.alignment = align_right
@@ -445,6 +462,7 @@ class QuotationExporterService:
             8: 18,  # THÀNH TIỀN
             9: 25   # GHI CHÚ
         }
+        col_widths.update({10: 18, 11: 20})
         for col_idx, width in col_widths.items():
             col_letter = get_column_letter(col_idx)
             ws.column_dimensions[col_letter].width = width

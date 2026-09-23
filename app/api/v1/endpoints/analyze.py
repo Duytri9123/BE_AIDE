@@ -584,6 +584,76 @@ async def generate_quotation_and_cad(
     return result
 
 
+@router.post("/generate-quotation-cad/stream")
+async def stream_generate_quotation_and_cad(
+    payload: GenerateQuotationCadRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_active_user),
+):
+    """Stream real milestones produced by the CAD/quotation pipeline over SSE."""
+    proj_stmt = select(Project).where(Project.id == payload.project_id, Project.user_id == current_user.id)
+    project = (await db.execute(proj_stmt)).scalar_one_or_none()
+    if not project:
+        raise HTTPException(status_code=404, detail="Dự án không tồn tại")
+
+    devices = payload.devices or []
+    if not devices:
+        sess_stmt = select(ConversationSession).where(
+            ConversationSession.project_id == payload.project_id
+        ).order_by(ConversationSession.created_at.desc())
+        session = (await db.execute(sess_stmt)).scalars().first()
+        if session:
+            iter_stmt = select(AnalysisIteration).where(
+                AnalysisIteration.session_id == session.id
+            ).order_by(AnalysisIteration.iteration_number.desc())
+            latest_iter = (await db.execute(iter_stmt)).scalars().first()
+            if latest_iter and latest_iter.ai_parsed_devices:
+                devices = latest_iter.ai_parsed_devices
+    if not devices:
+        raise HTTPException(status_code=400, detail="Chưa có dữ liệu thiết bị để tạo CAD và báo giá")
+
+    progress_queue: asyncio.Queue = asyncio.Queue()
+
+    async def run_generation():
+        try:
+            result = await AnalysisPipelineService.generate_cad_and_quotation(
+                project=project,
+                db=db,
+                devices=devices,
+                brand_preference=payload.brand_preference or settings.DEFAULT_BRAND,
+                user_prompt=payload.user_prompt,
+                enclosure_dimensions=payload.enclosure_dimensions,
+                panel_code=payload.panel_code,
+                panel_name=payload.panel_name,
+                per_panel=payload.per_panel,
+                progress_callback=progress_queue.put,
+            )
+            await progress_queue.put({"type": "complete", "result": result})
+        except Exception as exc:
+            logger.error("Streaming CAD generation error: %s", exc, exc_info=True)
+            await progress_queue.put({"type": "error", "message": str(exc)})
+        finally:
+            await progress_queue.put(None)
+
+    async def event_generator():
+        task = asyncio.create_task(run_generation())
+        try:
+            while True:
+                item = await progress_queue.get()
+                if item is None:
+                    break
+                yield f"data: {json.dumps(item, ensure_ascii=False, default=str)}\n\n"
+        finally:
+            if not task.done():
+                task.cancel()
+
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "Connection": "keep-alive", "X-Accel-Buffering": "no"},
+    )
+
+
 @router.get("/project/{project_id}/latest", response_model=Optional[AnalysisResultSchema])
 async def get_latest_project_analysis(
     project_id: int,
@@ -591,6 +661,13 @@ async def get_latest_project_analysis(
     current_user: User = Depends(get_current_active_user),
 ):
     """Lấy kết quả bóc tách gần nhất của dự án để phục hồi khi tải lại trang."""
+    project_stmt = select(Project.id).where(
+        Project.id == project_id,
+        Project.user_id == current_user.id,
+    )
+    if (await db.execute(project_stmt)).scalar_one_or_none() is None:
+        raise HTTPException(status_code=404, detail="Dự án không tồn tại")
+
     sess_stmt = select(ConversationSession).where(
         ConversationSession.project_id == project_id
     ).order_by(ConversationSession.created_at.desc())

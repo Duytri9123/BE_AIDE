@@ -172,6 +172,7 @@ class PhysicalLayoutEngine:
         name = str(device.get("name") or "")
         poles = int(device.get("poles") or (1 if "MCB" in cat and "3P" not in name.upper() else 3))
         in_a = float(device.get("in_a") or 0)
+        min_icu = float(device.get("icu_ka") or device.get("icu") or 0)
         brand = str(device.get("brand") or "").strip()
         part_number = str(device.get("part_number") or device.get("sku") or "").strip()
 
@@ -197,7 +198,8 @@ class PhysicalLayoutEngine:
                     poles=poles,
                     brand=brand if brand else None,
                     part_number=part_number if part_number else None,
-                    name=name
+                    name=name,
+                    min_icu=min_icu if min_icu > 0 else None,
                 )
                 if cat_info and isinstance(cat_info.get("dimensions"), dict):
                     c_dims = cat_info["dimensions"]
@@ -206,10 +208,17 @@ class PhysicalLayoutEngine:
                     cd = float(c_dims.get("d") or 0)
                     if cw > 0 and ch > 0:
                         device["dimensions"] = c_dims
-                        if not device.get("part_number") and cat_info.get("sku"):
+                        if not device.get("part_number") and cat_info.get("sku") and cat_info.get("rating_compatible", True):
                             device["part_number"] = cat_info["sku"]
+                        elif cat_info.get("dimension_proxy") and cat_info.get("sku"):
+                            device["dimension_proxy_sku"] = cat_info["sku"]
                         if not device.get("brand") and cat_info.get("brand"):
                             device["brand"] = cat_info["brand"]
+                        if cat_info.get("compatibility_warning"):
+                            device["catalog_compatibility_warning"] = cat_info["compatibility_warning"]
+                            device["catalog_rating_compatible"] = False
+                        else:
+                            device["catalog_rating_compatible"] = True
                         return (cw, ch, cd if cd > 0 else 60.0)
 
             # 3.2 Tra cứu phụ kiện cơ điện & mặt cánh từ catalog_accessories.json
@@ -277,7 +286,8 @@ class PhysicalLayoutEngine:
                     poles=poles,
                     brand=brand if brand else None,
                     part_number=part_number if part_number else None,
-                    name=name
+                    name=name,
+                    min_icu=min_icu if min_icu > 0 else None,
                 )
                 if cat_info and isinstance(cat_info.get("dimensions"), dict):
                     c_dims = cat_info["dimensions"]

@@ -2,6 +2,8 @@ from fastapi import APIRouter
 from .endpoints import analyze, analyze_multi_agent, bom, export, chat, user_library, auth, users, projects, devices, providers, admin_helpers, plans, payments
 
 api_router = APIRouter()
+from .endpoints import cad_library
+api_router.include_router(cad_library.router, prefix="/cad-library", tags=["CAD Library"])
 
 api_router.include_router(auth.router, prefix="/auth", tags=["Auth"])
 api_router.include_router(users.router, prefix="/users", tags=["Users"])

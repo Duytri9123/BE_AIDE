@@ -340,7 +340,10 @@ async def chat_with_cad_agent(
     Tự động suy luận thiết kế, tra cứu Catalog SKU, sinh Macro CAD Blocks và đồng bộ bảng Báo giá BOM.
     """
     # 1. Lấy thông tin dự án
-    proj_stmt = select(Project).where(Project.id == request.project_id)
+    proj_stmt = select(Project).where(
+        Project.id == request.project_id,
+        Project.user_id == current_user.id,
+    )
     proj_res = await db.execute(proj_stmt)
     project = proj_res.scalar_one_or_none()
     if not project:

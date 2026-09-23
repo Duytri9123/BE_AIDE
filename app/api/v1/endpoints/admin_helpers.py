@@ -20,7 +20,7 @@ from app.models.ai_connection import AiConnection
 from app.models.ai_provider import AiProvider
 from app.models.ai_provider_model import AiProviderModel
 from app.core.config import settings
-from app.services.ai.vision_analyzer import normalize_antigravity_model
+from app.services.ai.vision_analyzer import antigravity_thinking_config, normalize_antigravity_model
 from app.services.ai.web_search_service import WebSearchService
 from app.services.ai.token_refresh_service import TokenRefreshService
 
@@ -147,6 +147,7 @@ async def _call_antigravity(api_key: str, model: str, prompt: str) -> dict:
             "generationConfig": {
                 "maxOutputTokens": 150,
                 "temperature": 0.2,
+                "thinkingConfig": antigravity_thinking_config(model),
             }
         }
     }

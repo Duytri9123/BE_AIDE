@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
-from typing import List, Optional
-from pydantic import BaseModel
+from typing import List, Optional, Annotated
+from pydantic import BaseModel, Field
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import FileResponse
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -62,6 +62,7 @@ class ExcelExportPayload(BaseModel):
     devices: Optional[List[dict]] = None
     proposals: Optional[List[dict]] = None
     vat_percent: Optional[float] = None
+    manufacturer_discounts: dict[str, Annotated[float, Field(ge=0, le=100, allow_inf_nan=False)]] = Field(default_factory=dict)
 
 @router.post("/excel")
 async def export_excel_quotation(
@@ -103,7 +104,8 @@ async def export_excel_quotation(
         project_name=project_name,
         brand_preference=payload.brand_name or settings.DEFAULT_BRAND,
         proposals=payload.proposals,
-        vat_percent=payload.vat_percent
+        vat_percent=payload.vat_percent,
+        manufacturer_discounts=payload.manufacturer_discounts,
     )
 
     if not os.path.exists(file_path):
@@ -123,6 +125,7 @@ class SaveQuotationFilePayload(BaseModel):
     devices: List[dict]
     proposals: Optional[List[dict]] = None
     vat_percent: Optional[float] = None
+    manufacturer_discounts: dict[str, Annotated[float, Field(ge=0, le=100, allow_inf_nan=False)]] = Field(default_factory=dict)
 
 @router.post("/save-to-project")
 async def save_quotation_to_project(
@@ -144,7 +147,8 @@ async def save_quotation_to_project(
         project_name=project_name,
         brand_preference=payload.brand_name or settings.DEFAULT_BRAND,
         proposals=payload.proposals,
-        vat_percent=payload.vat_percent
+        vat_percent=payload.vat_percent,
+        manufacturer_discounts=payload.manufacturer_discounts,
     )
 
     filename = os.path.basename(file_path)

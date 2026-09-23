@@ -46,6 +46,12 @@ class AccompanyingEquipmentService:
             brand = acc.get("brand") or parent_brand or ""
 
             formatted.append({
+                "tag": acc.get("tag"),
+                "box_2d": acc.get("box_2d"),
+                "in_a": acc.get("in_a"),
+                "poles": acc.get("poles"),
+                "icu_ka": acc.get("icu_ka"),
+                "upstream_device": acc.get("upstream_device"),
                 "code": acc.get("code") or f"ACC_{idx}",
                 "name": display_name,
                 "category": category,

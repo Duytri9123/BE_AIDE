@@ -210,5 +210,58 @@ class DxfBomTests(unittest.TestCase):
         self.assertTrue(any("MCB LS NHANH 19" in text for text in table_texts))
 
 
+class CatalogDrivenSizingTests(unittest.TestCase):
+    @staticmethod
+    def _tt_devices():
+        devices = [{
+            "tag": "QF0", "name": "MCCB tổng 630A 65kA", "category": "MCCB",
+            "section": "INCOMER", "brand": "LS", "poles": 3, "in_a": 630, "icu_ka": 65,
+        }]
+        devices.extend({
+            "tag": f"QF{i}", "name": f"MCCB nhánh {i}", "category": "MCCB",
+            "brand": "LS", "poles": 3, "in_a": 125, "icu_ka": 25,
+        } for i in range(1, 9))
+        devices.extend([
+            {"tag": "QF9", "name": "3x MCB 1P 16A", "category": "MCB", "brand": "LS", "poles": 3, "in_a": 16, "icu_ka": 6},
+            {"tag": "QF10", "name": "3x MCB 1P 16A", "category": "MCB", "brand": "LS", "poles": 3, "in_a": 16, "icu_ka": 6},
+            {"tag": "QF11", "name": "MCB 3P 32A", "category": "MCB", "brand": "LS", "poles": 3, "in_a": 32, "icu_ka": 6},
+            {"tag": "QF12", "name": "MCCB dự phòng", "category": "MCCB", "brand": "LS", "poles": 3, "in_a": 125, "icu_ka": 25},
+        ])
+        return devices
+
+    def test_tt_uses_catalog_envelopes_and_matches_reference_size(self):
+        specs = EnclosureCadGeneratorService.calculate_enclosure_specs(self._tt_devices())
+
+        self.assertEqual((specs["height"], specs["width"], specs["depth"]), (1600.0, 1000.0, 450.0))
+        self.assertEqual(specs["layout_style"], "CENTRAL_VERTICAL_BUSBAR")
+        self.assertEqual(specs["doors"], 1)
+        self.assertIn("60x8.0mm", specs["busbar_spec"])
+        self.assertTrue(specs["fit_check"]["catalog_warnings"])
+
+    def test_too_small_template_is_expanded_instead_of_forced(self):
+        specs = EnclosureCadGeneratorService.calculate_enclosure_specs(
+            self._tt_devices(), preferred_dimensions=(1200, 800, 300)
+        )
+
+        self.assertEqual((specs["height"], specs["width"], specs["depth"]), (1600.0, 1000.0, 450.0))
+        self.assertFalse(specs["fit_check"]["preferred_dimensions_fit"])
+
+    def test_small_panel_does_not_inherit_large_panel_dimensions(self):
+        devices = [
+            {"tag": "QF0", "name": "MCB tổng", "category": "MCB", "section": "INCOMER", "brand": "LS", "poles": 3, "in_a": 63, "icu_ka": 6},
+            *[
+                {"tag": f"QF{i}", "name": f"MCB nhánh {i}", "category": "MCB", "brand": "LS", "poles": 1, "in_a": 16, "icu_ka": 6}
+                for i in range(1, 5)
+            ],
+        ]
+
+        specs = EnclosureCadGeneratorService.calculate_enclosure_specs(devices)
+
+        self.assertEqual(specs["layout_style"], "HORIZONTAL_ROWS")
+        self.assertLessEqual(specs["width"], 500)
+        self.assertLessEqual(specs["height"], 600)
+        self.assertLessEqual(specs["depth"], 300)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -54,34 +54,29 @@ def add_box(msp, p1, p2, layer="0_DEVICES", color=None):
 
 
 def add_dim_h(msp, x1, x2, y, text=None, layer="0_DIM"):
-    """Vẽ đường kích thước nằm ngang với mũi tên gạch chéo 45 độ."""
+    """Add a native AutoCAD DIMENSION entity (horizontal)."""
     if x1 > x2:
         x1, x2 = x2, x1
     dist = int(round(x2 - x1))
     t_str = text or f"{dist}"
-    msp.add_line((x1, y), (x2, y), dxfattribs={"layer": layer, "color": 1})
-    msp.add_line((x1, y - 10), (x1, y + 10), dxfattribs={"layer": layer, "color": 1})
-    msp.add_line((x2, y - 10), (x2, y + 10), dxfattribs={"layer": layer, "color": 1})
-    msp.add_line((x1 - 4, y - 4), (x1 + 4, y + 4), dxfattribs={"layer": layer, "color": 1})
-    msp.add_line((x2 - 4, y - 4), (x2 + 4, y + 4), dxfattribs={"layer": layer, "color": 1})
-    msp.add_text(t_str, dxfattribs={"layer": "0_TEXT", "height": 8.0, "color": 1}).set_placement(
-        ((x1 + x2) / 2, y + 5), align=TextEntityAlignment.BOTTOM_CENTER
-    )
+    dim = msp.add_linear_dim(base=((x1 + x2) / 2, y), p1=(x1, y - 25), p2=(x2, y - 25),
+                             angle=0, dimstyle="AIDE_DIM", override={"dimtxt": 8, "dimasz": 5})
+    dim.dimension.dxf.layer = layer
+    dim.dimension.dxf.text = t_str
+    dim.render()
 
 
 def add_dim_v(msp, x, y1, y2, text=None, layer="0_DIM"):
-    """Vẽ đường kích thước thẳng đứng với mũi tên gạch chéo 45 độ."""
+    """Add a native AutoCAD DIMENSION entity (vertical)."""
     if y1 > y2:
         y1, y2 = y2, y1
     dist = int(round(y2 - y1))
     t_str = text or f"{dist}"
-    msp.add_line((x, y1), (x, y2), dxfattribs={"layer": layer, "color": 1})
-    msp.add_line((x - 10, y1), (x + 10, y1), dxfattribs={"layer": layer, "color": 1})
-    msp.add_line((x - 10, y2), (x + 10, y2), dxfattribs={"layer": layer, "color": 1})
-    msp.add_line((x - 4, y1 - 4), (x + 4, y1 + 4), dxfattribs={"layer": layer, "color": 1})
-    msp.add_line((x - 4, y2 - 4), (x + 4, y2 + 4), dxfattribs={"layer": layer, "color": 1})
-    txt = msp.add_text(t_str, dxfattribs={"layer": "0_TEXT", "height": 8.0, "color": 1, "rotation": 90})
-    txt.set_placement((x - 6, (y1 + y2) / 2), align=TextEntityAlignment.BOTTOM_CENTER)
+    dim = msp.add_linear_dim(base=(x, (y1 + y2) / 2), p1=(x - 25, y1), p2=(x - 25, y2),
+                             angle=90, dimstyle="AIDE_DIM", override={"dimtxt": 8, "dimasz": 5})
+    dim.dimension.dxf.layer = layer
+    dim.dimension.dxf.text = t_str
+    dim.render()
 
 
 def setup_cad_layers(doc):
@@ -98,13 +93,79 @@ def setup_cad_layers(doc):
         ("0_TEXT", 7, 20),        # Trắng (7) - Ghi chú thiết bị
         ("0_TABLE", 4, 25),       # Cyan (4) - Khung bảng BOM
         ("0_TABLE_HDR", 2, 30),   # Vàng (2) - Header bảng BOM
+        ("0_PUNCH", 1, 20),
+        ("0_STIFFENER", 5, 30),
+        ("0_SHEET", 7, 35),
     ]
     for name, col, lw in layers_def:
         if name not in doc.layers:
             doc.layers.new(name, dxfattribs={"color": col, "lineweight": lw})
+    if "AIDE_DIM" not in doc.dimstyles:
+        doc.dimstyles.new("AIDE_DIM", dxfattribs={"dimtxt": 8, "dimasz": 5, "dimexo": 2, "dimexe": 3})
 
 
 class EnclosureCadGeneratorService:
+    @staticmethod
+    def _device_block_names(dev: Dict[str, Any]) -> Tuple[str, str, str]:
+        brand = clean_cad_text(dev.get("brand") or "ASIAN")
+        sku = clean_cad_text(dev.get("part_number") or dev.get("model") or dev.get("category") or "DEVICE")
+        cat = clean_cad_text(dev.get("category") or "DEVICE")
+        poles = int(dev.get("poles") or 1)
+        # Family labels correspond to the indexed LS DWG library; SKU remains in the block name.
+        if brand == "LS" and ("MCB" in cat or "RCBO" in cat):
+            family = f"LS_60AF_{poles}P"
+        elif brand == "LS" and "MCCB" in cat:
+            family = f"LS_100AF_{poles}P"
+        else:
+            family = f"{brand}_{cat}"
+        token = re.sub(r"[^A-Z0-9_]+", "_", f"{family}_{sku}")[:70]
+        return f"AIDE_{token}_FRONT", f"AIDE_{token}_SIDE", family.replace("_", " ")
+
+    @staticmethod
+    def _ensure_device_blocks(doc, dev: Dict[str, Any]) -> Tuple[str, str, float, float, float]:
+        front_name, side_name, family = EnclosureCadGeneratorService._device_block_names(dev)
+        w, h, d = EnclosureCadGeneratorService._get_device_dimension(dev)
+        w, h, d = max(18.0, w), max(45.0, h), max(35.0, d)
+        poles = max(1, int(dev.get("poles") or 1))
+        if front_name not in doc.blocks:
+            blk = doc.blocks.new(front_name, base_point=(0, 0))
+            add_box(blk, (0, 0), (w, h), layer="0_DEVICES")
+            for i in range(1, poles):
+                blk.add_line((w * i / poles, 0), (w * i / poles, h), dxfattribs={"layer": "0_DEVICES"})
+            for i in range(poles):
+                cx = w * (i + .5) / poles
+                blk.add_circle((cx, 6), 2.2, dxfattribs={"layer": "0_DEVICES"})
+                blk.add_circle((cx, h - 6), 2.2, dxfattribs={"layer": "0_DEVICES"})
+            add_box(blk, (w * .35, h * .38), (w * .65, h * .62), layer="0_DEVICES")
+            for hx, hy in ((4, 4), (w - 4, 4), (4, h - 4), (w - 4, h - 4)):
+                blk.add_circle((hx, hy), 1.6, dxfattribs={"layer": "0_PUNCH"})
+            blk.add_text(family[:24], dxfattribs={"layer": "0_TEXT", "height": min(5.0, w / 10)}).set_placement(
+                (w / 2, h * .72), align=TextEntityAlignment.MIDDLE_CENTER)
+        if side_name not in doc.blocks:
+            blk = doc.blocks.new(side_name, base_point=(0, 0))
+            add_box(blk, (0, 0), (d, h), layer="0_DEVICES")
+            add_box(blk, (max(2, d * .1), h * .35), (d * .55, h * .65), layer="0_DEVICES")
+            blk.add_line((d * .82, 0), (d * .82, h), dxfattribs={"layer": "0_PLATE"})
+        return front_name, side_name, w, h, d
+
+    @staticmethod
+    def _insert_device(msp, dev: Dict[str, Any], x: float, y: float, side: bool = False):
+        front, side_name, w, h, d = EnclosureCadGeneratorService._ensure_device_blocks(msp.doc, dev)
+        msp.add_blockref(side_name if side else front, (x, y), dxfattribs={"layer": "0_DEVICES"})
+        return (d if side else w), h
+
+    @staticmethod
+    def _insert_device_rotated(msp, dev: Dict[str, Any], x: float, y: float):
+        """Insert a front device block rotated 90 degrees inside its true H×W envelope."""
+        front, _, w, h, _ = EnclosureCadGeneratorService._ensure_device_blocks(msp.doc, dev)
+        msp.add_blockref(front, (x + h, y), dxfattribs={"layer": "0_DEVICES", "rotation": 90})
+        return h, w
+
+    @staticmethod
+    def _update_document_extents(doc, msp) -> None:
+        """Persist model extents so headless/web CAD viewers can zoom reliably."""
+        doc.update_extents()
+
     @staticmethod
     def _get_device_dimension(dev: Dict[str, Any]) -> Tuple[float, float, float]:
         """
@@ -153,116 +214,119 @@ class EnclosureCadGeneratorService:
         preferred_dimensions: Optional[Tuple[float, float, float]] = None
     ) -> Dict[str, Any]:
         """
-        Tính toán kích thước vỏ tủ điện thực tế dựa trên bố trí (Layout-Driven Sizing).
-        Ưu tiên kích thước ghi rõ trên bản vẽ (preferred_dimensions: H, W, D) nếu có.
+        Size the enclosure from real catalog envelopes before drawing it.
+
+        ``preferred_dimensions`` is treated as an existing/template size to be
+        verified, not as an unconditional override.  A too-small template is
+        expanded to the next standard enclosure size.
         """
-        # Ensure devices passed into layout calculations do not drag heavy base64 image strings
         devices = [
             {k: v for k, v in d.items() if k not in ("panel_evidence_image", "evidence_image")}
             if isinstance(d, dict) else d
             for d in devices
         ]
-        has_preferred = preferred_dimensions is not None and len(preferred_dimensions) >= 3 and preferred_dimensions[0] > 0
-        incomer_dev = next(
-            (d for d in devices if str(d.get("category", "")).upper() in ["ACB", "MCCB"] or str(d.get("section", "")).upper() in ["ĐẦU VÀO", "INCOMER", "NGUỒN CẤP"]),
-            None
-        )
-        if not incomer_dev and devices:
-            incomer_dev = max(devices, key=lambda d: float(d.get("in_a") or 0))
-
-        incomer_a = float(incomer_dev.get("in_a") or 40) if incomer_dev else 40.0
-        incomer_poles = int(incomer_dev.get("poles") or (3 if incomer_a > 63 else 2)) if incomer_dev else 2
+        protection_types = {"ACB", "MCCB", "MCB", "RCBO", "RCCB", "ELCB"}
+        protection = [d for d in devices if str(d.get("category") or "").upper() in protection_types]
+        explicit_incomers = [
+            d for d in protection
+            if str(d.get("section") or "").upper() in {"ĐẦU VÀO", "DAU VAO", "INCOMER", "NGUỒN CẤP", "NGUON CAP"}
+            or any(k in str(d.get("name") or "").upper() for k in ("INCOMER", "TỔNG", "TONG"))
+        ]
+        incomer_dev = max(explicit_incomers or protection or devices or [{}], key=lambda d: float(d.get("in_a") or 0))
+        incomer_a = float(incomer_dev.get("in_a") or 40.0)
+        incomer_poles = int(incomer_dev.get("poles") or (3 if incomer_a > 63 else 2))
         is_3phase = incomer_poles >= 3
+        inc_w, inc_h, inc_d = EnclosureCadGeneratorService._get_device_dimension(incomer_dev)
 
+        door_devs = [d for d in devices if PhysicalLayoutEngine.classify_mounting(d) == MountingType.DOOR_MOUNTED]
         ctrl_devs = [
             d for d in devices
-            if any(k in str(d.get("category", "")).upper() or k in str(d.get("name", "")).upper() for k in ["CONTACTOR", "TIMER", "RELAY", "BMS"])
+            if any(k in (str(d.get("category") or "") + " " + str(d.get("name") or "")).upper()
+                   for k in ("CONTACTOR", "TIMER", "RELAY", "BMS", "POWER_SUPPLY"))
         ]
-
-        branch_units = [
-            d for d in devices
-            if d != incomer_dev and d not in ctrl_devs and str(d.get("category", "")).upper() not in ["LIGHT", "METER"]
-        ]
-
-        if has_preferred:
-            chosen_h = float(preferred_dimensions[0])
-            chosen_w = float(preferred_dimensions[1])
-            chosen_d = float(preferred_dimensions[2])
-        else:
-            # 1. Xác định chiều rộng tối ưu W
-            min_w = 500
-            if incomer_a >= 1000:
-                min_w = 1000
-            elif incomer_a >= 400:
-                min_w = 800
-            elif incomer_a >= 160:
-                min_w = 600
-
-            inc_dim = EnclosureCadGeneratorService._get_device_dimension(incomer_dev) if incomer_dev else (80, 120, 75)
-            ctrl_total_w = sum(EnclosureCadGeneratorService._get_device_dimension(c)[0] + 14 for c in ctrl_devs)
-            row1_needed_w = inc_dim[0] + ctrl_total_w + 140
-
-            standard_widths = [400, 500, 600, 700, 800, 1000, 1200]
-            chosen_w = min_w
-            for sw in standard_widths:
-                if sw >= min_w and sw >= row1_needed_w:
-                    chosen_w = sw
-                    break
-            if chosen_w < min_w:
-                chosen_w = min_w
-
-        usable_rail_w = max(250.0, chosen_w - 150.0)
-
-        # 2. Phân chia các lộ nhánh vào các hàng ray DIN
-        branch_rows = EnclosureCadGeneratorService._partition_branch_rows(branch_units, usable_rail_w)
-        num_branch_rows = len(branch_rows)
-
+        branch_units = [d for d in protection if d is not incomer_dev]
+        branch_dims = [(d, EnclosureCadGeneratorService._get_device_dimension(d)) for d in branch_units]
+        large_branches = [(d, dim) for d, dim in branch_dims if str(d.get("category") or "").upper() == "MCCB" or float(d.get("in_a") or 0) >= 100]
         need_busbar = incomer_a >= BUSBAR_REQUIRED_MIN_CURRENT_A
 
-        if not has_preferred:
-            # Nếu số hàng ray quá nhiều (> 4) và tủ có thể mở rộng W, mở rộng W để cân đối chiều cao H
-            if num_branch_rows > 4 and chosen_w < 1000:
-                standard_widths = [400, 500, 600, 700, 800, 1000, 1200]
-                for ww in [w for w in standard_widths if w > chosen_w]:
-                    test_usable = ww - 150.0
-                    test_rows = EnclosureCadGeneratorService._partition_branch_rows(branch_units, test_usable)
-                    if len(test_rows) < num_branch_rows:
-                        chosen_w = ww
-                        usable_rail_w = test_usable
-                        branch_rows = test_rows
-                        num_branch_rows = len(test_rows)
-                        break
+        standard_widths = [300, 400, 500, 600, 700, 800, 1000, 1200, 1400, 1600]
+        standard_heights = [400, 500, 600, 700, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200]
+        standard_depths = [200, 250, 300, 350, 400, 450, 500, 600, 800]
 
-            # 3. Tính chiều cao cần thiết H
-            inc_dim = EnclosureCadGeneratorService._get_device_dimension(incomer_dev) if incomer_dev else (80, 120, 75)
-            h_top = 220.0 if need_busbar else 130.0
-            h_row1 = max(140.0, inc_dim[1] + 25.0)
-            h_duct = 35.0
-            h_per_branch_row = 155.0
-            h_branches = num_branch_rows * h_per_branch_row
-            h_bottom = 150.0
+        def round_standard(value: float, standards: List[int]) -> float:
+            return float(next((s for s in standards if s >= value), int(math.ceil(value / 100.0) * 100)))
 
-            # Dự phòng không gian 20% theo chuẩn IEC 61439
-            h_raw = (h_top + h_row1 + h_duct + h_branches + h_bottom) * 1.20
+        layout_style = "CENTRAL_VERTICAL_BUSBAR" if incomer_a >= 400 and len(large_branches) >= 6 else "HORIZONTAL_ROWS"
+        central_columns: Dict[str, List[Dict[str, Any]]] = {"left": [], "right": []}
+        branch_rows: List[List[Dict[str, Any]]] = []
 
-            standard_heights = [600, 700, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200]
-            chosen_h = standard_heights[-1]
-            for sh in standard_heights:
-                if sh >= h_raw:
-                    chosen_h = sh
-                    break
+        if layout_style == "CENTRAL_VERTICAL_BUSBAR":
+            ordered = [d for d, _ in large_branches] + [d for d, _ in branch_dims if d not in [x[0] for x in large_branches]]
+            split = int(math.ceil(len(ordered) / 2.0))
+            central_columns = {"left": ordered[:split], "right": ordered[split:]}
+            max_branch_w = max((dim[0] for _, dim in branch_dims), default=60.0)
+            max_branch_h = max((dim[1] for _, dim in branch_dims), default=80.0)
+            max_per_side = max(len(central_columns["left"]), len(central_columns["right"]), 1)
 
-            # 4. Chiều sâu D
-            if incomer_a >= 1000:
-                chosen_d = 600 if chosen_h < 1800 else 800
-            elif incomer_a >= 400:
-                chosen_d = 350
+            # Branch MCCBs are rotated 90 degrees: device H consumes cabinet W,
+            # and device W consumes the vertical stack pitch.
+            side_margin = 70.0
+            connection_zone = 120.0
+            busbar_zone = 145.0 if is_3phase else 95.0
+            raw_w = 2 * side_margin + 2 * max_branch_h + 2 * connection_zone + busbar_zone
+            stack_h = max_per_side * max_branch_w + max(0, max_per_side - 1) * 20.0
+            raw_h = 170.0 + inc_h + 55.0 + stack_h + 150.0 + 45.0
+            raw_d = max([inc_d] + [dim[2] for _, dim in branch_dims] + [60.0]) + 260.0
+            minimum_w = round_standard(raw_w, standard_widths)
+            minimum_h = round_standard(raw_h, standard_heights)
+            minimum_d = round_standard(raw_d, standard_depths)
+            branch_rows = [central_columns["left"], central_columns["right"]]
+        else:
+            min_w = max(300.0, inc_w + 160.0)
+            if incomer_a >= 400:
+                min_w = max(min_w, 800.0)
             elif incomer_a >= 160:
-                chosen_d = 250
-            else:
-                chosen_d = 200
+                min_w = max(min_w, 600.0)
 
-        # 5. Độ dày tôn (Tole thickness) và chân đế (Plinth)
+            candidates = []
+            for candidate_w in standard_widths:
+                if candidate_w < min_w:
+                    continue
+                usable_w = max(180.0, candidate_w - 150.0)
+                rows = EnclosureCadGeneratorService._partition_branch_rows(branch_units, usable_w)
+                row_heights = [max((EnclosureCadGeneratorService._get_device_dimension(d)[1] for d in row), default=0.0) for row in rows]
+                branch_h = sum(row_heights) + max(0, len(rows) - 1) * 45.0
+                top_h = (150.0 if need_busbar else 80.0) + inc_h + 45.0
+                control_h = max((EnclosureCadGeneratorService._get_device_dimension(d)[1] for d in ctrl_devs), default=0.0)
+                raw_h_for_w = top_h + branch_h + control_h + 170.0 + 50.0
+                candidate_h = round_standard(raw_h_for_w, standard_heights)
+                candidates.append((candidate_w * candidate_h, candidate_w, candidate_h, rows))
+            _, minimum_w, minimum_h, branch_rows = min(candidates, key=lambda c: (c[0], c[2], c[1])) if candidates else (0, 800.0, 1200.0, [[]])
+            max_device_d = max([inc_d] + [dim[2] for _, dim in branch_dims] + [60.0])
+            depth_allowance = 210.0 if incomer_a < 400 else 260.0
+            minimum_d = round_standard(max_device_d + depth_allowance, standard_depths)
+
+        required_h, required_w, required_d = minimum_h, minimum_w, minimum_d
+        has_preferred = bool(preferred_dimensions and len(preferred_dimensions) >= 3 and float(preferred_dimensions[0]) > 0)
+        preferred_fit = True
+        if has_preferred:
+            pref_h, pref_w, pref_d = map(float, preferred_dimensions[:3])
+            preferred_fit = pref_h >= required_h and pref_w >= required_w and pref_d >= required_d
+            chosen_h = max(pref_h, required_h)
+            chosen_w = max(pref_w, required_w)
+            chosen_d = max(pref_d, required_d)
+        else:
+            chosen_h, chosen_w, chosen_d = required_h, required_w, required_d
+
+        chosen_h = round_standard(chosen_h, standard_heights)
+        chosen_w = round_standard(chosen_w, standard_widths)
+        chosen_d = round_standard(chosen_d, standard_depths)
+
+        usable_rail_w = max(180.0, chosen_w - 150.0)
+        if layout_style == "HORIZONTAL_ROWS":
+            branch_rows = EnclosureCadGeneratorService._partition_branch_rows(branch_units, usable_rail_w)
+        num_branch_rows = len(branch_rows)
+
         plinth_h = settings.ENCLOSURE_DEFAULT_PLINTH_HEIGHT if chosen_h >= FLOOR_STANDING_HEIGHT_THRESHOLD_MM else 0
         if chosen_h >= 1600:
             thickness = float(settings.ENCLOSURE_DEFAULT_THICKNESS)
@@ -272,15 +336,31 @@ class EnclosureCadGeneratorService:
             thickness = 1.2
 
         if need_busbar:
-            phase_cu_area = int(incomer_a / 2)
-            busbar_spec = f"Cu {phase_cu_area}mm2 (Phase R-S-T), N=50%, E=25%"
+            try:
+                from app.services.device_catalog_engine import catalog_engine
+                bars = list((catalog_engine.accessories.get("busbar") or {}).get("items") or [])
+                phase_bars = [b for b in bars if str(b.get("phase") or "").upper() == "L1" and float(b.get("I_rated") or 0) >= incomer_a]
+                selected_bar = min(phase_bars, key=lambda b: float(b.get("section_mm2") or 1e9)) if phase_bars else None
+            except Exception:
+                selected_bar = None
+            if selected_bar:
+                busbar_spec = f"Cu {selected_bar.get('h_mm')}x{selected_bar.get('w_mm')}mm, I_rated={selected_bar.get('I_rated')}A (R-S-T-N); PE>=25%"
+            else:
+                busbar_spec = f"BUSBAR TBD >= {int(incomer_a)}A; no compatible item in catalog_accessories.json"
         else:
-            busbar_spec = "Din-rail & Day dong Cadivi 1P+N (E=25%)"
+            busbar_spec = "DIN rail / copper conductor; PE>=25%"
 
-        # 6. Đánh giá bố trí kỹ thuật
-        total_branch_width = sum(EnclosureCadGeneratorService._get_device_dimension(b)[0] for b in branch_units)
-        total_available_rail_w = max(1.0, num_branch_rows * usable_rail_w)
-        filling_ratio = min(1.0, total_branch_width / total_available_rail_w)
+        total_branch_area = sum(dim[0] * dim[1] for _, dim in branch_dims)
+        available_plate_area = max(1.0, (chosen_w - 100.0) * (chosen_h - 160.0))
+        filling_ratio = min(1.0, total_branch_area / available_plate_area)
+        catalog_warnings = sorted({str(d.get("catalog_compatibility_warning")) for d in devices if d.get("catalog_compatibility_warning")})
+        fit_check = {
+            "preferred_dimensions_supplied": has_preferred,
+            "preferred_dimensions_fit": preferred_fit,
+            "minimum_required": {"height": required_h, "width": required_w, "depth": required_d},
+            "selected": {"height": chosen_h, "width": chosen_w, "depth": chosen_d},
+            "catalog_warnings": catalog_warnings,
+        }
 
         layout_eval = {
             "incomer_rating": int(incomer_a),
@@ -290,12 +370,13 @@ class EnclosureCadGeneratorService:
             "control_devices_count": len(ctrl_devs),
             "filling_ratio": round(filling_ratio, 2),
             "is_floor_standing": chosen_h >= 1200,
-            "reserve_space_pct": 20,
+            "reserve_space_pct": 15,
+            "layout_style": layout_style,
+            "fit_check": fit_check,
             "dimension_rationale": (
-                f"Kích thước H{chosen_h}xW{chosen_w}xD{chosen_d}mm được tính toán tối ưu từ bố trí: "
-                f"1 ngăn tổng Incomer ({int(incomer_a)}A), "
-                f"{num_branch_rows} hàng ray nhánh ({len(branch_units)} thiết bị), "
-                f"độ điền đầy ray {int(filling_ratio * 100)}%, dự phòng 20% theo chuẩn IEC 61439."
+                f"H{int(chosen_h)}xW{int(chosen_w)}xD{int(chosen_d)}mm selected from catalog envelopes: "
+                f"incomer {inc_w:g}x{inc_h:g}x{inc_d:g}mm, {len(branch_units)} outgoing devices, "
+                f"layout={layout_style}, minimum H{int(required_h)}xW{int(required_w)}xD{int(required_d)}mm."
             )
         }
 
@@ -305,7 +386,8 @@ class EnclosureCadGeneratorService:
             "depth": chosen_d,
             "thickness": thickness,
             "plinth_height": plinth_h,
-            "doors": 1 if chosen_w <= 800 else 2,
+            "doors": 1 if chosen_w <= 1000 else 2,
+            "door_layers": 2,
             "incomer_rating": int(incomer_a),
             "poles": incomer_poles,
             "is_3phase": is_3phase,
@@ -313,6 +395,9 @@ class EnclosureCadGeneratorService:
             "feeder_count": len(branch_units),
             "enclosure_code": f"H{chosen_h}xW{chosen_w}xD{chosen_d}xT{thickness}mm",
             "branch_rows": branch_rows,
+            "central_columns": central_columns,
+            "layout_style": layout_style,
+            "fit_check": fit_check,
             "layout_evaluation": layout_eval
         }
 
@@ -343,15 +428,35 @@ class EnclosureCadGeneratorService:
         incomer_poles = specs.get("poles", 2)
         is_3phase = specs.get("is_3phase", False)
 
+        # Main distribution panels use the approved fabrication presentation:
+        # eight unframed views in a fixed order, with a central vertical busbar.
+        # Keeping this dispatch here also guarantees that every view uses the
+        # same catalog-driven enclosure and component dimensions.
+        if str(specs.get("layout_style") or "").upper() == "CENTRAL_VERTICAL_BUSBAR":
+            from app.services.cad.reference_eight_view_renderer import draw_reference_eight_views
+
+            draw_reference_eight_views(
+                msp=msp,
+                devices=devices,
+                panel_code=panel_code,
+                panel_name=panel_name,
+                specs=specs,
+                x_offset=x_offset,
+                y_offset=y_offset,
+                draw_busbar=draw_busbar,
+            )
+            return
+
         clean_panel_title = clean_cad_text(panel_code or f"TU_DIEN_{incomer_a}A")
 
         # 1. Phân loại thiết bị thực tế & Xác định kích thước chuẩn
-        incomer_dev = next(
-            (d for d in devices if str(d.get("category", "")).upper() in ["ACB", "MCCB"] or str(d.get("section", "")).upper() in ["ĐẦU VÀO", "INCOMER", "NGUỒN CẤP"]),
-            None
-        )
-        if not incomer_dev and devices:
-            incomer_dev = max(devices, key=lambda d: float(d.get("in_a") or 0))
+        protection_devs = [d for d in devices if str(d.get("category", "")).upper() in ["ACB", "MCCB", "MCB", "RCBO", "RCCB", "ELCB"]]
+        explicit_incomers = [
+            d for d in protection_devs
+            if str(d.get("section", "")).upper() in ["ĐẦU VÀO", "DAU VAO", "INCOMER", "NGUỒN CẤP", "NGUON CAP"]
+            or any(k in str(d.get("name") or "").upper() for k in ["INCOMER", "TỔNG", "TONG"])
+        ]
+        incomer_dev = max(explicit_incomers or protection_devs or devices or [{}], key=lambda d: float(d.get("in_a") or 0))
 
         incomer_brand = incomer_dev.get("brand") if incomer_dev and incomer_dev.get("brand") else ""
         incomer_sku = incomer_dev.get("part_number") if incomer_dev and incomer_dev.get("part_number") else f"{incomer_poles}P-{incomer_a}A"
@@ -367,13 +472,24 @@ class EnclosureCadGeneratorService:
             if any(k in str(d.get("category", "")).upper() or k in str(d.get("name", "")).upper() for k in ["CONTACTOR", "TIMER", "RELAY", "BMS"])
         ]
 
+        incomer_aux_devs = [
+            d for d in devices
+            if d != incomer_dev and any(
+                k in (str(d.get("category", "")).upper() + " " + str(d.get("name", "")).upper())
+                for k in ["FUSE", "CAU CHI", "CẦU CHÌ", "FUSE HOLDER", "CURRENT TRANSFORMER", "BIEN DONG", "BIẾN DÒNG", " CT "]
+            )
+        ]
+
         has_meter_device = any("METER" in str(d.get("category", "")).upper() or "DONG HO" in str(d.get("name", "")).upper() for d in devices)
         has_pilot_lights = any("LIGHT" in str(d.get("category", "")).upper() or "DEN" in str(d.get("name", "")).upper() for d in devices) or (incomer_a >= 63 and is_3phase)
 
         branch_units = [
             d for d in devices
-            if d != incomer_dev and d not in ctrl_devs and str(d.get("category", "")).upper() not in ["LIGHT", "METER"]
+            if d != incomer_dev and d not in ctrl_devs and d not in incomer_aux_devs
+            and str(d.get("category", "")).upper() not in ["LIGHT", "METER"]
         ]
+        layout_style = str(specs.get("layout_style") or "HORIZONTAL_ROWS").upper()
+        central_columns = specs.get("central_columns") or {"left": [], "right": []}
 
         # Trích xuất hoặc gán Tag chuẩn IEC cho toàn bộ thiết bị phục vụ Traceability 2 chiều
         incomer_tag = incomer_dev.get("tag") if incomer_dev and incomer_dev.get("tag") else (
@@ -391,9 +507,15 @@ class EnclosureCadGeneratorService:
                 bd["tag"] = PhysicalLayoutEngine.extract_or_assign_tag(bd, b_idx, ElectricalFunction.OUTGOING_PROTECTION)
 
         usable_rail_w = max(250.0, W - 150.0)
-        branch_rows = specs.get("branch_rows")
-        if not branch_rows:
-            branch_rows = EnclosureCadGeneratorService._partition_branch_rows(branch_units, usable_rail_w)
+        # Repartition after removing incomer auxiliaries; cached sizing rows may
+        # still contain fuse/CT devices from the earlier sizing pass.
+        branch_rows = EnclosureCadGeneratorService._partition_branch_rows(branch_units, usable_rail_w)
+        if layout_style == "CENTRAL_VERTICAL_BUSBAR":
+            by_tag = {str(d.get("tag") or "").upper(): d for d in branch_units}
+            left_col = [by_tag.get(str(d.get("tag") or "").upper(), d) for d in (central_columns.get("left") or [])]
+            right_col = [by_tag.get(str(d.get("tag") or "").upper(), d) for d in (central_columns.get("right") or [])]
+        else:
+            left_col, right_col = [], []
 
         BASE_Y = y_offset
         GAP = 160.0
@@ -444,7 +566,10 @@ class EnclosureCadGeneratorService:
         # Zone 3: Vùng phân phối các hàng ray DIN các lộ nhánh (Branch Tiers)
         avail_branch_h = zone3_top - zone3_bottom
         ideal_tier_h = 160.0
-        num_tiers = max(len(branch_rows), int(round(avail_branch_h / ideal_tier_h))) if avail_branch_h > 120 else 1
+        if layout_style == "CENTRAL_VERTICAL_BUSBAR":
+            num_tiers = max(len(left_col), len(right_col), 1)
+        else:
+            num_tiers = max(len(branch_rows), int(round(avail_branch_h / ideal_tier_h))) if avail_branch_h > 120 else 1
         num_tiers = max(1, min(6, num_tiers))
         tier_pitch = avail_branch_h / num_tiers
         tier_centers = [zone3_top - (k + 0.5) * tier_pitch for k in range(num_tiers)]
@@ -510,23 +635,55 @@ class EnclosureCadGeneratorService:
                 )
             curr_door_y = lamp_y - 35
 
-        # Đồng hồ đo đa năng MFM (LCD 96x96mm) (Chỉ vẽ khi có trong BOM hoặc tủ MSB lớn >=160A 3 pha)
-        should_draw_meter = has_meter_device or (incomer_a >= 160 and is_3phase and H >= 1000)
-        if should_draw_meter:
-            meter_y = curr_door_y - 100
-            meter_size = 90
-            meter_x = v1_x + (v1_w - meter_size) / 2
+        # Vẽ đúng từng cụm thiết bị đo/chuyển mạch gắn bên ngoài cánh tủ.
+        # CT đo lường nằm bên trong nên không được vẽ nhầm lên mặt cánh.
+        door_meter_devs = [
+            d for d in devices
+            if "METER" in str(d.get("category", "")).upper()
+            and not any(k in clean_cad_text(d.get("name", "")) for k in ["BIEN DONG", "3XCT", "CURRENT TRANSFORMER"])
+        ]
+        if not door_meter_devs and incomer_a >= 160 and is_3phase and H >= 1000:
+            door_meter_devs = [{"name": "DONG HO DA NANG MFM", "tag": "PI1"}]
+
+        assembly_y = curr_door_y - 82
+        amp_meters = [d for d in door_meter_devs if "AMPE" in clean_cad_text(d.get("name", ""))]
+        other_meters = [d for d in door_meter_devs if d not in amp_meters]
+        if len(amp_meters) >= 3:
+            meter_size = 72.0
+            spacing = 105.0
+            row_start = v1_x + v1_w / 2.0 - spacing
+            for meter_idx, meter_dev in enumerate(amp_meters[:3]):
+                mx = row_start + meter_idx * spacing - meter_size / 2.0
+                my = assembly_y - meter_size / 2.0
+                add_box(msp, (mx, my), (mx + meter_size, my + meter_size), layer="0_DOOR_ITEMS", color=7)
+                add_box(msp, (mx + 8, my + 20), (mx + meter_size - 8, my + meter_size - 8), layer="0_DOOR_ITEMS", color=4)
+                tag = clean_cad_text(meter_dev.get("tag") or f"PA{meter_idx + 1}")
+                msp.add_text(f"[{tag}]", dxfattribs={"layer": "0_TEXT", "height": 5.5, "color": 3}).set_placement(
+                    (mx + meter_size / 2.0, my - 11), align=TextEntityAlignment.MIDDLE_CENTER
+                )
+            assembly_y -= 112.0
+            door_meter_devs = other_meters
+
+        for meter_idx, meter_dev in enumerate(door_meter_devs):
+            clean_meter_name = clean_cad_text(meter_dev.get("name", "DONG HO"))
+            meter_tag = clean_cad_text(meter_dev.get("tag") or f"PI{meter_idx + 1}")
+            row_center_x = v1_x + v1_w / 2
+            selector_x = row_center_x + 72
+            msp.add_circle((selector_x, assembly_y), radius=18, dxfattribs={"layer": "0_DOOR_ITEMS", "color": 7})
+            msp.add_line((selector_x - 9, assembly_y - 9), (selector_x + 9, assembly_y + 9), dxfattribs={"layer": "0_DOOR_ITEMS", "color": 3})
+            selector_label = "AS" if "AMPE" in clean_meter_name else "VS" if "VOLT" in clean_meter_name or "VON" in clean_meter_name else "SEL"
+            msp.add_text(selector_label, dxfattribs={"layer": "0_TEXT_TITLE", "height": 7.0, "color": 3}).set_placement(
+                (selector_x, assembly_y - 30), align=TextEntityAlignment.MIDDLE_CENTER
+            )
+            meter_size = 72.0
+            meter_x = row_center_x - 72
+            meter_y = assembly_y - meter_size / 2
             add_box(msp, (meter_x, meter_y), (meter_x + meter_size, meter_y + meter_size), layer="0_DOOR_ITEMS", color=7)
-            add_box(msp, (meter_x + 10, meter_y + 25), (meter_x + meter_size - 10, meter_y + meter_size - 10), layer="0_DOOR_ITEMS", color=4)
-            msp.add_text("[PI1] DONG HO DA NANG MFM", dxfattribs={"layer": "0_TEXT_TITLE", "height": 6.5, "color": 3}).set_placement(
-                (v1_x + v1_w / 2, meter_y + meter_size - 22), align=TextEntityAlignment.MIDDLE_CENTER
+            add_box(msp, (meter_x + 8, meter_y + 20), (meter_x + meter_size - 8, meter_y + meter_size - 8), layer="0_DOOR_ITEMS", color=4)
+            msp.add_text(f"[{meter_tag}] {clean_meter_name[:24]}", dxfattribs={"layer": "0_TEXT", "height": 5.5, "color": 3}).set_placement(
+                (row_center_x, meter_y - 14), align=TextEntityAlignment.MIDDLE_CENTER
             )
-            msp.add_text("V, A, Hz, CosPhi, kWh", dxfattribs={"layer": "0_TEXT", "height": 6.0}).set_placement(
-                (v1_x + v1_w / 2, meter_y + meter_size - 40), align=TextEntityAlignment.MIDDLE_CENTER
-            )
-            msp.add_text("CLASS 0.5 - IEC", dxfattribs={"layer": "0_TEXT", "height": 5.5}).set_placement(
-                (v1_x + v1_w / 2, meter_y + 10), align=TextEntityAlignment.MIDDLE_CENTER
-            )
+            assembly_y -= 112
 
         # Biển cảnh báo an toàn điện tam giác sấm sét
         warn_y = body_y + 140
@@ -544,13 +701,15 @@ class EnclosureCadGeneratorService:
             (v1_x + v1_w / 2, warn_y + 14), align=TextEntityAlignment.MIDDLE_CENTER
         )
 
-        # Chớp thoáng khí Louver nóc & đáy có lưới chắn côn trùng
-        for louver_y in [body_y + 35, body_top - 35]:
-            lv_w = v1_w - 180
-            lv_x = v1_x + 90
-            add_box(msp, (lv_x, louver_y - 12), (lv_x + lv_w, louver_y + 12), layer="0_FRAME")
-            for line_offset in [-6, 0, 6]:
-                msp.add_line((lv_x + 8, louver_y + line_offset), (lv_x + lv_w - 8, louver_y + line_offset), dxfattribs={"layer": "0_FRAME"})
+        # Distribution cabinets with a central busbar follow the fabrication
+        # reference: ventilation is on the side panel, not punched in the door.
+        if layout_style != "CENTRAL_VERTICAL_BUSBAR":
+            for louver_y in [body_y + 35, body_top - 35]:
+                lv_w = v1_w - 180
+                lv_x = v1_x + 90
+                add_box(msp, (lv_x, louver_y - 12), (lv_x + lv_w, louver_y + 12), layer="0_FRAME")
+                for line_offset in [-6, 0, 6]:
+                    msp.add_line((lv_x + 8, louver_y + line_offset), (lv_x + lv_w - 8, louver_y + line_offset), dxfattribs={"layer": "0_FRAME"})
 
         # Đường kích thước W & H cho View 1
         add_dim_h(msp, v1_x, v1_x + v1_w, body_top + 30, text=f"W={W}")
@@ -622,6 +781,25 @@ class EnclosureCadGeneratorService:
 
         global_dev_counter = 1
         for k_idx, c_y in enumerate(tier_centers):
+            if layout_style == "CENTRAL_VERTICAL_BUSBAR":
+                for side_name, side_devices, slot_x in (
+                    ("L", left_col, v2_x + 105.0),
+                    ("R", right_col, v2_x + v2_w - 160.0),
+                ):
+                    if k_idx >= len(side_devices):
+                        continue
+                    s_dev = side_devices[k_idx]
+                    _, dev_w, _ = EnclosureCadGeneratorService._get_device_dimension(s_dev)
+                    slot_w = 55.0
+                    slot_h = min(95.0, max(55.0, dev_w * 0.55))
+                    slot_y = c_y - slot_h / 2.0
+                    add_box(msp, (slot_x, slot_y), (slot_x + slot_w, slot_y + slot_h), layer="0_DEVICES")
+                    s_tag = s_dev.get("tag") or f"L{global_dev_counter}"
+                    global_dev_counter += 1
+                    msp.add_text(f"[{s_tag}]", dxfattribs={"layer": "0_TEXT_TITLE", "height": 5.5, "color": 3}).set_placement(
+                        (slot_x + slot_w / 2.0, slot_y - 9), align=TextEntityAlignment.MIDDLE_CENTER
+                    )
+                continue
             r_slot_y = c_y - rail_slot_h / 2.0
             add_box(msp, (rail_slot_x, r_slot_y), (rail_slot_x + rail_slot_w, r_slot_y + rail_slot_h), layer="0_DEVICES")
             slot_title = f"KHE KHOET APTOMAT NHANH - HANG {k_idx + 1}" if num_tiers > 1 else "KHE KHOET CAN GAT APTOMAT NHANH"
@@ -684,6 +862,18 @@ class EnclosureCadGeneratorService:
         px1 = v3_x + margin
         px2 = v3_x + v3_w - margin
         add_box(msp, (px1, py1), (px2, py2), layer="0_PLATE")
+        # Mechanical fabrication details: mounting holes, punched slot grid and stiffeners.
+        for hx, hy in ((px1 + 15, py1 + 15), (px2 - 15, py1 + 15),
+                       (px1 + 15, py2 - 15), (px2 - 15, py2 - 15)):
+            msp.add_circle((hx, hy), radius=5, dxfattribs={"layer": "0_PUNCH"})
+            msp.add_circle((hx, hy), radius=2, dxfattribs={"layer": "0_PUNCH"})
+        for sy in (py1 + 35, py2 - 35):
+            add_box(msp, (px1 + 30, sy - 8), (px2 - 30, sy + 8), layer="0_STIFFENER")
+        for sx in range(int(px1 + 55), int(px2 - 30), 70):
+            for sy in range(int(py1 + 75), int(py2 - 50), 90):
+                add_box(msp, (sx - 6, sy - 2), (sx + 6, sy + 2), layer="0_PUNCH")
+        add_dim_h(msp, px1 + 15, px2 - 15, py2 + 24, text=f"LO BAT VIT C-C={int(px2-px1-30)}")
+        add_dim_v(msp, px2 + 24, py1 + 15, py2 - 15, text=f"C-C={int(py2-py1-30)}")
 
         # Máng cáp nhựa xẻ rãnh 2 bên sườn (Vertical Cable Ducts 30mm)
         add_box(msp, (px1 + 4, py1 + 4), (px1 + 4 + duct_w, py2 - 4), layer="0_DUCTS")
@@ -738,8 +928,11 @@ class EnclosureCadGeneratorService:
             add_box(msp, (px1 + 4, busbar_div_duct_y - duct_w), (px2 - 4, busbar_div_duct_y), layer="0_DUCTS")
 
         # ZONE 2: HÀNG THIẾT BỊ ĐÓNG CẮT TỔNG INCOMER & KHỐI ĐIỀU KHIỂN
-        inc_x = work_x1 + 8
-        add_box(msp, (inc_x, inc_box_y), (inc_x + inc_w_actual, inc_box_y + inc_h_actual), layer="0_DEVICES")
+        inc_x = (v3_x + v3_w / 2.0 - inc_w_actual / 2.0) if layout_style == "CENTRAL_VERTICAL_BUSBAR" else (work_x1 + 8)
+        if incomer_dev:
+            EnclosureCadGeneratorService._insert_device(msp, incomer_dev, inc_x, inc_box_y)
+        else:
+            add_box(msp, (inc_x, inc_box_y), (inc_x + inc_w_actual, inc_box_y + inc_h_actual), layer="0_DEVICES")
 
         # Thông tin Incomer kèm TAG chuẩn IEC
         msp.add_text(f"[{incomer_tag}]", dxfattribs={"layer": "0_TEXT_TITLE", "height": 8.5, "color": 3}).set_placement(
@@ -770,8 +963,21 @@ class EnclosureCadGeneratorService:
                 msp.add_line((tx, top_term_y), (tx, drop_src_y), dxfattribs={"layer": "0_COPPER", "color": p_i + 1})
                 msp.add_circle((tx, top_term_y), radius=3, dxfattribs={"layer": "0_COPPER", "color": p_i + 1})
 
-        # Các thiết bị điều khiển đi kèm đặt cùng hàng Zone 2
+        # Cầu chì/CT thuộc cụm nguồn vào: đặt sát một bên MCCB tổng.
         curr_cx = inc_x + inc_w_actual + 18
+        for aux_idx, aux in enumerate(incomer_aux_devs):
+            aw, ah, _ = EnclosureCadGeneratorService._get_device_dimension(aux)
+            aux_y = inc_center_y - ah / 2.0
+            EnclosureCadGeneratorService._insert_device(msp, aux, curr_cx, aux_y)
+            is_fuse = "FUSE" in (str(aux.get("category", "")).upper() + str(aux.get("name", "")).upper())
+            aux_tag = aux.get("tag") or (f"FU{aux_idx + 1}" if is_fuse else f"CT{aux_idx + 1}")
+            aux["tag"] = aux_tag
+            msp.add_text(f"[{aux_tag}]", dxfattribs={"layer": "0_TEXT_TITLE", "height": 6.0, "color": 3}).set_placement(
+                (curr_cx + aw / 2, aux_y - 10), align=TextEntityAlignment.MIDDLE_CENTER)
+            msp.add_line((curr_cx - 10, inc_center_y), (curr_cx, inc_center_y), dxfattribs={"layer": "0_COPPER", "color": 3})
+            curr_cx += aw + 14
+
+        # Thiết bị điều khiển đặt tiếp sau cụm bảo vệ phụ trợ trong Zone 2.
         avail_ctrl_w = work_x2 - curr_cx - 8
         num_ctrl = min(3, len(ctrl_devs))
         ctrl_unit_w = min(68, max(50, (avail_ctrl_w - 20) / max(1, num_ctrl))) if num_ctrl > 0 else 60
@@ -829,7 +1035,36 @@ class EnclosureCadGeneratorService:
 
         # ZONE 3: CÁC HÀNG THANH RAY DIN-RAIL VÀ CÁC LỘ NHÁNH PHÂN PHỐI (TIER CENTERS CHUẨN)
         global_branch_idx = 1
+        if layout_style == "CENTRAL_VERTICAL_BUSBAR" and draw_busbar:
+            center_x = v3_x + v3_w / 2.0
+            phase_offsets = [-36.0, -12.0, 12.0, 36.0]
+            phase_colors = [1, 2, 5, 4]
+            for p_off, p_col, p_name in zip(phase_offsets, phase_colors, ["R", "S", "T", "N"]):
+                bx = center_x + p_off
+                add_box(msp, (bx - 5, zone3_bottom), (bx + 5, zone3_top), layer="0_COPPER", color=p_col)
+                msp.add_text(p_name, dxfattribs={"layer": "0_TEXT_TITLE", "height": 5.0, "color": p_col}).set_placement(
+                    (bx, zone3_bottom - 10), align=TextEntityAlignment.MIDDLE_CENTER
+                )
         for k_idx, c_y in enumerate(tier_centers):
+            if layout_style == "CENTRAL_VERTICAL_BUSBAR":
+                for side_name, side_devices in (("L", left_col), ("R", right_col)):
+                    if k_idx >= len(side_devices):
+                        continue
+                    bd = side_devices[k_idx]
+                    bw, bh, _ = EnclosureCadGeneratorService._get_device_dimension(bd)
+                    rot_w, rot_h = bh, bw
+                    bx = (work_x1 + 18.0) if side_name == "L" else (work_x2 - rot_w - 18.0)
+                    by = c_y - rot_h / 2.0
+                    EnclosureCadGeneratorService._insert_device_rotated(msp, bd, bx, by)
+                    b_tag = bd.get("tag") or f"QF{global_branch_idx}"
+                    global_branch_idx += 1
+                    msp.add_text(f"[{b_tag}] {int(bd.get('in_a') or 0)}A", dxfattribs={"layer": "0_TEXT_TITLE", "height": 5.2, "color": 3}).set_placement(
+                        (bx + rot_w / 2.0, by - 9), align=TextEntityAlignment.MIDDLE_CENTER
+                    )
+                    link_x1 = bx + rot_w if side_name == "L" else center_x + 42.0
+                    link_x2 = center_x - 42.0 if side_name == "L" else bx
+                    msp.add_line((link_x1, c_y), (link_x2, c_y), dxfattribs={"layer": "0_COPPER", "color": phase_colors[k_idx % 3]})
+                continue
             # Máng cáp ngang phân cách giữa các hàng ray
             if k_idx > 0:
                 duct_between_y = c_y + tier_pitch / 2.0
@@ -841,7 +1076,8 @@ class EnclosureCadGeneratorService:
             msp.add_line((work_x1, c_y), (work_x2, c_y), dxfattribs={"layer": "0_PLATE"})
 
             r_devs = branch_rows[k_idx] if k_idx < len(branch_rows) else []
-            b_curr_x = work_x1 + 10
+            row_span = sum(EnclosureCadGeneratorService._get_device_dimension(d)[0] + 12.0 for d in r_devs)
+            b_curr_x = work_x1 + max(10.0, (work_w - row_span) / 2.0)
             mcb_h = 75.0
             mcb_y = c_y - mcb_h / 2.0
 
@@ -852,35 +1088,9 @@ class EnclosureCadGeneratorService:
                     b_curr = int(bd.get("in_a") or 16)
                     b_name = clean_cad_text(bd.get("name") or "MCB")
 
-                    if "FUSE" in b_cat or "CAU CHI" in b_name:
-                        bw = 28.0
-                        add_box(msp, (b_curr_x, mcb_y), (b_curr_x + bw, mcb_y + mcb_h), layer="0_DEVICES")
-                        msp.add_line((b_curr_x + bw / 2, mcb_y + 10), (b_curr_x + bw / 2, mcb_y + mcb_h - 10), dxfattribs={"layer": "0_DEVICES"})
-                        msp.add_text("FUSE", dxfattribs={"layer": "0_TEXT", "height": 5.5}).set_placement(
-                            (b_curr_x + bw / 2, mcb_y + mcb_h - 16), align=TextEntityAlignment.MIDDLE_CENTER
-                        )
-                        msp.add_text(f"{b_curr}A", dxfattribs={"layer": "0_TEXT_TITLE", "height": 6.5}).set_placement(
-                            (b_curr_x + bw / 2, mcb_y + 16), align=TextEntityAlignment.MIDDLE_CENTER
-                        )
-                    elif "MCCB" in b_cat:
-                        bw = 75.0 if b_poles <= 3 else 100.0
-                        add_box(msp, (b_curr_x, mcb_y - 15), (b_curr_x + bw, mcb_y + mcb_h + 15), layer="0_DEVICES")
-                        msp.add_text(f"MCCB {b_poles}P", dxfattribs={"layer": "0_TEXT", "height": 5.5}).set_placement(
-                            (b_curr_x + bw / 2, mcb_y + mcb_h), align=TextEntityAlignment.MIDDLE_CENTER
-                        )
-                        msp.add_text(f"{b_curr}A", dxfattribs={"layer": "0_TEXT_TITLE", "height": 7.0}).set_placement(
-                            (b_curr_x + bw / 2, mcb_y + 20), align=TextEntityAlignment.MIDDLE_CENTER
-                        )
-                    else:
-                        bw = 18.0 * max(1, b_poles) if b_poles > 2 else (36.0 if b_poles <= 1 else 54.0)
-                        add_box(msp, (b_curr_x, mcb_y), (b_curr_x + bw, mcb_y + mcb_h), layer="0_DEVICES")
-                        add_box(msp, (b_curr_x + 6, mcb_y + 25), (b_curr_x + bw - 6, mcb_y + 50), layer="0_DEVICES")
-                        msp.add_text(f"{b_poles}P", dxfattribs={"layer": "0_TEXT", "height": 5.5}).set_placement(
-                            (b_curr_x + bw / 2, mcb_y + mcb_h - 14), align=TextEntityAlignment.MIDDLE_CENTER
-                        )
-                        msp.add_text(f"{b_curr}A", dxfattribs={"layer": "0_TEXT_TITLE", "height": 7.0}).set_placement(
-                            (b_curr_x + bw / 2, mcb_y + 14), align=TextEntityAlignment.MIDDLE_CENTER
-                        )
+                    bw, actual_h = EnclosureCadGeneratorService._insert_device(msp, bd, b_curr_x, c_y - EnclosureCadGeneratorService._get_device_dimension(bd)[1] / 2)
+                    msp.add_text(f"{b_curr}A", dxfattribs={"layer": "0_TEXT_TITLE", "height": 5.0}).set_placement(
+                        (b_curr_x + bw / 2, c_y), align=TextEntityAlignment.MIDDLE_CENTER)
 
                     b_tag = bd.get("tag") or f"QF{global_branch_idx}"
                     global_branch_idx += 1
@@ -1012,6 +1222,16 @@ class EnclosureCadGeneratorService:
         msp.add_text(f"CHIEU SAU D = {D}mm - TY LE 1:10", dxfattribs={"layer": "0_TEXT", "height": 9.0}).set_placement(
             (v4_x + v4_w / 2, v4_y - 48), align=TextEntityAlignment.MIDDLE_CENTER
         )
+        # Real side projections of installed breaker blocks, aligned to their mounting zones.
+        side_dev_x = v4_x + max(30.0, D * .20)
+        if incomer_dev:
+            EnclosureCadGeneratorService._insert_device(msp, incomer_dev, side_dev_x, inc_box_y, side=True)
+        for row_index, row in enumerate(branch_rows):
+            if row and row_index < len(tier_centers):
+                _, dh, _ = EnclosureCadGeneratorService._get_device_dimension(row[0])
+                EnclosureCadGeneratorService._insert_device(msp, row[0], side_dev_x, tier_centers[row_index] - dh / 2, side=True)
+        msp.add_text("HINH CHIEU CANH THIET BI", dxfattribs={"layer": "0_TEXT_TITLE", "height": 6.0}).set_placement(
+            (v4_x + v4_w / 2, body_top - 18), align=TextEntityAlignment.MIDDLE_CENTER)
 
         # =========================================================================
         # VIEW 5: MẶT HÔNG ĐỐI DIỆN (E-SIDE VIEW)
@@ -1029,7 +1249,35 @@ class EnclosureCadGeneratorService:
         )
 
         # =========================================================================
-        # VIEW 6 & 7: MẶT NÓC VÀ MẶT ĐÁY (TOP / BOTTOM VIEW)
+        # VIEW 6: MẶT LƯNG / TẤM LƯNG THÁO RỜI (REAR ELEVATION)
+        # =========================================================================
+        v6_x = v5_x + D + GAP
+        add_box(msp, (v6_x, body_y), (v6_x + W, body_top), layer="0_FRAME")
+        add_box(msp, (v6_x + 18, body_y + 18), (v6_x + W - 18, body_top - 18), layer="0_FRAME")
+        rear_plate_margin = 55.0
+        add_box(
+            msp,
+            (v6_x + rear_plate_margin, body_y + rear_plate_margin),
+            (v6_x + W - rear_plate_margin, body_top - rear_plate_margin),
+            layer="0_PLATE",
+        )
+        for hx, hy in (
+            (v6_x + rear_plate_margin + 16, body_y + rear_plate_margin + 16),
+            (v6_x + W - rear_plate_margin - 16, body_y + rear_plate_margin + 16),
+            (v6_x + rear_plate_margin + 16, body_top - rear_plate_margin - 16),
+            (v6_x + W - rear_plate_margin - 16, body_top - rear_plate_margin - 16),
+        ):
+            msp.add_circle((hx, hy), radius=4, dxfattribs={"layer": "0_PUNCH"})
+        if plinth_h > 0:
+            add_box(msp, (v6_x, BASE_Y), (v6_x + W, body_y), layer="0_FRAME")
+        add_dim_h(msp, v6_x, v6_x + W, body_top + 30, text=f"W={W}")
+        add_dim_v(msp, v6_x - 35, body_y, body_top, text=f"H={H}")
+        msp.add_text("MAT LUNG TU (REAR ELEVATION)", dxfattribs={"layer": "0_TEXT_TITLE", "height": 13.0}).set_placement(
+            (v6_x + W / 2, v4_y - 28), align=TextEntityAlignment.MIDDLE_CENTER
+        )
+
+        # =========================================================================
+        # VIEW 7 & 8: MẶT NÓC VÀ MẶT ĐÁY (TOP / BOTTOM VIEW)
         # =========================================================================
         plan_y = BASE_Y - D - 150
         for plan_idx, (plan_title, cable_entry) in enumerate((("MAT NOC TU (TOP VIEW)", "CABLE ENTRY"), ("MAT DAY TU (BOTTOM VIEW)", "GLAND PLATE"))):
@@ -1049,9 +1297,9 @@ class EnclosureCadGeneratorService:
             )
 
         # =========================================================================
-        # VIEW 8: BẢNG THỐNG KÊ VẬT TƯ & THIẾT BỊ (BILL OF MATERIALS - BOM TABLE)
+        # BẢNG THỐNG KÊ VẬT TƯ & THIẾT BỊ (BILL OF MATERIALS - BOM TABLE)
         # =========================================================================
-        tbl_x = v5_x + D + GAP
+        tbl_x = v6_x + W + GAP
         tbl_w = 1150
         tbl_top_y = BASE_Y + H + plinth_h
 
@@ -1109,6 +1357,15 @@ class EnclosureCadGeneratorService:
                 "unit": "TAM",
                 "qty": 1,
                 "brand": "VN"
+            })
+        for warning in (specs.get("fit_check") or {}).get("catalog_warnings", []):
+            bom_rows.append({
+                "name": "CANH BAO CATALOG - KHONG DUOC DAT HANG",
+                "sku": "MODEL TBD",
+                "spec": clean_cad_text(warning),
+                "unit": "NOTE",
+                "qty": 1,
+                "brand": "VERIFY",
             })
 
         bom_rows.append({
@@ -1210,6 +1467,26 @@ class EnclosureCadGeneratorService:
             dxfattribs={"layer": "0_TABLE_HDR", "height": 8.5, "color": 2}
         ).set_placement((tbl_x + tbl_w / 2, footer_y + 14), align=TextEntityAlignment.MIDDLE_CENTER)
 
+        # Fabrication sheet frames and title blocks (model-space sheets, printable 1:10).
+        sheet_bottom = min(plan_y - 65, footer_y - 65)
+        sheet_top = body_top + 90
+        sheets = [
+            (v1_x - 70, sheet_bottom, v3_x + v3_w + 70, sheet_top, "SHEET 01 - GA & DOOR"),
+            (v4_x - 70, sheet_bottom, v6_x + W + 70, sheet_top, "SHEET 02 - SIDE, REAR & MECHANICAL"),
+            (tbl_x - 45, footer_y - 45, tbl_x + tbl_w + 45, tbl_top_y + 45, "SHEET 03 - BOM"),
+        ]
+        for sheet_no, (sx1, sy1, sx2, sy2, title) in enumerate(sheets, 1):
+            add_box(msp, (sx1, sy1), (sx2, sy2), layer="0_SHEET")
+            tbw, tbh = min(430.0, sx2 - sx1), 58.0
+            add_box(msp, (sx2 - tbw, sy1), (sx2, sy1 + tbh), layer="0_SHEET")
+            msp.add_line((sx2 - 100, sy1), (sx2 - 100, sy1 + tbh), dxfattribs={"layer": "0_SHEET"})
+            msp.add_text(title, dxfattribs={"layer": "0_TEXT_TITLE", "height": 8}).set_placement(
+                (sx2 - tbw + 10, sy1 + 35), align=TextEntityAlignment.MIDDLE_LEFT)
+            msp.add_text(f"{clean_panel_title} | TL 1:10 | AIDE", dxfattribs={"layer": "0_TEXT", "height": 6}).set_placement(
+                (sx2 - tbw + 10, sy1 + 15), align=TextEntityAlignment.MIDDLE_LEFT)
+            msp.add_text(f"{sheet_no}/3", dxfattribs={"layer": "0_TEXT_TITLE", "height": 10}).set_placement(
+                (sx2 - 50, sy1 + 29), align=TextEntityAlignment.MIDDLE_CENTER)
+
     @staticmethod
     def generate_dxf(
         project_id: int,
@@ -1224,8 +1501,8 @@ class EnclosureCadGeneratorService:
         """
         Tạo file AutoCAD DXF bản vẽ kỹ thuật hoàn chỉnh:
         - Sinh duy nhất 1 file CAD DXF chuẩn kỹ thuật cho dự án (đa tủ hoặc đơn tủ)
-        - Đầy đủ 7 hình chiếu cho mỗi tủ: cánh ngoài, cover/cánh trong,
-          bố trí thiết bị, hai mặt hông, mặt nóc, mặt đáy; kèm bảng BOM.
+        - Đầy đủ 8 hình chiếu cho mỗi tủ: cánh ngoài, cover/cánh trong,
+          bố trí thiết bị, hai mặt hông, mặt lưng, mặt nóc, mặt đáy; kèm bảng BOM.
         - Tham số draw_busbar: True (vẽ đầy đủ thanh cái đồng), False (chế độ Fit-check chỉ gá thiết bị kiểm tra diện tích)
         """
         if not output_dir:
@@ -1296,6 +1573,7 @@ class EnclosureCadGeneratorService:
 
             suffix = "" if draw_busbar else "_FitCheck"
             master_path = out_folder / f"BanVe_TongThe_{len(effective_panels)}_TuDien{suffix}_{run_suffix}.dxf"
+            EnclosureCadGeneratorService._update_document_extents(doc, msp)
             doc.saveas(str(master_path))
             return str(master_path)
         else:
@@ -1313,5 +1591,6 @@ class EnclosureCadGeneratorService:
             )
             suffix = "" if draw_busbar else "_FitCheck"
             file_path = out_folder / f"BanVe_TuDien_{clean_tag}_{specs['incomer_rating']}A{suffix}_{run_suffix}.dxf"
+            EnclosureCadGeneratorService._update_document_extents(doc, msp)
             doc.saveas(str(file_path))
             return str(file_path)

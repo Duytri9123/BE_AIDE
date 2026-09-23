@@ -558,6 +558,7 @@ class AnalysisPipelineService:
                                     compatibility_note=(cp.get("technical_reason") or cp.get("ai_analysis")) if cp else None,
                                     suggested_alternatives=[cp] if cp else None,
                                     accompanying_accessories=clean_accs,
+                                    inferred_components=getattr(d, "inferred_components", None),
                                     compatible_proposal=cp
                                 ))
                             except Exception as dev_err:
@@ -1481,6 +1482,9 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             ]
 
             clean_warnings = [w for w in warnings if not ("chưa khớp catalog" in w.lower() or "chua khop catalog" in w.lower())]
+            from app.services.ai.system_completeness import technical_audit
+            completeness_audit = technical_audit(extracted_devices)
+            clean_warnings.extend(f"{item['tag']}: {item['title']} — {item['detail']}" for item in completeness_audit['missing_items'])
             return {
                 "devices": extracted_devices,
                 "warnings": clean_warnings,
@@ -1492,7 +1496,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 "conclusion": conclusion,
                 "panel_info": panel_info,
                 "panels": multi_panel_list,
-                "technical_audit": None,
+                "technical_audit": completeness_audit,
                 "file_assessment": file_assessment,
                 "files_assessment": files_assessment,
                 "overall_assessment": overall_assessment,
@@ -1726,7 +1730,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         log_event(
             stage="finalization",
             title="Kiểm định An toàn Kỹ thuật (Technical Audit)",
-            detail=f"Điểm an toàn: {technical_audit.get('overall_score', 95)}/100 ({technical_audit.get('overall_status', 'Tốt')})",
+            detail=technical_audit['summary'],
             status="success"
         )
         log_event(
@@ -1770,7 +1774,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             {
                 "id": "finalization",
                 "title": "Kiểm định An toàn Kỹ thuật & Báo giá",
-                "description": f"Audit {technical_audit.get('overall_score', 95)}/100 - Bảng báo giá {len(quotation_rows)} dòng",
+                "description": f"{technical_audit['overall_status']} - Bảng báo giá {len(quotation_rows)} dòng",
                 "status": "completed",
             }
         ]
@@ -1817,8 +1821,11 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             ).lower()
 
         for device in devices:
-            drawn_qty = max(1, int(device.quantity or 1))
+            # Keep this pass idempotent: a saved result may already contain an
+            # expanded procurement quantity from an earlier reprocessing run.
+            drawn_qty = max(1, int(device.drawing_quantity or device.quantity or 1))
             device.drawing_quantity = drawn_qty
+            device.quantity = drawn_qty
             device.procurement_quantity = drawn_qty
             device.quantity_basis = "Theo số ký hiệu hoặc số lượng ghi trực tiếp trên sơ đồ."
             device.quantity_confidence = float(device.confidence or 0.0)
@@ -1826,6 +1833,9 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             searchable = " ".join(str(value or "") for value in (
                 device.tag, device.category, device.name, device.spec,
                 device.notes, device.section, device.upstream_device,
+            )).lower()
+            identity_text = " ".join(str(value or "") for value in (
+                device.tag, device.category, device.name, device.spec,
             )).lower()
             category = str(device.category or "").upper()
             context = panel_context.get(str(device.panel_code or ""), "")
@@ -1836,7 +1846,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             # dedicated semantic handling below.
             explicit_qty_matches = [
                 int(value)
-                for value in re.findall(r"(?:\bx\s*(\d+)\b|\b(\d+)\s*[x×]\s*(?:cái|chiếc|bộ|pcs?|nos?\.?)(?:\b|$))", searchable, re.I)
+                for value in re.findall(r"(?:\bx\s*(\d+)\b|\b(\d+)\s*[x×]\s*(?:cái|chiếc|bộ|pcs?|nos?\.?)(?:\b|$))", identity_text, re.I)
                 for value in value if value
             ]
             if explicit_qty_matches:
@@ -1844,8 +1854,11 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 device.quantity = device.procurement_quantity = explicit_qty
                 device.quantity_basis = f"Bản vẽ ghi rõ số lượng {explicit_qty} cho thiết bị này."
                 device.quantity_confidence = max(device.quantity_confidence or 0, 0.99)
+                # Explicit quantities take precedence over circuit heuristics.
+                continue
 
-            if re.search(r"\b3\s*x?\s*ct\b|\b3xct\b", searchable, re.I):
+            if re.search(r"\b3\s*x?\s*ct\b|\b3xct\b", identity_text, re.I):
+                device.drawing_quantity = 1
                 device.quantity = device.procurement_quantity = 3
                 device.quantity_basis = (
                     "Ký hiệu 3XCT/3CT đại diện ba biến dòng vật lý, mỗi pha R-S-T dùng một chiếc."
@@ -1860,6 +1873,8 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 re.search(r"3xct|\b3ct\b|\br\s*[-/,]\s*[sy]\s*[-/,]\s*[tb]\b|đèn báo pha|chon mach volt|vôn kế", context, re.I)
             )
             if is_fuse and (explicit_three_phase or (measurement_fuse and panel_has_three_phase_measurement)):
+                if not explicit_qty_matches:
+                    device.drawing_quantity = 1
                 device.quantity = device.procurement_quantity = max(3, drawn_qty)
                 device.quantity_basis = (
                     "Sơ đồ một sợi chỉ vẽ một cụm, nhưng mạch đo/báo điện áp ba pha cần ba cầu chì, "
@@ -1887,6 +1902,25 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 d.box_2d = [int(norm_ymin), int(norm_xmin), int(norm_ymax), int(norm_xmax)]
             except Exception:
                 continue
+
+    @staticmethod
+    def _apply_verified_boxes(devices: List[ExtractedDeviceSchema], payload: Any) -> None:
+        """Join verifier results by request-local identity, never by repeated tags."""
+        candidates = payload.get("boxes", []) if isinstance(payload, dict) else []
+        by_id: Dict[str, list] = {}
+        for candidate in candidates if isinstance(candidates, list) else []:
+            if isinstance(candidate, dict):
+                by_id.setdefault(str(candidate.get("device_id", "")), []).append(candidate)
+        for index, device in enumerate(devices):
+            device.box_2d = None
+            matches = by_id.get(str(index), [])
+            if len(matches) != 1 or matches[0].get("verified") is not True:
+                continue
+            box = matches[0].get("box_2d")
+            try:
+                device.box_2d = ExtractedDeviceSchema.normalize_evidence_box(box)
+            except (TypeError, ValueError, OverflowError):
+                pass
 
     @staticmethod
     def _evidence_crop_pixels(box: List[int], width: int, height: int) -> Optional[Tuple[int, int, int, int]]:
@@ -2095,6 +2129,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                     or (getattr(d, "compatible_proposal", None) or {}).get("ai_analysis")
                 ),
                 suggested_alternatives=[getattr(d, "compatible_proposal", None)] if getattr(d, "compatible_proposal", None) else None,
+                inferred_components=getattr(d, "inferred_components", None),
                 accompanying_accessories=AccompanyingEquipmentService.format_accessories(
                     getattr(d, "accompanying_accessories", None)
                 ),
@@ -2166,134 +2201,48 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
     def _promote_embedded_accessories_to_devices(
         devices: List[ExtractedDeviceSchema],
     ) -> List[ExtractedDeviceSchema]:
-        """
-        Tự động tách các thiết bị đo lường, giám sát, hiển thị (Biến dòng CT, Đồng hồ Ampe/Vôn,
-        Đèn báo pha, Chuyển mạch AS/VS, Cầu chì, Rơ le) bị AI xếp nhầm vào 'accompanying_accessories'
-        để đưa ra thành các thiết bị độc lập trong BOM chính của tủ điện.
-        """
-        if not devices:
-            return devices
-
-        existing_signatures = {
-            f"{str(d.panel_code or '').strip()}_{str(d.category or '').strip()}_{str(d.name or '').strip()}".lower()
-            for d in devices
-        }
-
-        promoted: List[ExtractedDeviceSchema] = []
-        newly_promoted: List[ExtractedDeviceSchema] = []
-
-        for dev in devices:
-            accs = getattr(dev, "accompanying_accessories", None)
-            if not accs or not isinstance(accs, list):
-                promoted.append(dev)
-                continue
-
-            remaining_accs: List[Dict[str, Any]] = []
-            for acc in accs:
-                if not isinstance(acc, dict):
+        """Promote only explicitly identified components; keep unnamed parts attached."""
+        result = list(devices)
+        def identity(d):
+            return (d.source_filename, d.source_page, d.panel_code, d.tag)
+        identified = {identity(d): d for d in devices if d.tag}
+        for parent in devices:
+            remaining = []
+            for accessory in parent.accompanying_accessories or []:
+                evidence = accessory.get("evidence") or accessory.get("source_reference") or accessory.get("sld_evidence")
+                if not evidence:
+                    parent.inferred_components = [*(parent.inferred_components or []), dict(accessory)]
                     continue
-
-                raw_name = str(acc.get("name") or "").strip()
-                clean_name = re.sub(r"^\s*↳\s*\[[^\]]+\]\s*", "", raw_name).strip()
-                spec = str(acc.get("spec") or "").strip()
-                notes = str(acc.get("notes") or acc.get("technical_reason") or "").strip()
-                evidence = str(acc.get("evidence") or "").strip()
-                searchable = f"{clean_name} {spec} {notes} {evidence}".lower()
-
-                # Nhận diện các loại thiết bị điện độc lập
-                is_ct = any(k in searchable for k in ["biến dòng", "bien dong", "3xct", "ct ", "ct/"]) or bool(re.search(r"\bct\b|\b3xct\b", searchable))
-                is_meter = any(k in searchable for k in ["đồng hồ", "dong ho", "ampe", "vôn", "volt", "meter", "kwh", "đa năng", "mfm"])
-                is_light = any(k in searchable for k in ["đèn báo", "den bao", "pilot light", "đèn pha", "indicator lamp"]) or ("đỏ, vàng, xanh" in searchable) or ("r, y, b" in searchable)
-                is_switch = any(k in searchable for k in ["chuyển mạch", "chuyen mach", "selector switch", "selector"]) or bool(re.search(r"\bas\b|\bvs\b", searchable))
-                is_fuse = any(k in searchable for k in ["cầu chì", "cau chi", "fuse"]) or bool(re.search(r"\bfuse\b|\bfu\b", searchable))
-                is_relay = any(k in searchable for k in ["rơ le", "ro le", "relay", "bảo vệ pha", "quá áp", "pmr", "elr", "ocr", "bảo vệ chạm đất"])
-
-                if is_ct or is_meter or is_light or is_switch or is_fuse or is_relay:
-                    if is_ct:
-                        cat = "BIẾN DÒNG CT"
-                        func = ElectricalFunction.MEASUREMENT
-                        mounting = MountingType.BUSBAR_MOUNTED
-                        sec = dev.section or "Đo lường & Giám sát"
-                        tag = "CT"
-                        qty = 3 if ("3x" in searchable or "3ct" in searchable or "3 pha" in searchable) else int(acc.get("quantity") or 3)
-                        final_name = clean_name if "biến dòng" in clean_name.lower() else f"Biến dòng CT {clean_name}"
-                    elif is_meter:
-                        cat = "ĐỒNG HỒ ĐO LƯỜNG"
-                        func = ElectricalFunction.MEASUREMENT
-                        mounting = MountingType.DOOR_MOUNTED
-                        sec = dev.section or "Đo lường & Giám sát"
-                        tag = "A" if ("ampe" in searchable or "a" in clean_name.lower()) else ("V" if ("vôn" in searchable or "volt" in searchable) else "M")
-                        qty = int(acc.get("quantity") or 1)
-                        final_name = clean_name
-                    elif is_light:
-                        cat = "ĐÈN BÁO PHA"
-                        func = ElectricalFunction.MEASUREMENT
-                        mounting = MountingType.DOOR_MOUNTED
-                        sec = dev.section or "Đo lường & Giám sát"
-                        tag = "PL"
-                        qty = 3 if ("r, y, b" in searchable or "đỏ" in searchable or "3 pha" in searchable or "3 màu" in searchable) else int(acc.get("quantity") or 3)
-                        final_name = clean_name if "đèn báo" in clean_name.lower() else f"Đèn báo pha {clean_name}"
-                    elif is_switch:
-                        cat = "CHUYỂN MẠCH"
-                        func = ElectricalFunction.MEASUREMENT
-                        mounting = MountingType.DOOR_MOUNTED
-                        sec = dev.section or "Đo lường & Giám sát"
-                        tag = "AS" if "as" in searchable else ("VS" if "vs" in searchable else "SW")
-                        qty = int(acc.get("quantity") or 1)
-                        final_name = clean_name
-                    elif is_fuse:
-                        cat = "CẦU CHÌ"
-                        func = ElectricalFunction.CONTROL_AUXILIARY
-                        mounting = MountingType.DIN_RAIL_MOUNTED
-                        sec = dev.section or "Đo lường & Giám sát"
-                        tag = "FU"
-                        qty = int(acc.get("quantity") or 1)
-                        final_name = clean_name
-                    else:
-                        cat = "RƠ LE BẢO VỆ"
-                        func = ElectricalFunction.CONTROL_AUXILIARY
-                        mounting = MountingType.DIN_RAIL_MOUNTED
-                        sec = dev.section or "Điều khiển & Bảo vệ"
-                        tag = "RL"
-                        qty = int(acc.get("quantity") or 1)
-                        final_name = clean_name
-
-                    sig = f"{str(dev.panel_code or '').strip()}_{cat}_{final_name}".lower()
-                    if sig not in existing_signatures:
-                        existing_signatures.add(sig)
-                        acc_box = acc.get("box_2d") if isinstance(acc.get("box_2d"), list) and len(acc.get("box_2d")) == 4 else None
-                        newly_promoted.append(ExtractedDeviceSchema(
-                            category=cat,
-                            name=final_name,
-                            spec=spec or "Theo sơ đồ nguyên lý",
-                            quantity=qty,
-                            brand=acc.get("brand") or dev.brand or "",
-                            part_number="",
-                            section=sec,
-                            location=dev.location,
-                            panel_code=dev.panel_code,
-                            panel_name=dev.panel_name,
-                            notes=f"{notes} (Phần tử đo lường/chỉ thị tại {dev.tag or dev.name})".strip(),
-                            tag=tag,
-                            mounting=mounting,
-                            electrical_function=func,
-                            upstream_device=dev.tag or dev.name or "Nguồn đầu vào",
-                            downstream_device=None,
-                            confidence=dev.confidence or 0.95,
-                            box_2d=acc_box,
-                            evidence_image=None,
-                            source_filename=dev.source_filename,
-                            source_type=dev.source_type,
-                            source_page=dev.source_page,
-                        ))
-                else:
-                    remaining_accs.append(acc)
-
-            dev.accompanying_accessories = remaining_accs if remaining_accs else None
-            promoted.append(dev)
-
-        # Chèn các thiết bị mới được thăng cấp ngay sau thiết bị nguồn cấp của chúng
-        return promoted + newly_promoted
+                tag = accessory.get("tag")
+                # A generic CT/FU/PL label invented by code is not a source identity.
+                if not tag:
+                    remaining.append(accessory)
+                    continue
+                key = (parent.source_filename, parent.source_page, parent.panel_code, tag)
+                if key in identified:
+                    existing = identified[key]
+                    if str(existing.spec or "").strip() != str(accessory.get("spec") or "").strip():
+                        parent.inferred_components = [*(parent.inferred_components or []),
+                            dict(accessory, reason="Trùng tag nhưng khác thông số; cần đối chiếu, chưa cộng lần hai")]
+                    continue
+                child = ExtractedDeviceSchema(
+                    category=accessory.get("category") or "OTHER",
+                    name=accessory.get("name") or str(tag), spec=accessory.get("spec") or "",
+                    tag=str(tag), quantity=accessory.get("quantity") or 1,
+                    brand=accessory.get("brand") or parent.brand,
+                    part_number=accessory.get("sku") or accessory.get("part_number"),
+                    in_a=accessory.get("in_a"), poles=accessory.get("poles"), icu_ka=accessory.get("icu_ka"),
+                    panel_code=parent.panel_code, panel_name=parent.panel_name,
+                    section=parent.section, source_filename=parent.source_filename,
+                    source_page=parent.source_page, source_type=parent.source_type,
+                    box_2d=accessory.get("box_2d"), confidence=parent.confidence,
+                    notes=f"Thành phần cụm {parent.tag or parent.name}; căn cứ: {evidence}",
+                    upstream_device=accessory.get("upstream_device"),
+                )
+                result.append(child)
+                identified[key] = child
+            parent.accompanying_accessories = remaining or None
+        return result
 
     @staticmethod
     async def _preflight_pdf_with_vision(
@@ -2769,12 +2718,14 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     # a neighbouring label or branch.
                     box_candidates = [
                         {
+                            "device_id": str(index),
+                            "panel_code": getattr(device, "panel_code", None),
                             "tag": getattr(device, "tag", None),
                             "name": getattr(device, "name", None),
                             "spec": getattr(device, "spec", None),
                             "box_2d": getattr(device, "box_2d", None),
                         }
-                        for device in parsed_devs
+                        for index, device in enumerate(parsed_devs)
                         if getattr(device, "box_2d", None)
                     ]
                     if box_candidates:
@@ -2782,7 +2733,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             "Kiểm chứng tọa độ độc lập bằng cách quan sát lại TOÀN BỘ ảnh. "
                             "Với từng thiết bị, tìm đúng ký hiệu điện và nhãn tag/thông số của chính nó; "
                             "không dùng box cũ làm đáp án. Chỉ trả JSON "
-                            "{\"boxes\":[{\"tag\":...,\"name\":...,\"box_2d\":[ymin,xmin,ymax,xmax],"
+                            "Giữ nguyên device_id của từng thiết bị trong kết quả. "
+                            "{\"boxes\":[{\"device_id\":...,\"tag\":...,\"name\":...,\"box_2d\":[ymin,xmin,ymax,xmax],"
                             "\"verified\":true|false}]}. Tọa độ 0..1000. Box phải bao ký hiệu và nhãn "
                             "riêng, không bao thiết bị hoặc nhánh kế bên. Nếu không chắc chắn, trả "
                             "verified=false và box_2d=null. Danh sách:\n"
@@ -2806,19 +2758,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 (block for block in verifier_blocks if isinstance(block, dict) and isinstance(block.get("boxes"), list)),
                                 None,
                             )
-                            verified_by_key = {}
-                            for candidate in (payload or {}).get("boxes", []):
-                                if not isinstance(candidate, dict):
-                                    continue
-                                candidate_box = candidate.get("box_2d")
-                                if candidate.get("verified") is not True or not isinstance(candidate_box, list) or len(candidate_box) != 4:
-                                    continue
-                                key = str(candidate.get("tag") or candidate.get("name") or "").strip().casefold()
-                                if key:
-                                    verified_by_key[key] = candidate_box
-                            for device in parsed_devs:
-                                key = str(getattr(device, "tag", None) or getattr(device, "name", None) or "").strip().casefold()
-                                device.box_2d = verified_by_key.get(key)
+                            AnalysisPipelineService._apply_verified_boxes(parsed_devs, payload)
                         except Exception as verify_error:
                             logger.warning("Evidence verification failed on page %s: %s", page_num, verify_error)
                             for device in parsed_devs:
@@ -2932,6 +2872,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 compatibility_note=(cp.get("technical_reason") or cp.get("ai_analysis")) if cp else None,
                                 suggested_alternatives=[cp] if cp else None,
                                 accompanying_accessories=clean_accs,
+                                inferred_components=getattr(d, "inferred_components", None),
                                 compatible_proposal=cp
                             )
                             if new_dev.box_2d:
@@ -3535,275 +3476,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
         is_3phase: bool,
         incomer_rating: float
     ) -> dict:
-        """
-        Xây dựng Technical Audit động từ danh sách thiết bị thực tế bóc tách được.
-        Kiểm tra đầy đủ các hạng mục: SPD, RCBO, Metering, Spare Feeders, Busbar,
-        Protection Coordination và IP Rating theo quy chuẩn kỹ thuật an toàn điện.
-        """
-        cats = [str(d.category or "").upper() for d in extracted_devices]
-        names = [str(d.name or "").upper() for d in extracted_devices]
-        notes_list = [str(d.notes or "").upper() for d in extracted_devices]
-
-        # --- Kiểm tra từng hạng mục ---
-        has_spd = any("SPD" in c or "CHỐNG SÉT" in n or "SPD" in n for c, n in zip(cats, names))
-        has_rcbo = any("RCBO" in c or "RCCB" in c or "ELCB" in c or "RCD" in c for c in cats)
-        has_meter_mfm = any("METER" in c or "MFM" in n or "ĐỒNG HỒ" in n for c, n in zip(cats, names))
-        has_light_indicator = any("LIGHT" in c or "ĐÈN BÁO" in n or "PILOT" in n for c, n in zip(cats, names))
-        has_fuse_ctrl = any("FUSE" in c or "CẦU CHÌ" in n for c, n in zip(cats, names))
-        has_contactor = any("CONTACTOR" in c for c in cats)
-        has_spare = any("DỰ PHÒNG" in n or "SPARE" in n for n in names + notes_list)
-        has_acb = any("ACB" in c for c in cats)
-        has_mccb_incomer = any(
-            ("MCCB" in c or "MCB" in c) and ("ĐẦU VÀO" in (d.section or "").upper() or "INCOMER" in (d.section or "").upper())
-            for c, d in zip(cats, extracted_devices)
-        )
-
-        feeder_devices = [d for d in extracted_devices if (d.section or "").lower() in ["đầu ra", "feeder", "outgoing"]]
-        num_feeders = len(feeder_devices)
-
-        incomer_dev = next(
-            (d for d in extracted_devices if "ĐẦU VÀO" in (d.section or "").upper() or "INCOMER" in (d.section or "").upper()),
-            None
-        )
-        incomer_icu = float(incomer_dev.icu_ka or 0) if incomer_dev else 0
-
-        # Kiểm tra coordination: max nhánh < incomer
-        max_feeder_icu = max((float(d.icu_ka or 0) for d in feeder_devices), default=0)
-        max_feeder_in = max((float(d.in_a or 0) for d in feeder_devices), default=0)
-        coordination_ok = (incomer_icu >= max_feeder_icu) if incomer_icu > 0 and max_feeder_icu > 0 else True
-        dominant_ratio = (max_feeder_in / incomer_rating * 100) if incomer_rating > 0 and max_feeder_in > 0 else 0
-
-        # --- Tính điểm tổng hợp ---
-        score = 100
-        missing_items = []
-
-        if not has_spd:
-            score -= 10
-            missing_items.append({
-                "severity": "high",
-                "badge": "Thiếu sót nghiêm trọng",
-                "title": "Thiếu Thiết Bị Chống Sét Lan Truyền (SPD)",
-                "code": "MISSING_SPD",
-                "impact": "Nguy cơ cháy nổ mạch điều khiển & thiết bị điện tử khi có xung sét lan truyền từ TBA",
-                "description": (
-                    f"Sơ đồ {panel_code} chưa bố trí thiết bị chống sét lan truyền SPD tại đầu nguồn vào tủ. "
-                    f"Đặc biệt quan trọng với tủ {'MSB/MDB công nghiệp' if incomer_rating >= 400 else 'phân phối'} "
-                    f"có Incomer {int(incomer_rating)}A — cần SPD {'Type 1+2' if incomer_rating >= 400 else 'Type 2'} "
-                    f"{'4P' if is_3phase else '2P'} để bảo vệ toàn bộ hệ thống."
-                ),
-                "recommendation": (
-                    f"Bổ sung 01 bộ chống sét SPD {'4P 40kA (Uc=385V)' if is_3phase else '2P 40kA (Uc=275V)'} "
-                    f"kèm {'MCB 3P 32A' if is_3phase else 'MCB 1P 25A'} cách ly bảo vệ, đấu song song ngay sau Incomer."
-                )
-            })
-
-        if not has_spare and num_feeders > 3:
-            score -= 8
-            spare_count = max(2, int(num_feeders * 0.2))
-            missing_items.append({
-                "severity": "high",
-                "badge": "Khuyến nghị kỹ thuật",
-                "title": f"Thiếu Lộ Aptomat Dự Phòng (Spare Feeders — tối thiểu {spare_count} lộ)",
-                "code": "MISSING_SPARE",
-                "impact": "Không có khả năng mở rộng phụ tải tương lai, phải ngắt điện cải tạo tủ",
-                "description": (
-                    f"Sơ đồ {panel_code} hiện có {num_feeders} lộ nhánh nhưng chưa dự phòng lộ nào. "
-                    f"Tủ điện công nghiệp nên có ít nhất 15–20% lộ dự phòng "
-                    f"(tương đương {spare_count} lộ cho tủ {num_feeders} lộ hiện tại)."
-                ),
-                "recommendation": f"Bổ sung ít nhất {spare_count} vị trí CB dự phòng trên thanh cái, đấu nắp che."
-            })
-
-        if not has_rcbo and num_feeders > 2:
-            score -= 7
-            missing_items.append({
-                "severity": "medium",
-                "badge": "Lưu ý an toàn người",
-                "title": "Thiếu Bảo Vệ Chống Dòng Rò (RCBO/RCCB 30mA)",
-                "code": "MISSING_RCBO",
-                "impact": "Nguy cơ giật điện cho người vận hành tại các lộ ổ cắm & khu vực ẩm ướt",
-                "description": (
-                    f"Tủ {panel_code} có {num_feeders} lộ nhánh nhưng chưa bố trí thiết bị bảo vệ dòng rò (RCBO/RCCB). "
-                    f"Theo TCVN 7447-4-41 và IEC 60364-4-41, các lộ cấp nguồn ổ cắm, "
-                    f"khu vực ẩm ướt hoặc ngoài trời bắt buộc phải có bảo vệ dòng rò ≤30mA."
-                ),
-                "recommendation": "Thay MCB thường bằng RCBO 30mA cho các lộ ổ cắm và chiếu sáng khu vực ẩm ướt/ngoài trời."
-            })
-
-        if not has_meter_mfm and incomer_rating >= 100 and is_3phase:
-            score -= 5
-            missing_items.append({
-                "severity": "medium",
-                "badge": "Thiếu giám sát vận hành",
-                "title": "Thiếu Đồng Hồ Đo Lường Đa Năng MFM",
-                "code": "MISSING_METER",
-                "impact": "Không giám sát được công suất, dòng điện và hệ số Cosφ theo thời gian thực",
-                "description": (
-                    f"Tủ {panel_code} (Incomer {int(incomer_rating)}A, 3 pha) chưa bố trí đồng hồ đa năng MFM "
-                    f"để đo V, A, Hz, P, Q, Cosφ và kWh. Cần thiết để vận hành & kiểm soát cân pha."
-                ),
-                "recommendation": "Bổ sung 01 đồng hồ MFM 3 pha Class 0.5 hiển thị LCD mặt cánh tủ, kết nối RS485 Modbus."
-            })
-
-        if not has_light_indicator and incomer_rating >= 63:
-            score -= 3
-            missing_items.append({
-                "severity": "low",
-                "badge": "Lưu ý vận hành",
-                "title": "Thiếu Đèn Báo Nguồn Mặt Cánh Tủ",
-                "code": "MISSING_PILOT_LIGHT",
-                "impact": "Khó nhận biết tình trạng nguồn điện khi quan sát vận hành",
-                "description": f"Tủ {panel_code} chưa có bộ đèn báo pha mặt cánh tủ.",
-                "recommendation": f"Bổ sung bộ {'3' if is_3phase else '1'} đèn LED báo nguồn phi 22 {'R-S-T' if is_3phase else 'đỏ'} kèm cầu chì 2A bảo vệ."
-            })
-
-        if not has_fuse_ctrl and has_contactor:
-            score -= 3
-            missing_items.append({
-                "severity": "medium",
-                "badge": "Thiếu bảo vệ mạch điều khiển",
-                "title": "Thiếu Cầu Chì Bảo Vệ Mạch Điều Khiển",
-                "code": "MISSING_FUSE_CTRL",
-                "impact": "Nguy cơ hỏng cuộn hút Contactor & đèn báo khi ngắn mạch mạch điều khiển",
-                "description": (
-                    f"Tủ {panel_code} có Contactor nhưng chưa bố trí cầu chì bảo vệ mạch điều khiển "
-                    f"(coil 220VAC và đèn chỉ thị). Cần cầu chì 1P 2A–6A trên mạch điều khiển."
-                ),
-                "recommendation": "Bổ sung 01 bộ cầu chì 1P 2A (hoặc MCB 1P 6A) bảo vệ mạch điều khiển trước Contactor."
-            })
-
-        score = max(0, min(100, score))
-
-        if score >= 95:
-            status = "Tốt — Đạt yêu cầu kỹ thuật"
-        elif score >= 80:
-            status = "Khá — Cần bổ sung thêm thiết bị an toàn & dự phòng"
-        elif score >= 60:
-            status = "Trung bình — Nhiều hạng mục chưa hoàn thiện"
-        else:
-            status = "Yếu — Cần thiết kế lại đáng kể"
-
-        summary = (
-            f"Sơ đồ {panel_name} ({panel_code}) bóc tách được {len(extracted_devices)} thiết bị với "
-            f"Incomer {int(incomer_rating)}A {'3 pha 380V' if is_3phase else '1 pha 220V'}. "
-        )
-        if missing_items:
-            high_cnt = sum(1 for m in missing_items if m["severity"] == "high")
-            med_cnt = sum(1 for m in missing_items if m["severity"] == "medium")
-            summary += (
-                f"Kiểm tra kỹ thuật phát hiện {len(missing_items)} hạng mục cần bổ sung "
-                f"({high_cnt} nghiêm trọng, {med_cnt} trung bình)."
-            )
-        else:
-            summary += "Sơ đồ đạt đầy đủ các hạng mục kiểm tra kỹ thuật an toàn."
-
-        # --- Protection Coordination ---
-        protection_items = []
-        if incomer_icu > 0 and max_feeder_icu > 0:
-            if coordination_ok:
-                protection_items.append({
-                    "title": f"Phối hợp dòng cắt Icu (Incomer {int(incomer_icu)}kA vs Nhánh max {int(max_feeder_icu)}kA)",
-                    "status": "PASS",
-                    "badge": "Đạt chuẩn",
-                    "detail": (
-                        f"Incomer {int(incomer_rating)}A (Icu={int(incomer_icu)}kA) ≥ CB nhánh lớn nhất (Icu={int(max_feeder_icu)}kA). "
-                        f"Tính chọn lọc dòng cắt ngắn mạch đảm bảo theo IEC 60947-2."
-                    )
-                })
-            else:
-                score = max(0, score - 8)
-                protection_items.append({
-                    "title": f"Phối hợp dòng cắt Icu — CB nhánh ({int(max_feeder_icu)}kA) > Incomer ({int(incomer_icu)}kA)",
-                    "status": "FAIL",
-                    "badge": "Không đạt — cần nâng Icu",
-                    "detail": (
-                        f"CB nhánh có Icu={int(max_feeder_icu)}kA lớn hơn Incomer Icu={int(incomer_icu)}kA. "
-                        f"Vi phạm nguyên tắc chọn lọc dòng ngắn mạch — cần nâng Icu Incomer hoặc giảm Icu nhánh."
-                    )
-                })
-
-        if dominant_ratio > 70 and (has_acb or incomer_rating >= 800):
-            protection_items.append({
-                "title": f"Cài đặt chọn lọc trễ thời gian ACB/MCCB tổng ({int(incomer_rating)}A)",
-                "status": "ATTENTION",
-                "badge": "Cần lưu ý cài đặt Isd/tsd",
-                "detail": (
-                    f"Nhánh lớn nhất ({int(max_feeder_in)}A) chiếm {int(dominant_ratio)}% dung lượng Incomer ({int(incomer_rating)}A). "
-                    f"Cần cài đặt Short-time delay (Isd, tsd) trên rơ le để tránh nhảy tràn toàn trạm khi sự cố."
-                )
-            })
-
-        if has_contactor and has_fuse_ctrl:
-            protection_items.append({
-                "title": "Mạch điều khiển Contactor & đèn báo",
-                "status": "PASS",
-                "badge": "Đạt chuẩn",
-                "detail": "Đã có cầu chì bảo vệ mạch điều khiển (cuộn hút contactor và đèn báo pha). Đạt yêu cầu kỹ thuật an toàn."
-            })
-
-        if not protection_items:
-            protection_items.append({
-                "title": "Kiểm tra phối hợp bảo vệ",
-                "status": "PASS",
-                "badge": "Đạt cơ bản",
-                "detail": f"Tủ {panel_code} với Incomer {int(incomer_rating)}A — cần kiểm tra setting relay sau khi có bản vẽ chi tiết."
-            })
-
-        # --- Enclosure & Environment ---
-        thickness = enclosure_spec.get("thickness", 1.5)
-        height = enclosure_spec.get("height", 600)
-        enc_env = [
-            {
-                "title": f"Cấp bảo vệ vỏ tủ IP (Incomer {int(incomer_rating)}A, {'ngoài trời' if incomer_rating >= 630 else 'trong nhà'})",
-                "status": "ATTENTION" if incomer_rating >= 400 else "PASS",
-                "badge": "Cần IP54 với tủ MSB/ngoài trời" if incomer_rating >= 400 else "IP42 trong nhà đạt chuẩn",
-                "detail": (
-                    f"Tủ {panel_code} Incomer {int(incomer_rating)}A cần tối thiểu IP{'54 (gioăng EPDM, khóa nén chịu nước)' if incomer_rating >= 400 else '42 trong nhà'}. "
-                    f"Kiểm tra điều kiện môi trường lắp đặt trước khi chỉ định cấp IP."
-                )
-            },
-            {
-                "title": f"Độ dày tôn vỏ tủ (tính toán: {thickness}mm)",
-                "status": "PASS" if thickness >= 1.5 else "ATTENTION",
-                "badge": "Đạt chuẩn" if thickness >= 1.5 else "Cần kiểm tra lại",
-                "detail": (
-                    f"Vỏ tủ H{height}mm tính toán cần tôn dày {thickness}mm. "
-                    f"{'Đạt yêu cầu độ dày chịu lực (≥1.5mm).' if thickness >= 1.5 else 'Nên dùng tôn ≥1.5mm để đảm bảo độ cứng vững.'}"
-                )
-            }
-        ]
-
-        # --- Busbar & Earthing ---
-        busbar_items = [
-            {
-                "title": f"Hệ thống tiếp địa {'TN-S (3P+N+PE)' if is_3phase else 'TN-C-S (1P+N+PE)'}",
-                "status": "PASS",
-                "badge": "Đạt chuẩn",
-                "detail": (
-                    f"Tủ {panel_code} {'3 pha' if is_3phase else '1 pha'} cần thanh đồng tiếp địa PE và trung tính N độc lập. "
-                    f"Tiếp địa an toàn vỏ tủ ≤4Ω, đấu nối hệ thống tiếp địa công trình."
-                )
-            },
-            {
-                "title": f"Mật độ dòng thanh cái đồng chính (Incomer {int(incomer_rating)}A)",
-                "status": "PASS",
-                "badge": "Đạt chuẩn",
-                "detail": (
-                    f"Thanh cái đồng tiết diện tối thiểu {int(incomer_rating / 2)}mm² (j≤1.5A/mm²) để ΔT≤40K. "
-                    f"Bọc co nhiệt R-S-T {'4 thanh: L1/L2/L3/N' if is_3phase else '2 thanh: L/N'} + PE riêng."
-                )
-            }
-        ]
-
-        return {
-            "overall_score": score,
-            "overall_status": status,
-            "summary": summary,
-            "missing_items": missing_items,
-            "protection_coordination": protection_items,
-            "enclosure_environment": enc_env,
-            "busbar_earthing": busbar_items
-        }
+        from app.services.ai.system_completeness import technical_audit
+        return technical_audit(extracted_devices)
 
     @staticmethod
     def _extract_enclosure_dimensions(text_sources: List[Any]) -> Optional[Tuple[float, float, float]]:
@@ -3894,6 +3568,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
         panel_code: Optional[str] = None,
         panel_name: Optional[str] = None,
         per_panel: bool = False,
+        progress_callback: Optional[Any] = None,
     ) -> Dict[str, Any]:
         """
         Quy trình chuyên biệt khi người dùng bấm Tạo báo giá:
@@ -3909,7 +3584,31 @@ Chỉ trả một JSON hợp lệ, không markdown:
         if not devices:
             raise ValueError("Không có danh sách thiết bị để phân tích và lập báo giá.")
 
+        async def emit_progress(stage: str, progress: int, message: str, **extra: Any) -> None:
+            """Emit milestones from completed real work, never timer-based progress."""
+            if not progress_callback:
+                return
+            payload = {
+                "type": "cad_progress",
+                "stage": stage,
+                "progress": progress,
+                "message": message,
+                **extra,
+            }
+            result = progress_callback(payload)
+            if asyncio.iscoroutine(result):
+                await result
+            # Give an SSE response a chance to flush before CPU-bound CAD work.
+            await asyncio.sleep(0)
+
+        await emit_progress("normalize", 5, f"Đang chuẩn hóa {len(devices)} thiết bị đầu vào")
+
         resolved_brand_pref = brand_preference or settings.DEFAULT_BRAND
+        explicit_brand_preference = bool(
+            resolved_brand_pref
+            and resolved_brand_pref.strip().lower()
+            not in {"theo thiết kế", "theo thiet ke", "default", "auto"}
+        )
 
         # 1. Chuẩn hóa thiết bị sang ExtractedDeviceSchema
         extracted_devices: List[ExtractedDeviceSchema] = []
@@ -3925,7 +3624,16 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     icu_ka=d.get("icu_ka"),
                     poles=d.get("poles"),
                     quantity=d.get("quantity", 1),
-                    brand=d.get("brand") or (resolved_brand_pref if resolved_brand_pref != settings.DEFAULT_BRAND else ""),
+                    drawing_quantity=d.get("drawing_quantity"),
+                    procurement_quantity=d.get("procurement_quantity"),
+                    quantity_basis=d.get("quantity_basis"),
+                    quantity_confidence=d.get("quantity_confidence"),
+                    brand=(
+                        resolved_brand_pref
+                        if explicit_brand_preference
+                        else d.get("brand")
+                        or (resolved_brand_pref if resolved_brand_pref != settings.DEFAULT_BRAND else "")
+                    ),
                     part_number=d.get("part_number", ""),
                     section=d.get("section"),
                     location=d.get("location"),
@@ -3939,9 +3647,18 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     downstream_device=d.get("downstream_device"),
                     connected_load=d.get("connected_load"),
                     accompanying_accessories=d.get("accompanying_accessories"),
+                    inferred_components=d.get("inferred_components"),
                     confidence=d.get("confidence", settings.DEFAULT_CONFIDENCE),
-                    evidence_image=d.get("evidence_image")
+                    evidence_image=d.get("evidence_image"),
+                    box_2d=d.get("box_2d"),
+                    evidence_region=d.get("evidence_region"),
+                    panel_evidence_image=d.get("panel_evidence_image"),
+                    source_type=d.get("source_type"),
+                    source_filename=d.get("source_filename"),
+                    source_page=d.get("source_page"),
                 ))
+
+        await emit_progress("catalog", 15, "Đang đối chiếu mã hàng và đơn giá catalog thực tế")
 
         detected_panel_code = panel_code or (extracted_devices[0].panel_code if extracted_devices else "") or ""
         detected_panel_name = panel_name or (extracted_devices[0].panel_name if extracted_devices else "") or ""
@@ -3949,29 +3666,64 @@ Chỉ trả một JSON hợp lệ, không markdown:
         # Tra cứu Catalog & khớp đơn giá thiết bị
         catalog_engine = DeviceCatalogEngine.get_instance()
         device_price_map: Dict[str, int] = {}
+
+        def catalog_type_matches(category: str, item: Dict[str, Any]) -> bool:
+            expected = str(category or "").strip().upper()
+            actual = str(item.get("t") or item.get("type") or "").strip().upper()
+            aliases = {
+                "LIGHT": {"LIGHT", "PILOT", "PILOT_LIGHT", "INDICATOR"},
+                "METER": {"METER", "AMMETER", "VOLTMETER", "MULTIMETER", "CT"},
+                "FUSE": {"FUSE"},
+                "RCBO": {"RCBO"},
+                "MCB": {"MCB"},
+                "MCCB": {"MCCB"},
+                "ACB": {"ACB"},
+            }
+            return actual in aliases.get(expected, {expected})
+
         for dev in extracted_devices:
-            brand_to_match = dev.brand or resolved_brand_pref or settings.DEFAULT_BRAND
+            brand_to_match = (
+                resolved_brand_pref
+                if explicit_brand_preference
+                else dev.brand or resolved_brand_pref or settings.DEFAULT_BRAND
+            )
             # 1. Tìm theo SKU chính xác
-            if dev.part_number:
+            if dev.part_number and not explicit_brand_preference:
                 exact = catalog_engine.get_by_sku(dev.part_number)
-                if exact and exact.get("g"):
+                exact_brand = str((exact or {}).get("brand_display") or (exact or {}).get("brand") or "")
+                brand_matches_preference = (
+                    not explicit_brand_preference
+                    or resolved_brand_pref.lower() in exact_brand.lower()
+                    or exact_brand.lower() in resolved_brand_pref.lower()
+                )
+                if exact and exact.get("g") and brand_matches_preference:
                     device_price_map[dev.name] = int(exact.get("g"))
                     if exact.get("brand") and not dev.brand:
                         dev.brand = exact.get("brand")
                     dev.technical_match_note = f"Báo giá dùng mã catalog {dev.part_number}; thông số và kết nối SLD gốc được bảo toàn."
                     continue
+                if explicit_brand_preference and not brand_matches_preference:
+                    # A SKU extracted for another manufacturer must not defeat an
+                    # explicit user request such as "bóc tách với LS".
+                    dev.part_number = ""
 
             # 2. Tìm thông minh theo thông số và thương hiệu
             search_str = f"{dev.category} {dev.spec} {brand_to_match}"
-            matches = catalog_engine.match_from_text(search_str)
+            matches = [
+                match for match in catalog_engine.match_from_text(search_str)
+                if catalog_type_matches(dev.category, match[0])
+            ]
             if matches:
                 best_item, _conf = matches[0]
                 if best_item.get("g"):
                     device_price_map[dev.name] = int(best_item.get("g"))
-                if not dev.part_number and best_item.get("ma"):
+                if best_item.get("ma"):
                     dev.part_number = best_item.get("ma")
-                if not dev.brand and best_item.get("brand"):
-                    dev.brand = best_item.get("brand")
+                dev.brand = (
+                    best_item.get("brand_display")
+                    or best_item.get("brand")
+                    or resolved_brand_pref
+                )
                 dev.technical_match_note = (
                     f"Báo giá thay thế bằng {dev.part_number or best_item.get('ma', '')} theo thông số tương đương; "
                     "không thay đổi sơ đồ nguyên lý."
@@ -3979,10 +3731,18 @@ Chỉ trả một JSON hợp lệ, không markdown:
             else:
                 # A missing SKU must never modify the extracted device or its
                 # electrical topology. It is a pricing follow-up, not an SLD error.
-                dev.technical_match_note = (
-                    "Chưa có trong catalog: cần chọn thiết bị tương đương khi báo giá; "
-                    "sơ đồ nguyên lý và thông số bóc tách được giữ nguyên."
-                )
+                if explicit_brand_preference:
+                    dev.brand = "ASIAN"
+                    dev.part_number = ""
+                    dev.technical_match_note = (
+                        f"Không có model {resolved_brand_pref} phù hợp: chuyển về ASIAN; "
+                        "sơ đồ nguyên lý và thông số bóc tách được giữ nguyên."
+                    )
+                else:
+                    dev.technical_match_note = (
+                        "Chưa có trong catalog: cần chọn thiết bị tương đương khi báo giá; "
+                        "sơ đồ nguyên lý và thông số bóc tách được giữ nguyên."
+                    )
 
             # 3. Đề xuất tương thích: nếu dev đã có compatible_proposal từ AI
             if getattr(dev, "compatible_proposal", None):
@@ -4001,6 +3761,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     parent_brand=dev.brand,
                     parent_category=dev.category
                 )
+
+        await emit_progress("engineering", 35, "Đang tính kích thước vỏ tủ và tiết diện thanh cái")
 
         # 2. Phân tích kỹ thuật vỏ tủ & thanh cái
         dim_sources = []
@@ -4060,7 +3822,15 @@ Chỉ trả một JSON hợp lệ, không markdown:
         layout_conflict_res = physical_layout.get("conflict_check", {})
         layout_conflicts = layout_conflict_res.get("conflicts", [])
 
+        await emit_progress(
+            "layout",
+            52,
+            "Đã bố trí thiết bị và kiểm tra xung đột không gian",
+            conflict_count=len(layout_conflicts),
+        )
+
         # 3. Vẽ CAD kỹ thuật (AutoCAD DXF 4 hình chiếu)
+        await emit_progress("cad_drawing", 60, "Đang dựng các hình chiếu và bảng BOM trong DXF")
         cad_file_path = EnclosureCadGeneratorService.generate_dxf(
             project_id=project.id,
             project_name=project.name,
@@ -4073,6 +3843,13 @@ Chỉ trả một JSON hợp lệ, không markdown:
 
         dxf_filename = os.path.basename(cad_file_path)
         dxf_size = os.path.getsize(cad_file_path) if os.path.exists(cad_file_path) else 0
+        await emit_progress(
+            "cad_ready",
+            75,
+            "Đã ghi xong bản vẽ DXF thực tế",
+            filename=dxf_filename,
+            file_size=dxf_size,
+        )
 
         # Dọn dẹp các file CAD tự sinh cũ và lưu bản ghi mới vào ProjectFile
         if not per_panel:
@@ -4122,6 +3899,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
             panel_code=detected_panel_code,
             panel_name=detected_panel_name
         )
+        await emit_progress("quotation", 84, f"Đã lập {len(quotation_rows)} dòng báo giá")
 
         # 5. Thu thập danh sách đề xuất kỹ thuật tương thích
         technical_proposals = []
@@ -4133,6 +3911,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
         # 6. Tạo file Excel báo giá dự toán chính thức (.xlsx)
         excel_file_info = None
         try:
+            await emit_progress("excel", 88, "Đang xuất file báo giá Excel")
             excel_path = QuotationExporterService.export(
                 devices=quotation_rows if quotation_rows else [d.model_dump() for d in extracted_devices],
                 project_name=project.name,
@@ -4244,6 +4023,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
         if excel_file_info and "excel_file" in locals() and excel_file:
             await db.refresh(excel_file)
             excel_file_info["id"] = excel_file.id
+
+        await emit_progress("published", 100, "Đã lưu CAD và báo giá vào dự án")
 
         return {
             "success": True,
