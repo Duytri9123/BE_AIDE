@@ -95,24 +95,31 @@ class DocumentContextService:
 
     @staticmethod
     def _read_dxf_labels(path: Path) -> str:
+        """Read spatial circuit context without inferring or counting devices."""
         import ezdxf
-
         drawing = ezdxf.readfile(str(path))
-        labels: List[str] = []
+        rows = []
         for entity in drawing.modelspace():
             kind = entity.dxftype()
             if kind in {"TEXT", "ATTRIB"}:
                 value = entity.dxf.text
+                point = entity.dxf.insert
             elif kind == "MTEXT":
                 value = entity.plain_text()
+                point = entity.dxf.insert
+            elif kind == "INSERT":
+                value = f"BLOCK {entity.dxf.name}"
+                point = entity.dxf.insert
             else:
                 continue
             value = str(value or "").strip()
             if value:
-                labels.append(value)
-            if sum(map(len, labels)) >= DocumentContextService.MAX_FILE_CHARS:
+                rows.append((float(point.x), float(point.y), value,
+                             str(entity.dxf.get('layer', '0'))))
+            if len(rows) >= 1200:
                 break
-        return "\n".join(labels)
+        rows.sort(key=lambda row: (round(row[0] / 60), -row[1]))
+        return "\n".join(f"X={x:g} Y={y:g} [{layer}] {value}" for x, y, value, layer in rows)
 
     @staticmethod
     def extract(file_obj: Any) -> Dict[str, Any]:

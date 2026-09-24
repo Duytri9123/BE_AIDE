@@ -4,6 +4,8 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, patch
 from PIL import Image
+import ezdxf
+from app.services.ingestion.document_context import DocumentContextService
 
 from app.services.ai.circuit_preflight import CircuitPreflightService
 
@@ -23,6 +25,21 @@ class CircuitPreflightTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(result['status'], 'assessed')
             self.assertEqual(len(CircuitPreflightService._visual_pages(files)), 2)
             self.assertEqual(call.call_count, 1)
+
+    def test_dxf_context_preserves_positions_and_blocks(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / 'circuit.dxf'
+            drawing = ezdxf.new()
+            model = drawing.modelspace()
+            model.add_text('SOURCE', dxfattribs={'insert': (10, 90)})
+            model.add_text('LOAD', dxfattribs={'insert': (10, 10)})
+            drawing.blocks.new('CONTACTOR')
+            model.add_blockref('CONTACTOR', (10, 50))
+            drawing.saveas(path)
+            context = DocumentContextService._read_dxf_labels(path)
+        self.assertLess(context.index('SOURCE'), context.index('CONTACTOR'))
+        self.assertLess(context.index('CONTACTOR'), context.index('LOAD'))
+        self.assertIn('Y=50', context)
 
     async def test_unreadable_document_cannot_pass_assessment(self):
         result = await CircuitPreflightService.assess([], [], object(), [object()])
