@@ -18,7 +18,7 @@ class CircuitPreflightTests(unittest.IsolatedAsyncioTestCase):
                 path = Path(folder) / f"sheet-{number + 1}.png"
                 Image.new('RGB', (200, 100), 'white').save(path)
                 files.append(SimpleNamespace(filename=path.name, file_path=str(path)))
-            response = '{"circuit_summary":"Đã đọc cả hai trang", "file_roles":[], "circuits":[], "functional_groups":[], "ambiguous_symbols":[], "installation_considerations":[], "questions":[], "source_limits":[]}'
+            response = '{"circuit_summary":"Đã đọc cả hai trang", "has_sld": true, "file_roles":[], "circuits":[], "functional_groups":[], "ambiguous_symbols":[], "installation_considerations":[], "questions":[], "source_limits":[]}'
             with patch('app.services.ai.circuit_preflight.ConnectionPoolService.call_with_fallback',
                        new_callable=AsyncMock, return_value=(response, None)) as call:
                 result = await CircuitPreflightService.assess(files, [], object(), [object()])
@@ -40,6 +40,14 @@ class CircuitPreflightTests(unittest.IsolatedAsyncioTestCase):
         self.assertLess(context.index('SOURCE'), context.index('CONTACTOR'))
         self.assertLess(context.index('CONTACTOR'), context.index('LOAD'))
         self.assertIn('Y=50', context)
+
+    async def test_reference_only_document_does_not_pass_as_sld(self):
+        response = '{"circuit_summary":"Only a price list", "has_sld": false}'
+        contexts = [{'filename': 'prices.txt', 'text': 'price list'}]
+        with patch('app.services.ai.circuit_preflight.ConnectionPoolService.call_with_fallback',
+                   new_callable=AsyncMock, return_value=(response, None)):
+            result = await CircuitPreflightService.assess([], contexts, object(), [object()])
+        self.assertEqual(result['status'], 'unavailable')
 
     async def test_unreadable_document_cannot_pass_assessment(self):
         result = await CircuitPreflightService.assess([], [], object(), [object()])

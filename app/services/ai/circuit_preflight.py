@@ -23,9 +23,11 @@ có thể thuộc mạch sao-tam giác, đảo chiều hoặc đóng cắt đơn
 Tiếp địa, thanh nối đất, cầu đấu và phụ kiện lắp đặt có thể cần thiết dù không có tag BOM;
 ghi ở installation_considerations với trạng thái đề xuất, không nhận là thiết bị đã thấy.
 Không lập BOM, không đếm thiết bị, không chọn SKU, không tạo CAD ở bước này.
+has_sld chỉ đúng khi trực tiếp nhận thấy sơ đồ một sợi hoặc mạch nguyên lý điện trong tệp;
+nếu chỉ có bảng giá, thông số hay bản vẽ hình chiếu thì trả false.
 Trả đúng một JSON: {"circuit_summary":"", "file_roles":[], "circuits":[],
 "functional_groups":[], "ambiguous_symbols":[], "installation_considerations":[],
-"questions":[], "source_limits":[]}.
+"questions":[], "source_limits":[], "has_sld": true}.
 Mỗi kết luận phải có nguồn tệp/trang/tag khi thấy rõ. Viết tiếng Việt. Không suy đoán thành sự thật.
 """
 
@@ -133,6 +135,8 @@ class CircuitPreflightService:
                            if isinstance(block, dict) and block.get('circuit_summary')), None)
             if parsed:
                 assessments.append(parsed)
+        if assessments and not any(part.get('has_sld') is True for part in assessments):
+            source_limits.append('Chua xac nhan duoc so do mot soi trong ho so.')
         if not assessments or source_limits:
             return {'status': 'unavailable', 'circuit_summary': '',
                     'source_limits': source_limits or ['AI chưa trả được đánh giá sơ đồ có cấu trúc.']}
@@ -142,6 +146,7 @@ class CircuitPreflightService:
                         (part.get(key) if isinstance(part.get(key), list) else [])]
                   for key in keys}
         result['circuit_summary'] = '\n'.join(str(part['circuit_summary']) for part in assessments)
+        result['has_sld'] = True
         result['status'] = 'assessed'
         result['source_type'] = 'visual' if pages else 'text'
         return result
