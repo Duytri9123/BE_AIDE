@@ -235,7 +235,12 @@ class DeviceCatalogEngine:
         except Exception:
             pass
 
-        print(f"[DeviceCatalogEngine] Loaded and indexed {len(self.items)} devices across {len(self.brand_index)} brands and {len(self.accessories)} accessory groups in RAM.")
+        print(
+            f"[DeviceCatalogEngine] Loaded {len(self.items)} catalog items "
+            f"({len(self.brand_index)} brands, {len(self.type_index)} types, "
+            f"{len(self.accessories)} accessory groups). "
+            f"CAD registry and custom prices available via DevicePriceResolver."
+        )
 
     def resolve_brand(self, brand: Optional[str]) -> Optional[str]:
         if not brand:
@@ -738,7 +743,45 @@ class DeviceCatalogEngine:
             "parameters": {},
             "catalog_matched": False,
             "rating_compatible": False,
+            "price_source": "not_found",
+            "price_note": "Không tìm thấy trong catalog. Có thể dùng web search hoặc nhập giá thủ công.",
         }
+
+    async def resolve_price_smart(
+        self,
+        *,
+        name: str,
+        category: str,
+        brand: str = "",
+        spec: str = "",
+        part_number: str = "",
+        in_a: Optional[float] = None,
+        poles: Optional[int] = None,
+        min_icu: Optional[float] = None,
+        ai_connections: Optional[List] = None,
+        db: Optional[Any] = None,
+        enable_web_search: bool = True,
+    ) -> Dict[str, Any]:
+        """
+        Tra giá thống minh theo 4 cấp ưu tiên:
+        P1: Custom (Admin nhập tay) → P2: Catalog → P3: CAD Library → P4: Web Search
+        Wrapper gọi DevicePriceResolver.resolve().
+        """
+        from app.services.ai.device_price_resolver import DevicePriceResolver
+        return await DevicePriceResolver.resolve(
+            name=name,
+            category=category,
+            brand=brand,
+            spec=spec,
+            part_number=part_number,
+            in_a=in_a,
+            poles=poles,
+            min_icu=min_icu,
+            catalog_engine=self,
+            ai_connections=ai_connections,
+            db=db,
+            enable_web_search=enable_web_search,
+        )
 
 # Global singleton instance
 catalog_engine = DeviceCatalogEngine()

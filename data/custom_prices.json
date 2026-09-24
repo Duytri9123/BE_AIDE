@@ -1,0 +1,13 @@
+{
+  "note": "File lưu giá tùy chỉnh do Admin nhập tay. Key = sku hoặc brand:category:name (lowercase). Chỉnh sửa qua API /api/v1/catalog-prices/custom-prices",
+  "_schema": {
+    "key": "string - sku hoặc brand:category:name (lowercase)",
+    "price": "int - đơn giá VND",
+    "name": "string - tên thiết bị",
+    "brand": "string - hãng sản xuất",
+    "category": "string - loại thiết bị",
+    "source_note": "string - nguồn giá: admin / web / catalog",
+    "updated_by": "string - email admin",
+    "updated_at": "string - ISO datetime"
+  }
+}

@@ -4,6 +4,10 @@ from .endpoints import analyze, analyze_multi_agent, bom, export, chat, user_lib
 api_router = APIRouter()
 from .endpoints import cad_library
 api_router.include_router(cad_library.router, prefix="/cad-library", tags=["CAD Library"])
+from .endpoints import cabinet_templates
+api_router.include_router(cabinet_templates.router, prefix="/cabinet-templates", tags=["Cabinet Templates"])
+from .endpoints import catalog_prices
+api_router.include_router(catalog_prices.router, prefix="/catalog-prices", tags=["Catalog & Custom Prices"])
 
 api_router.include_router(auth.router, prefix="/auth", tags=["Auth"])
 api_router.include_router(users.router, prefix="/users", tags=["Users"])
