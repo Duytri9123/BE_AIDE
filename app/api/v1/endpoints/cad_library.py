@@ -67,6 +67,19 @@ def list_layouts(q: str = "", brand: str = "", kind: str = "", group: str = ""):
                       and (not group or item['group'] == group)]}
 
 
+@router.get('/categories')
+def list_categories():
+    """Source-backed folders by device/accessory function."""
+    path = LIBRARY.parent.parent / 'cad_categories/index.json'
+    if path.is_file():
+        return {'items': json.loads(path.read_text(encoding='utf8'))}
+    counts = defaultdict(int)
+    for item in manifest()['items']:
+        counts[(item['kind'], item['group'])] += 1
+    return {'items': [dict(kind=kind, group=group, count=count)
+                      for (kind, group), count in sorted(counts.items())]}
+
+
 @router.get("/{asset_id}/dxf")
 def download_layout(asset_id: str):
     item = next((item for item in manifest()["items"] if item["id"] == asset_id), None)
