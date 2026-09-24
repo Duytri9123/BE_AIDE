@@ -34,7 +34,7 @@ cors_origins = [o.strip() for o in settings.CORS_ORIGINS if o.strip() != "*"] if
 app.add_middleware(
     CORSMiddleware,
     allow_origins=cors_origins if cors_origins else ["*"],
-    allow_origin_regex=r"https?://.*",  # Hỗ trợ mọi domain Cloudflare Tunnel (*.trycloudflare.com, *.dgpelectric.top, localhost)
+    allow_origin_regex=r"https?://.*",  # Hỗ trợ mọi domain Cloudflare Tunnel (*.trycloudflare.com, *.elquote.top, localhost)
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
