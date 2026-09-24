@@ -401,6 +401,28 @@ class AnalysisPipelineService:
                   detail=str(circuit_assessment.get("circuit_summary") or circuit_assessment.get("source_limits"))[:500],
                   status="success" if preflight_context else "warning")
 
+        if circuit_assessment.get("status") != "assessed":
+            raise HTTPException(
+                status_code=422,
+                detail="Chưa đánh giá được sơ đồ nguyên lý trước bóc tách: "
+                       + "; ".join(map(str, circuit_assessment.get("source_limits") or []))
+            )
+
+        for consideration in circuit_assessment.get("installation_considerations") or []:
+            if isinstance(consideration, dict):
+                label = str(consideration.get("name") or consideration.get("component") or "").strip()
+                reason = str(consideration.get("reason") or consideration.get("evidence") or "").strip()
+            else:
+                label, reason = str(consideration).strip(), ""
+            if label:
+                technical_proposals.append({
+                    "original_device": "Phụ kiện lắp đặt chưa thể hiện trên SLD",
+                    "proposed_device": label,
+                    "ai_analysis": reason or "Cần kiểm tra điều kiện lắp đặt và tiêu chuẩn của tủ.",
+                    "technical_reason": "Đề xuất từ bước đánh giá sơ đồ; chưa đưa vào BOM hoặc báo giá.",
+                    "status": "review",
+                })
+
         # 1. Trích xuất thiết bị từ các file bản vẽ
         for pfile in project_files:
             file_path = pfile.file_path
@@ -1504,7 +1526,14 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             clean_warnings = [w for w in warnings if not ("chưa khớp catalog" in w.lower() or "chua khop catalog" in w.lower())]
             from app.services.ai.system_completeness import technical_audit
             completeness_audit = technical_audit(extracted_devices)
-            clean_warnings.extend(f"{item['tag']}: {item['title']} — {item['detail']}" for item in completeness_audit['missing_items'])
+            # Review gaps are shown in technical_audit, not as repetitive BOM warnings.
+            # Preserve the independent whole-document assessment. A BOM cannot
+            # retroactively prove that the source circuit was assessed.
+            circuit_assessment = circuit_assessment or {"status": "unavailable"}
+            for device in extracted_devices:
+                device.evidence_image = None
+                device.panel_evidence_image = None
+                device.box_2d = None
             return {
                 "devices": extracted_devices,
                 "warnings": clean_warnings,
@@ -1519,6 +1548,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 "technical_audit": completeness_audit,
                 "file_assessment": file_assessment,
                 "files_assessment": files_assessment,
+                "circuit_assessment": circuit_assessment,
                 "overall_assessment": overall_assessment,
                 "execution_logs": execution_logs,
                 "process_steps": process_steps,
@@ -1797,6 +1827,10 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         ]
 
         clean_warnings = [w for w in warnings if not ("chưa khớp catalog" in w.lower() or "chua khop catalog" in w.lower())]
+        for device in extracted_devices:
+            device.evidence_image = None
+            device.panel_evidence_image = None
+            device.box_2d = None
         return {
             "devices": extracted_devices,
             "warnings": clean_warnings,

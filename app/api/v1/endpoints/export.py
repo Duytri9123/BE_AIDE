@@ -165,34 +165,8 @@ async def save_quotation_to_project(
     )
     db.add(new_file)
 
-    # Nếu dự án chưa có file CAD DXF tự sinh, tiến hành vẽ CAD và lưu vào danh mục file dự án
-    existing_cad_stmt = select(ProjectFile).where(
-        ProjectFile.project_id == payload.project_id,
-        ProjectFile.filename.like("BanVe_%")
-    )
-    existing_cad = (await db.execute(existing_cad_stmt)).scalars().first()
-    if not existing_cad and payload.devices:
-        try:
-            from app.services.cad.enclosure_cad_generator import EnclosureCadGeneratorService
-            cad_path = EnclosureCadGeneratorService.generate_dxf(
-                project_id=payload.project_id,
-                project_name=project_name,
-                devices=payload.devices,
-                output_dir=settings.PROJECTS_DIR
-            )
-            cad_filename = os.path.basename(cad_path)
-            cad_size = os.path.getsize(cad_path) if os.path.exists(cad_path) else 0
-            cad_file = ProjectFile(
-                project_id=payload.project_id,
-                filename=cad_filename,
-                file_path=cad_path,
-                file_type="application/dxf",
-                file_size=cad_size,
-                is_generated=True
-            )
-            db.add(cad_file)
-        except Exception:
-            pass
+    # Saving a quotation must not silently fabricate a CAD sheet. The user
+    # chooses source-backed cabinet and device drawings in the CAD workspace.
 
     await db.commit()
     await db.refresh(new_file)

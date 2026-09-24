@@ -106,57 +106,14 @@ def setup_cad_layers(doc):
 
 class EnclosureCadGeneratorService:
     @staticmethod
-    def _device_block_names(dev: Dict[str, Any]) -> Tuple[str, str, str]:
-        brand = clean_cad_text(dev.get("brand") or "ASIAN")
-        sku = clean_cad_text(dev.get("part_number") or dev.get("model") or dev.get("category") or "DEVICE")
-        cat = clean_cad_text(dev.get("category") or "DEVICE")
-        poles = int(dev.get("poles") or 1)
-        # Family labels correspond to the indexed LS DWG library; SKU remains in the block name.
-        if brand == "LS" and ("MCB" in cat or "RCBO" in cat):
-            family = f"LS_60AF_{poles}P"
-        elif brand == "LS" and "MCCB" in cat:
-            family = f"LS_100AF_{poles}P"
-        else:
-            family = f"{brand}_{cat}"
-        token = re.sub(r"[^A-Z0-9_]+", "_", f"{family}_{sku}")[:70]
-        return f"AIDE_{token}_FRONT", f"AIDE_{token}_SIDE", family.replace("_", " ")
-
-    @staticmethod
-    def _ensure_device_blocks(doc, dev: Dict[str, Any]) -> Tuple[str, str, float, float, float]:
-        front_name, side_name, family = EnclosureCadGeneratorService._device_block_names(dev)
-        w, h, d = EnclosureCadGeneratorService._get_device_dimension(dev)
-        w, h, d = max(18.0, w), max(45.0, h), max(35.0, d)
-        poles = max(1, int(dev.get("poles") or 1))
-        if front_name not in doc.blocks:
-            blk = doc.blocks.new(front_name, base_point=(0, 0))
-            add_box(blk, (0, 0), (w, h), layer="0_DEVICES")
-            for i in range(1, poles):
-                blk.add_line((w * i / poles, 0), (w * i / poles, h), dxfattribs={"layer": "0_DEVICES"})
-            for i in range(poles):
-                cx = w * (i + .5) / poles
-                blk.add_circle((cx, 6), 2.2, dxfattribs={"layer": "0_DEVICES"})
-                blk.add_circle((cx, h - 6), 2.2, dxfattribs={"layer": "0_DEVICES"})
-            add_box(blk, (w * .35, h * .38), (w * .65, h * .62), layer="0_DEVICES")
-            for hx, hy in ((4, 4), (w - 4, 4), (4, h - 4), (w - 4, h - 4)):
-                blk.add_circle((hx, hy), 1.6, dxfattribs={"layer": "0_PUNCH"})
-            blk.add_text(family[:24], dxfattribs={"layer": "0_TEXT", "height": min(5.0, w / 10)}).set_placement(
-                (w / 2, h * .72), align=TextEntityAlignment.MIDDLE_CENTER)
-        if side_name not in doc.blocks:
-            blk = doc.blocks.new(side_name, base_point=(0, 0))
-            add_box(blk, (0, 0), (d, h), layer="0_DEVICES")
-            add_box(blk, (max(2, d * .1), h * .35), (d * .55, h * .65), layer="0_DEVICES")
-            blk.add_line((d * .82, 0), (d * .82, h), dxfattribs={"layer": "0_PLATE"})
-        return front_name, side_name, w, h, d
-
-    @staticmethod
     def _insert_device(msp, dev: Dict[str, Any], x: float, y: float, side: bool = False):
         from app.services.cad.library_assets import requested_asset, insert_library_asset
         linked, asset_id = requested_asset(dev, side)
         if linked:
             return insert_library_asset(msp, asset_id, x, y) if asset_id else (0, 0)
-        front, side_name, w, h, d = EnclosureCadGeneratorService._ensure_device_blocks(msp.doc, dev)
-        msp.add_blockref(side_name if side else front, (x, y), dxfattribs={"layer": "0_DEVICES"})
-        return (d if side else w), h
+        # An unlinked catalog device has no confirmed geometry. Preserve its
+        # BOM entry, but never draw a fabricated front or side device block.
+        return 0, 0
 
     @staticmethod
     def _insert_device_rotated(msp, dev: Dict[str, Any], x: float, y: float):
@@ -173,9 +130,7 @@ class EnclosureCadGeneratorService:
             bounds = bbox.extents([ref])
             ref.translate(x - bounds.extmin.x, y - bounds.extmin.y, 0)
             return h, w
-        front, _, w, h, _ = EnclosureCadGeneratorService._ensure_device_blocks(msp.doc, dev)
-        msp.add_blockref(front, (x + h, y), dxfattribs={"layer": "0_DEVICES", "rotation": 90})
-        return h, w
+        return 0, 0
 
     @staticmethod
     def _update_document_extents(doc, msp) -> None:
@@ -497,7 +452,6 @@ class EnclosureCadGeneratorService:
         ]
 
         has_meter_device = any("METER" in str(d.get("category", "")).upper() or "DONG HO" in str(d.get("name", "")).upper() for d in devices)
-        has_pilot_lights = any("LIGHT" in str(d.get("category", "")).upper() or "DEN" in str(d.get("name", "")).upper() for d in devices) or (incomer_a >= 63 and is_3phase)
 
         branch_units = [
             d for d in devices
@@ -634,72 +588,20 @@ class EnclosureCadGeneratorService:
         curr_door_y = np_y - 20
 
         # Cụm Đèn Báo Pha R - S - T (Chỉ vẽ khi có đèn báo hoặc tủ lớn 3 pha)
-        if has_pilot_lights:
-            lamp_y = curr_door_y - 30
-            lamp_colors = [1, 2, 3] if is_3phase else [1]
-            lamp_labels = ["[HL1] PHA R", "[HL2] PHA S", "[HL3] PHA T"] if is_3phase else ["[HL1] NGUON"]
-            lamp_count = len(lamp_colors)
-            lamp_spacing = 60.0
-            start_lamp_x = (v1_x + v1_w / 2) - ((lamp_count - 1) * lamp_spacing) / 2
-
-            for l_idx, (col, lbl) in enumerate(zip(lamp_colors, lamp_labels)):
-                lx = start_lamp_x + l_idx * lamp_spacing
-                msp.add_circle((lx, lamp_y), radius=13, dxfattribs={"layer": "0_DOOR_ITEMS", "color": col})
-                msp.add_circle((lx, lamp_y), radius=8, dxfattribs={"layer": "0_DOOR_ITEMS", "color": col})
-                msp.add_text(lbl, dxfattribs={"layer": "0_TEXT", "height": 6.5, "color": col}).set_placement(
-                    (lx, lamp_y - 22), align=TextEntityAlignment.MIDDLE_CENTER
-                )
-            curr_door_y = lamp_y - 35
-
-        # Vẽ đúng từng cụm thiết bị đo/chuyển mạch gắn bên ngoài cánh tủ.
-        # CT đo lường nằm bên trong nên không được vẽ nhầm lên mặt cánh.
-        door_meter_devs = [
-            d for d in devices
-            if "METER" in str(d.get("category", "")).upper()
-            and not any(k in clean_cad_text(d.get("name", "")) for k in ["BIEN DONG", "3XCT", "CURRENT TRANSFORMER"])
-        ]
-        if not door_meter_devs and incomer_a >= 160 and is_3phase and H >= 1000:
-            door_meter_devs = [{"name": "DONG HO DA NANG MFM", "tag": "PI1"}]
-
-        assembly_y = curr_door_y - 82
-        amp_meters = [d for d in door_meter_devs if "AMPE" in clean_cad_text(d.get("name", ""))]
-        other_meters = [d for d in door_meter_devs if d not in amp_meters]
-        if len(amp_meters) >= 3:
-            meter_size = 72.0
-            spacing = 105.0
-            row_start = v1_x + v1_w / 2.0 - spacing
-            for meter_idx, meter_dev in enumerate(amp_meters[:3]):
-                mx = row_start + meter_idx * spacing - meter_size / 2.0
-                my = assembly_y - meter_size / 2.0
-                add_box(msp, (mx, my), (mx + meter_size, my + meter_size), layer="0_DOOR_ITEMS", color=7)
-                add_box(msp, (mx + 8, my + 20), (mx + meter_size - 8, my + meter_size - 8), layer="0_DOOR_ITEMS", color=4)
-                tag = clean_cad_text(meter_dev.get("tag") or f"PA{meter_idx + 1}")
-                msp.add_text(f"[{tag}]", dxfattribs={"layer": "0_TEXT", "height": 5.5, "color": 3}).set_placement(
-                    (mx + meter_size / 2.0, my - 11), align=TextEntityAlignment.MIDDLE_CENTER
-                )
-            assembly_y -= 112.0
-            door_meter_devs = other_meters
-
-        for meter_idx, meter_dev in enumerate(door_meter_devs):
-            clean_meter_name = clean_cad_text(meter_dev.get("name", "DONG HO"))
-            meter_tag = clean_cad_text(meter_dev.get("tag") or f"PI{meter_idx + 1}")
-            row_center_x = v1_x + v1_w / 2
-            selector_x = row_center_x + 72
-            msp.add_circle((selector_x, assembly_y), radius=18, dxfattribs={"layer": "0_DOOR_ITEMS", "color": 7})
-            msp.add_line((selector_x - 9, assembly_y - 9), (selector_x + 9, assembly_y + 9), dxfattribs={"layer": "0_DOOR_ITEMS", "color": 3})
-            selector_label = "AS" if "AMPE" in clean_meter_name else "VS" if "VOLT" in clean_meter_name or "VON" in clean_meter_name else "SEL"
-            msp.add_text(selector_label, dxfattribs={"layer": "0_TEXT_TITLE", "height": 7.0, "color": 3}).set_placement(
-                (selector_x, assembly_y - 30), align=TextEntityAlignment.MIDDLE_CENTER
-            )
-            meter_size = 72.0
-            meter_x = row_center_x - 72
-            meter_y = assembly_y - meter_size / 2
-            add_box(msp, (meter_x, meter_y), (meter_x + meter_size, meter_y + meter_size), layer="0_DOOR_ITEMS", color=7)
-            add_box(msp, (meter_x + 8, meter_y + 20), (meter_x + meter_size - 8, meter_y + meter_size - 8), layer="0_DOOR_ITEMS", color=4)
-            msp.add_text(f"[{meter_tag}] {clean_meter_name[:24]}", dxfattribs={"layer": "0_TEXT", "height": 5.5, "color": 3}).set_placement(
-                (row_center_x, meter_y - 14), align=TextEntityAlignment.MIDDLE_CENTER
-            )
-            assembly_y -= 112
+        door_devices = [d for d in devices if
+                        ("LIGHT" in str(d.get("category", "")).upper()
+                         or "METER" in str(d.get("category", "")).upper())
+                        and (d.get("cad") or (d.get("parameters") or {}).get("cad"))]
+        if door_devices:
+            columns = min(3, len(door_devices))
+            spacing = max(95.0, (v1_w - 120) / max(1, columns))
+            for index, device in enumerate(door_devices):
+                column = index % columns
+                row = index // columns
+                x = v1_x + (v1_w - spacing * columns) / 2 + column * spacing
+                y = curr_door_y - 55 - row * 105
+                EnclosureCadGeneratorService._insert_device(msp, device, x, y)
+            curr_door_y -= ((len(door_devices) + columns - 1) // columns) * 105
 
         # Biển cảnh báo an toàn điện tam giác sấm sét
         warn_y = body_y + 140

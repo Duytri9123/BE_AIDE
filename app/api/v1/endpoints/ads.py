@@ -13,7 +13,7 @@ from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
-from sqlalchemy import select, func
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.session import get_db
@@ -27,6 +27,11 @@ router = APIRouter()
 
 # Số file tải giữa hai lần xem quảng cáo
 AD_FREQUENCY = int(getattr(settings, "AD_FREQUENCY", 5))
+
+
+def ad_gate_active() -> bool:
+    return bool(settings.AD_ENABLED and settings.GOOGLE_ADSENSE_CLIENT_ID
+                and settings.GOOGLE_ADSENSE_SLOT_ID)
 
 
 class AdCheckResponse(BaseModel):
@@ -58,57 +63,19 @@ async def check_ad_required(
     """
     adsense_client_id = getattr(settings, "GOOGLE_ADSENSE_CLIENT_ID", "ca-pub-0000000000000000")
 
-    # Đếm tổng số file đã tải của user
-    # Dùng ad_view_log để track: tổng download = sum(download_count_after) của tất cả log
-    result = await db.execute(
-        select(func.sum(AdViewLog.download_count_after))
-        .where(AdViewLog.user_id == current_user.id)
-        .where(AdViewLog.completed == True)
-    )
-    total_downloads: int = result.scalar() or 0
-
-    # Lấy log gần nhất đã hoàn thành
     last_log_result = await db.execute(
         select(AdViewLog)
-        .where(AdViewLog.user_id == current_user.id)
-        .where(AdViewLog.completed == True)
-        .order_by(AdViewLog.id.desc())
-        .limit(1)
+        .where(AdViewLog.user_id == current_user.id, AdViewLog.completed == True)
+        .order_by(AdViewLog.id.desc()).limit(1)
     )
     last_log = last_log_result.scalar_one_or_none()
-
-    downloads_since_last_ad = (
-        last_log.download_count_after if last_log else total_downloads
-    )
-
-    # Logic hiển thị quảng cáo
-    if total_downloads == 0 and last_log is None:
-        # Lần đầu vào trang, chưa tải file bao giờ
-        return AdCheckResponse(
-            should_show_ad=True,
-            ad_type="first_visit",
-            downloads_since_last_ad=0,
-            next_ad_after=0,
-            adsense_client_id=adsense_client_id,
-        )
-
-    if last_log is None or last_log.download_count_after >= AD_FREQUENCY:
-        # Đã tải đủ 5 file kể từ lần quảng cáo trước
-        return AdCheckResponse(
-            should_show_ad=True,
-            ad_type="periodic",
-            downloads_since_last_ad=downloads_since_last_ad,
-            next_ad_after=0,
-            adsense_client_id=adsense_client_id,
-        )
-
-    # Chưa đến lượt
-    remaining = AD_FREQUENCY - (last_log.download_count_after if last_log else 0)
+    count = last_log.download_count_after if last_log else 0
+    due = last_log is None or count >= AD_FREQUENCY
     return AdCheckResponse(
-        should_show_ad=False,
-        ad_type="none",
-        downloads_since_last_ad=last_log.download_count_after if last_log else 0,
-        next_ad_after=max(0, remaining),
+        should_show_ad=due and ad_gate_active(),
+        ad_type=("first_visit" if last_log is None else "periodic") if due else "none",
+        downloads_since_last_ad=count,
+        next_ad_after=0 if due else AD_FREQUENCY - count,
         adsense_client_id=adsense_client_id,
     )
 
@@ -123,13 +90,15 @@ async def complete_ad_view(
     Gọi endpoint này khi người dùng bấm 'Đã xem' / bỏ qua quảng cáo.
     Tạo log mới, reset download_count_after = 0 để bắt đầu đếm lại.
     """
-    # Lấy tổng download hiện tại
-    result = await db.execute(
-        select(func.sum(AdViewLog.download_count_after))
-        .where(AdViewLog.user_id == current_user.id)
-        .where(AdViewLog.completed == True)
+    previous_result = await db.execute(
+        select(AdViewLog).where(AdViewLog.user_id == current_user.id,
+                                AdViewLog.completed == True)
+        .order_by(AdViewLog.id.desc()).limit(1)
     )
-    total_now: int = result.scalar() or 0
+    previous = previous_result.scalar_one_or_none()
+    if previous and previous.download_count_after < AD_FREQUENCY:
+        raise HTTPException(status_code=409, detail="Chưa đến lượt xem quảng cáo.")
+    total_now = (previous.total_downloads_at_view + previous.download_count_after) if previous else 0
 
     log = AdViewLog(
         user_id=current_user.id,
@@ -169,22 +138,15 @@ async def track_download(
     )
     last_log = last_log_result.scalar_one_or_none()
 
+    if ad_gate_active() and (last_log is None or last_log.download_count_after >= AD_FREQUENCY):
+        raise HTTPException(status_code=403, detail="Cần xem quảng cáo trước khi tải file.")
     if last_log:
         last_log.download_count_after += 1
         await db.commit()
         downloads_after = last_log.download_count_after
     else:
-        # Chưa có log → tạo mới với completed=False (chưa xem quảng cáo)
-        log = AdViewLog(
-            user_id=current_user.id,
-            download_count_after=1,
-            total_downloads_at_view=0,
-            ad_type="first_visit",
-            completed=False,
-        )
-        db.add(log)
-        await db.commit()
-        downloads_after = 1
+        # Ads are disabled; no ad log is needed, but downloads stay available.
+        downloads_after = 0
 
     next_ad_in = max(0, AD_FREQUENCY - downloads_after)
     return {
@@ -202,5 +164,5 @@ async def get_ad_config() -> dict:
         "adsense_client_id": getattr(settings, "GOOGLE_ADSENSE_CLIENT_ID", ""),
         "adsense_slot_id": getattr(settings, "GOOGLE_ADSENSE_SLOT_ID", ""),
         "ad_frequency": AD_FREQUENCY,
-        "ad_enabled": getattr(settings, "AD_ENABLED", True),
+        "ad_enabled": ad_gate_active(),
     }

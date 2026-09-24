@@ -411,52 +411,10 @@ async def chat_with_cad_agent(
     # 4. Tính toán quy cách vỏ tủ điện & thanh cái
     enclosure_specs = EnclosureCadGeneratorService.calculate_enclosure_specs([d.model_dump() for d in extracted_devices])
 
-    # 5. Sinh tập Macro Blocks cấp cao
-    macro_blocks = generate_macro_blocks(enclosure_specs, [d.model_dump() for d in extracted_devices])
-
-    # 6. Tự động sinh file AutoCAD DXF cập nhật thực tế
+    # CAD is selected from the indexed source library in the workspace.
+    # Chat analysis must not create macro geometry or a synthetic DXF.
+    macro_blocks = []
     cad_file_info = None
-    try:
-        dxf_path = EnclosureCadGeneratorService.generate_dxf(
-            project_id=request.project_id,
-            project_name=project.name,
-            devices=[d.model_dump() for d in extracted_devices],
-            output_dir=settings.PROJECTS_DIR
-        )
-        dxf_filename = os.path.basename(dxf_path)
-        dxf_size = os.path.getsize(dxf_path) if os.path.exists(dxf_path) else 0
-
-        existing_cad_stmt = select(ProjectFile).where(
-            ProjectFile.project_id == request.project_id,
-            ProjectFile.filename.like("PhacThao_TuDien%")
-        )
-        cad_res = await db.execute(existing_cad_stmt)
-        cad_file = cad_res.scalars().first()
-
-        if not cad_file:
-            cad_file = ProjectFile(
-                project_id=request.project_id,
-                filename=dxf_filename,
-                file_path=dxf_path,
-                file_type="application/dxf",
-                file_size=dxf_size
-            )
-            db.add(cad_file)
-        else:
-            cad_file.file_path = dxf_path
-            cad_file.file_size = dxf_size
-
-        await db.commit()
-        await db.refresh(cad_file)
-
-        cad_file_info = {
-            "id": cad_file.id,
-            "filename": cad_file.filename,
-            "file_path": cad_file.file_path,
-            "file_size": cad_file.file_size
-        }
-    except Exception as e:
-        reply_text += f"\n\n*(Lưu ý: Không thể xuất file CAD DXF: {str(e)})*"
 
     # 7. Trừ token hợp lý
     token_cost = 250

@@ -3,6 +3,7 @@ import io
 import json
 import math
 import re
+import unicodedata
 from functools import lru_cache
 from pathlib import Path
 
@@ -170,12 +171,21 @@ def generate(template_id, dimensions, product_name=''):
         if 'khung' not in insert.dxf.name.lower():
             continue
         for attr in insert.attribs:
-            if re.search(r'\d{3,4}\s*[xX×*]\s*\d{3,4}\s*[xX×*]\s*\d{3,4}', attr.dxf.text):
-                attr.dxf.text = title_size
+            value = attr.dxf.text
             product_tag = ('#05' if insert.dxf.name.lower() == 'khungtenasean2'
                            else '#03' if insert.dxf.name.upper() == 'KHUNG CHUẨN' else 'SANPHAM')
-            if attr.dxf.tag.upper() == product_tag or re.search(r'v[ỏõo]\s*t[ủu]', attr.dxf.text, re.I):
+            if re.search(r'\d{3,4}\s*[xX×*]\s*\d{3,4}\s*[xX×*]\s*\d{3,4}', value):
+                attr.dxf.text = title_size
+            elif attr.dxf.tag.upper() == product_tag or re.search(r'v[ỏõo]\s*t[ủu]', value, re.I):
                 attr.dxf.text = product_name
+            elif any(token in ''.join(c for c in unicodedata.normalize('NFD', value.upper().replace('Đ', 'D')) if not unicodedata.combining(c))
+                     for token in ('NGOAI TROI', 'TRONG NHA', 'CHUA CHAY')):
+                # This describes the actual source cabinet type.
+                pass
+            else:
+                # Customer, date, maker and quantity belonged to the library
+                # drawing. The new cabinet must not inherit that metadata.
+                attr.dxf.text = ''
     readable_unicode(source)
     flattened = []
     for entity in source.modelspace():

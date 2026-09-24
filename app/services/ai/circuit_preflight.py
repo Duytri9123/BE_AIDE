@@ -2,6 +2,9 @@
 from __future__ import annotations
 
 import json
+import tempfile
+import unicodedata
+from PIL import Image, ImageDraw
 from pathlib import Path
 from typing import Any
 
@@ -39,36 +42,108 @@ class CircuitPreflightService:
         return '\n\n'.join(parts)[:24000]
 
     @staticmethod
+    def _visual_pages(files):
+        """Collect every image and each scanned PDF page for whole-file review."""
+        import pypdfium2 as pdfium
+        pages = []
+        for file in files:
+            path = Path(str(file.file_path))
+            if not path.is_file():
+                continue
+            ext = path.suffix.lower()
+            try:
+                if ext in {'.png', '.jpg', '.jpeg', '.webp', '.bmp'}:
+                    with Image.open(path) as opened:
+                        pages.append((file.filename, opened.convert('RGB').copy()))
+                elif ext == '.pdf':
+                    document = pdfium.PdfDocument(str(path))
+                    try:
+                        for index in range(len(document)):
+                            page = document[index]
+                            try:
+                                pages.append((f'{file.filename} / trang {index + 1}',
+                                              page.render(scale=0.5).to_pil().convert('RGB')))
+                            finally:
+                                page.close()
+                    finally:
+                        document.close()
+            except Exception:
+                # A readable text layer may still be available; do not claim the
+                # unreadable image/page as visual evidence.
+                continue
+        return pages
+
+    @staticmethod
+    def _contact_sheet(pages):
+        columns, width, height = 2, 640, 470
+        sheet = Image.new('RGB', (columns * width, ((len(pages) + 1) // 2) * height), 'white')
+        draw = ImageDraw.Draw(sheet)
+        for index, (label, picture) in enumerate(pages):
+            x, y = index % 2 * width, index // 2 * height
+            picture.thumbnail((width - 20, height - 50), Image.Resampling.LANCZOS)
+            sheet.paste(picture, (x + 10, y + 40))
+            safe_label = ''.join(c for c in unicodedata.normalize('NFD', label.replace('Đ', 'D').replace('đ', 'd')) if not unicodedata.combining(c))
+            draw.text((x + 10, y + 10), safe_label.encode('ascii', 'replace').decode()[:90], fill='black')
+        return sheet
+
+    @staticmethod
     async def assess(files, contexts, db, connections, user_prompt='') -> dict[str, Any]:
         context = CircuitPreflightService._context(contexts)
-        prompt = PREFLIGHT_INSTRUCTIONS + f"\nYêu cầu của người dùng: {user_prompt or 'Đọc sơ đồ trước khi bóc tách.'}\n"
-        source_type = 'text'
-        if context:
-            prompt += f"\nThông tin đọc được từ các tệp:\n{context}"
-            call_fn = VisionAnalyzerService.analyze_text
-            args = {'prompt': prompt}
-        else:
-            image = next((str(f.file_path) for f in files
-                          if Path(str(f.file_path)).suffix.lower() in {'.png','.jpg','.jpeg','.webp','.bmp'}
-                          and Path(str(f.file_path)).is_file()), None)
-            if not image:
-                return {'status': 'unavailable', 'circuit_summary': '', 'source_limits': ['Chưa đọc được ngữ cảnh toàn hồ sơ.']}
-            source_type = 'image'
-            call_fn = VisionAnalyzerService.analyze_image
-            args = {'image_path': image, 'prompt': prompt}
+        pages = CircuitPreflightService._visual_pages(files)
+        if not context and not pages:
+            return {'status': 'unavailable', 'circuit_summary': '',
+                    'source_limits': ['Chưa đọc được nội dung sơ đồ từ tệp nguồn.']}
         if not db or not connections:
-            return {'status': 'unavailable', 'circuit_summary': '', 'source_limits': ['Chưa có kết nối AI để đánh giá sơ đồ.']}
-        response, _ = await ConnectionPoolService.call_with_fallback(
-            db=db, connections=connections, call_fn=call_fn, **args)
-        parsed = next((block for block in ResponseParserService.extract_json_blocks(response)
-                       if isinstance(block, dict) and 'circuit_summary' in block), None)
-        if not parsed:
-            return {'status': 'unavailable', 'circuit_summary': '', 'source_limits': ['AI chưa trả được đánh giá sơ đồ có cấu trúc.']}
-        result = {key: parsed.get(key, [] if key != 'circuit_summary' else '')
-                  for key in ('circuit_summary','file_roles','circuits','functional_groups',
-                              'ambiguous_symbols','installation_considerations','questions','source_limits')}
+            return {'status': 'unavailable', 'circuit_summary': '',
+                    'source_limits': ['Chưa có kết nối AI để đánh giá sơ đồ.']}
+        prompt = (PREFLIGHT_INSTRUCTIONS
+                  + f"\nYêu cầu người dùng: {user_prompt or 'Đọc sơ đồ trước khi bóc tách.'}\n"
+                  + f"\nNhãn và văn bản từ hồ sơ:\n{context}" if context else
+                  PREFLIGHT_INSTRUCTIONS + f"\nYêu cầu người dùng: {user_prompt or 'Đọc sơ đồ trước khi bóc tách.'}\n")
+        assessments = []
+        source_limits = []
+        if pages:
+            for start in range(0, len(pages), 8):
+                batch = pages[start:start + 8]
+                sheet = CircuitPreflightService._contact_sheet(batch)
+                with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as temp:
+                    sheet.save(temp, format='JPEG', quality=88)
+                    image_path = temp.name
+                try:
+                    response, _ = await ConnectionPoolService.call_with_fallback(
+                        db=db, connections=connections,
+                        call_fn=VisionAnalyzerService.analyze_image,
+                        image_path=image_path,
+                        prompt=prompt + '\nCác trang trong ảnh: ' + ', '.join(label for label, _ in batch) + '. '
+                                      + 'Chỉ đánh giá các trang có nhãn trong ảnh này. '
+                                        'Nêu trang và căn cứ cụ thể cho các kết luận.')
+                    parsed = next((block for block in ResponseParserService.extract_json_blocks(response)
+                                   if isinstance(block, dict) and block.get('circuit_summary')), None)
+                    if parsed:
+                        assessments.append(parsed)
+                    else:
+                        source_limits.append('Không nhận được đánh giá hợp lệ cho ' + ', '.join(label for label, _ in batch))
+                finally:
+                    Path(image_path).unlink(missing_ok=True)
+        elif context:
+            response, _ = await ConnectionPoolService.call_with_fallback(
+                db=db, connections=connections, call_fn=VisionAnalyzerService.analyze_text,
+                prompt=prompt)
+            parsed = next((block for block in ResponseParserService.extract_json_blocks(response)
+                           if isinstance(block, dict) and block.get('circuit_summary')), None)
+            if parsed:
+                assessments.append(parsed)
+        if not assessments or source_limits:
+            return {'status': 'unavailable', 'circuit_summary': '',
+                    'source_limits': source_limits or ['AI chưa trả được đánh giá sơ đồ có cấu trúc.']}
+        keys = ('file_roles', 'circuits', 'functional_groups', 'ambiguous_symbols',
+                'installation_considerations', 'questions', 'source_limits')
+        result = {key: [entry for part in assessments for entry in
+                        (part.get(key) if isinstance(part.get(key), list) else [])]
+                  for key in keys}
+        result['circuit_summary'] = '\n'.join(str(part['circuit_summary']) for part in assessments)
         result['status'] = 'assessed'
-        result['source_type'] = source_type
+        result['source_type'] = 'visual' if pages else 'text'
         return result
 
     @staticmethod
