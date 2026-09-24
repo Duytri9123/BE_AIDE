@@ -7,6 +7,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from app.services.cad.library_taxonomy import classify, explicit_brands
+from app.services.cad.device_families import usable_component
+from app.services.cad.recognition import evidence
 
 def component_type(name):
     key = name.casefold()
@@ -42,12 +44,16 @@ if __name__ == '__main__':
     canonical = {}
     rows = []
     for file in sorted((ROOT/'data/device_layouts').glob('*/manifest.json')):
-        for item in json.loads(file.read_text(encoding='utf8'))['items']:
+        document = json.loads(file.read_text(encoding='utf8'))
+        for item in document['items']:
             category = item.get('category') or component_type(item['name'])
             if not category: continue
             classification = classify(item['name'], category)
+            recognition = evidence({**item, **classification})
+            classification = {k:recognition.get(k, classification[k]) for k in ('kind','group')}
+            if not usable_component({**item, **classification, 'library': file.parent.name, 'category': category}): continue
             brands = explicit_brands(item.get('category', '') + ' ' + item['name'])
-            brand = brands[0] if len(brands) == 1 else item['brand']
+            brand = recognition['brand']
             path = file.parent / item['filename']
             digest = hashlib.sha256(path.read_bytes()).hexdigest()
             if digest not in cache:
@@ -56,16 +62,19 @@ if __name__ == '__main__':
                 Frontend(RenderContext(doc), backend).draw_layout(doc.modelspace(), finalize=True)
                 drawing = backend.get_string(layout.Page(0, 0, layout.Units.mm))
                 cache[digest] = hashlib.sha256(drawing.encode()).hexdigest()
+            item['geometry_fingerprint'] = cache[digest]
             # Preserve every original entry but point identical drawings to one asset.
-            key = (cache[digest], item.get('units'))
-            asset_id = canonical.setdefault(key, item['id'])
-            rows.append(dict(ma='CAD:'+item['id'], n=item['name'],
+            key = (cache[digest], item.get('units'), classification['group'])
+            canonical.setdefault(key, item['id'])
+            asset_id = item['id']  # Keep identity; family grouping handles duplicate drawings.
+            rows.append(dict(ma='CAD:'+item['id'], n=recognition.get('name') or item['name'],
                 brand='unspecified' if brand=='Chưa xác định hãng' else brand,
                 brand_display=brand, series='Linh kiện CAD · '+file.parent.name,
                 t=classification['group'], g=None, _verified=False,
                 library_kind=classification['kind'], library_group=classification['group'],
                 cad={'asset_id':asset_id}, source={'file':item['source_file'],'block':item['name']},
                 note='Hình học CAD nguồn; chưa xác minh model, hướng nhìn và thông số đặt hàng.'))
+        file.write_text(json.dumps(document, ensure_ascii=False, indent=2), encoding='utf8')
     (ROOT/'data/catalog_cad_components.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2),encoding='utf8')
     cache_file.write_text(json.dumps(cache), encoding='utf8')
     print(f'{len(rows)} entries, {len(canonical)} distinct drawings')

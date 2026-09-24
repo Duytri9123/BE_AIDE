@@ -94,6 +94,27 @@ class DocumentContextService:
         return "\n".join(rows)
 
     @staticmethod
+    def _read_dxf_labels(path: Path) -> str:
+        import ezdxf
+
+        drawing = ezdxf.readfile(str(path))
+        labels: List[str] = []
+        for entity in drawing.modelspace():
+            kind = entity.dxftype()
+            if kind in {"TEXT", "ATTRIB"}:
+                value = entity.dxf.text
+            elif kind == "MTEXT":
+                value = entity.plain_text()
+            else:
+                continue
+            value = str(value or "").strip()
+            if value:
+                labels.append(value)
+            if sum(map(len, labels)) >= DocumentContextService.MAX_FILE_CHARS:
+                break
+        return "\n".join(labels)
+
+    @staticmethod
     def extract(file_obj: Any) -> Dict[str, Any]:
         filename = str(getattr(file_obj, "filename", "") or "")
         path = Path(str(getattr(file_obj, "file_path", "") or ""))
@@ -114,6 +135,8 @@ class DocumentContextService:
         try:
             if ext == "pdf":
                 text = DocumentContextService._read_pdf(path)
+            elif ext == "dxf":
+                text = DocumentContextService._read_dxf_labels(path)
             elif ext == "docx":
                 text = DocumentContextService._read_docx(path)
             elif ext in {"xlsx", "xlsm"}:

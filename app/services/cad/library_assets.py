@@ -26,5 +26,14 @@ def requested_asset(device, side=False):
     cad = device.get('cad') or (device.get('parameters') or {}).get('cad') or {}
     if not cad:
         return False, None
-    views = cad.get('views') or {}
-    return True, views.get('side' if side else 'front') or (None if side else cad.get('asset_id'))
+    from app.api.v1.endpoints.cad_library import manifest
+    from app.services.cad.device_families import build_families
+    requested = cad.get('asset_id')
+    family = next((f for f in build_families(manifest()['items']) if requested in f['asset_ids']), None)
+    if family is None:
+        raise ValueError('CAD chưa được nhận dạng là một thiết bị để bố trí tủ')
+    face = 'side' if side else 'front'
+    match = next((v['asset_id'] for v in family['views'] if v['face'] == face), None)
+    if not match and not side:
+        raise ValueError('CAD chưa xác nhận mặt trước; không tự dùng hình nguồn hoặc mặt cắt thay thế')
+    return True, match

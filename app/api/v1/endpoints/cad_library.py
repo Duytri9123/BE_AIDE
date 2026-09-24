@@ -13,24 +13,23 @@ LIBRARY = Path(__file__).resolve().parents[4] / "data" / "device_layouts" / "ls"
 
 
 def guess_view_label(width: float, height: float) -> str:
-    """Đoán tên mặt nhìn dựa trên tỷ lệ kích thước."""
-    if width <= 0 or height <= 0:
-        return "Hình chiếu"
-    ratio = height / width
-    if ratio >= 2.5:
-        return "Mặt đứng"
-    if ratio >= 1.4:
-        return "Mặt trước"
-    if ratio <= 0.4:
-        return "Mặt ngang"
-    if 0.8 <= ratio <= 1.25:
-        return "Mặt cắt ngang"
-    return "Hình chiếu"
+    # Kept for old callers; shape proportions cannot establish view orientation.
+    return 'Hình nguồn'
 
 
 def manifest():
+    paths = sorted(LIBRARY.parent.glob('*/manifest.json'))
+    signature = tuple((str(path), path.stat().st_mtime_ns, path.stat().st_size) for path in paths)
+    from app.services.cad.recognition import DATA
+    return _manifest_cached(signature, DATA.stat().st_mtime_ns if DATA.exists() else 0)
+
+
+@lru_cache(maxsize=2)
+def _manifest_cached(signature, evidence_stamp=0):
+    from app.services.cad.recognition import evidence
     items = []
-    for path in sorted(LIBRARY.parent.glob("*/manifest.json")):
+    for filename, _, _ in signature:
+        path = Path(filename)
         for entry in json.loads(path.read_text(encoding="utf-8"))["items"]:
             brands = explicit_brands(entry.get('category', '') + ' ' + entry['name'])
             items.append({**entry, "library": path.parent.name,
@@ -38,6 +37,12 @@ def manifest():
                           "brand": brands[0] if len(brands) == 1 else entry.get('brand', 'Chưa xác định hãng'),
                           "brands_in_source": brands,
                           "is_collection": path.parent.name == 'source_cells'})
+    for item in items:
+        recognition = evidence(item)
+        item['recognition'] = recognition
+        item['brand'] = recognition['brand']
+        for field in ('kind', 'group'):
+            if field in recognition: item[field] = recognition[field]
     return {"items": items}
 
 
@@ -85,78 +90,15 @@ def render_layout_svg(asset_id: str):
     return backend.get_string(layout.Page(0, 0, layout.Units.mm, margins=layout.Margins.all(5)))
 
 
-@router.get("/grouped")
-def list_grouped_layouts(q: str = "", kind: str = "", group: str = "", library: str = ""):
-    """Trả về danh sách thiết bị CAD đã gom nhóm theo parent_asset_id.
-    Mỗi nhóm thiết bị có thumbnail_id (mặt đầu tiên) để hiển thị preview trên card.
-    """
-    all_items = manifest()["items"]
-
-    # Lọc theo query
-    if q:
-        q_lower = q.casefold()
-        all_items = [i for i in all_items
-                     if q_lower in (i["name"] + " " + i.get("brand", "") + " " + i.get("category", "")).casefold()]
-    if kind:
-        all_items = [i for i in all_items if i.get("kind") == kind]
-    if group:
-        all_items = [i for i in all_items if i.get("group") == group]
-    if library:
-        all_items = [i for i in all_items if i.get("library") == library]
-
-    # Gom nhóm theo parent_asset_id; item không có parent_asset_id thì tự thành group riêng
-    groups: dict = defaultdict(list)
-    for item in all_items:
-        gid = item.get("parent_asset_id") or item["id"]
-        groups[gid].append(item)
-
-    result = []
-    for gid, members in groups.items():
-        # Dùng category của member đầu làm tên nhóm; fallback = name của member đầu
-        first = members[0]
-        group_name = first.get("category") or first["name"]
-        # Bỏ phần " · biến thể" trong tên nếu có (vd: "Đèn báo pha · mẫu 1" → "Đèn báo pha")
-        if " · " in group_name:
-            group_name = group_name.split(" · ")[0].strip()
-
-        # Sắp xếp views: ưu tiên mặt đứng (ratio cao) lên trước
-        def sort_key(m):
-            w, h = m.get("width", 1) or 1, m.get("height", 1) or 1
-            return -(h / w)  # ratio cao nhất lên đầu (mặt đứng)
-
-        members_sorted = sorted(members, key=sort_key)
-
-        views = []
-        for m in members_sorted:
-            w, h = m.get("width", 0) or 0, m.get("height", 0) or 0
-            views.append({
-                "id": m["id"],
-                "name": m["name"],
-                "view_label": guess_view_label(w, h),
-                "source_block": m.get("source_block", ""),
-                "source_file": m.get("source_file", ""),
-                "width": w,
-                "height": h,
-                "units": m.get("units", "mm"),
-                "library": m.get("library", ""),
-            })
-
-        result.append({
-            "group_id": gid,
-            "name": group_name,
-            "category": first.get("category", ""),
-            "brand": first.get("brand", "Chưa xác định hãng"),
-            "kind": first.get("kind", "unclassified"),
-            "group": first.get("group", "Chưa phân loại"),
-            "library": first.get("library", ""),
-            "thumbnail_id": members_sorted[0]["id"],  # mặt đứng nhất → thumbnail
-            "view_count": len(members),
-            "views": views,
-        })
-
-    # Sắp xếp theo kind rồi group rồi name
-    result.sort(key=lambda x: (x["kind"], x["group"], x["name"]))
-    return {"total": len(result), "items": result}
+@router.get('/grouped')
+def list_grouped_layouts(q: str = '', kind: str = '', group: str = '', library: str = '', skip: int = 0, limit: int = 24, face: str = ''):
+    from app.services.cad.device_families import build_families
+    families = build_families(manifest()['items'])
+    rows = [f for f in families if (not q or q.casefold() in (f['name'] + ' ' + f['brand']).casefold())
+            and (not kind or kind == f['kind']) and (not group or group == f['group'])
+            and (not face or any(v['face'] == face for v in f['views']))
+            and (not library or any(library in source for source in f['sources']))]
+    return {'total': len(rows), 'items': rows[max(0, skip):max(0, skip) + min(100, max(1, limit))]}
 
 
 @router.get("/{asset_id}/preview")
@@ -164,3 +106,21 @@ def preview_layout(asset_id: str):
     return Response(render_layout_svg(asset_id), media_type="image/svg+xml",
                     headers={"X-Content-Type-Options": "nosniff",
                               "Cache-Control": "public, max-age=86400"})
+
+
+@router.get('/{asset_id}/insert-dxf')
+def insertion_dxf(asset_id: str):
+    """Explode nested inserts/dimensions for portable editable insertion."""
+    import io
+    import ezdxf
+    from ezdxf.disassemble import recursive_decompose
+    from ezdxf.addons import Importer
+    source = ezdxf.readfile(download_layout(asset_id).path)
+    target = ezdxf.new('R2018')
+    target.units = source.units
+    importer = Importer(source, target)
+    importer.import_entities(list(recursive_decompose(source.modelspace())))
+    importer.finalize()
+    stream = io.StringIO()
+    target.write(stream)
+    return Response(stream.getvalue(), media_type='application/dxf')

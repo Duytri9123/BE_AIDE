@@ -181,6 +181,7 @@ async def seed_catalog():
                 "creepage": item.get("creepage"),
                 "busbar_holes": item.get("busbar_holes"),
                 "mount_holes": item.get("mount_holes"),
+                "mounting_profile": item.get("mounting_profile"),
                 "_verified": item.get("_verified", False),
                 "price_available": item.get("g") is not None,
                 "accessory_data": item.get("accessory_data"),
@@ -194,6 +195,13 @@ async def seed_catalog():
 
             if sku in model_cache:
                 existing_m = model_cache[sku]
+                # Catalog edits are authoritative for dimensions and CAD links.
+                curated = existing_m.parameters or {}
+                if curated.get('_catalog_edit'):
+                    dimensions = {**dimensions, **(existing_m.dimensions or {})}
+                    for key in ('cad', '_catalog_edit', '_catalog_revision', '_verified'):
+                        if key in curated:
+                            parameters[key] = curated[key]
                 existing_m.device_series_id = series_obj.id
                 existing_m.name = name
                 existing_m.price = price

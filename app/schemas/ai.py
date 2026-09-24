@@ -167,6 +167,7 @@ class AnalysisResultSchema(BaseModel):
     technical_audit: Optional[dict] = None
     file_assessment: dict = Field(default_factory=dict)
     files_assessment: List[dict] = Field(default_factory=list)
+    circuit_assessment: dict = Field(default_factory=dict)
     overall_assessment: dict = Field(default_factory=dict)
     execution_logs: List[dict] = Field(default_factory=list)
     process_steps: List[dict] = Field(default_factory=list)

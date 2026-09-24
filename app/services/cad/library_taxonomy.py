@@ -8,6 +8,23 @@ def normalize(value):
 
 
 RULES = [
+    ('device', 'Biến tần', r'bien tan|\bvsd\b|\binverter\b|\batv\d'),
+    ('device', 'Bộ nguồn DC', r'bo nguon dc|power supply|24vdc'),
+    ('accessory', 'Bản lề', r'ban[- ]?le|^tv-h?bl|^hl0(?:03|11|12|35|36|44)'),
+    ('accessory', 'Sứ và giá đỡ', r'^su[- ]?\d+|^su-canh|end stopper'),
+    ('accessory', 'Cơ khí tủ', r'^(?:ecu|eku)\d|hex head screw|^nut$|chot canh|ga tai lieu|strut|thanh tieu chuan'),
+    ('accessory', 'Quạt và lọc gió', r'q_fan|loc bui|louver'),
+    ('accessory', 'Thanh đồng và đầu nối', r'^cos \d|^tc_ne'),
+    ('accessory', 'Khóa tủ', r'lockjapan'),
+    ('accessory', 'Cầu đấu', r'^cd_|^tb\d|^cts ?\d|^uk3n|teminal|terminer block|^tbdk$'),
+    ('device', 'Biến dòng', r'^cml\d+a|^kde ?\d+a|^em4h0[3-7]'),
+    ('device', 'Contactor', r'^mc[- ]?\d+a'),
+    ('device', 'Thiết bị đóng cắt', r'^ab[snl]\(?n?\)?\d|^bkn |^ezc\d|^ls \d+ ?af'),
+    ('device', 'Nút nhấn và còi', r'chuyen mach'),
+    ('device', 'Đồng hồ và công tơ', r'^am-to$'),
+    ('device', 'Ổ cắm', r'^ocam$'),
+    ('device', 'Tụ bù và cuộn kháng', r'^tu \d+kvar'),
+    ('accessory', 'Form tủ', r'^form tu|^mau tu'),
     ('accessory', 'Bản lề', r'ban le|banlela|bl012|bl036'),
     ('accessory', 'Khóa tủ', r'khoa|ms722|ms303|ms308|ms325'),
     ('accessory', 'Quạt và lọc gió', r'quat|\bfan\b|tam loc|filter'),

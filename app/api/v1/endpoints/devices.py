@@ -9,7 +9,7 @@ from app.models.device_series import DeviceSeries
 from app.models.device_model import DeviceModel
 from app.models.user_device_library import UserDeviceLibrary
 from app.models.user import User
-from app.api.deps import get_current_active_user
+from app.api.deps import get_current_active_user, get_current_admin_user
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
 
@@ -55,6 +55,7 @@ class DeviceModelResponse(BaseModel):
     discount_pct: float
     dimensions: Optional[Dict[str, Any]] = None
     parameters: Optional[Dict[str, Any]] = None
+    catalog_revision: int = 0
     
     # Backward & Frontend-friendly direct attributes
     model_code: Optional[str] = None
@@ -157,21 +158,26 @@ def _build_model_response(m: DeviceModel) -> DeviceModelResponse:
         except (ValueError, TypeError):
             p_val = None
 
+    from app.services.cad.mounting_profile import mounting_profile
+    from app.api.v1.endpoints.cad_library import resolve_model_asset
+    asset = resolve_model_asset(m.sku, params)
+    recognition = asset.get('recognition') if asset else None
     return DeviceModelResponse(
         id=m.id,
+        catalog_revision=params.get('_catalog_revision', 0),
         device_series_id=m.device_series_id,
         sku=m.sku,
-        name=m.name,
+        name=(recognition or {}).get('name') or m.name,
         price=m.price,
         discount_pct=m.discount_pct,
         dimensions=m.dimensions,
-        parameters=m.parameters,
+        parameters={**params, 'mounting_profile_status': mounting_profile(m), 'recognition': recognition},
         model_code=m.sku,
         rated_current_a=in_val,
         breaking_capacity_ka=icu_val,
         poles=p_val,
         brand_id=series.brand_id if series else None,
-        brand_name=brand.name if brand else None,
+        brand_name=recognition['brand'] if recognition else brand.name if brand else None,
         category_id=series.device_category_id if series else None,
         category_name=category.name if category else None,
         series_name=series.name if series else None
@@ -265,6 +271,122 @@ async def get_models(
 
     return filtered
 
+@router.get('/browse')
+async def browse_library(q: str = '', kind: str = '', group: str = '', cad: str = 'all', face: str = '', review: str = 'all',
+                         brand_id: int | None = None, category_id: int | None = None, poles: int | None = None,
+                         skip: int = 0, limit: int = 24, db: AsyncSession = Depends(get_db)):
+    from app.api.v1.endpoints.cad_library import manifest
+    from app.services.cad.library_browser import browse_rows
+    from app.services.cad.library_taxonomy import normalize
+    result = await db.scalars(select(DeviceModel).options(
+        selectinload(DeviceModel.series).selectinload(DeviceSeries.brand),
+        selectinload(DeviceModel.series).selectinload(DeviceSeries.category)).order_by(DeviceModel.id))
+    rows = browse_rows(result.all(), manifest()['items'])
+    def needs_review(row):
+        return bool(row['family']) and not any(v['face'] != 'unknown' for v in row['family']['views'])
+    folders = {}
+    for row in rows:
+        if review == 'identified' and needs_review(row): continue
+        if review == 'pending' and not needs_review(row): continue
+        if kind and row['kind'] != kind: continue
+        folders[row['group']] = folders.get(row['group'], 0) + 1
+    filtered = []
+    for row in rows:
+        family = row['family']
+        if review == 'identified' and needs_review(row): continue
+        if review == 'pending' and not needs_review(row): continue
+        if kind and kind != row['kind']: continue
+        if group and group != row['group']: continue
+        if cad == 'yes' and not family: continue
+        if cad == 'no' and family: continue
+        if face and (not family or not any(v['face'] == face for v in family['views'])): continue
+        members = [m for m in row['members'] if (not brand_id or m.series.brand_id == brand_id)
+                   and (not category_id or m.series.device_category_id == category_id)
+                   and (poles is None or (m.parameters or {}).get('p') == poles)]
+        if q:
+            query = normalize(q)
+            members = [m for m in members if query in normalize(' '.join([row['name'], m.name, m.sku,
+                       m.series.name, m.series.brand.name, family['brand'] if family else '']))]
+        if not members: continue
+        row = {**row, 'members': members, 'model': members[0]}
+        filtered.append(row)
+    output = []
+    for row in filtered[max(0, skip):max(0, skip) + min(100, max(1, limit))]:
+        response = _build_model_response(row['model']).model_dump()
+        family = row['family']
+        response['name'] = row['name']
+        if family: response['brand_name'] = family['brand']
+        # CAD source copies and orthographic views are not orderable variants.
+        variants = [m for m in row['members'] if not m.sku.startswith('CAD:')] or [row['model']]
+        response['parameters'] = {**(response['parameters'] or {}), 'library_kind': row['kind'],
+            'library_group': row['group'], 'recognition': family['recognition'] if family else None, 'family_key': row['key'], 'variant_count': len(variants),
+            'variant_ids': [m.id for m in variants],
+            'variant_options': [{'id': m.id, 'name': m.name, 'sku': m.sku} for m in variants],
+            'cad': {'asset_id': family['thumbnail_id'], 'views': family['views']} if family else None}
+        output.append(response)
+    return {'items': output, 'total': len(filtered), 'stats': {'cad_files':len({a for r in rows if r['family'] for a in r['family']['asset_ids']}), 'cad_files_total': len(manifest()['items']), 'cad_devices':sum(bool(r['family']) for r in rows), 'catalog_only':sum(not r['family'] for r in rows)}, 'folders': [{'name': k, 'count': v} for k, v in sorted(folders.items())]}
+
+
+class CatalogModelUpdate(BaseModel):
+    expected_revision: int = Field(ge=0)
+    w: float | None = Field(default=None, gt=0, allow_inf_nan=False)
+    h: float | None = Field(default=None, gt=0, allow_inf_nan=False)
+    d: float | None = Field(default=None, gt=0, allow_inf_nan=False)
+    cad_asset_id: str | None = None
+    source_note: str = Field(min_length=1, max_length=1000)
+
+
+@router.patch('/model-details/{model_id}', response_model=DeviceModelResponse)
+async def update_catalog_model(model_id: int, payload: CatalogModelUpdate,
+                               db: AsyncSession = Depends(get_db),
+                               user: User = Depends(get_current_admin_user)):
+    from datetime import datetime, timezone
+    from sqlalchemy import update, func
+    from app.api.v1.endpoints.cad_library import manifest
+    model = await db.scalar(select(DeviceModel).where(DeviceModel.id == model_id).options(
+        selectinload(DeviceModel.series).selectinload(DeviceSeries.brand),
+        selectinload(DeviceModel.series).selectinload(DeviceSeries.category)))
+    if model is None: raise HTTPException(404, 'Không tìm thấy thiết bị')
+    params = dict(model.parameters or {})
+    if params.get('_catalog_revision', 0) != payload.expected_revision:
+        raise HTTPException(409, 'Catalog đã được cập nhật. Mở lại thiết bị trước khi lưu.')
+    dimensions = {**(model.dimensions or {}), 'w': payload.w, 'h': payload.h, 'd': payload.d}
+    if payload.cad_asset_id:
+        asset = next((a for a in manifest()['items'] if a['id'] == payload.cad_asset_id), None)
+        if not asset or asset.get('is_collection'):
+            raise HTTPException(422, 'Chọn mã hình CAD đơn lẻ có trong thư viện.')
+        params['cad'] = {'asset_id': asset['id']}
+    elif model.sku.startswith('CAD:'):
+        raise HTTPException(422, 'Mục nguồn CAD phải giữ liên kết hình nguồn.')
+    else:
+        params['cad'] = None
+    params['_catalog_revision'] = payload.expected_revision + 1
+    params['_catalog_edit'] = {'user_id': user.id, 'at': datetime.now(timezone.utc).isoformat(),
+                               'source_note': payload.source_note.strip()}
+    if not params['_catalog_edit']['source_note']:
+        raise HTTPException(422, 'Nhập nguồn đối chiếu hoặc ghi chú cập nhật.')
+    params['_verified'] = False
+    revision = func.coalesce(DeviceModel.parameters['_catalog_revision'].as_integer(), 0)
+    result = await db.execute(update(DeviceModel).where(DeviceModel.id == model_id,
+        revision == payload.expected_revision).values(dimensions=dimensions, parameters=params)
+        .execution_options(synchronize_session=False))
+    if result.rowcount != 1:
+        await db.rollback()
+        raise HTTPException(409, 'Catalog vừa thay đổi. Mở lại thiết bị trước khi lưu.')
+    await db.commit()
+    await db.refresh(model)
+    return _build_model_response(model)
+
+
+@router.get('/model-details/{model_id}')
+async def model_details(model_id: int, db: AsyncSession = Depends(get_db)):
+    model = await db.scalar(select(DeviceModel).where(DeviceModel.id == model_id).options(
+        selectinload(DeviceModel.series).selectinload(DeviceSeries.brand),
+        selectinload(DeviceModel.series).selectinload(DeviceSeries.category)))
+    if model is None: raise HTTPException(404, 'Không tìm thấy thiết bị')
+    return _build_model_response(model)
+
+
 @router.get("/models/{sku}", response_model=DeviceModelResponse)
 async def get_model_by_sku(sku: str, db: AsyncSession = Depends(get_db)):
     """Lấy chi tiết 1 thiết bị theo mã SKU"""
@@ -296,79 +418,14 @@ async def get_device_views(model_id: int, db: AsyncSession = Depends(get_db)):
     asset = resolve_model_asset(model.sku, params, all_items)
 
     if asset:
-        # Lấy parent_asset_id để tìm tất cả mặt nhìn liên quan
-        parent_id = asset.get("parent_asset_id") or asset["id"]
-
-        # Gom tất cả DXF cùng parent_asset_id (hoặc chính nó nếu không có parent)
-        siblings = [
-            item for item in all_items
-            if (item.get("parent_asset_id") or item["id"]) == parent_id
-        ]
-
-        # Nếu chỉ có 1 item (chính nó), dùng luôn
-        if not siblings:
-            siblings = [asset]
-
-        # Sắp xếp: mặt đứng (ratio cao) lên trước — giống endpoint /grouped
-        def _sort_key(m):
-            w = m.get("width", 1) or 1
-            h = m.get("height", 1) or 1
-            return -(h / w)
-        siblings.sort(key=_sort_key)
-
-        views_out = []
-        for item in siblings:
-            w, h = item.get("width", 0) or 0, item.get("height", 0) or 0
-            view_label = guess_view_label(w, h)
-            # Tên tab: "Mặt đứng · MDC"  hoặc chỉ "Mặt đứng" nếu block name không có ý nghĩa
-            block = item.get("source_block", "")
-            tab_title = f"{view_label} · {block}" if block and not block.startswith("*") else view_label
-
-            try:
-                svg = render_layout_svg(item["id"])
-            except Exception:
-                svg = None
-
-            views_out.append(dict(
-                id=item["id"],
-                title=tab_title,
-                view_label=view_label,
-                source_block=block,
-                source_file=item.get("source_file", ""),
-                width=w,
-                height=h,
-                units=item.get("units", ""),
-                svg=svg,
-                status="source_geometry",
-            ))
-
-        # Tìm số catalog model khác cùng dùng nhóm CAD này (same CAD, different specs)
-        all_view_ids = {it["id"] for it in siblings}
-        id_list = ",".join("'" + vid + "'" for vid in all_view_ids)
-        from sqlalchemy import text as sa_text
-        shared_res = await db.execute(
-            sa_text(f"SELECT COUNT(DISTINCT id) FROM device_models "
-                    f"WHERE json_extract(parameters,'$.cad.asset_id') IN ({id_list})")
-        )
-        shared_count = shared_res.scalar() or 1
-
-        note = (
-            f"{asset['source_block']} · {asset['source_file']} · {asset['units']}. "
-            f"Hướng nhìn và model chưa được xác minh."
-        )
-        if shared_count > 1:
-            note += f" Hình dạng CAD này áp dụng cho {shared_count} model có cùng form factor."
-
-        return dict(
-            sku=model.sku,
-            source="cad_library",
-            asset_id=asset["id"],
-            parent_asset_id=parent_id,
-            view_count=len(views_out),
-            shared_models_count=shared_count,
-            note=note,
-            views=views_out,
-        )
+        from app.services.cad.device_families import build_families
+        family = next((f for f in build_families(all_items) if asset['id'] in f['asset_ids']), None)
+        specs = family['views'] if family else [{'asset_id': asset['id'], 'face': 'unknown', 'title': 'Ô bản vẽ nguồn'}]
+        views = [dict(id=v['asset_id'], title=v['title'], view_label=v['title'],
+                      face=v['face'], svg=render_layout_svg(v['asset_id']), status='source_geometry') for v in specs]
+        return dict(sku=model.sku, source='cad_library', asset_id=views[0]['id'],
+                    view_count=len(views), shared_models_count=1,
+                    note=' · '.join(family['sources'] if family else [asset['source_file']]), views=views)
 
     if (params.get("cad") or {}).get("asset_id") or model.sku.startswith("CAD:"):
         raise HTTPException(status_code=404, detail="Liên kết CAD không còn file nguồn. Vui lòng nạp lại thư viện.")

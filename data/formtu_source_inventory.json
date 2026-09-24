@@ -1,0 +1,61 @@
+{
+  "sources": [
+    "FOMTU.dwg",
+    "FOMTU.bak"
+  ],
+  "inventories": [
+    {
+      "file": "formtu",
+      "units": 1,
+      "entity_counts": {
+        "INSERT": 38536,
+        "LWPOLYLINE": 36650,
+        "DIMENSION": 12315,
+        "LINE": 41017,
+        "CIRCLE": 14636,
+        "ARC": 3552,
+        "TEXT": 566,
+        "MTEXT": 2894,
+        "HATCH": 482,
+        "XLINE": 7,
+        "ELLIPSE": 96,
+        "ATTDEF": 48,
+        "SPLINE": 2846,
+        "LEADER": 56,
+        "SOLID": 9,
+        "POINT": 4,
+        "OLE2FRAME": 1,
+        "ARC_DIMENSION": 4
+      },
+      "text_count": 3460,
+      "named_block_count": 520
+    },
+    {
+      "file": "formtu_backup",
+      "units": 1,
+      "entity_counts": {
+        "INSERT": 38536,
+        "LWPOLYLINE": 36650,
+        "DIMENSION": 12315,
+        "LINE": 41017,
+        "CIRCLE": 14636,
+        "ARC": 3552,
+        "TEXT": 566,
+        "MTEXT": 2894,
+        "HATCH": 482,
+        "XLINE": 7,
+        "ELLIPSE": 96,
+        "ATTDEF": 48,
+        "SPLINE": 2846,
+        "LEADER": 56,
+        "SOLID": 9,
+        "POINT": 4,
+        "OLE2FRAME": 1,
+        "ARC_DIMENSION": 4
+      },
+      "text_count": 3460,
+      "named_block_count": 520
+    }
+  ],
+  "comparison": "Hai nguồn có cùng số entity, tên block và nội dung chữ; chưa xác minh toàn bộ hình học. CAD sử dụng được xuất từ FOMTU.dwg."
+}

@@ -1,0 +1,21408 @@
+  0
+SECTION
+  2
+HEADER
+  9
+$ACADVER
+  1
+AC1032
+  9
+$ACADMAINTVER
+ 90
+4
+  9
+$DWGCODEPAGE
+  3
+ANSI_1252
+  9
+$LASTSAVEDBY
+  1
+ezdxf
+  9
+$REQUIREDVERSIONS
+160
+0
+  9
+$INSBASE
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$EXTMIN
+ 10
+1e+20
+ 20
+1e+20
+ 30
+1e+20
+  9
+$EXTMAX
+ 10
+-1e+20
+ 20
+-1e+20
+ 30
+-1e+20
+  9
+$LIMMIN
+ 10
+0.0
+ 20
+0.0
+  9
+$LIMMAX
+ 10
+420.0
+ 20
+297.0
+  9
+$ORTHOMODE
+ 70
+0
+  9
+$REGENMODE
+ 70
+1
+  9
+$FILLMODE
+ 70
+1
+  9
+$QTEXTMODE
+ 70
+0
+  9
+$MIRRTEXT
+ 70
+1
+  9
+$LTSCALE
+ 40
+1.0
+  9
+$ATTMODE
+ 70
+1
+  9
+$TEXTSIZE
+ 40
+2.5
+  9
+$TRACEWID
+ 40
+1.0
+  9
+$TEXTSTYLE
+  7
+Standard
+  9
+$CLAYER
+  8
+0
+  9
+$CELTYPE
+  6
+ByLayer
+  9
+$CECOLOR
+ 62
+256
+  9
+$CELTSCALE
+ 40
+1.0
+  9
+$DISPSILH
+ 70
+0
+  9
+$DIMSCALE
+ 40
+1.0
+  9
+$DIMASZ
+ 40
+2.5
+  9
+$DIMEXO
+ 40
+0.625
+  9
+$DIMDLI
+ 40
+3.75
+  9
+$DIMRND
+ 40
+0.0
+  9
+$DIMDLE
+ 40
+0.0
+  9
+$DIMEXE
+ 40
+1.25
+  9
+$DIMTP
+ 40
+0.0
+  9
+$DIMTM
+ 40
+0.0
+  9
+$DIMTXT
+ 40
+2.5
+  9
+$DIMCEN
+ 40
+2.5
+  9
+$DIMTSZ
+ 40
+0.0
+  9
+$DIMTOL
+ 70
+0
+  9
+$DIMLIM
+ 70
+0
+  9
+$DIMTIH
+ 70
+0
+  9
+$DIMTOH
+ 70
+0
+  9
+$DIMSE1
+ 70
+0
+  9
+$DIMSE2
+ 70
+0
+  9
+$DIMTAD
+ 70
+1
+  9
+$DIMZIN
+ 70
+8
+  9
+$DIMBLK
+  1
+
+  9
+$DIMASO
+ 70
+1
+  9
+$DIMSHO
+ 70
+1
+  9
+$DIMPOST
+  1
+
+  9
+$DIMAPOST
+  1
+
+  9
+$DIMALT
+ 70
+0
+  9
+$DIMALTD
+ 70
+3
+  9
+$DIMALTF
+ 40
+0.03937007874
+  9
+$DIMLFAC
+ 40
+1.0
+  9
+$DIMTOFL
+ 70
+1
+  9
+$DIMTVP
+ 40
+0.0
+  9
+$DIMTIX
+ 70
+0
+  9
+$DIMSOXD
+ 70
+0
+  9
+$DIMSAH
+ 70
+0
+  9
+$DIMBLK1
+  1
+
+  9
+$DIMBLK2
+  1
+
+  9
+$DIMSTYLE
+  2
+ISO-25
+  9
+$DIMCLRD
+ 70
+0
+  9
+$DIMCLRE
+ 70
+0
+  9
+$DIMCLRT
+ 70
+0
+  9
+$DIMTFAC
+ 40
+1.0
+  9
+$DIMGAP
+ 40
+0.625
+  9
+$DIMJUST
+ 70
+0
+  9
+$DIMSD1
+ 70
+0
+  9
+$DIMSD2
+ 70
+0
+  9
+$DIMTOLJ
+ 70
+0
+  9
+$DIMTZIN
+ 70
+8
+  9
+$DIMALTZ
+ 70
+0
+  9
+$DIMALTTZ
+ 70
+0
+  9
+$DIMUPT
+ 70
+0
+  9
+$DIMDEC
+ 70
+2
+  9
+$DIMTDEC
+ 70
+2
+  9
+$DIMALTU
+ 70
+2
+  9
+$DIMALTTD
+ 70
+3
+  9
+$DIMTXSTY
+  7
+Standard
+  9
+$DIMAUNIT
+ 70
+0
+  9
+$DIMADEC
+ 70
+0
+  9
+$DIMALTRND
+ 40
+0.0
+  9
+$DIMAZIN
+ 70
+0
+  9
+$DIMDSEP
+ 70
+44
+  9
+$DIMATFIT
+ 70
+3
+  9
+$DIMFRAC
+ 70
+0
+  9
+$DIMLDRBLK
+  1
+
+  9
+$DIMLUNIT
+ 70
+2
+  9
+$DIMLWD
+ 70
+-2
+  9
+$DIMLWE
+ 70
+-2
+  9
+$DIMTMOVE
+ 70
+0
+  9
+$DIMFXL
+ 40
+1.0
+  9
+$DIMFXLON
+ 70
+0
+  9
+$DIMJOGANG
+ 40
+0.785398163397
+  9
+$DIMTFILL
+ 70
+0
+  9
+$DIMTFILLCLR
+ 70
+0
+  9
+$DIMARCSYM
+ 70
+0
+  9
+$DIMLTYPE
+  6
+
+  9
+$DIMLTEX1
+  6
+
+  9
+$DIMLTEX2
+  6
+
+  9
+$DIMTXTDIRECTION
+ 70
+0
+  9
+$LUNITS
+ 70
+2
+  9
+$LUPREC
+ 70
+4
+  9
+$SKETCHINC
+ 40
+1.0
+  9
+$FILLETRAD
+ 40
+10.0
+  9
+$AUNITS
+ 70
+0
+  9
+$AUPREC
+ 70
+2
+  9
+$MENU
+  1
+.
+  9
+$ELEVATION
+ 40
+0.0
+  9
+$PELEVATION
+ 40
+0.0
+  9
+$THICKNESS
+ 40
+0.0
+  9
+$LIMCHECK
+ 70
+0
+  9
+$CHAMFERA
+ 40
+0.0
+  9
+$CHAMFERB
+ 40
+0.0
+  9
+$CHAMFERC
+ 40
+0.0
+  9
+$CHAMFERD
+ 40
+0.0
+  9
+$SKPOLY
+ 70
+0
+  9
+$TDCREATE
+ 40
+2461308.567615741
+  9
+$TDUCREATE
+ 40
+2458532.153996898
+  9
+$TDUPDATE
+ 40
+2461308.567615741
+  9
+$TDUUPDATE
+ 40
+2458532.1544311
+  9
+$TDINDWG
+ 40
+0.0
+  9
+$TDUSRTIMER
+ 40
+0.0
+  9
+$USRTIMER
+ 70
+1
+  9
+$ANGBASE
+ 50
+0.0
+  9
+$ANGDIR
+ 70
+0
+  9
+$PDMODE
+ 70
+0
+  9
+$PDSIZE
+ 40
+0.0
+  9
+$PLINEWID
+ 40
+0.0
+  9
+$SPLFRAME
+ 70
+0
+  9
+$SPLINETYPE
+ 70
+6
+  9
+$SPLINESEGS
+ 70
+8
+  9
+$HANDSEED
+  5
+30D
+  9
+$SURFTAB1
+ 70
+6
+  9
+$SURFTAB2
+ 70
+6
+  9
+$SURFTYPE
+ 70
+6
+  9
+$SURFU
+ 70
+6
+  9
+$SURFV
+ 70
+6
+  9
+$UCSBASE
+  2
+
+  9
+$UCSNAME
+  2
+
+  9
+$UCSORG
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSXDIR
+ 10
+1.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSYDIR
+ 10
+0.0
+ 20
+1.0
+ 30
+0.0
+  9
+$UCSORTHOREF
+  2
+
+  9
+$UCSORTHOVIEW
+ 70
+0
+  9
+$UCSORGTOP
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSORGBOTTOM
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSORGLEFT
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSORGRIGHT
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSORGFRONT
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSORGBACK
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSBASE
+  2
+
+  9
+$PUCSNAME
+  2
+
+  9
+$PUCSORG
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSXDIR
+ 10
+1.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSYDIR
+ 10
+0.0
+ 20
+1.0
+ 30
+0.0
+  9
+$PUCSORTHOREF
+  2
+
+  9
+$PUCSORTHOVIEW
+ 70
+0
+  9
+$PUCSORGTOP
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSORGBOTTOM
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSORGLEFT
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSORGRIGHT
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSORGFRONT
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSORGBACK
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$USERI1
+ 70
+0
+  9
+$USERI2
+ 70
+0
+  9
+$USERI3
+ 70
+0
+  9
+$USERI4
+ 70
+0
+  9
+$USERI5
+ 70
+0
+  9
+$USERR1
+ 40
+0.0
+  9
+$USERR2
+ 40
+0.0
+  9
+$USERR3
+ 40
+0.0
+  9
+$USERR4
+ 40
+0.0
+  9
+$USERR5
+ 40
+0.0
+  9
+$WORLDVIEW
+ 70
+1
+  9
+$SHADEDGE
+ 70
+3
+  9
+$SHADEDIF
+ 70
+70
+  9
+$TILEMODE
+ 70
+1
+  9
+$MAXACTVP
+ 70
+64
+  9
+$PINSBASE
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PLIMCHECK
+ 70
+0
+  9
+$PEXTMIN
+ 10
+1e+20
+ 20
+1e+20
+ 30
+1e+20
+  9
+$PEXTMAX
+ 10
+-1e+20
+ 20
+-1e+20
+ 30
+-1e+20
+  9
+$PLIMMIN
+ 10
+0.0
+ 20
+0.0
+  9
+$PLIMMAX
+ 10
+420.0
+ 20
+297.0
+  9
+$UNITMODE
+ 70
+0
+  9
+$VISRETAIN
+ 70
+1
+  9
+$PLINEGEN
+ 70
+0
+  9
+$PSLTSCALE
+ 70
+1
+  9
+$TREEDEPTH
+ 70
+3020
+  9
+$CMLSTYLE
+  2
+Standard
+  9
+$CMLJUST
+ 70
+0
+  9
+$CMLSCALE
+ 40
+20.0
+  9
+$PROXYGRAPHICS
+ 70
+1
+  9
+$MEASUREMENT
+ 70
+1
+  9
+$CELWEIGHT
+370
+-1
+  9
+$ENDCAPS
+280
+0
+  9
+$JOINSTYLE
+280
+0
+  9
+$LWDISPLAY
+290
+0
+  9
+$INSUNITS
+ 70
+4
+  9
+$HYPERLINKBASE
+  1
+
+  9
+$STYLESHEET
+  1
+
+  9
+$XEDIT
+290
+1
+  9
+$CEPSNTYPE
+380
+0
+  9
+$PSTYLEMODE
+290
+1
+  9
+$FINGERPRINTGUID
+  2
+{EA48A253-C109-4D66-BB20-3300D40049E3}
+  9
+$VERSIONGUID
+  2
+{AECFBE06-EB88-4790-AF00-C2F270D9781A}
+  9
+$EXTNAMES
+290
+1
+  9
+$PSVPSCALE
+ 40
+0.0
+  9
+$OLESTARTUP
+290
+0
+  9
+$SORTENTS
+280
+127
+  9
+$INDEXCTL
+280
+0
+  9
+$HIDETEXT
+280
+1
+  9
+$XCLIPFRAME
+280
+1
+  9
+$HALOGAP
+280
+0
+  9
+$OBSCOLOR
+ 70
+257
+  9
+$OBSLTYPE
+280
+0
+  9
+$INTERSECTIONDISPLAY
+280
+0
+  9
+$INTERSECTIONCOLOR
+ 70
+257
+  9
+$DIMASSOC
+280
+2
+  9
+$PROJECTNAME
+  1
+
+  9
+$CAMERADISPLAY
+290
+0
+  9
+$LENSLENGTH
+ 40
+50.0
+  9
+$CAMERAHEIGHT
+ 40
+0.0
+  9
+$STEPSPERSEC
+ 40
+24.0
+  9
+$STEPSIZE
+ 40
+100.0
+  9
+$3DDWFPREC
+ 40
+2.0
+  9
+$PSOLWIDTH
+ 40
+0.005
+  9
+$PSOLHEIGHT
+ 40
+0.08
+  9
+$LOFTANG1
+ 40
+1.570796326795
+  9
+$LOFTANG2
+ 40
+1.570796326795
+  9
+$LOFTMAG1
+ 40
+0.0
+  9
+$LOFTMAG2
+ 40
+0.0
+  9
+$LOFTPARAM
+ 70
+7
+  9
+$LOFTNORMALS
+280
+1
+  9
+$LATITUDE
+ 40
+37.795
+  9
+$LONGITUDE
+ 40
+-122.394
+  9
+$NORTHDIRECTION
+ 40
+0.0
+  9
+$TIMEZONE
+ 70
+-8000
+  9
+$LIGHTGLYPHDISPLAY
+280
+1
+  9
+$TILEMODELIGHTSYNCH
+280
+1
+  9
+$CMATERIAL
+347
+20
+  9
+$SOLIDHIST
+280
+0
+  9
+$SHOWHIST
+280
+1
+  9
+$DWFFRAME
+280
+2
+  9
+$DGNFRAME
+280
+2
+  9
+$REALWORLDSCALE
+290
+1
+  9
+$INTERFERECOLOR
+ 62
+256
+  9
+$CSHADOW
+280
+0
+  9
+$SHADOWPLANELOCATION
+ 40
+0.0
+  0
+ENDSEC
+  0
+SECTION
+  2
+CLASSES
+  0
+CLASS
+  1
+ACDBDICTIONARYWDFLT
+  2
+AcDbDictionaryWithDefault
+  3
+ObjectDBX Classes
+ 90
+0
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+SUN
+  2
+AcDbSun
+  3
+SCENEOE
+ 90
+1153
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+VISUALSTYLE
+  2
+AcDbVisualStyle
+  3
+ObjectDBX Classes
+ 90
+4095
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+MATERIAL
+  2
+AcDbMaterial
+  3
+ObjectDBX Classes
+ 90
+1153
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+SCALE
+  2
+AcDbScale
+  3
+ObjectDBX Classes
+ 90
+1153
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+TABLESTYLE
+  2
+AcDbTableStyle
+  3
+ObjectDBX Classes
+ 90
+4095
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+MLEADERSTYLE
+  2
+AcDbMLeaderStyle
+  3
+ACDB_MLEADERSTYLE_CLASS
+ 90
+4095
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+DICTIONARYVAR
+  2
+AcDbDictionaryVar
+  3
+ObjectDBX Classes
+ 90
+0
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+CELLSTYLEMAP
+  2
+AcDbCellStyleMap
+  3
+ObjectDBX Classes
+ 90
+1152
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+MENTALRAYRENDERSETTINGS
+  2
+AcDbMentalRayRenderSettings
+  3
+SCENEOE
+ 90
+1024
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+ACDBDETAILVIEWSTYLE
+  2
+AcDbDetailViewStyle
+  3
+ObjectDBX Classes
+ 90
+1025
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+ACDBSECTIONVIEWSTYLE
+  2
+AcDbSectionViewStyle
+  3
+ObjectDBX Classes
+ 90
+1025
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+RASTERVARIABLES
+  2
+AcDbRasterVariables
+  3
+ISM
+ 90
+0
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+ACDBPLACEHOLDER
+  2
+AcDbPlaceHolder
+  3
+ObjectDBX Classes
+ 90
+0
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+LAYOUT
+  2
+AcDbLayout
+  3
+ObjectDBX Classes
+ 90
+0
+ 91
+0
+280
+0
+281
+0
+  0
+ENDSEC
+  0
+SECTION
+  2
+TABLES
+  0
+TABLE
+  2
+VPORT
+  5
+8
+330
+0
+100
+AcDbSymbolTable
+ 70
+1
+  0
+VPORT
+  5
+23
+330
+8
+100
+AcDbSymbolTableRecord
+100
+AcDbViewportTableRecord
+  2
+*Active
+ 70
+0
+ 10
+0.0
+ 20
+0.0
+ 11
+1.0
+ 21
+1.0
+ 12
+0.0
+ 22
+0.0
+ 13
+0.0
+ 23
+0.0
+ 14
+0.5
+ 24
+0.5
+ 15
+0.5
+ 25
+0.5
+ 16
+0.0
+ 26
+0.0
+ 36
+1.0
+ 17
+0.0
+ 27
+0.0
+ 37
+0.0
+ 40
+1000.0
+ 41
+1.34
+ 42
+50.0
+ 43
+0.0
+ 44
+0.0
+ 50
+0.0
+ 51
+0.0
+ 71
+0
+ 72
+1000
+ 73
+1
+ 74
+3
+ 75
+0
+ 76
+0
+ 77
+0
+ 78
+0
+281
+0
+ 65
+0
+146
+0.0
+  0
+ENDTAB
+  0
+TABLE
+  2
+LTYPE
+  5
+2
+330
+0
+100
+AcDbSymbolTable
+ 70
+3
+  0
+LTYPE
+  5
+24
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLinetypeTableRecord
+  2
+ByBlock
+ 70
+0
+  3
+
+ 72
+65
+ 73
+0
+ 40
+0.0
+  0
+LTYPE
+  5
+25
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLinetypeTableRecord
+  2
+ByLayer
+ 70
+0
+  3
+
+ 72
+65
+ 73
+0
+ 40
+0.0
+  0
+LTYPE
+  5
+26
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLinetypeTableRecord
+  2
+Continuous
+ 70
+0
+  3
+
+ 72
+65
+ 73
+0
+ 40
+0.0
+  0
+ENDTAB
+  0
+TABLE
+  2
+LAYER
+  5
+1
+330
+0
+100
+AcDbSymbolTable
+ 70
+4
+  0
+LAYER
+  5
+27
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+0
+ 70
+0
+ 62
+7
+  6
+Continuous
+370
+-3
+390
+13
+347
+21
+  0
+LAYER
+  5
+28
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+Defpoints
+ 70
+0
+ 62
+7
+  6
+Continuous
+290
+0
+370
+-3
+390
+13
+347
+21
+  0
+LAYER
+  5
+156
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+CNC
+ 70
+0
+ 62
+7
+  6
+Continuous
+370
+-3
+390
+13
+347
+21
+  0
+LAYER
+  5
+157
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+DIM
+ 70
+0
+ 62
+253
+  6
+Continuous
+370
+-3
+390
+13
+347
+21
+  0
+ENDTAB
+  0
+TABLE
+  2
+STYLE
+  5
+5
+330
+0
+100
+AcDbSymbolTable
+ 70
+3
+  0
+STYLE
+  5
+29
+330
+5
+100
+AcDbSymbolTableRecord
+100
+AcDbTextStyleTableRecord
+  2
+Standard
+ 70
+0
+ 40
+0.0
+ 41
+1.0
+ 50
+0.0
+ 71
+0
+ 42
+2.5
+  3
+txt
+  4
+
+  0
+STYLE
+  5
+158
+330
+5
+100
+AcDbSymbolTableRecord
+100
+AcDbTextStyleTableRecord
+  2
+Tahoma (Input Text)
+ 70
+0
+ 40
+0.0
+ 41
+1.0
+ 50
+0.0
+ 71
+0
+ 42
+25.0
+  3
+tahoma.ttf
+  4
+
+  0
+STYLE
+  5
+159
+330
+5
+100
+AcDbSymbolTableRecord
+100
+AcDbTextStyleTableRecord
+  2
+Arial
+ 70
+0
+ 40
+0.0
+ 41
+1.0
+ 50
+0.0
+ 71
+0
+ 42
+0.2
+  3
+arial.ttf
+  4
+
+  0
+ENDTAB
+  0
+TABLE
+  2
+VIEW
+  5
+7
+330
+0
+100
+AcDbSymbolTable
+ 70
+0
+  0
+ENDTAB
+  0
+TABLE
+  2
+UCS
+  5
+6
+330
+0
+100
+AcDbSymbolTable
+ 70
+0
+  0
+ENDTAB
+  0
+TABLE
+  2
+APPID
+  5
+3
+330
+0
+100
+AcDbSymbolTable
+ 70
+3
+  0
+APPID
+  5
+2A
+330
+3
+100
+AcDbSymbolTableRecord
+100
+AcDbRegAppTableRecord
+  2
+ACAD
+ 70
+0
+  0
+APPID
+  5
+15A
+330
+3
+100
+AcDbSymbolTableRecord
+100
+AcDbRegAppTableRecord
+  2
+HATCHBACKGROUNDCOLOR
+ 70
+0
+  0
+APPID
+  5
+15B
+330
+3
+100
+AcDbSymbolTableRecord
+100
+AcDbRegAppTableRecord
+  2
+EZDXF
+ 70
+0
+  0
+ENDTAB
+  0
+TABLE
+  2
+DIMSTYLE
+  5
+4
+330
+0
+100
+AcDbSymbolTable
+ 70
+2
+100
+AcDbDimStyleTable
+  0
+DIMSTYLE
+105
+2B
+330
+4
+100
+AcDbSymbolTableRecord
+100
+AcDbDimStyleTableRecord
+  2
+Standard
+ 70
+0
+ 40
+1.0
+ 41
+2.5
+ 42
+0.625
+ 43
+3.75
+ 44
+1.25
+ 45
+0.0
+ 46
+0.0
+ 47
+0.0
+ 48
+0.0
+ 49
+2.5
+140
+2.5
+141
+2.5
+142
+0.0
+143
+0.03937007874
+144
+1.0
+145
+0.0
+146
+1.0
+147
+0.625
+148
+0.0
+ 69
+0
+ 70
+0
+ 71
+0
+ 72
+0
+ 73
+0
+ 74
+0
+ 75
+0
+ 76
+0
+ 77
+1
+ 78
+8
+ 79
+3
+170
+0
+171
+3
+172
+1
+173
+0
+174
+0
+175
+0
+176
+0
+177
+0
+178
+0
+179
+2
+271
+2
+272
+2
+273
+2
+274
+3
+275
+0
+276
+0
+277
+2
+278
+44
+279
+0
+280
+0
+281
+0
+282
+0
+283
+0
+284
+8
+285
+0
+286
+0
+288
+0
+289
+3
+290
+0
+371
+-2
+372
+-2
+  0
+DIMSTYLE
+105
+155
+330
+4
+100
+AcDbSymbolTableRecord
+100
+AcDbDimStyleTableRecord
+  2
+Dim-25
+ 70
+0
+ 40
+1.0
+ 41
+8.0
+ 42
+15.0
+ 43
+3.75
+ 44
+10.0
+ 45
+0.0
+ 46
+0.0
+ 47
+0.0
+ 48
+0.0
+ 49
+2.5
+140
+25.0
+141
+10.0
+142
+0.0
+143
+0.03937007874016
+144
+1.0
+145
+0.0
+146
+1.0
+147
+10.0
+148
+0.0
+ 69
+0
+ 70
+0
+ 71
+0
+ 72
+0
+ 73
+0
+ 74
+0
+ 75
+0
+ 76
+0
+ 77
+1
+ 78
+8
+ 79
+3
+170
+0
+171
+3
+172
+1
+173
+0
+174
+0
+175
+0
+176
+5
+177
+5
+178
+3
+179
+2
+271
+0
+272
+0
+273
+2
+274
+3
+275
+0
+276
+0
+277
+2
+278
+44
+279
+0
+280
+0
+281
+0
+282
+0
+283
+0
+284
+8
+285
+0
+286
+0
+288
+0
+289
+3
+290
+0
+340
+29
+341
+3A
+342
+3A
+345
+25
+346
+25
+347
+25
+371
+9
+372
+9
+  0
+ENDTAB
+  0
+TABLE
+  2
+BLOCK_RECORD
+  5
+9
+330
+0
+100
+AcDbSymbolTable
+ 70
+35
+  0
+BLOCK_RECORD
+  5
+17
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*Model_Space
+340
+1A
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+1B
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*Paper_Space
+340
+1E
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+3A
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+_Oblique
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+12D
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+f3daunguoc
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+131
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+khungtenAsean2
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+196
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D1
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+1A2
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D2
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+1AE
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D3
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+1BA
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D4
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+1C6
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D5
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+1D4
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D6
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+1E0
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D7
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+1EC
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D8
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+1F8
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D9
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+206
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D10
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+212
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D11
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+21E
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D12
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+22A
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D13
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+236
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D14
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+242
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D15
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+250
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D16
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+25C
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D17
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+268
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D18
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+275
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D19
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+283
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D20
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+28F
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D21
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+29D
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D22
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+2A9
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D23
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+2B5
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D24
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+2C1
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D25
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+2CF
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D26
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+2DD
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D27
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+2E9
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D28
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+2F5
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D29
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+301
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D30
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+ENDTAB
+  0
+ENDSEC
+  0
+SECTION
+  2
+BLOCKS
+  0
+BLOCK
+  5
+18
+330
+17
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*Model_Space
+ 70
+0
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*Model_Space
+  1
+
+  0
+ENDBLK
+  5
+19
+330
+17
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+1C
+330
+1B
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*Paper_Space
+ 70
+0
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*Paper_Space
+  1
+
+  0
+ENDBLK
+  5
+1D
+330
+1B
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+3B
+330
+3A
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+_Oblique
+ 70
+0
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+_Oblique
+  1
+
+  0
+LINE
+  5
+3D
+330
+3A
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+-0.5
+ 20
+-0.5
+ 30
+0.0
+ 11
+0.5
+ 21
+0.5
+ 31
+0.0
+  0
+ENDBLK
+  5
+3C
+330
+3A
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+12E
+330
+12D
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+f3daunguoc
+ 70
+0
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+f3daunguoc
+  1
+
+  0
+CIRCLE
+  5
+130
+330
+12D
+100
+AcDbEntity
+  8
+CNC
+ 62
+2
+370
+-3
+100
+AcDbCircle
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+ 40
+1.5
+  0
+ENDBLK
+  5
+12F
+330
+12D
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+132
+330
+131
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+khungtenAsean2
+ 70
+2
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+khungtenAsean2
+  1
+
+  0
+LWPOLYLINE
+  5
+134
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 10
+2970.000000000422
+ 20
+0.0
+ 10
+2970.000000000422
+ 20
+-2100.00000000032
+ 10
+0.0
+ 20
+-2100.00000000032
+  0
+LINE
+  5
+135
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+2020.0
+ 20
+-2040.00000000032
+ 30
+0.0
+ 11
+0.0
+ 21
+-2040.00000000032
+ 31
+0.0
+  0
+LINE
+  5
+136
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+2970.000000000422
+ 20
+-1980.00000000032
+ 30
+0.0
+ 11
+0.0
+ 21
+-1980.00000000032
+ 31
+0.0
+  0
+LINE
+  5
+137
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+320.0
+ 20
+-1980.00000000032
+ 30
+0.0
+ 11
+320.0
+ 21
+-2100.00000000032
+ 31
+0.0
+  0
+LINE
+  5
+138
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+890.0
+ 20
+-1980.00000000032
+ 30
+0.0
+ 11
+890.0
+ 21
+-2100.00000000032
+ 31
+0.0
+  0
+LINE
+  5
+139
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+1680.0
+ 20
+-1980.00000000032
+ 30
+0.0
+ 11
+1680.0
+ 21
+-2100.00000000032
+ 31
+0.0
+  0
+LINE
+  5
+13A
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+2020.0
+ 20
+-1980.00000000032
+ 30
+0.0
+ 11
+2020.0
+ 21
+-2100.00000000032
+ 31
+0.0
+  0
+LINE
+  5
+13B
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+2860.000000000422
+ 20
+-1980.00000000032
+ 30
+0.0
+ 11
+2860.000000000422
+ 21
+-2100.00000000032
+ 31
+0.0
+  0
+MTEXT
+  5
+13C
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbMText
+ 10
+0.0
+ 20
+-2010.00000000032
+ 30
+0.0
+ 40
+20.0
+ 41
+917.6339389950801
+ 46
+60.00000000000113
+ 71
+4
+ 72
+5
+  1
+  Thiết kế :
+  7
+Arial
+  0
+MTEXT
+  5
+13D
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbMText
+ 10
+0.0
+ 20
+-2070.00000000032
+ 30
+0.0
+ 40
+20.0
+ 41
+917.6339389950801
+ 46
+60.00000000000113
+ 71
+4
+ 72
+5
+  1
+  CNC :
+  7
+Arial
+  0
+MTEXT
+  5
+13E
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbMText
+ 10
+320.0
+ 20
+-2010.00000000032
+ 30
+0.0
+ 40
+20.0
+ 41
+917.6339389950801
+ 46
+60.00000000000113
+ 71
+4
+ 72
+5
+  1
+  Khách hàng :
+  7
+Arial
+  0
+MTEXT
+  5
+13F
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbMText
+ 10
+320.0
+ 20
+-2070.00000000032
+ 30
+0.0
+ 40
+20.0
+ 41
+917.6339389950801
+ 46
+60.00000000000113
+ 71
+4
+ 72
+5
+  1
+  Giao hàng :
+  7
+Arial
+  0
+MTEXT
+  5
+140
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbMText
+ 10
+890.0
+ 20
+-2010.00000000032
+ 30
+0.0
+ 40
+20.0
+ 41
+917.6339389950801
+ 46
+60.00000000000113
+ 71
+4
+ 72
+5
+  1
+  Tên sản phẩm :
+  7
+Arial
+  0
+MTEXT
+  5
+141
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbMText
+ 10
+890.0
+ 20
+-2070.00000000032
+ 30
+0.0
+ 40
+20.0
+ 41
+917.6339389950801
+ 46
+60.00000000000113
+ 71
+4
+ 72
+5
+  1
+  Kích thước :
+  7
+Arial
+  0
+MTEXT
+  5
+142
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbMText
+ 10
+1680.0
+ 20
+-2010.00000000032
+ 30
+0.0
+ 40
+20.0
+ 41
+917.6339389950801
+ 46
+60.00000000000113
+ 71
+4
+ 72
+5
+  1
+  Số lượng :
+  7
+Arial
+  0
+MTEXT
+  5
+143
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbMText
+ 10
+1680.0
+ 20
+-2070.00000000032
+ 30
+0.0
+ 40
+20.0
+ 41
+917.6339389950801
+ 46
+60.00000000000113
+ 71
+4
+ 72
+5
+  1
+  Loại tôn :
+  7
+Arial
+  0
+MTEXT
+  5
+144
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbMText
+ 10
+2074.15528161102
+ 20
+-2040.00000000032
+ 30
+0.0
+ 40
+20.0
+ 41
+108.3105632220314
+ 46
+120.0000000000011
+ 71
+5
+ 72
+5
+  1
+Thông\Ptin :
+  7
+Arial
+  0
+MTEXT
+  5
+145
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbMText
+ 10
+2915.000000000422
+ 20
+-2010.00000000032
+ 30
+0.0
+ 40
+20.0
+ 41
+110.0000000000065
+ 46
+60.00000000000113
+ 71
+5
+ 72
+5
+  1
+Tờ
+  7
+Arial
+  0
+LINE
+  5
+146
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+2128.310563222025
+ 20
+-2005.00000000032
+ 30
+0.0
+ 11
+2128.310563222025
+ 21
+-2075.00000000032
+ 31
+0.0
+  0
+MTEXT
+  5
+147
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbMText
+ 10
+1382.285678836575
+ 20
+-2070.00000000032
+ 30
+0.0
+ 40
+20.0
+ 41
+917.6339389950801
+ 46
+60.00000000000113
+ 71
+4
+ 72
+5
+  1
+mm
+  7
+Arial
+  0
+MTEXT
+  5
+148
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbMText
+ 10
+1947.610064813329
+ 20
+-2010.00000000032
+ 30
+0.0
+ 40
+20.0
+ 41
+917.6339389950801
+ 46
+60.00000000000113
+ 71
+4
+ 72
+5
+  1
+cái
+  7
+Arial
+  0
+MTEXT
+  5
+149
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbMText
+ 10
+1936.880410494836
+ 20
+-2070.00000000032
+ 30
+0.0
+ 40
+20.0
+ 41
+917.6339389950801
+ 46
+60.00000000000113
+ 71
+4
+ 72
+5
+  1
+mm
+  7
+Arial
+  0
+ATTDEF
+  5
+14A
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+2883.764212945627
+ 20
+-2067.347800104843
+ 30
+0.0
+ 40
+25.0
+  1
+......
+  7
+Tahoma (Input Text)
+ 72
+1
+ 11
+2914.993225705868
+ 21
+-2067.347800104843
+ 31
+0.0
+100
+AcDbAttributeDefinition
+  3
+Số trang
+  2
+#11
+ 70
+8
+ 71
+1
+ 72
+0
+ 11
+2914.993225705868
+ 21
+-2067.347800104843
+ 31
+0.0
+  0
+ATTDEF
+  5
+14B
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+2146.716977487464
+ 20
+-2021.275211692002
+ 30
+0.0
+ 40
+25.0
+  1
+......
+  7
+Tahoma (Input Text)
+100
+AcDbAttributeDefinition
+  3
+Thông tin 1
+  2
+#09
+ 70
+8
+ 71
+1
+ 72
+0
+  0
+ATTDEF
+  5
+14C
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+2146.716977487464
+ 20
+-2081.275211692002
+ 30
+0.0
+ 40
+25.0
+  1
+......
+  7
+Tahoma (Input Text)
+100
+AcDbAttributeDefinition
+  3
+Thông tin 2
+  2
+#10
+ 70
+8
+ 71
+1
+ 72
+0
+  0
+ATTDEF
+  5
+14D
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+1817.447765733334
+ 20
+-2081.275211692002
+ 30
+0.0
+ 40
+25.0
+  1
+......
+  7
+Tahoma (Input Text)
+100
+AcDbAttributeDefinition
+  3
+Loại tôn
+  2
+#08
+ 70
+8
+ 71
+1
+ 72
+0
+  0
+ATTDEF
+  5
+14E
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+1834.68151032555
+ 20
+-2021.275211692002
+ 30
+0.0
+ 40
+25.0
+  1
+......
+  7
+Tahoma (Input Text)
+100
+AcDbAttributeDefinition
+  3
+Số lượng
+  2
+#07
+ 70
+8
+ 71
+1
+ 72
+0
+  0
+ATTDEF
+  5
+14F
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+1065.330889143646
+ 20
+-2081.275211692002
+ 30
+0.0
+ 40
+25.0
+  1
+......
+  7
+Tahoma (Input Text)
+100
+AcDbAttributeDefinition
+  3
+Kích thước
+  2
+#06
+ 70
+8
+ 71
+1
+ 72
+0
+  0
+ATTDEF
+  5
+150
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+1106.628177122154
+ 20
+-2021.275211692002
+ 30
+0.0
+ 40
+25.0
+  1
+......
+  7
+Tahoma (Input Text)
+100
+AcDbAttributeDefinition
+  3
+Tên s.phẩm
+  2
+#05
+ 70
+8
+ 71
+1
+ 72
+0
+  0
+ATTDEF
+  5
+151
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+486.1050270054984
+ 20
+-2081.275211692002
+ 30
+0.0
+ 40
+25.0
+  1
+......
+  7
+Tahoma (Input Text)
+100
+AcDbAttributeDefinition
+  3
+Giao hàng
+  2
+#04
+ 70
+8
+ 71
+1
+ 72
+0
+  0
+ATTDEF
+  5
+152
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+506.5707489467022
+ 20
+-2019.301600489707
+ 30
+0.0
+ 40
+25.0
+  1
+......
+  7
+Tahoma (Input Text)
+100
+AcDbAttributeDefinition
+  3
+Khách hàng
+  2
+#03
+ 70
+8
+ 71
+1
+ 72
+0
+  0
+ATTDEF
+  5
+153
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+98.45672450316488
+ 20
+-2081.275211692002
+ 30
+0.0
+ 40
+25.0
+  1
+......
+  7
+Tahoma (Input Text)
+100
+AcDbAttributeDefinition
+  3
+CNC
+  2
+#02
+ 70
+8
+ 71
+1
+ 72
+0
+  0
+ATTDEF
+  5
+154
+330
+131
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+137.0535078375105
+ 20
+-2021.275211692002
+ 30
+0.0
+ 40
+25.0
+  1
+......
+  7
+Tahoma (Input Text)
+100
+AcDbAttributeDefinition
+  3
+Thiết kế
+  2
+#01
+ 70
+8
+ 71
+1
+ 72
+0
+  0
+ENDBLK
+  5
+133
+330
+131
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+197
+330
+196
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D1
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D1
+  1
+
+  0
+LINE
+  5
+199
+330
+196
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1438.1701130523415
+ 20
+1872.3095382697356
+ 30
+0.0
+ 11
+1548.734708350472
+ 21
+1872.3095382697356
+ 31
+0.0
+  0
+LINE
+  5
+19A
+330
+196
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1438.1701130523415
+ 20
+1374.7095382697298
+ 30
+0.0
+ 11
+1548.734708350472
+ 21
+1374.7095382697298
+ 31
+0.0
+  0
+LINE
+  5
+19B
+330
+196
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1538.734708350472
+ 20
+1872.3095382697356
+ 30
+0.0
+ 11
+1538.734708350472
+ 21
+1374.7095382697298
+ 31
+0.0
+  0
+LINE
+  5
+19C
+330
+196
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1542.734708350472
+ 20
+1868.3095382697356
+ 30
+0.0
+ 11
+1534.734708350472
+ 21
+1876.3095382697356
+ 31
+0.0
+  0
+LINE
+  5
+19D
+330
+196
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1534.734708350472
+ 20
+1378.7095382697298
+ 30
+0.0
+ 11
+1542.734708350472
+ 21
+1370.7095382697298
+ 31
+0.0
+  0
+MTEXT
+  5
+19E
+330
+196
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+440
+16777216
+100
+AcDbMText
+ 10
+1515.9703836574427
+ 20
+1623.5095382697182
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+498
+ 11
+1e-16
+ 21
+1.0
+ 31
+0.0
+  0
+POINT
+  5
+19F
+330
+196
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1423.1701130523415
+ 20
+1872.3095382697356
+ 30
+0.0
+  0
+POINT
+  5
+1A0
+330
+196
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1423.1701130523415
+ 20
+1374.7095382697298
+ 30
+0.0
+  0
+POINT
+  5
+1A1
+330
+196
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1538.734708350472
+ 20
+1374.7095382697298
+ 30
+0.0
+  0
+ENDBLK
+  5
+198
+330
+196
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+1A3
+330
+1A2
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D2
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D2
+  1
+
+  0
+LINE
+  5
+1A5
+330
+1A2
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+547.1701130523415
+ 20
+1887.3095382697356
+ 30
+0.0
+ 11
+547.1701130523415
+ 21
+1936.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1A6
+330
+1A2
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1145.1701130523415
+ 20
+1887.3095382697356
+ 30
+0.0
+ 11
+1145.1701130523415
+ 21
+1936.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1A7
+330
+1A2
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+547.1701130523415
+ 20
+1926.9231106508087
+ 30
+0.0
+ 11
+1145.1701130523415
+ 21
+1926.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1A8
+330
+1A2
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+551.1701130523415
+ 20
+1930.9231106508087
+ 30
+0.0
+ 11
+543.1701130523415
+ 21
+1922.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1A9
+330
+1A2
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1141.1701130523415
+ 20
+1922.9231106508087
+ 30
+0.0
+ 11
+1149.1701130523415
+ 21
+1930.9231106508087
+ 31
+0.0
+  0
+MTEXT
+  5
+1AA
+330
+1A2
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+440
+16777216
+100
+AcDbMText
+ 10
+846.1701130523415
+ 20
+1949.687435343847
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+598
+  0
+POINT
+  5
+1AB
+330
+1A2
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+547.1701130523415
+ 20
+1872.3095382697356
+ 30
+0.0
+  0
+POINT
+  5
+1AC
+330
+1A2
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1145.1701130523415
+ 20
+1872.3095382697356
+ 30
+0.0
+  0
+POINT
+  5
+1AD
+330
+1A2
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1145.1701130523415
+ 20
+1926.9231106508087
+ 30
+0.0
+  0
+ENDBLK
+  5
+1A4
+330
+1A2
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+1AF
+330
+1AE
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D3
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D3
+  1
+
+  0
+LINE
+  5
+1B1
+330
+1AE
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1145.1701130523415
+ 20
+1887.3095382697356
+ 30
+0.0
+ 11
+1145.1701130523415
+ 21
+1936.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1B2
+330
+1AE
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1423.1701130523415
+ 20
+1887.3095382697356
+ 30
+0.0
+ 11
+1423.1701130523415
+ 21
+1936.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1B3
+330
+1AE
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1145.1701130523415
+ 20
+1926.9231106508087
+ 30
+0.0
+ 11
+1423.1701130523415
+ 21
+1926.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1B4
+330
+1AE
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1149.1701130523415
+ 20
+1930.9231106508087
+ 30
+0.0
+ 11
+1141.1701130523415
+ 21
+1922.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1B5
+330
+1AE
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1419.1701130523415
+ 20
+1922.9231106508087
+ 30
+0.0
+ 11
+1427.1701130523415
+ 21
+1930.9231106508087
+ 31
+0.0
+  0
+MTEXT
+  5
+1B6
+330
+1AE
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+440
+16777216
+100
+AcDbMText
+ 10
+1358.1701130523415
+ 20
+1949.687435343847
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+278
+  0
+POINT
+  5
+1B7
+330
+1AE
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1145.1701130523415
+ 20
+1872.3095382697356
+ 30
+0.0
+  0
+POINT
+  5
+1B8
+330
+1AE
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1423.1701130523415
+ 20
+1872.3095382697356
+ 30
+0.0
+  0
+POINT
+  5
+1B9
+330
+1AE
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1423.1701130523415
+ 20
+1926.9231106508087
+ 30
+0.0
+  0
+ENDBLK
+  5
+1B0
+330
+1AE
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+1BB
+330
+1BA
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D4
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D4
+  1
+
+  0
+LINE
+  5
+1BD
+330
+1BA
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1423.1701130523415
+ 20
+1887.3095382697356
+ 30
+0.0
+ 11
+1423.1701130523415
+ 21
+1936.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1BE
+330
+1BA
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1443.1701130523415
+ 20
+1867.3095382697356
+ 30
+0.0
+ 11
+1443.1701130523415
+ 21
+1936.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1BF
+330
+1BA
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1423.1701130523415
+ 20
+1926.9231106508087
+ 30
+0.0
+ 11
+1443.1701130523415
+ 21
+1926.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1C0
+330
+1BA
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1427.1701130523415
+ 20
+1930.9231106508087
+ 30
+0.0
+ 11
+1419.1701130523415
+ 21
+1922.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1C1
+330
+1BA
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1439.1701130523415
+ 20
+1922.9231106508087
+ 30
+0.0
+ 11
+1447.1701130523415
+ 21
+1930.9231106508087
+ 31
+0.0
+  0
+MTEXT
+  5
+1C2
+330
+1BA
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+440
+16777216
+100
+AcDbMText
+ 10
+1433.1701130523415
+ 20
+1949.687435343847
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+20
+  0
+POINT
+  5
+1C3
+330
+1BA
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1423.1701130523415
+ 20
+1872.3095382697356
+ 30
+0.0
+  0
+POINT
+  5
+1C4
+330
+1BA
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1443.1701130523415
+ 20
+1852.3095382697356
+ 30
+0.0
+  0
+POINT
+  5
+1C5
+330
+1BA
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1443.1701130523415
+ 20
+1926.9231106508087
+ 30
+0.0
+  0
+ENDBLK
+  5
+1BC
+330
+1BA
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+1C7
+330
+1C6
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D5
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D5
+  1
+
+  0
+LINE
+  5
+1C9
+330
+1C6
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1443.1701130523415
+ 20
+1867.3095382697356
+ 30
+0.0
+ 11
+1443.1701130523415
+ 21
+1936.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1CA
+330
+1C6
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1455.1701130523415
+ 20
+1867.3095382697356
+ 30
+0.0
+ 11
+1455.1701130523415
+ 21
+1936.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1CB
+330
+1C6
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1443.1701130523415
+ 20
+1926.9231106508087
+ 30
+0.0
+ 11
+1435.1701130523415
+ 21
+1926.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1CC
+330
+1C6
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1455.1701130523415
+ 20
+1926.9231106508087
+ 30
+0.0
+ 11
+1524.3727051396527
+ 21
+1926.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1CD
+330
+1C6
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1443.1701130523415
+ 20
+1926.9231106508087
+ 30
+0.0
+ 11
+1455.1701130523415
+ 21
+1926.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1CE
+330
+1C6
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1439.1701130523415
+ 20
+1922.9231106508087
+ 30
+0.0
+ 11
+1447.1701130523415
+ 21
+1930.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1CF
+330
+1C6
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1459.1701130523415
+ 20
+1930.9231106508087
+ 30
+0.0
+ 11
+1451.1701130523415
+ 21
+1922.9231106508087
+ 31
+0.0
+  0
+MTEXT
+  5
+1D0
+330
+1C6
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+440
+16777216
+100
+AcDbMText
+ 10
+1497.7714090959926
+ 20
+1949.4742702688236
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+12
+  0
+POINT
+  5
+1D1
+330
+1C6
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1443.1701130523415
+ 20
+1852.3095382697356
+ 30
+0.0
+  0
+POINT
+  5
+1D2
+330
+1C6
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1455.1701130523415
+ 20
+1852.3095382697356
+ 30
+0.0
+  0
+POINT
+  5
+1D3
+330
+1C6
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1455.1701130523415
+ 20
+1926.9231106508087
+ 30
+0.0
+  0
+ENDBLK
+  5
+1C8
+330
+1C6
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+1D5
+330
+1D4
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D6
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D6
+  1
+
+  0
+LINE
+  5
+1D7
+330
+1D4
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+547.1701130523415
+ 20
+1887.3095382697356
+ 30
+0.0
+ 11
+547.1701130523415
+ 21
+1936.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1D8
+330
+1D4
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+269.17011305234337
+ 20
+1887.3095382697356
+ 30
+0.0
+ 11
+269.17011305234337
+ 21
+1936.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1D9
+330
+1D4
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+547.1701130523415
+ 20
+1926.9231106508087
+ 30
+0.0
+ 11
+269.17011305234337
+ 21
+1926.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1DA
+330
+1D4
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+543.1701130523415
+ 20
+1922.9231106508087
+ 30
+0.0
+ 11
+551.1701130523415
+ 21
+1930.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1DB
+330
+1D4
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+273.17011305234337
+ 20
+1930.9231106508087
+ 30
+0.0
+ 11
+265.17011305234337
+ 21
+1922.9231106508087
+ 31
+0.0
+  0
+MTEXT
+  5
+1DC
+330
+1D4
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+440
+16777216
+100
+AcDbMText
+ 10
+425.17011305234337
+ 20
+1949.687435343847
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+278
+  0
+POINT
+  5
+1DD
+330
+1D4
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+547.1701130523415
+ 20
+1872.3095382697356
+ 30
+0.0
+  0
+POINT
+  5
+1DE
+330
+1D4
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+269.17011305234337
+ 20
+1872.3095382697356
+ 30
+0.0
+  0
+POINT
+  5
+1DF
+330
+1D4
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+269.17011305234337
+ 20
+1926.9231106508087
+ 30
+0.0
+  0
+ENDBLK
+  5
+1D6
+330
+1D4
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+1E1
+330
+1E0
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D7
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D7
+  1
+
+  0
+LINE
+  5
+1E3
+330
+1E0
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+269.17011305234337
+ 20
+1887.3095382697356
+ 30
+0.0
+ 11
+269.17011305234337
+ 21
+1936.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1E4
+330
+1E0
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+249.17011305234337
+ 20
+1867.3095382697356
+ 30
+0.0
+ 11
+249.17011305234337
+ 21
+1936.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1E5
+330
+1E0
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+269.17011305234337
+ 20
+1926.9231106508087
+ 30
+0.0
+ 11
+249.17011305234337
+ 21
+1926.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1E6
+330
+1E0
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+265.17011305234337
+ 20
+1922.9231106508087
+ 30
+0.0
+ 11
+273.17011305234337
+ 21
+1930.9231106508087
+ 31
+0.0
+  0
+LINE
+  5
+1E7
+330
+1E0
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+253.17011305234337
+ 20
+1930.9231106508087
+ 30
+0.0
+ 11
+245.17011305234337
+ 21
+1922.9231106508087
+ 31
+0.0
+  0
+MTEXT
+  5
+1E8
+330
+1E0
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+440
+16777216
+100
+AcDbMText
+ 10
+259.17011305234337
+ 20
+1949.687435343847
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+20
+  0
+POINT
+  5
+1E9
+330
+1E0
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+269.17011305234337
+ 20
+1872.3095382697356
+ 30
+0.0
+  0
+POINT
+  5
+1EA
+330
+1E0
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+249.17011305234337
+ 20
+1852.3095382697356
+ 30
+0.0
+  0
+POINT
+  5
+1EB
+330
+1E0
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+249.17011305234337
+ 20
+1926.9231106508087
+ 30
+0.0
+  0
+ENDBLK
+  5
+1E2
+330
+1E0
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+1ED
+330
+1EC
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D8
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D8
+  1
+
+  0
+LINE
+  5
+1EF
+330
+1EC
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+237.17011305234337
+ 20
+1379.7095382697444
+ 30
+0.0
+ 11
+237.17011305234337
+ 21
+1314.937466021569
+ 31
+0.0
+  0
+LINE
+  5
+1F0
+330
+1EC
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1455.1701130523415
+ 20
+1379.7095382697444
+ 30
+0.0
+ 11
+1455.1701130523415
+ 21
+1314.937466021569
+ 31
+0.0
+  0
+LINE
+  5
+1F1
+330
+1EC
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+237.17011305234337
+ 20
+1324.937466021569
+ 30
+0.0
+ 11
+1455.1701130523415
+ 21
+1324.937466021569
+ 31
+0.0
+  0
+LINE
+  5
+1F2
+330
+1EC
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+241.17011305234337
+ 20
+1328.937466021569
+ 30
+0.0
+ 11
+233.17011305234337
+ 21
+1320.937466021569
+ 31
+0.0
+  0
+LINE
+  5
+1F3
+330
+1EC
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1451.1701130523415
+ 20
+1320.937466021569
+ 30
+0.0
+ 11
+1459.1701130523415
+ 21
+1328.937466021569
+ 31
+0.0
+  0
+MTEXT
+  5
+1F4
+330
+1EC
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+440
+16777216
+100
+AcDbMText
+ 10
+846.1701130523415
+ 20
+1347.7017907146073
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+1218
+  0
+POINT
+  5
+1F5
+330
+1EC
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+237.17011305234337
+ 20
+1394.7095382697444
+ 30
+0.0
+  0
+POINT
+  5
+1F6
+330
+1EC
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1455.1701130523415
+ 20
+1394.7095382697444
+ 30
+0.0
+  0
+POINT
+  5
+1F7
+330
+1EC
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1455.1701130523415
+ 20
+1324.937466021569
+ 30
+0.0
+  0
+ENDBLK
+  5
+1EE
+330
+1EC
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+1F9
+330
+1F8
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D9
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D9
+  1
+
+  0
+LINE
+  5
+1FB
+330
+1F8
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+249.17011305234337
+ 20
+1867.3095382697356
+ 30
+0.0
+ 11
+249.17011305234337
+ 21
+1907.3691580070736
+ 31
+0.0
+  0
+LINE
+  5
+1FC
+330
+1F8
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+237.17011305234337
+ 20
+1867.3095382697356
+ 30
+0.0
+ 11
+237.17011305234337
+ 21
+1907.3691580070736
+ 31
+0.0
+  0
+LINE
+  5
+1FD
+330
+1F8
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+249.17011305234337
+ 20
+1897.3691580070881
+ 30
+0.0
+ 11
+257.1701130523452
+ 21
+1897.3691580070881
+ 31
+0.0
+  0
+LINE
+  5
+1FE
+330
+1F8
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+237.17011305234337
+ 20
+1897.3691580070881
+ 30
+0.0
+ 11
+167.96752096503042
+ 21
+1897.3691580070881
+ 31
+0.0
+  0
+LINE
+  5
+1FF
+330
+1F8
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+249.17011305234337
+ 20
+1897.3691580070881
+ 30
+0.0
+ 11
+237.17011305234337
+ 21
+1897.3691580070881
+ 31
+0.0
+  0
+LINE
+  5
+200
+330
+1F8
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+253.17011305234337
+ 20
+1901.3691580070881
+ 30
+0.0
+ 11
+245.17011305234337
+ 21
+1893.3691580070881
+ 31
+0.0
+  0
+LINE
+  5
+201
+330
+1F8
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+233.17011305234337
+ 20
+1893.3691580070881
+ 30
+0.0
+ 11
+241.17011305234337
+ 21
+1901.3691580070881
+ 31
+0.0
+  0
+MTEXT
+  5
+202
+330
+1F8
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+ 48
+3.0
+440
+16777216
+100
+AcDbMText
+ 10
+194.5688170086869
+ 20
+1919.9203176250885
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+12
+  0
+POINT
+  5
+203
+330
+1F8
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+249.17011305234337
+ 20
+1852.3095382697356
+ 30
+0.0
+  0
+POINT
+  5
+204
+330
+1F8
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+237.17011305234337
+ 20
+1852.3095382697356
+ 30
+0.0
+  0
+POINT
+  5
+205
+330
+1F8
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+237.17011305234337
+ 20
+1897.3691580070881
+ 30
+0.0
+  0
+ENDBLK
+  5
+1FA
+330
+1F8
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+207
+330
+206
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D10
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D10
+  1
+
+  0
+LINE
+  5
+209
+330
+206
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+254.1701130523452
+ 20
+1872.3095382697356
+ 30
+0.0
+ 11
+161.71698338804708
+ 21
+1872.3095382697356
+ 31
+0.0
+  0
+LINE
+  5
+20A
+330
+206
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+254.1701130523452
+ 20
+1374.7095382697298
+ 30
+0.0
+ 11
+161.71698338804708
+ 21
+1374.7095382697298
+ 31
+0.0
+  0
+LINE
+  5
+20B
+330
+206
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+171.71698338804708
+ 20
+1872.3095382697356
+ 30
+0.0
+ 11
+171.71698338804708
+ 21
+1374.7095382697298
+ 31
+0.0
+  0
+LINE
+  5
+20C
+330
+206
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+175.71698338804708
+ 20
+1868.3095382697356
+ 30
+0.0
+ 11
+167.71698338804708
+ 21
+1876.3095382697356
+ 31
+0.0
+  0
+LINE
+  5
+20D
+330
+206
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+167.71698338804708
+ 20
+1378.7095382697298
+ 30
+0.0
+ 11
+175.71698338804708
+ 21
+1370.7095382697298
+ 31
+0.0
+  0
+MTEXT
+  5
+20E
+330
+206
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+ 48
+3.0
+440
+16777216
+100
+AcDbMText
+ 10
+148.95265869502146
+ 20
+1623.5095382697182
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+498
+ 11
+1e-16
+ 21
+1.0
+ 31
+0.0
+  0
+POINT
+  5
+20F
+330
+206
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+269.17011305234337
+ 20
+1872.3095382697356
+ 30
+0.0
+  0
+POINT
+  5
+210
+330
+206
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+269.17011305234337
+ 20
+1374.7095382697298
+ 30
+0.0
+  0
+POINT
+  5
+211
+330
+206
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+171.71698338804708
+ 20
+1374.7095382697298
+ 30
+0.0
+  0
+ENDBLK
+  5
+208
+330
+206
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+213
+330
+212
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D11
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D11
+  1
+
+  0
+LINE
+  5
+215
+330
+212
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+341.7839734939771
+ 20
+422.64191407068574
+ 30
+0.0
+ 11
+310.7752370467497
+ 21
+422.64191407068574
+ 31
+0.0
+  0
+LINE
+  5
+216
+330
+212
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+341.7839734939771
+ 20
+582.6419140706566
+ 30
+0.0
+ 11
+310.7752370467497
+ 21
+582.6419140706566
+ 31
+0.0
+  0
+LINE
+  5
+217
+330
+212
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+320.7752370467497
+ 20
+422.64191407068574
+ 30
+0.0
+ 11
+320.7752370467497
+ 21
+582.6419140706566
+ 31
+0.0
+  0
+LINE
+  5
+218
+330
+212
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+316.7752370467497
+ 20
+426.64191407068574
+ 30
+0.0
+ 11
+324.7752370467497
+ 21
+418.64191407068574
+ 31
+0.0
+  0
+LINE
+  5
+219
+330
+212
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+324.7752370467497
+ 20
+578.6419140706566
+ 30
+0.0
+ 11
+316.7752370467497
+ 21
+586.6419140706566
+ 31
+0.0
+  0
+MTEXT
+  5
+21A
+330
+212
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+ 48
+3.0
+440
+16777216
+100
+AcDbMText
+ 10
+298.01091235372587
+ 20
+502.64191407065664
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+160
+ 11
+1e-16
+ 21
+1.0
+ 31
+0.0
+  0
+POINT
+  5
+21B
+330
+212
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+356.7839734939771
+ 20
+422.64191407068574
+ 30
+0.0
+  0
+POINT
+  5
+21C
+330
+212
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+356.7839734939771
+ 20
+582.6419140706566
+ 30
+0.0
+  0
+POINT
+  5
+21D
+330
+212
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+320.7752370467497
+ 20
+582.6419140706566
+ 30
+0.0
+  0
+ENDBLK
+  5
+214
+330
+212
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+21F
+330
+21E
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D12
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D12
+  1
+
+  0
+LINE
+  5
+221
+330
+21E
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+356.7839734939771
+ 20
+407.64191407068574
+ 30
+0.0
+ 11
+356.7839734939771
+ 21
+337.0428664476058
+ 31
+0.0
+  0
+LINE
+  5
+222
+330
+21E
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+716.7839734939716
+ 20
+407.64191407068574
+ 30
+0.0
+ 11
+716.7839734939716
+ 21
+337.0428664476058
+ 31
+0.0
+  0
+LINE
+  5
+223
+330
+21E
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+356.7839734939771
+ 20
+347.0428664476058
+ 30
+0.0
+ 11
+716.7839734939716
+ 21
+347.0428664476058
+ 31
+0.0
+  0
+LINE
+  5
+224
+330
+21E
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+360.7839734939771
+ 20
+351.0428664476058
+ 30
+0.0
+ 11
+352.7839734939771
+ 21
+343.0428664476058
+ 31
+0.0
+  0
+LINE
+  5
+225
+330
+21E
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+712.7839734939716
+ 20
+343.0428664476058
+ 30
+0.0
+ 11
+720.7839734939716
+ 21
+351.0428664476058
+ 31
+0.0
+  0
+MTEXT
+  5
+226
+330
+21E
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+ 48
+3.0
+440
+16777216
+100
+AcDbMText
+ 10
+536.7839734939716
+ 20
+369.8157177436515
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+360
+  0
+POINT
+  5
+227
+330
+21E
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+356.7839734939771
+ 20
+422.64191407068574
+ 30
+0.0
+  0
+POINT
+  5
+228
+330
+21E
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+716.7839734939716
+ 20
+422.64191407068574
+ 30
+0.0
+  0
+POINT
+  5
+229
+330
+21E
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+716.7839734939716
+ 20
+347.0428664476058
+ 30
+0.0
+  0
+ENDBLK
+  5
+220
+330
+21E
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+22B
+330
+22A
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D13
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D13
+  1
+
+  0
+LINE
+  5
+22D
+330
+22A
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+273.86885499768323
+ 20
+1121.894410486435
+ 30
+0.0
+ 11
+224.25528261659565
+ 21
+1121.894410486435
+ 31
+0.0
+  0
+LINE
+  5
+22E
+330
+22A
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+273.86885499768323
+ 20
+842.8944104864349
+ 30
+0.0
+ 11
+224.25528261659565
+ 21
+842.8944104864349
+ 31
+0.0
+  0
+LINE
+  5
+22F
+330
+22A
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+234.25528261659383
+ 20
+1121.894410486435
+ 30
+0.0
+ 11
+234.25528261659383
+ 21
+842.8944104864349
+ 31
+0.0
+  0
+LINE
+  5
+230
+330
+22A
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+238.25528261659383
+ 20
+1117.894410486435
+ 30
+0.0
+ 11
+230.25528261659383
+ 21
+1125.894410486435
+ 31
+0.0
+  0
+LINE
+  5
+231
+330
+22A
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+230.25528261659383
+ 20
+846.8944104864349
+ 30
+0.0
+ 11
+238.25528261659383
+ 21
+838.8944104864349
+ 31
+0.0
+  0
+MTEXT
+  5
+232
+330
+22A
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+440
+16777216
+100
+AcDbMText
+ 10
+211.4909579235682
+ 20
+999.8944104864349
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+279
+ 11
+1e-16
+ 21
+1.0
+ 31
+0.0
+  0
+POINT
+  5
+233
+330
+22A
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+288.86885499768323
+ 20
+1121.894410486435
+ 30
+0.0
+  0
+POINT
+  5
+234
+330
+22A
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+288.86885499768323
+ 20
+842.8944104864349
+ 30
+0.0
+  0
+POINT
+  5
+235
+330
+22A
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+234.25528261659383
+ 20
+842.8944104864349
+ 30
+0.0
+  0
+ENDBLK
+  5
+22C
+330
+22A
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+237
+330
+236
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D14
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D14
+  1
+
+  0
+LINE
+  5
+239
+330
+236
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+273.86885499768323
+ 20
+842.8944104864349
+ 30
+0.0
+ 11
+224.25528261659565
+ 21
+842.8944104864349
+ 31
+0.0
+  0
+LINE
+  5
+23A
+330
+236
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+293.86885499768323
+ 20
+822.8944104864495
+ 30
+0.0
+ 11
+224.25528261659565
+ 21
+822.8944104864495
+ 31
+0.0
+  0
+LINE
+  5
+23B
+330
+236
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+234.25528261659383
+ 20
+842.8944104864349
+ 30
+0.0
+ 11
+234.25528261659383
+ 21
+822.8944104864495
+ 31
+0.0
+  0
+LINE
+  5
+23C
+330
+236
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+238.25528261659383
+ 20
+838.8944104864349
+ 30
+0.0
+ 11
+230.25528261659383
+ 21
+846.8944104864349
+ 31
+0.0
+  0
+LINE
+  5
+23D
+330
+236
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+230.25528261659383
+ 20
+826.8944104864495
+ 30
+0.0
+ 11
+238.25528261659383
+ 21
+818.8944104864495
+ 31
+0.0
+  0
+MTEXT
+  5
+23E
+330
+236
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+440
+16777216
+100
+AcDbMText
+ 10
+211.4909579235682
+ 20
+832.8944104864349
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+20
+ 11
+1e-16
+ 21
+1.0
+ 31
+0.0
+  0
+POINT
+  5
+23F
+330
+236
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+288.86885499768323
+ 20
+842.8944104864349
+ 30
+0.0
+  0
+POINT
+  5
+240
+330
+236
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+308.86885499768323
+ 20
+822.8944104864495
+ 30
+0.0
+  0
+POINT
+  5
+241
+330
+236
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+234.25528261659383
+ 20
+822.8944104864495
+ 30
+0.0
+  0
+ENDBLK
+  5
+238
+330
+236
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+243
+330
+242
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D15
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D15
+  1
+
+  0
+LINE
+  5
+245
+330
+242
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+293.86885499768323
+ 20
+822.8944104864495
+ 30
+0.0
+ 11
+253.8092352603453
+ 21
+822.8944104864495
+ 31
+0.0
+  0
+LINE
+  5
+246
+330
+242
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+293.86885499768323
+ 20
+810.8944104864349
+ 30
+0.0
+ 11
+253.8092352603453
+ 21
+810.8944104864349
+ 31
+0.0
+  0
+LINE
+  5
+247
+330
+242
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+263.8092352603471
+ 20
+822.8944104864495
+ 30
+0.0
+ 11
+263.8092352603471
+ 21
+830.8944104864495
+ 31
+0.0
+  0
+LINE
+  5
+248
+330
+242
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+263.8092352603471
+ 20
+810.8944104864349
+ 30
+0.0
+ 11
+263.8092352603471
+ 21
+741.6918183991365
+ 31
+0.0
+  0
+LINE
+  5
+249
+330
+242
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+263.8092352603471
+ 20
+822.8944104864495
+ 30
+0.0
+ 11
+263.8092352603471
+ 21
+810.8944104864349
+ 31
+0.0
+  0
+LINE
+  5
+24A
+330
+242
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+259.8092352603471
+ 20
+826.8944104864495
+ 30
+0.0
+ 11
+267.8092352603471
+ 21
+818.8944104864495
+ 31
+0.0
+  0
+LINE
+  5
+24B
+330
+242
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+267.8092352603471
+ 20
+806.8944104864349
+ 30
+0.0
+ 11
+259.8092352603471
+ 21
+814.8944104864349
+ 31
+0.0
+  0
+MTEXT
+  5
+24C
+330
+242
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+ 48
+3.0
+440
+16777216
+100
+AcDbMText
+ 10
+241.25807564235583
+ 20
+768.2931144427857
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+12
+ 11
+1e-16
+ 21
+1.0
+ 31
+0.0
+  0
+POINT
+  5
+24D
+330
+242
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+308.86885499768323
+ 20
+822.8944104864495
+ 30
+0.0
+  0
+POINT
+  5
+24E
+330
+242
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+308.86885499768323
+ 20
+810.8944104864349
+ 30
+0.0
+  0
+POINT
+  5
+24F
+330
+242
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+263.8092352603471
+ 20
+810.8944104864349
+ 30
+0.0
+  0
+ENDBLK
+  5
+244
+330
+242
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+251
+330
+250
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D16
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D16
+  1
+
+  0
+LINE
+  5
+253
+330
+250
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+288.86885499768323
+ 20
+827.8944104864204
+ 30
+0.0
+ 11
+288.86885499768323
+ 21
+735.4412808221387
+ 31
+0.0
+  0
+LINE
+  5
+254
+330
+250
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+888.4688549976818
+ 20
+827.8944104864204
+ 30
+0.0
+ 11
+888.4688549976818
+ 21
+735.4412808221387
+ 31
+0.0
+  0
+LINE
+  5
+255
+330
+250
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+288.86885499768323
+ 20
+745.4412808221387
+ 30
+0.0
+ 11
+888.4688549976818
+ 21
+745.4412808221387
+ 31
+0.0
+  0
+LINE
+  5
+256
+330
+250
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+292.86885499768323
+ 20
+749.4412808221387
+ 30
+0.0
+ 11
+284.86885499768323
+ 21
+741.4412808221387
+ 31
+0.0
+  0
+LINE
+  5
+257
+330
+250
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+884.4688549976818
+ 20
+741.4412808221387
+ 30
+0.0
+ 11
+892.4688549976818
+ 21
+749.4412808221387
+ 31
+0.0
+  0
+MTEXT
+  5
+258
+330
+250
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+ 48
+3.0
+440
+16777216
+100
+AcDbMText
+ 10
+588.6688549976825
+ 20
+768.205605515177
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+600
+  0
+POINT
+  5
+259
+330
+250
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+288.86885499768323
+ 20
+842.8944104864349
+ 30
+0.0
+  0
+POINT
+  5
+25A
+330
+250
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+888.4688549976818
+ 20
+842.8944104864349
+ 30
+0.0
+  0
+POINT
+  5
+25B
+330
+250
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+888.4688549976818
+ 20
+745.4412808221387
+ 30
+0.0
+  0
+ENDBLK
+  5
+252
+330
+250
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+25D
+330
+25C
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D17
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D17
+  1
+
+  0
+LINE
+  5
+25F
+330
+25C
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1651.0599680221621
+ 20
+1121.894410486435
+ 30
+0.0
+ 11
+1763.4142989691718
+ 21
+1121.894410486435
+ 31
+0.0
+  0
+LINE
+  5
+260
+330
+25C
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1651.0599680221621
+ 20
+842.8944104864349
+ 30
+0.0
+ 11
+1763.4142989691718
+ 21
+842.8944104864349
+ 31
+0.0
+  0
+LINE
+  5
+261
+330
+25C
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1753.4142989691718
+ 20
+1121.894410486435
+ 30
+0.0
+ 11
+1753.4142989691718
+ 21
+842.8944104864349
+ 31
+0.0
+  0
+LINE
+  5
+262
+330
+25C
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1757.4142989691718
+ 20
+1117.894410486435
+ 30
+0.0
+ 11
+1749.4142989691718
+ 21
+1125.894410486435
+ 31
+0.0
+  0
+LINE
+  5
+263
+330
+25C
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1749.4142989691718
+ 20
+846.8944104864349
+ 30
+0.0
+ 11
+1757.4142989691718
+ 21
+838.8944104864349
+ 31
+0.0
+  0
+MTEXT
+  5
+264
+330
+25C
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+440
+16777216
+100
+AcDbMText
+ 10
+1730.6499742761425
+ 20
+999.8944104864349
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+279
+ 11
+1e-16
+ 21
+1.0
+ 31
+0.0
+  0
+POINT
+  5
+265
+330
+25C
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1636.0599680221621
+ 20
+1121.894410486435
+ 30
+0.0
+  0
+POINT
+  5
+266
+330
+25C
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1636.0599680221621
+ 20
+842.8944104864349
+ 30
+0.0
+  0
+POINT
+  5
+267
+330
+25C
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1753.4142989691718
+ 20
+842.8944104864349
+ 30
+0.0
+  0
+ENDBLK
+  5
+25E
+330
+25C
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+269
+330
+268
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D18
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D18
+  1
+
+  0
+LINE
+  5
+26B
+330
+268
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1651.0599680221621
+ 20
+842.8944104864349
+ 30
+0.0
+ 11
+1763.4142989691718
+ 21
+842.8944104864349
+ 31
+0.0
+  0
+LINE
+  5
+26C
+330
+268
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1631.0599680221621
+ 20
+822.8944104864495
+ 30
+0.0
+ 11
+1763.4142989691718
+ 21
+822.8944104864495
+ 31
+0.0
+  0
+LINE
+  5
+26D
+330
+268
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1753.4142989691718
+ 20
+842.8944104864349
+ 30
+0.0
+ 11
+1753.4142989691718
+ 21
+822.8944104864495
+ 31
+0.0
+  0
+LINE
+  5
+26E
+330
+268
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+440
+16777216
+100
+AcDbLine
+ 10
+1753.4142989691718
+ 20
+822.8944104864495
+ 30
+0.0
+ 11
+1753.4142989691718
+ 21
+749.4839526872092
+ 31
+0.0
+  0
+LINE
+  5
+26F
+330
+268
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1757.4142989691718
+ 20
+838.8944104864349
+ 30
+0.0
+ 11
+1749.4142989691718
+ 21
+846.8944104864349
+ 31
+0.0
+  0
+LINE
+  5
+270
+330
+268
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1749.4142989691718
+ 20
+826.8944104864495
+ 30
+0.0
+ 11
+1757.4142989691718
+ 21
+818.8944104864495
+ 31
+0.0
+  0
+MTEXT
+  5
+271
+330
+268
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+440
+16777216
+100
+AcDbMText
+ 10
+1730.6499742761425
+ 20
+777.560351050095
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+20
+ 11
+1e-16
+ 21
+1.0
+ 31
+0.0
+  0
+POINT
+  5
+272
+330
+268
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1636.0599680221621
+ 20
+842.8944104864349
+ 30
+0.0
+  0
+POINT
+  5
+273
+330
+268
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1616.0599680221621
+ 20
+822.8944104864495
+ 30
+0.0
+  0
+POINT
+  5
+274
+330
+268
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+440
+16777216
+100
+AcDbPoint
+ 10
+1753.4142989691718
+ 20
+822.8944104864495
+ 30
+0.0
+  0
+ENDBLK
+  5
+26A
+330
+268
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+276
+330
+275
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D19
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D19
+  1
+
+  0
+LINE
+  5
+278
+330
+275
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+1631.0599680221621
+ 20
+822.8944104864495
+ 30
+0.0
+ 11
+1698.139085015153
+ 21
+822.8944104864495
+ 31
+0.0
+  0
+LINE
+  5
+279
+330
+275
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+1631.0599680221621
+ 20
+810.8944104864349
+ 30
+0.0
+ 11
+1698.139085015153
+ 21
+810.8944104864349
+ 31
+0.0
+  0
+LINE
+  5
+27A
+330
+275
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+1688.139085015153
+ 20
+822.8944104864495
+ 30
+0.0
+ 11
+1688.139085015153
+ 21
+830.8944104864495
+ 31
+0.0
+  0
+LINE
+  5
+27B
+330
+275
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+1688.139085015153
+ 20
+810.8944104864349
+ 30
+0.0
+ 11
+1688.139085015153
+ 21
+741.6918183991365
+ 31
+0.0
+  0
+LINE
+  5
+27C
+330
+275
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+1688.139085015153
+ 20
+822.8944104864495
+ 30
+0.0
+ 11
+1688.139085015153
+ 21
+810.8944104864349
+ 31
+0.0
+  0
+LINE
+  5
+27D
+330
+275
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1684.139085015153
+ 20
+826.8944104864495
+ 30
+0.0
+ 11
+1692.139085015153
+ 21
+818.8944104864495
+ 31
+0.0
+  0
+LINE
+  5
+27E
+330
+275
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1692.139085015153
+ 20
+806.8944104864349
+ 30
+0.0
+ 11
+1684.139085015153
+ 21
+814.8944104864349
+ 31
+0.0
+  0
+MTEXT
+  5
+27F
+330
+275
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+ 48
+3.0
+440
+16777216
+100
+AcDbMText
+ 10
+1665.5879253971616
+ 20
+768.2931144427857
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+12
+ 11
+1e-16
+ 21
+1.0
+ 31
+0.0
+  0
+POINT
+  5
+280
+330
+275
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+1616.0599680221621
+ 20
+822.8944104864495
+ 30
+0.0
+  0
+POINT
+  5
+281
+330
+275
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+1616.0599680221621
+ 20
+810.8944104864349
+ 30
+0.0
+  0
+POINT
+  5
+282
+330
+275
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+1688.139085015153
+ 20
+810.8944104864349
+ 30
+0.0
+  0
+ENDBLK
+  5
+277
+330
+275
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+284
+330
+283
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D20
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D20
+  1
+
+  0
+LINE
+  5
+286
+330
+283
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+1636.0599680221621
+ 20
+827.8944104864204
+ 30
+0.0
+ 11
+1636.0599680221621
+ 21
+735.4412808221387
+ 31
+0.0
+  0
+LINE
+  5
+287
+330
+283
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+1036.4599680221527
+ 20
+827.8944104864204
+ 30
+0.0
+ 11
+1036.4599680221527
+ 21
+735.4412808221387
+ 31
+0.0
+  0
+LINE
+  5
+288
+330
+283
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+1636.0599680221621
+ 20
+745.4412808221387
+ 30
+0.0
+ 11
+1036.4599680221527
+ 21
+745.4412808221387
+ 31
+0.0
+  0
+LINE
+  5
+289
+330
+283
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1632.0599680221621
+ 20
+741.4412808221387
+ 30
+0.0
+ 11
+1640.0599680221621
+ 21
+749.4412808221387
+ 31
+0.0
+  0
+LINE
+  5
+28A
+330
+283
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1040.4599680221527
+ 20
+749.4412808221387
+ 30
+0.0
+ 11
+1032.4599680221527
+ 21
+741.4412808221387
+ 31
+0.0
+  0
+MTEXT
+  5
+28B
+330
+283
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+ 48
+3.0
+440
+16777216
+100
+AcDbMText
+ 10
+1336.2599680221629
+ 20
+768.205605515177
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+600
+  0
+POINT
+  5
+28C
+330
+283
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+1636.0599680221621
+ 20
+842.8944104864349
+ 30
+0.0
+  0
+POINT
+  5
+28D
+330
+283
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+1036.4599680221527
+ 20
+842.8944104864349
+ 30
+0.0
+  0
+POINT
+  5
+28E
+330
+283
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+1036.4599680221527
+ 20
+745.4412808221387
+ 30
+0.0
+  0
+ENDBLK
+  5
+285
+330
+283
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+290
+330
+28F
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D21
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D21
+  1
+
+  0
+LINE
+  5
+292
+330
+28F
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2322.452480029013
+ 20
+1874.909538269756
+ 30
+0.0
+ 11
+2322.452480029013
+ 21
+1916.7951589657896
+ 31
+0.0
+  0
+LINE
+  5
+293
+330
+28F
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2337.452480029013
+ 20
+1859.909538269756
+ 30
+0.0
+ 11
+2337.452480029013
+ 21
+1916.7951589657896
+ 31
+0.0
+  0
+LINE
+  5
+294
+330
+28F
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2322.452480029013
+ 20
+1906.7951589657896
+ 30
+0.0
+ 11
+2314.452480029013
+ 21
+1906.7951589657896
+ 31
+0.0
+  0
+LINE
+  5
+295
+330
+28F
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2337.452480029013
+ 20
+1906.7951589657896
+ 30
+0.0
+ 11
+2407.098455472402
+ 21
+1906.7951589657896
+ 31
+0.0
+  0
+LINE
+  5
+296
+330
+28F
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2322.452480029013
+ 20
+1906.7951589657896
+ 30
+0.0
+ 11
+2337.452480029013
+ 21
+1906.7951589657896
+ 31
+0.0
+  0
+LINE
+  5
+297
+330
+28F
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+2318.452480029013
+ 20
+1902.7951589657896
+ 30
+0.0
+ 11
+2326.452480029013
+ 21
+1910.7951589657896
+ 31
+0.0
+  0
+LINE
+  5
+298
+330
+28F
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+2341.452480029013
+ 20
+1910.7951589657896
+ 30
+0.0
+ 11
+2333.452480029013
+ 21
+1902.7951589657896
+ 31
+0.0
+  0
+MTEXT
+  5
+299
+330
+28F
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+ 48
+3.0
+440
+16777216
+100
+AcDbMText
+ 10
+2380.275467750702
+ 20
+1929.559483658828
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+15
+  0
+POINT
+  5
+29A
+330
+28F
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2322.452480029013
+ 20
+1859.909538269756
+ 30
+0.0
+  0
+POINT
+  5
+29B
+330
+28F
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2337.452480029013
+ 20
+1844.909538269756
+ 30
+0.0
+  0
+POINT
+  5
+29C
+330
+28F
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2337.452480029013
+ 20
+1906.7951589657896
+ 30
+0.0
+  0
+ENDBLK
+  5
+291
+330
+28F
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+29E
+330
+29D
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D22
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D22
+  1
+
+  0
+LINE
+  5
+2A0
+330
+29D
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2322.452480029013
+ 20
+1874.909538269756
+ 30
+0.0
+ 11
+2322.452480029013
+ 21
+1916.7951589657896
+ 31
+0.0
+  0
+LINE
+  5
+2A1
+330
+29D
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+1779.6524800290117
+ 20
+1874.909538269756
+ 30
+0.0
+ 11
+1779.6524800290117
+ 21
+1916.7951589657896
+ 31
+0.0
+  0
+LINE
+  5
+2A2
+330
+29D
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2322.452480029013
+ 20
+1906.7951589657896
+ 30
+0.0
+ 11
+1779.6524800290117
+ 21
+1906.7951589657896
+ 31
+0.0
+  0
+LINE
+  5
+2A3
+330
+29D
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+2318.452480029013
+ 20
+1902.7951589657896
+ 30
+0.0
+ 11
+2326.452480029013
+ 21
+1910.7951589657896
+ 31
+0.0
+  0
+LINE
+  5
+2A4
+330
+29D
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1783.6524800290117
+ 20
+1910.7951589657896
+ 30
+0.0
+ 11
+1775.6524800290117
+ 21
+1902.7951589657896
+ 31
+0.0
+  0
+MTEXT
+  5
+2A5
+330
+29D
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+ 48
+3.0
+440
+16777216
+100
+AcDbMText
+ 10
+2051.0524800290113
+ 20
+1929.5680102618498
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+543
+  0
+POINT
+  5
+2A6
+330
+29D
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2322.452480029013
+ 20
+1859.909538269756
+ 30
+0.0
+  0
+POINT
+  5
+2A7
+330
+29D
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+1779.6524800290117
+ 20
+1859.909538269756
+ 30
+0.0
+  0
+POINT
+  5
+2A8
+330
+29D
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+1779.6524800290117
+ 20
+1906.7951589657896
+ 30
+0.0
+  0
+ENDBLK
+  5
+29F
+330
+29D
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+2AA
+330
+2A9
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D23
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D23
+  1
+
+  0
+LINE
+  5
+2AC
+330
+2A9
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+1764.6524800290117
+ 20
+1859.909538269756
+ 30
+0.0
+ 11
+1685.9591657999918
+ 21
+1859.909538269756
+ 31
+0.0
+  0
+LINE
+  5
+2AD
+330
+2A9
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+1764.6524800290117
+ 20
+1387.1095382697386
+ 30
+0.0
+ 11
+1685.9591657999918
+ 21
+1387.1095382697386
+ 31
+0.0
+  0
+LINE
+  5
+2AE
+330
+2A9
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+1695.9591658000027
+ 20
+1859.909538269756
+ 30
+0.0
+ 11
+1695.9591658000027
+ 21
+1387.1095382697386
+ 31
+0.0
+  0
+LINE
+  5
+2AF
+330
+2A9
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1699.9591658000027
+ 20
+1855.909538269756
+ 30
+0.0
+ 11
+1691.9591658000027
+ 21
+1863.909538269756
+ 31
+0.0
+  0
+LINE
+  5
+2B0
+330
+2A9
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1691.9591658000027
+ 20
+1391.1095382697386
+ 30
+0.0
+ 11
+1699.9591658000027
+ 21
+1383.1095382697386
+ 31
+0.0
+  0
+MTEXT
+  5
+2B1
+330
+2A9
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+ 48
+3.0
+440
+16777216
+100
+AcDbMText
+ 10
+1673.1863145039715
+ 20
+1623.5095382697473
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+473
+ 11
+1e-16
+ 21
+1.0
+ 31
+0.0
+  0
+POINT
+  5
+2B2
+330
+2A9
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+1779.6524800290117
+ 20
+1859.909538269756
+ 30
+0.0
+  0
+POINT
+  5
+2B3
+330
+2A9
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+1779.6524800290117
+ 20
+1387.1095382697386
+ 30
+0.0
+  0
+POINT
+  5
+2B4
+330
+2A9
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+1695.9591658000027
+ 20
+1387.1095382697386
+ 30
+0.0
+  0
+ENDBLK
+  5
+2AB
+330
+2A9
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+2B6
+330
+2B5
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D24
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D24
+  1
+
+  0
+LINE
+  5
+2B8
+330
+2B5
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+1764.6524800290117
+ 20
+1387.1095382697386
+ 30
+0.0
+ 11
+1764.6524800290117
+ 21
+1317.8283541497512
+ 31
+0.0
+  0
+LINE
+  5
+2B9
+330
+2B5
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2337.452480029013
+ 20
+1387.1095382697386
+ 30
+0.0
+ 11
+2337.452480029013
+ 21
+1317.8283541497512
+ 31
+0.0
+  0
+LINE
+  5
+2BA
+330
+2B5
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+1764.6524800290117
+ 20
+1327.8283541497512
+ 30
+0.0
+ 11
+2337.452480029013
+ 21
+1327.8283541497512
+ 31
+0.0
+  0
+LINE
+  5
+2BB
+330
+2B5
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+1768.6524800290117
+ 20
+1331.8283541497512
+ 30
+0.0
+ 11
+1760.6524800290117
+ 21
+1323.8283541497512
+ 31
+0.0
+  0
+LINE
+  5
+2BC
+330
+2B5
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+2333.452480029013
+ 20
+1323.8283541497512
+ 30
+0.0
+ 11
+2341.452480029013
+ 21
+1331.8283541497512
+ 31
+0.0
+  0
+MTEXT
+  5
+2BD
+330
+2B5
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+ 48
+3.0
+440
+16777216
+100
+AcDbMText
+ 10
+2051.0524800290113
+ 20
+1350.601205445797
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+573
+  0
+POINT
+  5
+2BE
+330
+2B5
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+1764.6524800290117
+ 20
+1402.1095382697386
+ 30
+0.0
+  0
+POINT
+  5
+2BF
+330
+2B5
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2337.452480029013
+ 20
+1402.1095382697386
+ 30
+0.0
+  0
+POINT
+  5
+2C0
+330
+2B5
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2337.452480029013
+ 20
+1327.8283541497512
+ 30
+0.0
+  0
+ENDBLK
+  5
+2B7
+330
+2B5
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+2C2
+330
+2C1
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D25
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D25
+  1
+
+  0
+LINE
+  5
+2C4
+330
+2C1
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2811.4511108327224
+ 20
+1086.6404253407381
+ 30
+0.0
+ 11
+2811.4511108327224
+ 21
+1138.1018255823728
+ 31
+0.0
+  0
+LINE
+  5
+2C5
+330
+2C1
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2821.4511108327115
+ 20
+1076.6404253407236
+ 30
+0.0
+ 11
+2821.4511108327115
+ 21
+1138.1018255823728
+ 31
+0.0
+  0
+LINE
+  5
+2C6
+330
+2C1
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2811.4511108327224
+ 20
+1128.1018255823583
+ 30
+0.0
+ 11
+2803.4511108327224
+ 21
+1128.1018255823583
+ 31
+0.0
+  0
+LINE
+  5
+2C7
+330
+2C1
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2821.4511108327115
+ 20
+1128.1018255823583
+ 30
+0.0
+ 11
+2890.824234980051
+ 21
+1128.1018255823583
+ 31
+0.0
+  0
+LINE
+  5
+2C8
+330
+2C1
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2811.4511108327224
+ 20
+1128.1018255823583
+ 30
+0.0
+ 11
+2821.4511108327115
+ 21
+1128.1018255823583
+ 31
+0.0
+  0
+LINE
+  5
+2C9
+330
+2C1
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+2807.4511108327224
+ 20
+1124.1018255823583
+ 30
+0.0
+ 11
+2815.4511108327224
+ 21
+1132.1018255823583
+ 31
+0.0
+  0
+LINE
+  5
+2CA
+330
+2C1
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+2825.4511108327115
+ 20
+1132.1018255823583
+ 30
+0.0
+ 11
+2817.4511108327115
+ 21
+1124.1018255823583
+ 31
+0.0
+  0
+MTEXT
+  5
+2CB
+330
+2C1
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+ 48
+3.0
+440
+16777216
+100
+AcDbMText
+ 10
+2864.1376729063813
+ 20
+1150.8661502754112
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+10
+  0
+POINT
+  5
+2CC
+330
+2C1
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2811.4511108327224
+ 20
+1071.6404253407381
+ 30
+0.0
+  0
+POINT
+  5
+2CD
+330
+2C1
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2821.4511108327115
+ 20
+1061.6404253407236
+ 30
+0.0
+  0
+POINT
+  5
+2CE
+330
+2C1
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2821.4511108327115
+ 20
+1128.1018255823583
+ 30
+0.0
+  0
+ENDBLK
+  5
+2C3
+330
+2C1
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+2D0
+330
+2CF
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D26
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D26
+  1
+
+  0
+LINE
+  5
+2D2
+330
+2CF
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2795.4511108327224
+ 20
+1102.6404253407381
+ 30
+0.0
+ 11
+2795.4511108327224
+ 21
+1189.3916969287093
+ 31
+0.0
+  0
+LINE
+  5
+2D3
+330
+2CF
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2811.4511108327224
+ 20
+1086.6404253407381
+ 30
+0.0
+ 11
+2811.4511108327224
+ 21
+1189.3916969287093
+ 31
+0.0
+  0
+LINE
+  5
+2D4
+330
+2CF
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2795.4511108327224
+ 20
+1179.3916969286947
+ 30
+0.0
+ 11
+2787.4511108327224
+ 21
+1179.3916969286947
+ 31
+0.0
+  0
+LINE
+  5
+2D5
+330
+2CF
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2811.4511108327224
+ 20
+1179.3916969286947
+ 30
+0.0
+ 11
+2880.8924478040717
+ 21
+1179.3916969286947
+ 31
+0.0
+  0
+LINE
+  5
+2D6
+330
+2CF
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2795.4511108327224
+ 20
+1179.3916969286947
+ 30
+0.0
+ 11
+2811.4511108327224
+ 21
+1179.3916969286947
+ 31
+0.0
+  0
+LINE
+  5
+2D7
+330
+2CF
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+2791.4511108327224
+ 20
+1175.3916969286947
+ 30
+0.0
+ 11
+2799.4511108327224
+ 21
+1183.3916969286947
+ 31
+0.0
+  0
+LINE
+  5
+2D8
+330
+2CF
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+2815.4511108327224
+ 20
+1183.3916969286947
+ 30
+0.0
+ 11
+2807.4511108327224
+ 21
+1175.3916969286947
+ 31
+0.0
+  0
+MTEXT
+  5
+2D9
+330
+2CF
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+ 48
+3.0
+440
+16777216
+100
+AcDbMText
+ 10
+2854.1717793184016
+ 20
+1202.1560216217476
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+16
+  0
+POINT
+  5
+2DA
+330
+2CF
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2795.4511108327224
+ 20
+1087.6404253407381
+ 30
+0.0
+  0
+POINT
+  5
+2DB
+330
+2CF
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2811.4511108327224
+ 20
+1071.6404253407381
+ 30
+0.0
+  0
+POINT
+  5
+2DC
+330
+2CF
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2811.4511108327224
+ 20
+1179.3916969286947
+ 30
+0.0
+  0
+ENDBLK
+  5
+2D1
+330
+2CF
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+2DE
+330
+2DD
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D27
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D27
+  1
+
+  0
+LINE
+  5
+2E0
+330
+2DD
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2795.4511108327224
+ 20
+1102.6404253407381
+ 30
+0.0
+ 11
+2795.4511108327224
+ 21
+1189.3916969287093
+ 31
+0.0
+  0
+LINE
+  5
+2E1
+330
+2DD
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2197.4511108327224
+ 20
+1102.6404253407381
+ 30
+0.0
+ 11
+2197.4511108327224
+ 21
+1189.3916969287093
+ 31
+0.0
+  0
+LINE
+  5
+2E2
+330
+2DD
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2795.4511108327224
+ 20
+1179.3916969286947
+ 30
+0.0
+ 11
+2197.4511108327224
+ 21
+1179.3916969286947
+ 31
+0.0
+  0
+LINE
+  5
+2E3
+330
+2DD
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+2791.4511108327224
+ 20
+1175.3916969286947
+ 30
+0.0
+ 11
+2799.4511108327224
+ 21
+1183.3916969286947
+ 31
+0.0
+  0
+LINE
+  5
+2E4
+330
+2DD
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+2201.4511108327224
+ 20
+1183.3916969286947
+ 30
+0.0
+ 11
+2193.4511108327224
+ 21
+1175.3916969286947
+ 31
+0.0
+  0
+MTEXT
+  5
+2E5
+330
+2DD
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+ 48
+3.0
+440
+16777216
+100
+AcDbMText
+ 10
+2496.4511108327224
+ 20
+1202.1560216217476
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+598
+  0
+POINT
+  5
+2E6
+330
+2DD
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2795.4511108327224
+ 20
+1087.6404253407381
+ 30
+0.0
+  0
+POINT
+  5
+2E7
+330
+2DD
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2197.4511108327224
+ 20
+1087.6404253407381
+ 30
+0.0
+  0
+POINT
+  5
+2E8
+330
+2DD
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2197.4511108327224
+ 20
+1179.3916969286947
+ 30
+0.0
+  0
+ENDBLK
+  5
+2DF
+330
+2DD
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+2EA
+330
+2E9
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D28
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D28
+  1
+
+  0
+LINE
+  5
+2EC
+330
+2E9
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2192.4511108327224
+ 20
+1097.6404253407236
+ 30
+0.0
+ 11
+2082.523246698882
+ 21
+1097.6404253407236
+ 31
+0.0
+  0
+LINE
+  5
+2ED
+330
+2E9
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2192.4511108327224
+ 20
+550.0404253407032
+ 30
+0.0
+ 11
+2082.523246698882
+ 21
+550.0404253407032
+ 31
+0.0
+  0
+LINE
+  5
+2EE
+330
+2E9
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2092.523246698882
+ 20
+1097.6404253407236
+ 30
+0.0
+ 11
+2092.523246698882
+ 21
+550.0404253407032
+ 31
+0.0
+  0
+LINE
+  5
+2EF
+330
+2E9
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+2096.523246698882
+ 20
+1093.6404253407236
+ 30
+0.0
+ 11
+2088.523246698882
+ 21
+1101.6404253407236
+ 31
+0.0
+  0
+LINE
+  5
+2F0
+330
+2E9
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+2088.523246698882
+ 20
+554.0404253407032
+ 30
+0.0
+ 11
+2096.523246698882
+ 21
+546.0404253407032
+ 31
+0.0
+  0
+MTEXT
+  5
+2F1
+330
+2E9
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+ 48
+3.0
+440
+16777216
+100
+AcDbMText
+ 10
+2069.7589220058526
+ 20
+823.8404253407061
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+548
+ 11
+1e-16
+ 21
+1.0
+ 31
+0.0
+  0
+POINT
+  5
+2F2
+330
+2E9
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2207.4511108327224
+ 20
+1097.6404253407236
+ 30
+0.0
+  0
+POINT
+  5
+2F3
+330
+2E9
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2207.4511108327224
+ 20
+550.0404253407032
+ 30
+0.0
+  0
+POINT
+  5
+2F4
+330
+2E9
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2092.523246698882
+ 20
+550.0404253407032
+ 30
+0.0
+  0
+ENDBLK
+  5
+2EB
+330
+2E9
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+2F6
+330
+2F5
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D29
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D29
+  1
+
+  0
+LINE
+  5
+2F8
+330
+2F5
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2166.4511108327224
+ 20
+576.0404253407032
+ 30
+0.0
+ 11
+2129.852068170072
+ 21
+576.0404253407032
+ 31
+0.0
+  0
+LINE
+  5
+2F9
+330
+2F5
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2166.4511108327224
+ 20
+1071.6404253407381
+ 30
+0.0
+ 11
+2129.852068170072
+ 21
+1071.6404253407381
+ 31
+0.0
+  0
+LINE
+  5
+2FA
+330
+2F5
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2139.852068170072
+ 20
+576.0404253407032
+ 30
+0.0
+ 11
+2139.852068170072
+ 21
+1071.6404253407381
+ 31
+0.0
+  0
+LINE
+  5
+2FB
+330
+2F5
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+2135.852068170072
+ 20
+580.0404253407032
+ 30
+0.0
+ 11
+2143.852068170072
+ 21
+572.0404253407032
+ 31
+0.0
+  0
+LINE
+  5
+2FC
+330
+2F5
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+2143.852068170072
+ 20
+1067.6404253407381
+ 30
+0.0
+ 11
+2135.852068170072
+ 21
+1075.6404253407381
+ 31
+0.0
+  0
+MTEXT
+  5
+2FD
+330
+2F5
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+ 48
+3.0
+440
+16777216
+100
+AcDbMText
+ 10
+2117.087743477052
+ 20
+823.8404253407061
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+496
+ 11
+1e-16
+ 21
+1.0
+ 31
+0.0
+  0
+POINT
+  5
+2FE
+330
+2F5
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2181.4511108327224
+ 20
+576.0404253407032
+ 30
+0.0
+  0
+POINT
+  5
+2FF
+330
+2F5
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2181.4511108327224
+ 20
+1071.6404253407381
+ 30
+0.0
+  0
+POINT
+  5
+300
+330
+2F5
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2139.852068170072
+ 20
+1071.6404253407381
+ 30
+0.0
+  0
+ENDBLK
+  5
+2F7
+330
+2F5
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+302
+330
+301
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D30
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D30
+  1
+
+  0
+LINE
+  5
+304
+330
+301
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2171.4511108327115
+ 20
+571.0404253407178
+ 30
+0.0
+ 11
+2171.4511108327115
+ 21
+475.06131273500796
+ 31
+0.0
+  0
+LINE
+  5
+305
+330
+301
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2821.4511108327115
+ 20
+571.0404253406741
+ 30
+0.0
+ 11
+2821.4511108327115
+ 21
+475.06131273500796
+ 31
+0.0
+  0
+LINE
+  5
+306
+330
+301
+100
+AcDbEntity
+  8
+DIM
+ 62
+5
+370
+9
+ 48
+3.0
+440
+16777216
+100
+AcDbLine
+ 10
+2171.4511108327115
+ 20
+485.06131273500796
+ 30
+0.0
+ 11
+2821.4511108327115
+ 21
+485.06131273500796
+ 31
+0.0
+  0
+LINE
+  5
+307
+330
+301
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+2175.4511108327115
+ 20
+489.06131273500796
+ 30
+0.0
+ 11
+2167.4511108327115
+ 21
+481.06131273500796
+ 31
+0.0
+  0
+LINE
+  5
+308
+330
+301
+100
+AcDbEntity
+  8
+0
+  6
+ByBlock
+ 62
+0
+370
+-2
+100
+AcDbLine
+ 10
+2817.4511108327115
+ 20
+481.06131273500796
+ 30
+0.0
+ 11
+2825.4511108327115
+ 21
+489.06131273500796
+ 31
+0.0
+  0
+MTEXT
+  5
+309
+330
+301
+100
+AcDbEntity
+  8
+DIM
+ 62
+3
+ 48
+3.0
+440
+16777216
+100
+AcDbMText
+ 10
+2496.4511108327115
+ 20
+507.8256374280463
+ 30
+0.0
+ 40
+25.0
+ 41
+0.0
+ 46
+0.0
+ 71
+5
+  1
+650
+  0
+POINT
+  5
+30A
+330
+301
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2171.4511108327115
+ 20
+586.0404253407178
+ 30
+0.0
+  0
+POINT
+  5
+30B
+330
+301
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2821.4511108327115
+ 20
+586.0404253406741
+ 30
+0.0
+  0
+POINT
+  5
+30C
+330
+301
+100
+AcDbEntity
+  8
+Defpoints
+ 62
+0
+ 48
+3.0
+440
+16777216
+100
+AcDbPoint
+ 10
+2821.4511108327115
+ 20
+485.06131273500796
+ 30
+0.0
+  0
+ENDBLK
+  5
+303
+330
+301
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+ENDSEC
+  0
+SECTION
+  2
+ENTITIES
+  0
+LWPOLYLINE
+  5
+2F
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+4
+ 70
+0
+ 10
+1443.1701130523415
+ 20
+1852.3095382697356
+ 10
+1455.1701130523415
+ 20
+1852.3095382697356
+ 10
+1455.1701130523415
+ 20
+1394.7095382697444
+ 10
+1443.1701130523415
+ 20
+1394.7095382697444
+  0
+LWPOLYLINE
+  5
+30
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+2
+ 70
+0
+ 10
+1423.1701130523415
+ 20
+1374.7095382697298
+ 10
+269.17011305234337
+ 20
+1374.7095382697298
+  0
+LWPOLYLINE
+  5
+31
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+4
+ 70
+0
+ 10
+249.17011305234337
+ 20
+1394.7095382697444
+ 10
+237.17011305234337
+ 20
+1394.7095382697444
+ 10
+237.17011305234337
+ 20
+1852.3095382697356
+ 10
+249.17011305234337
+ 20
+1852.3095382697356
+  0
+LWPOLYLINE
+  5
+32
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+2
+ 70
+0
+ 10
+269.17011305234337
+ 20
+1872.3095382697356
+ 10
+1423.1701130523415
+ 20
+1872.3095382697356
+  0
+LINE
+  5
+33
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+1443.1701130523415
+ 20
+1852.3095382697356
+ 30
+0.0
+ 11
+1443.1701130523415
+ 21
+1394.7095382697444
+ 31
+0.0
+  0
+LINE
+  5
+34
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+1423.1701130523415
+ 20
+1872.3095382697356
+ 30
+0.0
+ 11
+1423.1701130523415
+ 21
+1374.7095382697298
+ 31
+0.0
+  0
+LINE
+  5
+35
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+1145.1701130523415
+ 20
+1872.3095382697356
+ 30
+0.0
+ 11
+1145.1701130523415
+ 21
+1374.7095382697298
+ 31
+0.0
+  0
+LINE
+  5
+36
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+249.17011305234337
+ 20
+1852.3095382697356
+ 30
+0.0
+ 11
+249.17011305234337
+ 21
+1394.7095382697444
+ 31
+0.0
+  0
+LINE
+  5
+37
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+269.17011305234337
+ 20
+1872.3095382697356
+ 30
+0.0
+ 11
+269.17011305234337
+ 21
+1374.7095382697298
+ 31
+0.0
+  0
+LINE
+  5
+38
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+547.1701130523415
+ 20
+1872.3095382697356
+ 30
+0.0
+ 11
+547.1701130523415
+ 21
+1374.7095382697298
+ 31
+0.0
+  0
+DIMENSION
+  5
+39
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+100
+AcDbDimension
+280
+0
+  2
+*D1
+  3
+Dim-25
+ 10
+1538.734708350472
+ 20
+1374.7095382697298
+ 30
+0.0
+ 11
+1538.7347083504828
+ 21
+1623.5095382697182
+ 31
+0.0
+ 70
+160
+ 71
+5
+ 42
+497.6000000000058
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+1423.1701130523415
+ 23
+1872.3095382697356
+ 33
+0.0
+ 14
+1423.1701130523415
+ 24
+1374.7095382697298
+ 34
+0.0
+ 50
+90.0
+100
+AcDbRotatedDimension
+  0
+DIMENSION
+  5
+3E
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+100
+AcDbDimension
+280
+0
+  2
+*D2
+  3
+Dim-25
+ 10
+1145.1701130523415
+ 20
+1926.9231106508087
+ 30
+0.0
+ 11
+846.1701130523415
+ 21
+1949.687435343847
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+598.0
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+547.1701130523415
+ 23
+1872.3095382697356
+ 33
+0.0
+ 14
+1145.1701130523415
+ 24
+1872.3095382697356
+ 34
+0.0
+ 50
+0.0
+100
+AcDbRotatedDimension
+  0
+DIMENSION
+  5
+3F
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+100
+AcDbDimension
+280
+0
+  2
+*D3
+  3
+Dim-25
+ 10
+1423.1701130523415
+ 20
+1926.9231106508087
+ 30
+0.0
+ 11
+1358.1701130523415
+ 21
+1926.9231106508087
+ 31
+0.0
+ 70
+160
+ 71
+5
+ 42
+278.0
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+1145.1701130523415
+ 23
+1872.3095382697356
+ 33
+0.0
+ 14
+1423.1701130523415
+ 24
+1872.3095382697356
+ 34
+0.0
+ 50
+0.0
+100
+AcDbRotatedDimension
+  0
+DIMENSION
+  5
+40
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+100
+AcDbDimension
+280
+0
+  2
+*D4
+  3
+Dim-25
+ 10
+1443.1701130523415
+ 20
+1926.9231106508087
+ 30
+0.0
+ 11
+1433.1701130523415
+ 21
+1926.9231106508087
+ 31
+0.0
+ 70
+160
+ 71
+5
+ 42
+20.0
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+1423.1701130523415
+ 23
+1872.3095382697356
+ 33
+0.0
+ 14
+1443.1701130523415
+ 24
+1852.3095382697356
+ 34
+0.0
+ 50
+0.0
+100
+AcDbRotatedDimension
+  0
+DIMENSION
+  5
+41
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+100
+AcDbDimension
+280
+0
+  2
+*D5
+  3
+Dim-25
+ 10
+1455.1701130523415
+ 20
+1926.9231106508087
+ 30
+0.0
+ 11
+1497.7714090959926
+ 21
+1949.4742702688236
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+12.0
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+1443.1701130523415
+ 23
+1852.3095382697356
+ 33
+0.0
+ 14
+1455.1701130523415
+ 24
+1852.3095382697356
+ 34
+0.0
+ 50
+0.0
+100
+AcDbRotatedDimension
+  0
+DIMENSION
+  5
+42
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+100
+AcDbDimension
+280
+0
+  2
+*D6
+  3
+Dim-25
+ 10
+269.17011305234337
+ 20
+1926.9231106508087
+ 30
+0.0
+ 11
+425.17011305234337
+ 21
+1926.9231106508087
+ 31
+0.0
+ 70
+160
+ 71
+5
+ 42
+278.0
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+547.1701130523415
+ 23
+1872.3095382697356
+ 33
+0.0
+ 14
+269.17011305234337
+ 24
+1872.3095382697356
+ 34
+0.0
+ 50
+180.0
+100
+AcDbRotatedDimension
+  0
+DIMENSION
+  5
+43
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+100
+AcDbDimension
+280
+0
+  2
+*D7
+  3
+Dim-25
+ 10
+249.17011305234337
+ 20
+1926.9231106508087
+ 30
+0.0
+ 11
+259.17011305234337
+ 21
+1926.9231106508087
+ 31
+0.0
+ 70
+160
+ 71
+5
+ 42
+20.0
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+269.17011305234337
+ 23
+1872.3095382697356
+ 33
+0.0
+ 14
+249.17011305234337
+ 24
+1852.3095382697356
+ 34
+0.0
+ 50
+180.0
+100
+AcDbRotatedDimension
+  0
+LINE
+  5
+44
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+249.17011305234337
+ 20
+1852.3095382697356
+ 30
+0.0
+ 11
+269.17011305234337
+ 21
+1872.3095382697356
+ 31
+0.0
+  0
+LINE
+  5
+45
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+249.17011305234337
+ 20
+1394.7095382697444
+ 30
+0.0
+ 11
+269.17011305234337
+ 21
+1374.7095382697298
+ 31
+0.0
+  0
+LINE
+  5
+46
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+1423.1701130523415
+ 20
+1374.7095382697298
+ 30
+0.0
+ 11
+1443.1701130523415
+ 21
+1394.7095382697444
+ 31
+0.0
+  0
+LINE
+  5
+47
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+1423.1701130523415
+ 20
+1872.3095382697356
+ 30
+0.0
+ 11
+1443.1701130523415
+ 21
+1852.3095382697356
+ 31
+0.0
+  0
+DIMENSION
+  5
+48
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+100
+AcDbDimension
+280
+0
+  2
+*D8
+  3
+Dim-25
+ 10
+1455.1701130523415
+ 20
+1324.937466021569
+ 30
+0.0
+ 11
+846.1701130523415
+ 21
+1347.7017907146073
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+1218.0
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+237.17011305234337
+ 23
+1394.7095382697444
+ 33
+0.0
+ 14
+1455.1701130523415
+ 24
+1394.7095382697444
+ 34
+0.0
+ 50
+0.0
+100
+AcDbRotatedDimension
+  0
+INSERT
+  5
+49
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+269.17011305234337
+ 20
+1857.3095382697356
+ 30
+0.0
+ 41
+-1.0
+ 50
+180.0
+  0
+INSERT
+  5
+4B
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+249.17011305234337
+ 20
+1837.3095382697356
+ 30
+0.0
+ 41
+-1.0
+ 50
+180.0
+  0
+INSERT
+  5
+4D
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+547.1701130523415
+ 20
+1857.3095382697356
+ 30
+0.0
+ 41
+-1.0
+ 50
+180.0
+  0
+INSERT
+  5
+4F
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+1145.1701130523415
+ 20
+1857.3095382697356
+ 30
+0.0
+ 41
+-1.0
+ 50
+180.0
+  0
+INSERT
+  5
+51
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+1423.1701130523415
+ 20
+1857.3095382697356
+ 30
+0.0
+ 41
+-1.0
+ 50
+180.0
+  0
+INSERT
+  5
+53
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+1443.1701130523415
+ 20
+1837.3095382697356
+ 30
+0.0
+ 41
+-1.0
+ 50
+180.0
+  0
+INSERT
+  5
+55
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+269.17011305234337
+ 20
+1389.7095382697298
+ 30
+0.0
+  0
+INSERT
+  5
+57
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+249.17011305234337
+ 20
+1409.7095382697298
+ 30
+0.0
+  0
+INSERT
+  5
+59
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+547.1701130523415
+ 20
+1389.7095382697298
+ 30
+0.0
+  0
+INSERT
+  5
+5B
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+1145.1701130523415
+ 20
+1389.7095382697298
+ 30
+0.0
+  0
+INSERT
+  5
+5D
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+1423.1701130523415
+ 20
+1389.7095382697298
+ 30
+0.0
+  0
+INSERT
+  5
+5F
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+1443.1701130523415
+ 20
+1409.7095382697298
+ 30
+0.0
+  0
+DIMENSION
+  5
+61
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+ 48
+3.0
+100
+AcDbDimension
+280
+0
+  2
+*D9
+  3
+Dim-25
+ 10
+237.17011305234337
+ 20
+1897.3691580070881
+ 30
+0.0
+ 11
+194.5688170086869
+ 21
+1919.9203176250885
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+12.0
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+249.17011305234337
+ 23
+1852.3095382697356
+ 33
+0.0
+ 14
+237.17011305234337
+ 24
+1852.3095382697356
+ 34
+0.0
+ 50
+0.0
+100
+AcDbRotatedDimension
+  0
+DIMENSION
+  5
+62
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+ 48
+3.0
+100
+AcDbDimension
+280
+0
+  2
+*D10
+  3
+Dim-25
+ 10
+171.71698338804708
+ 20
+1374.7095382697298
+ 30
+0.0
+ 11
+148.95265869502146
+ 21
+1623.5095382697182
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+497.6000000000058
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+269.17011305234337
+ 23
+1872.3095382697356
+ 33
+0.0
+ 14
+269.17011305234337
+ 24
+1374.7095382697298
+ 34
+0.0
+ 50
+90.0
+100
+AcDbRotatedDimension
+  0
+LWPOLYLINE
+  5
+63
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+1223.9701130523517
+ 20
+1462.5095382697327
+ 10
+1223.9701130523517
+ 20
+1782.5095382697327
+ 10
+1343.9701130523317
+ 20
+1782.5095382697327
+ 10
+1343.9701130523317
+ 20
+1462.5095382697327
+  0
+LWPOLYLINE
+  5
+64
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+716.7839734939716
+ 20
+422.64191407068574
+ 10
+356.7839734939771
+ 20
+422.64191407068574
+ 10
+356.7839734939771
+ 20
+582.6419140706566
+ 10
+716.7839734939716
+ 20
+582.6419140706566
+  0
+LWPOLYLINE
+  5
+65
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+1219.2201130523517
+ 20
+1457.7595382697327
+ 10
+1219.2201130523517
+ 20
+1448.7595382697327
+ 10
+1210.2201130523517
+ 20
+1448.7595382697327
+ 10
+1210.2201130523517
+ 20
+1457.7595382697327
+  0
+CIRCLE
+  5
+66
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbCircle
+ 10
+706.0339734939716
+ 20
+433.39191407068574
+ 30
+0.0
+ 40
+4.0
+  0
+LWPOLYLINE
+  5
+67
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+1219.2201130523517
+ 20
+1787.2595382697327
+ 10
+1219.2201130523517
+ 20
+1796.2595382697182
+ 10
+1210.2201130523517
+ 20
+1796.2595382697182
+ 10
+1210.2201130523517
+ 20
+1787.2595382697327
+  0
+CIRCLE
+  5
+68
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbCircle
+ 10
+367.5339734939771
+ 20
+433.39191407068574
+ 30
+0.0
+ 40
+4.0
+  0
+LWPOLYLINE
+  5
+69
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+1348.7201130523317
+ 20
+1457.7595382697327
+ 10
+1348.7201130523317
+ 20
+1448.7595382697327
+ 10
+1357.7201130523426
+ 20
+1448.7595382697327
+ 10
+1357.7201130523426
+ 20
+1457.7595382697327
+  0
+CIRCLE
+  5
+6A
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbCircle
+ 10
+706.0339734939716
+ 20
+571.8919140706566
+ 30
+0.0
+ 40
+4.0
+  0
+LWPOLYLINE
+  5
+6B
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+1348.7201130523317
+ 20
+1787.2595382697327
+ 10
+1348.7201130523317
+ 20
+1796.2595382697182
+ 10
+1357.7201130523426
+ 20
+1796.2595382697182
+ 10
+1357.7201130523426
+ 20
+1787.2595382697327
+  0
+CIRCLE
+  5
+6C
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbCircle
+ 10
+367.5339734939771
+ 20
+571.8919140706566
+ 30
+0.0
+ 40
+4.0
+  0
+LWPOLYLINE
+  5
+6D
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+468.3701130523332
+ 20
+1462.5095382697327
+ 10
+468.3701130523332
+ 20
+1782.5095382697327
+ 10
+348.37011305234773
+ 20
+1782.5095382697327
+ 10
+348.37011305234773
+ 20
+1462.5095382697327
+  0
+LWPOLYLINE
+  5
+6E
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+473.1201130523332
+ 20
+1457.7595382697327
+ 10
+473.1201130523332
+ 20
+1448.7595382697327
+ 10
+482.12011305233136
+ 20
+1448.7595382697327
+ 10
+482.12011305233136
+ 20
+1457.7595382697327
+  0
+LWPOLYLINE
+  5
+6F
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+473.1201130523332
+ 20
+1787.2595382697327
+ 10
+473.1201130523332
+ 20
+1796.2595382697182
+ 10
+482.12011305233136
+ 20
+1796.2595382697182
+ 10
+482.12011305233136
+ 20
+1787.2595382697327
+  0
+LWPOLYLINE
+  5
+70
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+343.62011305234773
+ 20
+1457.7595382697327
+ 10
+343.62011305234773
+ 20
+1448.7595382697327
+ 10
+334.62011305234773
+ 20
+1448.7595382697327
+ 10
+334.62011305234773
+ 20
+1457.7595382697327
+  0
+LWPOLYLINE
+  5
+71
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+343.62011305234773
+ 20
+1787.2595382697327
+ 10
+343.62011305234773
+ 20
+1796.2595382697182
+ 10
+334.62011305234773
+ 20
+1796.2595382697182
+ 10
+334.62011305234773
+ 20
+1787.2595382697327
+  0
+INSERT
+  5
+72
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbBlockReference
+ 66
+1
+  2
+khungtenAsean2
+ 10
+0.0
+ 20
+2100.00000000032
+ 30
+0.0
+  0
+ATTRIB
+  5
+73
+330
+72
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+2883.7642129456217
+ 20
+32.6521998954704
+ 30
+0.0
+ 40
+25.0
+  1
+......
+  7
+Tahoma (Input Text)
+ 72
+1
+ 11
+2914.9932257058626
+ 21
+32.6521998954704
+ 31
+0.0
+100
+AcDbAttribute
+  2
+#11
+ 70
+0
+ 71
+1
+ 72
+0
+ 11
+2914.9932257058626
+ 21
+32.6521998954704
+ 31
+0.0
+  0
+ATTRIB
+  5
+74
+330
+72
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+2146.716977487462
+ 20
+78.72478830830369
+ 30
+0.0
+ 40
+25.0
+  1
+VÕ TỦ TRONG NHÀ, 1 LỚP CÁNH
+  7
+Tahoma (Input Text)
+100
+AcDbAttribute
+  2
+#09
+ 70
+0
+ 71
+1
+ 72
+0
+  0
+ATTRIB
+  5
+75
+330
+72
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+2146.716977487462
+ 20
+18.724788308289135
+ 30
+0.0
+ 40
+25.0
+  1
+......
+  7
+Tahoma (Input Text)
+100
+AcDbAttribute
+  2
+#10
+ 70
+0
+ 71
+1
+ 72
+0
+  0
+ATTRIB
+  5
+76
+330
+72
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+1817.4477657333318
+ 20
+18.724788308289135
+ 30
+0.0
+ 40
+25.0
+  1
+1.2
+  7
+Tahoma (Input Text)
+100
+AcDbAttribute
+  2
+#08
+ 70
+0
+ 71
+1
+ 72
+0
+  0
+ATTRIB
+  5
+77
+330
+72
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+1834.6815103255522
+ 20
+78.72478830830369
+ 30
+0.0
+ 40
+25.0
+  1
+1
+  7
+Tahoma (Input Text)
+100
+AcDbAttribute
+  2
+#07
+ 70
+0
+ 71
+1
+ 72
+0
+  0
+ATTRIB
+  5
+78
+330
+72
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+1065.3308891436427
+ 20
+18.724788308289135
+ 30
+0.0
+ 40
+25.0
+  1
+600x500x300
+  7
+Tahoma (Input Text)
+100
+AcDbAttribute
+  2
+#06
+ 70
+0
+ 71
+1
+ 72
+0
+  0
+ATTRIB
+  5
+79
+330
+72
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+1106.628177122151
+ 20
+78.72478830830369
+ 30
+0.0
+ 40
+25.0
+  1
+VÕ TỦ
+  7
+Tahoma (Input Text)
+100
+AcDbAttribute
+  2
+#05
+ 70
+0
+ 71
+1
+ 72
+0
+  0
+ATTRIB
+  5
+7A
+330
+72
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+486.10502700549114
+ 20
+18.724788308289135
+ 30
+0.0
+ 40
+25.0
+  1
+......
+  7
+Tahoma (Input Text)
+100
+AcDbAttribute
+  2
+#04
+ 70
+0
+ 71
+1
+ 72
+0
+  0
+ATTRIB
+  5
+7B
+330
+72
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+506.5707489467022
+ 20
+80.69839951059839
+ 30
+0.0
+ 40
+25.0
+  1
+Hùng EVINA
+  7
+Tahoma (Input Text)
+100
+AcDbAttribute
+  2
+#03
+ 70
+0
+ 71
+1
+ 72
+0
+  0
+ATTRIB
+  5
+7C
+330
+72
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+98.4567245031667
+ 20
+18.724788308289135
+ 30
+0.0
+ 40
+25.0
+  1
+......
+  7
+Tahoma (Input Text)
+100
+AcDbAttribute
+  2
+#02
+ 70
+0
+ 71
+1
+ 72
+0
+  0
+ATTRIB
+  5
+7D
+330
+72
+100
+AcDbEntity
+  8
+0
+ 62
+1
+100
+AcDbText
+ 10
+137.05350783751055
+ 20
+78.72478830830369
+ 30
+0.0
+ 40
+25.0
+  1
+PHÚC
+  7
+Tahoma (Input Text)
+100
+AcDbAttribute
+  2
+#01
+ 70
+0
+ 71
+1
+ 72
+0
+  0
+SEQEND
+  5
+7E
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+  0
+DIMENSION
+  5
+7F
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+ 48
+3.0
+100
+AcDbDimension
+280
+0
+  2
+*D11
+  3
+Dim-25
+ 10
+320.7752370467497
+ 20
+582.6419140706566
+ 30
+0.0
+ 11
+298.01091235372587
+ 21
+502.64191407065664
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+159.9999999999709
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+356.7839734939771
+ 23
+422.64191407068574
+ 33
+0.0
+ 14
+356.7839734939771
+ 24
+582.6419140706566
+ 34
+0.0
+ 50
+90.0
+100
+AcDbRotatedDimension
+  0
+DIMENSION
+  5
+80
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+ 48
+3.0
+100
+AcDbDimension
+280
+0
+  2
+*D12
+  3
+Dim-25
+ 10
+716.7839734939716
+ 20
+347.0428664476058
+ 30
+0.0
+ 11
+536.7839734939716
+ 21
+369.8157177436515
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+360.0
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+356.7839734939771
+ 23
+422.64191407068574
+ 33
+0.0
+ 14
+716.7839734939716
+ 24
+422.64191407068574
+ 34
+0.0
+ 50
+180.0
+100
+AcDbRotatedDimension
+  0
+LWPOLYLINE
+  5
+81
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+4
+ 70
+0
+ 10
+868.4688549976818
+ 20
+822.8944104864495
+ 10
+868.4688549976818
+ 20
+810.8944104864349
+ 10
+308.86885499768323
+ 20
+810.8944104864349
+ 10
+308.86885499768323
+ 20
+822.8944104864495
+  0
+LINE
+  5
+82
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+308.86885499768323
+ 20
+822.8944104864495
+ 30
+0.0
+ 11
+868.4688549976818
+ 21
+822.8944104864495
+ 31
+0.0
+  0
+LINE
+  5
+83
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+288.86885499768323
+ 20
+842.8944104864349
+ 30
+0.0
+ 11
+888.4688549976818
+ 21
+842.8944104864349
+ 31
+0.0
+  0
+LINE
+  5
+84
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+288.86885499768323
+ 20
+1121.894410486435
+ 30
+0.0
+ 11
+888.4688549976818
+ 21
+1121.894410486435
+ 31
+0.0
+  0
+DIMENSION
+  5
+85
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+100
+AcDbDimension
+280
+0
+  2
+*D13
+  3
+Dim-25
+ 10
+234.25528261659383
+ 20
+842.8944104864349
+ 30
+0.0
+ 11
+234.2552826166102
+ 21
+999.8944104864349
+ 31
+0.0
+ 70
+160
+ 71
+5
+ 42
+279.0
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+288.86885499768323
+ 23
+1121.894410486435
+ 33
+0.0
+ 14
+288.86885499768323
+ 24
+842.8944104864349
+ 34
+0.0
+ 50
+-90.00000000000001
+100
+AcDbRotatedDimension
+  0
+DIMENSION
+  5
+86
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+100
+AcDbDimension
+280
+0
+  2
+*D14
+  3
+Dim-25
+ 10
+234.25528261659383
+ 20
+822.8944104864495
+ 30
+0.0
+ 11
+234.2552826166102
+ 21
+832.8944104864349
+ 31
+0.0
+ 70
+160
+ 71
+5
+ 42
+20.0
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+288.86885499768323
+ 23
+842.8944104864349
+ 33
+0.0
+ 14
+308.86885499768323
+ 24
+822.8944104864495
+ 34
+0.0
+ 50
+-90.00000000000001
+100
+AcDbRotatedDimension
+  0
+LINE
+  5
+87
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+308.86885499768323
+ 20
+822.8944104864495
+ 30
+0.0
+ 11
+288.86885499768323
+ 21
+842.8944104864349
+ 31
+0.0
+  0
+LINE
+  5
+88
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+868.4688549976818
+ 20
+822.8944104864495
+ 30
+0.0
+ 11
+888.4688549976818
+ 21
+842.8944104864349
+ 31
+0.0
+  0
+INSERT
+  5
+89
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+303.86885499768323
+ 20
+842.8944104864349
+ 30
+0.0
+ 41
+-1.0
+ 50
+270.0
+  0
+INSERT
+  5
+8B
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+323.86885499768323
+ 20
+822.8944104864495
+ 30
+0.0
+ 41
+-1.0
+ 50
+270.0
+  0
+INSERT
+  5
+8D
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+873.4688549976818
+ 20
+842.8944104864349
+ 30
+0.0
+ 50
+90.0
+  0
+INSERT
+  5
+8F
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+853.4688549976818
+ 20
+822.8944104864495
+ 30
+0.0
+ 50
+90.0
+  0
+DIMENSION
+  5
+91
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+ 48
+3.0
+100
+AcDbDimension
+280
+0
+  2
+*D15
+  3
+Dim-25
+ 10
+263.8092352603471
+ 20
+810.8944104864349
+ 30
+0.0
+ 11
+241.25807564235583
+ 21
+768.2931144427857
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+12.0
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+308.86885499768323
+ 23
+822.8944104864495
+ 33
+0.0
+ 14
+308.86885499768323
+ 24
+810.8944104864349
+ 34
+0.0
+ 50
+90.0
+100
+AcDbRotatedDimension
+  0
+DIMENSION
+  5
+92
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+ 48
+3.0
+100
+AcDbDimension
+280
+0
+  2
+*D16
+  3
+Dim-25
+ 10
+888.4688549976818
+ 20
+745.4412808221387
+ 30
+0.0
+ 11
+588.6688549976825
+ 21
+768.205605515177
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+599.6000000000058
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+288.86885499768323
+ 23
+842.8944104864349
+ 33
+0.0
+ 14
+888.4688549976818
+ 24
+842.8944104864349
+ 34
+0.0
+ 50
+180.0
+100
+AcDbRotatedDimension
+  0
+LWPOLYLINE
+  5
+93
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+ 48
+3.0
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+288.86885499768323
+ 20
+842.8944104864349
+ 10
+288.86885499768323
+ 20
+1121.894410486435
+ 10
+888.4688549976818
+ 20
+1121.894410486435
+ 10
+888.4688549976818
+ 20
+842.8944104864349
+  0
+LWPOLYLINE
+  5
+94
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+6
+ 70
+1
+ 10
+757.8688549976814
+ 20
+1013.8944104864495
+ 10
+757.8688549976814
+ 20
+949.8944104864204
+ 42
+-0.4142135623730951
+ 10
+749.8688549976814
+ 20
+941.8944104864349
+ 10
+746.8688549976814
+ 20
+941.8944104864349
+ 10
+746.8688549976814
+ 20
+1021.8944104864349
+ 10
+749.8688549976814
+ 20
+1021.8944104864349
+ 42
+-0.4142135623730951
+  0
+LWPOLYLINE
+  5
+95
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+6
+ 70
+1
+ 10
+726.8688549976814
+ 20
+1013.8944104864495
+ 10
+726.8688549976814
+ 20
+949.8944104864204
+ 42
+-0.4142135623730951
+ 10
+718.8688549976814
+ 20
+941.8944104864349
+ 10
+715.8688549976814
+ 20
+941.8944104864349
+ 10
+715.8688549976814
+ 20
+1021.8944104864349
+ 10
+718.8688549976814
+ 20
+1021.8944104864349
+ 42
+-0.4142135623730951
+  0
+LWPOLYLINE
+  5
+96
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+6
+ 70
+1
+ 10
+788.8688549976814
+ 20
+1013.8944104864495
+ 10
+788.8688549976814
+ 20
+949.8944104864204
+ 42
+-0.4142135623730951
+ 10
+780.8688549976814
+ 20
+941.8944104864349
+ 10
+777.8688549976814
+ 20
+941.8944104864349
+ 10
+777.8688549976814
+ 20
+1021.8944104864349
+ 10
+780.8688549976814
+ 20
+1021.8944104864349
+ 42
+-0.4142135623730951
+  0
+LWPOLYLINE
+  5
+97
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+6
+ 70
+1
+ 10
+432.0688549976803
+ 20
+1013.8944104864495
+ 10
+432.0688549976803
+ 20
+949.8944104864204
+ 42
+-0.4142135623730951
+ 10
+424.0688549976803
+ 20
+941.8944104864349
+ 10
+421.0688549976803
+ 20
+941.8944104864349
+ 10
+421.0688549976803
+ 20
+1021.8944104864349
+ 10
+424.0688549976803
+ 20
+1021.8944104864349
+ 42
+-0.4142135623730951
+  0
+LWPOLYLINE
+  5
+98
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+6
+ 70
+1
+ 10
+401.06885499768214
+ 20
+1013.8944104864495
+ 10
+401.06885499768214
+ 20
+949.8944104864204
+ 42
+-0.4142135623730951
+ 10
+393.0688549976785
+ 20
+941.8944104864349
+ 10
+390.0688549976803
+ 20
+941.8944104864349
+ 10
+390.0688549976803
+ 20
+1021.8944104864349
+ 10
+393.0688549976785
+ 20
+1021.8944104864349
+ 42
+-0.4142135623730951
+  0
+LWPOLYLINE
+  5
+99
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+6
+ 70
+1
+ 10
+463.0688549976803
+ 20
+1013.8944104864495
+ 10
+463.0688549976803
+ 20
+949.8944104864204
+ 42
+-0.4142135623730951
+ 10
+455.0688549976803
+ 20
+941.8944104864349
+ 10
+452.0688549976803
+ 20
+941.8944104864349
+ 10
+452.0688549976803
+ 20
+1021.8944104864349
+ 10
+455.0688549976803
+ 20
+1021.8944104864349
+ 42
+-0.4142135623730951
+  0
+LWPOLYLINE
+  5
+9A
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+6
+ 70
+1
+ 10
+494.06885499768214
+ 20
+1013.8944104864495
+ 10
+494.06885499768214
+ 20
+949.8944104864204
+ 42
+-0.4142135623730951
+ 10
+486.06885499768214
+ 20
+941.8944104864349
+ 10
+483.06885499768214
+ 20
+941.8944104864349
+ 10
+483.06885499768214
+ 20
+1021.8944104864349
+ 10
+486.06885499768214
+ 20
+1021.8944104864349
+ 42
+-0.4142135623730951
+  0
+LWPOLYLINE
+  5
+9B
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+6
+ 70
+1
+ 10
+695.8688549976814
+ 20
+1013.8944104864495
+ 10
+695.8688549976814
+ 20
+949.8944104864204
+ 42
+-0.4142135623730951
+ 10
+687.8688549976814
+ 20
+941.8944104864349
+ 10
+684.8688549976814
+ 20
+941.8944104864349
+ 10
+684.8688549976814
+ 20
+1021.8944104864349
+ 10
+687.8688549976814
+ 20
+1021.8944104864349
+ 42
+-0.4142135623730951
+  0
+LWPOLYLINE
+  5
+9C
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+4
+ 70
+0
+ 10
+1056.4599680221527
+ 20
+822.8944104864495
+ 10
+1056.4599680221527
+ 20
+810.8944104864349
+ 10
+1616.0599680221621
+ 20
+810.8944104864349
+ 10
+1616.0599680221621
+ 20
+822.8944104864495
+  0
+LINE
+  5
+9D
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+1616.0599680221621
+ 20
+822.8944104864495
+ 30
+0.0
+ 11
+1056.4599680221527
+ 21
+822.8944104864495
+ 31
+0.0
+  0
+LINE
+  5
+9E
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+1636.0599680221621
+ 20
+842.8944104864349
+ 30
+0.0
+ 11
+1036.4599680221527
+ 21
+842.8944104864349
+ 31
+0.0
+  0
+LINE
+  5
+9F
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+1636.0599680221621
+ 20
+1121.894410486435
+ 30
+0.0
+ 11
+1036.4599680221527
+ 21
+1121.894410486435
+ 31
+0.0
+  0
+DIMENSION
+  5
+A0
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+100
+AcDbDimension
+280
+0
+  2
+*D17
+  3
+Dim-25
+ 10
+1753.4142989691718
+ 20
+842.8944104864349
+ 30
+0.0
+ 11
+1753.4142989691918
+ 21
+999.8944104864349
+ 31
+0.0
+ 70
+160
+ 71
+5
+ 42
+279.0
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+1636.0599680221621
+ 23
+1121.894410486435
+ 33
+0.0
+ 14
+1636.0599680221621
+ 24
+842.8944104864349
+ 34
+0.0
+ 50
+-90.00000000000001
+100
+AcDbRotatedDimension
+  0
+DIMENSION
+  5
+A1
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+100
+AcDbDimension
+280
+0
+  2
+*D18
+  3
+Dim-25
+ 10
+1753.4142989691718
+ 20
+822.8944104864495
+ 30
+0.0
+ 11
+1753.4142989691918
+ 21
+777.560351050095
+ 31
+0.0
+ 70
+160
+ 71
+5
+ 42
+20.0
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+1636.0599680221621
+ 23
+842.8944104864349
+ 33
+0.0
+ 14
+1616.0599680221621
+ 24
+822.8944104864495
+ 34
+0.0
+ 50
+-90.00000000000001
+100
+AcDbRotatedDimension
+  0
+LINE
+  5
+A2
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+1616.0599680221621
+ 20
+822.8944104864495
+ 30
+0.0
+ 11
+1636.0599680221621
+ 21
+842.8944104864349
+ 31
+0.0
+  0
+LINE
+  5
+A3
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbLine
+ 10
+1056.4599680221527
+ 20
+822.8944104864495
+ 30
+0.0
+ 11
+1036.4599680221527
+ 21
+842.8944104864349
+ 31
+0.0
+  0
+INSERT
+  5
+A4
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+1621.0599680221621
+ 20
+842.8944104864349
+ 30
+0.0
+ 50
+90.0
+  0
+INSERT
+  5
+A6
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+1601.0599680221621
+ 20
+822.8944104864495
+ 30
+0.0
+ 50
+90.0
+  0
+INSERT
+  5
+A8
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+1051.4599680221527
+ 20
+842.8944104864349
+ 30
+0.0
+ 41
+-1.0
+ 50
+270.0
+  0
+INSERT
+  5
+AA
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+1071.4599680221527
+ 20
+822.8944104864495
+ 30
+0.0
+ 41
+-1.0
+ 50
+270.0
+  0
+DIMENSION
+  5
+AC
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+ 48
+3.0
+100
+AcDbDimension
+280
+0
+  2
+*D19
+  3
+Dim-25
+ 10
+1688.139085015153
+ 20
+810.8944104864349
+ 30
+0.0
+ 11
+1665.5879253971616
+ 21
+768.2931144427857
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+12.0
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+1616.0599680221621
+ 23
+822.8944104864495
+ 33
+0.0
+ 14
+1616.0599680221621
+ 24
+810.8944104864349
+ 34
+0.0
+ 50
+90.0
+100
+AcDbRotatedDimension
+  0
+DIMENSION
+  5
+AD
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+ 48
+3.0
+100
+AcDbDimension
+280
+0
+  2
+*D20
+  3
+Dim-25
+ 10
+1036.4599680221527
+ 20
+745.4412808221387
+ 30
+0.0
+ 11
+1336.2599680221629
+ 21
+768.205605515177
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+599.6000000000058
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+1636.0599680221621
+ 23
+842.8944104864349
+ 33
+0.0
+ 14
+1036.4599680221527
+ 24
+842.8944104864349
+ 34
+0.0
+ 50
+0.0
+100
+AcDbRotatedDimension
+  0
+LWPOLYLINE
+  5
+AE
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+ 48
+3.0
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+1636.0599680221621
+ 20
+842.8944104864349
+ 10
+1636.0599680221621
+ 20
+1121.894410486435
+ 10
+1036.4599680221527
+ 20
+1121.894410486435
+ 10
+1036.4599680221527
+ 20
+842.8944104864349
+  0
+LWPOLYLINE
+  5
+AF
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+6
+ 70
+1
+ 10
+1167.0599680221621
+ 20
+1013.8944104864495
+ 10
+1167.0599680221621
+ 20
+949.8944104864204
+ 42
+0.4142135623730951
+ 10
+1175.0599680221621
+ 20
+941.8944104864349
+ 10
+1178.0599680221621
+ 20
+941.8944104864349
+ 10
+1178.0599680221621
+ 20
+1021.8944104864349
+ 10
+1175.0599680221621
+ 20
+1021.8944104864349
+ 42
+0.4142135623730951
+  0
+LWPOLYLINE
+  5
+B0
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+6
+ 70
+1
+ 10
+1198.0599680221621
+ 20
+1013.8944104864495
+ 10
+1198.0599680221621
+ 20
+949.8944104864204
+ 42
+0.4142135623730951
+ 10
+1206.0599680221621
+ 20
+941.8944104864349
+ 10
+1209.0599680221621
+ 20
+941.8944104864349
+ 10
+1209.0599680221621
+ 20
+1021.8944104864349
+ 10
+1206.0599680221621
+ 20
+1021.8944104864349
+ 42
+0.4142135623730951
+  0
+LWPOLYLINE
+  5
+B1
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+6
+ 70
+1
+ 10
+1136.0599680221621
+ 20
+1013.8944104864495
+ 10
+1136.0599680221621
+ 20
+949.8944104864204
+ 42
+0.4142135623730951
+ 10
+1144.0599680221621
+ 20
+941.8944104864349
+ 10
+1147.0599680221621
+ 20
+941.8944104864349
+ 10
+1147.0599680221621
+ 20
+1021.8944104864349
+ 10
+1144.0599680221621
+ 20
+1021.8944104864349
+ 42
+0.4142135623730951
+  0
+LWPOLYLINE
+  5
+B2
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+6
+ 70
+1
+ 10
+1492.8599680221614
+ 20
+1013.8944104864495
+ 10
+1492.8599680221614
+ 20
+949.8944104864204
+ 42
+0.4142135623730951
+ 10
+1500.8599680221614
+ 20
+941.8944104864349
+ 10
+1503.8599680221614
+ 20
+941.8944104864349
+ 10
+1503.8599680221614
+ 20
+1021.8944104864349
+ 10
+1500.8599680221614
+ 20
+1021.8944104864349
+ 42
+0.4142135623730951
+  0
+LWPOLYLINE
+  5
+B3
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+6
+ 70
+1
+ 10
+1523.8599680221614
+ 20
+1013.8944104864495
+ 10
+1523.8599680221614
+ 20
+949.8944104864204
+ 42
+0.4142135623730951
+ 10
+1531.8599680221614
+ 20
+941.8944104864349
+ 10
+1534.8599680221614
+ 20
+941.8944104864349
+ 10
+1534.8599680221614
+ 20
+1021.8944104864349
+ 10
+1531.8599680221614
+ 20
+1021.8944104864349
+ 42
+0.4142135623730951
+  0
+LWPOLYLINE
+  5
+B4
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+6
+ 70
+1
+ 10
+1461.8599680221614
+ 20
+1013.8944104864495
+ 10
+1461.8599680221614
+ 20
+949.8944104864204
+ 42
+0.4142135623730951
+ 10
+1469.8599680221614
+ 20
+941.8944104864349
+ 10
+1472.8599680221614
+ 20
+941.8944104864349
+ 10
+1472.8599680221614
+ 20
+1021.8944104864349
+ 10
+1469.8599680221614
+ 20
+1021.8944104864349
+ 42
+0.4142135623730951
+  0
+LWPOLYLINE
+  5
+B5
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+6
+ 70
+1
+ 10
+1430.8599680221614
+ 20
+1013.8944104864495
+ 10
+1430.8599680221614
+ 20
+949.8944104864204
+ 42
+0.4142135623730951
+ 10
+1438.8599680221614
+ 20
+941.8944104864349
+ 10
+1441.8599680221614
+ 20
+941.8944104864349
+ 10
+1441.8599680221614
+ 20
+1021.8944104864349
+ 10
+1438.8599680221614
+ 20
+1021.8944104864349
+ 42
+0.4142135623730951
+  0
+LWPOLYLINE
+  5
+B6
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+6
+ 70
+1
+ 10
+1229.0599680221621
+ 20
+1013.8944104864495
+ 10
+1229.0599680221621
+ 20
+949.8944104864204
+ 42
+0.4142135623730951
+ 10
+1237.0599680221621
+ 20
+941.8944104864349
+ 10
+1240.0599680221621
+ 20
+941.8944104864349
+ 10
+1240.0599680221621
+ 20
+1021.8944104864349
+ 10
+1237.0599680221621
+ 20
+1021.8944104864349
+ 42
+0.4142135623730951
+  0
+CIRCLE
+  5
+B7
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+ 48
+3.0
+100
+AcDbCircle
+ 10
+589.5701130523412
+ 20
+1829.9095382697415
+ 30
+0.0
+ 40
+1.5
+  0
+CIRCLE
+  5
+B8
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+ 48
+3.0
+100
+AcDbCircle
+ 10
+1102.3701130523423
+ 20
+1829.9095382697415
+ 30
+0.0
+ 40
+1.5
+  0
+CIRCLE
+  5
+B9
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+ 48
+3.0
+100
+AcDbCircle
+ 10
+589.5701130523412
+ 20
+1417.1095382697386
+ 30
+0.0
+ 40
+1.5
+  0
+CIRCLE
+  5
+BA
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+ 48
+3.0
+100
+AcDbCircle
+ 10
+1102.3701130523423
+ 20
+1417.1095382697386
+ 30
+0.0
+ 40
+1.5
+  0
+LWPOLYLINE
+  5
+BB
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+1779.6524800290117
+ 20
+1844.909538269756
+ 10
+2322.452480029013
+ 20
+1844.909538269756
+ 10
+2322.452480029013
+ 20
+1402.1095382697386
+ 10
+1779.6524800290117
+ 20
+1402.1095382697386
+  0
+CIRCLE
+  5
+BC
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+ 48
+3.0
+100
+AcDbCircle
+ 10
+1794.6524800290117
+ 20
+1829.9095382697415
+ 30
+0.0
+ 40
+5.0
+  0
+CIRCLE
+  5
+BD
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+ 48
+3.0
+100
+AcDbCircle
+ 10
+2307.452480029013
+ 20
+1829.9095382697415
+ 30
+0.0
+ 40
+5.0
+  0
+CIRCLE
+  5
+BE
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+ 48
+3.0
+100
+AcDbCircle
+ 10
+1794.6524800290117
+ 20
+1417.1095382697386
+ 30
+0.0
+ 40
+5.0
+  0
+CIRCLE
+  5
+BF
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+ 48
+3.0
+100
+AcDbCircle
+ 10
+2307.452480029013
+ 20
+1417.1095382697386
+ 30
+0.0
+ 40
+5.0
+  0
+LWPOLYLINE
+  5
+C0
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+2
+ 70
+0
+ 10
+1764.6524800290117
+ 20
+1402.1095382697386
+ 10
+1764.6524800290117
+ 20
+1844.909538269756
+  0
+INSERT
+  5
+C1
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+1794.6524800290117
+ 20
+1844.909538269756
+ 30
+0.0
+ 41
+-1.0
+ 50
+180.0
+  0
+INSERT
+  5
+C3
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+1779.6524800290117
+ 20
+1829.9095382697415
+ 30
+0.0
+ 41
+-1.0
+ 50
+180.0
+  0
+INSERT
+  5
+C5
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+1844.6524800290117
+ 20
+1844.909538269756
+ 30
+0.0
+ 41
+-1.0
+ 50
+180.0
+  0
+LWPOLYLINE
+  5
+C7
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+ 48
+3.0
+100
+AcDbPolyline
+ 90
+3
+ 70
+0
+ 10
+1779.6524800290117
+ 20
+1859.909538269756
+ 10
+1779.6524800290117
+ 20
+1844.909538269756
+ 10
+1764.6524800290117
+ 20
+1844.909538269756
+  0
+INSERT
+  5
+C8
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2307.452480029013
+ 20
+1844.909538269756
+ 30
+0.0
+ 50
+180.0
+  0
+INSERT
+  5
+CA
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2322.452480029013
+ 20
+1829.9095382697415
+ 30
+0.0
+ 50
+180.0
+  0
+INSERT
+  5
+CC
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2257.452480029013
+ 20
+1844.909538269756
+ 30
+0.0
+ 50
+180.0
+  0
+LWPOLYLINE
+  5
+CE
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+ 48
+3.0
+100
+AcDbPolyline
+ 90
+3
+ 70
+0
+ 10
+2322.452480029013
+ 20
+1859.909538269756
+ 10
+2322.452480029013
+ 20
+1844.909538269756
+ 10
+2337.452480029013
+ 20
+1844.909538269756
+  0
+INSERT
+  5
+CF
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+1794.6524800290117
+ 20
+1402.1095382697386
+ 30
+0.0
+  0
+INSERT
+  5
+D1
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+1779.6524800290117
+ 20
+1417.1095382697386
+ 30
+0.0
+  0
+INSERT
+  5
+D3
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+1844.6524800290117
+ 20
+1402.1095382697386
+ 30
+0.0
+  0
+LWPOLYLINE
+  5
+D5
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+ 48
+3.0
+100
+AcDbPolyline
+ 90
+3
+ 70
+0
+ 10
+1779.6524800290117
+ 20
+1387.1095382697386
+ 10
+1779.6524800290117
+ 20
+1402.1095382697386
+ 10
+1764.6524800290117
+ 20
+1402.1095382697386
+  0
+INSERT
+  5
+D6
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2307.452480029013
+ 20
+1402.1095382697386
+ 30
+0.0
+ 41
+-1.0
+  0
+INSERT
+  5
+D8
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2322.452480029013
+ 20
+1417.1095382697386
+ 30
+0.0
+ 41
+-1.0
+  0
+INSERT
+  5
+DA
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2257.452480029013
+ 20
+1402.1095382697386
+ 30
+0.0
+ 41
+-1.0
+  0
+LWPOLYLINE
+  5
+DC
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+ 48
+3.0
+100
+AcDbPolyline
+ 90
+3
+ 70
+0
+ 10
+2322.452480029013
+ 20
+1387.1095382697386
+ 10
+2322.452480029013
+ 20
+1402.1095382697386
+ 10
+2337.452480029013
+ 20
+1402.1095382697386
+  0
+LWPOLYLINE
+  5
+DD
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+2
+ 70
+0
+ 10
+2322.452480029013
+ 20
+1387.1095382697386
+ 10
+1779.6524800290117
+ 20
+1387.1095382697386
+  0
+LWPOLYLINE
+  5
+DE
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+2
+ 70
+0
+ 10
+2337.452480029013
+ 20
+1844.909538269756
+ 10
+2337.452480029013
+ 20
+1402.1095382697386
+  0
+LWPOLYLINE
+  5
+DF
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+2
+ 70
+0
+ 10
+1779.6524800290117
+ 20
+1859.909538269756
+ 10
+2322.452480029013
+ 20
+1859.909538269756
+  0
+DIMENSION
+  5
+E0
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+ 48
+3.0
+100
+AcDbDimension
+280
+0
+  2
+*D21
+  3
+Dim-25
+ 10
+2337.452480029013
+ 20
+1906.7951589657896
+ 30
+0.0
+ 11
+2380.275467750702
+ 21
+1929.559483658828
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+14.99999999999818
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+2322.452480029013
+ 23
+1859.909538269756
+ 33
+0.0
+ 14
+2337.452480029013
+ 24
+1844.909538269756
+ 34
+0.0
+ 50
+0.0
+100
+AcDbRotatedDimension
+  0
+DIMENSION
+  5
+E1
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+ 48
+3.0
+100
+AcDbDimension
+280
+0
+  2
+*D22
+  3
+Dim-25
+ 10
+1779.6524800290117
+ 20
+1906.7951589657896
+ 30
+0.0
+ 11
+2051.0524800290113
+ 21
+1929.5680102618498
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+542.8000000000065
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+2322.452480029013
+ 23
+1859.909538269756
+ 33
+0.0
+ 14
+1779.6524800290117
+ 24
+1859.909538269756
+ 34
+0.0
+ 50
+0.0
+100
+AcDbRotatedDimension
+  0
+DIMENSION
+  5
+E2
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+ 48
+3.0
+100
+AcDbDimension
+280
+0
+  2
+*D23
+  3
+Dim-25
+ 10
+1695.9591658000027
+ 20
+1387.1095382697386
+ 30
+0.0
+ 11
+1673.1863145039715
+ 21
+1623.5095382697473
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+472.8000000000174
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+1779.6524800290117
+ 23
+1859.909538269756
+ 33
+0.0
+ 14
+1779.6524800290117
+ 24
+1387.1095382697386
+ 34
+0.0
+ 50
+90.0
+100
+AcDbRotatedDimension
+  0
+DIMENSION
+  5
+E3
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+ 48
+3.0
+100
+AcDbDimension
+280
+0
+  2
+*D24
+  3
+Dim-25
+ 10
+2337.452480029013
+ 20
+1327.8283541497512
+ 30
+0.0
+ 11
+2051.0524800290113
+ 21
+1350.601205445797
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+572.8000000000065
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+1764.6524800290117
+ 23
+1402.1095382697386
+ 33
+0.0
+ 14
+2337.452480029013
+ 24
+1402.1095382697386
+ 34
+0.0
+ 50
+0.0
+100
+AcDbRotatedDimension
+  0
+LWPOLYLINE
+  5
+E4
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+6
+ 70
+0
+ 10
+2795.4511108327224
+ 20
+643.8404253407498
+ 10
+2795.4511108327224
+ 20
+576.0404253407032
+ 10
+2197.4511108327224
+ 20
+576.0404253407032
+ 10
+2197.4511108327224
+ 20
+1071.6404253407381
+ 10
+2795.4511108327224
+ 20
+1071.6404253407381
+ 10
+2795.4511108327224
+ 20
+1003.8404253407498
+  0
+LWPOLYLINE
+  5
+E5
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+2
+ 70
+0
+ 10
+2795.4511108327224
+ 20
+983.8404253407352
+ 10
+2795.4511108327224
+ 20
+663.8404253407352
+  0
+LWPOLYLINE
+  5
+E6
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+22
+ 70
+0
+ 10
+2821.4511108327115
+ 20
+643.8404253407498
+ 10
+2821.4511108327115
+ 20
+586.0404253406741
+ 10
+2811.4511108327224
+ 20
+576.0404253407032
+ 10
+2795.4511108327224
+ 20
+576.0404253407032
+ 10
+2795.4511108327224
+ 20
+560.0404253407032
+ 10
+2785.4511108327224
+ 20
+550.0404253407032
+ 10
+2207.4511108327224
+ 20
+550.0404253407032
+ 10
+2197.4511108327224
+ 20
+560.0404253407032
+ 10
+2197.4511108327224
+ 20
+576.0404253407032
+ 10
+2181.4511108327224
+ 20
+576.0404253407032
+ 10
+2171.4511108327115
+ 20
+586.0404253407178
+ 10
+2171.4511108327224
+ 20
+1061.6404253407236
+ 10
+2181.4511108327224
+ 20
+1071.6404253407381
+ 10
+2197.4511108327224
+ 20
+1071.6404253407381
+ 10
+2197.4511108327224
+ 20
+1087.6404253407381
+ 10
+2207.4511108327224
+ 20
+1097.6404253407236
+ 10
+2785.4511108327224
+ 20
+1097.6404253407236
+ 10
+2795.4511108327224
+ 20
+1087.6404253407381
+ 10
+2795.4511108327224
+ 20
+1071.6404253407381
+ 10
+2811.4511108327224
+ 20
+1071.6404253407381
+ 10
+2821.4511108327115
+ 20
+1061.6404253407236
+ 10
+2821.4511108327115
+ 20
+1003.8404253407498
+  0
+LWPOLYLINE
+  5
+E7
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+2
+ 70
+0
+ 10
+2821.4511108327115
+ 20
+983.8404253407352
+ 10
+2821.4511108327115
+ 20
+663.8404253407352
+  0
+LWPOLYLINE
+  5
+E8
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+2
+ 70
+0
+ 10
+2811.4511108327224
+ 20
+1071.6404253407381
+ 10
+2811.4511108327224
+ 20
+1003.8404253407498
+  0
+LWPOLYLINE
+  5
+E9
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+2
+ 70
+0
+ 10
+2811.4511108327224
+ 20
+983.8404253407352
+ 10
+2811.4511108327224
+ 20
+663.8404253407352
+  0
+LWPOLYLINE
+  5
+EA
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+2
+ 70
+0
+ 10
+2811.4511108327224
+ 20
+643.8404253407498
+ 10
+2811.4511108327224
+ 20
+576.0404253407032
+  0
+LWPOLYLINE
+  5
+EB
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+2
+ 70
+0
+ 10
+2795.4511108327224
+ 20
+560.0404253407032
+ 10
+2197.4511108327224
+ 20
+560.0404253407032
+  0
+LWPOLYLINE
+  5
+EC
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+2
+ 70
+0
+ 10
+2181.4511108327224
+ 20
+576.0404253407032
+ 10
+2181.4511108327224
+ 20
+1071.6404253407381
+  0
+LWPOLYLINE
+  5
+ED
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+7
+100
+AcDbPolyline
+ 90
+2
+ 70
+0
+ 10
+2197.4511108327224
+ 20
+1087.6404253407381
+ 10
+2795.4511108327224
+ 20
+1087.6404253407381
+  0
+LWPOLYLINE
+  5
+EE
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+4
+ 70
+0
+ 10
+2821.4511108327115
+ 20
+983.8404253407352
+ 10
+2784.4511108327115
+ 20
+983.8404253407352
+ 10
+2784.4511108327115
+ 20
+1003.8404253407498
+ 10
+2821.4511108327115
+ 20
+1003.8404253407498
+  0
+LWPOLYLINE
+  5
+EF
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+4
+ 70
+0
+ 10
+2821.4511108327115
+ 20
+663.8404253407352
+ 10
+2784.4511108327115
+ 20
+663.8404253407352
+ 10
+2784.4511108327115
+ 20
+643.8404253407498
+ 10
+2821.4511108327115
+ 20
+643.8404253407498
+  0
+INSERT
+  5
+F0
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2212.4511108327224
+ 20
+1071.6404253407381
+ 30
+0.0
+ 41
+-1.0
+ 50
+180.0
+  0
+INSERT
+  5
+F2
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2197.4511108327224
+ 20
+1056.6404253407381
+ 30
+0.0
+ 41
+-1.0
+ 50
+180.0
+  0
+INSERT
+  5
+F4
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2212.4511108327224
+ 20
+1087.6404253407381
+ 30
+0.0
+ 41
+-1.0
+ 50
+180.0
+  0
+INSERT
+  5
+F6
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2181.4511108327224
+ 20
+1056.6404253407381
+ 30
+0.0
+ 41
+-1.0
+ 50
+180.0
+  0
+INSERT
+  5
+F8
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2262.4511108327224
+ 20
+1071.6404253407381
+ 30
+0.0
+ 41
+-1.0
+ 50
+180.0
+  0
+INSERT
+  5
+FA
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2262.4511108327224
+ 20
+1087.6404253407381
+ 30
+0.0
+ 41
+-1.0
+ 50
+180.0
+  0
+INSERT
+  5
+FC
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2780.4511108327224
+ 20
+1071.6404253407381
+ 30
+0.0
+ 50
+180.0
+  0
+INSERT
+  5
+FE
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2795.4511108327224
+ 20
+1056.6404253407381
+ 30
+0.0
+ 50
+180.0
+  0
+INSERT
+  5
+100
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2780.4511108327224
+ 20
+1087.6404253407381
+ 30
+0.0
+ 50
+180.0
+  0
+INSERT
+  5
+102
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2811.4511108327224
+ 20
+1056.6404253407381
+ 30
+0.0
+ 50
+180.0
+  0
+INSERT
+  5
+104
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2730.4511108327224
+ 20
+1071.6404253407381
+ 30
+0.0
+ 50
+180.0
+  0
+INSERT
+  5
+106
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2730.4511108327224
+ 20
+1087.6404253407381
+ 30
+0.0
+ 50
+180.0
+  0
+INSERT
+  5
+108
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2212.4511108327224
+ 20
+576.0404253407032
+ 30
+0.0
+  0
+INSERT
+  5
+10A
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2197.4511108327224
+ 20
+591.0404253407032
+ 30
+0.0
+  0
+INSERT
+  5
+10C
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2212.4511108327224
+ 20
+560.0404253407032
+ 30
+0.0
+  0
+INSERT
+  5
+10E
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2181.4511108327224
+ 20
+591.0404253407032
+ 30
+0.0
+  0
+INSERT
+  5
+110
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2262.4511108327224
+ 20
+576.0404253407032
+ 30
+0.0
+  0
+INSERT
+  5
+112
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2262.4511108327224
+ 20
+560.0404253407032
+ 30
+0.0
+  0
+INSERT
+  5
+114
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2780.4511108327224
+ 20
+576.0404253407032
+ 30
+0.0
+ 41
+-1.0
+  0
+INSERT
+  5
+116
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2795.4511108327224
+ 20
+591.0404253407032
+ 30
+0.0
+ 41
+-1.0
+  0
+INSERT
+  5
+118
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2780.4511108327224
+ 20
+560.0404253407032
+ 30
+0.0
+ 41
+-1.0
+  0
+INSERT
+  5
+11A
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2811.4511108327224
+ 20
+591.0404253407032
+ 30
+0.0
+ 41
+-1.0
+  0
+INSERT
+  5
+11C
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2730.4511108327224
+ 20
+576.0404253407032
+ 30
+0.0
+ 41
+-1.0
+  0
+INSERT
+  5
+11E
+330
+17
+100
+AcDbEntity
+  8
+0
+370
+-3
+100
+AcDbBlockReference
+  2
+f3daunguoc
+ 10
+2730.4511108327224
+ 20
+560.0404253407032
+ 30
+0.0
+ 41
+-1.0
+  0
+LWPOLYLINE
+  5
+120
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+268.17011305234337
+ 20
+1798.0095382697618
+ 10
+256.1701130523579
+ 20
+1798.0095382697618
+ 10
+256.1701130523579
+ 20
+1789.0095382697764
+ 10
+268.17011305234337
+ 20
+1789.0095382697764
+  0
+LWPOLYLINE
+  5
+121
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+268.17011305234337
+ 20
+1449.0095382697764
+ 10
+256.1701130523579
+ 20
+1449.0095382697764
+ 10
+256.1701130523579
+ 20
+1458.0095382697618
+ 10
+268.17011305234337
+ 20
+1458.0095382697618
+  0
+LWPOLYLINE
+  5
+122
+330
+17
+100
+AcDbEntity
+  8
+0
+  6
+Continuous
+ 62
+2
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+2253.2511108327326
+ 20
+855.5904253407061
+ 10
+2277.2511108327326
+ 20
+855.5904253407061
+ 10
+2277.2511108327326
+ 20
+792.0904253407061
+ 10
+2253.2511108327326
+ 20
+792.0904253407061
+  0
+DIMENSION
+  5
+123
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+ 48
+3.0
+100
+AcDbDimension
+280
+0
+  2
+*D25
+  3
+Dim-25
+ 10
+2821.4511108327115
+ 20
+1128.1018255823583
+ 30
+0.0
+ 11
+2864.1376729063813
+ 21
+1150.8661502754112
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+9.999999999985448
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+2811.4511108327224
+ 23
+1071.6404253407381
+ 33
+0.0
+ 14
+2821.4511108327115
+ 24
+1061.6404253407236
+ 34
+0.0
+ 50
+0.0
+100
+AcDbRotatedDimension
+  0
+DIMENSION
+  5
+124
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+ 48
+3.0
+100
+AcDbDimension
+280
+0
+  2
+*D26
+  3
+Dim-25
+ 10
+2811.4511108327224
+ 20
+1179.3916969286947
+ 30
+0.0
+ 11
+2854.1717793184016
+ 21
+1202.1560216217476
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+16.0
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+2795.4511108327224
+ 23
+1087.6404253407381
+ 33
+0.0
+ 14
+2811.4511108327224
+ 24
+1071.6404253407381
+ 34
+0.0
+ 50
+0.0
+100
+AcDbRotatedDimension
+  0
+DIMENSION
+  5
+125
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+ 48
+3.0
+100
+AcDbDimension
+280
+0
+  2
+*D27
+  3
+Dim-25
+ 10
+2197.4511108327224
+ 20
+1179.3916969286947
+ 30
+0.0
+ 11
+2496.4511108327224
+ 21
+1202.1560216217476
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+598.0
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+2795.4511108327224
+ 23
+1087.6404253407381
+ 33
+0.0
+ 14
+2197.4511108327224
+ 24
+1087.6404253407381
+ 34
+0.0
+ 50
+0.0
+100
+AcDbRotatedDimension
+  0
+DIMENSION
+  5
+126
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+ 48
+3.0
+100
+AcDbDimension
+280
+0
+  2
+*D28
+  3
+Dim-25
+ 10
+2092.523246698882
+ 20
+550.0404253407032
+ 30
+0.0
+ 11
+2069.7589220058526
+ 21
+823.8404253407061
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+547.6000000000204
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+2207.4511108327224
+ 23
+1097.6404253407236
+ 33
+0.0
+ 14
+2207.4511108327224
+ 24
+550.0404253407032
+ 34
+0.0
+ 50
+90.0
+100
+AcDbRotatedDimension
+  0
+DIMENSION
+  5
+127
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+ 48
+3.0
+100
+AcDbDimension
+280
+0
+  2
+*D29
+  3
+Dim-25
+ 10
+2139.852068170072
+ 20
+1071.6404253407381
+ 30
+0.0
+ 11
+2117.087743477052
+ 21
+823.8404253407061
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+495.6000000000203
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+2181.4511108327224
+ 23
+576.0404253407032
+ 33
+0.0
+ 14
+2181.4511108327224
+ 24
+1071.6404253407381
+ 34
+0.0
+ 50
+90.0
+100
+AcDbRotatedDimension
+  0
+DIMENSION
+  5
+128
+330
+17
+100
+AcDbEntity
+  8
+DIM
+ 62
+7
+ 48
+3.0
+100
+AcDbDimension
+280
+0
+  2
+*D30
+  3
+Dim-25
+ 10
+2821.4511108327115
+ 20
+485.06131273500796
+ 30
+0.0
+ 11
+2496.4511108327115
+ 21
+507.8256374280463
+ 31
+0.0
+ 70
+32
+ 71
+5
+ 42
+650.0
+ 73
+0
+ 74
+0
+ 75
+0
+100
+AcDbAlignedDimension
+ 13
+2171.4511108327115
+ 23
+586.0404253407178
+ 33
+0.0
+ 14
+2821.4511108327115
+ 24
+586.0404253406741
+ 34
+0.0
+ 50
+0.0
+100
+AcDbRotatedDimension
+  0
+MTEXT
+  5
+129
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbMText
+ 10
+618.5200562224327
+ 20
+702.2186445954576
+ 30
+0.0
+ 40
+25.0
+ 41
+1073.000000000014
+ 46
+100.0000000000031
+ 71
+5
+ 72
+5
+  1
+Thành trái : 1 tấm
+  0
+MTEXT
+  5
+12A
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbMText
+ 10
+1369.1663909336621
+ 20
+702.7640255573642
+ 30
+0.0
+ 40
+25.0
+ 41
+1073.000000000014
+ 46
+100.0000000000031
+ 71
+5
+ 72
+5
+  1
+Thành phải : 1 tấm
+  0
+MTEXT
+  5
+12B
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbMText
+ 10
+887.9322635637218
+ 20
+1278.1484260155994
+ 30
+0.0
+ 40
+25.0
+ 41
+1073.000000000014
+ 46
+100.0000000000031
+ 71
+5
+ 72
+5
+  1
+Thành quây : 1 tấm
+  0
+MTEXT
+  5
+12C
+330
+17
+100
+AcDbEntity
+  8
+0
+ 62
+2
+100
+AcDbMText
+ 10
+2031.942601945122
+ 20
+1288.1871785256517
+ 30
+0.0
+ 40
+25.0
+ 41
+1073.000000000014
+ 46
+100.0000000000031
+ 71
+5
+ 72
+5
+  1
+Panel : 1 tấm
+  0
+ENDSEC
+  0
+SECTION
+  2
+OBJECTS
+  0
+DICTIONARY
+  5
+A
+330
+0
+100
+AcDbDictionary
+281
+1
+  3
+ACAD_COLOR
+350
+B
+  3
+ACAD_GROUP
+350
+C
+  3
+ACAD_LAYOUT
+350
+D
+  3
+ACAD_MATERIAL
+350
+E
+  3
+ACAD_MLEADERSTYLE
+350
+F
+  3
+ACAD_MLINESTYLE
+350
+10
+  3
+ACAD_PLOTSETTINGS
+350
+11
+  3
+ACAD_PLOTSTYLENAME
+350
+12
+  3
+ACAD_SCALELIST
+350
+14
+  3
+ACAD_TABLESTYLE
+350
+15
+  3
+ACAD_VISUALSTYLE
+350
+16
+  3
+EZDXF_META
+350
+2D
+  0
+DICTIONARY
+  5
+B
+330
+A
+100
+AcDbDictionary
+281
+1
+  0
+DICTIONARY
+  5
+C
+330
+A
+100
+AcDbDictionary
+281
+1
+  0
+DICTIONARY
+  5
+D
+330
+A
+100
+AcDbDictionary
+281
+1
+  3
+Model
+350
+1A
+  3
+Layout1
+350
+1E
+  0
+DICTIONARY
+  5
+E
+330
+A
+100
+AcDbDictionary
+281
+1
+  3
+ByBlock
+350
+1F
+  3
+ByLayer
+350
+20
+  3
+Global
+350
+21
+  0
+DICTIONARY
+  5
+F
+330
+A
+100
+AcDbDictionary
+281
+1
+  3
+Standard
+350
+2C
+  0
+DICTIONARY
+  5
+10
+330
+A
+100
+AcDbDictionary
+281
+1
+  3
+Standard
+350
+22
+  0
+DICTIONARY
+  5
+11
+330
+A
+100
+AcDbDictionary
+281
+1
+  0
+ACDBDICTIONARYWDFLT
+  5
+12
+330
+A
+100
+AcDbDictionary
+281
+1
+  3
+Normal
+350
+13
+100
+AcDbDictionaryWithDefault
+340
+13
+  0
+ACDBPLACEHOLDER
+  5
+13
+330
+12
+  0
+DICTIONARY
+  5
+14
+330
+A
+100
+AcDbDictionary
+281
+1
+  0
+DICTIONARY
+  5
+15
+330
+A
+100
+AcDbDictionary
+281
+1
+  0
+DICTIONARY
+  5
+16
+330
+A
+100
+AcDbDictionary
+281
+1
+  0
+LAYOUT
+  5
+1A
+330
+D
+100
+AcDbPlotSettings
+  1
+
+  4
+A3
+  6
+
+ 40
+7.5
+ 41
+20.0
+ 42
+7.5
+ 43
+20.0
+ 44
+420.0
+ 45
+297.0
+ 46
+0.0
+ 47
+0.0
+ 48
+0.0
+ 49
+0.0
+140
+0.0
+141
+0.0
+142
+1.0
+143
+1.0
+ 70
+1024
+ 72
+1
+ 73
+0
+ 74
+5
+  7
+
+ 75
+16
+ 76
+0
+ 77
+2
+ 78
+300
+147
+1.0
+148
+0.0
+149
+0.0
+100
+AcDbLayout
+  1
+Model
+ 70
+1
+ 71
+0
+ 10
+0.0
+ 20
+0.0
+ 11
+420.0
+ 21
+297.0
+ 12
+0.0
+ 22
+0.0
+ 32
+0.0
+ 14
+1e+20
+ 24
+1e+20
+ 34
+1e+20
+ 15
+-1e+20
+ 25
+-1e+20
+ 35
+-1e+20
+146
+0.0
+ 13
+0.0
+ 23
+0.0
+ 33
+0.0
+ 16
+1.0
+ 26
+0.0
+ 36
+0.0
+ 17
+0.0
+ 27
+1.0
+ 37
+0.0
+ 76
+1
+330
+17
+  0
+LAYOUT
+  5
+1E
+330
+D
+100
+AcDbPlotSettings
+  1
+
+  4
+A3
+  6
+
+ 40
+7.5
+ 41
+20.0
+ 42
+7.5
+ 43
+20.0
+ 44
+420.0
+ 45
+297.0
+ 46
+0.0
+ 47
+0.0
+ 48
+0.0
+ 49
+0.0
+140
+0.0
+141
+0.0
+142
+1.0
+143
+1.0
+ 70
+0
+ 72
+1
+ 73
+0
+ 74
+5
+  7
+
+ 75
+16
+ 76
+0
+ 77
+2
+ 78
+300
+147
+1.0
+148
+0.0
+149
+0.0
+100
+AcDbLayout
+  1
+Layout1
+ 70
+1
+ 71
+1
+ 10
+0.0
+ 20
+0.0
+ 11
+420.0
+ 21
+297.0
+ 12
+0.0
+ 22
+0.0
+ 32
+0.0
+ 14
+1e+20
+ 24
+1e+20
+ 34
+1e+20
+ 15
+-1e+20
+ 25
+-1e+20
+ 35
+-1e+20
+146
+0.0
+ 13
+0.0
+ 23
+0.0
+ 33
+0.0
+ 16
+1.0
+ 26
+0.0
+ 36
+0.0
+ 17
+0.0
+ 27
+1.0
+ 37
+0.0
+ 76
+1
+330
+1B
+  0
+MATERIAL
+  5
+1F
+102
+{ACAD_REACTORS
+330
+E
+102
+}
+330
+E
+100
+AcDbMaterial
+  1
+ByBlock
+  2
+
+ 70
+0
+ 40
+1.0
+ 71
+1
+ 41
+1.0
+ 91
+-1023410177
+ 42
+1.0
+ 72
+1
+  3
+
+ 73
+1
+ 74
+1
+ 75
+1
+ 44
+0.5
+ 73
+0
+ 45
+1.0
+ 46
+1.0
+ 77
+1
+  4
+
+ 78
+1
+ 79
+1
+170
+1
+ 48
+1.0
+171
+1
+  6
+
+172
+1
+173
+1
+174
+1
+140
+1.0
+141
+1.0
+175
+1
+  7
+
+176
+1
+177
+1
+178
+1
+143
+1.0
+179
+1
+  8
+
+270
+1
+271
+1
+272
+1
+145
+1.0
+146
+1.0
+273
+1
+  9
+
+274
+1
+275
+1
+276
+1
+ 42
+1.0
+ 72
+1
+  3
+
+ 73
+1
+ 74
+1
+ 75
+1
+ 94
+63
+  0
+MATERIAL
+  5
+20
+102
+{ACAD_REACTORS
+330
+E
+102
+}
+330
+E
+100
+AcDbMaterial
+  1
+ByLayer
+  2
+
+ 70
+0
+ 40
+1.0
+ 71
+1
+ 41
+1.0
+ 91
+-1023410177
+ 42
+1.0
+ 72
+1
+  3
+
+ 73
+1
+ 74
+1
+ 75
+1
+ 44
+0.5
+ 73
+0
+ 45
+1.0
+ 46
+1.0
+ 77
+1
+  4
+
+ 78
+1
+ 79
+1
+170
+1
+ 48
+1.0
+171
+1
+  6
+
+172
+1
+173
+1
+174
+1
+140
+1.0
+141
+1.0
+175
+1
+  7
+
+176
+1
+177
+1
+178
+1
+143
+1.0
+179
+1
+  8
+
+270
+1
+271
+1
+272
+1
+145
+1.0
+146
+1.0
+273
+1
+  9
+
+274
+1
+275
+1
+276
+1
+ 42
+1.0
+ 72
+1
+  3
+
+ 73
+1
+ 74
+1
+ 75
+1
+ 94
+63
+  0
+MATERIAL
+  5
+21
+102
+{ACAD_REACTORS
+330
+E
+102
+}
+330
+E
+100
+AcDbMaterial
+  1
+Global
+  2
+
+ 70
+0
+ 40
+1.0
+ 71
+1
+ 41
+1.0
+ 91
+-1023410177
+ 42
+1.0
+ 72
+1
+  3
+
+ 73
+1
+ 74
+1
+ 75
+1
+ 44
+0.5
+ 73
+0
+ 45
+1.0
+ 46
+1.0
+ 77
+1
+  4
+
+ 78
+1
+ 79
+1
+170
+1
+ 48
+1.0
+171
+1
+  6
+
+172
+1
+173
+1
+174
+1
+140
+1.0
+141
+1.0
+175
+1
+  7
+
+176
+1
+177
+1
+178
+1
+143
+1.0
+179
+1
+  8
+
+270
+1
+271
+1
+272
+1
+145
+1.0
+146
+1.0
+273
+1
+  9
+
+274
+1
+275
+1
+276
+1
+ 42
+1.0
+ 72
+1
+  3
+
+ 73
+1
+ 74
+1
+ 75
+1
+ 94
+63
+  0
+MLINESTYLE
+  5
+22
+102
+{ACAD_REACTORS
+330
+10
+102
+}
+330
+10
+100
+AcDbMlineStyle
+  2
+Standard
+ 70
+0
+  3
+
+ 62
+256
+ 51
+90.0
+ 52
+90.0
+ 71
+2
+ 49
+0.5
+ 62
+256
+  6
+BYLAYER
+ 49
+-0.5
+ 62
+256
+  6
+BYLAYER
+  0
+MLEADERSTYLE
+  5
+2C
+102
+{ACAD_REACTORS
+330
+F
+102
+}
+330
+F
+100
+AcDbMLeaderStyle
+179
+2
+170
+2
+171
+1
+172
+0
+ 90
+2
+ 40
+0.0
+ 41
+0.0
+173
+1
+ 91
+-1056964608
+ 92
+-2
+290
+1
+ 42
+2.0
+291
+1
+ 43
+8.0
+  3
+Standard
+ 44
+4.0
+300
+
+342
+29
+174
+1
+175
+1
+176
+0
+178
+1
+ 93
+-1056964608
+ 45
+4.0
+292
+0
+297
+0
+ 46
+4.0
+ 94
+-1056964608
+ 47
+1.0
+ 49
+1.0
+140
+1.0
+294
+1
+141
+0.0
+177
+0
+142
+1.0
+295
+0
+296
+0
+143
+3.75
+271
+0
+272
+9
+273
+9
+  0
+DICTIONARY
+  5
+2D
+330
+A
+100
+AcDbDictionary
+280
+1
+281
+1
+  3
+CREATED_BY_EZDXF
+350
+2E
+  3
+WRITTEN_BY_EZDXF
+350
+15C
+  0
+DICTIONARYVAR
+  5
+2E
+330
+2D
+100
+DictionaryVariables
+280
+0
+  1
+1.4.4 @ 2026-09-24T06:32:05.231730+00:00
+  0
+DICTIONARYVAR
+  5
+15C
+330
+2D
+100
+DictionaryVariables
+280
+0
+  1
+1.4.4 @ 2026-09-24T06:37:22.553129+00:00
+  0
+ENDSEC
+  0
+EOF

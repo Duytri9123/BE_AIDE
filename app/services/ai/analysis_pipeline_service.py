@@ -32,8 +32,10 @@ from app.services.ingestion.document_context import DocumentContextService
 from app.services.ai.vision_analyzer import VisionAnalyzerService
 from app.services.ai.response_parser import ResponseParserService
 from app.services.ai.connection_pool import ConnectionPoolService
+from app.services.ai.circuit_preflight import CircuitPreflightService
 from app.services.device_catalog_engine import DeviceCatalogEngine
 from app.services.cad.enclosure_cad_generator import EnclosureCadGeneratorService
+from app.services.cad.source_project_generator import SourceProjectGenerator
 from app.services.cad.physical_layout_engine import PhysicalLayoutEngine, MountingType, ElectricalFunction
 from app.services.export.quotation_exporter import QuotationExporterService
 from app.services.export.dynamic_grouping import DynamicGroupingEngine
@@ -383,6 +385,22 @@ class AnalysisPipelineService:
         if progress_callback:
             await asyncio.sleep(0.35)
 
+        log_event(stage="circuit_assessment", title="Đánh giá sơ đồ nguyên lý toàn hồ sơ",
+                  detail="Đọc vai trò các tệp, mạch điện và cụm chức năng trước khi bóc tách thiết bị.", status="info")
+        try:
+            circuit_assessment = await CircuitPreflightService.assess(
+                [f for f in project_files if not getattr(f, "is_generated", False)],
+                document_contexts, db, all_connections or ([active_ai] if active_ai else []), user_prompt)
+        except Exception as exc:
+            logger.warning("Circuit preflight unavailable: %s", exc)
+            circuit_assessment = {"status": "unavailable", "circuit_summary": "",
+                                  "source_limits": ["Không thể hoàn tất đánh giá sơ đồ: " + str(exc)[:200]]}
+        preflight_context = CircuitPreflightService.extraction_context(circuit_assessment)
+        log_event(stage="circuit_assessment", title="Đã đánh giá sơ đồ trước bóc tách"
+                  if preflight_context else "Chưa đủ dữ liệu đánh giá toàn sơ đồ",
+                  detail=str(circuit_assessment.get("circuit_summary") or circuit_assessment.get("source_limits"))[:500],
+                  status="success" if preflight_context else "warning")
+
         # 1. Trích xuất thiết bị từ các file bản vẽ
         for pfile in project_files:
             file_path = pfile.file_path
@@ -410,6 +428,8 @@ class AnalysisPipelineService:
             effective_user_prompt = AnalysisPipelineService._compose_multifile_notes(
                 user_prompt, document_contexts, pfile.filename or ""
             )
+            if preflight_context:
+                effective_user_prompt += "\n\n" + preflight_context
 
             if getattr(pfile, "is_generated", False):
                 context_info = next((c for c in document_contexts if c.get("file_id") == getattr(pfile, "id", None)), {})
@@ -1628,24 +1648,21 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                     status="info"
                 )
             try:
-                cad_file_path = EnclosureCadGeneratorService.generate_dxf(
+                source_cad = SourceProjectGenerator.generate(
                     project_id=project.id,
-                    project_name=project.name,
-                    devices=[d.model_dump() for d in extracted_devices],
                     output_dir=getattr(settings, "PROJECTS_DIR", "storage/projects"),
-                    panel_code=detected_panel_code,
-                    panels=multi_panel_list if len(multi_panel_list) > 1 else None,
-                    preferred_dimensions=detected_dimensions
+                    dimensions=detected_dimensions,
                 )
+                cad_file_path = source_cad["path"]
                 log_event(
                     stage="cad_generation",
                     title="Sinh bản vẽ CAD DXF thành công",
-                    detail=f"Bản vẽ AutoCAD: {os.path.basename(cad_file_path)}",
+                    detail=f"Form nguồn {source_cad['source']}: {os.path.basename(cad_file_path)}",
                     status="success",
                     data={"cad_file": os.path.basename(cad_file_path)}
                 )
             except Exception as e:
-                warnings.append(f"Không thể tạo file CAD phác thảo: {str(e)}")
+                warnings.append(f"Chưa thể xuất form CAD nguồn: {str(e)}")
                 log_event(
                     stage="cad_generation",
                     title="Lỗi sinh bản vẽ CAD",
@@ -1795,6 +1812,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             "technical_audit": technical_audit,
             "file_assessment": file_assessment,
             "files_assessment": files_assessment,
+            "circuit_assessment": circuit_assessment,
             "overall_assessment": overall_assessment,
             "execution_logs": execution_logs,
             "process_steps": process_steps,
@@ -3118,16 +3136,10 @@ Chỉ trả một JSON hợp lệ, không markdown:
 
             if sku and sku in device_price_map and device_price_map[sku] > 0:
                 return device_price_map[sku]
-            if name and name in device_price_map and device_price_map[name] > 0:
-                return device_price_map[name]
             if sku:
                 cat_item = catalog_engine.get_by_sku(sku)
                 if cat_item and cat_item.get("g") and int(cat_item["g"]) > 0:
                     return int(cat_item["g"])
-            brand = getattr(dev, "brand", None) or (dev.get("brand") if isinstance(dev, dict) else None)
-            est = catalog_engine.lookup_device_info(category=cat, in_a=in_a, poles=poles, brand=brand, part_number=sku, name=name)
-            if est and est.get("unit_price") and int(est["unit_price"]) > 0:
-                return int(est["unit_price"])
             return 0
 
         # TRƯỜNG HỢP 1: Bóc tách Đa tủ (Multi-Panel Breakdown)
@@ -3696,8 +3708,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     or resolved_brand_pref.lower() in exact_brand.lower()
                     or exact_brand.lower() in resolved_brand_pref.lower()
                 )
-                if exact and exact.get("g") and brand_matches_preference:
-                    device_price_map[dev.name] = int(exact.get("g"))
+                if exact and exact.get("g") and brand_matches_preference and catalog_type_matches(dev.category, exact):
+                    device_price_map[dev.part_number] = int(exact.get("g"))
                     if exact.get("brand") and not dev.brand:
                         dev.brand = exact.get("brand")
                     dev.technical_match_note = f"Báo giá dùng mã catalog {dev.part_number}; thông số và kết nối SLD gốc được bảo toàn."
@@ -3707,42 +3719,14 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     # explicit user request such as "bóc tách với LS".
                     dev.part_number = ""
 
-            # 2. Tìm thông minh theo thông số và thương hiệu
-            search_str = f"{dev.category} {dev.spec} {brand_to_match}"
-            matches = [
-                match for match in catalog_engine.match_from_text(search_str)
-                if catalog_type_matches(dev.category, match[0])
-            ]
-            if matches:
-                best_item, _conf = matches[0]
-                if best_item.get("g"):
-                    device_price_map[dev.name] = int(best_item.get("g"))
-                if best_item.get("ma"):
-                    dev.part_number = best_item.get("ma")
-                dev.brand = (
-                    best_item.get("brand_display")
-                    or best_item.get("brand")
-                    or resolved_brand_pref
-                )
+            # A generic symbol does not establish an exact catalog model.
+            # Preserve circuit evidence and leave the quote unpriced for review.
+            if not dev.part_number or not catalog_engine.get_by_sku(dev.part_number):
+                dev.part_number = ""
                 dev.technical_match_note = (
-                    f"Báo giá thay thế bằng {dev.part_number or best_item.get('ma', '')} theo thông số tương đương; "
-                    "không thay đổi sơ đồ nguyên lý."
+                    "Chưa xác định được mã catalog từ thông số và chức năng mạch; "
+                    "cần chọn thiết bị trước khi chốt đơn giá."
                 )
-            else:
-                # A missing SKU must never modify the extracted device or its
-                # electrical topology. It is a pricing follow-up, not an SLD error.
-                if explicit_brand_preference:
-                    dev.brand = "ASIAN"
-                    dev.part_number = ""
-                    dev.technical_match_note = (
-                        f"Không có model {resolved_brand_pref} phù hợp: chuyển về ASIAN; "
-                        "sơ đồ nguyên lý và thông số bóc tách được giữ nguyên."
-                    )
-                else:
-                    dev.technical_match_note = (
-                        "Chưa có trong catalog: cần chọn thiết bị tương đương khi báo giá; "
-                        "sơ đồ nguyên lý và thông số bóc tách được giữ nguyên."
-                    )
 
             # 3. Đề xuất tương thích: nếu dev đã có compatible_proposal từ AI
             if getattr(dev, "compatible_proposal", None):
@@ -3751,8 +3735,6 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 dev.original_spec = cp.get("original_spec") or dev.spec
                 dev.compatibility_note = cp.get("technical_reason") or cp.get("ai_analysis")
                 dev.suggested_alternatives = [cp]
-                if not dev.part_number and cp.get("proposed_device"):
-                    dev.part_number = cp.get("proposed_device")
 
             # 4. Chuẩn hóa phụ kiện đi kèm đã bóc tách từ AI (nếu có)
             if getattr(dev, "accompanying_accessories", None):
@@ -3829,30 +3811,32 @@ Chỉ trả một JSON hợp lệ, không markdown:
             conflict_count=len(layout_conflicts),
         )
 
-        # 3. Vẽ CAD kỹ thuật (AutoCAD DXF 4 hình chiếu)
-        await emit_progress("cad_drawing", 60, "Đang dựng các hình chiếu và bảng BOM trong DXF")
-        cad_file_path = EnclosureCadGeneratorService.generate_dxf(
-            project_id=project.id,
-            project_name=project.name,
-            devices=[d.model_dump() for d in extracted_devices],
-            output_dir=getattr(settings, "PROJECTS_DIR", "storage/projects"),
-            panel_code=detected_panel_code,
-            panels=multi_panel_list if multi_panel_list and len(multi_panel_list) > 1 else None,
-            preferred_dimensions=detected_dimensions
-        )
-
-        dxf_filename = os.path.basename(cad_file_path)
-        dxf_size = os.path.getsize(cad_file_path) if os.path.exists(cad_file_path) else 0
+        # Only export a complete source cabinet sheet when verified dimensions exist.
+        await emit_progress("cad_drawing", 60, "Đang chọn form tủ CAD từ thư viện nguồn")
+        cad_file_path = None
+        dxf_filename = ""
+        dxf_size = 0
+        try:
+            source_cad = SourceProjectGenerator.generate(
+                project_id=project.id,
+                output_dir=getattr(settings, "PROJECTS_DIR", "storage/projects"),
+                dimensions=detected_dimensions,
+            )
+            cad_file_path = source_cad["path"]
+            dxf_filename = os.path.basename(cad_file_path)
+            dxf_size = os.path.getsize(cad_file_path)
+        except ValueError as exc:
+            await emit_progress("cad_review", 75, f"Cần chọn form tủ nguồn: {exc}")
         await emit_progress(
             "cad_ready",
             75,
-            "Đã ghi xong bản vẽ DXF thực tế",
+            "Đã chọn form CAD nguồn" if cad_file_path else "Chưa xuất CAD: cần xác nhận form nguồn",
             filename=dxf_filename,
             file_size=dxf_size,
         )
 
         # Dọn dẹp các file CAD tự sinh cũ và lưu bản ghi mới vào ProjectFile
-        if not per_panel:
+        if cad_file_path and not per_panel:
             old_cad_stmt = select(ProjectFile).where(
                 ProjectFile.project_id == project.id,
                 (ProjectFile.filename.like("BanVe_%") | ProjectFile.filename.like("PhacThao_%")),
@@ -3867,25 +3851,27 @@ Chỉ trả một JSON hợp lệ, không markdown:
                         pass
                 await db.delete(o_file)
 
-        stmt = select(ProjectFile).where(
-            ProjectFile.project_id == project.id,
-            ProjectFile.filename == dxf_filename
-        )
-        cad_file = (await db.execute(stmt)).scalars().first()
-        if not cad_file:
-            cad_file = ProjectFile(
-                project_id=project.id,
-                filename=dxf_filename,
-                file_path=cad_file_path,
-                file_type="application/dxf",
-                file_size=dxf_size,
-                is_generated=True
+        cad_file = None
+        if cad_file_path:
+            stmt = select(ProjectFile).where(
+                ProjectFile.project_id == project.id,
+                ProjectFile.filename == dxf_filename
             )
-            db.add(cad_file)
-        else:
-            cad_file.file_path = cad_file_path
-            cad_file.file_size = dxf_size
-            cad_file.is_generated = True
+            cad_file = (await db.execute(stmt)).scalars().first()
+            if not cad_file:
+                cad_file = ProjectFile(
+                    project_id=project.id,
+                    filename=dxf_filename,
+                    file_path=cad_file_path,
+                    file_type="application/dxf",
+                    file_size=dxf_size,
+                    is_generated=True
+                )
+                db.add(cad_file)
+            else:
+                cad_file.file_path = cad_file_path
+                cad_file.file_size = dxf_size
+                cad_file.is_generated = True
 
         # 4. Lập bảng báo giá chi tiết hoàn chỉnh
         quotation_rows = AnalysisPipelineService._build_quotation_rows(
@@ -4033,7 +4019,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 "filename": dxf_filename,
                 "file_path": cad_file_path,
                 "file_size": dxf_size
-            },
+            } if cad_file else None,
             "quotation_file": excel_file_info,
             "quotation_rows": quotation_rows,
             "technical_proposals": technical_proposals,

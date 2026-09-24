@@ -1,0 +1,3704 @@
+{
+  "source_assets": 1567,
+  "selected_assets": 955,
+  "device_families": 727,
+  "groups": {
+    "Nút nhấn và còi": 21,
+    "Contactor": 64,
+    "Đồng hồ và công tơ": 23,
+    "Đèn báo": 19,
+    "Biến dòng": 31,
+    "Thiết bị đóng cắt": 208,
+    "Bản lề": 44,
+    "Khóa tủ": 19,
+    "Bộ điều khiển": 10,
+    "Cơ khí tủ": 23,
+    "Sứ và giá đỡ": 26,
+    "Thanh đồng và đầu nối": 21,
+    "Tụ bù và cuộn kháng": 40,
+    "Cầu đấu": 108,
+    "Rơ le và timer": 21,
+    "Nhãn và mặt che": 8,
+    "Ổ cắm": 3,
+    "Quạt và lọc gió": 10,
+    "Biến áp và ổn áp": 11,
+    "Cầu chì": 8,
+    "Chống sét": 7,
+    "Máng dây và ray DIN": 2
+  },
+  "excluded": [
+    {
+      "id": "d20fd15f4f8849c5fcf3",
+      "name": "1235",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "f0ebb4217332117135bf",
+      "name": "15a",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "197a2961102488ea98b0",
+      "name": "236",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "7f9214f86835ec51db22",
+      "name": "2525555",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "3975cb924d4295d0de83",
+      "name": "25256",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "a4138cefba4138300e59",
+      "name": "456",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4c77d5c9e3cffa63ce9d",
+      "name": "50kva",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "1eaa4c8b9ff820abc727",
+      "name": "AB-301-1-1",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "27317a46a4cc7be7a194",
+      "name": "EL-1",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "59141aec210c0d12c476",
+      "name": "EL-2",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "3602f83cd1d334ce33c3",
+      "name": "EL-3",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b0178099889aabcc14f6",
+      "name": "EL-4",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "961df7989f36e2a69e1a",
+      "name": "KHUNG",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ed6b5f6f81320211e9b2",
+      "name": "KHUNG CHUẨN",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "9ef17eb57207b211f672",
+      "name": "Lable danger",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "59ee2ee1aeb2d853969e",
+      "name": "Mikro-1",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "f1a5e27bd72f488550a2",
+      "name": "Mikro-2",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "922c9dcda55cbbfcfae3",
+      "name": "c100-1",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "2147be2c5d7292aa3aed",
+      "name": "c100-2",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "cbbc3ff473a84808b242",
+      "name": "fhd",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "fc4e592c3b0641f88ee8",
+      "name": "hd123",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ed52fd74e4dd0faeeaac",
+      "name": "hd2",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "066d4bbef08c04a8b35d",
+      "name": "kva50",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "442ee4e16b14bd725de9",
+      "name": "name",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "020cb652192a626fbc79",
+      "name": "ovan6x9",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c42da444e99d10f67bff",
+      "name": "ovan8.5x20",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c0e5bb70749ddbbcb02e",
+      "name": "rjtj",
+      "source": "@CHINT.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b3882c679bd9368a4e92",
+      "name": "42PN307-311",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "8358869dba8d089deb32",
+      "name": "7-12",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4dac12d68a012edc0043",
+      "name": "A-19",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "dfd1d6cc1cd224ac63d5",
+      "name": "A-2055",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "2ceca55bc53df21d16d7",
+      "name": "AB-301-1-1",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ae330ea37ac76af5eef3",
+      "name": "AB301-2-1",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "df3575c0546a6ef6a304",
+      "name": "AB301-3-1",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "5faac999f7f28e6da203",
+      "name": "AP",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "79d22425a256b667b0eb",
+      "name": "BL",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "16c2fb7d1f27da09cd51",
+      "name": "BL009",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "9f05d6c2c688c7c21d9f",
+      "name": "BL6",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "cbdc4bec9ac7dda20270",
+      "name": "BS1",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "848beaf5e4a3667d7b2e",
+      "name": "BS2",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b884ef6572b7a19ed24b",
+      "name": "CC",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ae4101b786a5b4046aa7",
+      "name": "CC3P",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "70c69a7f820aac855f84",
+      "name": "CT3PHA",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "fd6c6b7c0e754467045e",
+      "name": "D35",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "85d828bb7e4323696f6d",
+      "name": "DA-19",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "6596488abc2e6dd06c13",
+      "name": "DCOS95",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "29923a900c4441e2d1a8",
+      "name": "DK1P1",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "011ba440c41309c54063",
+      "name": "DK1P2",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "041fbf601a48f16f8004",
+      "name": "DK1P3",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "03145f1426eb35d6fdd9",
+      "name": "DK3P",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "30d055e35a53ac3780ab",
+      "name": "DK3P-MV-3Tb",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "232ab2603cc391345e44",
+      "name": "DMDU",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ac7bf998e2e2d438e12d",
+      "name": "DMN100",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "bd0c80b57fb92a21ac84",
+      "name": "DMN15A",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "7df0f8e354ca7404e8d7",
+      "name": "DMN16A",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "61bb930a690bf21b0736",
+      "name": "DMN32A",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "031097d2043258b638c8",
+      "name": "DMN44A",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "28815d485430abff71ee",
+      "name": "DMN60A",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "6d72adfe848187f65c96",
+      "name": "E",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "88f0791c96119212ae41",
+      "name": "F25",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c50eaf83f0b7c88db44a",
+      "name": "F35",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "53e5a1a480167f87049c",
+      "name": "F50",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c909f6630c5207edf2d9",
+      "name": "F54",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "12418e40b86b03748f50",
+      "name": "GL",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "55e0445f3fcfc6afcb0b",
+      "name": "HA-19",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "5b8d1d26d0a1ba6a4d32",
+      "name": "HDB",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e29b2900cc17c62cbbe2",
+      "name": "HDK",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c5d7eb50f8a449136bdb",
+      "name": "HDK1P1",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "40f9db8ca94023fef263",
+      "name": "HDK1P2",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e903bca702d96d5471eb",
+      "name": "HDK1P3",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ee3048e870e9cba4db13",
+      "name": "HDK3P",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ab2481d8de8b804c37cd",
+      "name": "HDMN",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "589153f20a70f7d5266f",
+      "name": "HDMN15A",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "f64b0bfb7bdecffde11c",
+      "name": "HF25",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "8de09c54f3645db463d5",
+      "name": "HF35",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4816adb4d08689a4d421",
+      "name": "HF50",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "0ffcb4bb1dda60233bdb",
+      "name": "HF54",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "000eb8edc50352b64765",
+      "name": "HKDL",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "9ba0d4a749637f448896",
+      "name": "HKTG",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "faf2b258a80eb1f78dcb",
+      "name": "HOCTCA",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "03a078a5d9c93d88b4f4",
+      "name": "HZCT40S",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d2aa01ae4d353e30b508",
+      "name": "HZCT80S",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "018bc77a1f66a6667696",
+      "name": "IDMT(EF-OC)",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ffc805b48c4a73353dce",
+      "name": "INVERTER-0.75K",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "8999dc62b71b9ff3f075",
+      "name": "KBV",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "79d6fc4154195c06737c",
+      "name": "KDL",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "085ebe2dafcb1fcafbc6",
+      "name": "KQ",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "9ee8efce860369135ab7",
+      "name": "KR",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "fd3553dc78510f19c3f9",
+      "name": "KT",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ce423595719bf4f01834",
+      "name": "KTG",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4dbd05a42bf56443bb6a",
+      "name": "LA",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "6d4f64649f9517386ae7",
+      "name": "M1",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "6a51540562a6227868ec",
+      "name": "M2",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4bd700559f5e210065aa",
+      "name": "M3",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b23248e32f0a7175574c",
+      "name": "M4",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "216155a53b5cf4714030",
+      "name": "MCT1005",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4bbe8bd19f84ecea2a2d",
+      "name": "MH1",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ef5494d5c588a179ef66",
+      "name": "MH2",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ca4095572eac8a08b1cd",
+      "name": "MHDMN100",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "34a089c7ad858bc27909",
+      "name": "N",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "a94036f7ffb94a2f407c",
+      "name": "NMC",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "3f59e87870c108f3709d",
+      "name": "OC",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "807ea75c0e0e6f3db368",
+      "name": "PFC",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "27582556536e7df8a144",
+      "name": "PLS 52",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d81ae8de29b4e20d6dfe",
+      "name": "PS-2420S",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "42fce9565f321de7419a",
+      "name": "RL11C",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "6ad5a45cf0bed77ded6c",
+      "name": "RL8C",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "714dfc78c2a4facfc90b",
+      "name": "RM",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "a51b7060a5c4ac102e13",
+      "name": "RST",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "20c507dd3738d3150b04",
+      "name": "SUS-304-1",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "70f14a4ebbf803b1db33",
+      "name": "SUS-304-3",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "0cb5afd70c7741f23e5c",
+      "name": "SĐFHGGH",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e78d267611866eeb23ae",
+      "name": "T10_12A",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "6b68c71f3274a4cb1e47",
+      "name": "TMN100",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "a3d7b7b4f9d75bbb4c55",
+      "name": "TMN200",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ab105cd7c941df79ccef",
+      "name": "TMN300",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "841517289bcefd6b94e3",
+      "name": "TMN400",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "12f8986edb1246027c24",
+      "name": "TV-HKB1",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d5e3271fd3eeec2eae41",
+      "name": "TV-HKB2",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "3c33b4a570164eaa6dbd",
+      "name": "TV-HKB3",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ef93ff3f559d935152a9",
+      "name": "TV-HKB4",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "cb3aefd0f5658d1535f4",
+      "name": "TV-HKB5",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "de98aa4791682760f805",
+      "name": "TV-HKB6",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "9bf645023a7e68c55860",
+      "name": "TV-HKB7",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "5baae9a0bc8b32a330be",
+      "name": "TV-HKHC",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "3c9082a736a58e120944",
+      "name": "TV-HKTG",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "aedcb0fce5a99a4f1c06",
+      "name": "TV-HST1",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b0962d041fc0951d6add",
+      "name": "TV-HST2",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b19e35d5a8bebaafc017",
+      "name": "TV-HST3",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "2b63b6533a6acc6f5f7b",
+      "name": "TV-HTS4",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d4ae7de1c5e927e62106",
+      "name": "TV-KB1",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "6acfa5c436f733e9f861",
+      "name": "TV-KB2",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "cbb3d0d5a236e3dd9237",
+      "name": "TV-KB3",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "597f288803fcfe3d30b3",
+      "name": "TV-KB4",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "62e43e7c542749363deb",
+      "name": "TV-KB5",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d236e1175dc5d2b04969",
+      "name": "TV-KB6",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c715fffe123e8add230c",
+      "name": "TV-KB7",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "42af73fb8129f9caddde",
+      "name": "TV-KBR",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e7064ecb34a37bc74427",
+      "name": "TV-KHC",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "3009f8bc6b0e736cb8ee",
+      "name": "TV-KTG",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "1347ac83e4b5d81bad90",
+      "name": "TV-ST1",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "21a0fe102f1954b9e631",
+      "name": "TV-ST2",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "3d6aa357fcec938f8776",
+      "name": "TV-ST3",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "03f350676177a41b1fca",
+      "name": "TV-ST4",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "3b3d4463a45c15e4e3b4",
+      "name": "TV-VIT",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ae800f296a80ca37684c",
+      "name": "VC",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c5c35da630045e9fa30d",
+      "name": "VO",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "2489bb256e5ca91d3aee",
+      "name": "ZCT40S",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "9de1e916a28675ea7816",
+      "name": "ZCT80S",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c7e3f3b4cc149d6ff9fd",
+      "name": "atv31hu11m2f",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "218a184880f5c19e3ea5",
+      "name": "bbbb",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4a92b909d9d839db7d3c",
+      "name": "bl009-1",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "1e95b9e7777fab5815c0",
+      "name": "bl009-2",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c6829f96eb8bc8889862",
+      "name": "bl009-3",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "177eb4fc5416a8d3fee9",
+      "name": "blk",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "dc3e0d6151f50c4213ba",
+      "name": "fhd",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "598277df5e124a040476",
+      "name": "hgl",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "f20527f9b11a1ffe1c41",
+      "name": "hl009-5",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "226fc6499828d0e7ce8d",
+      "name": "hmdu",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "a751931448dbecd7c34f",
+      "name": "ovan6x9",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "311a9e0a0d6c8bfb89ab",
+      "name": "v",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "de06fc3c090a298ef1e6",
+      "name": "khungtenAsean",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "f00206795da5f192b960",
+      "name": "el GI 50-side",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4c9ddc2e491d59902e87",
+      "name": "E-VALT CH",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "bd486b34c96134c39087",
+      "name": "khungtenAsean2",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "02312b8eba01c0c427a9",
+      "name": "AB301-2-1",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "df6eb0977f33ce01e251",
+      "name": "AB-301-1-1",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c46cfd71dfff348e6209",
+      "name": "LTT1",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e8bda2b74f6accf72cc1",
+      "name": "MFNN",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b1b740debe06c3d85a10",
+      "name": "GSRT54YG",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "bc50252eca9f3dff59c9",
+      "name": "Centre",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "a0267791bd5196b61c05",
+      "name": "3P",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "8d6c03248a73194a8cc0",
+      "name": "fdfd",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ea8434b2511358423707",
+      "name": "HCC BKN",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "009ffedf6e4d593b6d63",
+      "name": "1 400AF 3P",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "3d46259fbaa127f66f72",
+      "name": "ovan6x10",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "6dbd6a0016d6b68007e9",
+      "name": "LG01",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "49228d7e1c242e83f28c",
+      "name": "SDGFGHGHG",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4f257e375ab83dfc01ec",
+      "name": "SĐFHGGH",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "36f294b4be07fff28c95",
+      "name": "sbdf11712",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "2ec6bd97a1571453426b",
+      "name": "GFGEFV",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b2a29cdd2d24b85bc623",
+      "name": "GGFGFECE",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "93b33164e1884ba879ea",
+      "name": "Vis MC LS",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "07f1be4b656caa1bb9be",
+      "name": "900VPR",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "cda81655e307c6ee13db",
+      "name": "ovan8.6x18",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d8830563cc3908d5b271",
+      "name": "BXZVCGZHV",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c9107208e9dbc1f25fad",
+      "name": "jblsdfbdlcv",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "53041950343e0a9a1d8a",
+      "name": "630 X",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "2b38f7d136baabdd19f5",
+      "name": "630 V",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "04d0997550a9112355ee",
+      "name": "400 Đ",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c8970cf78fc7d6ae75de",
+      "name": "400 V",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "73fd4971502bc6007185",
+      "name": "400 X",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "5fa06ff6cb00f298eb09",
+      "name": "250 Đ",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "a421a3e8947944efc85e",
+      "name": "250 V",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "0cef0e258dd0abad4c86",
+      "name": "250 X",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "217b4f119a6b36dbe049",
+      "name": "250",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "000c7bb296c2d2a8e330",
+      "name": "TC TRỤC",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "78b0688e50538baa7927",
+      "name": "tu",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "0e5ce2ab50f9a8e4621d",
+      "name": "tcc",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "6ce9e7778bfa2497c04e",
+      "name": "ggg",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "8dd6bf6e9b2efa095a58",
+      "name": "k",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "85853c956d91f8d2e27a",
+      "name": "đ",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "987274a0af41406b03f1",
+      "name": "th",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "24069c54f872f1638166",
+      "name": "tyu",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "87dab993f40738b3f35b",
+      "name": "ui",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "92886ea1609912debf02",
+      "name": "mmmm",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "8f1b377f13fef8b3f883",
+      "name": "1 LS 800 AF 3P",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c604b7a45d912dded330",
+      "name": "JHSHHSBSGGSF",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "f7d1492f5f7fd6e759ba",
+      "name": "BHDSGJSGFS",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "a5dd1396aad58814c758",
+      "name": "ovan8.5x20",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c55a8c4a8dc6f701df6c",
+      "name": "ovan6x9",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "39f05744323a0d91bd66",
+      "name": "atong",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "56e584e8584ad0af060a",
+      "name": "ovan",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b1703c3c7abdd8c8aa43",
+      "name": "10D3-2",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "cd58d6231e2093d1bc59",
+      "name": "AB301-3-1",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "a31b302086d1b1dc7030",
+      "name": "SUS-304-1",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "f4632d353a953c54703f",
+      "name": "KLIJHKGHD",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "0cc5207981ec22ec077e",
+      "name": "FFERERER",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ad209ef08e13372e7075",
+      "name": "tq",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "7ebe6a1ecdee23213eac",
+      "name": "EE3",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "9b8bf5775036f3b10731",
+      "name": "LABEL RDB",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "3579266bea17e2a7a575",
+      "name": "RED LIGHT",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "cad5a2ea2892143080b3",
+      "name": "1 LS 800 AF 4P",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "6ac48e06e98d846abcc9",
+      "name": "ABL 403c",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "94a797c6112d6d88549b",
+      "name": "ABL 40Xc (mặt nghiêng)",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "9feca24dd296047af628",
+      "name": "TI",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "6f7ea560375f9774e4c9",
+      "name": "DĐ",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "fa07f429a978be32c395",
+      "name": "chin851",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "5bd7338ba1e09290e42f",
+      "name": "chin852",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "8f33787a9d699d1dd8ad",
+      "name": "sssssssss",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "99fe1345fb74051c7f6e",
+      "name": "Evina-KT",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b1e4bb75032169aadaa9",
+      "name": "PN13",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "2c611bb99440604899e5",
+      "name": "FFFF",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4907ca7843b5fe782eae",
+      "name": "MCM444",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "56b8b3ab23f3215d0573",
+      "name": "X10.2",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "6d6d1a6d37442682c470",
+      "name": "X47---XX",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "456567bfa649db488239",
+      "name": "4MM",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4957d5533c29e7f26470",
+      "name": "MCP-1p",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d5ca0a5b01970bcf6b69",
+      "name": "CHAN Ter",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e7e143ae0b905f0f927a",
+      "name": "200",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b71793c49c84a2acefae",
+      "name": "100",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "9c9617c060f321fd8908",
+      "name": "1p",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e401ab853aa468c60812",
+      "name": "asas",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "494ea2d940d7609b7ac8",
+      "name": "AI9-BLK13",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b7a5e4096b645a260e3b",
+      "name": "AI9-BLK14",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c709b50db6dc8e558b4e",
+      "name": "AI9-BLK15",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "aab160cdc776a8cec518",
+      "name": "AI9-BLK16",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "67461255a6f29d95dc81",
+      "name": "AI9-BLK19",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "1c4828d8950ceefb0a70",
+      "name": "AI9-BLK21",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "aa3c25bff816aac866ac",
+      "name": "AI9-BLK22",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e5320925d892c74aa19f",
+      "name": "AI9-BLK23",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "877bc409adaaa460e3a7",
+      "name": "LS",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d99950392d77b6d95952",
+      "name": "LSS",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d694b5669845ad5935f5",
+      "name": "FGQ3",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "92eab000167923f5cea6",
+      "name": "N23T",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "455c5b26c3feafdac4c4",
+      "name": "ee",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "28192e9fe844be03f09d",
+      "name": "c",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "8b0b1ae1b903a4b2f03f",
+      "name": "Mikro-1",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "86858bbad4337d6beef5",
+      "name": "c100-1",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c64a315a8455e43fb9c1",
+      "name": "c100-2",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d4a4ef85c3e3f3586fd9",
+      "name": "10S3-1",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "53df05d362ebede73f1c",
+      "name": "10S3-2",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b42f2936570f8fb28914",
+      "name": "10D3-1",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "0ca161366663e9977024",
+      "name": "10D4-1",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "014125e74895892b37c2",
+      "name": "10D4-2",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "86cf1ac48551a6493c42",
+      "name": "10S4-1",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4048ebb1560057f33327",
+      "name": "10S4-2",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "6c191a58ce0f0f6eead7",
+      "name": "SUS-304-2",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "240f8e35d0fb5dbb79e6",
+      "name": "SUS-304-3",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4436bd8a7256a0148476",
+      "name": "SUS-304-4",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "8675f6053ca7286c3b35",
+      "name": "Mikro-2",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "1cebecee181e4d428d52",
+      "name": "CTĐT-1",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "837e07daccef6c81b0e0",
+      "name": "CTĐT-2",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "72fc6f69b7337b11ec86",
+      "name": "1",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "7062a1e3287c76a34106",
+      "name": "gfhe",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d5df2bfe9a58f1fa6d18",
+      "name": "drrgeg",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ac43f1f8a6619ba22bba",
+      "name": "greg",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "47e6ab6e9e2295903e8d",
+      "name": "dggtứg",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "3ea862134173f4f469b7",
+      "name": "etwtsfs",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "69417e88f3c8860735e4",
+      "name": "3tứgdq",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e10b2a985e2cdf4d9a06",
+      "name": "1232",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e7df07e70e5e1e245996",
+      "name": "jsfjdj",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "7e7ca51c6e9bac31787d",
+      "name": "fjsfjdj",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d061e972800b9b3fd26e",
+      "name": "sghd",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "3c3a51fac527dd93f578",
+      "name": "rtejfl",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "edc689d6e942779dc229",
+      "name": "NBNBNBNBNBNBNBN",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "6183e171c11cc1fdf68b",
+      "name": "VAF36",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ff64a557a1d00a56411f",
+      "name": "MFM384",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "081371da379eb8222573",
+      "name": "MFM383A",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "31d8aeb86dc410367436",
+      "name": "Lable danger",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "eed8f6f21321a6170d86",
+      "name": "fhdgjf",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c9ed250ac944ef236268",
+      "name": "fhd",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "41cc6871b202d9ce8824",
+      "name": "BGVFG",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "eb2e0f0ec6188f68d456",
+      "name": "GVFDXBG",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "80f1abd30b2a42d42213",
+      "name": "EL-1",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d82bd45dcd6fb2855885",
+      "name": "EL-2",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "31da23565ffa12983b6f",
+      "name": "EL-3",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "8867ebecbd717b5a96e3",
+      "name": "EL-4",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "bf01c56700edad095d17",
+      "name": "dfff",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "8d17f29d274962da2ce7",
+      "name": "2",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e504b83164776e18118f",
+      "name": "vvv",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d1c11b98a4105f7dba4d",
+      "name": "DFH",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "0d368b062d367edceb4c",
+      "name": "gg",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "02f7526657ea24f8ee2e",
+      "name": "ggj",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "602444bb76c839b39f88",
+      "name": "KHUNG CHUẨN",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "3f32cabb50edcf31cb03",
+      "name": "ggggggggi",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "9f24e8959e86a764d22a",
+      "name": "tttttttt",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "5948396549aa94e796b9",
+      "name": "g",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "78cf35d35ccf97485a26",
+      "name": "QQQ",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "af1950009eb01cdff1d1",
+      "name": "f",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "9c01059e2e28f244cf8b",
+      "name": "ddddđ",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "fe28151a6bc4da75669f",
+      "name": "bgw",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "a808a9852e597eb0b8a1",
+      "name": "SW3",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c852b7fef6f66c7828ad",
+      "name": "BETTERY",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "2687a28a2c613e326f7c",
+      "name": "DC30D",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c289d7cf849d2a0b57a7",
+      "name": "hvnhgjghj",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c256100ab6aa8f7b1601",
+      "name": "22323232",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "30a830b596659e887404",
+      "name": "vaf36A",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "cd3e4dd094f8c04e952a",
+      "name": "NCS250",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "07685a5a8edd3c1052e3",
+      "name": "dfgfg",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "f5059ff829362a51e055",
+      "name": "12342",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "7f28da74169528fb24dc",
+      "name": "12121",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "a1978478a6573113588d",
+      "name": "ggh",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "479c647a7f8e37a7c6e4",
+      "name": "222",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "333ca41961cd2ebfcd2c",
+      "name": "mcctd",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e5e2408ece44f5d835c1",
+      "name": "DGDGDG",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b169d23b96be0ffbd6b9",
+      "name": "PNPE-7P",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "600361741d7c08680fa5",
+      "name": "light",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "0ddd22636d86cfcc2b3c",
+      "name": "KG316T",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "30435ec5d30d6281640f",
+      "name": "noc",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "01c115246399d02278eb",
+      "name": "dai om cot",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "a033d6eb419376dc105c",
+      "name": "om cot",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "10ad47355224eb801e9d",
+      "name": "HCN BKN1P",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "71ed52610a44977c032f",
+      "name": "HCN BKN2P",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d4b19fef9cf4fc60efc8",
+      "name": "HCN BKN3P",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "69814870c46912fcf840",
+      "name": "2P",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "367507d4d2d039ddbbed",
+      "name": "blm",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "23a8cd577ec0ee9a370c",
+      "name": "22525",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "f2c850a492413111f1a2",
+      "name": "hd2",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "dfcee66bbd4c717a9960",
+      "name": "kva50",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "f4ed1de73feb410ffe2e",
+      "name": "50kva",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "1252d8051edd019c7835",
+      "name": "hd123",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "7919d59abd9c0a294a78",
+      "name": "2525555",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4308e079189cb30b3b98",
+      "name": "25256",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "43278a27df89b96ab646",
+      "name": "KHUNG KT1",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "9c8239c90032e79467e8",
+      "name": "ttc2",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "90fc8eff8c0048342695",
+      "name": "u1",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "5057dae5a799ca24a6c3",
+      "name": "u2",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4e0ba23730472aae59fd",
+      "name": "112",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "1d2b1cd99da42aaeae63",
+      "name": "z1",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "5c365ab9654edf8ad53b",
+      "name": "z2",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "0b4f99b0b57e352a87d4",
+      "name": "z3",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c4b48ea854dc6d29e311",
+      "name": "2565",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "bea063e00a0dc05f5858",
+      "name": "z31",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "1dba5955e144251134e3",
+      "name": "z32",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "fa7d4b8ad463bd7d5bb7",
+      "name": "123698",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "2c9652df37d60acc9843",
+      "name": "z36",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "14196392448daf0304f3",
+      "name": "ssssssssss2",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "39d91e1b7478c271ad81",
+      "name": "265",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "9efcd7b3009ad3f11b82",
+      "name": "z4",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4f804b521c0ba8c24620",
+      "name": "252w",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "61b6e925f8e07b4a00b9",
+      "name": "mb4p",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ed1fb905a9a4faef5596",
+      "name": "gfg",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b9efe5dbd1a6e9401651",
+      "name": "ghg",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "441a3522adc1bc192b00",
+      "name": "gsg",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "63992ec5ad6ef8dfaf16",
+      "name": "hah",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "fd0212682f91a1e7c67d",
+      "name": "jbfn",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "8e20497c73e56095d69a",
+      "name": "jff",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4b4bed1a5532030722ab",
+      "name": "100-200",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "cfc854b7b56095fc4288",
+      "name": "dfdfdfd",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "100e367dd6e5f09373e7",
+      "name": "rt18-63",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d143f7dfb94429fc1c33",
+      "name": "dfđf",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e11d1999d8746d18d1c1",
+      "name": "111",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "2d36501bc74d81339837",
+      "name": "225",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "de8904a9b417b7581b52",
+      "name": "3333333336",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "5f555209f396956b9ab9",
+      "name": "sdgdsghfdjhndg",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "a2ae2624cca23fe4c1f5",
+      "name": "ERHR HERY Ẻ H YRE Ẻ",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "cd74183de45dc2a97e13",
+      "name": "SC86N108N1P",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b13fa2ad6ee4a46ee160",
+      "name": "SC86N108N2P",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "57907134e13d68804033",
+      "name": "SC86N108N3P",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c69d98cd5a9349310171",
+      "name": "1 AF125 3P",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "240c5d76d72932f1e631",
+      "name": "fdfhgfjfjgfj",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b6144d285df2954984c9",
+      "name": "ewty regre yhrqyh t33569",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "142f347dba35e4dc21cc",
+      "name": "$AUDIT_BAD_BLOCK_RECORD1",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "44f657e7badb0ae74e30",
+      "name": "12369",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "af09ee307ef5846d54a4",
+      "name": "TV-HTS4",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "782ddd021a2fdaba83ce",
+      "name": "KTRONG",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "689e6a9445235baa7e28",
+      "name": "KT",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b580e3a3d4e58a5458d1",
+      "name": "sadfsdfg",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "f83ceeb1f96699d52ea1",
+      "name": "knn",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ca3f726e3073acae5cc0",
+      "name": "ok",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "8a419a51bc67ad049cff",
+      "name": "SADFFG",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4b6ae8f0864256de7c19",
+      "name": "ÁDFGHD",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "5485edf95561d0429b08",
+      "name": "tp",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "705b33e5881143ace8f7",
+      "name": "tt",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "8927362316a891c051ef",
+      "name": "SDGHGFH",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d71cb4e1d3208a4b5fc2",
+      "name": "SDRFFG",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "1560ae80fd2a808cacb3",
+      "name": "SĐFH",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "082461de7cd8fcb176fc",
+      "name": "336",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "188c0c275a303f7648bc",
+      "name": "125255",
+      "source": "FOMTU.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "81885ced2425a5d0beeb",
+      "name": "1 AF125 2P",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "8002844a541965f9ac5b",
+      "name": "1 AF125 3P",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e89719d3a102a9076f8d",
+      "name": "1 AF125 4P",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "bea69d7dbc2fafa94caf",
+      "name": "LS ABH52C 2P",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c530cb031faef565275a",
+      "name": "LS ABH53C 3P",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "efb491617308d3bc8623",
+      "name": "LS ABH54C 4P",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "192ce17a0625fdbd3062",
+      "name": "1 400AF 2P",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "a7bff252c862ada3aafa",
+      "name": "1 400AF 3P",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "7991e42584d293d07e9a",
+      "name": "1 400AF 4P",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "de3f3244e720b95cba13",
+      "name": "1 LS 800 AF 2P",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "aef3b0c8ecb4889e194a",
+      "name": "1 LS 800 AF 3P",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "f0145e70f1f45f68ae60",
+      "name": "1 LS 800 AF 4P",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "3aa31ff8b138dbb9d8ce",
+      "name": "1 1000-1200AF 3P",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "df357bef57fe84d64bcc",
+      "name": "1 1000-1200AF 4P",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e5df3fb1fad3c9e17988",
+      "name": "HCC1 1000-1200AF",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "57c7a99a45170bbb09aa",
+      "name": "HCC2 1000-1200AF",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "26704d5a19e9a0ac5b57",
+      "name": "LS 1000-1200AF 3P",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e1083dbdbbdae37d6b59",
+      "name": "LS 1000-1200AF 4P",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "90c2deacfd0360c6865d",
+      "name": "ABE203",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "3015821d8a1b60423139",
+      "name": "HCC1 LS ABH50AF",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "75003975ed89ad7c991c",
+      "name": "HCC2 LS ABH50AF",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "1f8cc4637720df3fb53e",
+      "name": "Metasol 100AF",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "07c39934aea6bd5461ff",
+      "name": "Metasol 250AF",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e0a4513a84a589be18aa",
+      "name": "Metasol 400AF",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "1f698e47c07ced20e30d",
+      "name": "Metasol 800AF",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "22d6881770d906905a5c",
+      "name": "Susol TD100.160",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "41da8b5af97d81a4e66f",
+      "name": "Susol TD160",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "392748f8226802a4f21e",
+      "name": "Susol TS100.160.250",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "5850b2c06cb3a50d94b0",
+      "name": "Susol TS400.630",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "1c0881abd142f2a8c752",
+      "name": "Susol TS800",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d8d268ed5ce6cd0b33f8",
+      "name": "Vis MC LS",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b3afa1272bfadf0e73bc",
+      "name": "Aux UA-1",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "14197e1ded559b8b8f3a",
+      "name": "ERYHR REH W4 TS1600AF",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "3a4dc90818020c6a86a6",
+      "name": "GYER HERH  WRE TS1600AF 4P",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "5bb5f9f16c412381462d",
+      "name": "Switch Volt Ampe",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "6b91caa97f88a975a7cb",
+      "name": "EKU 10",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "9b619813b0089202b20e",
+      "name": "khoét vol",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b716e9fe5f88899a70ae",
+      "name": "CẦU TIẾP ĐỊA",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "0a8cbd00112051914ea0",
+      "name": "kt12",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "665dc462b2bfe79f679f",
+      "name": "s202",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d725ff3945c2d07fd1eb",
+      "name": "IDEC Selector Switch",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4a6c46d7b7c28e767424",
+      "name": "_Open30",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ca3691329e8ea148cae2",
+      "name": "Oval 20x9",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "6b51d431df5d7f141cbe",
+      "name": "12",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "06e1ce80af04a73a00f9",
+      "name": "HM10_FACE",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "91c65c988c867b868316",
+      "name": "Bảng thông số (Made by Tung)",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b950f279abf793f6faab",
+      "name": "ABN-ABS-400AF-LS",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d4254a6112757d51d9e3",
+      "name": "ABN-ABS200AF-LS",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "8a5012f6134a224eea05",
+      "name": "ABN-ABS-800AF-LS",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "006dd59b00a359468bfa",
+      "name": "XANH630",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "5e6fce3a46976c4e1ad5",
+      "name": "DH_VOLT-AMPE",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "a42b080a9c4c6435b5ba",
+      "name": "SW_CENTERMARKSYMBOL_10",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c6070561b5dd1c6ae0d7",
+      "name": "canh hgm250",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "1e472b39b105d349bcd0",
+      "name": "250",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "3970513801f7ede75f34",
+      "name": "hgm1000-1250-l",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "45cf1c505c8d86550e76",
+      "name": "10d3.1",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ad069961b64962b5955b",
+      "name": "Barrier 100mm_P4",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "7adf2ece23cee532d9e2",
+      "name": "hwMIT_NF400-CW",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "57ce40c59d13fbf460e3",
+      "name": "ac3200a",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "6581e7f55c87f459b0a3",
+      "name": "hw Din 35",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "42305a438d5d25400361",
+      "name": "C100",
+      "source": "@LS_recover.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "1a12249a14b2ed358460",
+      "name": "06 - N - SC INS 28901~5 4P",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e69e46da07736f96fee2",
+      "name": "06 - N - SC ROLE NHIỆT CHIẾU HÔNG LRD0xxx",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "06d9e911f219e895dc0f",
+      "name": "06 - N - SC ROLE NHIỆT CHIẾU HÔNG LRD3xxx",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "09497bca64c6a8c32344",
+      "name": "06 - N - SC ROLE NHIỆT CHIẾU HÔNG LRD4xxx",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ae6a92259bf3cc7fc164",
+      "name": "06 - N - SC ROLE NHIỆT LRD0xxx",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4bb0554355192754f36f",
+      "name": "06 - N - SC ROLE NHIỆT LRD3xxx",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "8288cee0fd30c84b752c",
+      "name": "06 - N - SC ROLE NHIỆT LRD4xxx",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "8786cfdc9d398fd63191",
+      "name": "06 - N - SC VSD ATV212H075~U22N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "51ca900e932fe9a03cc2",
+      "name": "06 - N - SC VSD ATV212HD15~18N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "90ebfe3b4191a70d5c80",
+      "name": "06 - N - SC VSD ATV212HU30~U55N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "62cc21df86bab4bc991f",
+      "name": "06 - N - SC VSD ATV212HU75~D11N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "7db411a01964a4b67b37",
+      "name": "06 - N - SC VSD ATV320U22~40N4C",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c544485b029c82d6c413",
+      "name": "06 - N - SC VSD ATV320U55~75N4B",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "dc3caba3b75759560af9",
+      "name": "06 - N - SC VSD ATV630C11~C16N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "62db371fba46c492d790",
+      "name": "06 - N - SC VSD ATV630D15~D22N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "83d9050077af87d8c60a",
+      "name": "06 - N - SC VSD ATV630D30~D45N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "7d4bdba601b51f7422c5",
+      "name": "06 - N - SC VSD ATV630D55~D90N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "af7a85a5e402a707bf89",
+      "name": "06 - N - SC VSD ATV630U07~55N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "009c00652fe7dd47e01b",
+      "name": "06 - N - SC VSD ATV630U75~D11N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b3f890b5fdededf61792",
+      "name": "06 - N - SC VSD CHIẾU HÔNG ATV212H075~U22N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ab06b2104479d5a3888a",
+      "name": "06 - N - SC VSD CHIẾU HÔNG ATV212HD15~18N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "60c14bb2084cfb81089a",
+      "name": "06 - N - SC VSD CHIẾU HÔNG ATV212HU30~U55N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "42e8b7482771fde373ff",
+      "name": "06 - N - SC VSD CHIẾU HÔNG ATV212HU75~D11N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "69c97387300d976594d1",
+      "name": "06 - N - SC VSD CHIẾU HÔNG ATV320U22~40N4C",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "9c270c67224a9a7148c6",
+      "name": "06 - N - SC VSD CHIẾU HÔNG ATV320U55~75N4B",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "9520fec7694b35d56537",
+      "name": "06 - N - SC VSD CHIẾU HÔNG ATV630C11~C16N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "085e70c95b1dbdd37270",
+      "name": "06 - N - SC VSD CHIẾU HÔNG ATV630D15~D22N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b422f3b42c2f22431229",
+      "name": "06 - N - SC VSD CHIẾU HÔNG ATV630D30~D45N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "5f0bfca359fd2735bd39",
+      "name": "06 - N - SC VSD CHIẾU HÔNG ATV630D55~D90N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e2377427dcbfa39cfac0",
+      "name": "06 - N - SC VSD CHIẾU HÔNG ATV630U07~55N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "f4a50b386f7748bbcbb2",
+      "name": "06 - N - SC VSD CHIẾU HÔNG ATV630U75~D11N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "6d226e0b05c2583cbcc4",
+      "name": "06 - N - SC VSD CHIẾU TRÊN ATV320U22~40N4C",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "39d4f8fe875345f2b4a3",
+      "name": "06 - N - SC VSD CHIẾU TRÊN ATV320U55~75N4B",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "7f09057c8c28ff7a8412",
+      "name": "06 - N - SC VSD CHIẾU TRÊN ATV630C11~C16N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e2fa362801c908a77d21",
+      "name": "06 - N - SC VSD CHIẾU TRÊN ATV630D15~D22N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "97e09f2662d695b4253a",
+      "name": "06 - N - SC VSD CHIẾU TRÊN ATV630D30~D45N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "fe3ead7828c2fe637f26",
+      "name": "06 - N - SC VSD CHIẾU TRÊN ATV630D55~D90N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "7d619fed6d3f3bc4728f",
+      "name": "06 - N - SC VSD CHIẾU TRÊN ATV630U07~55N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b6383bcd628705becf08",
+      "name": "06 - N - SC VSD CHIẾU TRÊN ATV630U75~D11N4",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "658a87b497ed3e82bd32",
+      "name": "3234t4etgewtew",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b86ce10a157ba7c67043",
+      "name": "32532tt643rt",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c7ab296a9d4b8f8a72ba",
+      "name": "3t64t643yuyhtruyhrt",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "45cb75cdcb5de326f57a",
+      "name": "AB301-2-1",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "3788df3ab3efb5f8f676",
+      "name": "BLOCK0",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e61c48216e5bb7903dd8",
+      "name": "DFHDFYHRTJHNY",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ca667860f34c72ef2d31",
+      "name": "EWTWEQT WEQTY T3 2T",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "40b79423641bcf387ee4",
+      "name": "FTGASFGASGAS",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "36dc83bc9df281df9725",
+      "name": "GGDFGDFGHFDHF",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "0efc7e751e07fa447a4a",
+      "name": "LV429640ATNSX22A 1",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "954d8f3b41e3b96bad31",
+      "name": "LV429640ATNSX22A 2",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "2433ac88eea8164b0313",
+      "name": "LV429640ATNSX22A 3",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "3f27efa40d4bf7c5f2cb",
+      "name": "LV429640ATNSX22A 5",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "8d54ca4bb1a31c0fe6af",
+      "name": "QWE 3 32 KHOI DONG TU 50",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "88bc2b6d0988b0de89fb",
+      "name": "RT632GEHR67Y5GH",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d988b98acb6469659156",
+      "name": "RTYHTUJH54TGT",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ade103441b427b3bcf9d",
+      "name": "SC150_c",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "8638325a1c2610afe64c",
+      "name": "SC150_d",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "6e3239e721cda1732c35",
+      "name": "SC240_c",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "a54f9282ab80841d4b6f",
+      "name": "SC240_d",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "498b3da10e6ef204eb3c",
+      "name": "SN_iCT 1P",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "715a755b4f4c29464922",
+      "name": "TYWT32 5R2332T 23RWQFG",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "d1f5f235885f6a472d09",
+      "name": "TÊTTE",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "7a426a9a3d1aac572f47",
+      "name": "WE WET 23T53 T1235R32",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "389d80a725a8e387e78a",
+      "name": "_OPEN",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "bc7433ddc542382feeda",
+      "name": "con-1",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "27c741153702db1efffc",
+      "name": "con-2",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "50bcf621d287bf994b79",
+      "name": "cvs-03",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4ce2f9f74515a7afb5a1",
+      "name": "cvs-1",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "acda9e0c15a5838bf9c7",
+      "name": "cvs-2",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "4a527bd5f87d4589d54c",
+      "name": "dgjhfdjhfjkkhg",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "53c28dd447327d856ce7",
+      "name": "edfdasgfs",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ff1c9364f3363d0d8c34",
+      "name": "fcdhcgftgyh",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "ed0e5f0fb35163ec20b3",
+      "name": "fdfhdfjhdfjdfj",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "217ba1672d90dc83112e",
+      "name": "fdgdgdbhdfhbdfdhgjuhjkh",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "3fd80938742002a3053c",
+      "name": "fdkđ",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b67599af808370dda78e",
+      "name": "fk",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "cceaf14bfda01fb6f8e2",
+      "name": "gdzgf",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c54297aeb2a8404fecf0",
+      "name": "ghghgjhdfjjkhjgfjgf",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "7a6c4f54cb3ee9d72728",
+      "name": "gstgdxgd",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b71f49b497bf24b812b9",
+      "name": "gưher",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "6b18be73bd9764216ab2",
+      "name": "hfgd",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "e131fe0bc68d02dc4111",
+      "name": "hhhh",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "056797f707e50dd13de2",
+      "name": "hjgh",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "82d5c2825fd694b2341e",
+      "name": "jkj",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "fdb7bf377b29dacaf8ef",
+      "name": "nbndgf",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "fa6be31df8fec39960bd",
+      "name": "retyeryrtjy",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "5cd8d2660ba2a635cd77",
+      "name": "ryyryryrytytyt",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "c3538e9aedd08fba9cbe",
+      "name": "sfgsf",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "7850013a61f95547233d",
+      "name": "sfhg",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "85c0108b13b0a8521383",
+      "name": "tfgh",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "b989aeec0d25746cf07e",
+      "name": "trhgkjglyretgerdutdhjfkhg",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "0161b20cf5c4c2c5ae4b",
+      "name": "tutusdhfhghg",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "329d834f918279dcb49b",
+      "name": "vhhgjhgjhjkhjfg",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "5b9dd92bc69cefd90491",
+      "name": "ègsd",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "52a7966d1e09645ff114",
+      "name": "ézdfhxs",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "bf8577c28db299af8627",
+      "name": "ƯETYWETYWETYE2WT",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "608f9ada52910c0833c5",
+      "name": "ỷeyreyeryryer",
+      "source": "@SCHNEIDER.dwg",
+      "reason": "Chưa xác định thành phần phục vụ lắp tủ"
+    },
+    {
+      "id": "aedc2633b74fadf88422",
+      "name": "Đèn báo pha",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "e90e1c2c3b26c78c733c",
+      "name": "Nút nhấn",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "38998d084e3adfabaee2",
+      "name": "Cầu chì",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "b19e2d0f3394af763f6f",
+      "name": "Đồng hồ cơ loại nhỏ",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "d16c75f697c35d867a9d",
+      "name": "Đồng hồ Chuyển mạch",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "9d326fbe3962f81b80ea",
+      "name": "Đồng hồ điện tử",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "f49f0e6314037e6b4c5c",
+      "name": "Công Tơ",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "c5f3eade710408c80483",
+      "name": "Bộ điều khiển tụ bù",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "fab3d8ee3f3f550dde65",
+      "name": "Bộ điều khiển ATS",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "103b703f973359722c27",
+      "name": "Ổn áp",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "e992f6d0683f3aa65d09",
+      "name": "Bảo vệ pha",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "d7aa7ad2622f292944a1",
+      "name": "Tem át",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "5dc4c60ec9fe8a5ea4d4",
+      "name": "Mặt công tơ",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "28e40a82d3679d946fc1",
+      "name": "Sứ kẹp đồng thanh cái",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "3b03f882df80ac3958eb",
+      "name": "Mica Cảnh báo",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "90b1d5efb3027087d8dd",
+      "name": "Máng nhựa",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "61d7cf89f4c70a8a89e9",
+      "name": "Tấm lọc",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "987bbd0866243301e476",
+      "name": "Quạt",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "c2651224d4b43ae2e933",
+      "name": "Quạt",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "b649cc31d654fddb345f",
+      "name": "Quạt Snuon",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "0029f20e758ea072d273",
+      "name": "Quạt trên nóc",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "3031c3cc81e9ef73e98b",
+      "name": "Chống sét",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "33c46f7e2107f86239fe",
+      "name": "Cầu N+PE",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "67526f79251786e52edb",
+      "name": "Đầu cos đồng",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "cfe0cc94ff132e3b9df5",
+      "name": "Ổ cắm công nghiệp",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "a8169bf419e59fd53812",
+      "name": "Cuộn kháng Have co",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "4806825f44473832c2c9",
+      "name": "Hanyong",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "2e0d01ac0bf661943464",
+      "name": "Hanyong",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "164087431fd610e22645",
+      "name": "Asia",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "345e2e39eada5c7ca5d6",
+      "name": "Asia",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "987102be20302f8fb1b0",
+      "name": "Emic",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "5815a4406a9877a382f6",
+      "name": "CML",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "4af17a9a8abb7eb1d69d",
+      "name": "Vuông",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "543120552b10dcad403a",
+      "name": "Relay trung gian",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "798fb8b0ae23a5afa7de",
+      "name": "Relay đảo chiều",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "76e07da23d4e151e2e28",
+      "name": "Timer 24h",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "af5ff1b1aa42e1a437fb",
+      "name": "Biến áp",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "5440185f9e6289a95f2f",
+      "name": "Tụ khô 440V Nuintek",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "a017a84a10405fc982b6",
+      "name": "Tụ dầu 415V Nuintek",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "0cddc74423fea68bea5b",
+      "name": "Tụ dầu 440V Nuintek",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "1b3d4f62912ea3648241",
+      "name": "Tụ khô 440V Samwha",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "228ce76754b3be40fb38",
+      "name": "Tụ dầu 440V Samwha",
+      "source": "TỔNG HỢP 1.dwg",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "e7632298d09d2aacd7f5",
+      "name": "Đồng hồ cơ loại nhỏ",
+      "source": "TỔNG HỢP 1.bak",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "582a039fb6e32a9416ea",
+      "name": "Công Tơ",
+      "source": "TỔNG HỢP 1.bak",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "d34121504fa1f5d4612b",
+      "name": "Bộ điều khiển ATS",
+      "source": "TỔNG HỢP 1.bak",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "ab9bf40ccf92c137ce9d",
+      "name": "Tem át",
+      "source": "TỔNG HỢP 1.bak",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "8db4d945df3ab678e78a",
+      "name": "Mặt công tơ",
+      "source": "TỔNG HỢP 1.bak",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "70573c53c5ec9c8d7b45",
+      "name": "Mica Cảnh báo",
+      "source": "TỔNG HỢP 1.bak",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "49c7719775b63390760c",
+      "name": "Máng nhựa",
+      "source": "TỔNG HỢP 1.bak",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "b291a1cc09b6d5598502",
+      "name": "Quạt trên nóc",
+      "source": "TỔNG HỢP 1.bak",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "eafff6a6a74719ceb552",
+      "name": "Chống sét",
+      "source": "TỔNG HỢP 1.bak",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "9d8c0925f8ddb07e12f6",
+      "name": "CML",
+      "source": "TỔNG HỢP 1.bak",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "c1663ee4ea61b7fd1f3c",
+      "name": "Tụ dầu 415V Nuintek",
+      "source": "TỔNG HỢP 1.bak",
+      "reason": "Bảng tổng hợp"
+    },
+    {
+      "id": "286ea3815a602ab27d51",
+      "name": "Tụ dầu 440V Samwha",
+      "source": "TỔNG HỢP 1.bak",
+      "reason": "Bảng tổng hợp"
+    }
+  ],
+  "distributed_assets": 1328
+}
