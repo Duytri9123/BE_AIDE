@@ -193,6 +193,12 @@ class Settings(BaseSettings):
     SEPAY_ACCOUNT_NUMBER: str = "0388888888"
     SEPAY_ACCOUNT_NAME: str = "DGP ELECTRIC"
 
+    # Google AdSense & Ad Gate
+    GOOGLE_ADSENSE_CLIENT_ID: str = ""   # ca-pub-XXXXXXXXXXXXXXXX
+    GOOGLE_ADSENSE_SLOT_ID: str = ""     # Ad slot ID
+    AD_ENABLED: bool = True              # Bật/tắt quảng cáo
+    AD_FREQUENCY: int = 5               # Số file tải giữa 2 lần xem quảng cáo
+
     model_config = SettingsConfigDict(
         env_file=".env", env_file_encoding="utf-8", case_sensitive=True, extra="ignore"
     )

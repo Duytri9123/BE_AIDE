@@ -25,6 +25,7 @@ from .page_content import PageContent
 from .activity_log import ActivityLog
 from .conversation_session import ConversationSession
 from .analysis_iteration import AnalysisIteration
+from .ad_view_log import AdViewLog
 
 __all__ = [
     "Base",
@@ -56,4 +57,5 @@ __all__ = [
     "ActivityLog",
     "ConversationSession",
     "AnalysisIteration",
+    "AdViewLog",
 ]

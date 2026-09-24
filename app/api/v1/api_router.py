@@ -8,6 +8,8 @@ from .endpoints import cabinet_templates
 api_router.include_router(cabinet_templates.router, prefix="/cabinet-templates", tags=["Cabinet Templates"])
 from .endpoints import catalog_prices
 api_router.include_router(catalog_prices.router, prefix="/catalog-prices", tags=["Catalog & Custom Prices"])
+from .endpoints import ads
+api_router.include_router(ads.router, prefix="/ads", tags=["Ads"])
 
 api_router.include_router(auth.router, prefix="/auth", tags=["Auth"])
 api_router.include_router(users.router, prefix="/users", tags=["Users"])
