@@ -276,6 +276,16 @@ class CatalogDrivenSizingTests(unittest.TestCase):
 
 
 class SourceFormPlacementTests(unittest.TestCase):
+    def test_exact_sku_can_resolve_unique_source_front(self):
+        from app.api.v1.endpoints.cad_library import manifest
+        from app.services.cad.device_families import build_families
+        from app.services.cad.library_assets import _exact_catalog_asset
+
+        families = build_families(manifest()['items'])
+        self.assertEqual(_exact_catalog_asset({'part_number': 'EM4H06', 'brand': 'EMIC', 'category': 'CT'}, families),
+                         '30e84b2a4ee6ea196918')
+        self.assertIsNone(_exact_catalog_asset({'part_number': 'HGM250-R', 'category': 'MCCB'}, families))
+
     def test_nearest_real_form_contains_linked_source_device(self):
         from app.api.v1.endpoints.cad_library import manifest
         from app.services.cad.device_families import build_families
