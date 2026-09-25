@@ -1,6 +1,7 @@
 """Focused regression tests for cabinet quotation/layout behavior."""
 
 import unittest
+import tempfile
 
 import ezdxf
 
@@ -10,6 +11,7 @@ from app.services.cad.enclosure_cad_generator import (
     EnclosureCadGeneratorService,
     setup_cad_layers,
 )
+from app.services.cad.source_project_generator import SourceProjectGenerator
 
 
 class DynamicGroupingAccessoryTests(unittest.TestCase):
@@ -271,6 +273,28 @@ class CatalogDrivenSizingTests(unittest.TestCase):
         self.assertGreaterEqual(specs["width"], 1000)
         self.assertGreaterEqual(specs["depth"], 600)
         self.assertFalse(specs["fit_check"]["preferred_dimensions_fit"])
+
+
+class SourceFormPlacementTests(unittest.TestCase):
+    def test_nearest_real_form_contains_linked_source_device(self):
+        from app.api.v1.endpoints.cad_library import manifest
+        from app.services.cad.device_families import build_families
+
+        family = next(f for f in build_families(manifest()['items'])
+                      if f['kind'] == 'device' and any(v['face'] == 'front' for v in f['views']))
+        asset_id = next(v['asset_id'] for v in family['views'] if v['face'] == 'front')
+        with tempfile.TemporaryDirectory() as directory:
+            result = SourceProjectGenerator.generate(
+                1, directory, (1800, 1000, 600),
+                devices=[{'name': family['name'], 'category': 'METER', 'tag': 'P1',
+                          'cad': {'asset_id': asset_id}}],
+            )
+            self.assertEqual(result['dimensions'], {'height': 2000, 'width': 1400, 'depth': 900})
+            self.assertEqual(result['placements'][0]['asset_id'], asset_id)
+            self.assertEqual(result['unmatched_devices'], [])
+            doc = ezdxf.readfile(result['path'])
+            self.assertTrue(any(e.dxf.name == 'LIBRARY_' + asset_id
+                                for e in doc.modelspace().query('INSERT')))
 
 
 if __name__ == "__main__":

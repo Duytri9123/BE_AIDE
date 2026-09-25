@@ -18,7 +18,10 @@ def insert_library_asset(space, asset_id, x, y, rotation=0):
     bounds = bbox.extents(block)
     if not bounds.has_data:
         raise ValueError('CAD nguồn không có hình học để chèn')
-    space.add_blockref(name, (x, y), dxfattribs={'rotation': rotation})
+    ref = space.add_blockref(name, (0, 0), dxfattribs={'rotation': rotation})
+    placed = bbox.extents([ref])
+    if placed.has_data:
+        ref.translate(x - placed.extmin.x, y - placed.extmin.y, 0)
     return bounds.size.x, bounds.size.y
 
 

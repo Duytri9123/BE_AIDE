@@ -1681,7 +1681,9 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 source_cad = SourceProjectGenerator.generate(
                     project_id=project.id,
                     output_dir=getattr(settings, "PROJECTS_DIR", "storage/projects"),
-                    dimensions=(enclosure_spec["height"], enclosure_spec["width"], enclosure_spec["depth"]),
+                    dimensions=tuple(enclosure_spec["fit_check"]["minimum_required"][axis] for axis in ("height", "width", "depth")),
+                    devices=[d.model_dump() for d in extracted_devices],
+                    kind=("outdoor" if any(token in str(panel_info).lower() for token in ("ngoài trời", "outdoor")) else "fire" if any(token in str(panel_info).lower() for token in ("chữa cháy", "pccc")) else "indoor"),
                 )
                 cad_file_path = source_cad["path"]
                 log_event(
@@ -3850,13 +3852,17 @@ Chỉ trả một JSON hợp lệ, không markdown:
         cad_file_path = None
         dxf_filename = ""
         dxf_size = 0
+        cad_layout = None
         try:
             source_cad = SourceProjectGenerator.generate(
                 project_id=project.id,
                 output_dir=getattr(settings, "PROJECTS_DIR", "storage/projects"),
-                dimensions=(enclosure_height, enclosure_width, enclosure_depth),
+                dimensions=tuple(enclosure_spec["fit_check"]["minimum_required"][axis] for axis in ("height", "width", "depth")),
+                devices=[d.model_dump() for d in extracted_devices],
+                kind=("outdoor" if any(token in str(panel_name or "").lower() for token in ("ngoài trời", "outdoor")) else "fire" if any(token in str(panel_name or "").lower() for token in ("chữa cháy", "pccc")) else "indoor"),
             )
             cad_file_path = source_cad["path"]
+            cad_layout = {key: source_cad[key] for key in ("template_id", "source", "dimensions", "minimum_required", "placements", "unmatched_devices")}
             dxf_filename = os.path.basename(cad_file_path)
             dxf_size = os.path.getsize(cad_file_path)
         except ValueError as exc:
@@ -4054,6 +4060,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 "file_path": cad_file_path,
                 "file_size": dxf_size
             } if cad_file else None,
+            "cad_layout": cad_layout,
             "quotation_file": excel_file_info,
             "quotation_rows": quotation_rows,
             "technical_proposals": technical_proposals,
