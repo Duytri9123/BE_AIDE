@@ -262,6 +262,16 @@ class CatalogDrivenSizingTests(unittest.TestCase):
         self.assertLessEqual(specs["height"], 600)
         self.assertLessEqual(specs["depth"], 300)
 
+    def test_large_incomer_rejects_2400_by_450_cabinet(self):
+        specs = EnclosureCadGeneratorService.calculate_enclosure_specs(
+            [{"tag": "QF0", "name": "ACB tổng", "category": "ACB", "section": "INCOMER", "poles": 3, "in_a": 2300}],
+            preferred_dimensions=(2400, 450, 400),
+        )
+        self.assertEqual(specs["height"], 2400)
+        self.assertGreaterEqual(specs["width"], 1000)
+        self.assertGreaterEqual(specs["depth"], 600)
+        self.assertFalse(specs["fit_check"]["preferred_dimensions_fit"])
+
 
 if __name__ == "__main__":
     unittest.main()

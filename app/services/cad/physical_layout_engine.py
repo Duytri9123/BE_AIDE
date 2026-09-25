@@ -639,12 +639,9 @@ class PhysicalLayoutEngine:
         traceability_matrix: List[Dict[str, Any]] = []
 
         # 1. Tìm Incomer (Thiết bị đầu vào)
-        incomer_dev = next(
-            (d for d in devices if str(d.get("category", "")).upper() in ["ACB", "MCCB"] or str(d.get("section", "")).upper() in ["ĐẦU VÀO", "INCOMER", "NGUỒN CẤP"]),
-            None
-        )
-        if not incomer_dev and devices:
-            incomer_dev = max(devices, key=lambda d: float(d.get("in_a") or 0))
+        protection = [d for d in devices if str(d.get("category", "")).upper() in ["ACB", "MCCB", "MCB", "RCBO", "RCCB", "ELCB"]]
+        explicit = [d for d in protection if str(d.get("section", "")).upper() in ["ĐẦU VÀO", "DAU VAO", "INCOMER", "NGUỒN CẤP", "NGUON CAP"] or any(k in str(d.get("name", "")).upper() for k in ("INCOMER", "TỔNG", "TONG"))]
+        incomer_dev = max(explicit or protection or devices, key=lambda d: float(d.get("in_a") or 0)) if devices else None
 
         inc_a = float(incomer_dev.get("in_a") or 63.0) if incomer_dev else 63.0
         is_3phase = bool(incomer_dev and int(incomer_dev.get("poles") or 3) >= 3)
@@ -850,9 +847,11 @@ class PhysicalLayoutEngine:
             and d != incomer_dev
         ]
         curr_ctrl_x = work_x1 + inc_w + 25.0
+        unplaced_controls = []
         for c_idx, cd in enumerate(ctrl_devs):
             cw, ch, cd_depth = PhysicalLayoutEngine.get_component_dimensions(cd)
             if curr_ctrl_x + cw > work_x2:
+                unplaced_controls.extend(ctrl_devs[c_idx:])
                 break
             c_tag = PhysicalLayoutEngine.extract_or_assign_tag(cd, c_idx, ElectricalFunction.CONTROL_AUXILIARY)
             cd["tag"] = c_tag
@@ -1215,6 +1214,13 @@ class PhysicalLayoutEngine:
             components=components,
             enclosure_dims={"H": H, "W": W, "D": D}
         )
+        if unplaced_controls:
+            conflict_res.setdefault("conflicts", []).append({
+                "type": "PLACEMENT_INCOMPLETE",
+                "detail": f"{len(unplaced_controls)} thiết bị điều khiển không đủ chỗ trong vùng lắp đặt; cần tăng kích thước tủ hoặc bố trí lại.",
+            })
+            conflict_res["has_conflict"] = True
+            conflict_res["status"] = "LAYOUT_CONFLICT"
 
         # -------------------------------------------------------------
         # SINH TOÀN BỘ 3 HÌNH CHIẾU SVG VECTOR CHUẨN CÔNG NGHIỆP

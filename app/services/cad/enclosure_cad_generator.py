@@ -221,7 +221,7 @@ class EnclosureCadGeneratorService:
         need_busbar = incomer_a >= BUSBAR_REQUIRED_MIN_CURRENT_A
 
         standard_widths = [300, 400, 500, 600, 700, 800, 1000, 1200, 1400, 1600]
-        standard_heights = [400, 500, 600, 700, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200]
+        standard_heights = [400, 500, 600, 700, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2400]
         standard_depths = [200, 250, 300, 350, 400, 450, 500, 600, 800]
 
         def round_standard(value: float, standards: List[int]) -> float:
@@ -276,6 +276,22 @@ class EnclosureCadGeneratorService:
             max_device_d = max([inc_d] + [dim[2] for _, dim in branch_dims] + [60.0])
             depth_allowance = 210.0 if incomer_a < 400 else 260.0
             minimum_d = round_standard(max_device_d + depth_allowance, standard_depths)
+
+        # Catalog device envelopes alone omit cable bends, terminals and working
+        # clearance. Keep large incomers in a floor-standing cabinet envelope.
+        if incomer_a >= 2000:
+            minimum_h = max(minimum_h, 1800.0)
+            minimum_w = max(minimum_w, 1000.0)
+            minimum_d = max(minimum_d, 600.0)
+        elif incomer_a >= 1000:
+            minimum_h = max(minimum_h, 1600.0)
+            minimum_w = max(minimum_w, 800.0)
+            minimum_d = max(minimum_d, 500.0)
+
+        if preferred_dimensions and len(preferred_dimensions) >= 3:
+            pref_h = float(preferred_dimensions[0])
+            if pref_h >= 1800:
+                minimum_w = max(minimum_w, round_standard(pref_h / 3.0, standard_widths))
 
         required_h, required_w, required_d = minimum_h, minimum_w, minimum_d
         has_preferred = bool(preferred_dimensions and len(preferred_dimensions) >= 3 and float(preferred_dimensions[0]) > 0)

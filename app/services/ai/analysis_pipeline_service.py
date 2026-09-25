@@ -1681,7 +1681,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 source_cad = SourceProjectGenerator.generate(
                     project_id=project.id,
                     output_dir=getattr(settings, "PROJECTS_DIR", "storage/projects"),
-                    dimensions=detected_dimensions,
+                    dimensions=(enclosure_spec["height"], enclosure_spec["width"], enclosure_spec["depth"]),
                 )
                 cad_file_path = source_cad["path"]
                 log_event(
@@ -3845,7 +3845,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
             conflict_count=len(layout_conflicts),
         )
 
-        # Only export a complete source cabinet sheet when verified dimensions exist.
+        # Use the checked enclosure envelope, never the unvalidated drawing note.
         await emit_progress("cad_drawing", 60, "Đang chọn form tủ CAD từ thư viện nguồn")
         cad_file_path = None
         dxf_filename = ""
@@ -3854,7 +3854,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
             source_cad = SourceProjectGenerator.generate(
                 project_id=project.id,
                 output_dir=getattr(settings, "PROJECTS_DIR", "storage/projects"),
-                dimensions=detected_dimensions,
+                dimensions=(enclosure_height, enclosure_width, enclosure_depth),
             )
             cad_file_path = source_cad["path"]
             dxf_filename = os.path.basename(cad_file_path)

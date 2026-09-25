@@ -15,6 +15,8 @@ class SourceProjectGenerator:
         requested = {"height": height, "width": width, "depth": depth}
         if any(value <= 0 for value in requested.values()):
             raise ValueError("Kích thước tủ phải lớn hơn 0.")
+        if height >= 1800 and width < height / 3:
+            raise ValueError("Tủ đứng quá hẹp so với chiều cao; cần kiểm tra lại kích thước và bố trí thiết bị.")
         matches = cabinet_templates.candidates(requested, kind=kind)
         match = next((item for item in matches if item["can_generate"]), None)
         if not match:
