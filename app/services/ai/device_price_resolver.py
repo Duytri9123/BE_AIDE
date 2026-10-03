@@ -452,7 +452,26 @@ class DevicePriceResolver:
                 "price_note": f"Giá Admin nhập tay ({custom.get('source_note', '')}) - cập nhật {custom.get('updated_at', '')[:10]}",
             }
 
-        # ── P2: Catalog báo giá chính thức ────────────────────────────
+        # ── P2: Dòng PDF 2026 có mã và thông số khớp duy nhất ─────────
+        if part_number:
+            try:
+                from app.services.equipment_library import resolve_price_variant
+                source_row = resolve_price_variant(part_number, brand or None, poles, in_a, min_icu)
+            except FileNotFoundError:
+                source_row = None
+            if source_row:
+                amount = int(source_row['price']['amount_vnd'])
+                return {
+                    'sku': part_number, 'name': source_row['display_name'],
+                    'brand': source_row['brand'], 'unit_price': amount, 'price': amount,
+                    'dimensions': source_row['specifications'].get('dimensions_mm') or {},
+                    'parameters': source_row['specifications'],
+                    'cad': source_row['cad'], 'catalog_id': source_row['catalog_id'],
+                    'catalog_matched': True, 'price_source': 'source_backed_catalog_2026',
+                    'price_note': 'Giá theo dòng PDF; xem cad.status và warnings trước khi dùng CAD.',
+                }
+
+        # ── P2 fallback: Catalog tính toán cũ ─────────────────────────
         if catalog_engine:
             catalog_result = DevicePriceResolver.resolve_from_catalog(
                 catalog_engine,

@@ -3713,6 +3713,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
 
         # Tra cứu Catalog & khớp đơn giá thiết bị
         catalog_engine = DeviceCatalogEngine.get_instance()
+        from app.services.equipment_library import resolve_price_variant
         device_price_map: Dict[str, int] = {}
 
         def catalog_type_matches(category: str, item: Dict[str, Any]) -> bool:
@@ -3735,6 +3736,26 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 if explicit_brand_preference
                 else dev.brand or resolved_brand_pref or settings.DEFAULT_BRAND
             )
+            # Use a source PDF row only when the extracted code and electrical
+            # parameters identify one variant. Family CAD stays family CAD.
+            if dev.part_number:
+                try:
+                    source_row = resolve_price_variant(
+                        dev.part_number,
+                        resolved_brand_pref if explicit_brand_preference else (dev.brand or None),
+                        dev.poles, dev.in_a,
+                    )
+                except FileNotFoundError:
+                    source_row = None
+                if source_row:
+                    device_price_map[dev.part_number] = int(source_row['price']['amount_vnd'])
+                    if not dev.brand:
+                        dev.brand = source_row['brand']
+                    dev.technical_match_note = (
+                        f"Giá PDF 2026: {source_row['catalog_id']}; "
+                        f"CAD: {source_row['cad']['status']}."
+                    )
+                    continue
             # 1. Tìm theo SKU chính xác
             if dev.part_number and not explicit_brand_preference:
                 exact = catalog_engine.get_by_sku(dev.part_number)

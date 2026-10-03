@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AIDE equipment catalog record",
+  "type": "object",
+  "required": [
+    "catalog_id",
+    "record_type",
+    "brand",
+    "model",
+    "specifications",
+    "price",
+    "cad",
+    "source_record",
+    "evidence",
+    "warnings"
+  ],
+  "properties": {
+    "catalog_id": {
+      "type": "string"
+    },
+    "record_type": {
+      "enum": [
+        "priced_variant",
+        "manufacturer_or_cad_reference",
+        "source_cad_device_or_assembly"
+      ]
+    },
+    "brand": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "category": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "material_code": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "specifications": {
+      "type": "object"
+    },
+    "price": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "cad": {
+      "type": "object",
+      "required": [
+        "status",
+        "views"
+      ]
+    },
+    "source_record": {
+      "type": "object"
+    },
+    "evidence": {
+      "type": "object"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source_data": {
+      "type": "object"
+    }
+  }
+}

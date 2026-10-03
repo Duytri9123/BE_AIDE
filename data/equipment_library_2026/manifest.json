@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at_utc": "2026-10-03T10:50:41.011013+00:00",
+  "path_base": "Tudien/CATALOG_PHU_KIEN_DOC_LAP",
+  "equipment_records": 5088,
+  "product_groups": 1313,
+  "cad_asset_records": 3774,
+  "price_rows_by_brand": {
+    "LS": 478,
+    "Mitsubishi": 3140,
+    "Schneider": 117,
+    "ABB": 598,
+    "O-Sung": 29,
+    "Shihlin": 83
+  },
+  "records_by_brand": {
+    "LS": 490,
+    "Mitsubishi": 3141,
+    "Schneider": 118,
+    "ABB": 601,
+    "O-Sung": 29,
+    "Shihlin": 83,
+    "Unverified": 532,
+    "EMIC": 11,
+    "EMIC (theo cụm CAD)": 10,
+    "Holley (theo cụm CAD)": 1,
+    "Selec": 4,
+    "Schneider Electric": 4,
+    "MITEX": 2,
+    "CML": 5,
+    "MIKRO": 6,
+    "MORELE": 5,
+    "Chint": 10,
+    "Omron": 3,
+    "OSEMCO": 1,
+    "Vinakip": 1,
+    "Himel": 1,
+    "Samwha": 8,
+    "Nuintek": 20,
+    "Leipole": 2
+  },
+  "records_by_type": {
+    "priced_variant": 4445,
+    "manufacturer_or_cad_reference": 2,
+    "source_cad_device_or_assembly": 641
+  },
+  "cad_status_counts": {
+    "family_or_frame_cad": 1039,
+    "exact_model_cad": 7,
+    "no_verified_cad": 3383,
+    "manufacturer_data_no_cad": 16,
+    "source_cad_family": 1,
+    "manufacturer_dimensions_no_cad": 1,
+    "source_cad_unverified_sku": 641
+  },
+  "missing_asset_paths": [],
+  "source_sha256": {
+    "LS_D02_DU_LIEU_MOI/price_with_cad.json": "ad1141c8e4a90a14850ad3e8a6fe33a469cfb73148fb47b4754110dfd86b9a73",
+    "MITSUBISHI_D04_DU_LIEU_MOI/price_with_cad.json": "2635f795401f855bb7e54a7de6431582d682d21a3459808fdcb218d292d16521",
+    "SCHNEIDER_D01_DU_LIEU_MOI/price_index.json": "e4dd2afd3995dff333cd92e84acc3501e99b47f7896ba51367ac004df45b1d66",
+    "ABB_D03_DU_LIEU_MOI/price_index.json": "eb2eb6d660e7d20daae6340f8e76d512b347f33cbca2437cb124509365279bd6",
+    "OSUNG_D05_DU_LIEU_MOI/price_index.json": "a0ad067425caee93cb74eb210215b25ca9c07c33cb830b18a9d150244d7d4c7a",
+    "SHIHLIN_D06_DU_LIEU_MOI/price_index.json": "57b9a3af44ffb3e300be035c0ebb87ca05832b8ed66fe866f8e3121a2847a046",
+    "LS_D02_DU_LIEU_MOI/cad_bo_sung.json": "d9f4200f8f6c79bce69fb3874c3b7928fca63250e41207f920e05283754ca90f",
+    "THIET_BI_KHAC_2026/products.json": "53adc158860560d9c974724e250ad4b7437c20ec047da588e2b9551475a94b2f",
+    "full_accessory_cad_inventory.json": "31977f80253219a43661dd0581d6883bb0b55693292b74447f1043554c97fdb6"
+  },
+  "files": {
+    "equipment": "equipment_catalog.jsonl",
+    "groups": "equipment_groups.jsonl",
+    "cad_assets": "cad_assets.jsonl",
+    "sqlite": "equipment_catalog.sqlite",
+    "schema": "equipment_catalog.schema.json"
+  }
+}
