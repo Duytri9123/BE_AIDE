@@ -1,16 +1,11 @@
 from sqladmin import ModelView
 from app.models.article import Article
 from markupsafe import Markup
-import bleach
+from app.services.article_content import normalize_article_html
 
 
 def render_article_html(model, _attribute):
-    return Markup(bleach.clean(
-        model.content_html or "",
-        tags={"p", "br", "h2", "h3", "h4", "ul", "ol", "li", "strong", "b", "em", "i", "blockquote", "table", "thead", "tbody", "tr", "th", "td", "a", "img", "figure", "figcaption", "span", "div"},
-        attributes={"a": ["href", "title", "rel"], "img": ["src", "alt", "title", "width", "height"], "td": ["colspan", "rowspan"], "th": ["colspan", "rowspan"]},
-        protocols={"http", "https"}, strip=True,
-    ))
+    return Markup(normalize_article_html(model.content_html))
 
 
 class ArticleAdmin(ModelView, model=Article):
@@ -43,3 +38,7 @@ class ArticleAdmin(ModelView, model=Article):
     can_delete = True
     can_export = True
     page_size = 30
+
+    async def on_model_change(self, data, model, is_created, request):
+        if "content_html" in data:
+            data["content_html"] = normalize_article_html(data["content_html"])

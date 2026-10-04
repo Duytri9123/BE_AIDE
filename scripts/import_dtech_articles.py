@@ -18,6 +18,7 @@ from sqlalchemy import select
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from app.db.session import AsyncSessionLocal  # noqa: E402
 from app.models.article import Article  # noqa: E402
+from app.services.article_content import normalize_article_html  # noqa: E402
 
 SITEMAP = "https://dtech.vn/sitemap/sitemap_news.xml"
 ALLOWED_TAGS = {"p", "br", "h2", "h3", "h4", "ul", "ol", "li", "strong", "b", "em", "i", "blockquote", "table", "thead", "tbody", "tr", "th", "td", "a", "img", "figure", "figcaption", "span", "div"}
@@ -72,7 +73,7 @@ def parse_article(url: str, html: str) -> dict | None:
     kind = re.search(r"-([a-z]+)-\d+$", slug)
     category = {"gp": "Giải pháp", "cn": "Công nghệ", "bg": "Báo giá", "gt": "Giới thiệu", "kn": "Kinh nghiệm", "careers": "Tuyển dụng"}.get(kind.group(1) if kind else "", "Bài viết")
     return {"slug": slug, "title": title[:500], "summary": summary,
-            "content_html": content.decode_contents(), "cover_image_url": cover.get("src") if cover else None,
+            "content_html": normalize_article_html(content.decode_contents()), "cover_image_url": cover.get("src") if cover else None,
             "category": category, "meta_description": summary[:500],
             "source_url": url, "published": True}
 

@@ -52,6 +52,10 @@
 
 {% block head_css %}
 {{ super() }}
+{% if model_view.identity == 'article' %}
+<link rel="stylesheet" href="{{ url_for('admin_static', path='vendor/jodit/jodit.min.css') }}">
+<style>.jodit-container { max-width: 100%; } .jodit-wysiwyg { font-size: 16px; line-height: 1.7; } .jodit-wysiwyg img { max-width: 100%; height: auto; }</style>
+{% endif %}
 {% if form is defined %}
   {% set form_media = collect_form_media(form) %}
   {% for url in form_media.css %}
@@ -62,6 +66,10 @@
 
 {% block tail %}
 {{ super() }}
+{% if model_view.identity == 'article' %}
+<script src="{{ url_for('admin_static', path='vendor/jodit/jodit.min.js') }}"></script>
+<script src="{{ url_for('admin_static', path='article_editor.js') }}"></script>
+{% endif %}
 {% if form is defined %}
   {% set form_media = collect_form_media(form) %}
   {% for url in form_media.js %}

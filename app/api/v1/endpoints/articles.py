@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
-import bleach
 from pydantic import BaseModel, ConfigDict
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.session import get_db
 from app.models.article import Article
+from app.services.article_content import normalize_article_html
 
 router = APIRouter()
 
@@ -54,10 +54,5 @@ async def get_article(slug: str, db: AsyncSession = Depends(get_db)):
     if article is None:
         raise HTTPException(status_code=404, detail="Không tìm thấy bài viết")
     result = ArticleDetail.model_validate(article)
-    result.content_html = bleach.clean(
-        result.content_html,
-        tags={"p", "br", "h2", "h3", "h4", "ul", "ol", "li", "strong", "b", "em", "i", "blockquote", "table", "thead", "tbody", "tr", "th", "td", "a", "img", "figure", "figcaption", "span", "div"},
-        attributes={"a": ["href", "title", "rel"], "img": ["src", "alt", "title", "width", "height"], "td": ["colspan", "rowspan"], "th": ["colspan", "rowspan"]},
-        protocols={"http", "https"}, strip=True,
-    )
+    result.content_html = normalize_article_html(result.content_html)
     return result
