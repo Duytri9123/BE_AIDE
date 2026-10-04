@@ -3,11 +3,15 @@ import json
 import re
 import sqlite3
 import mimetypes
+import hashlib
+from functools import lru_cache
 
 from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import Response
 
-from app.services.equipment_library import DB_PATH, asset_available, asset_bytes, catalog_manifest, get_equipment, search_equipment
+from app.services.equipment_library import (BACKEND_CATALOG_DIR, DB_PATH, asset_available,
+                                             asset_bytes, catalog_manifest, get_equipment,
+                                             search_equipment)
 
 router = APIRouter()
 
@@ -15,6 +19,34 @@ router = APIRouter()
 def _natural(value: str):
     return [(0, int(part)) if part.isdigit() else (1, part.casefold())
             for part in re.split(r'(\d+)', value or '')]
+
+
+@lru_cache(maxsize=1)
+def _manufacturer_links():
+    path = BACKEND_CATALOG_DIR / 'source_manufacturer_cad_links.json'
+    return json.loads(path.read_text(encoding='utf-8')) if path.is_file() else {}
+
+
+def _linked_group_key(row):
+    """Only group source views with the same identified brand, model and frame CAD."""
+    if row['record_type'] != 'source_cad_device_or_assembly':
+        return None
+    link = _manufacturer_links().get(row['catalog_id'])
+    if not link:
+        return None
+    return (row['brand'], row['category'], row['model'].casefold().strip(), link['catalog_id'])
+
+
+def _linked_group(row):
+    key = _linked_group_key(row)
+    if not key:
+        return [row]
+    with sqlite3.connect(DB_PATH) as db:
+        candidates = [json.loads(result[0]) for result in db.execute(
+            "SELECT record_json FROM equipment WHERE record_type = 'source_cad_device_or_assembly' AND brand = ? AND category = ? AND lower(model) = ?",
+            (row['brand'], row['category'], row['model'].casefold()))]
+    return sorted((candidate for candidate in candidates if _linked_group_key(candidate) == key),
+                  key=lambda candidate: candidate['catalog_id'])
 
 
 @router.get('/browse')
@@ -54,6 +86,16 @@ def browse(q: str = '', category: str = '', brand: str = '',
     rows.sort(key=lambda row: (
         _natural(row.get('category') or ''), _natural(row.get('brand') or ''),
         _natural(row.get('model') or row['display_name']), _natural(row['catalog_id'])))
+    seen_groups = set()
+    grouped_rows = []
+    for row in rows:
+        group = _linked_group_key(row)
+        if group and group in seen_groups:
+            continue
+        if group:
+            seen_groups.add(group)
+        grouped_rows.append(row)
+    rows = grouped_rows
     total = len(rows)
     return {'items': [{
         'catalog_id': row['catalog_id'], 'name': row['display_name'], 'model': row['model'],
@@ -61,6 +103,8 @@ def browse(q: str = '', category: str = '', brand: str = '',
         'cad_status': row['cad']['status'], 'has_preview': bool(row['cad'].get('preview') and
             asset_available(row['cad']['preview']['path'])),
         'has_dxf': bool(row['cad'].get('dxf') and asset_available(row['cad']['dxf']['path'])),
+        'display_preview_catalog_id': (_manufacturer_links().get(row['catalog_id']) or {}).get('catalog_id'),
+        'display_preview_basis': (_manufacturer_links().get(row['catalog_id']) or {}).get('match_basis'),
         'price_vnd': (row.get('price') or {}).get('amount_vnd'),
         'poles': row['specifications'].get('poles'),
         'current_a': row['specifications'].get('current_a'),
@@ -145,4 +189,39 @@ def detail(catalog_id: str):
         raise HTTPException(status_code=503, detail=str(exc)) from exc
     if item is None:
         raise HTTPException(status_code=404, detail='Equipment record not found')
+    group = _linked_group(item)
+    link = _manufacturer_links().get(catalog_id)
+    if link:
+        manufacturer = get_equipment(link['catalog_id'])
+        item['manufacturer_frame_cad'] = {
+            'catalog_id': manufacturer['catalog_id'],
+            'model_on_drawing': link['model_on_drawing'],
+            'match_basis': link['match_basis'],
+        }
+        views = []
+        if (manufacturer['cad'].get('preview') or {}).get('available_now'):
+            views.append({'id': f"manufacturer:{manufacturer['catalog_id']}",
+                          'name': 'CAD gốc của hãng', 'state': 'Mặt trước theo khung',
+                          'preview_catalog_id': manufacturer['catalog_id'],
+                          'dxf_catalog_id': manufacturer['catalog_id'] if (manufacturer['cad'].get('dxf') or {}).get('available_now') else None,
+                          'preview': manufacturer['cad']['preview'], 'dxf': manufacturer['cad'].get('dxf')})
+        seen_previews = set()
+        for member in group:
+            face = (_manufacturer_links().get(member['catalog_id']) or {}).get('source_face_label')
+            for view in member['cad'].get('views', []):
+                preview = view.get('preview')
+                if preview and asset_available(preview['path']):
+                    digest = hashlib.sha256(asset_bytes(preview['path'])).digest()
+                    if digest in seen_previews:
+                        continue
+                    seen_previews.add(digest)
+                enriched = dict(view)
+                enriched['record_id'] = member['catalog_id']
+                enriched['state'] = face or f'CAD nguồn {len(seen_previews)}'
+                for field in ('preview', 'dxf'):
+                    if enriched.get(field):
+                        enriched[field] = {**enriched[field], 'available_now': asset_available(enriched[field]['path'])}
+                views.append(enriched)
+        item['cad']['views'] = views
+        item['grouped_source_ids'] = [member['catalog_id'] for member in group]
     return item

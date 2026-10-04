@@ -1,5 +1,6 @@
 """Bundle CAD previews/DXFs referenced by the active 2026 equipment catalog."""
 import json
+import re
 import sqlite3
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
@@ -20,3 +21,38 @@ with ZipFile(archive, 'w', compression=ZIP_DEFLATED, compresslevel=8) as output:
             raise FileNotFoundError(relative)
         output.write(path, relative)
 print(f'{len(paths)} CAD files copied to {archive} ({archive.stat().st_size:,} bytes)')
+
+# Link a source drawing to a manufacturer's preview only when the text read
+# from that drawing matches the source model exactly. This is frame evidence,
+# not proof that a priced SKU is the same device.
+ls_prices = json.loads((SOURCE / 'LS_D02_DU_LIEU_MOI' / 'price_with_cad.json').read_text(encoding='utf-8'))
+price_records = {record['source_record']['row_id']: record for record in records
+                 if record['record_type'] == 'priced_variant'
+                 and record['source_record']['dataset'] == 'LS_D02_DU_LIEU_MOI/price_with_cad.json'}
+normalize = lambda value: re.sub(r'[^a-z0-9]', '', str(value or '').casefold())
+links = {}
+for record in records:
+    if record['record_type'] != 'source_cad_device_or_assembly' or record['brand'] != 'LS':
+        continue
+    model = normalize(record['model'])
+    series = re.match(r'[a-z]+', model)
+    candidates = [row for row in ls_prices
+                  if normalize(row.get('cad_model_on_drawing')) == model
+                  and normalize(row.get('name_pdf')).startswith(series.group() if series else '#')
+                  and row.get('row_id') in price_records]
+    candidates.sort(key=lambda row: (row.get('poles_pdf') != 3, row['row_id']))
+    if candidates:
+        related = price_records[candidates[0]['row_id']]
+        if related['cad'].get('preview'):
+            links[record['catalog_id']] = {'catalog_id': related['catalog_id'],
+                                           'model_on_drawing': candidates[0]['cad_model_on_drawing'],
+                                           'match_basis': 'Chữ model trên CAD hãng trùng tên khung CAD nguồn; chưa xác minh SKU'}
+# These two views were inspected in the original drawing: F01 is the front
+# and F02 is the side of the same ABN 400c frame.
+for source_id, face in {'OTHER-F01_cluster1-V001': 'Mặt trước CAD nguồn',
+                        'OTHER-F02_cluster1-V002': 'Mặt bên CAD nguồn'}.items():
+    if source_id in links:
+        links[source_id]['source_face_label'] = face
+(DATA / 'source_manufacturer_cad_links.json').write_text(
+    json.dumps(links, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+print(f'{len(links)} source-to-manufacturer frame preview links written')
