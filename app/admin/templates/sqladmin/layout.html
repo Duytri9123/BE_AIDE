@@ -87,6 +87,16 @@
           <span class="badge bg-info-soft text-info ms-auto" style="font-size: 10px;">Client App ↗</span>
         </a>
 
+        <div class="menu-section-header"><span>NỘI DUNG</span></div>
+        <a href="{{ url_for('admin:list', identity='article') }}" class="sidebar-menu-item {% if request.url.path == '/admin/article/list' %}active{% endif %}">
+          <span class="menu-icon"><i class="fa-solid fa-newspaper text-info"></i></span>
+          <span class="menu-label">Danh sách bài viết</span>
+        </a>
+        <a href="{{ url_for('admin:create', identity='article') }}" class="sidebar-menu-item {% if request.url.path == '/admin/article/create' %}active{% endif %}">
+          <span class="menu-icon"><i class="fa-solid fa-plus text-success"></i></span>
+          <span class="menu-label">Tạo bài viết mới</span>
+        </a>
+
         <!-- Dynamic Loop over Categories & Views -->
         {% for item in admin._menu.items %}
           {% if item.name not in ["Tổng quan", "Analytics", "Dashboard", "Dashboard Thống Kê"] and item.display_name not in ["Tổng quan", "Analytics", "Dashboard", "Dashboard Thống Kê"] %}

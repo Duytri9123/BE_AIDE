@@ -4,10 +4,10 @@ from app.models.article import Article
 
 class ArticleAdmin(ModelView, model=Article):
     name = "Bài viết"
-    name_plural = "Bài viết"
+    name_plural = "Quản lý bài viết"
     icon = "fa-solid fa-newspaper"
     category = "Nội dung website"
-    column_list = [Article.id, Article.title, Article.category, Article.published, Article.updated_at]
+    column_list = [Article.id, Article.title, Article.slug, Article.category, Article.published, Article.updated_at]
     column_searchable_list = [Article.title, Article.slug, Article.category]
     column_sortable_list = [Article.id, Article.title, Article.updated_at]
     column_default_sort = [(Article.updated_at, True)]

@@ -59,8 +59,8 @@ class NotificationAdmin(ModelView, model=Notification):
     can_export = True
 
 class PageContentAdmin(ModelView, model=PageContent):
-    name = "Nội dung Trang web"
-    name_plural = "Nội dung Trang web"
+    name = "Trang tĩnh"
+    name_plural = "Trang tĩnh (giới thiệu, điều khoản...)"
     icon = "fa-solid fa-file-contract"
     category = "Cài đặt Hệ thống"
     list_template = "system/settings_list.html"

@@ -1,1 +1,10 @@
 {% extends "sqladmin/list.html" %}
+{% block content %}
+{% if model_view.identity == 'page-content' %}
+<div class="alert alert-info d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3" role="note">
+  <span><i class="fa-solid fa-circle-info me-2"></i>Mục này quản lý các trang tĩnh. Danh sách bài viết và chức năng tạo bài mới nằm ở mục <strong>Quản lý bài viết</strong>.</span>
+  <a class="btn btn-primary btn-sm" href="{{ url_for('admin:list', identity='article') }}">Mở danh sách bài viết</a>
+</div>
+{% endif %}
+{{ super() }}
+{% endblock %}
