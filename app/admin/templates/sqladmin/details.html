@@ -1,0 +1,106 @@
+{% extends "sqladmin/layout.html" %}
+{% block content %}
+<div class="container-fluid p-0 admin-detail-page">
+  <div class="detail-heading d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+    <div>
+      <div class="detail-eyebrow">{{ model_view.name_plural }} · #{{ get_object_identifier(model) }}</div>
+      <h1 class="detail-title">{{ model.title if model_view.identity == 'article' else model_view.name }}</h1>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <a href="{{ url_for('admin:list', identity=model_view.identity) }}" class="btn btn-outline-secondary btn-sm">← Danh sách</a>
+      {% if model_view.check_can_edit(request, model) %}<a href="{{ model_view._build_url_for('admin:edit', request, model) }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen me-1"></i>Chỉnh sửa</a>{% endif %}
+      {% if model_view.check_can_delete(request, model) %}<a href="#" data-name="{{ model_view.name }}" data-pk="{{ get_object_identifier(model) }}" data-url="{{ model_view._url_for_delete(request, model) }}" data-bs-toggle="modal" data-bs-target="#modal-delete" class="btn btn-outline-danger btn-sm">Xóa</a>{% endif %}
+      {% for custom_action, label in model_view._custom_actions_in_detail.items() %}
+        {% if custom_action in model_view._custom_actions_confirmation %}
+          <a href="#" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-confirmation-{{ custom_action }}">{{ label }}</a>
+        {% else %}
+          <a href="{{ model_view._url_for_action(request, custom_action) }}?pks={{ get_object_identifier(model) }}" class="btn btn-outline-secondary btn-sm">{{ label }}</a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if model_view.identity == 'article' %}
+  <div class="detail-card article-preview">
+    <div class="article-meta-line"><span class="badge bg-primary-soft text-primary">{{ model.category or 'Bài viết' }}</span><span class="badge {{ 'bg-success-soft text-success' if model.published else 'bg-warning-soft text-warning' }}">{{ 'Đã xuất bản' if model.published else 'Bản nháp' }}</span></div>
+    {% if model.summary %}<p class="article-lead">{{ model.summary }}</p>{% endif %}
+    <div class="article-preview-content">
+      {% set value, formatted_value = model_view.get_detail_value(model, 'content_html', request) %}
+      {{ formatted_value }}
+    </div>
+    {% if not model.content_html %}<p class="text-muted">Bài viết chưa có nội dung.</p>{% endif %}
+    <div class="article-preview-footer">
+      <span><strong>Đường dẫn:</strong> /articles/{{ model.slug }}</span>
+      {% if model.source_url %}<a href="{{ model.source_url }}" target="_blank" rel="noopener noreferrer">Xem nguồn bài viết ↗</a>{% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="detail-card mt-3">
+    <h2 class="detail-section-title">{{ 'Thông tin bài viết' if model_view.identity == 'article' else 'Thông tin chi tiết' }}</h2>
+    <dl class="detail-fields">
+      {% for name in model_view._details_prop_names %}
+        {% if model_view.identity != 'article' or name != 'content_html' %}
+          {% set label = model_view._column_labels.get(name, name) %}
+          {% set value, formatted_value = model_view.get_detail_value(model, name, request) %}
+          <div class="detail-field">
+            <dt>{{ label }}</dt>
+            <dd>
+              {% if model_view.identity == 'article' and name == 'cover_image_url' and value %}
+                <img class="detail-cover" src="{{ value }}" alt="Ảnh đại diện bài viết" loading="lazy">
+                <span class="detail-url">{{ value }}</span>
+              {% elif model_view.identity == 'article' and name == 'source_url' and value %}
+                <a href="{{ value }}" target="_blank" rel="noopener noreferrer" class="detail-url">{{ value }} ↗</a>
+              {% elif name in model_view._relation_names %}
+                {% if is_list(value) %}
+                  {% for elem, formatted_elem in zip(value, formatted_value) %}
+                    {% if name not in model_view._non_link_related_fields %}<a href="{{ model_view._build_url_for('admin:details', request, elem) }}">{{ formatted_elem }}</a>{% else %}{{ formatted_elem }}{% endif %}{% if not loop.last %}, {% endif %}
+                  {% endfor %}
+                {% elif value and name not in model_view._non_link_related_fields %}<a href="{{ model_view._url_for_details_with_prop(request, model, name) }}">{{ formatted_value }}</a>
+                {% else %}{{ formatted_value }}{% endif %}
+              {% else %}{{ formatted_value }}{% endif %}
+            </dd>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </dl>
+  </div>
+</div>
+
+{% if model_view.can_delete %}{% include 'sqladmin/modals/delete.html' %}{% endif %}
+{% for custom_action in model_view._custom_actions_in_detail %}
+  {% if custom_action in model_view._custom_actions_confirmation %}
+    {% with confirmation_message = model_view._custom_actions_confirmation[custom_action], custom_action=custom_action, url=model_view._url_for_action(request, custom_action) + '?pks=' + (get_object_identifier(model) | string) %}{% include 'sqladmin/modals/details_action_confirmation.html' %}{% endwith %}
+  {% endif %}
+{% endfor %}
+{% endblock %}
+
+{% block head_css %}
+{{ super() }}
+<style>
+.admin-detail-page { max-width: 1200px; margin: 0 auto; }
+.detail-eyebrow { color: #64748b; font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+.detail-title { margin: 0; font-size: clamp(20px, 2vw, 28px); font-weight: 750; line-height: 1.35; color: #1e293b; }
+.detail-card { background: var(--admin-card-bg, #fff); border: 1px solid var(--admin-border, #e1e7ef); border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(15,23,42,.04); min-width: 0; }
+.detail-section-title { font-size: 16px; font-weight: 750; margin: 0 0 18px; color: #1e293b; }
+.detail-fields { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 30px; }
+.detail-field { min-width: 0; padding: 13px 0; border-top: 1px solid #e9edf3; }
+.detail-field dt { color: #64748b; font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+.detail-field dd { margin: 0; color: #263244; font-size: 14px; line-height: 1.55; overflow-wrap: anywhere; white-space: pre-wrap; max-height: 300px; overflow: auto; }
+.detail-field dd a, .article-preview-footer a { color: #2563b8; text-decoration: underline; }
+.detail-cover { display: block; max-width: 260px; max-height: 180px; object-fit: contain; margin-bottom: 8px; }
+.detail-url { display: block; word-break: break-all; }
+.article-meta-line { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.article-lead { font-size: 16px; line-height: 1.65; color: #475569; margin: 0 0 22px; }
+.article-preview-content { font-size: 15px; line-height: 1.75; color: #253044; overflow-wrap: anywhere; }
+.article-preview-content h2 { font-size: 21px; margin: 28px 0 10px; font-weight: 700; }
+.article-preview-content h3 { font-size: 18px; margin: 22px 0 8px; font-weight: 700; }
+.article-preview-content p { margin: 10px 0; }
+.article-preview-content img { display: block; max-width: 100%; height: auto; margin: 18px auto; }
+.article-preview-content table { display: block; max-width: 100%; overflow-x: auto; }
+.article-preview-content a { color: #2563b8; text-decoration: underline; }
+.article-preview-content ul, .article-preview-content ol { padding-left: 25px; }
+.article-preview-footer { border-top: 1px solid #e9edf3; padding-top: 16px; margin-top: 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; color: #64748b; font-size: 12px; overflow-wrap: anywhere; }
+@media (max-width: 700px) { .detail-card { padding: 16px; } .detail-fields { grid-template-columns: 1fr; } }
+</style>
+{% endblock %}
