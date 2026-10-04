@@ -22,6 +22,7 @@ from .token_log import TokenLog
 from .system_setting import SystemSetting
 from .notification import Notification
 from .page_content import PageContent
+from .article import Article
 from .activity_log import ActivityLog
 from .conversation_session import ConversationSession
 from .analysis_iteration import AnalysisIteration
@@ -54,6 +55,7 @@ __all__ = [
     "SystemSetting",
     "Notification",
     "PageContent",
+    "Article",
     "ActivityLog",
     "ConversationSession",
     "AnalysisIteration",

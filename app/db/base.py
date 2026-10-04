@@ -15,6 +15,7 @@ from app.models.prompt_template import PromptTemplate
 from app.models.system_setting import SystemSetting
 from app.models.notification import Notification
 from app.models.page_content import PageContent
+from app.models.article import Article
 from app.models.brand import Brand
 from app.models.device_category import DeviceCategory
 from app.models.device_series import DeviceSeries

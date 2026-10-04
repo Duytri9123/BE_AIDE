@@ -8,6 +8,7 @@ from app.admin.views.billing_admin import PlanAdmin, SubscriptionAdmin, PaymentA
 from app.admin.views.system_admin import SystemSettingAdmin, NotificationAdmin, PageContentAdmin, ActivityLogAdmin
 from app.admin.views.session_admin import ConversationSessionAdmin, AnalysisIterationAdmin
 from app.admin.views.analytics_view import AnalyticsView
+from app.admin.views.article_admin import ArticleAdmin
 from starlette.staticfiles import StaticFiles
 from pathlib import Path
 
@@ -53,6 +54,7 @@ def create_admin(app, engine):
     admin.add_view(SystemSettingAdmin)
     admin.add_view(NotificationAdmin)
     admin.add_view(PageContentAdmin)
+    admin.add_view(ArticleAdmin)
     admin.add_view(ActivityLogAdmin)
     
     admin.add_view(ConversationSessionAdmin)
