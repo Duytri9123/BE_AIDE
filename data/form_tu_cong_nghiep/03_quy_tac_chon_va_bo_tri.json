@@ -1,0 +1,27 @@
+{
+  "selection_order": [
+    "enclosure_environment_and_mounting",
+    "required_form_from_specification",
+    "actual_device_dimensions_and_terminals",
+    "cable_entry_and_bend_space",
+    "thermal_and_clearance_verification"
+  ],
+  "form_selection": "Lấy form từ yêu cầu dự án hoặc bản vẽ đã xác minh. Không suy form từ loại thiết bị, dòng định mức, kích thước vỏ hay tên file.",
+  "placement": [
+    "Đặt thiết bị nguồn gần đường vào nguồn và thanh cái, tránh dây nguồn cắt qua ô nhánh.",
+    "Xếp nhánh theo tuyến thanh cái và hướng cáp ra; đưa đầu cáp về phía cửa cáp gần nhất.",
+    "Dành không gian cho máng dây điều khiển riêng với cáp lực, PE/N, bán kính uốn, đầu cos, bảo trì và tản nhiệt.",
+    "Tính vách ngăn, giá đỡ, cửa, khoang cáp vào kích thước hữu dụng; không dùng toàn bộ kích thước ngoài để xếp thiết bị.",
+    "Tối ưu diện tích chỉ sau khi đạt khoảng hở điện, nhiệt, cấp bảo vệ, khả năng thao tác và yêu cầu tiêu chuẩn/nhà sản xuất."
+  ],
+  "must_verify_before_fabrication": [
+    "model và kích thước lắp thực",
+    "dòng/ngắn mạch và thanh cái",
+    "khoảng hở điện và nhiệt",
+    "đầu cáp, tiết diện và bán kính uốn",
+    "cấp IP/IK và thông gió",
+    "vách ngăn đúng form",
+    "lối thao tác và bảo trì"
+  ],
+  "standards_note": "Form phân khoang là thuộc tính của cụm tủ hạ áp theo IEC 61439-2, không phải bảy loại vỏ hay bảy sơ đồ thiết bị cố định. Thiết bị nêu là ví dụ, không phải BOM bắt buộc."
+}

@@ -15,13 +15,23 @@ from ezdxf.math import Vec3
 from ezdxf.explode import attrib_to_text
 from ezdxf.upright import upright
 
-LIBRARY = Path(__file__).resolve().parents[3] / 'data/cabinet_templates/formtu'
+_DATA = Path(__file__).resolve().parents[3] / 'data'
+LIBRARY = _DATA / 'cabinet_templates/formtu'
+FORM_LIBRARY = _DATA / 'form_tu_cong_nghiep'
+
+
+def separation_forms():
+    """IEC 61439-2 reference forms, distinct from physical enclosure templates."""
+    path = FORM_LIBRARY / '02_bay_form_iec_61439.json'
+    if not path.is_file():
+        raise ValueError('Chưa tìm thấy thư viện 7 form phân khoang.')
+    return json.loads(path.read_text(encoding='utf-8'))
 
 
 def inventory():
-    path = LIBRARY / 'manifest.json'
+    path = LIBRARY / 'curated_manifest.json'
     if not path.exists():
-        raise ValueError('Thư viện form FOMTU đang được lập chỉ mục.')
+        raise ValueError('Thư viện vỏ tủ trống đã lọc chưa được lập chỉ mục.')
     return json.loads(path.read_text(encoding='utf8'))['items']
 
 

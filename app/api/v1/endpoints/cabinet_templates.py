@@ -29,6 +29,23 @@ def list_templates(height: float = Query(gt=100, le=10000, allow_inf_nan=False),
         raise HTTPException(422, str(exc)) from exc
 
 
+@router.get('/separation-forms')
+def list_separation_forms():
+    try:
+        return library.separation_forms()
+    except ValueError as exc:
+        raise HTTPException(503, str(exc)) from exc
+
+
+@router.get('/catalog')
+def list_template_catalog(kind: Literal['', 'indoor', 'outdoor', 'fire', 'unknown'] = ''):
+    try:
+        rows = [item for item in library.inventory() if not kind or item['kind'] == kind]
+        return {'items': rows, 'total': len(rows)}
+    except ValueError as exc:
+        raise HTTPException(503, str(exc)) from exc
+
+
 @router.post('/generate')
 def generate_template(request: CabinetRequest):
     try:

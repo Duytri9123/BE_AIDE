@@ -1,0 +1,4866 @@
+{
+  "families": [
+    {
+      "id": "wall_mounted",
+      "name": "Vỏ tủ treo tường",
+      "use": "Tủ phân phối/điều khiển nhỏ",
+      "selection": "Chỉ gán khi hồ sơ CAD xác nhận tai treo hoặc lắp tường."
+    },
+    {
+      "id": "floor_standing",
+      "name": "Vỏ tủ đứng",
+      "use": "Tủ phân phối, điều khiển hoặc tụ bù có không gian cáp và bảo trì",
+      "selection": "Xác nhận chân/đế và phương án neo."
+    },
+    {
+      "id": "modular_lineup",
+      "name": "Vỏ tủ ghép dãy",
+      "use": "MSB/MCC nhiều ngăn, thanh cái chạy qua các khoang",
+      "selection": "Xác nhận khung ghép, tấm bên, điểm nối thanh cái và khoang cáp."
+    },
+    {
+      "id": "outdoor",
+      "name": "Vỏ tủ ngoài trời",
+      "use": "Tủ đặt ngoài trời",
+      "selection": "Xác nhận cấp IP/IK, che mưa, thông gió, chống ngưng tụ và vật liệu; nhãn outdoor trong CAD chưa đủ."
+    },
+    {
+      "id": "special",
+      "name": "Vỏ tủ chuyên dụng",
+      "use": "Tủ công tơ, tụ bù, PLC, bơm, ATS hoặc kiosk",
+      "selection": "Chọn theo sơ đồ và điều kiện lắp đặt; chức năng tủ không quyết định form phân khoang."
+    }
+  ],
+  "shells_from_cad": [
+    {
+      "id": "formtu-32b5",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 900,
+        "width": 700,
+        "depth": 250
+      },
+      "description_from_drawing": "...... Tủ trong nhà, Panel, Tai treo chữ V bắt ốc Sơn màu RAL7035W 1.5 05 900x700x250 Vỏ tủ điện ...... anh Quyết ...... An",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "32B5",
+      "source_dxf": "cabinet_templates/formtu/formtu-32b5.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-336a",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 900,
+        "width": 700,
+        "depth": 250
+      },
+      "description_from_drawing": "...... Tủ trong nhà, Panel, Tai treo chữ V bắt ốc Sơn màu RAL7035W 1.5 05 900x700x250 Vỏ tủ điện ...... anh Quyết ...... An",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "336A",
+      "source_dxf": "cabinet_templates/formtu/formtu-336a.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-41b3",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1900,
+        "width": 800,
+        "depth": 300
+      },
+      "description_from_drawing": "...... Tủ trong nhà, Panel, Tai treo chữ V bắt ốc+Đế Sơn màu RAL7035W 1.5 03 1900x800x300 Vỏ tủ điện ...... anh Quyết ...... An",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "41B3",
+      "source_dxf": "cabinet_templates/formtu/formtu-41b3.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-43c3",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1900,
+        "width": 800,
+        "depth": 300
+      },
+      "description_from_drawing": "...... Tủ trong nhà, Panel, Tai treo chữ V bắt ốc+Đế Sơn màu RAL7035W 1.5 03 1900x800x300 Vỏ tủ điện ...... anh Quyết ...... An",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "43C3",
+      "source_dxf": "cabinet_templates/formtu/formtu-43c3.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-de59",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1300,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "...... ...... ...... 1.5 1 1300x800x400 võ tủ trong nhà ...... anh chiến ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "DE59",
+      "source_dxf": "cabinet_templates/formtu/formtu-de59.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-df2a",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1300,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "...... ...... ...... 1.5 1 1300x800x400 võ tủ trong nhà ...... anh chiến ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "DF2A",
+      "source_dxf": "cabinet_templates/formtu/formtu-df2a.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-e0e4",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1300,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "...... ...... ...... 1.5 1 1300x800x400 võ tủ trong nhà ...... anh chiến ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "E0E4",
+      "source_dxf": "cabinet_templates/formtu/formtu-e0e4.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-12445",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 800,
+        "depth": 300
+      },
+      "description_from_drawing": "CNC Thời gian Vẽ A HIỂN ĐK NƯỚC THẢI ... 1.8 1200X800X300 1 Số",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "12445",
+      "source_dxf": "cabinet_templates/formtu/formtu-12445.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-134f6",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 800,
+        "depth": 300
+      },
+      "description_from_drawing": "CNC Thời gian Vẽ A HIỂN ĐK NƯỚC THẢI ... 1.8 1200X800X300 1 Số",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "134F6",
+      "source_dxf": "cabinet_templates/formtu/formtu-134f6.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-13504",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 800,
+        "depth": 300
+      },
+      "description_from_drawing": "CNC Thời gian Vẽ A HIỂN ĐK NƯỚC THẢI ... 1.8 1200X800X300 1 Số",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "13504",
+      "source_dxf": "cabinet_templates/formtu/formtu-13504.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-18ae1",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... Vỏ tủ khung trong nhà, 2 lớp cánh, thanh gá Thân, cánh tôn 1.8mm / Ốp tôn 1.5mm ...... ...... ...... Vỏ tủ khung 15/07/2020 anh Hiển ...... AN",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "18AE1",
+      "source_dxf": "cabinet_templates/formtu/formtu-18ae1.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-18b53",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... Vỏ tủ khung trong nhà, 2 lớp cánh, thanh gá ...... ...... ...... ...... Vỏ tủ khung 15/07/2020 anh Hiển ...... AN",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "18B53",
+      "source_dxf": "cabinet_templates/formtu/formtu-18b53.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-18b8d",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... Vỏ tủ khung trong nhà, 2 lớp cánh, thanh gá Thân, cánh tôn 1.8mm / Ốp tôn 1.5mm ...... ...... ...... Vỏ tủ khung 15/07/2020 anh Hiển ...... AN",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "18B8D",
+      "source_dxf": "cabinet_templates/formtu/formtu-18b8d.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-18b9a",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... Vỏ tủ khung trong nhà, 2 lớp cánh, thanh gá Thân, cánh tôn 1.8mm / Ốp, phụ kiện tôn 1.5 ...... ...... ...... Vỏ tủ khung 15/07/2020 anh Hiển ...... AN",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "18B9A",
+      "source_dxf": "cabinet_templates/formtu/formtu-18b9a.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-18d84",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... Vỏ tủ khung trong nhà, 2 lớp cánh, thanh gá Thân, cánh tôn 1.8mm / Ốp tôn 1.5mm ...... ...... ...... Vỏ tủ khung 15/07/2020 anh Hiển ...... AN",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "18D84",
+      "source_dxf": "cabinet_templates/formtu/formtu-18d84.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-22198",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": "...... tủ ngoài trời 2 lớp cánh  1.5 3 800x600x300 Võ tủ điện ...... A sỹ ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "22198",
+      "source_dxf": "cabinet_templates/formtu/formtu-22198.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-221a5",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": "...... tủ ngoài trời 2 lớp cánh  1.5 3 800x600x300 Võ tủ điện 06/10/2020 a sỹ ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "221A5",
+      "source_dxf": "cabinet_templates/formtu/formtu-221a5.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-223aa",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": "...... tủ ngoài trời 2 lớp cánh  1.5 3 800x600x300 Võ tủ điện 06/10/2020 a sỹ ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "223AA",
+      "source_dxf": "cabinet_templates/formtu/formtu-223aa.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-26105",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... Vỏ tủ khung trong nhà, 2 lớp cánh, thanh gá Thân, cánh tôn 1.8mm / Ốp, phụ kiện tôn 1.5 ...... ...... ...... Vỏ tủ khung 09.11.2020 anh Hiển ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "26105",
+      "source_dxf": "cabinet_templates/formtu/formtu-26105.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-262f3",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... Vỏ tủ khung trong nhà, 2 lớp cánh, thanh gá Thân, cánh tôn 1.8mm / Ốp, phụ kiện tôn 1.5 ...... ...... ...... Vỏ tủ khung 09.11.2020 anh Hiển ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "262F3",
+      "source_dxf": "cabinet_templates/formtu/formtu-262f3.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-26b5f",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... Vỏ tủ khung trong nhà, 2 lớp cánh, thanh gá Thân, cánh tôn 1.8mm / Ốp, phụ kiện tôn 1.5 ...... ...... ...... Vỏ tủ khung 09.11.2020 anh Hiển ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "26B5F",
+      "source_dxf": "cabinet_templates/formtu/formtu-26b5f.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2ba21",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2100,
+        "width": 1000,
+        "depth": 500
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ 2 LỚP CÁNH CÁNH NGOÀI 2MM 1.5   1 2100X1000X500 VÕ TỦ ĐIỆN 24/10/2020 ANH HOÀN ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2BA21",
+      "source_dxf": "cabinet_templates/formtu/formtu-2ba21.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2cd11",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2100,
+        "width": 1000,
+        "depth": 500
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ 2 LỚP CÁNH CÁNH NGOÀI 2MM 1.5   1 2100X1000X500 VÕ TỦ ĐIỆN 24/10/2020 ANH HOÀN ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2CD11",
+      "source_dxf": "cabinet_templates/formtu/formtu-2cd11.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2cd1e",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2100,
+        "width": 1000,
+        "depth": 500
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ 2 LỚP CÁNH CÁNH NGOÀI 2MM 1.5   1 2100X1000X500 VÕ TỦ ĐIỆN 24/10/2020 ANH HOÀN ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2CD1E",
+      "source_dxf": "cabinet_templates/formtu/formtu-2cd1e.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2cd2b",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2100,
+        "width": 2000,
+        "depth": 500
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ 2 LỚP CÁNH  CÁNH NGOÀI 2MM 1.5   1 2100X2000X500 VÕ TỦ ĐIỆN 24/10/2020 ANH HOÀN ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2CD2B",
+      "source_dxf": "cabinet_templates/formtu/formtu-2cd2b.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2cd38",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2100,
+        "width": 2000,
+        "depth": 500
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ 2 LỚP CÁNH  CÁNH NGOÀI 2MM 1.5   1 2100X2000X500 VÕ TỦ ĐIỆN 24/10/2020 ANH HOÀN ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2CD38",
+      "source_dxf": "cabinet_templates/formtu/formtu-2cd38.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2cd45",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2100,
+        "width": 2000,
+        "depth": 500
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ 2 LỚP CÁNH  CÁNH NGOÀI 2MM 1.5   1 2100X2000X500 VÕ TỦ ĐIỆN 24/10/2020 ANH HOÀN ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2CD45",
+      "source_dxf": "cabinet_templates/formtu/formtu-2cd45.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2cd52",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2100,
+        "width": 2000,
+        "depth": 500
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ 2 LỚP CÁNH  CÁNH NGOÀI 2MM 1.5   1 2100X2000X500 VÕ TỦ ĐIỆN 24/10/2020 ANH HOÀN ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2CD52",
+      "source_dxf": "cabinet_templates/formtu/formtu-2cd52.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-30f3b",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": "...... tủ ngoài trời 2 lớp cánh  1.5 3 800x600x300 Võ tủ điện ...... A sỹ ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "30F3B",
+      "source_dxf": "cabinet_templates/formtu/formtu-30f3b.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-30f48",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": "...... tủ ngoài trời 2 lớp cánh  1.5 3 800x600x300 Võ tủ điện 06/10/2020 a sỹ ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "30F48",
+      "source_dxf": "cabinet_templates/formtu/formtu-30f48.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-3114d",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": "...... tủ ngoài trời 2 lớp cánh  1.5 3 800x600x300 Võ tủ điện 06/10/2020 a sỹ ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "3114D",
+      "source_dxf": "cabinet_templates/formtu/formtu-3114d.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-3115f",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1000,
+        "width": 700,
+        "depth": 350
+      },
+      "description_from_drawing": "...... tủ ngoài trời 2 lớp cánh  2 1 1000x700x350 Võ tủ điện ...... A sỹ ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "3115F",
+      "source_dxf": "cabinet_templates/formtu/formtu-3115f.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-311bd",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1000,
+        "width": 700,
+        "depth": 350
+      },
+      "description_from_drawing": "...... tủ ngoài trời 2 lớp cánh  2 1 1000x700x350 Võ tủ điện ...... A sỹ ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "311BD",
+      "source_dxf": "cabinet_templates/formtu/formtu-311bd.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-31283",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1000,
+        "width": 700,
+        "depth": 350
+      },
+      "description_from_drawing": "...... tủ ngoài trời 2 lớp cánh  2 1 1000x700x350 Võ tủ điện ...... A sỹ ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "31283",
+      "source_dxf": "cabinet_templates/formtu/formtu-31283.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-35ed8",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1800,
+        "width": 100,
+        "depth": 500
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 2 LỚP CÁNH SƠN MÀU ĐEN SẦN 1.5 1 1800X100X500 TỦ ĐIỆN 24/10/2020 THẦN THỊ ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "35ED8",
+      "source_dxf": "cabinet_templates/formtu/formtu-35ed8.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-36168",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1800,
+        "width": 100,
+        "depth": 500
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 2 LỚP CÁNH SƠN MÀU ĐEN SẦN 1.5 1 1800X100X500 TỦ ĐIỆN 24/10/2020 THẦN THỊ ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "36168",
+      "source_dxf": "cabinet_templates/formtu/formtu-36168.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-363bb",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1800,
+        "width": 100,
+        "depth": 500
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 2 LỚP CÁNH SƠN MÀU ĐEN SẦN 1.5 1 1800X100X500 TỦ ĐIỆN 24/10/2020 THẦN THỊ ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "363BB",
+      "source_dxf": "cabinet_templates/formtu/formtu-363bb.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-3670e",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2100,
+        "width": 100,
+        "depth": 500
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 2 LỚP CÁNH SƠN MÀU ĐEN SẦN 1.5 1 2100X100X500 TỦ ĐIỆN 24/10/2020 THẦN THỊ ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "3670E",
+      "source_dxf": "cabinet_templates/formtu/formtu-3670e.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-36721",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2100,
+        "width": 100,
+        "depth": 500
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 2 LỚP CÁNH SƠN MÀU ĐEN SẦN 1.5 1 2100X100X500 TỦ ĐIỆN 24/10/2020 THẦN THỊ ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "36721",
+      "source_dxf": "cabinet_templates/formtu/formtu-36721.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-369b5",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2100,
+        "width": 100,
+        "depth": 500
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 2 LỚP CÁNH SƠN MÀU ĐEN SẦN 1.5 1 2100X100X500 TỦ ĐIỆN 24/10/2020 THẦN THỊ ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "369B5",
+      "source_dxf": "cabinet_templates/formtu/formtu-369b5.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-3a79f",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1300,
+        "width": 800,
+        "depth": 350
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 2 LỚP CÁNH SƠN MÀU ĐEN SẦN 1.5 1 1300x800x350 TỦ ĐIỆN D1-6 29/10/2020 THẦN THỊ ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "3A79F",
+      "source_dxf": "cabinet_templates/formtu/formtu-3a79f.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-3a927",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1300,
+        "width": 800,
+        "depth": 350
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 2 LỚP CÁNH SƠN MÀU ĐEN SẦN 1.5 1 1300x800x350 TỦ ĐIỆN D1-6 29/10/2020 THẦN THỊ ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "3A927",
+      "source_dxf": "cabinet_templates/formtu/formtu-3a927.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-3ab70",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1300,
+        "width": 800,
+        "depth": 350
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 2 LỚP CÁNH SƠN MÀU ĐEN SẦN 1.5 1 1300x800x350 TỦ ĐIỆN D1-6 29/10/2020 THẦN THỊ ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "3AB70",
+      "source_dxf": "cabinet_templates/formtu/formtu-3ab70.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-3c034",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1000,
+        "width": 600,
+        "depth": 200
+      },
+      "description_from_drawing": "...... tủ đựng đồ ...... 1.0 ...... 1000x600x200 võ tủ ......  ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "3C034",
+      "source_dxf": "cabinet_templates/formtu/formtu-3c034.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-3c08e",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1000,
+        "width": 600,
+        "depth": 200
+      },
+      "description_from_drawing": "...... tủ đựng đồ ...... 1.0 ...... 1000x600x200 võ tủ ......  ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "3C08E",
+      "source_dxf": "cabinet_templates/formtu/formtu-3c08e.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-466ae",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1900,
+        "width": 1000,
+        "depth": 600
+      },
+      "description_from_drawing": "...... TỦ NGOÀI TRỜI, 2 LỚP CÁNH ...... 2 2 1900X1000X600 VÕ TỦ 24/12/2020 QUÝ QTK ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "466AE",
+      "source_dxf": "cabinet_templates/formtu/formtu-466ae.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-46a6a",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2100,
+        "width": 100,
+        "depth": 500
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 2 LỚP CÁNH SƠN MÀU ĐEN SẦN 1.5 1 2100X100X500 TỦ ĐIỆN 24/10/2020 THẦN THỊ ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "46A6A",
+      "source_dxf": "cabinet_templates/formtu/formtu-46a6a.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-482c1",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1900,
+        "width": 1000,
+        "depth": 600
+      },
+      "description_from_drawing": "...... TỦ NGOÀI TRỜI, 2 LỚP CÁNH ...... 2 2 1900X1000X600 VÕ TỦ 24/12/2020 QUÝ QTK ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "482C1",
+      "source_dxf": "cabinet_templates/formtu/formtu-482c1.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-496d1",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1900,
+        "width": 1000,
+        "depth": 600
+      },
+      "description_from_drawing": "...... TỦ NGOÀI TRỜI, 2 LỚP CÁNH ...... 2 2 1900X1000X600 VÕ TỦ 24/12/2020 QUÝ QTK ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "496D1",
+      "source_dxf": "cabinet_templates/formtu/formtu-496d1.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-4ab8b",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1400,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "01 Vỏ tủ trong nhà, 2 lớp cánh, panel, tai treo ...... 1.2 02 1400x800x400 Tủ điện Tổng ...... a Cường ...... An",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "4AB8B",
+      "source_dxf": "cabinet_templates/formtu/formtu-4ab8b.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-4ac4a",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1400,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "01 Vỏ tủ trong nhà, 2 lớp cánh, panel, tai treo ...... 1.2 02 1400x800x400 Tủ điện Tổng ...... a Cường ...... An",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "4AC4A",
+      "source_dxf": "cabinet_templates/formtu/formtu-4ac4a.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-4ada3",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1400,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "01 Vỏ tủ trong nhà, 2 lớp cánh, panel, tai treo ...... 1.2 02 1400x800x400 Tủ điện Tổng ...... a Cường ...... An",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "4ADA3",
+      "source_dxf": "cabinet_templates/formtu/formtu-4ada3.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-4b5ca",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "4B5CA",
+      "source_dxf": "cabinet_templates/formtu/formtu-4b5ca.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-4bc5f",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "4BC5F",
+      "source_dxf": "cabinet_templates/formtu/formtu-4bc5f.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-4cc08",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "4CC08",
+      "source_dxf": "cabinet_templates/formtu/formtu-4cc08.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-4da35",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "4DA35",
+      "source_dxf": "cabinet_templates/formtu/formtu-4da35.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-4e03e",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "4E03E",
+      "source_dxf": "cabinet_templates/formtu/formtu-4e03e.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-4f86e",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1100,
+        "width": 650,
+        "depth": 250
+      },
+      "description_from_drawing": "......  ...... 1.0 ...... 1100x650x250 võ tủ ......  ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "4F86E",
+      "source_dxf": "cabinet_templates/formtu/formtu-4f86e.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-59dab",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1300,
+        "width": 800,
+        "depth": 350
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 2 LỚP CÁNH  1.5 1 1300x800x350 TỦ ĐIỆN 200A TRƯA 25/1 PHÚC ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "59DAB",
+      "source_dxf": "cabinet_templates/formtu/formtu-59dab.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-5db50",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "5DB50",
+      "source_dxf": "cabinet_templates/formtu/formtu-5db50.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-5e354",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "5E354",
+      "source_dxf": "cabinet_templates/formtu/formtu-5e354.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-5fa79",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "5FA79",
+      "source_dxf": "cabinet_templates/formtu/formtu-5fa79.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-73c6f",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "73C6F",
+      "source_dxf": "cabinet_templates/formtu/formtu-73c6f.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-73f13",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "73F13",
+      "source_dxf": "cabinet_templates/formtu/formtu-73f13.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-744e4",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "744E4",
+      "source_dxf": "cabinet_templates/formtu/formtu-744e4.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-79396",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 2 LỚP CÁNH  1.5 1 1200X800X400   THẮNG TỪ SƠN ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "79396",
+      "source_dxf": "cabinet_templates/formtu/formtu-79396.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-7a509",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1600,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 2 LỚP CÁNH  1.5 1 1600X800X400   THẮNG TỪ SƠN ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "7A509",
+      "source_dxf": "cabinet_templates/formtu/formtu-7a509.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-7aee8",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 2 LỚP CÁNH  1.5 1 1200X800X400   THẮNG TỪ SƠN ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "7AEE8",
+      "source_dxf": "cabinet_templates/formtu/formtu-7aee8.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-7bad5",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 2 LỚP CÁNH  1.5 1 1200X800X400   THẮNG TỪ SƠN ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "7BAD5",
+      "source_dxf": "cabinet_templates/formtu/formtu-7bad5.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-7c252",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1600,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 2 LỚP CÁNH  1.5 1 1600X800X400   THẮNG TỪ SƠN ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "7C252",
+      "source_dxf": "cabinet_templates/formtu/formtu-7c252.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-7ce4f",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1600,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 2 LỚP CÁNH  1.5 1 1600X800X400   THẮNG TỪ SƠN ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "7CE4F",
+      "source_dxf": "cabinet_templates/formtu/formtu-7ce4f.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-7e2b4",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1600,
+        "width": 1200,
+        "depth": 500
+      },
+      "description_from_drawing": " tủ ngoài trời 2 lớp cánh  1.5 2 1600x1200x500 Võ tủ điện ...... Anh Tuynh ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "7E2B4",
+      "source_dxf": "cabinet_templates/formtu/formtu-7e2b4.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-7f9c2",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1600,
+        "width": 1200,
+        "depth": 500
+      },
+      "description_from_drawing": " tủ ngoài trời 2 lớp cánh  1.5 2 1600x1200x500 Võ tủ điện ...... Anh Tuynh ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "7F9C2",
+      "source_dxf": "cabinet_templates/formtu/formtu-7f9c2.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-80412",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1600,
+        "width": 1200,
+        "depth": 500
+      },
+      "description_from_drawing": " tủ ngoài trời 2 lớp cánh  1.5 2 1600x1200x500 Võ tủ điện ...... Anh Tuynh ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "80412",
+      "source_dxf": "cabinet_templates/formtu/formtu-80412.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-811db",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... võ tủ trong nhà, 2 lớp cánh có tai treo rời, 1.2 1 ...... Võ tủ 21/03 Hùng cali ...... phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "811DB",
+      "source_dxf": "cabinet_templates/formtu/formtu-811db.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-8207e",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... võ tủ trong nhà, 2 lớp cánh có tai treo rời, 1.2 1 ...... Võ tủ 21/03 Hùng cali ...... phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "8207E",
+      "source_dxf": "cabinet_templates/formtu/formtu-8207e.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-9a0d7",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1900,
+        "width": 1000,
+        "depth": 600
+      },
+      "description_from_drawing": "...... TỦ NGOÀI TRỜI, 2 LỚP CÁNH ...... 1.5 1 1900X1000X600 Tủ điện   ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "9A0D7",
+      "source_dxf": "cabinet_templates/formtu/formtu-9a0d7.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-9cad9",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... võ tủ trong nhà, 2 lớp cánh có tai treo rời, 1.2 1 ...... Võ tủ 21/03 Hùng cali ...... phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "9CAD9",
+      "source_dxf": "cabinet_templates/formtu/formtu-9cad9.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-9cc8b",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... võ tủ trong nhà, 2 lớp cánh có tai treo rời, 1.2 1 ...... Võ tủ 21/03 Hùng cali ...... phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "9CC8B",
+      "source_dxf": "cabinet_templates/formtu/formtu-9cc8b.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-a143c",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... võ tủ trong nhà, 2 lớp cánh có tai treo rời, 1.2 1 ...... Võ tủ 21/03 Hùng cali ...... phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "A143C",
+      "source_dxf": "cabinet_templates/formtu/formtu-a143c.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-a190e",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... võ tủ trong nhà, 2 lớp cánh có tai treo rời, 1.2 1 ...... Võ tủ 21/03 Hùng cali ...... phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "A190E",
+      "source_dxf": "cabinet_templates/formtu/formtu-a190e.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-a46b7",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "A46B7",
+      "source_dxf": "cabinet_templates/formtu/formtu-a46b7.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-a4915",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "A4915",
+      "source_dxf": "cabinet_templates/formtu/formtu-a4915.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-a6166",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1000,
+        "width": 600,
+        "depth": 200
+      },
+      "description_from_drawing": "...... tủ đựng đồ ...... 1.0 ...... 1000x600x200 võ tủ ......  ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "A6166",
+      "source_dxf": "cabinet_templates/formtu/formtu-a6166.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-a63de",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1000,
+        "width": 600,
+        "depth": 200
+      },
+      "description_from_drawing": "...... tủ đựng đồ ...... 1.0 ...... 1000x600x200 võ tủ ......  ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "A63DE",
+      "source_dxf": "cabinet_templates/formtu/formtu-a63de.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-a8cb6",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "A8CB6",
+      "source_dxf": "cabinet_templates/formtu/formtu-a8cb6.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-a8cfe",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "A8CFE",
+      "source_dxf": "cabinet_templates/formtu/formtu-a8cfe.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-a9b6d",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1000,
+        "width": 700,
+        "depth": 350
+      },
+      "description_from_drawing": "...... tủ ngoài trời 2 lớp cánh  2 1 1000x700x350 Võ tủ điện ...... A sỹ ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "A9B6D",
+      "source_dxf": "cabinet_templates/formtu/formtu-a9b6d.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-a9bc3",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1000,
+        "width": 700,
+        "depth": 350
+      },
+      "description_from_drawing": "...... tủ ngoài trời 2 lớp cánh  2 1 1000x700x350 Võ tủ điện ...... A sỹ ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "A9BC3",
+      "source_dxf": "cabinet_templates/formtu/formtu-a9bc3.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-a9c83",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1000,
+        "width": 700,
+        "depth": 350
+      },
+      "description_from_drawing": "...... tủ ngoài trời 2 lớp cánh  2 1 1000x700x350 Võ tủ điện ...... A sỹ ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "A9C83",
+      "source_dxf": "cabinet_templates/formtu/formtu-a9c83.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-ae8a1",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "AE8A1",
+      "source_dxf": "cabinet_templates/formtu/formtu-ae8a1.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-b140f",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "B140F",
+      "source_dxf": "cabinet_templates/formtu/formtu-b140f.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-b141c",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "B141C",
+      "source_dxf": "cabinet_templates/formtu/formtu-b141c.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-b44be",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1000,
+        "width": 600,
+        "depth": 200
+      },
+      "description_from_drawing": "...... tủ đựng đồ ...... 1.0 ...... 1000x600x200 võ tủ ......  ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "B44BE",
+      "source_dxf": "cabinet_templates/formtu/formtu-b44be.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-bc24d",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "BC24D",
+      "source_dxf": "cabinet_templates/formtu/formtu-bc24d.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-c91dc",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "C91DC",
+      "source_dxf": "cabinet_templates/formtu/formtu-c91dc.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-cbd45",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "CBD45",
+      "source_dxf": "cabinet_templates/formtu/formtu-cbd45.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-cc6f0",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "CC6F0",
+      "source_dxf": "cabinet_templates/formtu/formtu-cc6f0.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-cd4cb",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 900,
+        "width": 900,
+        "depth": 280
+      },
+      "description_from_drawing": "...... sơn màu 7035 ...... 1.5  1 900X900X280 Võ tủ ......  ...... ",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "CD4CB",
+      "source_dxf": "cabinet_templates/formtu/formtu-cd4cb.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-ce187",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1100,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": "...... sơn màu 7035 Võ tủ trong nhà 1 lớp cánh 1.5  3  1100x600x300 Võ tủ ...... Anh Lịch ...... Phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "CE187",
+      "source_dxf": "cabinet_templates/formtu/formtu-ce187.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-d098c",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 800,
+        "depth": 200
+      },
+      "description_from_drawing": "...... Sơn tĩnh điện RAL7035 ...... 2 01 1200x800x200 Vỏ tủ điện ...... Lịch ausico ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "D098C",
+      "source_dxf": "cabinet_templates/formtu/formtu-d098c.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-d1e1c",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 800,
+        "depth": 200
+      },
+      "description_from_drawing": "...... Sơn tĩnh điện RAL7035 ...... 2 01 1200x800x200 Vỏ tủ điện ...... Lịch ausico ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "D1E1C",
+      "source_dxf": "cabinet_templates/formtu/formtu-d1e1c.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-d29b3",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 800,
+        "depth": 200
+      },
+      "description_from_drawing": "...... Sơn tĩnh điện RAL7035 ...... 2 01 1200x800x200 Vỏ tủ điện ...... Lịch ausico ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "D29B3",
+      "source_dxf": "cabinet_templates/formtu/formtu-d29b3.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-d6456",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ, 1 LỚP CÁNH ...... 1.2 5 1200X600X300 VÕ TỦ ...... Hùng EVINA ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "D6456",
+      "source_dxf": "cabinet_templates/formtu/formtu-d6456.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-d65c9",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ, 1 LỚP CÁNH ...... 1.2 5 1200X600X300 VÕ TỦ ...... Hùng EVINA ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "D65C9",
+      "source_dxf": "cabinet_templates/formtu/formtu-d65c9.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-d7037",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1100,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ, 1 LỚP CÁNH ...... 1.2 5 1100X600X300 VÕ TỦ ...... Hùng EVINA ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "D7037",
+      "source_dxf": "cabinet_templates/formtu/formtu-d7037.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-d70a8",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ, 1 LỚP CÁNH ...... 1.2 5 1200X600X300 VÕ TỦ ...... Hùng EVINA ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "D70A8",
+      "source_dxf": "cabinet_templates/formtu/formtu-d70a8.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-d86ed",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 600,
+        "width": 500,
+        "depth": 300
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ, 1 LỚP CÁNH ...... 1.2 1 600x500x300 VÕ TỦ ...... Hùng EVINA ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "D86ED",
+      "source_dxf": "cabinet_templates/formtu/formtu-d86ed.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-d8a73",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 600,
+        "width": 400,
+        "depth": 300
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ, 1 LỚP CÁNH ...... 1.2 8 600x400x300 VÕ TỦ ...... Hùng EVINA ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "D8A73",
+      "source_dxf": "cabinet_templates/formtu/formtu-d8a73.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-d8e24",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 600,
+        "width": 500,
+        "depth": 300
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ, 1 LỚP CÁNH ...... 1.2 1 600x500x300 VÕ TỦ ...... Hùng EVINA ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "D8E24",
+      "source_dxf": "cabinet_templates/formtu/formtu-d8e24.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-d947d",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 600,
+        "width": 500,
+        "depth": 300
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ, 1 LỚP CÁNH ...... 1.2 1 600x500x300 VÕ TỦ ...... Hùng EVINA ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "D947D",
+      "source_dxf": "cabinet_templates/formtu/formtu-d947d.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-dbb22",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1300,
+        "width": 800,
+        "depth": 350
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 2 LỚP CÁNH SƠN MÀU ĐEN SẦN 1.5 1 1300x800x350 TỦ ĐIỆN D1-6 29/10/2020 THẦN THỊ ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "DBB22",
+      "source_dxf": "cabinet_templates/formtu/formtu-dbb22.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-dbcaa",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1300,
+        "width": 800,
+        "depth": 350
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 2 LỚP CÁNH SƠN MÀU ĐEN SẦN 1.5 1 1300x800x350 TỦ ĐIỆN D1-6 29/10/2020 THẦN THỊ ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "DBCAA",
+      "source_dxf": "cabinet_templates/formtu/formtu-dbcaa.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-dbef3",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1300,
+        "width": 800,
+        "depth": 350
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 2 LỚP CÁNH SƠN MÀU ĐEN SẦN 1.5 1 1300x800x350 TỦ ĐIỆN D1-6 29/10/2020 THẦN THỊ ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "DBEF3",
+      "source_dxf": "cabinet_templates/formtu/formtu-dbef3.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-e22ab",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2000,
+        "width": 1400,
+        "depth": 900
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ, 1 LỚP CÁNH CÁNH MỞ HAI BÊN 1.5 2 2000X1400X900 VÕ TỦ ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "E22AB",
+      "source_dxf": "cabinet_templates/formtu/formtu-e22ab.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-e30ed",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2000,
+        "width": 1400,
+        "depth": 900
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ, 1 LỚP CÁNH CÁNH MỞ HAI BÊN 1.5 2 2000X1400X900 VÕ TỦ ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "E30ED",
+      "source_dxf": "cabinet_templates/formtu/formtu-e30ed.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-e77d2",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2000,
+        "width": 1000,
+        "depth": 800
+      },
+      "description_from_drawing": "...... TỦ NGOÀI TRỜI, 2 LỚP CÁNH ...... 2 1 2000X1000X800 VÕ TỦ 06/06.2021 QUÝ QTK ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "E77D2",
+      "source_dxf": "cabinet_templates/formtu/formtu-e77d2.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-ea89d",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2000,
+        "width": 1000,
+        "depth": 800
+      },
+      "description_from_drawing": "...... TỦ NGOÀI TRỜI, 2 LỚP CÁNH ...... 2 1 2000X1000X800 VÕ TỦ 06/06.2021 QUÝ QTK ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "EA89D",
+      "source_dxf": "cabinet_templates/formtu/formtu-ea89d.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-fee41",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 200
+      },
+      "description_from_drawing": " Tủ điện trong nhà, 2 lớp cánh, Sơn tĩnh điện màu GHI SÂN 1.2 01 800x600x200 Tủ điện TÂNG 1   ...... Thiên",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "FEE41",
+      "source_dxf": "cabinet_templates/formtu/formtu-fee41.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-fef97",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 700,
+        "width": 500,
+        "depth": 200
+      },
+      "description_from_drawing": "... Tủ điện trong nhà, 2 lớp cánh, Panel Sơn tĩnh điện màu GHI SẦN 1.2 01 700X500X200   AE HÔNG ...... THIÊN",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "FEF97",
+      "source_dxf": "cabinet_templates/formtu/formtu-fef97.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-fefa4",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 700,
+        "width": 500,
+        "depth": 200
+      },
+      "description_from_drawing": "... Tủ điện trong nhà, 2 lớp cánh, Panel Sơn tĩnh điện màu GHI SẦN 1.2 01 700X500X200   AE HÔNG ...... THIÊN",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "FEFA4",
+      "source_dxf": "cabinet_templates/formtu/formtu-fefa4.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-ff0b3",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 200
+      },
+      "description_from_drawing": " Tủ điện trong nhà, 2 lớp cánh, Sơn tĩnh điện màu GHI SÂN 1.2 01 800x600x200 Tủ điện TÂNG 2   ...... Thiên",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "FF0B3",
+      "source_dxf": "cabinet_templates/formtu/formtu-ff0b3.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-1002b1",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1500,
+        "width": 900,
+        "depth": 300
+      },
+      "description_from_drawing": "VÕ TỦ CÔNG TƠ 1500X900X300 10 1.2  TỦ NGOÀI TRỜI, HAI LỚP CÁNH ANH SỸ 21.06.201  PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "1002B1",
+      "source_dxf": "cabinet_templates/formtu/formtu-1002b1.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-100f43",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": "VÕ TỦ CHIẾU SÁNG 800x600x300 2 1.5  TỦ NGOÀI TRỜI, HAI LỚP CÁNH hùng evina 21.06.201  PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "100F43",
+      "source_dxf": "cabinet_templates/formtu/formtu-100f43.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-100f51",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1500,
+        "width": 900,
+        "depth": 300
+      },
+      "description_from_drawing": "VÕ TỦ CÔNG TƠ 1500X900X300 10 1.2  TỦ NGOÀI TRỜI, HAI LỚP CÁNH ANH SỸ 21.06.201  PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "100F51",
+      "source_dxf": "cabinet_templates/formtu/formtu-100f51.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-10147d",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1500,
+        "width": 900,
+        "depth": 300
+      },
+      "description_from_drawing": "VÕ TỦ CÔNG TƠ 1500X900X300 10 1.2  TỦ NGOÀI TRỜI, HAI LỚP CÁNH ANH SỸ 21.06.201  PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "10147D",
+      "source_dxf": "cabinet_templates/formtu/formtu-10147d.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-101e25",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1500,
+        "width": 900,
+        "depth": 300
+      },
+      "description_from_drawing": "VÕ TỦ CÔNG TƠ 1500X900X300 10 1.2  TỦ NGOÀI TRỜI, HAI LỚP CÁNH ANH SỸ 21.06.201  PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "101E25",
+      "source_dxf": "cabinet_templates/formtu/formtu-101e25.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-1034ed",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 750,
+        "depth": 170
+      },
+      "description_from_drawing": "...... ......  1.0  800x750x170 Võ tủ ......  ...... ",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "1034ED",
+      "source_dxf": "cabinet_templates/formtu/formtu-1034ed.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-1038ae",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 550,
+        "width": 1450,
+        "depth": 620
+      },
+      "description_from_drawing": "Võ TỦ QTK 550X1450X620 2 1.2 GIAO PANEL TRƯỚC VÕ TỦ TRONG NHÀ QTK 07.07.2021 13.07.2021  PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "1038AE",
+      "source_dxf": "cabinet_templates/formtu/formtu-1038ae.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-105580",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 550,
+        "width": 1450,
+        "depth": 620
+      },
+      "description_from_drawing": "Võ TỦ QTK 550X1450X620 2 1.2 GIAO PANEL TRƯỚC VÕ TỦ TRONG NHÀ QTK 07.07.2021 13.07.2021  PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "105580",
+      "source_dxf": "cabinet_templates/formtu/formtu-105580.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-105733",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2000,
+        "width": 800,
+        "depth": 600
+      },
+      "description_from_drawing": "VÕ TỦ CÔNG TƠ 2000x800x600 1 1.5  tủ ngoài trời 1 lớp cánh anh xuyền 24.06.2021 29.06.201 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "105733",
+      "source_dxf": "cabinet_templates/formtu/formtu-105733.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-106afb",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1400,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 1400X800X400 2 1.5 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH MINH LÂM 22.07.2021 29.07.2021 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "106AFB",
+      "source_dxf": "cabinet_templates/formtu/formtu-106afb.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-108c6b",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2000,
+        "width": 800,
+        "depth": 600
+      },
+      "description_from_drawing": "VÕ TỦ CÔNG TƠ 2000x800x600 1 1.5  tủ ngoài trời 1 lớp cánh anh xuyền 24.06.2021 29.06.201 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "108C6B",
+      "source_dxf": "cabinet_templates/formtu/formtu-108c6b.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-10a15b",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1600,
+        "width": 1400,
+        "depth": 450
+      },
+      "description_from_drawing": "VÕ TỦ  1600X1400X450  2    09.08.2021   ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "10A15B",
+      "source_dxf": "cabinet_templates/formtu/formtu-10a15b.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-10a22e",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 550,
+        "width": 1450,
+        "depth": 620
+      },
+      "description_from_drawing": "Võ TỦ QTK 550X1450X620 2 1.2 GIAO PANEL TRƯỚC VÕ TỦ TRONG NHÀ QTK 07.07.2021 13.07.2021  PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "10A22E",
+      "source_dxf": "cabinet_templates/formtu/formtu-10a22e.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-10a8b4",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1150,
+        "width": 2200,
+        "depth": 300
+      },
+      "description_from_drawing": "VÕ TỦ  1150x2200x300  1       ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "10A8B4",
+      "source_dxf": "cabinet_templates/formtu/formtu-10a8b4.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-119b43",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1500,
+        "width": 900,
+        "depth": 300
+      },
+      "description_from_drawing": "VÕ TỦ CÔNG TƠ 1500X900X300 10 1.2  TỦ NGOÀI TRỜI, HAI LỚP CÁNH ANH SỸ 21.06.201  PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "119B43",
+      "source_dxf": "cabinet_templates/formtu/formtu-119b43.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-11c180",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1300,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "VÕ TỦ CÔNG TƠ 1300x800x400 1 1.2 có cánh lửng tủ trong nhà 1 lớp cánh.  anh Tường 24.09.2021 29.09.2021 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "11C180",
+      "source_dxf": "cabinet_templates/formtu/formtu-11c180.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-128014",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1300,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "VÕ TỦ CÔNG TƠ 1300x800x400 1 1.2 có cánh lửng tủ trong nhà 1 lớp cánh.  anh Tường 24.09.2021 29.09.2021 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "128014",
+      "source_dxf": "cabinet_templates/formtu/formtu-128014.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-129c0b",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1100,
+        "width": 1200,
+        "depth": 500
+      },
+      "description_from_drawing": "VÕ TỦ CÔNG TƠ 1100X1200X500 1 1.2  tủ trong nhà 1 lớp cánh.  THẮNG TỪ SƠN 24.09.2021 27.09 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "129C0B",
+      "source_dxf": "cabinet_templates/formtu/formtu-129c0b.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-129c19",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1100,
+        "width": 1200,
+        "depth": 500
+      },
+      "description_from_drawing": "VÕ TỦ CÔNG TƠ 1100X1200X500 1 1.2  tủ trong nhà 1 lớp cánh.  THẮNG TỪ SƠN 24.09.2021 27.09 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "129C19",
+      "source_dxf": "cabinet_templates/formtu/formtu-129c19.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-129df1",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "......    0   ......  ...... ",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "129DF1",
+      "source_dxf": "cabinet_templates/formtu/formtu-129df1.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-12a1de",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "......    0   ......  ...... ",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "12A1DE",
+      "source_dxf": "cabinet_templates/formtu/formtu-12a1de.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-12ad97",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1800,
+        "width": 1300,
+        "depth": 500
+      },
+      "description_from_drawing": "VÕ TỦ CÔNG TƠ 1800x1300x500 2 1.5 đế sơn màu đen tủ trong nhà 1 lớp cánh thắng từ sơn 23/10/2021 25/10/2021 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "12AD97",
+      "source_dxf": "cabinet_templates/formtu/formtu-12ad97.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-12bf22",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1800,
+        "width": 1300,
+        "depth": 500
+      },
+      "description_from_drawing": "VÕ TỦ CÔNG TƠ 1800x1300x500 2 1.5 đế sơn màu đen tủ trong nhà 1 lớp cánh thắng từ sơn 23/10/2021 25/10/2021 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "12BF22",
+      "source_dxf": "cabinet_templates/formtu/formtu-12bf22.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-12eb2f",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1400,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "Võ tủ 1400X800X400 1 1.5 SƠN MÀU GHI SÁNG TỦ TRONG NHÀ 2 LỚP CÁNH Cường SEKY 24/11 27/11 Phúc ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "12EB2F",
+      "source_dxf": "cabinet_templates/formtu/formtu-12eb2f.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-12ed79",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1400,
+        "width": 700,
+        "depth": 500
+      },
+      "description_from_drawing": "Võ tủ 1400x700x500 1 1.5 sơn màu ghi sáng TỦ NGOÀI TRỜI, HAI LỚP CÁNH Cường SEKY 27/11 27/11 Phúc ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "12ED79",
+      "source_dxf": "cabinet_templates/formtu/formtu-12ed79.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-12f81b",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1400,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "Võ tủ 1400X800X400 1 1.5 SƠN MÀU GHI SÁNG TỦ TRONG NHÀ 2 LỚP CÁNH Cường SEKY 24/11 27/11 Phúc ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "12F81B",
+      "source_dxf": "cabinet_templates/formtu/formtu-12f81b.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-131485",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1400,
+        "width": 700,
+        "depth": 500
+      },
+      "description_from_drawing": "Võ tủ 1400x700x500 1 1.5 sơn màu ghi sáng TỦ NGOÀI TRỜI, HAI LỚP CÁNH Cường SEKY 27/11 27/11 Phúc ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "131485",
+      "source_dxf": "cabinet_templates/formtu/formtu-131485.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-131569",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1400,
+        "width": 700,
+        "depth": 500
+      },
+      "description_from_drawing": "Võ tủ 1400x700x500 1 1.5 sơn màu ghi sáng TỦ NGOÀI TRỜI, HAI LỚP CÁNH Cường SEKY 27/11 27/11 Phúc ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "131569",
+      "source_dxf": "cabinet_templates/formtu/formtu-131569.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-132bed",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 600,
+        "width": 500,
+        "depth": 220
+      },
+      "description_from_drawing": " 600X500X220 50 1.0       ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "132BED",
+      "source_dxf": "cabinet_templates/formtu/formtu-132bed.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-13ee64",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 700,
+        "width": 600,
+        "depth": 220
+      },
+      "description_from_drawing": " 700X600X220 50 1.0       ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "13EE64",
+      "source_dxf": "cabinet_templates/formtu/formtu-13ee64.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-1425d0",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... võ tủ trong nhà, 2 lớp cánh có tai treo rời, 1.2 1 ...... Võ tủ 21/03 Hùng cali ...... phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "1425D0",
+      "source_dxf": "cabinet_templates/formtu/formtu-1425d0.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-142782",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... võ tủ trong nhà, 2 lớp cánh có tai treo rời, 1.2 1 ...... Võ tủ 21/03 Hùng cali ...... phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "142782",
+      "source_dxf": "cabinet_templates/formtu/formtu-142782.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-149e13",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 1000,
+        "depth": 300
+      },
+      "description_from_drawing": "võ tủ 800x1000x300 1 1.2   Hùng EVINA 17.12  PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "149E13",
+      "source_dxf": "cabinet_templates/formtu/formtu-149e13.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-149e21",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 1000,
+        "depth": 300
+      },
+      "description_from_drawing": "võ tủ 800x1000x300 1 1.2   Hùng EVINA 17.12  PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "149E21",
+      "source_dxf": "cabinet_templates/formtu/formtu-149e21.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-14bec5",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... võ tủ trong nhà, 2 lớp cánh có tai treo rời, 1.2 1 ...... Võ tủ 21/03 Hùng cali ...... phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "14BEC5",
+      "source_dxf": "cabinet_templates/formtu/formtu-14bec5.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-14c077",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... võ tủ trong nhà, 2 lớp cánh có tai treo rời, 1.2 1 ...... Võ tủ 21/03 Hùng cali ...... phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "14C077",
+      "source_dxf": "cabinet_templates/formtu/formtu-14c077.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-14df5b",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... võ tủ trong nhà, 2 lớp cánh có tai treo rời, 1.2 1 ...... Võ tủ 21/03 Hùng cali ...... phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "14DF5B",
+      "source_dxf": "cabinet_templates/formtu/formtu-14df5b.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-14e151",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... võ tủ trong nhà, 2 lớp cánh có tai treo rời, 1.2 1 ...... Võ tủ 21/03 Hùng cali ...... phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "14E151",
+      "source_dxf": "cabinet_templates/formtu/formtu-14e151.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-14e8b3",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1350,
+        "width": 750,
+        "depth": 400
+      },
+      "description_from_drawing": "VÕ TỦ 1350x750x400 1 1.5 đế sơn màu đen TỦ NGOÀI TRỜI 2 LỚP CÁNH QTK 27.12.2021 29.12.2021 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "14E8B3",
+      "source_dxf": "cabinet_templates/formtu/formtu-14e8b3.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-15a9df",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1350,
+        "width": 750,
+        "depth": 400
+      },
+      "description_from_drawing": "VÕ TỦ 1350x750x400 1 1 đế sơn màu đen TỦ NGOÀI TRỜI 2 LỚP CÁNH QTK 27.12.2021 29.12.2021 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "15A9DF",
+      "source_dxf": "cabinet_templates/formtu/formtu-15a9df.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-15be68",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1350,
+        "width": 750,
+        "depth": 400
+      },
+      "description_from_drawing": "VÕ TỦ 1350x750x400 1 1 đế sơn màu đen TỦ NGOÀI TRỜI 2 LỚP CÁNH QTK 27.12.2021 29.12.2021 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "15BE68",
+      "source_dxf": "cabinet_templates/formtu/formtu-15be68.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-15ceec",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1300,
+        "width": 700,
+        "depth": 300
+      },
+      "description_from_drawing": "võ tủ 1300x700x300 1 1.2 đế sơn màu đen tủ trong nhà 1 lớp cánh thắng từ sơn ......  PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "15CEEC",
+      "source_dxf": "cabinet_templates/formtu/formtu-15ceec.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-15d2e9",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1300,
+        "width": 700,
+        "depth": 300
+      },
+      "description_from_drawing": "võ tủ 1300x700x300 1 1.2 đế sơn màu đen tủ trong nhà 1 lớp cánh thắng từ sơn ......  PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "15D2E9",
+      "source_dxf": "cabinet_templates/formtu/formtu-15d2e9.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-15d539",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1300,
+        "width": 700,
+        "depth": 300
+      },
+      "description_from_drawing": "võ tủ 1300x700x300 1 1.2 đế sơn màu đen tủ trong nhà 1 lớp cánh thắng từ sơn ...... 25/10/2021 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "15D539",
+      "source_dxf": "cabinet_templates/formtu/formtu-15d539.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-15e13d",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1800,
+        "width": 1000,
+        "depth": 600
+      },
+      "description_from_drawing": "VÕ TỦ 1800X1000X600 1 1.5  TỦ NGOÀI TRỜI 2 LỚP CÁNH     ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "15E13D",
+      "source_dxf": "cabinet_templates/formtu/formtu-15e13d.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-15e4d4",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1800,
+        "width": 1000,
+        "depth": 600
+      },
+      "description_from_drawing": "VÕ TỦ 1800X1000X600 1 1.5 THANH GÁ, CÓ ĐẾ CAO 100 TỦ NGOÀI TRỜI 2 LỚP CÁNH     ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "15E4D4",
+      "source_dxf": "cabinet_templates/formtu/formtu-15e4d4.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-15e624",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "VÕ TỦ 1200x800x400 3 1.5 THANH GÁ, KHÔNG ĐẾ TỦ trong nhà 2 LỚP CÁNH     ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "15E624",
+      "source_dxf": "cabinet_templates/formtu/formtu-15e624.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-15e84f",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 250
+      },
+      "description_from_drawing": "VÕ TỦ 800x600x250 3 1.5 THANH GÁ KHÔNG ĐẾ TỦ TRONG NHÀ 2 LỚP CÁNH     ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "15E84F",
+      "source_dxf": "cabinet_templates/formtu/formtu-15e84f.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-15ec83",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1400,
+        "width": 700,
+        "depth": 500
+      },
+      "description_from_drawing": "Võ tủ 1400x700x500 1 1.5 sơn màu ghi sáng TỦ NGOÀI TRỜI, HAI LỚP CÁNH Cường SEKY 27/11 27/11 Phúc ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "15EC83",
+      "source_dxf": "cabinet_templates/formtu/formtu-15ec83.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-15efcc",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1400,
+        "width": 700,
+        "depth": 500
+      },
+      "description_from_drawing": "Võ tủ 1400x700x500 1 1.5 sơn màu ghi sáng TỦ NGOÀI TRỜI, HAI LỚP CÁNH Cường SEKY 27/11 27/11 Phúc ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "15EFCC",
+      "source_dxf": "cabinet_templates/formtu/formtu-15efcc.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-15f340",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1400,
+        "width": 700,
+        "depth": 500
+      },
+      "description_from_drawing": "Võ tủ 1400x700x500 1 1.5 sơn màu ghi sáng TỦ NGOÀI TRỜI, HAI LỚP CÁNH Cường SEKY 27/11 27/11 Phúc ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "15F340",
+      "source_dxf": "cabinet_templates/formtu/formtu-15f340.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-15f59a",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1400,
+        "width": 700,
+        "depth": 500
+      },
+      "description_from_drawing": "Võ tủ 1400x700x500 1 1.5 sơn màu ghi sáng TỦ NGOÀI TRỜI, HAI LỚP CÁNH Cường SEKY 27/11 27/11 Phúc ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "15F59A",
+      "source_dxf": "cabinet_templates/formtu/formtu-15f59a.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-15fb60",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... 1.2 ...... ...... võ tủ ...... xếp huy ...... phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "15FB60",
+      "source_dxf": "cabinet_templates/formtu/formtu-15fb60.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-160af1",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... 1.2 ...... ...... võ tủ ...... xếp huy ...... phúc",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "160AF1",
+      "source_dxf": "cabinet_templates/formtu/formtu-160af1.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-1615ed",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1600,
+        "width": 650,
+        "depth": 220
+      },
+      "description_from_drawing": " 1600x650x220  1.5       ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "1615ED",
+      "source_dxf": "cabinet_templates/formtu/formtu-1615ed.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-16e648",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1600,
+        "width": 650,
+        "depth": 220
+      },
+      "description_from_drawing": " 1600x650x220  1.5       ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "16E648",
+      "source_dxf": "cabinet_templates/formtu/formtu-16e648.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-1713df",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1900,
+        "width": 1000,
+        "depth": 600
+      },
+      "description_from_drawing": "...... TỦ NGOÀI TRỜI, 2 LỚP CÁNH ...... 1.5 1 1900X1000X600 Tủ điện 26/03.2021 Vĩnh Thịnh ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "1713DF",
+      "source_dxf": "cabinet_templates/formtu/formtu-1713df.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-1713ec",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1900,
+        "width": 1000,
+        "depth": 600
+      },
+      "description_from_drawing": "...... TỦ NGOÀI TRỜI, 2 LỚP CÁNH ...... 1.5 1 1900X1000X600 Tủ điện 26/03.2021 Vĩnh Thịnh ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "1713EC",
+      "source_dxf": "cabinet_templates/formtu/formtu-1713ec.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-177652",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1900,
+        "width": 1000,
+        "depth": 600
+      },
+      "description_from_drawing": "...... TỦ NGOÀI TRỜI, 2 LỚP CÁNH ...... 1.5 1 1900X1000X600 Tủ điện 26/03.2021 Vĩnh Thịnh ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "177652",
+      "source_dxf": "cabinet_templates/formtu/formtu-177652.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-184b97",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1900,
+        "width": 1000,
+        "depth": 600
+      },
+      "description_from_drawing": "...... TỦ NGOÀI TRỜI, 2 LỚP CÁNH ...... 1.5 1 1900X1000X600 Tủ điện   ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "184B97",
+      "source_dxf": "cabinet_templates/formtu/formtu-184b97.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-184ba4",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1900,
+        "width": 1000,
+        "depth": 600
+      },
+      "description_from_drawing": "...... TỦ NGOÀI TRỜI, 2 LỚP CÁNH ...... 1.5 1 1900X1000X600 Tủ điện   ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "184BA4",
+      "source_dxf": "cabinet_templates/formtu/formtu-184ba4.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-184bb1",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1900,
+        "width": 1000,
+        "depth": 600
+      },
+      "description_from_drawing": "...... TỦ NGOÀI TRỜI, 2 LỚP CÁNH ...... 1.5 1 1900X1000X600 Tủ điện   ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "184BB1",
+      "source_dxf": "cabinet_templates/formtu/formtu-184bb1.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-1851da",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1400,
+        "width": 700,
+        "depth": 500
+      },
+      "description_from_drawing": "Võ tủ 1400x700x500 1 1.5 sơn màu ghi sáng TỦ NGOÀI TRỜI, HAI LỚP CÁNH Cường SEKY 27/11 27/11 Phúc ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "1851DA",
+      "source_dxf": "cabinet_templates/formtu/formtu-1851da.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-185a5e",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 300,
+        "width": 200,
+        "depth": 100
+      },
+      "description_from_drawing": "...... Bản lề lá, Khóa bật đỏ Sơn tĩnh điện RAL 7035 1.0 532 300x200x100 Vỏ tủ ...... Lịch Ausico An An",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "185A5E",
+      "source_dxf": "cabinet_templates/formtu/formtu-185a5e.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-186403",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 400,
+        "width": 300,
+        "depth": 150
+      },
+      "description_from_drawing": "võ tủ 400x300x150 1 inox 304  tủ trong nhà 1 lớp cánh QTK 21.02.2022  PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "186403",
+      "source_dxf": "cabinet_templates/formtu/formtu-186403.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-187ab2",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 510,
+        "width": 350,
+        "depth": 250
+      },
+      "description_from_drawing": "VÕ TỦ NGOÀI TRỜI 510x350x250 15 1.5 sơn màu kem bóng ............ ANH QUANG 11.11  phúc Hà .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "187AB2",
+      "source_dxf": "cabinet_templates/formtu/formtu-187ab2.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-187d7e",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 510,
+        "width": 350,
+        "depth": 250
+      },
+      "description_from_drawing": "VÕ TỦ NGOÀI TRỜI 510x350x250 15 1.5 sơn màu kem bóng ............ anh quang 11.11  Phúc Hà .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "187D7E",
+      "source_dxf": "cabinet_templates/formtu/formtu-187d7e.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-188742",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1350,
+        "width": 750,
+        "depth": 400
+      },
+      "description_from_drawing": "VÕ TỦ 1350x750x400 1 1.5 đế sơn màu đen TỦ NGOÀI TRỜI 2 LỚP CÁNH QTK 27.12.2021 29.12.2021 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "188742",
+      "source_dxf": "cabinet_templates/formtu/formtu-188742.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-18c0fd",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 600,
+        "depth": 450
+      },
+      "description_from_drawing": "...... Vỏ tủ ngoài trời, 2 lớp cánh, thanh gá Sơn tĩnh điện kem bóng 1~1.2 10 1200x600x450 Vỏ tủ ngoài trời 15/07/2021 Thắng từ sơn An An",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "18C0FD",
+      "source_dxf": "cabinet_templates/formtu/formtu-18c0fd.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-18c229",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 600,
+        "depth": 450
+      },
+      "description_from_drawing": "...... Vỏ tủ ngoài trời, 2 lớp cánh, thanh gá Sơn tĩnh điện kem bóng 1~1.2 10 1200x600x450 Vỏ tủ ngoài trời 15/07/2021 Thắng từ sơn An An",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "18C229",
+      "source_dxf": "cabinet_templates/formtu/formtu-18c229.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-18c444",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 600,
+        "depth": 450
+      },
+      "description_from_drawing": "...... Vỏ tủ ngoài trời, 2 lớp cánh, thanh gá Sơn tĩnh điện kem bóng 1~1.2 10 1200x600x450 Vỏ tủ ngoài trời 15/07/2021 Thắng từ sơn An An",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "18C444",
+      "source_dxf": "cabinet_templates/formtu/formtu-18c444.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-18c5e3",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 600,
+        "depth": 450
+      },
+      "description_from_drawing": "...... Vỏ tủ ngoài trời, 2 lớp cánh, thanh gá Sơn tĩnh điện kem bóng 2.0mm 10 1200x600x450 Vỏ tủ ngoài trời 15/07/2021 Thắng từ sơn An An",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "18C5E3",
+      "source_dxf": "cabinet_templates/formtu/formtu-18c5e3.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-19097a",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1350,
+        "width": 750,
+        "depth": 400
+      },
+      "description_from_drawing": "VÕ TỦ 1350x750x400 1 1.5 đế sơn màu đen TỦ NGOÀI TRỜI 2 LỚP CÁNH QTK 27.12.2021 29.12.2021 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "19097A",
+      "source_dxf": "cabinet_templates/formtu/formtu-19097a.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-19137d",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 800,
+        "depth": 310
+      },
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 1200x800x310 1 1.4 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH VINH TẤN 07.03.2022 13.03.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "19137D",
+      "source_dxf": "cabinet_templates/formtu/formtu-19137d.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-1917e1",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 600,
+        "width": 400,
+        "depth": 210
+      },
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 600X400X210 6 1.2 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH VINH TẤN 07.03.2022 13.03.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "1917E1",
+      "source_dxf": "cabinet_templates/formtu/formtu-1917e1.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-191a2e",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 700,
+        "width": 500,
+        "depth": 210
+      },
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 700X500X210 3 1.2 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH VINH TẤN 07.03.2022 13.03.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "191A2E",
+      "source_dxf": "cabinet_templates/formtu/formtu-191a2e.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-191d55",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 210
+      },
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 800X600X210 1 1.2 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH VINH TẤN 07.03.2022 13.03.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "191D55",
+      "source_dxf": "cabinet_templates/formtu/formtu-191d55.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-192e5e",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1400,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 1400X800X400 2 1.5 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH MINH LÂM 22.07.2021 29.07.2021 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "192E5E",
+      "source_dxf": "cabinet_templates/formtu/formtu-192e5e.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-192e6d",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1400,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 1400X800X400 2 1.5 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH MINH LÂM 22.07.2021 29.07.2021 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "192E6D",
+      "source_dxf": "cabinet_templates/formtu/formtu-192e6d.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-1943c7",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 800,
+        "depth": 310
+      },
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 1200x800x310 1 1.4 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH VINH TẤN 07.03.2022 13.03.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "1943C7",
+      "source_dxf": "cabinet_templates/formtu/formtu-1943c7.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-194993",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 800,
+        "depth": 310
+      },
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 1200x800x310 1 1.4 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH VINH TẤN 07.03.2022 13.03.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "194993",
+      "source_dxf": "cabinet_templates/formtu/formtu-194993.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-19595d",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 600,
+        "width": 400,
+        "depth": 210
+      },
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 600X400X210 6 1.2 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH VINH TẤN 07.03.2022 13.03.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "19595D",
+      "source_dxf": "cabinet_templates/formtu/formtu-19595d.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-197b16",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 700,
+        "width": 500,
+        "depth": 210
+      },
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 700X500X210 3 1.2 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH VINH TẤN 07.03.2022 13.03.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "197B16",
+      "source_dxf": "cabinet_templates/formtu/formtu-197b16.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-197c34",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 700,
+        "width": 500,
+        "depth": 210
+      },
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 700X500X210 3 1.2 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH VINH TẤN 07.03.2022 13.03.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "197C34",
+      "source_dxf": "cabinet_templates/formtu/formtu-197c34.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-198936",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 210
+      },
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 800X600X210 1 1.2 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH VINH TẤN 07.03.2022 13.03.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "198936",
+      "source_dxf": "cabinet_templates/formtu/formtu-198936.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-19896a",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 210
+      },
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 800X600X210 1 1.2 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH VINH TẤN 07.03.2022 13.03.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "19896A",
+      "source_dxf": "cabinet_templates/formtu/formtu-19896a.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-198df6",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1500,
+        "width": 900,
+        "depth": 300
+      },
+      "description_from_drawing": "VÕ TỦ CÔNG TƠ 1500X900X300 10 1.2  TỦ NGOÀI TRỜI, HAI LỚP CÁNH ANH SỸ 21.06.201  PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "198DF6",
+      "source_dxf": "cabinet_templates/formtu/formtu-198df6.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-198f98",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": "VÕ TỦ CHIẾU SÁNG 800x600x300 2 1.5  TỦ NGOÀI TRỜI, HAI LỚP CÁNH hùng evina 21.06.201  PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "198F98",
+      "source_dxf": "cabinet_templates/formtu/formtu-198f98.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-19909d",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1500,
+        "width": 900,
+        "depth": 300
+      },
+      "description_from_drawing": "VÕ TỦ CÔNG TƠ 1500X900X300 10 1.2  TỦ NGOÀI TRỜI, HAI LỚP CÁNH ANH SỸ 21.06.201  PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "19909D",
+      "source_dxf": "cabinet_templates/formtu/formtu-19909d.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-1991bf",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1500,
+        "width": 900,
+        "depth": 300
+      },
+      "description_from_drawing": "VÕ TỦ CÔNG TƠ 1500X900X300 10 1.2  TỦ NGOÀI TRỜI, HAI LỚP CÁNH ANH SỸ 21.06.201  PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "1991BF",
+      "source_dxf": "cabinet_templates/formtu/formtu-1991bf.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-19b45c",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1050,
+        "width": 550,
+        "depth": 300
+      },
+      "description_from_drawing": "VÕ TỦ CHIẾU SÁNG 1050X550X300 2 1.5  TỦ NGOÀI TRỜI, HAI LỚP CÁNH hùng evina   PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "19B45C",
+      "source_dxf": "cabinet_templates/formtu/formtu-19b45c.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-19b46a",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1050,
+        "width": 550,
+        "depth": 300
+      },
+      "description_from_drawing": "VÕ TỦ CHIẾU SÁNG 1050X550X300 2 1.5  TỦ NGOÀI TRỜI, HAI LỚP CÁNH hùng evina   PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "19B46A",
+      "source_dxf": "cabinet_templates/formtu/formtu-19b46a.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-19c6e2",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1050,
+        "width": 550,
+        "depth": 300
+      },
+      "description_from_drawing": "VÕ TỦ CHIẾU SÁNG 1050X550X300 2 1.5  TỦ NGOÀI TRỜI, HAI LỚP CÁNH hùng evina   PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "19C6E2",
+      "source_dxf": "cabinet_templates/formtu/formtu-19c6e2.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-24157e",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2200,
+        "width": 2900,
+        "depth": 900
+      },
+      "description_from_drawing": "Võ tủ 2200x2900x900 1 1.5-1.8 sơn màu 7032 sần TỦ trong nhà, CÁNH PHỤ KIỆN TÔN 1.8 HỢP PHÁT 11.04.2022 19.04.2022 Phúc ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "24157E",
+      "source_dxf": "cabinet_templates/formtu/formtu-24157e.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-241616",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2200,
+        "width": 2900,
+        "depth": 900
+      },
+      "description_from_drawing": "Võ tủ 2200x2900x900 1 1.5-1.8 sơn màu 7032 sần TỦ trong nhà, CÁNH PHỤ KIỆN TÔN 1.8 HỢP PHÁT 11.04.2022 19.04.2022 Phúc ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "241616",
+      "source_dxf": "cabinet_templates/formtu/formtu-241616.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2416ba",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2200,
+        "width": 2900,
+        "depth": 900
+      },
+      "description_from_drawing": "Võ tủ 2200x2900x900 1 1.5-1.8 sơn màu 7032 sần TỦ trong nhà, CÁNH PHỤ KIỆN TÔN 1.8 HỢP PHÁT 11.04.2022 19.04.2022 Phúc ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2416BA",
+      "source_dxf": "cabinet_templates/formtu/formtu-2416ba.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-241734",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2200,
+        "width": 2900,
+        "depth": 900
+      },
+      "description_from_drawing": "Võ tủ 2200x2900x900 1 1.5-1.8 sơn màu 7032 sần TỦ trong nhà, CÁNH PHỤ KIỆN TÔN 1.8 HỢP PHÁT 11.04.2022 19.04.2022 Phúc ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "241734",
+      "source_dxf": "cabinet_templates/formtu/formtu-241734.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-242449",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2200,
+        "width": 2900,
+        "depth": 900
+      },
+      "description_from_drawing": "Võ tủ 2200x2900x900 1 1.5-1.8 sơn màu 7032 sần TỦ trong nhà, CÁNH PHỤ KIỆN TÔN 1.8 HỢP PHÁT 11.04.2022 19.04.2022 Phúc ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "242449",
+      "source_dxf": "cabinet_templates/formtu/formtu-242449.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-242a8f",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 2200,
+        "width": 2900,
+        "depth": 900
+      },
+      "description_from_drawing": "Võ tủ 2200x2900x900 1 1.5-1.8 sơn màu 7032 sần TỦ trong nhà, CÁNH PHỤ KIỆN TÔN 1.8 HỢP PHÁT 11.04.2022 19.04.2022 Phúc ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "242A8F",
+      "source_dxf": "cabinet_templates/formtu/formtu-242a8f.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-243b7e",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1500,
+        "width": 900,
+        "depth": 400
+      },
+      "description_from_drawing": "......   1.5 1 1500x900x400    ...... ",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "243B7E",
+      "source_dxf": "cabinet_templates/formtu/formtu-243b7e.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-24d42d",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 650,
+        "depth": 300
+      },
+      "description_from_drawing": "06/04/2022 PHÚC Hợp Phát 18/04/2022 Tủ số 7 800X650X300 01 1.2 Sơn tĩnh điện RL7032 Tủ điện treo tường trong nhà , 2 lớp cánh ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "24D42D",
+      "source_dxf": "cabinet_templates/formtu/formtu-24d42d.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-24d7f6",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 650,
+        "depth": 300
+      },
+      "description_from_drawing": "06/04/2022 PHÚC Hợp Phát 18/04/2022 Tủ số 7 800X650X300 01 1.2 Sơn tĩnh điện RL7032 Tủ điện treo tường trong nhà , 2 lớp cánh ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "24D7F6",
+      "source_dxf": "cabinet_templates/formtu/formtu-24d7f6.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-257daa",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 800,
+        "depth": 300
+      },
+      "description_from_drawing": "     1200x800x300     ...... ",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "257DAA",
+      "source_dxf": "cabinet_templates/formtu/formtu-257daa.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-258923",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 100,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "VÕ TỦ  100x800x400 1 1.2  tủ trong nhà 1 lớp cánh.  anh Trường 17.04.2022 20.04.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "258923",
+      "source_dxf": "cabinet_templates/formtu/formtu-258923.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-259522",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 100,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "VÕ TỦ  100x800x400 1 1.2  tủ trong nhà 1 lớp cánh.  anh Trường 17.04.2022 20.04.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "259522",
+      "source_dxf": "cabinet_templates/formtu/formtu-259522.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-25999a",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1400,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 1400X800X400 2 1.5 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH MINH LÂM 22.07.2021 29.07.2021 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "25999A",
+      "source_dxf": "cabinet_templates/formtu/formtu-25999a.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-259d25",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1400,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 1400X800X400 2 1.5 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH MINH LÂM 22.07.2021 29.07.2021 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "259D25",
+      "source_dxf": "cabinet_templates/formtu/formtu-259d25.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-259d34",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1400,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 1400X800X400 2 1.5 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH MINH LÂM 22.07.2021 29.07.2021 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "259D34",
+      "source_dxf": "cabinet_templates/formtu/formtu-259d34.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-25aa7c",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "25AA7C",
+      "source_dxf": "cabinet_templates/formtu/formtu-25aa7c.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-25aaee",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "25AAEE",
+      "source_dxf": "cabinet_templates/formtu/formtu-25aaee.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-25b1f7",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 400,
+        "width": 300,
+        "depth": 200
+      },
+      "description_from_drawing": "VÕ TỦ 400X300X200 1 INOX304 X1.0  TỦ NGOÀI TRỜI, 1 LỚP CÁNH QTK 25.04.2022  27.04.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "25B1F7",
+      "source_dxf": "cabinet_templates/formtu/formtu-25b1f7.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-25b24d",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 400,
+        "width": 300,
+        "depth": 200
+      },
+      "description_from_drawing": "VÕ TỦ 400X300X200 1 INOX304 X1.0  TỦ NGOÀI TRỜI, 1 LỚP CÁNH QTK 25.04.2022  27.04.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "25B24D",
+      "source_dxf": "cabinet_templates/formtu/formtu-25b24d.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-25c51a",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 500,
+        "width": 400,
+        "depth": 220
+      },
+      "description_from_drawing": "võ tủ 500x400x220 1   tủ trong nhà 1 lớp cánh    PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "25C51A",
+      "source_dxf": "cabinet_templates/formtu/formtu-25c51a.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-25e606",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1000,
+        "width": 600,
+        "depth": 350
+      },
+      "description_from_drawing": "VÕ TỦ 1000X600X350 7 1.2 TREO CỘT TỦ NGOÀI TRỜI 1 LỚP CÁNH QTK 28.02.2022 05.02.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "25E606",
+      "source_dxf": "cabinet_templates/formtu/formtu-25e606.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-25f87c",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1000,
+        "width": 600,
+        "depth": 350
+      },
+      "description_from_drawing": "VÕ TỦ 1000X600X350 7 1.2 TREO CỘT TỦ NGOÀI TRỜI 1 LỚP CÁNH QTK 28.02.2022 05.02.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "25F87C",
+      "source_dxf": "cabinet_templates/formtu/formtu-25f87c.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2618d5",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1300,
+        "width": 600,
+        "depth": 450
+      },
+      "description_from_drawing": "VÕ TỦ 1300x600x450 4 1.0 TREO CỘT TỦ NGOÀI TRỜI 1 LỚP CÁNH     ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2618D5",
+      "source_dxf": "cabinet_templates/formtu/formtu-2618d5.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-27d4c6",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1500,
+        "width": 700,
+        "depth": 450
+      },
+      "description_from_drawing": "VÕ TỦ 1500x700x450 3 1.2 TREO CỘT TỦ NGOÀI TRỜI 1 LỚP CÁNH     ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "27D4C6",
+      "source_dxf": "cabinet_templates/formtu/formtu-27d4c6.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-27d8b9",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1600,
+        "width": 800,
+        "depth": 500
+      },
+      "description_from_drawing": "VÕ TỦ 1600x800x500 2 1.2 TREO CỘT TỦ NGOÀI TRỜI 1 LỚP CÁNH     ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "27D8B9",
+      "source_dxf": "cabinet_templates/formtu/formtu-27d8b9.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-27e0a1",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1000,
+        "width": 600,
+        "depth": 350
+      },
+      "description_from_drawing": "VÕ TỦ 1000x600x350 3 1.0 TREO CỘT, khong có NCCT TỦ NGOÀI TRỜI 1 LỚP CÁNH     ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "27E0A1",
+      "source_dxf": "cabinet_templates/formtu/formtu-27e0a1.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-27e13a",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 700,
+        "depth": 400
+      },
+      "description_from_drawing": "VÕ TỦ 1200x700x400 2 1.2 TREO CỘT TỦ NGOÀI TRỜI 1 LỚP CÁNH     ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "27E13A",
+      "source_dxf": "cabinet_templates/formtu/formtu-27e13a.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-27e5ab",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1500,
+        "width": 900,
+        "depth": 500
+      },
+      "description_from_drawing": "VÕ TỦ 1500x900x500 2 1.2 TREO CỘT TỦ NGOÀI TRỜI 1 LỚP CÁNH     ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "27E5AB",
+      "source_dxf": "cabinet_templates/formtu/formtu-27e5ab.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-27ecbc",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1300,
+        "width": 600,
+        "depth": 450
+      },
+      "description_from_drawing": "VÕ TỦ 1300x600x450 3 1.0 TREO CỘT TỦ NGOÀI TRỜI 2 LỚP CÁNH     ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "27ECBC",
+      "source_dxf": "cabinet_templates/formtu/formtu-27ecbc.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-27f3a0",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1500,
+        "width": 700,
+        "depth": 450
+      },
+      "description_from_drawing": "VÕ TỦ 1500x700x450 2 1.2 TREO CỘT TỦ NGOÀI TRỜI 2 LỚP CÁNH     ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "27F3A0",
+      "source_dxf": "cabinet_templates/formtu/formtu-27f3a0.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-27f53c",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1500,
+        "width": 700,
+        "depth": 450
+      },
+      "description_from_drawing": "VÕ TỦ 1500x700x450 2 1.2 TREO CỘT TỦ NGOÀI TRỜI 2 LỚP CÁNH     ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "27F53C",
+      "source_dxf": "cabinet_templates/formtu/formtu-27f53c.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-27f9bd",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1600,
+        "width": 1000,
+        "depth": 800
+      },
+      "description_from_drawing": "VÕ TỦ 1600x1000x800 1 1.5 CÓ ĐẾ TỦ TRONG NHÀ 1 LỚP CÁNH     ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "27F9BD",
+      "source_dxf": "cabinet_templates/formtu/formtu-27f9bd.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-281e80",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": "VÕ TỦ 800X600X300 5   TỦ NGOÀI TRỜI 1 LỚP CÁNH     ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "281E80",
+      "source_dxf": "cabinet_templates/formtu/formtu-281e80.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-28201c",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1000,
+        "width": 700,
+        "depth": 350
+      },
+      "description_from_drawing": "VÕ TỦ 1000x700x350 5   TỦ NGOÀI TRỜI 1 LỚP CÁNH     ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "28201C",
+      "source_dxf": "cabinet_templates/formtu/formtu-28201c.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2a61b0",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 1900 1 1.5 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH ANH HÙNG 12.05.2022 18.05.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2A61B0",
+      "source_dxf": "cabinet_templates/formtu/formtu-2a61b0.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2a6ee7",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 1900 1 1.5 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH ANH HÙNG 12.05.2022 18.05.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2A6EE7",
+      "source_dxf": "cabinet_templates/formtu/formtu-2a6ee7.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2a8245",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 1900 1 1.5 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH ANH HÙNG 12.05.2022 18.05.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2A8245",
+      "source_dxf": "cabinet_templates/formtu/formtu-2a8245.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2aacf3",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "TỦ ĐIỆN ĐẤU NỐI 1900 1 1.5 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 2 LỚP CÁNH ANH HÙNG 12.05.2022 18.05.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2AACF3",
+      "source_dxf": "cabinet_templates/formtu/formtu-2aacf3.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2ab5ef",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1900,
+        "width": 1000,
+        "depth": 600
+      },
+      "description_from_drawing": "...... TỦ NGOÀI TRỜI, 2 LỚP CÁNH ...... 1.5 1 1900X1000X600 Tủ điện   ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2AB5EF",
+      "source_dxf": "cabinet_templates/formtu/formtu-2ab5ef.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2ac5e1",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 600,
+        "width": 400,
+        "depth": 210
+      },
+      "description_from_drawing": "Võ tủ điện 600X400X210 6 1.2 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 1 LỚP CÁNH VINH TẤN 27/05/2022 04/06/2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2AC5E1",
+      "source_dxf": "cabinet_templates/formtu/formtu-2ac5e1.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2ae18f",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 600,
+        "width": 400,
+        "depth": 210
+      },
+      "description_from_drawing": "Võ tủ điện 600X400X210 6 1.2 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 1 LỚP CÁNH VINH TẤN 27/05/2022 04/06/2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2AE18F",
+      "source_dxf": "cabinet_templates/formtu/formtu-2ae18f.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2bab2b",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 600,
+        "width": 400,
+        "depth": 210
+      },
+      "description_from_drawing": "Võ tủ điện 600X400X210 6 1.2 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 1 LỚP CÁNH VINH TẤN 27/05/2022 04/06/2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2BAB2B",
+      "source_dxf": "cabinet_templates/formtu/formtu-2bab2b.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2c14a4",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 600,
+        "width": 400,
+        "depth": 200
+      },
+      "description_from_drawing": "VÕ TỦ 600x400x200 1 1.0  TỦ NGOÀI TRỜI, 2 LỚP CÁNH TRUNG ATC 06.07.2022 11.07.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2C14A4",
+      "source_dxf": "cabinet_templates/formtu/formtu-2c14a4.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2c1bd5",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 600,
+        "width": 400,
+        "depth": 200
+      },
+      "description_from_drawing": "VÕ TỦ 600x400x200 1 1.0  TỦ NGOÀI TRỜI, 2 LỚP CÁNH TRUNG ATC 06.07.2022 11.07.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2C1BD5",
+      "source_dxf": "cabinet_templates/formtu/formtu-2c1bd5.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2c2de4",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 400,
+        "width": 400,
+        "depth": 200
+      },
+      "description_from_drawing": "VÕ TỦ 400x400x200 10 1.0  trong nhà 1 lớp cánh TRUNG ATC 06.07.2022 11.07.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2C2DE4",
+      "source_dxf": "cabinet_templates/formtu/formtu-2c2de4.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2c3128",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1000,
+        "width": 600,
+        "depth": 350
+      },
+      "description_from_drawing": "...... sơn màu 7032 ......   1000x600x350 Võ tủ ......  ...... ",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2C3128",
+      "source_dxf": "cabinet_templates/formtu/formtu-2c3128.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2c3526",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1100,
+        "width": 500,
+        "depth": 450
+      },
+      "description_from_drawing": "...... sơn màu 7032 ......   1100X500X450 Võ tủ ......  ...... ",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2C3526",
+      "source_dxf": "cabinet_templates/formtu/formtu-2c3526.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2c382d",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1100,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ, 1 LỚP CÁNH ...... 1.2 5 1100X600X300 VÕ TỦ ...... Hùng EVINA ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2C382D",
+      "source_dxf": "cabinet_templates/formtu/formtu-2c382d.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2c3894",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ, 1 LỚP CÁNH ...... 1.2 5 1200X600X300 VÕ TỦ ...... Hùng EVINA ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2C3894",
+      "source_dxf": "cabinet_templates/formtu/formtu-2c3894.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2c420d",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1500,
+        "width": 1200,
+        "depth": 400
+      },
+      "description_from_drawing": "VÕ TỦ 1500x1200x400 1 1.5  TỦ NGOÀI TRỜI 2 LỚP CÁNH MINH LÂM 11.07.2022 16.07.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2C420D",
+      "source_dxf": "cabinet_templates/formtu/formtu-2c420d.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2c5e2b",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1500,
+        "width": 1200,
+        "depth": 400
+      },
+      "description_from_drawing": "VÕ TỦ 1500x1200x400 1 1.5  TỦ NGOÀI TRỜI 2 LỚP CÁNH MINH LÂM 11.07.2022 16.07.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2C5E2B",
+      "source_dxf": "cabinet_templates/formtu/formtu-2c5e2b.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2c6176",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1500,
+        "width": 1200,
+        "depth": 400
+      },
+      "description_from_drawing": "VÕ TỦ 1500x1200x400 1 1.5  TỦ NGOÀI TRỜI 2 LỚP CÁNH MINH LÂM 11.07.2022 16.07.2022 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2C6176",
+      "source_dxf": "cabinet_templates/formtu/formtu-2c6176.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2c6ce3",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1500,
+        "width": 500,
+        "depth": 400
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 1   1-1.2 1 1500x500x400 võ tủ 29/10/2020 ANH LỢI ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2C6CE3",
+      "source_dxf": "cabinet_templates/formtu/formtu-2c6ce3.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2c88bd",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1500,
+        "width": 500,
+        "depth": 400
+      },
+      "description_from_drawing": "...... TỦ ĐIỆN TRONG NHÀ 1   1-1.2 1 1500x500x400 võ tủ 29/10/2020 ANH LỢI ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2C88BD",
+      "source_dxf": "cabinet_templates/formtu/formtu-2c88bd.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2c8988",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1350,
+        "width": 750,
+        "depth": 400
+      },
+      "description_from_drawing": "VÕ TỦ 1350x750x400 1 1.5 đế sơn màu đen TỦ NGOÀI TRỜI 2 LỚP CÁNH QTK 27.12.2021 29.12.2021 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2C8988",
+      "source_dxf": "cabinet_templates/formtu/formtu-2c8988.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2c89d2",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1350,
+        "width": 750,
+        "depth": 400
+      },
+      "description_from_drawing": "VÕ TỦ 1350x750x400 1 1 đế sơn màu đen TỦ NGOÀI TRỜI 2 LỚP CÁNH QTK 27.12.2021 29.12.2021 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2C89D2",
+      "source_dxf": "cabinet_templates/formtu/formtu-2c89d2.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2c8b72",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1350,
+        "width": 750,
+        "depth": 400
+      },
+      "description_from_drawing": "VÕ TỦ 1350x750x400 1 1 đế sơn màu đen TỦ NGOÀI TRỜI 2 LỚP CÁNH QTK 27.12.2021 29.12.2021 PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2C8B72",
+      "source_dxf": "cabinet_templates/formtu/formtu-2c8b72.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2c9abc",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2C9ABC",
+      "source_dxf": "cabinet_templates/formtu/formtu-2c9abc.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2c9c6e",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... ...... ...... ...... ...... ...... ...... ...... ......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2C9C6E",
+      "source_dxf": "cabinet_templates/formtu/formtu-2c9c6e.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2ca74a",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": "...... SƠN MÀU RAL7032  1.5 1 800X600X300 Võ tủ 05.08.2022 ANH HOÀN ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2CA74A",
+      "source_dxf": "cabinet_templates/formtu/formtu-2ca74a.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2cbc80",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": "...... SƠN MÀU RAL7032  1.5 1 800X600X300 Võ tủ 05.08.2022 ANH HOÀN ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2CBC80",
+      "source_dxf": "cabinet_templates/formtu/formtu-2cbc80.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2cc44d",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ, 1 LỚP CÁNH ...... 1.2 1 1200x800x400 VÕ TỦ ......  ...... ",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2CC44D",
+      "source_dxf": "cabinet_templates/formtu/formtu-2cc44d.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2cc692",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "VÕ TỦ 1200x800x400 1 1.2  TỦ NGOÀI TRỜI 1 LỚP CÁNH QTK 08/08/2022 ..... PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2CC692",
+      "source_dxf": "cabinet_templates/formtu/formtu-2cc692.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2cd07b",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1200,
+        "width": 800,
+        "depth": 400
+      },
+      "description_from_drawing": "VÕ TỦ 1200x800x400 1 1.2  TỦ NGOÀI TRỜI 1 LỚP CÁNH QTK 08/08/2022 ..... PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2CD07B",
+      "source_dxf": "cabinet_templates/formtu/formtu-2cd07b.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2ce34e",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1000,
+        "width": 600,
+        "depth": 350
+      },
+      "description_from_drawing": "VÕ TỦ 1000x600x350 3 1.0 TREO CỘT, khong có NCCT TỦ NGOÀI TRỜI 1 LỚP CÁNH     ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2CE34E",
+      "source_dxf": "cabinet_templates/formtu/formtu-2ce34e.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-2ce458",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1500,
+        "width": 800,
+        "depth": 500
+      },
+      "description_from_drawing": "...... VÕ TỦ TRONG NHÀ   1.5   1 1500x800x500 VÕ TỦ    ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "2CE458",
+      "source_dxf": "cabinet_templates/formtu/formtu-2ce458.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-30aeb4",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": "...... SƠN MÀU RAL7032  1.5 1 800X600X300 Võ tủ 05.08.2022 ANH HOÀN ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "30AEB4",
+      "source_dxf": "cabinet_templates/formtu/formtu-30aeb4.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-30b065",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": "...... SƠN MÀU RAL7032  1.5 1 800X600X300 Võ tủ 05.08.2022 ANH HOÀN ...... PHÚC",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "30B065",
+      "source_dxf": "cabinet_templates/formtu/formtu-30b065.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-30c6f7",
+      "kind_evidence": "indoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 900,
+        "width": 320,
+        "depth": 200
+      },
+      "description_from_drawing": "VÕ TỦ 900X320X200 1 1 SƠN MÀU SẦN TỐI TỦ TRONG NHÀ 1 LỚP CÁNH CASABLANCA VIỆT NAM   PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "30C6F7",
+      "source_dxf": "cabinet_templates/formtu/formtu-30c6f7.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-30ce38",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1000,
+        "width": 700,
+        "depth": 350
+      },
+      "description_from_drawing": " 1000X700X350 1 1.0  TỦ NGOÀI TRỜI, HAI LỚP CÁNH    PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "30CE38",
+      "source_dxf": "cabinet_templates/formtu/formtu-30ce38.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-30dc77",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": " 800X600X300 1 1.0  TỦ NGOÀI TRỜI, HAI LỚP CÁNH    PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "30DC77",
+      "source_dxf": "cabinet_templates/formtu/formtu-30dc77.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-30de82",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": " 800X600X300 4 1.0  TỦ NGOÀI TRỜI, HAI LỚP CÁNH    PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "30DE82",
+      "source_dxf": "cabinet_templates/formtu/formtu-30de82.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-30e473",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1000,
+        "width": 700,
+        "depth": 350
+      },
+      "description_from_drawing": " 1000X700X350 5 1.0  TỦ NGOÀI TRỜI, HAI LỚP CÁNH    PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "30E473",
+      "source_dxf": "cabinet_templates/formtu/formtu-30e473.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-30e684",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 300
+      },
+      "description_from_drawing": " 800X600X300 1 1.0  TỦ NGOÀI TRỜI, HAI LỚP CÁNH    PHÚC ............ .......",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "30E684",
+      "source_dxf": "cabinet_templates/formtu/formtu-30e684.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-31036b",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... 1.5 2 400X500X80 VÕ TỦ ÂM TƯỜNG ......  ...... ",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "31036B",
+      "source_dxf": "cabinet_templates/formtu/formtu-31036b.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-310458",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": null,
+      "description_from_drawing": "...... ...... ...... 1.5 1 120X180X80 VÕ TỦ ÂM TƯỜNG ......  ...... ",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "310458",
+      "source_dxf": "cabinet_templates/formtu/formtu-310458.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-321467",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1350,
+        "width": 700,
+        "depth": 425
+      },
+      "description_from_drawing": "/2023 manh .... /2023 Tủ công to 1350x700x425 06 2.0 Sơn tĩnh điện màu Ghi RAL 7035 Tủ ngoài troi - 2 cánh - thanh gá ...... Quyen",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "321467",
+      "source_dxf": "cabinet_templates/formtu/formtu-321467.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-321475",
+      "kind_evidence": "outdoor",
+      "kind_basis": "title_attributes",
+      "dimensions_mm_as_recorded": {
+        "height": 1350,
+        "width": 700,
+        "depth": 425
+      },
+      "description_from_drawing": "/2023 manh ANH THANG /2023 Tủ công to 1350x700x425 06 2.0 Sơn tĩnh điện màu Ghi RAL 7035 Tủ ngoài troi - 2 cánh - thanh gá ...... Quyen",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "321475",
+      "source_dxf": "cabinet_templates/formtu/formtu-321475.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-33cb00",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 210
+      },
+      "description_from_drawing": "04/05/2023 PHÚC PHÚC  Tủ điện chiêu sang 800X600X210 9 1.2 Sơn tĩnh điện màu Ghi RAL 7032 Tủ tu dung ngoài nha ...... QUYỀN",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "33CB00",
+      "source_dxf": "cabinet_templates/formtu/formtu-33cb00.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-3584cb",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1300,
+        "width": 600,
+        "depth": 350
+      },
+      "description_from_drawing": "04/05/2023 Thiện Huong Minh  Tủ điện chiêu sang 1300x600x350 1 1.2 Sơn tĩnh điện màu Ghi RAL 7032 Tủ tu dung ngoài nha ...... Thiện",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "3584CB",
+      "source_dxf": "cabinet_templates/formtu/formtu-3584cb.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-358537",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 1300,
+        "width": 600,
+        "depth": 350
+      },
+      "description_from_drawing": "04/05/2023 Thiện Huong Minh  Tủ điện chiêu sang 1300x600x350 1 1.2 Sơn tĩnh điện màu Ghi RAL 7032 Tủ tu dung ngoài nha ...... Thiện",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "358537",
+      "source_dxf": "cabinet_templates/formtu/formtu-358537.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    },
+    {
+      "id": "formtu-35a1e5",
+      "kind_evidence": "unknown",
+      "kind_basis": "unclassified",
+      "dimensions_mm_as_recorded": {
+        "height": 800,
+        "width": 600,
+        "depth": 210
+      },
+      "description_from_drawing": "04/05/2023 PHÚC PHÚC  Tủ điện chiêu sang 800X600X210 9 1.2 Sơn tĩnh điện màu Ghi RAL 7032 Tủ tu dung ngoài nha ...... QUYỀN",
+      "source_dwg": "FOMTU.dwg",
+      "source_handle": "35A1E5",
+      "source_dxf": "cabinet_templates/formtu/formtu-35a1e5.dxf",
+      "verified_form": null,
+      "verified_shell_family": null,
+      "auto_select": false
+    }
+  ],
+  "counts_by_kind_evidence": {
+    "indoor": 133,
+    "unknown": 67,
+    "outdoor": 97
+  }
+}

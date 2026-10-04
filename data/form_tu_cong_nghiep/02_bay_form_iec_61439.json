@@ -1,0 +1,144 @@
+{
+  "standard_scope": "IEC 61439-2 internal separation",
+  "forms": [
+    {
+      "id": "form_1",
+      "code": "1",
+      "title": "Không có phân khoang nội bộ",
+      "separation": "Thanh cái, các đơn vị chức năng và đầu cáp cùng không gian.",
+      "layout_guidance": "Bố trí tuyến nguồn rồi thiết bị, cầu đấu gần cửa cáp; vẫn che phần mang điện theo thiết kế.",
+      "typical_equipment_examples": [
+        "CB nguồn",
+        "MCB/MCCB nhánh",
+        "thanh cái hoặc thanh phân phối",
+        "cầu đấu",
+        "PE/N"
+      ],
+      "required_separation": [],
+      "compatible_shell_ids": [],
+      "auto_select": false
+    },
+    {
+      "id": "form_2a",
+      "code": "2a",
+      "title": "Thanh cái tách khỏi đơn vị chức năng",
+      "separation": "Đầu nối cáp ngoài không tách khỏi thanh cái.",
+      "layout_guidance": "Dành khoang thanh cái riêng; giữ đầu cáp ở phía thanh cái và tính đường cáp an toàn.",
+      "typical_equipment_examples": [
+        "ACB/MCCB",
+        "thanh cái",
+        "CB nhánh",
+        "đầu nối cáp",
+        "PE/N"
+      ],
+      "required_separation": [
+        "busbar_from_functional_units"
+      ],
+      "compatible_shell_ids": [],
+      "auto_select": false
+    },
+    {
+      "id": "form_2b",
+      "code": "2b",
+      "title": "Thanh cái tách khỏi đơn vị chức năng và đầu cáp",
+      "separation": "Đầu nối cáp ngoài tách khỏi thanh cái.",
+      "layout_guidance": "Bố trí thanh cái ở khoang riêng; gom đầu cáp về vùng đấu nối tránh cắt qua khoang thanh cái.",
+      "typical_equipment_examples": [
+        "ACB/MCCB",
+        "thanh cái",
+        "CB nhánh",
+        "cầu đấu hoặc thanh nối cáp",
+        "PE/N"
+      ],
+      "required_separation": [
+        "busbar_from_functional_units",
+        "terminals_from_busbar"
+      ],
+      "compatible_shell_ids": [],
+      "auto_select": false
+    },
+    {
+      "id": "form_3a",
+      "code": "3a",
+      "title": "Thanh cái và từng đơn vị chức năng tách nhau",
+      "separation": "Đầu nối/cáp ngoài tách khỏi đơn vị chức năng nhưng đầu nối không tách khỏi thanh cái.",
+      "layout_guidance": "Mỗi nhánh chức năng có ô riêng; dùng vùng đấu cáp chung và kiểm tra đường vào thanh cái.",
+      "typical_equipment_examples": [
+        "CB/contactor từng nhánh",
+        "thanh cái",
+        "cầu đấu chung",
+        "PE/N"
+      ],
+      "required_separation": [
+        "busbar_from_functional_units",
+        "functional_units_from_each_other",
+        "terminals_from_functional_units"
+      ],
+      "compatible_shell_ids": [],
+      "auto_select": false
+    },
+    {
+      "id": "form_3b",
+      "code": "3b",
+      "title": "Thanh cái và từng đơn vị chức năng tách nhau",
+      "separation": "Đầu nối và cáp ngoài tách khỏi thanh cái; đầu nối các nhánh có thể cùng khoang.",
+      "layout_guidance": "Đặt ô thiết bị theo hàng/cột, khoang cáp chung bên cạnh hoặc sau, giảm đường cáp giao chéo.",
+      "typical_equipment_examples": [
+        "MCCB/contactor/relay từng nhánh",
+        "thanh cái",
+        "cầu đấu chung",
+        "PE/N"
+      ],
+      "required_separation": [
+        "busbar_from_functional_units",
+        "functional_units_from_each_other",
+        "terminals_from_functional_units",
+        "terminals_from_busbar"
+      ],
+      "compatible_shell_ids": [],
+      "auto_select": false
+    },
+    {
+      "id": "form_4a",
+      "code": "4a",
+      "title": "Mỗi nhánh và đầu nối liên quan tách khỏi nhánh khác",
+      "separation": "Đầu nối cáp cùng khoang với đơn vị chức năng tương ứng.",
+      "layout_guidance": "Cho đầu cáp đi trực tiếp vào ô nhánh; chừa bán kính uốn và lối thao tác trong từng ô.",
+      "typical_equipment_examples": [
+        "CB/khởi động từ/relay từng ô",
+        "thanh cái",
+        "đầu cáp riêng từng ô",
+        "PE/N"
+      ],
+      "required_separation": [
+        "busbar_from_functional_units",
+        "functional_units_from_each_other",
+        "terminals_per_unit",
+        "terminal_same_compartment_as_unit"
+      ],
+      "compatible_shell_ids": [],
+      "auto_select": false
+    },
+    {
+      "id": "form_4b",
+      "code": "4b",
+      "title": "Mỗi nhánh và đầu nối liên quan tách khỏi nhánh khác",
+      "separation": "Đầu nối cáp của từng nhánh nằm trong khoang bảo vệ riêng, ngoài khoang thiết bị.",
+      "layout_guidance": "Ghép mỗi ô thiết bị với ô đầu cáp tương ứng; dự trữ chiều rộng/sâu cho khoang cáp riêng và đường đi thẳng.",
+      "typical_equipment_examples": [
+        "CB/khởi động từ/relay từng ô",
+        "thanh cái",
+        "đầu cáp riêng từng ô",
+        "PE/N"
+      ],
+      "required_separation": [
+        "busbar_from_functional_units",
+        "functional_units_from_each_other",
+        "terminals_per_unit",
+        "terminal_separate_compartment_from_unit"
+      ],
+      "compatible_shell_ids": [],
+      "auto_select": false
+    }
+  ]
+}
