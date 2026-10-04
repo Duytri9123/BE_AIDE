@@ -51,7 +51,7 @@
   {% for relation_pass in [false, true] %}
   {% set visible = namespace(count=0) %}
   {% for name in model_view._details_prop_names %}
-    {% if (name in model_view._relation_names) == relation_pass and (model_view.identity != 'article' or name != 'content_html') and not (name.endswith('_id') and name[:-3] in model_view._relation_names) and not ('password' in name or 'secret' in name or 'api_key' in name or name in ['access_token', 'refresh_token', 'refresh_tokens', 'private_key']) %}
+    {% if (name in model_view._relation_names) == relation_pass and (model_view.identity != 'article' or name != 'content_html') and not (name.endswith('_id') and name[:-3] in model_view._relation_names) and not (name == 'device_series_id' and 'series' in model_view._relation_names) and not ('password' in name or 'secret' in name or 'api_key' in name or name in ['access_token', 'refresh_token', 'refresh_tokens', 'private_key']) %}
       {% set value, formatted_value = model_view.get_detail_value(model, name, request) %}
       {% if value is not none and (not is_list(value) or value|length > 0) and value != '' %}{% set visible.count = visible.count + 1 %}{% endif %}
     {% endif %}
@@ -61,7 +61,7 @@
     <h2 class="detail-section-title">{% if relation_pass %}Dữ liệu liên quan{% elif model_view.identity == 'article' %}Thông tin bài viết{% else %}Thông tin chi tiết{% endif %}</h2>
     <dl class="detail-fields">
       {% for name in model_view._details_prop_names %}
-        {% if (name in model_view._relation_names) == relation_pass and (model_view.identity != 'article' or name != 'content_html') and not (name.endswith('_id') and name[:-3] in model_view._relation_names) and not ('password' in name or 'secret' in name or 'api_key' in name or name in ['access_token', 'refresh_token', 'refresh_tokens', 'private_key']) %}
+        {% if (name in model_view._relation_names) == relation_pass and (model_view.identity != 'article' or name != 'content_html') and not (name.endswith('_id') and name[:-3] in model_view._relation_names) and not (name == 'device_series_id' and 'series' in model_view._relation_names) and not ('password' in name or 'secret' in name or 'api_key' in name or name in ['access_token', 'refresh_token', 'refresh_tokens', 'private_key']) %}
           {% set label = model_view._column_labels.get(name, name|replace('_', ' ')|title) %}
           {% set value, formatted_value = model_view.get_detail_value(model, name, request) %}
           {% if value is not none and (not is_list(value) or value|length > 0) and (value != '' or relation_pass) %}
@@ -73,6 +73,14 @@
                 <span class="detail-url">{{ value }}</span>
               {% elif model_view.identity == 'article' and name == 'source_url' and value %}
                 <a href="{{ value }}" target="_blank" rel="noopener noreferrer" class="detail-url">{{ value }} ↗</a>
+              {% elif value is mapping %}
+                <div class="detail-map">
+                  {% for key, item in value.items() %}
+                    {% if item is not none and item != '' and item != [] and item != {} %}
+                    <div class="detail-map-item"><span>{{ key|replace('_', ' ')|title }}</span><strong>{% if item is mapping or is_list(item) %}{{ item|tojson }}{% elif item is sameas true %}Có{% elif item is sameas false %}Không{% else %}{{ item }}{% endif %}</strong></div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
               {% elif relation_pass %}
                 {% if is_list(value) %}
                   <span class="relation-count">{{ value|length }} mục</span>
@@ -119,6 +127,10 @@
 .detail-field dd a, .article-preview-footer a { color: #2563b8; text-decoration: underline; }
 .detail-cover { display: block; max-width: 260px; max-height: 180px; object-fit: contain; margin-bottom: 8px; }
 .detail-url { display: block; word-break: break-all; }
+.detail-map { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; }
+.detail-map-item { min-width: 0; padding: 8px 10px; border: 1px solid #e5ebf3; border-radius: 7px; background: #f8faff; }
+.detail-map-item span { display: block; color: #64748b; font-size: 11px; margin-bottom: 3px; }
+.detail-map-item strong { display: block; color: #253044; font-size: 13px; font-weight: 600; overflow-wrap: anywhere; }
 .relation-count { display: inline-block; margin-bottom: 8px; color: #64748b; font-size: 12px; }
 .relation-items { display: flex; flex-wrap: wrap; gap: 6px; }
 .relation-items a, .relation-items span { display: inline-block; padding: 4px 9px; border: 1px solid #dce5f3; border-radius: 6px; background: #f8faff; max-width: 100%; }

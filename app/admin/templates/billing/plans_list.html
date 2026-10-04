@@ -384,7 +384,7 @@
         {% if pagination.rows | length >= 3 and model_view.check_can_create(request) %}
           <div class="col-12 mt-3">
             <div class="plan-bottom-banner p-3 p-md-4 rounded-4 border d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
-              <div class="d-flex align-items-start align-items-md-center gap-3 w-100 flex-grow-1 min-w-0">
+              <div class="d-flex align-items-start align-items-md-center gap-3 flex-grow-1 min-w-0">
                 <div class="banner-sparkle-icon rounded-3 d-flex align-items-center justify-content-center flex-shrink-0 mt-0.5 mt-md-0">
                   <i class="fa-solid fa-wand-magic-sparkles"></i>
                 </div>
@@ -399,8 +399,8 @@
                   </p>
                 </div>
               </div>
-              <div class="w-100 w-md-auto flex-shrink-0">
-                <a href="{{ url_for('admin:create', identity=model_view.identity) }}" class="btn btn-sm btn-primary w-100 w-md-auto d-flex align-items-center justify-content-center gap-1.5 fw-bold px-3.5 py-2 shadow-sm rounded-3">
+              <div class="plan-banner-action flex-shrink-0">
+                <a href="{{ url_for('admin:create', identity=model_view.identity) }}" class="btn btn-sm btn-primary d-flex align-items-center justify-content-center gap-1.5 fw-bold px-3.5 py-2 shadow-sm rounded-3">
                   <i class="fa-solid fa-plus"></i> Tạo Gói Cước Mới
                 </a>
               </div>
@@ -812,6 +812,9 @@
   .plan-bottom-banner {
     background: linear-gradient(135deg, rgba(37, 99, 235, 0.04) 0%, rgba(139, 92, 246, 0.04) 100%);
     border-color: var(--admin-border, #e2e8f0) !important;
+  }
+  @media (max-width: 767px) {
+    .plan-bottom-banner > div, .plan-banner-action, .plan-banner-action a { width: 100%; }
   }
   .banner-sparkle-icon {
     width: 46px;
