@@ -31,6 +31,7 @@ def create_admin(app, engine):
     )
     
     # Register views
+    admin.add_view(ArticleAdmin)
     admin.add_view(UserAdmin)
     admin.add_view(ProjectAdmin)
     admin.add_view(ProjectVersionAdmin)
@@ -54,7 +55,6 @@ def create_admin(app, engine):
     admin.add_view(SystemSettingAdmin)
     admin.add_view(NotificationAdmin)
     admin.add_view(PageContentAdmin)
-    admin.add_view(ArticleAdmin)
     admin.add_view(ActivityLogAdmin)
     
     admin.add_view(ConversationSessionAdmin)

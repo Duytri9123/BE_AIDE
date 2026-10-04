@@ -1,4 +1,16 @@
 {% extends "sqladmin/layout.html" %}
+{% macro related_label(item) -%}
+  {%- if item.name is defined and item.name -%}{{ item.name }}
+  {%- elif item.title is defined and item.title -%}{{ item.title }}
+  {%- elif item.email is defined and item.email -%}{{ item.email }}
+  {%- elif item.display_name is defined and item.display_name -%}{{ item.display_name }}
+  {%- elif item.sku is defined and item.sku -%}{{ item.sku }}
+  {%- elif item.model is defined and item.model -%}{{ item.model }}
+  {%- elif item.id is defined -%}#{{ item.id }}
+  {%- else -%}{{ item|string }}
+  {%- endif -%}
+{%- endmacro %}
+{% block content_header %}{% endblock %}
 {% block content %}
 <div class="container-fluid p-0 admin-detail-page">
   <div class="detail-heading d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
@@ -36,13 +48,23 @@
   </div>
   {% endif %}
 
+  {% for relation_pass in [false, true] %}
+  {% set visible = namespace(count=0) %}
+  {% for name in model_view._details_prop_names %}
+    {% if (name in model_view._relation_names) == relation_pass and (model_view.identity != 'article' or name != 'content_html') and not (name.endswith('_id') and name[:-3] in model_view._relation_names) and not ('password' in name or 'secret' in name or 'api_key' in name or name in ['access_token', 'refresh_token', 'refresh_tokens', 'private_key']) %}
+      {% set value, formatted_value = model_view.get_detail_value(model, name, request) %}
+      {% if value is not none and (not is_list(value) or value|length > 0) and value != '' %}{% set visible.count = visible.count + 1 %}{% endif %}
+    {% endif %}
+  {% endfor %}
+  {% if visible.count > 0 %}
   <div class="detail-card mt-3">
-    <h2 class="detail-section-title">{{ 'Thông tin bài viết' if model_view.identity == 'article' else 'Thông tin chi tiết' }}</h2>
+    <h2 class="detail-section-title">{% if relation_pass %}Dữ liệu liên quan{% elif model_view.identity == 'article' %}Thông tin bài viết{% else %}Thông tin chi tiết{% endif %}</h2>
     <dl class="detail-fields">
       {% for name in model_view._details_prop_names %}
-        {% if model_view.identity != 'article' or name != 'content_html' %}
-          {% set label = model_view._column_labels.get(name, name) %}
+        {% if (name in model_view._relation_names) == relation_pass and (model_view.identity != 'article' or name != 'content_html') and not (name.endswith('_id') and name[:-3] in model_view._relation_names) and not ('password' in name or 'secret' in name or 'api_key' in name or name in ['access_token', 'refresh_token', 'refresh_tokens', 'private_key']) %}
+          {% set label = model_view._column_labels.get(name, name|replace('_', ' ')|title) %}
           {% set value, formatted_value = model_view.get_detail_value(model, name, request) %}
+          {% if value is not none and (not is_list(value) or value|length > 0) and (value != '' or relation_pass) %}
           <div class="detail-field">
             <dt>{{ label }}</dt>
             <dd>
@@ -51,20 +73,27 @@
                 <span class="detail-url">{{ value }}</span>
               {% elif model_view.identity == 'article' and name == 'source_url' and value %}
                 <a href="{{ value }}" target="_blank" rel="noopener noreferrer" class="detail-url">{{ value }} ↗</a>
-              {% elif name in model_view._relation_names %}
+              {% elif relation_pass %}
                 {% if is_list(value) %}
-                  {% for elem, formatted_elem in zip(value, formatted_value) %}
-                    {% if name not in model_view._non_link_related_fields %}<a href="{{ model_view._build_url_for('admin:details', request, elem) }}">{{ formatted_elem }}</a>{% else %}{{ formatted_elem }}{% endif %}{% if not loop.last %}, {% endif %}
-                  {% endfor %}
-                {% elif value and name not in model_view._non_link_related_fields %}<a href="{{ model_view._url_for_details_with_prop(request, model, name) }}">{{ formatted_value }}</a>
-                {% else %}{{ formatted_value }}{% endif %}
+                  <span class="relation-count">{{ value|length }} mục</span>
+                  <div class="relation-items">
+                    {% for elem in value[:8] %}
+                      {% if name not in model_view._non_link_related_fields %}<a href="{{ model_view._build_url_for('admin:details', request, elem) }}">{{ related_label(elem) }}</a>{% else %}<span>{{ related_label(elem) }}</span>{% endif %}
+                    {% endfor %}
+                  </div>
+                  {% if value|length > 8 %}<details class="relation-more"><summary>Xem thêm {{ value|length - 8 }} mục</summary><div class="relation-items">{% for elem in value[8:] %}{% if name not in model_view._non_link_related_fields %}<a href="{{ model_view._build_url_for('admin:details', request, elem) }}">{{ related_label(elem) }}</a>{% else %}<span>{{ related_label(elem) }}</span>{% endif %}{% endfor %}</div></details>{% endif %}
+                {% elif name not in model_view._non_link_related_fields %}<a href="{{ model_view._url_for_details_with_prop(request, model, name) }}">{{ related_label(value) }}</a>
+                {% else %}{{ related_label(value) }}{% endif %}
               {% else %}{{ formatted_value }}{% endif %}
             </dd>
           </div>
+          {% endif %}
         {% endif %}
       {% endfor %}
     </dl>
   </div>
+  {% endif %}
+  {% endfor %}
 </div>
 
 {% if model_view.can_delete %}{% include 'sqladmin/modals/delete.html' %}{% endif %}
@@ -86,10 +115,16 @@
 .detail-fields { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 30px; }
 .detail-field { min-width: 0; padding: 13px 0; border-top: 1px solid #e9edf3; }
 .detail-field dt { color: #64748b; font-size: 12px; font-weight: 700; margin-bottom: 6px; }
-.detail-field dd { margin: 0; color: #263244; font-size: 14px; line-height: 1.55; overflow-wrap: anywhere; white-space: pre-wrap; max-height: 300px; overflow: auto; }
+.detail-field dd { margin: 0; color: #263244; font-size: 14px; line-height: 1.55; overflow-wrap: anywhere; max-height: 300px; overflow: auto; }
 .detail-field dd a, .article-preview-footer a { color: #2563b8; text-decoration: underline; }
 .detail-cover { display: block; max-width: 260px; max-height: 180px; object-fit: contain; margin-bottom: 8px; }
 .detail-url { display: block; word-break: break-all; }
+.relation-count { display: inline-block; margin-bottom: 8px; color: #64748b; font-size: 12px; }
+.relation-items { display: flex; flex-wrap: wrap; gap: 6px; }
+.relation-items a, .relation-items span { display: inline-block; padding: 4px 9px; border: 1px solid #dce5f3; border-radius: 6px; background: #f8faff; max-width: 100%; }
+.relation-more { margin-top: 8px; }
+.relation-more summary { cursor: pointer; color: #2563b8; font-size: 12px; }
+.relation-more .relation-items { padding-top: 9px; }
 .article-meta-line { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
 .article-lead { font-size: 16px; line-height: 1.65; color: #475569; margin: 0 0 22px; }
 .article-preview-content { font-size: 15px; line-height: 1.75; color: #253044; overflow-wrap: anywhere; }
