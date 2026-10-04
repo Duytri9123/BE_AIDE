@@ -5,13 +5,23 @@ import json
 import re
 import sqlite3
 from pathlib import Path
+from functools import lru_cache
+from zipfile import ZipFile
 from typing import Any
 
 SOURCE_ROOT = Path(__file__).resolve().parents[3] / 'Tudien' / 'CATALOG_PHU_KIEN_DOC_LAP'
 SOURCE_CATALOG_DIR = SOURCE_ROOT / 'THU_VIEN_THIET_BI_AI_2026'
 BACKEND_CATALOG_DIR = Path(__file__).resolve().parents[2] / 'data' / 'equipment_library_2026'
-CATALOG_DIR = SOURCE_CATALOG_DIR if (SOURCE_CATALOG_DIR / 'equipment_catalog.sqlite').is_file() else BACKEND_CATALOG_DIR
+CATALOG_DIR = BACKEND_CATALOG_DIR
 DB_PATH = CATALOG_DIR / 'equipment_catalog.sqlite'
+ASSET_ARCHIVE = BACKEND_CATALOG_DIR / 'source_cad_assets.zip'
+BRAND_ALIASES = {'ls electric': 'ls', 'schneider electric': 'schneider',
+                 'mitsubishi electric': 'mitsubishi', 'o sung': 'o-sung'}
+
+
+def _brand_key(value: str) -> str:
+    key = str(value).strip().casefold().replace('_', ' ').replace('-', ' ')
+    return BRAND_ALIASES.get(key, key)
 
 
 def _connect() -> sqlite3.Connection:
@@ -20,17 +30,53 @@ def _connect() -> sqlite3.Connection:
     return sqlite3.connect(DB_PATH)
 
 
+@lru_cache(maxsize=1)
+def _bundled_asset_names() -> frozenset[str]:
+    if not ASSET_ARCHIVE.is_file():
+        return frozenset()
+    with ZipFile(ASSET_ARCHIVE) as archive:
+        return frozenset(archive.namelist())
+
+
+def asset_available(relative: str) -> bool:
+    path = Path(relative)
+    if path.is_absolute() or '..' in path.parts:
+        return False
+    return relative in _bundled_asset_names() or (SOURCE_ROOT / relative).is_file()
+
+
+def bundled_asset_available(relative: str) -> bool:
+    path = Path(relative)
+    return not path.is_absolute() and '..' not in path.parts and relative in _bundled_asset_names()
+
+
+def bundled_asset_bytes(relative: str) -> bytes:
+    if not bundled_asset_available(relative):
+        raise FileNotFoundError(relative)
+    with ZipFile(ASSET_ARCHIVE) as archive:
+        return archive.read(relative)
+
+
+def asset_bytes(relative: str) -> bytes:
+    if not asset_available(relative):
+        raise FileNotFoundError(relative)
+    if relative in _bundled_asset_names():
+        with ZipFile(ASSET_ARCHIVE) as archive:
+            return archive.read(relative)
+    return (SOURCE_ROOT / relative).read_bytes()
+
+
 def _with_availability(item: dict[str, Any]) -> dict[str, Any]:
     # `exists` in the export describes build time; this flag describes the
     # current deployment, where the large source CAD library may be absent.
     cad = item['cad']
     for ref in (cad.get('dwg'), cad.get('dxf'), cad.get('preview')):
         if ref:
-            ref['available_now'] = (SOURCE_ROOT / ref['path']).is_file()
+            ref['available_now'] = asset_available(ref['path'])
     for view in cad['views']:
         for ref in (view.get('dxf'), view.get('preview')):
             if ref:
-                ref['available_now'] = (SOURCE_ROOT / ref['path']).is_file()
+                ref['available_now'] = asset_available(ref['path'])
     return item
 
 
@@ -86,7 +132,7 @@ def resolve_price_variant(part_number: str, brand: str | None = None,
     for row in rows:
         item = json.loads(row[0])
         specs = item['specifications']
-        if brand and item['brand'].casefold() != brand.strip().casefold():
+        if brand and _brand_key(item['brand']) != _brand_key(brand):
             continue
         if poles is not None and specs['poles'] != poles:
             continue
