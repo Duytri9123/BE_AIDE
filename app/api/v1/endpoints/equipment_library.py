@@ -27,6 +27,19 @@ def _manufacturer_links():
     return json.loads(path.read_text(encoding='utf-8')) if path.is_file() else {}
 
 
+@lru_cache(maxsize=1)
+def _manufacturer_views():
+    path = BACKEND_CATALOG_DIR / 'manufacturer_cad_views.json'
+    return json.loads(path.read_text(encoding='utf-8')) if path.is_file() else {}
+
+
+def _record_views(record):
+    source_id = record['cad'].get('source_id')
+    if record['record_type'] == 'priced_variant' and source_id in _manufacturer_views():
+        return _manufacturer_views()[source_id]
+    return record['cad'].get('views', [])
+
+
 def _linked_group_key(row):
     """Only group source views with the same identified brand, model and frame CAD."""
     if row['record_type'] != 'source_cad_device_or_assembly':
@@ -127,8 +140,8 @@ def _cad_file(catalog_id: str, field: str):
 
 def _cad_view_file(catalog_id: str, view_id: str, field: str):
     record = get_equipment(catalog_id)
-    view = next((view for view in (record or {}).get('cad', {}).get('views', [])
-                 if view.get('id') == view_id), None)
+    views = _record_views(record) if record else []
+    view = next((view for view in views if view.get('id') == view_id), None)
     if not view or not view.get(field):
         raise HTTPException(404, 'Góc nhìn CAD này chưa có file.')
     relative = view[field]['path']
@@ -149,6 +162,12 @@ def download_dxf(catalog_id: str):
                     headers={'Content-Disposition': f'attachment; filename="{catalog_id}.dxf"'})
 
 
+@router.get('/{catalog_id}/dwg')
+def download_dwg(catalog_id: str):
+    return Response(asset_bytes(_cad_file(catalog_id, 'dwg')), media_type='application/acad',
+                    headers={'Content-Disposition': f'attachment; filename="{catalog_id}.dwg"'})
+
+
 @router.get('/{catalog_id}/views/{view_id}/preview')
 def view_preview(catalog_id: str, view_id: str):
     relative = _cad_view_file(catalog_id, view_id, 'preview')
@@ -160,6 +179,14 @@ def view_dxf(catalog_id: str, view_id: str):
     relative = _cad_view_file(catalog_id, view_id, 'dxf')
     filename = re.sub(r'[^A-Za-z0-9._-]', '_', f'{catalog_id}-{view_id}.dxf')
     return Response(asset_bytes(relative), media_type='application/dxf',
+                    headers={'Content-Disposition': f'attachment; filename="{filename}"'})
+
+
+@router.get('/{catalog_id}/views/{view_id}/dwg')
+def view_dwg(catalog_id: str, view_id: str):
+    relative = _cad_view_file(catalog_id, view_id, 'dwg')
+    filename = re.sub(r'[^A-Za-z0-9._-]', '_', f'{catalog_id}-{view_id}.dwg')
+    return Response(asset_bytes(relative), media_type='application/acad',
                     headers={'Content-Disposition': f'attachment; filename="{filename}"'})
 
 
@@ -189,6 +216,13 @@ def detail(catalog_id: str):
         raise HTTPException(status_code=503, detail=str(exc)) from exc
     if item is None:
         raise HTTPException(status_code=404, detail='Equipment record not found')
+    if item['record_type'] == 'priced_variant':
+        item['cad']['views'] = [
+            {**view, 'state': view['name'],
+             **{field: {**view[field], 'available_now': asset_available(view[field]['path'])}
+                for field in ('preview', 'dxf', 'dwg')}}
+            for view in _record_views(item)]
+        item['cad']['default_view_id'] = item['cad'].get('state_id')
     group = _linked_group(item)
     link = _manufacturer_links().get(catalog_id)
     if link:
@@ -204,7 +238,9 @@ def detail(catalog_id: str):
                           'name': 'CAD gốc của hãng', 'state': 'Mặt trước theo khung',
                           'preview_catalog_id': manufacturer['catalog_id'],
                           'dxf_catalog_id': manufacturer['catalog_id'] if (manufacturer['cad'].get('dxf') or {}).get('available_now') else None,
-                          'preview': manufacturer['cad']['preview'], 'dxf': manufacturer['cad'].get('dxf')})
+                          'dwg_catalog_id': manufacturer['catalog_id'] if (manufacturer['cad'].get('dwg') or {}).get('available_now') else None,
+                          'preview': manufacturer['cad']['preview'], 'dxf': manufacturer['cad'].get('dxf'),
+                          'dwg': manufacturer['cad'].get('dwg')})
         seen_previews = set()
         for member in group:
             face = (_manufacturer_links().get(member['catalog_id']) or {}).get('source_face_label')

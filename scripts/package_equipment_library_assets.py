@@ -1,6 +1,7 @@
 """Bundle CAD previews/DXFs referenced by the active 2026 equipment catalog."""
 import json
 import re
+from html import unescape
 import sqlite3
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
@@ -11,8 +12,28 @@ DATA = ROOT / 'BE_AIDE' / 'data' / 'equipment_library_2026'
 
 with sqlite3.connect(DATA / 'equipment_catalog.sqlite') as db:
     records = [json.loads(row[0]) for row in db.execute('SELECT record_json FROM equipment')]
-paths = sorted({ref['path'] for record in records
-                for ref in (record['cad'].get('preview'), record['cad'].get('dxf')) if ref})
+ls_root = 'LS_D02_DU_LIEU_MOI/'
+views_html = (SOURCE / ls_root / 'cad_views.html').read_text(encoding='utf-8')
+view_index = {}
+for source_id, article in re.findall(r'<article id="([^"]+)">(.*?)</article>', views_html, re.S):
+    states = []
+    for attrs, label in re.findall(r'<option ([^>]+)>([^<]+)</option>', article):
+        attributes = dict(re.findall(r'([\w-]+)="([^"]*)"', attrs))
+        if not {'value', 'data-img', 'data-dwg', 'data-dxf'} <= attributes.keys():
+            raise ValueError(f'Incomplete CAD view in {source_id}')
+        states.append({'id': attributes['value'], 'name': unescape(label),
+                       'preview': {'path': ls_root + attributes['data-img']},
+                       'dwg': {'path': ls_root + attributes['data-dwg']},
+                       'dxf': {'path': ls_root + attributes['data-dxf']}})
+    if states:
+        view_index[source_id] = states
+(DATA / 'manufacturer_cad_views.json').write_text(
+    json.dumps(view_index, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+paths = {ref['path'] for record in records
+         for ref in (record['cad'].get('preview'), record['cad'].get('dxf'), record['cad'].get('dwg')) if ref}
+paths.update(ref['path'] for views in view_index.values() for view in views
+             for ref in (view['preview'], view['dxf'], view['dwg']))
+paths = sorted(paths)
 archive = DATA / 'source_cad_assets.zip'
 with ZipFile(archive, 'w', compression=ZIP_DEFLATED, compresslevel=8) as output:
     for relative in paths:
@@ -21,6 +42,7 @@ with ZipFile(archive, 'w', compression=ZIP_DEFLATED, compresslevel=8) as output:
             raise FileNotFoundError(relative)
         output.write(path, relative)
 print(f'{len(paths)} CAD files copied to {archive} ({archive.stat().st_size:,} bytes)')
+print(f'{sum(map(len, view_index.values()))} manufacturer CAD views indexed across {len(view_index)} devices')
 
 # Link a source drawing to a manufacturer's preview only when the text read
 # from that drawing matches the source model exactly. This is frame evidence,

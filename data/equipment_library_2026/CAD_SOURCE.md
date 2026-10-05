@@ -9,3 +9,5 @@ SHA-256 của DWG nguồn: `cd7c2afc417061349d0f94a95574bf4326df876a4ca60fdaaef0
 Các tên đọc từ CAD chưa tự động trở thành mã hàng chính xác. Trạng thái đối chiếu được giữ trong trường `cad.status` của từng bản ghi.
 
 `source_manufacturer_cad_links.json` nối ảnh CAD hãng với bản ghi CAD bóc tách khi chữ model trên bản vẽ hãng trùng tên khung đọc trong CAD nguồn. Ảnh này là minh họa theo khung, không xác minh SKU cụ thể. Trang thư viện nhóm các bản ghi nguồn cùng model/khung và loại hình trùng lặp; các mặt CAD vẫn có thể xem và tải riêng.
+
+`manufacturer_cad_views.json` giữ nguyên 165 lựa chọn góc nhìn/trạng thái từ trang CAD LS gốc cho 33 nhóm thiết bị. Mỗi lựa chọn trỏ tới ảnh, DWG và DXF tương ứng trong `source_cad_assets.zip`. Dòng bảng giá chọn mặc định trạng thái CAD đã đối chiếu (`cad.state_id`), còn người dùng có thể xem các trạng thái khác theo cùng khung.
