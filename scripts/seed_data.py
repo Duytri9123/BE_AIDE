@@ -3,8 +3,6 @@ from sqlalchemy import select
 from app.db.session import AsyncSessionLocal
 from app.core.security import get_password_hash
 from app.models.user import User
-from app.models.brand import Brand
-from app.models.device_category import DeviceCategory
 from app.models.ai_provider import AiProvider
 from app.models.ai_provider_model import AiProviderModel
 from app.models.system_setting import SystemSetting
@@ -49,23 +47,7 @@ async def seed_all():
         else:
             print("  - Test user already exists")
 
-        # 3. Default Brands
-        brands_data = ["Schneider Electric", "ABB", "LS Electric", "Mitsubishi Electric", "Chint", "Hyundai"]
-        for b_name in brands_data:
-            existing = await session.scalar(select(Brand).where(Brand.name == b_name))
-            if not existing:
-                session.add(Brand(name=b_name))
-                print(f"  + Created brand: {b_name}")
-
-        # 4. Default Categories
-        categories_data = ["MCCB", "MCB", "ACB", "Contactor", "RCBO", "RCCB", "SPD", "VCB", "Relay", "Thermal Relay"]
-        for c_name in categories_data:
-            existing = await session.scalar(select(DeviceCategory).where(DeviceCategory.name == c_name))
-            if not existing:
-                session.add(DeviceCategory(name=c_name))
-                print(f"  + Created category: {c_name}")
-
-        # 5. Default AI Providers & Models
+        # 3. Default AI Providers & Models
         gemini_provider = await session.scalar(select(AiProvider).where(AiProvider.id == "gemini"))
         if not gemini_provider:
             gemini_provider = AiProvider(

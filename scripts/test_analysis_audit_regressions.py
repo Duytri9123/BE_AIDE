@@ -8,6 +8,12 @@ from unittest.mock import patch
 from openpyxl import load_workbook
 from app.schemas.ai import ExtractedDeviceSchema
 from app.services.ai.analysis_pipeline_service import AnalysisPipelineService as Pipeline
+from app.services.ai.system_completeness import technical_audit
+from app.services.ai.evidence_overview import render_evidence_overview
+from app.services.ai.multi_agent_orchestrator import MultiAgentOrchestrator, ExtractionState
+from app.services.device_catalog_engine import DeviceCatalogEngine
+from app.api.v1.endpoints.equipment_library import browse as browse_equipment
+from PIL import Image
 from app.services.export.dynamic_grouping import DynamicGroupingEngine as Grouping
 from app.services.export.quotation_exporter import QuotationExporterService as Exporter
 
@@ -19,6 +25,54 @@ def device(**updates):
 
 
 class AnalysisAuditTests(unittest.TestCase):
+    def test_default_ls_agent_can_read_candidates_without_inventing_sku(self):
+        catalog = DeviceCatalogEngine.get_instance()
+        self.assertTrue(catalog.search_candidates(
+            brand="LS", device_type="MCB", poles=3, in_current=6, min_icu=6,
+        ))
+        state = ExtractionState(devices=[{
+            "category": "MCB", "name": "MCB M2", "spec": "3P 6A 6kA",
+            "poles": 3, "in_a": 6, "icu_ka": 6, "part_number": "", "brand": "",
+        }])
+        agent = MultiAgentOrchestrator.__new__(MultiAgentOrchestrator)
+        asyncio.run(agent._run_catalog_matcher(state, {}))
+        row = state.devices[0]
+        self.assertEqual(row["brand"], "LS")
+        self.assertEqual(row["selection_source"], "default_brand")
+        self.assertTrue(row["catalog_candidates"])
+        self.assertFalse(row["catalog_matched"])
+        self.assertEqual(row["part_number"], "")
+
+    def test_agent_catalog_api_returns_ls_source_and_incomplete_rating_flag(self):
+        result = browse_equipment(q="MCB", brand="LS", record_type="priced_variant",
+                                  poles=3, min_in=6, max_in=6, min_icu=6,
+                                  skip=0, limit=5)
+        self.assertTrue(result["items"])
+        self.assertTrue(all(item["brand"] == "LS" for item in result["items"]))
+        self.assertTrue(all(item.get("source_record") for item in result["items"]))
+        self.assertTrue(any(not item["rating_complete"] for item in result["items"]))
+
+    def test_three_ct_one_ammeter_selector_flags_scale_only(self):
+        devices = [
+            device(category="CT", name="3XCT", spec="63/5 A", quantity=3, tag="CT", panel_code="P", source_filename="nguon.jpg"),
+            device(category="METER", name="Ampe kế", spec="0-50 A", tag="A", panel_code="P", source_filename="nguon.jpg"),
+            device(category="SELECTOR", name="Chọn dòng", tag="AS", panel_code="P", source_filename="nguon.jpg"),
+        ]
+        titles = [item["title"] for item in technical_audit(devices)["missing_items"]]
+        self.assertIn("Thang ampe kế chưa khớp CT", titles)
+        self.assertNotIn("Kiểm tra số lượng ampe kế", titles)
+
+    def test_overview_marks_only_real_boxes_and_reports_coverage(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            from pathlib import Path
+            source = Path(tmp) / "source.jpg"
+            Image.new("RGB", (100, 100), "white").save(source)
+            marked = device(tag="QF1", box_2d=[100, 100, 300, 300])
+            unlocated = device(tag="QF2", box_2d=None)
+            overview = render_evidence_overview(source, [marked, unlocated])
+            self.assertEqual((overview["marked_count"], overview["total_count"]), (1, 2))
+            self.assertEqual(overview["legend"][0]["tag"], "QF1")
+
     def test_generation_normalization_keeps_evidence_and_quantity_basis(self):
         original = device(
             box_2d=[100, 100, 200, 200], source_filename="source.jpg",

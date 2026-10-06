@@ -1,0 +1,31 @@
+{
+  "source_id": "1df8fbf3b87b1946",
+  "method": "visual_transcription",
+  "title": "BẢNG KÊ THIẾT BỊ TỦ HẠ THẾ 0.4KV",
+  "cabinet": {"description": "TỦ ĐIỆN PHÂN PHỐI HẠ THẾ 400V-300A (2x100A)", "quantity": 1, "price_source": 16300000, "height_mm": 1600, "width_mm": 800, "depth_mm": 500, "steel_thickness_mm": 2, "doors": 2, "mounting": "Ngoài trời treo cột", "notes": "Có khoang chống tổn thất; vỏ sơn tĩnh điện; xuất xứ ECT-Việt Nam"},
+  "items": [
+    {"description":"Công tơ điện tử","quantity":1,"unit":"Cái","origin_or_supplier":"ĐL CẤP"},
+    {"description":"Biến dòng 300/5A 0.5cl 15VA đường kính trong 50mm cho đo","quantity":3,"unit":"Cái","origin_or_supplier":"ECT cấp","note":"Ghi chú đỏ: HS đường kính trong ≥80mm; dung lượng ≥15VA, chờ tín hiệu tụ bù. Mâu thuẫn 50/80mm cần xác nhận."},
+    {"description":"Biến dòng 300/5A 0.5cl 15VA đường kính trong 50mm cho đếm","quantity":3,"unit":"Cái","origin_or_supplier":"ECT cấp"},
+    {"description":"Đồng hồ đo dòng điện, điện áp","model":"VAF36A","quantity":1,"unit":"Cái","origin_or_supplier":"ECT cấp"},
+    {"description":"Đèn báo pha Đỏ, Vàng, Xanh","quantity":3,"unit":"Cái","origin_or_supplier":"Taiwan"},
+    {"description":"Cầu chì 32A kèm lõi chì 5A","quantity":3,"unit":"Cái","origin_or_supplier":"Taiwan"},
+    {"description":"Chống sét van","model":"GZ-500","quantity":1,"unit":"Bộ","origin_or_supplier":"Việt Nam"},
+    {"description":"Sứ đỡ thanh cái","quantity":1,"unit":"Bộ","origin_or_supplier":"Taiwan"},
+    {"description":"Dây điều khiển 1x2.5mm2","quantity":1,"unit":"Bộ","origin_or_supplier":"Việt Nam"},
+    {"description":"Dây điều khiển Cu/PVC/PVC 10x2.5mm2","quantity":1,"unit":"Bộ","origin_or_supplier":"ETC CẤP","note":"Để 2m dây trên khoang ctt"},
+    {"description":"Dây trung tính Cu/XLPE/PVC 1x95mm2","quantity":1,"unit":"Bộ","origin_or_supplier":"Việt Nam","note":"Nối từ thanh tt bên dưới lên thanh tt khoang ctt; thanh tt dài 180mm"},
+    {"description":"Cầu đấu 5A","quantity":12,"unit":"Cái","origin_or_supplier":"Taiwan","note":"12 cầu đấu đơn"},
+    {"description":"Quạt làm mát 38W","quantity":1,"unit":"Cái","origin_or_supplier":"Taiwan"},
+    {"description":"Timer 24h loại cơ","quantity":1,"unit":"Cái","origin_or_supplier":"TQ"},
+    {"description":"MCCB 3P 300A 45kA","model":"HGM400E-F 3P","quantity":1,"unit":"Cái","origin_or_supplier":"ECT cấp"},
+    {"description":"MCCB 3P 100A 38kA","model":"HGM125H- FVP","quantity":2,"unit":"Cái","origin_or_supplier":"ECT cấp"},
+    {"description":"Tấm chắn pha cho MCCB 400AF","model":"TQQ40GM3","quantity":1,"unit":"Bộ","origin_or_supplier":"ECT cấp"},
+    {"description":"Tấm chắn pha cho MCCB 125AF","model":"TQQ10GM3","quantity":2,"unit":"Bộ","origin_or_supplier":"ECT cấp"},
+    {"description":"Hệ thống thanh cái không mạ có bọc co ngót","quantity":1,"unit":"bộ","origin_or_supplier":"Asia","components":[{"description":"Thanh cái đồng cho 300A","section_mm":"40x4"},{"description":"Thanh cái đồng cho MCCB 300A","section_mm":"30x6"},{"description":"Thanh cái đồng cho MCCB 100A","section_mm":"20x4"},{"description":"Thanh cái đồng trung tính","section_mm":"20x4"},{"description":"Thanh đồng tiếp địa","section_mm":"20x4"}]},
+    {"description":"Phụ kiện như đầu bọp, đầu cốt, lạt nhựa, bulong...","quantity":1,"unit":"Lô","origin_or_supplier":"VN/HQ/TQ"},
+    {"description":"Nhân công lắp ráp","quantity":1,"unit":"Gói","origin_or_supplier":"ECT-Việt Nam"}
+  ],
+  "manufacturer_policy": "Nơi xuất xứ, đơn vị cấp và thương hiệu là các trường khác nhau. Không coi ECT cấp, Taiwan, TQ là hãng thiết bị.",
+  "geometry_status":"Ảnh bảng kê không cung cấp CAD thiết bị hay bản vẽ bố trí. Không tạo geometry giả từ định mức."
+}

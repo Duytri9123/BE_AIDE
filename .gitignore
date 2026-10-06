@@ -15,12 +15,18 @@ venv.bak/
 .env
 .env.local
 
-# SQLite Temporary WAL / Lock files (webbaogia.db is tracked)
+# SQLite Temporary WAL / Lock files & databases
+*.db
 *.db-shm
 *.db-wal
 *.db-journal
 *.bak
-data/exports_backup/
+webbaogia.db
+
+# Data directories
+data/
+tmp_index_js.txt
+
 
 # Unit test / coverage reports
 .pytest_cache/

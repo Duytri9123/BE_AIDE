@@ -1,6 +1,6 @@
-# BE_AIDE - Hệ Thống Backend Bóc Tách & Dự Toán Tủ Bảng Điện
+# BE_Elquote - Hệ Thống Backend Bóc Tách & Dự Toán Tủ Bảng Điện
 
-Backend FastAPI mạnh mẽ cho hệ thống AIDE (Tự động bóc tách bản vẽ kỹ thuật CAD/DWG/DXF/PDF, tính toán dự toán thiết bị tủ bảng điện, quản lý dự án, báo giá và tích hợp AI).
+Backend FastAPI mạnh mẽ cho hệ thống Elquote (Tự động bóc tách bản vẽ kỹ thuật CAD/DWG/DXF/PDF, tính toán dự toán thiết bị tủ bảng điện, quản lý dự án, báo giá và tích hợp AI).
 
 ## 🚀 Công Nghệ Sử Dụng
 

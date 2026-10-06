@@ -136,6 +136,10 @@ for item in read(ls_supp)['items']:
         'warnings':[item['cad_basis'],item['note']],'source_data':item})
 
 other_file='THIET_BI_KHAC_2026/products.json';inputs.append(other_file)
+# Store the image reading for each A01 view separately from the raw source row.
+METER_DETAIL_DIR = Path(__file__).resolve().parents[1] / 'data/equipment_library_2026/identified_meters'
+METER_DRAWINGS = {path.stem: json.loads(path.read_text(encoding='utf-8'))
+                  for path in METER_DETAIL_DIR.glob('*.json')}
 for product in read(other_file)['products']:
     views=[]
     for view in product['views']:
@@ -163,6 +167,25 @@ for product in read(other_file)['products']:
                      'cad_url':None,'price_url':None},
          'warnings':['CAD geometry is not proof of an exact manufacturer SKU.'] if not product.get('external') else [],
          'source_data':product}
+    if product['id'] in METER_DRAWINGS:
+        drawing = METER_DRAWINGS[product['id']]
+        analysis = drawing['analysis']
+        rec['brand'] = analysis['brand']
+        rec['brand_status'] = ('Nhãn trong vùng bản vẽ' if analysis['brand_confidence'] == 'cao'
+                               else 'Tên nhóm CAD gốc; ảnh chưa xác nhận')
+        rec['category'] = analysis['device_group']
+        rec['display_name'] = f"Công tơ điện {product['model']}"
+        rec['drawing_details'] = {
+            'phase': analysis['phase'], 'family': analysis['product_family'],
+            'terminal_cover': analysis['terminal_cover'],
+            'drawing_code': drawing['drawing_code'],
+            'note': drawing['not_verified'][0],
+        }
+        rec['drawing_analysis'] = drawing
+        details = [value for value in (analysis['phase'], analysis['product_family'],
+                                      analysis['terminal_cover']) if value]
+        rec['description'] = ' · '.join(details) if details else product.get('source_group') or ''
+        rec['warnings'] = drawing['not_verified']
     records.append(rec)
 
 ids=[r['catalog_id'] for r in records]
