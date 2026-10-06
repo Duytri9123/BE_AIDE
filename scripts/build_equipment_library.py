@@ -15,18 +15,14 @@ import unicodedata
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
+from zipfile import ZipFile, ZIP_DEFLATED
 
 ROOT=Path(__file__).resolve().parents[2]/'Tudien/CATALOG_PHU_KIEN_DOC_LAP'
 OUT=ROOT/'THU_VIEN_THIET_BI_AI_2026'
 OUT.mkdir(exist_ok=True)
-SOURCES=[
-    ('LS','LS_D02_DU_LIEU_MOI','price_with_cad.json','index.html'),
-    ('Mitsubishi','MITSUBISHI_D04_DU_LIEU_MOI','price_with_cad.json','index.html'),
-    ('Schneider','SCHNEIDER_D01_DU_LIEU_MOI','price_index.json','index.html'),
-    ('ABB','ABB_D03_DU_LIEU_MOI','price_index.json','index.html'),
-    ('O-Sung','OSUNG_D05_DU_LIEU_MOI','price_index.json','index.html'),
-    ('Shihlin','SHIHLIN_D06_DU_LIEU_MOI','price_index.json','index.html'),
-]
+PUBLISHED_SOURCES=json.loads((ROOT/'brand_prices_2026.json').read_text(encoding='utf-8'))
+SOURCES=[(entry['brand'],entry['folder'],entry['data_file'],'index.html')
+         for entry in PUBLISHED_SOURCES]
 
 def read(rel): return json.loads((ROOT/rel).read_text(encoding='utf-8'))
 def write(name,value):
@@ -61,10 +57,13 @@ def text_of(*values):
     return ' '.join(str(x) for x in values if x is not None and str(x).strip())
 
 records=[]
-inputs=[]
+inputs=['index_2026.html','brand_prices_2026.json']
 for brand,folder,filename,page in SOURCES:
     dataset=f'{folder}/{filename}'; inputs.append(dataset)
     rows=read(dataset)
+    published=next(entry for entry in PUBLISHED_SOURCES if entry['brand']==brand)
+    if len(rows)!=published['display_rows']:
+        raise ValueError(f'{dataset}: {len(rows)} rows, index declares {published["display_rows"]}')
     for index,row in enumerate(rows,1):
         model=str(row.get('model') or row.get('name_pdf') or '').strip()
         category=str(row.get('category') or row.get('section_pdf') or '').strip()
@@ -107,6 +106,13 @@ for brand,folder,filename,page in SOURCES:
              'evidence':{'product_url':row.get('product_evidence_url'),'cad_url':row.get('cad_evidence_url'),
                          'price_url':source_url},'warnings':warnings,'source_data':row}
         records.append(rec)
+
+for published in PUBLISHED_SOURCES:
+    linked=sum(rec['brand']==published['brand'] and rec['record_type']=='priced_variant'
+               and rec['cad']['status'] in ('exact_model_cad','family_or_frame_cad','cad_present_match_unstated')
+               for rec in records)
+    if linked!=published['rows_with_cad']:
+        raise ValueError(f'{published["brand"]}: {linked} linked CAD rows, index declares {published["rows_with_cad"]}')
 
 ls_supp='LS_D02_DU_LIEU_MOI/cad_bo_sung.json';inputs.append(ls_supp)
 for item in read(ls_supp)['items']:
@@ -267,7 +273,7 @@ page='''<!doctype html><html lang="vi"><meta charset="utf-8"><meta name="viewpor
 (OUT/'index.html').write_text(page,encoding='utf-8')
 readme='''# Thư viện thiết bị AIDE 2026 cho AI
 
-`equipment_catalog.jsonl` là nguồn đọc chính: mỗi dòng là một JSON độc lập và có `catalog_id` bền vững. Giá được giữ theo từng dòng PDF; Mitsubishi dùng 3.140 dòng chi tiết thay vì 1.976 dòng gộp để không mất biến thể. `equipment_groups.jsonl` nhóm các dòng theo hãng/loại/model, kèm ID biến thể. `cad_assets.jsonl` lập chỉ mục toàn bộ CAD trong bản DWG nguồn và các CAD được bảng thiết bị dẫn tới.
+`equipment_catalog.jsonl` là bản sao máy đọc được của `index_2026.html` và các bảng dữ liệu mà trang này dẫn tới. Mỗi dòng có `catalog_id` bền vững. Mitsubishi dùng 1.976 dòng hiển thị đã gộp; `source_data.source_variants` giữ các biến thể gốc. `equipment_groups.jsonl` nhóm các dòng theo hãng/loại/model. `cad_assets.jsonl` lập chỉ mục CAD được bảng thiết bị dẫn tới.
 
 Đường dẫn `path` đều tương đối với `Tudien/CATALOG_PHU_KIEN_DOC_LAP`. AI nên dùng `record_type`, `cad.status`, `cad.match_basis` và `warnings` trước khi chọn thiết bị. `family_or_frame_cad` không chứng minh đúng SKU; `source_cad_unverified_sku` chỉ chứng minh bản vẽ nguồn. Giá `null` nghĩa là chưa có dòng giá trong tài liệu đang dùng.
 
@@ -277,18 +283,40 @@ Tra cứu cho AI: `python BE_AIDE/scripts/query_equipment_library.py BKN --brand
 
 Backend đọc trực tiếp SQLite qua `app.services.equipment_library`. API: `GET /api/v1/equipment-library/manifest`, `GET /api/v1/equipment-library/search?q=BKN&brand=LS` và `GET /api/v1/equipment-library/{catalog_id}`. Bộ xử lý giá chỉ dùng dòng PDF 2026 khi mã và các thông số yêu cầu dẫn tới đúng một biến thể; các dòng còn mơ hồ giữ nguyên trạng thái cần đối chiếu. Trường `cad.status` luôn đi kèm kết quả.
 
-Bản sao dữ liệu máy đọc được lưu trong `BE_AIDE/data/equipment_library_2026` để backend vẫn tra cứu được khi chỉ checkout repository backend. Các tệp DXF/DWG nguồn nằm trong thư viện `Tudien` riêng; API bổ sung `available_now` trên mỗi đường dẫn CAD để báo tệp có thực sự hiện diện ở môi trường đang chạy hay không.
+Các file `BE_AIDE/data/catalog_data.json`, `catalog_accessories.json`, `cad_device_registry.json` và dữ liệu `device_layouts` là nguồn cũ; không dùng để tự chọn mã, giá, kích thước hay hình chèn. API CAD cũ chỉ công bố các bản ghi có `exact_model_cad` từ catalog 2026 và có file nguồn hiện diện.
+
+Bản sao dữ liệu máy đọc được và các CAD mà catalog tham chiếu được lưu trong `BE_AIDE/data/equipment_library_2026` để backend vẫn tra cứu và mở CAD khi chỉ checkout repository backend. API bổ sung `available_now` trên mỗi đường dẫn CAD để báo tệp có thực sự hiện diện ở môi trường đang chạy hay không.
 
 Chạy lại: `python BE_AIDE/scripts/build_equipment_library.py` sau khi cập nhật các bảng hãng hoặc `THIET_BI_KHAC_2026/products.json`.
 '''
 (OUT/'README.md').write_text(readme,encoding='utf-8')
 
-# Keep a portable metadata snapshot in the backend repository. Original CAD
-# binaries remain in the sibling Tudien source library and are not duplicated.
+# Keep a portable catalog snapshot and its referenced CAD in the backend.
 backend_out=Path(__file__).resolve().parents[1]/'data/equipment_library_2026'
 backend_out.mkdir(exist_ok=True)
 for filename in ('equipment_catalog.jsonl','equipment_groups.jsonl','cad_assets.jsonl',
                  'equipment_catalog.sqlite','equipment_catalog.schema.json','manifest.json','README.md'):
     shutil.copy2(OUT/filename,backend_out/filename)
+shutil.copy2(ROOT/'index_2026.html',backend_out/'source_index_2026.html')
+
+# Bundle every CAD file referenced by the published catalog so the backend
+# can serve the same drawings without a sibling Tudien checkout.
+referenced_paths=set()
+for rec in records:
+    cad=rec['cad']
+    for ref in (cad.get('dwg'),cad.get('dxf'),cad.get('preview')):
+        if ref:referenced_paths.add(ref['path'])
+    for view in cad.get('views',[]):
+        for ref in (view.get('dxf'),view.get('preview')):
+            if isinstance(ref,dict):referenced_paths.add(ref['path'])
+archive=backend_out/'source_cad_assets.zip'
+archive_tmp=backend_out/'source_cad_assets.zip.tmp'
+with ZipFile(archive_tmp,'w',compression=ZIP_DEFLATED,compresslevel=6) as bundle:
+    for relative in sorted(referenced_paths):
+        source=ROOT/relative
+        if not source.is_file():raise FileNotFoundError(source)
+        bundle.write(source,arcname=relative)
+archive_tmp.replace(archive)
 print(json.dumps({'records':len(records),'groups':len(groups),'cad_assets':len(asset_rows),
-                  'missing_assets':len(manifest['missing_asset_paths'])},ensure_ascii=False))
+                  'missing_assets':len(manifest['missing_asset_paths']),
+                  'bundled_cad_assets':len(referenced_paths)},ensure_ascii=False))

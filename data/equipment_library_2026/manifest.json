@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0.0",
-  "generated_at_utc": "2026-10-03T10:50:41.011013+00:00",
+  "generated_at_utc": "2026-10-06T08:05:25.630877+00:00",
   "path_base": "Tudien/CATALOG_PHU_KIEN_DOC_LAP",
-  "equipment_records": 5088,
+  "equipment_records": 3924,
   "product_groups": 1313,
   "cad_asset_records": 3774,
   "price_rows_by_brand": {
     "LS": 478,
-    "Mitsubishi": 3140,
+    "Mitsubishi": 1976,
     "Schneider": 117,
     "ABB": 598,
     "O-Sung": 29,
@@ -15,7 +15,7 @@
   },
   "records_by_brand": {
     "LS": 490,
-    "Mitsubishi": 3141,
+    "Mitsubishi": 1977,
     "Schneider": 118,
     "ABB": 601,
     "O-Sung": 29,
@@ -40,14 +40,14 @@
     "Leipole": 2
   },
   "records_by_type": {
-    "priced_variant": 4445,
+    "priced_variant": 3281,
     "manufacturer_or_cad_reference": 2,
     "source_cad_device_or_assembly": 641
   },
   "cad_status_counts": {
-    "family_or_frame_cad": 1039,
+    "family_or_frame_cad": 896,
     "exact_model_cad": 7,
-    "no_verified_cad": 3383,
+    "no_verified_cad": 2362,
     "manufacturer_data_no_cad": 16,
     "source_cad_family": 1,
     "manufacturer_dimensions_no_cad": 1,
@@ -55,8 +55,10 @@
   },
   "missing_asset_paths": [],
   "source_sha256": {
+    "index_2026.html": "7cc0fa2171d8386da47ac851ba0b6601abdf076e5747a7dd7d24bcf535cbfee4",
+    "brand_prices_2026.json": "775ee80d18fe03b45762f858c2457a33d92c06f6c1cbfaed7b5059dbe0769a47",
     "LS_D02_DU_LIEU_MOI/price_with_cad.json": "ad1141c8e4a90a14850ad3e8a6fe33a469cfb73148fb47b4754110dfd86b9a73",
-    "MITSUBISHI_D04_DU_LIEU_MOI/price_with_cad.json": "2635f795401f855bb7e54a7de6431582d682d21a3459808fdcb218d292d16521",
+    "MITSUBISHI_D04_DU_LIEU_MOI/price_grouped.json": "ee1fb07b673122e725d93b309e52140342f88392e78850bf47a00f89ee49d39b",
     "SCHNEIDER_D01_DU_LIEU_MOI/price_index.json": "e4dd2afd3995dff333cd92e84acc3501e99b47f7896ba51367ac004df45b1d66",
     "ABB_D03_DU_LIEU_MOI/price_index.json": "eb2eb6d660e7d20daae6340f8e76d512b347f33cbca2437cb124509365279bd6",
     "OSUNG_D05_DU_LIEU_MOI/price_index.json": "a0ad067425caee93cb74eb210215b25ca9c07c33cb830b18a9d150244d7d4c7a",

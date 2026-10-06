@@ -9,7 +9,7 @@ from functools import lru_cache
 from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import Response
 
-from app.services.equipment_library import (BACKEND_CATALOG_DIR, DB_PATH, asset_available,
+from app.services.equipment_library import (BACKEND_CATALOG_DIR, SOURCE_ROOT, DB_PATH, asset_available,
                                              asset_bytes, catalog_manifest, get_equipment,
                                              search_equipment)
 
@@ -19,6 +19,42 @@ router = APIRouter()
 def _natural(value: str):
     return [(0, int(part)) if part.isdigit() else (1, part.casefold())
             for part in re.split(r'(\d+)', value or '')]
+
+
+@lru_cache(maxsize=1)
+def _source_index_summary() -> dict:
+    """Read only the supplied index page for its published catalog totals."""
+    index_path = SOURCE_ROOT / 'index_2026.html'
+    if not index_path.is_file():
+        index_path = BACKEND_CATALOG_DIR / 'source_index_2026.html'
+    if not index_path.is_file():
+        return {}
+    content = index_path.read_text(encoding='utf-8')
+    measurement = re.search(
+        r'<h2>Đồng hồ và đo lường</h2>.*?<strong>(\d+) thiết bị</strong>.*?'
+        r'href="THIET_BI_KHAC_2026/do_luong\.html"', content, re.DOTALL
+    )
+    return {
+        'price_rows': sum(map(int, re.findall(r'<strong>(\d+) dòng</strong>', content))),
+        'price_rows_with_linked_cad': sum(map(int, re.findall(
+            r'<small>(\d+) dòng có CAD đã ghép</small>', content))),
+        'source_cad_devices': sum(map(int, re.findall(r'<strong>(\d+) thiết bị</strong>', content))),
+        'measurement_cad_devices': int(measurement.group(1)) if measurement else 0,
+    }
+
+
+def _category_matches(row: dict, selected: str) -> bool:
+    if row.get('category') == selected:
+        return True
+    # The 2026 index lists measurement CAD as one section; price PDF headings
+    # split it into several groups. These are related drawings, not SKU matches.
+    if (row.get('record_type') != 'source_cad_device_or_assembly'
+            or row.get('category') != 'do_luong'
+            or not _source_index_summary().get('measurement_cad_devices')):
+        return False
+    return selected == 'Đo lường và giám sát' or selected.startswith(
+        'Đồng hồ điện đa năng kỹ thuật số'
+    )
 
 
 @lru_cache(maxsize=1)
@@ -82,7 +118,7 @@ def browse(q: str = '', category: str = '', brand: str = '',
     categories = sorted({row['category'] for row in rows if row.get('category')}, key=_natural)
     brands = sorted({row['brand'] for row in rows if row.get('brand')}, key=_natural)
     if category:
-        rows = [row for row in rows if row.get('category') == category]
+        rows = [row for row in rows if _category_matches(row, category)]
     if brand:
         rows = [row for row in rows if row.get('brand') == brand]
     if q.strip():
@@ -125,7 +161,7 @@ def browse(q: str = '', category: str = '', brand: str = '',
         'breaking_capacity_ka': row['specifications'].get('breaking_capacity_ka'),
     } for row in rows[skip:skip + limit]], 'total': total,
         'categories': categories, 'brands': brands, 'source_count': source_count,
-        'price_count': price_count}
+        'price_count': price_count, 'source_index': _source_index_summary()}
 
 
 def _cad_file(catalog_id: str, field: str):
