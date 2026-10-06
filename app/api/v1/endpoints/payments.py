@@ -84,7 +84,7 @@ async def get_sepay_config(db: AsyncSession) -> dict:
         "api_key": settings.SEPAY_API_KEY,
         "bank_name": settings.SEPAY_BANK_NAME or "MBBank",
         "account_number": settings.SEPAY_ACCOUNT_NUMBER or "0388888888",
-        "account_name": settings.SEPAY_ACCOUNT_NAME or "DGP ELECTRIC"
+        "account_name": settings.SEPAY_ACCOUNT_NAME
     }
 
     try:
@@ -136,7 +136,7 @@ async def create_payment_order(
     """
     Khởi tạo đơn hàng thanh toán SePay (VietQR):
     - Nếu gói cước có giá 0đ (Gói miễn phí): Kích hoạt ngay lập tức.
-    - Nếu gói cước có phí: Tạo bản ghi Payment 'pending', sinh mã định danh 'AIDE{payment_id}' và link VietQR.
+    - Nếu gói cước có phí: Tạo bản ghi Payment 'pending', sinh mã định danh 'ELQUOTE{payment_id}' và link VietQR.
     """
     stmt = select(Plan).where(Plan.id == req.plan_id, Plan.is_active == True)
     res = await db.execute(stmt)
@@ -212,7 +212,7 @@ async def create_payment_order(
     db.add(payment)
     await db.flush()  # Flush để nhận payment.id
 
-    order_code = f"AIDE{payment.id}"
+    order_code = f"ELQUOTE{payment.id}"
     payment.transaction_reference = order_code
     await db.commit()
     await db.refresh(payment)
@@ -275,7 +275,7 @@ async def check_payment_status(
 
     return PaymentStatusResponse(
         payment_id=payment.id,
-        order_code=payment.transaction_reference or f"AIDE{payment.id}",
+        order_code=payment.transaction_reference or f"ELQUOTE{payment.id}",
         status=payment.status,
         tokens=current_user.tokens or 0,
         plan_name=plan_name,
@@ -293,7 +293,7 @@ async def handle_sepay_webhook(
     """
     Endpoint nhận Webhook tự động từ SePay khi có biến động số dư ngân hàng:
     - Xác thực Header Authorization nếu SEPAY_API_KEY đã được thiết lập.
-    - Tìm kiếm mã đơn hàng AIDE{id} trong nội dung chuyển khoản.
+    - Tìm kiếm mã đơn hàng ELQUOTE{id} trong nội dung chuyển khoản.
     - Đối soát số tiền, cập nhật trạng thái completed.
     - Kích hoạt gói Subscription, cộng Tokens cho user và gửi thông báo.
     """
@@ -316,7 +316,7 @@ async def handle_sepay_webhook(
 
     # 3. Trích xuất mã đơn hàng từ nội dung chuyển khoản
     text_to_search = f"{payload.content or ''} {payload.description or ''} {payload.code or ''}"
-    match = re.search(r"AIDE[-_\s]*(\d+)", text_to_search, re.IGNORECASE)
+    match = re.search(r"(?:ELQUOTE|AIDE)[-_\s]*(\d+)", text_to_search, re.IGNORECASE)
 
     payment: Optional[Payment] = None
     if match:
@@ -360,7 +360,7 @@ async def handle_sepay_webhook(
     now = datetime.now(timezone.utc)
     payment.status = "completed"
     if payload.referenceCode:
-        payment.transaction_reference = f"AIDE{payment.id}-{payload.referenceCode}"
+        payment.transaction_reference = f"ELQUOTE{payment.id}-{payload.referenceCode}"
 
     # Lấy User và Plan
     stmt_user = select(User).where(User.id == payment.user_id)
@@ -461,7 +461,7 @@ async def get_my_payment_history(
         items.append(
             PaymentHistoryItem(
                 id=p.id,
-                order_code=p.transaction_reference or f"AIDE{p.id}",
+                order_code=p.transaction_reference or f"ELQUOTE{p.id}",
                 plan_name=plan_name,
                 amount=p.amount,
                 status=p.status,
@@ -502,7 +502,7 @@ async def simulate_test_payment_success(
         gateway="MBBank-SIMULATOR",
         transactionDate=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         accountNumber="0388888888",
-        content=f"AIDE{payment.id} TEST CHUYEN KHOAN",
+        content=f"ELQUOTE{payment.id} TEST CHUYEN KHOAN",
         transferType="in",
         transferAmount=payment.amount,
         referenceCode=f"TEST_REF_{int(datetime.now().timestamp())}"

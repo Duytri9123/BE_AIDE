@@ -107,6 +107,71 @@ def setup_cad_layers(doc):
 class EnclosureCadGeneratorService:
     @staticmethod
     def _insert_device(msp, dev: Dict[str, Any], x: float, y: float, side: bool = False):
+        # Explicit review-only envelopes are separate from verified library CAD.
+        # Never infer this permission from missing geometry or a brand preference.
+        cad = dev.get("cad") or {}
+        if cad.get("representation") == "ls_native_reference":
+            # Only the two audited 2P states from the local LS library are
+            # accepted here. Their block text is a source sample, not the SKU
+            # rating; the selected rating remains in the device/BOM fields.
+            source_name = cad.get("source_dxf")
+            allowed = {"LS-D02-C6-I01-2P.dxf", "LS-D02-C3-I03-2P.dxf"}
+            if source_name not in allowed or not cad.get("dimension_basis"):
+                raise ValueError("Unverified LS CAD reference")
+            if not side:
+                from ezdxf import bbox
+                from ezdxf.addons import Importer
+                library = Path(__file__).resolve().parents[4] / "Tudien" / "CATALOG_PHU_KIEN_DOC_LAP" / "LS_D02_DU_LIEU_MOI" / "native"
+                source = ezdxf.readfile(library / source_name)
+                tag = str(dev.get("tag") or "UNTAGGED").upper()
+                if not re.fullmatch(r"[A-Z0-9_]{2,24}", tag):
+                    raise ValueError("Invalid CAD reference tag")
+                block_name = "LS_REVIEW_" + source_name[:-4].replace("-", "_") + "_" + tag
+                if block_name not in msp.doc.blocks:
+                    block = msp.doc.blocks.new(block_name)
+                    importer = Importer(source, msp.doc)
+                    importer.import_entities(source.modelspace(), target_layout=block)
+                    importer.finalize()
+                    rating = float(dev.get("in_a") or 0)
+                    if rating <= 0 or not math.isfinite(rating):
+                        raise ValueError("LS reference requires a selected rated current")
+                    rating_text = f"{rating:g}A"
+                    for nested in block.query("INSERT"):
+                        for attr in nested.attribs:
+                            if attr.dxf.tag.upper() == "RATE":
+                                attr.dxf.text = rating_text
+                dims = dev.get("dimensions") or {}
+                w, h = float(dims.get("w") or 0), float(dims.get("h") or 0)
+                bounds = bbox.extents(msp.doc.blocks[block_name])
+                if not bounds.has_data or min(w, h) <= 0:
+                    raise ValueError("LS reference has no valid geometry/dimensions")
+                # Source artwork includes sample labels outside the product
+                # body. Preserve its aspect ratio at the catalog body height;
+                # the artwork may extend beyond the catalog body width.
+                scale = h / bounds.size.y
+                ref = msp.add_blockref(block_name, (0, 0), dxfattribs={"xscale": scale, "yscale": scale})
+                placed = bbox.extents([ref])
+                ref.translate(x - placed.extmin.x, y - placed.extmin.y, 0)
+                layer = "CAD_REFERENCE_SAMPLE_RATING"
+                if layer not in msp.doc.layers:
+                    msp.doc.layers.new(layer, dxfattribs={"color": 30})
+                msp.add_text("LS 2P SOURCE SAMPLE", dxfattribs={"layer": layer, "height": 2.5}).set_placement((x, y - 5))
+                return w, h
+            # The source library has not supplied an audited side state for
+            # these exact selected devices; the side stays a review envelope.
+            cad = {"representation": "review_envelope", "dimension_basis": cad["dimension_basis"]}
+        if cad.get("representation") == "review_envelope":
+            dims = dev.get("dimensions") or {}
+            width = float(dims.get("d" if side else "w") or 0)
+            height = float(dims.get("h") or 0)
+            if not cad.get("dimension_basis") or not all(math.isfinite(v) and v > 0 for v in (width, height)):
+                raise ValueError("Review envelope requires positive dimensions and a dimension basis")
+            layer = "REVIEW_ENVELOPE_NOT_FOR_FABRICATION"
+            if layer not in msp.doc.layers:
+                msp.doc.layers.new(layer, dxfattribs={"color": 30})
+            add_box(msp, (x, y), (x + width, y + height), layer=layer)
+            msp.add_text("ENVELOPE / REVIEW", dxfattribs={"layer": layer, "height": 2.0}).set_placement((x, y - 4))
+            return width, height
         from app.services.cad.library_assets import requested_asset, insert_library_asset
         linked, asset_id = requested_asset(dev, side)
         if linked:
@@ -141,7 +206,7 @@ class EnclosureCadGeneratorService:
     def _get_device_dimension(dev: Dict[str, Any]) -> Tuple[float, float, float]:
         """
         Tính kích thước thực tế (width_mm, height_mm, depth_mm) của thiết bị
-        từ Catalog thực tế (1.498 model chuẩn hãng) qua PhysicalLayoutEngine.
+        từ catalog hiện có qua PhysicalLayoutEngine.
         """
         from app.services.cad.physical_layout_engine import PhysicalLayoutEngine
         return PhysicalLayoutEngine.get_component_dimensions(dev)
@@ -333,7 +398,7 @@ class EnclosureCadGeneratorService:
             if selected_bar:
                 busbar_spec = f"Cu {selected_bar.get('h_mm')}x{selected_bar.get('w_mm')}mm, I_rated={selected_bar.get('I_rated')}A (R-S-T-N); PE>=25%"
             else:
-                busbar_spec = f"BUSBAR TBD >= {int(incomer_a)}A; no compatible item in catalog_accessories.json"
+                busbar_spec = f"BUSBAR TBD >= {int(incomer_a)}A; no verified item in equipment catalog 2026"
         else:
             busbar_spec = "DIN rail / copper conductor; PE>=25%"
 
@@ -1272,7 +1337,7 @@ class EnclosureCadGeneratorService:
             "spec": f"H{H}xW{W}xD{D}mm, T={specs.get('thickness', 1.5)}mm, IP54",
             "unit": "BO",
             "qty": 1,
-            "brand": "VN"
+            "brand": ""
         }]
         if draw_busbar:
             bom_rows.append({
@@ -1281,7 +1346,7 @@ class EnclosureCadGeneratorService:
                 "spec": f"Dong do 99.9% Cu (In = {incomer_a}A, E=25%)",
                 "unit": "HE",
                 "qty": 1,
-                "brand": "CADIVI / VN"
+                "brand": ""
             })
         else:
             bom_rows.append({
@@ -1290,7 +1355,7 @@ class EnclosureCadGeneratorService:
                 "spec": "Chua tinh toan dong (Kiem tra dien tich ga lap)",
                 "unit": "TAM",
                 "qty": 1,
-                "brand": "VN"
+                "brand": ""
             })
         for warning in (specs.get("fit_check") or {}).get("catalog_warnings", []):
             bom_rows.append({
@@ -1322,7 +1387,7 @@ class EnclosureCadGeneratorService:
                     "spec": clean_cad_text(accessory.get("spec") or "PHU KIEN DI KEM"),
                     "unit": clean_cad_text(accessory.get("unit") or "CAI"),
                     "qty": int(accessory.get("quantity") or 1),
-                    "brand": clean_cad_text(accessory.get("origin") or accessory.get("brand") or "VN")
+                    "brand": clean_cad_text(accessory.get("origin") or accessory.get("brand") or "")
                 })
 
         if incomer_dev:
@@ -1340,12 +1405,7 @@ class EnclosureCadGeneratorService:
             d_qty = int(dev.get("quantity") or 1)
             
             dev_raw_b = (dev.get("brand") or "").strip()
-            if dev_raw_b and dev_raw_b.upper() not in ["---", "OEM", "KHÔNG", "CHƯA RÕ", "CHUA RO"]:
-                d_brand = clean_cad_text(dev_raw_b)
-            elif any(k in cat for k in ["METER", "LIGHT", "CT", "ACCESSORY", "PHU KIEN"]) or "ĐỒNG HỒ" in cat or "ĐÈN" in cat:
-                d_brand = "VN"
-            else:
-                d_brand = clean_cad_text(incomer_brand or "VN")
+            d_brand = clean_cad_text(dev_raw_b) if dev_raw_b else ""
 
             if "MCB" in cat or "RCBO" in cat:
                 d_unit = "TEP"
@@ -1416,7 +1476,7 @@ class EnclosureCadGeneratorService:
             msp.add_line((sx2 - 100, sy1), (sx2 - 100, sy1 + tbh), dxfattribs={"layer": "0_SHEET"})
             msp.add_text(title, dxfattribs={"layer": "0_TEXT_TITLE", "height": 8}).set_placement(
                 (sx2 - tbw + 10, sy1 + 35), align=TextEntityAlignment.MIDDLE_LEFT)
-            msp.add_text(f"{clean_panel_title} | TL 1:10 | AIDE", dxfattribs={"layer": "0_TEXT", "height": 6}).set_placement(
+            msp.add_text(f"{clean_panel_title} | TL 1:10 | Elquote", dxfattribs={"layer": "0_TEXT", "height": 6}).set_placement(
                 (sx2 - tbw + 10, sy1 + 15), align=TextEntityAlignment.MIDDLE_LEFT)
             msp.add_text(f"{sheet_no}/3", dxfattribs={"layer": "0_TEXT_TITLE", "height": 10}).set_placement(
                 (sx2 - 50, sy1 + 29), align=TextEntityAlignment.MIDDLE_CENTER)

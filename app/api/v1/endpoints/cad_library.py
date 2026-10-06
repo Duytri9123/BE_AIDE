@@ -7,6 +7,7 @@ from fastapi.responses import Response
 from functools import lru_cache
 from app.api.deps import get_current_active_user
 from app.services.cad.library_taxonomy import classify, explicit_brands
+from app.services.equipment_library import SOURCE_ROOT, CATALOG_DIR
 
 router = APIRouter(dependencies=[Depends(get_current_active_user)])
 LIBRARY = Path(__file__).resolve().parents[4] / "data" / "device_layouts" / "ls"
@@ -18,10 +19,29 @@ def guess_view_label(width: float, height: float) -> str:
 
 
 def manifest():
-    paths = sorted(LIBRARY.parent.glob('*/manifest.json'))
-    signature = tuple((str(path), path.stat().st_mtime_ns, path.stat().st_size) for path in paths)
-    from app.services.cad.recognition import DATA
-    return _manifest_cached(signature, DATA.stat().st_mtime_ns if DATA.exists() else 0)
+    # The historical device_layouts folders are no longer an insertion source.
+    # Only exact-model CAD from the 2026 catalog is exposed here.
+    import sqlite3
+    path = CATALOG_DIR / 'equipment_catalog.sqlite'
+    if not path.is_file():
+        return {'items': []}
+    with sqlite3.connect(path) as db:
+        rows = db.execute("SELECT record_json FROM equipment WHERE cad_status = 'exact_model_cad'").fetchall()
+    items = []
+    for row in rows:
+        record = json.loads(row[0])
+        dxf = record['cad'].get('dxf')
+        if not dxf or not (SOURCE_ROOT / dxf['path']).is_file():
+            continue
+        items.append({'id': record['catalog_id'], 'catalog_id': record['catalog_id'],
+                      'name': record['display_name'], 'brand': record['brand'],
+                      'kind': 'device', 'group': record['category'],
+                      'category': record['category'], 'library': 'equipment_library_2026',
+                      'filename': dxf['path'], 'source_file': dxf['path'],
+                      'source_block': record['model'], 'cad_status': 'exact_model_cad',
+                      'recognition': {'face': 'unknown', 'name': record['display_name'],
+                                      'brand': record['brand']}})
+    return {'items': items}
 
 
 @lru_cache(maxsize=2)
@@ -47,13 +67,11 @@ def _manifest_cached(signature, evidence_stamp=0):
 
 
 def resolve_model_asset(sku, parameters, items=None):
-    """Resolve legacy CAD SKUs as well as explicit links; never infer from size."""
+    """Insert only a 2026 catalog record with exact-model CAD."""
     items = items if items is not None else manifest()["items"]
-    asset_id = ((parameters or {}).get("cad") or {}).get("asset_id")
-    if not asset_id and (sku or "").startswith("CAD:"):
-        asset_id = sku[4:]
-    asset = next((item for item in items if item["id"] == asset_id), None)
-    if asset and (LIBRARY.parent / asset["library"] / asset["filename"]).is_file():
+    asset_id = ((parameters or {}).get('cad') or {}).get('catalog_id')
+    asset = next((item for item in items if item['catalog_id'] == asset_id), None)
+    if asset and (SOURCE_ROOT / asset['filename']).is_file():
         return asset
     return None
 
@@ -85,11 +103,10 @@ def download_layout(asset_id: str):
     item = next((item for item in manifest()["items"] if item["id"] == asset_id), None)
     if not item:
         raise HTTPException(404, "Không tìm thấy hình thiết bị")
-    directory = (LIBRARY.parent / item["library"]).resolve()
-    path = (directory / item["filename"]).resolve()
-    if directory.parent != LIBRARY.parent.resolve() or path.parent != directory or not path.is_file():
+    path = (SOURCE_ROOT / item['filename']).resolve()
+    if not path.is_relative_to(SOURCE_ROOT.resolve()) or not path.is_file():
         raise HTTPException(404, "Không tìm thấy file DXF")
-    return FileResponse(path, filename=f"{item['library']}_{asset_id}.dxf", media_type="application/dxf")
+    return FileResponse(path, filename=f"{asset_id}.dxf", media_type="application/dxf")
 
 
 @lru_cache(maxsize=512)

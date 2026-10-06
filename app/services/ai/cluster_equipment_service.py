@@ -58,7 +58,7 @@ class AccompanyingEquipmentService:
                 "brand": brand,
                 "spec": acc.get("spec") or "",
                 "sku": acc.get("sku") or "-",
-                "origin": acc.get("origin") or "VN",
+                "origin": acc.get("origin") or "",
                 "unit": acc.get("unit") or "Bộ",
                 "quantity": int(acc.get("quantity") or 1),
                 "unit_price": int(acc.get("unit_price") or 0),

@@ -5,9 +5,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/x-icon" href="{{ url_for('admin_static', path='favicon.ico') }}">
-<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('admin_static', path='favicon-32x32.png') }}">
-<link rel="apple-touch-icon" href="{{ url_for('admin_static', path='favicon.png') }}">
+<link rel="icon" type="image/svg+xml" href="{{ url_for('admin_static', path='logo-icon.svg') }}">
+
+<link rel="apple-touch-icon" href="{{ url_for('admin_static', path='logo-icon.svg') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
   :root {
@@ -15,8 +15,8 @@
     --primary-hover: #1d4ed8;
     --primary-light: #eff6ff;
     --primary-gradient: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
-    --bg-gradient: radial-gradient(at 0% 0%, #f0fdf4 0, transparent 50%), 
-                   radial-gradient(at 50% 0%, #eff6ff 0, transparent 50%), 
+    --bg-gradient: radial-gradient(at 0% 0%, #f0fdf4 0, transparent 50%),
+                   radial-gradient(at 50% 0%, #eff6ff 0, transparent 50%),
                    radial-gradient(at 100% 100%, #f8fafc 0, transparent 50%),
                    #f1f5f9;
     --card-bg: rgba(255, 255, 255, 0.95);
@@ -76,7 +76,7 @@
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.8);
     border-radius: 20px;
-    box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08), 
+    box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08),
                 0 0 1px 1px rgba(226, 232, 240, 0.8);
     padding: 36px 32px;
     transition: all 0.3s ease;
@@ -283,9 +283,9 @@
   <div class="login-card">
     <div class="login-header">
       <div class="brand-badge">
-        <img src="{{ url_for('admin_static', path='logo-icon.png') }}" alt="DGP ELECTRIC">
+        <img src="{{ url_for('admin_static', path='logo-icon.svg') }}" alt="Elquote">
       </div>
-      <h1 class="brand-title"><span>DGP ELECTRIC</span> Admin</h1>
+      <h1 class="brand-title"><span>Elquote</span> Admin</h1>
       <p class="brand-subtitle">Hệ Thống Bóc Tách Bản Vẽ & Báo Giá Tủ Bảng Điện</p>
     </div>
 
@@ -300,12 +300,12 @@
       <div class="form-group">
         <label class="form-label" for="username">Email / Tên đăng nhập</label>
         <div class="input-wrapper">
-          <input 
+          <input
             id="username"
-            name="username" 
-            type="text" 
-            class="custom-input {% if error %}is-invalid{% endif %}" 
-            placeholder="admin@webbaogia.com" 
+            name="username"
+            type="text"
+            class="custom-input {% if error %}is-invalid{% endif %}"
+            placeholder="admin@elquote.top"
             required
             autocomplete="username"
             autofocus
@@ -319,12 +319,12 @@
           <label class="form-label" for="password" style="margin-bottom: 0;">Mật khẩu</label>
         </div>
         <div class="input-wrapper">
-          <input 
+          <input
             id="password"
-            name="password" 
-            type="password" 
-            class="custom-input {% if error %}is-invalid{% endif %}" 
-            placeholder="••••••••" 
+            name="password"
+            type="password"
+            class="custom-input {% if error %}is-invalid{% endif %}"
+            placeholder="••••••••"
             required
             autocomplete="current-password"
           >
@@ -346,7 +346,7 @@
         <i class="fa-solid fa-shield-halved text-success"></i>
         <span>Khu vực quản trị nội bộ bảo mật</span>
       </div>
-      <p style="margin-top: 10px; margin-bottom: 0;">© 2025 BE_BOM System • All rights reserved</p>
+      <p style="margin-top: 10px; margin-bottom: 0;">© 2025 Elquote • All rights reserved</p>
     </div>
   </div>
 </div>

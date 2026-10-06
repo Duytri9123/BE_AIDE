@@ -155,8 +155,8 @@ class PhysicalLayoutEngine:
     def get_component_dimensions(device: Dict[str, Any]) -> Tuple[float, float, float]:
         """
         Lấy kích thước vật lý thực tế (Width x Height x Depth mm) trực tiếp từ Catalog thiết bị của hệ thống:
-        - catalog_data.json (1.498 model thiết bị đóng cắt của các hãng LS, Schneider, Mitsubishi, ABB, Chint...)
-        - catalog_accessories.json (Busbar, DIN rail, Máng cáp, Phụ kiện cánh tủ, Đồng hồ, Đèn báo...)
+        - equipment_catalog.jsonl: chỉ mã và kích thước đối chiếu được.
+        - Phụ kiện chưa có kích thước xác minh phải được để trống.
         Không tự tính kích thước hardcode để đảm bảo vị trí và kích thước trên bản vẽ chuẩn xác theo từng hãng.
         """
         # 1. Kiểm tra nếu device đã có sẵn dimensions hợp lệ từ kết quả tra cứu trước
@@ -166,7 +166,7 @@ class PhysicalLayoutEngine:
             h = float(dims.get("h") or dims.get("h_mm") or 0)
             d = float(dims.get("d") or dims.get("d_mm") or 0)
             if w > 0 and h > 0:
-                return (w, h, d if d > 0 else 60.0)
+                return (w, h, d)
 
         cat = str(device.get("category") or "").upper()
         name = str(device.get("name") or "")
@@ -181,7 +181,7 @@ class PhysicalLayoutEngine:
         dh = float(device.get("h") or device.get("height") or 0)
         dd = float(device.get("d") or device.get("depth") or 0)
         if dw > 0 and dh > 0:
-            return (dw, dh, dd if dd > 0 else 50.0)
+            return (dw, dh, dd)
 
         # 3. Phân loại tra cứu: Thiết bị đóng cắt chính (Breakers) vs Phụ kiện / Cánh tủ (Accessories)
         try:
@@ -190,7 +190,7 @@ class PhysicalLayoutEngine:
             breaker_types = ["ACB", "MCCB", "MCB", "RCBO", "RCCB", "ELCB", "CONTACTOR", "ATS", "MTS", "SPD"]
             is_breaker = any(b in cat for b in breaker_types)
 
-            # 3.1 Tra cứu thiết bị đóng cắt chính từ catalog_data.json
+            # 3.1 Tra cứu đúng mã từ catalog thiết bị 2026
             if is_breaker:
                 cat_info = catalog_engine.lookup_device_info(
                     category=cat,
@@ -219,64 +219,27 @@ class PhysicalLayoutEngine:
                             device["catalog_rating_compatible"] = False
                         else:
                             device["catalog_rating_compatible"] = True
-                        return (cw, ch, cd if cd > 0 else 60.0)
+                        return (cw, ch, cd)
 
-            # 3.2 Tra cứu phụ kiện cơ điện & mặt cánh từ catalog_accessories.json
+            # 3.2 Phụ kiện chỉ được dùng nếu có dữ liệu mới xác minh
             item_id = str(device.get("id") or device.get("catalog_id") or "").lower()
             if item_id:
                 acc_it = catalog_engine.get_accessory(item_id)
                 if acc_it:
                     aw = float(acc_it.get("w_mm") or acc_it.get("cut_w_mm") or acc_it.get("outer_dia_mm") or (acc_it.get("cut_dia_mm", 0) + 7) or 0)
                     ah = float(acc_it.get("h_mm") or acc_it.get("cut_h_mm") or acc_it.get("outer_dia_mm") or (acc_it.get("cut_dia_mm", 0) + 7) or 0)
-                    ad = float(acc_it.get("d_mm") or 50.0)
+                    ad = float(acc_it.get("d_mm") or 0)
                     if aw > 0 and ah > 0:
                         return (aw, ah, ad)
 
-            # Xác định nhóm phụ kiện ưu tiên theo Category hoặc Tên
-            category_group_map = {
-                "METER": "door_accessories",
-                "LIGHT": "door_accessories",
-                "PILOT": "door_accessories",
-                "PILOT_LIGHT": "door_accessories",
-                "BUTTON": "door_accessories",
-                "PUSH_BUTTON": "door_accessories",
-                "SWITCH": "door_accessories",
-                "SELECTOR_SWITCH": "door_accessories",
-                "FAN": "door_accessories",
-                "LOCK": "door_accessories",
-                "TERMINAL": "accessories",
-                "DOMINO": "accessories",
-                "RELAY": "accessories",
-                "TIMER": "accessories",
-                "CT": "accessories",
-                "FUSE": "accessories",
-                "BUSBAR": "busbar",
-                "EARTH_BAR": "busbar",
-                "DIN_RAIL": "din_rail",
-                "DUCT": "cable_duct",
-                "CABLE_DUCT": "cable_duct",
-                "SPD": "accessories",
-            }
-            preferred_group = None
-            for cat_k, grp_v in category_group_map.items():
-                if cat_k in cat or cat_k in name.upper():
-                    preferred_group = grp_v
-                    break
-
-            search_groups = [preferred_group] if preferred_group else []
-            for g in ["accessories", "door_accessories", "busbar", "din_rail", "cable_duct"]:
-                if g not in search_groups:
-                    search_groups.append(g)
-
-            acc_kw = name or cat
-            for group_name in search_groups:
-                acc_it = catalog_engine.lookup_accessory(group_name, acc_kw)
-                if acc_it:
-                    aw = float(acc_it.get("w_mm") or acc_it.get("cut_w_mm") or acc_it.get("outer_dia_mm") or (acc_it.get("cut_dia_mm", 0) + 7) or 0)
-                    ah = float(acc_it.get("h_mm") or acc_it.get("cut_h_mm") or acc_it.get("outer_dia_mm") or (acc_it.get("cut_dia_mm", 0) + 7) or 0)
-                    ad = float(acc_it.get("d_mm") or 50.0)
-                    if aw > 0 and ah > 0:
-                        return (aw, ah, ad)
+            # Chỉ khớp phụ kiện theo tên hoặc mã có trong catalog.
+            acc_it = catalog_engine.lookup_accessory("", part_number or name)
+            if acc_it:
+                aw = float(acc_it.get("w_mm") or 0)
+                ah = float(acc_it.get("h_mm") or 0)
+                ad = float(acc_it.get("d_mm") or 0)
+                if aw > 0 and ah > 0:
+                    return (aw, ah, ad)
 
             # 3.3 Dự phòng nếu không thuộc nhóm breaker nhưng vẫn có trong catalog chính
             if not is_breaker:
@@ -296,12 +259,12 @@ class PhysicalLayoutEngine:
                     cd = float(c_dims.get("d") or 0)
                     if cw > 0 and ch > 0:
                         device["dimensions"] = c_dims
-                        return (cw, ch, cd if cd > 0 else 60.0)
+                        return (cw, ch, cd)
         except Exception:
             pass
 
         # 4. Mặc định cho thiết bị custom chưa xác định được trong catalog (tránh crash layout)
-        return (60.0, 80.0, 60.0)
+        raise ValueError(f"Missing device dimensions in catalog: {part_number or name or cat}")
 
     @staticmethod
     def generate_busbar_svg(width: float, height: float, phase: str, label: str = "") -> str:
@@ -380,27 +343,13 @@ class PhysicalLayoutEngine:
         tag: str,
         in_a: float,
         poles: int = 3,
-        brand: str = "VN",
+        brand: str = "",
         sku: str = ""
     ) -> str:
         """Sinh mã SVG vector thiết bị đóng cắt công nghiệp chân thực (ACB/MCCB/MCB/Contactor)."""
         cat_u = cat.upper()
-        brand_u = brand.upper()
-        if "SCHNEIDER" in brand_u:
-            body_col = "#1e293b"
-            accent_col = "#009639"
-        elif "MITSUBISHI" in brand_u:
-            body_col = "#0f172a"
-            accent_col = "#e60012"
-        elif "ABB" in brand_u:
-            body_col = "#1e293b"
-            accent_col = "#ff000f"
-        elif "LS" in brand_u:
-            body_col = "#1e293b"
-            accent_col = "#004b97"
-        else:
-            body_col = "#1e293b"
-            accent_col = "#3b82f6"
+        body_col = "#1e293b"
+        accent_col = "#3b82f6"
 
         pole_w = width / max(1, poles)
         term_h = min(12.0, height * 0.12)
@@ -643,7 +592,7 @@ class PhysicalLayoutEngine:
         explicit = [d for d in protection if str(d.get("section", "")).upper() in ["ĐẦU VÀO", "DAU VAO", "INCOMER", "NGUỒN CẤP", "NGUON CAP"] or any(k in str(d.get("name", "")).upper() for k in ("INCOMER", "TỔNG", "TONG"))]
         incomer_dev = max(explicit or protection or devices, key=lambda d: float(d.get("in_a") or 0)) if devices else None
 
-        inc_a = float(incomer_dev.get("in_a") or 63.0) if incomer_dev else 63.0
+        inc_a = float(incomer_dev.get("in_a") or 0) if incomer_dev else 0.0
         is_3phase = bool(incomer_dev and int(incomer_dev.get("poles") or 3) >= 3)
         need_busbar = (busbar_opt != "NONE") and (inc_a >= BUSBAR_REQUIRED_MIN_CURRENT_A)
 
@@ -655,7 +604,7 @@ class PhysicalLayoutEngine:
             pe_bar_h = 15.0
             tb_y = pe_bar_y + pe_bar_h + 15.0
             tb_h = 45.0
-            inc_w, inc_h, inc_d = PhysicalLayoutEngine.get_component_dimensions(incomer_dev) if incomer_dev else (80, 130, 75)
+            inc_w, inc_h, inc_d = PhysicalLayoutEngine.get_component_dimensions(incomer_dev) if incomer_dev else (0.0, 0.0, 0.0)
             inc_zone_h = max(150.0, inc_h + 30.0)
             inc_y = tb_y + tb_h + 20.0
             zone_branches_bottom = inc_y + inc_zone_h + 15.0
@@ -672,7 +621,7 @@ class PhysicalLayoutEngine:
                 busbar_y = 0.0
                 zone_inc_top = plate_y + plate_h - top_margin
 
-            inc_w, inc_h, inc_d = PhysicalLayoutEngine.get_component_dimensions(incomer_dev) if incomer_dev else (80, 130, 75)
+            inc_w, inc_h, inc_d = PhysicalLayoutEngine.get_component_dimensions(incomer_dev) if incomer_dev else (0.0, 0.0, 0.0)
             inc_zone_h = max(150.0, inc_h + 30.0)
             inc_y = zone_inc_top - inc_zone_h + 15.0
 
@@ -788,7 +737,7 @@ class PhysicalLayoutEngine:
             inc_comp_x = work_x1 + 10.0
             inc_comp_y = inc_y + (inc_zone_h - inc_h) / 2.0
             inc_mounting = PhysicalLayoutEngine.classify_mounting(incomer_dev)
-            inc_brand = incomer_dev.get("brand") or "VN"
+            inc_brand = incomer_dev.get("brand") or ""
             inc_cat = incomer_dev.get("category", "MCCB").upper()
 
             inc_svg = PhysicalLayoutEngine.generate_breaker_svg(
@@ -857,7 +806,7 @@ class PhysicalLayoutEngine:
             cd["tag"] = c_tag
             c_y = inc_y + (inc_zone_h - ch) / 2.0
             c_cat = cd.get("category", "CONTROL").upper()
-            c_brand = cd.get("brand") or "VN"
+            c_brand = cd.get("brand") or ""
 
             c_svg = PhysicalLayoutEngine.generate_breaker_svg(
                 cat=c_cat,
@@ -987,7 +936,7 @@ class PhysicalLayoutEngine:
                 bd["tag"] = b_tag
                 b_y = tier_center_y - bh / 2.0
                 b_cat = bd.get("category", "MCB").upper()
-                b_brand = bd.get("brand") or "VN"
+                b_brand = bd.get("brand") or ""
 
                 b_svg = PhysicalLayoutEngine.generate_breaker_svg(
                     cat=b_cat,
@@ -1082,44 +1031,31 @@ class PhysicalLayoutEngine:
         door_y_start = plinth_h + H - 110.0
         curr_door_y = door_y_start
 
-        # Đèn báo pha R-S-T
+        # Chỉ bố trí thiết bị đã có trong dữ liệu nguồn.
         pilot_lights = [d for d in door_devs if "LIGHT" in str(d.get("category", "")).upper() or "ĐÈN" in str(d.get("name", "")).upper()]
-        if pilot_lights or need_busbar:
-            light_colors = {"PHA_R": "#e53935", "PHA_S": "#f9a825", "PHA_T": "#1565c0"}
-            for l_i, col_name in enumerate(["PHA_R", "PHA_S", "PHA_T"]):
-                l_x = (W / 2) - 60.0 + l_i * 60.0
-                p_svg = PhysicalLayoutEngine.generate_door_accessory_svg(
-                    acc_type="pilot_lamp",
-                    width=30.0,
-                    height=30.0,
-                    tag=f"HL_{col_name}",
-                    label=col_name,
-                    color=light_colors.get(col_name, "#e53935")
-                )
-                components.append({
-                    "tag": f"HL_{col_name}",
-                    "type": "PILOT_LIGHT",
-                    "mounting": MountingType.DOOR_MOUNTED,
-                    "function": ElectricalFunction.MEASUREMENT,
-                    "x": l_x,
-                    "y": curr_door_y,
-                    "z": D,
-                    "width": 30.0,
-                    "height": 30.0,
-                    "depth": 50.0,
-                    "orientation": 0,
-                    "circuit": f"Giam sat dien ap {col_name}",
-                    "connected_load": "Den bao pha LED 220VAC",
-                    "upstream_device": incomer_dev.get("tag") if incomer_dev else "QF1",
-                    "sku": "LIGHT-LED-220VAC",
-                    "brand": "VN",
-                    "catalog_id": f"door_pilot_{col_name.lower()}",
-                    "svg_symbol": f"door_pilot_{col_name.lower()}",
-                    "svg_content": p_svg,
-                    "dimensions": {"w": 30.0, "h": 30.0, "d": 50.0},
-                    "bom_stt": bom_counter
-                })
-            curr_door_y -= 75.0
+        for light_index, light in enumerate(pilot_lights):
+            lw, lh, ld = PhysicalLayoutEngine.get_component_dimensions(light)
+            tag = PhysicalLayoutEngine.extract_or_assign_tag(light, light_index, ElectricalFunction.MEASUREMENT)
+            components.append({
+                "tag": tag,
+                "type": light.get("category") or "",
+                "mounting": MountingType.DOOR_MOUNTED,
+                "function": ElectricalFunction.MEASUREMENT,
+                "x": (W - lw) / 2.0,
+                "y": curr_door_y - lh,
+                "z": D,
+                "width": lw,
+                "height": lh,
+                "depth": ld,
+                "orientation": 0,
+                "connected_load": light.get("name") or "",
+                "upstream_device": incomer_dev.get("tag") if incomer_dev else "",
+                "sku": light.get("part_number") or light.get("sku") or "",
+                "brand": light.get("brand") or "",
+                "dimensions": {"w": lw, "h": lh, "d": ld},
+                "bom_stt": bom_counter,
+            })
+            curr_door_y -= lh + 35.0
 
         # Đồng hồ đo đa năng / Vôn / Ampe
         meters = [d for d in door_devs if d not in pilot_lights]
@@ -1150,7 +1086,7 @@ class PhysicalLayoutEngine:
                 "connected_load": md.get("name"),
                 "upstream_device": incomer_dev.get("tag") if incomer_dev else "QF1",
                 "sku": md.get("part_number") or md.get("name"),
-                "brand": md.get("brand") or "VN",
+                "brand": md.get("brand") or "",
                 "catalog_id": "door_meter_multi",
                 "svg_symbol": "door_meter_multi",
                 "svg_content": m_svg,

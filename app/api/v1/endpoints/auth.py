@@ -42,6 +42,9 @@ class TokenResponse(BaseModel):
     token_type: str = "bearer"
     avatar_url: Optional[str] = None
 
+class RefreshRequest(BaseModel):
+    refresh_token: str
+
 @router.post("/send-otp")
 async def send_otp(request: SendOtpRequest, db: AsyncSession = Depends(get_db)):
     """Gửi mã xác thực OTP 6 số đến Gmail người dùng."""
@@ -169,8 +172,8 @@ async def login(request: LoginRequest, db: AsyncSession = Depends(get_db)):
     }
 
 @router.post("/refresh")
-async def refresh(refresh_token: str, db: AsyncSession = Depends(get_db)):
-    payload = decode_token(refresh_token)
+async def refresh(refresh_token: Optional[str] = None, request: Optional[RefreshRequest] = None, db: AsyncSession = Depends(get_db)):
+    payload = decode_token(request.refresh_token if request else (refresh_token or ""))
     user_id = payload.get("sub")
     if not user_id or payload.get("type") != "refresh":
         raise HTTPException(

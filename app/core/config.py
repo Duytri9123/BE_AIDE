@@ -5,7 +5,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "BE_BOM"
+    PROJECT_NAME: str = "Elquote"
     VERSION: str = "0.1.0"
     DEBUG: bool = False
     
@@ -73,7 +73,7 @@ class Settings(BaseSettings):
     
     # Quotation & General Defaults
     DEFAULT_VAT_RATE: float = 0.08  # Mặc định VAT 8% (linh hoạt tùy biến 10% theo yêu cầu)
-    DEFAULT_BRAND: str = "Theo thiết kế"  # Ưu tiên bảo toàn hãng bóc tách từ bản vẽ
+    DEFAULT_BRAND: str = "LS"  # Hãng ưu tiên khi bản vẽ và người dùng không chỉ định
 
     # Busbar & Enclosure Engineering Pricing Defaults
     BUSBAR_PRICE_PER_KG: float = 280000.0  # VNĐ / kg đồng mạ thiếc co nhiệt gia công
@@ -99,10 +99,6 @@ class Settings(BaseSettings):
     AI_VISION_RETRY_BACKOFF: int = 2  # seconds
     AI_MAX_OUTPUT_TOKENS: int = 32768  # Tăng lên 32768 để xuất đầy đủ thiết bị bản vẽ lớn không bị cắt cụt JSON
     # Thứ tự ưu tiên hãng mặc định (có thể override qua .env)
-    DEFAULT_BRAND_PRIORITY_GENERAL: str = "Schneider Electric,LS Electric,Mitsubishi,ABB,Chint"
-    DEFAULT_BRAND_PRIORITY_ACB: str = "ABB,Schneider Electric,Mitsubishi,LS Electric,Chint"
-    DEFAULT_BRAND_PRIORITY_MCCB: str = "Schneider Electric,ABB,Mitsubishi,LS Electric,Chint"
-    DEFAULT_BRAND_PRIORITY_RCBO: str = "Chint,ABB,Mitsubishi,Schneider Electric,LS Electric"
     
     # Token Estimation Settings
     TOKEN_BASE_COST: int = 500  # Base cost per analysis
@@ -191,7 +187,7 @@ class Settings(BaseSettings):
     SEPAY_API_KEY: Optional[str] = None
     SEPAY_BANK_NAME: str = "MBBank"
     SEPAY_ACCOUNT_NUMBER: str = "0388888888"
-    SEPAY_ACCOUNT_NAME: str = "DGP ELECTRIC"
+    SEPAY_ACCOUNT_NAME: str = ""
 
     # Google AdSense & Ad Gate
     GOOGLE_ADSENSE_CLIENT_ID: str = ""   # ca-pub-XXXXXXXXXXXXXXXX

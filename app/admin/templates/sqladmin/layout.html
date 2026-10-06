@@ -5,9 +5,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" type="image/x-icon" href="{{ url_for('admin_static', path='favicon.ico') }}">
-<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('admin_static', path='favicon-32x32.png') }}">
-<link rel="apple-touch-icon" href="{{ url_for('admin_static', path='favicon.png') }}">
+<link rel="icon" type="image/svg+xml" href="{{ url_for('admin_static', path='logo-icon.svg') }}">
+
+<link rel="apple-touch-icon" href="{{ url_for('admin_static', path='logo-icon.svg') }}">
 <link rel="stylesheet" href="{{ url_for('admin_static', path='admin_custom.css') }}?v=2.5">
 <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 
@@ -48,7 +48,7 @@
     <div class="sidebar-brand-wrapper">
       <a href="/admin/analytics" class="sidebar-brand text-decoration-none d-flex align-items-center gap-2.5">
         <div class="brand-icon-box">
-          <img src="{{ url_for('admin_static', path='logo-icon.png') }}" alt="DGP ELECTRIC">
+          <img src="{{ url_for('admin_static', path='logo-icon.svg') }}" alt="Elquote">
         </div>
         <div class="brand-info">
           <div class="brand-title"><span class="brand-dgp">DGP</span> <span class="brand-electric">ELECTRIC</span> <span class="badge-tag">ADMIN</span></div>
@@ -360,7 +360,7 @@
 
     <!-- FOOTER -->
     <footer class="admin-footer text-center py-3 text-muted">
-      <small>© 2026 <strong>BE_BOM Admin</strong> • Hệ Thống Bóc Tách & Dự Toán Tủ Bảng Điện • Powered by FastAPI & SQLAdmin</small>
+      <small>© 2026 <strong>Elquote Admin</strong> • Hệ Thống Bóc Tách & Dự Toán Tủ Bảng Điện • Powered by FastAPI & SQLAdmin</small>
     </footer>
   </div>
 </div>

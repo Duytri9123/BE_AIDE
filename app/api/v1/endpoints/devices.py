@@ -99,7 +99,7 @@ class BusbarCalcRequest(BaseModel):
 
 @router.get("/brands", response_model=List[BrandResponse])
 async def get_brands(db: AsyncSession = Depends(get_db)):
-    """Danh sách các hãng thiết bị (LS, Schneider, Chint, ...)"""
+    """Danh sách các hãng thiết bị trong catalog"""
     stmt = select(Brand).order_by(Brand.name)
     result = await db.execute(stmt)
     brands = result.scalars().all()

@@ -34,7 +34,7 @@
         display: inline-block;
         width: 34px;
         height: 34px;
-        background: url('/admin/static/logo-icon.png') no-repeat center / contain #ffffff;
+        background: url('/admin/static/logo-icon.svg') no-repeat center / contain #ffffff;
         border-radius: 8px;
         padding: 2px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -350,13 +350,13 @@
 
 {% block brand %}
 <a class="navbar-brand" href="{{ request.url_for('admin:index') }}">
-    BE_BOM Admin
+    Elquote Admin
 </a>
 {% endblock %}
 
 {% block footer %}
 <div class="footer">
-    <p>&copy; 2026 BE_BOM - Hệ Thống Bóc Tách & Dự Toán Tủ Bảng Điện</p>
+    <p>&copy; 2026 Elquote - Hệ Thống Bóc Tách & Dự Toán Tủ Bảng Điện</p>
     <p class="text-muted">Phiên bản 0.1.0 | Powered by FastAPI & SQLAdmin</p>
 </div>
 {% endblock %}

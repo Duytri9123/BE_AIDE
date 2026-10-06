@@ -8,7 +8,6 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 from app.services.export.dynamic_grouping import DynamicGroupingEngine
 from app.core.config import settings
-from app.core.constants import BRAND_CATALOG_MAPPING
 
 class QuotationExporterService:
     @staticmethod
@@ -145,7 +144,7 @@ class QuotationExporterService:
                 r_type = r.get("row_type")
                 if r_type == "panel_header":
                     p_name = str(r.get("name") or f"TỦ ĐIỆN {clean_p_name}")
-                    p_origin = str(r.get("origin") or "VN")
+                    p_origin = str(r.get("origin") or "")
                     p_unit = str(r.get("unit") or "Tủ")
                     p_qty = float(r.get("quantity") or 1.0)
                     panel_cells = [
@@ -177,7 +176,7 @@ class QuotationExporterService:
                 elif r_type in ["item", "accessory"]:
                     name = str(r.get("name") or "Thiết bị")
                     sku = str(r.get("sku") or "")
-                    origin = str(r.get("origin") or "VN")
+                    origin = str(r.get("origin") or "")
                     unit = str(r.get("unit") or "Cái")
                     qty = float(r.get("quantity") or 1.0)
                     price = int(r.get("unit_price") or r.get("price") or 0)
@@ -484,8 +483,6 @@ class QuotationExporterService:
         from app.services.device_catalog_engine import DeviceCatalogEngine
         eng = DeviceCatalogEngine()
 
-        brand_mapping = BRAND_CATALOG_MAPPING
-
         # Gộp các thiết bị trùng lặp trước khi đối chiếu catalog
         devices = DynamicGroupingEngine.merge_duplicates(devices)
 
@@ -500,7 +497,8 @@ class QuotationExporterService:
 
             # Build brand options by querying DeviceCatalogEngine
             brand_options = {}
-            for display_name, b_key in brand_mapping.items():
+            for b_key, catalog_items in eng.brand_index.items():
+                display_name = str(catalog_items[0].get("brand_display") or b_key).strip()
                 matches = eng.filter_devices(
                     brand=b_key,
                     device_type=cat,
@@ -535,12 +533,22 @@ class QuotationExporterService:
                 })
                 continue
 
-            # If user explicitly chooses a specific brand (e.g. 'Schneider', 'ABB') use that;
-            # otherwise prioritize original brand from drawing, or fallback gracefully
+            # Only select a catalog brand when the user or source drawing identifies it.
             if default_brand and default_brand not in ["Theo thiết kế", "Gốc", "all", ""]:
-                active_brand = default_brand if default_brand in brand_options else (dev_matched_brand or list(brand_options.keys())[0])
+                active_brand = default_brand if default_brand in brand_options else dev_matched_brand
             else:
-                active_brand = dev_matched_brand or list(brand_options.keys())[0]
+                active_brand = dev_matched_brand
+
+            if not active_brand:
+                matched_items.append({
+                    "id": idx, "name": name, "category": cat, "spec": spec,
+                    "poles": poles, "in_a": in_a, "quantity": qty, "unit": "Cái",
+                    "selected_brand": dev_b, "sku": dev.get("part_number") or "",
+                    "description": name, "unit_price": 0, "discount_percent": 0,
+                    "line_total": 0, "brand_options": brand_options,
+                    "catalog_matched": False,
+                })
+                continue
 
             selected_opt = brand_options.get(active_brand) or list(brand_options.values())[0]
             final_sku = dev.get("part_number") or selected_opt["sku"]

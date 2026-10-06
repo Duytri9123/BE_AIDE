@@ -26,7 +26,7 @@ Quy tắc bóc tách bắt buộc:
 2. GHI CHÚ KỸ THUẬT PHÂN TÍCH TỪ BẢN VẼ: Ghi chú (notes) PHẢI phân tích trực tiếp từ các nhãn, mũi tên và thông số trên bản vẽ (nguồn cấp từ tủ nào, loại cáp nguồn gì, công suất P tính toán, điều khiển liên động Timer/Contactor, tiếp điểm BMS đưa về đâu). TUYỆT ĐỐI KHÔNG ghi nguyên lý giáo trình chung chung như 'bảo vệ quá tải và ngắn mạch'.
 3. TUYỆT ĐỐI KHÔNG HARD-CODE HOẶC TỰ BỊA THÔNG SỐ VÀ HÃNG:
    - Mọi thông số (số cực poles, dòng định mức In, dòng ngắn mạch Icu, cấp điện áp, công suất tải): PHẢI đọc trung thực từ chữ và ký hiệu trên bản vẽ. Tuyệt đối không tự bịa thêm thông số.
-   - Hãng sản xuất (brand): CHỈ điền tên hãng nếu trên bản vẽ có logo, tên thương hiệu hoặc ký hiệu của hãng đó, hoặc người dùng có ghi rõ hãng mong muốn trong yêu cầu (hoặc qua tag #Hãng). Nếu bản vẽ và yêu cầu đều không chỉ định hãng, BẮT BUỘC để brand là chuỗi rỗng (""); TUYỆT ĐỐI KHÔNG tự gán nhà cung cấp hoặc hãng mặc định (như Asia, Schneider, LS...).
+   - Hãng sản xuất (brand): CHỈ điền tên hãng nếu trên bản vẽ có logo, tên thương hiệu hoặc ký hiệu của hãng đó, hoặc người dùng có ghi rõ hãng mong muốn trong yêu cầu (hoặc qua tag #Hãng). Nếu bản vẽ và yêu cầu đều không chỉ định hãng, BẮT BUỘC để brand là chuỗi rỗng (""); TUYỆT ĐỐI KHÔNG tự gán nhà cung cấp hoặc hãng mặc định .
 4. MÃ TỦ VÀ TÊN TỦ BÓC TÁCH TỪ BẢN VẼ (KHÔNG BỊA MÃ MẪU):
    - panel_code: Đọc chính xác mã tủ ghi trên bản vẽ (ví dụ: MSB-01, DB-01, LP-01, TD-A1, TS-A2.1). Nếu bản vẽ không ghi mã rõ ràng, để chuỗi rỗng; không suy luận hoặc tự tạo mã.
    - panel_name: Tên tiếng Việt phân tích theo chức năng kỹ thuật của tủ trên bản vẽ (ví dụ: 'Tủ phân phối tổng MSB', 'Tủ điện chiếu sáng & điều khiển LP', 'Tủ phân phối điện tầng DB').
@@ -51,7 +51,7 @@ Quy tắc bóc tách bắt buộc:
    - TUYỆT ĐỐI KHÔNG dùng toạ độ của thiết bị khác thay thế! Mỗi thiết bị có toạ độ thực tế riêng biệt đúng vị trí trên sơ đồ.
 6. ĐÁNH GIÁ TÍNH PHÙ HỢP CỦA TỆP: Đánh giá xem hình ảnh có phải là sơ đồ nguyên lý điện / bản vẽ tủ điện không. Nếu không liên quan (ví dụ mặt bằng kiến trúc, hồ sơ xây dựng, ảnh linh tinh), ghi rõ lý do và cảnh báo.
 7. KÍCH THƯỚC VỎ TỦ: Tìm kiếm và trích xuất kích thước vỏ tủ trên bản vẽ nếu có (ví dụ: 'TỦ 1200X800X400', '1200x800x400', 'W800xH1200xD400'). Nếu có ghi kích thước vỏ tủ, ghi chính xác vào trường 'enclosure_dimensions'.
-8. NHÀ CUNG CẤP CHO TỪNG THIẾT BỊ: Nhận diện chính xác thương hiệu ghi trên bản vẽ (Mitsubishi, Schneider, LS, ABB, Selec, Mikro, Emic...). Nếu không có hãng, để brand rỗng. Chỉ đưa hãng/model vào suggested_brands/catalog proposal khi đủ thông số đối chiếu; không bịa mã hàng.
+8. NHÀ CUNG CẤP CHO TỪNG THIẾT BỊ: Nhận diện chính xác thương hiệu ghi trên bản vẽ . Nếu không có hãng, để brand rỗng. Chỉ đưa hãng/model vào suggested_brands/catalog proposal khi đủ thông số đối chiếu; không bịa mã hàng.
 9. PHÂN TÍCH QUAN HỆ 6 TẦNG VÀ TRÍCH XUẤT ĐẦY ĐỦ THIẾT BỊ:
    Schematic -> Circuit -> Device -> Load -> Physical Component -> Physical Location
    Mỗi thiết bị cần có: 'tag' (ví dụ: QF1, KM1, TB1, PE...), 'electrical_function' (INCOMING, MAIN_PROTECTION, MAIN_BUSBAR, OUTGOING_PROTECTION, CONTROL_AUXILIARY, TERMINAL_CONNECTION, MEASUREMENT, EARTHING), 'mounting' (DOOR_MOUNTED, INNER_COVER_MOUNTED, MOUNTING_PLATE_MOUNTED, DIN_RAIL_MOUNTED, BUSBAR_MOUNTED, CABINET_MOUNTED, NOT_PHYSICALLY_MOUNTED), 'upstream_device', 'downstream_device', 'connected_load' (tên tải/công suất tải).
@@ -161,7 +161,7 @@ Quy tắc bóc tách bắt buộc:
    - quantity là số lượng vật tư thực tế, không mặc định bằng số ký hiệu trên sơ đồ một sợi. Ví dụ 3XCT/3CT = 3 CT; cụm đèn R-Y-B = 3 đèn; cầu chì bảo vệ mạch đo/báo áp ba pha = 3 cầu chì. Ghi rõ căn cứ suy luận; nếu không đủ căn cứ thì giữ 1 và đánh dấu cần xác minh.
 5. TUYỆT ĐỐI KHÔNG HARD-CODE HOẶC TỰ BỊA THÔNG SỐ VÀ HÃNG:
    - Mọi thông số (số cực, In, Icu, điện áp, tải): Bắt buộc đọc từ bản vẽ.
-   - Hãng sản xuất (brand): Chỉ điền tên hãng nếu bản vẽ có ghi hoặc người dùng yêu cầu; không tự gán hãng mặc định (như Asia, Schneider, LS...). Nếu không có, để chuỗi rỗng ("").
+   - Hãng sản xuất (brand): Chỉ điền tên hãng nếu bản vẽ có ghi hoặc người dùng yêu cầu; không tự gán hãng mặc định . Nếu không có, để chuỗi rỗng ("").
 6. TỌA ĐỘ VÙNG DẪN CHỨNG (box_2d) CHUẨN XÁC:
    - Trả về toạ độ [ymin, xmin, ymax, xmax] (chuẩn hóa 0-1000) bao quanh trọn vẹn cả KÝ HIỆU HÌNH VẼ LẪN NHÃN THÔNG SỐ của từng thiết bị.
    - Thiết bị nào đóng khung đúng ký hiệu của thiết bị đó (ví dụ VS đóng khung đúng chuyển mạch Vôn ở cụm đo lường, không đóng lệch sang aptomat nhánh hay cáp nguồn). Mỗi thiết bị có toạ độ thực tế riêng biệt.
@@ -366,7 +366,7 @@ FEEDBACK TỪ VÒNG TRƯỚC:
    - Dòng điện định mức (In) tính bằng Ampere
    - Khả năng cắt (Icu) tính bằng kA
    - Số cực (Poles): 1P, 2P, 3P, 4P
-   - Brand/hãng (LS, Schneider, ABB, Siemens, etc.)
+   - Brand/hãng
    - Part number/Model nếu có
 
 3. ĐẾM CHÍNH XÁC số lượng:
@@ -464,6 +464,8 @@ def append_canonical_output_contract(prompt: str) -> str:
         "but write every user-facing value (names, summaries, notes, reasons, warnings and proposals) "
         "in clear Vietnamese. Preserve identifiers and technical symbols exactly as printed. "
         "Never invent a panel code, panel name, project/system type, building type or location. "
+        "LS is the system's default procurement preference when the drawing and user do not name a brand; "
+        "do not claim LS was printed on the drawing. Keep the observed brand separate from the selected brand. "
         "If it is not explicitly present or cannot be supported by the document, return an empty string. "
         "Do not rename a collection of panels as a new system or panel. "
         "For every device, distinguish schematic symbol count from physical procurement quantity. "
@@ -474,6 +476,19 @@ def append_canonical_output_contract(prompt: str) -> str:
         "that confirmation is required. Evaluate linked components for every device family, but add an "
         "item to `accompanying_accessories` only when a tag, symbol, wire, note or supplied-as-assembly "
         "statement provides evidence. Never add customary accessories as observed facts.\n\n"
+        "RÀ SOÁT TỪNG VỊ TRÍ TRÊN ẢNH: Quét từ nguồn vào, cụm đo lường, thanh cái, "
+        "từng lộ ra, bảng dây dẫn, tên tải và ghi chú cuối trang. Một CT trên từng pha "
+        "trong cụm 3XCT là ba CT vật lý; nếu có AS và chỉ một ký hiệu A thì là một ampe kế "
+        "cùng một công tắc chọn dòng, không nhân ampe kế theo số CT. Ghi số lượng, "
+        "nhãn nguồn và box_2d riêng cho các ký hiệu độc lập. Tách danh mục thiết bị "
+        "trong tủ khỏi tải được cấp điện và tuyến cáp; không biến tải ngoài tủ thành vật tư tủ. "
+        "Đối chiếu tỷ số CT với đầu vào/thang hiển thị ampe kế; đối chiếu số lộ với "
+        "số CB và từng tên tải. Với lộ động cơ chỉ có MCB, nêu cần kiểm tra mạch "
+        "khởi động/contactor/bảo vệ quá tải ở bản vẽ khác hoặc thiết bị tích hợp; "
+        "không tự cộng chúng vào BOM. Cộng các công suất tải nhìn thấy và so với "
+        "công suất tổng ghi trên bản vẽ; nếu khác, báo chênh lệch và yêu cầu quy tắc "
+        "vận hành/dự phòng. Mỗi nhận xét kỹ thuật phải nêu nhãn, thông số hoặc "
+        "box_2d làm dẫn chứng trên ảnh và giữ trạng thái đề xuất/chưa xác nhận.\n\n"
         "KIỂM TRA CỤM VÀ HỆ THỐNG: Với mỗi cụm, liệt kê từng thành phần thấy rõ, "
         "quan hệ với thiết bị cha và căn cứ số lượng. Đối chiếu mạch động lực, đo lường, "
         "điều khiển, bảo vệ và các tham chiếu sang trang/tủ khác. Không coi một nhãn cụm "

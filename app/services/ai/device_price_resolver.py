@@ -1,9 +1,7 @@
 """
 DevicePriceResolver - Hệ thống tra giá thiết bị thông minh với 3 cấp fallback:
-1. Catalog báo giá chính thức (catalog_data.json) - nhanh nhất, chính xác nhất
-2. Thư viện CAD (cad_device_registry.json) - có block vẽ nhưng chưa có giá
-3. Web Search tự động - tra giá tham khảo trên internet
-Kèm theo: Hệ thống nhập giá thủ công (Admin Override) - lưu vào custom_prices.json
+Automatic pricing uses one uniquely identified 2026 PDF row only.
+Historical custom prices and CAD candidates remain unavailable to this resolver.
 """
 
 from __future__ import annotations
@@ -22,18 +20,17 @@ logger = logging.getLogger(__name__)
 # Đường dẫn file giá tùy chỉnh (admin nhập tay)
 DATA_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "data"))
 CUSTOM_PRICES_PATH = os.path.join(DATA_DIR, "custom_prices.json")
-CAD_REGISTRY_PATH = os.path.join(DATA_DIR, "cad_device_registry.json")
 
 
 # ─────────────────────────────────────────────
 # Mapping loại thiết bị → query web search
 # ─────────────────────────────────────────────
 DEVICE_SEARCH_TEMPLATES: Dict[str, str] = {
-    "ampe_ke":     "{name} ampe kế ampere meter giá bán site:dienhathe.vn OR site:thietbidien.net OR site:schneider-electric.com",
+    "ampe_ke":     "{name} ampe kế ampere meter giá bán",
     "von_ke":      "{name} vôn kế voltage meter giá bán site:dienhathe.vn OR site:thietbidien.net",
     "mfm":         "{name} đồng hồ đa năng multi-function meter giá bán",
     "cong_to":     "{name} công tơ điện energy meter giá bán Vietnam",
-    "relay":       "{name} rơ le trung gian intermediate relay giá bán site:dienhathe.vn OR site:ls-electric.com",
+    "relay":       "{name} rơ le trung gian intermediate relay giá bán",
     "timer":       "{name} timer relay hẹn giờ giá bán Vietnam",
     "overload":    "{name} relay nhiệt overload relay giá bán",
     "contactor":   "{name} khởi động từ contactor giá bán site:dienhathe.vn",
@@ -158,37 +155,13 @@ class CustomPriceStore:
 
 
 class CadRegistryCache:
-    """Lazy load + index thư viện CAD theo group và name."""
+    """Retired registry interface; use equipment_library for source-backed CAD."""
 
     _data: Optional[Dict[str, Any]] = None
 
     @classmethod
     def _load(cls) -> Dict[str, Any]:
-        if cls._data is not None:
-            return cls._data
-        if not os.path.exists(CAD_REGISTRY_PATH):
-            cls._data = {"devices": [], "by_name": {}, "by_group": {}}
-            return cls._data
-        try:
-            with open(CAD_REGISTRY_PATH, "r", encoding="utf-8") as f:
-                raw = json.load(f)
-        except Exception:
-            cls._data = {"devices": [], "by_name": {}, "by_group": {}}
-            return cls._data
-
-        devices = raw.get("devices", []) if isinstance(raw, dict) else raw
-        by_name: Dict[str, Dict] = {}
-        by_group: Dict[str, List] = {}
-        for d in devices:
-            if not isinstance(d, dict):
-                continue
-            name_key = (d.get("name") or "").strip().lower()
-            if name_key:
-                by_name[name_key] = d
-            group = d.get("group") or ""
-            by_group.setdefault(group, []).append(d)
-
-        cls._data = {"devices": devices, "by_name": by_name, "by_group": by_group}
+        cls._data = {"devices": [], "by_name": {}, "by_group": {}}
         return cls._data
 
     @classmethod
@@ -230,13 +203,7 @@ class CadRegistryCache:
 
 
 class DevicePriceResolver:
-    """
-    Tra giá thiết bị theo 4 cấp ưu tiên:
-      P1: Custom Price (Admin nhập tay)
-      P2: Catalog báo giá chính thức (catalog_data.json)
-      P3: CAD Registry (có block vẽ, không có giá)
-      P4: Web Search tự động
-    """
+    """Automatically price only uniquely identified 2026 catalog variants."""
 
     @staticmethod
     def _normalize_key(name: str, brand: str = "", category: str = "") -> str:
@@ -424,35 +391,17 @@ class DevicePriceResolver:
         enable_web_search: bool = True,
     ) -> Dict[str, Any]:
         """
-        Resolve giá thiết bị theo thứ tự ưu tiên:
-        P1 Custom → P2 Catalog → P3 CAD → P4 Web Search
+        Resolve automatic price from a uniquely matched 2026 PDF row.
 
         Returns dict với các field:
           - unit_price (int VND)
-          - price_source: "custom" | "catalog" | "cad_library" | "web_search" | "not_found"
+          - price_source: "source_backed_catalog_2026" | "not_found"
           - price_note: ghi chú nguồn / cảnh báo
           - catalog_matched (bool)
         """
-        # ── P1: Custom Price (Admin nhập tay) ──────────────────────────
-        custom_key = DevicePriceResolver._normalize_key(name, brand, category)
-        custom = CustomPriceStore.get(custom_key)
-        if not custom and part_number:
-            custom = CustomPriceStore.get(part_number.lower())
-        if custom:
-            return {
-                "sku": part_number or "",
-                "name": name,
-                "brand": brand,
-                "unit_price": custom["price"],
-                "price": custom["price"],
-                "dimensions": {},
-                "parameters": {},
-                "catalog_matched": True,
-                "price_source": "custom",
-                "price_note": f"Giá Admin nhập tay ({custom.get('source_note', '')}) - cập nhật {custom.get('updated_at', '')[:10]}",
-            }
-
-        # ── P2: Dòng PDF 2026 có mã và thông số khớp duy nhất ─────────
+        # Only source-backed 2026 rows may set an automatic price. Historical
+        # custom prices, synthetic catalog rows, CAD shapes and web estimates
+        # cannot silently replace an ambiguous or missing PDF variant.
         if part_number:
             try:
                 from app.services.equipment_library import resolve_price_variant
@@ -471,46 +420,6 @@ class DevicePriceResolver:
                     'price_note': 'Giá theo dòng PDF; xem cad.status và warnings trước khi dùng CAD.',
                 }
 
-        # ── P2 fallback: Catalog tính toán cũ ─────────────────────────
-        if catalog_engine:
-            catalog_result = DevicePriceResolver.resolve_from_catalog(
-                catalog_engine,
-                category=category,
-                name=name,
-                brand=brand,
-                part_number=part_number,
-                in_a=in_a,
-                poles=poles,
-                min_icu=min_icu,
-            )
-            if catalog_result:
-                catalog_result["price_note"] = "Giá catalog chính thức"
-                return catalog_result
-
-        # ── P3: CAD Registry (có block vẽ, chưa có giá) ───────────────
-        cad_result = DevicePriceResolver.resolve_from_cad(name, category, brand)
-
-        # ── P4: Web Search (tự động tra giá tham khảo) ─────────────────
-        if enable_web_search and DevicePriceResolver.needs_web_search(category, False):
-            web_result = await DevicePriceResolver.resolve_from_web(
-                name=name,
-                category=category,
-                brand=brand,
-                spec=spec,
-                ai_connections=ai_connections,
-                db=db,
-            )
-            if web_result:
-                # Gắn thêm CAD block nếu tìm được
-                if cad_result:
-                    web_result["cad"] = cad_result.get("cad")
-                return web_result
-
-        # ── P3 fallback: chỉ có CAD, không có giá ─────────────────────
-        if cad_result:
-            return cad_result
-
-        # ── Không tìm được gì ──────────────────────────────────────────
         return {
             "sku": part_number or "",
             "name": name,
@@ -521,5 +430,5 @@ class DevicePriceResolver:
             "parameters": {},
             "catalog_matched": False,
             "price_source": "not_found",
-            "price_note": "Chưa có trong catalog, CAD library và web search. Cần nhập giá thủ công.",
+            "price_note": "Không có một dòng giá PDF 2026 xác định duy nhất cho mã và thông số này; cần đối chiếu trước khi báo giá.",
         }

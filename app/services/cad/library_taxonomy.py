@@ -29,7 +29,7 @@ RULES = [
     ('accessory', 'Khóa tủ', r'khoa|ms722|ms303|ms308|ms325'),
     ('accessory', 'Quạt và lọc gió', r'quat|\bfan\b|tam loc|filter'),
     ('accessory', 'Thanh đồng và đầu nối', r'busbar|thanh dong|cau n\+pe|dau cos|lug'),
-    ('accessory', 'Cầu đấu', r'cau dau|domino|terminal|\btb[- ]|hanyong|\bhy[t]?[- ]'),
+    ('accessory', 'Cầu đấu', r'cau dau|domino|terminal|\btb[- ]'),
     ('accessory', 'Sứ và giá đỡ', r'su kep|su do|insulator|support'),
     ('accessory', 'Máng dây và ray DIN', r'mang nhua|mang day|din rail|ray din|duct'),
     ('accessory', 'Nhãn và mặt che', r'tem at|mac nhua|mica|canh bao|mat cong to|mat kinh'),
@@ -38,11 +38,11 @@ RULES = [
     ('device', 'Nút nhấn và còi', r'nut nhan|nut an|push|button|emergency|dung khan|\bcoi\b'),
     ('device', 'Cầu chì', r'cau chi|\bfuse\b'),
     ('device', 'Chống sét', r'chong set|\bspd\b'),
-    ('device', 'Biến dòng', r'bien dong|\bct\b|\bemic\b|\bcml\b'),
+    ('device', 'Biến dòng', r'bien dong|\bct\b|\bcml\b'),
     ('device', 'Đồng hồ và công tơ', r'dong ho|cong to|congto|meter|von-to|von-nho|am-nho'),
     ('device', 'Bộ điều khiển', r'dieu khien|ats|apfc|controller|logo'),
     ('device', 'Rơ le và timer', r'ro le|relay|timer|bao ve pha|\bmt[- ]?\d'),
-    ('device', 'Tụ bù và cuộn kháng', r'tu kho|tu dau|tu bu|capacitor|cuon khang|reactor|nuintek|samwha'),
+    ('device', 'Tụ bù và cuộn kháng', r'tu kho|tu dau|tu bu|capacitor|cuon khang|reactor'),
     ('device', 'Biến áp và ổn áp', r'bien ap|on ap|transformer'),
     ('device', 'Ổ cắm', r'o cam|socket'),
     ('device', 'Contactor', r'contactor|\bmc ?\d|lc1|\bctt\b'),
@@ -60,12 +60,9 @@ def classify(name, category=''):
 
 
 def explicit_brands(text):
+    from app.services.device_catalog_engine import DeviceCatalogEngine
     key = normalize(text)
-    brands = []
-    for pattern, brand in [(r'\bls\b', 'LS'), (r'schneider|\bsc\b', 'Schneider Electric'),
-                           (r'chint', 'Chint'), (r'idec', 'Idec'), (r'selec', 'Selec'),
-                           (r'mikro', 'Mikro'), (r'nuintek', 'Nuintek'), (r'samwha', 'Samwha'),
-                           (r'hanyong', 'Hanyong'), (r'\bemic\b', 'EMIC'), (r'hyundai', 'Hyundai'),
-                           (r'mitsubishi', 'Mitsubishi'), (r'\babb\b', 'ABB'), (r'delab', 'Delab')]:
-        if re.search(pattern, key): brands.append(brand)
-    return brands
+    return list(dict.fromkeys(
+        brand for alias, brand in DeviceCatalogEngine().brand_alias_index.items()
+        if re.search(r"\b" + re.escape(alias) + r"\b", key)
+    ))

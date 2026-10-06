@@ -105,18 +105,6 @@ DEVICE_POLES_MAP = {
     "4": 4,
 }
 
-# Brand mappings (normalize brand names)
-BRAND_ALIASES = {
-    "ls": ["ls electric", "ls", "lg", "lg electric"],
-    "schneider": ["schneider electric", "schneider", "se"],
-    "abb": ["abb", "asea brown boveri"],
-    "siemens": ["siemens", "sie"],
-    "mitsubishi": ["mitsubishi electric", "mitsubishi", "mee"],
-    "fuji": ["fuji electric", "fuji"],
-    "terasaki": ["terasaki", "tera"],
-    "hyundai": ["hyundai", "hd"],
-}
-
 # Common regex patterns
 PATTERNS = {
     "current_rating": r"(\d+(?:\.\d+)?)\s*[Aa]",  # 100A, 630a, 25.5A
@@ -124,27 +112,6 @@ PATTERNS = {
     "poles": r"([1-4])\s*[PpΦф]",  # 3P, 2p, 3Φ, 4ф
     "voltage": r"(\d+)\s*[Vv](?:AC|DC)?",  # 220V, 400VAC, 24VDC
 }
-
-# Bảng map thương hiệu hiển thị với key catalog trong hệ thống
-BRAND_CATALOG_MAPPING = {
-    "Schneider Electric": "schneider",
-    "Schneider": "schneider",
-    "LS Electric": "ls_standard",
-    "LS Electric Premium": "ls_premium",
-    "Mitsubishi": "mitsubishi",
-    "ABB": "abb",
-    "Chint": "chint",
-    "Emic": "emic",
-    "Samwha": "samwha",
-    "Shihlin Electric": "shihlin",
-    "Siemens": "siemens",
-    "Fuji Electric": "fuji",
-    "Hyundai Electric": "hyundai",
-    "Hyundai": "hyundai",
-    "Terasaki": "terasaki",
-    "Panasonic": "panasonic",
-}
-
 
 # =============================================================================
 # Busbar Engineering Constants

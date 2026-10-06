@@ -118,6 +118,7 @@ def _build_analysis_result_schema(
         },
         enclosure_spec=enc_spec,
         panel_images=panel_images,
+        evidence_overviews=conf.get("evidence_overviews") or {},
         cad_file=cad_file_info,
         quotation_file=quotation_file_info,
         quotation_rows=conf.get("quotation_rows") or [],
@@ -279,6 +280,7 @@ async def start_analysis(
             "panels": pipeline_result.get("panels"),
             "enclosure_spec": enclosure_spec,
             "technical_audit": pipeline_result.get("technical_audit"),
+            "evidence_overviews": pipeline_result.get("evidence_overviews", {}),
             "file_assessment": pipeline_result.get("file_assessment"),
             "files_assessment": pipeline_result.get("files_assessment"),
             "circuit_assessment": pipeline_result.get("circuit_assessment"),
@@ -438,6 +440,7 @@ async def stream_analysis(
                         "panels": pipeline_result.get("panels"),
                         "enclosure_spec": enclosure_spec,
                         "technical_audit": pipeline_result.get("technical_audit"),
+                        "evidence_overviews": pipeline_result.get("evidence_overviews", {}),
                         "file_assessment": pipeline_result.get("file_assessment"),
                         "files_assessment": pipeline_result.get("files_assessment"),
                         "circuit_assessment": pipeline_result.get("circuit_assessment"),
@@ -475,6 +478,7 @@ async def stream_analysis(
                     "panel_info": pipeline_result.get("panel_info"),
                     "panels": pipeline_result.get("panels"),
                     "technical_audit": pipeline_result.get("technical_audit"),
+                    "evidence_overviews": pipeline_result.get("evidence_overviews", {}),
                     "file_assessment": pipeline_result.get("file_assessment"),
                     "files_assessment": pipeline_result.get("files_assessment"),
                     "circuit_assessment": pipeline_result.get("circuit_assessment"),
@@ -990,7 +994,6 @@ async def analyze_prompt(
     """
     import re
     from datetime import datetime, timezone
-    from app.services.device_catalog_engine import BRAND_SYNONYMS
 
     proj_stmt = select(Project).where(Project.id == request.project_id, Project.user_id == current_user.id)
     proj_res = await db.execute(proj_stmt)

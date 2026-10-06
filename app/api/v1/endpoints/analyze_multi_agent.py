@@ -139,7 +139,7 @@ async def start_multi_agent_analysis(
         result = await orchestrator.orchestrate(
             image_path=image_file.file_path,
             project_name=project.name,
-            cad_template=cad_template.template_data if cad_template else None,
+            cad_templates=[cad_template.template_data] if cad_template else None,
             quotation_template=quotation_template.template_structure if quotation_template else None
         )
     except Exception as e:
@@ -150,11 +150,11 @@ async def start_multi_agent_analysis(
         )
     
     # 6. Deduct tokens
-    tokens_used = result.get("total_tokens_used", 0)
-    if current_user.tokens >= tokens_used:
+    tokens_used = getattr(result, "total_tokens_used", None)
+    if tokens_used is not None and current_user.tokens >= tokens_used:
         current_user.tokens -= tokens_used
         await db.commit()
-    else:
+    elif tokens_used is not None:
         logger.warning(f"User {current_user.id} không đủ tokens ({current_user.tokens} < {tokens_used})")
     
     # 7. Save results to database (TODO: implement persistence)
@@ -174,25 +174,25 @@ async def start_multi_agent_analysis(
             "file_path": image_file.file_path
         },
         "analysis_result": {
-            "complexity": result.get("complexity_level"),
-            "total_iterations": result.get("total_iterations"),
-            "final_confidence": result.get("final_confidence_score"),
-            "device_count": len(result.get("devices", [])),
-            "panel_count": len(result.get("panels", [])),
-            "devices": result.get("devices", []),
+            "complexity": None,
+            "total_iterations": result.iteration + 1,
+            "final_confidence": result.confidence_score,
+            "device_count": len(result.devices),
+            "panel_count": len(result.panels),
+            "devices": result.devices,
             "panels": [
                 {
                     "id": p.id,
                     "name": p.name,
                     "device_count": p.device_count,
                     "incomer_rating": p.incomer_rating
-                } for p in result.get("panels", [])
+                } for p in result.panels
             ],
-            "quotation_files": result.get("quotation_files", []),
-            "cad_file": result.get("cad_file"),
-            "enclosure_spec": result.get("enclosure_spec"),
-            "feedback_history": result.get("feedback_history", []),
-            "warnings": result.get("warnings", [])
+            "quotation_files": [],
+            "cad_file": None,
+            "enclosure_spec": result.enclosure_spec,
+            "feedback_history": result.feedback_history,
+            "warnings": []
         },
         "tokens_used": tokens_used,
         "user_tokens_remaining": current_user.tokens

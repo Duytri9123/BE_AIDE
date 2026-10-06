@@ -209,27 +209,16 @@ async def web_search_price(
 # ENDPOINTS - RESOLVE THỐNG NHẤT (4 CẤP)
 # ─────────────────────────────────────────────
 
-@router.post("/catalog/resolve-price", summary="Tra giá thiết bị (4 cấp fallback)")
+@router.post("/catalog/resolve-price", summary="Tra giá từ catalog PDF 2026 đã xác minh")
 async def resolve_device_price(
     body: ResolveDevicePriceRequest,
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_active_user),
 ) -> Dict[str, Any]:
     """
-    Tra giá thiết bị theo 4 cấp ưu tiên:
-    1. Custom (Admin nhập tay)
-    2. Catalog báo giá chính thức
-    3. CAD Library (có block vẽ)
-    4. Web Search tự động (nếu enable_web_search=true)
+    Chỉ trả giá khi mã và thông số xác định duy nhất một dòng PDF 2026.
+    Tham số enable_web_search cũ không kích hoạt tra giá tự động ở endpoint này.
     """
-    catalog_engine = DeviceCatalogEngine.get_instance()
-    ai_connections: List[AiConnection] = []
-    if body.enable_web_search:
-        result_conns = await db.execute(
-            select(AiConnection).where(AiConnection.is_active == True)
-        )
-        ai_connections = list(result_conns.scalars().all())
-
     result = await DevicePriceResolver.resolve(
         name=body.name,
         category=body.category,
@@ -239,10 +228,7 @@ async def resolve_device_price(
         in_a=body.in_a,
         poles=body.poles,
         min_icu=body.min_icu,
-        catalog_engine=catalog_engine,
-        ai_connections=ai_connections if body.enable_web_search else None,
-        db=db,
-        enable_web_search=body.enable_web_search,
+        enable_web_search=False,
     )
     return result
 

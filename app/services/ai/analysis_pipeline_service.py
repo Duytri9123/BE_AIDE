@@ -1123,9 +1123,10 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             detected_panel_name = detected_panel_name or ""
 
         # Tự động gán đồng bộ mã tủ & hãng phù hợp cho toàn bộ thiết bị
-        preferred_brand = AnalysisPipelineService._detect_requested_brand(user_prompt, catalog_engine)
-        if preferred_brand:
-            warnings.append(f"Áp dụng yêu cầu kỹ thuật: {preferred_brand}")
+        requested_brand = AnalysisPipelineService._detect_requested_brand(user_prompt, catalog_engine)
+        preferred_brand = requested_brand or settings.DEFAULT_BRAND
+        if requested_brand:
+            warnings.append(f"Áp dụng yêu cầu kỹ thuật: {requested_brand}")
 
         # Catalog comparison is also shown in the takeoff table.  Only the
         # quotation workflow is allowed to select a SKU/price or alter the
@@ -1147,32 +1148,10 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         for d in extracted_devices:
             b_val = (d.brand or "").strip()
             cat_u = (d.category or "").upper()
-            part_u = (d.part_number or "").upper()
-            name_u = (d.name or "").upper()
-            notes_u = (d.notes or "").upper()
 
-            inferred_brand = None
             if b_val.upper() == "ASIA":
                 b_val = ""
                 d.brand = ""
-            if any(part_u.startswith(p) for p in ["NF", "BH", "NV", "CP30"]) or "MITSUBISHI" in name_u or "MITSUBISHI" in notes_u:
-                inferred_brand = "Mitsubishi"
-            elif any(part_u.startswith(p) for p in ["GOPACT", "EZC", "NSX", "C60", "IC60", "A9F", "A9N", "LV4", "NSXF"]) or "SCHNEIDER" in name_u or "SCHNEIDER" in notes_u:
-                inferred_brand = "Schneider Electric"
-            elif any(part_u.startswith(p) for p in ["ABN", "ABS", "BKN", "BKH", "METASOL", "SUSOL"]) or "LS" in name_u or "LS" in notes_u:
-                inferred_brand = "LS Electric"
-            elif any(part_u.startswith(p) for p in ["XT", "TMAX", "FORMULA", "S200"]) or "ABB" in name_u or "ABB" in notes_u:
-                inferred_brand = "ABB"
-            elif "SELEC" in part_u or "SELEC" in name_u or "SELEC" in notes_u:
-                inferred_brand = "Selec"
-            elif "MIKRO" in part_u or "MIKRO" in name_u or "MIKRO" in notes_u:
-                inferred_brand = "Mikro"
-            elif "EMIC" in part_u or "EMIC" in name_u or "EMIC" in notes_u:
-                inferred_brand = "Emic"
-
-            if not b_val and inferred_brand:
-                d.brand = inferred_brand
-                b_val = inferred_brand
 
             if b_val and b_val.upper() not in ["---", "OEM", "KHÔNG", "CHƯA RÕ", "CHUA RO", "VN"]:
                 if any(k in cat_u for k in ["ACB", "MCCB", "MCB", "RCBO", "CONTACTOR"]):
@@ -1207,16 +1186,32 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             # Chỉ tra các hãng có căn cứ từ yêu cầu, bản vẽ hoặc đề xuất AI;
             # không quét và đẩy toàn bộ danh mục hãng vào từng thiết bị.
             catalog_matches = {}
+            catalog_candidates = {}
             candidate_brands = list(dict.fromkeys(
-                [brand for brand in [preferred_brand, dev_raw_brand if has_explicit_brand else None, *ai_suggested_brands[:3]] if brand]
+                [brand for brand in [requested_brand, dev_raw_brand if has_explicit_brand else None,
+                                     preferred_brand if not has_explicit_brand else None,
+                                     *ai_suggested_brands[:3]] if brand]
             ))
             for brand_name in candidate_brands:
+                candidates = catalog_engine.search_candidates(
+                    brand=brand_name, device_type=dev.category, poles=poles_val,
+                    in_current=in_val if in_val > 0 else None,
+                    min_icu=icu_val if icu_val > 0 else None, limit=5,
+                )
+                if candidates:
+                    catalog_candidates[brand_name] = [
+                        {"sku": item.get("ma") or "", "name": item.get("n") or "",
+                         "icu_ka": item.get("icu"), "price": item.get("g"),
+                         "catalog_id": item.get("catalog_id"), "source": item.get("source"),
+                         "rating_complete": all(item.get(key) is not None for key in ("p", "in", "icu"))}
+                        for item in candidates
+                    ]
                 matches = catalog_engine.filter_devices(
                     device_type=dev.category,
                     poles=poles_val,
                     in_current=in_val if in_val > 0 else None,
                     brand=brand_name,
-                    limit=5
+                    limit=5, series=dev.part_number or None,
                 )
                 # "METER" covers several electrically different products.
                 # Require the catalog name to agree with the meter function so
@@ -1272,6 +1267,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                     }
 
             dev.catalog_matches = catalog_matches
+            dev.catalog_candidates = catalog_candidates
 
             # Lọc các hãng có model trong catalog
             valid_brands = list(catalog_matches.keys())
@@ -1289,16 +1285,19 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             dev.detected_brand = dev_raw_brand if has_explicit_brand else ""
 
             # 1. Ưu tiên yêu cầu người dùng nếu có chỉ định hãng
-            if preferred_brand and preferred_brand in catalog_matches:
+            if requested_brand and requested_brand in catalog_matches:
                 chosen_brand = preferred_brand
                 dev.selection_source = "user_request"
             # 2. Ưu tiên hãng tự nhiên do AI trích xuất được từ bản vẽ (Selec, Mikro, Emic, Mitsubishi, Schneider...)
             elif has_explicit_brand:
                 chosen_brand = dev_raw_brand
                 dev.selection_source = "drawing"
+            elif requested_brand:
+                chosen_brand = requested_brand
+                dev.selection_source = "user_request"
             elif preferred_brand:
                 chosen_brand = preferred_brand
-                dev.selection_source = "user_request"
+                dev.selection_source = "default_brand"
             # 3. Tự động chọn nhà cung cấp có model catalog khớp kỹ thuật nhất.
             elif pool:
                 chosen_brand = pool[0]
@@ -1316,7 +1315,10 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 dev.technical_match_note = f"Đối chiếu Catalog: {chosen_brand} {chosen_sku}{icu_info} ({chosen_price:,} đ)"
             else:
                 chosen_price = 0
-                dev.technical_match_note = "Chưa có bản ghi khớp trong catalog.json; giữ nguyên dữ liệu đọc từ nguồn và cần xác nhận khi báo giá."
+                dev.technical_match_note = (
+                    f"Ưu tiên {chosen_brand}; Agent đọc được {len(catalog_candidates.get(chosen_brand, []))} "
+                    "ứng viên catalog, chưa xác định duy nhất mã hàng và giá."
+                )
                 # Tạm thời ẩn cảnh báo chưa khớp catalog theo yêu cầu để chỉ hiển thị các lưu ý kỹ thuật thực sự cần thiết
 
             # ĐỀ XUẤT THIẾT BỊ TƯƠNG THÍCH DO AI PHÂN TÍCH TỪ BẢN VẼ (KHÔNG HARD-CODE)
@@ -1327,8 +1329,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 dev.compatibility_note = cp.get("technical_reason") or cp.get("ai_analysis")
                 dev.suggested_alternatives = [cp]
                 prop_d = cp.get("proposed_device")
-                if prop_d and (not chosen_sku or chosen_sku.endswith("-")):
-                    chosen_sku = prop_d
+                # AI proposals are review notes, never automatic order codes.
                 dev.technical_match_note = f"Đề xuất tương thích (AI): {prop_d or dev.name}"
 
             # PHỤ KIỆN ĐI KÈM DO AI PHÂN TÍCH TỪ BẢN VẼ (KHÔNG HARD-CODE)
@@ -1362,8 +1363,8 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                     )
                 elif not getattr(dev, "compatible_proposal", None):
                     dev.technical_match_note = (
-                        "Chưa tìm thấy thiết bị khớp thông số trong catalog; "
-                        "cần bổ sung dữ liệu hoặc kiểm tra kỹ thuật."
+                        f"Ưu tiên {chosen_brand}; có {len(catalog_candidates.get(chosen_brand, []))} "
+                        "ứng viên catalog theo thông số. Chưa xác định duy nhất mã hàng/giá."
                     )
                 device_price_map[dev.part_number or dev.name] = 0
 
@@ -1385,6 +1386,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         AnalysisPipelineService._refine_device_bounding_boxes(extracted_devices)
 
         # 5. Tự động trích xuất ảnh dẫn chứng trực tiếp từ bản vẽ tải lên
+        evidence_overviews = {}
         for pfile in project_files:
             if pfile.file_path:
                 p_ext = pfile.filename.split(".")[-1].lower() if pfile.filename else ""
@@ -1396,6 +1398,14 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                     AnalysisPipelineService._attach_evidence_thumbnails(
                         source_devices, pfile.file_path
                     )
+                    if source_devices:
+                        try:
+                            from app.services.ai.evidence_overview import render_evidence_overview
+                            overview = render_evidence_overview(pfile.file_path, source_devices)
+                            if overview:
+                                evidence_overviews[pfile.filename] = overview
+                        except Exception as exc:
+                            logger.warning("Could not render evidence overview for %s: %s", pfile.filename, exc)
 
         # 6. Bổ sung thông số kích thước & parameters từ Catalog cho các model đã khớp
         for dev in extracted_devices:
@@ -1531,10 +1541,6 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             # Preserve the independent whole-document assessment. A BOM cannot
             # retroactively prove that the source circuit was assessed.
             circuit_assessment = circuit_assessment or {"status": "unavailable"}
-            for device in extracted_devices:
-                device.evidence_image = None
-                device.panel_evidence_image = None
-                device.box_2d = None
             return {
                 "devices": extracted_devices,
                 "warnings": clean_warnings,
@@ -1547,6 +1553,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 "panel_info": panel_info,
                 "panels": multi_panel_list,
                 "technical_audit": completeness_audit,
+                "evidence_overviews": evidence_overviews,
                 "file_assessment": file_assessment,
                 "files_assessment": files_assessment,
                 "circuit_assessment": circuit_assessment,
@@ -1684,7 +1691,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                     output_dir=getattr(settings, "PROJECTS_DIR", "storage/projects"),
                     dimensions=tuple(enclosure_spec["fit_check"]["minimum_required"][axis] for axis in ("height", "width", "depth")),
                     devices=[d.model_dump() for d in extracted_devices],
-                    kind=("outdoor" if any(token in str(panel_info).lower() for token in ("ngoài trời", "outdoor")) else "fire" if any(token in str(panel_info).lower() for token in ("chữa cháy", "pccc")) else "indoor"),
+                    kind=("outdoor" if any(token in str(panel_info).lower() for token in ("ngoài trời", "outdoor")) else "indoor"),
                 )
                 cad_file_path = source_cad["path"]
                 log_event(
@@ -1830,10 +1837,6 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         ]
 
         clean_warnings = [w for w in warnings if not ("chưa khớp catalog" in w.lower() or "chua khop catalog" in w.lower())]
-        for device in extracted_devices:
-            device.evidence_image = None
-            device.panel_evidence_image = None
-            device.box_2d = None
         return {
             "devices": extracted_devices,
             "warnings": clean_warnings,
@@ -1847,6 +1850,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             "panel_info": panel_info,
             "panels": multi_panel_list,
             "technical_audit": technical_audit,
+            "evidence_overviews": evidence_overviews,
             "file_assessment": file_assessment,
             "files_assessment": files_assessment,
             "circuit_assessment": circuit_assessment,
@@ -3121,7 +3125,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 "name": dev_dict.get("name", "Thiết bị"),
                 "spec": dev_dict.get("spec", ""),
                 "sku": dev_dict.get("part_number") or "",
-                "origin": (dev_dict.get("brand") or "").replace(" Electric", "") or "VN",
+                "origin": (dev_dict.get("brand") or "").replace(" Electric", ""),
                 "unit": dev_dict.get("unit") or ("Bộ" if "LIGHT" in str(dev_dict.get("category") or "").upper() or "CT" in str(dev_dict.get("category") or "").upper() else "Cái"),
                 "quantity": qty,
                 "unit_price": price,
@@ -3643,11 +3647,16 @@ Chỉ trả một JSON hợp lệ, không markdown:
 
         await emit_progress("normalize", 5, f"Đang chuẩn hóa {len(devices)} thiết bị đầu vào")
 
-        resolved_brand_pref = brand_preference or settings.DEFAULT_BRAND
+        requested_preference = str(brand_preference or "").strip()
+        resolved_brand_pref = (
+            settings.DEFAULT_BRAND
+            if requested_preference.casefold() in {"", "theo thiết kế", "theo thiet ke", "default", "auto"}
+            else requested_preference
+        )
         explicit_brand_preference = bool(
-            resolved_brand_pref
+            brand_preference
             and resolved_brand_pref.strip().lower()
-            not in {"theo thiết kế", "theo thiet ke", "default", "auto"}
+            not in {"theo thiết kế", "theo thiet ke", "default", "auto", settings.DEFAULT_BRAND.lower()}
         )
 
         # 1. Chuẩn hóa thiết bị sang ExtractedDeviceSchema
@@ -3672,8 +3681,12 @@ Chỉ trả một JSON hợp lệ, không markdown:
                         resolved_brand_pref
                         if explicit_brand_preference
                         else d.get("brand")
-                        or (resolved_brand_pref if resolved_brand_pref != settings.DEFAULT_BRAND else "")
+                        or resolved_brand_pref
                     ),
+                    detected_brand=d.get("detected_brand"),
+                    selection_source=d.get("selection_source"),
+                    catalog_matches=d.get("catalog_matches"),
+                    catalog_candidates=d.get("catalog_candidates"),
                     part_number=d.get("part_number", ""),
                     section=d.get("section"),
                     location=d.get("location"),
@@ -3697,6 +3710,11 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     source_filename=d.get("source_filename"),
                     source_page=d.get("source_page"),
                 ))
+
+        for dev in extracted_devices:
+            if not dev.brand:
+                dev.brand = settings.DEFAULT_BRAND
+                dev.selection_source = "default_brand"
 
         await emit_progress("catalog", 15, "Đang đối chiếu mã hàng và đơn giá catalog thực tế")
 
@@ -3872,7 +3890,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 output_dir=getattr(settings, "PROJECTS_DIR", "storage/projects"),
                 dimensions=tuple(enclosure_spec["fit_check"]["minimum_required"][axis] for axis in ("height", "width", "depth")),
                 devices=[d.model_dump() for d in extracted_devices],
-                kind=("outdoor" if any(token in str(panel_name or "").lower() for token in ("ngoài trời", "outdoor")) else "fire" if any(token in str(panel_name or "").lower() for token in ("chữa cháy", "pccc")) else "indoor"),
+                kind=("outdoor" if any(token in str(panel_name or "").lower() for token in ("ngoài trời", "outdoor")) else "indoor"),
             )
             cad_file_path = source_cad["path"]
             cad_layout = {key: source_cad[key] for key in ("template_id", "source", "dimensions", "minimum_required", "placements", "unmatched_devices")}

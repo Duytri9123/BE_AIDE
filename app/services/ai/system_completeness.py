@@ -1,5 +1,6 @@
 """Evidence-based review; missing evidence never adds procurement items."""
 from collections import defaultdict
+import re
 
 
 def review_system(devices):
@@ -9,11 +10,56 @@ def review_system(devices):
         groups[str(d.get("panel_code") or "CHUA_XAC_DINH")].append(d)
     issues, clusters = [], []
 
-    def issue(panel, tag, title, detail):
+    def issue(panel, tag, title, detail, *, evidence=None, technical_reference=None):
         issues.append(dict(panel_code=panel, tag=tag, title=title, detail=detail,
-                           description=detail, status="ATTENTION", badge="Cần đối chiếu nguồn"))
+                           description=detail, evidence=evidence or [],
+                           technical_reference=technical_reference or [],
+                           status="ATTENTION", badge="Cần đối chiếu nguồn"))
 
     for panel, members in groups.items():
+        def source_ref(d):
+            parts = [str(d.get("source_filename") or "").strip(), str(d.get("tag") or "").strip()]
+            if d.get("box_2d"):
+                parts.append(f"box_2d={d['box_2d']}")
+            return ", ".join(part for part in parts if part) or "chưa có vị trí nguồn"
+
+        ct_devices = [d for d in members if str(d.get("category") or "").upper() in {"CT", "CURRENT_TRANSFORMER"}
+                      or re.search(r"\b(?:CT|3XCT|3CT)\b|biến dòng", str(d.get("name") or "") + " " + str(d.get("spec") or ""), re.I)]
+        ammeters = [d for d in members if re.search(r"ampe|ammeter|\bampe kế\b", str(d.get("name") or ""), re.I)
+                    or str(d.get("tag") or "").upper() in {"A", "AM"}]
+        selectors = [d for d in members if str(d.get("tag") or "").upper() == "AS"
+                     or re.search(r"chọn dòng|ammeter selector", str(d.get("name") or ""), re.I)]
+        if ct_devices and ammeters:
+            ct_count = sum(int(d.get("procurement_quantity") or d.get("quantity") or 1) for d in ct_devices)
+            if ct_count == 3 and selectors and len(ammeters) > 1:
+                issue(panel, "AS/CT", "Kiểm tra số lượng ampe kế",
+                      f"Có 3 CT và công tắc AS nhưng bóc {len(ammeters)} ampe kế. Kiểm tra ký hiệu A trên ảnh: {source_ref(ammeters[0])}. Ba CT không tự tạo ba ampe kế.",
+                      evidence=[source_ref(ct_devices[0]), source_ref(selectors[0]), source_ref(ammeters[0])],
+                      technical_reference=["https://iportal.se.com/Contents/docs/SQD-METSECT5MD080_CATALOGUE.PDF"])
+            ratios = []
+            for ct in ct_devices:
+                match = re.search(r"(\d+(?:[.,]\d+)?)\s*/\s*5\s*A?", str(ct.get("spec") or ""), re.I)
+                if match:
+                    ratios.append(float(match.group(1).replace(",", ".")))
+            for meter in ammeters:
+                match = re.search(r"0\s*[-–]\s*(\d+(?:[.,]\d+)?)\s*A", str(meter.get("spec") or ""), re.I)
+                if match and ratios and float(match.group(1).replace(",", ".")) not in ratios:
+                    issue(panel, str(meter.get("tag") or "A"), "Thang ampe kế chưa khớp CT",
+                          f"CT ghi tỷ số {ratios[0]:g}/5 A ({source_ref(ct_devices[0])}); ampe kế ghi {match.group(0)} ({source_ref(meter)}). Kiểm tra thang hiển thị hoặc cấu hình đồng hồ trước khi mua.",
+                          evidence=[source_ref(ct_devices[0]), source_ref(meter)],
+                          technical_reference=["https://www.se.com/us/en/faqs/FA125574/"])
+
+        motor_feeders = [d for d in members if str(d.get("category") or "").upper() in {"MCB", "MCCB"}
+                         and re.search(r"bơm|máy khuấy|động cơ|motor|máy thổi", " ".join(
+                             str(d.get(k) or "") for k in ("connected_load", "downstream_device", "notes")), re.I)]
+        motor_protection = {"CONTACTOR", "OVERLOAD", "THERMAL_RELAY", "MPCB", "MOTOR_PROTECTION", "VFD", "SOFT_STARTER"}
+        if motor_feeders and not any(str(d.get("category") or "").upper() in motor_protection for d in members):
+            sample = motor_feeders[0]
+            issue(panel, str(sample.get("tag") or ""), "Chưa thấy mạch khởi động và bảo vệ động cơ",
+                  f"Có {len(motor_feeders)} lộ MCB/MCCB ghi tải động cơ; ví dụ {source_ref(sample)}. Đối chiếu sơ đồ điều khiển và tủ tại máy để xác định contactor/bảo vệ quá tải; chưa cộng vào BOM.",
+                  evidence=[source_ref(sample)],
+                  technical_reference=["https://www.se.com/eg/en/download/document/LVED250601EN/"])
+
         tags = {str(d.get("tag")) for d in members if d.get("tag")}
         for d in members:
             tag = str(d.get("tag") or d.get("name") or "Thiết bị")

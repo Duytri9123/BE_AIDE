@@ -151,8 +151,8 @@ class MultiAgentOrchestrator:
                     state = await self._run_spec_validator(state)
                 
                 # Step 3: Catalog Matching
-                if AgentRole.SPEC_VALIDATOR in state.completed_agents and catalog_data:
-                    state = await self._run_catalog_matcher(state, catalog_data)
+                if AgentRole.SPEC_VALIDATOR in state.completed_agents:
+                    state = await self._run_catalog_matcher(state, catalog_data or {})
                 
                 # Step 4: Quality Check
                 if AgentRole.CATALOG_MATCHER in state.completed_agents:
@@ -341,7 +341,8 @@ class MultiAgentOrchestrator:
     ) -> ExtractionState:
         """
         Agent 3: Catalog Matcher
-        Khớp thiết bị với catalog có sẵn trong DB để lấy part_number, giá, etc.
+        Đọc catalog hiện có, ưu tiên LS khi nguồn không ghi hãng.
+        Chỉ gán SKU/giá khi có mã nguồn phân giải được một biến thể duy nhất.
         """
         logger.info(f"Running CatalogMatcher agent (iteration {state.iteration})")
         
@@ -351,28 +352,37 @@ class MultiAgentOrchestrator:
         matched_count = 0
         
         for device in state.devices:
-            if not device.get("part_number") or device.get("part_number") == "":
-                # Try to match from catalog
-                matches = catalog_engine.filter_devices(
-                    brand="ls_standard",
-                    device_type=device.get("category"),
-                    poles=device.get("poles"),
-                    in_current=device.get("in_a"),
-                    limit=1
-                )
-                
-                if matches:
-                    match = matches[0]
-                    device["part_number"] = match.get("ma") or match.get("sku") or ""
-                    device["catalog_matched"] = True
-                    device["catalog_price"] = match.get("price")
-                    matched_count += 1
-                else:
-                    # Fallback: generate part number
-                    p_str = f"{device.get('poles')}P" if device.get('poles') else ""
-                    a_str = f"{int(device.get('in_a'))}A" if device.get('in_a') else ""
-                    device["part_number"] = f"LS-{device.get('category')}-{p_str}{a_str}".strip("-")
-                    device["catalog_matched"] = False
+            drawn_brand = str(device.get("brand") or "").strip()
+            brand = drawn_brand or settings.DEFAULT_BRAND
+            device["detected_brand"] = drawn_brand
+            device["brand"] = brand
+            device["selection_source"] = "drawing" if drawn_brand else "default_brand"
+            device["catalog_matched"] = False
+            device["catalog_price"] = None
+            candidates = catalog_engine.search_candidates(
+                brand=brand, device_type=str(device.get("category") or ""),
+                poles=device.get("poles"), in_current=device.get("in_a"),
+                min_icu=device.get("icu_ka"), limit=5,
+            )
+            device["catalog_candidates"] = [
+                {"sku": item.get("ma"), "name": item.get("n"),
+                 "icu_ka": item.get("icu"), "price": item.get("g"),
+                 "catalog_id": item.get("catalog_id"), "source": item.get("source"),
+                 "rating_complete": all(item.get(key) is not None for key in ("p", "in", "icu"))}
+                for item in candidates
+            ]
+            source_code = str(device.get("part_number") or "").strip()
+            exact = catalog_engine.lookup_device_info(
+                category=str(device.get("category") or ""),
+                brand=brand, part_number=source_code,
+                poles=device.get("poles"), in_a=device.get("in_a"),
+                min_icu=device.get("icu_ka"),
+            ) if source_code else None
+            if exact and exact.get("catalog_matched"):
+                device["catalog_matched"] = True
+                device["catalog_price"] = exact.get("unit_price")
+                device["catalog_id"] = exact.get("catalog_id")
+                matched_count += 1
         
         state.completed_agents.append(AgentRole.CATALOG_MATCHER)
         
@@ -486,7 +496,7 @@ class MultiAgentOrchestrator:
         if scores["catalog_match"] < 0.6:
             feedback_items.append(
                 f"Tỷ lệ khớp catalog thấp. Kiểm tra lại brand name và model number. "
-                f"Ưu tiên: LS, Schneider, ABB, Siemens"
+                "Chỉ đối chiếu với hãng và model có bằng chứng trong dữ liệu nguồn."
             )
         
         # Section coverage feedback

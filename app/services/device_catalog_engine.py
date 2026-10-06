@@ -17,78 +17,6 @@ def strip_accents(s: str) -> str:
     s = str(s).replace("đ", "d").replace("Đ", "D")
     return "".join(c for c in unicodedata.normalize("NFD", s) if unicodedata.category(c) != "Mn")
 
-ACCESSORY_SYNONYMS = {
-    "LIGHT": ["pilot_lamp", "pilot", "den", "lamp", "indicator", "light"],
-    "PILOT": ["pilot_lamp", "pilot", "den", "lamp", "indicator"],
-    "BUTTON": ["push_button", "estop", "nut nhan", "button"],
-    "SWITCH": ["selector_switch", "chuyen mach", "switch"],
-    "METER": ["meter", "dong ho", "mfm", "volt", "ampe", "multimeter"],
-    "TERMINAL": ["domino", "cau dau", "terminal", "tb1"],
-    "DOMINO": ["domino", "cau dau", "terminal", "tb1"],
-    "RELAY": ["relay", "ro le", "intermediate"],
-    "TIMER": ["timer", "hen gio", "on_delay", "thoi gian"],
-    "CT": ["ct", "bien dong", "toroidal"],
-    "FUSE": ["fuse", "cau chi"],
-    "DUCT": ["duct", "mang cap", "mang"],
-    "DIN_RAIL": ["din_rail", "thanh ray", "din 35"],
-    "BUSBAR": ["busbar", "thanh cai", "thanh dong"],
-    "SPD": ["spd", "chong set", "surge", "chong set lan truyen"],
-}
-
-BRAND_SYNONYMS = {
-    "ls": "ls_standard",
-    "ls standard": "ls_standard",
-    "ls kinh te": "ls_standard",
-    "ls premium": "ls_premium",
-    "ls cao cap": "ls_premium",
-    "schneider": "schneider",
-    "schneider electric": "schneider",
-    "sne": "schneider",
-    "se": "schneider",
-    "chint": "chint",
-    "chint electric": "chint",
-    "abb": "abb",
-    "mitsubishi": "mitsubishi",
-    "mitsu": "mitsubishi",
-    "emic": "emic",
-    "samwha": "samwha",
-    "samhwa": "samwha",
-    "shilin": "shihlin",
-    "shihlin": "shihlin",
-    "shihlin electric": "shihlin",
-    "siemens": "siemens",
-    "fuji": "fuji",
-    "terasaki": "terasaki",
-    "hyundai": "hyundai",
-    "panasonic": "panasonic",
-    "cnc": "cnc"
-}
-
-TYPE_SYNONYMS = {
-    "aptomat": "MCB",
-    "mcb": "MCB",
-    "attomat": "MCB",
-    "cb": "MCB",
-    "khoi": "MCCB",
-    "mccb": "MCCB",
-    "elcb": "ELCB",
-    "rcbo": "RCBO",
-    "rccb": "RCCB",
-    "chong giat": "RCCB",
-    "chong ro": "RCCB",
-    "afdd": "AFDD",
-    "contactor": "Contactor",
-    "khoi dong tu": "Contactor",
-    "acb": "ACB",
-    "may cat": "ACB",
-    "may cat khong khi": "ACB",
-    "cong to": "Meter",
-    "meter": "Meter",
-    "dong ho": "Meter",
-    "tu bu": "Capacitor",
-    "capacitor": "Capacitor"
-}
-
 def _normalize_device_item(item: Dict[str, Any]) -> Dict[str, Any]:
     """Ensures consistent dictionary structure for AI and CAD consumers."""
     normalized = dict(item)
@@ -166,8 +94,10 @@ class DeviceCatalogEngine:
             return
         
         if not catalog_path:
-            base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-            catalog_path = os.path.join(base_dir, "data", "catalog_data.json")
+            from app.services.equipment_library import CATALOG_DIR
+            catalog_path = str(CATALOG_DIR / "equipment_catalog.jsonl")
+        elif not catalog_path.endswith("equipment_catalog.jsonl"):
+            raise ValueError("Legacy catalog input is disabled; use equipment_catalog.jsonl")
 
         self.catalog_path = catalog_path
         self.items: List[Dict[str, Any]] = []
@@ -187,21 +117,50 @@ class DeviceCatalogEngine:
             return
 
         with open(self.catalog_path, "r", encoding="utf-8") as f:
-            raw_items = json.load(f)
+            source_rows = [json.loads(line) for line in f]
 
-        self.items = [_normalize_device_item(it) for it in raw_items]
+        self.items = []
+        code_counts = {}
+        for rec in source_rows:
+            if rec.get('record_type') != 'priced_variant' or not rec.get('price'):
+                continue
+            spec = rec['specifications']
+            dims = spec.get('dimensions_mm') or {}
+            front = dims.get('visible_front') or []
+            model = str(rec.get('model') or '').strip()
+            material = str(rec.get('material_code') or '').strip()
+            category = str(rec.get('category') or '').upper()
+            type_match = re.search(r'\b(MCCB|MCB|ACB|RCBO|RCCB|ELCB|CONTACTOR|ATS|SPD)\b', category)
+            dev_type = type_match.group(1) if type_match else category
+            icu_raw = str(spec.get('breaking_capacity_ka') or '')
+            icu_match = re.search(r'\d+(?:[.,]\d+)?', icu_raw)
+            icu = float(icu_match.group().replace(',', '.')) if icu_match else None
+            item = _normalize_device_item({
+                'catalog_id': rec['catalog_id'], 'ma': material or model,
+                'n': rec['display_name'], 'brand': rec['brand'].lower(),
+                'brand_display': rec['brand'], 'series': model,
+                't': dev_type,
+                'p': spec.get('poles'), 'in': spec.get('current_a'),
+                'icu': icu,
+                'g': rec['price']['amount_vnd'],
+                'dimensions': {'w': front[0] if len(front) >= 2 else None,
+                               'h': front[1] if len(front) >= 2 else None,
+                               'd': None},
+                'source': rec['source_record'], 'cad': rec['cad'],
+                'catalog_status': rec['cad']['status'],
+            })
+            self.items.append(item)
+            for code in {model.casefold(), material.casefold()} - {''}:
+                code_counts[code] = code_counts.get(code, 0) + 1
         self.sku_index.clear()
         self.brand_index.clear()
         self.brand_alias_index.clear()
         self.type_index.clear()
 
         for item in self.items:
-            sku = (item.get("ma") or "").strip()
-            if sku:
-                # Key by exact lower-case and compact alphanumeric
-                self.sku_index[sku.lower()] = item
-                compact_sku = re.sub(r'[^a-z0-9]', '', sku.lower())
-                self.sku_index[compact_sku] = item
+            for sku in {str(item.get('ma') or '').casefold(), str(item.get('series') or '').casefold()} - {''}:
+                if code_counts.get(sku) == 1:
+                    self.sku_index[sku] = item
 
             brand = (item.get("brand") or "").lower()
             if brand not in self.brand_index:
@@ -219,15 +178,8 @@ class DeviceCatalogEngine:
                 self.type_index[dev_type] = []
             self.type_index[dev_type].append(item)
 
-        # Nạp danh mục phụ kiện cơ điện (catalog_accessories.json: Busbars, DIN Rails, Strut, Ducts, Door accessories)
-        acc_path = os.path.join(os.path.dirname(self.catalog_path), "catalog_accessories.json")
+        # The historical accessory catalog is not an authorized fallback.
         self.accessories = {}
-        if os.path.exists(acc_path):
-            try:
-                with open(acc_path, "r", encoding="utf-8") as f_acc:
-                    self.accessories = json.load(f_acc)
-            except Exception as e:
-                print(f"[WARN] Failed to load catalog_accessories.json: {e}")
 
         # Xóa cache catalog cũ nếu nạp lại catalog mới
         try:
@@ -237,9 +189,8 @@ class DeviceCatalogEngine:
 
         print(
             f"[DeviceCatalogEngine] Loaded {len(self.items)} catalog items "
-            f"({len(self.brand_index)} brands, {len(self.type_index)} types, "
-            f"{len(self.accessories)} accessory groups). "
-            f"CAD registry and custom prices available via DevicePriceResolver."
+            f"({len(self.brand_index)} brands, {len(self.type_index)} types). "
+            f"Source-backed 2026 records only; unresolved variants stay unpriced."
         )
 
     def resolve_brand(self, brand: Optional[str]) -> Optional[str]:
@@ -248,7 +199,7 @@ class DeviceCatalogEngine:
         raw = strip_accents(brand).lower().strip()
         # Prefer a real key/display name present in the current catalog. Legacy
         # aliases are only a fallback for older requests.
-        return self.brand_alias_index.get(raw) or BRAND_SYNONYMS.get(raw, raw)
+        return self.brand_alias_index.get(raw, raw)
 
     def get_accessory(self, item_id: str) -> Optional[Dict[str, Any]]:
         """Tra cứu phụ kiện (Busbar, DIN rail, Máng cáp, Đèn báo, Đồng hồ, Khóa...) theo ID từ catalog_accessories.json."""
@@ -283,26 +234,12 @@ class DeviceCatalogEngine:
                 if isinstance(g_v, dict) and "items" in g_v:
                     target_groups.append(g_v)
 
-        if not kw_lower and target_groups:
-            first_g = target_groups[0]
-            if isinstance(first_g, dict) and first_g.get("items"):
-                return first_g["items"][0]
-
         # Xây dựng danh sách cụm từ tìm kiếm
         search_terms = []
         if kw_lower:
             search_terms.append(kw_lower)
         if cat_lower and cat_lower not in self.accessories:
             search_terms.append(cat_lower)
-
-        # Mở rộng từ đồng nghĩa
-        for syn_k, syn_list in ACCESSORY_SYNONYMS.items():
-            k_upper = syn_k.upper()
-            is_cat_match = (cat_lower not in self.accessories) and (k_upper in cat_lower.upper())
-            if (kw_lower and k_upper in kw_lower.upper()) or is_cat_match:
-                for syn in syn_list:
-                    if syn not in search_terms:
-                        search_terms.append(syn)
 
         best_item = None
         best_score = 0
@@ -346,24 +283,10 @@ class DeviceCatalogEngine:
         return None
 
     def get_by_sku(self, sku: str) -> Optional[Dict[str, Any]]:
-        """Exact SKU lookup (sub-millisecond O(1) with Redis Cache)."""
+        """Exact unique source-code lookup without historical cache entries."""
         if not sku:
             return None
-        sku_clean = sku.strip().lower()
-        cache_key = f"catalog:sku:{sku_clean}"
-        cached = cache_service.get_json_sync(cache_key)
-        if cached is not None:
-            return cached if cached != "__NONE__" else None
-
-        item = None
-        if sku_clean in self.sku_index:
-            item = self.sku_index[sku_clean]
-        else:
-            compact = re.sub(r'[^a-z0-9]', '', sku_clean)
-            item = self.sku_index.get(compact)
-        
-        cache_service.set_json_sync(cache_key, item if item else "__NONE__", expire=86400)
-        return item
+        return self.sku_index.get(sku.strip().casefold())
 
     def filter_devices(
         self,
@@ -377,69 +300,43 @@ class DeviceCatalogEngine:
         series: Optional[str] = None,
         limit: int = 100
     ) -> List[Dict[str, Any]]:
-        """Filter devices by parametric specifications."""
+        """Return a candidate only when an explicit code resolves uniquely."""
+        if not series:
+            return []
+        from app.services.equipment_library import resolve_price_variant
+        row = resolve_price_variant(series, brand, poles, in_current, min_icu)
+        if not row:
+            return []
+        item = next((candidate for candidate in self.items
+                     if candidate['catalog_id'] == row['catalog_id']), None)
+        return [item] if item and (not device_type or item['t'] == device_type.upper()) else []
+
+    def search_candidates(
+        self, *, brand: str, device_type: str,
+        poles: Optional[int] = None, in_current: Optional[float] = None,
+        min_icu: Optional[float] = None, limit: int = 5,
+    ) -> List[Dict[str, Any]]:
+        """Read matching priced variants without claiming an exact SKU selection."""
         brand_key = self.resolve_brand(brand)
-        
-        # Start with brand or type subset if available for faster filtering
-        if brand_key and brand_key in self.brand_index:
-            pool = self.brand_index[brand_key]
-        elif device_type and device_type.upper() in self.type_index:
-            pool = self.type_index[device_type.upper()]
-        else:
-            pool = self.items
-
-        results = []
-        for item in pool:
-            if brand_key:
-                item_brand = (item.get("brand") or "").lower()
-                if item_brand != brand_key and item.get("brand_display", "").lower() != brand_key:
-                    continue
-
-            if device_type:
-                # Synonym values are intentionally display-cased (for example
-                # "Meter" and "Contactor"), while catalog types are compared
-                # in uppercase. Normalize both sides so these device families
-                # can actually be matched during takeoff.
-                target_type = str(TYPE_SYNONYMS.get(device_type.lower(), device_type)).upper()
-                item_type = (item.get("t") or "").upper()
-                if item_type != target_type:
-                    continue
-
-            if poles is not None:
-                item_poles = item.get("p")
-                if item_poles is not None and item_poles != poles:
-                    continue
-
-            if in_current is not None:
-                item_in = item.get("in")
-                if item_in is not None and float(item_in) != float(in_current):
-                    continue
-
-            if kva is not None:
-                item_kva = item.get("kva")
-                if item_kva is not None and float(item_kva) != float(kva):
-                    continue
-
-            if min_icu is not None:
-                item_icu = item.get("icu")
-                if item_icu is None or float(item_icu) < float(min_icu):
-                    continue
-
-            if max_icu is not None:
-                item_icu = item.get("icu")
-                if item_icu is not None and float(item_icu) > float(max_icu):
-                    continue
-
-            if series:
-                item_series = (item.get("series") or "").lower()
-                if series.lower() not in item_series:
-                    continue
-
-            results.append(item)
-            if len(results) >= limit:
-                break
-
-        return results
+        kind = str(device_type or "").strip().upper()
+        if not brand_key or not kind:
+            return []
+        rows = []
+        for item in self.brand_index.get(brand_key, []):
+            if str(item.get("t") or "").upper() != kind:
+                continue
+            if poles is not None and item.get("p") != poles:
+                continue
+            # Family catalog rows sometimes omit the exact ampere variant;
+            # expose them for reading, but never promote them to an exact SKU.
+            if in_current is not None and item.get("in") is not None and item.get("in") != in_current:
+                continue
+            if min_icu is not None and (item.get("icu") is None or float(item["icu"]) < min_icu):
+                continue
+            rows.append(item)
+        rows.sort(key=lambda item: (item.get("in") != in_current if in_current is not None else False,
+                                    str(item.get("series") or ""), str(item.get("ma") or "")))
+        return rows[:max(1, min(int(limit), 50))]
 
     def match_from_text(self, text: str) -> List[Tuple[Dict[str, Any], float]]:
         """
@@ -450,154 +347,29 @@ class DeviceCatalogEngine:
         if not text or not text.strip():
             return []
 
-        text_clean = text.strip()
-        cache_key = f"catalog:match:{hashlib.md5(text_clean.lower().encode('utf-8')).hexdigest()}"
-        cached = cache_service.get_json_sync(cache_key)
-        if cached is not None:
-            return [(it, float(score)) for it, score in cached]
-        
-        # 1. Direct SKU exact check
-        exact_item = self.get_by_sku(text_clean)
-        if exact_item:
-            return [(exact_item, 1.0)]
-
-        # 2. Extract parameters using Regex
-        text_lower = text_clean.lower()
-
-        # Detect Brand
-        detected_brand = None
-        for syn, canonical in BRAND_SYNONYMS.items():
-            if syn in text_lower:
-                detected_brand = canonical
-                break
-
-        # Detect Type
-        detected_type = None
-        for syn, canonical in TYPE_SYNONYMS.items():
-            if re.search(r'\b' + re.escape(syn) + r'\b', text_lower):
-                detected_type = canonical
-                break
-
-        # Detect Poles (e.g. 1P, 2P, 3P, 4P, 1P+N, 3P+N, 3P4W, 1 pha, 3 pha)
-        detected_poles = None
-        p_match = re.search(r'\b([1-4])\s*p\b', text_lower)
-        if p_match:
-            detected_poles = int(p_match.group(1))
-        elif "1 pha" in text_lower or "1pha" in text_lower:
-            detected_poles = 1
-        elif "3 pha" in text_lower or "3pha" in text_lower:
-            detected_poles = 3
-
-        # Detect Current In (e.g. 6A, 10A, 16A, 100A, 1600A, In=100A, In100)
-        detected_in = None
-        in_match = re.search(r'\b(?:in\s*[=:]?\s*)?(\d+(?:\.\d+)?)\s*a\b', text_lower)
-        if in_match:
-            try:
-                detected_in = float(in_match.group(1))
-            except ValueError:
-                pass
-        
-        # Detect Capacity kVA / kVAr for Capacitors (e.g. 25kvar, 25kva, 25k)
-        detected_kva = None
-        kva_match = re.search(r'\b(\d+(?:\.\d+)?)\s*(?:kvar|kva|k)\b', text_lower)
-        if kva_match and not in_match:
-            try:
-                detected_kva = float(kva_match.group(1))
-            except ValueError:
-                pass
-
-        # Detect Breaking capacity Icu (e.g. 6kA, 10kA, 36kA, 50kA, 65kA, Icu=36kA)
-        detected_icu = None
-        icu_match = re.search(r'\b(?:icu\s*[=:]?\s*)?(\d+(?:\.\d+)?)\s*ka\b', text_lower)
-        if icu_match:
-            try:
-                detected_icu = float(icu_match.group(1))
-            except ValueError:
-                pass
-
-        # Detect Series hints
-        detected_series = None
-        series_candidates = ["la63n", "la63h", "la125h", "abn", "abs", "easy9", "ik60n", "ic60n", "c120", "gopact", "nxb", "nxm", "sj200", "s200", "fa1", "fa2", "fa4", "dsp", "bh-d6", "bh-d10", "bhw-t10", "nf32", "nf63", "nf125", "nf250", "cv-140", "dle"]
-        for s in series_candidates:
-            if s in text_lower:
-                detected_series = s
-                break
-
-        # Filter candidate pool
-        candidates = self.filter_devices(
-            brand=detected_brand,
-            device_type=detected_type,
-            poles=detected_poles,
-            in_current=detected_in,
-            min_icu=detected_icu,
-            kva=detected_kva,
-            series=detected_series,
-            limit=50
-        )
-
-        if not candidates:
-            # Fallback broader search
-            candidates = self.filter_devices(
-                brand=detected_brand,
-                poles=detected_poles,
-                in_current=detected_in,
-                limit=30
-            )
-
-        # Score candidates
-        scored: List[Tuple[Dict[str, Any], float]] = []
-        for it in candidates:
-            score = 0.5
-            if detected_brand and (it.get("brand") == detected_brand or it.get("brand_display", "").lower() == detected_brand):
-                score += 0.2
-            if detected_type and it.get("t", "").upper() == detected_type:
-                score += 0.15
-            if detected_poles and it.get("p") == detected_poles:
-                score += 0.1
-            if detected_in and it.get("in") == detected_in:
-                score += 0.15
-            if detected_kva and it.get("kva") == detected_kva:
-                score += 0.15
-            if detected_icu and it.get("icu") == detected_icu:
-                score += 0.1
-            if detected_series and detected_series in (it.get("series") or "").lower():
-                score += 0.1
-            
-            # Check SKU / Name token overlap
-            sku_tokens = set(it.get("ma", "").lower().split())
-            text_tokens = set(text_lower.split())
-            overlap = len(sku_tokens & text_tokens)
-            if overlap:
-                score += min(0.2, overlap * 0.08)
-
-            final_score = min(0.99, score)
-            scored.append((it, round(final_score, 2)))
-
-        scored.sort(key=lambda x: x[1], reverse=True)
-        result = scored[:5]
-        cache_service.set_json_sync(cache_key, result, expire=86400)
-        return result
+        # Text resemblance is not an order code. Only a unique source code can
+        # be auto-matched; broader search remains available in the new API.
+        exact = self.get_by_sku(text.strip())
+        return [(exact, 1.0)] if exact else []
 
     def get_ai_function_tool_schema(self) -> Dict[str, Any]:
         """Returns standard Function Tool schema for LLMs (OpenAI, Gemini, Claude)."""
         return {
             "name": "lookup_device_catalog",
-            "description": "Tra cứu thông số kỹ thuật, kích thước lắp đặt, bước cực Pitch, vị trí lỗ bắt thanh cái Busbar và đơn giá thiết bị điện từ catalog 1.498 model (LS, Schneider, Chint, ABB, Mitsubishi, EMIC, Samwha).",
+            "description": "Tra cứu thông số kỹ thuật, kích thước lắp đặt và đơn giá từ catalog thiết bị hiện có.",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "query": {
                         "type": "string",
-                        "description": "Chuỗi văn bản hoặc mã ký hiệu thiết bị cần tra cứu (ví dụ: 'LA63N 1P 16A', 'MCCB 3P 100A 36kA Mitsubishi', 'Tụ bù 25kvar Samwha')"
+                        "description": "Chuỗi văn bản hoặc mã ký hiệu thiết bị cần tra cứu từ bản vẽ hoặc yêu cầu người dùng"
                     },
                     "brand": {
                         "type": "string",
-                        "enum": ["ls_standard", "ls_premium", "schneider", "chint", "abb", "mitsubishi", "emic", "samwha"],
                         "description": "Thương hiệu thiết bị (tùy chọn)"
                     },
                     "device_type": {
                         "type": "string",
-                        "enum": ["MCB", "MCCB", "ELCB", "RCBO", "RCCB", "AFDD", "Contactor", "ACB", "Meter", "Capacitor"],
                         "description": "Chủng loại thiết bị (tùy chọn)"
                     },
                     "poles": {
@@ -628,123 +400,26 @@ class DeviceCatalogEngine:
         Tra cứu thông tin thiết bị, mã SKU và đơn giá thực tế từ Catalog 40.000+ sản phẩm.
         Trả về dict: {sku, name, brand, unit_price, dimensions, parameters, catalog_matched: bool}
         """
-        cat_upper = (category or "").upper()
-        
-        # 1. Exact SKU lookup if part_number provided
-        if part_number:
-            exact = self.get_by_sku(part_number)
-            if exact:
-                exact_icu = exact.get("icu")
-                rating_compatible = not min_icu or (
-                    exact_icu is not None and float(exact_icu) >= float(min_icu)
-                )
-                return {
-                    "sku": exact.get("ma") or part_number,
-                    "name": exact.get("n") or name or f"{category} {part_number}",
-                    "brand": exact.get("brand_display") or exact.get("brand") or brand or "LS",
-                    "unit_price": int(exact.get("g") or 0),
-                    "dimensions": exact.get("dimensions", {}),
-                    "parameters": exact.get("parameters", {}),
-                    "cad": exact.get("cad"),
-                    "source": exact.get("source"),
-                    "catalog_matched": rating_compatible,
-                    "rating_compatible": rating_compatible,
-                    "compatibility_warning": None if rating_compatible else (
-                        f"SKU {exact.get('ma') or part_number} has Icu={exact_icu}kA, "
-                        f"below required {min_icu}kA; dimensions are used only as a frame proxy."
-                    ),
-                }
-
-        # 2. Parametric lookup
-        brand_target = self.resolve_brand(brand)
-        matches = self.filter_devices(
-            brand=brand_target,
-            device_type=category,
-            poles=poles,
-            in_current=in_a,
-            min_icu=min_icu,
-            limit=5
-        )
-        if matches:
-            best = matches[0]
-            price = int(best.get("g") or 0)
+        from app.services.equipment_library import resolve_price_variant
+        source_row = resolve_price_variant(part_number or '', brand, poles, in_a, min_icu)
+        if source_row:
+            front = ((source_row['specifications'].get('dimensions_mm') or {}).get('visible_front') or [])
             return {
-                "sku": best.get("ma") or "",
-                "name": best.get("n") or name or "",
-                "brand": best.get("brand_display") or best.get("brand") or "",
-                "unit_price": price,
-                "dimensions": best.get("dimensions", {}),
-                "parameters": best.get("parameters", {}),
-                "cad": best.get("cad"),
-                "source": best.get("source"),
-                "catalog_matched": True,
-                "rating_compatible": True,
+                'sku': source_row['material_code'] or source_row['model'],
+                'name': source_row['display_name'], 'brand': source_row['brand'],
+                'unit_price': int(source_row['price']['amount_vnd']),
+                'dimensions': {'w': front[0] if len(front) >= 2 else None,
+                               'h': front[1] if len(front) >= 2 else None, 'd': None},
+                'parameters': source_row['specifications'], 'cad': source_row['cad'],
+                'source': source_row['source_record'], 'catalog_id': source_row['catalog_id'],
+                'catalog_matched': True, 'rating_compatible': True,
             }
-
-        # The requested electrical rating may not exist in the supplied
-        # catalog. Keep the nearest same-frame dimensions for spatial sizing,
-        # but never present the lower-rated product as a valid selection.
-        if min_icu:
-            frame_matches = self.filter_devices(
-                brand=brand_target,
-                device_type=category,
-                poles=poles,
-                in_current=in_a,
-                limit=5,
-            )
-            if frame_matches:
-                proxy = max(frame_matches, key=lambda item: float(item.get("icu") or 0))
-                proxy_icu = proxy.get("icu")
-                return {
-                    "sku": proxy.get("ma") or "",
-                    "name": proxy.get("n") or name or "",
-                    "brand": proxy.get("brand_display") or proxy.get("brand") or brand or "",
-                    "unit_price": 0,
-                    "dimensions": proxy.get("dimensions", {}),
-                    "parameters": proxy.get("parameters", {}),
-                    "cad": proxy.get("cad"),
-                    "source": proxy.get("source"),
-                    "catalog_matched": False,
-                    "rating_compatible": False,
-                    "dimension_proxy": True,
-                    "compatibility_warning": (
-                        f"No {brand or ''} {category} {poles or ''}P {in_a or ''}A "
-                        f"with Icu>={min_icu}kA exists in the supplied catalog. "
-                        f"Using {proxy.get('ma')} ({proxy_icu}kA) dimensions only."
-                    ).strip(),
-                }
-
-        # 3. Fuzzy text matching
-        search_query = f"{category} {poles or ''}P {in_a or ''}A {part_number or ''} {name or ''}".strip()
-        fuzzy = self.match_from_text(search_query)
-        if fuzzy:
-            best, score = fuzzy[0]
-            if score >= 0.6:
-                price = int(best.get("g") or 0)
-                return {
-                    "sku": best.get("ma") or part_number or "",
-                    "name": best.get("n") or name or "",
-                    "brand": brand or "",
-                    "unit_price": price,
-                    "dimensions": best.get("dimensions", {}),
-                    "parameters": best.get("parameters", {}),
-                    "catalog_matched": True,
-                    "rating_compatible": True,
-                }
-
-        # No synthetic SKU, brand, or market price: an unmatched item must be
-        # surfaced for catalog maintenance and user confirmation.
         return {
-            "sku": "",
-            "name": name or "",
-            "brand": brand or "",
-            "unit_price": 0,
-            "dimensions": {},
-            "parameters": {},
-            "catalog_matched": False,
-            "rating_compatible": False,
-            "price_source": "not_found",
-            "price_note": "Không tìm thấy trong catalog. Có thể dùng web search hoặc nhập giá thủ công.",
+            'sku': part_number or '', 'name': name or '', 'brand': brand or '',
+            'unit_price': 0, 'dimensions': {}, 'parameters': {},
+            'catalog_matched': False, 'rating_compatible': False,
+            'price_source': 'not_found',
+            'price_note': 'Không tìm được biến thể duy nhất trong catalog 2026.',
         }
 
     async def resolve_price_smart(

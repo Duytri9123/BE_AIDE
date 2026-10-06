@@ -94,6 +94,7 @@ class ExtractedDeviceSchema(BaseModel):
     suggested_brands: Optional[List[str]] = None
     technical_match_note: Optional[str] = None
     catalog_matches: Optional[dict] = None
+    catalog_candidates: Optional[dict] = None
     is_alternative_recommended: Optional[bool] = False
     original_spec: Optional[str] = None
     compatibility_note: Optional[str] = None
@@ -158,6 +159,7 @@ class AnalysisResultSchema(BaseModel):
     topology_preview: dict
     enclosure_spec: Optional[dict] = None
     panel_images: Dict[str, str] = Field(default_factory=dict)
+    evidence_overviews: Dict[str, dict] = Field(default_factory=dict)
     cad_file: Optional[dict] = None
     quotation_file: Optional[dict] = None
     quotation_rows: List[dict] = Field(default_factory=list)

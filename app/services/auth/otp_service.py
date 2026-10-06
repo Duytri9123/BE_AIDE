@@ -53,8 +53,8 @@ class OTPService:
         if smtp_user and smtp_password:
             try:
                 msg = MIMEMultipart("alternative")
-                msg["Subject"] = f"[{otp}] Mã Xác Thực Đăng Ký Tài Khoản - DGP ELECTRIC"
-                msg["From"] = f"DGP ELECTRIC <{smtp_user}>"
+                msg["Subject"] = f"[{otp}] Mã Xác Thực Đăng Ký Tài Khoản - Elquote"
+                msg["From"] = f"Elquote <{smtp_user}>"
                 msg["To"] = email_clean
 
                 html_content = f"""
@@ -72,7 +72,7 @@ class OTPService:
                     </div>
                     <p style="color: #64748b; font-size: 12px; line-height: 1.5;">Nếu bạn không thực hiện yêu cầu này, vui lòng bỏ qua email.</p>
                     <hr style="border: none; border-top: 1px solid #f1f5f9; margin: 20px 0;" />
-                    <p style="color: #94a3b8; font-size: 11px; text-align: center;">&copy; DGP ELECTRIC Platform. All rights reserved.</p>
+                    <p style="color: #94a3b8; font-size: 11px; text-align: center;">&copy; Elquote Platform. All rights reserved.</p>
                 </div>
                 """
                 msg.attach(MIMEText(html_content, "html"))
@@ -88,7 +88,7 @@ class OTPService:
 
         # Log mã OTP cho môi trường phát triển / kiểm thử
         print(f"\n==========================================")
-        print(f"🔑 [DGP ELECTRIC OTP] Cho email: {email_clean}")
+        print(f"🔑 [Elquote OTP] Cho email: {email_clean}")
         print(f"👉 MÃ XÁC THỰC: {otp}")
         print(f"==========================================\n")
 

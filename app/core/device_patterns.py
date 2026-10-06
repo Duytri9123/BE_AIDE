@@ -116,14 +116,6 @@ class DevicePatterns:
         re.IGNORECASE
     )
     
-    # Brand patterns
-    BRAND_PATTERN = re.compile(
-        r"\b(LS|Schneider|ABB|Siemens|Mitsubishi|Fuji|Terasaki|Hyundai|"
-        r"Simon|Morele|Idec|Selec|Leipole|Hager|Legrand)" + 
-        r"(?:\s*Electric)?",
-        re.IGNORECASE
-    )
-    
     # Comprehensive extraction pattern - tries to match device with all attributes in one go
     COMPREHENSIVE_PATTERN = re.compile(
         r"(ACB|MCCB|MCB|RCBO|RCCB|Contactor|CT|Aptomat|Khởi[\s\-]?động)" + SEP +
@@ -229,11 +221,17 @@ class DevicePatterns:
         if voltage_match:
             voltage = int(voltage_match.group(1))
         
-        # Try to find brand
-        brand_match = cls.BRAND_PATTERN.search(raw_text)
-        if brand_match:
-            brand = brand_match.group(1)
-        
+        # Match only names supplied by the current catalog.
+        from app.services.device_catalog_engine import DeviceCatalogEngine, strip_accents
+        text_normalized = strip_accents(raw_text).lower()
+        for alias, catalog_brand in sorted(
+            DeviceCatalogEngine().brand_alias_index.items(),
+            key=lambda pair: len(pair[0]), reverse=True,
+        ):
+            if re.search(r"\b" + re.escape(alias) + r"\b", text_normalized):
+                brand = catalog_brand
+                break
+
         # Adjust confidence based on how much info we extracted
         confidence = base_confidence
         if in_a:
@@ -322,15 +320,8 @@ class DevicePatterns:
         if not brand:
             return ""
         
-        brand_lower = brand.lower().strip()
-        
-        # Check aliases from constants
-        from app.core.constants import BRAND_ALIASES
-        for standard, aliases in BRAND_ALIASES.items():
-            if brand_lower in aliases:
-                return standard.upper()
-        
-        return brand.upper()
+        from app.services.device_catalog_engine import DeviceCatalogEngine
+        return DeviceCatalogEngine().resolve_brand(brand) or ""
 
 
 # Convenience function

@@ -101,6 +101,8 @@ def _linked_group(row):
 @router.get('/browse')
 def browse(q: str = '', category: str = '', brand: str = '',
            cad: str = 'all', record_type: str = 'all',
+           poles: int | None = None, min_in: float | None = None,
+           max_in: float | None = None, min_icu: float | None = None,
            skip: int = Query(0, ge=0), limit: int = Query(20, ge=1, le=100)):
     """Browse every source-backed 2026 price row and CAD source record."""
     if cad not in ('all', 'yes', 'no'):
@@ -129,6 +131,25 @@ def browse(q: str = '', category: str = '', brand: str = '',
             values.append(row['specifications'].get('current_display'))
             return ' '.join(str(value or '') for value in values).casefold()
         rows = [row for row in rows if all(term in search_text(row) for term in terms)]
+    if poles is not None:
+        rows = [row for row in rows if row['specifications'].get('poles') == poles]
+    if min_in is not None or max_in is not None:
+        def current_matches(row):
+            value = row['specifications'].get('current_a')
+            if value is None:
+                return True  # Family candidate, not an exact rating match.
+            try:
+                current = float(value)
+            except (TypeError, ValueError):
+                return False
+            return (min_in is None or current >= min_in) and (max_in is None or current <= max_in)
+        rows = [row for row in rows if current_matches(row)]
+    if min_icu is not None:
+        def icu_matches(row):
+            value = row['specifications'].get('breaking_capacity_ka')
+            match = re.search(r'\d+(?:[.,]\d+)?', str(value or ''))
+            return bool(match and float(match.group().replace(',', '.')) >= min_icu)
+        rows = [row for row in rows if icu_matches(row)]
     if cad != 'all':
         rows = [row for row in rows if any(ref and asset_available(ref['path'])
                 for ref in (row['cad'].get('preview'), row['cad'].get('dxf'))) == (cad == 'yes')]
@@ -148,6 +169,7 @@ def browse(q: str = '', category: str = '', brand: str = '',
     total = len(rows)
     return {'items': [{
         'catalog_id': row['catalog_id'], 'name': row['display_name'], 'model': row['model'],
+        'material_code': row.get('material_code'), 'source_record': row.get('source_record'),
         'brand': row['brand'], 'category': row['category'], 'record_type': row['record_type'],
         'cad_status': row['cad']['status'], 'has_preview': bool(row['cad'].get('preview') and
             asset_available(row['cad']['preview']['path'])),
@@ -159,6 +181,8 @@ def browse(q: str = '', category: str = '', brand: str = '',
         'current_a': row['specifications'].get('current_a'),
         'current_display': row['specifications'].get('current_display'),
         'breaking_capacity_ka': row['specifications'].get('breaking_capacity_ka'),
+        'rating_complete': all(row['specifications'].get(key) is not None
+                               for key in ('poles', 'current_a', 'breaking_capacity_ka')),
     } for row in rows[skip:skip + limit]], 'total': total,
         'categories': categories, 'brands': brands, 'source_count': source_count,
         'price_count': price_count, 'source_index': _source_index_summary()}
@@ -172,6 +196,17 @@ def _cad_file(catalog_id: str, field: str):
     if not asset_available(relative):
         raise HTTPException(404, 'Không tìm thấy file CAD nguồn.')
     return relative
+
+
+@router.get('/{catalog_id}/drawing-source')
+def drawing_source(catalog_id: str):
+    record = get_equipment(catalog_id)
+    if not record or not record.get('drawing_analysis'):
+        raise HTTPException(404, 'Không có ảnh bản vẽ đã phân tích cho thiết bị này.')
+    path = BACKEND_CATALOG_DIR / 'identified_meters' / 'source_drawing.png'
+    if not path.is_file():
+        raise HTTPException(404, 'Không tìm thấy ảnh bản vẽ nguồn.')
+    return Response(path.read_bytes(), media_type='image/png')
 
 
 def _cad_view_file(catalog_id: str, view_id: str, field: str):
