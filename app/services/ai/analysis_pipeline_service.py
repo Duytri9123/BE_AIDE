@@ -5,6 +5,7 @@ tính toán kích thước tủ - thanh cái, và tự động sinh bản vẽ C
 """
 import os
 import re
+import json
 import logging
 import io
 import base64
@@ -2419,7 +2420,6 @@ Chỉ trả một JSON hợp lệ, không markdown:
 
             # BƯỚC 1: TIẾP NHẬN HỒ SƠ & LẬP CHỈ MỤC SIÊU TỐC (Fast M&E Indexing)
             if progress_callback:
-                import asyncio
                 try:
                     coro = progress_callback({
                         "type": "log",
@@ -2446,7 +2446,6 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 
                 # Bắn log báo cáo 4 nhóm trang có tủ điện chuẩn M&E cho người dùng
                 if progress_callback:
-                    import asyncio
                     try:
                         coro = progress_callback({
                             "type": "log",
@@ -2549,7 +2548,6 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 pages_str = ", ".join(f"Trang {p}" for p in requested_pages)
                 assessments_str = " • ".join(page_assessments)
                 if progress_callback:
-                    import asyncio
                     try:
                         coro = progress_callback({
                             "type": "log",
@@ -2592,7 +2590,6 @@ Chỉ trả một JSON hợp lệ, không markdown:
 
                     skipped_pages = [p for p in range(1, total_pages + 1) if p not in chosen_page_numbers]
                     if progress_callback:
-                        import asyncio
                         try:
                             coro = progress_callback({
                                 "type": "log",
@@ -2614,7 +2611,6 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 else:
                     # B2: File scan ảnh (không có text layer): Fallback sang contact sheet visual triage
                     if progress_callback:
-                        import asyncio
                         try:
                             coro = progress_callback({
                                 "type": "log",
@@ -2666,7 +2662,6 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     skipped_page_numbers = [p for p in range(1, total_pages + 1) if p not in selected_page_numbers]
                     selection_is_visual_fallback = triage_fallback
                     if progress_callback:
-                        import asyncio
                         try:
                             coro = progress_callback({
                                 "type": "log",
@@ -2700,7 +2695,6 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 page_started_at = time.monotonic()
 
                 if progress_callback:
-                    import asyncio
                     try:
                         coro = progress_callback({
                             "type": "log",
@@ -2974,7 +2968,6 @@ Chỉ trả một JSON hợp lệ, không markdown:
 
                             # PHÁT SỰ KIỆN LOG & HIỂN THỊ THIẾT BỊ LÊN GIAO DIỆN NGAY LẬP TỨC
                             if progress_callback:
-                                import asyncio
                                 try:
                                     p_title_display = page_panel_name or page_title or f"Tủ điện Trang {page_num}"
                                     p_code_display = f" [{page_panel_code}]" if page_panel_code else ""
@@ -3012,7 +3005,6 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     logger.warning(f"Lỗi phân tích trang {page_num}: {page_err}")
                     warns.append(f"Trang {page_num} ({page_title[:40]}): {str(page_err)[:120]}")
                     if progress_callback:
-                        import asyncio
                         try:
                             coro_warn = progress_callback({
                                 "type": "log",
