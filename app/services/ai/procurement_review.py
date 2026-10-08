@@ -1,5 +1,6 @@
 """Explicit assembly scope; unknown quantities and prices are never fabricated."""
 from collections import defaultdict
+from app.services.cad.design_labels import effective_spec
 
 
 def assembly_requirements(devices):
@@ -51,8 +52,13 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                 price = None
             qty = d.get('procurement_quantity') or d.get('quantity') or 1
             identity = f'{code}-device-{i}'
+            selected_spec = effective_spec(d)
+            if selected_spec != (d.get('spec') or ''):
+                # Replacing a rating invalidates the old SKU price association.
+                sku = (d.get('compatible_proposal') or {}).get('part_number') or ''
+                price = None
             result.append(dict(id=identity,row_type='item',tt='+',name=d.get('name'),
-                spec=d.get('spec'),original_spec=d.get('original_spec') or d.get('spec'),
+                spec=selected_spec,original_spec=d.get('original_spec') or d.get('spec'),
                 sku=sku,origin=d.get('brand') or '',unit='Cái',quantity=qty,
                 unit_price=price,line_total=qty*price if price else None,
                 price_status='confirmed' if price else 'pending',

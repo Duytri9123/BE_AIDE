@@ -12,6 +12,7 @@ from ezdxf.enums import TextEntityAlignment
 
 from app.services.cad.catalogtb_assets import resolve, instance_count
 from app.services.cad.library_assets import insert_library_asset
+from app.services.cad.design_labels import effective_spec, rating_text
 
 
 def pack_rows(entries, width, gap=12):
@@ -60,10 +61,13 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
     def label(x,y,s,size=10):
         m.add_text(s,dxfattribs={'height':size,'insert':(x,y),'layer':'LABEL'})
     offset=width+160
-    box(0,0,width,height);box(offset,0,width,height)
-    label(0,height+45,'CANH TU - CAD NGUON',18)
-    label(offset,height+45,'MAT TRONG - CAD NGUON',18)
-    label(0,-40,f'H{height:g} x W{width:g} x D{depth:g} mm | BAN BO TRI THAM KHAO',16)
+    from app.services.cad.source_form_faces import insert_faces
+    enclosure_source = insert_faces(m, dimensions, offset)
+    if not enclosure_source:
+        box(0,0,width,height);box(offset,0,width,height)
+    label(0,height+45,'CANH TU',18)
+    label(offset,height+45,'MAT TRONG',18)
+    label(0,-40,f'H{height:g} x W{width:g} x D{depth:g} mm',16)
     entries=[];missing=[];placements=[]
     for d in devices:
         asset_id=(d.get('cad') or {}).get('asset_id')
@@ -101,15 +105,18 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
             m.add_text(legend,dxfattribs={'height':float(config.get('height_mm') or 5),'layer':'DEVICE_LABEL'}).set_placement((x+e['w']/2,y+e['h']+float(config.get('gap_mm') or 8)),align=TextEntityAlignment.MIDDLE_CENTER)
         else:
             if branch_arrangement=='two_vertical_banks' and e['device']['category'] in ('MCB','RCBO','RCCB'):
-                amps=e['device'].get('in_a')
-                text=e['tag']+(f' {float(amps):g}A' if amps is not None else '')
+                text=e['tag']+' '+rating_text(e['device'])
                 left=x<offset+width/2
                 m.add_text(text,dxfattribs={'height':6,'layer':'LABEL'}).set_placement((x-10 if left else x+e['w']+10,y+e['h']/2),align=TextEntityAlignment.MIDDLE_RIGHT if left else TextEntityAlignment.MIDDLE_LEFT)
             else:
-                m.add_text(e['tag'],dxfattribs={'height':8,'layer':'LABEL'}).set_placement((x+e['w']/2,y-20),align=TextEntityAlignment.MIDDLE_CENTER)
+                text=e['tag']
+                incoming_label=e['device']['category'] in ('MCCB','ACB')
+                if incoming_label:
+                    text=e['device']['category']+' '+rating_text(e['device'])
+                m.add_text(text,dxfattribs={'height':8,'layer':'LABEL'}).set_placement((x+e['w']/2,y+e['h']+12 if incoming_label else y-20),align=TextEntityAlignment.MIDDLE_CENTER)
         placements.append(dict(tag=e['tag'],asset_id=e['asset']['id'],source=e['asset']['profile_path'],
             cad_name=e['asset']['name'],zone=zone,x=x,y=y,w=e['w'],h=e['h'],
-            original_spec=e['device'].get('spec'),status='reference_geometry',rotation=e['rotation'],scale=1,
+            original_spec=e['device'].get('original_spec') or e['device'].get('spec'),selected_spec=effective_spec(e['device']),status='reference_geometry',rotation=e['rotation'],scale=1,
             label_text=legend,replacement_options=e['asset'].get('replacement_options') or {}))
         placements[-1]['physical_units_per_cad']=e['asset'].get('components_per_asset',1)
         if e.get('fabricated_neutral'):
@@ -191,9 +198,6 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
             e=dict(e,fabricated_neutral=True,h=main_entry['h']+40)
             place(e,main_x+main_entry['w']+25,main_y-20,'interior')
         else:place(e,extra_x,85,'interior');extra_x+=e['w']+35
-    label(offset+70,135,'PE / N: CAN KIEM TRA CO DAU. FU: THEO BANG DOI CHIEU',8)
-    label(offset+70,30,'CAP / DAU COT / BAN KINH UON: CHUA XAC NHAN',9)
-    label(0,-75,'NGUYEN TY LE CAD. CHUA DUYET MA / KHOET / DAY DAU / CHE TAO.',12)
     fishbone_connections=[]
     if distribution_method == 'fabricated_fishbone':
         # Electrical topology overlay only. Endpoints deliberately stop outside
@@ -237,7 +241,6 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
                 feed_y=height-305-i*14
                 m.add_lwpolyline([(port_x,port_y),(port_x,feed_y),(spines[phase],feed_y)],dxfattribs={'layer':'PLAN_'+phase,'lineweight':35})
                 m.add_circle((port_x,port_y),2,dxfattribs={'layer':'PLAN_'+phase})
-        label(offset+70,height-310,'XUONG CA: SO DO PHAN PHA, CHUA CHOT COC / TIET DIEN',8)
     # Bounding boxes include each source projection, without resizing.
     for i,a in enumerate(placements):
         for b in placements[i+1:]:
@@ -290,7 +293,7 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
         'terminals_verified': False,
         'conductor_sections_verified': False,
     }
-    result=dict(material_rows=material_rows,status='reference_layout_needs_review',release_ready=False,
+    result=dict(material_rows=material_rows,enclosure_source=enclosure_source,status='reference_layout_needs_review',release_ready=False,
                 completion_checks=completion_checks,placements=placements,missing=missing,
                 distribution_method=distribution_method,control_wire_entry='RIGHT',
                 branch_arrangement=branch_arrangement,original_dimensions=original_dimensions,proposed_dimensions=dimensions,

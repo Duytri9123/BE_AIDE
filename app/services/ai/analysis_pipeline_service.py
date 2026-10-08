@@ -1990,31 +1990,22 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
 
     @staticmethod
     def _evidence_crop_pixels(box: List[int], width: int, height: int) -> Optional[Tuple[int, int, int, int]]:
-        """Convert normalized AI coordinates into a focused, contextual crop.
-
-        Padding follows the detected box size rather than a percentage of the
-        whole drawing. Wide SLD sheets previously added 8% of the complete page
-        on each side, often pulling several neighbouring feeders into a crop.
-        """
+        """Crop around the verified symbol and label, without neighbouring circuits."""
         if not box or len(box) != 4 or width <= 0 or height <= 0:
             return None
-        ymin, xmin, ymax, xmax = [max(0.0, min(1000.0, float(value))) for value in box]
+        try:
+            ymin, xmin, ymax, xmax = [max(0.0, min(1000.0, float(value))) for value in box]
+        except (TypeError, ValueError):
+            return None
         if xmax <= xmin or ymax <= ymin:
             return None
         left, top = int(xmin * width / 1000), int(ymin * height / 1000)
         right, bottom = int(xmax * width / 1000), int(ymax * height / 1000)
-        box_w, box_h = right - left, bottom - top
-        pad_x = min(int(width * 0.04), max(24, int(box_w * 0.65)))
-        pad_y = min(int(height * 0.05), max(20, int(box_h * 0.75)))
-        left, top = max(0, left - pad_x), max(0, top - pad_y)
-        right, bottom = min(width, right + pad_x), min(height, bottom + pad_y)
-        if right - left < 180:
-            missing = 180 - (right - left)
-            left, right = max(0, left - missing // 2), min(width, right + missing - missing // 2)
-        if bottom - top < 120:
-            missing = 120 - (bottom - top)
-            top, bottom = max(0, top - missing // 2), min(height, bottom + missing - missing // 2)
-        return (left, top, right, bottom) if right > left and bottom > top else None
+        if right <= left or bottom <= top:
+            return None
+        pad_x = max(3, min(32, round((right-left) * .20)))
+        pad_y = max(3, min(24, round((bottom-top) * .30)))
+        return max(0, left-pad_x), max(0, top-pad_y), min(width, right+pad_x), min(height, bottom+pad_y)
 
     @staticmethod
     def _attach_evidence_thumbnails(devices: List[ExtractedDeviceSchema], image_path: str):
