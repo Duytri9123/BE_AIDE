@@ -19,8 +19,8 @@
     "do_not_rotate_breaker_for_appearance": true,
     "do_not_move_phase_for_appearance": true,
     "branch_sort": {
-      "primary": "rated_current_descending",
-      "secondary": "actual_cad_width_descending",
+      "primary": "actual_cad_area_descending",
+      "secondary": "rated_current_descending",
       "circuit_order_required": false,
       "preserve": [
         "circuit_tag",
@@ -97,7 +97,7 @@
     "panel": "TĐT",
     "branch_arrangement": "two_vertical_banks",
     "basis": "Người dùng chọn đổi sang hai dãy dọc giống ảnh",
-    "sort": "rated_current_descending",
+    "sort": "actual_cad_area_descending_then_rated_current",
     "balance": "actual_cad_occupied_height_then_count",
     "review_rotation_degrees": 90,
     "mounting_verified": false,
@@ -123,7 +123,8 @@
       "terminal_capacity_verified": false,
       "review_gap_mm": 25,
       "geometry": "custom_fabricated_bar",
-      "vertical_extent": "from_main_mccb_top_to_branch_bank_bottom",
+      "vertical_extent": "alongside_main_mccb_only_not_down_branch_banks",
+      "review_extension_above_below_main_mm": 20,
       "use_short_catalog_bar": false,
       "quotation_source": "cad_layout.material_rows"
     }

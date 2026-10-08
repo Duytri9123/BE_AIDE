@@ -1,6 +1,7 @@
 """Evidence-based review; missing evidence never adds procurement items."""
 from collections import defaultdict
 import re
+import unicodedata
 
 
 def review_system(devices):
@@ -143,7 +144,13 @@ def review_system(devices):
                     needed = [labels[k] for k in missing]
                     issue(panel, tag, "Thiếu thông số đóng cắt", "Chưa đọc được: " + ", ".join(needed),
                           recommendation="Đọc lại nhãn trên bản vẽ hoặc bổ sung thông số chỉ định trước khi chọn mã.", required_information=needed)
-            if d.get("upstream_device") and str(d["upstream_device"]) not in tags:
+            upstream = str(d.get("upstream_device") or "").strip()
+            # Descriptive supply/busbar references are not missing component tags.
+            upstream_normal = unicodedata.normalize('NFD', upstream.lower())
+            upstream_normal = ''.join(c for c in upstream_normal if not unicodedata.combining(c)).replace('đ', 'd')
+            descriptive_source = any(word in upstream_normal for word in ('thanh cai', 'busbar', 'nguon tong', 'nguon cap', 'tu dien tang', 'ngoai tu'))
+            matched_tag = any(re.search(r'(?<!\w)' + re.escape(t) + r'(?!\w)', upstream, re.I) for t in tags)
+            if upstream and not matched_tag and not descriptive_source:
                 issue(panel, tag, "Chưa tìm thấy thiết bị cấp nguồn", f"Nguồn '{d['upstream_device']}' chưa có trong cùng tủ; kiểm tra tham chiếu ngoài tủ hoặc thiết bị bị sót.")
             if cat == "CONTACTOR" and re.search(r"động cơ|motor|bơm|máy khuấy|máy thổi", " ".join(str(d.get(k) or '') for k in ('connected_load','notes','electrical_function')), re.I):
                 # Require an actual connection, not a relay somewhere in the cabinet.

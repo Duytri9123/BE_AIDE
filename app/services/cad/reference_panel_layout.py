@@ -134,7 +134,7 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
             match=re.search(r'(\d+(?:\.\d+)?)\s*A\b',e['device'].get('spec') or '',re.I)
             value=float(match[1]) if match else 0
         return float(value)
-    branches.sort(key=lambda e:(-rating(e),-e['w'],e['tag']))
+    branches.sort(key=lambda e:(-e['w']*e['h'],-rating(e),e['tag']))
     usable=width-140
     if branch_arrangement=='two_vertical_banks':
         rows=[[],[]];used=[0.,0.]
@@ -175,6 +175,11 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
     box(offset+20,140,30,height-210,True)
     box(offset+width-50,140,30,height-210,True)
     extras=[e for e in entries if e['device']['category'] in ('PE','N','FUSE_HOLDER','FUSE')]
+    if branch_arrangement == 'two_vertical_banks' and distribution_method == 'fabricated_fishbone' and not any(e['device']['category'] == 'N' for e in extras):
+        # User-requested fabricated N bar: review envelope, never a claimed catalog SKU.
+        extras.append(dict(device={'category': 'N', 'spec': 'Thanh đồng N gia công; tiết diện cần xác nhận'},
+                           tag='N', w=10, h=0, rotation=0, fabricated_neutral=True,
+                           asset={'id': None, 'profile_path': 'layout_design', 'name': 'Thanh đồng N gia công'}))
     extra_x=offset+70
     for e in extras:
         if e['device']['category'] in ('FUSE_HOLDER','FUSE'):place(e,offset+width-70-e['w'],height-190-e['h'],'interior')
@@ -183,8 +188,8 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
             if main_entry is None:raise ValueError('Cần MCCB tổng để định vị thanh N bên cạnh')
             main_x=offset+(width-main_entry['w'])/2
             main_y=height-115-main_entry['h']
-            e=dict(e,fabricated_neutral=True,h=height-100-165)
-            place(e,main_x+main_entry['w']+25,165,'interior')
+            e=dict(e,fabricated_neutral=True,h=main_entry['h']+40)
+            place(e,main_x+main_entry['w']+25,main_y-20,'interior')
         else:place(e,extra_x,85,'interior');extra_x+=e['w']+35
     label(offset+70,135,'PE / N: CAN KIEM TRA CO DAU. FU: THEO BANG DOI CHIEU',8)
     label(offset+70,30,'CAP / DAU COT / BAN KINH UON: CHUA XAC NHAN',9)
@@ -278,7 +283,15 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
     (out/'Thu_ve_tu_TDT.html').write_text(page,encoding='utf-8')
     (out/'Phuong_an_phan_phoi_nguon.json').write_text(json.dumps(distribution,ensure_ascii=False,indent=2),encoding='utf-8')
     material_rows=[dict(id='layout-neutral',row_type='item',name='Thanh đồng N gia công',spec=f"Dài theo bố trí {p['length_mm']:g} mm; tiết diện, lỗ đấu và gá đỡ chờ xác minh",unit='Thanh',quantity=1,unit_price=None,line_total=None,price_status='pending',category='N',notes='Bóc theo CAD bố trí; chưa chốt chế tạo',panel_code=panel_code) for p in placements if p.get('status')=='custom_fabricated_review']
-    result=dict(material_rows=material_rows,status='reference_layout_needs_review',placements=placements,missing=missing,
+    completion_checks = {
+        'enclosure_source_verified': False,
+        'neutral_bar_placed': any(e['device']['category'] == 'N' for e in extras),
+        'protective_earth_bar_placed': any(e['device']['category'] == 'PE' for e in extras),
+        'terminals_verified': False,
+        'conductor_sections_verified': False,
+    }
+    result=dict(material_rows=material_rows,status='reference_layout_needs_review',release_ready=False,
+                completion_checks=completion_checks,placements=placements,missing=missing,
                 distribution_method=distribution_method,control_wire_entry='RIGHT',
                 branch_arrangement=branch_arrangement,original_dimensions=original_dimensions,proposed_dimensions=dimensions,
                 dxf=str(dxf),preview=str(out/'Thu_ve_tu_TDT.html'),row_count=2 if branch_arrangement in ('two_rows_two_banks','two_vertical_banks') else len(rows),bank_group_count=len(rows),depth_checked=False)

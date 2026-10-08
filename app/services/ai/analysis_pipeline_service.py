@@ -3209,6 +3209,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
             not in {"theo thiết kế", "theo thiet ke", "default", "auto", settings.DEFAULT_BRAND.lower()}
         )
 
+        from app.services.ai.auxiliary_devices import expand_devices
+        devices = expand_devices(devices)
         # 1. Chuẩn hóa thiết bị sang ExtractedDeviceSchema
         extracted_devices: List[ExtractedDeviceSchema] = []
         for d in devices:
@@ -3459,6 +3461,24 @@ Chỉ trả một JSON hợp lệ, không markdown:
             dxf_filename = os.path.basename(cad_file_path)
             dxf_size = os.path.getsize(cad_file_path)
         except ValueError as exc:
+            from app.services.cad.cabinet_templates import candidates as form_candidates
+            try:
+                target = dict(zip(('height', 'width', 'depth'), detected_dimensions))
+                forms = form_candidates(target)[:3]
+                enclosure_spec['source_form_review'] = {
+                    'status': 'needs_review', 'requested_dimensions': target,
+                    'reason': str(exc),
+                    'candidates': [{
+                        'id': form['id'], 'source': form['filename'],
+                        'dimensions': form.get('dimensions'),
+                        'can_generate': form['can_generate'],
+                        'changes': {axis: {'from': (form.get('dimensions') or {}).get(axis), 'to': value}
+                                    for axis, value in target.items()
+                                    if (form.get('dimensions') or {}).get(axis) != value}
+                    } for form in forms]
+                }
+            except (ValueError, TypeError, OSError):
+                enclosure_spec['source_form_review'] = {'status': 'needs_review', 'reason': str(exc), 'candidates': []}
             await emit_progress("cad_review", 75, f"Cần chọn form tủ nguồn: {exc}")
             # Explicitly selected CatalogTB geometry can still produce a review
             # drawing, without presenting it as an approved fabrication layout.
@@ -3657,8 +3677,13 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     "need_busbar": need_busbar
                 } if busbar_calc else None
                 latest_iter.confidence_scores = conf
-                if not per_panel:
-                    latest_iter.ai_parsed_devices = [d.model_dump() for d in extracted_devices]
+                updated_devices = [d.model_dump() for d in extracted_devices]
+                if per_panel:
+                    other_devices = [d for d in (latest_iter.ai_parsed_devices or [])
+                                     if d.get('panel_code') != detected_panel_code]
+                    latest_iter.ai_parsed_devices = other_devices + updated_devices
+                else:
+                    latest_iter.ai_parsed_devices = updated_devices
                 db.add(latest_iter)
 
         await db.commit()
@@ -3668,7 +3693,9 @@ Chỉ trả một JSON hợp lệ, không markdown:
             await db.refresh(excel_file)
             excel_file_info["id"] = excel_file.id
 
-        await emit_progress("published", 100, "Đã lưu CAD và báo giá vào dự án")
+        await emit_progress("published", 100,
+                            "Đã lưu CAD rà soát và báo giá vào dự án" if cad_file
+                            else "Đã lưu danh mục hỏi giá; CAD chưa tạo được")
 
         return {
             "success": True,

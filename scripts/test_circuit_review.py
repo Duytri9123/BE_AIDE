@@ -23,6 +23,15 @@ def device(tag="Q1", **kwargs):
 
 
 class CircuitReviewTests(unittest.TestCase):
+    def test_busbar_and_described_existing_tag_are_not_missing_devices(self):
+        from app.services.ai.system_completeness import review_system
+        rows = [device('Q1'), device('Q2', upstream_device='Thanh cái chính'),
+                device('Q3', upstream_device='MCCB tổng Q1'),
+                device('Q4', upstream_device='Q99')]
+        issues = [i for i in review_system(rows)['issues']
+                  if i['title'] == 'Chưa tìm thấy thiết bị cấp nguồn']
+        self.assertEqual(len(issues), 1)
+
     def test_pdf_previews_keep_page_identity_in_api(self):
         image1, image2 = "data:image/jpeg;base64," + "a" * 120, "data:image/jpeg;base64," + "b" * 120
         result = _build_analysis_result_schema(uuid4(), 1, [device(panel_evidence_image=image1), device(source_page=2, panel_evidence_image=image2)], enclosure_spec={"incomer_rating": 20})

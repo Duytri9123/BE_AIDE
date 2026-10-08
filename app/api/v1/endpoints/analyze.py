@@ -60,7 +60,8 @@ def _build_analysis_result_schema(
     panel_images: Dict[str, str] = {}
     cleaned_devices = []
 
-    for d in raw_devices:
+    from app.services.ai.auxiliary_devices import expand_devices
+    for d in expand_devices(raw_devices):
         payload = dict(d) if isinstance(d, dict) else (d.model_dump() if hasattr(d, "model_dump") else dict(d))
         payload.setdefault("category", "Thiết bị")
         payload.setdefault("name", "Thiết bị")
@@ -95,7 +96,10 @@ def _build_analysis_result_schema(
             {k: v for k, v in d.model_dump().items() if k not in ("evidence_image", "panel_evidence_image")}
             for d in cleaned_devices
         ]
-        enc_spec = EnclosureCadGeneratorService.calculate_enclosure_specs(enc_devs)
+        try:
+            enc_spec = EnclosureCadGeneratorService.calculate_enclosure_specs(enc_devs)
+        except ValueError as exc:
+            enc_spec = {"status": "needs_dimensions", "review_note": str(exc)}
     elif isinstance(enc_spec, dict) and "branch_rows" in enc_spec:
         clean_rows = []
         for row in enc_spec["branch_rows"]:
