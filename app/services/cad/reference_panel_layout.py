@@ -145,7 +145,15 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
         place_on_door(e,(width-e['w'])/2,door_y-e['h']);door_y-=e['h']+80
     incoming=[e for e in entries if e['device']['category'] in ('MCCB','ACB')]
     if len(incoming)>1:raise ValueError('Cần phân vùng riêng cho nhiều MCCB/ACB')
-    for e in incoming:place(e,offset+(width-e['w'])/2,height-115-e['h'],'interior')
+    from app.services.cad.design_policy import dimensions_for_current, check_fishbone
+    main_rating=rating_text(incoming[0]['device']) if incoming else ''
+    main_current=float(main_rating[:-1]) if main_rating else None
+    design_policy=dimensions_for_current(main_current)
+    if distribution_method=='fabricated_fishbone':check_fishbone(main_current)
+    top_gap=design_policy['top_gap_mm'] or 150
+    side_margin=design_policy['side_margin_mm'] or 110
+    for e in incoming:place(e,offset+(width-e['w'])/2,height-top_gap-e['h'],'interior')
+    branch_top=min(height-330,min((p['y']-50 for p in placements if p['tag'] in [v['tag'] for v in incoming]),default=height-330))
     branches=[e for e in entries if e['device']['category'] in ('MCB','RCBO','RCCB')]
     # Descending rated current, then physical width; circuit tags remain identifiers.
     def rating(e):
@@ -160,7 +168,7 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
         rows=[[],[]];used=[0.,0.]
         for e in branches:
             i=min(range(2),key=lambda i:(used[i],len(rows[i]),i));rows[i].append(e);used[i]+=e['h']
-        if max(used)>height-490:raise ValueError('Hai dãy dọc không vừa chiều cao tủ theo CAD thực tế')
+        if max(used)>branch_top-160:raise ValueError('Hai dãy dọc không vừa chiều cao tủ theo CAD thực tế')
     elif branch_arrangement=='two_rows_two_banks':
         groups=[[] for _ in range(4)];used=[0.]*4
         for e in branches:
@@ -173,8 +181,8 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
     top=height-340
     for row_index,row in enumerate(rows):
         if branch_arrangement=='two_vertical_banks':
-            y=height-330
-            x=offset+90 if row_index==0 else offset+width-90-max(e['w'] for e in row)
+            y=branch_top
+            x=offset+side_margin if row_index==0 else offset+width-side_margin-max(e['w'] for e in row)
             for e in row:
                 e['rotation']=270 if row_index==0 else 90
                 y-=e['h'];place(e,x,y,'interior')
@@ -209,6 +217,12 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
             place(e,offset+width/2+1.5*pitch-e['w']/2,165,'interior')
         else:place(e,extra_x,85,'interior');extra_x+=e['w']+35
     fishbone_connections=[]
+    if branch_arrangement=='two_vertical_banks' and branches:
+        left_inner=offset+side_margin+max(e['w'] for e in rows[0]) if rows[0] else offset+side_margin
+        right_inner=offset+width-side_margin-max(e['w'] for e in rows[1]) if rows[1] else offset+width-side_margin
+        route_gap=min(offset+width/2-1.5*pitch-left_inner,right_inner-(offset+width/2+1.5*pitch))-5
+        if route_gap<30:raise ValueError(f'Khoảng CB nhánh đến biên thanh cái chỉ {route_gap:g} mm; cần >=30 mm, mục tiêu 40 mm. Phải tăng chiều rộng tủ, không ép thiết bị.')
+    else:route_gap=None
     if distribution_method == 'fabricated_fishbone':
         # Electrical topology overlay only. Endpoints deliberately stop outside
         # the imported device: real pole positions must come from a terminal map.
@@ -308,7 +322,7 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
     }
     branch_boxes=[p for p in placements if p['tag'] in [e['tag'] for e in branches]]
     left=[p for p in branch_boxes if p['x']<offset+width/2];right=[p for p in branch_boxes if p['x']>=offset+width/2]
-    spacing_review=dict(opposing_device_gap_mm=min(p['x'] for p in right)-max(p['x']+p['w'] for p in left) if left and right else None,spine_pitch_mm=pitch,clearance_compliance='unverified',required_inputs=rules['required_before_release'],notes=['Kích thước 2D chỉ dùng bố trí; giao tuyến không phải mối nối điện','Răng đồng chéo qua thanh khác cần phân lớp theo chiều sâu và xác minh khoảng cách điện','Khoảng sát CB cần kiểm tra nhiệt và tư thế lắp theo model'])
+    spacing_review=dict(user_design_policy=design_policy,main_current_a=main_current,branch_to_busbar_edge_gap_mm=route_gap,closed_door_collision_status='unverified_missing_depth_and_handle_envelopes',opposing_device_gap_mm=min(p['x'] for p in right)-max(p['x']+p['w'] for p in left) if left and right else None,spine_pitch_mm=pitch,clearance_compliance='unverified',required_inputs=rules['required_before_release'],notes=['Kích thước 2D chỉ dùng bố trí; giao tuyến không phải mối nối điện','Răng đồng chéo qua thanh khác cần phân lớp theo chiều sâu và xác minh khoảng cách điện','Khoảng sát CB cần kiểm tra nhiệt và tư thế lắp theo model'])
     neutral_routes=[r for r in fishbone_connections if r['phase']=='N']
     if neutral_routes:
         material_rows.append(dict(id='layout-neutral-teeth',row_type='requirement',name='Nhánh đồng N xương cá',quantity=len(neutral_routes),unit='Nhánh',unit_price=None,line_total=None,price_status='pending',category='N',panel_code=panel_code,notes='Số tuyến đề xuất; chiều dài, tiết diện, gá đỡ và cực N chưa xác minh'))

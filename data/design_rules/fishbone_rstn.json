@@ -12,6 +12,14 @@
     {
       "url": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
       "rule": "BKN uses 35 mm DIN rail and 17.8 mm nominal width per pole. Rotation, terminal positions and installation clearances require the exact model manual."
+    },
+    {
+      "url": "https://www.se.com/uk/en/faqs/FAQ000271969/",
+      "rule": "Handle and LOTO projection must fit the gap behind doors."
+    },
+    {
+      "url": "https://latrivenetacavi.nexans.com/en/products/industrial-and-logistics/industrial-Eca-class/H07V-R38469/product~015041105~.html",
+      "rule": "H07V-R 1x150 example: recommended bend radius 6 times cable diameter; do not generalize to every cable."
     }
   ],
   "layout_assumptions_mm": {
@@ -57,5 +65,46 @@
       "busbar_depth_layers"
     ],
     "unknown_face": "block_placement"
+  },
+  "user_design_policy": {
+    "basis": "user_project_rules_not_claimed_IEC_minima",
+    "top_gap_mm": [
+      {
+        "min_a": 100,
+        "max_a_exclusive": 200,
+        "gap": 150
+      },
+      {
+        "min_a": 200,
+        "max_a_exclusive": 300,
+        "gap": 300,
+        "allowed_range": [
+          250,
+          300
+        ]
+      },
+      {
+        "min_a": 300,
+        "gap": 400
+      }
+    ],
+    "boundary_policy": "200A uses 300mm; 300A uses 400mm; below100A requires manual rule",
+    "fishbone_max_main_a": 250,
+    "branch_to_busbar_edge_min_mm": 30,
+    "branch_to_busbar_edge_target_mm": 40,
+    "side_to_shell_mm": {
+      "above200A": 150,
+      "up_to200A": 110,
+      "strict_min_up_to200A": 100
+    },
+    "busbar_section": "select by current, temperature, short circuit and supports; no section inferred from photo",
+    "collision_check": [
+      "closed_door_back_projection",
+      "handle_swept_envelope",
+      "LOTO_projection",
+      "terminal_lug_envelope",
+      "cable_bend_envelope"
+    ],
+    "unknown_depth_geometry": "block_fabrication_release"
   }
 }
