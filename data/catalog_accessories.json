@@ -13,11 +13,24 @@
         "w_mm": 1.2,
         "h_mm": 15,
         "len_mm": 400,
-        "section_mm2": 18,
-        "I_rated": 27,
+        "section_mm2": 18.0,
+        "I_rated": null,
         "hole_dia_mm": 6,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 18 = 27A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 1.2,
+        "width_mm": 15,
+        "I_estimated": 27,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_15x1_2_L2",
@@ -27,11 +40,24 @@
         "w_mm": 1.2,
         "h_mm": 15,
         "len_mm": 400,
-        "section_mm2": 18,
-        "I_rated": 27,
+        "section_mm2": 18.0,
+        "I_rated": null,
         "hole_dia_mm": 6,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 18 = 27A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 1.2,
+        "width_mm": 15,
+        "I_estimated": 27,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_15x1_2_L3",
@@ -41,11 +67,24 @@
         "w_mm": 1.2,
         "h_mm": 15,
         "len_mm": 400,
-        "section_mm2": 18,
-        "I_rated": 27,
+        "section_mm2": 18.0,
+        "I_rated": null,
         "hole_dia_mm": 6,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 18 = 27A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 1.2,
+        "width_mm": 15,
+        "I_estimated": 27,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_15x1_2_N",
@@ -55,11 +94,24 @@
         "w_mm": 1.2,
         "h_mm": 15,
         "len_mm": 400,
-        "section_mm2": 18,
-        "I_rated": 27,
+        "section_mm2": 18.0,
+        "I_rated": null,
         "hole_dia_mm": 6,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 18 = 27A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 1.2,
+        "width_mm": 15,
+        "I_estimated": 27,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_15x2_0_L1",
@@ -69,11 +121,24 @@
         "w_mm": 2.0,
         "h_mm": 15,
         "len_mm": 400,
-        "section_mm2": 30,
-        "I_rated": 45,
+        "section_mm2": 30.0,
+        "I_rated": null,
         "hole_dia_mm": 6,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 30 = 45A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 2.0,
+        "width_mm": 15,
+        "I_estimated": 45,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_15x2_0_L2",
@@ -83,11 +148,24 @@
         "w_mm": 2.0,
         "h_mm": 15,
         "len_mm": 400,
-        "section_mm2": 30,
-        "I_rated": 45,
+        "section_mm2": 30.0,
+        "I_rated": null,
         "hole_dia_mm": 6,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 30 = 45A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 2.0,
+        "width_mm": 15,
+        "I_estimated": 45,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_15x2_0_L3",
@@ -97,11 +175,24 @@
         "w_mm": 2.0,
         "h_mm": 15,
         "len_mm": 400,
-        "section_mm2": 30,
-        "I_rated": 45,
+        "section_mm2": 30.0,
+        "I_rated": null,
         "hole_dia_mm": 6,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 30 = 45A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 2.0,
+        "width_mm": 15,
+        "I_estimated": 45,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_15x2_0_N",
@@ -111,11 +202,24 @@
         "w_mm": 2.0,
         "h_mm": 15,
         "len_mm": 400,
-        "section_mm2": 30,
-        "I_rated": 45,
+        "section_mm2": 30.0,
+        "I_rated": null,
         "hole_dia_mm": 6,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 30 = 45A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 2.0,
+        "width_mm": 15,
+        "I_estimated": 45,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_20x2_0_L1",
@@ -125,11 +229,24 @@
         "w_mm": 2.0,
         "h_mm": 20,
         "len_mm": 400,
-        "section_mm2": 40,
-        "I_rated": 60,
+        "section_mm2": 40.0,
+        "I_rated": null,
         "hole_dia_mm": 6,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 40 = 60A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 2.0,
+        "width_mm": 20,
+        "I_estimated": 60,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_20x2_0_L2",
@@ -139,11 +256,24 @@
         "w_mm": 2.0,
         "h_mm": 20,
         "len_mm": 400,
-        "section_mm2": 40,
-        "I_rated": 60,
+        "section_mm2": 40.0,
+        "I_rated": null,
         "hole_dia_mm": 6,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 40 = 60A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 2.0,
+        "width_mm": 20,
+        "I_estimated": 60,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_20x2_0_L3",
@@ -153,11 +283,24 @@
         "w_mm": 2.0,
         "h_mm": 20,
         "len_mm": 400,
-        "section_mm2": 40,
-        "I_rated": 60,
+        "section_mm2": 40.0,
+        "I_rated": null,
         "hole_dia_mm": 6,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 40 = 60A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 2.0,
+        "width_mm": 20,
+        "I_estimated": 60,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_20x2_0_N",
@@ -167,11 +310,24 @@
         "w_mm": 2.0,
         "h_mm": 20,
         "len_mm": 400,
-        "section_mm2": 40,
-        "I_rated": 60,
+        "section_mm2": 40.0,
+        "I_rated": null,
         "hole_dia_mm": 6,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 40 = 60A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 2.0,
+        "width_mm": 20,
+        "I_estimated": 60,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_20x3_0_L1",
@@ -181,11 +337,24 @@
         "w_mm": 3.0,
         "h_mm": 20,
         "len_mm": 400,
-        "section_mm2": 60,
-        "I_rated": 90,
+        "section_mm2": 60.0,
+        "I_rated": null,
         "hole_dia_mm": 6,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 60 = 90A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 3.0,
+        "width_mm": 20,
+        "I_estimated": 90,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_20x3_0_L2",
@@ -195,11 +364,24 @@
         "w_mm": 3.0,
         "h_mm": 20,
         "len_mm": 400,
-        "section_mm2": 60,
-        "I_rated": 90,
+        "section_mm2": 60.0,
+        "I_rated": null,
         "hole_dia_mm": 6,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 60 = 90A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 3.0,
+        "width_mm": 20,
+        "I_estimated": 90,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_20x3_0_L3",
@@ -209,11 +391,24 @@
         "w_mm": 3.0,
         "h_mm": 20,
         "len_mm": 400,
-        "section_mm2": 60,
-        "I_rated": 90,
+        "section_mm2": 60.0,
+        "I_rated": null,
         "hole_dia_mm": 6,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 60 = 90A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 3.0,
+        "width_mm": 20,
+        "I_estimated": 90,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_20x3_0_N",
@@ -223,11 +418,24 @@
         "w_mm": 3.0,
         "h_mm": 20,
         "len_mm": 400,
-        "section_mm2": 60,
-        "I_rated": 90,
+        "section_mm2": 60.0,
+        "I_rated": null,
         "hole_dia_mm": 6,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 60 = 90A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 3.0,
+        "width_mm": 20,
+        "I_estimated": 90,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_25x3_0_L1",
@@ -237,11 +445,24 @@
         "w_mm": 3.0,
         "h_mm": 25,
         "len_mm": 400,
-        "section_mm2": 75,
-        "I_rated": 112,
+        "section_mm2": 75.0,
+        "I_rated": null,
         "hole_dia_mm": 8,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 75 = 112A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 3.0,
+        "width_mm": 25,
+        "I_estimated": 112,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_25x3_0_L2",
@@ -251,11 +472,24 @@
         "w_mm": 3.0,
         "h_mm": 25,
         "len_mm": 400,
-        "section_mm2": 75,
-        "I_rated": 112,
+        "section_mm2": 75.0,
+        "I_rated": null,
         "hole_dia_mm": 8,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 75 = 112A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 3.0,
+        "width_mm": 25,
+        "I_estimated": 112,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_25x3_0_L3",
@@ -265,11 +499,24 @@
         "w_mm": 3.0,
         "h_mm": 25,
         "len_mm": 400,
-        "section_mm2": 75,
-        "I_rated": 112,
+        "section_mm2": 75.0,
+        "I_rated": null,
         "hole_dia_mm": 8,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 75 = 112A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 3.0,
+        "width_mm": 25,
+        "I_estimated": 112,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_25x3_0_N",
@@ -279,11 +526,24 @@
         "w_mm": 3.0,
         "h_mm": 25,
         "len_mm": 400,
-        "section_mm2": 75,
-        "I_rated": 112,
+        "section_mm2": 75.0,
+        "I_rated": null,
         "hole_dia_mm": 8,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 75 = 112A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 3.0,
+        "width_mm": 25,
+        "I_estimated": 112,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_25x4_0_L1",
@@ -293,11 +553,24 @@
         "w_mm": 4.0,
         "h_mm": 25,
         "len_mm": 400,
-        "section_mm2": 100,
-        "I_rated": 150,
+        "section_mm2": 100.0,
+        "I_rated": null,
         "hole_dia_mm": 8,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 100 = 150A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 4.0,
+        "width_mm": 25,
+        "I_estimated": 150,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_25x4_0_L2",
@@ -307,11 +580,24 @@
         "w_mm": 4.0,
         "h_mm": 25,
         "len_mm": 400,
-        "section_mm2": 100,
-        "I_rated": 150,
+        "section_mm2": 100.0,
+        "I_rated": null,
         "hole_dia_mm": 8,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 100 = 150A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 4.0,
+        "width_mm": 25,
+        "I_estimated": 150,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_25x4_0_L3",
@@ -321,11 +607,24 @@
         "w_mm": 4.0,
         "h_mm": 25,
         "len_mm": 400,
-        "section_mm2": 100,
-        "I_rated": 150,
+        "section_mm2": 100.0,
+        "I_rated": null,
         "hole_dia_mm": 8,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 100 = 150A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 4.0,
+        "width_mm": 25,
+        "I_estimated": 150,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_25x4_0_N",
@@ -335,11 +634,24 @@
         "w_mm": 4.0,
         "h_mm": 25,
         "len_mm": 400,
-        "section_mm2": 100,
-        "I_rated": 150,
+        "section_mm2": 100.0,
+        "I_rated": null,
         "hole_dia_mm": 8,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 100 = 150A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 4.0,
+        "width_mm": 25,
+        "I_estimated": 150,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_30x3_0_L1",
@@ -349,11 +661,24 @@
         "w_mm": 3.0,
         "h_mm": 30,
         "len_mm": 400,
-        "section_mm2": 90,
-        "I_rated": 135,
+        "section_mm2": 90.0,
+        "I_rated": null,
         "hole_dia_mm": 8,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 90 = 135A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 3.0,
+        "width_mm": 30,
+        "I_estimated": 135,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_30x3_0_L2",
@@ -363,11 +688,24 @@
         "w_mm": 3.0,
         "h_mm": 30,
         "len_mm": 400,
-        "section_mm2": 90,
-        "I_rated": 135,
+        "section_mm2": 90.0,
+        "I_rated": null,
         "hole_dia_mm": 8,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 90 = 135A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 3.0,
+        "width_mm": 30,
+        "I_estimated": 135,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_30x3_0_L3",
@@ -377,11 +715,24 @@
         "w_mm": 3.0,
         "h_mm": 30,
         "len_mm": 400,
-        "section_mm2": 90,
-        "I_rated": 135,
+        "section_mm2": 90.0,
+        "I_rated": null,
         "hole_dia_mm": 8,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 90 = 135A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 3.0,
+        "width_mm": 30,
+        "I_estimated": 135,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_30x3_0_N",
@@ -391,11 +742,24 @@
         "w_mm": 3.0,
         "h_mm": 30,
         "len_mm": 400,
-        "section_mm2": 90,
-        "I_rated": 135,
+        "section_mm2": 90.0,
+        "I_rated": null,
         "hole_dia_mm": 8,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 90 = 135A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 3.0,
+        "width_mm": 30,
+        "I_estimated": 135,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_30x4_0_L1",
@@ -405,11 +769,24 @@
         "w_mm": 4.0,
         "h_mm": 30,
         "len_mm": 400,
-        "section_mm2": 120,
-        "I_rated": 180,
+        "section_mm2": 120.0,
+        "I_rated": null,
         "hole_dia_mm": 8,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 120 = 180A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 4.0,
+        "width_mm": 30,
+        "I_estimated": 180,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_30x4_0_L2",
@@ -419,11 +796,24 @@
         "w_mm": 4.0,
         "h_mm": 30,
         "len_mm": 400,
-        "section_mm2": 120,
-        "I_rated": 180,
+        "section_mm2": 120.0,
+        "I_rated": null,
         "hole_dia_mm": 8,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 120 = 180A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 4.0,
+        "width_mm": 30,
+        "I_estimated": 180,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_30x4_0_L3",
@@ -433,11 +823,24 @@
         "w_mm": 4.0,
         "h_mm": 30,
         "len_mm": 400,
-        "section_mm2": 120,
-        "I_rated": 180,
+        "section_mm2": 120.0,
+        "I_rated": null,
         "hole_dia_mm": 8,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 120 = 180A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 4.0,
+        "width_mm": 30,
+        "I_estimated": 180,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_30x4_0_N",
@@ -447,11 +850,24 @@
         "w_mm": 4.0,
         "h_mm": 30,
         "len_mm": 400,
-        "section_mm2": 120,
-        "I_rated": 180,
+        "section_mm2": 120.0,
+        "I_rated": null,
         "hole_dia_mm": 8,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 120 = 180A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 4.0,
+        "width_mm": 30,
+        "I_estimated": 180,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_30x5_0_L1",
@@ -461,11 +877,24 @@
         "w_mm": 5.0,
         "h_mm": 30,
         "len_mm": 400,
-        "section_mm2": 150,
-        "I_rated": 225,
+        "section_mm2": 150.0,
+        "I_rated": null,
         "hole_dia_mm": 8,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 150 = 225A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 5.0,
+        "width_mm": 30,
+        "I_estimated": 225,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_30x5_0_L2",
@@ -475,11 +904,24 @@
         "w_mm": 5.0,
         "h_mm": 30,
         "len_mm": 400,
-        "section_mm2": 150,
-        "I_rated": 225,
+        "section_mm2": 150.0,
+        "I_rated": null,
         "hole_dia_mm": 8,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 150 = 225A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 5.0,
+        "width_mm": 30,
+        "I_estimated": 225,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_30x5_0_L3",
@@ -489,11 +931,24 @@
         "w_mm": 5.0,
         "h_mm": 30,
         "len_mm": 400,
-        "section_mm2": 150,
-        "I_rated": 225,
+        "section_mm2": 150.0,
+        "I_rated": null,
         "hole_dia_mm": 8,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 150 = 225A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 5.0,
+        "width_mm": 30,
+        "I_estimated": 225,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_30x5_0_N",
@@ -503,11 +958,24 @@
         "w_mm": 5.0,
         "h_mm": 30,
         "len_mm": 400,
-        "section_mm2": 150,
-        "I_rated": 225,
+        "section_mm2": 150.0,
+        "I_rated": null,
         "hole_dia_mm": 8,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 150 = 225A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 5.0,
+        "width_mm": 30,
+        "I_estimated": 225,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_40x4_0_L1",
@@ -517,11 +985,24 @@
         "w_mm": 4.0,
         "h_mm": 40,
         "len_mm": 400,
-        "section_mm2": 160,
-        "I_rated": 240,
+        "section_mm2": 160.0,
+        "I_rated": null,
         "hole_dia_mm": 10,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 160 = 240A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 4.0,
+        "width_mm": 40,
+        "I_estimated": 240,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_40x4_0_L2",
@@ -531,11 +1012,24 @@
         "w_mm": 4.0,
         "h_mm": 40,
         "len_mm": 400,
-        "section_mm2": 160,
-        "I_rated": 240,
+        "section_mm2": 160.0,
+        "I_rated": null,
         "hole_dia_mm": 10,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 160 = 240A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 4.0,
+        "width_mm": 40,
+        "I_estimated": 240,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_40x4_0_L3",
@@ -545,11 +1039,24 @@
         "w_mm": 4.0,
         "h_mm": 40,
         "len_mm": 400,
-        "section_mm2": 160,
-        "I_rated": 240,
+        "section_mm2": 160.0,
+        "I_rated": null,
         "hole_dia_mm": 10,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 160 = 240A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 4.0,
+        "width_mm": 40,
+        "I_estimated": 240,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_40x4_0_N",
@@ -559,11 +1066,24 @@
         "w_mm": 4.0,
         "h_mm": 40,
         "len_mm": 400,
-        "section_mm2": 160,
-        "I_rated": 240,
+        "section_mm2": 160.0,
+        "I_rated": null,
         "hole_dia_mm": 10,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 160 = 240A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 4.0,
+        "width_mm": 40,
+        "I_estimated": 240,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_40x5_0_L1",
@@ -573,11 +1093,24 @@
         "w_mm": 5.0,
         "h_mm": 40,
         "len_mm": 400,
-        "section_mm2": 200,
-        "I_rated": 300,
+        "section_mm2": 200.0,
+        "I_rated": null,
         "hole_dia_mm": 10,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 200 = 300A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 5.0,
+        "width_mm": 40,
+        "I_estimated": 300,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_40x5_0_L2",
@@ -587,11 +1120,24 @@
         "w_mm": 5.0,
         "h_mm": 40,
         "len_mm": 400,
-        "section_mm2": 200,
-        "I_rated": 300,
+        "section_mm2": 200.0,
+        "I_rated": null,
         "hole_dia_mm": 10,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 200 = 300A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 5.0,
+        "width_mm": 40,
+        "I_estimated": 300,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_40x5_0_L3",
@@ -601,11 +1147,24 @@
         "w_mm": 5.0,
         "h_mm": 40,
         "len_mm": 400,
-        "section_mm2": 200,
-        "I_rated": 300,
+        "section_mm2": 200.0,
+        "I_rated": null,
         "hole_dia_mm": 10,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 200 = 300A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 5.0,
+        "width_mm": 40,
+        "I_estimated": 300,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_40x5_0_N",
@@ -615,11 +1174,24 @@
         "w_mm": 5.0,
         "h_mm": 40,
         "len_mm": 400,
-        "section_mm2": 200,
-        "I_rated": 300,
+        "section_mm2": 200.0,
+        "I_rated": null,
         "hole_dia_mm": 10,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 200 = 300A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 5.0,
+        "width_mm": 40,
+        "I_estimated": 300,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_50x5_0_L1",
@@ -629,11 +1201,24 @@
         "w_mm": 5.0,
         "h_mm": 50,
         "len_mm": 400,
-        "section_mm2": 250,
-        "I_rated": 375,
+        "section_mm2": 250.0,
+        "I_rated": null,
         "hole_dia_mm": 10,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 250 = 375A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 5.0,
+        "width_mm": 50,
+        "I_estimated": 375,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_50x5_0_L2",
@@ -643,11 +1228,24 @@
         "w_mm": 5.0,
         "h_mm": 50,
         "len_mm": 400,
-        "section_mm2": 250,
-        "I_rated": 375,
+        "section_mm2": 250.0,
+        "I_rated": null,
         "hole_dia_mm": 10,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 250 = 375A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 5.0,
+        "width_mm": 50,
+        "I_estimated": 375,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_50x5_0_L3",
@@ -657,11 +1255,24 @@
         "w_mm": 5.0,
         "h_mm": 50,
         "len_mm": 400,
-        "section_mm2": 250,
-        "I_rated": 375,
+        "section_mm2": 250.0,
+        "I_rated": null,
         "hole_dia_mm": 10,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 250 = 375A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 5.0,
+        "width_mm": 50,
+        "I_estimated": 375,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_50x5_0_N",
@@ -671,11 +1282,24 @@
         "w_mm": 5.0,
         "h_mm": 50,
         "len_mm": 400,
-        "section_mm2": 250,
-        "I_rated": 375,
+        "section_mm2": 250.0,
+        "I_rated": null,
         "hole_dia_mm": 10,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 250 = 375A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 5.0,
+        "width_mm": 50,
+        "I_estimated": 375,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_50x6_0_L1",
@@ -685,11 +1309,24 @@
         "w_mm": 6.0,
         "h_mm": 50,
         "len_mm": 400,
-        "section_mm2": 300,
-        "I_rated": 450,
+        "section_mm2": 300.0,
+        "I_rated": null,
         "hole_dia_mm": 10,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 300 = 450A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 6.0,
+        "width_mm": 50,
+        "I_estimated": 450,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_50x6_0_L2",
@@ -699,11 +1336,24 @@
         "w_mm": 6.0,
         "h_mm": 50,
         "len_mm": 400,
-        "section_mm2": 300,
-        "I_rated": 450,
+        "section_mm2": 300.0,
+        "I_rated": null,
         "hole_dia_mm": 10,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 300 = 450A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 6.0,
+        "width_mm": 50,
+        "I_estimated": 450,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_50x6_0_L3",
@@ -713,11 +1363,24 @@
         "w_mm": 6.0,
         "h_mm": 50,
         "len_mm": 400,
-        "section_mm2": 300,
-        "I_rated": 450,
+        "section_mm2": 300.0,
+        "I_rated": null,
         "hole_dia_mm": 10,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 300 = 450A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 6.0,
+        "width_mm": 50,
+        "I_estimated": 450,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_50x6_0_N",
@@ -727,11 +1390,24 @@
         "w_mm": 6.0,
         "h_mm": 50,
         "len_mm": 400,
-        "section_mm2": 300,
-        "I_rated": 450,
+        "section_mm2": 300.0,
+        "I_rated": null,
         "hole_dia_mm": 10,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 300 = 450A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 6.0,
+        "width_mm": 50,
+        "I_estimated": 450,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_50x8_0_L1",
@@ -741,11 +1417,24 @@
         "w_mm": 8.0,
         "h_mm": 50,
         "len_mm": 400,
-        "section_mm2": 400,
-        "I_rated": 600,
+        "section_mm2": 400.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 400 = 600A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 8.0,
+        "width_mm": 50,
+        "I_estimated": 600,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_50x8_0_L2",
@@ -755,11 +1444,24 @@
         "w_mm": 8.0,
         "h_mm": 50,
         "len_mm": 400,
-        "section_mm2": 400,
-        "I_rated": 600,
+        "section_mm2": 400.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 400 = 600A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 8.0,
+        "width_mm": 50,
+        "I_estimated": 600,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_50x8_0_L3",
@@ -769,11 +1471,24 @@
         "w_mm": 8.0,
         "h_mm": 50,
         "len_mm": 400,
-        "section_mm2": 400,
-        "I_rated": 600,
+        "section_mm2": 400.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 400 = 600A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 8.0,
+        "width_mm": 50,
+        "I_estimated": 600,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_50x8_0_N",
@@ -783,11 +1498,24 @@
         "w_mm": 8.0,
         "h_mm": 50,
         "len_mm": 400,
-        "section_mm2": 400,
-        "I_rated": 600,
+        "section_mm2": 400.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 400 = 600A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 8.0,
+        "width_mm": 50,
+        "I_estimated": 600,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_50x10_0_L1",
@@ -797,11 +1525,24 @@
         "w_mm": 10.0,
         "h_mm": 50,
         "len_mm": 400,
-        "section_mm2": 500,
-        "I_rated": 750,
+        "section_mm2": 500.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 500 = 750A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 10.0,
+        "width_mm": 50,
+        "I_estimated": 750,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_50x10_0_L2",
@@ -811,11 +1552,24 @@
         "w_mm": 10.0,
         "h_mm": 50,
         "len_mm": 400,
-        "section_mm2": 500,
-        "I_rated": 750,
+        "section_mm2": 500.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 500 = 750A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 10.0,
+        "width_mm": 50,
+        "I_estimated": 750,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_50x10_0_L3",
@@ -825,11 +1579,24 @@
         "w_mm": 10.0,
         "h_mm": 50,
         "len_mm": 400,
-        "section_mm2": 500,
-        "I_rated": 750,
+        "section_mm2": 500.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 500 = 750A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 10.0,
+        "width_mm": 50,
+        "I_estimated": 750,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_50x10_0_N",
@@ -839,11 +1606,24 @@
         "w_mm": 10.0,
         "h_mm": 50,
         "len_mm": 400,
-        "section_mm2": 500,
-        "I_rated": 750,
+        "section_mm2": 500.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 500 = 750A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 10.0,
+        "width_mm": 50,
+        "I_estimated": 750,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_60x5_0_L1",
@@ -853,11 +1633,24 @@
         "w_mm": 5.0,
         "h_mm": 60,
         "len_mm": 400,
-        "section_mm2": 300,
-        "I_rated": 450,
+        "section_mm2": 300.0,
+        "I_rated": null,
         "hole_dia_mm": 10,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 300 = 450A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 5.0,
+        "width_mm": 60,
+        "I_estimated": 450,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_60x5_0_L2",
@@ -867,11 +1660,24 @@
         "w_mm": 5.0,
         "h_mm": 60,
         "len_mm": 400,
-        "section_mm2": 300,
-        "I_rated": 450,
+        "section_mm2": 300.0,
+        "I_rated": null,
         "hole_dia_mm": 10,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 300 = 450A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 5.0,
+        "width_mm": 60,
+        "I_estimated": 450,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_60x5_0_L3",
@@ -881,11 +1687,24 @@
         "w_mm": 5.0,
         "h_mm": 60,
         "len_mm": 400,
-        "section_mm2": 300,
-        "I_rated": 450,
+        "section_mm2": 300.0,
+        "I_rated": null,
         "hole_dia_mm": 10,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 300 = 450A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 5.0,
+        "width_mm": 60,
+        "I_estimated": 450,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_60x5_0_N",
@@ -895,11 +1714,24 @@
         "w_mm": 5.0,
         "h_mm": 60,
         "len_mm": 400,
-        "section_mm2": 300,
-        "I_rated": 450,
+        "section_mm2": 300.0,
+        "I_rated": null,
         "hole_dia_mm": 10,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 300 = 450A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 5.0,
+        "width_mm": 60,
+        "I_estimated": 450,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_60x6_0_L1",
@@ -909,11 +1741,24 @@
         "w_mm": 6.0,
         "h_mm": 60,
         "len_mm": 400,
-        "section_mm2": 360,
-        "I_rated": 540,
+        "section_mm2": 360.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 360 = 540A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 6.0,
+        "width_mm": 60,
+        "I_estimated": 540,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_60x6_0_L2",
@@ -923,11 +1768,24 @@
         "w_mm": 6.0,
         "h_mm": 60,
         "len_mm": 400,
-        "section_mm2": 360,
-        "I_rated": 540,
+        "section_mm2": 360.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 360 = 540A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 6.0,
+        "width_mm": 60,
+        "I_estimated": 540,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_60x6_0_L3",
@@ -937,11 +1795,24 @@
         "w_mm": 6.0,
         "h_mm": 60,
         "len_mm": 400,
-        "section_mm2": 360,
-        "I_rated": 540,
+        "section_mm2": 360.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 360 = 540A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 6.0,
+        "width_mm": 60,
+        "I_estimated": 540,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_60x6_0_N",
@@ -951,11 +1822,24 @@
         "w_mm": 6.0,
         "h_mm": 60,
         "len_mm": 400,
-        "section_mm2": 360,
-        "I_rated": 540,
+        "section_mm2": 360.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 360 = 540A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 6.0,
+        "width_mm": 60,
+        "I_estimated": 540,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_60x8_0_L1",
@@ -965,11 +1849,24 @@
         "w_mm": 8.0,
         "h_mm": 60,
         "len_mm": 400,
-        "section_mm2": 480,
-        "I_rated": 720,
+        "section_mm2": 480.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 480 = 720A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 8.0,
+        "width_mm": 60,
+        "I_estimated": 720,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_60x8_0_L2",
@@ -979,11 +1876,24 @@
         "w_mm": 8.0,
         "h_mm": 60,
         "len_mm": 400,
-        "section_mm2": 480,
-        "I_rated": 720,
+        "section_mm2": 480.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 480 = 720A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 8.0,
+        "width_mm": 60,
+        "I_estimated": 720,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_60x8_0_L3",
@@ -993,11 +1903,24 @@
         "w_mm": 8.0,
         "h_mm": 60,
         "len_mm": 400,
-        "section_mm2": 480,
-        "I_rated": 720,
+        "section_mm2": 480.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 480 = 720A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 8.0,
+        "width_mm": 60,
+        "I_estimated": 720,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_60x8_0_N",
@@ -1007,11 +1930,24 @@
         "w_mm": 8.0,
         "h_mm": 60,
         "len_mm": 400,
-        "section_mm2": 480,
-        "I_rated": 720,
+        "section_mm2": 480.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 480 = 720A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 8.0,
+        "width_mm": 60,
+        "I_estimated": 720,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_60x10_0_L1",
@@ -1021,11 +1957,24 @@
         "w_mm": 10.0,
         "h_mm": 60,
         "len_mm": 400,
-        "section_mm2": 600,
-        "I_rated": 900,
+        "section_mm2": 600.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 600 = 900A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 10.0,
+        "width_mm": 60,
+        "I_estimated": 900,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_60x10_0_L2",
@@ -1035,11 +1984,24 @@
         "w_mm": 10.0,
         "h_mm": 60,
         "len_mm": 400,
-        "section_mm2": 600,
-        "I_rated": 900,
+        "section_mm2": 600.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 600 = 900A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 10.0,
+        "width_mm": 60,
+        "I_estimated": 900,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_60x10_0_L3",
@@ -1049,11 +2011,24 @@
         "w_mm": 10.0,
         "h_mm": 60,
         "len_mm": 400,
-        "section_mm2": 600,
-        "I_rated": 900,
+        "section_mm2": 600.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 600 = 900A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 10.0,
+        "width_mm": 60,
+        "I_estimated": 900,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_60x10_0_N",
@@ -1063,11 +2038,24 @@
         "w_mm": 10.0,
         "h_mm": 60,
         "len_mm": 400,
-        "section_mm2": 600,
-        "I_rated": 900,
+        "section_mm2": 600.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 600 = 900A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 10.0,
+        "width_mm": 60,
+        "I_estimated": 900,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_80x8_0_L1",
@@ -1077,11 +2065,24 @@
         "w_mm": 8.0,
         "h_mm": 80,
         "len_mm": 400,
-        "section_mm2": 640,
-        "I_rated": 960,
+        "section_mm2": 640.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 640 = 960A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 8.0,
+        "width_mm": 80,
+        "I_estimated": 960,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_80x8_0_L2",
@@ -1091,11 +2092,24 @@
         "w_mm": 8.0,
         "h_mm": 80,
         "len_mm": 400,
-        "section_mm2": 640,
-        "I_rated": 960,
+        "section_mm2": 640.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 640 = 960A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 8.0,
+        "width_mm": 80,
+        "I_estimated": 960,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_80x8_0_L3",
@@ -1105,11 +2119,24 @@
         "w_mm": 8.0,
         "h_mm": 80,
         "len_mm": 400,
-        "section_mm2": 640,
-        "I_rated": 960,
+        "section_mm2": 640.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 640 = 960A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 8.0,
+        "width_mm": 80,
+        "I_estimated": 960,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_80x8_0_N",
@@ -1119,11 +2146,24 @@
         "w_mm": 8.0,
         "h_mm": 80,
         "len_mm": 400,
-        "section_mm2": 640,
-        "I_rated": 960,
+        "section_mm2": 640.0,
+        "I_rated": null,
         "hole_dia_mm": 12,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 640 = 960A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 8.0,
+        "width_mm": 80,
+        "I_estimated": 960,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_80x10_0_L1",
@@ -1133,11 +2173,24 @@
         "w_mm": 10.0,
         "h_mm": 80,
         "len_mm": 400,
-        "section_mm2": 800,
-        "I_rated": 1200,
+        "section_mm2": 800.0,
+        "I_rated": null,
         "hole_dia_mm": 14,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 800 = 1200A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 10.0,
+        "width_mm": 80,
+        "I_estimated": 1200,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_80x10_0_L2",
@@ -1147,11 +2200,24 @@
         "w_mm": 10.0,
         "h_mm": 80,
         "len_mm": 400,
-        "section_mm2": 800,
-        "I_rated": 1200,
+        "section_mm2": 800.0,
+        "I_rated": null,
         "hole_dia_mm": 14,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 800 = 1200A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 10.0,
+        "width_mm": 80,
+        "I_estimated": 1200,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_80x10_0_L3",
@@ -1161,11 +2227,24 @@
         "w_mm": 10.0,
         "h_mm": 80,
         "len_mm": 400,
-        "section_mm2": 800,
-        "I_rated": 1200,
+        "section_mm2": 800.0,
+        "I_rated": null,
         "hole_dia_mm": 14,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 800 = 1200A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 10.0,
+        "width_mm": 80,
+        "I_estimated": 1200,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       },
       {
         "id": "bb_80x10_0_N",
@@ -1175,13 +2254,34 @@
         "w_mm": 10.0,
         "h_mm": 80,
         "len_mm": 400,
-        "section_mm2": 800,
-        "I_rated": 1200,
+        "section_mm2": 800.0,
+        "I_rated": null,
         "hole_dia_mm": 14,
         "hole_pitch_mm": 50,
-        "note": "I = 1.5 × 800 = 1200A"
+        "note": "Dòng ước tính theo mật độ 1,5 A/mm²; chưa xác minh nhiệt, ngắn mạch, gá đỡ và đầu nối.",
+        "thickness_mm": 10.0,
+        "width_mm": 80,
+        "I_estimated": 1200,
+        "ampacity_status": "preliminary_density_estimate",
+        "ampacity_basis": {
+          "density_a_per_mm2": 1.5,
+          "temperature_rise": null,
+          "ambient_temperature": null,
+          "installation": null,
+          "source": "legacy_catalog_formula"
+        },
+        "length_status": "example_stock_length",
+        "hole_status": "requires_joint_terminal_verification"
       }
-    ]
+    ],
+    "selection_policy": {
+      "ampacity": "I_estimated is for preliminary screening only; require verified rating and conditions before release",
+      "geometry": "w_mm is thickness; h_mm is width; len_mm is stock/example length, not installed route length",
+      "holes": "hole dimensions are generic until verified for selected terminal and joint",
+      "sources": [
+        "https://www.copper.org/applications/electrical/busbar/bus_table4.html"
+      ]
+    }
   },
   "accessories": {
     "name": "Phụ kiện",

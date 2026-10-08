@@ -8,20 +8,25 @@ from app.services.cad.reference_panel_layout import generate
 
 
 class CurrentCatalogLayoutTests(unittest.TestCase):
+    def test_narrow_form_rejects_insufficient_branch_to_busbar_space(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(ValueError, 'biên thanh cái'):
+                generate(self.devices(), (1000, 600, 300), directory)
+
     def devices(self):
-        main = candidates('MCCB', 'LS', 3)[0]
+        main = next(a for a in candidates('MCCB', 'LS', 3) if 'ABN250AF' in a['name'])
         rows = [dict(category='MCCB', tag='Q0', name='MCCB', quantity=1,
                      cad=dict(asset_id=main['id'], branch_arrangement='two_vertical_banks',
                               distribution_method='fabricated_fishbone'))]
         for i, (poles, amps) in enumerate([(2, 32), (3, 20), (3, 30), (2, 10)]):
-            asset = candidates('MCB', 'LS', poles)[0]
+            asset = next(a for a in candidates('MCB', 'LS', poles) if 'BKN' in a['name'])
             rows.append(dict(category='MCB', tag=f'L{i + 1}', name='MCB', quantity=1,
                              poles=poles, in_a=amps, cad={'asset_id': asset['id']}))
         return rows
 
     def test_real_geometry_rotates_and_large_breakers_are_above_small(self):
         with tempfile.TemporaryDirectory() as directory:
-            result = generate(self.devices(), (1000, 600, 300), directory)
+            result = generate(self.devices(), (1000, 800, 300), directory)
             self.assertTrue(Path(result['dxf']).is_file())
             self.assertFalse(ezdxf.readfile(result['dxf']).audit().has_errors)
             self.assertIsNotNone(result['enclosure_source'])
@@ -39,9 +44,12 @@ class CurrentCatalogLayoutTests(unittest.TestCase):
             branches = [p for p in result['placements'] if p['tag'].startswith('L')]
             self.assertEqual(len(branches), 4)
             self.assertTrue(all(p['rotation'] in (90, 270) and p['scale'] == 1 for p in branches))
-            large = [p for p in branches if p['tag'] in ('L2', 'L3')]
-            small = [p for p in branches if p['tag'] in ('L1', 'L4')]
-            self.assertGreater(min(p['y'] for p in large), max(p['y'] for p in small))
+            # Physical source envelopes can include different terminal projections.
+            # Check descending physical size within each bank, not cross-bank y.
+            for rotation in (90, 270):
+                bank=sorted((p for p in branches if p['rotation']==rotation),key=lambda p:-p['y'])
+                areas=[p['w']*p['h'] for p in bank]
+                self.assertEqual(areas,sorted(areas,reverse=True))
             self.assertFalse(result['release_ready'])
             self.assertTrue(result['completion_checks']['neutral_bar_placed'])
             main = next(p for p in result['placements'] if p['tag'] == 'Q0')
@@ -57,7 +65,7 @@ class CurrentCatalogLayoutTests(unittest.TestCase):
         devices=self.devices()
         devices[1]['tag']='L1/R'
         with tempfile.TemporaryDirectory() as directory:
-            result=generate(devices,(1000,600,300),directory)
+            result=generate(devices,(1000,800,300),directory)
             import json
             distribution=json.loads((Path(directory)/'Phuong_an_phan_phoi_nguon.json').read_text(encoding='utf8'))
             neutral={r['tag'] for r in distribution['routing_preview'] if r['phase']=='N'}
@@ -69,14 +77,14 @@ class CurrentCatalogLayoutTests(unittest.TestCase):
         light=candidates('LIGHT')[0]
         devices.append(dict(category='LIGHT',tag='R',name='Lamp',quantity=1,cad={'asset_id':light['id']}))
         with tempfile.TemporaryDirectory() as directory:
-            result=generate(devices,(1000,600,300),directory)
+            result=generate(devices,(1000,800,300),directory)
             lamp=next(p for p in result['placements'] if p['tag']=='R')
             self.assertEqual(lamp['source_face_label'],'1st DOOR VIEW')
             self.assertEqual(lamp['mounting_face'],'outer_door')
             self.assertGreater(lamp['x'],900)
             self.assertEqual(result['enclosure_source']['side_view_review']['status'],'source_only_depth_not_verified')
             devices[-1]['cad']['mounting_face']='inner_door'
-            result=generate(devices,(1000,600,300),directory)
+            result=generate(devices,(1000,800,300),directory)
             lamp=next(p for p in result['placements'] if p['tag']=='R')
             self.assertEqual(lamp['source_face_label'],'2nd DOOR VIEW')
             self.assertLess(lamp['x'],600)
@@ -85,7 +93,7 @@ class CurrentCatalogLayoutTests(unittest.TestCase):
         devices = self.devices()
         devices[1]['cad']['asset_id'] = 'tb:deleted-source'
         with tempfile.TemporaryDirectory() as directory, self.assertRaises(ValueError):
-            generate(devices, (1000, 600, 300), directory)
+            generate(devices, (1000, 800, 300), directory)
 
     def test_other_panel_does_not_reuse_tdt_layout(self):
         with tempfile.TemporaryDirectory() as directory, self.assertRaises(ValueError):

@@ -388,19 +388,13 @@ class EnclosureCadGeneratorService:
             thickness = 1.2
 
         if need_busbar:
-            try:
-                from app.services.device_catalog_engine import catalog_engine
-                bars = list((catalog_engine.accessories.get("busbar") or {}).get("items") or [])
-                phase_bars = [b for b in bars if str(b.get("phase") or "").upper() == "L1" and float(b.get("I_rated") or 0) >= incomer_a]
-                selected_bar = min(phase_bars, key=lambda b: float(b.get("section_mm2") or 1e9)) if phase_bars else None
-            except Exception:
-                selected_bar = None
-            if selected_bar:
-                busbar_spec = f"Cu {selected_bar.get('h_mm')}x{selected_bar.get('w_mm')}mm, I_rated={selected_bar.get('I_rated')}A (R-S-T-N); PE>=25%"
-            else:
-                busbar_spec = f"BUSBAR TBD >= {int(incomer_a)}A; no verified item in equipment catalog 2026"
+            from app.services.cad.busbar_catalog_review import review as review_busbar
+            busbar_review = review_busbar(incomer_a)
+            selected_bar = busbar_review['selected']
+            busbar_spec = (f"Cu {selected_bar['width_mm']}x{selected_bar['thickness_mm']}mm; de xuat catalog, chua xac minh dong tai R-S-T-N"
+                           if selected_bar else "BUSBAR TBD; can du lieu catalog da xac minh")
         else:
-            busbar_spec = "DIN rail / copper conductor; PE>=25%"
+            busbar_spec = "DIN rail / copper conductor; PE needs verification"
 
         total_branch_area = sum(dim[0] * dim[1] for _, dim in branch_dims)
         available_plate_area = max(1.0, (chosen_w - 100.0) * (chosen_h - 160.0))

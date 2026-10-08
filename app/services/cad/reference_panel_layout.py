@@ -52,7 +52,7 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
     if len(arrangement)>1:raise ValueError('Bố trí nhánh mâu thuẫn')
     if not branch_arrangement and arrangement:branch_arrangement=next(iter(arrangement))
     rules=json.loads((Path(__file__).resolve().parents[3]/'data/design_rules/fishbone_rstn.json').read_text(encoding='utf8'))
-    pitch=rules['layout_assumptions_mm']['spine_pitch']
+    pitch=rules['design_variables']['d8']
     height,width,depth=map(float,dimensions)
     doc=ezdxf.new('R2010');doc.units=4;m=doc.modelspace()
     for name,color in [('CABINET',7),('CAD_DEVICE',7),('REVIEW',30),('LABEL',7),('DEVICE_LABEL',7),('PLAN_R',1),('PLAN_S',2),('PLAN_T',5),('PLAN_N',8)]:
@@ -148,7 +148,9 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
     from app.services.cad.design_policy import dimensions_for_current, check_fishbone
     main_rating=rating_text(incoming[0]['device']) if incoming else ''
     main_current=float(main_rating[:-1]) if main_rating else None
-    design_policy=dimensions_for_current(main_current)
+    from app.services.cad.busbar_catalog_review import review as review_busbar
+    busbar_catalog=review_busbar(main_current)
+    design_policy=dimensions_for_current(main_current,(incoming[0]['device'].get('cad') or {}).get('incoming_cable') if incoming else None)
     if distribution_method=='fabricated_fishbone':check_fishbone(main_current)
     top_gap=design_policy['top_gap_mm'] or 150
     side_margin=design_policy['side_margin_mm'] or 110
@@ -221,7 +223,9 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
         left_inner=offset+side_margin+max(e['w'] for e in rows[0]) if rows[0] else offset+side_margin
         right_inner=offset+width-side_margin-max(e['w'] for e in rows[1]) if rows[1] else offset+width-side_margin
         route_gap=min(offset+width/2-1.5*pitch-left_inner,right_inner-(offset+width/2+1.5*pitch))-5
-        if route_gap<30:raise ValueError(f'Khoảng CB nhánh đến biên thanh cái chỉ {route_gap:g} mm; cần >=30 mm, mục tiêu 40 mm. Phải tăng chiều rộng tủ, không ép thiết bị.')
+        minimum_gap=rules['design_variables']['d6']
+        target_gap=rules['design_variables']['d7']
+        if route_gap<minimum_gap:raise ValueError(f'Khoảng CB nhánh đến biên thanh cái chỉ {route_gap:g} mm; cần >={minimum_gap:g} mm, mục tiêu {target_gap:g} mm. Phải tăng chiều rộng tủ, không ép thiết bị.')
     else:route_gap=None
     if distribution_method == 'fabricated_fishbone':
         # Electrical topology overlay only. Endpoints deliberately stop outside
@@ -329,7 +333,7 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
     gap=spacing_review['opposing_device_gap_mm']
     spacing_section='<h2>Khoảng cách bố trí R–S–T–N</h2><p>Khoảng trống giữa biên hai dãy CB: '+(f'{gap:g} mm' if gap is not None else 'chưa xác định')+f'. Bước tim thanh cái đề xuất: {pitch:g} mm. Đây là khoảng bố trí 2D, không phải kết luận đạt khoảng cách điện.</p><p>N có thanh dọc và răng riêng. Điểm cấp N phải lấy từ N nguồn; không nối N qua MCCB 3P. Phải kiểm tra các thanh giao nhau theo chiều sâu, tiết diện, cọc đấu, cách điện, nhiệt và khả năng chịu ngắn mạch.</p>'
     (out/'Thu_ve_tu_TDT.html').write_text(page.replace('</main>',spacing_section+'</main>'),encoding='utf8')
-    result=dict(spacing_review=spacing_review,design_rule_profile='data/design_rules/fishbone_rstn.json',material_rows=material_rows,enclosure_source=enclosure_source,status='reference_layout_needs_review',release_ready=False,
+    result=dict(busbar_catalog_review=busbar_catalog,spacing_review=spacing_review,design_rule_profile='data/design_rules/fishbone_rstn.json',material_rows=material_rows,enclosure_source=enclosure_source,status='reference_layout_needs_review',release_ready=False,
                 completion_checks=completion_checks,placements=placements,missing=missing,
                 distribution_method=distribution_method,control_wire_entry='RIGHT',
                 branch_arrangement=branch_arrangement,original_dimensions=original_dimensions,proposed_dimensions=dimensions,

@@ -72,23 +72,23 @@
       {
         "min_a": 100,
         "max_a_exclusive": 200,
-        "gap": 150
+        "gap_variable": "d1"
       },
       {
         "min_a": 200,
         "max_a_exclusive": 300,
-        "gap": 300,
         "allowed_range": [
           250,
           300
-        ]
+        ],
+        "gap_variable": "d2"
       },
       {
         "min_a": 300,
-        "gap": 400
+        "gap_variable": "d3"
       }
     ],
-    "boundary_policy": "200A uses 300mm; 300A uses 400mm; below100A requires manual rule",
+    "boundary_policy": "200A uses minimum250mm provisionally; raise only for cable/lug envelope; 300A uses400mm",
     "fishbone_max_main_a": 250,
     "branch_to_busbar_edge_min_mm": 30,
     "branch_to_busbar_edge_target_mm": 40,
@@ -105,6 +105,79 @@
       "terminal_lug_envelope",
       "cable_bend_envelope"
     ],
-    "unknown_depth_geometry": "block_fabrication_release"
+    "unknown_depth_geometry": "block_fabrication_release",
+    "dimension_variable_mapping": {
+      "side_above200A": "d4",
+      "side_up_to200A": "d5",
+      "branch_edge_min": "d6",
+      "branch_edge_target": "d7",
+      "spine_pitch": "d8",
+      "door_depth_envelope": "d14"
+    }
+  },
+  "cable_space_policy": {
+    "objective": "smallest_dimension_satisfying_cable_lug_route",
+    "quarter_turn_required_mm": "minimum_internal_radius + outer_diameter + straight_lug + terminal_offset + installation_allowance",
+    "missing_data": "minimum_user_range_is_provisional_not_verified",
+    "other_angles": "require_route_geometry",
+    "armoured_multicore": "do not use single core radius for full cable; distinguish sheath breakout and individual tails",
+    "example_source": "https://www.nexans.com.au/en/dam/jcr%3A1b58b92b-8fd8-4e2f-b93f-fb96c61ad889/Handbook%202017%20Online.pdf",
+    "purpose": "reserve connection space for cable lugs and minimum cable bending radius at main MCCB terminals",
+    "top_gap_reference": "MCCB body top to inside roof; cable terminal offset must be included",
+    "bend_radius_reference": "manufacturer minimum internal bend radius; convert centreline radius before calculating envelope",
+    "verification": "current-based spacing is a project starting rule, not a universal cable bending standard",
+    "route_validation": "check actual terminal exit direction and cable/lug envelope in side view before fabrication"
+  },
+  "form_resize_policy": {
+    "objective": "smallest source-form dimensions fitting actual component and connection envelopes",
+    "hardware": "preserve physical size; translate rigid hardware using explicit face anchors",
+    "lock_anchor": "centre of owning door face unless source metadata specifies otherwise",
+    "hinge_anchor": "owning door edge with source edge offset preserved",
+    "mounting_holes": "preserve diameter and specified edge offsets",
+    "views": "synchronize outer door, inner door, mounting plate, side and top projections",
+    "missing_anchor_metadata": "block automatic resizing; select a suitable source form or require anchor review",
+    "no_crop_or_uniform_scale": true
+  },
+  "design_variables": {
+    "unit": "mm",
+    "d1": 150,
+    "d2": 250,
+    "d3": 400,
+    "description": {
+      "d1": "Khoảng nóc ban đầu cho 100 ≤ In < 200 A",
+      "d2": "Khoảng nóc ban đầu cho 200 ≤ In < 300 A; ưu tiên nhỏ nhất đủ biên đấu nối",
+      "d3": "Khoảng nóc ban đầu cho In ≥ 300 A",
+      "d4": "Khoảng bên tới vỏ khi In > 200 A",
+      "d5": "Khoảng bên tới vỏ khi In ≤ 200 A; phải >100 mm",
+      "d6": "Khoảng tối thiểu từ CB nhánh tới biên đồng cái",
+      "d7": "Khoảng mục tiêu từ CB nhánh tới biên đồng cái",
+      "d8": "Bước tim thanh cái của tuyến minh họa; phải kiểm tra theo chiều rộng đồng và cách điện",
+      "d9": "Đường kính ngoài cáp; lấy theo mã cáp",
+      "d10": "Bán kính uốn trong nhỏ nhất; lấy theo hãng",
+      "d11": "Chiều dài thẳng đầu cốt và đoạn thẳng trước uốn",
+      "d12": "Độ lệch từ mốc thân CB tới điểm ra cọc theo tuyến",
+      "d13": "Khoảng thao tác lắp đặt",
+      "d14": "Khoảng chiều sâu sau cánh theo biên thiết bị và cần gạt"
+    },
+    "effective_gap": "max(selected d1/d2/d3, calculated cable/lug envelope); missing cable data remains provisional",
+    "d4": 150,
+    "d5": 110,
+    "d6": 30,
+    "d7": 40,
+    "d8": 30,
+    "d9": null,
+    "d10": null,
+    "d11": null,
+    "d12": null,
+    "d13": null,
+    "d14": null,
+    "cable_input_mapping": {
+      "d9": "outer_diameter_mm",
+      "d10": "minimum_inner_bend_radius_mm",
+      "d11": "lug_straight_mm",
+      "d12": "terminal_offset_mm",
+      "d13": "installation_allowance_mm"
+    },
+    "missing_value_policy": "null means unknown; never replace with zero"
   }
 }

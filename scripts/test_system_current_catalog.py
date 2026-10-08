@@ -23,7 +23,7 @@ class CurrentCatalogSystemTests(unittest.IsolatedAsyncioTestCase):
                 for device in devices:
                     device.update(panel_code='TĐT', source_filename='integration-fixture', source_page=1)
                 result = await AnalysisPipelineService.generate_cad_and_quotation(
-                    project, db, devices, enclosure_dimensions='1000x600x300',
+                    project, db, devices, enclosure_dimensions='1000x800x300',
                     panel_code='TĐT', per_panel=True)
                 self.assertTrue(result['cad_file'])
                 self.assertTrue(result['quotation_file'])
