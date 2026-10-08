@@ -149,9 +149,14 @@ def review_system(devices):
             upstream_normal = unicodedata.normalize('NFD', upstream.lower())
             upstream_normal = ''.join(c for c in upstream_normal if not unicodedata.combining(c)).replace('đ', 'd')
             descriptive_source = any(word in upstream_normal for word in ('thanh cai', 'busbar', 'nguon tong', 'nguon cap', 'tu dien tang', 'ngoai tu'))
+            incomers = [x for x in members if str(x.get('electrical_function') or '').upper() in ('INCOMING','INCOMER')
+                        or 'tổng' in str(x.get('name') or '').lower()]
+            descriptive_source = descriptive_source or (len(incomers) == 1 and any(
+                name in upstream_normal for name in ('mccb tong','cb tong','aptomat tong')))
             matched_tag = any(re.search(r'(?<!\w)' + re.escape(t) + r'(?!\w)', upstream, re.I) for t in tags)
             if upstream and not matched_tag and not descriptive_source:
-                issue(panel, tag, "Chưa tìm thấy thiết bị cấp nguồn", f"Nguồn '{d['upstream_device']}' chưa có trong cùng tủ; kiểm tra tham chiếu ngoài tủ hoặc thiết bị bị sót.")
+                issue(panel, tag, "Đối chiếu liên kết nguồn", f"Tham chiếu '{upstream}' chưa khớp ký hiệu nguồn đã đọc; xác minh điểm nối và nguồn cấp theo sơ đồ.",
+                      recommendation="Đối chiếu tag và dây nối; giữ tham chiếu nguồn ngoài tủ nếu sơ đồ thể hiện.")
             if cat == "CONTACTOR" and re.search(r"động cơ|motor|bơm|máy khuấy|máy thổi", " ".join(str(d.get(k) or '') for k in ('connected_load','notes','electrical_function')), re.I):
                 # Require an actual connection, not a relay somewhere in the cabinet.
                 connected = [x for x in members if x.get("upstream_device") == d.get("tag") or x.get("tag") == d.get("upstream_device")]

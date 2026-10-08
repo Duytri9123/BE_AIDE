@@ -29,7 +29,7 @@ class CircuitReviewTests(unittest.TestCase):
                 device('Q3', upstream_device='MCCB tổng Q1'),
                 device('Q4', upstream_device='Q99')]
         issues = [i for i in review_system(rows)['issues']
-                  if i['title'] == 'Chưa tìm thấy thiết bị cấp nguồn']
+                  if i['title'] == 'Đối chiếu liên kết nguồn']
         self.assertEqual(len(issues), 1)
 
     def test_pdf_previews_keep_page_identity_in_api(self):
