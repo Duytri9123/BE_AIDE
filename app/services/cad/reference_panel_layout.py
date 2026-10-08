@@ -213,7 +213,7 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
         if e['device']['category'] in ('FUSE_HOLDER','FUSE'):place(e,offset+width-70-e['w'],height-190-e['h'],'interior')
         elif e['device']['category']=='N' and branch_arrangement=='two_vertical_banks':
             if not incoming:raise ValueError('Cần thiết bị nguồn để định vị hệ thanh cái')
-            e=dict(e,fabricated_neutral=True,w=rules['layout_assumptions_mm']['neutral_review_width'],h=height-445)
+            e=dict(e,fabricated_neutral=True,w=rules['layout_assumptions_mm']['neutral_review_width'],h=branch_top+20-165)
             place(e,offset+width/2+1.5*pitch-e['w']/2,165,'interior')
         else:place(e,extra_x,85,'interior');extra_x+=e['w']+35
     fishbone_connections=[]
@@ -231,8 +231,8 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
         branch_placements=[p for p in placements if p['tag'] in [e['tag'] for e in branches]]
         for phase,spine in spines.items():
             layer='PLAN_'+phase
-            m.add_line((spine,165),(spine,height-280),dxfattribs={'layer':layer,'lineweight':35})
-            label(spine-5,height-270,phase,9)
+            m.add_line((spine,165),(spine,branch_top+20),dxfattribs={'layer':layer,'lineweight':35})
+            label(spine-5,branch_top+30,phase,9)
             for row_y in ([] if branch_arrangement=='two_vertical_banks' else sorted({p['y']+p['h'] for p in branch_placements})):
                 rail_y=row_y+25+('RSTN'.index(phase))*14
                 m.add_line((offset+65,rail_y),(spine,rail_y),dxfattribs={'layer':layer,'lineweight':35})
@@ -265,7 +265,7 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
             for i,phase in enumerate('RST'):
                 port_x=main['x']+main['w']*(i+1)/4
                 port_y=main['y']-8
-                feed_y=height-305-i*14
+                feed_y=branch_top+35+i*14
                 m.add_lwpolyline([(port_x,port_y),(port_x,feed_y),(spines[phase],feed_y)],dxfattribs={'layer':'PLAN_'+phase,'lineweight':35})
                 m.add_circle((port_x,port_y),2,dxfattribs={'layer':'PLAN_'+phase})
     # Bounding boxes include each source projection, without resizing.

@@ -46,7 +46,7 @@ class CurrentCatalogLayoutTests(unittest.TestCase):
             self.assertTrue(result['completion_checks']['neutral_bar_placed'])
             main = next(p for p in result['placements'] if p['tag'] == 'Q0')
             neutral = next(p for p in result['placements'] if p['tag'] == 'N')
-            self.assertEqual(neutral['h'], 555)
+            self.assertLessEqual(neutral['y']+neutral['h'],main['y']-30)
             self.assertEqual(neutral['y'], 165)
             self.assertEqual(result['spacing_review']['spine_pitch_mm'], 30)
             self.assertEqual(result['spacing_review']['clearance_compliance'], 'unverified')
