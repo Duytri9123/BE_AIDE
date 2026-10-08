@@ -51,6 +51,9 @@ class SourceProjectGenerator:
         entries = []
         missing = []
         for device in devices:
+            from app.services.cad.physical_layout_engine import PhysicalLayoutEngine, MountingType
+            if PhysicalLayoutEngine.classify_mounting(device) == MountingType.DOOR_MOUNTED:
+                raise ValueError('Cần vùng cánh tủ được xác nhận; không đặt thiết bị gắn cánh lên mặt trong.')
             linked, asset_id = requested_asset(device)
             if not linked or not asset_id:
                 missing.append(device.get('tag') or device.get('name') or '?')
@@ -61,6 +64,9 @@ class SourceProjectGenerator:
                 missing.append(device.get('tag') or device.get('name') or '?')
                 continue
             qty = max(1, min(int(device.get('quantity') or 1), 100))
+            if str(asset_id).startswith('tb:'):
+                from app.services.cad.catalogtb_assets import resolve, instance_count
+                qty = instance_count(qty, resolve(asset_id))
             for _ in range(qty):
                 entries.append((device, asset_id, bounds.size.x, bounds.size.y))
         # Incoming protection first; then outgoing protection, then controls.

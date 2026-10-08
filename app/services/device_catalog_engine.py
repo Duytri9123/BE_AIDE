@@ -8,6 +8,7 @@ import os
 import re
 import unicodedata
 import hashlib
+from pathlib import Path
 from typing import Dict, List, Optional, Any, Tuple
 from app.services.cache_service import cache_service
 
@@ -106,6 +107,7 @@ class DeviceCatalogEngine:
         self.brand_alias_index: Dict[str, str] = {}
         self.type_index: Dict[str, List[Dict[str, Any]]] = {}
         self.accessories: Dict[str, Any] = {}
+        self.reference_profiles: List[Dict[str, Any]] = []
         
         self.load_catalog()
         self._initialized = True
@@ -113,7 +115,11 @@ class DeviceCatalogEngine:
     def load_catalog(self):
         """Load and index all devices into RAM for instant O(1) lookup."""
         if not os.path.exists(self.catalog_path):
-            print(f"[WARN] Catalog JSON not found at: {self.catalog_path}")
+            self.items = []
+            self.sku_index.clear()
+            self.brand_index.clear()
+            self.type_index.clear()
+            self.load_reference_profiles()
             return
 
         with open(self.catalog_path, "r", encoding="utf-8") as f:
@@ -180,6 +186,7 @@ class DeviceCatalogEngine:
 
         # The historical accessory catalog is not an authorized fallback.
         self.accessories = {}
+        self.load_reference_profiles()
 
         # Xóa cache catalog cũ nếu nạp lại catalog mới
         try:
@@ -192,6 +199,55 @@ class DeviceCatalogEngine:
             f"({len(self.brand_index)} brands, {len(self.type_index)} types). "
             f"Source-backed 2026 records only; unresolved variants stay unpriced."
         )
+
+    def load_reference_profiles(self):
+        """Read the current CAD library as references, never as priced order codes."""
+        root = Path(__file__).resolve().parents[2] / 'data' / 'CatalogTB'
+        self.reference_profiles = []
+        for path in sorted(root.rglob('thong_tin_thiet_bi.json')):
+            try:
+                profile = json.loads(path.read_text(encoding='utf-8'))
+            except (OSError, ValueError):
+                continue
+            ai = profile.get('nhan_dien_ai') or {}
+            kind = str(ai.get('loai_thiet_bi_code') or '').upper()
+            if not kind:
+                continue
+            self.reference_profiles.append(dict(
+                category=kind, name=profile.get('ten_san_pham') or profile.get('ten_kieu'),
+                brand=profile.get('hang_xac_nhan') or ai.get('hang'),
+                series=profile.get('ma_dong_san_pham'),
+                poles=ai.get('so_cuc'), cad_poles=ai.get('so_cuc_cad'),
+                specifications=profile.get('thong_so') or {},
+                sources=profile.get('nguon_tham_khao') or [],
+                selection_note=profile.get('muc_do_xac_nhan'),
+                reference_path=path.relative_to(root).as_posix(),
+                sku=None, price=None, status='reference_only'))
+
+    def search_references(self, category, brand=None, poles=None, limit=5, allow_other_brands=False):
+        aliases = {'PILOT': 'LIGHT', 'PILOT_LIGHT': 'LIGHT', 'INDICATOR': 'LIGHT'}
+        kind = aliases.get(str(category).upper(), str(category).upper())
+        wanted_brand = strip_accents(str(brand or '')).lower().replace(' electric','').strip()
+        matches = []
+        for profile in self.reference_profiles:
+            if aliases.get(profile['category'], profile['category']) != kind:
+                continue
+            actual_brand = strip_accents(str(profile['brand'] or '')).lower().replace(' electric','').strip()
+            if wanted_brand and wanted_brand != actual_brand:
+                continue
+            if poles and profile['poles']:
+                observed_poles = re.fullmatch(r'\s*(\d+)\s*P?\s*', str(profile['poles']), re.I)
+                if not observed_poles or int(observed_poles.group(1)) != int(poles):
+                    continue
+            matches.append(dict(profile, brand_match='preferred' if wanted_brand else 'unspecified'))
+        if not matches and wanted_brand and allow_other_brands:
+            alternatives = self.search_references(category, poles=poles, limit=limit)
+            return [dict(p, brand_match='alternative_requires_confirmation',
+                         requested_brand=brand,
+                         selection_note=str(p.get('selection_note') or '') +
+                         ' Tham khảo ngoài hãng ưu tiên; cần xác nhận hãng và thông số, chưa phải mã phù hợp đã duyệt.')
+                    for p in alternatives]
+        return matches[:limit]
 
     def resolve_brand(self, brand: Optional[str]) -> Optional[str]:
         if not brand:
@@ -303,6 +359,8 @@ class DeviceCatalogEngine:
         """Return a candidate only when an explicit code resolves uniquely."""
         if not series:
             return []
+        if not Path(self.catalog_path).is_file():
+            return []
         from app.services.equipment_library import resolve_price_variant
         row = resolve_price_variant(series, brand, poles, in_current, min_icu)
         if not row:
@@ -401,7 +459,7 @@ class DeviceCatalogEngine:
         Trả về dict: {sku, name, brand, unit_price, dimensions, parameters, catalog_matched: bool}
         """
         from app.services.equipment_library import resolve_price_variant
-        source_row = resolve_price_variant(part_number or '', brand, poles, in_a, min_icu)
+        source_row = resolve_price_variant(part_number or '', brand, poles, in_a, min_icu) if Path(self.catalog_path).is_file() else None
         if source_row:
             front = ((source_row['specifications'].get('dimensions_mm') or {}).get('visible_front') or [])
             return {

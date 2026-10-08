@@ -80,6 +80,7 @@ class QuotationExporterService:
         current_row = 2
         item_rows_indices = []
         panel_item_rows = {}
+        has_pending_items = False
 
         def write_section(title: str):
             nonlocal current_row
@@ -105,7 +106,7 @@ class QuotationExporterService:
         def write_item(name: str, sku: str, origin: str, unit: str, qty: float, price: int, notes: str = "", tt: str = "+"):
             nonlocal current_row
             discount = discounts.get(origin.strip().casefold(), 0)
-            net_price = f"=J{current_row}*(1-K{current_row}/100)"
+            net_price = f"=J{current_row}*(1-K{current_row}/100)" if price is not None else 'Chờ báo giá'
             item_cells = [
                 (tt, align_center, False),
                 (name, align_left, False),
@@ -114,7 +115,7 @@ class QuotationExporterService:
                 (unit, align_center, False),
                 (qty, align_center, False),
                 (net_price, align_right, False),
-                (f"=F{current_row}*G{current_row}", align_right, True),
+                (f"=F{current_row}*G{current_row}" if price is not None and isinstance(qty, (int,float)) else 'Chưa xác nhận', align_right, True),
                 (notes, align_left, False),
                 (price, align_right, False),
                 (discount, align_right, False),
@@ -178,8 +179,10 @@ class QuotationExporterService:
                     sku = str(r.get("sku") or "")
                     origin = str(r.get("origin") or "")
                     unit = str(r.get("unit") or "Cái")
-                    qty = float(r.get("quantity") or 1.0)
-                    price = int(r.get("unit_price") or r.get("price") or 0)
+                    pending = r.get('quantity') is None or r.get('unit_price') is None or r.get('inclusion_status') == 'needs_confirmation'
+                    has_pending_items = has_pending_items or pending
+                    qty = float(r['quantity']) if r.get('quantity') is not None else 'Theo thiết kế'
+                    price = None if pending else int(r.get('unit_price') or 0)
                     notes = str(r.get("notes") or "")
                     tt = str(r.get("tt") or ("↳" if r_type == "accessory" or r.get("is_accessory") else "+"))
                     write_item(name, sku, origin, unit, qty, price, notes, tt=tt)
@@ -300,7 +303,7 @@ class QuotationExporterService:
 
         # Row: TỔNG GIÁ TRỊ TRƯỚC THUẾ
         ws.merge_cells(start_row=current_row, start_column=1, end_row=current_row, end_column=7)
-        c_sub = ws.cell(row=current_row, column=1, value="TỔNG GIÁ TRỊ TRƯỚC THUẾ")
+        c_sub = ws.cell(row=current_row, column=1, value="CỘNG CÁC DÒNG ĐÃ XÁC NHẬN" if has_pending_items else "TỔNG GIÁ TRỊ TRƯỚC THUẾ")
         c_sub.font = font_grand_total
         c_sub.alignment = align_right
 
@@ -327,7 +330,7 @@ class QuotationExporterService:
         c_vat.font = font_grand_total
         c_vat.alignment = align_right
 
-        vat_formula = f"=H{before_vat_row}*{effective_vat_rate}"
+        vat_formula = 'Chưa đủ dữ liệu' if has_pending_items else f"=H{before_vat_row}*{effective_vat_rate}"
         c_vat_val = ws.cell(row=current_row, column=8, value=vat_formula)
         c_vat_val.font = font_grand_total
         c_vat_val.alignment = align_right
@@ -345,7 +348,7 @@ class QuotationExporterService:
         c_tot.font = font_grand_total
         c_tot.alignment = align_right
 
-        grand_tot_formula = f"=H{before_vat_row}+H{vat_row}"
+        grand_tot_formula = 'Chưa đủ dữ liệu' if has_pending_items else f"=H{before_vat_row}+H{vat_row}"
         c_tot_val = ws.cell(row=current_row, column=8, value=grand_tot_formula)
         c_tot_val.font = font_grand_total
         c_tot_val.alignment = align_right

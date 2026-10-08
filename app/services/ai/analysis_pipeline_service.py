@@ -577,7 +577,7 @@ class AnalysisPipelineService:
                                     poles=clean_poles,
                                     quantity=int(d.quantity or 1),
                                     brand=d.brand or "",
-                                    part_number=d.part_number or (cp.get("proposed_device") if cp else ""),
+                                    part_number=d.part_number or "",
                                     section=d.section,
                                     location=d.location,
                                     panel_code=d.panel_code,
@@ -1012,7 +1012,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             "suitability": "SUITABLE" if len(extracted_devices) > 0 else ("CONTEXT_ONLY" if contextual_answer else "NEEDS_REVIEW"),
             "document_type": (file_assessment.get("document_type") if file_assessment else "Sơ đồ 1 sợi SLD") if len(extracted_devices) > 0 else ("Bộ tài liệu tham chiếu" if contextual_answer else "Chưa xác định"),
             "summary": (
-                f"Đã thẩm định {len(project_files)} tệp bản vẽ. Trích xuất thành công {len(extracted_devices)} thiết bị điện đạt chuẩn kỹ thuật ({len(successful_files)}/{len(project_files)} tệp hợp lệ)."
+                f"Đã thẩm định {len(project_files)} tệp bản vẽ. Trích xuất thành công {len(extracted_devices)} dòng thiết bị cần đối chiếu ({len(successful_files)}/{len(project_files)} tệp hợp lệ)."
                 if len(extracted_devices) > 0 else
                 (f"Đã đọc {len(project_files)} tệp làm ngữ cảnh và trả lời yêu cầu; không phát sinh BOM thiết bị."
                  if contextual_answer else
@@ -1060,6 +1060,9 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         extracted_devices = AnalysisPipelineService._promote_drawn_fa_devices(extracted_devices)
         extracted_devices = AnalysisPipelineService._promote_embedded_accessories_to_devices(extracted_devices)
         AnalysisPipelineService._infer_practical_quantities(extracted_devices)
+        from app.services.ai.takeoff_integrity import normalize_takeoff
+        extracted_devices, integrity_warnings = normalize_takeoff(extracted_devices)
+        warnings.extend(integrity_warnings)
 
         # 3. Chỉ gộp khi thực sự là cùng một thiết bị. Tag, lộ, tải hoặc quan hệ
         # nguồn khác nhau đều là thiết bị vật lý riêng, kể cả khi cùng thông số.
@@ -1268,6 +1271,15 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
 
             dev.catalog_matches = catalog_matches
             dev.catalog_candidates = catalog_candidates
+            dev.catalog_references = catalog_engine.search_references(dev.category, requested_brand or dev_raw_brand or preferred_brand, dev.poles, allow_other_brands=not bool(requested_brand or dev_raw_brand))
+            from app.services.cad.catalogtb_assets import candidates as cad_candidates_for
+            cad_refs = cad_candidates_for(dev.category, requested_brand or dev_raw_brand or preferred_brand, dev.poles)
+            if not cad_refs and not (requested_brand or dev_raw_brand):
+                cad_refs = cad_candidates_for(dev.category, poles=dev.poles)
+            if cad_refs:
+                dev.cad = {**(dev.cad or {}), 'reference_candidates': [
+                    {key:a[key] for key in ('id','name','face','profile_path','status','confirmation','label_config','replacement_options')}
+                    for a in cad_refs], 'requires_selection': True}
 
             # Lọc các hãng có model trong catalog
             valid_brands = list(catalog_matches.keys())
@@ -1529,7 +1541,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 {
                     "id": "finalization",
                     "title": "Hoàn tất bóc tách thiết bị",
-                    "description": f"Đã bóc tách {len(extracted_devices)} thiết bị. Sẵn sàng tạo báo giá & vẽ CAD.",
+                    "description": f"Đã bóc tách {len(extracted_devices)} thiết bị. Cần xác nhận thông số, vật tư lắp tủ và giá trước khi chốt.",
                     "status": "completed",
                 }
             ]
@@ -1572,7 +1584,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             preferred_dimensions=detected_dimensions
         )
 
-        incomer_rating = enclosure_spec.get("incomer_rating") or settings.DEFAULT_INCOMER_RATING or 0
+        incomer_rating = enclosure_spec.get("incomer_rating") or max([float(d.in_a or 0) for d in extracted_devices] + [0])
         poles = enclosure_spec.get("poles", 2)
         is_3phase = enclosure_spec.get("is_3phase", False)
         voltage_str = "3 pha 380/220V 50Hz" if is_3phase else "1 pha 220V 50Hz"
@@ -1925,21 +1937,16 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 device.quantity_confidence = max(device.quantity_confidence or 0, 0.98)
                 continue
 
-            is_fuse = category == "FUSE" or "cầu chì" in searchable or re.search(r"\bfuse\b", searchable)
-            explicit_three_phase = bool(re.search(r"\b3\s*[x×]\b|\b3\s*(?:pha|phase|p)\b|\br\s*[-/,]\s*[sy]\s*[-/,]\s*[tb]\b", searchable, re.I))
-            measurement_fuse = bool(re.search(r"v[oô]n|volt|điện áp|dien ap|báo pha|bao pha", searchable, re.I))
-            panel_has_three_phase_measurement = bool(
-                re.search(r"3xct|\b3ct\b|\br\s*[-/,]\s*[sy]\s*[-/,]\s*[tb]\b|đèn báo pha|chon mach volt|vôn kế", context, re.I)
-            )
-            if is_fuse and (explicit_three_phase or (measurement_fuse and panel_has_three_phase_measurement)):
-                if not explicit_qty_matches:
-                    device.drawing_quantity = 1
+            is_fuse = category == "FUSE"
+            # Only local multiplicity can expand a fuse, never panel-wide lamp text.
+            local_count = re.search(r"\b([123])\s*[x×]\s*\d+(?:[.,]\d+)?\s*a\b", identity_text, re.I)
+            if is_fuse and local_count:
+                count = int(local_count.group(1))
+                device.quantity = device.procurement_quantity = count
+                device.quantity_basis = f"Nhãn thiết bị ghi {local_count.group(0)}: {count} cầu chì."
+            elif is_fuse and re.search(r"\br\s*[-/,]\s*[sy]\s*[-/,]\s*[tb]\b", identity_text, re.I):
                 device.quantity = device.procurement_quantity = max(3, drawn_qty)
-                device.quantity_basis = (
-                    "Sơ đồ một sợi chỉ vẽ một cụm, nhưng mạch đo/báo điện áp ba pha cần ba cầu chì, "
-                    "tương ứng các pha R-S-T."
-                )
-                device.quantity_confidence = max(device.quantity_confidence or 0, 0.9)
+                device.quantity_basis = "Nhãn cụm cầu chì ghi rõ các pha R S T."
 
     @staticmethod
     def _refine_device_bounding_boxes(devices: List[ExtractedDeviceSchema]) -> None:
@@ -2036,11 +2043,9 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 panel_buf = io.BytesIO()
                 panel_preview.save(panel_buf, format="JPEG", quality=88)
                 panel_data_url = f"data:image/jpeg;base64,{base64.b64encode(panel_buf.getvalue()).decode()}"
-                if devices:
-                    devices[0].panel_evidence_image = devices[0].panel_evidence_image or panel_data_url
-
                 for dev in devices:
                     try:
+                        dev.panel_evidence_image = dev.panel_evidence_image or panel_data_url
                         box = getattr(dev, "box_2d", None)
                         # Nếu có box_2d [ymin, xmin, ymax, xmax] (chuẩn hóa 0-1000)
                         if box and len(box) == 4:
@@ -2896,7 +2901,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 poles=clean_poles,
                                 quantity=int(d.quantity or 1),
                                 brand=d.brand or "",
-                                part_number=d.part_number or (cp.get("proposed_device") if cp else ""),
+                                part_number=d.part_number or "",
                                 section=d.section,
                                 location=d.location or f"Trang {page_num}",
                                 panel_code=d.panel_code or page_panel_code,
@@ -3053,463 +3058,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
         panel_code: Optional[str] = None,
         panel_name: Optional[str] = None
     ) -> List[Dict[str, Any]]:
-        rows = []
-        if not extracted_devices and not multi_panel_list:
-            return []
-        clean_pname = (panel_name or panel_code or "").upper()
-
-        def _device_value(dev_obj: Any, key: str, default: Any = None) -> Any:
-            """Read the same field from Pydantic models and streamed dict rows."""
-            if isinstance(dev_obj, dict):
-                value = dev_obj.get(key, default)
-            else:
-                value = getattr(dev_obj, key, default)
-            return default if value is None else value
-
-        def _device_bucket(dev_obj: Any) -> str:
-            """Return one exhaustive quotation group; no device may be dropped."""
-            section = str(_device_value(dev_obj, "section", "")).strip().casefold()
-            category = str(_device_value(dev_obj, "category", "")).strip().upper()
-            name = str(_device_value(dev_obj, "name", "")).strip().casefold()
-            in_a = float(_device_value(dev_obj, "in_a", 0) or 0)
-            combined = f"{section} {name}"
-
-            if (
-                "đầu vào" in combined
-                or "incomer" in combined
-                or "nguồn cấp" in combined
-                or "ACB" in category
-                or ("MCCB" in category and in_a >= 400)
-            ):
-                return "incoming"
-            if (
-                any(token in combined for token in ["đo lường", "giám sát", "đồng hồ", "đèn báo", "volt", "ampe"])
-                or any(token in category for token in ["METER", "LIGHT", "PILOT", "CT"])
-            ):
-                return "measurement"
-            if (
-                any(token in combined for token in ["điều khiển", "chiếu sáng", "rơ le", "khởi động từ"])
-                or any(token in category for token in ["CONTACTOR", "TIMER", "RELAY", "CONTROL", "FUSE"])
-            ):
-                return "control"
-            if (
-                any(token in combined for token in ["làm mát", "thông gió", "quạt", "nhiệt"])
-                or any(token in category for token in ["COOLING", "FAN", "THERMOSTAT", "LOUVER"])
-            ):
-                return "cooling"
-            return "outgoing"
-
-        def _append_device_with_accessories(
-            target_rows: list,
-            dev_obj: Any,
-            price: int,
-            panel_id_str: str,
-            default_note: str = "",
-            incomer_ref_rating: Optional[float] = None
-        ):
-            dev_dict = dev_obj.model_dump() if hasattr(dev_obj, "model_dump") else (dict(dev_obj) if isinstance(dev_obj, dict) else dev_obj.__dict__)
-            p_num = dev_dict.get("part_number") or dev_dict.get("name") or str(uuid.uuid4())[:8]
-            dev_id = f"{panel_id_str}-{p_num}"
-            qty = int(dev_dict.get("quantity") or 1)
-            is_alt = bool(dev_dict.get("is_alternative_recommended", False))
-            comp_note = dev_dict.get("compatibility_note") or ""
-            note_str = dev_dict.get("notes") or default_note
-
-            target_rows.append({
-                "id": dev_id,
-                "row_type": "item",
-                "is_accessory": False,
-                "is_alternative_recommended": is_alt,
-                "compatibility_note": comp_note,
-                "tt": "+",
-                "name": dev_dict.get("name", "Thiết bị"),
-                "spec": dev_dict.get("spec", ""),
-                "sku": dev_dict.get("part_number") or "",
-                "origin": (dev_dict.get("brand") or "").replace(" Electric", ""),
-                "unit": dev_dict.get("unit") or ("Bộ" if "LIGHT" in str(dev_dict.get("category") or "").upper() or "CT" in str(dev_dict.get("category") or "").upper() else "Cái"),
-                "quantity": qty,
-                "unit_price": price,
-                "line_total": qty * price,
-                "notes": note_str
-            })
-
-            # Tự động chèn CỤM PHỤ KIỆN / THIẾT BỊ ĐI KÈM do AI phân tích từ bản vẽ
-            accs = dev_dict.get("accompanying_accessories")
-            if accs:
-                for a_idx, acc in enumerate(accs, 1):
-                    acc_qty = int(acc.get("quantity") or 1)
-                    acc_price = int(acc.get("unit_price") or 0)
-                    target_rows.append({
-                        "id": f"acc-{dev_id}-{acc.get('code', a_idx)}",
-                        "parent_id": dev_id,
-                        "row_type": "accessory",
-                        "is_accessory": True,
-                        "is_alternative_recommended": False,
-                        "tt": "↳",
-                        "name": acc.get("name"),
-                        "spec": acc.get("spec", ""),
-                        "sku": acc.get("sku", "-"),
-                        "origin": acc.get("origin", "VN"),
-                        "unit": acc.get("unit", "Bộ"),
-                        "quantity": acc_qty,
-                        "unit_price": acc_price,
-                        "line_total": acc_qty * acc_price,
-                        "notes": acc.get("notes", "")
-                    })
-
-        catalog_engine = DeviceCatalogEngine.get_instance()
-
-        def _resolve_price(dev) -> int:
-            sku = getattr(dev, "part_number", None) or (dev.get("part_number") if isinstance(dev, dict) else None)
-            name = getattr(dev, "name", None) or (dev.get("name") if isinstance(dev, dict) else None)
-            cat = getattr(dev, "category", "") or (dev.get("category") if isinstance(dev, dict) else "")
-            in_a = getattr(dev, "in_a", None) or (dev.get("in_a") if isinstance(dev, dict) else None)
-            poles = getattr(dev, "poles", None) or (dev.get("poles") if isinstance(dev, dict) else None)
-
-            if sku and sku in device_price_map and device_price_map[sku] > 0:
-                return device_price_map[sku]
-            if sku:
-                cat_item = catalog_engine.get_by_sku(sku)
-                if cat_item and cat_item.get("g") and int(cat_item["g"]) > 0:
-                    return int(cat_item["g"])
-            return 0
-
-        # TRƯỜNG HỢP 1: Bóc tách Đa tủ (Multi-Panel Breakdown)
-        if multi_panel_list:
-            # One physical cabinet can be reported by several pages/partial AI
-            # events. Consolidate by panel_code before producing quotation rows;
-            # otherwise the same cabinet header and enclosure were repeated.
-            consolidated_panels: Dict[str, Dict[str, Any]] = {}
-            for raw_idx, raw_panel in enumerate(multi_panel_list, 1):
-                raw_code = str(raw_panel.get("panel_code") or f"P-{raw_idx}").strip()
-                panel_entry = consolidated_panels.setdefault(raw_code, dict(raw_panel))
-                panel_entry["panel_code"] = raw_code
-                current_devices = list(panel_entry.get("devices") or [])
-                known_device_keys = {
-                    (
-                        str(_device_value(device, "tag", "")),
-                        str(_device_value(device, "part_number", "")),
-                        str(_device_value(device, "name", "")),
-                        str(_device_value(device, "spec", "")),
-                    )
-                    for device in current_devices
-                }
-                for device in raw_panel.get("devices") or []:
-                    device_key = (
-                        str(_device_value(device, "tag", "")),
-                        str(_device_value(device, "part_number", "")),
-                        str(_device_value(device, "name", "")),
-                        str(_device_value(device, "spec", "")),
-                    )
-                    if device_key not in known_device_keys:
-                        current_devices.append(device)
-                        known_device_keys.add(device_key)
-                panel_entry["devices"] = current_devices
-
-            for p_idx, panel in enumerate(consolidated_panels.values(), 1):
-                p_code = panel.get("panel_code") or f"P-{p_idx}"
-                p_name = panel.get("panel_name") or ""
-                dim_str = panel.get("dimension") or ""
-                dim_h = panel.get("dim_h") or 1200
-                dim_w = panel.get("dim_w") or 700
-                dim_d = panel.get("dim_d") or 250
-                dim_t = panel.get("dim_t") or 1.4
-                dwg_code = panel.get("drawing_code") or ""
-
-                panel_devs = [
-                    d for d in extracted_devices
-                    if str(_device_value(d, "panel_code", "")).strip() == str(p_code).strip()
-                ]
-                if not panel_devs:
-                    panel_devs = panel.get("devices", [])
-
-                # 1. Dòng Header Tủ
-                rows.append({
-                    "id": f"p-{p_code}",
-                    "row_type": "panel_header",
-                    "tt": str(p_idx),
-                    "name": f" {p_code} - {p_name.upper()}",
-                    "sku": dim_str,
-                    "origin": "VN",
-                    "unit": "Tủ",
-                    "quantity": 1,
-                    "unit_price": 0,
-                    "line_total": 0,
-                    "notes": f"Vị trí: Trang {panel.get('page_num')} - Bản vẽ {dwg_code}"
-                })
-
-                # Tính toán Incomer rating riêng của tủ này từ thiết bị thực tế (không ép 630A giả)
-                inc_devs = [d for d in panel_devs if _device_bucket(d) == "incoming"]
-                if inc_devs and _device_value(inc_devs[0], "in_a"):
-                    inc_rating = int(_device_value(inc_devs[0], "in_a"))
-                else:
-                    dev_currents = [float(_device_value(d, "in_a", 0) or 0) for d in panel_devs if _device_value(d, "in_a")]
-                    inc_rating = int(max(dev_currents)) if dev_currents else 0
-
-                # Dự toán vỏ tủ riêng của tủ này theo kích thước bản vẽ
-                surface_m2 = 2 * (dim_h * dim_w + dim_h * dim_d + dim_w * dim_d) / 1e6
-                p_enc_price = max(1800000, int(surface_m2 * 1250000))
-                p_enc_price = int(round(p_enc_price / float(PRICE_ROUNDING_STEP_VND)) * PRICE_ROUNDING_STEP_VND)
-
-                # Kiểm tra tủ có cần hệ thống đồng thanh cái không (In >= 100A hoặc ACB/MCCB lớn)
-                need_busbar = BusbarCalculatorService.needs_busbar(inc_rating, panel_devs)
-                bus_res = None
-                if need_busbar:
-                    bus_res = BusbarCalculatorService.calculate(inc_rating, {"width": dim_w, "height": dim_h, "depth": dim_d}, panel_devs)
-
-                # Tính toán chi tiết phụ kiện & vật tư phụ theo tải và số cực thực tế
-                total_poles = sum(int(_device_value(d, "poles", 3) or 3) * int(_device_value(d, "quantity", 1) or 1) for d in panel_devs)
-                lug_cost = total_poles * (25000 if inc_rating >= 400 else 12000)
-                wire_cost = 200000 + len([d for d in panel_devs if _device_bucket(d) in ["measurement", "control"]]) * 35000
-                duct_cost = int(((dim_h + dim_w) / 1000.0) * 75000)
-                insulator_cost = (int(bus_res.L_main_m / BUSBAR_INSULATOR_SPACING_M) * 4 * BUSBAR_INSULATOR_PRICE_VND) if (need_busbar and bus_res) else 0
-                comb_busbar_cost = (total_poles * 8000) if not need_busbar else 0
-                p_acc_price = int(round((lug_cost + wire_cost + duct_cost + insulator_cost + comb_busbar_cost + 150000) / float(PRICE_ROUNDING_STEP_VND)) * PRICE_ROUNDING_STEP_VND)
-                p_acc_price = max(450000, p_acc_price)
-
-                # Nhân công lắp ráp, đấu nối & QC
-                base_lab = 500000 if inc_rating < 100 else (1000000 if inc_rating <= 630 else 1800000)
-                dev_lab = len(panel_devs) * 50000
-                p_lab_price = int(round((base_lab + dev_lab) / float(PRICE_ROUNDING_STEP_VND)) * PRICE_ROUNDING_STEP_VND)
-                p_lab_price = max(800000, p_lab_price)
-
-                # 2. Section 1: Vỏ tủ + Phụ kiện
-                rows.append({"id": f"s-enc-{p_code}", "row_type": "section_header", "tt": "*", "name": f"Vỏ tủ {p_code} & phụ kiện"})
-                rows.append({
-                    "id": f"i-enc-{p_code}",
-                    "row_type": "item",
-                    "tt": "+",
-                    "name": f"Vỏ tủ điện sơn tĩnh điện (KT: H{dim_h}xW{dim_w}xD{dim_d}xT{dim_t}mm) kèm chân đế cao {settings.ENCLOSURE_DEFAULT_PLINTH_HEIGHT}mm",
-                    "sku": f"H{dim_h}xW{dim_w}",
-                    "origin": "VN",
-                    "unit": "Cái",
-                    "quantity": 1,
-                    "unit_price": p_enc_price,
-                    "line_total": p_enc_price,
-                    "notes": f"Định hướng thiết kế theo bản vẽ {dwg_code}"
-                })
-                
-                # CHỈ thêm đồng thanh cái khi tủ thực sự cần thanh cái (KHÔNG mock cho tủ nhỏ)
-                if need_busbar and bus_res:
-                    rows.append({
-                        "id": f"i-bus-{p_code}",
-                        "row_type": "item",
-                        "tt": "+",
-                        "name": bus_res.spec_title,
-                        "sku": f"Cu {bus_res.section_mm2}mm2",
-                        "origin": "VN",
-                        "unit": "Hệ",
-                        "quantity": 1,
-                        "unit_price": bus_res.unit_price,
-                        "line_total": bus_res.unit_price,
-                        "notes": f"Gia công uốn đột CNC, bọc co nhiệt R-S-T-N-E ({bus_res.profile}mm)"
-                    })
-
-                acc_name = "Vật tư phụ tủ điện (đầu cosse SC động lực, dây điều khiển Cadivi VSF, máng cáp nhựa PVC, sứ đỡ thanh cái SM, domino kẹp dây)" if need_busbar else "Vật tư phụ tủ điện (Cầu lược 3P/1P phân phối MCB, đầu cosse ghim, dây điều khiển Cadivi VSF, máng cáp nhựa PVC, kẹp tiếp địa)"
-                rows.append({
-                    "id": f"i-acc-{p_code}",
-                    "row_type": "item",
-                    "tt": "+",
-                    "name": acc_name,
-                    "sku": "Trọn gói",
-                    "origin": "VN",
-                    "unit": "Tủ",
-                    "quantity": 1,
-                    "unit_price": p_acc_price,
-                    "line_total": p_acc_price,
-                    "notes": ""
-                })
-                rows.append({
-                    "id": f"i-lab-{p_code}",
-                    "row_type": "item",
-                    "tt": "+",
-                    "name": "Nhân công lắp ráp, đấu nối & kiểm tra xuất xưởng (QC)",
-                    "sku": "QC-LABOR",
-                    "origin": "VN",
-                    "unit": "Tủ",
-                    "quantity": 1,
-                    "unit_price": p_lab_price,
-                    "line_total": p_lab_price,
-                    "notes": ""
-                })
-
-                # Phân loại và gộp nhóm thiết bị trùng lặp trong tủ này
-                p_incomers = DynamicGroupingEngine.merge_duplicates([d for d in panel_devs if _device_bucket(d) == "incoming"])
-                p_meters = DynamicGroupingEngine.merge_duplicates([d for d in panel_devs if _device_bucket(d) == "measurement"])
-                p_controls = DynamicGroupingEngine.merge_duplicates([d for d in panel_devs if _device_bucket(d) == "control"])
-                p_cooling = DynamicGroupingEngine.merge_duplicates([d for d in panel_devs if _device_bucket(d) == "cooling"])
-                p_feeders = DynamicGroupingEngine.merge_duplicates([d for d in panel_devs if _device_bucket(d) == "outgoing"])
-
-                # 3. Đầu vào
-                if p_incomers:
-                    rows.append({"id": f"s-inc-{p_code}", "row_type": "section_header", "tt": "*", "name": f"Thiết bị đầu vào ({p_code})"})
-                    for inc in p_incomers:
-                        price = _resolve_price(inc)
-                        _append_device_with_accessories(rows, inc, price, f"inc-{p_code}", default_note="Aptomat tổng", incomer_ref_rating=inc_rating)
-
-                # 4. Đo lường & Giám sát
-                if p_meters:
-                    rows.append({"id": f"s-met-{p_code}", "row_type": "section_header", "tt": "*", "name": f"Đo lường & Giám sát ({p_code})"})
-                    for m in p_meters:
-                        price = _resolve_price(m)
-                        _append_device_with_accessories(rows, m, price, f"met-{p_code}", incomer_ref_rating=inc_rating)
-
-                # 5. Điều khiển & Chiếu sáng
-                if p_controls:
-                    rows.append({"id": f"s-ctl-{p_code}", "row_type": "section_header", "tt": "*", "name": f"Điều khiển ({p_code})"})
-                    for c in p_controls:
-                        price = _resolve_price(c)
-                        _append_device_with_accessories(rows, c, price, f"ctl-{p_code}", incomer_ref_rating=inc_rating)
-
-                # 6. Làm mát & Thông gió (thiết bị cánh/khung tủ)
-                if p_cooling:
-                    rows.append({"id": f"s-cool-{p_code}", "row_type": "section_header", "tt": "*", "name": f"Làm mát & Thông gió ({p_code})"})
-                    for c in p_cooling:
-                        price = _resolve_price(c)
-                        _append_device_with_accessories(rows, c, price, f"cool-{p_code}", incomer_ref_rating=inc_rating)
-
-                # 7. Đầu ra
-                if p_feeders:
-                    rows.append({"id": f"s-out-{p_code}", "row_type": "section_header", "tt": "*", "name": f"Thiết bị đầu ra ({p_code})"})
-                    for f in p_feeders:
-                        price = _resolve_price(f)
-                        _append_device_with_accessories(rows, f, price, f"f-{p_code}", incomer_ref_rating=inc_rating)
-
-            return rows
-
-        # TRƯỜNG HỢP 2: Bóc tách Đơn tủ (Single Panel Fallback)
-        rows.append({
-            "id": "p-1",
-            "row_type": "panel_header",
-            "tt": "1",
-            "name": f"TỦ ĐIỆN {clean_pname}",
-            "sku": "",
-            "origin": "VN",
-            "unit": "Tủ",
-            "quantity": 1,
-            "unit_price": 0,
-            "line_total": 0,
-            "notes": ""
-        })
-
-        # 2. Section 1: Vỏ tủ + Phụ kiện
-        rows.append({"id": "s-1", "row_type": "section_header", "tt": "*", "name": "Vỏ tủ + phụ kiện"})
-        rows.append({
-            "id": "i-enc",
-            "row_type": "item",
-            "tt": "+",
-            "name": f"Vỏ tủ điện {panel_code or 'DB'} ({clean_pname}) sơn tĩnh điện công nghiệp.\n+ KT: H{enclosure_spec['height']}xW{enclosure_spec['width']}xD{enclosure_spec['depth']}xT{enclosure_spec['thickness']}mm\n+ Cấp bảo vệ IP54/IP42" + (f"\n+ Có chân đế cao {enclosure_spec['plinth_height']}mm" if enclosure_spec.get('plinth_height') else ""),
-            "sku": f"H{enclosure_spec['height']}xW{enclosure_spec['width']}",
-            "origin": "VN",
-            "unit": "Cái",
-            "quantity": 1,
-            "unit_price": enclosure_unit_price,
-            "line_total": enclosure_unit_price,
-            "notes": "Sơn tĩnh điện RAL 7035 công nghiệp"
-        })
-        inc_dev = next((d for d in extracted_devices if getattr(d, 'section', '') == 'Đầu vào' or 'ACB' in getattr(d, 'category', '').upper() or 'MCCB' in getattr(d, 'category', '').upper()), None)
-        raw_inc = enclosure_spec.get('incomer_rating') or (getattr(inc_dev, 'in_a', None) if inc_dev else None) or max([getattr(d, 'in_a', 0) or 0 for d in extracted_devices] + [0])
-        inc_a_single = float(raw_inc or 0)
-        need_busbar_single = BusbarCalculatorService.needs_busbar(inc_a_single, extracted_devices)
-        bus_res_single = None
-        if need_busbar_single:
-            bus_res_single = BusbarCalculatorService.calculate(inc_a_single, enclosure_spec, extracted_devices)
-            rows.append({
-                "id": "i-bus",
-                "row_type": "item",
-                "tt": "+",
-                "name": bus_res_single.spec_title,
-                "sku": f"Cu {bus_res_single.section_mm2}mm2",
-                "origin": "VN",
-                "unit": "Hệ",
-                "quantity": 1,
-                "unit_price": bus_res_single.unit_price,
-                "line_total": bus_res_single.unit_price,
-                "notes": f"Gia công uốn đột CNC, bọc co nhiệt R-S-T-N-E ({bus_res_single.profile}mm)"
-            })
-
-        acc_name_single = "Vật tư phụ tủ điện (đầu cosse SC động lực, dây điều khiển Cadivi VSF, máng cáp nhựa PVC, sứ đỡ thanh cái SM, domino kẹp dây)" if need_busbar_single else "Vật tư phụ tủ điện (Cầu lược 3P/1P phân phối MCB, đầu cosse ghim, dây điều khiển Cadivi VSF, máng cáp nhựa PVC, kẹp tiếp địa)"
-        total_poles_s = sum(int(getattr(d, "poles", 3) or 3) * int(getattr(d, "quantity", 1) or 1) for d in extracted_devices)
-        lug_cost_s = total_poles_s * (25000 if inc_a_single >= 400 else 12000)
-        wire_cost_s = 200000 + len([d for d in extracted_devices if getattr(d, "section", "") in ["Đo lường & Giám sát", "Điều khiển & Chiếu sáng"]]) * 35000
-        insulator_cost_s = (int(bus_res_single.L_main_m / BUSBAR_INSULATOR_SPACING_M) * 4 * BUSBAR_INSULATOR_PRICE_VND) if (need_busbar_single and bus_res_single) else 0
-        comb_cost_s = (total_poles_s * 8000) if not need_busbar_single else 0
-        calc_acc_price = int(round((lug_cost_s + wire_cost_s + 150000 + insulator_cost_s + comb_cost_s) / float(PRICE_ROUNDING_STEP_VND)) * PRICE_ROUNDING_STEP_VND)
-        calc_acc_price = max(450000, calc_acc_price)
-
-        rows.append({
-            "id": "i-acc",
-            "row_type": "item",
-            "tt": "+",
-            "name": acc_name_single,
-            "sku": "Trọn gói",
-            "origin": "VN",
-            "unit": "Tủ",
-            "quantity": 1,
-            "unit_price": calc_acc_price,
-            "line_total": calc_acc_price,
-            "notes": ""
-        })
-
-        base_lab_s = 500000 if inc_a_single < 100 else (1000000 if inc_a_single <= 630 else 1800000)
-        dev_lab_s = len(extracted_devices) * 50000
-        calc_lab_price = int(round((base_lab_s + dev_lab_s) / float(PRICE_ROUNDING_STEP_VND)) * PRICE_ROUNDING_STEP_VND)
-        calc_lab_price = max(800000, calc_lab_price)
-
-        rows.append({
-            "id": "i-lab",
-            "row_type": "item",
-            "tt": "+",
-            "name": "Nhân công lắp ráp, đấu nối & kiểm tra xuất xưởng (QC)",
-            "sku": "QC-LABOR",
-            "origin": "VN",
-            "unit": "Tủ",
-            "quantity": 1,
-            "unit_price": calc_lab_price,
-            "line_total": calc_lab_price,
-            "notes": ""
-        })
-
-        incomers = [d for d in extracted_devices if "ACB" in d.category.upper() or (d.in_a and d.in_a >= 400) or (d.section and "đầu vào" in d.section.lower())]
-        meters = [d for d in extracted_devices if "METER" in d.category.upper() or "LIGHT" in d.category.upper() or (d.section and "đo lường" in d.section.lower())]
-        coolings = [d for d in extracted_devices if "COOLING" in d.category.upper() or "FAN" in d.category.upper() or "THERMOSTAT" in d.category.upper() or (d.section and "làm mát" in d.section.lower())]
-        feeders = [d for d in extracted_devices if d not in incomers and d not in meters and d not in coolings]
-
-        # Gộp nhóm các thiết bị trùng lặp trong từng section
-        incomers = DynamicGroupingEngine.merge_duplicates(incomers)
-        meters = DynamicGroupingEngine.merge_duplicates(meters)
-        coolings = DynamicGroupingEngine.merge_duplicates(coolings)
-        feeders = DynamicGroupingEngine.merge_duplicates(feeders)
-
-        # 3. Section 2: Đầu vào
-        if incomers:
-            rows.append({"id": "s-2", "row_type": "section_header", "tt": "*", "name": "Đầu vào"})
-            for inc in incomers:
-                price = _resolve_price(inc)
-                _append_device_with_accessories(rows, inc, price, "inc", default_note="Aptomat tổng", incomer_ref_rating=inc_a_single)
-
-        # 4. Section 3: Đầu ra (Feeders)
-        if feeders:
-            rows.append({"id": "s-3", "row_type": "section_header", "tt": "*", "name": "Đầu ra"})
-            for f in feeders:
-                price = _resolve_price(f)
-                _append_device_with_accessories(rows, f, price, "f", incomer_ref_rating=inc_a_single)
-
-        # 5. Section 4: Đo lường & Giám sát
-        if meters:
-            rows.append({"id": "s-4", "row_type": "section_header", "tt": "*", "name": "Đo lường & Giám sát"})
-            for m in meters:
-                price = _resolve_price(m)
-                _append_device_with_accessories(rows, m, price, "m", incomer_ref_rating=inc_a_single)
-
-        # 6. Section 5: Làm mát & Thông gió
-        if coolings:
-            rows.append({"id": "s-5", "row_type": "section_header", "tt": "*", "name": "Làm mát & Thông gió"})
-            for c in coolings:
-                price = _resolve_price(c)
-                _append_device_with_accessories(rows, c, price, "c", incomer_ref_rating=inc_a_single)
-
-        return rows
+        from app.services.ai.procurement_review import build_quotation_rows
+        return build_quotation_rows(extracted_devices, device_price_map, multi_panel_list, panel_code, panel_name)
 
     @staticmethod
     def _build_technical_audit(
@@ -3666,6 +3216,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 extracted_devices.append(d)
             elif isinstance(d, dict):
                 extracted_devices.append(ExtractedDeviceSchema(
+                    cad=d.get("cad"),
                     category=d.get("category", "Thiết bị"),
                     name=d.get("name", "Thiết bị"),
                     spec=d.get("spec", ""),
@@ -3687,6 +3238,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     selection_source=d.get("selection_source"),
                     catalog_matches=d.get("catalog_matches"),
                     catalog_candidates=d.get("catalog_candidates"),
+                    catalog_references=d.get("catalog_references"),
                     part_number=d.get("part_number", ""),
                     section=d.get("section"),
                     location=d.get("location"),
@@ -3822,12 +3374,17 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 dim_sources.append(d.notes)
         detected_dimensions = AnalysisPipelineService._extract_enclosure_dimensions(dim_sources)
 
-        enclosure_spec = EnclosureCadGeneratorService.calculate_enclosure_specs(
-            [d.model_dump() for d in extracted_devices],
-            preferred_dimensions=detected_dimensions
-        )
+        try:
+            enclosure_spec = EnclosureCadGeneratorService.calculate_enclosure_specs(
+                [d.model_dump() for d in extracted_devices],
+                preferred_dimensions=detected_dimensions
+            )
+        except ValueError as exc:
+            # Missing CAD dimensions must not prevent an honest quotation draft.
+            enclosure_spec = {'sizing_status': 'needs_review', 'sizing_note': str(exc)}
+            await emit_progress('engineering_review', 35, 'Chưa đủ kích thước thiết bị để chọn vỏ; vẫn lập danh mục hỏi giá.')
 
-        incomer_rating = enclosure_spec.get("incomer_rating") or settings.DEFAULT_INCOMER_RATING or 0
+        incomer_rating = enclosure_spec.get("incomer_rating") or max([float(d.in_a or 0) for d in extracted_devices] + [0])
         poles = enclosure_spec.get("poles", 2)
         is_3phase = enclosure_spec.get("is_3phase", False)
         voltage_str = "3 pha 380/220V 50Hz" if is_3phase else "1 pha 220V 50Hz"
@@ -3845,12 +3402,12 @@ Chỉ trả một JSON hợp lệ, không markdown:
         from app.services.bom.busbar_calculator import BusbarCalculatorService
         from app.services.export.quotation_exporter import QuotationExporterService
 
-        need_busbar = BusbarCalculatorService.needs_busbar(incomer_rating, [d.model_dump() for d in extracted_devices])
+        need_busbar = enclosure_spec.get('sizing_status') != 'needs_review' and BusbarCalculatorService.needs_busbar(incomer_rating, [d.model_dump() for d in extracted_devices])
         busbar_calc = BusbarCalculatorService.calculate(
             in_a=incomer_rating,
             enclosure_dims={"W": enclosure_width, "width": enclosure_width, "H": enclosure_height, "D": enclosure_depth},
             feeder_list=[d.model_dump() for d in extracted_devices]
-        )
+        ) if need_busbar else None
         busbar_unit_price = busbar_calc.unit_price if need_busbar else 0
 
         # Physical layout model & kiểm tra xung đột
@@ -3862,19 +3419,22 @@ Chỉ trả một JSON hợp lệ, không markdown:
             elif "cáp nóc" in p_low or "top" in p_low:
                 detected_layout_intent = {"cable_entry": "TOP"}
 
-        physical_layout = PhysicalLayoutEngine.compute_physical_layout_model(
-            devices=[d.model_dump() for d in extracted_devices],
-            enclosure_spec=enclosure_spec,
-            mode="PANEL_LAYOUT_ONLY",
-            layout_intent=detected_layout_intent
-        )
+        if enclosure_spec.get('sizing_status') == 'needs_review':
+            physical_layout = {'status': 'needs_review', 'conflict_check': {'conflicts': []}}
+        else:
+            physical_layout = PhysicalLayoutEngine.compute_physical_layout_model(
+                devices=[d.model_dump() for d in extracted_devices],
+                enclosure_spec=enclosure_spec,
+                mode="PANEL_LAYOUT_ONLY",
+                layout_intent=detected_layout_intent
+            )
         layout_conflict_res = physical_layout.get("conflict_check", {})
         layout_conflicts = layout_conflict_res.get("conflicts", [])
 
         await emit_progress(
             "layout",
             52,
-            "Đã bố trí thiết bị và kiểm tra xung đột không gian",
+            "Chưa đủ kích thước để bố trí tủ" if enclosure_spec.get('sizing_status') == 'needs_review' else "Đã bố trí thiết bị và kiểm tra xung đột không gian",
             conflict_count=len(layout_conflicts),
         )
 
@@ -3885,6 +3445,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
         dxf_size = 0
         cad_layout = None
         try:
+            if enclosure_spec.get('sizing_status') == 'needs_review':
+                raise ValueError('Thiếu kích thước catalog và layout đã xác nhận')
             source_cad = SourceProjectGenerator.generate(
                 project_id=project.id,
                 output_dir=getattr(settings, "PROJECTS_DIR", "storage/projects"),
@@ -3898,6 +3460,26 @@ Chỉ trả một JSON hợp lệ, không markdown:
             dxf_size = os.path.getsize(cad_file_path)
         except ValueError as exc:
             await emit_progress("cad_review", 75, f"Cần chọn form tủ nguồn: {exc}")
+            # Explicitly selected CatalogTB geometry can still produce a review
+            # drawing, without presenting it as an approved fabrication layout.
+            if detected_dimensions and extracted_devices and all(
+                str((d.cad or {}).get('asset_id') or '').startswith('tb:')
+                for d in extracted_devices
+            ):
+                from app.services.cad.reference_panel_layout import generate as generate_review_layout
+                try:
+                    review = generate_review_layout(
+                        [d.model_dump() for d in extracted_devices], detected_dimensions,
+                        os.path.join(getattr(settings, 'PROJECTS_DIR', 'storage/projects'), str(project.id), 'cad_review'),
+                        detected_panel_code,
+                    )
+                    cad_layout = review
+                    cad_file_path = review['dxf']
+                    dxf_filename = os.path.basename(cad_file_path)
+                    dxf_size = os.path.getsize(cad_file_path)
+                    await emit_progress('cad_review_ready', 75, 'Đã tạo bản CAD nguồn để rà soát; chưa duyệt chế tạo', preview=review['preview'])
+                except ValueError as review_exc:
+                    await emit_progress('cad_review', 75, str(review_exc))
         await emit_progress(
             "cad_ready",
             75,
@@ -3956,6 +3538,11 @@ Chỉ trả một JSON hợp lệ, không markdown:
             panel_code=detected_panel_code,
             panel_name=detected_panel_name
         )
+        if cad_layout and cad_layout.get('material_rows'):
+            # Replace the reference neutral item with the material generated by layout.
+            neutral_names={d.name for d in extracted_devices if d.category=='N'}
+            quotation_rows=[r for r in quotation_rows if r.get('name') not in neutral_names]
+            quotation_rows.extend(cad_layout['material_rows'])
         await emit_progress("quotation", 84, f"Đã lập {len(quotation_rows)} dòng báo giá")
 
         # 5. Thu thập danh sách đề xuất kỹ thuật tương thích
@@ -4068,7 +3655,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     "unit_price": busbar_calc.unit_price,
                     "spec_title": busbar_calc.spec_title,
                     "need_busbar": need_busbar
-                }
+                } if busbar_calc else None
                 latest_iter.confidence_scores = conf
                 if not per_panel:
                     latest_iter.ai_parsed_devices = [d.model_dump() for d in extracted_devices]
@@ -4103,7 +3690,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 "unit_price": busbar_calc.unit_price,
                 "spec_title": busbar_calc.spec_title,
                 "need_busbar": need_busbar
-            },
+            } if busbar_calc else None,
             "physical_layout": physical_layout,
             "layout_conflicts": layout_conflicts,
             "technical_audit": technical_audit,

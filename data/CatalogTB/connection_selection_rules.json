@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "unit_of_selection": "Từng kết nối và từng cọc, giữ pha/N/PE theo sơ đồ",
+  "auto_assign_from_breaker_current": false,
+  "auto_assign_from_cad_dimensions": false,
+  "external_cable_is_internal_jumper": false,
+  "neutral_and_pe_are_interchangeable": false,
+  "required_evidence": ["Model và sơ đồ cọc", "Từ/đến", "Vai trò và pha", "Dòng tải và bảo vệ", "Giới hạn dây/thanh và đầu cốt", "Điều kiện lắp và nhiệt", "Ngắn mạch và sụt áp", "Chiều dài và bán kính uốn"],
+  "options": ["Dây/cáp cách điện", "Thanh đồng cứng", "Thanh đồng mềm", "Thanh lược đúng hệ thiết bị"],
+  "missing_evidence_status": "needs_connection_design",
+  "adjacent_breakers": {
+    "review_gap_mm": 0,
+    "fabrication_approval": false,
+    "required_checks": ["Hãng cho phép lắp sát", "Hệ số nhiệt/giảm dòng", "Đầu nối và khoảng đấu dây", "Tương thích thanh lược", "Khoảng cách cách điện"]
+  }
+}

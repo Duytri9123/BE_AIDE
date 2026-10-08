@@ -423,6 +423,24 @@ def append_completeness_review_instruction(prompt: str) -> str:
     """Require a complete, evidence-based inventory on every active prompt."""
     return (
         f"{prompt}\n\n"
+        "TAKEOFF INTEGRITY OVERRIDES: A single 1x6A fuse and one lamp labelled R mean one fuse "
+        "and one lamp, even when the source is a three-phase installation. Never infer three fuses "
+        "from the phrase phase indicator alone. Count multiplicity only from local explicit notation. "
+        "Do not emit both an invented HL1 and the printed R for the same lamp. Each physical symbol "
+        "appears once. Attributes belong to their own symbol: the adjacent fuse's 6A is not the lamp "
+        "current. Do not infer 220V for a lamp or coil without an explicit voltage label; keep missing "
+        "values null. External BMS is an interface, not another internal controller to procure. "
+        "A one-line bus does not establish bare copper or a need for insulator standoffs. "
+        "Keep observed equipment separate from necessary assembly proposals. For assembly proposals "
+        "list enclosure, mounting, terminals/distribution, PE, wiring, ferrules/lugs, cable entries, "
+        "labels and testing, with quantity basis and applicability; avoid duplicates in supplied kits. "
+        "BMS ON/OFF/TRIP needs actual contactor status and a separate breaker fault contact; relay "
+        "interfaces and power supplies depend on the I/O specification. Timer denotes a function, "
+        "not permission to carry full load current through its contact. Total branch ratings above "
+        "main rating are not proof of overload. Check actual demand, cable ampacity, inrush, Isc "
+        "and coordination; do not automatically increase breaker amperage to fit stock. Every "
+        "replacement must state original_spec, proposed_spec, reason and approval conditions. "
+        "A cropped drawing requires specific missing-information questions, never a claim of approval.\n\n"
         "RANH GIỚI NGUỒN BẮT BUỘC: Trước khi bóc tách, xác định chính xác khung/vùng SLD mục tiêu và "
         "chỉ lấy phần tử nằm trong hoặc nối điện trực tiếp với vùng đó. Bỏ qua khung tên, bảng chú giải, "
         "bảng vật tư tham khảo, hình minh họa, sơ đồ khác trên cùng trang và mọi thiết bị không có bằng chứng "
@@ -458,6 +476,7 @@ def append_canonical_output_contract(prompt: str) -> str:
     describe different top-level shapes for images, PDF pages and CAD files.  A
     final contract appended at runtime is therefore the authoritative format.
     """
+    from app.services.ai.selection_knowledge import prompt_context
     return (
         f"{prompt}\n\n"
         "AUTHORITATIVE LANGUAGE AND EVIDENCE POLICY: Follow these control rules in English, "
@@ -489,6 +508,20 @@ def append_canonical_output_contract(prompt: str) -> str:
         "công suất tổng ghi trên bản vẽ; nếu khác, báo chênh lệch và yêu cầu quy tắc "
         "vận hành/dự phòng. Mỗi nhận xét kỹ thuật phải nêu nhãn, thông số hoặc "
         "box_2d làm dẫn chứng trên ảnh và giữ trạng thái đề xuất/chưa xác nhận.\n\n"
+        "KIỂM TRA BẮT BUỘC TRƯỚC KHI TRẢ KẾT QUẢ: "
+        "Khi người dùng xác nhận số lượng, giữ xác nhận đó riêng với số đọc trên ảnh. "
+        "Cụm 3 cầu chì là 3 đơn vị vật lý; một CAD dãy 3 đế chỉ chèn 1 lần, không chèn "
+        "3 dãy thành 9 đế. Phân biệt ruột, đế và bộ cung cấp để không tính trùng. "
+        "Vôn kế và công tắc chuyển mạch "
+        "có hai ký hiệu riêng phải là hai dòng thiết bị, mỗi dòng có vùng ảnh đúng; "
+        "không bịa vùng ảnh khi không đọc được. Chỉ gộp thành bộ khi có căn cứ bộ cung cấp, "
+        "ghi rõ thành phần để không mua trùng. Ký hiệu Fuse gần ba đèn không tự chứng minh "
+        "ba ruột hoặc ba đế; thiếu số lượng/dòng định mức phải ghi câu hỏi xác nhận. "
+        "Mọi lộ ghi Dự phòng phải có trong completeness_review: phân biệt chừa vị trí "
+        "và CB đã lắp; không tự gán thông số hoặc đưa chỗ trống vào BOM. Tín hiệu cháy "
+        "chỉ chứng minh giao tiếp; loại cuộn cắt, điện áp và tương thích MCCB cần xác nhận. "
+        "Đánh giá dòng tải phải nêu điện áp, số pha, cos phi và công suất sử dụng; "
+        "không tự tăng định mức CB hoặc kết luận sai mạch khi thiếu dữ liệu.\n\n"
         "KIỂM TRA CỤM VÀ HỆ THỐNG: Với mỗi cụm, liệt kê từng thành phần thấy rõ, "
         "quan hệ với thiết bị cha và căn cứ số lượng. Đối chiếu mạch động lực, đo lường, "
         "điều khiển, bảo vệ và các tham chiếu sang trang/tủ khác. Không coi một nhãn cụm "
@@ -528,6 +561,7 @@ def append_canonical_output_contract(prompt: str) -> str:
         "\"technical_proposals\":[],\"completeness_review\":{"
         "\"is_complete\":true,\"missing_devices\":[],"
         "\"unanalysed_clusters\":[]}}.\n"
+        + prompt_context()
     )
 
 

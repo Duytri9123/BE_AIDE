@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0",
+  "id": "cb_conductor_selection",
+  "language": "vi",
+  "reviewed_on": "2026-10-08",
+  "purpose": "Hỗ trợ AI kiểm tra CB, dây và thanh dẫn theo từng kết nối; không thay thế hồ sơ thiết kế được duyệt",
+  "sources": [
+    {"id": "etinco", "url": "https://etinco.vn/cach-chon-cb-va-day-dan-theo-iec/", "title": "Cách chọn CB và dây dẫn theo tiêu chuẩn IEC", "published_on": "2025-06-14", "type": "secondary_article", "use": "Điểm khởi đầu tham khảo; bảng và kinh nghiệm không được tự động áp dụng"},
+    {"id": "protection", "url": "https://www.electrical-installation.org/enwiki/Practical_values_for_a_protective_scheme", "type": "manufacturer_technical_guide", "publisher": "Schneider Electric"},
+    {"id": "cable_conditions", "url": "https://www.electrical-installation.org/enwiki/General_method_for_cable_sizing", "type": "manufacturer_technical_guide", "publisher": "Schneider Electric"},
+    {"id": "short_circuit", "url": "https://www.electrical-installation.org/enwiki/Overcurrent_protection_principles", "type": "manufacturer_technical_guide", "publisher": "Schneider Electric"},
+    {"id": "assembly", "url": "https://webstore.iec.ch/en/publication/32338", "type": "official_standard_scope", "publisher": "IEC", "standard": "IEC 61439-1:2020", "full_standard_reviewed": false}
+  ],
+  "source_review": {
+    "article_topics": ["CB quá tải/ngắn mạch", "Đặc tuyến", "Thanh cái", "Dây dẫn", "Công suất quy đổi", "Kinh nghiệm"],
+    "issues": [
+      {"id": "standard_identifier", "detail": "Bài ghi IEC 64039-1 ở phần bảng dây; không coi định danh này là nguồn chuẩn đã xác minh.", "action": "Kiểm tra tài liệu gốc và phạm vi bảng trước sử dụng"},
+      {"id": "test_table_scope", "detail": "Bảng dây thử nghiệm không mặc nhiên là bảng khả năng tải cho mọi cách lắp.", "action": "Không chuyển thành quy tắc A → mm² mặc định"},
+      {"id": "trip_wording", "detail": "Không dùng các dấu bất đẳng thức diễn giải trong bài để dựng đặc tuyến bảo vệ.", "action": "Dùng đường cong, điều kiện thử và model của hãng"},
+      {"id": "experience", "detail": "Các gợi ý theo công suất/kinh nghiệm thiếu điều kiện áp dụng đầy đủ.", "action": "Chỉ tham khảo; không phê duyệt lựa chọn"}
+    ],
+    "limited_busbar_reference": {"source_id": "etinco", "breaker_current_a": 200, "candidate_width_mm": 20, "candidate_thickness_mm": 5, "status": "unverified_candidate", "auto_apply": false, "note": "Không xác nhận khả năng tải, nhiệt, ngắn mạch hoặc cọc MCCB"},
+    "full_article_tables_imported": false
+  },
+  "input_contract": {
+    "scope": ["incoming_cable", "internal_connection", "outgoing_cable", "control_measurement", "PE", "N"],
+    "identity": ["panel_code", "device_tag", "from_terminal", "to_terminal", "phase_or_role"],
+    "load": ["electrical_system", "voltage_v", "phase_count", "power_value", "power_unit", "power_basis", "power_factor", "efficiency_if_mechanical", "demand_basis", "inrush"],
+    "protection": ["model", "standard", "rated_current_a", "setting_current_a_if_adjustable", "trip_curve", "I2_a", "breaking_capacity_ka_at_operating_voltage", "prospective_fault_ka", "disconnection_time_s", "coordination_evidence"],
+    "cable": ["material", "insulation", "installation_method", "loaded_conductor_count", "ambient_temperature", "grouping", "length_m", "Iz_reference_a", "correction_factors", "ampacity_source", "voltage_drop_limit", "terminal_range", "lug", "bend_radius"],
+    "busbar": ["material", "width_mm", "thickness_mm", "parallel_count", "orientation", "spacing", "joint", "temperature_rise_verification", "Icw", "Ipk", "support", "clearance", "terminal_interface"],
+    "unknown_policy": "Dùng null và yêu cầu dữ liệu; không gán hệ số, điện áp, tiết diện hay giá mặc định"
+  },
+  "formulas": [
+    {"id": "dc_input_power", "expression": "Ib = P_input_W / U_V", "condition": "Điện DC, công suất điện đầu vào và điện áp đã xác định", "source_ids": ["etinco"]},
+    {"id": "single_phase_input_power", "expression": "Ib = P_input_W / (U_V * power_factor)", "condition": "AC một pha; không mặc định power_factor=1", "source_ids": ["etinco"]},
+    {"id": "three_phase_balanced_input_power", "expression": "Ib = P_input_W / (sqrt(3) * U_line_V * power_factor)", "condition": "Tải AC ba pha cân bằng; U là điện áp dây; không suy tải cân bằng từ CB 3P", "source_ids": ["etinco"]},
+    {"id": "mechanical_power_conversion", "expression": "P_input_W = P_output_W / efficiency", "condition": "Chỉ khi công suất là công suất cơ đầu ra và hiệu suất đã biết", "source_ids": ["etinco"]},
+    {"id": "corrected_ampacity", "expression": "Iz_effective = Iz_reference * product(applicable_correction_factors)", "condition": "Bảng dây có nguồn, đúng cách lắp/vật liệu/cách điện; hệ số phù hợp, không tính trùng", "source_ids": ["cable_conditions"]}
+  ],
+  "rules": [
+    {"id": "overload_current", "source_ids": ["protection"], "requires": ["Ib_a", "protection_current_a", "Iz_effective_a"], "operator": "ordered_le", "operands": ["Ib_a", "protection_current_a", "Iz_effective_a"], "meaning": "Ib ≤ In hoặc Ir phù hợp ≤ Iz thực tế"},
+    {"id": "overload_trip", "source_ids": ["protection"], "requires": ["I2_a", "Iz_effective_a"], "operator": "le_scaled", "left": "I2_a", "right": "Iz_effective_a", "factor": 1.45, "meaning": "I2 ≤ 1.45 × Iz; I2 theo thiết bị và điều kiện quy ước"},
+    {"id": "fault_breaking", "source_ids": ["protection"], "requires": ["breaking_capacity_ka", "prospective_fault_ka"], "operator": "ge", "left": "breaking_capacity_ka", "right": "prospective_fault_ka", "meaning": "So đúng định nghĩa khả năng cắt tại điện áp làm việc; Icn/Icu/Ics không tự coi như nhau. Phối hợp dự phòng chỉ khi hãng xác nhận"},
+    {"id": "short_circuit_thermal", "source_ids": ["short_circuit"], "requires": ["let_through_energy_a2s", "k", "section_mm2"], "operator": "energy_le", "meaning": "I²t cho qua ≤ k²S²; k theo vật liệu/cách điện/nhiệt độ. Công thức đoạn nhiệt có phạm vi áp dụng, khoảng thời gian đến 5 s trong nguồn tham khảo"},
+    {"id": "assembly_verification", "source_ids": ["assembly"], "requires": ["temperature_rise_verification", "short_circuit_verification", "mechanical_and_terminal_verification"], "operator": "evidence_required", "meaning": "Kiểm tra tủ theo phần IEC 61439 áp dụng; hình CAD và kích thước đồng không chứng minh đạt chuẩn"}
+  ],
+  "selection_workflow": [
+    "Xác định từng kết nối/cọc và giữ thông số nguồn",
+    "Tính Ib khi đủ điều kiện; ghi giả thiết và nguồn",
+    "Tra model CB và cọc; giữ mã/thông số gốc",
+    "Tra dây hoặc thanh dẫn có nguồn và điều kiện thực tế",
+    "Kiểm tra quá tải, ngắn mạch, sụt áp, nhiệt, đấu nối và phối hợp",
+    "Lọc ứng viên; thiếu dữ liệu trả needs_information",
+    "Nếu thay: original_spec → proposed_spec, lý do, điều kiện, người duyệt",
+    "Chỉ gán CAD/vật tư đã chọn; số lượng và chiều dài theo đấu nối/layout được duyệt"
+  ],
+  "guardrails": {
+    "auto_upsize_breaker": false,
+    "auto_replace_brand": false,
+    "auto_select_busbar_from_current_only": false,
+    "auto_select_wire_from_experience_table": false,
+    "auto_use_external_cable_as_internal_jumper": false,
+    "auto_join_N_and_PE": false,
+    "cad_holes_are_usable_terminal_count": false,
+    "adjacent_breakers": "Cho phép bố trí sát ở bản rà soát; chế tạo cần model cho phép, nhiệt và đầu nối",
+    "final_design_requires_approval": true
+  },
+  "output_contract": {
+    "status": ["needs_information", "rejected", "candidate_requires_review", "verified_by_responsible_engineer"],
+    "fields": ["connection_id", "original_spec", "proposed_spec", "replacement_arrow", "calculation_inputs", "checks", "missing_information", "source_ids", "catalog_profile", "cad_asset_id", "quantity_basis", "approval"],
+    "rule": "Các kiểm tra số học đạt chỉ cho trạng thái candidate_requires_review; không tự tuyên bố thiết kế đạt chuẩn"
+  }
+}

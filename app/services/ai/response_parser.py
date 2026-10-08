@@ -61,6 +61,10 @@ class ResponseParserService:
     def extract_completeness_warnings(ai_response: str) -> List[str]:
         """Return AI-reported devices/clusters needing user review."""
         warnings: List[str] = []
+        raw_count = len(re.findall(r'"category"\s*:', ai_response or ''))
+        parsed_count = len(ResponseParserService.parse_device_list(ai_response))
+        if raw_count > parsed_count:
+            warnings.append(f"Phản hồi AI chưa đọc đủ: {parsed_count}/{raw_count} dòng có loại thiết bị. Cần kiểm tra định dạng hoặc phân tích lại; chưa chốt BOM.")
         for block in ResponseParserService.extract_json_blocks(ai_response):
             if not isinstance(block, dict):
                 continue
@@ -121,53 +125,8 @@ class ResponseParserService:
                 elif "items" in block and isinstance(block["items"], list):
                     items_to_process = block["items"]
 
-            # Auto-split any mistakenly merged Fuse & Pilot Light items
-            expanded_items = []
-            for item in items_to_process:
-                if not isinstance(item, dict):
-                    continue
-                name_lower = str(item.get("name") or "").lower()
-                cat_lower = str(item.get("category") or "").lower()
-                tag_lower = str(item.get("tag") or "").lower()
-                is_merged = (
-                    ("cầu chì" in name_lower or "fuse" in name_lower or cat_lower == "fuse" or "fu" in tag_lower)
-                    and ("đèn" in name_lower or "báo pha" in name_lower or "pilot" in name_lower or "light" in name_lower or cat_lower == "light" or "hl" in tag_lower)
-                )
-                if is_merged:
-                    fuse_item = dict(item)
-                    fuse_item["category"] = "FUSE"
-                    fuse_item["tag"] = item.get("tag") if (item.get("tag") and "fu" in str(item.get("tag")).lower()) else "FU1"
-                    fuse_item["name"] = "Cầu chì bảo vệ tín hiệu (1x6A)"
-                    fuse_item["spec"] = item.get("spec") or "1x6A"
-                    fuse_item["quantity"] = 1
-                    fuse_item["section"] = item.get("section") or "Đo lường & Giám sát"
-                    fuse_item["electrical_function"] = "MEASUREMENT"
-                    fuse_item["notes"] = "Bảo vệ mạch tín hiệu đèn báo pha đầu vào tủ điện."
-
-                    light_item = dict(item)
-                    light_item["category"] = "LIGHT"
-                    light_item["tag"] = "HL1"
-                    light_item["name"] = "Đèn báo pha R"
-                    light_item["spec"] = "Đèn báo pha 220V"
-                    light_item["quantity"] = 1
-                    light_item["section"] = item.get("section") or "Đo lường & Giám sát"
-                    light_item["electrical_function"] = "MEASUREMENT"
-                    light_item["notes"] = "Đèn báo có điện nguồn cấp pha R đầu vào tủ điện."
-
-                    orig_box = item.get("box_2d")
-                    if isinstance(orig_box, list) and len(orig_box) == 4:
-                        ymin, xmin, ymax, xmax = orig_box
-                        # Trên sơ đồ SLD, Cầu chì luôn nằm phía trên, Đèn báo pha nằm phía dưới theo phương đứng
-                        mid_y = (ymin + ymax) // 2
-                        fuse_item["box_2d"] = [ymin, xmin, max(ymin + 1, mid_y), xmax]
-                        light_item["box_2d"] = [mid_y, xmin, ymax, xmax]
-
-                    expanded_items.append(fuse_item)
-                    expanded_items.append(light_item)
-                else:
-                    expanded_items.append(item)
-            items_to_process = expanded_items
-
+            # Preserve observed rows. Mentioning a lamp in a fuse's function
+            # does not establish a second physical lamp, voltage or position.
             for item_idx, item in enumerate(items_to_process):
                 try:
                     is_block = str(item.get("category", "")).upper() == "BLOCK"
@@ -251,6 +210,34 @@ class ResponseParserService:
             return None
             
         cleaned = raw_str.strip()
+        # Quote bare property names only outside JSON strings. A malformed key
+        # halfway through an otherwise complete response must not discard every
+        # subsequent device via the truncation fallback.
+        repaired, i, in_string, escaped = [], 0, False, False
+        while i < len(cleaned):
+            char = cleaned[i]
+            if in_string:
+                repaired.append(char)
+                if escaped:
+                    escaped = False
+                elif char == '\\':
+                    escaped = True
+                elif char == '"':
+                    in_string = False
+                i += 1
+                continue
+            if char == '"':
+                in_string = True
+            if char in '{,':
+                match = re.match(r'([\s]*)([A-Za-z_][A-Za-z0-9_]*)(?:")?(\s*:)', cleaned[i+1:])
+                if match:
+                    key = 'spec' if match.group(2) == '_spec' else match.group(2)
+                    repaired.append(char + match.group(1) + json.dumps(key) + match.group(3))
+                    i += 1 + match.end()
+                    continue
+            repaired.append(char)
+            i += 1
+        cleaned = ''.join(repaired)
         
         # 1. Thử parse trực tiếp với strict=False
         try:
@@ -276,6 +263,10 @@ class ResponseParserService:
             pass
 
         # 4. Xử lý chuỗi bị cắt cụt (truncated JSON do giới hạn max tokens)
+        # A complete but malformed document is not a truncated one. Do not
+        # silently turn it into a valid prefix containing only the first item.
+        if cleaned.endswith(('}', ']')):
+            return None
         try:
             # Tìm ngược từ cuối chuỗi về các dấu đóng ngoặc '}' hoặc ']' gần nhất
             for i in range(len(cleaned) - 1, -1, -1):
@@ -372,6 +363,10 @@ class ResponseParserService:
                 if parsed is not None:
                     blocks.append(parsed)
 
+        if fence_matches and not blocks:
+            # An invalid fenced envelope must not be mistaken for a nested
+            # warnings array or a partial device object from its interior.
+            return []
         if blocks:
             return blocks
 

@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "scope": "Phân phối nguồn nội bộ, tách khỏi cáp nguồn ngoài tủ và cáp ra tải",
+  "methods": [
+    {
+      "id": "insulated_power_wire",
+      "name": "Dây lực cách điện qua bộ chia nguồn",
+      "topology": "MCCB LOAD → bộ chia nguồn đúng pha → dây riêng tới LINE từng CB; LOAD CB → cáp tải",
+      "required_evidence": [
+        "terminal_phase_map",
+        "terminal_wire_lug_compatibility",
+        "corrected_ampacity",
+        "short_circuit_verification",
+        "route_bend_radius",
+        "distribution_block_rating"
+      ]
+    },
+    {
+      "id": "main_copper_wire_taps",
+      "name": "Thanh đồng chính + dây lực tới CB nhánh",
+      "topology": "MCCB LOAD → thanh R/S/T riêng → dây nhánh riêng tới LINE CB; N và PE theo sơ đồ riêng",
+      "required_evidence": [
+        "terminal_phase_map",
+        "copper_terminal_interface",
+        "busbar_temperature_verification",
+        "busbar_short_circuit_support",
+        "clearance_and_cover",
+        "branch_wire_verification"
+      ]
+    },
+    {
+      "id": "manufacturer_comb",
+      "name": "Thanh lược đúng hệ thiết bị",
+      "topology": "Nguồn → đầu cấp thanh lược theo hãng → cọc LINE tương thích; tách nhóm cực/cấu hình khác",
+      "required_evidence": [
+        "terminal_phase_map",
+        "manufacturer_comb_compatibility",
+        "pole_pitch_and_pole_configuration",
+        "feed_position_and_current_rating",
+        "short_circuit_verification",
+        "end_caps_and_clearance"
+      ]
+    },
+    {
+      "id": "fabricated_fishbone",
+      "name": "Đồng xương cá gia công",
+      "topology": "MCCB LOAD → thanh chính R/S/T riêng → nhánh/răng đồng đúng pha vào từng LINE CB; không nối chung các pha, N hoặc PE",
+      "required_evidence": [
+        "terminal_phase_map",
+        "terminal_allows_fabricated_copper",
+        "verified_terminal_coordinates",
+        "pole_pitch_and_pole_configuration",
+        "busbar_temperature_verification",
+        "busbar_short_circuit_support",
+        "joint_and_torque",
+        "clearance_and_cover",
+        "mounting_orientation_allowed"
+      ]
+    }
+  ],
+  "selection_rules": [
+    "CB 2P/3P hỗn hợp không dùng chung một mẫu răng/pitch chưa kiểm chứng",
+    "Không suy khả năng chịu dòng từ diện tích mặt CAD",
+    "Không suy nguồn trên/tải dưới chỉ từ hình tay gạt",
+    "Dây lực và thanh đồng có thể phối hợp trong cùng tủ; không chọn một loại cho mọi kết nối",
+    "Không thay đồng xương cá gia công bằng thanh lược hãng hoặc ngược lại nếu chưa kiểm tra cọc và mã",
+    "Chỉ vẽ đường nối vào cọc khi có sơ đồ cọc, tọa độ và phương án được duyệt"
+  ],
+  "source_references": [
+    "https://www.ls-electric.com/upload/customer/download/1483/MCB_%E1%84%8B%E1%85%A7%E1%84%86%E1%85%AE%E1%86%AB_190307.pdf",
+    "https://webstore.iec.ch/en/publication/32338"
+  ],
+  "fabricated_fishbone_rule_status": "Project design requirements; not a claim that the LS catalog approves custom fishbone for every model",
+  "source_evidence": [
+    {
+      "url": "https://www.electrical-installation.org/enwiki/Distribution_switchboards",
+      "read_on": "2026-10-08",
+      "status": "read",
+      "scope": "Bố trí theo kích thước, kết nối, khoảng trống và kiểm tra cụm tủ; không xác nhận mã LS cụ thể"
+    },
+    {
+      "url": "https://www.ls-electric.com/upload/customer/download/1483/MCB_%E1%84%8B%E1%85%A7%E1%84%86%E1%85%AE%E1%86%AB_190307.pdf",
+      "read_on": "2026-10-08",
+      "status": "full_pdf_fetch_failed",
+      "scope": "Không dùng làm bằng chứng duyệt thanh lược BKN 2P/3P hoặc xương cá"
+    },
+    {
+      "url": "https://webstore.iec.ch/en/publication/32338",
+      "status": "official_scope_read",
+      "scope": "Phạm vi và yêu cầu xác minh tủ; chưa đọc toàn văn trả phí"
+    }
+  ]
+}

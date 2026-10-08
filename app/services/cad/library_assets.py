@@ -20,6 +20,8 @@ def _exact_catalog_asset(device, families):
     category = _normal(device.get('category')).strip()
     matches = []
     for family in families:
+        if (family.get('recognition') or {}).get('status') == 'reference_geometry':
+            continue
         if family.get('kind') != 'device':
             continue
         fronts = [view['asset_id'] for view in family['views'] if view['face'] == 'front']
@@ -39,10 +41,14 @@ def _exact_catalog_asset(device, families):
 
 def insert_library_asset(space, asset_id, x, y, rotation=0):
     from app.api.v1.endpoints.cad_library import download_layout
-    name = 'LIBRARY_' + asset_id
+    name = 'LIBRARY_' + re.sub(r'[^A-Za-z0-9_-]', '_', asset_id)
     doc = space.doc
     if name not in doc.blocks:
-        source = ezdxf.readfile(download_layout(asset_id).path)
+        if str(asset_id).startswith('tb:'):
+            from app.services.cad.catalogtb_assets import resolve
+            source = ezdxf.readfile(resolve(asset_id)['path'])
+        else:
+            source = ezdxf.readfile(download_layout(asset_id).path)
         block = doc.blocks.new(name)
         importer = Importer(source, doc)
         importer.import_entities(source.modelspace(), target_layout=block)
@@ -60,6 +66,10 @@ def insert_library_asset(space, asset_id, x, y, rotation=0):
 
 def requested_asset(device, side=False):
     cad = device.get('cad') or (device.get('parameters') or {}).get('cad') or {}
+    if str(cad.get('asset_id') or '').startswith('tb:'):
+        from app.services.cad.catalogtb_assets import resolve
+        item = resolve(cad['asset_id'], 'side' if side else 'front')
+        return True, item['id']
     from app.api.v1.endpoints.cad_library import manifest
     from app.services.cad.device_families import build_families
     families = build_families(manifest()['items'])

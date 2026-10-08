@@ -16,7 +16,7 @@ from ezdxf.explode import attrib_to_text
 from ezdxf.upright import upright
 
 _DATA = Path(__file__).resolve().parents[3] / 'data'
-LIBRARY = _DATA / 'cabinet_templates/formtu'
+LIBRARY = _DATA / 'CatalogTB/Form tủ'
 FORM_LIBRARY = _DATA / 'form_tu_cong_nghiep'
 
 
@@ -29,10 +29,20 @@ def separation_forms():
 
 
 def inventory():
-    path = LIBRARY / 'curated_manifest.json'
+    path = LIBRARY / 'catalog.json'
     if not path.exists():
         raise ValueError('Thư viện vỏ tủ trống đã lọc chưa được lập chỉ mục.')
-    return json.loads(path.read_text(encoding='utf8'))['items']
+    rows = json.loads(path.read_text(encoding='utf8'))['shells']
+    result = []
+    for row in rows:
+        dimensions = row.get('dimensions_mm') or {}
+        description = row.get('source_specification', {}).get('FORM', '')
+        kind = 'outdoor' if 'ngoài trời' in description.lower() else 'indoor' if 'trong nhà' in description.lower() else 'unknown'
+        result.append({**row, 'kind': kind, 'filename': row['source_dxf'],
+                       'dimensions': dimensions if dimensions and all(dimensions.get(k) for k in ('height', 'width', 'depth')) else None,
+                       'status': 'needs_review', 'description': description,
+                       'resize_note': 'CAD dự án đã làm sạch, cần xác nhận từng mặt và cơ khí trước đổi kích thước.'})
+    return result
 
 
 def resolve(template_id):
@@ -44,7 +54,7 @@ def resolve(template_id):
 
 def source_path(item):
     path = (LIBRARY / item['filename']).resolve()
-    if path.parent != LIBRARY.resolve() or not path.is_file():
+    if not path.is_relative_to(LIBRARY.resolve()) or not path.is_file():
         raise ValueError('Không tìm thấy DXF của form tủ.')
     return path
 

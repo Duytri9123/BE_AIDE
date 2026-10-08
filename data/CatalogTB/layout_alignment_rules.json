@@ -1,0 +1,131 @@
+{
+  "version": 2,
+  "authority": "Project layout preferences; these are not universal IEC dimensions",
+  "priority": [
+    "Terminal/phase correctness",
+    "Manufacturer mounting and thermal conditions",
+    "Cable bend and access",
+    "Alignment and appearance"
+  ],
+  "rules": {
+    "din_devices": "Align the rail mounting datum when verified; do not align handles by guessing",
+    "reference_only_cad": "Same-height front projections may share a baseline for review; require rail offset data before fabrication",
+    "row_start": "Common left datum across rows",
+    "row_balance": "Balance occupied width while preserving phase and pole grouping",
+    "labels": "Center below each device; same height within a row",
+    "door_cluster": "Symmetric spacing for lamps; meters/selectors on common vertical centerline",
+    "adjacent_breakers": "Zero gap may be used in review where requested; require model-specific adjacency and thermal approval",
+    "do_not_resize_cad": true,
+    "do_not_rotate_breaker_for_appearance": true,
+    "do_not_move_phase_for_appearance": true,
+    "branch_sort": {
+      "primary": "rated_current_descending",
+      "secondary": "actual_cad_width_descending",
+      "circuit_order_required": false,
+      "preserve": [
+        "circuit_tag",
+        "phase_assignment",
+        "poles",
+        "LINE_LOAD"
+      ],
+      "balance": "Phân bổ cân bằng bề rộng CAD và số lượng giữa trái/phải; không coi đây là cân bằng tải điện"
+    },
+    "neutral_for_vertical_fishbone": "Thanh đồng N dọc sát bên phải MCCB tổng, phía trong cụm phân phối; không đặt ngoài dãy CB phải. Tách PE; biên CAD và khoảng 25mm là giả thiết bố trí, cần xác minh cọc/cách điện/nhiệt."
+  },
+  "reference_layouts": [
+    {
+      "id": "fishbone_two_vertical_banks_photo",
+      "name": "Xương cá trung tâm, hai dãy CB dọc hai bên",
+      "source": {
+        "type": "user_reference_image",
+        "path": "C:/Users/admin/AppData/Local/Temp/codex-clipboard-a8a8a62c-8be8-421c-9877-774f65d559e9.png",
+        "authority": "Tham khảo hình học; không phải bản vẽ thi công hoặc bằng chứng định mức",
+        "stored_image": "design_references/fishbone_two_vertical_banks.png"
+      },
+      "observed": {
+        "main_breaker": "Phía trên, gần trục giữa",
+        "phase_distribution": "Ba tuyến màu đỏ/vàng/xanh chạy dọc ở giữa, nhánh ngang sang hai bên",
+        "branch_banks": "Hai dãy đứng trái/phải",
+        "upper_right_auxiliary": "Cụm thiết bị nhỏ, chưa đủ căn cứ xác định chức năng",
+        "bottom_bar": "Thanh đấu nối phía dưới, chưa xác minh chức năng từ ảnh",
+        "door_bond": "Có dây nối cánh tủ; chưa xác minh tiết diện"
+      },
+      "design_intent": {
+        "distribution_method": "fabricated_fishbone",
+        "branch_arrangement": "two_vertical_banks",
+        "main_position": "upper_center",
+        "phase_spines": "center",
+        "bank_alignment": "Đối xứng theo trục giữa khi tương thích cọc và kích thước thực tế",
+        "fuse_position": "right_near_door_wire_entry",
+        "fuse_quantity": null,
+        "neutral_and_pe": "Tách vai trò N/PE; xác định theo sơ đồ, không suy từ màu hay vị trí ảnh"
+      },
+      "required_before_application": [
+        "Đọc số lượng, số cực và pha từng lộ từ sơ đồ",
+        "Xác minh cho phép lắp xoay của từng model CB; không tự xoay CAD để giống ảnh",
+        "Xác minh hướng LINE/LOAD và tọa độ cọc sau lắp",
+        "Tính dòng, nhiệt, ngắn mạch, tiết diện đồng và liên kết cọc",
+        "Xác minh cách điện, che chắn, gá đỡ, khoảng cách và đường dây tải",
+        "Kiểm tra khoảng trống bảo trì và kích thước tủ thực tế"
+      ],
+      "unknown_from_photo": [
+        "Kích thước tủ",
+        "Tiết diện/thickness đồng",
+        "Dòng định mức",
+        "Khả năng chịu ngắn mạch",
+        "Khoảng cách cách điện",
+        "Số lượng cầu chì",
+        "Chức năng thanh dọc bên MCCB và thanh dưới"
+      ],
+      "auto_apply": false,
+      "fabrication_approved": false,
+      "renderer_support": "review_only_rotation_90_requires_mounting_verification"
+    },
+    {
+      "id": "tdt_two_horizontal_rows_split_banks",
+      "name": "Hai hàng ngang, mỗi hàng chia nhóm trái/phải",
+      "basis": "Lựa chọn rõ ràng của người dùng cho TĐT hiện tại",
+      "distribution_method": "fabricated_fishbone",
+      "branch_arrangement": "two_rows_two_banks",
+      "phase_spines": "center",
+      "fuse_position": "right_near_door_wire_entry",
+      "project_fuse_quantity": 3,
+      "do_not_replace_with_photo_layout_automatically": true
+    }
+  ],
+  "active_project_layout": {
+    "panel": "TĐT",
+    "branch_arrangement": "two_vertical_banks",
+    "basis": "Người dùng chọn đổi sang hai dãy dọc giống ảnh",
+    "sort": "rated_current_descending",
+    "balance": "actual_cad_occupied_height_then_count",
+    "review_rotation_degrees": 90,
+    "mounting_verified": false,
+    "left_rotation_degrees": 270,
+    "right_rotation_degrees": 90,
+    "phase_colors": {
+      "R": "red",
+      "S": "yellow",
+      "T": "blue"
+    },
+    "branch_geometry": "individual_phase_spine_to_bank_no_full_width_ribs",
+    "enclosure_mm": {
+      "height": 1000,
+      "width": 600,
+      "depth": 300
+    },
+    "neutral_bar": {
+      "material": "copper",
+      "position": "immediately_right_of_main_mccb",
+      "separate_from_pe": true,
+      "cad_scale": 1,
+      "section_selected": false,
+      "terminal_capacity_verified": false,
+      "review_gap_mm": 25,
+      "geometry": "custom_fabricated_bar",
+      "vertical_extent": "from_main_mccb_top_to_branch_bank_bottom",
+      "use_short_catalog_bar": false,
+      "quotation_source": "cad_layout.material_rows"
+    }
+  }
+}

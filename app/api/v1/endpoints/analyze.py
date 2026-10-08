@@ -71,7 +71,10 @@ def _build_analysis_result_schema(
         # Deduplicate massive base64 panel_evidence_image to keep payload light
         p_img = payload.get("panel_evidence_image")
         if p_img and len(p_img) > 100:
-            key = payload.get("source_filename") or payload.get("panel_code") or "default"
+            filename = payload.get("source_filename")
+            page = payload.get("source_page")
+            key = (f"{filename}::page::{page}" if filename and page is not None
+                   else filename or payload.get("panel_code") or "default")
             if key not in panel_images:
                 panel_images[key] = p_img
             if "default" not in panel_images:
