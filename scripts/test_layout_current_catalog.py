@@ -46,10 +46,23 @@ class CurrentCatalogLayoutTests(unittest.TestCase):
             self.assertTrue(result['completion_checks']['neutral_bar_placed'])
             main = next(p for p in result['placements'] if p['tag'] == 'Q0')
             neutral = next(p for p in result['placements'] if p['tag'] == 'N')
-            self.assertEqual(neutral['h'], main['h'] + 40)
-            self.assertEqual(neutral['y'], main['y'] - 20)
-            self.assertGreater(neutral['x'], main['x'] + main['w'])
+            self.assertEqual(neutral['h'], 555)
+            self.assertEqual(neutral['y'], 165)
+            self.assertEqual(result['spacing_review']['spine_pitch_mm'], 30)
+            self.assertEqual(result['spacing_review']['clearance_compliance'], 'unverified')
+            self.assertTrue(doc.modelspace().query('LINE[layer=="PLAN_N"]'))
             self.assertIsNone(neutral['asset_id'])
+
+    def test_neutral_routes_do_not_use_three_pole_breaker(self):
+        devices=self.devices()
+        devices[1]['tag']='L1/R'
+        with tempfile.TemporaryDirectory() as directory:
+            result=generate(devices,(1000,600,300),directory)
+            import json
+            distribution=json.loads((Path(directory)/'Phuong_an_phan_phoi_nguon.json').read_text(encoding='utf8'))
+            neutral={r['tag'] for r in distribution['routing_preview'] if r['phase']=='N'}
+            self.assertEqual(neutral, {'L1/R','L4'})
+            self.assertFalse(result['completion_checks']['terminals_verified'])
 
     def test_stale_asset_does_not_silently_become_a_different_product(self):
         devices = self.devices()

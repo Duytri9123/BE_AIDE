@@ -51,9 +51,11 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
     arrangement={d.get('cad',{}).get('branch_arrangement') for d in devices if d.get('cad',{}).get('branch_arrangement')}
     if len(arrangement)>1:raise ValueError('Bố trí nhánh mâu thuẫn')
     if not branch_arrangement and arrangement:branch_arrangement=next(iter(arrangement))
+    rules=json.loads((Path(__file__).resolve().parents[3]/'data/design_rules/fishbone_rstn.json').read_text(encoding='utf8'))
+    pitch=rules['layout_assumptions_mm']['spine_pitch']
     height,width,depth=map(float,dimensions)
     doc=ezdxf.new('R2010');doc.units=4;m=doc.modelspace()
-    for name,color in [('CABINET',7),('CAD_DEVICE',7),('REVIEW',30),('LABEL',7),('DEVICE_LABEL',7),('PLAN_R',1),('PLAN_S',2),('PLAN_T',5)]:
+    for name,color in [('CABINET',7),('CAD_DEVICE',7),('REVIEW',30),('LABEL',7),('DEVICE_LABEL',7),('PLAN_R',1),('PLAN_S',2),('PLAN_T',5),('PLAN_N',8)]:
         doc.layers.new(name,dxfattribs={'color':color})
     def box(x,y,w,h,review=False):
         m.add_lwpolyline([(x,y),(x+w,y),(x+w,y+h),(x,y+h)],close=True,
@@ -190,18 +192,15 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
     for e in extras:
         if e['device']['category'] in ('FUSE_HOLDER','FUSE'):place(e,offset+width-70-e['w'],height-190-e['h'],'interior')
         elif e['device']['category']=='N' and branch_arrangement=='two_vertical_banks':
-            main_entry=next((v for v in incoming),None)
-            if main_entry is None:raise ValueError('Cần MCCB tổng để định vị thanh N bên cạnh')
-            main_x=offset+(width-main_entry['w'])/2
-            main_y=height-115-main_entry['h']
-            e=dict(e,fabricated_neutral=True,h=main_entry['h']+40)
-            place(e,main_x+main_entry['w']+25,main_y-20,'interior')
+            if not incoming:raise ValueError('Cần thiết bị nguồn để định vị hệ thanh cái')
+            e=dict(e,fabricated_neutral=True,w=rules['layout_assumptions_mm']['neutral_review_width'],h=height-445)
+            place(e,offset+width/2+1.5*pitch-e['w']/2,165,'interior')
         else:place(e,extra_x,85,'interior');extra_x+=e['w']+35
     fishbone_connections=[]
     if distribution_method == 'fabricated_fishbone':
         # Electrical topology overlay only. Endpoints deliberately stop outside
         # the imported device: real pole positions must come from a terminal map.
-        spines=({'R':offset+width/2-20,'S':offset+width/2,'T':offset+width/2+20}
+        spines=({'R':offset+width/2-1.5*pitch,'S':offset+width/2-.5*pitch,'T':offset+width/2+.5*pitch,'N':offset+width/2+1.5*pitch}
                 if branch_arrangement in ('two_rows_two_banks','two_vertical_banks') else {'R':offset+width-130,'S':offset+width-110,'T':offset+width-90})
         branch_placements=[p for p in placements if p['tag'] in [e['tag'] for e in branches]]
         for phase,spine in spines.items():
@@ -209,13 +208,16 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
             m.add_line((spine,165),(spine,height-280),dxfattribs={'layer':layer,'lineweight':35})
             label(spine-5,height-270,phase,9)
             for row_y in ([] if branch_arrangement=='two_vertical_banks' else sorted({p['y']+p['h'] for p in branch_placements})):
-                rail_y=row_y+25+('RST'.index(phase))*14
+                rail_y=row_y+25+('RSTN'.index(phase))*14
                 m.add_line((offset+65,rail_y),(spine,rail_y),dxfattribs={'layer':layer,'lineweight':35})
                 if branch_arrangement=='two_rows_two_banks':
                     m.add_line((spine,rail_y),(offset+width-65,rail_y),dxfattribs={'layer':layer,'lineweight':35})
         for p in branch_placements:
             d=next(e['device'] for e in branches if e['tag']==p['tag'])
-            phases=['R','S','T'] if d.get('poles')==3 else [{'R':'R','Y':'S','B':'T'}.get(p['tag'].split('/')[-1].upper())]
+            pole_count=d.get('poles') or (int(re.search(r'(\d)P',d.get('spec') or '').group(1)) if re.search(r'(\d)P',d.get('spec') or '') else None)
+            phases=['R','S','T'] if pole_count in (3,4) else [{'R':'R','Y':'S','B':'T','S':'S','T':'T'}.get(str(d.get('phase') or p['tag'].split('/')[-1]).upper())]
+            if branch_arrangement=='two_vertical_banks' and pole_count in (2,4):
+                phases.append('N')
             for i,phase in enumerate(phases):
                 if not phase:continue
                 if branch_arrangement=='two_vertical_banks':
@@ -228,10 +230,10 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
                 else:
                     x=p['x']+p['w']*(i+1)/(len(phases)+1)
                     y=p['y']+p['h']
-                    rail_y=y+25+'RST'.index(phase)*14
+                    rail_y=y+25+'RSTN'.index(phase)*14
                     m.add_line((x,rail_y),(x,y+8),dxfattribs={'layer':'PLAN_'+phase,'lineweight':25})
                     m.add_circle((x,y+8),2,dxfattribs={'layer':'PLAN_'+phase})
-                fishbone_connections.append(dict(tag=p['tag'],phase=phase,endpoint_status='routing_port_only',terminal_verified=False))
+                fishbone_connections.append(dict(tag=p['tag'],phase=phase,endpoint_status='routing_port_only',terminal_verified=False,connection_role='neutral_pole_requires_verification' if phase=='N' else 'phase'))
         main=next((p for p in placements if p['tag'] in [e['tag'] for e in incoming]),None)
         if main:
             for i,phase in enumerate('RST'):
@@ -260,7 +262,7 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
     picture=backend.get_string(layout.Page(420,297,layout.Units.mm))
     (out/'TDT_CAD_thiet_bi_nguon.svg').write_text(picture,encoding='utf-8')
     rows_html=''.join('<tr>'+''.join(f'<td>{html.escape(str(v))}</td>' for v in [p['tag'],p['original_spec'],p['cad_name'],p['physical_units_per_cad'],f"{p['w']:g} × {p['h']:g}",p['zone'],p['source']])+'</tr>' for p in placements)
-    page='''<!doctype html><meta charset="utf-8"><title>TĐT — CAD thiết bị nguồn</title><style>body{font:15px Arial;color:#17334f;background:#eef3f7;margin:24px}main{background:white;padding:25px;max-width:1500px;margin:auto}svg{width:100%;height:auto}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd7df;padding:8px;text-align:left}.note{background:#fff2d5;padding:15px}button{padding:10px}</style><main><h1>TĐT — bố trí bằng CAD thực tế trong CatalogTB</h1><p>H1000 × W600 × D300 mm theo sơ đồ. CAD chèn nguyên tỷ lệ; PE bố trí phía dưới; N chạy dọc sát bên phải MCCB tổng, trong cụm phân phối nguồn; MCB xếp dòng định mức từ lớn đến bé, cân bằng bề rộng hai bên, cân bằng các hàng; cần model cho phép lắp sát và kiểm tra hệ số nhiệt. Thiết bị gắn cánh bố trí riêng.</p><p class="note">CAD nguồn là hình tham khảo theo dòng thiết bị, chưa xác nhận mã mua hàng. MCCB dùng hình khung 250AF để xem bố trí; chưa chứng minh đạt 200A/85kA. BKN chưa chốt biến thể 30A. Kích thước mặt CAD không xác nhận chiều sâu, lỗ gá, khoảng cách điện hoặc tư thế lắp. Vùng rail/máng/cầu đấu là đề xuất chưa chốt.</p><button onclick="window.print()">In / lưu PDF</button>'''+picture+'<h2>Đối chiếu từng hình CAD đã chèn</h2><table><tr><th>Ký hiệu</th><th>Yêu cầu sơ đồ</th><th>Hồ sơ CAD nguồn</th><th>Biên hình CAD (mm)</th><th>Vị trí</th><th>Nguồn</th></tr>'+rows_html+'</table><p>PE?, N?, FU? là CAD đề xuất, chưa chốt số cọc, ruột/đế hoặc thông số điện. Giao tiếp cháy và dự phòng chưa chốt mã. Không suy dây hoặc tiết diện đồng từ dòng CB/hình CAD. Chưa có kiểm tra 3D, cáp, nhiệt hoặc phối hợp bảo vệ. Cần người phụ trách kỹ thuật duyệt trước chế tạo.</p></main>'
+    page='''<!doctype html><meta charset="utf-8"><title>TĐT — CAD thiết bị nguồn</title><style>body{font:15px Arial;color:#17334f;background:#eef3f7;margin:24px}main{background:white;padding:25px;max-width:1500px;margin:auto}svg{width:100%;height:auto}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd7df;padding:8px;text-align:left}.note{background:#fff2d5;padding:15px}button{padding:10px}</style><main><h1>TĐT — bố trí bằng CAD thực tế trong CatalogTB</h1><p>H1000 × W600 × D300 mm theo sơ đồ. CAD chèn nguyên tỷ lệ; PE bố trí phía dưới; N là thanh cái dọc trong cụm R–S–T–N, có nhánh xương cá; MCB xếp dòng định mức từ lớn đến bé, cân bằng bề rộng hai bên, cân bằng các hàng; cần model cho phép lắp sát và kiểm tra hệ số nhiệt. Thiết bị gắn cánh bố trí riêng.</p><p class="note">CAD nguồn là hình tham khảo theo dòng thiết bị, chưa xác nhận mã mua hàng. MCCB dùng hình khung 250AF để xem bố trí; chưa chứng minh đạt 200A/85kA. BKN chưa chốt biến thể 30A. Kích thước mặt CAD không xác nhận chiều sâu, lỗ gá, khoảng cách điện hoặc tư thế lắp. Vùng rail/máng/cầu đấu là đề xuất chưa chốt.</p><button onclick="window.print()">In / lưu PDF</button>'''+picture+'<h2>Đối chiếu từng hình CAD đã chèn</h2><table><tr><th>Ký hiệu</th><th>Yêu cầu sơ đồ</th><th>Hồ sơ CAD nguồn</th><th>Biên hình CAD (mm)</th><th>Vị trí</th><th>Nguồn</th></tr>'+rows_html+'</table><p>PE?, N?, FU? là CAD đề xuất, chưa chốt số cọc, ruột/đế hoặc thông số điện. Giao tiếp cháy và dự phòng chưa chốt mã. Không suy dây hoặc tiết diện đồng từ dòng CB/hình CAD. Chưa có kiểm tra 3D, cáp, nhiệt hoặc phối hợp bảo vệ. Cần người phụ trách kỹ thuật duyệt trước chế tạo.</p></main>'
     (out/'Thu_ve_tu_TDT.html').write_text(page,encoding='utf-8')
     from app.services.ai.distribution_review import review_distribution
     distribution=review_distribution(devices,requested_method=distribution_method)
@@ -268,7 +270,7 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
     table=''.join('<tr><td>'+html.escape(a['name'])+'</td><td>'+html.escape(a['topology'])+'</td><td>'+html.escape(', '.join(a['missing_information']))+'</td></tr>' for a in distribution['alternatives'])
     section='<h2>Hệ đi dây / đồng</h2><p>Bản bố trí này chưa vẽ dây lực, thanh lược hoặc đồng xương cá. Chỉ đặt sát CB không chứng minh đã cấp nguồn bằng xương cá. Có thể phối hợp thanh đồng chính với dây nhánh; cần xác nhận điều kiện từng phương án.</p><table><tr><th>Phương án</th><th>Đường cấp nguồn</th><th>Còn thiếu để chọn</th></tr>'+table+'</table>'
     if distribution_method=='fabricated_fishbone':
-        section=section.replace('Bản bố trí này chưa vẽ dây lực, thanh lược hoặc đồng xương cá. Chỉ đặt sát CB không chứng minh đã cấp nguồn bằng xương cá. Có thể phối hợp thanh đồng chính với dây nhánh; cần xác nhận điều kiện từng phương án.', 'Đã chọn phương án đồng xương cá theo yêu cầu người dùng và vẽ lớp sơ đồ phân pha R/S/T. Các đường/răng là tuyến chức năng, không phải kích thước đồng hoặc vị trí cọc chế tạo. Điểm cuối dừng ngoài thiết bị, chưa nối vào cọc chưa xác minh. CB 2P giữ pha theo nhãn nguồn; cực còn lại/N cần xác nhận. Cầu chì ở bên phải theo tuyến dây từ cánh tủ bên phải của phương án này. N và PE riêng, không nối vào xương cá pha.')
+        section=section.replace('Bản bố trí này chưa vẽ dây lực, thanh lược hoặc đồng xương cá. Chỉ đặt sát CB không chứng minh đã cấp nguồn bằng xương cá. Có thể phối hợp thanh đồng chính với dây nhánh; cần xác nhận điều kiện từng phương án.', 'Đã chọn phương án đồng xương cá theo yêu cầu người dùng và vẽ lớp sơ đồ phân pha R/S/T. Các đường/răng là tuyến chức năng, không phải kích thước đồng hoặc vị trí cọc chế tạo. Điểm cuối dừng ngoài thiết bị, chưa nối vào cọc chưa xác minh. CB 2P giữ pha theo nhãn nguồn; cực còn lại/N cần xác nhận. Cầu chì ở bên phải theo tuyến dây từ cánh tủ bên phải của phương án này. N có xương cá riêng, nhận N nguồn độc lập với MCCB 3P. PE tách riêng. Nhánh N tới CB chỉ là đề xuất cho lộ 2P/4P; cần xác minh cực N và không dùng chung N sau các RCD. Lộ 3P cần cầu đấu N riêng nếu tải dùng N.')
     page=page.replace('<th>Biên hình CAD (mm)</th>','<th>SL thành phần / CAD</th><th>Biên hình CAD (mm)</th>')
     page=page.replace('PE?, N?, FU? là CAD đề xuất, chưa chốt số cọc, ruột/đế hoặc thông số điện.','PE?, N? là đề xuất cần kiểm tra cọc. FU1-FU3 có 3 cầu chì theo xác nhận người dùng: 1 CAD dãy 3 đế, không phải 3 dãy; ruột, mã và định mức chưa chốt.')
     page=page.replace('</main>',section+'</main>')
@@ -292,7 +294,16 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
         'terminals_verified': False,
         'conductor_sections_verified': False,
     }
-    result=dict(material_rows=material_rows,enclosure_source=enclosure_source,status='reference_layout_needs_review',release_ready=False,
+    branch_boxes=[p for p in placements if p['tag'] in [e['tag'] for e in branches]]
+    left=[p for p in branch_boxes if p['x']<offset+width/2];right=[p for p in branch_boxes if p['x']>=offset+width/2]
+    spacing_review=dict(opposing_device_gap_mm=min(p['x'] for p in right)-max(p['x']+p['w'] for p in left) if left and right else None,spine_pitch_mm=pitch,clearance_compliance='unverified',required_inputs=rules['required_before_release'],notes=['Kích thước 2D chỉ dùng bố trí; giao tuyến không phải mối nối điện','Răng đồng chéo qua thanh khác cần phân lớp theo chiều sâu và xác minh khoảng cách điện','Khoảng sát CB cần kiểm tra nhiệt và tư thế lắp theo model'])
+    neutral_routes=[r for r in fishbone_connections if r['phase']=='N']
+    if neutral_routes:
+        material_rows.append(dict(id='layout-neutral-teeth',row_type='requirement',name='Nhánh đồng N xương cá',quantity=len(neutral_routes),unit='Nhánh',unit_price=None,line_total=None,price_status='pending',category='N',panel_code=panel_code,notes='Số tuyến đề xuất; chiều dài, tiết diện, gá đỡ và cực N chưa xác minh'))
+    gap=spacing_review['opposing_device_gap_mm']
+    spacing_section='<h2>Khoảng cách bố trí R–S–T–N</h2><p>Khoảng trống giữa biên hai dãy CB: '+(f'{gap:g} mm' if gap is not None else 'chưa xác định')+f'. Bước tim thanh cái đề xuất: {pitch:g} mm. Đây là khoảng bố trí 2D, không phải kết luận đạt khoảng cách điện.</p><p>N có thanh dọc và răng riêng. Điểm cấp N phải lấy từ N nguồn; không nối N qua MCCB 3P. Phải kiểm tra các thanh giao nhau theo chiều sâu, tiết diện, cọc đấu, cách điện, nhiệt và khả năng chịu ngắn mạch.</p>'
+    (out/'Thu_ve_tu_TDT.html').write_text(page.replace('</main>',spacing_section+'</main>'),encoding='utf8')
+    result=dict(spacing_review=spacing_review,design_rule_profile='data/design_rules/fishbone_rstn.json',material_rows=material_rows,enclosure_source=enclosure_source,status='reference_layout_needs_review',release_ready=False,
                 completion_checks=completion_checks,placements=placements,missing=missing,
                 distribution_method=distribution_method,control_wire_entry='RIGHT',
                 branch_arrangement=branch_arrangement,original_dimensions=original_dimensions,proposed_dimensions=dimensions,
