@@ -63,11 +63,12 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
     offset=width+160
     from app.services.cad.source_form_faces import insert_faces
     enclosure_source = insert_faces(m, dimensions, offset)
-    if not enclosure_source:
+    if enclosure_source:
+        offset = enclosure_source['interior_offset']
+    else:
         box(0,0,width,height);box(offset,0,width,height)
-    label(0,height+45,'CANH TU',18)
-    label(offset,height+45,'MAT TRONG',18)
-    label(0,-40,f'H{height:g} x W{width:g} x D{depth:g} mm',16)
+        label(0,height+45,'CANH TU',18)
+        label(offset,height+45,'MAT TRONG',18)
     entries=[];missing=[];placements=[]
     for d in devices:
         asset_id=(d.get('cad') or {}).get('asset_id')
@@ -105,9 +106,7 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
             m.add_text(legend,dxfattribs={'height':float(config.get('height_mm') or 5),'layer':'DEVICE_LABEL'}).set_placement((x+e['w']/2,y+e['h']+float(config.get('gap_mm') or 8)),align=TextEntityAlignment.MIDDLE_CENTER)
         else:
             if branch_arrangement=='two_vertical_banks' and e['device']['category'] in ('MCB','RCBO','RCCB'):
-                text=e['tag']+' '+rating_text(e['device'])
-                left=x<offset+width/2
-                m.add_text(text,dxfattribs={'height':6,'layer':'LABEL'}).set_placement((x-10 if left else x+e['w']+10,y+e['h']/2),align=TextEntityAlignment.MIDDLE_RIGHT if left else TextEntityAlignment.MIDDLE_LEFT)
+                pass  # Branch identities and ratings stay in the BOM, not beside crowded CAD terminals.
             else:
                 text=e['tag']
                 incoming_label=e['device']['category'] in ('MCCB','ACB')

@@ -1,6 +1,5 @@
-"""Insert identified cabinet elevations for review without declaring fabrication approval."""
+"""Reuse the complete cabinet source sheet, keeping all source views and hardware."""
 import ezdxf
-from ezdxf import bbox
 from ezdxf.addons import Importer
 from app.services.cad import cabinet_templates
 
@@ -15,36 +14,26 @@ def insert_faces(space, dimensions, interior_offset):
         faces = {f['kind']: f for f in item.get('faces', []) if f.get('clean_bounds')}
         if not all(kind in faces for kind in ('inner_door', 'mounting_plate')):
             continue
+        door = faces['inner_door']['clean_bounds']
+        equipment = faces['mounting_plate']['clean_bounds']
+        if any(abs(b[2]-b[0]-width)>1 or abs(b[3]-b[1]-height)>1 for b in (door,equipment)):
+            continue
+        if abs(equipment[1]-door[1])>1:
+            continue
         source = ezdxf.readfile(cabinet_templates.source_path(item))
-        if source.units != 4:
+        if source.units != 4 or not len(source.modelspace()):
             continue
-        selected = []
-        for kind, x in [('inner_door', 0), ('mounting_plate', interior_offset)]:
-            left, bottom, right, top = faces[kind]['clean_bounds']
-            if abs(right-left-width) > 1 or abs(top-bottom-height) > 1:
-                break
-            entities = []
-            for entity in source.modelspace():
-                if entity.dxftype() in ('TEXT', 'MTEXT', 'DIMENSION', 'POINT'):
-                    continue
-                ext = bbox.extents([entity])
-                if ext.has_data and ext.extmin.x >= left-1 and ext.extmax.x <= right+1 and ext.extmin.y >= bottom-1 and ext.extmax.y <= top+1:
-                    entities.append(entity)
-            if not entities:
-                break
-            selected.append((kind, x, left, bottom, entities))
-        if len(selected) != 2:
-            continue
-        for kind, x, left, bottom, entities in selected:
-            name = 'CABINET_SOURCE_' + item['id'].replace('-', '_') + '_' + kind
-            block = space.doc.blocks.new(name)
-            importer = Importer(source, space.doc)
-            importer.import_entities(entities, target_layout=block)
-            importer.finalize()
-            space.add_blockref(name, (x-left, -bottom))
+        name = 'CABINET_SOURCE_' + item['id'].replace('-', '_') + '_complete'
+        block = space.doc.blocks.new(name)
+        importer = Importer(source, space.doc)
+        importer.import_entities(source.modelspace(), target_layout=block)
+        importer.finalize()
+        space.add_blockref(name, (-door[0], -door[1]))
         return dict(template_id=item['id'], source=item['filename'], source_dimensions=nominal,
                     requested_dimensions=dict(height=height, width=width, depth=depth),
-                    faces=['inner_door', 'mounting_plate'], scale=1,
-                    status='source_front_faces_review', depth_adjusted=False,
+                    faces=[f['kind'] for f in item.get('faces', [])], scale=1,
+                    complete_source_sheet=True, source_entity_count=len(source.modelspace()),
+                    interior_offset=equipment[0]-door[0],
+                    status='complete_source_form_review', depth_adjusted=False,
                     depth_change_required=abs(nominal.get('depth', 0)-depth) > .01)
     return None

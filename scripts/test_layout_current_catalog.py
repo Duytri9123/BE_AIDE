@@ -28,9 +28,14 @@ class CurrentCatalogLayoutTests(unittest.TestCase):
             self.assertEqual(result['enclosure_source']['scale'], 1)
             doc = ezdxf.readfile(result['dxf'])
             self.assertEqual(len([e for e in doc.modelspace().query('INSERT')
-                                  if e.dxf.name.startswith('CABINET_SOURCE_')]), 2)
+                                  if e.dxf.name.startswith('CABINET_SOURCE_')]), 1)
+            self.assertTrue(result['enclosure_source']['complete_source_sheet'])
+            self.assertIn('side', result['enclosure_source']['faces'])
+            source_block = next(b for b in doc.blocks if b.name.startswith('CABINET_SOURCE_'))
+            self.assertEqual(len(source_block), result['enclosure_source']['source_entity_count'])
             labels = [e.dxf.text for e in doc.modelspace().query('TEXT')]
             self.assertFalse(any('CHUA' in text or 'SO DO PHAN PHA' in text for text in labels))
+            self.assertFalse(any(text.startswith(('L1 ', 'L2 ', 'L3 ', 'L4 ')) for text in labels))
             branches = [p for p in result['placements'] if p['tag'].startswith('L')]
             self.assertEqual(len(branches), 4)
             self.assertTrue(all(p['rotation'] in (90, 270) and p['scale'] == 1 for p in branches))
