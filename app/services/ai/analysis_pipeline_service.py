@@ -3483,7 +3483,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
         await emit_progress(
             "cad_ready",
             75,
-            "Đã chọn form CAD nguồn" if cad_file_path else "Chưa xuất CAD: cần xác nhận form nguồn",
+            ("Đã xuất CAD rà soát, chưa duyệt chế tạo" if cad_layout and cad_layout.get("status")=="reference_layout_needs_review" else "Đã chọn form CAD nguồn") if cad_file_path else "Chưa xuất CAD: cần xác nhận form nguồn",
             filename=dxf_filename,
             file_size=dxf_size,
         )

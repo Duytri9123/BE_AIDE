@@ -176,6 +176,9 @@ class QuotationExporterService:
 
                 elif r_type in ["item", "accessory"]:
                     name = str(r.get("name") or "Thiết bị")
+                    specification = str(r.get("spec") or "").strip()
+                    if specification:
+                        name += "\n" + specification
                     sku = str(r.get("sku") or "")
                     origin = str(r.get("origin") or "")
                     unit = str(r.get("unit") or "Cái")
