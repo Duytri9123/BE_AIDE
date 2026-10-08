@@ -42,5 +42,20 @@
     "mounting_orientation",
     "neutral_load_harmonics"
   ],
-  "clearance_compliance": "unknown_until_required_inputs_verified"
+  "clearance_compliance": "unknown_until_required_inputs_verified",
+  "form_faces": {
+    "1st DOOR VIEW": "outer_door",
+    "2nd DOOR VIEW": "inner_door",
+    "EQUIPMENT VIEW": "mounting_plate",
+    "SIDE VIEW": "side",
+    "default_operator_devices_face": "outer_door",
+    "override_field": "cad.mounting_face",
+    "side_view_requires": [
+      "device_side_geometry",
+      "mounting_offsets",
+      "cable_bend_radius",
+      "busbar_depth_layers"
+    ],
+    "unknown_face": "block_placement"
+  }
 }

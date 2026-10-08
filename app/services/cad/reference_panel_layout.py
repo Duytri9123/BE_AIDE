@@ -123,14 +123,26 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
         if e.get('fabricated_neutral'):
             placements[-1].update(status='custom_fabricated_review',cad_name='Thanh đồng N gia công theo bố trí',length_mm=e['h'],section_mm2=None,source='layout_design',asset_id=None)
     # Door devices are placed on a different physical surface.
+    face_mapping=(enclosure_source or {}).get('face_mapping',{})
     doors=[e for e in entries if e['device']['category'] in ('LIGHT','METER','SELECTOR')]
     lights=[e for e in doors if e['device']['category']=='LIGHT']
     total=sum(e['w'] for e in lights)+60*max(0,len(lights)-1);x=(width-total)/2
-    for e in lights:place(e,x,height-180,'door');x+=e['w']+60
+    def place_on_door(e,x,y):
+        face=(e['device'].get('cad') or {}).get('mounting_face') or 'outer_door'
+        if face not in ('outer_door','inner_door'):raise ValueError('Mặt lắp thiết bị trên cánh không hợp lệ')
+        bounds=(face_mapping.get(face) or {}).get('bounds')
+        if enclosure_source and not bounds:raise ValueError('JSON form thiếu mặt cánh đã chọn; không tự đổi sang mặt khác')
+        if bounds:
+            if x<0 or y<0 or x+e['w']>bounds[2]-bounds[0] or y+e['h']>bounds[3]-bounds[1]:raise ValueError('Thiết bị không vừa mặt cánh đã chọn')
+            x+=bounds[0];y+=bounds[1]
+        place(e,x,y,face)
+        placements[-1]['mounting_face']=face
+        placements[-1]['source_face_label']=(face_mapping.get(face) or {}).get('source_label')
+    for e in lights:place_on_door(e,x,height-180);x+=e['w']+60
     door_y=height-350
     for e in doors:
         if e['device']['category']=='LIGHT':continue
-        place(e,(width-e['w'])/2,door_y-e['h'],'door');door_y-=e['h']+80
+        place_on_door(e,(width-e['w'])/2,door_y-e['h']);door_y-=e['h']+80
     incoming=[e for e in entries if e['device']['category'] in ('MCCB','ACB')]
     if len(incoming)>1:raise ValueError('Cần phân vùng riêng cho nhiều MCCB/ACB')
     for e in incoming:place(e,offset+(width-e['w'])/2,height-115-e['h'],'interior')

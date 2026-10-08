@@ -34,6 +34,8 @@ def insert_faces(space, dimensions, interior_offset):
                     faces=[f['kind'] for f in item.get('faces', [])], scale=1,
                     complete_source_sheet=True, source_entity_count=len(source.modelspace()),
                     interior_offset=equipment[0]-door[0],
+                    face_mapping={f['kind']:dict(source_label=f.get('source_label'),bounds=[f['clean_bounds'][0]-door[0],f['clean_bounds'][1]-door[1],f['clean_bounds'][2]-door[0],f['clean_bounds'][3]-door[1]]) for f in item.get('faces',[]) if f.get('clean_bounds')},
+                    side_view_review=dict(status='source_only_depth_not_verified',purpose=['enclosure_depth','mounting_plate_offset','device_projection','busbar_depth_layers','cable_bend_space'],missing=['device_side_geometry','mounting_offsets','cable_bend_radius','busbar_depth_layers']),
                     status='complete_source_form_review', depth_adjusted=False,
                     depth_change_required=abs(nominal.get('depth', 0)-depth) > .01)
     return None

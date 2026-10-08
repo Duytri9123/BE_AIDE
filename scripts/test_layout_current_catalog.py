@@ -64,6 +64,23 @@ class CurrentCatalogLayoutTests(unittest.TestCase):
             self.assertEqual(neutral, {'L1/R','L4'})
             self.assertFalse(result['completion_checks']['terminals_verified'])
 
+    def test_door_face_mapping_uses_source_json_and_explicit_override(self):
+        devices=self.devices()
+        light=candidates('LIGHT')[0]
+        devices.append(dict(category='LIGHT',tag='R',name='Lamp',quantity=1,cad={'asset_id':light['id']}))
+        with tempfile.TemporaryDirectory() as directory:
+            result=generate(devices,(1000,600,300),directory)
+            lamp=next(p for p in result['placements'] if p['tag']=='R')
+            self.assertEqual(lamp['source_face_label'],'1st DOOR VIEW')
+            self.assertEqual(lamp['mounting_face'],'outer_door')
+            self.assertGreater(lamp['x'],900)
+            self.assertEqual(result['enclosure_source']['side_view_review']['status'],'source_only_depth_not_verified')
+            devices[-1]['cad']['mounting_face']='inner_door'
+            result=generate(devices,(1000,600,300),directory)
+            lamp=next(p for p in result['placements'] if p['tag']=='R')
+            self.assertEqual(lamp['source_face_label'],'2nd DOOR VIEW')
+            self.assertLess(lamp['x'],600)
+
     def test_stale_asset_does_not_silently_become_a_different_product(self):
         devices = self.devices()
         devices[1]['cad']['asset_id'] = 'tb:deleted-source'
