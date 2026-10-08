@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "url": "https://blog.se.com/infrastructure-and-grid/power-management-metering-monitoring-power-quality/2018/06/06/clearances-and-creepage-distances-in-lv-electrical-switchboards/",
+      "rule": "Clearance depends on Uimp; creepage depends on Ui, pollution degree and material group. Verify after short-circuit withstand testing."
+    },
+    {
+      "url": "https://www.electrical-installation.org/enwiki/Sizing_the_neutral_conductor",
+      "rule": "Size neutral for imbalance and triplen harmonics; do not automatically reduce neutral cross-section."
+    },
+    {
+      "url": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+      "rule": "BKN uses 35 mm DIN rail and 17.8 mm nominal width per pole. Rotation, terminal positions and installation clearances require the exact model manual."
+    }
+  ],
+  "layout_assumptions_mm": {
+    "spine_pitch": 30,
+    "neutral_review_width": 10,
+    "routing_port_standoff": 8,
+    "branch_side_margin": 90
+  },
+  "neutral": {
+    "topology": "separate_N_spine_with_fishbone_branches",
+    "source": "incoming_neutral_not_3P_MCCB",
+    "colour_role": "N_label_required_colour_is_not_identification",
+    "connect_PE": false,
+    "three_pole_branch": "route_to_separate_load_neutral_terminal_if_required",
+    "two_pole_branch": "neutral_pole_requires_terminal_map",
+    "rcd": "downstream_neutrals_must_not_be_shared_between_RCD_circuits"
+  },
+  "required_before_release": [
+    "Ui",
+    "Uimp",
+    "pollution_degree",
+    "material_group",
+    "busbar_width_thickness",
+    "short_circuit_current_duration",
+    "support_spacing",
+    "temperature_rise",
+    "terminal_map",
+    "mounting_orientation",
+    "neutral_load_harmonics"
+  ],
+  "clearance_compliance": "unknown_until_required_inputs_verified"
+}
