@@ -24,7 +24,9 @@ async def main():
   from openpyxl import load_workbook
   workbook=load_workbook(result['quotation_file']['file_path'])
   descriptions=[str(row[1].value or '') for row in workbook.active.iter_rows() if len(row)>1]
-  assert any('Thanh đồng N gia công' in text and '735 mm' in text for text in descriptions), 'Neutral length missing from exported file'
+  neutral=next(p for p in result['cad_layout']['placements'] if p.get('status')=='custom_fabricated_review')
+  expected_length=f"{neutral['length_mm']:g} mm"
+  assert any('Thanh đồng N gia công' in text and expected_length in text for text in descriptions), 'Neutral layout length missing from exported file'
   workbook.close()
   files=(await db.execute(select(ProjectFile))).scalars().all()
   assert len(files)==2
