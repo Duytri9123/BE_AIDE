@@ -56,6 +56,7 @@ class TechnicalProposalSchema(BaseModel):
 
 class ExtractedDeviceSchema(BaseModel):
     cad: Optional[dict] = None
+    dimensions: Optional[dict] = None
     category: str
     name: str
     spec: str

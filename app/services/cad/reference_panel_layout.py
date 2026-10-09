@@ -65,6 +65,8 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
     offset=width+160
     from app.services.cad.source_form_faces import insert_faces
     enclosure_source = insert_faces(m, dimensions, offset)
+    if not enclosure_source:
+        raise ValueError('Không có form nguồn đầy đủ phù hợp; không thay bằng khung tủ trống.')
     if enclosure_source:
         offset = enclosure_source['interior_offset']
     else:
@@ -91,9 +93,11 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
             if branch_arrangement=='two_vertical_banks' and d['category'] in ('MCB','RCBO','RCCB'):rotation=90
             if rotation not in (0,90) or (rotation and d['category'] not in ('PE','N') and not (branch_arrangement=='two_vertical_banks' and d['category'] in ('MCB','RCBO','RCCB'))):
                 raise ValueError('Tư thế CAD chưa được hỗ trợ để rà soát')
+            from app.services.cad.device_envelope import _bounds
+            bound_width,bound_height = _bounds(asset)
             entries.append(dict(device=d,asset=asset,tag=tag,
-                w=bounds.size.y if rotation else bounds.size.x,
-                h=bounds.size.x if rotation else bounds.size.y,rotation=rotation))
+                w=bound_height if rotation else bound_width,
+                h=bound_width if rotation else bound_height,rotation=rotation))
     def place(e,x,y,zone):
         if e.get('fabricated_neutral'):
             box(x,y,e['w'],e['h'],True)

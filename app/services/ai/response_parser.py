@@ -56,6 +56,10 @@ class ExtractedDevice:
     accompanying_accessories: Optional[list] = None
     inferred_components: Optional[list] = None
     compatible_proposal: Optional[dict] = None
+    drawing_quantity: Optional[int] = None
+    procurement_quantity: Optional[int] = None
+    quantity_basis: Optional[str] = None
+    quantity_confidence: Optional[float] = None
 class ResponseParserService:
     @staticmethod
     def extract_completeness_warnings(ai_response: str) -> List[str]:
@@ -149,6 +153,10 @@ class ResponseParserService:
                         icu_ka=_safe_float(item.get("icu_ka")),
                         poles=_safe_int(item.get("poles")),
                         quantity=_safe_int(item.get("quantity"), 1) or 1,
+                        drawing_quantity=_safe_int(item.get("drawing_quantity")),
+                        procurement_quantity=_safe_int(item.get("procurement_quantity")),
+                        quantity_basis=str(item.get("quantity_basis") or '').strip() or None,
+                        quantity_confidence=_safe_float(item.get("quantity_confidence")),
                         brand=str(item.get("brand") or ""),
                         part_number=str(item.get("part_number") or ""),
                         confidence=_safe_float(item.get("confidence"), settings.DEFAULT_CONFIDENCE) or settings.DEFAULT_CONFIDENCE,

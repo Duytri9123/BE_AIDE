@@ -1273,9 +1273,13 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             dev.catalog_candidates = catalog_candidates
             dev.catalog_references = catalog_engine.search_references(dev.category, requested_brand or dev_raw_brand or preferred_brand, dev.poles, allow_other_brands=not bool(requested_brand or dev_raw_brand))
             from app.services.cad.catalogtb_assets import candidates as cad_candidates_for
-            cad_refs = cad_candidates_for(dev.category, requested_brand or dev_raw_brand or preferred_brand, dev.poles)
+            # A generic CB remains CB in the takeoff. Offer actual breaker CAD
+            # families for an explicit engineering selection instead of no options.
+            cad_kinds = ('MCB', 'MCCB') if str(dev.category).upper() == 'CB' else (dev.category,)
+            cad_refs = [asset for kind in cad_kinds for asset in cad_candidates_for(
+                kind, requested_brand or dev_raw_brand or preferred_brand, dev.poles)]
             if not cad_refs and not (requested_brand or dev_raw_brand):
-                cad_refs = cad_candidates_for(dev.category, poles=dev.poles)
+                cad_refs = [asset for kind in cad_kinds for asset in cad_candidates_for(kind, poles=dev.poles)]
             if cad_refs:
                 dev.cad = {**(dev.cad or {}), 'reference_candidates': [
                     {key:a[key] for key in ('id','name','face','profile_path','status','confirmation','label_config','replacement_options')}
@@ -1895,10 +1899,13 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             # Keep this pass idempotent: a saved result may already contain an
             # expanded procurement quantity from an earlier reprocessing run.
             drawn_qty = max(1, int(device.drawing_quantity or device.quantity or 1))
+            preserved_quantity = device.procurement_quantity
+            preserved_basis = device.quantity_basis
             device.drawing_quantity = drawn_qty
-            device.quantity = drawn_qty
-            device.procurement_quantity = drawn_qty
-            device.quantity_basis = "Theo số ký hiệu hoặc số lượng ghi trực tiếp trên sơ đồ."
+            has_quantity_evidence = bool(preserved_basis and preserved_quantity and preserved_quantity > 0)
+            device.quantity = int(preserved_quantity) if has_quantity_evidence else drawn_qty
+            device.procurement_quantity = device.quantity
+            device.quantity_basis = preserved_basis if has_quantity_evidence else "Theo số ký hiệu hoặc số lượng ghi trực tiếp trên sơ đồ."
             device.quantity_confidence = float(device.confidence or 0.0)
 
             searchable = " ".join(str(value or "") for value in (
@@ -2710,12 +2717,12 @@ Chỉ trả một JSON hợp lệ, không markdown:
                         logger.warning(f"progress_callback error: {e}")
 
                 # Render trang thành ảnh với độ phân giải tối ưu bằng pypdfium2 C engine (nhanh & siêu tiết kiệm RAM)
-                page_img = page.render(scale=2).to_pil()
+                page_img = page.render(scale=3).to_pil()
                 if page_img.mode in ("RGBA", "LA", "P"):
                     page_img = page_img.convert("RGB")
 
                 # Giới hạn kích thước tối đa 2048px (đảm bảo cực kỳ sắc nét cho sơ đồ SLD mà dung lượng giảm 80-90%)
-                max_dim = 2048
+                max_dim = 4096
                 w, h = page_img.size
                 if max(w, h) > max_dim:
                     scale = max_dim / max(w, h)
@@ -2743,17 +2750,32 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     vision_prompt = append_completeness_review_instruction(vision_prompt)
                     vision_prompt = append_canonical_output_contract(vision_prompt)
 
+                    from app.services.ai.pdf_context import build_context, extraction_prompt
+                    async def transcribe_pdf(**kwargs):
+                        if all_connections and db:
+                            response, _ = await ConnectionPoolService.call_with_fallback(
+                                db=db, connections=all_connections,
+                                call_fn=VisionAnalyzerService.analyze_image, **kwargs)
+                            return response
+                        return await VisionAnalyzerService.analyze_image(
+                            provider=active_ai.provider.lower(), api_key=active_ai.api_key,
+                            model=active_ai.selected_model, **kwargs)
+                    pdf_context = await build_context(page.get_textpage().get_text_range(), temp_img_path, transcribe_pdf)
+                    vision_prompt = extraction_prompt(vision_prompt, pdf_context)
+                    if progress_callback:
+                        event = progress_callback({'type':'log','stage':'pdf_context','status':'success',
+                            'title':'Đã tạo context trang PDF',
+                            'detail':f"Trang {page_num}: {pdf_context['source']}; phân tích từ context, tọa độ đối chiếu ảnh riêng."})
+                        if asyncio.iscoroutine(event): await event
                     if all_connections and db:
                         ai_response, _used = await ConnectionPoolService.call_with_fallback(
                             db=db,
                             connections=all_connections,
-                            call_fn=VisionAnalyzerService.analyze_image,
-                            image_path=temp_img_path,
+                            call_fn=VisionAnalyzerService.analyze_text,
                             prompt=vision_prompt,
                         )
                     else:
-                        ai_response = await VisionAnalyzerService.analyze_image(
-                            image_path=temp_img_path,
+                        ai_response = await VisionAnalyzerService.analyze_text(
                             prompt=vision_prompt,
                             provider=active_ai.provider.lower(),
                             api_key=active_ai.api_key,
@@ -2771,18 +2793,31 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             "tag": getattr(device, "tag", None),
                             "name": getattr(device, "name", None),
                             "spec": getattr(device, "spec", None),
+                            "category": device.category,
+                            "quantity": device.quantity,
+                            "drawing_quantity": device.drawing_quantity,
+                            "procurement_quantity": device.procurement_quantity,
+                            "quantity_basis": device.quantity_basis,
                             "box_2d": getattr(device, "box_2d", None),
                         }
                         for index, device in enumerate(parsed_devs)
-                        if getattr(device, "box_2d", None)
                     ]
                     if box_candidates:
                         verifier_prompt = (
-                            "Kiểm chứng tọa độ độc lập bằng cách quan sát lại TOÀN BỘ ảnh. "
+                            "Đối chiếu danh sách đã bóc tách từ context với TOÀN BỘ trang nguồn. "
+                            "Quét cụm đo lường/điều khiển, đèn, Fuse, vôn kế/chuyển mạch để tìm phần tử context bị sót. "
+                            "Mỗi lộ một dòng, giữ tag đọc được; CB chung dùng category CB, không tự đổi thành MCCB. "
+                            "Trả devices là DANH SÁCH ĐẦY ĐỦ sau đối chiếu, giữ thông số và số lượng có căn cứ. "
+                            "Tách drawing_quantity và procurement_quantity, nêu quantity_basis; không nhân Fuse theo số đèn. "
+                            "Nếu nguồn ghi rõ MCCB thì giữ category MCCB; chỉ dùng CB khi nguồn chỉ ghi CB. "
+                            "Vôn kế và công tắc chọn điện áp là hai phần tử nếu có hai ký hiệu; không bỏ ký hiệu tròn phía dưới vôn kế. "
+                            "Giữ metadata panels kích thước, đầu vào/đầu ra, tải và nguồn cấp đã đọc trong context. "
+                            "Không invent tag hoặc phụ kiện. devices gồm category,name,spec,tag,poles,in_a,icu_ka,quantity,panel_code,section,box_2d. "
+                            "Kèm completeness_review cho vùng không rõ. "
                             "Với từng thiết bị, tìm đúng ký hiệu điện và nhãn tag/thông số của chính nó; "
                             "không dùng box cũ làm đáp án. Chỉ trả JSON "
                             "Giữ nguyên device_id của từng thiết bị trong kết quả. "
-                            "{\"boxes\":[{\"device_id\":...,\"tag\":...,\"name\":...,\"box_2d\":[ymin,xmin,ymax,xmax],"
+                            "{\"devices\":[...],\"boxes\":[{\"device_id\":...,\"tag\":...,\"name\":...,\"box_2d\":[ymin,xmin,ymax,xmax],"
                             "\"verified\":true|false}]}. Tọa độ 0..1000. Box phải bao ký hiệu và nhãn "
                             "riêng, không bao thiết bị hoặc nhánh kế bên. Nếu không chắc chắn, trả "
                             "verified=false và box_2d=null. Danh sách:\n"
@@ -2802,11 +2837,25 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                     model=active_ai.selected_model,
                                 )
                             verifier_blocks = ResponseParserService.extract_json_blocks(verifier_response)
+                            audited_devices = ResponseParserService.parse_device_list(verifier_response)
+                            if audited_devices:
+                                from app.services.ai.pdf_context import merge_verified_devices
+                                parsed_devs = merge_verified_devices(parsed_devs, audited_devices)
+                            warns.extend(ResponseParserService.extract_completeness_warnings(verifier_response))
                             payload = next(
                                 (block for block in verifier_blocks if isinstance(block, dict) and isinstance(block.get("boxes"), list)),
                                 None,
                             )
-                            AnalysisPipelineService._apply_verified_boxes(parsed_devs, payload)
+                            if not audited_devices:
+                                AnalysisPipelineService._apply_verified_boxes(parsed_devs, payload)
+                            else:
+                                # The audited inventory can add/reorder rows. Old request-local
+                                # IDs must never attach another device's region to these rows.
+                                for device in parsed_devs:
+                                    try:
+                                        device.box_2d = ExtractedDeviceSchema.normalize_evidence_box(device.box_2d)
+                                    except (TypeError,ValueError,OverflowError):
+                                        device.box_2d = None
                         except Exception as verify_error:
                             logger.warning("Evidence verification failed on page %s: %s", page_num, verify_error)
                             for device in parsed_devs:
@@ -2891,6 +2940,10 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 icu_ka=clean_icu_ka,
                                 poles=clean_poles,
                                 quantity=int(d.quantity or 1),
+                                drawing_quantity=getattr(d,'drawing_quantity',None),
+                                procurement_quantity=getattr(d,'procurement_quantity',None),
+                                quantity_basis=getattr(d,'quantity_basis',None),
+                                quantity_confidence=getattr(d,'quantity_confidence',None),
                                 brand=d.brand or "",
                                 part_number=d.part_number or "",
                                 section=d.section,
@@ -3175,14 +3228,14 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 return
             payload = {
                 "type": "cad_progress",
+                "emitted_at_ms": int(time.time() * 1000),
                 "stage": stage,
                 "progress": progress,
                 "message": message,
                 **extra,
             }
-            result = progress_callback(payload)
-            if asyncio.iscoroutine(result):
-                await result
+            from app.services.ai.progress_delivery import deliver
+            await deliver(progress_callback, payload)
             # Give an SSE response a chance to flush before CPU-bound CAD work.
             await asyncio.sleep(0)
 
@@ -3210,6 +3263,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
             elif isinstance(d, dict):
                 extracted_devices.append(ExtractedDeviceSchema(
                     cad=d.get("cad"),
+                    dimensions=d.get("dimensions"),
                     category=d.get("category", "Thiết bị"),
                     name=d.get("name", "Thiết bị"),
                     spec=d.get("spec", ""),
@@ -3448,7 +3502,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 kind=("outdoor" if any(token in str(panel_name or "").lower() for token in ("ngoài trời", "outdoor")) else "indoor"),
             )
             cad_file_path = source_cad["path"]
-            cad_layout = {key: source_cad[key] for key in ("template_id", "source", "dimensions", "minimum_required", "placements", "unmatched_devices")}
+            cad_layout = {key: source_cad[key] for key in ("template_id", "source", "dimensions", "minimum_required", "placements", "unmatched_devices", "status", "release_ready")}
             dxf_filename = os.path.basename(cad_file_path)
             dxf_size = os.path.getsize(cad_file_path)
         except ValueError as exc:
@@ -3479,8 +3533,10 @@ Chỉ trả một JSON hợp lệ, không markdown:
             ):
                 from app.services.cad.reference_panel_layout import generate as generate_review_layout
                 try:
+                    from app.services.cad.review_form_fit import fit_vertical_review
+                    review_dimensions = fit_vertical_review([d.model_dump() for d in extracted_devices], detected_dimensions)
                     review = generate_review_layout(
-                        [d.model_dump() for d in extracted_devices], detected_dimensions,
+                        [d.model_dump() for d in extracted_devices], review_dimensions,
                         os.path.join(getattr(settings, 'PROJECTS_DIR', 'storage/projects'), str(project.id), 'cad_review'),
                         detected_panel_code,
                     )
@@ -3688,8 +3744,11 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             "Đã lưu CAD rà soát và báo giá vào dự án" if cad_file
                             else "Đã lưu danh mục hỏi giá; CAD chưa tạo được")
 
+        from app.services.cad.output_status import output_status
         return {
-            "success": True,
+            **output_status(cad_file, excel_file_info, cad_layout, layout_conflicts,
+                            reason=enclosure_spec.get('sizing_note') or (enclosure_spec.get('source_form_review') or {}).get('reason'),
+                            devices=[d.model_dump() for d in extracted_devices]),
             "cad_file": {
                 "id": cad_file.id if cad_file else 0,
                 "filename": dxf_filename,

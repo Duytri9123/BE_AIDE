@@ -159,6 +159,11 @@ class PhysicalLayoutEngine:
         - Phụ kiện chưa có kích thước xác minh phải được để trống.
         Không tự tính kích thước hardcode để đảm bảo vị trí và kích thước trên bản vẽ chuẩn xác theo từng hãng.
         """
+        from app.services.cad.device_envelope import selected_envelope
+        selected_dimensions = selected_envelope(device)
+        if selected_dimensions:
+            return selected_dimensions
+
         # 1. Kiểm tra nếu device đã có sẵn dimensions hợp lệ từ kết quả tra cứu trước
         if isinstance(device.get("dimensions"), dict):
             dims = device["dimensions"]

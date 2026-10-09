@@ -104,7 +104,8 @@ class QuotationExporterService:
             current_row += 1
 
         def write_item(name: str, sku: str, origin: str, unit: str, qty: float, price: int, notes: str = "", tt: str = "+"):
-            nonlocal current_row
+            nonlocal current_row, has_pending_items
+            has_pending_items = has_pending_items or price is None or not isinstance(qty, (int, float))
             discount = discounts.get(origin.strip().casefold(), 0)
             net_price = f"=J{current_row}*(1-K{current_row}/100)" if price is not None else 'Chờ báo giá'
             item_cells = [
@@ -301,17 +302,18 @@ class QuotationExporterService:
         # total here creates a cycle when a later panel lies in its SUM range.
         for panel_row, detail_rows in panel_item_rows.items():
             refs = f"H{detail_rows[0]}:H{detail_rows[-1]}"
-            ws.cell(row=panel_row, column=7, value=f"=SUM({refs})")
-            ws.cell(row=panel_row, column=8, value=f"=F{panel_row}*G{panel_row}")
+            pending_panel = any(ws.cell(row=row, column=8).value == 'Chưa xác nhận' for row in detail_rows)
+            ws.cell(row=panel_row, column=7, value='Chưa đủ dữ liệu' if pending_panel else f"=SUM({refs})")
+            ws.cell(row=panel_row, column=8, value='Chưa đủ dữ liệu' if pending_panel else f"=F{panel_row}*G{panel_row}")
 
         # Row: TỔNG GIÁ TRỊ TRƯỚC THUẾ
         ws.merge_cells(start_row=current_row, start_column=1, end_row=current_row, end_column=7)
-        c_sub = ws.cell(row=current_row, column=1, value="CỘNG CÁC DÒNG ĐÃ XÁC NHẬN" if has_pending_items else "TỔNG GIÁ TRỊ TRƯỚC THUẾ")
+        c_sub = ws.cell(row=current_row, column=1, value="TỔNG GIÁ TRỊ TRƯỚC THUẾ")
         c_sub.font = font_grand_total
         c_sub.alignment = align_right
 
         panel_refs = ",".join(f"H{row}" for row in panel_item_rows)
-        tot_formula = f"=SUM({panel_refs})" if panel_refs else "=0"
+        tot_formula = 'Chưa đủ dữ liệu' if has_pending_items else (f"=SUM({panel_refs})" if panel_refs else "=0")
         c_sub_val = ws.cell(row=current_row, column=8, value=tot_formula)
         c_sub_val.font = font_grand_total
         c_sub_val.alignment = align_right

@@ -2,9 +2,41 @@
 import re
 
 
+def _source_alias(tag):
+    """Only explicit phase suffixes on branch labels are aliases."""
+    return re.sub(r'/(?:R|Y|B|S|T)$', '', str(tag or '').strip().upper())
+
+
+def _same_source_alias(a, b, devices):
+    if not a.source_filename or (a.panel_code, a.source_filename, a.source_page) != (b.panel_code, b.source_filename, b.source_page):
+        return False
+    if (a.category, a.name, a.spec) != (b.category, b.name, b.spec):
+        return False
+    if any(getattr(a,field,None) is not None and getattr(b,field,None) is not None and getattr(a,field) != getattr(b,field) for field in ('in_a','poles','icu_ka')):
+        return False
+    if a.tag and b.tag and _source_alias(a.tag) == _source_alias(b.tag):
+        return True
+    # Spatial audits sometimes invent role aliases for a single source symbol.
+    # Do not apply this to numbered feeders or multiple equal metering devices.
+    role = a.category in ('LIGHT', 'METER', 'FUSE') or (a.category in ('MCCB', 'ACB') and 'tổng' in a.name.lower())
+    group = [d for d in devices if (d.panel_code,d.source_filename,d.source_page,d.category,d.name,d.spec) == (a.panel_code,a.source_filename,a.source_page,a.category,a.name,a.spec)]
+    return role and len(group) == 2 and any(str(d.tag or '').upper() in ('R','Y','B','FUSE','0-500V','MCCB-3P') for d in group)
+
+
 def normalize_takeoff(devices):
     warnings, kept = [], []
     for d in devices:
+        if d.category == 'TERMINAL' and str(d.tag or '').upper() == 'SPARE' and d.spec.strip().lower() == 'dự phòng':
+            warnings.append('Lộ dự phòng chưa có ký hiệu thiết bị: giữ trong ghi chú, không tính là cầu đấu đã lắp.')
+            continue
+        alias = next((other for other in kept if _same_source_alias(d, other, devices)), None)
+        if alias:
+            alias.quantity = max(alias.quantity, d.quantity)
+            for field in ('box_2d','section','upstream_device','connected_load','quantity_basis'):
+                if not getattr(alias, field, None) and getattr(d, field, None):
+                    setattr(alias, field, getattr(d, field))
+            warnings.append(f'{d.tag} → {alias.tag}: hợp nhất alias của cùng ký hiệu nguồn; không cộng số lượng.')
+            continue
         # A generated lamp alias that points to the same printed phase label is
         # a duplicate reference, not another load. Never collapse HL1/HL2 lamps.
         if d.category == 'LIGHT' and re.fullmatch(r'HL\d+', str(d.tag or ''), re.I):

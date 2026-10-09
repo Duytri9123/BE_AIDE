@@ -1,0 +1,394 @@
+[
+  {
+    "category": "MCCB",
+    "name": "Aptomat tổng TĐT",
+    "spec": "3P 200A-85kA",
+    "tag": "MCCB-3P",
+    "poles": 3,
+    "in_a": 200.0,
+    "icu_ka": 85.0,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "MCCB",
+      "asset_id": "tb:b1517791a76010858c59",
+      "branch_arrangement": "two_vertical_banks",
+      "distribution_method": "fabricated_fishbone"
+    }
+  },
+  {
+    "category": "LIGHT",
+    "name": "Đèn báo pha R",
+    "spec": "Đèn báo pha",
+    "tag": "LIGHT-R",
+    "poles": 1,
+    "in_a": null,
+    "icu_ka": null,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "LIGHT",
+      "asset_id": "tb:43ac2a84c96cadf15bc6"
+    }
+  },
+  {
+    "category": "LIGHT",
+    "name": "Đèn báo pha Y",
+    "spec": "Đèn báo pha",
+    "tag": "LIGHT-Y",
+    "poles": 1,
+    "in_a": null,
+    "icu_ka": null,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "LIGHT",
+      "asset_id": "tb:43ac2a84c96cadf15bc6"
+    }
+  },
+  {
+    "category": "LIGHT",
+    "name": "Đèn báo pha B",
+    "spec": "Đèn báo pha",
+    "tag": "LIGHT-B",
+    "poles": 1,
+    "in_a": null,
+    "icu_ka": null,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "LIGHT",
+      "asset_id": "tb:43ac2a84c96cadf15bc6"
+    }
+  },
+  {
+    "category": "FUSE",
+    "name": "Cầu chì bảo vệ vôn kế",
+    "spec": "Cầu chì nguồn áp",
+    "tag": "FUSE",
+    "poles": 1,
+    "in_a": null,
+    "icu_ka": null,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "FUSE",
+      "asset_id": "tb:13615767ee5e33969e5c"
+    }
+  },
+  {
+    "category": "METER",
+    "name": "Vôn kế",
+    "spec": "0-500V",
+    "tag": "METER",
+    "poles": 1,
+    "in_a": null,
+    "icu_ka": null,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "METER",
+      "asset_id": "tb:1c52ab0aa4712a0f23af"
+    }
+  },
+  {
+    "category": "SELECTOR",
+    "name": "Công tắc chọn điện áp",
+    "spec": "Selector switch",
+    "tag": "SW",
+    "poles": null,
+    "in_a": null,
+    "icu_ka": null,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "SWITCH",
+      "asset_id": "tb:86c4908ae7d5d72fe617"
+    }
+  },
+  {
+    "category": "MCB",
+    "name": "Aptomat lộ L1/r",
+    "spec": "2P 10A-6kA",
+    "tag": "L1",
+    "poles": 2,
+    "in_a": 10.0,
+    "icu_ka": 6.0,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "CB",
+      "asset_id": "tb:22da6b4d30a6288697d9"
+    }
+  },
+  {
+    "category": "MCB",
+    "name": "Aptomat lộ L2/y",
+    "spec": "2P 20A-6kA",
+    "tag": "L2",
+    "poles": 2,
+    "in_a": 20.0,
+    "icu_ka": 6.0,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "CB",
+      "asset_id": "tb:22da6b4d30a6288697d9"
+    }
+  },
+  {
+    "category": "MCB",
+    "name": "Aptomat lộ L3",
+    "spec": "3P 20A-6kA",
+    "tag": "L3",
+    "poles": 3,
+    "in_a": 20.0,
+    "icu_ka": 6.0,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "CB",
+      "asset_id": "tb:13d9f99652120665ab18"
+    }
+  },
+  {
+    "category": "MCB",
+    "name": "Aptomat lộ L4",
+    "spec": "3P 20A-6kA",
+    "tag": "L4",
+    "poles": 3,
+    "in_a": 20.0,
+    "icu_ka": 6.0,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "CB",
+      "asset_id": "tb:13d9f99652120665ab18"
+    }
+  },
+  {
+    "category": "MCB",
+    "name": "Aptomat lộ L5/b",
+    "spec": "2P 30A-6kA",
+    "tag": "L5",
+    "poles": 2,
+    "in_a": 30.0,
+    "icu_ka": 6.0,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "CB",
+      "asset_id": "tb:22da6b4d30a6288697d9"
+    }
+  },
+  {
+    "category": "MCB",
+    "name": "Aptomat lộ L6/r",
+    "spec": "2P 30A-6kA",
+    "tag": "L6",
+    "poles": 2,
+    "in_a": 30.0,
+    "icu_ka": 6.0,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "CB",
+      "asset_id": "tb:22da6b4d30a6288697d9"
+    }
+  },
+  {
+    "category": "MCB",
+    "name": "Aptomat lộ L7",
+    "spec": "3P 20A-6kA",
+    "tag": "L7",
+    "poles": 3,
+    "in_a": 20.0,
+    "icu_ka": 6.0,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "CB",
+      "asset_id": "tb:13d9f99652120665ab18"
+    }
+  },
+  {
+    "category": "MCB",
+    "name": "Aptomat lộ L8",
+    "spec": "3P 20A-6kA",
+    "tag": "L8",
+    "poles": 3,
+    "in_a": 20.0,
+    "icu_ka": 6.0,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "CB",
+      "asset_id": "tb:13d9f99652120665ab18"
+    }
+  },
+  {
+    "category": "MCB",
+    "name": "Aptomat lộ L9",
+    "spec": "3P 20A-6kA",
+    "tag": "L9",
+    "poles": 3,
+    "in_a": 20.0,
+    "icu_ka": 6.0,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "CB",
+      "asset_id": "tb:13d9f99652120665ab18"
+    }
+  },
+  {
+    "category": "MCB",
+    "name": "Aptomat lộ L10",
+    "spec": "3P 20A-6kA",
+    "tag": "L10",
+    "poles": 3,
+    "in_a": 20.0,
+    "icu_ka": 6.0,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "CB",
+      "asset_id": "tb:13d9f99652120665ab18"
+    }
+  },
+  {
+    "category": "MCB",
+    "name": "Aptomat lộ L11",
+    "spec": "3P 20A-6kA",
+    "tag": "L11",
+    "poles": 3,
+    "in_a": 20.0,
+    "icu_ka": 6.0,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "CB",
+      "asset_id": "tb:13d9f99652120665ab18"
+    }
+  },
+  {
+    "category": "MCB",
+    "name": "Aptomat lộ L12",
+    "spec": "3P 20A-6kA",
+    "tag": "L12",
+    "poles": 3,
+    "in_a": 20.0,
+    "icu_ka": 6.0,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "CB",
+      "asset_id": "tb:13d9f99652120665ab18"
+    }
+  },
+  {
+    "category": "MCB",
+    "name": "Aptomat lộ L13",
+    "spec": "3P 20A-6kA",
+    "tag": "L13",
+    "poles": 3,
+    "in_a": 20.0,
+    "icu_ka": 6.0,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "CB",
+      "asset_id": "tb:13d9f99652120665ab18"
+    }
+  },
+  {
+    "category": "MCB",
+    "name": "Aptomat lộ L14",
+    "spec": "3P 20A-6kA",
+    "tag": "L14",
+    "poles": 3,
+    "in_a": 20.0,
+    "icu_ka": 6.0,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "CB",
+      "asset_id": "tb:13d9f99652120665ab18"
+    }
+  },
+  {
+    "category": "MCB",
+    "name": "Aptomat lộ L15",
+    "spec": "3P 20A-6kA",
+    "tag": "L15",
+    "poles": 3,
+    "in_a": 20.0,
+    "icu_ka": 6.0,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "CB",
+      "asset_id": "tb:13d9f99652120665ab18"
+    }
+  },
+  {
+    "category": "MCB",
+    "name": "Aptomat lộ L16",
+    "spec": "3P 20A-6kA",
+    "tag": "L16",
+    "poles": 3,
+    "in_a": 20.0,
+    "icu_ka": 6.0,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "CB",
+      "asset_id": "tb:13d9f99652120665ab18"
+    }
+  },
+  {
+    "category": "MCB",
+    "name": "Aptomat lộ L17",
+    "spec": "3P 20A-6kA",
+    "tag": "L17",
+    "poles": 3,
+    "in_a": 20.0,
+    "icu_ka": 6.0,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "CB",
+      "asset_id": "tb:13d9f99652120665ab18"
+    }
+  },
+  {
+    "category": "MCB",
+    "name": "Aptomat lộ L18",
+    "spec": "3P 20A-6kA",
+    "tag": "L18",
+    "poles": 3,
+    "in_a": 20.0,
+    "icu_ka": 6.0,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "CB",
+      "asset_id": "tb:13d9f99652120665ab18"
+    }
+  },
+  {
+    "category": "MCB",
+    "name": "Aptomat lộ L19",
+    "spec": "3P 20A-6kA",
+    "tag": "L19",
+    "poles": 3,
+    "in_a": 20.0,
+    "icu_ka": 6.0,
+    "quantity": 1,
+    "panel_code": "TĐT",
+    "cad": {
+      "source_category": "CB",
+      "asset_id": "tb:13d9f99652120665ab18"
+    }
+  }
+]

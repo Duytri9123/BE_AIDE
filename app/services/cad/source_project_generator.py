@@ -4,6 +4,7 @@ from __future__ import annotations
 from pathlib import Path
 import io
 import unicodedata
+from uuid import uuid4
 
 import ezdxf
 from ezdxf import bbox
@@ -13,8 +14,13 @@ from app.services.cad import cabinet_templates
 
 class SourceProjectGenerator:
     @staticmethod
-    def _interior_region(doc, dimensions):
+    def _interior_region(doc, dimensions, source_item=None):
         """Find the source's dimensioned interior elevation, not a guessed sheet cell."""
+        faces = [f for f in (source_item or {}).get('faces',[]) if f.get('kind') == 'mounting_plate' and f.get('clean_bounds')]
+        if len(faces) == 1:
+            left,bottom,right,top = faces[0]['clean_bounds']
+            if abs(right-left-dimensions['width']) <= 1 and abs(top-bottom-dimensions['height']) <= 1:
+                return left+70,bottom+100,right-70,top-100
         def plain(value):
             value = ''.join(c for c in unicodedata.normalize('NFD', value.upper()) if not unicodedata.combining(c))
             return value.replace('Đ', 'D')
@@ -47,7 +53,7 @@ class SourceProjectGenerator:
         from app.api.v1.endpoints.cad_library import download_layout
         doc = ezdxf.read(io.StringIO(dxf))
         source_doc = ezdxf.readfile(cabinet_templates.source_path(source_item))
-        left, bottom, right, top = SourceProjectGenerator._interior_region(source_doc, dimensions)
+        left, bottom, right, top = SourceProjectGenerator._interior_region(source_doc, dimensions, source_item)
         entries = []
         missing = []
         for device in devices:
@@ -64,11 +70,15 @@ class SourceProjectGenerator:
                 missing.append(device.get('tag') or device.get('name') or '?')
                 continue
             qty = max(1, min(int(device.get('quantity') or 1), 100))
+            width,height = bounds.size.x,bounds.size.y
             if str(asset_id).startswith('tb:'):
                 from app.services.cad.catalogtb_assets import resolve, instance_count
-                qty = instance_count(qty, resolve(asset_id))
+                from app.services.cad.device_envelope import _bounds
+                asset=resolve(asset_id)
+                qty = instance_count(qty, asset)
+                width,height = _bounds(asset)
             for _ in range(qty):
-                entries.append((device, asset_id, bounds.size.x, bounds.size.y))
+                entries.append((device, asset_id, width, height))
         # Incoming protection first; then outgoing protection, then controls.
         def rank(entry):
             device = entry[0]
@@ -110,7 +120,7 @@ class SourceProjectGenerator:
         matches = cabinet_templates.candidates(requested, kind=kind)
         # A real, slightly larger source cabinet is safer than stretching an
         # unrelated sheet to an exact but unverified calculated envelope.
-        fitting = [item for item in matches if item.get("status") == "source"
+        fitting = [item for item in matches if item.get("status") in ("source", "needs_review")
                    and item.get("dimensions")
                    and all(requested[axis] <= item["dimensions"][axis] <= requested[axis] * 1.7 for axis in requested)
                    and (item["dimensions"]["height"] * item["dimensions"]["width"] * item["dimensions"]["depth"])
@@ -125,7 +135,7 @@ class SourceProjectGenerator:
             if devices:
                 try:
                     source_doc = ezdxf.readfile(cabinet_templates.source_path(candidate))
-                    SourceProjectGenerator._interior_region(source_doc, candidate["dimensions"])
+                    SourceProjectGenerator._interior_region(source_doc, candidate["dimensions"], candidate)
                 except ValueError:
                     continue
             match = candidate
@@ -139,9 +149,11 @@ class SourceProjectGenerator:
             dxf, placements, missing = SourceProjectGenerator._place_devices(dxf, devices, selected, match)
         folder = Path(output_dir) / str(project_id) / "cad" / "cabinet_forms"
         folder.mkdir(parents=True, exist_ok=True)
-        filename = f"FormTu_{match['id']}_H{selected['height']:g}W{selected['width']:g}D{selected['depth']:g}.dxf"
+        filename = f"FormTu_{match['id']}_H{selected['height']:g}W{selected['width']:g}D{selected['depth']:g}_{uuid4().hex[:10]}.dxf"
         path = folder / filename
         path.write_text(dxf, encoding="utf-8")
         return {"path": str(path), "template_id": match["id"], "source": match["filename"],
                 "dimensions": selected, "minimum_required": requested,
-                "placements": placements, "unmatched_devices": missing}
+                "placements": placements, "unmatched_devices": missing,
+                "status": "reference_layout_needs_review" if match.get('status') != 'source' else 'ready',
+                "release_ready": match.get('status') == 'source'}

@@ -4,6 +4,7 @@ from ezdxf.addons import Importer
 import ezdxf
 import re
 import unicodedata
+import math
 
 
 def _normal(value):
@@ -58,6 +59,14 @@ def insert_library_asset(space, asset_id, x, y, rotation=0):
     if not bounds.has_data:
         raise ValueError('CAD nguồn không có hình học để chèn')
     ref = space.add_blockref(name, (0, 0), dxfattribs={'rotation': rotation})
+    if str(asset_id).startswith('tb:'):
+        from app.services.cad.catalogtb_assets import resolve
+        from app.services.cad.device_envelope import placement_bounds
+        left,bottom,right,top = placement_bounds(resolve(asset_id))
+        angle = math.radians(rotation)
+        corners = [(px*math.cos(angle)-py*math.sin(angle),px*math.sin(angle)+py*math.cos(angle)) for px,py in ((left,bottom),(left,top),(right,bottom),(right,top))]
+        ref.translate(x-min(p[0] for p in corners),y-min(p[1] for p in corners),0)
+        return max(p[0] for p in corners)-min(p[0] for p in corners),max(p[1] for p in corners)-min(p[1] for p in corners)
     placed = bbox.extents([ref])
     if placed.has_data:
         ref.translate(x - placed.extmin.x, y - placed.extmin.y, 0)
