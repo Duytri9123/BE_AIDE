@@ -68,7 +68,7 @@ def candidates(dimensions, kind='', items=None):
         nominal = item.get('dimensions')
         distance = sum(abs(math.log(dimensions[k] / nominal[k])) for k in dimensions) if nominal else None
         changed = [k for k in dimensions if nominal and abs(dimensions[k]-nominal[k]) > .01]
-        can_generate = bool(nominal and item.get('status') == 'source' and (not changed or (
+        can_generate = bool(nominal and (not changed or (item.get('status') == 'source' and
             all(k in item.get('stretch_dimensions', []) for k in changed)
             and all(.75 <= dimensions[k]/nominal[k] <= 1.25 for k in dimensions))))
         rows.append({**item, 'distance': distance, 'can_generate': can_generate,
@@ -171,11 +171,11 @@ def generate(template_id, dimensions, product_name=''):
     nominal = item.get('dimensions')
     if not nominal:
         raise ValueError('Form chưa có kích thước gốc; hãy chọn form đã xác định kích thước.')
-    if item.get('status') != 'source':
-        raise ValueError(item.get('resize_note') or 'Form nguồn cần kiểm tra trước khi tạo CAD.')
-    source = ezdxf.readfile(source_path(item))
     delta = {key: dimensions[key]-nominal[key] for key in nominal}
     resizing = any(abs(v) > .01 for v in delta.values())
+    if resizing and item.get('status') != 'source':
+        raise ValueError(item.get('resize_note') or 'Form nguồn cần kiểm tra trước khi đổi kích thước.')
+    source = ezdxf.readfile(source_path(item))
     axes = stretch_axes(source, nominal) if resizing else [[], []]
     if resizing:
         if any(not .75 <= dimensions[k]/nominal[k] <= 1.25 for k in nominal):
