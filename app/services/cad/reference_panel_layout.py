@@ -158,12 +158,15 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
     if distribution_method=='fabricated_fishbone':check_fishbone(main_current)
     top_gap=design_policy['top_gap_mm'] or 150
     side_margin=design_policy['side_margin_mm'] or 110
+    main_branch_gap=rules['design_variables'].get('d15',50)
+    branch_bottom=rules['design_variables'].get('d16',160)
     for e in incoming:place(e,offset+(width-e['w'])/2,height-top_gap-e['h'],'interior')
-    branch_top=min(height-330,min((p['y']-50 for p in placements if p['tag'] in [v['tag'] for v in incoming]),default=height-330))
+    branch_top=min(height-330,min((p['y']-main_branch_gap for p in placements if p['tag'] in [v['tag'] for v in incoming]),default=height-330))
     branches=[e for e in entries if e['device']['category'] in ('MCB','RCBO','RCCB')]
     # Descending rated current, then physical width; circuit tags remain identifiers.
     def rating(e):
-        value=e['device'].get('in_a')
+        selected_rating=rating_text(e['device'])
+        value=float(selected_rating[:-1]) if selected_rating else None
         if value is None:
             match=re.search(r'(\d+(?:\.\d+)?)\s*A\b',e['device'].get('spec') or '',re.I)
             value=float(match[1]) if match else 0
@@ -174,7 +177,7 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
         rows=[[],[]];used=[0.,0.]
         for e in branches:
             i=min(range(2),key=lambda i:(used[i],len(rows[i]),i));rows[i].append(e);used[i]+=e['h']
-        if max(used)>branch_top-160:raise ValueError('Hai dãy dọc không vừa chiều cao tủ theo CAD thực tế')
+        if max(used)>branch_top-branch_bottom:raise ValueError('Hai dãy dọc không vừa chiều cao tủ theo CAD thực tế')
     elif branch_arrangement=='two_rows_two_banks':
         groups=[[] for _ in range(4)];used=[0.]*4
         for e in branches:
@@ -188,7 +191,12 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
     for row_index,row in enumerate(rows):
         if branch_arrangement=='two_vertical_banks':
             y=branch_top
-            x=offset+side_margin if row_index==0 else offset+width-side_margin-max(e['w'] for e in row)
+            bank_width=max(e['w'] for e in row)
+            edge_gap=rules['design_variables']['d7']
+            outer_bar_edge=1.5*pitch+5
+            x=offset+width/2-outer_bar_edge-edge_gap-bank_width if row_index==0 else offset+width/2+outer_bar_edge+edge_gap
+            if x<offset+side_margin or x+bank_width>offset+width-side_margin:
+                raise ValueError('Không đủ khoảng bên và khoảng CB tới thanh đồng; cần form rộng hơn')
             for e in row:
                 e['rotation']=270 if row_index==0 else 90
                 y-=e['h'];place(e,x,y,'interior')
@@ -216,7 +224,7 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
                            asset={'id': None, 'profile_path': 'layout_design', 'name': 'Thanh đồng N gia công'}))
     extra_x=offset+70
     for e in extras:
-        if e['device']['category'] in ('FUSE_HOLDER','FUSE'):place(e,offset+width-70-e['w'],height-190-e['h'],'interior')
+        if e['device']['category'] in ('FUSE_HOLDER','FUSE'):place(e,offset+width-side_margin-e['w'],height-190-e['h'],'interior')
         elif e['device']['category']=='N' and branch_arrangement=='two_vertical_banks':
             if not incoming:raise ValueError('Cần thiết bị nguồn để định vị hệ thanh cái')
             e=dict(e,fabricated_neutral=True,w=rules['layout_assumptions_mm']['neutral_review_width'],h=branch_top+20-165)
@@ -224,8 +232,9 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
         else:place(e,extra_x,85,'interior');extra_x+=e['w']+35
     fishbone_connections=[]
     if branch_arrangement=='two_vertical_banks' and branches:
-        left_inner=offset+side_margin+max(e['w'] for e in rows[0]) if rows[0] else offset+side_margin
-        right_inner=offset+width-side_margin-max(e['w'] for e in rows[1]) if rows[1] else offset+width-side_margin
+        left_tags={e['tag'] for e in rows[0]};right_tags={e['tag'] for e in rows[1]}
+        left_inner=max(p['x']+p['w'] for p in placements if p['tag'] in left_tags) if left_tags else offset+side_margin
+        right_inner=min(p['x'] for p in placements if p['tag'] in right_tags) if right_tags else offset+width-side_margin
         route_gap=min(offset+width/2-1.5*pitch-left_inner,right_inner-(offset+width/2+1.5*pitch))-5
         minimum_gap=rules['design_variables']['d6']
         target_gap=rules['design_variables']['d7']
@@ -331,11 +340,22 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
     branch_boxes=[p for p in placements if p['tag'] in [e['tag'] for e in branches]]
     left=[p for p in branch_boxes if p['x']<offset+width/2];right=[p for p in branch_boxes if p['x']>=offset+width/2]
     spacing_review=dict(user_design_policy=design_policy,main_current_a=main_current,branch_to_busbar_edge_gap_mm=route_gap,closed_door_collision_status='unverified_missing_depth_and_handle_envelopes',opposing_device_gap_mm=min(p['x'] for p in right)-max(p['x']+p['w'] for p in left) if left and right else None,spine_pitch_mm=pitch,clearance_compliance='unverified',required_inputs=rules['required_before_release'],notes=['Kích thước 2D chỉ dùng bố trí; giao tuyến không phải mối nối điện','Răng đồng chéo qua thanh khác cần phân lớp theo chiều sâu và xác minh khoảng cách điện','Khoảng sát CB cần kiểm tra nhiệt và tư thế lắp theo model'])
+    from app.services.cad.spacing_audit import measure
+    spacing_review['measurements']=measure(placements,devices,width,height,offset,
+        dict(side_margin_mm=side_margin),spines if distribution_method=='fabricated_fishbone' else None)
+    spacing_review['provisional_variables']=dict(d15=main_branch_gap,d16=branch_bottom)
+    from app.services.cad.electrical_option_review import review as review_electrical
+    spacing_review['electrical_options']=review_electrical(devices)
     neutral_routes=[r for r in fishbone_connections if r['phase']=='N']
     if neutral_routes:
         material_rows.append(dict(id='layout-neutral-teeth',row_type='requirement',name='Nhánh đồng N xương cá',quantity=len(neutral_routes),unit='Nhánh',unit_price=None,line_total=None,price_status='pending',category='N',panel_code=panel_code,notes='Số tuyến đề xuất; chiều dài, tiết diện, gá đỡ và cực N chưa xác minh'))
     gap=spacing_review['opposing_device_gap_mm']
     spacing_section='<h2>Khoảng cách bố trí R–S–T–N</h2><p>Khoảng trống giữa biên hai dãy CB: '+(f'{gap:g} mm' if gap is not None else 'chưa xác định')+f'. Bước tim thanh cái đề xuất: {pitch:g} mm. Đây là khoảng bố trí 2D, không phải kết luận đạt khoảng cách điện.</p><p>N có thanh dọc và răng riêng. Điểm cấp N phải lấy từ N nguồn; không nối N qua MCCB 3P. Phải kiểm tra các thanh giao nhau theo chiều sâu, tiết diện, cọc đấu, cách điện, nhiệt và khả năng chịu ngắn mạch.</p>'
+    measured=spacing_review['measurements']
+    margin_rows=''.join('<tr><td>'+html.escape(p['tag'])+'</td>'+''.join(f'<td>{p[k]:g}</td>' for k in ('left_mm','right_mm','top_mm','bottom_mm'))+'</tr>' for p in measured['body_to_shell'])
+    spacing_section += '<h2>Khoảng thân thiết bị tới vỏ (mm)</h2><table><tr><th>Thiết bị</th><th>Trái</th><th>Phải</th><th>Trên</th><th>Dưới</th></tr>'+margin_rows+'</table>'
+    spacing_section += f'<p>CB chính → CB nhánh: {measured["main_to_branch_vertical_gap_mm"]} mm; dưới dãy CB: {measured["branch_bottom_mm"]} mm; CB → biên đồng: {route_gap} mm. d15={main_branch_gap:g}, d16={branch_bottom:g} là biến bố trí tạm, chưa phải khoảng đạt tiêu chuẩn đầu nối/cáp.</p>'
+    spacing_section += '<p>Dòng CB là phương án cần đánh giá theo tải Ib, khả năng tải cáp Iz sau hiệu chỉnh, điện áp, Icu và phối hợp bảo vệ. Không dùng tên khung CAD hoặc việc trùng dòng bản vẽ để xác nhận phù hợp.</p>'
     (out/'Thu_ve_tu_TDT.html').write_text(page.replace('</main>',spacing_section+'</main>'),encoding='utf8')
     result=dict(busbar_catalog_review=busbar_catalog,spacing_review=spacing_review,design_rule_profile='data/design_rules/fishbone_rstn.json',material_rows=material_rows,enclosure_source=enclosure_source,status='reference_layout_needs_review',release_ready=False,
                 completion_checks=completion_checks,placements=placements,missing=missing,

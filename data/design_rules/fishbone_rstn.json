@@ -113,7 +113,11 @@
       "branch_edge_target": "d7",
       "spine_pitch": "d8",
       "door_depth_envelope": "d14"
-    }
+    },
+    "provisional_not_standard_variables": [
+      "d15",
+      "d16"
+    ]
   },
   "cable_space_policy": {
     "objective": "smallest_dimension_satisfying_cable_lug_route",
@@ -157,7 +161,9 @@
       "d11": "Chiều dài thẳng đầu cốt và đoạn thẳng trước uốn",
       "d12": "Độ lệch từ mốc thân CB tới điểm ra cọc theo tuyến",
       "d13": "Khoảng thao tác lắp đặt",
-      "d14": "Khoảng chiều sâu sau cánh theo biên thiết bị và cần gạt"
+      "d14": "Khoảng chiều sâu sau cánh theo biên thiết bị và cần gạt",
+      "d15": "Khoảng thân CB chính tới đỉnh thân CB nhánh; giá trị bố trí tạm, cần xác minh đầu nối và tuyến đồng",
+      "d16": "Khoảng dưới dãy CB nhánh tới đáy trong tủ; giá trị bố trí tạm, cần xác minh đầu cốt và uốn cáp"
     },
     "effective_gap": "max(selected d1/d2/d3, calculated cable/lug envelope); missing cable data remains provisional",
     "d4": 150,
@@ -178,6 +184,8 @@
       "d12": "terminal_offset_mm",
       "d13": "installation_allowance_mm"
     },
-    "missing_value_policy": "null means unknown; never replace with zero"
+    "missing_value_policy": "null means unknown; never replace with zero",
+    "d15": 50,
+    "d16": 160
   }
 }

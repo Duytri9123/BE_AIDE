@@ -41,6 +41,13 @@ class ReviewGeometryTests(unittest.TestCase):
             self.assertTrue(result['enclosure_source']['complete_source_sheet'])
             self.assertEqual(result['enclosure_source']['scale'],1)
             self.assertFalse(result['missing'])
+            measured=result['spacing_review']['measurements']
+            self.assertTrue(measured['side_policy_satisfied'])
+            self.assertAlmostEqual(measured['main_to_branch_vertical_gap_mm'],50)
+            self.assertGreaterEqual(measured['branch_bottom_mm'],160)
+            self.assertTrue(all(abs(p['gap_mm']-40)<0.01 for p in measured['branch_to_busbar_edges']))
+            main=next(p for p in measured['body_to_shell'] if p['tag']=='MCCB-3P')
+            self.assertAlmostEqual(main['top_mm'],250)
             self.assertEqual({d['tag'] for d in devices},{p['tag'] for p in result['placements'] if p['asset_id']})
             for p in result['placements']:
                 if p['zone']=='outer_door':self.assertEqual(p['source_face_label'],'1st DOOR VIEW')

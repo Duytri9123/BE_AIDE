@@ -2010,8 +2010,10 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         right, bottom = int(xmax * width / 1000), int(ymax * height / 1000)
         if right <= left or bottom <= top:
             return None
-        pad_x = max(3, min(32, round((right-left) * .20)))
-        pad_y = max(3, min(24, round((bottom-top) * .30)))
+        # Show a circuit neighbourhood rather than treating a tiny text label
+        # as a verified device silhouette. The source box stays unchanged.
+        pad_x = max(round(width * .08), round((right-left) * .25))
+        pad_y = max(round(height * .05), round((bottom-top) * .35))
         return max(0, left-pad_x), max(0, top-pad_y), min(width, right+pad_x), min(height, bottom+pad_y)
 
     @staticmethod

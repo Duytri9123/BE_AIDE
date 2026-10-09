@@ -44,6 +44,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
+from app.api.v1.endpoints.workspace_library import router as workspace_library_router
+router.include_router(workspace_library_router)
 
 
 def _build_analysis_result_schema(

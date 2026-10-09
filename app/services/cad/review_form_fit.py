@@ -2,6 +2,8 @@
 from app.services.cad.catalogtb_assets import resolve, instance_count
 from app.services.cad import cabinet_templates
 from app.services.cad.design_policy import dimensions_for_current
+import json
+from app.services.cad.design_policy import RULES_PATH
 
 
 def fit_vertical_review(devices, dimensions):
@@ -19,15 +21,17 @@ def fit_vertical_review(devices, dimensions):
             branches.extend((bound_height,bound_width) for _ in range(instance_count(d.get('quantity',1),asset)))
     if not incoming or not branches:
         return dimensions
-    current = max(float(d.get('in_a') or 0) for d,_,_ in incoming)
+    from app.services.cad.design_labels import rating_text
+    current = max(float(rating_text(d)[:-1]) if rating_text(d) else 0 for d,_,_ in incoming)
     policy = dimensions_for_current(current)
+    variables=json.loads(RULES_PATH.read_text(encoding='utf8'))['design_variables']
     heights, widths = [0.,0.], [0.,0.]
     for width,height in sorted(branches,key=lambda pair: -pair[0]*pair[1]):
         bank = min(range(2),key=lambda i:heights[i])
         heights[bank] += height
         widths[bank] = max(widths[bank],width)
     required = {
-        'height': max(float(dimensions[0]), (policy['top_gap_mm'] or 150) + max(h for _,_,h in incoming) + 50 + max(heights) + 160),
+        'height': max(float(dimensions[0]), (policy['top_gap_mm'] or 150) + max(h for _,_,h in incoming) + variables.get('d15',50) + max(heights) + variables.get('d16',160)),
         'width': max(float(dimensions[1]),2*(policy['side_margin_mm'] or 110)+sum(widths)+160),
         'depth': float(dimensions[2]),
     }

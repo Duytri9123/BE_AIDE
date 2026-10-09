@@ -3,12 +3,12 @@ from app.services.ai.analysis_pipeline_service import AnalysisPipelineService as
 
 
 class FocusedEvidenceTests(unittest.TestCase):
-    def test_small_symbol_crop_does_not_expand_to_a_page_region(self):
+    def test_small_label_includes_readable_circuit_context(self):
         crop = Pipeline._evidence_crop_pixels([315, 169, 335, 245], 1684, 2382)
-        self.assertLess(crop[2]-crop[0], 200)
-        self.assertLess(crop[3]-crop[1], 85)
-        # Adjacent lamps start below the MCCB: the preview must stop before them.
-        self.assertLess(crop[3], 343*2382/1000)
+        self.assertGreater(crop[2]-crop[0], 350)
+        self.assertGreater(crop[3]-crop[1], 250)
+        self.assertLess(crop[2]-crop[0], 1684)
+        self.assertLess(crop[3]-crop[1], 2382)
 
     def test_crop_is_clamped_to_page_edges(self):
         self.assertEqual(Pipeline._evidence_crop_pixels([0, 0, 1000, 1000], 100, 100), (0, 0, 100, 100))
