@@ -31,3 +31,11 @@
 3. Sửa nguyên nhân trong nhận diện, chọn CAD, chọn form hoặc bố trí; chạy lại và lưu kết quả từng vòng. Không đánh dấu đạt chỉ vì xuất được DXF.
 4. Chỉ mở phần Báo giá sau thiết kế hoàn tất. Chỉ tạo Excel khi người dùng tải xuống. Thiếu mã hoặc giá thì giữ trạng thái chưa có giá, không tự đặt giá bằng 0.
 5. Nếu nguồn còn mâu thuẫn hoặc chưa đủ dữ liệu xác minh, nêu chính xác mục chưa đạt; không tự chuyển thành kết quả đã duyệt.
+# Đọc context và kiểm đếm PDF
+
+PDF không có lớp text, hoặc lớp text chỉ có tiêu đề, phải đọc ảnh để tạo context. Context đọc được chưa xác nhận danh mục thiết bị đầy đủ.
+
+Kiểm đếm độc lập giữ đúng mã tủ, đếm từng thân thiết bị, gồm nhánh dự phòng có ký hiệu nhưng thiếu thông số. Không gom đèn, đồng hồ và cầu chì thành một OTHER; không suy tiếp địa thành cầu đấu. Chuẩn hóa tên loại tương đương có căn cứ (LIGHT/Đèn báo, METER có tên Vôn kế, SWITCH có tên chuyển mạch chọn điện áp); không tự đổi CB chung thành MCB hoặc đồng hồ chưa rõ thành vôn kế.
+
+Lỗi OCR và lỗi đối chiếu danh mục phải hiển thị riêng với lỗi CatalogTB. Thiết bị thiếu hoặc bị suy diễn vẫn chặn tạo thiết kế và báo giá.
+

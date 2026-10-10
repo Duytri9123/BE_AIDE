@@ -2795,7 +2795,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     if progress_callback:
                         event = progress_callback({'type':'log','stage':'pdf_context','status':'success',
                             'title':'Đã tạo context trang PDF',
-                            'detail':f"Trang {page_num}: {pdf_context['source']}; phân tích từ context, tọa độ đối chiếu ảnh riêng."})
+                            'detail':f"Trang {page_num}: đã đọc nội dung nguồn; tiếp tục kiểm tra danh mục và số lượng trên ảnh."})
                         if asyncio.iscoroutine(event): await event
                     from app.services.ai.inventory_validation import extract_with_retry
                     async def extract_page_inventory(prompt):
@@ -2830,6 +2830,11 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     ]
                     count_payload = None
                     if box_candidates:
+                        if progress_callback:
+                            event=progress_callback({'type':'log','stage':'pdf_inventory_verification','status':'processing',
+                                'title':'Đang đối chiếu thiết bị với ảnh nguồn',
+                                'detail':f'Trang {page_num}: kiểm tra danh mục, mã tủ và số lượng; context đã đọc chưa phải kết quả bóc tách đạt.'})
+                            if asyncio.iscoroutine(event): await event
                         verifier_prompt = (
                             "Đối chiếu danh sách đã bóc tách từ context với TOÀN BỘ trang nguồn. "
                             "Quét cụm đo lường/điều khiển, đèn, Fuse, vôn kế/chuyển mạch để tìm phần tử context bị sót. "
@@ -2871,10 +2876,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             if audited_devices:
                                 from app.services.ai.pdf_context import merge_verified_devices
                                 parsed_devs = merge_verified_devices(parsed_devs, audited_devices)
-                            from app.services.ai.inventory_validation import COUNT_PROMPT, count_mismatches
-                            count_response = await verify_page_inventory(COUNT_PROMPT)
-                            count_blocks = ResponseParserService.extract_json_blocks(count_response)
-                            count_payload = next((block for block in count_blocks if isinstance(block, dict) and 'counts' in block), None)
+                            from app.services.ai.inventory_validation import independent_count_prompt, count_mismatches, count_with_retry
+                            count_payload = await count_with_retry(verify_page_inventory, independent_count_prompt(parsed_devs))
                             differences = count_mismatches(parsed_devs, count_payload)
                             if differences:
                                 repair_prompt = verifier_prompt + "\nKIỂM ĐẾM NGUỒN ĐỘC LẬP — CẦN ĐỐI CHIẾU VÀ SỬA DANH SÁCH:\n" + "\n".join(differences)
@@ -2884,6 +2887,11 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 differences = count_mismatches(parsed_devs, count_payload)
                                 if differences:
                                     raise ValueError("Danh mục chưa khớp kiểm đếm nguồn: " + "; ".join(differences))
+                            if progress_callback:
+                                event=progress_callback({'type':'log','stage':'pdf_inventory_verification','status':'success',
+                                    'title':'Đã đối chiếu danh mục và số lượng trên ảnh',
+                                    'detail':f'Trang {page_num}: danh mục khớp kiểm đếm độc lập; tiếp tục phân tích thông số và đối soát thiết bị.'})
+                                if asyncio.iscoroutine(event): await event
                             warns.extend(ResponseParserService.extract_completeness_warnings(verifier_response))
                             payload = next(
                                 (block for block in verifier_blocks if isinstance(block, dict) and isinstance(block.get("boxes"), list)),
@@ -2901,7 +2909,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                         device.box_2d = None
                         except Exception as verify_error:
                             logger.warning("Evidence verification failed on page %s: %s", page_num, verify_error)
-                            raise ValueError("Không xác nhận được danh sách thiết bị trên ảnh nguồn.") from verify_error
+                            raise ValueError("Đối chiếu thiết bị với ảnh nguồn chưa đạt: " + str(verify_error)[:1400]) from verify_error
                     # Keep all PDF-page warnings in the accumulator returned by this
                     # method.  Using an undefined `warnings` variable previously
                     # interrupted the AI pipeline after a successful model response.
@@ -3101,7 +3109,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     logger.warning(f"Lỗi phân tích trang {page_num}: {page_err}")
                     # Preserve partial sessions, but never approve a whole-file
                     # takeoff when any selected source page could not be read.
-                    raise HTTPException(status_code=422, detail=f"Bóc tách chưa đủ trang: {filename} / trang {page_num}: {str(page_err)[:160]}. Kết quả đã lưu chỉ là bản tạm; chưa dùng tạo thiết kế hoặc báo giá.") from page_err
+                    raise HTTPException(status_code=422, detail=f"Bóc tách trang chưa đạt: {filename} / trang {page_num}: {str(page_err)[:1400]}. Kết quả đã lưu chỉ là bản tạm; chưa dùng tạo thiết kế hoặc báo giá.") from page_err
                 finally:
                     if os.path.exists(temp_img_path):
                         try:

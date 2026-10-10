@@ -1,5 +1,6 @@
 """Read PDF text first; scanned pages require a source transcription, not guesses."""
 import json
+import re
 
 OCR_CONTEXT_PROMPT = '''Chỉ chép lại nội dung bản vẽ để tạo context, KHÔNG phân tích hoặc đề xuất thiết bị.
 Trả JSON {"panels":[{"panel_code":"nhãn đọc được","lines":[{"text":"nguyên văn",
@@ -15,7 +16,9 @@ Giữ phần không đọc rõ trong uncertain_regions, không tự điền. N�
 
 
 async def build_context(native_text, image_path, transcribe):
-    if str(native_text or '').strip():
+    native_text = str(native_text or '').strip()
+    useful_text = bool(re.search(r'\b(?:CB|MCB|MCCB|RCBO|RCCB|CT|TIMER|FUSE|\d+(?:[.,]\d+)?\s*(?:A|kA|kW|V|mm))\b', native_text, re.I))
+    if native_text and useful_text:
         return {'source': 'pdf_text_layer', 'content': str(native_text).strip(),
                 'needs_visual_verification': True}
     from app.services.ai.response_parser import ResponseParserService
@@ -25,12 +28,15 @@ async def build_context(native_text, image_path, transcribe):
         try:
             blocks = ResponseParserService.extract_json_blocks(response)
             payload = next(b for b in blocks if isinstance(b, dict) and isinstance(b.get('panels'), list))
-            if not any(isinstance(panel, dict) and panel.get('lines') for panel in payload['panels']):
+            if not any(isinstance(panel, dict) and any(isinstance(line, dict) and str(line.get('text') or '').strip()
+                       for line in (panel.get('lines') or [])) for panel in payload['panels']):
                 raise ValueError('OCR không có dòng nguồn')
             break
         except (StopIteration, ValueError, TypeError) as exc:
             if attempt:
                 raise ValueError('Không tạo được context OCR cho trang PDF; cần đọc lại trang, không chốt bóc tách.') from exc
+    if native_text:
+        payload['native_text'] = native_text
     return {'source': 'ocr_transcription', 'content': json.dumps(payload, ensure_ascii=False),
             'needs_visual_verification': True}
 

@@ -8,6 +8,24 @@ from app.schemas.ai import ExtractedDeviceSchema
 
 
 class ContextTests(unittest.IsolatedAsyncioTestCase):
+    async def test_header_only_text_layer_still_reads_image(self):
+        call=AsyncMock(return_value=json.dumps({'panels':[{'panel_code':'P','lines':[{'text':'CB 2P 20A'}]}]}))
+        result=await build_context('NHÀ NỘI TRÚ - SƠ ĐỒ NGUYÊN LÝ','page.png',call)
+        call.assert_awaited_once()
+        self.assertEqual(result['source'],'ocr_transcription')
+        self.assertIn('NHÀ NỘI TRÚ',result['content'])
+
+    async def test_empty_text_lines_are_not_a_valid_context(self):
+        with self.assertRaises(ValueError):
+            await build_context('', 'page.png', AsyncMock(return_value='{"panels":[{"lines":[{"text":""}]}]}'))
+
+    async def test_malformed_ocr_retries_without_reusing_cached_prompt(self):
+        call = AsyncMock(side_effect=['not JSON', json.dumps({'panels':[{'panel_code':'PX1','lines':[{'text':'CB 3P 20A'}]}]})])
+        result = await build_context('', 'page.png', call)
+        self.assertEqual(result['source'], 'ocr_transcription')
+        self.assertEqual(call.await_count, 2)
+        self.assertNotEqual(call.call_args_list[0].kwargs['prompt'], call.call_args_list[1].kwargs['prompt'])
+
     async def test_text_pdf_never_uses_ocr(self):
         call=AsyncMock()
         result=await build_context('L1 CB-3P 20A 6kA','unused',call)
