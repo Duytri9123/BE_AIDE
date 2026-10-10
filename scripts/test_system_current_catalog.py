@@ -10,7 +10,7 @@ import app.models
 
 
 class CurrentCatalogSystemTests(unittest.IsolatedAsyncioTestCase):
-    async def test_review_cad_and_pending_quote_are_saved_without_claiming_completion(self):
+    async def test_unverified_units_and_rating_cannot_publish_cad(self):
         engine = create_async_engine('sqlite+aiosqlite:///:memory:')
         try:
             async with engine.begin() as connection:
@@ -25,11 +25,10 @@ class CurrentCatalogSystemTests(unittest.IsolatedAsyncioTestCase):
                 result = await AnalysisPipelineService.generate_cad_and_quotation(
                     project, db, devices, enclosure_dimensions='1000x800x300',
                     panel_code='TĐT', per_panel=True)
-                self.assertTrue(result['cad_file'])
-                self.assertTrue(result['quotation_file'])
-                self.assertTrue(Path(result['quotation_file']['file_path']).is_file())
-                self.assertEqual(result['cad_layout']['status'], 'reference_layout_needs_review')
-                self.assertFalse(result['cad_layout']['release_ready'])
+                self.assertIsNone(result['cad_file'])
+                self.assertIsNone(result['quotation_file'])
+                self.assertEqual(result['cad_status'], 'needs_review')
+                self.assertTrue(any('Q0' in b and 'L3' in b for b in result['cad_blockers']))
                 self.assertEqual(result['enclosure_spec']['source_form_review']['status'], 'needs_review')
                 self.assertTrue(result['quotation_rows'])
         finally:

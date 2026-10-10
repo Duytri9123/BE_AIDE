@@ -88,7 +88,9 @@ class DeviceCatalogEngine:
 
     @classmethod
     def get_instance(cls, catalog_path: Optional[str] = None):
-        return cls(catalog_path)
+        instance=cls(catalog_path)
+        instance.refresh_reference_profiles()
+        return instance
 
     def __init__(self, catalog_path: Optional[str] = None):
         if self._initialized:
@@ -100,6 +102,9 @@ class DeviceCatalogEngine:
         elif not catalog_path.endswith("equipment_catalog.jsonl"):
             raise ValueError("Legacy catalog input is disabled; use equipment_catalog.jsonl")
 
+        from app.services.equipment_library import CATALOG_DIR
+        if Path(catalog_path).resolve() != (CATALOG_DIR / 'equipment_catalog.jsonl').resolve():
+            raise ValueError('Only the CatalogTB index is allowed')
         self.catalog_path = catalog_path
         self.items: List[Dict[str, Any]] = []
         self.sku_index: Dict[str, Dict[str, Any]] = {}
@@ -194,25 +199,38 @@ class DeviceCatalogEngine:
         except Exception:
             pass
 
-        print(
-            f"[DeviceCatalogEngine] Loaded {len(self.items)} catalog items "
-            f"({len(self.brand_index)} brands, {len(self.type_index)} types). "
-            f"Source-backed 2026 records only; unresolved variants stay unpriced."
-        )
+        print(f"[DeviceCatalogEngine] Loaded {len(self.reference_profiles)} CatalogTB reference profiles; "
+              f"{len(self.items)} verified priced variants. Unresolved identities remain review-only.")
+
+    def _reference_signature(self):
+        root=Path(__file__).resolve().parents[2] / 'data' / 'CatalogTB'
+        paths=[root/'ai_library_manifest.json',root/'ai_device_groups.json',*sorted(root.rglob('thong_tin_thiet_bi.json'))]
+        return tuple((str(p),p.stat().st_mtime_ns,p.stat().st_size) for p in paths if p.is_file())
+
+    def refresh_reference_profiles(self):
+        if getattr(self,'_reference_stamp',None)!=self._reference_signature():
+            self.load_reference_profiles()
 
     def load_reference_profiles(self):
         """Read the current CAD library as references, never as priced order codes."""
         root = Path(__file__).resolve().parents[2] / 'data' / 'CatalogTB'
         self.reference_profiles = []
+        manifest_path=root/'ai_library_manifest.json'
+        manifest=json.loads(manifest_path.read_text(encoding='utf-8')) if manifest_path.is_file() else {}
+        self.source_documents=manifest.get('source_cad_documents') or []
+        groups_path=root/'ai_device_groups.json'
+        groups=json.loads(groups_path.read_text(encoding='utf8')).get('groups',[]) if groups_path.is_file() else []
+        self.reviewed_groups={m['profile']:g for g in groups for m in g['profiles']}
+        from app.services.cad.catalogtb_assets import assets
+        discovered = {item['profile_path']: item for item in assets(refresh=True)}
         for path in sorted(root.rglob('thong_tin_thiet_bi.json')):
             try:
                 profile = json.loads(path.read_text(encoding='utf-8'))
             except (OSError, ValueError):
                 continue
             ai = profile.get('nhan_dien_ai') or {}
-            kind = str(ai.get('loai_thiet_bi_code') or '').upper()
-            if not kind:
-                continue
+            discovery = discovered.get(path.relative_to(root).as_posix(), {})
+            kind = str(ai.get('loai_thiet_bi_code') or discovery.get('category') or 'UNCLASSIFIED').upper()
             self.reference_profiles.append(dict(
                 category=kind, name=profile.get('ten_san_pham') or profile.get('ten_kieu'),
                 brand=profile.get('hang_xac_nhan') or ai.get('hang'),
@@ -221,33 +239,82 @@ class DeviceCatalogEngine:
                 specifications=profile.get('thong_so') or {},
                 sources=profile.get('nguon_tham_khao') or [],
                 selection_note=profile.get('muc_do_xac_nhan'),
+                search_aliases=profile.get('tu_khoa_tim_kiem') or [],
+                physical_family_id=self.reviewed_groups.get(path.relative_to(root).as_posix(),{}).get('id'),
                 reference_path=path.relative_to(root).as_posix(),
                 sku=None, price=None, status='reference_only'))
 
-    def search_references(self, category, brand=None, poles=None, limit=5, allow_other_brands=False):
+        self._reference_stamp=self._reference_signature()
+
+    def search_references(self, category, brand=None, poles=None, limit=5, allow_other_brands=False, query=None, group_views=False):
+        from app.services.cad.catalogtb_assets import category_matches
         aliases = {'PILOT': 'LIGHT', 'PILOT_LIGHT': 'LIGHT', 'INDICATOR': 'LIGHT'}
         kind = aliases.get(str(category).upper(), str(category).upper())
         wanted_brand = strip_accents(str(brand or '')).lower().replace(' electric','').strip()
-        matches = []
+        matches, unknown_brand = [], []
         for profile in self.reference_profiles:
-            if aliases.get(profile['category'], profile['category']) != kind:
+            if kind and not category_matches(kind, aliases.get(profile['category'], profile['category'])):
                 continue
             actual_brand = strip_accents(str(profile['brand'] or '')).lower().replace(' electric','').strip()
-            if wanted_brand and wanted_brand != actual_brand:
+            if wanted_brand and actual_brand and wanted_brand != actual_brand:
                 continue
             if poles and profile['poles']:
                 observed_poles = re.fullmatch(r'\s*(\d+)\s*P?\s*', str(profile['poles']), re.I)
                 if not observed_poles or int(observed_poles.group(1)) != int(poles):
                     continue
-            matches.append(dict(profile, brand_match='preferred' if wanted_brand else 'unspecified'))
-        if not matches and wanted_brand and allow_other_brands:
-            alternatives = self.search_references(category, poles=poles, limit=limit)
+            if wanted_brand and not actual_brand:
+                unknown_brand.append(dict(profile, brand_match='unknown_requires_confirmation'))
+            else:
+                matches.append(dict(profile, brand_match='preferred' if wanted_brand else 'unspecified'))
+        if not matches and not unknown_brand and wanted_brand and allow_other_brands:
+            alternatives = self.search_references(category, poles=poles, limit=limit, query=query)
             return [dict(p, brand_match='alternative_requires_confirmation',
                          requested_brand=brand,
                          selection_note=str(p.get('selection_note') or '') +
                          ' Tham khảo ngoài hãng ưu tiên; cần xác nhận hãng và thông số, chưa phải mã phù hợp đã duyệt.')
                     for p in alternatives]
-        return matches[:limit]
+        matches.extend(unknown_brand)
+        if query:
+            def text_key(value):
+                return re.sub(r'[^a-z0-9]+',' ',strip_accents(str(value or '')).lower()).strip()
+            wanted=text_key(query)
+            def rank(profile):
+                names=[profile.get('name'),profile.get('series'),*(profile.get('search_aliases') or [])]
+                values=[text_key(v) for v in names if v]
+                exact=any(wanted==v for v in values)
+                terms=set(wanted.split())
+                overlap=max((len(terms.intersection(v.split())) for v in values),default=0)
+                return (not exact,-overlap,profile.get('brand_match')=='unknown_requires_confirmation',profile['reference_path'])
+            matches.sort(key=rank)
+        if group_views:
+            grouped={}
+            for ref in matches:
+                key=ref.get('physical_family_id') or ref['reference_path']
+                if key not in grouped:
+                    grouped[key]=dict(ref,reference_paths=[ref['reference_path']])
+                else:grouped[key]['reference_paths'].append(ref['reference_path'])
+            matches=list(grouped.values())
+        return matches[:max(1,int(limit))]
+
+    def search_source_documents(self, query, limit=10):
+        """Discover source sheets/components without treating them as verified devices."""
+        wanted=re.findall(r'[a-z0-9]+',strip_accents(str(query or '')).lower())
+        wanted=[term for term in wanted if term not in {'thiet','bi','cad','tu','dien','cua','phu','kien'}]
+        if not wanted:return []
+        root=Path(__file__).resolve().parents[2] / 'data' / 'CatalogTB'
+        matches=[]
+        for source in getattr(self,'source_documents',[]):
+            text=strip_accents(str(source.get('name',''))+' '+str(source.get('path',''))).lower()
+            terms=set(re.findall(r'[a-z0-9]+',text))
+            score=len(set(wanted).intersection(terms))
+            compact_query=''.join(wanted)
+            compact_text=re.sub(r'[^a-z0-9]','',text)
+            if score!=len(set(wanted)) and compact_query not in compact_text:continue
+            path=(root/str(source.get('path',''))).resolve()
+            if not path.is_relative_to(root.resolve()) or not path.is_file():continue
+            matches.append((score,dict(source,reference_path=source['path'],sku=None,price=None)))
+        matches.sort(key=lambda item:(-item[0],item[1]['path']))
+        return [row for score,row in matches[:max(1,int(limit))]]
 
     def resolve_brand(self, brand: Optional[str]) -> Optional[str]:
         if not brand:

@@ -130,7 +130,7 @@ async def get_series(
     series = result.scalars().all()
     return series
 
-def _build_model_response(m: DeviceModel) -> DeviceModelResponse:
+def _build_model_response(m: DeviceModel, assets=None) -> DeviceModelResponse:
     params = m.parameters or {}
     series = getattr(m, "series", None)
     brand = getattr(series, "brand", None) if series else None
@@ -160,7 +160,7 @@ def _build_model_response(m: DeviceModel) -> DeviceModelResponse:
 
     from app.services.cad.mounting_profile import mounting_profile
     from app.api.v1.endpoints.cad_library import resolve_model_asset
-    asset = resolve_model_asset(m.sku, params)
+    asset = resolve_model_asset(m.sku, params, assets)
     recognition = asset.get('recognition') if asset else None
     return DeviceModelResponse(
         id=m.id,
@@ -259,7 +259,7 @@ async def get_models(
             continue
         if min_icu is not None and (m_icu is None or m_icu < min_icu):
             continue
-        response = _build_model_response(m)
+        response = _build_model_response(m, assets)
         asset = resolve_model_asset(m.sku, m.parameters, assets)
         from app.services.cad.library_taxonomy import classify
         classification = classify(m.name, response.category_name or '')

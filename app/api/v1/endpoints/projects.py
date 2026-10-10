@@ -109,14 +109,17 @@ async def list_projects(
     stmt = query.offset(skip).limit(limit)
     result = await db.execute(stmt)
     projects = result.scalars().all()
+
+    project_ids = [project.id for project in projects]
+    counts = (await db.execute(select(ProjectFile.project_id,func.count(ProjectFile.id))
+              .where(ProjectFile.project_id.in_(project_ids)).group_by(ProjectFile.project_id))).all() if project_ids else []
+    file_counts = dict(counts)
     
     # Enrich with counts
     enriched_projects = []
     for project in projects:
         # Count files
-        file_stmt = select(func.count(ProjectFile.id)).where(ProjectFile.project_id == project.id)
-        file_result = await db.execute(file_stmt)
-        file_count = file_result.scalar() or 0
+        file_count = file_counts.get(project.id,0)
         
         project_dict = {
             "id": project.id,

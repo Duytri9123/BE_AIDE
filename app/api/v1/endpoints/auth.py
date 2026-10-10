@@ -204,47 +204,37 @@ async def logout():
 @router.post("/google", response_model=TokenResponse)
 async def google_auth(request: GoogleAuthRequest, db: AsyncSession = Depends(get_db)):
     """Đăng nhập hoặc tự động đăng ký qua Google OAuth ID Token."""
-    email = str(request.email) if request.email else None
-    name = request.name
-    picture = request.picture
-
-    # 1. Nếu có ID Token (credential từ Google Identity Services), xác thực với Google TokenInfo API
-    if request.credential:
-        try:
-            async with httpx.AsyncClient(timeout=8.0) as client:
-                res = await client.get(
-                    f"https://oauth2.googleapis.com/tokeninfo?id_token={request.credential}"
-                )
-                if res.status_code == 200:
-                    data = res.json()
-                    email = data.get("email")
-                    name = data.get("name") or data.get("given_name") or (email.split("@")[0] if email else None)
-                    picture = data.get("picture") or picture
-        except Exception:
-            pass
-
-    # 1b. Nếu có OAuth Access Token từ popup
-    if not email and request.token:
-        try:
-            async with httpx.AsyncClient(timeout=8.0) as client:
-                res = await client.get(
-                    "https://www.googleapis.com/oauth2/v3/userinfo",
-                    headers={"Authorization": f"Bearer {request.token}"},
-                )
-                if res.status_code == 200:
-                    data = res.json()
-                    email = data.get("email")
-                    name = data.get("name") or data.get("given_name") or (email.split("@")[0] if email else None)
-                    picture = data.get("picture") or picture
-        except Exception:
-            pass
-
-
+    from app.core.config import settings
+    if not settings.GOOGLE_CLIENT_ID:
+        raise HTTPException(503, "Đăng nhập Google chưa được cấu hình xác thực.")
+    email = None
+    name = None
+    picture = None
+    try:
+        async with httpx.AsyncClient(timeout=8.0) as client:
+            if request.credential:
+                res = await client.get("https://oauth2.googleapis.com/tokeninfo", params={"id_token": request.credential})
+                data = res.json() if res.status_code == 200 else {}
+                valid = (data.get("aud") == settings.GOOGLE_CLIENT_ID
+                         and data.get("iss") in ("accounts.google.com", "https://accounts.google.com")
+                         and str(data.get("email_verified")).lower() == "true")
+            elif request.token:
+                info = await client.get("https://oauth2.googleapis.com/tokeninfo", params={"access_token": request.token})
+                token_data = info.json() if info.status_code == 200 else {}
+                res = await client.get("https://www.googleapis.com/oauth2/v3/userinfo", headers={"Authorization": f"Bearer {request.token}"})
+                data = res.json() if res.status_code == 200 else {}
+                valid = (token_data.get("aud") == settings.GOOGLE_CLIENT_ID
+                         and str(data.get("email_verified")).lower() == "true")
+            else:
+                data = {}; valid = False
+            if valid:
+                email = data.get("email")
+                name = data.get("name") or data.get("given_name")
+                picture = data.get("picture")
+    except (httpx.HTTPError, ValueError):
+        raise HTTPException(503, "Không thể xác thực Google lúc này.")
     if not email:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Không thể xác thực thông tin tài khoản Google. Vui lòng thử lại!",
-        )
+        raise HTTPException(401, "Không thể xác thực tài khoản Google.")
 
     clean_email = email.lower().strip()
 

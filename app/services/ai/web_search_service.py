@@ -63,6 +63,7 @@ class WebSearchService:
         max_results: int = 5,
         project_id: Optional[str] = None,
         base_url: Optional[str] = None,
+        refresh: bool = False,
     ) -> Dict[str, Any]:
         """
         Thực hiện tìm kiếm trực tuyến thông qua provider được chọn.
@@ -98,11 +99,13 @@ class WebSearchService:
             }
 
         prov = (provider or "").lower().strip()
-        cache_key = f"web_search:{prov}:{clean_query[:100]}:{max_results}"
+        import hashlib
+        cache_digest = hashlib.sha256(f'{model}:{base_url}:{clean_query}'.encode('utf-8')).hexdigest()
+        cache_key = f"web_search:{prov}:{cache_digest}:{max_results}"
 
         # Kiểm tra cache
         try:
-            cached = await cache_service.get(cache_key)
+            cached = None if refresh else await cache_service.get(cache_key)
             if cached and isinstance(cached, dict):
                 return cached
         except Exception:

@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "Elquote"
     VERSION: str = "0.1.0"
     DEBUG: bool = False
+    EXPOSE_API_DOCS: bool = False
     
     API_V1_STR: str = "/api/v1"
 
@@ -39,6 +40,9 @@ class Settings(BaseSettings):
     REDIS_URL: str = "redis://127.0.0.1:6379/0"
     CELERY_BROKER_URL: str = "redis://127.0.0.1:6379/0"
     CELERY_RESULT_BACKEND: str = "redis://127.0.0.1:6379/1"
+    QUEUE_ANALYSIS_ENABLED: bool = True
+    ANALYSIS_MAX_PENDING_JOBS: int = 100
+    ANALYSIS_JOB_TTL_SECONDS: int = 86400
 
     # Qdrant
     QDRANT_HOST: str = "localhost"

@@ -16,6 +16,7 @@ import uuid
 import re
 
 from app.db.session import get_db
+from app.api.deps import get_current_admin_session_or_token
 from app.models.ai_connection import AiConnection
 from app.models.ai_provider import AiProvider
 from app.models.ai_provider_model import AiProviderModel
@@ -24,7 +25,7 @@ from app.services.ai.vision_analyzer import antigravity_thinking_config, normali
 from app.services.ai.web_search_service import WebSearchService
 from app.services.ai.token_refresh_service import TokenRefreshService
 
-router = APIRouter(prefix="/admin-api", tags=["Admin Helpers"])
+router = APIRouter(prefix="/admin-api", tags=["Admin Helpers"], dependencies=[Depends(get_current_admin_session_or_token)])
 
 
 class TestConnectionRequest(BaseModel):

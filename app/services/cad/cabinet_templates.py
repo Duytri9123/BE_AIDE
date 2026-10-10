@@ -1,4 +1,6 @@
 """Whole source sheets and dimension-driven stretch (never synthetic cabinet faces)."""
+import base64
+import binascii
 import io
 import json
 import math
@@ -17,15 +19,31 @@ from ezdxf.upright import upright
 
 _DATA = Path(__file__).resolve().parents[3] / 'data'
 LIBRARY = _DATA / 'CatalogTB/Form tủ'
-FORM_LIBRARY = _DATA / 'form_tu_cong_nghiep'
 
 
 def separation_forms():
     """IEC 61439-2 reference forms, distinct from physical enclosure templates."""
-    path = FORM_LIBRARY / '02_bay_form_iec_61439.json'
+    path = LIBRARY / 'catalog.json'
     if not path.is_file():
-        raise ValueError('Chưa tìm thấy thư viện 7 form phân khoang.')
-    return json.loads(path.read_text(encoding='utf-8'))
+        raise ValueError('Chưa tìm thấy danh mục form trong CatalogTB/Form tủ.')
+    catalog = json.loads(path.read_text(encoding='utf-8'))
+    forms = catalog.get('separation_forms', [])
+    if not forms:
+        raise ValueError('Danh mục CatalogTB chưa có form phân khoang.')
+    return {'standard_scope': 'IEC 61439-2 internal separation', 'forms': forms}
+
+
+
+@lru_cache(maxsize=2)
+def _resize_profiles(stamp):
+    path = LIBRARY / 'resize_profiles.json'
+    return json.loads(path.read_text(encoding='utf-8')) if path.is_file() else {}
+
+
+def resize_profile(item):
+    path = LIBRARY / 'resize_profiles.json'
+    profile = _resize_profiles(path.stat().st_mtime_ns if path.is_file() else 0).get(item['id'])
+    return profile if profile and profile.get('nominal') == item.get('dimensions') else None
 
 
 def inventory():
@@ -42,6 +60,11 @@ def inventory():
                        'dimensions': dimensions if dimensions and all(dimensions.get(k) for k in ('height', 'width', 'depth')) else None,
                        'status': 'needs_review', 'description': description,
                        'resize_note': 'CAD dự án đã làm sạch, cần xác nhận từng mặt và cơ khí trước đổi kích thước.'})
+    for item in result:
+        profile = resize_profile(item)
+        item['stretch_dimensions'] = profile['supported'] if profile else []
+        if profile:
+            item['resize_note'] = 'Có thể điều chỉnh 75–125% kích thước gốc theo các mốc DIM nguồn.'
     return result
 
 
@@ -53,7 +76,9 @@ def resolve(template_id):
 
 
 def source_path(item):
-    path = (LIBRARY / item['filename']).resolve()
+    # Keep the selected shell together with its original drawing frame.
+    filename = (item.get('blank_source_frame') or {}).get('preview_cad') or item['filename']
+    path = (LIBRARY / filename).resolve()
     if not path.is_relative_to(LIBRARY.resolve()) or not path.is_file():
         raise ValueError('Không tìm thấy DXF của form tủ.')
     return path
@@ -68,10 +93,18 @@ def candidates(dimensions, kind='', items=None):
         nominal = item.get('dimensions')
         distance = sum(abs(math.log(dimensions[k] / nominal[k])) for k in dimensions) if nominal else None
         changed = [k for k in dimensions if nominal and abs(dimensions[k]-nominal[k]) > .01]
-        can_generate = bool(nominal and (not changed or (item.get('status') == 'source' and
-            all(k in item.get('stretch_dimensions', []) for k in changed)
+        can_generate = bool(nominal and (not changed or (all(k in item.get('stretch_dimensions', []) for k in changed)
             and all(.75 <= dimensions[k]/nominal[k] <= 1.25 for k in dimensions))))
-        rows.append({**item, 'distance': distance, 'can_generate': can_generate,
+        note = item.get('resize_note', '')
+        if nominal and changed and not can_generate:
+            labels = {'height': 'H', 'width': 'W', 'depth': 'D'}
+            supported = item.get('stretch_dimensions', [])
+            if any(k not in supported for k in changed):
+                note = 'Mẫu này chưa có mốc DIM nguồn cho chiều đang thay đổi. Chọn mẫu khác gần kích thước yêu cầu.'
+            else:
+                note = 'Khoảng điều chỉnh của mẫu: ' + ', '.join(
+                    f'{labels[k]} {nominal[k]*.75:g}–{nominal[k]*1.25:g} mm' for k in ('height','width','depth')) + '.'
+        rows.append({**item, 'resize_note': note, 'distance': distance, 'can_generate': can_generate,
                      'exact': bool(nominal and all(abs(dimensions[k] - nominal[k]) < .01 for k in dimensions))})
     return sorted(rows, key=lambda i: (i['distance'] is None, i['distance'] or 0, i['id']))
 
@@ -166,17 +199,89 @@ def stretch_entity(entity, point):
         entity.translate(lo.x-box.extmin.x, lo.y-box.extmin.y, 0)
 
 
-def generate(template_id, dimensions, product_name=''):
+
+def fill_title_block(doc, product_name, info):
+    """Fill the cleaned source title cells; embed logos as portable CAD solids."""
+    labels = {e.dxf.text.strip().upper(): e for e in doc.modelspace().query('TEXT')}
+    required = ('DESIGNER', 'APPROVED', 'NAME', 'DATE', 'DRAWING NAME', 'CUSTOMER')
+    if not all(key in labels for key in required):
+        if any(info.values()):
+            raise ValueError('Form này chưa có đủ ô khung tên để điền thông tin. Hãy chọn form có khung gốc.')
+        return
+    ext = bbox.extents(doc.modelspace(), fast=True)
+    left, bottom, sheet_width = ext.extmin.x, ext.extmin.y, ext.size.x
+    row = abs(labels['DESIGNER'].dxf.insert.y - labels['APPROVED'].dxf.insert.y)
+    text_height = row * .38
+    style_name = 'AIDE_TITLE'
+    if style_name not in doc.styles:
+        doc.styles.new(style_name, dxfattribs={'font': 'arial.ttf'})
+
+    def text(value, x, y, width):
+        if not value:
+            return
+        # Escape user text so it cannot introduce MTEXT formatting controls.
+        value = str(value).replace('\\', '\\\\').replace('{', '\\{').replace('}', '\\}').replace('\n', ' ')
+        doc.modelspace().add_mtext(value, dxfattribs={
+            'insert': (x, y, 0), 'char_height': text_height,
+            'width': width, 'attachment_point': 5, 'style': style_name, 'color': 7})
+
+    designer_y = labels['DESIGNER'].dxf.insert.y + text_height * .4
+    text(info.get('designer_name'), labels['NAME'].dxf.insert.x, designer_y, sheet_width * .09)
+    text(info.get('drawing_date'), labels['DATE'].dxf.insert.x, designer_y, sheet_width * .055)
+    customer = labels['CUSTOMER'].dxf.insert
+    text(info.get('customer_name'), customer.x + sheet_width * .095, customer.y + text_height * .4, sheet_width * .10)
+    drawing = labels['DRAWING NAME'].dxf.insert
+    text(product_name, drawing.x, drawing.y - row * 1.3, sheet_width * .29)
+    # Share the company cell horizontally: logo on the left, name on the right.
+    company_y = bottom + row * 1.5
+    text(info.get('company_name'), left + sheet_width * .355, company_y, sheet_width * .09)
+    logo_data = info.get('logo_data')
+    if not logo_data:
+        return
+    from PIL import Image, UnidentifiedImageError
+    try:
+        prefix, encoded = logo_data.split(',', 1)
+        if prefix not in ('data:image/png;base64', 'data:image/jpeg;base64', 'data:image/webp;base64'):
+            raise ValueError('Định dạng logo không hỗ trợ.')
+        raw = base64.b64decode(encoded, validate=True)
+        if len(raw) > 1024 * 1024:
+            raise ValueError('Logo tối đa 1 MB.')
+        with Image.open(io.BytesIO(raw)) as original:
+            if original.width * original.height > 16000000:
+                raise ValueError('Logo có kích thước quá lớn.')
+            image = original.convert('RGBA')
+            image.thumbnail((96, 64))
+    except (ValueError, binascii.Error, UnidentifiedImageError, OSError, Image.DecompressionBombError) as exc:
+        raise ValueError('Logo không hợp lệ. Dùng PNG, JPG hoặc WebP tối đa 1 MB.') from exc
+    scale = min(sheet_width * .055 / image.width, row * 1.65 / image.height)
+    x0 = left + sheet_width * .275 - image.width * scale / 2
+    y0 = company_y - image.height * scale / 2
+    pixels = image.load()
+    for y in range(image.height):
+        x = 0
+        while x < image.width:
+            rgba = pixels[x, y]
+            end = x + 1
+            while end < image.width and pixels[end, y] == rgba:
+                end += 1
+            if rgba[3] > 32:
+                x1, x2 = x0 + x * scale, x0 + end * scale
+                y1 = y0 + (image.height - y - 1) * scale
+                doc.modelspace().add_solid([(x1, y1), (x2, y1), (x1, y1 + scale), (x2, y1 + scale)],
+                    dxfattribs={'true_color': (rgba[0] << 16) | (rgba[1] << 8) | rgba[2]})
+            x = end
+
+
+def generate(template_id, dimensions, product_name='', title_info=None):
     item = resolve(template_id)
     nominal = item.get('dimensions')
     if not nominal:
         raise ValueError('Form chưa có kích thước gốc; hãy chọn form đã xác định kích thước.')
     delta = {key: dimensions[key]-nominal[key] for key in nominal}
     resizing = any(abs(v) > .01 for v in delta.values())
-    if resizing and item.get('status') != 'source':
-        raise ValueError(item.get('resize_note') or 'Form nguồn cần kiểm tra trước khi đổi kích thước.')
     source = ezdxf.readfile(source_path(item))
-    axes = stretch_axes(source, nominal) if resizing else [[], []]
+    profile = resize_profile(item)
+    axes = profile['axes'] if resizing and profile else stretch_axes(source, nominal) if resizing else [[], []]
     if resizing:
         if any(not .75 <= dimensions[k]/nominal[k] <= 1.25 for k in nominal):
             raise ValueError('Kích thước vượt khoảng co giãn 75–125% của form nguồn; hãy chọn form gần hơn.')
@@ -206,6 +311,10 @@ def generate(template_id, dimensions, product_name=''):
                 # Customer, date, maker and quantity belonged to the library
                 # drawing. The new cabinet must not inherit that metadata.
                 attr.dxf.text = ''
+    for insert in source.modelspace().query('INSERT'):
+        for attr in insert.attribs:
+            if attr.dxf.tag.upper() == 'SIZE':
+                attr.dxf.text = f"C{dimensions['height']:g}xR{dimensions['width']:g}xS{dimensions['depth']:g}"
     readable_unicode(source)
     flattened = []
     for entity in source.modelspace():
@@ -232,6 +341,14 @@ def generate(template_id, dimensions, product_name=''):
                             else: part.text = replacement
         for part in parts:
             copy = part.copy()
+            if resizing and copy.dxftype() in ('TEXT', 'MTEXT'):
+                plain = copy.dxf.text if copy.dxftype() == 'TEXT' else copy.plain_text()
+                matching = [key for key, value in nominal.items() if plain.strip() == f'{value:g}']
+                if len(matching) == 1:
+                    old = f'{nominal[matching[0]]:g}'
+                    new = f'{dimensions[matching[0]]:g}'
+                    if copy.dxftype() == 'TEXT': copy.dxf.text = new
+                    else: copy.text = re.sub(r'(?<![\d.])'+re.escape(old)+r'(?![\d.])', new, copy.text)
             # Mirrored source blocks produce negative-Z OCS geometry. Normalize
             # before using WCS stretch coordinates or the browser's block clone.
             upright(copy)
@@ -247,6 +364,7 @@ def generate(template_id, dimensions, product_name=''):
     importer = Importer(source, target)
     importer.import_entities(flattened)
     importer.finalize()
+    fill_title_block(target, product_name, title_info or {})
     target.header['$USERI1'] = 1
     stream = io.StringIO()
     target.write(stream)

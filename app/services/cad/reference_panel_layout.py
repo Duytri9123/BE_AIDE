@@ -214,8 +214,9 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
         box(offset+70,y-85,usable,40,True)
         top=y-118
     # Proposals only, not generated electrical conductors or ordered material.
-    box(offset+20,140,30,height-210,True)
-    box(offset+width-50,140,30,height-210,True)
+    if distribution_method != 'fabricated_fishbone':
+        box(offset+20,140,30,height-210,True)
+        box(offset+width-50,140,30,height-210,True)
     extras=[e for e in entries if e['device']['category'] in ('PE','N','FUSE_HOLDER','FUSE')]
     if branch_arrangement == 'two_vertical_banks' and distribution_method == 'fabricated_fishbone' and not any(e['device']['category'] == 'N' for e in extras):
         # User-requested fabricated N bar: review envelope, never a claimed catalog SKU.
@@ -223,12 +224,39 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
                            tag='N', w=10, h=0, rotation=0, fabricated_neutral=True,
                            asset={'id': None, 'profile_path': 'layout_design', 'name': 'Thanh đồng N gia công'}))
     extra_x=offset+70
+    control_wire_entry=None
     for e in extras:
-        if e['device']['category'] in ('FUSE_HOLDER','FUSE'):place(e,offset+width-side_margin-e['w'],height-190-e['h'],'interior')
+        if e['device']['category'] in ('FUSE_HOLDER','FUSE'):
+            door_faces={(d['device'].get('cad') or {}).get('mounting_face') or 'outer_door' for d in lights}
+            owning_face=(e['device'].get('cad') or {}).get('feeds_door_face')
+            if not lights and not owning_face:
+                place(e,extra_x,85,'interior');extra_x+=e['w']+35
+                continue
+            if not owning_face and len(door_faces)==1:owning_face=next(iter(door_faces))
+            hinge=((enclosure_source or {}).get('hinges_by_face') or {}).get(owning_face) or {}
+            if hinge.get('side') not in ('left','right'):
+                raise ValueError('Cầu chì cấp đèn cần xác định bản lề của đúng cánh mang đèn; không mặc định phía trái/phải.')
+            main_placement=next((p for p in placements if p['tag'] in [v['tag'] for v in incoming]),None)
+            if main_placement:
+                clearance=40  # Review service space; exact model clearance remains pending.
+                fuse_x=(main_placement['x']-clearance-e['w'] if hinge['side']=='left'
+                        else main_placement['x']+main_placement['w']+clearance)
+                if not offset+side_margin<=fuse_x or fuse_x+e['w']>offset+width-side_margin:
+                    raise ValueError('Không đủ vùng gá cho cầu chì gần MCCB; cần đổi vị trí hoặc form, không ép sát vách.')
+                fuse_y=main_placement['y']+max(0,(main_placement['h']-e['h'])/2)
+            else:
+                fuse_x=offset+(width-e['w'])/2;fuse_y=height-190-e['h']
+            place(e,fuse_x,fuse_y,'interior')
+            placements[-1]['feeds_door_face']=owning_face
+            placements[-1]['hinge_evidence']=hinge
+            control_wire_entry=hinge['side'].upper()
         elif e['device']['category']=='N' and branch_arrangement=='two_vertical_banks':
             if not incoming:raise ValueError('Cần thiết bị nguồn để định vị hệ thanh cái')
-            e=dict(e,fabricated_neutral=True,w=rules['layout_assumptions_mm']['neutral_review_width'],h=branch_top+20-165)
-            place(e,offset+width/2+1.5*pitch-e['w']/2,165,'interior')
+            if e.get('fabricated_neutral'):
+                e=dict(e,w=rules['layout_assumptions_mm']['neutral_review_width'],h=branch_top+20-165)
+                place(e,offset+width/2+1.5*pitch-e['w']/2,165,'interior')
+            else:
+                place(e,extra_x,85,'interior');extra_x+=e['w']+35
         else:place(e,extra_x,85,'interior');extra_x+=e['w']+35
     fishbone_connections=[]
     if branch_arrangement=='two_vertical_banks' and branches:
@@ -359,7 +387,7 @@ def generate(devices, dimensions, output_dir, panel_code='TĐT', distribution_me
     (out/'Thu_ve_tu_TDT.html').write_text(page.replace('</main>',spacing_section+'</main>'),encoding='utf8')
     result=dict(busbar_catalog_review=busbar_catalog,spacing_review=spacing_review,design_rule_profile='data/design_rules/fishbone_rstn.json',material_rows=material_rows,enclosure_source=enclosure_source,status='reference_layout_needs_review',release_ready=False,
                 completion_checks=completion_checks,placements=placements,missing=missing,
-                distribution_method=distribution_method,control_wire_entry='RIGHT',
+                distribution_method=distribution_method,control_wire_entry=control_wire_entry,
                 branch_arrangement=branch_arrangement,original_dimensions=original_dimensions,proposed_dimensions=dimensions,
                 dxf=str(dxf),preview=str(out/'Thu_ve_tu_TDT.html'),row_count=2 if branch_arrangement in ('two_rows_two_banks','two_vertical_banks') else len(rows),bank_group_count=len(rows),depth_checked=False)
     (out/'CAD_layout_review.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')

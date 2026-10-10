@@ -41,14 +41,14 @@ def _exact_catalog_asset(device, families):
 
 
 def insert_library_asset(space, asset_id, x, y, rotation=0):
-    from app.api.v1.endpoints.cad_library import download_layout
     name = 'LIBRARY_' + re.sub(r'[^A-Za-z0-9_-]', '_', asset_id)
     doc = space.doc
     if name not in doc.blocks:
         if str(asset_id).startswith('tb:'):
-            from app.services.cad.catalogtb_assets import resolve
-            source = ezdxf.readfile(resolve(asset_id)['path'])
+            from app.services.cad.catalogtb_assets import resolve, insertion_source
+            source = ezdxf.readfile(insertion_source(resolve(asset_id)['path']))
         else:
+            from app.api.v1.endpoints.cad_library import download_layout
             source = ezdxf.readfile(download_layout(asset_id).path)
         block = doc.blocks.new(name)
         importer = Importer(source, doc)
@@ -77,7 +77,10 @@ def requested_asset(device, side=False):
     cad = device.get('cad') or (device.get('parameters') or {}).get('cad') or {}
     if str(cad.get('asset_id') or '').startswith('tb:'):
         from app.services.cad.catalogtb_assets import resolve
-        item = resolve(cad['asset_id'], 'side' if side else 'front')
+        item = resolve(cad['asset_id'])
+        allowed = {'side'} if side else ({'front','top','wire_passage'} if item['category']=='CT' else {'front','wiring'} if item['category']=='TERMINAL' else {'front'})
+        if item['face'] not in allowed:
+            raise ValueError('Mặt CAD đã chọn không đúng hướng nhìn yêu cầu')
         return True, item['id']
     from app.api.v1.endpoints.cad_library import manifest
     from app.services.cad.device_families import build_families

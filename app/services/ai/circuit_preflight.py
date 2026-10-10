@@ -129,15 +129,20 @@ class CircuitPreflightService:
                     sheet.save(temp, format='JPEG', quality=95)
                     image_path = temp.name
                 try:
-                    response, _ = await ConnectionPoolService.call_with_fallback(
-                        db=db, connections=connections,
-                        call_fn=VisionAnalyzerService.analyze_image,
-                        image_path=image_path,
-                        prompt=prompt + '\nTrang nguồn trong ảnh: ' + label + '. '
-                                      + 'Chỉ định vị và nêu phát hiện nhìn thấy trên trang này. '
-                                        'Tọa độ tính trên toàn ảnh nguồn, không tính trên ảnh ghép.')
-                    parsed = next((block for block in ResponseParserService.extract_json_blocks(response)
-                                   if isinstance(block, dict) and block.get('circuit_summary')), None)
+                    parsed = None
+                    for attempt in range(2):
+                        response, _ = await ConnectionPoolService.call_with_fallback(
+                            db=db, connections=connections,
+                            call_fn=VisionAnalyzerService.analyze_image,
+                            image_path=image_path,
+                            prompt=prompt + '\nTrang nguồn trong ảnh: ' + label + '. '
+                                          + 'Chỉ định vị và nêu phát hiện nhìn thấy trên trang này. '
+                                            'Tọa độ tính trên toàn ảnh nguồn, không tính trên ảnh ghép.'
+                                          + ('\nPhản hồi trước sai cú pháp JSON. Đọc lại ảnh và trả một JSON hợp lệ theo schema, không dùng dấu đầu dòng bên trong JSON; giữ nguyên giới hạn bằng chứng.' if attempt else ''))
+                        parsed = next((block for block in ResponseParserService.extract_json_blocks(response)
+                                       if isinstance(block, dict) and block.get('circuit_summary')), None)
+                        if parsed:
+                            break
                     if parsed:
                         CircuitPreflightService._bind_findings(parsed, label)
                         assessments.append(parsed)
@@ -148,13 +153,17 @@ class CircuitPreflightService:
                 finally:
                     Path(image_path).unlink(missing_ok=True)
         elif context:
-            response, _ = await ConnectionPoolService.call_with_fallback(
-                db=db, connections=connections, call_fn=VisionAnalyzerService.analyze_text,
-                prompt=prompt)
-            parsed = next((block for block in ResponseParserService.extract_json_blocks(response)
-                           if isinstance(block, dict) and block.get('circuit_summary')), None)
-            if parsed:
-                assessments.append(parsed)
+            # Retry a malformed output once; never turn an unavailable assessment
+            # into an approval or force has_sld=true.
+            for attempt in range(2):
+                response, _ = await ConnectionPoolService.call_with_fallback(
+                    db=db, connections=connections, call_fn=VisionAnalyzerService.analyze_text,
+                    prompt=prompt + ('\nPhản hồi trước chưa đúng cấu trúc. Chỉ trả JSON theo schema; giữ nguyên kết luận và giới hạn bằng chứng.' if attempt else ''))
+                parsed = next((block for block in ResponseParserService.extract_json_blocks(response)
+                               if isinstance(block, dict) and block.get('circuit_summary')), None)
+                if parsed:
+                    assessments.append(parsed)
+                    break
         if assessments and not any(part.get('has_sld') is True for part in assessments):
             source_limits.append('Chua xac nhan duoc so do mot soi trong ho so.')
         if not assessments:
@@ -168,7 +177,7 @@ class CircuitPreflightService:
         result['circuit_summary'] = '\n'.join(str(part['circuit_summary']) for part in assessments)
         result['source_limits'].extend(source_limits)
         result['has_sld'] = any(part.get('has_sld') is True for part in assessments)
-        result['status'] = 'assessed' if result['has_sld'] else 'unavailable'
+        result['status'] = 'assessed' if result['has_sld'] and (not pages or len(assessments) == len(pages)) else 'unavailable'
         result['source_type'] = 'visual' if pages else 'text'
         return result
 

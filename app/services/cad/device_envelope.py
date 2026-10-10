@@ -1,7 +1,37 @@
 """Read millimetre mounting envelopes from the explicitly selected source CAD."""
 import json
 import math
+from functools import lru_cache
 from pathlib import Path
+
+
+@lru_cache(maxsize=256)
+def _visible_bounds(path, modified_ns, file_size):
+    """Visible CAD envelope, excluding hidden entities and frozen/off layers.
+
+    This is a view envelope, not a manufacturer mounting or terminal map.
+    Dynamic source blocks can contain invisible alternative views which must
+    not move the insertion anchor or inflate the collision envelope.
+    """
+    import ezdxf
+    from ezdxf.addons.drawing import Frontend, RenderContext
+    from ezdxf.addons.drawing.recorder import Recorder
+    source = ezdxf.readfile(path)
+    if source.units != 4:
+        raise ValueError('CAD nguồn chưa xác nhận đơn vị mm.')
+    recorder = Recorder()
+    Frontend(RenderContext(source), recorder).draw_layout(source.modelspace(), finalize=True)
+    bounds = recorder.player().bbox()
+    if not bounds.has_data:
+        raise ValueError('CAD nguồn không có hình học hiển thị để bố trí.')
+    return bounds.extmin.x, bounds.extmin.y, bounds.extmax.x, bounds.extmax.y
+
+
+def visible_geometry_bounds(path):
+    from .catalogtb_assets import insertion_source
+    path = insertion_source(path)
+    stat = path.stat()
+    return _visible_bounds(str(path.resolve()), stat.st_mtime_ns, stat.st_size)
 
 
 def placement_bounds(asset, *, require_mounting=False):
@@ -9,12 +39,7 @@ def placement_bounds(asset, *, require_mounting=False):
     metadata = json.loads(path.read_text(encoding='utf8'))
     geometry = metadata.get('hinh_hoc_lap_dat') or {}
     if not geometry and not require_mounting:
-        import ezdxf
-        from ezdxf import bbox
-        source = ezdxf.readfile(asset['path'])
-        bounds = bbox.extents(source.modelspace())
-        if source.units == 4 and bounds.has_data:
-            return bounds.extmin.x, bounds.extmin.y, bounds.extmax.x, bounds.extmax.y
+        return visible_geometry_bounds(asset['path'])
     if geometry.get('don_vi') != 'mm':
         raise ValueError('CAD nguồn chưa xác nhận đơn vị mm.')
     bounds = geometry.get('bao_hinh_mm') or {}

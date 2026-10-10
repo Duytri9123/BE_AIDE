@@ -15,6 +15,30 @@ from app.services.equipment_library import (BACKEND_CATALOG_DIR, SOURCE_ROOT, DB
 
 router = APIRouter()
 
+@router.get('/browser-data')
+def catalogtb_browser_data():
+    from app.services.catalogtb_browser import browser_data
+    return browser_data()
+
+@router.get('/projection-catalog')
+def projection_catalog():
+    """Private catalog used by the CAD ribbon; router entitlement applies."""
+    # CatalogTB is the sole source. Unknown dimensions are never guessed.
+    from app.services.catalogtb_browser import browser_data
+    rows=browser_data()['items']
+    return {'brands':sorted({p['brand'] for p in rows if p.get('brand')}),
+            'items':[{'ma':p['product_code'],'n':p['display'],'brand':p['brand'],
+                      't':p['type'],'w':p['size']['ngang'],'h':p['size']['cao']}
+                     for p in rows if p.get('product_code') and p.get('size') and p['size'].get('ngang') and p['size'].get('cao')]}
+
+def _public_record(value):
+    if isinstance(value, dict):
+        return {key: _public_record(item) for key, item in value.items()
+                if key not in {'path', 'source_file', 'profile_path', 'path_base'}}
+    if isinstance(value, list):
+        return [_public_record(item) for item in value]
+    return value
+
 
 def _natural(value: str):
     return [(0, int(part)) if part.isdigit() else (1, part.casefold())
@@ -224,7 +248,28 @@ def _cad_view_file(catalog_id: str, view_id: str, field: str):
 @router.get('/{catalog_id}/preview')
 def preview(catalog_id: str):
     relative = _cad_file(catalog_id, 'preview')
-    return Response(asset_bytes(relative), media_type=mimetypes.guess_type(relative)[0] or 'image/svg+xml')
+    return _preview_response(relative)
+
+def _raster_preview(relative: str) -> bytes:
+    # A repaired SVG at the same path must invalidate the old raster image.
+    return _raster_preview_source(asset_bytes(relative))
+
+
+@lru_cache(maxsize=128)
+def _raster_preview_source(source: bytes) -> bytes:
+    import cairosvg
+    from xml.etree import ElementTree
+    svg = ElementTree.fromstring(source)
+    bounds = [float(part) for part in svg.attrib.get('viewBox', '0 0 1000 1000').replace(',', ' ').split()]
+    width, height = max(bounds[2], 1), max(bounds[3], 1)
+    scale = 1400 / max(width, height)
+    return cairosvg.svg2png(bytestring=source, output_width=max(1, round(width*scale)),
+                           output_height=max(1, round(height*scale)))
+
+def _preview_response(relative: str):
+    if relative.lower().endswith('.svg'):
+        return Response(_raster_preview(relative), media_type='image/png')
+    return Response(asset_bytes(relative), media_type=mimetypes.guess_type(relative)[0] or 'image/png')
 
 
 @router.get('/{catalog_id}/dxf')
@@ -242,7 +287,7 @@ def download_dwg(catalog_id: str):
 @router.get('/{catalog_id}/views/{view_id}/preview')
 def view_preview(catalog_id: str, view_id: str):
     relative = _cad_view_file(catalog_id, view_id, 'preview')
-    return Response(asset_bytes(relative), media_type=mimetypes.guess_type(relative)[0] or 'image/svg+xml')
+    return _preview_response(relative)
 
 
 @router.get('/{catalog_id}/views/{view_id}/dxf')
@@ -273,7 +318,7 @@ def manifest():
 def search(q: str = '', brand: str | None = None, cad_status: str | None = None,
            limit: int = Query(20, ge=1, le=100)):
     try:
-        return {'path_base': 'Tudien/CATALOG_PHU_KIEN_DOC_LAP',
+        return {'path_base': 'BE_AIDE/data/CatalogTB',
                 'items': search_equipment(q, brand, cad_status, limit)}
     except FileNotFoundError as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
@@ -331,4 +376,4 @@ def detail(catalog_id: str):
                 views.append(enriched)
         item['cad']['views'] = views
         item['grouped_source_ids'] = [member['catalog_id'] for member in group]
-    return item
+    return _public_record(item)

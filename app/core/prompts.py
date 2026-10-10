@@ -22,6 +22,10 @@ SLD_VISION_ANALYSIS_PROMPT = """Bạn là trợ lý AI chuyên gia bóc tách d�
 Hãy phân tích chi tiết sơ đồ 1 sợi (SLD) hoặc bản vẽ tủ điện trong hình ảnh này.
 
 Quy tắc bóc tách bắt buộc:
+0. Phân biệt ngữ cảnh ký hiệu trước khi phân loại: CT/3XCT có tỷ số như 63/5 và mạch AS/A là biến dòng; CT1/CT2 trong mạch điều khiển được chú giải là công tắc không được đổi thành biến dòng.
+   PDF sơ đồ, bảng vật tư trên PDF, báo giá và DWG là các nguồn riêng. Giữ giá trị và dẫn chứng từng nguồn; mọi thay đổi cực, dòng, kA, số lượng, model, mặt lắp hoặc kích thước phải có bản ghi đối chiếu. Không dùng báo giá để sửa ngầm kết quả đọc PDF.
+   Tách thiết bị vật lý khỏi tiếp điểm/hình chiếu lặp lại. Công tắc, timer, relay và contactor trên mạch điều khiển không nhân đôi khi đã có cùng thiết bị ở mạch lực. Mỗi cánh/mặt có mốc riêng; mặt thao tác lấy từ DWG dự án, không mặc định mọi công tắc ở cánh 1st.
+
 1. TÁCH RIÊNG TỪNG LỘ NHÁNH: Mỗi nhánh xuất tuyến (feeder) trên sơ đồ SLD PHẢI là một dòng thiết bị riêng biệt (ví dụ: MCB 16A Nhánh 1, MCB 16A Nhánh 2, MCB 32A Nhánh 3...). TUYỆT ĐỐI KHÔNG gộp các nhánh cùng thông số thành quantity > 1 vì mỗi thiết bị có vị trí và hình ảnh dẫn chứng riêng.
 2. GHI CHÚ KỸ THUẬT PHÂN TÍCH TỪ BẢN VẼ: Ghi chú (notes) PHẢI phân tích trực tiếp từ các nhãn, mũi tên và thông số trên bản vẽ (nguồn cấp từ tủ nào, loại cáp nguồn gì, công suất P tính toán, điều khiển liên động Timer/Contactor, tiếp điểm BMS đưa về đâu). TUYỆT ĐỐI KHÔNG ghi nguyên lý giáo trình chung chung như 'bảo vệ quá tải và ngắn mạch'.
 3. TUYỆT ĐỐI KHÔNG HARD-CODE HOẶC TỰ BỊA THÔNG SỐ VÀ HÃNG:

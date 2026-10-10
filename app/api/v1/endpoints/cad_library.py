@@ -13,7 +13,7 @@ from app.services.cad.library_taxonomy import classify, explicit_brands
 from app.services.equipment_library import SOURCE_ROOT, CATALOG_DIR
 
 router = APIRouter(dependencies=[Depends(get_current_active_user)])
-LIBRARY = Path(__file__).resolve().parents[4] / "data" / "device_layouts" / "ls"
+LIBRARY = Path(__file__).resolve().parents[4] / "data" / "CatalogTB"
 CATALOG_TB = Path(__file__).resolve().parents[4] / "data" / "CatalogTB"
 EMIC_CT_CATALOG = "https://emic.com.vn/img/files/bien-dong/Catalog%20xuy%E1%BA%BFn%20CT0.6%20%28290623%29.pdf"
 
@@ -39,10 +39,6 @@ def catalog_tb_manifest():
             if not dxf.is_relative_to(CATALOG_TB.resolve()) or not dxf.is_file() or not preview.is_file():
                 continue
             geometry_key = hashlib.sha256(preview.read_bytes()).hexdigest()
-            if geometry_key in seen_geometry:
-                if entry['id_hinh_goc'] == primary_id:
-                    seen_geometry[geometry_key]['is_primary'] = True
-                continue
             view_id = hashlib.sha1(f"{profile_id}:{entry['id_hinh_goc']}".encode()).hexdigest()[:20]
             face = entry.get('huong_nhin') or 'Chưa xác định hướng nhìn'
             view = {'id': view_id, 'source_id': entry['id_hinh_goc'], 'face': face,
@@ -53,7 +49,7 @@ def catalog_tb_manifest():
                     'insert_url': f'/cad-library/catalog-tb/view/{view_id}/insert-dxf'}
             cad_views.append(view)
             seen_geometry[geometry_key] = view
-            views[view_id] = {'dxf': dxf, 'preview': preview}
+            views[view_id] = {'dxf': dxf, 'preview': preview,'linework_review':entry.get('kiem_tra_net_cad') or {}}
         if not cad_views:
             continue
         brand = profile.get('hang_xac_nhan') or ''
@@ -104,11 +100,14 @@ def catalog_tb_insert_dxf(view_id: str):
     asset = catalog_tb_manifest()[1].get(view_id)
     if not asset:
         raise HTTPException(404, 'Không tìm thấy mặt CAD')
+    if asset.get('linework_review',{}).get('status')=='unresolved_visible_geometry_defect':
+        raise HTTPException(422,'CAD còn thiếu chi tiết; cần sửa hình học trước khi chèn layout')
     import io
     import ezdxf
     from ezdxf.disassemble import recursive_decompose
     from ezdxf.addons import Importer
-    source = ezdxf.readfile(asset['dxf'])
+    from app.services.cad.catalogtb_assets import insertion_source
+    source = ezdxf.readfile(insertion_source(asset['dxf']))
     target = ezdxf.new('R2018')
     target.units = source.units
     importer = Importer(source, target)
@@ -125,28 +124,15 @@ def guess_view_label(width: float, height: float) -> str:
 
 
 def manifest():
-    # The historical device_layouts folders are no longer an insertion source.
-    # Only exact-model CAD from the 2026 catalog is exposed here.
-    import sqlite3
-    path = CATALOG_DIR / 'equipment_catalog.sqlite'
-    rows = []
-    if path.is_file():
-        with sqlite3.connect(path) as db:
-            rows = db.execute("SELECT record_json FROM equipment WHERE cad_status = 'exact_model_cad'").fetchall()
+    import time
+    catalog = CATALOG_DIR / 'equipment_catalog.sqlite'
+    stamp = catalog.stat().st_mtime_ns if catalog.is_file() else 0
+    return _current_manifest(int(time.monotonic() / 5),stamp)
+
+
+@lru_cache(maxsize=2)
+def _current_manifest(window, catalog_stamp):
     items = []
-    for row in rows:
-        record = json.loads(row[0])
-        dxf = record['cad'].get('dxf')
-        if not dxf or not (SOURCE_ROOT / dxf['path']).is_file():
-            continue
-        items.append({'id': record['catalog_id'], 'catalog_id': record['catalog_id'],
-                      'name': record['display_name'], 'brand': record['brand'],
-                      'kind': 'device', 'group': record['category'],
-                      'category': record['category'], 'library': 'equipment_library_2026',
-                      'filename': dxf['path'], 'source_file': dxf['path'],
-                      'source_block': record['model'], 'cad_status': 'exact_model_cad',
-                      'recognition': {'face': 'unknown', 'name': record['display_name'],
-                                      'brand': record['brand']}})
     from app.services.cad.catalogtb_assets import assets
     for a in assets():
         items.append(dict(id=a['id'], catalog_id=None, name=a['name'], brand=a['brand'],
@@ -203,9 +189,6 @@ def list_layouts(q: str = "", brand: str = "", kind: str = "", group: str = ""):
 @router.get('/categories')
 def list_categories():
     """Source-backed folders by device/accessory function."""
-    path = LIBRARY.parent.parent / 'cad_categories/index.json'
-    if path.is_file():
-        return {'items': json.loads(path.read_text(encoding='utf8'))}
     counts = defaultdict(int)
     for item in manifest()['items']:
         counts[(item['kind'], item['group'])] += 1
@@ -236,7 +219,8 @@ def render_layout_svg(asset_id: str):
     import ezdxf
     from ezdxf.addons.drawing import RenderContext, Frontend, svg, layout
     response = download_layout(asset_id)
-    doc = ezdxf.readfile(response.path)
+    from app.services.cad.catalogtb_assets import insertion_source
+    doc = ezdxf.readfile(insertion_source(response.path))
     backend = svg.SVGBackend()
     Frontend(RenderContext(doc), backend).draw_layout(doc.modelspace(), finalize=True)
     return backend.get_string(layout.Page(0, 0, layout.Units.mm, margins=layout.Margins.all(5)))
@@ -267,7 +251,8 @@ def insertion_dxf(asset_id: str):
     import ezdxf
     from ezdxf.disassemble import recursive_decompose
     from ezdxf.addons import Importer
-    source = ezdxf.readfile(download_layout(asset_id).path)
+    from app.services.cad.catalogtb_assets import insertion_source
+    source = ezdxf.readfile(insertion_source(download_layout(asset_id).path))
     target = ezdxf.new('R2018')
     target.units = source.units
     importer = Importer(source, target)

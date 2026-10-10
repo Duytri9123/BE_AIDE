@@ -4,12 +4,36 @@ from ezdxf.addons import Importer
 from app.services.cad import cabinet_templates
 
 
+def door_hinges(source, item):
+    """Identify hinge ownership from named source hardware inside each door."""
+    result = {}
+    for face in item.get('faces', []):
+        bounds = face.get('clean_bounds')
+        if face['kind'] not in ('inner_door', 'outer_door') or not bounds:
+            continue
+        evidence = []
+        for entity in source.modelspace().query('INSERT'):
+            name = entity.dxf.name
+            point = entity.dxf.insert
+            if not (name.startswith('HL') or 'hinge' in name.lower()):
+                continue
+            if bounds[0] <= point.x <= bounds[2] and bounds[1] <= point.y <= bounds[3]:
+                evidence.append(dict(block=name, handle=entity.dxf.handle,
+                                     x_on_door_mm=point.x-bounds[0], y_on_door_mm=point.y-bounds[1]))
+        if evidence:
+            middle = (bounds[2]-bounds[0])/2
+            sides = {'right' if e['x_on_door_mm'] > middle else 'left' for e in evidence}
+            result[face['kind']] = dict(side=next(iter(sides)) if len(sides)==1 else None,
+                                        source_face_label=face.get('source_label'), evidence=evidence)
+    return result
+
+
 def insert_faces(space, dimensions, interior_offset):
     height, width, depth = map(float, dimensions)
     items = cabinet_templates.candidates(dict(height=height, width=width, depth=depth), kind='indoor')
     for item in items:
         nominal = item.get('dimensions') or {}
-        if any(abs(nominal.get(axis, 0) - value) > .01 for axis, value in [('height', height), ('width', width)]):
+        if any(abs(nominal.get(axis, 0) - value) > .01 for axis, value in [('height', height), ('width', width), ('depth', depth)]):
             continue
         faces = {f['kind']: f for f in item.get('faces', []) if f.get('clean_bounds')}
         if not all(kind in faces for kind in ('inner_door', 'mounting_plate')):
@@ -30,6 +54,7 @@ def insert_faces(space, dimensions, interior_offset):
         importer.finalize()
         space.add_blockref(name, (-door[0], -door[1]))
         return dict(template_id=item['id'], source=item['filename'], source_dimensions=nominal,
+                    hinges_by_face=door_hinges(source, item),
                     requested_dimensions=dict(height=height, width=width, depth=depth),
                     faces=[f['kind'] for f in item.get('faces', [])], scale=1,
                     complete_source_sheet=True, source_entity_count=len(source.modelspace()),

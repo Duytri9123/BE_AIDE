@@ -21,7 +21,7 @@ class AdminAuth(AuthenticationBackend):
             result = await session.execute(stmt)
             user = result.scalar_one_or_none()
 
-            if user and (user.role == "admin" or user.is_superuser):
+            if user and user.is_active and (user.role == "admin" or user.is_superuser):
                 if verify_password(password, user.hashed_password):
                     request.session.update({"token": str(user.id)})
                     return True
@@ -32,9 +32,15 @@ class AdminAuth(AuthenticationBackend):
         return True
 
     async def authenticate(self, request: Request) -> bool:
-        token = request.session.get("token")
+        token = request.session.get('token')
         if not token:
             return False
-        return True
+        try:
+            identity = int(token)
+        except (TypeError, ValueError):
+            return False
+        async with AsyncSessionLocal() as session:
+            user = (await session.execute(select(User).where(User.id == identity))).scalar_one_or_none()
+            return bool(user and user.is_active and (user.role == 'admin' or user.is_superuser))
 
 authentication_backend = AdminAuth(secret_key=settings.SECRET_KEY)

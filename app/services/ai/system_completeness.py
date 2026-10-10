@@ -153,6 +153,13 @@ def review_system(devices):
                         or 'tổng' in str(x.get('name') or '').lower()]
             descriptive_source = descriptive_source or (len(incomers) == 1 and any(
                 name in upstream_normal for name in ('mccb tong','cb tong','aptomat tong')))
+            # Existing panels and uniquely identified component descriptions are
+            # inventory references, not evidence that a source device is missing.
+            described_fuse = ('cau chi' in upstream_normal or 'fuse' in upstream_normal) and sum(
+                str(x.get('category') or '').upper() == 'FUSE' for x in members) == 1
+            referenced_panel = any(str(code).strip() and str(code).lower() in upstream.lower()
+                                   for code in groups if code != panel)
+            descriptive_source = descriptive_source or described_fuse or referenced_panel
             matched_tag = any(re.search(r'(?<!\w)' + re.escape(t) + r'(?!\w)', upstream, re.I) for t in tags)
             if upstream and not matched_tag and not descriptive_source:
                 issue(panel, tag, "Đối chiếu liên kết nguồn", f"Tham chiếu '{upstream}' chưa khớp ký hiệu nguồn đã đọc; xác minh điểm nối và nguồn cấp theo sơ đồ.",

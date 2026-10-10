@@ -3,7 +3,7 @@ import json,re
 from functools import lru_cache
 from pathlib import Path
 from app.services.cad.library_taxonomy import normalize,explicit_brands
-DATA=Path(__file__).resolve().parents[3]/'data/cad_text_inventory.json'
+DATA=Path(__file__).resolve().parents[3]/'data/CatalogTB/_agent_index/cad_text_inventory.json'
 
 @lru_cache(maxsize=2)
 def _read(stamp):

@@ -4,6 +4,7 @@ Analysis Pipeline Service
 tính toán kích thước tủ - thanh cái, và tự động sinh bản vẽ CAD DXF & báo giá Excel.
 """
 import os
+from pathlib import Path
 import re
 import json
 import logging
@@ -76,8 +77,30 @@ class AnalysisPipelineService:
             "và tóm tắt thông tin hữu ích vào file_assessment.context_summary.",
             f"TỆP ĐANG XỬ LÝ: {current_filename}",
         ]
+        from app.services.cad.catalogtb_assets import assets as catalogtb_assets
+        from app.services.cad.cabinet_templates import inventory as form_inventory
+        library_views = catalogtb_assets()
+        profile_count = len({v['profile_path'] for v in library_views})
+        manifest_path=Path(__file__).resolve().parents[3] / 'data/CatalogTB/ai_library_manifest.json'
+        recognition_manifest=json.loads(manifest_path.read_text(encoding='utf-8')) if manifest_path.is_file() else {}
+        source_document_count=len(recognition_manifest.get('source_cad_documents') or [])
+        parts.append(
+            f"THƯ VIỆN HỆ THỐNG (không phải tệp người dùng phải đính kèm): "
+            f"BE_AIDE/data/CatalogTB có {profile_count} hồ sơ, {len(library_views)} mặt CAD; "
+            f"CatalogTB/Form tủ có {len(form_inventory())} form nguồn; "
+            f"có {source_document_count} CAD nguồn chưa gắn hồ sơ thiết bị để tra cứu bổ sung. "
+            "Không báo thư viện không có chỉ vì không nằm trong tệp đính kèm. "
+            "Thư viện chứng minh có hồ sơ, không chứng minh đã khớp model hoặc mặt CAD. "
+            "Không nhận câu mô tả thư viện là thiết bị trên sơ đồ. "
+            "Không dùng ghi chú đánh giá trước để giới hạn trang. "
+            "Không sinh đồng thời dòng gộp nhánh và các dòng đơn lẻ của cùng các nhánh. "
+            "Contactor/timer được vẽ là thiết bị vật lý; mô tả phụ kiện không phải bằng chứng đã đưa vào BOM."
+        )
         if user_prompt:
             parts.append(f"YÊU CẦU NGƯỜI DÙNG:\n{user_prompt.strip()}")
+        layout_rules = Path(__file__).resolve().parents[3] / 'docs/QUY_TAC_CHON_FORM_VA_BO_TRI.md'
+        if layout_rules.is_file():
+            parts.append('QUY TẮC NỘI BỘ CHỌN FORM VÀ BỐ TRÍ:\n' + layout_rules.read_text(encoding='utf-8'))
         if reference_context:
             parts.append(f"NGỮ CẢNH ĐỌC ĐƯỢC TỪ TOÀN BỘ TỆP ĐÍNH KÈM:\n{reference_context}")
         return "\n\n".join(parts)
@@ -151,6 +174,7 @@ class AnalysisPipelineService:
                 "enclosure_dimensions": dimension,
                 "dimension": dimension,
                 "page": raw_panel.get("page"),
+                "independent_inventory_check": raw_panel.get("independent_inventory_check"),
                 "devices": [],
             })
             if not panel["location"] and raw_panel.get("location"):
@@ -454,6 +478,15 @@ class AnalysisPipelineService:
             if preflight_context:
                 effective_user_prompt += "\n\n" + preflight_context
 
+            if ext == 'xlsx' and not getattr(pfile, "is_generated", False):
+                files_assessment.append({
+                    'file_id': getattr(pfile, 'id', None), 'filename': pfile.filename,
+                    'file_type': ext, 'status': 'reference', 'devices_count': 0,
+                    'document_type': 'Báo giá nguồn', 'document_role': 'quotation_reference',
+                    'is_suitable': True, 'warnings': [],
+                    'assessment_summary': 'Đối chiếu cấu hình khi tạo thiết kế; không cộng thiết bị vào BOM sơ đồ.'})
+                continue
+
             if getattr(pfile, "is_generated", False):
                 context_info = next((c for c in document_contexts if c.get("file_id") == getattr(pfile, "id", None)), {})
                 files_assessment.append({
@@ -635,6 +668,7 @@ class AnalysisPipelineService:
                         filename=pfile.filename or "drawing.pdf",
                         active_ai=active_ai,
                         user_prompt=effective_user_prompt,
+                        page_scope_prompt=user_prompt or "",
                         db=db,
                         all_connections=all_connections,
                         target_page=target_page,
@@ -684,6 +718,7 @@ class AnalysisPipelineService:
                     pass
 
                 cad_ai_success = False
+                cad_multi = []
                 cad_ai_error = None  # Lưu lỗi AI để quyết định fallback
                 if all_connections and db:
                     try:
@@ -794,6 +829,13 @@ class AnalysisPipelineService:
             # Chuẩn hóa các phần tử FA bị Vision gắn vào mô tả MCCB trước khi
             # phát dữ liệu từng phần, để UI trực tiếp và kết quả cuối giống nhau.
             current_file_devices = extracted_devices[file_start_count:]
+            if ext in ['dxf','dwg'] and cad_evidence_result is not None:
+                from app.services.ai.cad_label_integrity import reconcile_tagged_labels
+                panel_count = max(len(cad_multi),len({d.panel_code for d in current_file_devices if d.panel_code}),1)
+                current_file_devices, label_warnings = reconcile_tagged_labels(
+                    current_file_devices,cad_evidence_result.texts,panel_count)
+                extracted_devices[file_start_count:] = current_file_devices
+                warnings.extend(label_warnings)
             promoted_file_devices = AnalysisPipelineService._promote_drawn_fa_devices(current_file_devices)
             if len(promoted_file_devices) != len(current_file_devices):
                 extracted_devices[file_start_count:] = promoted_file_devices
@@ -1142,7 +1184,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             title="Tra cứu Catalog để lập báo giá" if catalog_for_quotation else "Phân tích nhà cung cấp & thiết bị phù hợp",
             detail=(f"Đang đối chiếu thông số với {len(catalog_engine.items)} sản phẩm để lập báo giá..."
                     if catalog_for_quotation else
-                    f"Đang đối chiếu {len(extracted_devices)} thiết bị bóc tách với {len(catalog_engine.items)} sản phẩm; giữ nguyên dữ liệu SLD gốc."),
+                    f"Đang đối chiếu {len(extracted_devices)} thiết bị với {len(catalog_engine.reference_profiles)} hồ sơ CAD CatalogTB; {len(catalog_engine.items)} mã có giá đã xác nhận. Giữ nguyên dữ liệu SLD gốc."),
             status="info"
         )
 
@@ -1183,8 +1225,10 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             ]
 
             dev_raw_brand = (dev.brand or "").strip()
-            unknown_brand_values = {"---", "OEM", "KHÔNG", "CHƯA RÕ", "CHUA RO", "VN"}
+            unknown_brand_values = {"---", "-", "OEM", "KHÔNG", "CHƯA RÕ", "CHUA RO", "VN", "ASIAN"}
             has_explicit_brand = bool(dev_raw_brand and dev_raw_brand.upper() not in unknown_brand_values)
+            if not has_explicit_brand:
+                dev_raw_brand = ''
 
             # Chỉ tra các hãng có căn cứ từ yêu cầu, bản vẽ hoặc đề xuất AI;
             # không quét và đẩy toàn bộ danh mục hãng vào từng thiết bị.
@@ -1271,15 +1315,20 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
 
             dev.catalog_matches = catalog_matches
             dev.catalog_candidates = catalog_candidates
-            dev.catalog_references = catalog_engine.search_references(dev.category, requested_brand or dev_raw_brand or preferred_brand, dev.poles, allow_other_brands=not bool(requested_brand or dev_raw_brand))
+            dev.catalog_references = catalog_engine.search_references(dev.category, requested_brand or dev_raw_brand or preferred_brand, dev.poles, allow_other_brands=not bool(requested_brand or dev_raw_brand), query=dev.part_number or dev.name, group_views=True)
+            if not dev.catalog_references:
+                source_refs=catalog_engine.search_source_documents(dev.part_number or dev.name)
+                dev.catalog_references=[dict(ref, selection_note='CAD nguồn có trong CatalogTB; cần tách và xác minh thành phần/mặt, chưa phải CAD thiết bị đã duyệt.') for ref in source_refs]
             from app.services.cad.catalogtb_assets import candidates as cad_candidates_for
             # A generic CB remains CB in the takeoff. Offer actual breaker CAD
             # families for an explicit engineering selection instead of no options.
             cad_kinds = ('MCB', 'MCCB') if str(dev.category).upper() == 'CB' else (dev.category,)
             cad_refs = [asset for kind in cad_kinds for asset in cad_candidates_for(
-                kind, requested_brand or dev_raw_brand or preferred_brand, dev.poles)]
+                kind, requested_brand or dev_raw_brand or preferred_brand, dev.poles,
+                measurement_function=('current' if cat_upper=='METER' and (str(dev.tag or '').upper()=='A' or 'AMPE' in str(dev.name or '').upper()) else 'voltage' if cat_upper=='METER' and (str(dev.tag or '').upper()=='V' or any(t in str(dev.name or '').upper() for t in ('VÔN','VOLT'))) else None))]
             if not cad_refs and not (requested_brand or dev_raw_brand):
-                cad_refs = [asset for kind in cad_kinds for asset in cad_candidates_for(kind, poles=dev.poles)]
+                cad_refs = [asset for kind in cad_kinds for asset in cad_candidates_for(kind, poles=dev.poles,
+                    measurement_function=('current' if cat_upper=='METER' and (str(dev.tag or '').upper()=='A' or 'AMPE' in str(dev.name or '').upper()) else 'voltage' if cat_upper=='METER' and (str(dev.tag or '').upper()=='V' or any(t in str(dev.name or '').upper() for t in ('VÔN','VOLT'))) else None))]
             if cad_refs:
                 dev.cad = {**(dev.cad or {}), 'reference_candidates': [
                     {key:a[key] for key in ('id','name','face','profile_path','status','confirmation','label_config','replacement_options')}
@@ -1312,8 +1361,8 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 chosen_brand = requested_brand
                 dev.selection_source = "user_request"
             elif preferred_brand:
-                chosen_brand = preferred_brand
-                dev.selection_source = "default_brand"
+                chosen_brand = preferred_brand if preferred_brand in catalog_matches else 'Asian'
+                dev.selection_source = "catalog_auto" if preferred_brand in catalog_matches else 'unspecified_brand'
             # 3. Tự động chọn nhà cung cấp có model catalog khớp kỹ thuật nhất.
             elif pool:
                 chosen_brand = pool[0]
@@ -1362,7 +1411,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
 
             # Tự động áp dụng lựa chọn kỹ thuật ở cả bảng bóc tách. Người dùng
             # có thể đổi sang các hãng khác từ `catalog_matches` trên giao diện.
-            dev.brand = chosen_brand
+            dev.brand = chosen_brand or 'Asian'
             dev.part_number = chosen_sku
 
             if catalog_for_quotation:
@@ -2137,6 +2186,10 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         if extracted_panels:
             multi_panels.extend(extracted_panels)
 
+        from app.services.ai.cad_label_integrity import reconcile_tagged_labels
+        parsed_devs, label_warnings = reconcile_tagged_labels(parsed_devs,cad_res.texts,len(extracted_panels))
+        warns.extend(label_warnings)
+
         for d in parsed_devs:
             clean_in_a = float(d.in_a) if d.in_a is not None and d.in_a > 0 else None
             clean_icu_ka = float(d.icu_ka) if d.icu_ka is not None and d.icu_ka > 0 else None
@@ -2166,6 +2219,11 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 icu_ka=clean_icu_ka,
                 poles=clean_poles,
                 quantity=int(d.quantity or 1),
+                drawing_quantity=getattr(d,'drawing_quantity',None),
+                procurement_quantity=getattr(d,'procurement_quantity',None),
+                quantity_basis=getattr(d,'quantity_basis',None),
+                source_filename=filename,
+                source_type='dxf' if file_path.lower().endswith('.dxf') else 'dwg',
                 brand=d.brand or "",
                 part_number=d.part_number or "",
                 section=d.section or "Đầu ra",
@@ -2405,6 +2463,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
         filename: str,
         active_ai: AiConnection,
         user_prompt: Optional[str] = None,
+        page_scope_prompt: Optional[str] = None,
         db: Optional[AsyncSession] = None,
         all_connections: Optional[List[AiConnection]] = None,
         target_page: Optional[int] = None,
@@ -2481,41 +2540,10 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 if user_asked_for_panels:
                     warns.append(report_md)
 
-            # KIỂM TRA CHỈ ĐỊNH TRANG CỤ THỂ TỪ NGƯỜI DÙNG (Qua user_prompt hoặc target_page)
-            requested_pages: List[int] = []
-            if target_page and 1 <= target_page <= total_pages:
-                requested_pages.append(target_page)
-
-            if user_prompt:
-                p_text = user_prompt.lower()
-                # 1. Dải trang: "trang 4-6", "trang 4 đến 6", "từ trang 4 đến trang 6"
-                range_matches = re.findall(r'(?:trang|page|p\.?)\s*(\d+)\s*(?:-|đến|to)\s*(?:trang\s*)?(\d+)', p_text)
-                for start, end in range_matches:
-                    try:
-                        s, e = int(start), int(end)
-                        for p in range(max(1, s), min(total_pages, e) + 1):
-                            if p not in requested_pages:
-                                requested_pages.append(p)
-                    except ValueError:
-                        pass
-
-                # 2. Danh sách phân cách: "trang 4, 5, 6" hoặc "trang 4 và 5"
-                list_matches = re.findall(r'(?:trang|page|sheet)\s*((?:\d+\s*[,&và]\s*)+\d+)', p_text)
-                for group in list_matches:
-                    for num in re.findall(r'\d+', group):
-                        p = int(num)
-                        if 1 <= p <= total_pages and p not in requested_pages:
-                            requested_pages.append(p)
-
-                # 3. Trang đơn lẻ: "trang 4 trong file", "bóc tách cho tôi trang 4", "trang số 4", "trang 4", "p.4", "p4"
-                # Không bắt nhầm nếu chỉ là câu hỏi không chứa số trang
-                single_matches = re.findall(r'(?:trang|page|sheet|p\.?)\s*(?:số\s*)?(\d+)', p_text)
-                for m in single_matches:
-                    p = int(m)
-                    if 1 <= p <= total_pages and p not in requested_pages:
-                        requested_pages.append(p)
-
-            requested_pages = sorted(list(set(requested_pages)))
+            # Only human-authored scope can restrict pages. Assessment notes are not instructions.
+            from app.services.ai.pdf_page_scope import requested_pdf_pages
+            scope_prompt = page_scope_prompt if page_scope_prompt is not None else user_prompt
+            requested_pages = requested_pdf_pages(scope_prompt or '', total_pages, target_page)
 
             if requested_pages:
                 # TRƯỜNG HỢP A: NGƯỜI DÙNG YÊU CẦU BÓC TÁCH & BÁO GIÁ TRANG CỤ THỂ
@@ -2769,22 +2797,18 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             'title':'Đã tạo context trang PDF',
                             'detail':f"Trang {page_num}: {pdf_context['source']}; phân tích từ context, tọa độ đối chiếu ảnh riêng."})
                         if asyncio.iscoroutine(event): await event
-                    if all_connections and db:
-                        ai_response, _used = await ConnectionPoolService.call_with_fallback(
-                            db=db,
-                            connections=all_connections,
-                            call_fn=VisionAnalyzerService.analyze_text,
-                            prompt=vision_prompt,
-                        )
-                    else:
-                        ai_response = await VisionAnalyzerService.analyze_text(
-                            prompt=vision_prompt,
-                            provider=active_ai.provider.lower(),
-                            api_key=active_ai.api_key,
-                            model=active_ai.selected_model
-                        )
+                    from app.services.ai.inventory_validation import extract_with_retry
+                    async def extract_page_inventory(prompt):
+                        if all_connections and db:
+                            response, _ = await ConnectionPoolService.call_with_fallback(
+                                db=db, connections=all_connections,
+                                call_fn=VisionAnalyzerService.analyze_text, prompt=prompt)
+                            return response
+                        return await VisionAnalyzerService.analyze_text(
+                            prompt=prompt, provider=active_ai.provider.lower(),
+                            api_key=active_ai.api_key, model=active_ai.selected_model)
+                    ai_response, parsed_devs = await extract_with_retry(extract_page_inventory, vision_prompt)
 
-                    parsed_devs = ResponseParserService.parse_device_list(ai_response)
                     # Verify spatial evidence independently. The extraction pass
                     # may identify a device correctly but borrow coordinates from
                     # a neighbouring label or branch.
@@ -2804,10 +2828,15 @@ Chỉ trả một JSON hợp lệ, không markdown:
                         }
                         for index, device in enumerate(parsed_devs)
                     ]
+                    count_payload = None
                     if box_candidates:
                         verifier_prompt = (
                             "Đối chiếu danh sách đã bóc tách từ context với TOÀN BỘ trang nguồn. "
                             "Quét cụm đo lường/điều khiển, đèn, Fuse, vôn kế/chuyển mạch để tìm phần tử context bị sót. "
+                            "Đọc bảng kê thiết bị và từng nhánh điều khiển: contactor/khởi động từ, cuộn dây, timer, nguồn 220/24V đều cần kiểm đếm thân riêng. "
+                            "Tiếp điểm cùng contactor không phải một contactor mới. Không coi danh sách chỉ có CB và timer là đủ khi bảng kê còn thiết bị khác. "
+                            "Kiểm tra riêng ký hiệu hộp C sau CB kèm nhãn 2P-16A hoặc 2P-10A: đó không phải nhãn của CB đứng trước; xác định contactor theo ký hiệu và liên kết. "
+                            "Đếm từng ký hiệu TIMER 24H, không giảm số lượng theo tên giống nhau. MDK là nhãn mạch điều khiển khi không có ký hiệu xác định thân thiết bị, không tự sinh relay 220/24V. "
                             "Mỗi lộ một dòng, giữ tag đọc được; CB chung dùng category CB, không tự đổi thành MCCB. "
                             "Trả devices là DANH SÁCH ĐẦY ĐỦ sau đối chiếu, giữ thông số và số lượng có căn cứ. "
                             "Tách drawing_quantity và procurement_quantity, nêu quantity_basis; không nhân Fuse theo số đèn. "
@@ -2826,23 +2855,35 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             + json.dumps(box_candidates, ensure_ascii=False)
                         )
                         try:
-                            if all_connections and db:
-                                verifier_response, _ = await ConnectionPoolService.call_with_fallback(
-                                    db=db, connections=all_connections,
-                                    call_fn=VisionAnalyzerService.analyze_image,
-                                    image_path=temp_img_path, prompt=verifier_prompt,
-                                )
-                            else:
-                                verifier_response = await VisionAnalyzerService.analyze_image(
-                                    image_path=temp_img_path, prompt=verifier_prompt,
+                            async def verify_page_inventory(prompt):
+                                if all_connections and db:
+                                    response, _ = await ConnectionPoolService.call_with_fallback(
+                                        db=db, connections=all_connections,
+                                        call_fn=VisionAnalyzerService.analyze_image,
+                                        image_path=temp_img_path, prompt=prompt)
+                                    return response
+                                return await VisionAnalyzerService.analyze_image(
+                                    image_path=temp_img_path, prompt=prompt,
                                     provider=active_ai.provider.lower(), api_key=active_ai.api_key,
-                                    model=active_ai.selected_model,
-                                )
+                                    model=active_ai.selected_model)
+                            verifier_response, audited_devices = await extract_with_retry(verify_page_inventory, verifier_prompt)
                             verifier_blocks = ResponseParserService.extract_json_blocks(verifier_response)
-                            audited_devices = ResponseParserService.parse_device_list(verifier_response)
                             if audited_devices:
                                 from app.services.ai.pdf_context import merge_verified_devices
                                 parsed_devs = merge_verified_devices(parsed_devs, audited_devices)
+                            from app.services.ai.inventory_validation import COUNT_PROMPT, count_mismatches
+                            count_response = await verify_page_inventory(COUNT_PROMPT)
+                            count_blocks = ResponseParserService.extract_json_blocks(count_response)
+                            count_payload = next((block for block in count_blocks if isinstance(block, dict) and 'counts' in block), None)
+                            differences = count_mismatches(parsed_devs, count_payload)
+                            if differences:
+                                repair_prompt = verifier_prompt + "\nKIỂM ĐẾM NGUỒN ĐỘC LẬP — CẦN ĐỐI CHIẾU VÀ SỬA DANH SÁCH:\n" + "\n".join(differences)
+                                verifier_response, parsed_devs = await extract_with_retry(verify_page_inventory, repair_prompt)
+                                # The repair is a complete inventory, rather than an append-only
+                                # merge that could preserve an invented module or duplicate CB.
+                                differences = count_mismatches(parsed_devs, count_payload)
+                                if differences:
+                                    raise ValueError("Danh mục chưa khớp kiểm đếm nguồn: " + "; ".join(differences))
                             warns.extend(ResponseParserService.extract_completeness_warnings(verifier_response))
                             payload = next(
                                 (block for block in verifier_blocks if isinstance(block, dict) and isinstance(block.get("boxes"), list)),
@@ -2860,8 +2901,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                         device.box_2d = None
                         except Exception as verify_error:
                             logger.warning("Evidence verification failed on page %s: %s", page_num, verify_error)
-                            for device in parsed_devs:
-                                device.box_2d = None
+                            raise ValueError("Không xác nhận được danh sách thiết bị trên ảnh nguồn.") from verify_error
                     # Keep all PDF-page warnings in the accumulator returned by this
                     # method.  Using an undefined `warnings` variable previously
                     # interrupted the AI pipeline after a successful model response.
@@ -2876,6 +2916,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                         if extracted_panels:
                             for ep in extracted_panels:
                                 ep["page"] = page_num
+                                ep["independent_inventory_check"] = count_payload
                                 multi_panels.append(ep)
                             page_panel_code = extracted_panels[0].get("panel_code")
                             page_panel_name = extracted_panels[0].get("panel_name")
@@ -3058,25 +3099,9 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                     logger.warning(f"progress_callback error: {cb_err}")
                 except Exception as page_err:
                     logger.warning(f"Lỗi phân tích trang {page_num}: {page_err}")
-                    warns.append(f"Trang {page_num} ({page_title[:40]}): {str(page_err)[:120]}")
-                    if progress_callback:
-                        try:
-                            coro_warn = progress_callback({
-                                "type": "log",
-                                "stage": "ai_vision",
-                                "status": "warning",
-                                "timestamp": datetime.now().strftime("%H:%M:%S"),
-                                "title": f"Lưu ý Trang {page_num}/{total_pages}: {page_title[:40]}",
-                                "detail": f"Gặp sự cố AI: {str(page_err)[:120]}. Hệ thống tự động bảo toàn các tủ đã xong."
-                            })
-                            if asyncio.iscoroutine(coro_warn):
-                                await coro_warn
-                        except Exception:
-                            pass
-                    # Nếu bị 429 quota/rate-limit từ provider, dừng an toàn để bảo toàn các trang đã trích xuất thành công
-                    if "429" in str(page_err) or "Quota Exceeded" in str(page_err) or "RateLimit" in str(page_err):
-                        logger.info("Dừng bóc tách các trang kế tiếp do API AI gặp Rate Limit (429).")
-                        break
+                    # Preserve partial sessions, but never approve a whole-file
+                    # takeoff when any selected source page could not be read.
+                    raise HTTPException(status_code=422, detail=f"Bóc tách chưa đủ trang: {filename} / trang {page_num}: {str(page_err)[:160]}. Kết quả đã lưu chỉ là bản tạm; chưa dùng tạo thiết kế hoặc báo giá.") from page_err
                 finally:
                     if os.path.exists(temp_img_path):
                         try:
@@ -3209,6 +3234,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
         panel_name: Optional[str] = None,
         per_panel: bool = False,
         progress_callback: Optional[Any] = None,
+        source_configuration: str = 'schematic',
     ) -> Dict[str, Any]:
         """
         Quy trình chuyên biệt khi người dùng bấm Tạo báo giá:
@@ -3243,6 +3269,82 @@ Chỉ trả một JSON hợp lệ, không markdown:
 
         await emit_progress("normalize", 5, f"Đang chuẩn hóa {len(devices)} thiết bị đầu vào")
 
+        quotation_configuration = None
+        quotation_panel = None
+        if source_configuration == 'quotation':
+            from app.services.ai.quotation_configuration import read_configuration, apply_configuration, panel_key
+            source_files = (await db.execute(select(ProjectFile).where(
+                ProjectFile.project_id == project.id, ProjectFile.is_generated == False))).scalars().all()
+            source_quotes = [f for f in source_files if str(f.filename or '').lower().endswith('.xlsx')]
+            if len(source_quotes) != 1:
+                raise ValueError('Cần đúng một báo giá Excel nguồn trong dự án để dùng cấu hình đã chọn.')
+            quotation_configuration = read_configuration(source_quotes[0].file_path)
+            devices = apply_configuration(devices, quotation_configuration)
+            await emit_progress('source_reconciliation', 7,
+                f"Đã đối chiếu cấu hình báo giá: {sum(d['quantity'] for d in devices)} thiết bị")
+            if per_panel:
+                qpanel = next((p for p in quotation_configuration['panels'] if panel_key(p['panel_code']) == panel_key(panel_code)), None)
+                if qpanel:
+                    quotation_panel = qpanel
+                    enclosure_dimensions = qpanel.get('dimension') or enclosure_dimensions
+
+        panel_groups = {}
+        for device in devices:
+            row = device if isinstance(device, dict) else device.model_dump()
+            code = str(row.get('panel_code') or '').strip()
+            panel_groups.setdefault(code, []).append(row)
+        if not per_panel and len(panel_groups) > 1:
+            if '' in panel_groups:
+                raise ValueError('Còn thiết bị chưa xác định thuộc tủ nào; không gộp vào tủ đầu tiên.')
+            session = (await db.execute(select(ConversationSession).where(
+                ConversationSession.project_id == project.id).order_by(
+                    ConversationSession.created_at.desc()))).scalars().first()
+            latest = (await db.execute(select(AnalysisIteration).where(
+                AnalysisIteration.session_id == session.id).order_by(
+                    AnalysisIteration.iteration_number.desc()))).scalars().first() if session else None
+            original_conf = dict(latest.confidence_scores or {}) if latest else {}
+            panels = multi_panel_list or original_conf.get('panels') or []
+            if quotation_configuration:
+                panels = [{**p, 'panel_code': code, 'dimension': p.get('dimension')}
+                          for code in panel_groups for p in quotation_configuration['panels']
+                          if panel_key(p['panel_code']) == panel_key(code)]
+            results = []
+            for code, group in panel_groups.items():
+                metadata = next((p for p in panels if p.get('panel_code') == code), {})
+                await emit_progress('panel', 5, 'Đang thiết kế riêng tủ ' + code)
+                result = await AnalysisPipelineService.generate_cad_and_quotation(
+                    project, db, group, brand_preference=brand_preference, user_prompt=user_prompt,
+                    enclosure_dimensions=metadata.get('dimension') or metadata.get('enclosure_dimensions'),
+                    panel_code=code, panel_name=metadata.get('panel_name') or group[0].get('panel_name'),
+                    per_panel=True, progress_callback=progress_callback,
+                    source_configuration=source_configuration)
+                results.append({'panel_code': code, **result})
+            ready = all(r.get('cad_status') == 'ready' for r in results)
+            blockers = [r['panel_code'] + ': ' + message for r in results for message in r.get('cad_blockers', [])]
+            merged = {**results[0], 'success': ready, 'status': 'complete' if ready else 'needs_review',
+                      'cad_status': 'ready' if ready else 'needs_review', 'cad_blockers': blockers,
+                      'cad_file': next((r['cad_file'] for r in results if r.get('cad_file')), None),
+                      'cad_files': [r['cad_file'] for r in results if r.get('cad_file')],
+                      'panel_designs': results, 'quotation_file': None,
+                      'quotation_rows': [row for r in results for row in r.get('quotation_rows', [])],
+                      'devices': [row for r in results for row in r.get('devices', [])]}
+            if latest:
+                conf = dict(latest.confidence_scores or {})
+                conf.update(design_result={k: merged[k] for k in ('success', 'status', 'cad_status', 'cad_blockers')},
+                            quotation_rows=merged['quotation_rows'], source_configuration=source_configuration,
+                            panel_designs={r['panel_code']: {k: r.get(k) for k in
+                                ('cad_file', 'cad_status', 'cad_blockers', 'enclosure_spec', 'cad_layout')} for r in results})
+                latest.confidence_scores = conf
+                if quotation_configuration:
+                    from app.services.ai.quotation_configuration import schematic_devices
+                    latest.ai_parsed_devices = schematic_devices(latest.ai_parsed_devices or [])
+                    conf['design_devices'] = merged['devices']
+                    latest.confidence_scores = conf
+                else:
+                    latest.ai_parsed_devices = merged['devices']
+                await db.commit()
+            return merged
+
         requested_preference = str(brand_preference or "").strip()
         resolved_brand_pref = (
             settings.DEFAULT_BRAND
@@ -3256,7 +3358,11 @@ Chỉ trả một JSON hợp lệ, không markdown:
         )
 
         from app.services.ai.auxiliary_devices import expand_devices
+        from app.services.cad.catalogtb_assets import assets as live_cad_assets
+        live_cad_assets(refresh=True)
         devices = expand_devices(devices)
+        from app.services.cad.automatic_selection import select_device_geometry
+        devices = [select_device_geometry(d) for d in devices]
         # 1. Chuẩn hóa thiết bị sang ExtractedDeviceSchema
         extracted_devices: List[ExtractedDeviceSchema] = []
         for d in devices:
@@ -3265,6 +3371,9 @@ Chỉ trả một JSON hợp lệ, không markdown:
             elif isinstance(d, dict):
                 extracted_devices.append(ExtractedDeviceSchema(
                     cad=d.get("cad"),
+                    mounting_face=d.get('mounting_face') or d.get('owner_face'),
+                    source_observations=d.get('source_observations'),
+                    original_spec=d.get('original_spec'),
                     dimensions=d.get("dimensions"),
                     category=d.get("category", "Thiết bị"),
                     name=d.get("name", "Thiết bị"),
@@ -3390,7 +3499,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
             # A generic symbol does not establish an exact catalog model.
             # Preserve circuit evidence and leave the quote unpriced for review.
             if not dev.part_number or not catalog_engine.get_by_sku(dev.part_number):
-                dev.part_number = ""
+                if dev.selection_source != 'approved_quotation':
+                    dev.part_number = ""
                 dev.technical_match_note = (
                     "Chưa xác định được mã catalog từ thông số và chức năng mạch; "
                     "cần chọn thiết bị trước khi chốt đơn giá."
@@ -3495,13 +3605,15 @@ Chỉ trả một JSON hợp lệ, không markdown:
         cad_layout = None
         try:
             if enclosure_spec.get('sizing_status') == 'needs_review':
-                raise ValueError('Thiếu kích thước catalog và layout đã xác nhận')
+                raise ValueError(enclosure_spec.get('sizing_note') or 'Chưa đủ kích thước thiết bị để bố trí và chọn form tự động')
             source_cad = SourceProjectGenerator.generate(
                 project_id=project.id,
                 output_dir=getattr(settings, "PROJECTS_DIR", "storage/projects"),
                 dimensions=tuple(enclosure_spec["fit_check"]["minimum_required"][axis] for axis in ("height", "width", "depth")),
                 devices=[d.model_dump() for d in extracted_devices],
-                kind=("outdoor" if any(token in str(panel_name or "").lower() for token in ("ngoài trời", "outdoor")) else "indoor"),
+                kind=("outdoor" if any(token in (
+                    str(panel_name or '') + ' ' + str((quotation_panel or {}).get('enclosure_observation', {}).get('original_text') or '')
+                ).lower() for token in ("ngoài trời", "outdoor")) else "indoor"),
             )
             cad_file_path = source_cad["path"]
             cad_layout = {key: source_cad[key] for key in ("template_id", "source", "dimensions", "minimum_required", "placements", "unmatched_devices", "status", "release_ready")}
@@ -3526,7 +3638,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 }
             except (ValueError, TypeError, OSError):
                 enclosure_spec['source_form_review'] = {'status': 'needs_review', 'reason': str(exc), 'candidates': []}
-            await emit_progress("cad_review", 75, f"Cần chọn form tủ nguồn: {exc}")
+            await emit_progress("cad_review", 75, f"Chưa đủ dữ liệu để bố trí và chọn form tự động: {exc}")
             # Explicitly selected CatalogTB geometry can still produce a review
             # drawing, without presenting it as an approved fabrication layout.
             if detected_dimensions and extracted_devices and all(
@@ -3552,7 +3664,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
         await emit_progress(
             "cad_ready",
             75,
-            ("Đã xuất CAD rà soát, chưa duyệt chế tạo" if cad_layout and cad_layout.get("status")=="reference_layout_needs_review" else "Đã chọn form CAD nguồn") if cad_file_path else "Chưa xuất CAD: cần xác nhận form nguồn",
+            ("Đã xuất CAD rà soát, chưa duyệt chế tạo" if cad_layout and cad_layout.get("status")=="reference_layout_needs_review" else "Đã chọn form CAD nguồn") if cad_file_path else "Chưa xuất CAD: dữ liệu thiết bị hoặc bố trí chưa đủ",
             filename=dxf_filename,
             file_size=dxf_size,
         )
@@ -3607,6 +3719,12 @@ Chỉ trả một JSON hợp lệ, không markdown:
             panel_code=detected_panel_code,
             panel_name=detected_panel_name
         )
+        if quotation_configuration:
+            # The supplied quote has panel package prices, not device unit prices.
+            # Preserve them as source offers; never distribute them across BOM rows.
+            for row in quotation_rows:
+                row.update(unit_price=None, total_price=None, price_status='unpriced')
+            enclosure_spec['quotation_source'] = quotation_configuration
         if cad_layout and cad_layout.get('material_rows'):
             # Replace the reference neutral item with the material generated by layout.
             neutral_names={d.name for d in extracted_devices if d.category=='N'}
@@ -3621,69 +3739,17 @@ Chỉ trả một JSON hợp lệ, không markdown:
             if cp and isinstance(cp, dict):
                 technical_proposals.append(cp)
 
-        # 6. Tạo file Excel báo giá dự toán chính thức (.xlsx)
+        # Excel is created only when the user downloads a completed design quote.
         excel_file_info = None
-        try:
-            await emit_progress("excel", 88, "Đang xuất file báo giá Excel")
-            excel_path = QuotationExporterService.export(
-                devices=quotation_rows if quotation_rows else [d.model_dump() for d in extracted_devices],
-                project_name=project.name,
-                brand_preference=resolved_brand_pref,
-                proposals=technical_proposals,
-                filename_suffix=detected_panel_code if per_panel else None,
-            )
-            if os.path.exists(excel_path):
-                excel_filename = os.path.basename(excel_path)
-                excel_size = os.path.getsize(excel_path)
-
-                # Dọn dẹp bản ghi Excel cũ
-                # Báo giá từng tủ chỉ thay phiên bản cũ của chính tủ đó.
-                # Báo giá tổng vẫn giữ hành vi dọn các bản tổng cũ như trước đây.
-                excel_prefix = excel_filename.rsplit("_", 2)[0]
-                old_excel_pattern = f"{excel_prefix}_%" if per_panel else "BaoGia_%"
-                old_excel_stmt = select(ProjectFile).where(
-                    ProjectFile.project_id == project.id,
-                    ProjectFile.filename.like(old_excel_pattern),
-                    ProjectFile.filename != excel_filename
-                )
-                old_excels = (await db.execute(old_excel_stmt)).scalars().all()
-                for oe in old_excels:
-                    if oe.file_path and os.path.exists(oe.file_path):
-                        try:
-                            os.remove(oe.file_path)
-                        except Exception:
-                            pass
-                    await db.delete(oe)
-
-                # Ghi nhận file Excel vào ProjectFile
-                excel_stmt = select(ProjectFile).where(
-                    ProjectFile.project_id == project.id,
-                    ProjectFile.filename == excel_filename
-                )
-                excel_file = (await db.execute(excel_stmt)).scalars().first()
-                if not excel_file:
-                    excel_file = ProjectFile(
-                        project_id=project.id,
-                        filename=excel_filename,
-                        file_path=excel_path,
-                        file_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                        file_size=excel_size,
-                        is_generated=True
-                    )
-                    db.add(excel_file)
-                else:
-                    excel_file.file_path = excel_path
-                    excel_file.file_size = excel_size
-                    excel_file.is_generated = True
-
-                excel_file_info = {
-                    "id": excel_file.id if excel_file else 0,
-                    "filename": excel_filename,
-                    "file_path": excel_path,
-                    "file_size": excel_size
-                }
-        except Exception as ex_excel:
-            logger.warning(f"Lỗi tạo file Excel báo giá trong generate_cad_and_quotation: {ex_excel}")
+        from app.services.cad.output_status import output_status
+        if cad_layout is not None:
+            from app.services.ai.source_reconciliation import reconcile_devices
+            cad_layout['source_reconciliation'] = reconcile_devices([d.model_dump() for d in extracted_devices])
+        design_result = output_status(cad_file, None, cad_layout, layout_conflicts,
+                                      devices=[d.model_dump() for d in extracted_devices])
+        await emit_progress('quotation', 88,
+                            'Thiết kế hoàn tất; đã mở phần báo giá' if design_result['success']
+                            else 'Thiết kế chưa hoàn tất; chưa mở phần báo giá')
 
         technical_audit = AnalysisPipelineService._build_technical_audit(
             extracted_devices=extracted_devices,
@@ -3708,6 +3774,12 @@ Chỉ trả một JSON hợp lệ, không markdown:
             latest_iter = iter_res.scalars().first()
             if latest_iter:
                 conf = dict(latest_iter.confidence_scores or {})
+                conf['source_configuration'] = source_configuration
+                conf["design_result"] = design_result
+                conf['design_result']['cad_file'] = {
+                    'id': cad_file.id, 'filename': dxf_filename, 'file_path': cad_file_path,
+                    'file_size': dxf_size} if cad_file else None
+                conf["cad_layout"] = cad_layout
                 conf["quotation_rows"] = quotation_rows
                 if per_panel:
                     quotation_rows_by_panel = dict(conf.get("quotation_rows_by_panel") or {})
@@ -3725,14 +3797,20 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     "spec_title": busbar_calc.spec_title,
                     "need_busbar": need_busbar
                 } if busbar_calc else None
-                latest_iter.confidence_scores = conf
                 updated_devices = [d.model_dump() for d in extracted_devices]
-                if per_panel:
+                if quotation_configuration:
+                    from app.services.ai.quotation_configuration import schematic_devices
+                    latest_iter.ai_parsed_devices = schematic_devices(latest_iter.ai_parsed_devices or [])
+                    other_devices = [d for d in (conf.get('design_devices') or latest_iter.ai_parsed_devices or [])
+                                     if d.get('panel_code') != detected_panel_code] if per_panel else []
+                    conf['design_devices'] = other_devices + updated_devices
+                elif per_panel:
                     other_devices = [d for d in (latest_iter.ai_parsed_devices or [])
                                      if d.get('panel_code') != detected_panel_code]
                     latest_iter.ai_parsed_devices = other_devices + updated_devices
                 else:
                     latest_iter.ai_parsed_devices = updated_devices
+                latest_iter.confidence_scores = conf
                 db.add(latest_iter)
 
         await db.commit()
@@ -3743,10 +3821,13 @@ Chỉ trả một JSON hợp lệ, không markdown:
             excel_file_info["id"] = excel_file.id
 
         await emit_progress("published", 100,
-                            "Đã lưu CAD rà soát và báo giá vào dự án" if cad_file
-                            else "Đã lưu danh mục hỏi giá; CAD chưa tạo được")
+                            "Đã lưu thiết kế; báo giá sẵn sàng tải xuống" if design_result["success"]
+                            else "Thiết kế chưa hoàn tất; chưa mở phần báo giá")
 
         from app.services.cad.output_status import output_status
+        if cad_layout is not None:
+            from app.services.ai.source_reconciliation import reconcile_devices
+            cad_layout['source_reconciliation'] = reconcile_devices([d.model_dump() for d in extracted_devices])
         return {
             **output_status(cad_file, excel_file_info, cad_layout, layout_conflicts,
                             reason=enclosure_spec.get('sizing_note') or (enclosure_spec.get('source_form_review') or {}).get('reason'),
@@ -3773,5 +3854,6 @@ Chỉ trả một JSON hợp lệ, không markdown:
             "physical_layout": physical_layout,
             "layout_conflicts": layout_conflicts,
             "technical_audit": technical_audit,
-            "devices": [d.model_dump() for d in extracted_devices]
+            "devices": [d.model_dump() for d in extracted_devices],
+            "source_configuration": source_configuration
         }

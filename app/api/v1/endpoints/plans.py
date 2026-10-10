@@ -86,6 +86,9 @@ async def subscribe_plan(
     if not plan:
         raise HTTPException(status_code=404, detail="Gói cước không tồn tại hoặc đã tạm dừng cung cấp")
 
+    if plan.price > 0:
+        raise HTTPException(403, "Gói trả phí phải được kích hoạt qua thanh toán đã xác thực.")
+
     now = datetime.now(timezone.utc)
     duration_days = plan.duration_months * 30
     ends_at = now + timedelta(days=duration_days)

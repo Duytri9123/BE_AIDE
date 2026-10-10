@@ -2,7 +2,7 @@ import os
 import uuid
 import json
 import asyncio
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Literal
 from pydantic import BaseModel
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import StreamingResponse
@@ -48,105 +48,33 @@ from app.api.v1.endpoints.workspace_library import router as workspace_library_r
 router.include_router(workspace_library_router)
 
 
-def _build_analysis_result_schema(
-    session_id: Any,
-    iteration_number: int,
-    raw_devices: List[Any],
-    conf_scores: Optional[dict] = None,
-    iteration_id: Optional[int] = None,
-    cad_file_info: Optional[dict] = None,
-    quotation_file_info: Optional[dict] = None,
-    enclosure_spec: Optional[dict] = None,
-) -> AnalysisResultSchema:
-    conf = conf_scores or {}
-    panel_images: Dict[str, str] = {}
-    cleaned_devices = []
+async def _enqueue_request(kind, payload, db, current_user):
+    from app.services import job_queue
+    user_id = current_user.id
+    if kind == 'analysis' and current_user.tokens <= 0:
+        raise HTTPException(402,'Tài khoản không còn token phân tích.')
+    project = (await db.execute(select(Project).where(Project.id==payload.project_id,
+                Project.user_id==user_id,Project.deleted_at.is_(None)))).scalar_one_or_none()
+    if project is None:
+        raise HTTPException(404,'Dự án không tồn tại.')
+    if kind == 'analysis' and payload.file_id:
+        file = (await db.execute(select(ProjectFile.id).where(ProjectFile.id==payload.file_id,
+                      ProjectFile.project_id==project.id))).scalar_one_or_none()
+        if file is None:
+            raise HTTPException(404,'Tệp nguồn không thuộc dự án.')
+    job_id = await job_queue.enqueue(kind,project.id,user_id,payload.model_dump(mode='json'))
+    # Release SQL connections before a long-lived stream waits on the worker.
+    await db.close()
+    return job_id
 
-    from app.services.ai.auxiliary_devices import expand_devices
-    for d in expand_devices(raw_devices):
-        payload = dict(d) if isinstance(d, dict) else (d.model_dump() if hasattr(d, "model_dump") else dict(d))
-        payload.setdefault("category", "Thiết bị")
-        payload.setdefault("name", "Thiết bị")
-        payload.setdefault("spec", "")
-        payload.setdefault("quantity", 1)
-        payload.setdefault("confidence", 0.95)
 
-        # Deduplicate massive base64 panel_evidence_image to keep payload light
-        p_img = payload.get("panel_evidence_image")
-        if p_img and len(p_img) > 100:
-            filename = payload.get("source_filename")
-            page = payload.get("source_page")
-            key = (f"{filename}::page::{page}" if filename and page is not None
-                   else filename or payload.get("panel_code") or "default")
-            if key not in panel_images:
-                panel_images[key] = p_img
-            if "default" not in panel_images:
-                panel_images["default"] = p_img
-            payload["panel_evidence_image"] = None
+def _queued_stream(job_id):
+    from app.services.job_queue import events
+    return StreamingResponse(events(job_id),media_type='text/event-stream',headers={
+        'Cache-Control':'no-cache','X-Accel-Buffering':'no','X-Task-ID':job_id})
 
-        cleaned_devices.append(ExtractedDeviceSchema.model_validate(payload))
 
-    # Capture any existing panel_images map
-    if isinstance(conf.get("panel_images"), dict):
-        for k, v in conf["panel_images"].items():
-            if k not in panel_images:
-                panel_images[k] = v
-
-    enc_spec = enclosure_spec or conf.get("enclosure_spec")
-    if not enc_spec:
-        enc_devs = [
-            {k: v for k, v in d.model_dump().items() if k not in ("evidence_image", "panel_evidence_image")}
-            for d in cleaned_devices
-        ]
-        try:
-            enc_spec = EnclosureCadGeneratorService.calculate_enclosure_specs(enc_devs)
-        except ValueError as exc:
-            enc_spec = {"status": "needs_dimensions", "review_note": str(exc)}
-    elif isinstance(enc_spec, dict) and "branch_rows" in enc_spec:
-        clean_rows = []
-        for row in enc_spec["branch_rows"]:
-            if isinstance(row, list):
-                clean_rows.append([
-                    {k: v for k, v in b.items() if k not in ("evidence_image", "panel_evidence_image")}
-                    if isinstance(b, dict) else b
-                    for b in row
-                ])
-            else:
-                clean_rows.append(row)
-        enc_spec = {**enc_spec, "branch_rows": clean_rows}
-
-    return AnalysisResultSchema(
-        session_id=session_id,
-        iteration_id=iteration_id,
-        iteration_number=iteration_number,
-        devices=cleaned_devices,
-        warnings=conf.get("warnings", []),
-        topology_preview={
-            "incomer_a": enc_spec.get("incomer_rating", settings.DEFAULT_INCOMER_RATING) if enc_spec else settings.DEFAULT_INCOMER_RATING,
-            "feeders_count": len(cleaned_devices)
-        },
-        enclosure_spec=enc_spec,
-        panel_images=panel_images,
-        evidence_overviews=conf.get("evidence_overviews") or {},
-        cad_file=cad_file_info,
-        quotation_file=quotation_file_info,
-        quotation_rows=conf.get("quotation_rows") or [],
-        technical_proposals=conf.get("technical_proposals") or [],
-        conclusion=conf.get("conclusion"),
-        panel_info=conf.get("panel_info"),
-        panels=conf.get("panels") or [],
-        technical_audit=conf.get("technical_audit"),
-        file_assessment=conf.get("file_assessment") or {},
-        files_assessment=conf.get("files_assessment") or [],
-        circuit_assessment=conf.get("circuit_assessment") or {},
-        overall_assessment=conf.get("overall_assessment") or {},
-        execution_logs=conf.get("execution_logs") or [],
-        process_steps=conf.get("process_steps") or [],
-        physical_layout=conf.get("physical_layout"),
-        layout_conflicts=conf.get("layout_conflicts") or [],
-        analysis_mode=conf.get("analysis_mode", "sld_takeoff"),
-        log_version=conf.get("log_version", 2),
-    )
+from app.services.ai.analysis_result import _build_analysis_result_schema
 
 
 @router.post("/start", response_model=AnalysisResultSchema)
@@ -159,6 +87,10 @@ async def start_analysis(
     Bắt đầu bóc tách thiết bị từ bản vẽ dự án (CAD DXF/DWG, PDF, Ảnh).
     Sử dụng pipeline dịch vụ AnalysisPipelineService kết hợp tra cứu Catalog thực tế.
     """
+    if settings.QUEUE_ANALYSIS_ENABLED:
+        from app.services.job_queue import wait_result
+        return await wait_result(await _enqueue_request('analysis',request,db,current_user))
+
     # 1. Tìm thông tin project và các file đính kèm
     proj_stmt = select(Project).where(
         Project.id == request.project_id,
@@ -334,6 +266,9 @@ async def stream_analysis(
     Phát trực tiếp tiến trình từng trang, các sự kiện log thực tế và danh sách thiết bị
     ngay khi mỗi trang phân tích hoàn tất (không bắt người dùng chờ hết toàn bộ tệp).
     """
+    if settings.QUEUE_ANALYSIS_ENABLED:
+        return _queued_stream(await _enqueue_request('analysis',request,db,current_user))
+
     proj_stmt = select(Project).where(Project.id == request.project_id, Project.user_id == current_user.id)
     proj_res = await db.execute(proj_stmt)
     project = proj_res.scalar_one_or_none()
@@ -540,6 +475,7 @@ async def stream_analysis(
 
 class GenerateQuotationCadRequest(BaseModel):
     project_id: int
+    source_configuration: Literal['schematic', 'quotation'] = 'schematic'
     brand_preference: Optional[str] = None
     devices: Optional[List[Dict[str, Any]]] = None
     user_prompt: Optional[str] = None
@@ -561,6 +497,10 @@ async def generate_quotation_and_cad(
     2. Dựng bản vẽ AutoCAD DXF 4 hình chiếu và lưu vào tệp dự án (ProjectFile).
     3. Lập bảng báo giá chi tiết hoàn chỉnh.
     """
+    if settings.QUEUE_ANALYSIS_ENABLED:
+        from app.services.job_queue import wait_result
+        return await wait_result(await _enqueue_request('cad',payload,db,current_user))
+
     proj_stmt = select(Project).where(Project.id == payload.project_id, Project.user_id == current_user.id)
     proj_res = await db.execute(proj_stmt)
     project = proj_res.scalar_one_or_none()
@@ -592,6 +532,7 @@ async def generate_quotation_and_cad(
         devices=devices,
         brand_preference=payload.brand_preference or settings.DEFAULT_BRAND,
         user_prompt=payload.user_prompt,
+        source_configuration=payload.source_configuration,
         enclosure_dimensions=payload.enclosure_dimensions,
         panel_code=payload.panel_code,
         panel_name=payload.panel_name,
@@ -608,6 +549,8 @@ async def stream_generate_quotation_and_cad(
     current_user: User = Depends(get_current_active_user),
 ):
     """Stream real milestones produced by the CAD/quotation pipeline over SSE."""
+    if settings.QUEUE_ANALYSIS_ENABLED:
+        return _queued_stream(await _enqueue_request('cad',payload,db,current_user))
     proj_stmt = select(Project).where(Project.id == payload.project_id, Project.user_id == current_user.id)
     project = (await db.execute(proj_stmt)).scalar_one_or_none()
     if not project:
@@ -639,6 +582,7 @@ async def stream_generate_quotation_and_cad(
                 devices=devices,
                 brand_preference=payload.brand_preference or settings.DEFAULT_BRAND,
                 user_prompt=payload.user_prompt,
+                source_configuration=payload.source_configuration,
                 enclosure_dimensions=payload.enclosure_dimensions,
                 panel_code=payload.panel_code,
                 panel_name=payload.panel_name,
@@ -1331,106 +1275,37 @@ async def analyze_prompt(
 # ---------------------------------------------------------------------------
 
 @router.post("/async-start")
-async def start_analysis_async(
-    request: AnalyzeStartRequest,
-    db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_active_user),
-):
-    """
-    Đẩy tác vụ bóc tách dự án vào hàng đợi Celery chạy nền qua Redis.
-    Trả về ngay task_id để client theo dõi tiến độ thời gian thực (% tiến độ).
-    """
-    proj_stmt = select(Project).where(Project.id == request.project_id, Project.user_id == current_user.id)
-    proj_res = await db.execute(proj_stmt)
-    project = proj_res.scalar_one_or_none()
-    if not project:
-        raise HTTPException(status_code=404, detail="Dự án không tồn tại")
-
-    try:
-        task = analyze_project_async_task.delay(
-            project_id=request.project_id,
-            user_id=current_user.id,
-            file_id=request.file_id,
-            user_prompt=request.user_prompt,
-            fallback_to_standard_template=bool(request.fallback_to_standard_template),
-        )
-        return {
-            "success": True,
-            "task_id": task.id,
-            "status": "PENDING",
-            "project_id": request.project_id,
-            "message": "Đã tiếp nhận yêu cầu bóc tách vào hàng đợi Celery (Redis Broker)."
-        }
-    except Exception as e:
-        logger.error(f"Lỗi khi gửi task vào Celery: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"Không thể khởi chạy tác vụ ngầm: {str(e)}")
+async def start_analysis_async(request: AnalyzeStartRequest,
+    db: AsyncSession = Depends(get_db),current_user: User = Depends(get_current_active_user)):
+    job_id = await _enqueue_request('analysis',request,db,current_user)
+    return {'success':True,'task_id':job_id,'status':'PENDING','project_id':request.project_id,
+            'message':'Đã tiếp nhận yêu cầu vào hàng đợi.'}
 
 
 @router.get("/task/{task_id}")
-async def get_analysis_task_status(
-    task_id: str,
-    current_user: User = Depends(get_current_active_user),
-):
-    """
-    Tra cứu trạng thái và tiến độ xử lý của tác vụ bóc tách Celery qua Redis Backend.
-    """
-    task = AsyncResult(task_id, app=celery_app)
-    state = task.state
-
-    if state == "PENDING":
-        return {
-            "task_id": task_id,
-            "status": "PENDING",
-            "progress": 0,
-            "message": "Đang xếp hàng chờ worker tiếp nhận..."
-        }
-    elif state == "PROGRESS":
-        info = task.info if isinstance(task.info, dict) else {}
-        return {
-            "task_id": task_id,
-            "status": "PROGRESS",
-            "progress": info.get("progress", 0),
-            "stage": info.get("stage", ""),
-            "message": info.get("message", "Đang xử lý...")
-        }
-    elif state == "SUCCESS":
-        return {
-            "task_id": task_id,
-            "status": "SUCCESS",
-            "progress": 100,
-            "message": "Bóc tách hoàn tất thành công!",
-            "result": task.result
-        }
-    elif state == "FAILURE":
-        return {
-            "task_id": task_id,
-            "status": "FAILURE",
-            "progress": 0,
-            "error": str(task.info) if task.info else "Đã xảy ra lỗi trong quá trình xử lý ngầm."
-        }
-    else:
-        return {
-            "task_id": task_id,
-            "status": state,
-            "progress": 50 if state == "STARTED" else 0,
-            "message": f"Trạng thái hiện tại: {state}"
-        }
+async def get_analysis_task_status(task_id: str,current_user: User = Depends(get_current_active_user)):
+    from app.services.job_queue import owned_job
+    info = await owned_job(task_id,current_user.id)
+    result = {'task_id':task_id,'status':info['status'],
+              'progress':int(info.get('progress') or 0),'stage':info.get('stage'),
+              'message':info.get('message') or 'Đang chờ xử lý'}
+    if info['status']=='SUCCESS':
+        result['progress']=100
+        result['result']=json.loads(info['result'])
+    elif info['status'] in ('FAILURE','CANCELLED'):
+        result['error']=info.get('message') or 'Tác vụ đã dừng.'
+    return result
 
 
 @router.post("/task/{task_id}/cancel")
-async def cancel_analysis_task(
-    task_id: str,
-    current_user: User = Depends(get_current_active_user),
-):
-    """
-    Hủy bỏ tác vụ Celery đang chạy ngầm.
-    """
-    try:
-        celery_app.control.revoke(task_id, terminate=True)
-        return {
-            "task_id": task_id,
-            "status": "CANCELLED",
-            "message": "Đã gửi lệnh hủy tác vụ thành công."
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Không thể hủy tác vụ: {str(e)}")
+async def cancel_analysis_task(task_id: str,current_user: User = Depends(get_current_active_user)):
+    from app.services.job_queue import owned_job,PREFIX
+    import redis.asyncio as async_redis
+    info = await owned_job(task_id,current_user.id)
+    if info['status'] in ('SUCCESS','FAILURE','CANCELLED'):
+        return {'task_id':task_id,'status':info['status']}
+    # Cooperative cancellation works with solo on Windows; terminate=True does not.
+    async with async_redis.from_url(settings.REDIS_URL,decode_responses=True,
+                                   socket_connect_timeout=2,socket_timeout=2) as client:
+        await client.hset(PREFIX+task_id,mapping={'cancel_requested':'1'})
+    return {'task_id':task_id,'status':'CANCELLING','message':'Đã yêu cầu dừng tác vụ.'}

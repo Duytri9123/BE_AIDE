@@ -4,6 +4,11 @@
 def output_status(cad_file, quotation_file, layout, conflicts=None, *, reason=None, devices=None):
     layout = layout or {}
     blockers = []
+    reconciliation=layout.get('source_reconciliation')
+    if cad_file and not reconciliation:
+        blockers.append('Chưa có kết quả đối chiếu nguồn theo từng thiết bị để xác nhận CAD hoàn tất.')
+    if reconciliation and not reconciliation.get('release_ready'):
+        blockers.append('Chưa giải quyết đối chiếu sơ đồ, báo giá và CAD: '+', '.join(reconciliation.get('unresolved_items') or reconciliation.get('unanalysed') or ['thiếu bằng chứng']))
     if not cad_file:
         blockers.append('Chưa lưu được file CAD thiết kế.')
         if reason:
@@ -11,8 +16,6 @@ def output_status(cad_file, quotation_file, layout, conflicts=None, *, reason=No
         unselected=[d.get('tag') or d.get('name') for d in (devices or []) if not (d.get('cad') or {}).get('asset_id')]
         if unselected:
             blockers.append('Cần ghép CAD cho thiết bị: '+', '.join(str(tag) for tag in unselected)+'.')
-    if not quotation_file:
-        blockers.append('Chưa lưu được file báo giá.')
     if layout.get('status') == 'reference_layout_needs_review':
         blockers.append('CAD nguồn đã bố trí; cần xác minh model, chiều sâu, đầu nối và điều kiện lắp đặt.')
     if cad_file and not layout.get('placements'):

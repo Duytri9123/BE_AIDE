@@ -1,19 +1,23 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from app.api.library_access import require_library_access, library_entitlement
 from .endpoints import analyze, analyze_multi_agent, bom, export, chat, user_library, auth, users, projects, devices, providers, admin_helpers, plans, payments
 from .endpoints import articles
 
 api_router = APIRouter()
+@api_router.get('/library-access',tags=['Library Access'])
+async def library_access_status(access=Depends(library_entitlement)):
+    return {**access, 'can_view': True, 'can_download': access['full_access']}
 api_router.include_router(articles.router, prefix="/articles", tags=["Articles"])
 from .endpoints import curated_library
-api_router.include_router(curated_library.router, prefix="/curated-library", tags=["Curated CAD Library"])
+api_router.include_router(curated_library.router, dependencies=[Depends(require_library_access)], prefix="/curated-library", tags=["Curated CAD Library"])
 from .endpoints import cad_library
-api_router.include_router(cad_library.router, prefix="/cad-library", tags=["CAD Library"])
+api_router.include_router(cad_library.router, dependencies=[Depends(require_library_access)], prefix="/cad-library", tags=["CAD Library"])
 from .endpoints import cabinet_templates
-api_router.include_router(cabinet_templates.router, prefix="/cabinet-templates", tags=["Cabinet Templates"])
+api_router.include_router(cabinet_templates.router, dependencies=[Depends(require_library_access)], prefix="/cabinet-templates", tags=["Cabinet Templates"])
 from .endpoints import catalog_prices
-api_router.include_router(catalog_prices.router, prefix="/catalog-prices", tags=["Catalog & Custom Prices"])
+api_router.include_router(catalog_prices.router, dependencies=[Depends(require_library_access)], prefix="/catalog-prices", tags=["Catalog & Custom Prices"])
 from .endpoints import equipment_library
-api_router.include_router(equipment_library.router, prefix="/equipment-library", tags=["Equipment Library 2026"])
+api_router.include_router(equipment_library.router, dependencies=[Depends(require_library_access)], prefix="/equipment-library", tags=["Equipment Library 2026"])
 from .endpoints import ads
 api_router.include_router(ads.router, prefix="/ads", tags=["Ads"])
 
@@ -22,7 +26,7 @@ api_router.include_router(users.router, prefix="/users", tags=["Users"])
 api_router.include_router(plans.router, prefix="/plans", tags=["Plans"])
 api_router.include_router(payments.router, prefix="/payments", tags=["Payments"])
 api_router.include_router(projects.router, prefix="/projects", tags=["Projects"])
-api_router.include_router(devices.router, prefix="/device-library", tags=["Devices"])
+api_router.include_router(devices.router, dependencies=[Depends(require_library_access)], prefix="/device-library", tags=["Devices"])
 api_router.include_router(analyze.router, prefix="/analyze", tags=["Analyze"])
 api_router.include_router(analyze_multi_agent.router, prefix="/analyze", tags=["Multi-Agent Analyze"])
 api_router.include_router(bom.router, prefix="/bom", tags=["BOM"])

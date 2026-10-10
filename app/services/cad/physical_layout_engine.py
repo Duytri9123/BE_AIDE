@@ -59,15 +59,22 @@ class PhysicalLayoutEngine:
         in_a = float(device.get("in_a") or 0)
         section = str(device.get("section") or "").upper()
 
+        # Project face evidence overrides general device mounting defaults.
+        face = device.get('mounting_face') or device.get('owner_face')
+        if face == 'inner_door':
+            return MountingType.INNER_COVER_MOUNTED
+        if face == 'outer_door':
+            return MountingType.DOOR_MOUNTED
+
         # 1. DOOR_MOUNTED: Thiết bị gắn trên cánh tủ ngoài
-        if any(k in cat for k in ["METER", "LIGHT", "PILOT", "HMI", "BUTTON", "SWITCH"]) or \
+        if any(k in cat for k in ["METER", "LIGHT", "PILOT", "HMI", "BUTTON", "SWITCH", "SELECTOR"]) or \
            any(k in name for k in ["ĐỒNG HỒ", "ĐÈN BÁO", "CHUYỂN MẠCH", "NÚT NHẤN", "VOLT", "AMPE", "MFM", "KHOA"]):
             # Ngoại trừ biến dòng CT (CT xỏ lỗ gắn trên busbar hoặc thanh cáp)
-            if "CT" not in cat and "BIẾN DÒNG" not in name:
+            if cat != "CT" and "BIẾN DÒNG" not in name:
                 return MountingType.DOOR_MOUNTED
 
         # 2. BUSBAR_MOUNTED: Gắn trên hệ thanh cái đồng
-        if any(k in cat for k in ["BUSBAR", "CT"]) or any(k in name for k in ["THANH CÁI", "BIẾN DÒNG", "ĐỒNG THANH"]):
+        if cat in ("BUSBAR", "CT") or any(k in name for k in ["THANH CÁI", "BIẾN DÒNG", "ĐỒNG THANH"]):
             return MountingType.BUSBAR_MOUNTED
 
         # 3. CABINET_MOUNTED: Cố định vào kết cấu khung vỏ tủ
@@ -115,14 +122,14 @@ class PhysicalLayoutEngine:
         combined = f"{raw_name} {raw_notes}".upper()
 
         # Tìm kiếm các mẫu tag phổ biến trên bản vẽ kỹ thuật (ví dụ: QF1, 1M, M1, MCCB-01, CB-1, KM1, KT1...)
-        m_tag = re.search(r'\b(QF\d+|KM\d+|KT\d+|HL\d+|PA\d+|PV\d+|PI\d+|FU\d+|TB\d+|MCB\d+|MCCB\d+|M\d+|\d+M)\b', combined)
+        m_tag = re.search(r'\b(QF\d+|KM\d+|KT\d+|HL\d+|PA\d+|PV\d+|PI\d+|FU\d+|TB\d+|MCB\d+|MCCB\d+|L\d+(?:/[RYBST])?|M\d+|\d+M)\b', combined)
         if m_tag:
             return m_tag.group(1)
 
         # Nếu không có tag sẵn trên bản vẽ, sinh tag kỹ thuật chuẩn IEC
         if role == ElectricalFunction.INCOMING or "INCOMER" in combined or "TỔNG" in combined:
             return "QF1"
-        elif "ACB" in cat or "MCCB" in cat or "MCB" in cat or "RCBO" in cat:
+        elif cat == 'CB' or "ACB" in cat or "MCCB" in cat or "MCB" in cat or "RCBO" in cat:
             return f"QF{index + 1}"
         elif "CONTACTOR" in cat or "KHỞI ĐỘNG TỪ" in combined:
             return f"KM{index + 1}"
@@ -136,6 +143,8 @@ class PhysicalLayoutEngine:
             return f"TA{index + 1}"
         elif "LIGHT" in cat or "ĐÈN" in combined:
             return f"HL{index + 1}"
+        elif cat == 'SELECTOR' or 'CHUYỂN MẠCH' in combined:
+            return f"VS{index + 1}"
         elif "VOLT" in combined or "VÔN" in combined:
             return "PV1"
         elif "AMPE" in combined:
@@ -144,9 +153,9 @@ class PhysicalLayoutEngine:
             return "PI1"
         elif "TERMINAL" in cat or "DOMINO" in combined:
             return "TB1"
-        elif "PE" in combined or "TIẾP ĐỊA" in combined:
+        elif cat == 'PE' or re.search(r'\bPE\b', combined) or "TIẾP ĐỊA" in combined:
             return "PE"
-        elif "N" in combined or "TRUNG TÍNH" in combined:
+        elif cat == 'N' or re.search(r'\bN\b', combined) or "TRUNG TÍNH" in combined:
             return "N"
 
         return f"D{index + 1}"
@@ -269,7 +278,7 @@ class PhysicalLayoutEngine:
             pass
 
         # 4. Mặc định cho thiết bị custom chưa xác định được trong catalog (tránh crash layout)
-        raise ValueError(f"Missing device dimensions in catalog: {part_number or name or cat}")
+        raise ValueError(f"Chưa xác định đủ bao hình CAD cho {part_number or name or cat}; cần ghép đúng mã, mặt và chiều sâu trong thư viện nguồn.")
 
     @staticmethod
     def generate_busbar_svg(width: float, height: float, phase: str, label: str = "") -> str:

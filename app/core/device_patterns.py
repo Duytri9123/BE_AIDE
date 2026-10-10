@@ -96,7 +96,7 @@ class DevicePatterns:
     )
     
     CT_PATTERN = re.compile(
-        r"\b(CT|C\.T|Current[\s\-]?Transformer|Biến[\s\-]?dòng)" + SEP +
+        r"\b(CT\b|C\.T\b|Current[\s\-]?Transformer|Biến[\s\-]?dòng)" + SEP +
         r"(?:(\d+)/(\d+))?" + SEP +  # Ratio like 100/5
         r"(?:Class" + SEP + r"([\d\.]+))?",  # Accuracy class
         re.IGNORECASE

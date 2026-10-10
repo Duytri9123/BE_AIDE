@@ -23,18 +23,20 @@ async def lifespan(app: FastAPI):
     yield
     await engine.dispose()
 
-app = FastAPI(title=settings.PROJECT_NAME, version=settings.VERSION, lifespan=lifespan)
+app = FastAPI(title=settings.PROJECT_NAME, version=settings.VERSION, lifespan=lifespan,
+              docs_url='/docs' if settings.DEBUG and settings.EXPOSE_API_DOCS else None,
+              redoc_url='/redoc' if settings.DEBUG and settings.EXPOSE_API_DOCS else None,
+              openapi_url='/openapi.json' if settings.DEBUG and settings.EXPOSE_API_DOCS else None)
 
 from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
-app.add_middleware(ProxyHeadersMiddleware, trusted_hosts="*")
+app.add_middleware(ProxyHeadersMiddleware, trusted_hosts=['127.0.0.1', '::1'])
 
 # Filter out wildcard '*' from explicit origins when allow_credentials=True to satisfy Starlette CORS constraints
 cors_origins = [o.strip() for o in settings.CORS_ORIGINS if o.strip() != "*"] if isinstance(settings.CORS_ORIGINS, list) else []
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=cors_origins if cors_origins else ["*"],
-    allow_origin_regex=r"https?://.*",  # Hỗ trợ mọi domain Cloudflare Tunnel (*.trycloudflare.com, *.elquote.top, localhost)
+    allow_origins=cors_origins or ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://elquote.top', 'https://www.elquote.top'],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -50,6 +52,21 @@ if os.path.isdir(_admin_static):
 admin = create_admin(app, engine)
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
+
+@app.middleware('http')
+async def protect_private_library(request, call_next):
+    from fastapi.responses import JSONResponse
+    path = request.url.path.lower()
+    if path.startswith(('/data/', '/@fs/', '/src/', '/.git', '/.env')):
+        return JSONResponse({'detail': 'Not found'}, status_code=404)
+    response = await call_next(request)
+    if any(path.startswith(settings.API_V1_STR + '/' + name) for name in
+           ('library-access', 'equipment-library', 'cad-library', 'curated-library',
+            'cabinet-templates', 'device-library', 'catalog-prices')):
+        response.headers['Cache-Control'] = 'private, no-store'
+        response.headers['Vary'] = 'Authorization, Cookie, Origin'
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    return response
 # app.include_router(websocket_router, prefix="/ws")
 
 @app.get("/")

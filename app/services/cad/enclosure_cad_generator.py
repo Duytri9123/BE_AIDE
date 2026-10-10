@@ -111,6 +111,7 @@ class EnclosureCadGeneratorService:
         # Never infer this permission from missing geometry or a brand preference.
         cad = dev.get("cad") or {}
         if cad.get("representation") == "ls_native_reference":
+            raise ValueError("External LS reference disabled; select a CatalogTB CAD asset")
             # Only the two audited 2P states from the local LS library are
             # accepted here. Their block text is a source sample, not the SKU
             # rating; the selected rating remains in the device/BOM fields.

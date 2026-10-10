@@ -301,12 +301,14 @@ async def handle_sepay_webhook(
 
     # 1. Xác thực API Key nếu có cấu hình
     expected_api_key = cfg.get("api_key")
+    if not expected_api_key or not expected_api_key.strip():
+        raise HTTPException(503, "Webhook thanh toán chưa cấu hình xác thực.")
     if expected_api_key:
         auth_header = authorization or request.headers.get("authorization", "")
         # SePay gửi format: "Apikey <TOKEN>" hoặc "Bearer <TOKEN>" hoặc token thuần
         clean_token = auth_header.replace("Apikey ", "").replace("apikey ", "").replace("Bearer ", "").strip()
         if clean_token != expected_api_key.strip():
-            logger.warning(f"SePay Webhook rejected: Unauthorized token {auth_header}")
+            logger.warning("SePay Webhook rejected: invalid authentication")
             raise HTTPException(status_code=401, detail="Xác thực Webhook không hợp lệ")
 
     # 2. Chỉ xử lý tiền vào (transferType == "in")
@@ -483,6 +485,8 @@ async def simulate_test_payment_success(
     Giả lập chuyển khoản thành công từ ngân hàng để kiểm tra toàn bộ luồng
     Frontend & Backend mà không cần tốn tiền thật.
     """
+    if not settings.DEBUG or not (current_user.is_superuser or current_user.role == 'admin'):
+        raise HTTPException(403, 'Giả lập thanh toán chỉ dành cho quản trị trong môi trường phát triển.')
     stmt = select(Payment).where(Payment.id == payment_id)
     res = await db.execute(stmt)
     payment = res.scalar_one_or_none()

@@ -1,3 +1,4 @@
+from datetime import date
 from typing import Literal
 
 from fastapi import APIRouter, Depends, HTTPException, Query
@@ -16,6 +17,11 @@ class CabinetRequest(BaseModel):
     width: float = Field(gt=100, le=10000, allow_inf_nan=False)
     depth: float = Field(gt=100, le=10000, allow_inf_nan=False)
     name: str = Field(default='', max_length=80)
+    company_name: str = Field(default='', max_length=120)
+    customer_name: str = Field(default='', max_length=120)
+    designer_name: str = Field(default='', max_length=80)
+    drawing_date: date | None = None
+    logo_data: str | None = Field(default=None, max_length=1500000)
 
 
 @router.get('')
@@ -50,7 +56,12 @@ def list_template_catalog(kind: Literal['', 'indoor', 'outdoor', 'fire', 'unknow
 def generate_template(request: CabinetRequest):
     try:
         content = library.generate(request.template_id, dict(height=request.height, width=request.width,
-                                                             depth=request.depth), request.name.strip())
+                                                             depth=request.depth), request.name.strip(),
+                                   title_info=dict(company_name=request.company_name.strip(),
+                                                   customer_name=request.customer_name.strip(),
+                                                   designer_name=request.designer_name.strip(),
+                                                   drawing_date=request.drawing_date.strftime('%d/%m/%Y') if request.drawing_date else '',
+                                                   logo_data=request.logo_data))
         return Response(content, media_type='application/dxf', headers={'X-Cabinet-Template': request.template_id})
     except ValueError as exc:
         raise HTTPException(422, str(exc)) from exc

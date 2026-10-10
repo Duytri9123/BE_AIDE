@@ -50,7 +50,6 @@ class SourceProjectGenerator:
     @staticmethod
     def _place_devices(dxf, devices, dimensions, source_item):
         from app.services.cad.library_assets import requested_asset, insert_library_asset
-        from app.api.v1.endpoints.cad_library import download_layout
         doc = ezdxf.read(io.StringIO(dxf))
         source_doc = ezdxf.readfile(cabinet_templates.source_path(source_item))
         left, bottom, right, top = SourceProjectGenerator._interior_region(source_doc, dimensions, source_item)
@@ -58,13 +57,23 @@ class SourceProjectGenerator:
         missing = []
         for device in devices:
             from app.services.cad.physical_layout_engine import PhysicalLayoutEngine, MountingType
-            if PhysicalLayoutEngine.classify_mounting(device) == MountingType.DOOR_MOUNTED:
+            mounting = PhysicalLayoutEngine.classify_mounting(device)
+            face = device.get('mounting_face') or device.get('owner_face')
+            if not face and mounting in (MountingType.DOOR_MOUNTED, MountingType.INNER_COVER_MOUNTED):
                 raise ValueError('Cần vùng cánh tủ được xác nhận; không đặt thiết bị gắn cánh lên mặt trong.')
+            face = face or 'mounting_plate'
+            if face not in ('mounting_plate','inner_door','outer_door'):
+                raise ValueError('Mặt lắp thiết bị chưa được ánh xạ với form nguồn: '+str(face))
             linked, asset_id = requested_asset(device)
             if not linked or not asset_id:
                 missing.append(device.get('tag') or device.get('name') or '?')
                 continue
-            source = ezdxf.readfile(download_layout(asset_id).path)
+            if str(asset_id).startswith('tb:'):
+                from app.services.cad.catalogtb_assets import resolve
+                source = ezdxf.readfile(resolve(asset_id)['path'])
+            else:
+                from app.api.v1.endpoints.cad_library import download_layout
+                source = ezdxf.readfile(download_layout(asset_id).path)
             bounds = bbox.extents(source.modelspace())
             if not bounds.has_data:
                 missing.append(device.get('tag') or device.get('name') or '?')
@@ -78,7 +87,7 @@ class SourceProjectGenerator:
                 qty = instance_count(qty, asset)
                 width,height = _bounds(asset)
             for _ in range(qty):
-                entries.append((device, asset_id, width, height))
+                entries.append((device, asset_id, width, height, face))
         # Incoming protection first; then outgoing protection, then controls.
         def rank(entry):
             device = entry[0]
@@ -88,9 +97,19 @@ class SourceProjectGenerator:
             return (0 if incoming else 1 if cat in ('ACB', 'MCCB', 'MCB', 'RCBO', 'RCCB') else 2,
                     -float(device.get('in_a') or 0), str(device.get('tag') or ''))
         entries.sort(key=rank)
-        x, row_top, row_height = left, top, 0.0
+        regions={'mounting_plate':(left,bottom,right,top)}
+        for face in ('inner_door','outer_door'):
+            matches=[f for f in source_item.get('faces',[]) if f.get('kind')==face and f.get('clean_bounds')]
+            if len(matches)==1:
+                b=matches[0]['clean_bounds']
+                regions[face]=(b[0]+70,b[1]+100,b[2]-70,b[3]-100)
+        states={face:[b[0],b[3],0.0] for face,b in regions.items()}
         placements = []
-        for device, asset_id, width, height in entries:
+        for device, asset_id, width, height, face in entries:
+            if face not in regions:
+                raise ValueError('Form nguồn thiếu vùng xác nhận cho mặt '+face)
+            left,bottom,right,top=regions[face]
+            x,row_top,row_height=states[face]
             if width <= 0 or height <= 0 or width > right-left or height > top-bottom:
                 raise ValueError(f"Khối CAD {asset_id} không vừa vùng lắp đặt của form nguồn.")
             if x + width > right:
@@ -99,9 +118,13 @@ class SourceProjectGenerator:
                 raise ValueError('Các thiết bị CAD nguồn không đủ chỗ trên mặt trong tủ; cần form lớn hơn.')
             y = row_top - height
             insert_library_asset(doc.modelspace(), asset_id, x, y)
-            placements.append({'tag': device.get('tag'), 'asset_id': asset_id, 'x': x, 'y': y})
-            x += width + 35
+            placements.append({'tag': device.get('tag'), 'asset_id': asset_id, 'x': x, 'y': y,
+                               'mounting_face':face,'width':width,'height':height,
+                               'electrical_spec_verified':False})
+            gap=0 if str(device.get('category') or '').upper() in ('MCB','RCBO','RCCB') else 35
+            x += width + gap
             row_height = max(row_height, height)
+            states[face]=[x,row_top,row_height]
         doc.update_extents()
         stream = io.StringIO()
         doc.write(stream)
@@ -131,22 +154,31 @@ class SourceProjectGenerator:
         ))
         eligible = fitting or [item for item in matches if item["can_generate"]]
         match = None
+        attempted_forms = []
+        prepared = None
         for candidate in eligible:
-            if devices:
-                try:
+            try:
+                candidate_dimensions = candidate['dimensions'] if candidate in fitting else requested
+                candidate_dxf = cabinet_templates.generate(candidate['id'], candidate_dimensions, product_name=product_name)
+                candidate_placements, candidate_missing = [], []
+                if devices:
                     source_doc = ezdxf.readfile(cabinet_templates.source_path(candidate))
-                    SourceProjectGenerator._interior_region(source_doc, candidate["dimensions"], candidate)
-                except ValueError:
-                    continue
+                    SourceProjectGenerator._interior_region(source_doc, candidate_dimensions, candidate)
+                    candidate_dxf, candidate_placements, candidate_missing = SourceProjectGenerator._place_devices(
+                        candidate_dxf, devices, candidate_dimensions, candidate)
+                    if candidate_missing:
+                        raise ValueError('Thiếu CAD thiết bị: ' + ', '.join(candidate_missing))
+            except ValueError as exc:
+                attempted_forms.append({'template_id': candidate['id'], 'reason': str(exc)})
+                continue
             match = candidate
+            prepared = (candidate_dxf, candidate_placements, candidate_missing)
             break
         if not match:
-            raise ValueError("Không có form CAD nguồn đủ mốc co giãn cho kích thước/loại tủ này; cần chọn form thủ công.")
+            detail = '; '.join(attempt['template_id'] + ': ' + attempt['reason'] for attempt in attempted_forms[:5])
+            raise ValueError("Chưa có form nguồn phù hợp sau kiểm tra bố trí thực tế." + (' ' + detail if detail else ''))
         selected = match["dimensions"] if match in fitting else requested
-        dxf = cabinet_templates.generate(match["id"], selected, product_name=product_name)
-        placements, missing = [], []
-        if devices:
-            dxf, placements, missing = SourceProjectGenerator._place_devices(dxf, devices, selected, match)
+        dxf, placements, missing = prepared
         folder = Path(output_dir) / str(project_id) / "cad" / "cabinet_forms"
         folder.mkdir(parents=True, exist_ok=True)
         filename = f"FormTu_{match['id']}_H{selected['height']:g}W{selected['width']:g}D{selected['depth']:g}_{uuid4().hex[:10]}.dxf"
@@ -155,5 +187,6 @@ class SourceProjectGenerator:
         return {"path": str(path), "template_id": match["id"], "source": match["filename"],
                 "dimensions": selected, "minimum_required": requested,
                 "placements": placements, "unmatched_devices": missing,
-                "status": "reference_layout_needs_review" if match.get('status') != 'source' else 'ready',
-                "release_ready": match.get('status') == 'source'}
+                "form_fit_attempts": attempted_forms,
+                "status": "reference_layout_needs_review",
+                "release_ready": False}

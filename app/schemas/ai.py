@@ -79,6 +79,8 @@ class ExtractedDeviceSchema(BaseModel):
     notes: Optional[str] = None
     tag: Optional[str] = None
     mounting: Optional[str] = None
+    mounting_face: Optional[str] = None
+    source_observations: Optional[dict] = None
     electrical_function: Optional[str] = None
     upstream_device: Optional[str] = None
     downstream_device: Optional[str] = None
@@ -153,6 +155,7 @@ class ExtractedDeviceSchema(BaseModel):
 
 
 class AnalysisResultSchema(BaseModel):
+    source_configuration: str = 'schematic'
     session_id: UUID
     iteration_id: Optional[int] = None
     iteration_number: int
@@ -163,6 +166,10 @@ class AnalysisResultSchema(BaseModel):
     panel_images: Dict[str, str] = Field(default_factory=dict)
     evidence_overviews: Dict[str, dict] = Field(default_factory=dict)
     cad_file: Optional[dict] = None
+    cad_status: Optional[str] = None
+    cad_blockers: List[str] = Field(default_factory=list)
+    cad_layout: Optional[dict] = None
+    panel_designs: List[dict] = Field(default_factory=list)
     quotation_file: Optional[dict] = None
     quotation_rows: List[dict] = Field(default_factory=list)
     technical_proposals: List[dict] = Field(default_factory=list)

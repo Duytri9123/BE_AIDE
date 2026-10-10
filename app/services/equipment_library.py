@@ -9,14 +9,25 @@ from functools import lru_cache
 from zipfile import ZipFile
 from typing import Any
 
-SOURCE_ROOT = Path(__file__).resolve().parents[3] / 'Tudien' / 'CATALOG_PHU_KIEN_DOC_LAP'
-SOURCE_CATALOG_DIR = SOURCE_ROOT / 'THU_VIEN_THIET_BI_AI_2026'
-BACKEND_CATALOG_DIR = Path(__file__).resolve().parents[2] / 'data' / 'equipment_library_2026'
+CATALOG_TB_ROOT = Path(__file__).resolve().parents[2] / 'data' / 'CatalogTB'
+SOURCE_ROOT = CATALOG_TB_ROOT
+BACKEND_CATALOG_DIR = CATALOG_TB_ROOT / '_agent_index'
+SOURCE_CATALOG_DIR = BACKEND_CATALOG_DIR
 CATALOG_DIR = BACKEND_CATALOG_DIR
 DB_PATH = CATALOG_DIR / 'equipment_catalog.sqlite'
-ASSET_ARCHIVE = BACKEND_CATALOG_DIR / 'source_cad_assets.zip'
 BRAND_ALIASES = {'ls electric': 'ls', 'schneider electric': 'schneider',
                  'mitsubishi electric': 'mitsubishi', 'o sung': 'o-sung'}
+
+def _catalogtb_asset(relative: str) -> Path | None:
+    if not relative.startswith('catalogtb/'):
+        return None
+    raw=relative.removeprefix('catalogtb/').replace('\\','/')
+    parts=Path(raw).parts
+    if '..' in parts or ':' in raw or Path(raw).is_absolute():return None
+    path=(CATALOG_TB_ROOT/raw).resolve()
+    if not path.is_relative_to(CATALOG_TB_ROOT.resolve()):return None
+    if path.name not in ('ban_ve.dxf','xem_truoc.svg') or 'CadDon' not in parts:return None
+    return path if path.is_file() else None
 
 
 def _brand_key(value: str) -> str:
@@ -30,40 +41,23 @@ def _connect() -> sqlite3.Connection:
     return sqlite3.connect(DB_PATH)
 
 
-@lru_cache(maxsize=1)
-def _bundled_asset_names() -> frozenset[str]:
-    if not ASSET_ARCHIVE.is_file():
-        return frozenset()
-    with ZipFile(ASSET_ARCHIVE) as archive:
-        return frozenset(archive.namelist())
-
-
 def asset_available(relative: str) -> bool:
-    path = Path(relative)
-    if path.is_absolute() or '..' in path.parts:
-        return False
-    return relative in _bundled_asset_names() or (SOURCE_ROOT / relative).is_file()
+    return _catalogtb_asset(relative) is not None
 
 
 def bundled_asset_available(relative: str) -> bool:
-    path = Path(relative)
-    return not path.is_absolute() and '..' not in path.parts and relative in _bundled_asset_names()
+    return False
 
 
 def bundled_asset_bytes(relative: str) -> bytes:
-    if not bundled_asset_available(relative):
-        raise FileNotFoundError(relative)
-    with ZipFile(ASSET_ARCHIVE) as archive:
-        return archive.read(relative)
+    raise FileNotFoundError('External equipment archives are disabled: ' + relative)
 
 
 def asset_bytes(relative: str) -> bytes:
-    if not asset_available(relative):
+    path = _catalogtb_asset(relative)
+    if path is None:
         raise FileNotFoundError(relative)
-    if relative in _bundled_asset_names():
-        with ZipFile(ASSET_ARCHIVE) as archive:
-            return archive.read(relative)
-    return (SOURCE_ROOT / relative).read_bytes()
+    return path.read_bytes()
 
 
 def _with_availability(item: dict[str, Any]) -> dict[str, Any]:
