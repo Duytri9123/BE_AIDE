@@ -150,7 +150,13 @@ async def wait_result(job_id):
     async with async_redis.from_url(settings.REDIS_URL,decode_responses=True,
                                    socket_connect_timeout=10,socket_timeout=10) as client:
         for _ in range(1800):
-            info = await client.hgetall(PREFIX+job_id)
+            try:
+                info = await client.hgetall(PREFIX+job_id)
+            except (redis.TimeoutError, redis.ConnectionError):
+                # The worker owns the accepted job. A transient poll failure
+                # must not turn it into HTTP 500 or cause duplicate submission.
+                await asyncio.sleep(1)
+                continue
             if info.get('status') == 'SUCCESS':
                 return json.loads(info['result'])
             if info.get('status') in ('FAILURE','CANCELLED'):

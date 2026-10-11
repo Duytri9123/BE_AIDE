@@ -46,7 +46,8 @@ Tên tủ trong cột phụ tải là tải được cấp, không phải khung 
 
 
 COUNT_PROMPT = '''Kiểm đếm độc lập TOÀN BỘ sơ đồ trên ảnh, không dùng danh sách bóc tách trước.
-Trả một JSON {"counts":[{"panel_code":"nhãn tủ","category":"CB|MCB|MCCB|CONTACTOR|TIMER|RELAY|POWER_SUPPLY|FUSE|CT|AMMETER|VOLTMETER|INDICATOR|SELECTOR|OTHER","quantity":1,"evidence":"ký hiệu, nhãn và các nhánh đã đếm"}],"uncertain_regions":[]}.
+Trả một JSON {"counts":[{"panel_code":"nhãn tủ","category":"CB|MCB|MCCB|RCBO|RCCB|CONTACTOR|TIMER|RELAY|POWER_SUPPLY|FUSE|CT|AMMETER|VOLTMETER|INDICATOR|SELECTOR|OTHER","quantity":1,"evidence":"ký hiệu, nhãn và các nhánh đã đếm"}],"uncertain_regions":[]}.
+RCBO/RCCB có chống rò phải đếm riêng đúng nhãn, không chuyển thành MCB hoặc bỏ qua vì chưa có trong danh sách category.
 Nguồn chỉ ghi CB thì dùng CB, không suy thành MCB/MCCB từ số cực. Giữ mã tủ đầy đủ, không tự rút gọn TĐ thành TD hoặc đổi tên tủ.
 Không đếm một cụm đo lường thành một OTHER: đếm riêng từng đèn, đồng hồ, cầu chì, biến dòng và chuyển mạch. OTHER chỉ là thân thiết bị chưa phân loại, không phải nhóm gom nhiều loại.
 Đếm cả nhánh dự phòng có ký hiệu đóng cắt dù không ghi tag, dòng điện hoặc số cực; không tự điền thông số thiếu. Không suy ký hiệu tiếp địa thành cầu đấu hoặc thiết bị mới.
@@ -100,6 +101,29 @@ def inventory_kind(category, name='', spec=''):
     return kind
 
 
+async def count_panel_with_fallback(crop_call, full_page_call, prompt, code):
+    """Recover misplaced crops by reading the source page, never the nearby BOM."""
+    def verify(payload):
+        if payload.get('uncertain_regions'):
+            raise ValueError('Khung sơ đồ chưa rõ: ' + str(payload['uncertain_regions'])[:500])
+        if any(row['quantity'] > 0 and panel_key(row['panel_code']) != panel_key(code)
+               for row in payload['counts']):
+            raise ValueError('Kiểm đếm gán sai tủ: ' + code)
+    try:
+        payload = await count_with_retry(crop_call, prompt)
+        verify(payload)
+        return payload, False
+    except ValueError:
+        full_prompt = (prompt + '\nHIỆU CHỈNH PHẠM VI: ảnh này là TOÀN BỘ TRANG NGUỒN, '
+            'không phải ảnh cắt khung. Vùng cắt trước chưa bao đúng sơ đồ. '
+            'Tìm tiêu đề sơ đồ nguyên lý tủ ' + code + ' và lần theo các ký hiệu trong sơ đồ đó; '
+            'chỉ trả counts của tủ này. Không lấy số lượng từ bảng vật tư/BOM hoặc tủ khác. '
+            'Đọc theo hướng chữ dù bản scan xoay. Nếu chưa tìm được sơ đồ thì ghi uncertain_regions.')
+        payload = await count_with_retry(full_page_call, full_prompt)
+        verify(payload)
+        return payload, True
+
+
 def panel_key(value):
     value = unicodedata.normalize('NFD', str(value or '').upper().replace('Đ', 'D'))
     return re.sub('[^A-Z0-9]', '', ''.join(c for c in value if not unicodedata.combining(c)))
@@ -146,6 +170,20 @@ def count_mismatches(devices, payload):
             raise ValueError('Bảng kiểm đếm độc lập thiếu tủ, loại hoặc số lượng hợp lệ.')
         source[key] += expected
         evidence.setdefault(key, []).append(str(row.get('evidence') or ''))
+    # CB is a generic physical breaker count, not a subtype competing with
+    # MCB/MCCB. Match only the residual subtype counts to that generic bucket;
+    # retain every explicit source subtype constraint and each panel boundary.
+    breaker_types = ('MCB', 'MCCB', 'RCBO', 'RCCB')
+    for panel, kind in list(source):
+        if kind != 'CB' or source[(panel, kind)] <= 0:
+            continue
+        residual = actual[(panel, 'CB')]
+        for subtype in breaker_types:
+            key = (panel, subtype)
+            excess = max(0, actual[key] - source[key])
+            residual += excess
+            actual[key] -= excess
+        actual[(panel, 'CB')] = residual
     for key in sorted(source.keys() | actual.keys()):
         expected = source[key]
         if actual[key] != expected:
@@ -227,6 +265,11 @@ async def repair_counted_inventory(call, prompt, devices, count_payload, attempt
                            'không giữ thiết bị suy diễn khi kiểm đếm xác nhận không có thân. '
                            'MDK là nhãn mạch, không phải relay. Không thêm hàng chỉ để đủ tổng số. '
                            'Giữ đúng loại thiết bị theo nhãn nguồn và từng lộ/tag nguồn.')
+        repair_prompt += ('\nKhông bỏ thiết bị chỉ vì thiếu thông số/model/tag: nhánh dự phòng có ký hiệu đóng cắt vẫn trả một CB, '
+                          'spec chỉ ghi phần đọc được, thông số số học chưa ghi trên ảnh để null. '
+                          'Quét riêng cụm đo lường bên đầu vào: chuyển mạch chọn điện áp/đồng hồ phải là SELECTOR riêng '
+                          'nếu thấy ký hiệu thân; không gộp vào đồng hồ. Với mỗi hàng thiếu được báo ở trên, '
+                          'đọc lại vị trí cụ thể và trả box_2d cùng hàng thiết bị.')
         response, devices = await extract_with_retry(call, repair_prompt)
     differences = count_mismatches(devices, count_payload)
     if differences:

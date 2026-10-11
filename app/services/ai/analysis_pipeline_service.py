@@ -2957,7 +2957,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 parsed_devs = merge_verified_devices(parsed_devs, audited_devices)
                             from app.services.ai.inventory_validation import independent_count_prompt, count_mismatches, count_with_retry
                             count_payload = await count_with_retry(verify_page_inventory, independent_count_prompt(parsed_devs))
-                            from app.services.ai.inventory_validation import panel_regions_with_retry, panel_key
+                            from app.services.ai.inventory_validation import panel_regions_with_retry, panel_key, count_panel_with_fallback
                             regions = await panel_regions_with_retry(verify_page_inventory)
                             regional_counts = []
                             regional_panels = []
@@ -2980,9 +2980,9 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                     )
                                     async def count_panel(prompt):
                                         return await verify_page_inventory(prompt, image_path=panel_path)
-                                    panel_payload = await count_with_retry(count_panel, panel_prompt)
-                                    if panel_payload.get('uncertain_regions'):
-                                        raise ValueError('Khung sơ đồ chưa rõ: ' + str(panel_payload['uncertain_regions'])[:500])
+                                    panel_payload, use_full_page = await count_panel_with_fallback(
+                                        count_panel, verify_page_inventory, panel_prompt, region['panel_code'])
+                                    region['use_full_page'] = use_full_page
                                     for counted in panel_payload['counts']:
                                         if counted['quantity'] > 0 and panel_key(counted['panel_code']) != panel_key(region['panel_code']):
                                             raise ValueError('Kiểm đếm gán sai tủ: ' + str(counted['panel_code']))
@@ -3010,19 +3010,20 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                     x0, y0, x1, y1 = region['box_2d']
                                     repair_path = temp_img_path + f'.repair{region_index}.jpg'
                                     try:
-                                        page_img.crop((int(x0*image_width/1000), int(y0*image_height/1000),
-                                            int(x1*image_width/1000), int(y1*image_height/1000))).save(repair_path, 'JPEG', quality=95)
+                                        repair_image = page_img if region.get('use_full_page') else page_img.crop((int(x0*image_width/1000), int(y0*image_height/1000),
+                                            int(x1*image_width/1000), int(y1*image_height/1000)))
+                                        repair_image.save(repair_path, 'JPEG', quality=95)
                                         async def repair_panel(prompt):
                                             return await verify_page_inventory(prompt, image_path=repair_path)
                                         verifier_response, repaired = await repair_counted_inventory(
                                             repair_panel, verifier_prompt + '\nẢnh là khung tủ ' + region['panel_code']
-                                            + '. Chỉ trả thiết bị thuộc khung này; tọa độ theo ảnh cắt.',
+                                            + '. Chỉ trả thiết bị thuộc tủ này, không lấy bảng BOM hoặc tủ khác; tọa độ theo toàn bộ ảnh được gửi.',
                                             regional_devices, regional_payload)
                                         if any(panel_key(d.panel_code) != code for d in repaired):
                                             raise ValueError('Danh sách đọc lại ảnh cắt gán sai tủ')
                                         for device in repaired:
                                             box = device.box_2d
-                                            if box and len(box) == 4:
+                                            if box and len(box) == 4 and not region.get('use_full_page'):
                                                 a, b, c, e = box
                                                 device.box_2d = [y0+a*(y1-y0)/1000, x0+b*(x1-x0)/1000,
                                                     y0+c*(y1-y0)/1000, x0+e*(x1-x0)/1000]
