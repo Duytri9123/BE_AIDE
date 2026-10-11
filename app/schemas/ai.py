@@ -91,6 +91,7 @@ class ExtractedDeviceSchema(BaseModel):
     confidence: float = 0.0
     box_2d: Optional[List[int]] = None
     evidence_image: Optional[str] = None
+    evidence_images: Optional[List[dict]] = None
     panel_evidence_image: Optional[str] = None
     evidence_region: Optional[dict] = None
     source_type: Optional[str] = None

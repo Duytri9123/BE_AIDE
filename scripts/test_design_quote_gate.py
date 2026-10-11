@@ -7,6 +7,17 @@ from app.schemas.export import ExportRequest
 from app.services.cad.output_status import output_status
 
 class DesignQuoteGateTests(unittest.IsolatedAsyncioTestCase):
+    def test_quotation_design_does_not_replace_source_extraction(self):
+        from app.services.ai.analysis_result import _build_analysis_result_schema
+        source = {'category':'CONTACTOR','name':'Source P2','spec':'2P 16A','quantity':1}
+        revised = {**source, 'spec':'2P 20A', 'quantity':2}
+        from uuid import uuid4
+        result = _build_analysis_result_schema(uuid4(), 1, [source],
+            {'source_configuration':'quotation','design_devices':[revised]},
+            enclosure_spec={'incomer_rating':20})
+        self.assertEqual(result.devices[0].spec, '2P 16A')
+        self.assertEqual(result.devices[0].quantity, 1)
+
     async def test_legacy_export_cannot_bypass_incomplete_design(self):
         first = Mock()
         first.scalar_one_or_none.return_value = SimpleNamespace(id=16, user_id=1, name='Test')

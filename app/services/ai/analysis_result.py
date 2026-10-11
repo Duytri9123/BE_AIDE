@@ -14,8 +14,8 @@ def _build_analysis_result_schema(
     enclosure_spec: Optional[dict] = None,
 ) -> AnalysisResultSchema:
     conf = conf_scores or {}
-    if conf.get('source_configuration') == 'quotation' and conf.get('design_devices'):
-        raw_devices = conf['design_devices']
+    # The extraction table remains the source observation. Approved quotation
+    # changes are stored as design_devices, not substituted into source evidence.
     if 'panel_designs' in conf:
         cad_file_info = next((r.get('cad_file') for r in (conf.get('panel_designs') or {}).values() if r.get('cad_file')), None)
     elif 'design_result' in conf and 'cad_file' in conf['design_result']:

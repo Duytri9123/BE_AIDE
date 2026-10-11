@@ -10,9 +10,10 @@ def output_status(cad_file, quotation_file, layout, conflicts=None, *, reason=No
     if reconciliation and not reconciliation.get('release_ready'):
         blockers.append('Chưa giải quyết đối chiếu sơ đồ, báo giá và CAD: '+', '.join(reconciliation.get('unresolved_items') or reconciliation.get('unanalysed') or ['thiếu bằng chứng']))
     if not cad_file:
-        blockers.append('Chưa lưu được file CAD thiết kế.')
         if reason:
             blockers.append(str(reason))
+        else:
+            blockers.append('Chưa lưu được file CAD thiết kế.')
         unselected=[d.get('tag') or d.get('name') for d in (devices or []) if not (d.get('cad') or {}).get('asset_id')]
         if unselected:
             blockers.append('Cần ghép CAD cho thiết bị: '+', '.join(str(tag) for tag in unselected)+'.')

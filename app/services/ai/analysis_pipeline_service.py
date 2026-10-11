@@ -628,6 +628,7 @@ class AnalysisPipelineService:
                                     confidence=float(d.confidence or 0.95),
                                     box_2d=getattr(d, "box_2d", None),
                                     evidence_image=d.evidence_image,
+                                    evidence_images=getattr(d, "evidence_images", None),
                                     suggested_brands=[
                                         str(brand).strip() for brand in (getattr(d, "suggested_brands", None) or [])
                                         if str(brand).strip()
@@ -2046,14 +2047,77 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 by_id.setdefault(str(candidate.get("device_id", "")), []).append(candidate)
         for index, device in enumerate(devices):
             device.box_2d = None
+            device.evidence_region = {key: value for key, value in (getattr(device, 'evidence_region', None) or {}).items()
+                                      if key not in ('load_box_2d', 'load_verified', 'load_label', 'relationship_evidence')}
             matches = by_id.get(str(index), [])
             if len(matches) != 1 or matches[0].get("verified") is not True:
                 continue
             box = matches[0].get("box_2d")
             try:
                 device.box_2d = ExtractedDeviceSchema.normalize_evidence_box(box)
+                device.evidence_region.update(coordinate_space='normalized_1000', box_2d=list(device.box_2d))
+                load_box = matches[0].get('load_box_2d')
+                if matches[0].get('load_verified') is True and load_box and matches[0].get('relationship_evidence'):
+                    device.evidence_region = {**(getattr(device, 'evidence_region', None) or {}),
+                        'load_box_2d': ExtractedDeviceSchema.normalize_evidence_box(load_box),
+                        'load_verified': True, 'load_label': str(matches[0].get('load_label') or ''),
+                        'relationship_evidence': str(matches[0]['relationship_evidence'])}
             except (TypeError, ValueError, OverflowError):
                 pass
+
+    @staticmethod
+    def _linked_evidence_images(device, page_image):
+        """Keep the verified branch in a slanted strip, with separate detail crops."""
+        region = getattr(device, 'evidence_region', None) or {}
+        if not region.get('load_verified') or not region.get('relationship_evidence'):
+            return []
+        images = []
+        symbol_box = device.box_2d
+        load_box = region.get('load_box_2d')
+        branch_box = [min(symbol_box[0], load_box[0]), min(symbol_box[1], load_box[1]),
+                      max(symbol_box[2], load_box[2]), max(symbol_box[3], load_box[3])]
+        for kind, label, box in (
+            ('branch', 'Nhánh · ' + str(region.get('load_label') or device.connected_load or ''), branch_box),
+            ('device', 'Ký hiệu và thông số', device.box_2d),
+            ('load', 'Nhãn tải · ' + str(region.get('load_label') or device.connected_load or ''), region.get('load_box_2d')),
+        ):
+            pixels = AnalysisPipelineService._evidence_crop_pixels(box, *page_image.size)
+            if not pixels:
+                continue
+            crop = page_image.crop(pixels).convert('RGB')
+            if kind == 'branch':
+                # Fit one constant-width strip along the branch, then deskew
+                # it for reading. A convex hull of unequal endpoint boxes
+                # introduces extra corners and looks like a staircase.
+                import math
+                endpoints = [AnalysisPipelineService._evidence_crop_pixels(endpoint, *page_image.size)
+                             for endpoint in (symbol_box, load_box)]
+                if all(endpoints):
+                    centers = [((l+r)/2, (t+b)/2) for l,t,r,b in endpoints]
+                    dx, dy = centers[1][0]-centers[0][0], centers[1][1]-centers[0][1]
+                    length = math.hypot(dx, dy)
+                    if length > 0:
+                        ux, uy = dx/length, dy/length
+                        vx, vy = -uy, ux
+                        corners = [(x,y) for l,t,r,b in endpoints for x,y in ((l,t),(r,t),(r,b),(l,b))]
+                        along = [x*ux+y*uy for x,y in corners]
+                        across = [x*vx+y*vy for x,y in corners]
+                        lo, hi = min(along), max(along)
+                        bottom, top = min(across), max(across)
+                        def point(a, c):
+                            return (a*ux+c*vx, a*uy+c*vy)
+                        quad = [point(lo,bottom), point(lo,top), point(hi,top), point(hi,bottom)]
+                        crop = page_image.convert('RGB').transform(
+                            (max(1,round(hi-lo)), max(1,round(top-bottom))),
+                            Image.Transform.QUAD, tuple(value for pt in quad for value in pt),
+                            resample=Image.Resampling.BICUBIC)
+            crop.thumbnail((1200, 900), Image.Resampling.LANCZOS)
+            buf = io.BytesIO()
+            image_format = 'PNG' if crop.mode == 'RGBA' else 'JPEG'
+            crop.save(buf, format=image_format, **({'quality':95} if image_format == 'JPEG' else {}))
+            images.append({'kind': kind, 'label': label,
+                'evidence_image': 'data:image/' + image_format.lower() + ';base64,' + base64.b64encode(buf.getvalue()).decode()})
+        return images
 
     @staticmethod
     def _evidence_crop_pixels(box: List[int], width: int, height: int) -> Optional[Tuple[int, int, int, int]]:
@@ -2073,7 +2137,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         # Preserve the verified symbol and label with a small margin; do not
         # include adjacent devices through page-wide padding.
         pad_x = max(2, round((right-left) * .04))
-        pad_y = max(2, round((bottom-top) * .35))
+        pad_y = max(2, round((bottom-top) * .08))
         return max(0, left-pad_x), max(0, top-pad_y), min(width, right+pad_x), min(height, bottom+pad_y)
 
     @staticmethod
@@ -2252,6 +2316,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 confidence=float(d.confidence or 0.95),
                 box_2d=getattr(d, "box_2d", None),
                 evidence_image=getattr(d, "evidence_image", None),
+                evidence_images=getattr(d, "evidence_images", None),
                 suggested_brands=[
                     str(brand).strip() for brand in (getattr(d, "suggested_brands", None) or [])
                     if str(brand).strip()
@@ -2990,7 +3055,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                         device.box_2d = ExtractedDeviceSchema.normalize_evidence_box(device.box_2d)
                                     except (TypeError,ValueError,OverflowError):
                                         device.box_2d = None
-                            if any(not device.box_2d for device in parsed_devs):
+                            if any(not device.box_2d or device.connected_load and not (getattr(device, 'evidence_region', None) or {}).get('load_verified') for device in parsed_devs):
                                 # Locate the final inventory, after repairs, using fresh row IDs.
                                 final_rows = [{'device_id': index, 'panel_code': device.panel_code,
                                                'tag': device.tag, 'name': device.name, 'spec': device.spec,
@@ -3000,6 +3065,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                     'Chỉ định vị ảnh đối chiếu cho danh sách cuối cùng; không sửa danh mục. '
                                     'Tìm đúng ký hiệu và nhãn riêng của từng thiết bị, không bao nhánh kế bên. '
                                     'Bao trọn ký hiệu và mọi dòng thông số; vùng cắt dài/ngắn theo nội dung, không ép ô vuông. '
+                                    'Với thiết bị nối đến tải: lần theo đúng dây/nhánh tới nhãn tải, trả thêm load_box_2d, load_label, load_verified và relationship_evidence (một câu bằng chứng cùng nhánh). '
+                                    'Không coi thông số trùng nhau hoặc hàng gần nhau là bằng chứng liên kết. Không đọc rõ nhãn hay không xác nhận đường nối thì load_verified=false. '
                                     'Không đoán vị trí; không rõ thì verified=false, box_2d=null. '
                                     'Trả JSON {"boxes":[{"device_id":0,"verified":true,"box_2d":[ymin,xmin,ymax,xmax]}]}. '
                                     'Tọa độ 0..1000 theo toàn trang ảnh. Danh sách:\n' +
@@ -3133,11 +3200,14 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 compatible_proposal=cp
                             )
                             if new_dev.box_2d:
-                                new_dev.evidence_region = {
+                                new_dev.evidence_region = {**(getattr(d, 'evidence_region', None) or {}),
                                     "coordinate_space": "normalized_1000",
                                     "box_2d": list(new_dev.box_2d),
                                     "page": page_num,
                                 }
+                                new_dev.evidence_images = AnalysisPipelineService._linked_evidence_images(new_dev, page_img)
+                                if new_dev.evidence_images:
+                                    new_dev.evidence_image = new_dev.evidence_images[0]['evidence_image']
                             extracted_devs.append(new_dev)
                             page_new_devs.append(new_dev)
 
@@ -3544,6 +3614,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     inferred_components=d.get("inferred_components"),
                     confidence=d.get("confidence", settings.DEFAULT_CONFIDENCE),
                     evidence_image=d.get("evidence_image"),
+                    evidence_images=d.get("evidence_images"),
                     box_2d=d.get("box_2d"),
                     evidence_region=d.get("evidence_region"),
                     panel_evidence_image=d.get("panel_evidence_image"),
