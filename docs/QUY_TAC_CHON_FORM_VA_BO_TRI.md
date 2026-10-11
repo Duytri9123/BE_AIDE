@@ -39,3 +39,4 @@ Kiểm đếm độc lập giữ đúng mã tủ, đếm từng thân thiết b�
 
 Lỗi OCR và lỗi đối chiếu danh mục phải hiển thị riêng với lỗi CatalogTB. Thiết bị thiếu hoặc bị suy diễn vẫn chặn tạo thiết kế và báo giá.
 
+Không dùng tổng số lượng để kết luận đủ: một cầu chì bị đếm đôi có thể bù cho một CB dự phòng bị bỏ sót. Đối chiếu theo nhóm và tủ trên ảnh phóng lớn của toàn bộ khung sơ đồ từng tủ, giữ tiêu đề và đường cấp điện. Không chia dải làm mất quan hệ giữa thiết bị và tủ, không lấy tên tủ ở cột phụ tải làm tủ chứa CB. Hai đầu nối của một ký hiệu cầu chì không phải hai thân thiết bị. Khung chồng lấn, vượt trang hoặc còn không rõ phải giữ trạng thái chưa xác minh.

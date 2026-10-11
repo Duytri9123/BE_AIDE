@@ -31,7 +31,7 @@ redis.call('ZREM', KEYS[1], ARGV[1])
 
 def sync_client():
     return redis.Redis.from_url(settings.REDIS_URL, decode_responses=True,
-                               socket_connect_timeout=2, socket_timeout=2)
+                               socket_connect_timeout=10, socket_timeout=10)
 
 
 def publish(job_id, event, status='PROGRESS', result=None):
@@ -63,7 +63,7 @@ def cancelled(job_id):
 async def enqueue(kind, project_id, user_id, payload):
     from app.tasks.worker_tasks import analyze_project_async_task, generate_cad_async_task
     client = async_redis.from_url(settings.REDIS_URL, decode_responses=True,
-                                  socket_connect_timeout=2, socket_timeout=2)
+                                  socket_connect_timeout=10, socket_timeout=10)
     job_id = str(uuid.uuid4())
     try:
         if not await client.exists(READY_KEY):
@@ -93,7 +93,7 @@ async def enqueue(kind, project_id, user_id, payload):
 
 async def owned_job(job_id, user_id):
     async with async_redis.from_url(settings.REDIS_URL,decode_responses=True,
-                                   socket_connect_timeout=2,socket_timeout=2) as client:
+                                   socket_connect_timeout=10,socket_timeout=10) as client:
         info = await client.hgetall(PREFIX+job_id)
     if not info or info.get('user_id') != str(user_id):
         raise HTTPException(404,'Không tìm thấy tác vụ của bạn.')
@@ -122,7 +122,7 @@ async def events(job_id):
     """Disconnecting a browser does not destroy an already accepted job."""
     cursor = 0
     async with async_redis.from_url(settings.REDIS_URL,decode_responses=True,
-                                   socket_connect_timeout=2,socket_timeout=2) as client:
+                                   socket_connect_timeout=10,socket_timeout=10) as client:
         yield 'data: '+json.dumps({'type':'log','stage':'queued','title':'Đã tiếp nhận, đang chờ xử lý','task_id':job_id},ensure_ascii=False)+'\n\n'
         while True:
             rows = await client.lrange(PREFIX+job_id+':events',cursor,-1)
@@ -148,7 +148,7 @@ async def events(job_id):
 
 async def wait_result(job_id):
     async with async_redis.from_url(settings.REDIS_URL,decode_responses=True,
-                                   socket_connect_timeout=2,socket_timeout=2) as client:
+                                   socket_connect_timeout=10,socket_timeout=10) as client:
         for _ in range(1800):
             info = await client.hgetall(PREFIX+job_id)
             if info.get('status') == 'SUCCESS':

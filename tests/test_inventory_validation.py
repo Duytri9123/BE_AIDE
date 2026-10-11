@@ -3,6 +3,40 @@ from app.services.ai.inventory_validation import extract_with_retry, require_inv
 
 
 class InventoryValidationTests(unittest.IsolatedAsyncioTestCase):
+    def test_panel_observation_uses_device_code_without_empty_duplicate(self):
+        from app.services.ai.inventory_validation import merge_panel_observations
+        devices=require_inventory('{"devices":[{"panel_code":"TĐ-T","category":"CB","name":"Q","quantity":1}]}')
+        panels=merge_panel_observations([{'panel_code':'TĐ-T','location':'Tầng 1'}],[{'panel_code':'TĐT','dimension':'1000x600x300','location':''}],devices)
+        self.assertEqual(panels,[{'panel_code':'TĐ-T','location':'Tầng 1','dimension':'1000x600x300'}])
+
+    def test_repair_keeps_numeric_fields_from_explicit_breaker_spec(self):
+        devices=require_inventory('{"devices":[{"category":"MCCB","name":"Q","spec":"3P 200A 85kA","quantity":1},{"category":"CB","name":"Dự phòng","spec":"CB dự phòng","quantity":1},{"category":"CB","name":"Q2","spec":"10-16A","quantity":1}]}')
+        self.assertEqual((devices[0].poles,devices[0].in_a,devices[0].icu_ka),(3,200,85))
+        self.assertIsNone(devices[1].in_a)
+        self.assertIsNone(devices[2].in_a)
+
+    def test_source_branch_labels_replace_generic_type_tags_only(self):
+        devices=require_inventory('{"devices":[{"category":"CB","name":"L12 - Tủ nhánh","tag":"CB","quantity":1},{"category":"CB","name":"L13 - Tủ nhánh","tag":"Q13","quantity":1},{"category":"CB","name":"Dự phòng","tag":"CB","quantity":1}]}')
+        self.assertEqual([d.tag for d in devices],['L12','Q13','CB'])
+
+    def test_panel_crop_rejects_overlap_and_out_of_page_coordinates(self):
+        from app.services.ai.inventory_validation import require_panel_regions
+        with self.assertRaises(ValueError):
+            require_panel_regions({'panels':[{'panel_code':'P','box_2d':[-1,0,500,500]}]})
+        with self.assertRaises(ValueError):
+            require_panel_regions({'panels':[{'panel_code':'P','box_2d':[0,0,500,500]}, {'panel_code':'Q','box_2d':[0,0,500,500]}]})
+        self.assertEqual(len(require_panel_regions({'panels':[{'panel_code':'P','box_2d':[0,0,1000,500]}, {'panel_code':'Q','box_2d':[0,500,1000,1000]}]})),2)
+
+    async def test_empty_crop_count_allowed_but_empty_page_rejected(self):
+        from unittest.mock import AsyncMock
+        self.assertEqual(await count_with_retry(AsyncMock(return_value='{"counts":[]}'), 'Crop', allow_empty=True), {'counts':[]})
+        with self.assertRaises(ValueError):
+            await count_with_retry(AsyncMock(return_value='{"counts":[]}'), 'Full page')
+
+    def test_fuse_quantity_compares_bodies_not_inventory_rows(self):
+        devices=require_inventory('{"devices":[{"panel_code":"P","category":"FUSE","name":"F1","quantity":2}]}')
+        self.assertEqual(len(count_mismatches(devices,{'counts':[{'panel_code':'P','category':'FUSE','quantity':1}]})),1)
+
     def test_equivalent_source_names_are_not_missing_devices(self):
         devices=require_inventory('{"devices":[{"panel_code":"TĐT","category":"Đèn báo","name":"Đèn RYB","quantity":3},{"panel_code":"TĐT","category":"METER","name":"Vôn kế","quantity":1},{"panel_code":"TĐT","category":"SWITCH","name":"Công tắc chọn điện áp","quantity":1}]}')
         self.assertEqual(count_mismatches(devices,{'counts':[{'panel_code':'TĐ-T','category':c,'quantity':q} for c,q in [('INDICATOR',3),('VOLTMETER',1),('SELECTOR',1)]]}),[])

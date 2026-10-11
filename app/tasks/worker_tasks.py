@@ -81,7 +81,7 @@ async def run_analysis(project_id, user_id, payload, progress):
             all_connections=connections,user_prompt=payload.get('user_prompt'),
             fallback_to_standard_template=bool(payload.get('fallback_to_standard_template')),
             target_page=payload.get('target_page'),generate_cad_and_quotation=False,
-            progress_callback=progress)
+            progress_callback=progress,persist_partial_iterations=False)
         consumed = max(0,int(result.get('tokens_consumed') or 0))
         progress({'type':'log','stage':'saving','title':'Đang lưu kết quả phân tích'})
         charged = await db.execute(update(User).where(User.id==user_id,User.tokens>=consumed)

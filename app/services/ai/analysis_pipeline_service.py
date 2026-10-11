@@ -323,7 +323,8 @@ class AnalysisPipelineService:
         all_connections: Optional[List[AiConnection]] = None,
         generate_cad_and_quotation: bool = False,
         progress_callback: Optional[Any] = None,
-        target_page: Optional[int] = None
+        target_page: Optional[int] = None,
+        persist_partial_iterations: bool = True
     ) -> Dict[str, Any]:
         extracted_devices: List[ExtractedDeviceSchema] = []
         warnings: List[str] = []
@@ -673,7 +674,8 @@ class AnalysisPipelineService:
                         all_connections=all_connections,
                         target_page=target_page,
                         progress_callback=progress_callback,
-                        project_id=project.id
+                        project_id=project.id,
+                        persist_partial_iterations=persist_partial_iterations
                     )
                     if pdf_devs:
                         extracted_devices.extend(pdf_devs)
@@ -2468,7 +2470,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
         all_connections: Optional[List[AiConnection]] = None,
         target_page: Optional[int] = None,
         progress_callback: Optional[Any] = None,
-        project_id: Optional[int] = None
+        project_id: Optional[int] = None,
+        persist_partial_iterations: bool = True
     ) -> Tuple[List[ExtractedDeviceSchema], List[Dict[str, Any]], List[str], List[Dict[str, Any]]]:
         """
         Tiếp nhận hồ sơ PDF và để AI Vision xác minh trực tiếp *mọi* trang. Không suy
@@ -2831,7 +2834,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     count_payload = None
                     if box_candidates:
                         if progress_callback:
-                            event=progress_callback({'type':'log','stage':'pdf_inventory_verification','status':'processing',
+                            event=progress_callback({'type':'log','stage':'pdf_inventory_verification','status':'running',
                                 'title':'Đang đối chiếu thiết bị với ảnh nguồn',
                                 'detail':f'Trang {page_num}: kiểm tra danh mục, mã tủ và số lượng; context đã đọc chưa phải kết quả bóc tách đạt.'})
                             if asyncio.iscoroutine(event): await event
@@ -2845,6 +2848,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             "Mỗi lộ một dòng, giữ tag đọc được; CB chung dùng category CB, không tự đổi thành MCCB. "
                             "Trả devices là DANH SÁCH ĐẦY ĐỦ sau đối chiếu, giữ thông số và số lượng có căn cứ. "
                             "Tách drawing_quantity và procurement_quantity, nêu quantity_basis; không nhân Fuse theo số đèn. "
+                            "Một ký hiệu Fuse có hai đầu nối là một thân cầu chì; không đếm hai đầu thành hai thiết bị. Chỉ tăng quantity khi nguồn có thân riêng hoặc nhãn số lượng rõ ràng. "
                             "Nếu nguồn ghi rõ MCCB thì giữ category MCCB; chỉ dùng CB khi nguồn chỉ ghi CB. "
                             "Vôn kế và công tắc chọn điện áp là hai phần tử nếu có hai ký hiệu; không bỏ ký hiệu tròn phía dưới vôn kế. "
                             "Giữ metadata panels kích thước, đầu vào/đầu ra, tải và nguồn cấp đã đọc trong context. "
@@ -2860,15 +2864,15 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             + json.dumps(box_candidates, ensure_ascii=False)
                         )
                         try:
-                            async def verify_page_inventory(prompt):
+                            async def verify_page_inventory(prompt, image_path=temp_img_path):
                                 if all_connections and db:
                                     response, _ = await ConnectionPoolService.call_with_fallback(
                                         db=db, connections=all_connections,
                                         call_fn=VisionAnalyzerService.analyze_image,
-                                        image_path=temp_img_path, prompt=prompt)
+                                        image_path=image_path, prompt=prompt)
                                     return response
                                 return await VisionAnalyzerService.analyze_image(
-                                    image_path=temp_img_path, prompt=prompt,
+                                    image_path=image_path, prompt=prompt,
                                     provider=active_ai.provider.lower(), api_key=active_ai.api_key,
                                     model=active_ai.selected_model)
                             verifier_response, audited_devices = await extract_with_retry(verify_page_inventory, verifier_prompt)
@@ -2878,6 +2882,43 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 parsed_devs = merge_verified_devices(parsed_devs, audited_devices)
                             from app.services.ai.inventory_validation import independent_count_prompt, count_mismatches, count_with_retry
                             count_payload = await count_with_retry(verify_page_inventory, independent_count_prompt(parsed_devs))
+                            from app.services.ai.inventory_validation import panel_regions_with_retry, panel_key
+                            regions = await panel_regions_with_retry(verify_page_inventory)
+                            regional_counts = []
+                            regional_panels = []
+                            for region_index, region in enumerate(regions):
+                                image_width, image_height = page_img.size
+                                x0, y0, x1, y1 = region['box_2d']
+                                panel_path = temp_img_path + f'.panel{region_index}.jpg'
+                                try:
+                                    page_img.crop((int(x0*image_width/1000), int(y0*image_height/1000),
+                                                   int(x1*image_width/1000), int(y1*image_height/1000))).save(panel_path, 'JPEG', quality=95)
+                                    panel_prompt = independent_count_prompt(parsed_devs) + (
+                                        '\nẢnh này chỉ chứa khung sơ đồ tủ ' + region['panel_code'] +
+                                        '. Đếm toàn bộ thiết bị trong khung này, kể cả nhánh dự phòng không tag. '
+                                        'Mọi counts phải dùng panel_code ' + region['panel_code'] +
+                                        '; các tên tủ phía tải là nơi ĐƯỢC CẤP ĐIỆN, không phải tủ chứa CB của lộ. '
+                                        'Không suy hai đầu ký hiệu Fuse thành hai cầu chì. '
+                                        'Nhóm không có thân phải quantity=0 hoặc bỏ nhóm, không quantity=1. '
+                                        'Nếu ảnh không bao đủ khung hoặc còn ký hiệu không đọc được, ghi uncertain_regions.'
+                                        ' Bổ sung panels:[{panel_code,panel_name,dimension,location}] đọc từ nhãn khung; dimension giữ nguyên thứ tự kích thước nguồn, không ước lượng. Không đọc rõ thì để chuỗi rỗng.'
+                                    )
+                                    async def count_panel(prompt):
+                                        return await verify_page_inventory(prompt, image_path=panel_path)
+                                    panel_payload = await count_with_retry(count_panel, panel_prompt)
+                                    if panel_payload.get('uncertain_regions'):
+                                        raise ValueError('Khung sơ đồ chưa rõ: ' + str(panel_payload['uncertain_regions'])[:500])
+                                    for counted in panel_payload['counts']:
+                                        if counted['quantity'] > 0 and panel_key(counted['panel_code']) != panel_key(region['panel_code']):
+                                            raise ValueError('Kiểm đếm gán sai tủ: ' + str(counted['panel_code']))
+                                    regional_counts.extend(panel_payload['counts'])
+                                    for metadata in ResponseParserService.extract_panels_metadata(json.dumps(panel_payload, ensure_ascii=False)):
+                                        if panel_key(metadata['panel_code']) == panel_key(region['panel_code']):
+                                            regional_panels.append(metadata)
+                                finally:
+                                    if os.path.exists(panel_path):
+                                        os.remove(panel_path)
+                            count_payload = {'counts': regional_counts, 'uncertain_regions': [], 'method': 'source_panel_regions', 'regions': regions}
                             differences = count_mismatches(parsed_devs, count_payload)
                             if differences:
                                 repair_prompt = verifier_prompt + "\nKIỂM ĐẾM NGUỒN ĐỘC LẬP — CẦN ĐỐI CHIẾU VÀ SỬA DANH SÁCH:\n" + "\n".join(differences)
@@ -2919,6 +2960,10 @@ Chỉ trả một JSON hợp lệ, không markdown:
                         collected_technical_proposals.extend(page_proposals)
                     if parsed_devs:
                         extracted_panels = ResponseParserService.extract_panels_metadata(ai_response)
+                        # Keep enclosure observations from each complete panel crop;
+                        # the full-page extraction may only report the last cabinet.
+                        from app.services.ai.inventory_validation import merge_panel_observations
+                        extracted_panels = merge_panel_observations(extracted_panels, regional_panels, parsed_devs)
                         page_panel_code = None
                         page_panel_name = None
                         if extracted_panels:
@@ -3038,7 +3083,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
 
                         if page_new_devs:
                             # CẬP NHẬT NGAY VÀO PHIÊN PHÂN TÍCH TRONG DB
-                            if db and project_id:
+                            if db and project_id and persist_partial_iterations:
                                 try:
                                     from app.models.conversation_session import ConversationSession
                                     from app.models.analysis_iteration import AnalysisIteration

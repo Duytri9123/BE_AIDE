@@ -79,6 +79,8 @@ class Persistence(unittest.IsolatedAsyncioTestCase):
     async def test_two_jobs_save_json_uuid_counters_and_atomic_charge(self):
         first=await worker_tasks.run_analysis(1,1,{'file_id':1},lambda event:None)
         second=await worker_tasks.run_analysis(1,1,{'file_id':1},lambda event:None)
+        self.assertTrue(all(call.kwargs.get('persist_partial_iterations') is False
+                            for call in worker_tasks.AnalysisPipelineService.execute_analysis.call_args_list))
         json.dumps(first);json.dumps(second)
         async with self.sessions() as db:
             iterations=(await db.execute(select(AnalysisIteration).order_by(AnalysisIteration.id))).scalars().all()
