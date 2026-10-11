@@ -105,7 +105,7 @@ class WebSearchService:
 
         # Kiểm tra cache
         try:
-            cached = None if refresh else await cache_service.get(cache_key)
+            cached = None if refresh else await cache_service.get_json(cache_key)
             if cached and isinstance(cached, dict):
                 return cached
         except Exception:
@@ -149,7 +149,7 @@ class WebSearchService:
             # Cache kết quả trong 1 ngày nếu thành công
             if result.get("success"):
                 try:
-                    await cache_service.set(cache_key, result, expire=86400)
+                    await cache_service.set_json(cache_key, result, expire=86400)
                 except Exception:
                     pass
 

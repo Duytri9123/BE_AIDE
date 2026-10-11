@@ -47,6 +47,7 @@ class TokenLogOut(BaseModel):
 
 class MySubscriptionOut(BaseModel):
     current_tokens: int
+    current_plan_id: Optional[int] = None
     active_subscription: Optional[dict] = None
     recent_token_logs: List[TokenLogOut] = []
 
@@ -143,10 +144,13 @@ async def get_my_subscription(
     db: AsyncSession = Depends(get_db)
 ):
     """Lấy thông tin gói đang sử dụng và lịch sử token gần đây của user."""
+    now = datetime.now(timezone.utc)
     # Tìm subscription còn hạn mới nhất
     stmt_sub = (
         select(Subscription)
-        .where(Subscription.user_id == current_user.id, Subscription.status == "active")
+        .where(Subscription.user_id == current_user.id, Subscription.status == "active",
+               Subscription.starts_at <= now,
+               Subscription.ends_at > now)
         .order_by(desc(Subscription.created_at))
         .limit(1)
     )
@@ -154,16 +158,23 @@ async def get_my_subscription(
     active_sub = res_sub.scalar_one_or_none()
 
     sub_data = None
+    current_plan_id = None
     if active_sub:
+        current_plan_id = active_sub.plan_id
         res_plan = await db.execute(select(Plan).where(Plan.id == active_sub.plan_id))
         plan = res_plan.scalar_one_or_none()
         sub_data = {
             "id": active_sub.id,
+            "plan_id": active_sub.plan_id,
             "plan_name": plan.name if plan else "Gói dịch vụ",
             "starts_at": active_sub.starts_at,
             "ends_at": active_sub.ends_at,
             "status": active_sub.status
         }
+    else:
+        # Accounts without a valid paid subscription use the active free tier.
+        free_plan = await db.execute(select(Plan.id).where(Plan.price == 0, Plan.is_active == True).order_by(Plan.id).limit(1))
+        current_plan_id = free_plan.scalar_one_or_none()
 
     # Lấy 10 log token gần nhất
     stmt_logs = (
@@ -177,6 +188,7 @@ async def get_my_subscription(
 
     return MySubscriptionOut(
         current_tokens=current_user.tokens or 0,
+        current_plan_id=current_plan_id,
         active_subscription=sub_data,
         recent_token_logs=list(token_logs)
     )

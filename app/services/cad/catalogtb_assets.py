@@ -6,16 +6,31 @@ from pathlib import Path
 from functools import lru_cache
 
 ROOT = Path(__file__).resolve().parents[3] / 'data' / 'CatalogTB'
-FACES = {'Mặt trước':'front', 'Mặt bên':'side', 'Mặt trên':'top', 'Mặt sau':'rear', 'Mặt cắt':'section', 'Mặt có các lỗ đấu nối':'front', 'Mặt đứng':'front', 'Mặt hông':'side', 'Mặt bằng':'top', 'Mặt xuyên dây':'wire_passage', 'Mặt đấu dây':'wiring'}
+FACES = {'Mặt trước':'front', 'Mặt bên':'side', 'Mặt trên':'top', 'Mặt sau':'rear', 'Mặt cắt':'section', 'Mặt có các lỗ đấu nối':'front', 'Mặt đứng':'front', 'Mặt hông':'side', 'Mặt bằng':'top', 'Mặt xuyên dây':'wire_passage', 'Mặt đấu dây':'wiring', 'Nắp che mặt trước':'cover'}
+
+
+def face_code(label):
+    """Read explicit projection labels, including state/rating annotations."""
+    base=str(label or '').split(' · ')[0]
+    aliases={'Mặt dưới':'bottom','Mặt trước mở nắp':'front_open',
+             'Mặt đấu nối phía sau':'rear_wiring','Mặt nhìn dọc thân khóa':'axial',
+             'Lỗ khoét cánh':'cutout'}
+    return FACES.get(base,aliases.get(base,'unknown'))
 
 
 def insertion_source(path):
     """Use native REGION outlines only while tied to the exact original DXF."""
     path=Path(path).resolve()
+    units_marker=path.parent/'verified_units.json'
+    if units_marker.is_file():
+        contract=json.loads(units_marker.read_text(encoding='utf8'))
+        if path.name==contract.get('normalized_file'):
+            normalized_source(path.parent/contract['source_file'])
+            path=path.parent/contract['source_file']
     marker=path.parent/'native_preview.json'
-    if not marker.is_file():return path
+    if not marker.is_file():return normalized_source(path)
     meta=json.loads(marker.read_text(encoding='utf8'))
-    if not meta.get('insertion_outline'):return path
+    if not meta.get('insertion_outline'):return normalized_source(path)
     derived=(path.parent/meta['insertion_outline']).resolve()
     if derived.parent!=path.parent or not derived.is_relative_to(ROOT.resolve()):
         raise ValueError('Bản chuyển nét CAD nằm ngoài thư viện')
@@ -23,7 +38,28 @@ def insertion_source(path):
         raise ValueError('CAD nguồn đã đổi; cần dựng lại nét REGION trước khi chèn')
     if hashlib.sha256(derived.read_bytes()).hexdigest()!=meta.get('outline_sha256'):
         raise ValueError('Bản chuyển nét CAD không khớp hồ sơ kiểm tra')
-    return derived
+    return normalized_source(derived)
+
+
+def normalized_source(path):
+    """Return a hash-verified header-only mm copy, retaining source geometry."""
+    path=Path(path).resolve()
+    marker=path.parent/'verified_units.json'
+    if not marker.is_file():return path
+    meta=json.loads(marker.read_text(encoding='utf8'))
+    if path.name==(meta.get('outline') or {}).get('source_file'):
+        meta=meta['outline']
+    if path.name!=meta.get('source_file'):return path
+    if meta.get('coordinate_scale_to_mm')!=1 or meta.get('target_units_code')!=4:
+        raise ValueError('Hợp đồng đơn vị CAD không hợp lệ')
+    target=(path.parent/meta['normalized_file']).resolve()
+    if target.parent!=path.parent or not target.is_relative_to(ROOT.resolve()):
+        raise ValueError('CAD chuẩn hóa nằm ngoài thư viện')
+    if hashlib.sha256(path.read_bytes()).hexdigest()!=meta.get('source_sha256'):
+        raise ValueError('CAD nguồn đã đổi; cần xác minh lại đơn vị')
+    if hashlib.sha256(target.read_bytes()).hexdigest()!=meta.get('normalized_sha256'):
+        raise ValueError('CAD chuẩn hóa không khớp hồ sơ đơn vị')
+    return target
 
 
 def category_matches(requested, actual):
@@ -31,6 +67,7 @@ def category_matches(requested, actual):
     requested=str(requested).upper().replace(' ','_')
     actual=str(actual).upper().replace(' ','_')
     aliases={'FUSE':{'FUSE','FUSE_HOLDER','FUSEASSEMBLY','FUSE_ASSEMBLY'},
+             'SELECTOR_3_POSITION':{'SELECTOR','SELECTOR_3_POSITION'},
              'LIGHT':{'LIGHT','INDICATOR','PILOT'},'INDICATOR':{'LIGHT','INDICATOR','PILOT'},
              'BUTTON':{'BUTTON','PUSHBUTTON'},'PUSHBUTTON':{'BUTTON','PUSHBUTTON'},
              'PHASE_RELAY':{'PHASE_RELAY','PHASERELAY'},
@@ -75,10 +112,12 @@ def _read(signature):
         family = hashlib.sha1(p.relative_to(ROOT).as_posix().encode()).hexdigest()[:16]
         primary = (profile.get('cad_chen_tu') or {}).get('id_hinh_goc')
         for entry in profile.get('cad_don') or []:
-            face = FACES.get(entry.get('huong_nhin'), 'unknown')
+            face = face_code(entry.get('huong_nhin'))
             path = (p.parent / entry.get('duong_dan',f"CadDon/{entry['id_hinh_goc']}/ban_ve.dxf")).resolve()
             if not path.is_relative_to(ROOT.resolve()) or not path.is_file():
                 continue
+            original_path=path
+            path=normalized_source(path)
             view = hashlib.sha1(f"{family}:{entry['id_hinh_goc']}".encode()).hexdigest()[:20]
             result.append(dict(id='tb:'+view, family_id='tb:'+family,
                 name=profile.get('ten_san_pham') or profile.get('ten_kieu'),
@@ -87,7 +126,8 @@ def _read(signature):
                 variant_id=entry.get('bien_the_cad') or entry.get('bien_the'),
                 variant_pairing_rule=profile.get('quy_tac_ghep_mat') or {},
                 poles=ai.get('so_cuc'), measurement_function=ai.get('measurement_function'), search_aliases=profile.get('tu_khoa_tim_kiem') or [], face=face, primary=entry['id_hinh_goc']==primary,
-                path=str(path), profile_path=p.relative_to(ROOT).as_posix(),
+                path=str(path), original_path=str(original_path), profile_path=p.relative_to(ROOT).as_posix(),
+                units_evidence=entry.get('unit_verification') or {}, asset_role=entry.get('asset_role') or 'device_projection',
                 specifications=profile.get('thong_so') or {},
                 electrical_variants=[v for v in variants if v['profile'] == p.relative_to(ROOT).as_posix()],
                 placement=entry.get('bo_tri_trong_tu') or {},
@@ -107,6 +147,8 @@ def resolve(asset_id, face=None):
         raise ValueError('Không tìm thấy CAD CatalogTB đã chọn')
     if item['category']=='UNCLASSIFIED':
         raise ValueError('CAD có trong thư viện nhưng chưa xác định loại thiết bị; cần nhận diện trước chèn')
+    if item.get('face')=='unknown':
+        raise ValueError('CAD chưa xác nhận hướng nhìn; không được tự chèn vào mặt tủ')
     if face and item['face'] != face:
         raise ValueError('Mặt CAD đã chọn không đúng hướng nhìn yêu cầu')
     if item['linework_review'].get('status')=='unresolved_visible_geometry_defect':

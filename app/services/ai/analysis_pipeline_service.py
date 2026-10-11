@@ -112,7 +112,8 @@ class AnalysisPipelineService:
             return None
         normalized_prompt = re.sub(r"\s+", " ", user_prompt.casefold())
         candidates: Dict[str, str] = {}
-        for item in getattr(catalog_engine, "items", []) or []:
+        for item in [*(getattr(catalog_engine, "items", []) or []),
+                     *(getattr(catalog_engine, "reference_profiles", []) or [])]:
             for field in ("brand_display", "brand"):
                 value = str(item.get(field) or "").strip()
                 if len(value) >= 2:
@@ -623,6 +624,7 @@ class AnalysisPipelineService:
                                     upstream_device=getattr(d, "upstream_device", None),
                                     downstream_device=getattr(d, "downstream_device", None),
                                     connected_load=getattr(d, "connected_load", None),
+                                    technical_analysis=getattr(d, "technical_analysis", None),
                                     confidence=float(d.confidence or 0.95),
                                     box_2d=getattr(d, "box_2d", None),
                                     evidence_image=d.evidence_image,
@@ -1183,10 +1185,10 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             await asyncio.sleep(0.35)
         log_event(
             stage="catalog_matching",
-            title="Tra cứu Catalog để lập báo giá" if catalog_for_quotation else "Phân tích nhà cung cấp & thiết bị phù hợp",
+            title="Tra cứu Catalog để lập báo giá" if catalog_for_quotation else "Ghi nhận dữ liệu thiết bị",
             detail=(f"Đang đối chiếu thông số với {len(catalog_engine.items)} sản phẩm để lập báo giá..."
                     if catalog_for_quotation else
-                    f"Đang đối chiếu {len(extracted_devices)} thiết bị với {len(catalog_engine.reference_profiles)} hồ sơ CAD CatalogTB; {len(catalog_engine.items)} mã có giá đã xác nhận. Giữ nguyên dữ liệu SLD gốc."),
+                    f"Đang tổng hợp {len(extracted_devices)} thiết bị theo nguồn và yêu cầu đi kèm. Việc chọn sản phẩm sẽ thực hiện khi tạo thiết kế."),
             status="info"
         )
 
@@ -1215,6 +1217,13 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 dev.panel_name = detected_panel_name
             if not dev.location or dev.location == "-":
                 dev.location = detected_location
+
+            if not catalog_for_quotation:
+                # Preserve source observations; choose compatible products during design.
+                raw_brand = str(dev.brand or '').strip()
+                dev.brand = '' if raw_brand.casefold() in {'asian', 'asia', 'oem', '-', '---'} else raw_brand
+                dev.detected_brand = dev.brand
+                continue
 
             cat_upper = (dev.category or "").upper()
             in_val = dev.in_a or 0
@@ -1413,7 +1422,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
 
             # Tự động áp dụng lựa chọn kỹ thuật ở cả bảng bóc tách. Người dùng
             # có thể đổi sang các hãng khác từ `catalog_matches` trên giao diện.
-            dev.brand = chosen_brand or 'Asian'
+            dev.brand = chosen_brand or ''
             dev.part_number = chosen_sku
 
             if catalog_for_quotation:
@@ -1437,10 +1446,10 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
 
         log_event(
             stage="catalog_matching",
-            title="Định giá & chọn mã SKU catalog hoàn tất" if catalog_for_quotation else "Phân tích nhà cung cấp & thiết bị phù hợp hoàn tất",
+            title="Định giá & chọn mã SKU catalog hoàn tất" if catalog_for_quotation else "Hoàn tất dữ liệu thiết bị bóc tách",
             detail=(f"Đã hoàn tất đối chiếu giá cho {len(extracted_devices)} thiết bị (Thương hiệu: {preferred_brand or settings.DEFAULT_BRAND})"
                     if catalog_for_quotation else
-                    f"Đã đối chiếu hãng và cấu hình phù hợp cho {len(extracted_devices)} thiết bị; không thay đổi dữ liệu bóc tách gốc."),
+                    f"Đã ghi nhận {len(extracted_devices)} thiết bị theo nguồn và yêu cầu đi kèm; chọn sản phẩm phù hợp khi tạo thiết kế."),
             status="success"
         )
 
@@ -2061,10 +2070,10 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         right, bottom = int(xmax * width / 1000), int(ymax * height / 1000)
         if right <= left or bottom <= top:
             return None
-        # Show a circuit neighbourhood rather than treating a tiny text label
-        # as a verified device silhouette. The source box stays unchanged.
-        pad_x = max(round(width * .08), round((right-left) * .25))
-        pad_y = max(round(height * .05), round((bottom-top) * .35))
+        # Preserve the verified symbol and label with a small margin; do not
+        # include adjacent devices through page-wide padding.
+        pad_x = max(2, round((right-left) * .04))
+        pad_y = max(2, round((bottom-top) * .35))
         return max(0, left-pad_x), max(0, top-pad_y), min(width, right+pad_x), min(height, bottom+pad_y)
 
     @staticmethod
@@ -2239,6 +2248,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 upstream_device=getattr(d, "upstream_device", None),
                 downstream_device=getattr(d, "downstream_device", None),
                 connected_load=getattr(d, "connected_load", None),
+                technical_analysis=getattr(d, "technical_analysis", None),
                 confidence=float(d.confidence or 0.95),
                 box_2d=getattr(d, "box_2d", None),
                 evidence_image=getattr(d, "evidence_image", None),
@@ -2921,8 +2931,40 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             count_payload = {'counts': regional_counts, 'uncertain_regions': [], 'method': 'source_panel_regions', 'regions': regions}
                             differences = count_mismatches(parsed_devs, count_payload)
                             if differences:
-                                repair_prompt = verifier_prompt + "\nKIỂM ĐẾM NGUỒN ĐỘC LẬP — CẦN ĐỐI CHIẾU VÀ SỬA DANH SÁCH:\n" + "\n".join(differences)
-                                verifier_response, parsed_devs = await extract_with_retry(verify_page_inventory, repair_prompt)
+                                from app.services.ai.inventory_validation import repair_counted_inventory
+                                # Read the same independently verified panel crop used
+                                # for counting. Small contactor labels disappear when
+                                # the whole photographed page is fitted into the model.
+                                for region_index, region in enumerate(regions):
+                                    code = panel_key(region['panel_code'])
+                                    regional_devices = [d for d in parsed_devs if panel_key(d.panel_code) == code]
+                                    regional_payload = {'counts': [c for c in regional_counts
+                                        if panel_key(c['panel_code']) == code]}
+                                    if not regional_payload['counts'] or not count_mismatches(regional_devices, regional_payload):
+                                        continue
+                                    x0, y0, x1, y1 = region['box_2d']
+                                    repair_path = temp_img_path + f'.repair{region_index}.jpg'
+                                    try:
+                                        page_img.crop((int(x0*image_width/1000), int(y0*image_height/1000),
+                                            int(x1*image_width/1000), int(y1*image_height/1000))).save(repair_path, 'JPEG', quality=95)
+                                        async def repair_panel(prompt):
+                                            return await verify_page_inventory(prompt, image_path=repair_path)
+                                        verifier_response, repaired = await repair_counted_inventory(
+                                            repair_panel, verifier_prompt + '\nẢnh là khung tủ ' + region['panel_code']
+                                            + '. Chỉ trả thiết bị thuộc khung này; tọa độ theo ảnh cắt.',
+                                            regional_devices, regional_payload)
+                                        if any(panel_key(d.panel_code) != code for d in repaired):
+                                            raise ValueError('Danh sách đọc lại ảnh cắt gán sai tủ')
+                                        for device in repaired:
+                                            box = device.box_2d
+                                            if box and len(box) == 4:
+                                                a, b, c, e = box
+                                                device.box_2d = [y0+a*(y1-y0)/1000, x0+b*(x1-x0)/1000,
+                                                    y0+c*(y1-y0)/1000, x0+e*(x1-x0)/1000]
+                                        parsed_devs = [d for d in parsed_devs if panel_key(d.panel_code) != code] + repaired
+                                    finally:
+                                        if os.path.exists(repair_path):
+                                            os.remove(repair_path)
                                 # The repair is a complete inventory, rather than an append-only
                                 # merge that could preserve an invented module or duplicate CB.
                                 differences = count_mismatches(parsed_devs, count_payload)
@@ -2948,6 +2990,23 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                         device.box_2d = ExtractedDeviceSchema.normalize_evidence_box(device.box_2d)
                                     except (TypeError,ValueError,OverflowError):
                                         device.box_2d = None
+                            if any(not device.box_2d for device in parsed_devs):
+                                # Locate the final inventory, after repairs, using fresh row IDs.
+                                final_rows = [{'device_id': index, 'panel_code': device.panel_code,
+                                               'tag': device.tag, 'name': device.name, 'spec': device.spec,
+                                               'category': device.category}
+                                              for index, device in enumerate(parsed_devs)]
+                                location_response = await verify_page_inventory(
+                                    'Chỉ định vị ảnh đối chiếu cho danh sách cuối cùng; không sửa danh mục. '
+                                    'Tìm đúng ký hiệu và nhãn riêng của từng thiết bị, không bao nhánh kế bên. '
+                                    'Bao trọn ký hiệu và mọi dòng thông số; vùng cắt dài/ngắn theo nội dung, không ép ô vuông. '
+                                    'Không đoán vị trí; không rõ thì verified=false, box_2d=null. '
+                                    'Trả JSON {"boxes":[{"device_id":0,"verified":true,"box_2d":[ymin,xmin,ymax,xmax]}]}. '
+                                    'Tọa độ 0..1000 theo toàn trang ảnh. Danh sách:\n' +
+                                    json.dumps(final_rows, ensure_ascii=False))
+                                location_payload = next((block for block in ResponseParserService.extract_json_blocks(location_response)
+                                                         if isinstance(block, dict) and isinstance(block.get('boxes'), list)), None)
+                                AnalysisPipelineService._apply_verified_boxes(parsed_devs, location_payload)
                         except Exception as verify_error:
                             logger.warning("Evidence verification failed on page %s: %s", page_num, verify_error)
                             raise ValueError("Đối chiếu thiết bị với ảnh nguồn chưa đạt: " + str(verify_error)[:1400]) from verify_error
@@ -3053,6 +3112,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 upstream_device=getattr(d, "upstream_device", None),
                                 downstream_device=getattr(d, "downstream_device", None),
                                 connected_load=getattr(d, "connected_load", None),
+                                technical_analysis=getattr(d, "technical_analysis", None),
                                 confidence=float(d.confidence or 0.95),
                                 box_2d=d.box_2d,
                                 evidence_image=ev_b64,
@@ -3356,6 +3416,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 AnalysisIteration.session_id == session.id).order_by(
                     AnalysisIteration.iteration_number.desc()))).scalars().first() if session else None
             original_conf = dict(latest.confidence_scores or {}) if latest else {}
+            if not user_prompt and latest:
+                user_prompt = latest.user_message
             panels = multi_panel_list or original_conf.get('panels') or []
             if quotation_configuration:
                 panels = [{**p, 'panel_code': code, 'dimension': p.get('dimension')}
@@ -3379,7 +3441,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                       'cad_file': next((r['cad_file'] for r in results if r.get('cad_file')), None),
                       'cad_files': [r['cad_file'] for r in results if r.get('cad_file')],
                       'panel_designs': results, 'quotation_file': None,
-                      'quotation_rows': [row for r in results for row in r.get('quotation_rows', [])],
+                      'quotation_rows': [row for r in results for row in r.get('quotation_rows', [])] if ready else [],
                       'devices': [row for r in results for row in r.get('devices', [])]}
             if latest:
                 conf = dict(latest.confidence_scores or {})
@@ -3411,11 +3473,25 @@ Chỉ trả một JSON hợp lệ, không markdown:
         )
 
         from app.services.ai.auxiliary_devices import expand_devices
+        requested_design_brand = AnalysisPipelineService._detect_requested_brand(
+            user_prompt, DeviceCatalogEngine.get_instance())
+        if requested_design_brand and requested_preference.casefold() in {'', 'theo thiết kế', 'theo thiet ke', 'default', 'auto'}:
+            resolved_brand_pref = requested_design_brand
         from app.services.cad.catalogtb_assets import assets as live_cad_assets
         live_cad_assets(refresh=True)
         devices = expand_devices(devices)
+        await emit_progress('cad_selection', 8, 'Đang chọn CAD và các mặt phù hợp với từng thiết bị')
         from app.services.cad.automatic_selection import select_device_geometry
+        for row in devices:
+            if str(row.get('brand') or '').strip().casefold() in {'', 'asian', 'asia', 'oem'}:
+                row['brand'] = resolved_brand_pref
+                row['detected_brand'] = ''
+                row['selection_source'] = 'user_request' if requested_design_brand else 'default_brand'
         devices = [select_device_geometry(d) for d in devices]
+        from app.services.cad.external_research import research_missing_geometry, needs_external_geometry
+        if any(needs_external_geometry(d) for d in devices):
+            await emit_progress('external_cad', 10, 'Đang tìm bản vẽ và kích thước từ nhà sản xuất cho thiết bị còn thiếu')
+            devices = await research_missing_geometry(devices, db)
         # 1. Chuẩn hóa thiết bị sang ExtractedDeviceSchema
         extracted_devices: List[ExtractedDeviceSchema] = []
         for d in devices:
@@ -3428,6 +3504,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     source_observations=d.get('source_observations'),
                     original_spec=d.get('original_spec'),
                     dimensions=d.get("dimensions"),
+                    verified_placement_clearance=d.get('verified_placement_clearance'),
                     category=d.get("category", "Thiết bị"),
                     name=d.get("name", "Thiết bị"),
                     spec=d.get("spec", ""),
@@ -3462,6 +3539,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     upstream_device=d.get("upstream_device"),
                     downstream_device=d.get("downstream_device"),
                     connected_load=d.get("connected_load"),
+                    technical_analysis=d.get("technical_analysis"),
                     accompanying_accessories=d.get("accompanying_accessories"),
                     inferred_components=d.get("inferred_components"),
                     confidence=d.get("confidence", settings.DEFAULT_CONFIDENCE),
@@ -3592,9 +3670,9 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 preferred_dimensions=detected_dimensions
             )
         except ValueError as exc:
-            # Missing CAD dimensions must not prevent an honest quotation draft.
+            # Retain the extraction, but do not publish a quote from missing geometry.
             enclosure_spec = {'sizing_status': 'needs_review', 'sizing_note': str(exc)}
-            await emit_progress('engineering_review', 35, 'Chưa đủ kích thước thiết bị để chọn vỏ; vẫn lập danh mục hỏi giá.')
+            await emit_progress('engineering_review', 35, 'Chưa đủ kích thước CAD thiết bị; chưa tính khung và chọn form.')
 
         incomer_rating = enclosure_spec.get("incomer_rating") or max([float(d.in_a or 0) for d in extracted_devices] + [0])
         poles = enclosure_spec.get("poles", 2)
@@ -3651,7 +3729,9 @@ Chỉ trả một JSON hợp lệ, không markdown:
         )
 
         # Use the checked enclosure envelope, never the unvalidated drawing note.
-        await emit_progress("cad_drawing", 60, "Đang chọn form tủ CAD từ thư viện nguồn")
+        await emit_progress("cad_review" if enclosure_spec.get('sizing_status') == 'needs_review' else "cad_drawing", 60,
+                            "Đang ghi nhận dữ liệu thiết bị cần bổ sung" if enclosure_spec.get('sizing_status') == 'needs_review'
+                            else "Đang chọn form tủ CAD từ thư viện nguồn")
         cad_file_path = None
         dxf_filename = ""
         dxf_size = 0
@@ -3670,11 +3750,31 @@ Chỉ trả một JSON hợp lệ, không markdown:
             )
             cad_file_path = source_cad["path"]
             cad_layout = {key: source_cad[key] for key in ("template_id", "source", "dimensions", "minimum_required", "placements", "unmatched_devices", "status", "release_ready")}
+            # The chosen source shell can be larger than the calculated
+            # minimum. Materials and the final check must use that real shell.
+            actual_dimensions = source_cad['dimensions']
+            enclosure_spec['calculated_minimum_dimensions'] = source_cad['minimum_required']
+            enclosure_spec.update(actual_dimensions)
+            enclosure_height, enclosure_width, enclosure_depth = (
+                actual_dimensions[axis] for axis in ('height', 'width', 'depth'))
+            surface_m2 = 2 * (enclosure_height * enclosure_width + enclosure_height * enclosure_depth
+                              + enclosure_width * enclosure_depth) / 1e6
+            enclosure_unit_price = int(round(max(min_enc_p, int(surface_m2 * 1200000))
+                                             / float(PRICE_ROUNDING_STEP_VND)) * PRICE_ROUNDING_STEP_VND)
+            if need_busbar:
+                busbar_calc = BusbarCalculatorService.calculate(
+                    in_a=incomer_rating,
+                    enclosure_dims={'W': enclosure_width, 'width': enclosure_width,
+                                    'H': enclosure_height, 'D': enclosure_depth},
+                    feeder_list=[d.model_dump() for d in extracted_devices])
+                busbar_unit_price = busbar_calc.unit_price
             dxf_filename = os.path.basename(cad_file_path)
             dxf_size = os.path.getsize(cad_file_path)
         except ValueError as exc:
             from app.services.cad.cabinet_templates import candidates as form_candidates
             try:
+                if enclosure_spec.get('sizing_status') == 'needs_review':
+                    raise ValueError('Chưa ghép đủ CAD và bao hình thiết bị; chưa xét form tủ.')
                 target = dict(zip(('height', 'width', 'depth'), detected_dimensions))
                 forms = form_candidates(target)[:3]
                 enclosure_spec['source_form_review'] = {
@@ -3783,7 +3883,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
             neutral_names={d.name for d in extracted_devices if d.category=='N'}
             quotation_rows=[r for r in quotation_rows if r.get('name') not in neutral_names]
             quotation_rows.extend(cad_layout['material_rows'])
-        await emit_progress("quotation", 84, f"Đã lập {len(quotation_rows)} dòng báo giá")
+        await emit_progress("design_validation", 84, 'Đang đối chiếu thiết kế và danh mục vật tư')
 
         # 5. Thu thập danh sách đề xuất kỹ thuật tương thích
         technical_proposals = []
@@ -3800,6 +3900,10 @@ Chỉ trả một JSON hợp lệ, không markdown:
             cad_layout['source_reconciliation'] = reconcile_devices([d.model_dump() for d in extracted_devices])
         design_result = output_status(cad_file, None, cad_layout, layout_conflicts,
                                       devices=[d.model_dump() for d in extracted_devices])
+        if not design_result['success']:
+            # Failed/review-only CAD cannot publish a quote with guessed shell
+            # sizes or materials. Device price research remains internal.
+            quotation_rows = []
         await emit_progress('quotation', 88,
                             'Thiết kế hoàn tất; đã mở phần báo giá' if design_result['success']
                             else 'Thiết kế chưa hoàn tất; chưa mở phần báo giá')

@@ -3,10 +3,19 @@ from app.services.ai.analysis_pipeline_service import AnalysisPipelineService as
 
 
 class FocusedEvidenceTests(unittest.TestCase):
-    def test_small_label_includes_readable_circuit_context(self):
+    def test_wide_and_tall_regions_keep_all_verified_content(self):
+        for box in ([100, 100, 150, 700], [100, 100, 800, 150]):
+            left, top, right, bottom = Pipeline._evidence_crop_pixels(box, 1000, 1000)
+            self.assertLessEqual(left, box[1])
+            self.assertLessEqual(top, box[0])
+            self.assertGreaterEqual(right, box[3])
+            self.assertGreaterEqual(bottom, box[2])
+            self.assertNotEqual(right-left, bottom-top)
+
+    def test_verified_device_crop_excludes_neighbouring_circuits(self):
         crop = Pipeline._evidence_crop_pixels([315, 169, 335, 245], 1684, 2382)
-        self.assertGreater(crop[2]-crop[0], 350)
-        self.assertGreater(crop[3]-crop[1], 250)
+        self.assertLess(crop[2]-crop[0], 150)
+        self.assertLess(crop[3]-crop[1], 90)
         self.assertLess(crop[2]-crop[0], 1684)
         self.assertLess(crop[3]-crop[1], 2382)
 

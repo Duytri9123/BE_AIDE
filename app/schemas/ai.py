@@ -57,6 +57,7 @@ class TechnicalProposalSchema(BaseModel):
 class ExtractedDeviceSchema(BaseModel):
     cad: Optional[dict] = None
     dimensions: Optional[dict] = None
+    verified_placement_clearance: Optional[dict] = None
     category: str
     name: str
     spec: str
@@ -81,6 +82,7 @@ class ExtractedDeviceSchema(BaseModel):
     mounting: Optional[str] = None
     mounting_face: Optional[str] = None
     source_observations: Optional[dict] = None
+    technical_analysis: Optional[str] = None
     electrical_function: Optional[str] = None
     upstream_device: Optional[str] = None
     downstream_device: Optional[str] = None

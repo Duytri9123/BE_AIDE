@@ -2,6 +2,7 @@
 import ezdxf
 from ezdxf.addons import Importer
 from app.services.cad import cabinet_templates
+from app.services.cad.mechanical_mounting import mounting_review
 
 
 def door_hinges(source, item):
@@ -49,12 +50,12 @@ def insert_faces(space, dimensions, interior_offset):
             continue
         name = 'CABINET_SOURCE_' + item['id'].replace('-', '_') + '_complete'
         block = space.doc.blocks.new(name)
-        importer = Importer(source, space.doc)
-        importer.import_entities(source.modelspace(), target_layout=block)
-        importer.finalize()
+        from app.services.cad.source_import import import_source_entities
+        import_source_entities(source, space.doc, source.modelspace(), block, item['id'])
         space.add_blockref(name, (-door[0], -door[1]))
         return dict(template_id=item['id'], source=item['filename'], source_dimensions=nominal,
                     hinges_by_face=door_hinges(source, item),
+                    mechanical_mounting_review=mounting_review(item),
                     requested_dimensions=dict(height=height, width=width, depth=depth),
                     faces=[f['kind'] for f in item.get('faces', [])], scale=1,
                     complete_source_sheet=True, source_entity_count=len(source.modelspace()),

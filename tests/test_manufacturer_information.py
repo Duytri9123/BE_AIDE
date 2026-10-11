@@ -18,9 +18,9 @@ class ProductInformationTests(unittest.TestCase):
         self.assertEqual([r['brand_match'] for r in result['system_matches']],['same','different'])
         self.assertTrue(all(not r['fabrication_ready'] for r in result['system_matches']))
 
-    def test_unknown_brand_is_asian_without_manufacturer_confirmation(self):
+    def test_unknown_device_brand_stays_empty_without_manufacturer_confirmation(self):
         result=product_information(dict(category='MCB',brand='',part_number='X100'),self.engine())
-        self.assertEqual(result['brand'],'Asian')
+        self.assertEqual(result['brand'],'')
         self.assertTrue(all(r['brand_match']=='unknown' for r in result['system_matches']))
 
     def test_related_model_and_wrong_poles_are_not_exact(self):

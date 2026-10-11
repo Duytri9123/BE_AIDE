@@ -16,9 +16,12 @@ from app.services.equipment_library import (BACKEND_CATALOG_DIR, SOURCE_ROOT, DB
 router = APIRouter()
 
 @router.get('/browser-data')
-def catalogtb_browser_data():
-    from app.services.catalogtb_browser import browser_data
-    return browser_data()
+def catalogtb_browser_data(q: str = '', category: str = '', brand: str = '',
+                           skip: int = Query(0, ge=0),
+                           limit: int | None = Query(None, ge=1, le=100)):
+    from app.services.catalogtb_browser import browser_data, browser_page
+    # Keep the full-data contract for existing workspace consumers.
+    return browser_data() if limit is None else browser_page(q, category, brand, skip, limit)
 
 @router.get('/projection-catalog')
 def projection_catalog():

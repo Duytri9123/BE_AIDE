@@ -234,6 +234,8 @@ class DeviceCatalogEngine:
             self.reference_profiles.append(dict(
                 category=kind, name=profile.get('ten_san_pham') or profile.get('ten_kieu'),
                 brand=profile.get('hang_xac_nhan') or ai.get('hang'),
+                approximate_identity=profile.get('nhan_dien_web') or {},
+                cad_dimensions=profile.get('kich_thuoc_cad_goc_mm') or {},
                 series=profile.get('ma_dong_san_pham'),
                 poles=ai.get('so_cuc'), cad_poles=ai.get('so_cuc_cad'),
                 specifications=profile.get('thong_so') or {},

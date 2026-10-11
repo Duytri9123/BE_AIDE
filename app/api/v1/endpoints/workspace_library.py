@@ -25,6 +25,49 @@ class ProductInformationRequest(BaseModel):
     refresh: bool = False
 
 
+class DeviceDetailsRequest(ProductInformationRequest):
+    name: str = Field(default='', max_length=200)
+    connected_load: str = Field(default='', max_length=500)
+    electrical_function: str = Field(default='', max_length=100)
+    upstream_device: str = Field(default='', max_length=200)
+    in_a: float | None = None
+    icu_ka: float | None = None
+
+
+@router.post('/device-details')
+async def device_details(request: DeviceDetailsRequest, db: AsyncSession = Depends(get_db),
+                         user: User = Depends(get_current_active_user)):
+    project = (await db.execute(select(Project.id).where(Project.id == request.project_id,
+        Project.user_id == user.id, Project.deleted_at.is_(None)))).scalar_one_or_none()
+    if project is None:
+        raise HTTPException(404, 'Dự án không tồn tại.')
+    from app.models.ai_connection import AiConnection
+    from app.models.conversation_session import ConversationSession
+    from app.models.analysis_iteration import AnalysisIteration
+    from app.services.ai.vision_analyzer import VisionAnalyzerService
+    from app.services.ai.connection_pool import ConnectionPoolService
+    from app.services.ai.device_details import details_prompt, parse_details
+    supported = ('google', 'gemini', 'openai', 'codex', 'antigravity', 'anthropic', 'claude', 'openrouter', 'deepseek')
+    connections = (await db.execute(select(AiConnection).where(AiConnection.is_active == True,
+        AiConnection.status == 'active', AiConnection.provider.in_(supported))
+        .order_by(AiConnection.priority))).scalars().all()
+    connections = [connection for connection in connections if connection.api_key]
+    if not connections:
+        raise HTTPException(503, 'Chưa có kết nối AI để phân tích thiết bị.')
+    requirement = (await db.execute(select(AnalysisIteration.user_message)
+        .join(ConversationSession, AnalysisIteration.session_id == ConversationSession.id)
+        .where(ConversationSession.project_id == request.project_id)
+        .order_by(AnalysisIteration.created_at.desc()).limit(1))).scalar_one_or_none() or ''
+    payload = request.model_dump(exclude={'project_id', 'refresh'})
+    try:
+        response, _ = await ConnectionPoolService.call_with_fallback(db=db,
+            connections=connections, call_fn=VisionAnalyzerService.analyze_text,
+            prompt=details_prompt(payload, requirement))
+        return parse_details(response)
+    except Exception:
+        raise HTTPException(502, 'Chưa phân tích được chi tiết thiết bị. Vui lòng thử lại.')
+
+
 @router.post('/manufacturer-information')
 async def manufacturer_information(request: ProductInformationRequest,
         db: AsyncSession = Depends(get_db), user: User = Depends(get_current_active_user)):

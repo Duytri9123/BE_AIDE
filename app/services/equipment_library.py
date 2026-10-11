@@ -57,6 +57,9 @@ def asset_bytes(relative: str) -> bytes:
     path = _catalogtb_asset(relative)
     if path is None:
         raise FileNotFoundError(relative)
+    if path.suffix.lower()=='.dxf':
+        from .cad.catalogtb_assets import normalized_source
+        path=normalized_source(path)
     return path.read_bytes()
 
 

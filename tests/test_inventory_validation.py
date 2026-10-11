@@ -3,6 +3,39 @@ from app.services.ai.inventory_validation import extract_with_retry, require_inv
 
 
 class InventoryValidationTests(unittest.IsolatedAsyncioTestCase):
+    def test_generic_count_bucket_uses_explicit_source_type_only(self):
+        devices = require_inventory('{"devices":[{"panel_code":"P","category":"MCB","name":"Q","quantity":10}]}')
+        count = {'counts': [{'panel_code': 'P', 'category': 'CB', 'quantity': 10,
+                             'evidence': 'MCB-2P 20A (1), MCB-1P 16A (9)'}]}
+        self.assertEqual(count_mismatches(devices, count), [])
+        count['counts'][0]['evidence'] = 'CB chưa rõ loại'
+        self.assertTrue(count_mismatches(devices, count))
+        count['counts'][0]['evidence'] = 'MCB và MCCB'
+        self.assertTrue(count_mismatches(devices, count))
+
+    async def test_repair_rechecks_and_replaces_invented_relay(self):
+        from unittest.mock import AsyncMock
+        from app.services.ai.inventory_validation import repair_counted_inventory
+        extra = '{"devices":[{"panel_code":"P","category":"MCB","name":"Q","quantity":1},{"panel_code":"P","category":"RELAY","name":"MDK","quantity":1}]}'
+        correct = '{"devices":[{"panel_code":"P","category":"MCB","name":"Q","quantity":1}]}'
+        call = AsyncMock(side_effect=[extra, correct])
+        payload = {'counts':[{'panel_code':'P','category':'MCB','quantity':1},
+                             {'panel_code':'P','category':'RELAY','quantity':0}]}
+        _, rows = await repair_counted_inventory(call, 'Read image', require_inventory(extra), payload)
+        self.assertEqual([r.category for r in rows], ['MCB'])
+        self.assertEqual(call.await_count, 2)
+        self.assertIn('MDK', call.call_args_list[1].args[0])
+
+    async def test_repair_never_releases_a_repeated_mismatch(self):
+        from unittest.mock import AsyncMock
+        from app.services.ai.inventory_validation import repair_counted_inventory
+        extra = '{"devices":[{"panel_code":"P","category":"RELAY","name":"MDK","quantity":1}]}'
+        call = AsyncMock(return_value=extra)
+        with self.assertRaisesRegex(ValueError, 'Danh mục chưa khớp'):
+            await repair_counted_inventory(call, 'Read', require_inventory(extra),
+                {'counts':[{'panel_code':'P','category':'RELAY','quantity':0}]})
+        self.assertEqual(call.await_count, 3)
+
     def test_panel_observation_uses_device_code_without_empty_duplicate(self):
         from app.services.ai.inventory_validation import merge_panel_observations
         devices=require_inventory('{"devices":[{"panel_code":"TĐ-T","category":"CB","name":"Q","quantity":1}]}')

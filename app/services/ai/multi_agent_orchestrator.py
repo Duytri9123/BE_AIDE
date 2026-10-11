@@ -341,49 +341,23 @@ class MultiAgentOrchestrator:
     ) -> ExtractionState:
         """
         Agent 3: Catalog Matcher
-        Đọc catalog hiện có, ưu tiên LS khi nguồn không ghi hãng.
-        Chỉ gán SKU/giá khi có mã nguồn phân giải được một biến thể duy nhất.
+        Giữ nguyên hãng quan sát được trên nguồn.
+        Việc đối chiếu sản phẩm và đơn giá được chuyển sang bước thiết kế.
         """
         logger.info(f"Running CatalogMatcher agent (iteration {state.iteration})")
         
-        from app.services.device_catalog_engine import DeviceCatalogEngine
-        
-        catalog_engine = DeviceCatalogEngine.get_instance()
-        matched_count = 0
-        
         for device in state.devices:
-            drawn_brand = str(device.get("brand") or "").strip()
-            brand = drawn_brand or settings.DEFAULT_BRAND
-            device["detected_brand"] = drawn_brand
-            device["brand"] = brand
-            device["selection_source"] = "drawing" if drawn_brand else "default_brand"
-            device["catalog_matched"] = False
-            device["catalog_price"] = None
-            candidates = catalog_engine.search_candidates(
-                brand=brand, device_type=str(device.get("category") or ""),
-                poles=device.get("poles"), in_current=device.get("in_a"),
-                min_icu=device.get("icu_ka"), limit=5,
-            )
-            device["catalog_candidates"] = [
-                {"sku": item.get("ma"), "name": item.get("n"),
-                 "icu_ka": item.get("icu"), "price": item.get("g"),
-                 "catalog_id": item.get("catalog_id"), "source": item.get("source"),
-                 "rating_complete": all(item.get(key) is not None for key in ("p", "in", "icu"))}
-                for item in candidates
-            ]
-            source_code = str(device.get("part_number") or "").strip()
-            exact = catalog_engine.lookup_device_info(
-                category=str(device.get("category") or ""),
-                brand=brand, part_number=source_code,
-                poles=device.get("poles"), in_a=device.get("in_a"),
-                min_icu=device.get("icu_ka"),
-            ) if source_code else None
-            if exact and exact.get("catalog_matched"):
-                device["catalog_matched"] = True
-                device["catalog_price"] = exact.get("unit_price")
-                device["catalog_id"] = exact.get("catalog_id")
-                matched_count += 1
-        
+            drawn_brand = str(device.get('brand') or '').strip()
+            if drawn_brand.casefold() in {'asian', 'asia', 'oem', '-', '---'}:
+                drawn_brand = ''
+            device['detected_brand'] = drawn_brand
+            device['brand'] = drawn_brand
+            device['selection_source'] = 'drawing' if drawn_brand else 'unresolved'
+            device['catalog_matched'] = False
+            device['catalog_price'] = None
+            device['catalog_candidates'] = []
+            device['catalog_selection_status'] = 'deferred_until_design'
+        matched_count = 0
         state.completed_agents.append(AgentRole.CATALOG_MATCHER)
         
         logger.info(
@@ -457,7 +431,9 @@ class MultiAgentOrchestrator:
         # Weighted average - ADAPTIVE based on complexity
         weights = complexity["scoring_weights"]
         
-        overall_confidence = sum(scores[k] * weights[k] for k in scores)
+        active_scores = [key for key in scores if key != 'catalog_match']
+        total_weight = sum(weights[key] for key in active_scores)
+        overall_confidence = sum(scores[key] * weights[key] for key in active_scores) / total_weight if total_weight else 0
         state.confidence_score = overall_confidence
         
         # Generate feedback for next iteration - ADAPTIVE
@@ -490,13 +466,6 @@ class MultiAgentOrchestrator:
             feedback_items.append(
                 f"{incomplete}/{len(state.devices)} thiết bị thiếu thông số kỹ thuật. "
                 f"Focus vào trích xuất: Dòng định mức (A), Số cực (P), Model/Part Number"
-            )
-        
-        # Catalog match feedback
-        if scores["catalog_match"] < 0.6:
-            feedback_items.append(
-                f"Tỷ lệ khớp catalog thấp. Kiểm tra lại brand name và model number. "
-                "Chỉ đối chiếu với hãng và model có bằng chứng trong dữ liệu nguồn."
             )
         
         # Section coverage feedback

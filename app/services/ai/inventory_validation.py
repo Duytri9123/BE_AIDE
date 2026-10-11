@@ -132,7 +132,15 @@ def count_mismatches(devices, payload):
     for row in counts:
         if not isinstance(row, dict):
             raise ValueError('Bảng kiểm đếm có dòng không hợp lệ.')
-        key = (panel_key(row.get('panel_code')), inventory_kind(row.get('category'),row.get('name') or ''))
+        kind = inventory_kind(row.get('category'), row.get('name') or '')
+        # A count may label the bucket CB while its independently read evidence
+        # explicitly lists MCBs. Use that source evidence, never the extraction's
+        # claimed type, to resolve the bucket. Mixed/unspecified types stay CB.
+        if kind == 'CB':
+            types = set(re.findall(r'\b(?:MCB|MCCB|RCBO|RCCB)\b', str(row.get('evidence') or '').upper()))
+            if len(types) == 1:
+                kind = next(iter(types))
+        key = (panel_key(row.get('panel_code')), kind)
         expected = row.get('quantity')
         if not key[0] or not key[1] or not isinstance(expected, int) or isinstance(expected, bool) or expected < 0:
             raise ValueError('Bảng kiểm đếm độc lập thiếu tủ, loại hoặc số lượng hợp lệ.')
@@ -148,6 +156,11 @@ def count_mismatches(devices, payload):
 def require_inventory(response: str):
     devices = ResponseParserService.parse_device_list(response)
     for device in devices:
+        if inventory_kind(device.category) == 'CB':
+            types = set(re.findall(r'\b(?:MCB|MCCB|RCBO|RCCB)\b',
+                (str(device.name or '') + ' ' + str(device.spec or '')).upper()))
+            if len(types) == 1:
+                device.category = next(iter(types))
         # Restore an explicitly written branch label, never assign sequential IDs.
         if panel_key(device.tag) in {'', 'CB', 'MCB', 'MCCB'}:
             branch = re.match(r'^\s*(L\d+(?:/[RYB])?)\b', str(device.name or ''), re.I)
@@ -193,3 +206,29 @@ async def extract_with_retry(call, prompt: str):
         except ValueError as error:
             last_error = error
     raise ValueError(f"Chưa xác nhận được danh sách thiết bị sau khi thử lại: {last_error}")
+
+
+async def repair_counted_inventory(call, prompt, devices, count_payload, attempts=3):
+    """Re-read the image with current mismatches; never fabricate rows from counts."""
+    import json
+    response = None
+    for attempt in range(attempts):
+        differences = count_mismatches(devices, count_payload)
+        if not differences:
+            return response, devices
+        repair_prompt = (prompt + f'\nLẦN ĐỌC LẠI {attempt + 1}: kiểm tra trực tiếp ảnh, không lặp kết quả chưa đạt.'
+                         + '\nKIỂM ĐẾM NGUỒN ĐỘC LẬP — CẦN ĐỌC LẠI ẢNH VÀ SỬA DANH SÁCH:\n'
+                         + '\n'.join(differences)
+                         + '\nDANH SÁCH HIỆN TẠI (không phải nguồn):\n'
+                         + json.dumps([{field: getattr(d, field, None) for field in
+                             ('panel_code', 'category', 'tag', 'name', 'spec', 'quantity', 'poles',
+                              'in_a', 'icu_ka', 'box_2d', 'section')} for d in devices], ensure_ascii=False)
+                         + '\nTrả devices đầy đủ thay thế danh sách hiện tại. Kiểm tra lại từng ký hiệu trên ảnh; '
+                           'không giữ thiết bị suy diễn khi kiểm đếm xác nhận không có thân. '
+                           'MDK là nhãn mạch, không phải relay. Không thêm hàng chỉ để đủ tổng số. '
+                           'Giữ đúng loại thiết bị theo nhãn nguồn và từng lộ/tag nguồn.')
+        response, devices = await extract_with_retry(call, repair_prompt)
+    differences = count_mismatches(devices, count_payload)
+    if differences:
+        raise ValueError('Danh mục chưa khớp kiểm đếm nguồn: ' + '; '.join(differences))
+    return response, devices

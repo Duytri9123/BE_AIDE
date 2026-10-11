@@ -41,7 +41,7 @@ def product_information(device, engine, search=None):
         exact = bool(model_key) and any(re.sub(r'[^a-z0-9]', '', str(n or '').lower()) == model_key for n in names)
         actual = str(profile.get('brand') or '').strip()
         same = not unknown and bool(actual) and brand_key(brand) == brand_key(actual)
-        row = {'name': profile['name'], 'brand': actual or 'Asian',
+        row = {'name': profile['name'], 'brand': actual or '',
                'model': profile.get('series'), 'model_match': exact,
                'brand_match': 'same' if same else 'unknown' if unknown or not actual else 'different',
                'status': 'model_reference' if exact else 'related_reference',
@@ -63,7 +63,7 @@ def product_information(device, engine, search=None):
         sources.append({'title': str(r.get('title') or parsed.hostname)[:200], 'url': url,
                         'snippet': '' if grounded_primary else str(r.get('snippet') or '')[:250],
                         'source_type': 'manufacturer' if direct_primary or grounded_primary else 'unverified_reference'})
-    return {'brand': brand or 'Asian', 'model': model or None,
+    return {'brand': '' if unknown else brand, 'model': model or None,
             'ai_summary': compact_summary((search or {}).get('answer')) if sources else '',
             'web_status': 'sources_found' if sources else 'no_sources' if search and search.get('success') else 'unavailable',
             'sources': sources[:3], 'system_matches': matches[:6], 'related_products': related[:3],

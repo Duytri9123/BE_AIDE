@@ -11,6 +11,7 @@ from pathlib import Path
 
 import ezdxf
 from ezdxf import bbox
+from ezdxf import dynblkhelper
 from ezdxf.addons import Importer
 from ezdxf.disassemble import recursive_decompose
 from ezdxf.math import Vec3
@@ -144,6 +145,28 @@ def map_coordinate(value, bands, delta):
     # keep their original dimensions. Border endpoints move with their own edge.
     return value + sum(delta[b['dimension']] * (0 if value < (b['start']+b['end'])/2-.001
                        else .5 if abs(value-(b['start']+b['end'])/2) <= .001 else 1) for b in bands)
+
+
+def centered_lock_offset(entity, box, axes, delta):
+    """Move a named door lock as one rigid assembly about the height centre.
+
+    AB301 is the source catalogue's handle lock. Do not infer locks from colour
+    or proximity: hinges and other equipment must retain their own anchors.
+    """
+    definition = dynblkhelper.get_dynamic_block_definition(entity)
+    name = definition.name if definition else entity.dxf.name
+    name = ''.join(c for c in unicodedata.normalize('NFD', name.upper())
+                   if not unicodedata.combining(c))
+    if not re.search(r'AB301|KHOA|LOCK|LATCH', name):
+        return None
+    center = (box.extmin + box.extmax) / 2
+    bands = [b for b in axes[1] if b['dimension'] == 'height'
+             and b['start'] <= center.y <= b['end']]
+    if len(bands) != 1:
+        raise ValueError('Không xác định được tâm chiều cao để căn giữa khóa trong form này.')
+    midpoint = (bands[0]['start'] + bands[0]['end']) / 2
+    return Vec3(map_coordinate(center.x, axes[0], delta) - center.x,
+                map_coordinate(midpoint, axes[1], delta) - center.y, 0)
 
 
 def readable_unicode(doc):
@@ -325,6 +348,9 @@ def generate(template_id, dimensions, product_name='', title_info=None):
             if box.has_data and max(box.size.x, box.size.y) < min(nominal.values()) * .8:
                 center = (box.extmin + box.extmax) / 2
                 rigid_offset = point(center) - center
+                lock_offset = centered_lock_offset(entity, box, axes, delta)
+                if lock_offset is not None:
+                    rigid_offset = lock_offset
         if resizing and entity.dxftype() == 'DIMENSION' and entity.dimtype in (0, 1):
             p, q = entity.dxf.get('defpoint2'), entity.dxf.get('defpoint3')
             if p is not None and q is not None:

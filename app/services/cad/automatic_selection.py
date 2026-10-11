@@ -1,5 +1,6 @@
 """Select library geometry in the backend and retain reasons for rejected assets."""
 import re
+import unicodedata
 from .catalogtb_assets import candidates, resolve, instance_count
 from .device_envelope import selected_envelope
 
@@ -44,12 +45,29 @@ def select_device_geometry(device, *, allow_preference_fallback=True):
         cad.pop('geometry_dimensions_mm', None)
         cad.pop('electrical_selection_proposals', None)
     cad.pop('asset_id', None)
+    cad.pop('geometry_dimensions_status', None)
     category = str(row.get('category') or '').upper()
+    source_category = category
+    description = ' '.join(str(row.get(key) or '') for key in ('name', 'spec', 'electrical_function'))
+    normalized = ''.join(c for c in unicodedata.normalize('NFD', description.casefold())
+                         if not unicodedata.combining(c)).replace('đ', 'd')
+    measurement = ('voltage' if re.search(r'von ke|volt(?:meter)?|chon dien ap', normalized)
+                   else 'current' if re.search(r'ampe ke|ammeter|chon dong dien', normalized) else None)
+    if category not in ('METER', 'SELECTOR', 'SWITCH'):
+        measurement = None
+    if category == 'SWITCH' and measurement:
+        category = 'SELECTOR'
+    # Historical extraction used Asia for the user's unspecified-brand label.
+    # Keep the source value for traceability; never filter the catalog by it.
+    for field in ('brand', 'detected_brand'):
+        if str(row.get(field) or '').strip().casefold() == 'asia':
+            row.setdefault('source_brand_label', row[field])
+            row[field] = 'Asian'
     brand = row.get('detected_brand') or row.get('brand')
     if str(brand or '').strip().casefold() == 'asian':
         brand = None  # User's unspecified-brand label, not a verified manufacturer.
     poles = row.get('poles')
-    pool = candidates(category, brand, poles)
+    pool = candidates(category, brand, poles, measurement_function=measurement)
     library_candidate_count = len(pool)
     if selected_asset:
         pool = [asset for asset in pool if asset['id'] == selected_asset['id']]
@@ -57,7 +75,7 @@ def select_device_geometry(device, *, allow_preference_fallback=True):
     if model:
         pool = [a for a in pool if re.search(r'(?<![A-Z0-9])' + re.escape(model) + r'(?![A-Z0-9])',
                                           ' '.join([a['name'], *a['search_aliases']]).upper())]
-    eligible, rejected = [], []
+    eligible, rejected, matched_geometry = [], [], []
     for asset in pool:
         try:
             specs = asset.get('specifications') or {}
@@ -90,6 +108,7 @@ def select_device_geometry(device, *, allow_preference_fallback=True):
             if requested_icu and capacities and max(capacities) < float(requested_icu):
                 raise ValueError('Khả năng cắt trong hồ sơ thấp hơn yêu cầu')
             instance_count(row.get('quantity') or 1, asset)
+            matched_geometry.append(asset)
             probe = {**row, 'cad': {**cad, 'asset_id': asset['id']}}
             dimensions = selected_envelope(probe)
             eligible.append(({**asset, 'selection_proposals': proposals}, dimensions))
@@ -102,22 +121,38 @@ def select_device_geometry(device, *, allow_preference_fallback=True):
             return fallback
     # A geometry proposal is distinct from an exact priced or fabrication SKU.
     # Prefer the smallest complete mounting envelope among compatible families.
-    if eligible and (len(eligible) == 1 or not model and row.get('selection_source') == 'default_brand'):
+    if eligible and (len(eligible) == 1 or not model and row.get('selection_source') in ('default_brand', 'unspecified_brand')):
         asset, dimensions = min(eligible, key=lambda item: (
             item[1][0] * item[1][1] * item[1][2], item[0]['id']))
         cad.update(asset_id=asset['id'], requires_selection=False,
                    selection_source='automatic_compatible_catalog_geometry',
                    exact_model=False, geometry_dimensions_mm=list(dimensions))
         cad['electrical_selection_proposals'] = asset.get('selection_proposals', [])
-        row['brand'] = asset['brand']
+        cad['geometry_brand'] = asset['brand']
+        if str(row.get('brand') or '').casefold() != 'asian':
+            row['brand'] = asset['brand']
+        if category != source_category:
+            row['source_category'] = source_category
+            row['category'] = category
+            cad['role_normalization'] = 'explicit_measurement_selector_function'
         row['dimensions'] = dict(zip(('w', 'h', 'd'), dimensions))
+    elif len(matched_geometry) == 1 and not eligible:
+        # A missing side view is missing engineering data, not absent CAD.
+        # Keep the real matched view available for review, without sizing it.
+        asset = matched_geometry[0]
+        cad.update(asset_id=asset['id'], requires_selection=False,
+                   selection_source='automatic_compatible_catalog_geometry',
+                   exact_model=False, geometry_dimensions_status='requires_depth_or_mounting_review')
+        cad.pop('geometry_dimensions_mm', None)
+        row.pop('dimensions', None)
     cad['automatic_selection'] = {
         'requested_model': model or None,
         'library_candidate_count': library_candidate_count,
         'status': 'selected' if cad.get('asset_id') else 'unresolved',
         'eligible_asset_ids': [a['id'] for a, _ in eligible],
+        'matched_asset_ids': [a['id'] for a in matched_geometry],
         'rejected': rejected,
-        'reason': None if cad.get('asset_id') else
+        'reason': 'matched_cad_missing_envelope' if matched_geometry and not eligible else None if cad.get('asset_id') else
                   'ambiguous_family' if len(eligible) > 1 else
                   'model_not_bound_to_source_geometry' if model and not pool else 'no_verified_geometry_match',
     }

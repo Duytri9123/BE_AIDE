@@ -10,6 +10,7 @@ import ezdxf
 from ezdxf import bbox
 
 from app.services.cad import cabinet_templates
+from app.services.cad.placement_clearances import usable_region, device_gap
 
 
 class SourceProjectGenerator:
@@ -20,7 +21,7 @@ class SourceProjectGenerator:
         if len(faces) == 1:
             left,bottom,right,top = faces[0]['clean_bounds']
             if abs(right-left-dimensions['width']) <= 1 and abs(top-bottom-dimensions['height']) <= 1:
-                return left+70,bottom+100,right-70,top-100
+                return usable_region((left,bottom,right,top),source_item,'mounting_plate')
         def plain(value):
             value = ''.join(c for c in unicodedata.normalize('NFD', value.upper()) if not unicodedata.combining(c))
             return value.replace('Đ', 'D')
@@ -45,7 +46,7 @@ class SourceProjectGenerator:
             raise ValueError('Form nguồn thiếu đường kích thước xác nhận vùng lắp đặt.')
         left, right, _ = min(widths, key=lambda row: abs((row[0] + row[1]) / 2 - label_x))
         bottom, top, _ = min(heights, key=lambda row: abs(row[2] - right))
-        return left + 70, bottom + 100, right - 70, top - 100
+        return usable_region((left,bottom,right,top),source_item,'mounting_plate')
 
     @staticmethod
     def _place_devices(dxf, devices, dimensions, source_item):
@@ -102,7 +103,7 @@ class SourceProjectGenerator:
             matches=[f for f in source_item.get('faces',[]) if f.get('kind')==face and f.get('clean_bounds')]
             if len(matches)==1:
                 b=matches[0]['clean_bounds']
-                regions[face]=(b[0]+70,b[1]+100,b[2]-70,b[3]-100)
+                regions[face]=usable_region(b,source_item,face)
         states={face:[b[0],b[3],0.0] for face,b in regions.items()}
         placements = []
         for device, asset_id, width, height, face in entries:
@@ -113,7 +114,7 @@ class SourceProjectGenerator:
             if width <= 0 or height <= 0 or width > right-left or height > top-bottom:
                 raise ValueError(f"Khối CAD {asset_id} không vừa vùng lắp đặt của form nguồn.")
             if x + width > right:
-                x, row_top, row_height = left, row_top - row_height - 45, 0.0
+                x, row_top, row_height = left, row_top - row_height - device_gap(device,'vertical'), 0.0
             if row_top - height < bottom:
                 raise ValueError('Các thiết bị CAD nguồn không đủ chỗ trên mặt trong tủ; cần form lớn hơn.')
             y = row_top - height
@@ -121,7 +122,7 @@ class SourceProjectGenerator:
             placements.append({'tag': device.get('tag'), 'asset_id': asset_id, 'x': x, 'y': y,
                                'mounting_face':face,'width':width,'height':height,
                                'electrical_spec_verified':False})
-            gap=0 if str(device.get('category') or '').upper() in ('MCB','RCBO','RCCB') else 35
+            gap=device_gap(device,'horizontal')
             x += width + gap
             row_height = max(row_height, height)
             states[face]=[x,row_top,row_height]

@@ -49,6 +49,7 @@ class ExtractedDevice:
     suggested_brands: Optional[list] = None
     tag: Optional[str] = None
     mounting: Optional[str] = None
+    technical_analysis: Optional[str] = None
     electrical_function: Optional[str] = None
     upstream_device: Optional[str] = None
     downstream_device: Optional[str] = None
@@ -172,6 +173,7 @@ class ResponseParserService:
                         suggested_brands=item.get("suggested_brands") if isinstance(item.get("suggested_brands"), list) else None,
                         tag=str(item.get("tag") or "").strip() or None,
                         mounting=str(item.get("mounting") or "").strip() or None,
+                        technical_analysis=str(item.get("technical_analysis") or "").strip() or None,
                         electrical_function=str(item.get("electrical_function") or "").strip() or None,
                         upstream_device=str(item.get("upstream_device") or "").strip() or None,
                         downstream_device=str(item.get("downstream_device") or "").strip() or None,

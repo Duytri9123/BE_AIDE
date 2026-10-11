@@ -1,29 +1,113 @@
 """Public display metadata from CatalogTB only, without filesystem paths."""
 import ast,hashlib,json,re
+import time
+import unicodedata
+from threading import Lock
 from pathlib import Path
 from urllib.parse import unquote,quote
 from .equipment_library import CATALOG_TB_ROOT
+from .catalogtb_display_cache import read_snapshot, write_snapshot
+
+_cache = None
+_cache_until = 0
+_cache_root = None
+_cache_lock = Lock()
+
 
 def browser_data():
+    """Share a short-lived display snapshot; workspace still gets full records."""
+    global _cache, _cache_until, _cache_root
+    with _cache_lock:
+        if _cache is None or _cache_root != CATALOG_TB_ROOT or time.monotonic() >= _cache_until:
+            shared = read_snapshot(CATALOG_TB_ROOT)
+            if shared:
+                _cache, lifetime = shared
+            else:
+                _cache = _build_browser_data()
+                write_snapshot(CATALOG_TB_ROOT, _cache)
+                lifetime = 60
+            _cache_root = CATALOG_TB_ROOT
+            _cache_until = time.monotonic() + lifetime
+        return _cache
+
+
+def browser_page(q='', category='', brand='', skip=0, limit=24):
+    data = browser_data()
+    def normalize(value):
+        return ''.join(c for c in unicodedata.normalize('NFD', str(value).lower())
+                       if not unicodedata.combining(c)).replace('đ', 'd')
+    query = normalize(q.strip())
+    def matches(item):
+        identity = normalize(' '.join(str(item.get(k) or '') for k in
+                                     ('display', 'type', 'category', 'product_code')) +
+                             ' ' + ' '.join(item.get('search_aliases') or []))
+        if query == 'ct':
+            return bool(re.search(r'bien dong|biendong|current transformer|\bct\b|\bzct\b', identity))
+        if query == 'a':
+            return bool(re.search(r'ampe|ammeter|dong ho.*dong dien', identity))
+        if query == 'v':
+            return bool(re.search(r'volt|von ke|dong ho.*dien ap', identity))
+        return query in normalize(identity + ' ' + str(item.get('brand') or ''))
+    rows = [p for p in data['items'] if (not category or p.get('category') == category)
+            and (not brand or p.get('brand') == brand) and matches(p)]
+    display_data={key:value for key,value in data.items() if key!='view_count'}
+    return {**display_data, 'items': rows[skip:skip+limit], 'total': len(rows),
+            'catalog_total': data['total'], 'skip': skip, 'limit': limit,
+            'has_more': skip + limit < len(rows),
+            'brands': sorted({p['brand'] for p in data['items'] if p.get('brand')})}
+
+
+def _build_browser_data():
+    resolved_root=CATALOG_TB_ROOT.resolve()
     html=(CATALOG_TB_ROOT/'index.html').read_text(encoding='utf-8')
     match=re.search(r'<script id="catalog-data" type="application/json">(.*?)</script>',html,re.S)
     if not match:raise ValueError('CatalogTB index data is missing')
     source=json.loads(match[1]);profiles=[]
-    for original in source['profiles']:
+    # The HTML supplies display hints, never the inventory authority.
+    known={unquote(p['json']):p for p in source['profiles']}
+    originals=[]
+    for path in sorted(CATALOG_TB_ROOT.rglob('thong_tin_thiet_bi.json')):
+        relative=path.relative_to(CATALOG_TB_ROOT).as_posix()
+        current=json.loads(path.read_text(encoding='utf-8'))
+        original=dict(known.get(relative) or {})
+        original.update(json=relative)
+        original['_current_profile']=current
+        original.setdefault('display',current.get('ten_san_pham') or path.parent.name)
+        original.setdefault('category',current.get('nhom') or 'Thiết bị')
+        original.setdefault('brand',current.get('hang_xac_nhan') or 'Asian')
+        views=[]
+        for view in current.get('cad_don',[]):
+            drawing=(path.parent/view.get('duong_dan','')).resolve()
+            if not drawing.is_relative_to(resolved_root) or not drawing.is_file():continue
+            views.append({'source_id':view['id_hinh_goc'],'face':view.get('huong_nhin','Mặt trước'),
+                          'label':view.get('nhan_hien_thi') or view.get('huong_nhin','Mặt trước')})
+        if not views:continue
+        original['single_views']=views
+        preferred=(current.get('cad_chen_tu') or {}).get('id_hinh_goc')
+        original['primary']={'source_id':next((v['source_id'] for v in views if v['source_id']==preferred),views[0]['source_id'])}
+        originals.append(original)
+    for original in originals:
         relative=unquote(original['json'])
         path=(CATALOG_TB_ROOT/relative).resolve()
-        if not path.is_relative_to(CATALOG_TB_ROOT.resolve()) or path.name!='thong_tin_thiet_bi.json':continue
+        if not path.is_relative_to(resolved_root) or path.name!='thong_tin_thiet_bi.json':continue
         cid='TB-'+hashlib.sha1(path.relative_to(CATALOG_TB_ROOT).as_posix().encode()).hexdigest()[:16]
-        profile={k:v for k,v in original.items() if k not in {'json','drawings','single_views','primary','sources'}}
+        profile={k:v for k,v in original.items() if k not in {'json','drawings','single_views','primary','sources','_current_profile'}}
         profile['id']=cid
-        current=json.loads(path.read_text(encoding='utf-8'))
+        current=original['_current_profile']
+        identification=current.get('nhan_dien_web') or {}
+        if identification.get('user_accepts_approximate_family'):
+            profile['display']=current.get('ten_san_pham') or profile['display']
+            profile['use']=current.get('cong_dung') or profile.get('use')
+        profile['search_aliases']=list(dict.fromkeys([*(profile.get('search_aliases') or []),*(current.get('tu_khoa_tim_kiem') or [])]))
+        profile['brand']=current.get('hang_xac_nhan') or identification.get('brand_candidate') or profile.get('brand') or 'Asian'
+        profile['brand_identification_status']='verified' if current.get('hang_xac_nhan') else identification.get('status','unknown')
         ai=current.get('nhan_dien_ai') or {}
         profile['ai_identification']=ai
         profile['recognition_review']=current.get('nhan_dien_bo_sung_20261010') or {}
         profile['auto_select']=bool(current.get('auto_select',False))
         profile['needs_review']=current.get('needs_review',True)
         kind=ai.get('loai_thiet_bi_code') or profile['recognition_review'].get('category_code')
-        if kind:profile['type']=kind
+        if kind:profile['type']={'PHASE_RELAY':'Rơ le bảo vệ pha'}.get(kind,kind)
         profile['views']=[{'id':v['source_id'],'label':v.get('label') or v['face'],'face':v['face'],
                            'preview':f'/equipment-library/{cid}/views/{quote(v["source_id"],safe="")}/preview',
                            'download':f'/equipment-library/{cid}/views/{quote(v["source_id"],safe="")}/dxf'}
@@ -35,8 +119,14 @@ def browser_data():
             if latest.get('huong_nhin'):view['face']=latest['huong_nhin']
             if latest.get('kiem_tra_net_cad'):view['linework_review']=latest['kiem_tra_net_cad']
             preview_file=path.parent/Path(latest.get('duong_dan','')).parent/'xem_truoc.svg'
-            if preview_file.is_file():view['preview']+='?revision='+hashlib.sha256(preview_file.read_bytes()).hexdigest()[:16]
-            if profile['recognition_review'].get('face'):view['label']=profile['recognition_review']['face']
+            if preview_file.is_file():
+                stat=preview_file.stat()
+                # Cache busting needs a file revision, not a full SVG content scan.
+                revision=f'{stat.st_mtime_ns}:{stat.st_size}'
+                view['preview']+='?revision='+hashlib.sha256(revision.encode()).hexdigest()[:16]
+            if (latest.get('nhan_dien_mat') or {}).get('method')=='individual_visual_review':
+                view['label']=latest['huong_nhin']
+            elif profile['recognition_review'].get('face'):view['label']=profile['recognition_review']['face']
         for view in profile['views']:
             metadata_path=path.parent/'HinhChieu'/view['id']/'thong_tin.json'
             if metadata_path.is_file():
@@ -68,7 +158,7 @@ def browser_data():
         merged['physical_family_id']=group['id'];merged['member_profile_ids']=sorted(member_ids)
         merged['auto_select']=False;merged['needs_review']=True
         profiles=[p for p in profiles if p['id'] not in member_ids]+[merged]
-    categories=[{'name':c['name'],'count':sum(p['category']==c['name'] for p in profiles)} for c in source['categories']]
+    categories=[{'name':name,'count':sum(p['category']==name for p in profiles)} for name in sorted({p['category'] for p in profiles})]
     labels={}
     for block in re.findall(r'const (?:extraLabels|labels)=\{([^}]+)\}',html):
         for key,literal in re.findall(r'(\w+)\s*:\s*(\'(?:\\.|[^\'\\])*\'|"(?:\\.|[^"\\])*")',block):

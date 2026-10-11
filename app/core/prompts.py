@@ -167,6 +167,7 @@ Quy tắc bóc tách bắt buộc:
    - Mọi thông số (số cực, In, Icu, điện áp, tải): Bắt buộc đọc từ bản vẽ.
    - Hãng sản xuất (brand): Chỉ điền tên hãng nếu bản vẽ có ghi hoặc người dùng yêu cầu; không tự gán hãng mặc định . Nếu không có, để chuỗi rỗng ("").
 6. TỌA ĐỘ VÙNG DẪN CHỨNG (box_2d) CHUẨN XÁC:
+   - Vùng cắt được phép dài, ngang hoặc dọc theo nội dung; không ép thành ô vuông. Bao đủ ký hiệu và tất cả dòng thông số của thiết bị, không lấy nhãn của thiết bị bên cạnh.
    - Trả về toạ độ [ymin, xmin, ymax, xmax] (chuẩn hóa 0-1000) bao quanh trọn vẹn cả KÝ HIỆU HÌNH VẼ LẪN NHÃN THÔNG SỐ của từng thiết bị.
    - Thiết bị nào đóng khung đúng ký hiệu của thiết bị đó (ví dụ VS đóng khung đúng chuyển mạch Vôn ở cụm đo lường, không đóng lệch sang aptomat nhánh hay cáp nguồn). Mỗi thiết bị có toạ độ thực tế riêng biệt.
 7. BÓC TÁCH CỤM THIẾT BỊ & PHỤ KIỆN ĐI KÈM (accompanying_accessories):
@@ -540,6 +541,7 @@ def append_canonical_output_contract(prompt: str) -> str:
         "INTERNAL REASONING POLICY: Use the provider's reasoning/thinking capability to verify completeness, "
         "physical quantities, relationships and evidence before answering. Never expose chain-of-thought or "
         "thinking tags. Return only the final JSON result.\n\n"
+        "Mỗi thiết bị có technical_analysis: 1–2 câu tiếng Việt ngắn đánh giá thông số và loại sản phẩm phù hợp với tải/yêu cầu khách hàng. Chỉ nêu kết luận có căn cứ; không bịa model, giá, thông số chưa đọc được. Không tìm CAD khi bóc tách; CAD chỉ tìm khi tạo thiết kế và báo giá. "
         "HỢP ĐỒNG ĐẦU RA CHUNG (ƯU TIÊN CAO NHẤT): Bất kể đầu vào là văn bản, ảnh, PDF, "
         "DXF hay DWG, chỉ trả về MỘT JSON object có cùng cấu trúc top-level sau: "
         "`file_assessment`, `panels`, `technical_proposals`, `completeness_review`. "
@@ -552,7 +554,7 @@ def append_canonical_output_contract(prompt: str) -> str:
         "tử devices phải có đủ cùng các khóa: tag, section, category, name, spec, "
         "in_a, icu_ka, poles, quantity, drawing_quantity, procurement_quantity, quantity_basis, quantity_confidence, brand, suggested_brands, part_number, "
         "electrical_function, mounting, upstream_device, downstream_device, "
-        "connected_load, panel_code, panel_name, location, notes, confidence, "
+        "connected_load, technical_analysis, panel_code, panel_name, location, notes, confidence, "
         "box_2d, source_type, source_filename, source_page, evidence_region, "
         "accompanying_accessories, inferred_components, compatible_proposal. Trường chưa xác "
         "định dùng null, chuỗi chưa có dùng \"\", danh sách chưa có dùng []; không "

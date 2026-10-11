@@ -25,11 +25,8 @@ def device(**updates):
 
 
 class AnalysisAuditTests(unittest.TestCase):
-    def test_default_ls_agent_can_read_candidates_without_inventing_sku(self):
+    def test_extraction_defers_catalog_without_inventing_brand_or_sku(self):
         catalog = DeviceCatalogEngine.get_instance()
-        self.assertTrue(catalog.search_candidates(
-            brand="LS", device_type="MCB", poles=3, in_current=6, min_icu=6,
-        ))
         state = ExtractionState(devices=[{
             "category": "MCB", "name": "MCB M2", "spec": "3P 6A 6kA",
             "poles": 3, "in_a": 6, "icu_ka": 6, "part_number": "", "brand": "",
@@ -37,20 +34,18 @@ class AnalysisAuditTests(unittest.TestCase):
         agent = MultiAgentOrchestrator.__new__(MultiAgentOrchestrator)
         asyncio.run(agent._run_catalog_matcher(state, {}))
         row = state.devices[0]
-        self.assertEqual(row["brand"], "LS")
-        self.assertEqual(row["selection_source"], "default_brand")
-        self.assertTrue(row["catalog_candidates"])
+        self.assertEqual(row["brand"], "")
+        self.assertEqual(row["selection_source"], "unresolved")
+        self.assertEqual(row["catalog_candidates"], [])
+        self.assertEqual(row["catalog_selection_status"], "deferred_until_design")
         self.assertFalse(row["catalog_matched"])
         self.assertEqual(row["part_number"], "")
 
-    def test_agent_catalog_api_returns_ls_source_and_incomplete_rating_flag(self):
+    def test_catalog_api_does_not_invent_priced_variants_from_geometry(self):
         result = browse_equipment(q="MCB", brand="LS", record_type="priced_variant",
                                   poles=3, min_in=6, max_in=6, min_icu=6,
                                   skip=0, limit=5)
-        self.assertTrue(result["items"])
-        self.assertTrue(all(item["brand"] == "LS" for item in result["items"]))
-        self.assertTrue(all(item.get("source_record") for item in result["items"]))
-        self.assertTrue(any(not item["rating_complete"] for item in result["items"]))
+        self.assertEqual(result['items'], [])  # CAD references do not establish priced variants.
 
     def test_three_ct_one_ammeter_selector_flags_scale_only(self):
         devices = [
