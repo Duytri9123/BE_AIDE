@@ -34,6 +34,9 @@ async def panel_regions_with_retry(call):
 Chỉ JSON {"panels":[{"panel_code":"mã tủ trên tiêu đề","box_2d":[x0,y0,x1,y1]}],"uncertain_regions":[]}.
 Tọa độ 0–1000 theo toàn ảnh. Mỗi khung bao trọn tiêu đề, nhãn tủ và TẤT CẢ ký hiệu/nhánh, gồm dự phòng, đo lường, nguồn và điều khiển. Không cắt rời đầu vào khỏi các lộ.
 Tên tủ trong cột phụ tải là tải được cấp, không phải khung tủ riêng. Không gộp hai khung khác tủ. Nếu không phân vùng đủ, nêu uncertain_regions. Không tự sinh khung từ tên tải.'''
+    prompt += ('\nLoại khỏi box_2d mọi bảng thống kê vật tư/thiết bị, kể cả bảng có tên cùng tủ. '
+               'Khung hợp lệ phải chứa đường thanh cái và các ký hiệu nhánh nối dây thực tế. '
+               'Nếu trang xoay 90 độ, vẫn trả tọa độ theo ảnh gốc; không dùng tọa độ của ảnh tưởng tượng đã xoay.')
     last_error = None
     for attempt in range(2):
         response = await call(prompt + ('\nSửa tọa độ/mã khung, không chồng lấn và không bỏ sót khung.' if attempt else ''))
@@ -48,6 +51,7 @@ Tên tủ trong cột phụ tải là tải được cấp, không phải khung 
 COUNT_PROMPT = '''Kiểm đếm độc lập TOÀN BỘ sơ đồ trên ảnh, không dùng danh sách bóc tách trước.
 Trả một JSON {"counts":[{"panel_code":"nhãn tủ","category":"CB|MCB|MCCB|RCBO|RCCB|CONTACTOR|TIMER|RELAY|POWER_SUPPLY|FUSE|CT|AMMETER|VOLTMETER|INDICATOR|SELECTOR|OTHER","quantity":1,"evidence":"ký hiệu, nhãn và các nhánh đã đếm"}],"uncertain_regions":[]}.
 RCBO/RCCB có chống rò phải đếm riêng đúng nhãn, không chuyển thành MCB hoặc bỏ qua vì chưa có trong danh sách category.
+Chỉ đếm thân ký hiệu trong sơ đồ nối dây; tuyệt đối không lấy quantity từ bảng thống kê vật tư/thiết bị dù bảng ghi cùng tên tủ. Trong evidence liệt kê từng nhánh/tag đã đếm với loại và thông số của từng thân, gồm cả đầu vào và dự phòng. Không dùng tổng của hai tủ hoặc hai loại cho một nhóm. Một RCBO chỉ là một thiết bị; không đếm lại phần đóng cắt của nó vào MCB.
 Nguồn chỉ ghi CB thì dùng CB, không suy thành MCB/MCCB từ số cực. Giữ mã tủ đầy đủ, không tự rút gọn TĐ thành TD hoặc đổi tên tủ.
 Không đếm một cụm đo lường thành một OTHER: đếm riêng từng đèn, đồng hồ, cầu chì, biến dòng và chuyển mạch. OTHER chỉ là thân thiết bị chưa phân loại, không phải nhóm gom nhiều loại.
 Đếm cả nhánh dự phòng có ký hiệu đóng cắt dù không ghi tag, dòng điện hoặc số cực; không tự điền thông số thiếu. Không suy ký hiệu tiếp địa thành cầu đấu hoặc thiết bị mới.
