@@ -49,7 +49,7 @@ class SourceProjectGenerator:
         return usable_region((left,bottom,right,top),source_item,'mounting_plate')
 
     @staticmethod
-    def _place_devices(dxf, devices, dimensions, source_item):
+    def _place_devices(dxf, devices, dimensions, source_item, allow_partial=False):
         from app.services.cad.library_assets import requested_asset, insert_library_asset
         doc = ezdxf.read(io.StringIO(dxf))
         source_doc = ezdxf.readfile(cabinet_templates.source_path(source_item))
@@ -57,18 +57,21 @@ class SourceProjectGenerator:
         entries = []
         missing = []
         for device in devices:
-            from app.services.cad.physical_layout_engine import PhysicalLayoutEngine, MountingType
-            mounting = PhysicalLayoutEngine.classify_mounting(device)
-            face = device.get('mounting_face') or device.get('owner_face')
-            if not face and mounting in (MountingType.DOOR_MOUNTED, MountingType.INNER_COVER_MOUNTED):
-                raise ValueError('Cần vùng cánh tủ được xác nhận; không đặt thiết bị gắn cánh lên mặt trong.')
-            face = face or 'mounting_plate'
-            if face not in ('mounting_plate','inner_door','outer_door'):
-                raise ValueError('Mặt lắp thiết bị chưa được ánh xạ với form nguồn: '+str(face))
             linked, asset_id = requested_asset(device)
             if not linked or not asset_id:
                 missing.append(device.get('tag') or device.get('name') or '?')
                 continue
+            from app.services.cad.physical_layout_engine import PhysicalLayoutEngine, MountingType
+            mounting = PhysicalLayoutEngine.classify_mounting(device)
+            face = device.get('mounting_face') or device.get('owner_face')
+            if not face and mounting in (MountingType.DOOR_MOUNTED, MountingType.INNER_COVER_MOUNTED):
+                if allow_partial:
+                    missing.append(device.get('tag') or device.get('name') or '?')
+                    continue
+                raise ValueError('Cần vùng cánh tủ được xác nhận; không đặt thiết bị gắn cánh lên mặt trong.')
+            face = face or 'mounting_plate'
+            if face not in ('mounting_plate','inner_door','outer_door'):
+                raise ValueError('Mặt lắp thiết bị chưa được ánh xạ với form nguồn: '+str(face))
             if str(asset_id).startswith('tb:'):
                 from app.services.cad.catalogtb_assets import resolve
                 source = ezdxf.readfile(resolve(asset_id)['path'])
@@ -132,7 +135,7 @@ class SourceProjectGenerator:
         return stream.getvalue(), placements, missing
 
     @staticmethod
-    def generate(project_id: int, output_dir: str, dimensions, kind: str = "indoor", product_name: str = "", devices=None) -> dict:
+    def generate(project_id: int, output_dir: str, dimensions, kind: str = "indoor", product_name: str = "", devices=None, allow_partial=False) -> dict:
         if not dimensions or len(dimensions) != 3:
             raise ValueError("Chưa có kích thước tủ H×W×D được xác định từ bản vẽ hoặc người dùng.")
         height, width, depth = (float(value) for value in dimensions)
@@ -166,8 +169,8 @@ class SourceProjectGenerator:
                     source_doc = ezdxf.readfile(cabinet_templates.source_path(candidate))
                     SourceProjectGenerator._interior_region(source_doc, candidate_dimensions, candidate)
                     candidate_dxf, candidate_placements, candidate_missing = SourceProjectGenerator._place_devices(
-                        candidate_dxf, devices, candidate_dimensions, candidate)
-                    if candidate_missing:
+                        candidate_dxf, devices, candidate_dimensions, candidate, allow_partial=allow_partial)
+                    if candidate_missing and not allow_partial:
                         raise ValueError('Thiếu CAD thiết bị: ' + ', '.join(candidate_missing))
             except ValueError as exc:
                 attempted_forms.append({'template_id': candidate['id'], 'reason': str(exc)})

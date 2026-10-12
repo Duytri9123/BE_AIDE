@@ -5,7 +5,7 @@ from .catalogtb_assets import candidates, resolve, instance_count
 from .device_envelope import selected_envelope
 
 
-def select_device_geometry(device, *, allow_preference_fallback=True):
+def select_device_geometry(device, *, allow_preference_fallback=True, allow_unverified_electrical=False):
     row = dict(device)
     cad = dict(row.get('cad') or {})
     # Typed fields may be omitted by extraction even when the source's literal
@@ -48,11 +48,15 @@ def select_device_geometry(device, *, allow_preference_fallback=True):
     cad.pop('geometry_dimensions_status', None)
     category = str(row.get('category') or '').upper()
     source_category = category
+    category = {'SELECTOR SWITCH': 'SELECTOR', 'SELECTOR_SWITCH': 'SELECTOR',
+                'VOLTMETER': 'METER', 'AMMETER': 'METER'}.get(category, category)
     description = ' '.join(str(row.get(key) or '') for key in ('name', 'spec', 'electrical_function'))
     normalized = ''.join(c for c in unicodedata.normalize('NFD', description.casefold())
                          if not unicodedata.combining(c)).replace('đ', 'd')
     measurement = ('voltage' if re.search(r'von ke|volt(?:meter)?|chon dien ap', normalized)
                    else 'current' if re.search(r'ampe ke|ammeter|chon dong dien', normalized) else None)
+    if source_category in ('VOLTMETER', 'AMMETER'):
+        measurement = 'voltage' if source_category == 'VOLTMETER' else 'current'
     if category not in ('METER', 'SELECTOR', 'SWITCH'):
         measurement = None
     if category == 'SWITCH' and measurement:
@@ -67,7 +71,8 @@ def select_device_geometry(device, *, allow_preference_fallback=True):
     if str(brand or '').strip().casefold() == 'asian':
         brand = None  # User's unspecified-brand label, not a verified manufacturer.
     poles = row.get('poles')
-    pool = candidates(category, brand, poles, measurement_function=measurement)
+    kinds = ('MCB', 'MCCB') if category == 'CB' and poles else (category,)
+    pool = [a for kind in kinds for a in candidates(kind, brand, poles, measurement_function=measurement)]
     library_candidate_count = len(pool)
     if selected_asset:
         pool = [asset for asset in pool if asset['id'] == selected_asset['id']]
@@ -90,7 +95,11 @@ def select_device_geometry(device, *, allow_preference_fallback=True):
                          'kha_nang_cat': str(proposals[0]['icn_ka']) + ' kA'}
             current_text = str(specs.get('dong_dinh_muc') or '')
             numbers = [float(n.replace(',', '.')) for n in re.findall(r'\d+(?:\.\d+)?', current_text)]
-            if category in ('MCB', 'MCCB', 'RCBO', 'RCCB') and current and not numbers:
+            # A verified family envelope is useful in a reference layout even
+            # when its exact electrical variant is not identified. It never
+            # establishes a procurement SKU or electrical approval.
+            electrical_review = bool(current and not numbers)
+            if electrical_review and not allow_unverified_electrical:
                 raise ValueError('Hồ sơ chưa có dải dòng điện để đối chiếu')
             if current and numbers:
                 interval = re.search(r'(\d+(?:\.\d+)?)\s*[–—-]\s*(\d+(?:\.\d+)?)', current_text)
@@ -103,7 +112,8 @@ def select_device_geometry(device, *, allow_preference_fallback=True):
             requested_icu = row.get('icu_ka')
             capacities = [float(n.replace(',', '.')) for n in re.findall(
                 r'(\d+(?:[.,]\d+)?)\s*k\s*A', str(specs.get('kha_nang_cat') or ''), re.I)]
-            if requested_icu and not capacities:
+            electrical_review = electrical_review or bool(requested_icu and not capacities)
+            if requested_icu and not capacities and not allow_unverified_electrical:
                 raise ValueError('Hồ sơ chưa có khả năng cắt để đối chiếu')
             if requested_icu and capacities and max(capacities) < float(requested_icu):
                 raise ValueError('Khả năng cắt trong hồ sơ thấp hơn yêu cầu')
@@ -111,11 +121,13 @@ def select_device_geometry(device, *, allow_preference_fallback=True):
             matched_geometry.append(asset)
             probe = {**row, 'cad': {**cad, 'asset_id': asset['id']}}
             dimensions = selected_envelope(probe)
-            eligible.append(({**asset, 'selection_proposals': proposals}, dimensions))
+            eligible.append(({**asset, 'selection_proposals': proposals,
+                              'electrical_review': electrical_review}, dimensions))
         except (ValueError, KeyError, FileNotFoundError) as exc:
             rejected.append({'asset_id': asset['id'], 'reason': str(exc)})
     if not eligible and not selected_asset and brand and not model and allow_preference_fallback and row.get('selection_source') == 'default_brand':
-        fallback = select_device_geometry({**row, 'brand': None, 'cad': cad}, allow_preference_fallback=False)
+        fallback = select_device_geometry({**row, 'brand': None, 'cad': cad}, allow_preference_fallback=False,
+                                          allow_unverified_electrical=allow_unverified_electrical)
         if (fallback.get('cad') or {}).get('asset_id'):
             fallback['cad']['preferred_brand'] = brand
             return fallback
@@ -123,12 +135,16 @@ def select_device_geometry(device, *, allow_preference_fallback=True):
     # Prefer the smallest complete mounting envelope among compatible families.
     if eligible and (len(eligible) == 1 or not model and row.get('selection_source') in ('default_brand', 'unspecified_brand')):
         asset, dimensions = min(eligible, key=lambda item: (
-            item[1][0] * item[1][1] * item[1][2], item[0]['id']))
+            bool(item[0].get('electrical_review')),
+            (-1 if category == 'MCCB' and item[0].get('electrical_review') else 1)
+            * item[1][0] * item[1][1] * item[1][2], item[0]['id']))
         cad.update(asset_id=asset['id'], requires_selection=False,
                    selection_source='automatic_compatible_catalog_geometry',
                    exact_model=False, geometry_dimensions_mm=list(dimensions))
         cad['electrical_selection_proposals'] = asset.get('selection_proposals', [])
         cad['geometry_brand'] = asset['brand']
+        cad['geometry_category'] = asset['category']
+        cad['electrical_verification_required'] = asset.get('electrical_review', False)
         if str(row.get('brand') or '').casefold() != 'asian':
             row['brand'] = asset['brand']
         if category != source_category:

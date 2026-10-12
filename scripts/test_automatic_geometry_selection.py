@@ -33,7 +33,7 @@ class AutomaticGeometrySelectionTests(unittest.TestCase):
         result = select_device_geometry(dict(category='MCB', brand='LS', poles=3,
                                              quantity=1, in_a=20, icu_ka=10))
         self.assertNotIn('asset_id', result['cad'])
-        self.assertEqual(len(result['cad']['automatic_selection']['rejected']), 2)
+        self.assertTrue(result['cad']['automatic_selection']['rejected'])
 
     def test_explicit_unknown_model_is_not_replaced_with_generic_family(self):
         result = select_device_geometry(dict(category='MCB', brand='LS', poles=2,

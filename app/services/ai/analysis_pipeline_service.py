@@ -3558,7 +3558,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 row['brand'] = resolved_brand_pref
                 row['detected_brand'] = ''
                 row['selection_source'] = 'user_request' if requested_design_brand else 'default_brand'
-        devices = [select_device_geometry(d) for d in devices]
+        devices = [select_device_geometry(d, allow_unverified_electrical=True) for d in devices]
         from app.services.cad.external_research import research_missing_geometry, needs_external_geometry
         if any(needs_external_geometry(d) for d in devices):
             await emit_progress('external_cad', 10, 'Đang tìm bản vẽ và kích thước từ nhà sản xuất cho thiết bị còn thiếu')
@@ -3773,6 +3773,19 @@ Chỉ trả một JSON hợp lệ, không markdown:
         busbar_unit_price = busbar_calc.unit_price if need_busbar else 0
 
         # Physical layout model & kiểm tra xung đột
+        # Sizing the incomer alone does not establish the envelope of every
+        # outgoing/spare device. Route incomplete inventories to a draft.
+        missing_envelopes = []
+        for device in extracted_devices:
+            try:
+                envelope = PhysicalLayoutEngine.get_component_dimensions(device.model_dump())
+                if not all(value > 0 for value in envelope):
+                    raise ValueError('Bao hình thiếu chiều sâu')
+            except (ValueError, TypeError, KeyError):
+                missing_envelopes.append(device.tag or device.name)
+        if missing_envelopes:
+            enclosure_spec.update(sizing_status='needs_review',
+                sizing_note='Cần bổ sung bao hình: ' + ', '.join(missing_envelopes))
         detected_layout_intent = None
         if user_prompt:
             p_low = user_prompt.lower()
@@ -3810,16 +3823,20 @@ Chỉ trả một JSON hợp lệ, không markdown:
         cad_layout = None
         try:
             if enclosure_spec.get('sizing_status') == 'needs_review':
-                raise ValueError(enclosure_spec.get('sizing_note') or 'Chưa đủ kích thước thiết bị để bố trí và chọn form tự động')
-            source_cad = SourceProjectGenerator.generate(
-                project_id=project.id,
-                output_dir=getattr(settings, "PROJECTS_DIR", "storage/projects"),
-                dimensions=tuple(enclosure_spec["fit_check"]["minimum_required"][axis] for axis in ("height", "width", "depth")),
-                devices=[d.model_dump() for d in extracted_devices],
-                kind=("outdoor" if any(token in (
-                    str(panel_name or '') + ' ' + str((quotation_panel or {}).get('enclosure_observation', {}).get('original_text') or '')
-                ).lower() for token in ("ngoài trời", "outdoor")) else "indoor"),
-            )
+                from app.services.cad.reference_layout import ReferenceLayoutGenerator
+                source_cad = ReferenceLayoutGenerator.generate(project.id,
+                    getattr(settings, 'PROJECTS_DIR', 'storage/projects'), detected_dimensions,
+                    [d.model_dump() for d in extracted_devices])
+            else:
+                source_cad = SourceProjectGenerator.generate(
+                    project_id=project.id,
+                    output_dir=getattr(settings, "PROJECTS_DIR", "storage/projects"),
+                    dimensions=tuple(enclosure_spec["fit_check"]["minimum_required"][axis] for axis in ("height", "width", "depth")),
+                    devices=[d.model_dump() for d in extracted_devices],
+                    kind=("outdoor" if any(token in (
+                        str(panel_name or '') + ' ' + str((quotation_panel or {}).get('enclosure_observation', {}).get('original_text') or '')
+                    ).lower() for token in ("ngoài trời", "outdoor")) else "indoor"),
+                )
             cad_file_path = source_cad["path"]
             cad_layout = {key: source_cad[key] for key in ("template_id", "source", "dimensions", "minimum_required", "placements", "unmatched_devices", "status", "release_ready")}
             # The chosen source shell can be larger than the calculated
@@ -3866,24 +3883,17 @@ Chỉ trả một JSON hợp lệ, không markdown:
             await emit_progress("cad_review", 75, f"Chưa đủ dữ liệu để bố trí và chọn form tự động: {exc}")
             # Explicitly selected CatalogTB geometry can still produce a review
             # drawing, without presenting it as an approved fabrication layout.
-            if detected_dimensions and extracted_devices and all(
-                str((d.cad or {}).get('asset_id') or '').startswith('tb:')
-                for d in extracted_devices
-            ):
-                from app.services.cad.reference_panel_layout import generate as generate_review_layout
+            if detected_dimensions and extracted_devices:
+                from app.services.cad.reference_layout import ReferenceLayoutGenerator
                 try:
-                    from app.services.cad.review_form_fit import fit_vertical_review
-                    review_dimensions = fit_vertical_review([d.model_dump() for d in extracted_devices], detected_dimensions)
-                    review = generate_review_layout(
-                        [d.model_dump() for d in extracted_devices], review_dimensions,
-                        os.path.join(getattr(settings, 'PROJECTS_DIR', 'storage/projects'), str(project.id), 'cad_review'),
-                        detected_panel_code,
-                    )
+                    review = ReferenceLayoutGenerator.generate(project.id,
+                        getattr(settings, 'PROJECTS_DIR', 'storage/projects'), detected_dimensions,
+                        [d.model_dump() for d in extracted_devices])
                     cad_layout = review
-                    cad_file_path = review['dxf']
+                    cad_file_path = review['path']
                     dxf_filename = os.path.basename(cad_file_path)
                     dxf_size = os.path.getsize(cad_file_path)
-                    await emit_progress('cad_review_ready', 75, 'Đã tạo bản CAD nguồn để rà soát; chưa duyệt chế tạo', preview=review['preview'])
+                    await emit_progress('cad_review_ready', 75, 'Đã tạo CAD nháp; còn phần cần bổ sung trước khi duyệt chế tạo')
                 except ValueError as review_exc:
                     await emit_progress('cad_review', 75, str(review_exc))
         await emit_progress(
@@ -4051,7 +4061,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
 
         await emit_progress("published", 100,
                             "Đã lưu thiết kế; báo giá sẵn sàng tải xuống" if design_result["success"]
-                            else "Thiết kế chưa hoàn tất; chưa mở phần báo giá")
+            else "Đã lưu CAD nháp; còn thiết bị cần bổ sung trước khi chốt báo giá" if cad_file
+            else "Thiết kế chưa hoàn tất; chưa mở phần báo giá")
 
         from app.services.cad.output_status import output_status
         if cad_layout is not None:
