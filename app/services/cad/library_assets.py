@@ -74,6 +74,8 @@ def insert_library_asset(space, asset_id, x, y, rotation=0):
 
 def requested_asset(device, side=False):
     cad = device.get('cad') or (device.get('parameters') or {}).get('cad') or {}
+    if cad.get('requires_selection') and not cad.get('asset_id'):
+        return False, None
     if str(cad.get('asset_id') or '').startswith('tb:'):
         from app.services.cad.catalogtb_assets import resolve
         item = resolve(cad['asset_id'])

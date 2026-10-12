@@ -3821,24 +3821,27 @@ Chỉ trả một JSON hợp lệ, không markdown:
         dxf_filename = ""
         dxf_size = 0
         cad_layout = None
+        enclosure_kind = 'outdoor' if any(token in (
+            str(panel_name or '') + ' ' + str((quotation_panel or {}).get('enclosure_observation', {}).get('original_text') or '')
+        ).lower() for token in ('ngoài trời', 'outdoor')) else 'indoor'
         try:
             if enclosure_spec.get('sizing_status') == 'needs_review':
                 from app.services.cad.reference_layout import ReferenceLayoutGenerator
                 source_cad = ReferenceLayoutGenerator.generate(project.id,
                     getattr(settings, 'PROJECTS_DIR', 'storage/projects'), detected_dimensions,
-                    [d.model_dump() for d in extracted_devices])
+                    [d.model_dump() for d in extracted_devices], kind=enclosure_kind,
+                    product_name=detected_panel_name or detected_panel_code)
             else:
                 source_cad = SourceProjectGenerator.generate(
                     project_id=project.id,
                     output_dir=getattr(settings, "PROJECTS_DIR", "storage/projects"),
                     dimensions=tuple(enclosure_spec["fit_check"]["minimum_required"][axis] for axis in ("height", "width", "depth")),
                     devices=[d.model_dump() for d in extracted_devices],
-                    kind=("outdoor" if any(token in (
-                        str(panel_name or '') + ' ' + str((quotation_panel or {}).get('enclosure_observation', {}).get('original_text') or '')
-                    ).lower() for token in ("ngoài trời", "outdoor")) else "indoor"),
+                    kind=enclosure_kind, product_name=detected_panel_name or detected_panel_code,
                 )
             cad_file_path = source_cad["path"]
             cad_layout = {key: source_cad[key] for key in ("template_id", "source", "dimensions", "minimum_required", "placements", "unmatched_devices", "status", "release_ready")}
+            cad_layout.update({key:source_cad[key] for key in ('clearance_status','dimension_changes','form_fit_attempts') if key in source_cad})
             # The chosen source shell can be larger than the calculated
             # minimum. Materials and the final check must use that real shell.
             actual_dimensions = source_cad['dimensions']
@@ -3888,7 +3891,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 try:
                     review = ReferenceLayoutGenerator.generate(project.id,
                         getattr(settings, 'PROJECTS_DIR', 'storage/projects'), detected_dimensions,
-                        [d.model_dump() for d in extracted_devices])
+                        [d.model_dump() for d in extracted_devices], kind=enclosure_kind,
+                        product_name=detected_panel_name or detected_panel_code)
                     cad_layout = review
                     cad_file_path = review['path']
                     dxf_filename = os.path.basename(cad_file_path)

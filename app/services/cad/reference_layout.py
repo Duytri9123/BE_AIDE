@@ -7,14 +7,14 @@ import ezdxf
 
 class ReferenceLayoutGenerator:
     @staticmethod
-    def generate(project_id, output_dir, dimensions, devices):
+    def generate(project_id, output_dir, dimensions, devices, kind='indoor', product_name=''):
         if not dimensions or len(dimensions) != 3 or any(
                 not math.isfinite(float(v)) or float(v) <= 0 for v in dimensions):
             raise ValueError('Cần kích thước vỏ tủ từ bản vẽ hoặc người dùng để tạo CAD nháp.')
         from .source_project_generator import SourceProjectGenerator
         try:
             result = SourceProjectGenerator.generate(project_id, output_dir, dimensions,
-                devices=devices, allow_partial=True)
+                devices=devices, allow_partial=True, kind=kind, product_name=product_name)
             doc = ezdxf.readfile(result['path'])
         except (ValueError, OSError) as exc:
             # These are dimensioned exterior views, not invented device bodies
@@ -83,6 +83,9 @@ class ReferenceLayoutGenerator:
             m.add_text(text,dxfattribs={'height':10,'insert':(x,yy),'layer':'REFERENCE_REVIEW'})
         note('CAD NHAP - CHUA DUYET SAN XUAT / DON GIA',y)
         note('THIET BI CHUA BO TRI - KHONG SUY DIEN KICH THUOC',y-22)
+        note('KHOANG CHUA ME / DAY: DE XUAT, CAN XAC NHAN TRUOC GIA CONG', y+22)
+        if result.get('dimension_changes'):
+            note('FORM LON HON KICH THUOC NGUON - CAN XEM LAI: '+str(tuple(dimensions)),y+44)
         missing = set(result['unmatched_devices'])
         for index,row in enumerate(r for r in devices if (r.get('tag') or r.get('name')) in missing):
             note(f"{row.get('tag') or ''} | {row.get('name') or ''} | {row.get('spec') or 'Chua ro thong so'} | SL {row.get('quantity') or 1}",y-44-index*20)

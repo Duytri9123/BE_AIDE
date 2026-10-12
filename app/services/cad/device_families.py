@@ -4,7 +4,9 @@ from collections import defaultdict
 from app.services.cad.library_taxonomy import normalize
 
 FACE_LABELS = {'front': 'Mặt trước', 'side': 'Mặt bên', 'top': 'Mặt trên',
-               'rear': 'Mặt sau', 'section': 'Mặt cắt', 'isometric': 'Hình trục đo', 'unknown': 'Hình nguồn'}
+               'rear': 'Mặt sau', 'section': 'Mặt cắt', 'isometric': 'Hình trục đo',
+               'wire_passage':'Mặt xuyên dây', 'wiring':'Mặt đấu dây', 'cover':'Nắp che',
+               'cutout':'Lỗ khoét', 'bottom':'Mặt dưới', 'unknown': 'Hình nguồn'}
 
 
 def identity(item):
@@ -79,8 +81,8 @@ def build_families(items):
             token = (token, recognition.get('view_variant'))
             if token in seen: continue
             seen.add(token)
-            views.append({'asset_id': member['id'], 'face': member['face'], 'title': recognition.get('view_title') or FACE_LABELS[member['face']]})
-        views.sort(key=lambda v: list(FACE_LABELS).index(v['face']))
+            views.append({'asset_id': member['id'], 'face': member['face'], 'title': recognition.get('view_title') or FACE_LABELS.get(member['face'],'Hình nguồn')})
+        views.sort(key=lambda v: list(FACE_LABELS).index(v['face']) if v['face'] in FACE_LABELS else len(FACE_LABELS))
         first = members[0]
         result.append(dict(id=key, name=first['device_name'], brand=first['device_brand'],
                            kind=first['kind'], group=first['group'], views=views,

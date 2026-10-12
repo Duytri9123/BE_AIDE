@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import io
+import copy
 import unicodedata
 from uuid import uuid4
 
@@ -10,18 +11,38 @@ import ezdxf
 from ezdxf import bbox
 
 from app.services.cad import cabinet_templates
-from app.services.cad.placement_clearances import usable_region, device_gap
+from app.services.cad.placement_clearances import usable_region, reference_region, device_gap
 
 
 class SourceProjectGenerator:
     @staticmethod
-    def _interior_region(doc, dimensions, source_item=None):
+    def _layout_form(source_item, dimensions):
+        """Move verified face regions through the same source DIM stretch bands."""
+        item = copy.deepcopy(source_item)
+        nominal = item.get('dimensions') or dimensions
+        delta = {axis:dimensions[axis]-nominal[axis] for axis in dimensions}
+        if any(abs(value) > .01 for value in delta.values()):
+            source = ezdxf.readfile(cabinet_templates.source_path(source_item))
+            axes = cabinet_templates.stretch_axes(source, nominal)
+            for face in item.get('faces', []):
+                if face.get('clean_bounds'):
+                    a,b,c,d = face['clean_bounds']
+                    face['clean_bounds'] = [cabinet_templates.map_coordinate(a,axes[0],delta),
+                        cabinet_templates.map_coordinate(b,axes[1],delta),
+                        cabinet_templates.map_coordinate(c,axes[0],delta),
+                        cabinet_templates.map_coordinate(d,axes[1],delta)]
+        return item
+
+    @staticmethod
+    def _interior_region(doc, dimensions, source_item=None, allow_reference=False):
         """Find the source's dimensioned interior elevation, not a guessed sheet cell."""
         faces = [f for f in (source_item or {}).get('faces',[]) if f.get('kind') == 'mounting_plate' and f.get('clean_bounds')]
         if len(faces) == 1:
             left,bottom,right,top = faces[0]['clean_bounds']
-            if abs(right-left-dimensions['width']) <= 1 and abs(top-bottom-dimensions['height']) <= 1:
-                return usable_region((left,bottom,right,top),source_item,'mounting_plate')
+            # A real mounting plate can be smaller than the exterior cabinet.
+            if 0 < right-left <= dimensions['width']+1 and 0 < top-bottom <= dimensions['height']+1:
+                region_fn = reference_region if allow_reference else usable_region
+                return region_fn((left,bottom,right,top),source_item,'mounting_plate')
         def plain(value):
             value = ''.join(c for c in unicodedata.normalize('NFD', value.upper()) if not unicodedata.combining(c))
             return value.replace('Đ', 'D')
@@ -46,14 +67,20 @@ class SourceProjectGenerator:
             raise ValueError('Form nguồn thiếu đường kích thước xác nhận vùng lắp đặt.')
         left, right, _ = min(widths, key=lambda row: abs((row[0] + row[1]) / 2 - label_x))
         bottom, top, _ = min(heights, key=lambda row: abs(row[2] - right))
-        return usable_region((left,bottom,right,top),source_item,'mounting_plate')
+        region_fn = reference_region if allow_reference else usable_region
+        return region_fn((left,bottom,right,top),source_item,'mounting_plate')
 
     @staticmethod
     def _place_devices(dxf, devices, dimensions, source_item, allow_partial=False):
         from app.services.cad.library_assets import requested_asset, insert_library_asset
         doc = ezdxf.read(io.StringIO(dxf))
-        source_doc = ezdxf.readfile(cabinet_templates.source_path(source_item))
-        left, bottom, right, top = SourceProjectGenerator._interior_region(source_doc, dimensions, source_item)
+        left, bottom, right, top = SourceProjectGenerator._interior_region(doc, dimensions, source_item, allow_reference=allow_partial)
+        def gap_for(device, axis):
+            try:
+                return device_gap(device, axis)
+            except ValueError:
+                if not allow_partial: raise
+                return 40 if axis=='vertical' else 20
         entries = []
         missing = []
         for device in devices:
@@ -62,6 +89,9 @@ class SourceProjectGenerator:
                 missing.append(device.get('tag') or device.get('name') or '?')
                 continue
             from app.services.cad.physical_layout_engine import PhysicalLayoutEngine, MountingType
+            depth = (device.get('dimensions') or {}).get('d')
+            if depth and float(depth) > dimensions['depth']:
+                raise ValueError('Chiều sâu thiết bị vượt chiều sâu form: '+str(device.get('tag') or device.get('name')))
             mounting = PhysicalLayoutEngine.classify_mounting(device)
             face = device.get('mounting_face') or device.get('owner_face')
             if not face and mounting in (MountingType.DOOR_MOUNTED, MountingType.INNER_COVER_MOUNTED):
@@ -106,7 +136,7 @@ class SourceProjectGenerator:
             matches=[f for f in source_item.get('faces',[]) if f.get('kind')==face and f.get('clean_bounds')]
             if len(matches)==1:
                 b=matches[0]['clean_bounds']
-                regions[face]=usable_region(b,source_item,face)
+                regions[face]=(reference_region if allow_partial else usable_region)(b,source_item,face)
         states={face:[b[0],b[3],0.0] for face,b in regions.items()}
         placements = []
         for device, asset_id, width, height, face in entries:
@@ -117,7 +147,7 @@ class SourceProjectGenerator:
             if width <= 0 or height <= 0 or width > right-left or height > top-bottom:
                 raise ValueError(f"Khối CAD {asset_id} không vừa vùng lắp đặt của form nguồn.")
             if x + width > right:
-                x, row_top, row_height = left, row_top - row_height - device_gap(device,'vertical'), 0.0
+                x, row_top, row_height = left, row_top - row_height - gap_for(device,'vertical'), 0.0
             if row_top - height < bottom:
                 raise ValueError('Các thiết bị CAD nguồn không đủ chỗ trên mặt trong tủ; cần form lớn hơn.')
             y = row_top - height
@@ -125,7 +155,7 @@ class SourceProjectGenerator:
             placements.append({'tag': device.get('tag'), 'asset_id': asset_id, 'x': x, 'y': y,
                                'mounting_face':face,'width':width,'height':height,
                                'electrical_spec_verified':False})
-            gap=device_gap(device,'horizontal')
+            gap=gap_for(device,'horizontal')
             x += width + gap
             row_height = max(row_height, height)
             states[face]=[x,row_top,row_height]
@@ -149,14 +179,15 @@ class SourceProjectGenerator:
         # unrelated sheet to an exact but unverified calculated envelope.
         fitting = [item for item in matches if item.get("status") in ("source", "needs_review")
                    and item.get("dimensions")
-                   and all(requested[axis] <= item["dimensions"][axis] <= requested[axis] * 1.7 for axis in requested)
-                   and (item["dimensions"]["height"] * item["dimensions"]["width"] * item["dimensions"]["depth"])
-                       <= 3 * height * width * depth]
+                   and all(requested[axis] <= item["dimensions"][axis] for axis in requested)]
         fitting.sort(key=lambda item: (
             item["dimensions"]["height"] * item["dimensions"]["width"] * item["dimensions"]["depth"],
             item["distance"], item["id"],
         ))
-        eligible = fitting or [item for item in matches if item["can_generate"]]
+        eligible = [item for item in matches if item in fitting or item['can_generate']]
+        eligible.sort(key=lambda item: (
+            (item['dimensions']['height']*item['dimensions']['width']*item['dimensions']['depth'])
+                if item in fitting else height*width*depth, item['distance'], item['id']))
         match = None
         attempted_forms = []
         prepared = None
@@ -166,10 +197,9 @@ class SourceProjectGenerator:
                 candidate_dxf = cabinet_templates.generate(candidate['id'], candidate_dimensions, product_name=product_name)
                 candidate_placements, candidate_missing = [], []
                 if devices:
-                    source_doc = ezdxf.readfile(cabinet_templates.source_path(candidate))
-                    SourceProjectGenerator._interior_region(source_doc, candidate_dimensions, candidate)
+                    layout_form = SourceProjectGenerator._layout_form(candidate, candidate_dimensions)
                     candidate_dxf, candidate_placements, candidate_missing = SourceProjectGenerator._place_devices(
-                        candidate_dxf, devices, candidate_dimensions, candidate, allow_partial=allow_partial)
+                        candidate_dxf, devices, candidate_dimensions, layout_form, allow_partial=allow_partial)
                     if candidate_missing and not allow_partial:
                         raise ValueError('Thiếu CAD thiết bị: ' + ', '.join(candidate_missing))
             except ValueError as exc:
@@ -191,6 +221,9 @@ class SourceProjectGenerator:
         return {"path": str(path), "template_id": match["id"], "source": match["filename"],
                 "dimensions": selected, "minimum_required": requested,
                 "placements": placements, "unmatched_devices": missing,
+                "clearance_status": 'proposed_requires_review' if allow_partial else 'source_verified',
+                "dimension_changes": {axis:{'requested':requested[axis],'selected':selected[axis]}
+                    for axis in requested if abs(requested[axis]-selected[axis])>.01},
                 "form_fit_attempts": attempted_forms,
                 "status": "reference_layout_needs_review",
                 "release_ready": False}

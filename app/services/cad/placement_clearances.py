@@ -2,6 +2,18 @@
 import math
 
 
+def reference_region(bounds, source_item, face):
+    """Proposed inset for a review drawing; never marks source rules verified."""
+    try:
+        return usable_region(bounds, source_item, face)
+    except ValueError:
+        left,bottom,right,top=bounds
+        region=(left+40,bottom+40,right-40,top-40)
+        if region[0]>=region[2] or region[1]>=region[3]:
+            raise ValueError('Mặt tủ không đủ vùng bố trí nháp: '+face)
+        return region
+
+
 def usable_region(bounds, source_item, face):
     rule=((source_item or {}).get('placement_rules') or {}).get(face) or {}
     if rule.get('verified') is not True or not rule.get('source_handles'):
