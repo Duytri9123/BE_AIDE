@@ -1,0 +1,518 @@
+{
+  "checked_at": "2026-10-13T13:08:20.788431+00:00",
+  "brands": [
+    {
+      "brand": "Schneider Electric",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 3,
+      "documents": 7,
+      "external_candidate": {
+        "brand": "Schneider Electric",
+        "url": "https://www.se.com/vn/vi/download/document/MasterPriceBook/",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html",
+        "title": "Master Pricebook 2026 |  Schneider Electric"
+      },
+      "status": "price_rows_available_partial"
+    },
+    {
+      "brand": "ABB",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 6,
+      "documents": 3,
+      "external_candidate": {
+        "brand": "ABB",
+        "url": "https://new.abb.com/low-voltage/products",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "fetch_failed",
+        "error": "ReadTimeout"
+      },
+      "status": "price_rows_available_partial"
+    },
+    {
+      "brand": "Siemens",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 0,
+      "documents": 1,
+      "external_candidate": {
+        "brand": "Siemens",
+        "url": "https://www.dienhathe.com/bang-gia-thiet-bi-dien-siemens-2026/",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html",
+        "title": "Bảng Giá Thiết Bị Điện Siemens 2026 Mới Nhất | Tra Nhanh Giá MCCB, PLC, Biến Tần Siemens | Điện Hạ Thế"
+      },
+      "status": "no_verified_numeric_price"
+    },
+    {
+      "brand": "Hager",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 0,
+      "documents": 1,
+      "external_candidate": {
+        "brand": "Hager",
+        "url": "https://www.thietbidiendgp.vn/bang-gia/hager",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=utf-8",
+        "title": "Bảng giá thiết bị điện Hager 2026 - thietidiendgp"
+      },
+      "status": "no_verified_numeric_price"
+    },
+    {
+      "brand": "Legrand",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 0,
+      "documents": 3,
+      "external_candidate": {
+        "brand": "Legrand",
+        "url": "https://legrandhcm.vn/catalogue/",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=UTF-8",
+        "title": "CATALOGUE LEGRAND - BẢNG GIÁ LEGRAND MỚI NHẤT 2026"
+      },
+      "status": "no_verified_numeric_price"
+    },
+    {
+      "brand": "BTB Electric",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 38,
+      "documents": 1,
+      "external_candidate": {
+        "brand": "BTB Electric",
+        "url": "https://btb-electric.com/vi/danh-muc-tai-lieu/catalogue/",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=UTF-8",
+        "title": "Catalogue - BTB Electric"
+      },
+      "status": "price_rows_available_partial"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 3026,
+      "documents": 5,
+      "external_candidate": {
+        "brand": "Mitsubishi Electric",
+        "url": "https://www.saigonelectric.vn/bang-gia/41-thiet-bi-dong-cat.html",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=utf-8",
+        "title": "Thiết bị đóng cắt"
+      },
+      "status": "price_rows_available_partial"
+    },
+    {
+      "brand": "Fuji Electric",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 0,
+      "documents": 2,
+      "external_candidate": {
+        "brand": "Fuji Electric",
+        "url": "https://www.fujielectric.com/fcs/document/download/download_catalog.html",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=UTF-8",
+        "title": "Catalogs by series - Download Page | Fuji Electric FA Components & Systems Co., Ltd."
+      },
+      "status": "no_verified_numeric_price"
+    },
+    {
+      "brand": "LS Electric",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 523,
+      "documents": 6,
+      "external_candidate": {
+        "brand": "LS Electric",
+        "url": "https://www.ls-electric.com.vn/en/solution/l-series-mcb/",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=UTF-8",
+        "title": "L-Series MCB - LS ELECTRIC VIETNAM"
+      },
+      "status": "price_rows_available_partial"
+    },
+    {
+      "brand": "Shihlin",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 0,
+      "documents": 2,
+      "external_candidate": {
+        "brand": "Shihlin",
+        "url": "https://circuit-breaker.seec.com.tw/Templates/att/All_product.pdf",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "application/pdf",
+        "title": "Shihlin · Tài liệu tham khảo"
+      },
+      "status": "no_verified_numeric_price"
+    },
+    {
+      "brand": "CHINT",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 1511,
+      "documents": 2,
+      "external_candidate": {
+        "brand": "CHINT",
+        "url": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=UTF-8",
+        "title": "NXB-63 Miniature Circuit Breaker Datasheet & Manual | CHINT global"
+      },
+      "status": "price_rows_available_partial"
+    },
+    {
+      "brand": "Andeli",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 0,
+      "documents": 0,
+      "external_candidate": {
+        "brand": "Andeli",
+        "url": "https://vnecco.com/andeli",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "fetch_failed",
+        "error": "HTTPStatusError"
+      },
+      "status": "no_verified_numeric_price"
+    },
+    {
+      "brand": "Sino - Vanlock",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 0,
+      "documents": 30,
+      "external_candidate": {
+        "brand": "Sino - Vanlock",
+        "url": "https://www.thietbidiendgp.vn/blogs/bang-gia",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=utf-8",
+        "title": "Bảng giá thiết bị điện cập nhật mới nhất"
+      },
+      "status": "no_verified_numeric_price"
+    },
+    {
+      "brand": "Vinakip",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 0,
+      "documents": 1,
+      "external_candidate": {
+        "brand": "Vinakip",
+        "url": "https://role24h.com/bang-gia",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=UTF-8",
+        "title": "Bảng giá"
+      },
+      "status": "no_verified_numeric_price"
+    },
+    {
+      "brand": "Omron",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 6,
+      "documents": 0,
+      "external_candidate": {
+        "brand": "Omron",
+        "url": "https://industrial.omron.com.tr/tr/news-discover/news/pricelist-2026",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=utf-8",
+        "title": "Endüstriyel Otomasyon Fiyat Listesi  | OMRON, Türkiye",
+        "currency_status": "non_vnd_market_reference_not_imported"
+      },
+      "status": "price_rows_available_partial"
+    },
+    {
+      "brand": "Delta",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 0,
+      "documents": 0,
+      "external_candidate": {
+        "brand": "Delta",
+        "url": "https://www.deltaww.com/en-US/products/industrial-automation",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=utf-8",
+        "title": "Products - Industrial Automation - Delta"
+      },
+      "status": "no_verified_numeric_price"
+    },
+    {
+      "brand": "Yaskawa",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 6,
+      "documents": 0,
+      "external_candidate": {
+        "brand": "Yaskawa",
+        "url": "https://codienhaiau.com/category/yaskawa/",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=UTF-8",
+        "title": "Đại lý phân phối Yaskawa ở Việt Nam, Bảng Giá 2026 - Codienhaiau.com"
+      },
+      "status": "price_rows_available_partial"
+    },
+    {
+      "brand": "Danfoss",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 0,
+      "documents": 0,
+      "external_candidate": {
+        "brand": "Danfoss",
+        "url": "https://maybompanasonic.net/bang-gia-bien-tan-danfoss.html",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=UTF-8",
+        "title": "Bảng giá biến tần DANFOSS mới nhất năm 2026"
+      },
+      "status": "no_verified_numeric_price"
+    },
+    {
+      "brand": "INVT",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 102,
+      "documents": 0,
+      "external_candidate": {
+        "brand": "INVT",
+        "url": "https://tudonghoatoancau.com/wp-content/uploads/2026/04/Bien-tan-Trung-Quoc-INVT.pdf",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "application/pdf",
+        "title": "INVT · Tài liệu tham khảo"
+      },
+      "status": "price_rows_available_partial"
+    },
+    {
+      "brand": "IDEC",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 0,
+      "documents": 1,
+      "external_candidate": {
+        "brand": "IDEC",
+        "url": "https://vnecco.com/bang-gia-idec",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "fetch_failed",
+        "error": "HTTPStatusError"
+      },
+      "status": "no_verified_numeric_price"
+    },
+    {
+      "brand": "Hanyoung Nux",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 0,
+      "documents": 1,
+      "external_candidate": {
+        "brand": "Hanyoung Nux",
+        "url": "https://hanyoungnux.vn/download/",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=UTF-8",
+        "title": "Download Center - HANYOUNG NUX Việt Nam"
+      },
+      "status": "no_verified_numeric_price"
+    },
+    {
+      "brand": "Samwha",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 15,
+      "documents": 1,
+      "external_candidate": {
+        "brand": "Samwha",
+        "url": "https://etinco.vn/tu-bu-samwha/",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=UTF-8",
+        "title": "Tụ bù Samwha chính hãng, bảng giá 2026, catalogue"
+      },
+      "status": "price_rows_available_partial"
+    },
+    {
+      "brand": "TDK / EPCOS",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 6,
+      "documents": 1,
+      "external_candidate": {
+        "brand": "TDK / EPCOS",
+        "url": "https://etinco.vn/tu-bu-epcos/",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=UTF-8",
+        "title": "Tụ bù Epcos Nhật Bản | Bảng giá 2026 | Catalogue"
+      },
+      "status": "price_rows_available_partial"
+    },
+    {
+      "brand": "Shizuki",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 0,
+      "documents": 1,
+      "external_candidate": {
+        "brand": "Shizuki",
+        "url": "https://etinco.vn/tu-bu-shizuki/",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=UTF-8",
+        "title": "Tụ bù Shizuki Chính Hãng | Bảng giá 2026 | Catalogue"
+      },
+      "status": "no_verified_numeric_price"
+    },
+    {
+      "brand": "Nuintek",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 22,
+      "documents": 4,
+      "external_candidate": {
+        "brand": "Nuintek",
+        "url": "https://etinco.vn/tu-bu-nuintek/",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=UTF-8",
+        "title": "Tụ bù Nuintek nhập khẩu Hàn Quốc | Bảng giá 2026 | Catalogue"
+      },
+      "status": "price_rows_available_partial"
+    },
+    {
+      "brand": "Mikro",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 27,
+      "documents": 3,
+      "external_candidate": {
+        "brand": "Mikro",
+        "url": "https://etinco.vn/tu-bu-mikro/",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=UTF-8",
+        "title": "Tụ bù Mikro chính hãng | Bảng giá 2026 | Catalogue"
+      },
+      "status": "price_rows_available_partial"
+    },
+    {
+      "brand": "SK",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 0,
+      "documents": 0,
+      "external_candidate": {
+        "brand": "SK",
+        "url": "https://chodansinh.net/bo-dieu-khien-tu-bu-sk-pro176395.html",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=utf-8",
+        "title": "BỘ ĐIỀU KHIỂN TỤ BÙ SK",
+        "identity_status": "supplier_identity_review_required"
+      },
+      "status": "no_verified_numeric_price"
+    },
+    {
+      "brand": "Ducati Energia",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 0,
+      "documents": 1,
+      "external_candidate": {
+        "brand": "Ducati Energia",
+        "url": "https://etinco.vn/tu-bu-ducati/",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=UTF-8",
+        "title": "Tụ bù Ducati chính hãng | Bảng giá 2026 | Catalogue"
+      },
+      "status": "no_verified_numeric_price"
+    },
+    {
+      "brand": "Selec",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 6,
+      "documents": 2,
+      "external_candidate": {
+        "brand": "Selec",
+        "url": "https://thietbibenthanh.com/bang-gia-thiet-bi-dien-selec-moi-109-26.html",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=UTF-8",
+        "title": "Bảng giá thiết bị điện Selec 2026"
+      },
+      "status": "price_rows_available_partial"
+    },
+    {
+      "brand": "Delixi",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 0,
+      "documents": 0,
+      "external_candidate": {
+        "brand": "Delixi",
+        "url": "https://swe.com.vn/bang-gia",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "fetch_failed",
+        "error": "ConnectError"
+      },
+      "status": "no_verified_numeric_price"
+    },
+    {
+      "brand": "Morele",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 0,
+      "documents": 0,
+      "external_candidate": {
+        "brand": "Morele",
+        "url": "https://role24h.com/thiet-bi-dien-morele",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=UTF-8",
+        "title": "Thiết bị điện Morele"
+      },
+      "status": "no_verified_numeric_price"
+    },
+    {
+      "brand": "EMIC",
+      "checked_at": "2026-10-13T13:08:20.788431+00:00",
+      "priced_rows": 0,
+      "documents": 1,
+      "external_candidate": {
+        "brand": "EMIC",
+        "url": "https://etinco.vn/thiet-bi-dien-emic/",
+        "checked_at": "2026-10-13T13:08:20.788431+00:00",
+        "prices_approved": false,
+        "status": "candidate_fetched_pending_review",
+        "content_type": "text/html; charset=UTF-8",
+        "title": "Thiết bị điện EMIC chính hãng | Bảng giá 2026 | Catalogue"
+      },
+      "status": "no_verified_numeric_price"
+    }
+  ],
+  "complete_price_coverage": false,
+  "priced_manufacturers": 14,
+  "total_priced_rows": 5297
+}

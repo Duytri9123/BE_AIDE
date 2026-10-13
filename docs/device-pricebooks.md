@@ -50,6 +50,37 @@ price, country, certificate or marketing quality claim. Requested manufacturers
 without verified prices stay visible with zero price rows. Aliases collapse
 Idec Izumi/IDEC, Mitsubishi, EPCOS/TDK and the other supplied names into one identity.
 
+The price-book browser now follows the library's three-panel navigation:
+manufacturer/category scope, model list, then prices and specifications. All
+device rows remain visible as one grouped table until a specific model is chosen.
+Selecting a model reads all returned configurations for its exact model key.
+Changing scope clears the selected model; stale detail responses cannot overwrite
+another selection. Customer manufacturer dropdowns and top brand tabs are removed.
+
+Additional source reviews cover all 32 requested manufacturers, with findings in
+the INTERNAL `app/data/catalog_coverage_review.json`. This is not sent to customers.
+`scripts/discover_scoped_pricebooks.py` finds observed links in seven supplier
+indexes; `scripts/review_catalog_sources.py` checks an external candidate for each
+manufacturer. Fetched documents are candidates, not approved price rows. Quotation-
+only products, unsupported currencies, historical editions and ambiguous supplier
+identities remain pending; complete market-wide coverage is explicitly false.
+
+`scripts/import_mitsubishi_pricebook.py` imports 3,026 explicit model/material/
+numeric-price rows from the June-2026 workbook's 21 sheets. All numeric prices are
+kept, including repeated model names with distinct material/configuration rows.
+MCB India says "Please contact"; MV Relays has no price column: neither is assigned
+a price. The posting date does not establish an effective date; VAT stays unknown.
+The stored headers include rated current, poles and local Icu/voltage conditions,
+without arbitrary forward-fill of row specifications.
+
+`scripts/refresh_additional_seller_prices.py` reads eight observed Etinco collection
+pages. It imports explicit SKU-before-pipe product titles and one live VND amount,
+excluding crossed prices, ranges and "Liên hệ". The initial snapshot has 108 priced
+rows in five manufacturers; other fetched collections have no eligible price row.
+The original bounded seller importer also checks the observed Yaskawa collection.
+These are partial seller snapshots, not manufacturer-wide price books. Dimensions
+and CAD associations are not inferred from selling prices or a similar name.
+
 The portfolio registry has 31 manufacturers with category evidence as of
 2026-10-13, including newly reviewed TECO, WAGO, Delta, Socomec, Crouzet,
 Littelfuse, Rittal and Samwha. Discovered names are not equivalent to verified
@@ -119,3 +150,11 @@ To serve local PDF downloads after deployment, provision the two source files as
 `storage/catalog-pricebooks/ls-2026-10-01.pdf` and
 `storage/catalog-pricebooks/chint-2026.pdf`. Source PDFs are not committed to Git.
 The document endpoint uses a fixed allowlist and authenticated access.
+
+`import_invt_pricebook.py` imports 102 complete model/kW/HP/current/price
+sequences from the observed three-page Vietnamese INVT supplier PDF. Incomplete
+sequences are omitted; source current and power values are not corrected or
+inferred. Upload-folder dates do not establish the price effective date or VAT.
+The completed internal review currently counts 5,297 eligible public price rows
+across 14 manufacturers; 18 requested manufacturers have no approved numeric
+price row. This is not complete price coverage for all 32 makers.

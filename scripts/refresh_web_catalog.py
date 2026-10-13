@@ -7,6 +7,7 @@ import httpx
 from bs4 import BeautifulSoup
 
 SOURCES = [
+    ('https://codienhaiau.com/category/yaskawa/','Yaskawa','VFD'),
     ('https://codienhaiau.com/series/ls-bkn/','LS Electric','MCB'),
     ('https://codienhaiau.com/series/chint-nxb-63/','CHINT','MCB'),
     ('https://codienhaiau.com/category/abb/mcb-abb/','ABB','MCB'),
