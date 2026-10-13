@@ -48,7 +48,7 @@ def _values(row, field):
     return [float(v.replace(',', '.')) for v in re.findall(r'\d+(?:[.,]\d+)?', text)]
 
 
-def match_device(device, rows):
+def match_device(device, rows, *, candidate_limit=30):
     brand = str(device.get('brand') or device.get('detected_brand') or device.get('origin') or '').strip()
     known_brand = brand.casefold() not in {'', 'asian', 'asia', 'oem', '-', '---', 'chưa xác định'}
     code = _norm(device.get('part_number') or device.get('sku'))
@@ -85,7 +85,7 @@ def match_device(device, rows):
     matched = len(matches)==1 and bool(matches[0][1])
     options = load_price_options()
     choices = []
-    for row, _ in matches[:30]:
+    for row, _ in matches[:candidate_limit]:
         choices.append({'price_row_id':public_id(row), 'catalog_id':public_id(row),
                         'sku':row.get('sku') or row['item_name'], 'name':row['item_name'],
                         'brand':row['brand'], 'price':row['price'], 'price_source':'published_pricebook',
