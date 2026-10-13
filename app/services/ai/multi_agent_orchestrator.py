@@ -357,7 +357,13 @@ class MultiAgentOrchestrator:
             device['catalog_price'] = None
             device['catalog_candidates'] = []
             device['catalog_selection_status'] = 'deferred_until_design'
-        matched_count = 0
+        from app.services.ai.takeoff_pricebook import link_devices
+        link_devices(state.devices)
+        for device in state.devices:
+            device['catalog_selection_status'] = device['pricebook_match']['status']
+            device['catalog_matched'] = device['pricebook_match']['status'] == 'matched'
+            device['catalog_price'] = (device['pricebook_match'].get('row') or {}).get('price')
+        matched_count = sum(d['pricebook_match']['status']=='matched' for d in state.devices)
         state.completed_agents.append(AgentRole.CATALOG_MATCHER)
         
         logger.info(

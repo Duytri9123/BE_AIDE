@@ -215,6 +215,7 @@ class QuotationBuilderService:
                     "tt": "+",
                     "name": d_name,
                     "ma_hang": d_sku,
+                    "price_row_id": (inc.get("pricebook_match") or {}).get("price_row_id"),
                     "xuat_xu": d_brand,
                     "don_vi": "Cái",
                     "so_luong": float(inc.get("quantity", 1)),
@@ -254,6 +255,7 @@ class QuotationBuilderService:
                     "tt": "+",
                     "name": d_name,
                     "ma_hang": d_sku,
+                    "price_row_id": (feeder.get("pricebook_match") or {}).get("price_row_id"),
                     "xuat_xu": d_brand,
                     "don_vi": "Cái",
                     "so_luong": float(feeder.get("quantity", 1)),
@@ -374,29 +376,9 @@ class QuotationBuilderService:
     
     @staticmethod
     def _estimate_price(device: Dict) -> float:
-        """Estimate device price dựa trên catalog thực tế của hệ thống"""
-        # 1. Nếu đã có giá từ catalog hoặc unit_price thực tế
-        if device.get("catalog_price") and float(device["catalog_price"]) > 0:
-            return float(device["catalog_price"])
-        if device.get("unit_price") and float(device["unit_price"]) > 0:
-            return float(device["unit_price"])
-
-        # 2. Tra cứu từ catalog engine
-        from app.services.device_catalog_engine import DeviceCatalogEngine
-        eng = DeviceCatalogEngine.get_instance()
-        sku = device.get("part_number") or device.get("sku")
-        if sku:
-            exact = eng.get_by_sku(sku)
-            if exact and exact.get("g") and float(exact["g"]) > 0:
-                return float(exact["g"])
-
-        cat = device.get("category", "")
-        in_a = device.get("in_a")
-        poles = device.get("poles")
-        name = device.get("name")
-        matched = eng.lookup_device_info(category=cat, in_a=in_a, poles=poles, brand=brand, part_number=sku, name=name)
-        if matched and matched.get("unit_price") and float(matched["unit_price"]) > 0:
-            return float(matched["unit_price"])
-
-        # 3. Không tự ý gán giá giả ma thuật
-        return 0.0
+        """Read the linked published price; never reuse a price from another variant."""
+        from app.services.ai.takeoff_pricebook import link_devices
+        link_devices([device])
+        match = device.get('pricebook_match') or {}
+        row = match.get('row') if match.get('status') == 'matched' else None
+        return float(row['price']) if row else 0.0

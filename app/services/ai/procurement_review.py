@@ -39,6 +39,8 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
     raw = [d.model_dump() if hasattr(d,'model_dump') else dict(d) for d in devices]
     if not raw:
         raw = [dict(d) for p in (panels or []) for d in (p.get('devices') or [])]
+    from app.services.ai.takeoff_pricebook import link_devices
+    link_devices(raw)
     for d in raw:
         groups[str(d.get('panel_code') or panel_code or 'CHUA_XAC_DINH')].append(d)
     result = []
@@ -47,7 +49,9 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                            quantity=1,unit='Tủ',notes=panel_name or ''))
         for i,d in enumerate(members):
             sku = d.get('part_number') or ''
-            price = prices.get(sku) if sku else None
+            match = d.get('pricebook_match') or {}
+            linked_row = match.get('row') if match.get('status') == 'matched' else None
+            price = linked_row.get('price') if linked_row else None
             if not price or price <= 0:
                 price = None
             qty = d.get('procurement_quantity') or d.get('quantity') or 1
@@ -57,23 +61,32 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                 # Replacing a rating invalidates the old SKU price association.
                 sku = (d.get('compatible_proposal') or {}).get('part_number') or ''
                 price = None
+                match = {**match,'status':'needs_selection','price_row_id':None,'row':None,
+                         'note':'Thông số đã thay đổi; cần chọn lại dòng giá.'}
             result.append(dict(id=identity,row_type='item',tt='+',name=d.get('name'),
                 spec=selected_spec,original_spec=d.get('original_spec') or d.get('spec'),
                 sku=sku,origin=d.get('brand') or '',unit='Cái',quantity=qty,
                 unit_price=price,line_total=qty*price if price else None,
                 price_status='confirmed' if price else 'pending',
+                price_row_id=match.get('price_row_id') if price else None,
+                pricebook_match=match,
+                equipment_catalog_id=linked_row.get('equipment_catalog_id') if linked_row and price else None,
+                vat_status=linked_row.get('vat_status') if linked_row and price else None,
+                effective_date=linked_row.get('effective_date') if linked_row and price else None,
                 notes=d.get('notes') or '',compatible_proposal=d.get('compatible_proposal'),
                 is_alternative_recommended=d.get('is_alternative_recommended') or False))
             for j,a in enumerate(d.get('accompanying_accessories') or []):
                 if not isinstance(a,dict):
                     continue
                 evidence = a.get('evidence') or a.get('source_reference') or a.get('sld_evidence')
-                ap = a.get('unit_price') if a.get('price_source') and evidence else None
+                accessory_match = a.get('pricebook_match') or {}
+                ap = (accessory_match.get('row') or {}).get('price') if accessory_match.get('status')=='matched' else None
                 aq = a.get('quantity') or 1
                 result.append(dict(id=f'{identity}-accessory-{j}',parent_id=identity,row_type='accessory',
                     is_accessory=True,tt='↳',name=a.get('name'),spec=a.get('spec') or '',sku=a.get('sku') or '',
                     origin=a.get('origin') or '',unit=a.get('unit') or 'Cái',quantity=aq,
                     unit_price=ap,line_total=aq*ap if ap else None,price_status='confirmed' if ap else 'pending',
+                    price_row_id=accessory_match.get('price_row_id') if ap else None,pricebook_match=accessory_match,
                     inclusion_status='observed' if evidence else 'needs_confirmation',notes=a.get('notes') or ('Chưa có bằng chứng phụ kiện; cần xác nhận trước khi mua.' if not evidence else '')))
         result.append(dict(id=f'{code}-assembly',row_type='section_header',name='Vật tư lắp tủ cần xác nhận'))
         for requirement in assembly_requirements(members):

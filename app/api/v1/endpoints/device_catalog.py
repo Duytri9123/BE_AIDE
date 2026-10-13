@@ -5,16 +5,16 @@ from starlette.concurrency import run_in_threadpool
 from app.api.deps import get_current_active_user, get_current_admin_user
 from app.services.device_catalog_browser import build_catalog_page, load_web_offers, load_supplier_items, load_catalog_documents, customer_catalog_page
 from app.services.ai.device_price_resolver import CustomPriceStore
-from app.services.pricebook_library_links import load_links
+from app.services.pricebook_library_links import load_links, load_price_options
 
 router = APIRouter()
 
 @router.get('')
-async def catalog(q: str='', brand: str='', category: str='', product_line: str='', skip: int=Query(0,ge=0),
+async def catalog(q: str='', brand: str='', category: str='', product_line: str='', equipment_catalog_id: str='', price_row_id: str='', skip: int=Query(0,ge=0),
                   limit: int=Query(30,ge=1,le=100), current_user=Depends(get_current_active_user)):
     def read():
         return customer_catalog_page(build_catalog_page([], CustomPriceStore.list_all(),
-                                  web_offers=load_web_offers(),supplier_items=load_supplier_items(),documents=load_catalog_documents(),library_links=load_links(),q=q,brand=brand,category=category,product_line=product_line,skip=skip,limit=limit))
+                                  web_offers=load_web_offers(),supplier_items=load_supplier_items(),documents=load_catalog_documents(),library_links={**(load_price_options() if equipment_catalog_id else {}), **load_links()},q=q,brand=brand,category=category,product_line=product_line,equipment_catalog_id=equipment_catalog_id,price_row_id=price_row_id,skip=skip,limit=limit))
     return await run_in_threadpool(read)
 
 @router.get('/documents/{document_id}')

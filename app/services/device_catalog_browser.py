@@ -47,7 +47,8 @@ def customer_catalog_page(payload):
     """Allowlist commercial fields; never send sourcing intelligence to customers."""
     public = {key:payload[key] for key in ('categories','total','priced_total','checked_date','primary_key','skip','limit')}
     public['brands'] = [{'name':maker['name'], 'price_count':maker['price_count'],
-                         'categories':[{'code':c['code'],'label':c['label']} for c in maker['categories']]}
+                         'categories':[{'code':c['code'],'label':c['label']} for c in maker['categories']],
+                         'priced_categories':maker.get('priced_categories', [])}
                         for maker in payload['brands']]
     fields = ('sku','item_name','name','brand','category','group','price','columns','cells',
               'specifications','model_key','effective_date','edition','vat_status','updated_at',
@@ -62,7 +63,7 @@ def customer_catalog_page(payload):
         public['items'].append(item)
     return public
 
-def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_items=(), documents=(), library_links=None, q='', brand='', category='', product_line='', skip=0, limit=30):
+def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_items=(), documents=(), library_links=None, q='', brand='', category='', product_line='', equipment_catalog_id='', price_row_id='', skip=0, limit=30):
     rows = {}
     for item in priced_items:
         code = str(item.get('sku') or item.get('ma') or '').strip()
@@ -124,13 +125,22 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
         name=canonical_brand(document['brand'])
         if name not in makers:continue
         makers.setdefault(name,{'name':name,'categories':[],'price_count':0})
-    categories = sorted({code for maker in makers.values() for code in [c['code'] for c in maker['categories']]} | {i['category'] for i in items})
+    for maker in makers.values():
+        counts = {}
+        for row in items:
+            if row['brand'] == maker['name']:
+                counts[row['category']] = counts.get(row['category'], 0) + 1
+        maker['priced_categories'] = [{'code':code,'label':label(code),'price_count':count}
+                                      for code,count in sorted(counts.items())]
+    categories = sorted({i['category'] for i in items})
     normalize = lambda text: strip_accents(str(text)).casefold()
     query = normalize(q.strip())
     filtered = [i for i in items if (not brand or i['brand']==canonical_brand(brand))
                 and (not category or i['category']==category)
                 and (not product_line or i.get('product_line')==product_line)
-                and query in normalize(' '.join(str(i.get(k) or '') for k in ('sku','name','brand','category','group','specifications')))]
+                and (not equipment_catalog_id or i.get('equipment_catalog_id')==equipment_catalog_id)
+                and (not price_row_id or hashlib.sha256(i['id'].encode()).hexdigest()[:24]==price_row_id)
+                and query in normalize(' '.join(str(i.get(k) or '') for k in ('sku','item_name','name','brand','category','group','specifications')))]
     filtered.sort(key=lambda row:(row['brand'],row.get('source_kind')!='supplier_pricebook',row.get('source_page') or 0))
     return {'brands':sorted(makers.values(),key=lambda m:m['name']),
             'categories':[{'code':c,'label':label(c)} for c in categories],

@@ -1,7 +1,7 @@
 """
 DevicePriceResolver - Hệ thống tra giá thiết bị thông minh với 3 cấp fallback:
-Automatic pricing uses one uniquely identified 2026 PDF row only.
-Historical custom prices and CAD candidates remain unavailable to this resolver.
+Automatic pricing uses one uniquely identified published pricebook row.
+CAD candidates never authorize a commercial or geometry match.
 """
 
 from __future__ import annotations
@@ -203,7 +203,7 @@ class CadRegistryCache:
 
 
 class DevicePriceResolver:
-    """Automatically price only uniquely identified 2026 catalog variants."""
+    """Automatically price uniquely identified published pricebook variants."""
 
     @staticmethod
     def _normalize_key(name: str, brand: str = "", category: str = "") -> str:
@@ -391,44 +391,23 @@ class DevicePriceResolver:
         enable_web_search: bool = True,
     ) -> Dict[str, Any]:
         """
-        Resolve automatic price from a uniquely matched 2026 PDF row.
+        Resolve automatic price from a uniquely matched published pricebook row.
 
         Returns dict với các field:
           - unit_price (int VND)
-          - price_source: "source_backed_catalog_2026" | "not_found"
+          - price_source: "published_pricebook" | "not_found"
           - price_note: ghi chú nguồn / cảnh báo
           - catalog_matched (bool)
         """
-        # Only source-backed 2026 rows may set an automatic price. Historical
-        # custom prices, synthetic catalog rows, CAD shapes and web estimates
-        # cannot silently replace an ambiguous or missing PDF variant.
-        if part_number:
-            try:
-                from app.services.equipment_library import resolve_price_variant
-                source_row = resolve_price_variant(part_number, brand or None, poles, in_a, min_icu)
-            except FileNotFoundError:
-                source_row = None
-            if source_row:
-                amount = int(source_row['price']['amount_vnd'])
-                return {
-                    'sku': part_number, 'name': source_row['display_name'],
-                    'brand': source_row['brand'], 'unit_price': amount, 'price': amount,
-                    'dimensions': source_row['specifications'].get('dimensions_mm') or {},
-                    'parameters': source_row['specifications'],
-                    'cad': source_row['cad'], 'catalog_id': source_row['catalog_id'],
-                    'catalog_matched': True, 'price_source': 'source_backed_catalog_2026',
-                    'price_note': 'Giá theo dòng PDF; xem cad.status và warnings trước khi dùng CAD.',
-                }
-
-        return {
-            "sku": part_number or "",
-            "name": name,
-            "brand": brand,
-            "unit_price": 0,
-            "price": 0,
-            "dimensions": {},
-            "parameters": {},
-            "catalog_matched": False,
-            "price_source": "not_found",
-            "price_note": "Không có một dòng giá PDF 2026 xác định duy nhất cho mã và thông số này; cần đối chiếu trước khi báo giá.",
-        }
+        from app.services.ai.takeoff_pricebook import match_device, published_rows
+        match = match_device({'name':name,'category':category,'brand':brand,'spec':spec,
+                              'part_number':part_number,'in_a':in_a,'poles':poles,'icu_ka':min_icu}, published_rows())
+        row = match.get('row') or {}
+        amount = row.get('price') if match['status'] == 'matched' else 0
+        return {'sku':row.get('sku') or part_number,'name':row.get('name') or name,
+                'brand':row.get('brand') or brand,'unit_price':amount,'price':amount,
+                'dimensions':{},'parameters':row.get('specifications') or {},
+                'catalog_matched':match['status']=='matched',
+                'price_source':'published_pricebook' if amount else 'not_found',
+                'price_note':match['note'],'price_row_id':match['price_row_id'],
+                'pricebook_match':match,'equipment_catalog_id':row.get('equipment_catalog_id')}

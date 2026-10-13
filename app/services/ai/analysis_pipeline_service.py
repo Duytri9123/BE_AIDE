@@ -1530,11 +1530,14 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
 
         log_event(stage="web_product_research", title="Đang phân tích và tìm thiết bị phù hợp",
                   detail="Đối chiếu thông số kỹ thuật, chức năng và hãng sản xuất theo yêu cầu.", status="running")
+        from app.services.ai.takeoff_pricebook import link_devices
+        link_devices(extracted_devices)
         from app.services.ai.web_device_recommendations import research_device_products
         await research_device_products(extracted_devices,
             all_connections or ([active_ai] if active_ai else []), db, requested_brand)
         from app.services.ai.takeoff_scope import complete_accessories
         await complete_accessories(extracted_devices, user_prompt or '', all_connections or ([active_ai] if active_ai else []), db)
+        link_devices(extracted_devices)
         unavailable = [str(d.tag or d.name) for d in extracted_devices
                        if (d.web_research or {}).get('status') == 'search_unavailable']
         unavailable.extend(str(a.get('name') or 'Phụ kiện') for d in extracted_devices for a in (d.accompanying_accessories or [])
@@ -3689,6 +3692,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     catalog_candidates=d.get("catalog_candidates"),
                     web_research=d.get("web_research"),
                     selected_product=d.get("selected_product"),
+                    pricebook_match=d.get("pricebook_match"),
                     catalog_references=d.get("catalog_references"),
                     part_number=d.get("part_number", ""),
                     section=d.get("section"),
@@ -4048,6 +4052,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 cad_file.file_size = dxf_size
                 cad_file.is_generated = True
 
+        from app.services.ai.takeoff_pricebook import link_devices
+        link_devices(extracted_devices)
         # 4. Lập bảng báo giá chi tiết hoàn chỉnh
         quotation_rows = AnalysisPipelineService._build_quotation_rows(
             project_name=project.name,

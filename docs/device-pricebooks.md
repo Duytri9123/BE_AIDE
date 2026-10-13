@@ -158,3 +158,25 @@ inferred. Upload-folder dates do not establish the price effective date or VAT.
 The completed internal review currently counts 5,297 eligible public price rows
 across 14 manufacturers; 18 requested manufacturers have no approved numeric
 price row. This is not complete price coverage for all 32 makers.
+
+
+## Takeoff and quotation price-row associations
+
+Takeoff now compares every extracted device and observed accessory with the same
+published rows as `/device-catalog`. `pricebook_match` persists the opaque
+`price_row_id`, match status and configuration choices on the extracted device.
+A complete code or uniquely identified model/configuration within the observed
+manufacturer can match. Generic technical matches stay `needs_selection`;
+missing rows stay `not_found`. Multiple offers are not resolved by arbitrarily
+choosing a price.
+
+The product-selection UI retains the selected price-row ID. Quotation generation
+revalidates it against published data and the device parameters, reads the current
+server-side amount, and keeps the ID on the quotation row. It does not trust a
+client price or share a unit price by SKU across different configurations. Changes
+to the effective specification invalidate the original price association.
+`/device-catalog?price_row_id=<opaque-id>` opens the linked row for inspection.
+
+Commercial association does not approve CAD geometry. `equipment_catalog_id`
+remains an explicitly verified CAD link; `cad_price_option_id` is only a model/pole
+browsing association and must not authorize insertion.

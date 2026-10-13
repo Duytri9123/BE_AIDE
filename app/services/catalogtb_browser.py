@@ -2,11 +2,11 @@
 import ast,hashlib,json,re
 import time
 import unicodedata
-from threading import Lock
+from threading import Lock, Thread
+import logging
 from pathlib import Path
 from urllib.parse import unquote,quote
 from .equipment_library import CATALOG_TB_ROOT
-from .catalogtb_display_cache import read_snapshot, write_snapshot
 
 _cache = None
 _cache_until = 0
@@ -14,20 +14,51 @@ _cache_root = None
 _cache_lock = Lock()
 
 
+def _snapshot_path():
+    return CATALOG_TB_ROOT / '_agent_index' / 'browser_display_v3.json'
+
+
+def _refresh_browser_data(root):
+    global _cache, _cache_until
+    try:
+        data = _build_browser_data()
+        path = _snapshot_path()
+        path.parent.mkdir(parents=True, exist_ok=True)
+        pending = path.with_suffix('.tmp')
+        pending.write_text(json.dumps(data, ensure_ascii=False), encoding='utf8')
+        pending.replace(path)
+        with _cache_lock:
+            if _cache_root == root:
+                _cache = data
+                _cache_until = time.monotonic() + 300
+    except Exception:
+        logging.getLogger(__name__).exception('Unable to refresh CAD display snapshot')
+
+
 def browser_data():
-    """Share a short-lived display snapshot; workspace still gets full records."""
+    """Serve a persisted display index; refresh expired records off the request path."""
     global _cache, _cache_until, _cache_root
     with _cache_lock:
-        if _cache is None or _cache_root != CATALOG_TB_ROOT or time.monotonic() >= _cache_until:
-            shared = read_snapshot(CATALOG_TB_ROOT)
-            if shared:
-                _cache, lifetime = shared
-            else:
-                _cache = _build_browser_data()
-                write_snapshot(CATALOG_TB_ROOT, _cache)
-                lifetime = 60
+        if _cache_root != CATALOG_TB_ROOT:
+            _cache = None
             _cache_root = CATALOG_TB_ROOT
-            _cache_until = time.monotonic() + lifetime
+            _cache_until = 0
+        if _cache is None:
+            try:
+                _cache = json.loads(_snapshot_path().read_text(encoding='utf8'))
+                if not isinstance(_cache.get('items'), list):
+                    _cache = None
+            except (OSError, ValueError, AttributeError):
+                _cache = None
+            if _cache is None:
+                _cache = _build_browser_data()
+                path = _snapshot_path()
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(json.dumps(_cache, ensure_ascii=False), encoding='utf8')
+                _cache_until = time.monotonic() + 300
+        if time.monotonic() >= _cache_until:
+            _cache_until = time.monotonic() + 300
+            Thread(target=_refresh_browser_data, args=(CATALOG_TB_ROOT,), daemon=True).start()
         return _cache
 
 
@@ -49,7 +80,7 @@ def browser_page(q='', category='', brand='', skip=0, limit=24):
             return bool(re.search(r'volt|von ke|dong ho.*dien ap', identity))
         return query in normalize(identity + ' ' + str(item.get('brand') or ''))
     rows = [p for p in data['items'] if (not category or p.get('category') == category)
-            and (not brand or p.get('brand') == brand) and matches(p)]
+            and (not brand or p.get('brand') == brand) and (not query or matches(p))]
     display_data={key:value for key,value in data.items() if key!='view_count'}
     return {**display_data, 'items': rows[skip:skip+limit], 'total': len(rows),
             'catalog_total': data['total'], 'skip': skip, 'limit': limit,

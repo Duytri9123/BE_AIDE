@@ -103,6 +103,7 @@ class ExtractedDeviceSchema(BaseModel):
     catalog_candidates: Optional[dict] = None
     web_research: Optional[dict] = None
     selected_product: Optional[dict] = None
+    pricebook_match: Optional[dict] = None
     device_assessment: Optional[dict] = None
     parent_compatibility: Optional[dict] = None
     catalog_references: Optional[List[dict]] = None

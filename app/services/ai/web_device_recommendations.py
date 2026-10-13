@@ -266,6 +266,9 @@ async def research_device_products(devices, connections, db=None, preferred_bran
     semaphore = asyncio.Semaphore(3)
     grouped = {}
     for device in devices:
+        if (getattr(device, 'pricebook_match', None) or {}).get('status') == 'matched':
+            device.web_research = {'status':'published_pricebook', 'summary':'Đã đối chiếu dòng giá đã công bố.'}
+            continue
         device.category = inventory_kind(device.category, device.name, device.spec)
         key = technical_search_key(device)
         grouped.setdefault(key, []).append(device)

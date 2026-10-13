@@ -25,6 +25,9 @@ webbaogia.db
 
 # Data directories
 data/
+!app/data/
+app/data/*
+!app/data/library_price_options.json
 tmp_index_js.txt
 
 
