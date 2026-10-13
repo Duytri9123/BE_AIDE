@@ -180,6 +180,10 @@ def _build_browser_data():
             if counts[label]>1:view['label']=f'{label} · bản {seen[label]}'
         from .library_manufacturer_identity import manufacturer_identity
         profile.update(manufacturer_identity(profile, current, path))
+        reviewed = profile.get('reviewed_description') or {}
+        for key in ('display', 'type', 'use'):
+            if reviewed.get(key):
+                profile[key] = reviewed[key]
         profiles.append(profile)
     groups_path=CATALOG_TB_ROOT/'ai_device_groups.json'
     registry=json.loads(groups_path.read_text(encoding='utf8')) if groups_path.is_file() else {}

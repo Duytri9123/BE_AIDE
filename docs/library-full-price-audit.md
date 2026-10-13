@@ -11,7 +11,7 @@ Tổng: 837 thiết bị. Có dòng giá đúng mã/cấu hình: 32.
 | CHINT | 28 | 1 |
 | CLIPSAL | 2 | 0 |
 | CML | 5 | 0 |
-| Cần bổ sung hãng | 81 | 0 |
+| Cần bổ sung hãng | 77 | 0 |
 | DELAB | 1 | 0 |
 | Deep Sea Electronics | 1 | 0 |
 | EMIC | 13 | 0 |
@@ -23,7 +23,8 @@ Tổng: 837 thiết bị. Có dòng giá đúng mã/cấu hình: 32.
 | LS Electric | 134 | 11 |
 | Leipole | 3 | 0 |
 | LightStar | 8 | 0 |
-| MIKRO | 4 | 0 |
+| MIKRO | 7 | 0 |
+| MIKRO (ứng viên) | 1 | 0 |
 | MITEX | 1 | 0 |
 | MORELE | 2 | 0 |
 | Mitsubishi Electric | 38 | 20 |

@@ -2,13 +2,15 @@
 
 Tổng: 837 bản ghi.
 
-Hãng trong hồ sơ hoặc bằng chứng CAD đã kiểm tra: 380. Hãng theo thư viện CAD nguồn: 251. Phụ kiện phổ thông: 111. Thiết bị còn thiếu bằng chứng hãng: 81. Hãng ứng viên: 14.
+Hãng trong hồ sơ hoặc bằng chứng CAD đã kiểm tra: 383. Hãng theo thư viện CAD nguồn: 251. Phụ kiện phổ thông: 111. Thiết bị còn thiếu bằng chứng hãng: 77. Hãng ứng viên: 15.
 
 Rà soát bổ sung ngày 14/10/2026: đọc block lồng nhau trong DWG gốc (qua DXF), đối chiếu cả bản sao nguồn và kiểm tra các mặt chiếu. Khôi phục thêm 17 hãng: Schneider (PM2220, RMU E01/E02/E03), CHINT (hai cụm NP2 và Selector), DELAB, CML (5), KDE (2), Mikro MX100 và Deep Sea Electronics DSE8610. Bằng chứng, tên block, chữ nguồn, đường dẫn hãng và dấu SHA256 CAD được lưu trong app/data/library_manufacturer_evidence.json.
 
 Lần rà soát trước chỉ đọc CAD tách đã bỏ sót chữ ở block con và mặt bên. Asian không phải hãng. Nhận diện hãng không xác nhận mã đặt hàng, thông số điện hoặc giá; những trường này vẫn phải đối chiếu riêng. Không gán hãng cho hình chỉ có ký hiệu điện hoặc bao hình mà không có bằng chứng nguồn.
 
 Rà tiếp: xác định hãng Hanyoung Nux cho 4 hồ sơ có nhãn HYT (203, 204, 30, 304). 13 mẫu CD chỉ khớp hình và kích thước gần dòng HYT được lưu là hãng ứng viên, không xác nhận và không tự liên kết giá. Mẫu CD 4P 500A không được gán: CAD rộng 208 mm khác catalog 271 mm. Các mẫu TB cũng không được gán chỉ vì cùng số cực. Nguồn: [catalog HYT do hãng phát hành](https://www.components247.com/wp-content/uploads/2026/01/HYT_catalogue_en_251112.pdf).
+
+Rà bộ điều khiển/rơ le: thêm 3 hãng Mikro từ bố trí mặt đặc trưng đối chiếu ảnh hãng: PFR, MX200A, NX201A/MK201A. Sửa mẫu ba núm ngang từ bảo vệ pha thành rơ le chạm đất; đây là nhận diện chức năng/họ, không xác nhận hậu tố nguồn và ngưỡng. Rơ le màn hình số được ghi Mikro ứng viên, còn cần phân biệt DIN330/MU250. Các ATS chưa có nhãn model vẫn chưa đủ cơ sở gán hãng.
 
 ## Các thiết bị còn thiếu nhãn hãng
 
@@ -32,18 +34,14 @@ Rà tiếp: xác định hãng Hanyoung Nux cho 4 hồ sơ có nhãn HYT (203, 2
 | Bộ điều khiển ATS · màn hình và phím | Bộ điều khiển |
 | Bộ điều khiển ATS | Bộ điều khiển |
 | Bộ điều khiển ATS · sơ đồ hai nguồn | Bộ điều khiển |
-| Bộ giám sát pha · ba núm chỉnh | Bộ điều khiển |
-| Bộ giám sát pha · màn hình số | Bộ điều khiển |
 | Bộ giám sát pha | Bộ điều khiển |
 | Rơ le giám sát pha | Bộ điều khiển |
 | Rơ le giám sát pha · dạng ray hẹp | Bộ điều khiển |
-| Rơ le giám sát pha · ba núm chỉnh | Bộ điều khiển |
 | Biến tần · bảng phím tích hợp | Bộ điều khiển |
 | Biến tần | Bộ điều khiển |
 | Biến tần · kiểu BT 7.5 | Bộ điều khiển |
 | Bộ ổn áp | Bộ điều khiển |
 | Bộ ổn áp | Bộ điều khiển |
-| Bộ điều khiển tụ bù | Bộ điều khiển |
 | Chống sét · mẫu CAD 123de9 | Chống sét |
 | Chống sét · mẫu CAD 39fd8f | Chống sét |
 | Chống sét · mẫu CAD f1b81c | Chống sét |
@@ -101,6 +99,7 @@ Rà tiếp: xác định hãng Hanyoung Nux cho 4 hồ sơ có nhãn HYT (203, 2
 | Thiết bị | Nhóm |
 | --- | --- |
 | Biến tần Mitsubishi FR-S500 (Mitsubishi Electric) | Biến tần |
+| Rơ le số · cần đối chiếu chức năng (MIKRO) | Bộ điều khiển |
 | Dãy cầu đấu CD · 10 cực 10 A (Hanyoung Nux) | Cầu đấu |
 | Dãy cầu đấu CD · 20 cực 20 A (Hanyoung Nux) | Cầu đấu |
 | Dãy cầu đấu CD · 3 cực 100 A (Hanyoung Nux) | Cầu đấu |

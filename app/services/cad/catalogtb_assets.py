@@ -115,6 +115,8 @@ def _read(signature):
         kind = str(ai.get('loai_thiet_bi_code') or mapped.get('category_code') or 'UNCLASSIFIED').upper()
         from app.services.library_manufacturer_identity import identity_for_profile
         identity = identity_for_profile(profile,p,ROOT)
+        reviewed = identity.get('reviewed_description') or {}
+        kind = reviewed.get('type') or kind
         family = hashlib.sha1(p.relative_to(ROOT).as_posix().encode()).hexdigest()[:16]
         primary = (profile.get('cad_chen_tu') or {}).get('id_hinh_goc')
         for entry in profile.get('cad_don') or []:
@@ -126,7 +128,7 @@ def _read(signature):
             path=normalized_source(path)
             view = hashlib.sha1(f"{family}:{entry['id_hinh_goc']}".encode()).hexdigest()[:20]
             result.append(dict(id='tb:'+view, family_id='tb:'+family,
-                name=profile.get('ten_san_pham') or profile.get('ten_kieu'),
+                name=reviewed.get('display') or profile.get('ten_san_pham') or profile.get('ten_kieu'),
                 classification_source='profile' if ai.get('loai_thiet_bi_code') else 'ai_library_manifest' if mapped else 'unclassified_discovery',
                 brand=identity['brand'] or '', brand_kind=identity['brand_kind'], category=kind,
                 variant_id=entry.get('bien_the_cad') or entry.get('bien_the'),

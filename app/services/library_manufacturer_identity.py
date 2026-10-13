@@ -36,7 +36,8 @@ def manufacturer_identity(profile, current, profile_path=None):
                     candidate = evidence['status'] == 'manufacturer_candidate_reviewed'
                     return {'brand':maker,'brand_kind':'manufacturer_candidate' if candidate else 'manufacturer',
                             'brand_identification_status':'candidate' if candidate else 'verified',
-                            'brand_label':maker,'brand_identity_note':evidence.get('note') or 'Hãng được đọc từ nhãn CAD; cấu hình điện và mã đặt hàng được đối chiếu riêng.'}
+                            'brand_label':maker,'brand_identity_note':evidence.get('note') or 'Hãng được đọc từ nhãn CAD; cấu hình điện và mã đặt hàng được đối chiếu riêng.',
+                            'reviewed_description':evidence.get('library_description') or {}}
     kind = str(profile.get('type') or current.get('ban_chat') or '').casefold()
     if any(term in kind for term in GENERIC_TYPES):
         return {'brand':None,'brand_kind':'generic','brand_identification_status':'not_applicable',

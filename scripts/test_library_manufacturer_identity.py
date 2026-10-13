@@ -17,6 +17,7 @@ class ManufacturerIdentityTests(unittest.TestCase):
             registry.write_text(json.dumps({'evidence': {'TB-test': {
                 'brand': 'CHINT', 'status': 'manufacturer_label_reviewed',
                 'note': 'Original nested block label reviewed.',
+                'library_description': {'type': 'EARTH_FAULT_RELAY'},
                 'views': [{'view_id': 'side', 'sha256': hashlib.sha256(drawing.read_bytes()).hexdigest()}]
             }}}), encoding='utf8')
             current = {'cad_don': [{'id_hinh_goc': 'side', 'duong_dan': 'view.dxf'}]}
@@ -24,6 +25,7 @@ class ManufacturerIdentityTests(unittest.TestCase):
                 result = manufacturer_identity({'id': 'TB-test'}, current, root / 'profile.json')
                 self.assertEqual(result['brand'], 'CHINT')
                 self.assertEqual(result['brand_identity_note'], 'Original nested block label reviewed.')
+                self.assertEqual(result['reviewed_description']['type'], 'EARTH_FAULT_RELAY')
                 evidence = json.loads(registry.read_text(encoding='utf8'))
                 evidence['evidence']['TB-test']['status'] = 'manufacturer_candidate_reviewed'
                 registry.write_text(json.dumps(evidence), encoding='utf8')
@@ -33,6 +35,7 @@ class ManufacturerIdentityTests(unittest.TestCase):
                 drawing.write_bytes(b'changed drawing')
                 result = manufacturer_identity({'id': 'TB-test'}, current, root / 'profile.json')
                 self.assertIsNone(result['brand'])
+                self.assertNotIn('reviewed_description', result)
 
     def test_generic_hinge_is_not_a_manufacturer(self):
         result=manufacturer_identity({'type':'Bản lề cửa tủ','brand':'Asian'}, {})

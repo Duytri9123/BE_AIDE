@@ -843,6 +843,96 @@
           "sha256": "f086c71c442dea3879f84380b8b1bb1b4d96af66272c6ca36b030c5ea4bfe3da"
         }
       ]
+    },
+    "TB-5bb4dcf74664697d": {
+      "brand": "MIKRO",
+      "status": "manufacturer_label_reviewed",
+      "review_date": "2026-10-14",
+      "basis": "Manual visual comparison of CAD fascia against original manufacturer product photograph and catalogue; manufacturer/family only, no ordering code approval.",
+      "family": "NX201A / MK201A",
+      "sources": [
+        "https://itmikro.com.my/wp-content/uploads/2020/08/Mikro-Catalogue-High-Quality-Print-V5-CMYK.pdf"
+      ],
+      "note": "Mặt CAD khớp ba núm ngang, cụm LED và hai phím TEST/RESET của Mikro NX201A; mặt vuông 96 mm. Đây là rơ le chạm đất, không phải rơ le bảo vệ pha. Chưa xác nhận phiên bản và nguồn cấp.",
+      "library_description": {
+        "display": "Rơ le chạm đất Mikro · dòng NX201A/MK201A",
+        "type": "EARTH_FAULT_RELAY",
+        "use": "Bảo vệ sự cố chạm đất theo tín hiệu dòng CT; phải đối chiếu tỷ số CT, ngưỡng và thời gian tác động."
+      },
+      "views": [
+        {
+          "view_id": "C05_cluster1-V003",
+          "sha256": "5730386a96053671ff70509a2e5b10a6e9fe5b4e3c6f6d5852f4628327914311"
+        }
+      ]
+    },
+    "TB-c02623ff6b0d78b7": {
+      "brand": "MIKRO",
+      "status": "manufacturer_candidate_reviewed",
+      "review_date": "2026-10-14",
+      "basis": "Manual visual comparison of CAD fascia against original manufacturer product photograph and catalogue; manufacturer/family only, no ordering code approval.",
+      "family": "DIN330 / MU250",
+      "sources": [
+        "https://itmikro.com.my/wp-content/uploads/2020/08/Mikro-Catalogue-High-Quality-Print-V5-CMYK.pdf"
+      ],
+      "note": "Hãng ứng viên Mikro: mặt CAD có LED số và bốn phím tương tự dòng DIN330/MU250; chưa phân biệt được chức năng rò đất hay giám sát điện áp. Không dùng lấy giá tự động.",
+      "library_description": {
+        "display": "Rơ le số · cần đối chiếu chức năng",
+        "type": "RELAY",
+        "use": "Cần đọc mã trên nhãn thiết bị để phân biệt bảo vệ dòng rò với giám sát điện áp."
+      },
+      "views": [
+        {
+          "view_id": "C05_cluster1-V006",
+          "sha256": "a73ac38c626f777ddaa290016b1feab4e85bebd79180e250b8cf485c6e904706"
+        }
+      ]
+    },
+    "TB-5d645048468ae080": {
+      "brand": "MIKRO",
+      "status": "manufacturer_label_reviewed",
+      "review_date": "2026-10-14",
+      "basis": "Manual visual comparison of CAD fascia against original manufacturer product photograph and catalogue; manufacturer/family only, no ordering code approval.",
+      "family": "MX200A",
+      "sources": [
+        "https://itmikro.com.my/mx200a-160a-voltage-relay/",
+        "https://itmikro.com.my/wp-content/uploads/2020/08/Mikro-Catalogue-High-Quality-Print-V5-CMYK.pdf"
+      ],
+      "note": "Mặt CAD khớp ba núm xếp dọc và vị trí đèn báo của Mikro MX200A. Chưa xác nhận mã điện áp nguồn.",
+      "library_description": {
+        "display": "Rơ le giám sát điện áp Mikro · dòng MX200A",
+        "type": "VOLTAGE_RELAY",
+        "use": "Giám sát quá áp, thấp áp và mất pha; cần chọn phiên bản điện áp nguồn."
+      },
+      "views": [
+        {
+          "view_id": "C05_cluster1-V004",
+          "sha256": "4b25bf9c017e5a334f0897bf377f35cfd376a2efbd36fef3dba115fd9c406217"
+        }
+      ]
+    },
+    "TB-2041123684f5ac8a": {
+      "brand": "MIKRO",
+      "status": "manufacturer_label_reviewed",
+      "review_date": "2026-10-14",
+      "basis": "Manual visual comparison of CAD fascia against original manufacturer product photograph and catalogue; manufacturer/family only, no ordering code approval.",
+      "family": "PFR140/120/80/60",
+      "sources": [
+        "https://itmikro.com.my/pfr140-120-80-60-power-factor-regulator/",
+        "https://itmikro.com.my/wp-content/uploads/2020/08/Mikro-Catalogue-High-Quality-Print-V5-CMYK.pdf"
+      ],
+      "note": "Mặt CAD khớp đường cong bên trái, màn hình LED, hàng LED cấp tụ và bốn phím PROG/MODE/lên/xuống của Mikro PFR. Chưa xác nhận số cấp và điện áp nguồn.",
+      "library_description": {
+        "display": "Bộ điều khiển tụ bù Mikro · dòng PFR",
+        "type": "POWER_FACTOR_CONTROLLER",
+        "use": "Điều khiển đóng cắt cấp tụ bù; chọn số cấp và điện áp nguồn theo mã thực tế."
+      },
+      "views": [
+        {
+          "view_id": "C05_cluster5-V001",
+          "sha256": "d1577eed7b6a0494048ce70f17f1f59577353ef2296e0c717794ca1337ea165f"
+        }
+      ]
     }
   }
 }

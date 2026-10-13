@@ -234,8 +234,10 @@ class DeviceCatalogEngine:
             kind = str(ai.get('loai_thiet_bi_code') or discovery.get('category') or 'UNCLASSIFIED').upper()
             from app.services.library_manufacturer_identity import identity_for_profile
             identity = identity_for_profile(profile,path,root)
+            reviewed = identity.get('reviewed_description') or {}
+            kind = reviewed.get('type') or kind
             self.reference_profiles.append(dict(
-                category=kind, name=profile.get('ten_san_pham') or profile.get('ten_kieu'),
+                category=kind, name=reviewed.get('display') or profile.get('ten_san_pham') or profile.get('ten_kieu'),
                 brand=identity['brand'], brand_kind=identity['brand_kind'], brand_identification_status=identity['brand_identification_status'],
                 approximate_identity=profile.get('nhan_dien_web') or {},
                 cad_dimensions=profile.get('kich_thuoc_cad_goc_mm') or {},

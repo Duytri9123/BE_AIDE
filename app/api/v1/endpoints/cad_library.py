@@ -54,9 +54,10 @@ def catalog_tb_manifest():
             continue
         from app.services.library_manufacturer_identity import identity_for_profile
         identity = identity_for_profile(profile,profile_path,CATALOG_TB)
+        reviewed = identity.get('reviewed_description') or {}
         brand = identity['brand'] or ''
         code = profile.get('ma_dong_san_pham') or profile.get('ten_kieu') or ''
-        items.append({'id': profile_id, 'name': profile.get('ten_san_pham') or profile.get('ten_kieu'),
+        items.append({'id': profile_id, 'name': reviewed.get('display') or profile.get('ten_san_pham') or profile.get('ten_kieu'),
                       'spec_hint': profile.get('quy_cach_hien_thi', ''),
                       'search_aliases': profile.get('tu_khoa_tim_kiem', []),
                         'ai_identification': profile.get('nhan_dien_ai', {}),
@@ -65,8 +66,8 @@ def catalog_tb_manifest():
                       'parametric_cad': profile.get('cad_tham_so', {}),
                       'selection_configuration': profile.get('cau_hinh_chon', {}),
                       'code': code, 'brand': brand, 'category': profile.get('nhom') or profile_path.relative_to(CATALOG_TB).parts[0],
-                      'device_type': profile.get('ban_chat') or profile.get('loai_thiet_bi') or '',
-                      'use': profile.get('cong_dung') or '', 'placement': profile.get('vi_tri_lap_dat') or '',
+                      'device_type': reviewed.get('type') or profile.get('ban_chat') or profile.get('loai_thiet_bi') or '',
+                      'use': reviewed.get('use') or profile.get('cong_dung') or '', 'placement': profile.get('vi_tri_lap_dat') or '',
                       'features': profile.get('dac_diem') or [], 'view_count': len(cad_views),
                       'views': cad_views, 'mounting': profile.get('bo_tri_lap_dat', {}),
                       'source_url': profile.get('tai_lieu_hang') or (EMIC_CT_CATALOG if brand == 'EMIC' and code.startswith('EM4H') else None)})
