@@ -37,8 +37,8 @@ def _values(row, field):
             'icu':('Icu(KA)', 'Icu (kA)', 'Khả năng cắt và điện áp')}[field]
     text = ' '.join(str(spec.get(k) or '') for k in keys)
     if field == 'poles':
-        text += ' ' + str(row.get('item_name') or '')
-        return [float(v) for v in re.findall(r'(?<!\w)(\d+)\s*P\b', text, re.I)]
+        text += ' ' + str(row.get('item_name') or '') + ' ' + str(row.get('group') or '')
+        return [float(v) for v in re.findall(r'(?<!\w)(\d+)\s*(?:P|POLES?)\b', text, re.I)]
     if field == 'current':
         text = re.sub(r'\([^)]*\)', '', text)
     if field == 'current' and not text.strip():

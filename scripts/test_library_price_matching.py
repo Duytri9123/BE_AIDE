@@ -26,6 +26,18 @@ class LibraryPriceMatchingTests(unittest.TestCase):
         for device in [self.device(brand_identification_status='unknown'),self.device(product_code=None),self.device(spec={})]:
             self.assertEqual(configuration_links(device,[self.row()]),{})
 
+    def test_shared_contactor_models_and_main_poles(self):
+        device=self.device(type='Contactor',product_code='MC-6a / 9a / 12a',spec={'so_cuc_chinh':3})
+        rows=[self.row(id=model,category='CONTACTOR',item_name=model+' (2)',sku=model,
+                       group='CONTACTOR 3 POLES',specifications={}) for model in ['MC-6a','MC-9a','MC-12a','MC-18a']]
+        self.assertEqual(set(configuration_links(device,rows)),{'MC-6a','MC-9a','MC-12a'})
+        self.assertEqual(configuration_links({**device,'spec':{'so_cuc_chinh':4}},rows),{})
+
+    def test_slash_is_part_of_four_pole_model_identity(self):
+        device=self.device(type='Contactor',product_code='MC-6a/4 / 9a/4',spec={'so_cuc_chinh':4})
+        row=self.row(category='CONTACTOR',item_name='MC-9a/4 (2)',group='CONTACTOR 4 POLES',specifications={})
+        self.assertEqual(configuration_links(device,[row]),{'price-A2':'TB-A2'})
+
 
 if __name__=='__main__':
     unittest.main()
