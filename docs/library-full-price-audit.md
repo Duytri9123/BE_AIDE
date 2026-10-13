@@ -24,7 +24,6 @@ Tổng: 837 thiết bị. Có dòng giá đúng mã/cấu hình: 32.
 | MIKRO | 3 | 0 |
 | MITEX | 1 | 0 |
 | MORELE | 2 | 0 |
-| Mikro | 1 | 0 |
 | Mitsubishi Electric | 39 | 20 |
 | Nuintek | 20 | 0 |
 | O-Sung / OSEMCO | 1 | 0 |
