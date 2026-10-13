@@ -52,7 +52,9 @@ def catalog_tb_manifest():
             views[view_id] = {'dxf': dxf, 'preview': preview,'linework_review':entry.get('kiem_tra_net_cad') or {}}
         if not cad_views:
             continue
-        brand = profile.get('hang_xac_nhan') or ''
+        from app.services.library_manufacturer_identity import identity_for_profile
+        identity = identity_for_profile(profile,profile_path,CATALOG_TB)
+        brand = identity['brand'] or ''
         code = profile.get('ma_dong_san_pham') or profile.get('ten_kieu') or ''
         items.append({'id': profile_id, 'name': profile.get('ten_san_pham') or profile.get('ten_kieu'),
                       'spec_hint': profile.get('quy_cach_hien_thi', ''),

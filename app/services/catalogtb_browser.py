@@ -15,7 +15,7 @@ _cache_lock = Lock()
 
 
 def _snapshot_path():
-    return CATALOG_TB_ROOT / '_agent_index' / 'browser_display_v3.json'
+    return CATALOG_TB_ROOT / '_agent_index' / 'browser_display_v5.json'
 
 
 def _refresh_browser_data(root):
@@ -80,7 +80,9 @@ def browser_page(q='', category='', brand='', skip=0, limit=24):
             return bool(re.search(r'volt|von ke|dong ho.*dien ap', identity))
         return query in normalize(identity + ' ' + str(item.get('brand') or ''))
     rows = [p for p in data['items'] if (not category or p.get('category') == category)
-            and (not brand or p.get('brand') == brand) and (not query or matches(p))]
+            and (not brand or p.get('brand') == brand
+                 or (brand == '__generic__' and p.get('brand_kind') == 'generic')
+                 or (brand == '__unidentified__' and p.get('brand_kind') == 'unidentified_equipment')) and (not query or matches(p))]
     display_data={key:value for key,value in data.items() if key!='view_count'}
     return {**display_data, 'items': rows[skip:skip+limit], 'total': len(rows),
             'catalog_total': data['total'], 'skip': skip, 'limit': limit,
@@ -105,7 +107,7 @@ def _build_browser_data():
         original['_current_profile']=current
         original.setdefault('display',current.get('ten_san_pham') or path.parent.name)
         original.setdefault('category',current.get('nhom') or 'Thiết bị')
-        original.setdefault('brand',current.get('hang_xac_nhan') or 'Asian')
+        original.setdefault('brand',current.get('hang_xac_nhan'))
         views=[]
         for view in current.get('cad_don',[]):
             drawing=(path.parent/view.get('duong_dan','')).resolve()
@@ -130,7 +132,7 @@ def _build_browser_data():
             profile['display']=current.get('ten_san_pham') or profile['display']
             profile['use']=current.get('cong_dung') or profile.get('use')
         profile['search_aliases']=list(dict.fromkeys([*(profile.get('search_aliases') or []),*(current.get('tu_khoa_tim_kiem') or [])]))
-        profile['brand']=current.get('hang_xac_nhan') or identification.get('brand_candidate') or profile.get('brand') or 'Asian'
+        profile['brand']=current.get('hang_xac_nhan') or identification.get('brand_candidate') or profile.get('brand')
         profile['brand_identification_status']='verified' if current.get('hang_xac_nhan') else identification.get('status','unknown')
         ai=current.get('nhan_dien_ai') or {}
         profile['ai_identification']=ai
@@ -176,6 +178,8 @@ def _build_browser_data():
         for view in profile['views']:
             label=view['label'];seen[label]=seen.get(label,0)+1
             if counts[label]>1:view['label']=f'{label} · bản {seen[label]}'
+        from .library_manufacturer_identity import manufacturer_identity
+        profile.update(manufacturer_identity(profile, current, path))
         profiles.append(profile)
     groups_path=CATALOG_TB_ROOT/'ai_device_groups.json'
     registry=json.loads(groups_path.read_text(encoding='utf8')) if groups_path.is_file() else {}

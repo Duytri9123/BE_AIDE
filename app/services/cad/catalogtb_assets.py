@@ -87,6 +87,8 @@ def assets(refresh=False):
 def _signature(window):
     signature = tuple((str(p),p.stat().st_mtime_ns,p.stat().st_size)
                       for p in sorted(ROOT.rglob('thong_tin_thiet_bi.json')))
+    from app.services.library_manufacturer_identity import EVIDENCE_PATH
+    if EVIDENCE_PATH.is_file():signature+=((str(EVIDENCE_PATH),EVIDENCE_PATH.stat().st_mtime_ns,EVIDENCE_PATH.stat().st_size),)
     manifest=ROOT/'ai_library_manifest.json'
     if manifest.is_file():signature+=((str(manifest),manifest.stat().st_mtime_ns,manifest.stat().st_size),)
     variants = ROOT / 'electrical_selection_variants.json'
@@ -97,6 +99,8 @@ def _signature(window):
 @lru_cache(maxsize=2)
 def _read(signature):
     result = []
+    from app.services.library_manufacturer_identity import EVIDENCE_PATH
+    if EVIDENCE_PATH.is_file():signature+=((str(EVIDENCE_PATH),EVIDENCE_PATH.stat().st_mtime_ns,EVIDENCE_PATH.stat().st_size),)
     manifest=ROOT/'ai_library_manifest.json'
     discovery={r['profile']:r for r in json.loads(manifest.read_text(encoding='utf8')).get('items',[])} if manifest.is_file() else {}
     variants_path = ROOT / 'electrical_selection_variants.json'
@@ -109,6 +113,8 @@ def _read(signature):
         mapped=discovery.get(p.relative_to(ROOT).as_posix()) or {}
         if mapped.get('sha256')!=hashlib.sha256(p.read_bytes()).hexdigest():mapped={}
         kind = str(ai.get('loai_thiet_bi_code') or mapped.get('category_code') or 'UNCLASSIFIED').upper()
+        from app.services.library_manufacturer_identity import identity_for_profile
+        identity = identity_for_profile(profile,p,ROOT)
         family = hashlib.sha1(p.relative_to(ROOT).as_posix().encode()).hexdigest()[:16]
         primary = (profile.get('cad_chen_tu') or {}).get('id_hinh_goc')
         for entry in profile.get('cad_don') or []:
@@ -122,7 +128,7 @@ def _read(signature):
             result.append(dict(id='tb:'+view, family_id='tb:'+family,
                 name=profile.get('ten_san_pham') or profile.get('ten_kieu'),
                 classification_source='profile' if ai.get('loai_thiet_bi_code') else 'ai_library_manifest' if mapped else 'unclassified_discovery',
-                brand=profile.get('hang_xac_nhan') or '', category=kind,
+                brand=identity['brand'] or '', brand_kind=identity['brand_kind'], category=kind,
                 variant_id=entry.get('bien_the_cad') or entry.get('bien_the'),
                 variant_pairing_rule=profile.get('quy_tac_ghep_mat') or {},
                 poles=ai.get('so_cuc'), measurement_function=ai.get('measurement_function'), search_aliases=profile.get('tu_khoa_tim_kiem') or [], face=face, primary=entry['id_hinh_goc']==primary,

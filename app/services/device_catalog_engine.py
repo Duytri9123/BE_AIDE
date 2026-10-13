@@ -204,7 +204,8 @@ class DeviceCatalogEngine:
 
     def _reference_signature(self):
         root=Path(__file__).resolve().parents[2] / 'data' / 'CatalogTB'
-        paths=[root/'ai_library_manifest.json',root/'ai_device_groups.json',*sorted(root.rglob('thong_tin_thiet_bi.json'))]
+        from app.services.library_manufacturer_identity import EVIDENCE_PATH
+        paths=[EVIDENCE_PATH,root/'ai_library_manifest.json',root/'ai_device_groups.json',*sorted(root.rglob('thong_tin_thiet_bi.json'))]
         return tuple((str(p),p.stat().st_mtime_ns,p.stat().st_size) for p in paths if p.is_file())
 
     def refresh_reference_profiles(self):
@@ -231,9 +232,11 @@ class DeviceCatalogEngine:
             ai = profile.get('nhan_dien_ai') or {}
             discovery = discovered.get(path.relative_to(root).as_posix(), {})
             kind = str(ai.get('loai_thiet_bi_code') or discovery.get('category') or 'UNCLASSIFIED').upper()
+            from app.services.library_manufacturer_identity import identity_for_profile
+            identity = identity_for_profile(profile,path,root)
             self.reference_profiles.append(dict(
                 category=kind, name=profile.get('ten_san_pham') or profile.get('ten_kieu'),
-                brand=profile.get('hang_xac_nhan') or ai.get('hang'),
+                brand=identity['brand'], brand_kind=identity['brand_kind'], brand_identification_status=identity['brand_identification_status'],
                 approximate_identity=profile.get('nhan_dien_web') or {},
                 cad_dimensions=profile.get('kich_thuoc_cad_goc_mm') or {},
                 series=profile.get('ma_dong_san_pham'),

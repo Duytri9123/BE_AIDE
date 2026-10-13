@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "evidence": {
+    "TB-26da92e8996e3f63": {
+      "brand": "Omega",
+      "status": "manufacturer_label_reviewed",
+      "basis": "Manufacturer lettering read from CAD text entities.",
+      "views": [
+        {
+          "view_id": "C04_cluster5-V002",
+          "sha256": "f89f09c3819d903bc63357d21d2201e33f646d9b8404a7a7548c9c3c80d09d12"
+        },
+        {
+          "view_id": "C04_cluster5-V008",
+          "sha256": "a9ceacd63c5588ab0535999dcca9e5c714aa2948f668c132bbf3a930bee7cd02"
+        }
+      ]
+    },
+    "TB-8905d98908ba16fe": {
+      "brand": "SUNGHO",
+      "status": "manufacturer_label_reviewed",
+      "basis": "Manufacturer lettering read from CAD text entities.",
+      "views": [
+        {
+          "view_id": "C04_cluster5-V011",
+          "sha256": "f5993a231e2181ed88b5605501eb8406671f3c28c0a8a27171e9196b0272f876"
+        }
+      ]
+    },
+    "TB-9d5ad7168166cdd8": {
+      "brand": "KACON",
+      "status": "manufacturer_label_reviewed",
+      "basis": "Manufacturer lettering read from CAD text entities.",
+      "views": [
+        {
+          "view_id": "C03_cluster5-V006",
+          "sha256": "38f7c27daecff9a8a8f60b21c97fa4e3bfb982f5230d903cc5c2c3d94ef03f02"
+        },
+        {
+          "view_id": "C03_cluster5-V007",
+          "sha256": "c8227cc737adc8a2ff9e35a39da8b9f5d887d6bd5f6839df7d3ce3765afa8018"
+        }
+      ]
+    },
+    "TB-f67c2315fe687372": {
+      "brand": "Suntree",
+      "status": "manufacturer_label_reviewed",
+      "basis": "SUNTREE lettering visually read on front CAD preview; manufacturer identity only, no rating approval.",
+      "views": [
+        {
+          "view_id": "TH1_9acc8a0abb4cd0d871cd",
+          "sha256": "e8ac02a0b2e12ef410acd7babcf0bfbe097c0eb7100f1c699b652e1394b391a2"
+        }
+      ]
+    },
+    "TB-88fc3e95d606a688": {
+      "brand": "Suntree",
+      "status": "manufacturer_label_reviewed",
+      "basis": "SUNTREE lettering visually read on front CAD preview; manufacturer identity only, no rating approval.",
+      "views": [
+        {
+          "view_id": "TH1_be691755c45258a72ad0",
+          "sha256": "ce10c4b3d145c818a49f4c2d90d517e4f72c0ebc2162c72f74267f11363045b2"
+        }
+      ]
+    }
+  }
+}
