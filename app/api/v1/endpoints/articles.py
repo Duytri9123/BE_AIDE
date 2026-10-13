@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, ConfigDict
 from sqlalchemy import func, select
@@ -24,6 +26,8 @@ class ArticleCard(BaseModel):
 class ArticleDetail(ArticleCard):
     content_html: str
     meta_description: str | None
+    created_at: datetime
+    updated_at: datetime
 
 
 @router.get("", response_model=dict)

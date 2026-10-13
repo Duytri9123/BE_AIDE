@@ -35,10 +35,11 @@ def normalize_article_html(value: str | None) -> str:
         if urlparse(img.get("src", "")).scheme not in {"http", "https"}:
             img.decompose()
     for a in soup.find_all("a"):
-        if urlparse(a.get("href", "")).scheme not in {"http", "https"}:
+        href = a.get("href", "").strip()
+        parsed = urlparse(href)
+        # Article navigation stays on this website; preserve text and images.
+        if not href or parsed.scheme or parsed.netloc or "\\" in href:
             a.unwrap()
-        else:
-            a["rel"] = "noopener noreferrer"
     for tag in list(soup.find_all(["p", "li", "h2", "h3", "h4"])):
         if not tag.get_text(strip=True) and not tag.find("img"):
             tag.decompose()
