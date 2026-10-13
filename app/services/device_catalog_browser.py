@@ -40,7 +40,7 @@ def load_catalog_documents():
     path=Path(__file__).resolve().parents[1]/'data/catalog_documents.json'
     return json.loads(path.read_text(encoding='utf8')).get('items',[]) if path.exists() else []
 
-def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_items=(), documents=(), q='', brand='', category='', skip=0, limit=30):
+def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_items=(), documents=(), library_links=None, q='', brand='', category='', skip=0, limit=30):
     rows = {}
     for item in priced_items:
         code = str(item.get('sku') or item.get('ma') or '').strip()
@@ -76,8 +76,10 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
     items = [row for row in rows.values() if isinstance(row['price'], (int,float))
              and not isinstance(row['price'], bool) and math.isfinite(row['price']) and row['price'] > 0]
     for row in items:
+        row['brand']=canonical_brand(row['brand'])
         row['item_name']=row.get('item_name') or row['sku'] or row['name']
         row['model_key']=row['brand']+'::'+row['item_name']
+        row['equipment_catalog_id']=(library_links or {}).get(row['id'])
         row.setdefault('group',label(row['category']))
         row.setdefault('columns',['Tên hàng','Thông tin','Giá bán'])
         row.setdefault('cells',[row['item_name'],row['name'],str(row['price'])])
