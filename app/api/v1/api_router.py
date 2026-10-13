@@ -4,6 +4,8 @@ from .endpoints import analyze, analyze_multi_agent, bom, export, chat, user_lib
 from .endpoints import articles
 
 api_router = APIRouter()
+from .endpoints import device_catalog
+api_router.include_router(device_catalog.router, prefix="/device-catalog", tags=["Device Catalog"])
 @api_router.get('/library-access',tags=['Library Access'])
 async def library_access_status(access=Depends(library_entitlement)):
     return {**access, 'can_view': True, 'can_download': access['full_access']}
