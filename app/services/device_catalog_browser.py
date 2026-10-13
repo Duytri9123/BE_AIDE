@@ -5,6 +5,7 @@ import hashlib
 from pathlib import Path
 from app.services.ai.manufacturer_registry import manufacturer_categories, canonical_brand, CHECKED_DATE
 from app.services.device_catalog_engine import strip_accents
+from app.services.customer_manufacturers import CUSTOMER_MANUFACTURERS
 
 CATEGORY_LABELS = {
     'MCB':'MCB', 'MCCB':'MCCB', 'ACB':'ACB', 'RCBO':'RCBO', 'RCCB':'RCCB',
@@ -95,7 +96,8 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
         rows[('supplier',item['id'])]={k:item.get(k) for k in ('id','sku','item_name','name','brand','category','price','source_label','source_url','checked_at','source_kind','price_note','effective_date','edition','vat_status','source_page','specifications','columns','cells','group','product_line','line_label')}
         rows[('supplier',item['id'])]['updated_at']=item['checked_at']
     items = [row for row in rows.values() if isinstance(row['price'], (int,float))
-             and not isinstance(row['price'], bool) and math.isfinite(row['price']) and row['price'] > 0]
+             and not isinstance(row['price'], bool) and math.isfinite(row['price']) and row['price'] > 0
+             and canonical_brand(row['brand']) in CUSTOMER_MANUFACTURERS]
     for row in items:
         row['brand']=canonical_brand(row['brand'])
         row['item_name']=row.get('item_name') or row['sku'] or row['name']
@@ -104,9 +106,10 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
         row.setdefault('group',label(row['category']))
         row.setdefault('columns',['Tên hàng','Thông tin','Giá bán'])
         row.setdefault('cells',[row['item_name'],row['name'],str(row['price'])])
-    makers = {}
+    makers = {name:{'name':name,'categories':[],'price_count':0} for name in CUSTOMER_MANUFACTURERS}
     for name, info in manufacturer_categories().items():
         name = canonical_brand(name)
+        if name not in makers:continue
         makers[name] = {'name':name, 'categories':[
             {'code':code, 'label':label(code), 'source':evidence['source'], 'checked_date':evidence['checked_date']}
             for code,evidence in sorted(info['categories'].items())], 'price_count':0}
@@ -115,6 +118,7 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
         makers[row['brand']]['price_count'] += 1
     for document in documents:
         name=canonical_brand(document['brand'])
+        if name not in makers:continue
         makers.setdefault(name,{'name':name,'categories':[],'price_count':0})
     categories = sorted({code for maker in makers.values() for code in [c['code'] for c in maker['categories']]} | {i['category'] for i in items})
     normalize = lambda text: strip_accents(str(text)).casefold()
@@ -127,5 +131,6 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
     return {'brands':sorted(makers.values(),key=lambda m:m['name']),
             'categories':[{'code':c,'label':label(c)} for c in categories],
             'items':filtered[skip:skip+limit], 'total':len(filtered), 'priced_total':len(items),
-            'documents':[d for d in documents if not brand or canonical_brand(d['brand'])==canonical_brand(brand)],
+            'documents':[d for d in documents if canonical_brand(d['brand']) in CUSTOMER_MANUFACTURERS
+                         and (not brand or canonical_brand(d['brand'])==canonical_brand(brand))],
             'checked_date':CHECKED_DATE, 'primary_key':'item_name', 'skip':skip, 'limit':limit}

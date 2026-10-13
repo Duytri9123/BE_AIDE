@@ -41,6 +41,15 @@ library associations remain server-side. Public row/book identifiers are opaque.
 Source PDF downloads require an administrator, even if the customer knows a URL.
 The customer UI exposes neither source links nor PDF/document controls.
 
+The customer's revised cabinet-equipment scope is exactly the 32 makers in
+`customer_manufacturers.py`. This overrides the earlier broad discovery list
+for the price-book browser. Documents, historical supplier rows, web offers and
+admin prices cannot add another maker back into the public dropdown or results.
+Historical source records remain internal. Membership is not approval of a SKU,
+price, country, certificate or marketing quality claim. Requested manufacturers
+without verified prices stay visible with zero price rows. Aliases collapse
+Idec Izumi/IDEC, Mitsubishi, EPCOS/TDK and the other supplied names into one identity.
+
 The portfolio registry has 31 manufacturers with category evidence as of
 2026-10-13, including newly reviewed TECO, WAGO, Delta, Socomec, Crouzet,
 Littelfuse, Rittal and Samwha. Discovered names are not equivalent to verified

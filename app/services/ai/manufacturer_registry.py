@@ -28,6 +28,9 @@ CHECKED_DATE = '2026-10-13'
 # These are discovery/catalogue anchors, NOT approved SKUs or blanket technical
 # equivalence. Every selected model still needs its own electrical evidence.
 CATALOGUES = {
+    'BTB Electric': ('https://btb-electric.com/vi/cac-thiet-bi-trong-tu-dien/',
+        ('MCB','MCCB','ACB','RCBO','RCCB','ELCB','CONTACTOR','THERMAL_RELAY',
+         'ATS','ATS_CONTROLLER','CAPACITOR','POWER_FACTOR_CONTROLLER')),
     'Samwha': ('https://www.samwha.com/fc/010102.asp', ('CAPACITOR',)),
     'TECO': ('https://www.teco.com.tw/en-us/products/power-transmission/power-products/',
         ('CB', 'CONTACTOR', 'RELAY', 'ATS', 'METER')),
@@ -156,6 +159,8 @@ ALIASES = {'ls': 'LS Electric', 'ls electric': 'LS Electric', 'chint': 'CHINT',
            'ls industrial systems':'LS Electric', 'lselectric':'LS Electric',
            'chint electric':'CHINT', 'eaton moeller':'Eaton'}
 ALIASES.update({name.casefold(): name for rows in PORTFOLIOS.values() for name in rows})
+from app.services.customer_manufacturers import CUSTOMER_ALIASES
+ALIASES.update(CUSTOMER_ALIASES)
 
 
 def manufacturer_categories():
