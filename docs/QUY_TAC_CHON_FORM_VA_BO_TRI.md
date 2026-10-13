@@ -18,6 +18,10 @@
 - Dành chỗ đi dây theo hướng đấu nối thực tế, bán kính uốn của dây đã chọn và yêu cầu nhà sản xuất. Không coi một khoảng cách mặc định là chuẩn cho mọi thiết bị.
 
 ## Các mặt và đường cấp điện
+- Khi đọc mặt cắt, phân biệt hèm chặn/ép cánh, mặt gá thiết bị và mặt cánh thao tác. Không lấy mép đường bao tủ, màu nét hoặc đường tâm nét đứt làm mốc gá khi chưa đối chiếu handle CAD nguồn. Không mặc định hèm chịu được gá MCCB; phải có đố/tấm gá và lỗ liên kết thực tế.
+- Lưu `mechanical_anchors` riêng cho từng form: `rebate`, `mounting_plane`, `inner_door_plane`; mỗi mốc có `depth_from_rear_mm`, `source_handles`, `verified`. Trục chiều sâu tính từ mặt sau về phía trước. Giá trị chưa xác minh để trống, không tự lấy chiều sâu tổng làm chiều sâu hữu dụng.
+- Thân MCCB gá trên tấm/đố đã xác minh; tay gạt đi qua cánh trong theo yêu cầu hiện tại. Dùng bản vẽ lắp đúng model để xác định độ nhô thân, tâm lỗ, mặt thao tác và khoảng trục/tay gạt. Không tự thay tay gạt trực tiếp bằng bộ tay xoay kéo dài.
+- Kiểm tra cả SIDE và E-SIDE: thân và đầu nối không chạm hèm/vỏ, cánh đóng mở không chạm thiết bị, khoảng thao tác theo phụ kiện thật. Chỉ kiểm tra vừa chiều sâu chưa đủ để duyệt chế tạo; còn lỗ gá, quỹ đạo bản lề, đầu cos, bán kính uốn dây và vật cản cơ khí.
 - Phân biệt cánh ngoài 1st, cánh trong 2nd, tấm lắp và mặt bên; lỗ khoét/E-VIEW phải cùng tâm với thiết bị thao tác.
 - Với yêu cầu hiện tại, tay gạt MCCB tổng qua cánh trong 2nd, mở cánh ngoài để thao tác.
 - RYB tương ứng RST. Cầu chì đèn đặt gần đường dây qua bản lề thực tế, có thể gần MCCB hoặc giữa cụm, nằm trong vùng hữu dụng và tránh vỏ/cánh khi đóng mở.

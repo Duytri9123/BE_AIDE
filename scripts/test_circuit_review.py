@@ -102,3 +102,12 @@ class CircuitReviewTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SourceInventoryReferenceTests(unittest.TestCase):
+    def test_known_panel_and_unique_fuse_description_are_not_missing_inventory(self):
+        from app.services.ai.system_completeness import review_system
+        rows=[device('FU',category='FUSE',name='Cầu chì',panel_code='TĐT'),
+              device('V',category='METER',panel_code='TĐT',upstream_device='Cầu chì đo lường'),
+              device('Q2',panel_code='TĐ-BTA',upstream_device='Tủ điện tổng TĐT')]
+        self.assertFalse(any(i['title']=='Đối chiếu liên kết nguồn' for i in review_system(rows)['issues']))

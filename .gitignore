@@ -35,10 +35,15 @@ htmlcov/
 
 # Temporary / Scratch files
 tmp/
+tmp-*
 scratch/
 scratch_list_files.py
 storage/
 scripts/*.txt
+uploads/
+
+# Tests
+tests/
 
 # IDE & OS
 .vscode/

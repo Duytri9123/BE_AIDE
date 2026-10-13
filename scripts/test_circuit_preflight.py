@@ -11,6 +11,22 @@ from app.services.ai.circuit_preflight import CircuitPreflightService
 
 
 class CircuitPreflightTests(unittest.IsolatedAsyncioTestCase):
+    async def test_visual_malformed_response_retries_with_new_prompt(self):
+        response = '{"circuit_summary":"Nguồn và tải", "has_sld":true}'
+        call = AsyncMock(side_effect=[('invalid JSON', None), (response, None)])
+        with patch.object(CircuitPreflightService, '_visual_pages', return_value=[('page.png', Image.new('RGB', (20, 20)))]), patch('app.services.ai.circuit_preflight.ConnectionPoolService.call_with_fallback', call):
+            result = await CircuitPreflightService.assess([], [], object(), [object()])
+        self.assertEqual(result['status'], 'assessed')
+        self.assertNotEqual(call.call_args_list[0].kwargs['prompt'], call.call_args_list[1].kwargs['prompt'])
+
+    async def test_one_failed_page_prevents_whole_document_approval(self):
+        response = '{"circuit_summary":"Nguồn và tải", "has_sld":true}'
+        call = AsyncMock(side_effect=[(response, None), ('invalid', None), ('invalid', None)])
+        with patch.object(CircuitPreflightService, '_visual_pages', return_value=[('page1.png', Image.new('RGB', (20, 20))), ('page2.png', Image.new('RGB', (20, 20)))]), patch('app.services.ai.circuit_preflight.ConnectionPoolService.call_with_fallback', call):
+            result = await CircuitPreflightService.assess([], [], object(), [object()])
+        self.assertEqual(result['status'], 'unavailable')
+        self.assertEqual(CircuitPreflightService.extraction_context(result), '')
+
     async def test_all_images_are_assessed_before_takeoff(self):
         with tempfile.TemporaryDirectory() as folder:
             files = []
@@ -24,7 +40,9 @@ class CircuitPreflightTests(unittest.IsolatedAsyncioTestCase):
                 result = await CircuitPreflightService.assess(files, [], object(), [object()])
             self.assertEqual(result['status'], 'assessed')
             self.assertEqual(len(CircuitPreflightService._visual_pages(files)), 2)
-            self.assertEqual(call.call_count, 1)
+            self.assertEqual(call.call_count, 2)
+            self.assertNotEqual(call.call_args_list[0].kwargs['image_path'],
+                                call.call_args_list[1].kwargs['image_path'])
 
     def test_dxf_context_preserves_positions_and_blocks(self):
         with tempfile.TemporaryDirectory() as folder:

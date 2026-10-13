@@ -16,6 +16,7 @@ assert len(ROWS) == 102
 
 LEIPOLE = {n:f'https://leipole.pl/en/products/fkl{n}/' for n in ('6621','6622','6623','6625','6626')}
 REACTOR_SOURCE = 'https://circutor.com/pdf/pdfdatasheet.php?lang=en&prod=P731200000300'
+LINE_REACTOR_SOURCE = 'https://www.se.com/us/en/faqs/FA115635/'
 
 def profile(name, kind, use, place, ids, *, brand=None, code=None, spec=None,
             status=None, sources=()):
@@ -44,24 +45,25 @@ for n in ('6621','6622','6623'):
         spec={'dien_ap_VAC':230,'tan_so_Hz':'50/60','kich_thuoc_mat_truoc_mm':f'{SIZE[n]} × {SIZE[n]}',
               'luu_luong_tu_do_m3_h':AIR[n][0],
               'luu_luong_voi_mot_tam_loc_m3_h':AIR[n][1]},
-        status='Mã FKL và đuôi .230 ghi trên hình, kích thước mặt trước khớp dòng sản phẩm.',
+        status='Đã xác định mã qua tên hình và kích thước.',
         sources=[LEIPOLE[n]])
     PROFILES[f'Leipole_FKL{n}_300'] = profile(
         f'Tấm lọc gió Leipole FKL{n}.300', 'Tấm lọc thông gió thụ động', FILTER_USE, PLACE,
         filter_ids, brand='Leipole',code=f'FKL{n}.300',
         spec={'kich_thuoc_mat_truoc_mm':f'{SIZE[n]} × {SIZE[n]}','dong_co':'Không có'},
-        status=('Một hình có nhãn 6621 sai nhưng rộng 204 mm và cùng hình dạng 6623; đã ghép theo kích thước.'
-                if n=='6623' else 'Mã .300 trên hình và kích thước khớp tấm lọc cùng dòng.'),
+        status=('Đã xác định dòng 6623 theo hình và kích thước; một tên hình ghi nhầm 6621.'
+                if n=='6623' else 'Đã xác định mã qua tên hình và kích thước.'),
         sources=[LEIPOLE[n]])
 
 for n,front,view_id in [('6621',116.5,'C01_cluster6-V001'),('6622',148.5,'C01_cluster6-V002'),
                         ('6623',204,'C01_cluster6-V003'),('6625',255,'C01_cluster6-V004'),
                         ('6626',323,'C01_cluster6-V005')]:
     PROFILES[f'LuoiGio_{n}'] = profile(
-        f'Lưới thông gió {front} mm · ứng viên FKL{n}.300', 'Lưới thông gió thụ động',
+        f'Lưới thông gió {front} × {front} mm', 'Lưới thông gió thụ động',
         'Che lỗ thông gió và giữ tấm lọc bụi trong tủ điện.', PLACE,[view_id],
-        spec={'kich_thuoc_mat_truoc_mm':f'{front} × {front}','dong_ung_vien':f'FKL{n}.300'},
-        status='Hình không ghi hãng hoặc mã. Dòng FKL được gợi ý theo hình dạng và cỡ mặt; chưa xác nhận thay thế trực tiếp.',
+        spec={'kich_thuoc_mat_truoc_mm':f'{front} × {front}',
+              'tam_loc_cung_co_tham_khao':f'FKL{n}.300'},
+        status='Đã xác định cỡ mặt. Mã tấm lọc là tham khảo theo kích thước; cần đối chiếu lỗ lắp và ngàm.',
         sources=[LEIPOLE[n]])
 
 PROFILES['TamCheQuat120'] = profile(
@@ -70,25 +72,23 @@ PROFILES['TamCheQuat120'] = profile(
     'Trên mặt ngoài cửa quạt của tủ điện.',['C01_cluster5-V001'],
     spec={'kich_thuoc_hinh_mm':'119,9 × 119,9'},
     status='Chỉ xác định hình và cỡ; chưa xác định hãng, vật liệu hoặc mã.')
-PROFILES['KhungGio130'] = profile(
-    'Khung lỗ gió vuông 130 mm','Khung hoặc lỗ lắp thông gió',
-    'Tạo vị trí lắp lưới thông gió hoặc quạt trên vỏ tủ.',
-    'Trên vách tủ điện.',['A11_cluster4-V016'],
-    spec={'kich_thuoc_hinh_mm':'130 × 130'},
-    status='Hình là biên dạng khung/lỗ lắp; chưa xác định đây là sản phẩm bán rời.')
-
 PROFILES['CuonKhang3P_ChuaRoLoai'] = profile(
-    'Cuộn kháng ba pha · chưa rõ ứng dụng', 'Cuộn kháng ba pha lõi thép',
-    'Tạo điện kháng trong mạch ba pha; chức năng chính xác phụ thuộc vị trí đấu nối.',
-    'Có thể ở đầu vào biến tần hoặc nối tiếp với cấp tụ bù; chưa xác định từ hai hình này.',
+    'Cuộn kháng ba pha lõi thép', 'Cuộn kháng ba pha lõi thép',
+    'Hạn chế biến thiên dòng trong mạch ba pha; chức năng phụ thuộc cách đấu nối.',
+    'Trong tủ điện, nối vào mạch ba pha theo sơ đồ thiết kế.',
     ['C11_cluster6-V001','C11_cluster6-V002'],
-    spec={'so_pha_theo_hinh':3,'dong_dinh_muc':'Chưa xác định',
-          'dien_khang_mH':'Chưa xác định','tan_so_cong_huong':'Chưa xác định'},
-    status='Hai hình cho thấy kết cấu lõi thép/cuộn dây ba pha. Chưa có nhãn để kết luận đây là cuộn kháng lọc sóng hài hay kháng biến tần.',
-    sources=[REACTOR_SOURCE])
+    spec={'so_pha_theo_hinh':3},
+    status='Chưa có nhãn điện hoặc sơ đồ đấu nối để xác định dòng định mức và ứng dụng.',
+    sources=[REACTOR_SOURCE,LINE_REACTOR_SOURCE])
+PROFILES['CuonKhang3P_ChuaRoLoai']['dac_diem'] = [
+    'Nối tiếp tụ bù: dùng để tránh cộng hưởng sóng hài. Nối trước biến tần: dùng để giảm méo dòng đầu vào.',
+]
+PROFILES['CuonKhang3P_ChuaRoLoai']['lua_chon_ky_thuat'] = [
+    'Xem sơ đồ đấu nối để xác định loại; chọn dòng, điện áp và điện kháng theo nhãn của thiết bị thực tế.',
+]
 
 ID_MAP = {id_:key for key,p in PROFILES.items() for id_ in p['cac_hinh_cad']}
-assert len(ID_MAP)==26
+assert len(ID_MAP)==25
 
 def size(row):
     doc=ezdxf.readfile(SOURCE/row['cad_dxf'])
@@ -119,6 +119,13 @@ for key,data in PROFILES.items():
     category='Cuộn kháng' if key.startswith('CuonKhang') else 'Quạt'
     (ROOT/category/'ThietBi'/key/'thong_tin_thiet_bi.json').write_text(
         json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+stale = ROOT/'Quạt'/'ThietBi'/'KhungGio130'
+if stale.is_dir():
+    assert stale.resolve().is_relative_to((ROOT/'Quạt').resolve())
+    assert {p.name for p in stale.rglob('*') if p.is_file()} <= {
+        'thong_tin_thiet_bi.json','thong_tin.json','ban_ve.dxf','xem_truoc.svg'}
+    shutil.rmtree(stale)
 
 print(json.dumps({'profiles':len(PROFILES),'attached_views':len(ID_MAP),
                   'records':len(ROWS)},ensure_ascii=False))

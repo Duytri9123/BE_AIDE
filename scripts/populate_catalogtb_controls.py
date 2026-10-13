@@ -52,21 +52,27 @@ for n, (key, models, poles, frame, ac3, catalog_size) in enumerate(CONTACTOR_CAN
         sources=[LS_CATALOG])
 
 PROFILES.update({
- 'DeCauChi1P_KieuHop':item('Đế cầu chì 1 cực · kiểu hộp', 'Đế cầu chì lắp ray',
+ 'Day3DeCauChi_KieuHop':item('Dãy 3 đế cầu chì 1 cực · kiểu hộp', 'Dãy đế cầu chì lắp ray',
      'Giữ một dây chảy trong mạch điện; có thể đặt nhiều đế cạnh nhau để bảo vệ nhiều nhánh.',
      'Trên ray DIN trong ngăn bảo vệ.', ['C03_cluster4-V001'],
      spec={'so_cuc_moi_de':1,'be_rong_moi_de_mm':'khoảng 18','so_de_trong_hinh':3,
            'co_day_chay':'Chưa xác định','dong_dinh_muc_de':'Chưa xác định'},
      select=['Chọn cỡ dây chảy, dòng và điện áp danh định theo mã đế thực tế.'],
      status='Hình có ba đế một cực ghép cạnh nhau; chưa xác định hãng và mã.'),
- 'DeCauChi1P_KieuGat':item('Đế cầu chì 1 cực · kiểu gạt', 'Đế cầu chì lắp ray',
+ 'Day5DeCauChi_KieuGat':item('Dãy 5 đế cầu chì 1 cực · kiểu gạt', 'Dãy đế cầu chì lắp ray',
      'Giữ một dây chảy trong mạch điện; các đế lắp sát nhau theo số nhánh cần bảo vệ.',
-     'Trên ray DIN trong ngăn bảo vệ.', ['C03_cluster4-V002','C03_cluster4-V004'],
+     'Trên ray DIN trong ngăn bảo vệ.', ['C03_cluster4-V002'],
      spec={'so_cuc_moi_de':1,'be_rong_moi_de_mm':'khoảng 18',
            'nhan_nhin_thay_tren_hinh':'5 A trên một mô-đun; chưa xác định đây là dòng dây chảy hay dòng định mức đế',
            'co_day_chay':'Chưa xác định','dong_dinh_muc_de':'Chưa xác định'},
      select=['Chọn cỡ dây chảy, dòng và điện áp danh định theo mã đế thực tế.'],
-     status='Hai hình thể hiện cùng kiểu đế một cực; lần lượt bố trí năm và ba đế. Chưa xác định hãng và mã.'),
+     status='Hình thể hiện năm đế một cực đặt cạnh nhau; chưa xác định hãng và mã.'),
+ 'Day3DeCauChi_KieuGat':item('Dãy 3 đế cầu chì 1 cực · kiểu gạt', 'Dãy đế cầu chì lắp ray',
+     'Giữ ba dây chảy trong ba mạch điện.',
+     'Trên ray DIN trong ngăn bảo vệ.', ['C03_cluster4-V004'],
+     spec={'so_de_trong_hinh':3,'co_phu_kien_chan_hai_ben':'Có'},
+     select=['Chọn cỡ dây chảy, dòng và điện áp danh định theo mã đế thực tế.'],
+     status='Hình thể hiện ba đế một cực kèm chặn hai đầu; chưa xác định hãng và mã.'),
  'CauChi_1P':item('Đế cầu chì 1 cực', 'Đế cầu chì lắp ray',
      'Bảo vệ một cực mạch điều khiển hoặc động lực bằng dây chảy.',
      'Trên ray DIN gần mạch cần bảo vệ.', ['C03_cluster4-V010'], spec={'so_cuc':1},
@@ -176,6 +182,15 @@ for key, data in PROFILES.items():
 
 ID_MAP={id_:key for key,p in PROFILES.items() for id_ in p['cac_hinh_cad']}
 assert len(ID_MAP)==29
+
+for old in ('DeCauChi1P_KieuHop','DeCauChi1P_KieuGat'):
+    stale=TARGET/'ThietBi'/old
+    if stale.exists():
+        assert stale.resolve().is_relative_to(TARGET.resolve())
+        assert {p.name for p in stale.rglob('*') if p.is_file()} <= {
+            'thong_tin_thiet_bi.json','thong_tin.json','ban_ve.dxf',
+            'xem_truoc.svg','thong_tin_cad_chen.json'}
+        shutil.rmtree(stale)
 
 ASSEMBLIES = {
     'C03_cluster4-V001':'3 đế cầu chì 1 cực đặt cạnh nhau',

@@ -32,6 +32,7 @@ class DeviceDetailsRequest(ProductInformationRequest):
     upstream_device: str = Field(default='', max_length=200)
     in_a: float | None = None
     icu_ka: float | None = None
+    evidence_image: str = Field(default='', max_length=6000000)
 
 
 @router.post('/device-details')
@@ -58,14 +59,45 @@ async def device_details(request: DeviceDetailsRequest, db: AsyncSession = Depen
         .join(ConversationSession, AnalysisIteration.session_id == ConversationSession.id)
         .where(ConversationSession.project_id == request.project_id)
         .order_by(AnalysisIteration.created_at.desc()).limit(1))).scalar_one_or_none() or ''
-    payload = request.model_dump(exclude={'project_id', 'refresh'})
+    payload = request.model_dump(exclude={'project_id', 'refresh', 'evidence_image'})
     try:
-        response, _ = await ConnectionPoolService.call_with_fallback(db=db,
-            connections=connections, call_fn=VisionAnalyzerService.analyze_text,
-            prompt=details_prompt(payload, requirement))
+        if request.evidence_image.startswith(('data:image/png;base64,', 'data:image/jpeg;base64,')):
+            import base64, tempfile
+            from pathlib import Path
+            from PIL import Image
+            raw = base64.b64decode(request.evidence_image.split(',', 1)[1], validate=True)
+            with tempfile.TemporaryDirectory(prefix='aide-device-review-') as folder:
+                path = Path(folder) / 'evidence.png'
+                path.write_bytes(raw)
+                with Image.open(path) as picture:
+                    picture.verify()
+                response, _ = await ConnectionPoolService.call_with_fallback(db=db,
+                    connections=connections, call_fn=VisionAnalyzerService.analyze_image,
+                    image_path=str(path), prompt=details_prompt(payload, requirement))
+        else:
+            response, _ = await ConnectionPoolService.call_with_fallback(db=db,
+                connections=connections, call_fn=VisionAnalyzerService.analyze_text,
+                prompt=details_prompt(payload, requirement))
         return parse_details(response)
     except Exception:
         raise HTTPException(502, 'Chưa phân tích được chi tiết thiết bị. Vui lòng thử lại.')
+
+
+@router.post('/device-recommendations')
+async def device_recommendations(request: DeviceDetailsRequest, db: AsyncSession = Depends(get_db),
+                                 user: User = Depends(get_current_active_user)):
+    project = (await db.execute(select(Project.id).where(Project.id == request.project_id,
+        Project.user_id == user.id, Project.deleted_at.is_(None)))).scalar_one_or_none()
+    if project is None:
+        raise HTTPException(404, 'Dự án không tồn tại.')
+    from app.schemas.ai import ExtractedDeviceSchema
+    from app.services.ai.connection_pool import ConnectionPoolService
+    from app.services.ai.web_device_recommendations import research_device_products
+    device = ExtractedDeviceSchema(category=request.category, name=request.name, spec=request.spec,
+        poles=request.poles, in_a=request.in_a, icu_ka=request.icu_ka)
+    connections = await ConnectionPoolService.get_ordered_connections(db)
+    await research_device_products([device], connections, db, preferred_brand=request.brand or None)
+    return {'catalog_candidates': device.catalog_candidates or {}, 'web_research': device.web_research}
 
 
 @router.post('/manufacturer-information')

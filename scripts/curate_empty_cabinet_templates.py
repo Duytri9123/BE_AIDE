@@ -31,6 +31,11 @@ def plain(value):
 
 def assess(item):
     reasons = []
+    denied_path = ROOT / 'user_excluded_manifest.json'
+    if denied_path.exists():
+        denied = {r['id']: r for r in json.loads(denied_path.read_text(encoding='utf-8'))['items']}
+        if item['id'] in denied:
+            return [denied[item['id']]['reason']]
     dims = item.get('dimensions')
     if item.get('status') != 'source' or not dims:
         reasons.append('thiếu kích thước hoặc nguồn cần kiểm tra')
