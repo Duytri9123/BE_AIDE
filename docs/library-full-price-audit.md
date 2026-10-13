@@ -8,18 +8,23 @@ Tổng: 837 thiết bị. Có dòng giá đúng mã/cấu hình: 32.
 | --- | ---: | ---: |
 | ABB | 80 | 0 |
 | CHENG LI | 1 | 0 |
-| CHINT | 25 | 1 |
+| CHINT | 28 | 1 |
 | CLIPSAL | 2 | 0 |
-| Cần bổ sung hãng | 114 | 0 |
+| CML | 5 | 0 |
+| Cần bổ sung hãng | 98 | 0 |
+| DELAB | 1 | 0 |
+| Deep Sea Electronics | 1 | 0 |
 | EMIC | 13 | 0 |
 | Holley | 1 | 0 |
 | KACON | 1 | 0 |
+| KDE | 2 | 0 |
 | LS Electric | 134 | 11 |
 | Leipole | 3 | 0 |
 | LightStar | 8 | 0 |
-| MIKRO | 4 | 0 |
+| MIKRO | 3 | 0 |
 | MITEX | 1 | 0 |
 | MORELE | 2 | 0 |
+| Mikro | 1 | 0 |
 | Mitsubishi Electric | 39 | 20 |
 | Nuintek | 20 | 0 |
 | O-Sung / OSEMCO | 1 | 0 |
@@ -29,7 +34,7 @@ Tổng: 837 thiết bị. Có dòng giá đúng mã/cấu hình: 32.
 | Phụ kiện phổ thông | 111 | 0 |
 | SUNGHO | 1 | 0 |
 | Samwha | 9 | 0 |
-| Schneider Electric | 237 | 0 |
+| Schneider Electric | 241 | 0 |
 | Schneider Electric (dòng RM6; cần đối chiếu cấu hình CAD) | 2 | 0 |
 | Shihlin Electric | 20 | 0 |
 | Suntree | 2 | 0 |

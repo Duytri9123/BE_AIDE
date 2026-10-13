@@ -34,7 +34,7 @@ def manufacturer_identity(profile, current, profile_path=None):
                 if drawing.is_relative_to(profile_path.parent.resolve()) and drawing.is_file() and hashlib.sha256(drawing.read_bytes()).hexdigest() == view['sha256']:
                     maker = evidence['brand']
                     return {'brand':maker,'brand_kind':'manufacturer','brand_identification_status':'verified',
-                            'brand_label':maker,'brand_identity_note':'Hãng được đọc từ nhãn CAD; cấu hình điện và mã đặt hàng được đối chiếu riêng.'}
+                            'brand_label':maker,'brand_identity_note':evidence.get('note') or 'Hãng được đọc từ nhãn CAD; cấu hình điện và mã đặt hàng được đối chiếu riêng.'}
     kind = str(profile.get('type') or current.get('ban_chat') or '').casefold()
     if any(term in kind for term in GENERIC_TYPES):
         return {'brand':None,'brand_kind':'generic','brand_identification_status':'not_applicable',

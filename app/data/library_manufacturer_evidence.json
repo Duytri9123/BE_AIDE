@@ -63,6 +63,480 @@
           "sha256": "ce10c4b3d145c818a49f4c2d90d517e4f72c0ebc2162c72f74267f11363045b2"
         }
       ]
+    },
+    "TB-55fbb7cbe7178e39": {
+      "brand": "Schneider Electric",
+      "status": "manufacturer_label_reviewed",
+      "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
+      "source_blocks": [
+        "1232"
+      ],
+      "original_labels": [
+        "PM2220",
+        "V",
+        "A",
+        "Hz",
+        "Schneider"
+      ],
+      "sources": [],
+      "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
+      "views": [
+        {
+          "view_id": "C04_cluster4-V002",
+          "sha256": "a82320ab252e33748079a78242441ed4b05f03288e1ac789ab5aff2103605d1f"
+        }
+      ]
+    },
+    "TB-5aef0fb4178a87bc": {
+      "brand": "CHINT",
+      "status": "manufacturer_label_reviewed",
+      "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
+      "source_blocks": [
+        "NBC",
+        "NBD"
+      ],
+      "original_labels": [
+        "Chint     NP2",
+        "BE101.3     .4 (NO)\nAC-15:220V/4.5A\nDC-13:110V/0.6A",
+        "Chint             NP2",
+        "AC/DC 230V",
+        "LED",
+        "BA9s",
+        "Ie<20mA",
+        "BE101.1      .2 (NC)\nAC-15:220V/4.5A\nDC-13:110V/0.6A"
+      ],
+      "sources": [],
+      "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
+      "views": [
+        {
+          "view_id": "C03_cluster6-V004",
+          "sha256": "314f11cad1ae5dc903a87982ca4cac6b3fbf0f297fbbfcad4b10b803a985853f"
+        },
+        {
+          "view_id": "C03_cluster6-V005",
+          "sha256": "0753d0a395d32662b2da957cc6bae640ac5ac25310c03711b228f41850ba0fbd"
+        }
+      ]
+    },
+    "TB-8b9ba27dffad20d2": {
+      "brand": "CHINT",
+      "status": "manufacturer_label_reviewed",
+      "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
+      "source_blocks": [
+        "NBDD",
+        "NBCD"
+      ],
+      "original_labels": [
+        "Chint     NP2",
+        "BE101.1      .2 (NC)\nAC-15:220V/4.5A\nDC-13:110V/0.6A",
+        "Chint             NP2",
+        "AC/DC 230V",
+        "LED",
+        "BA9s",
+        "Ie<20mA",
+        "BE101.3     .4 (NO)\nAC-15:220V/4.5A\nDC-13:110V/0.6A"
+      ],
+      "sources": [],
+      "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
+      "views": [
+        {
+          "view_id": "C03_cluster6-V006",
+          "sha256": "2b5549ea4a58a7615f905faebd11152aa1c7316e87fc3236a9e5bce4d77eba6a"
+        },
+        {
+          "view_id": "C03_cluster6-V007",
+          "sha256": "2b27dd03d56248f93b679ccaba3066e20742a177c3647a397766658abb5b6bda"
+        }
+      ]
+    },
+    "TB-c8e96f985b637563": {
+      "brand": "Mikro",
+      "status": "manufacturer_label_reviewed",
+      "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
+      "source_blocks": [
+        "MX100"
+      ],
+      "original_labels": [],
+      "sources": [
+        "https://itmikro.com.my/mx100-50a-voltage-relay/"
+      ],
+      "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
+      "views": [
+        {
+          "view_id": "C05_cluster1-V005",
+          "sha256": "ad39de162dd708de12ac52d3c7079a8418a67d1bcf12fe8fa645a53ca54129e7"
+        }
+      ]
+    },
+    "TB-9d53f121b6725d5e": {
+      "brand": "Deep Sea Electronics",
+      "status": "manufacturer_label_reviewed",
+      "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
+      "source_blocks": [
+        "DSE8610"
+      ],
+      "original_labels": [],
+      "sources": [
+        "https://www.deepseaelectronics.com/genset/load-sharing-synchronising-control-modules/dse8610"
+      ],
+      "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
+      "views": [
+        {
+          "view_id": "C05_cluster5-V003",
+          "sha256": "e989afb0510fdc7408a6c50c2540ef99b9a871793bb92ea3baaa1795e85a9ee7"
+        }
+      ]
+    },
+    "TB-04c5ba29ddeb4906": {
+      "brand": "DELAB",
+      "status": "manufacturer_label_reviewed",
+      "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
+      "source_blocks": [
+        "APFC(12STEP-DELAB)"
+      ],
+      "original_labels": [
+        "Cos ",
+        "Voltage",
+        "THD-I(%)",
+        "Tot.Op-hr(x100)",
+        "Alam",
+        "Isec. (A)",
+        "PF",
+        "Freq",
+        "nth",
+        "Hamonic",
+        "(1st,3rd,...,11th)",
+        "I(A)",
+        "C/K (1st Cap/CT ratio)",
+        "No.Comnected Steps",
+        "Switching Program",
+        "Voltage >(V)",
+        "Target Cos",
+        "Switching Time(sec)",
+        "THD-I >(%)",
+        "select",
+        "set",
+        "Up",
+        "Down",
+        "Auto",
+        "Manual",
+        "NV-8s/14s",
+        "Cancel",
+        "Reset,",
+        "Test",
+        "POWER FACTOR CONTROLLER"
+      ],
+      "sources": [
+        "https://www.delab.com.my/product/nv-8s-8-steps/"
+      ],
+      "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
+      "views": [
+        {
+          "view_id": "C05_cluster5-V002",
+          "sha256": "4c447957e8b109c6e34c85c5d666b139fc76f200b05bd2d38a53ac56fa32f733"
+        }
+      ]
+    },
+    "TB-2fb06d36a7b98053": {
+      "brand": "CML",
+      "status": "manufacturer_label_reviewed",
+      "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
+      "source_blocks": [
+        "CML250A-3",
+        "CML250A-2"
+      ],
+      "original_labels": [],
+      "sources": [
+        "https://hanhdungelectric.com.vn/"
+      ],
+      "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
+      "views": [
+        {
+          "view_id": "C08_cluster9-V012",
+          "sha256": "0c36eab4dabb04e02000ca0b8049ebd49aa0943dc86e3752aa3650775746b4fe"
+        },
+        {
+          "view_id": "C08_cluster9-V013",
+          "sha256": "0c97185c0e74995450c8a8330f77d8548daa423b3b23013257e84157c9c9b08b"
+        }
+      ]
+    },
+    "TB-33ba68a62afca29e": {
+      "brand": "CML",
+      "status": "manufacturer_label_reviewed",
+      "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
+      "source_blocks": [
+        "CML3200A-2",
+        "CML3200A-3",
+        "CML3200A-1"
+      ],
+      "original_labels": [
+        "CML 3200/5A"
+      ],
+      "sources": [
+        "https://hanhdungelectric.com.vn/"
+      ],
+      "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
+      "views": [
+        {
+          "view_id": "C08_cluster9-V009",
+          "sha256": "20034a2257fb43f3541d524d594b2baa5c72e46f935a3d86d8d729c20147d705"
+        },
+        {
+          "view_id": "C08_cluster9-V010",
+          "sha256": "1066118dade2268f4eb6b2f7bdc95d0dfc2703ba4f8e29e0ada3aa0d7f6457b4"
+        },
+        {
+          "view_id": "C08_cluster9-V011",
+          "sha256": "c59d917f50f90937f36540f14d0bd8e265b7843f5610048c5393b48e69e525d3"
+        }
+      ]
+    },
+    "TB-ada5a9d0155b3136": {
+      "brand": "CML",
+      "status": "manufacturer_label_reviewed",
+      "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
+      "source_blocks": [
+        "CML400A-3",
+        "CML400A-2"
+      ],
+      "original_labels": [],
+      "sources": [
+        "https://hanhdungelectric.com.vn/"
+      ],
+      "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
+      "views": [
+        {
+          "view_id": "C08_cluster9-V001",
+          "sha256": "5e6f8e82a7bdd0cdf3b6b6db3df392ea64ee386144298b8dbeceff75f02e541f"
+        },
+        {
+          "view_id": "C08_cluster9-V002",
+          "sha256": "402afb1b68124b5eba2969fe5f1f09798e5099f5e7d1f155afe61510f12ae93d"
+        }
+      ]
+    },
+    "TB-6e9ef22b7db833ac": {
+      "brand": "CML",
+      "status": "manufacturer_label_reviewed",
+      "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
+      "source_blocks": [
+        "CML800A-2",
+        "CML800A-1",
+        "CML800A-3"
+      ],
+      "original_labels": [
+        "CML 800/5A"
+      ],
+      "sources": [
+        "https://hanhdungelectric.com.vn/"
+      ],
+      "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
+      "views": [
+        {
+          "view_id": "C08_cluster9-V006",
+          "sha256": "c7949910ef99c736842c416e541aebf1aba650c9bbe2df95752d25a0698d949a"
+        },
+        {
+          "view_id": "C08_cluster9-V007",
+          "sha256": "872e50efca89fe6a1f419e6ce0328d3ddc142f6ea2f019cde3825e01fc074ce0"
+        },
+        {
+          "view_id": "C08_cluster9-V008",
+          "sha256": "c0ffdbf5d8b32e53ba1252ca4a5cc38dc78e2c12baa1e2d1499fb90424cb0c73"
+        }
+      ]
+    },
+    "TB-2f0bedd4bec63789": {
+      "brand": "KDE",
+      "status": "manufacturer_label_reviewed",
+      "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
+      "source_blocks": [
+        "KDE 300A-3",
+        "KDE 300A-1",
+        "KDE 300A-2"
+      ],
+      "original_labels": [
+        "KDE 300/5A"
+      ],
+      "sources": [
+        "https://lqe.com.vn/wp-content/uploads/2026/01/CATALOG-KDE-2025.pdf"
+      ],
+      "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
+      "views": [
+        {
+          "view_id": "C08_cluster8-V004",
+          "sha256": "aef2e20377bf7d1864a484cb37bd243678c7f5b328a32159efc0a57da3a08fce"
+        },
+        {
+          "view_id": "C08_cluster8-V005",
+          "sha256": "ccf2fb94c75f33123d987e1d7fb882fb5eddc80026668a36b28266ab6b4dcf1f"
+        },
+        {
+          "view_id": "C08_cluster8-V006",
+          "sha256": "69c2f1db9f30988d422742cc73c6daeac18a91b11b24bb4b4074d3c4cbb1314c"
+        },
+        {
+          "view_id": "C08_cluster8-V007",
+          "sha256": "7337dde0d63be39dfa4e3889d45049ce52845b8bf6b9765d0bd7b3b045d30924"
+        },
+        {
+          "view_id": "C08_cluster8-V008",
+          "sha256": "490db8c5536a8f2775d82a7ba6104af9e82f630d2b06779bee418567f845a5eb"
+        }
+      ]
+    },
+    "TB-0d872ddb8047d41b": {
+      "brand": "KDE",
+      "status": "manufacturer_label_reviewed",
+      "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
+      "source_blocks": [
+        "KDE 800A-2",
+        "KDE 800A-3",
+        "KDE 800A-1"
+      ],
+      "original_labels": [
+        "KDE 800/5A"
+      ],
+      "sources": [
+        "https://lqe.com.vn/wp-content/uploads/2026/01/CATALOG-KDE-2025.pdf"
+      ],
+      "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
+      "views": [
+        {
+          "view_id": "C08_cluster8-V001",
+          "sha256": "8309b649022a41181659f44bf260c453f9f226deba463936888dacf0d4c9f146"
+        },
+        {
+          "view_id": "C08_cluster8-V002",
+          "sha256": "323120f2f4248e622d9458a703ccf7ae0ad6e3a021972ea7c993ea53c1095de3"
+        },
+        {
+          "view_id": "C08_cluster8-V003",
+          "sha256": "c9c3911e650b3713c3f9f8360e3fbb3bc0307a00369c7657323a0f0df7a2df1d"
+        }
+      ]
+    },
+    "TB-8192478908c2aa69": {
+      "brand": "CML",
+      "status": "manufacturer_label_reviewed",
+      "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
+      "source_blocks": [
+        "CML500A-3",
+        "CML500A-1",
+        "CML500A-2"
+      ],
+      "original_labels": [
+        "CML 500/5A"
+      ],
+      "sources": [
+        "https://hanhdungelectric.com.vn/"
+      ],
+      "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
+      "views": [
+        {
+          "view_id": "C08_cluster9-V003",
+          "sha256": "f48301b8a0114a77a9c9662664a52653cf3653b99796dcdc1c47a5e417c16ea5"
+        },
+        {
+          "view_id": "C08_cluster9-V004",
+          "sha256": "6a74d772a53a30f645a32d9eba69e3205df7b9758be189ef55ff193d94020c6e"
+        },
+        {
+          "view_id": "C08_cluster9-V005",
+          "sha256": "ba3e5596d015b10f4752f9cc845b551fd62564b937d550169d604215e6f7d5d0"
+        }
+      ]
+    },
+    "TB-bb5602d5a042b864": {
+      "brand": "Schneider Electric",
+      "status": "manufacturer_label_reviewed",
+      "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
+      "source_blocks": [
+        "Mặt trên",
+        "Mặt trước"
+      ],
+      "original_labels": [],
+      "sources": [],
+      "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
+      "views": [
+        {
+          "view_id": "E01-V1",
+          "sha256": "40eb991bf93ebe3b3d6dfca6ae4636d4faae61dcc44e010270fa196f07f3cf8b"
+        },
+        {
+          "view_id": "E01-V2",
+          "sha256": "0757737ae13eb33bdf5d0e44b47a985c776b0875105267bf6a3d7f07ffebe1cd"
+        }
+      ]
+    },
+    "TB-c3480c14384412ab": {
+      "brand": "Schneider Electric",
+      "status": "manufacturer_label_reviewed",
+      "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
+      "source_blocks": [
+        "Mặt trên",
+        "Mặt trước"
+      ],
+      "original_labels": [],
+      "sources": [],
+      "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
+      "views": [
+        {
+          "view_id": "E02-V1",
+          "sha256": "e5702559ce5b94add43356c9e96d5a03c05e405bfbcb89c15a36983274d289de"
+        },
+        {
+          "view_id": "E02-V2",
+          "sha256": "2c3d884dfaf52e8fc644dbf8608176f271d96548f882faea772f0f4839c0dfe1"
+        }
+      ]
+    },
+    "TB-8ba80bde8d79739e": {
+      "brand": "Schneider Electric",
+      "status": "manufacturer_label_reviewed",
+      "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
+      "source_blocks": [
+        "Mặt trên",
+        "Mặt trước",
+        "Mặt bên"
+      ],
+      "original_labels": [],
+      "sources": [],
+      "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
+      "views": [
+        {
+          "view_id": "E03-V1",
+          "sha256": "a1bee5e65e33f0a5cad4e33b962960dd3a424ad15dabe6b28972c0badf92c667"
+        },
+        {
+          "view_id": "E03-V2",
+          "sha256": "1229eaa0fc8dd6bba89880acb17fa5d06b5fdbcbb95c6dcbc066d3288446686d"
+        },
+        {
+          "view_id": "E03-V3",
+          "sha256": "39e89a55d30818601955340a7a17fa2aaf05c3054e5a506c38cfe6ca5c9a65b8"
+        }
+      ]
+    },
+    "TB-efe7fe1223480cbd": {
+      "brand": "CHINT",
+      "status": "manufacturer_label_reviewed",
+      "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
+      "source_blocks": [],
+      "original_labels": [],
+      "sources": [],
+      "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
+      "views": [
+        {
+          "view_id": "front",
+          "sha256": "d2a5e4bb4a2ec53831ebf182c7d569f8b643084ce2cb291186247579009d2d69"
+        },
+        {
+          "view_id": "side",
+          "sha256": "1655245ed38e8298545d2247e307fa120d8158855e39caf5b567c048dcb1c58c"
+        }
+      ]
     }
   }
 }
