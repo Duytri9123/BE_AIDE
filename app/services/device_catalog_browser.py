@@ -1,6 +1,7 @@
 """Customer-facing manufacturer portfolios and published selling-price records."""
 import math
 import json
+import hashlib
 from pathlib import Path
 from app.services.ai.manufacturer_registry import manufacturer_categories, canonical_brand, CHECKED_DATE
 from app.services.device_catalog_engine import strip_accents
@@ -23,6 +24,7 @@ CATEGORY_LABELS = {
     'SOFT_STARTER':'Khởi động mềm',
     'ACCESSORY':'Phụ kiện',
     'LIMIT_SWITCH':'Công tắc hành trình',
+    'ENCLOSURE':'Vỏ tủ điện',
 }
 
 def label(code):
@@ -40,7 +42,26 @@ def load_catalog_documents():
     path=Path(__file__).resolve().parents[1]/'data/catalog_documents.json'
     return json.loads(path.read_text(encoding='utf8')).get('items',[]) if path.exists() else []
 
-def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_items=(), documents=(), library_links=None, q='', brand='', category='', skip=0, limit=30):
+def customer_catalog_page(payload):
+    """Allowlist commercial fields; never send sourcing intelligence to customers."""
+    public = {key:payload[key] for key in ('categories','total','priced_total','checked_date','primary_key','skip','limit')}
+    public['brands'] = [{'name':maker['name'], 'price_count':maker['price_count'],
+                         'categories':[{'code':c['code'],'label':c['label']} for c in maker['categories']]}
+                        for maker in payload['brands']]
+    fields = ('sku','item_name','name','brand','category','group','price','columns','cells',
+              'specifications','model_key','effective_date','edition','vat_status','updated_at',
+              'checked_at','product_line','line_label')
+    public['items'] = []
+    for row in payload['items']:
+        item = {key:row[key] for key in fields if key in row}
+        item['id'] = hashlib.sha256(row['id'].encode()).hexdigest()[:24]
+        # Preserve table grouping without disclosing supplier, URL or document page.
+        identity = [row.get(k) for k in ('brand','group','source_url','source_label','source_page','effective_date','columns')]
+        item['book_key'] = hashlib.sha256(json.dumps(identity,ensure_ascii=False).encode()).hexdigest()[:24]
+        public['items'].append(item)
+    return public
+
+def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_items=(), documents=(), library_links=None, q='', brand='', category='', product_line='', skip=0, limit=30):
     rows = {}
     for item in priced_items:
         code = str(item.get('sku') or item.get('ma') or '').strip()
@@ -71,7 +92,7 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
         rows[('web',offer['id'])]['updated_at']=offer['checked_at']
     for item in supplier_items:
         if item.get('currency')!='VND' or not item.get('item_name') or not item.get('checked_at'):continue
-        rows[('supplier',item['id'])]={k:item.get(k) for k in ('id','sku','item_name','name','brand','category','price','source_label','source_url','checked_at','source_kind','price_note','effective_date','edition','vat_status','source_page','specifications','columns','cells','group')}
+        rows[('supplier',item['id'])]={k:item.get(k) for k in ('id','sku','item_name','name','brand','category','price','source_label','source_url','checked_at','source_kind','price_note','effective_date','edition','vat_status','source_page','specifications','columns','cells','group','product_line','line_label')}
         rows[('supplier',item['id'])]['updated_at']=item['checked_at']
     items = [row for row in rows.values() if isinstance(row['price'], (int,float))
              and not isinstance(row['price'], bool) and math.isfinite(row['price']) and row['price'] > 0]
@@ -100,6 +121,7 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
     query = normalize(q.strip())
     filtered = [i for i in items if (not brand or i['brand']==canonical_brand(brand))
                 and (not category or i['category']==category)
+                and (not product_line or i.get('product_line')==product_line)
                 and query in normalize(' '.join(str(i.get(k) or '') for k in ('sku','name','brand','category','group','specifications')))]
     filtered.sort(key=lambda row:(row['brand'],row.get('source_kind')!='supplier_pricebook',row.get('source_page') or 0))
     return {'brands':sorted(makers.values(),key=lambda m:m['name']),

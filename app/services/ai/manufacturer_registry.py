@@ -28,6 +28,17 @@ CHECKED_DATE = '2026-10-13'
 # These are discovery/catalogue anchors, NOT approved SKUs or blanket technical
 # equivalence. Every selected model still needs its own electrical evidence.
 CATALOGUES = {
+    'Samwha': ('https://www.samwha.com/fc/010102.asp', ('CAPACITOR',)),
+    'TECO': ('https://www.teco.com.tw/en-us/products/power-transmission/power-products/',
+        ('CB', 'CONTACTOR', 'RELAY', 'ATS', 'METER')),
+    'WAGO': ('https://www.wago.com/us/products', ('TERMINAL', 'RELAY', 'POWER_SUPPLY', 'IO')),
+    'Delta': ('https://www.deltaww.com/en-US/products/industrial-automation',
+        ('VFD', 'PLC', 'HMI', 'POWER_SUPPLY', 'METER', 'TIMER')),
+    'Socomec': ('https://emea.socomec.com/sites/default/files/2026-03/Overview-Products--services_CATALOGUE-GENERAL_2026-03-16-11-17-44_CGD008_V02_EN_English_PLURI.pdf',
+        ('ATS',)),
+    'Crouzet': ('https://www.crouzet.com/products/timer-relays/', ('TIMER',)),
+    'Littelfuse': ('https://www.littelfuse.com/products/fuses-overcurrent-protection/fuses', ('FUSE',)),
+    'Rittal': ('https://www.rittal.com/com-en/products/PG20231215SCH101', ('ENCLOSURE',)),
     'ABB': ('https://new.abb.com/low-voltage/products',
         ('MCB', 'MCCB', 'ACB', 'CONTACTOR', 'OVERLOAD_RELAY', 'RELAY', 'TIMER',
          'LIGHT', 'SELECTOR', 'POWER_SUPPLY', 'FUSE', 'SPD', 'ATS', 'SOFT_STARTER')),

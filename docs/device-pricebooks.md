@@ -35,6 +35,37 @@ email or filesystem paths. PDF price-list amounts, seller prices and admin
 prices retain separate source labels. Unknown VAT and effective dates remain
 unknown; a document's posting/update date is not an effective date.
 
+Customer API responses now use `customer_catalog_page` as an explicit allowlist.
+Supplier URLs, labels, document lists, source pages, provenance notes and internal
+library associations remain server-side. Public row/book identifiers are opaque.
+Source PDF downloads require an administrator, even if the customer knows a URL.
+The customer UI exposes neither source links nor PDF/document controls.
+
+The portfolio registry has 31 manufacturers with category evidence as of
+2026-10-13, including newly reviewed TECO, WAGO, Delta, Socomec, Crouzet,
+Littelfuse, Rittal and Samwha. Discovered names are not equivalent to verified
+categories or available price rows. No prices are fabricated for these makers.
+
+Run `scripts/enrich_verified_pricebook_specs.py` after reimporting a price book.
+It classifies only established LS Metasol/Susol model families into standard/
+premium lines, preserving LS Electric as the manufacturer. Unknown LS families
+remain unclassified. The CHINT European March-2026 drawing was visually reviewed
+for NXB-63 C-curve 6kA variants: 36 price rows receive verified nominal envelope
+dimensions, installation and electrical details. NXB-63H/10kA and other similar
+names are excluded. Dimensions alone do not establish a library CAD association.
+The Metasol technical manual's pages 8–9 also verify 22 exact LS c-series rows.
+The displayed overall depth includes the handle envelope (dimension d); body
+and casing depths c1/c2 are kept separate so drawing consumers do not confuse
+installation clearance with the body dimensions in the unverified reference JSON.
+Internal evidence URLs are retained in the raw dataset and excluded from customer
+responses. Price freshness means the latest dated revision actually checked,
+not an assertion that every manufacturer has a complete current price book.
+LA63N is assigned to the customer's standard segment; LA63H/LA63L to the premium
+segment, after cross-checking their actual model/rating combinations against the
+external April-2026 LS book. These L-series labels are not called Metasol/Susol.
+Prices retain the later effective October-2026 revision already imported; an
+older April price is not allowed to replace a newer October price.
+
 ## Sources checked on 2026-10-13
 
 - User-supplied LS price book, effective 2026-10-01: 517 price rows across all
