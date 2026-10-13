@@ -30,3 +30,5 @@ redis>=5.0.4
 aiofiles>=23.2.1
 CairoSVG>=2.7.0
 pillow>=10.4.0
+rapidocr-onnxruntime==1.2.3
+onnxruntime>=1.17.0

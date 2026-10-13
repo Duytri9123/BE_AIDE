@@ -2,13 +2,16 @@
 import re
 from urllib.parse import urlparse
 from app.services.cad.catalogtb_assets import category_matches
+from app.services.ai.manufacturer_registry import ALIASES, PORTFOLIOS, official_domains
 
 MANUFACTURER_DOMAINS = {
-    'ls': ('lselectric.com', 'lselectric.co.kr'),
+    'ls': ('ls-electric.com', 'lselectric.com', 'lselectric.co.kr'),
     'chint': ('chintglobal.com', 'chint.com', 'chint.net'),
     'schneider': ('se.com',), 'schneider electric': ('se.com',),
     'abb': ('abb.com',), 'omron': ('omron.com', 'omron.eu'),
 }
+for _brand in set(ALIASES) | {name.casefold() for rows in PORTFOLIOS.values() for name in rows}:
+    MANUFACTURER_DOMAINS[_brand] = tuple(sorted(set(MANUFACTURER_DOMAINS.get(_brand, ())) | set(official_domains(_brand))))
 
 
 def brand_key(value):

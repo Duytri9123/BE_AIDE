@@ -101,6 +101,10 @@ class ExtractedDeviceSchema(BaseModel):
     technical_match_note: Optional[str] = None
     catalog_matches: Optional[dict] = None
     catalog_candidates: Optional[dict] = None
+    web_research: Optional[dict] = None
+    selected_product: Optional[dict] = None
+    device_assessment: Optional[dict] = None
+    parent_compatibility: Optional[dict] = None
     catalog_references: Optional[List[dict]] = None
     is_alternative_recommended: Optional[bool] = False
     original_spec: Optional[str] = None

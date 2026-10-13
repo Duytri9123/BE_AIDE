@@ -37,6 +37,22 @@ DEFAULT_PROVIDER_BASE_URLS = {
 }
 
 
+def normalize_vision_image_bytes(img_bytes):
+    """All provider payloads declare JPEG; preserve the oriented native canvas."""
+    from PIL import Image, ImageOps
+    import io
+    with Image.open(io.BytesIO(img_bytes)) as image:
+        if image.format == 'JPEG' and image.getexif().get(274, 1) == 1:
+            return img_bytes
+        oriented = ImageOps.exif_transpose(image)
+        if oriented.mode in ('RGBA', 'LA', 'P'):
+            rgba = oriented.convert('RGBA')
+            oriented = Image.alpha_composite(Image.new('RGBA', rgba.size, 'white'), rgba)
+        result = io.BytesIO()
+        oriented.convert('RGB').save(result, format='JPEG', quality=97)
+        return result.getvalue()
+
+
 def normalize_antigravity_model(model: str) -> str:
     """Chuẩn hóa tên model cho Google Antigravity (daily-cloudcode-pa.googleapis.com).
 
@@ -115,6 +131,7 @@ class VisionAnalyzerService:
             try:
                 with open(image_path, "rb") as f:
                     img_bytes = f.read()
+                    img_bytes = normalize_vision_image_bytes(img_bytes)
                     img_b64 = base64.b64encode(img_bytes).decode()
             except PermissionError:
                 raise ImageParsingError(

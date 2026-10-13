@@ -3,6 +3,19 @@ from app.services.ai.inventory_validation import extract_with_retry, require_inv
 
 
 class InventoryValidationTests(unittest.IsolatedAsyncioTestCase):
+    def test_missing_panel_inherits_only_a_single_confirmed_source_panel(self):
+        devices = require_inventory('{"devices":[{"category":"MCB","name":"Q","quantity":1}]}')
+        counts = {'counts': [{'panel_code':'CHUA_XAC_DINH','category':'MCB','quantity':1}]}
+        self.assertEqual(count_mismatches(devices, counts), [])
+        self.assertEqual(devices[0].panel_code, 'CHUA_XAC_DINH')
+
+    def test_missing_panel_cannot_be_assigned_across_two_panels(self):
+        devices = require_inventory('{"devices":[{"category":"MCB","name":"Q","quantity":2}]}')
+        counts = {'counts': [{'panel_code':'P1','category':'MCB','quantity':1},
+                             {'panel_code':'P2','category':'MCB','quantity':1}]}
+        self.assertTrue(count_mismatches(devices, counts))
+        self.assertFalse(devices[0].panel_code)
+
     def test_generic_count_bucket_uses_explicit_source_type_only(self):
         devices = require_inventory('{"devices":[{"panel_code":"P","category":"MCB","name":"Q","quantity":10}]}')
         count = {'counts': [{'panel_code': 'P', 'category': 'CB', 'quantity': 10,
@@ -73,6 +86,17 @@ class InventoryValidationTests(unittest.IsolatedAsyncioTestCase):
     def test_equivalent_source_names_are_not_missing_devices(self):
         devices=require_inventory('{"devices":[{"panel_code":"TĐT","category":"Đèn báo","name":"Đèn RYB","quantity":3},{"panel_code":"TĐT","category":"METER","name":"Vôn kế","quantity":1},{"panel_code":"TĐT","category":"SWITCH","name":"Công tắc chọn điện áp","quantity":1}]}')
         self.assertEqual(count_mismatches(devices,{'counts':[{'panel_code':'TĐ-T','category':c,'quantity':q} for c,q in [('INDICATOR',3),('VOLTMETER',1),('SELECTOR',1)]]}),[])
+
+    def test_voltage_measurement_range_resolves_generic_meter_without_inventing_ammeter(self):
+        from app.services.ai.inventory_validation import inventory_kind
+        self.assertEqual(inventory_kind('METER', 'Đồng hồ đo', '0-500V'), 'VOLTMETER')
+        self.assertEqual(inventory_kind('METER', 'Đồng hồ đo', '230VAC'), 'METER')
+        self.assertEqual(inventory_kind('METER', 'Ampe kế', 'Nguồn 230V'), 'AMMETER')
+
+    def test_metering_count_prompt_distinguishes_slash_selector_from_ammeter(self):
+        from app.services.ai.inventory_validation import COUNT_PROMPT
+        self.assertIn('không suy vòng tròn nào cũng là ampe kế', COUNT_PROMPT)
+        self.assertIn('không suy phải có cả ampe kế lẫn vôn kế', COUNT_PROMPT)
 
     def test_generic_breaker_or_meter_does_not_gain_unverified_type(self):
         devices=require_inventory('{"devices":[{"panel_code":"P","category":"CB","name":"Q1","quantity":1},{"panel_code":"P","category":"METER","name":"Đồng hồ","quantity":1}]}')

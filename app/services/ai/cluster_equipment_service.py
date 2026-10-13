@@ -43,9 +43,11 @@ class AccompanyingEquipmentService:
             if not category:
                 category = f"Phụ kiện {parent_category}" if parent_category else "Phụ kiện đi kèm"
 
-            brand = acc.get("brand") or parent_brand or ""
+            dedicated = str(category).upper() in {"SHUNT_TRIP", "UNDERVOLTAGE_RELEASE", "AUX_CONTACT"} or acc.get("requires_same_brand")
+            brand = acc.get("brand") or (parent_brand if dedicated else "") or ""
 
             formatted.append({
+                **acc,
                 "tag": acc.get("tag"),
                 "box_2d": acc.get("box_2d"),
                 "in_a": acc.get("in_a"),

@@ -53,6 +53,7 @@ Trả một JSON {"counts":[{"panel_code":"nhãn tủ","category":"CB|MCB|MCCB|R
 RCBO/RCCB có chống rò phải đếm riêng đúng nhãn, không chuyển thành MCB hoặc bỏ qua vì chưa có trong danh sách category.
 Chỉ đếm thân ký hiệu trong sơ đồ nối dây; tuyệt đối không lấy quantity từ bảng thống kê vật tư/thiết bị dù bảng ghi cùng tên tủ. Trong evidence liệt kê từng nhánh/tag đã đếm với loại và thông số của từng thân, gồm cả đầu vào và dự phòng. Không dùng tổng của hai tủ hoặc hai loại cho một nhóm. Một RCBO chỉ là một thiết bị; không đếm lại phần đóng cắt của nó vào MCB.
 Nguồn chỉ ghi CB thì dùng CB, không suy thành MCB/MCCB từ số cực. Giữ mã tủ đầy đủ, không tự rút gọn TĐ thành TD hoặc đổi tên tủ.
+PHÂN BIỆT KÝ HIỆU ĐO LƯỜNG: AMMETER chỉ khi thấy đồng hồ có chữ A/nhãn ampe hoặc dải đo dòng điện. Đồng hồ có chữ V hoặc dải 0–500V là VOLTMETER, không phải AMMETER. Vòng tròn có vạch chéo/cần gạt mà không có chữ A/V là ký hiệu chuyển mạch SELECTOR khi nối trong mạch đo; không suy vòng tròn nào cũng là ampe kế. Đèn báo có dấu chéo trong vòng tròn và nhãn R/Y/B là INDICATOR. Đọc từng thân và nhãn, không suy phải có cả ampe kế lẫn vôn kế trong mọi tủ. Nếu không có bằng chứng chữ A/dải đo dòng/đường CT cho ampe kế thì không thêm AMMETER. Trong evidence của nhóm đo lường ghi rõ chữ/ký hiệu/dải đo đã đọc.
 Không đếm một cụm đo lường thành một OTHER: đếm riêng từng đèn, đồng hồ, cầu chì, biến dòng và chuyển mạch. OTHER chỉ là thân thiết bị chưa phân loại, không phải nhóm gom nhiều loại.
 Đếm cả nhánh dự phòng có ký hiệu đóng cắt dù không ghi tag, dòng điện hoặc số cực; không tự điền thông số thiếu. Không suy ký hiệu tiếp địa thành cầu đấu hoặc thiết bị mới.
 Một ký hiệu cầu chì có hai đầu nối vẫn là một thân cầu chì: không đếm các đầu nối/cực thành quantity. Chỉ tăng số lượng nếu có các thân riêng hoặc nhãn số lượng rõ ràng. Không suy số cầu chì theo số đèn pha.
@@ -91,6 +92,11 @@ def inventory_kind(category, name='', spec=''):
         return re.sub('[^A-Z0-9]','', ''.join(c for c in value if not unicodedata.combining(c)))
     kind=key(category)
     label=key(name)
+    if kind in {'APTOMAT','CB','BREAKER'}:
+        literal = re.search(r'\b(RCBO|RCCB|MCCB|MCB|ACB)\b', str(name or '') + ' ' + str(spec or ''), re.I)
+        if literal: return literal[1].upper()
+    if kind in {'THIETBIDOLUONG','DONGHO'}: kind = 'METER'
+    if kind in {'CT','CURRENTTRANSFORMER','BIENDONG'} or ('BIENDONG' in label and kind in {'METER','TRANSFORMER'}): return 'CT'
     if kind in {'LIGHT','LAMP','PILOTLAMP','INDICATOR','INDICATORLIGHT','DENBAO'}: return 'LIGHT'
     if kind in {'VOLTMETER','VONKE'}: return 'VOLTMETER'
     if kind in {'AMMETER','AMPEKE'}: return 'AMMETER'
@@ -99,9 +105,18 @@ def inventory_kind(category, name='', spec=''):
         current=any(term in label for term in ('AMPE','AMMETER','DONGDIEN'))
         if voltage and not current: return 'VOLTMETER'
         if current and not voltage: return 'AMMETER'
+        # A literal voltage measurement range resolves a generic meter name;
+        # its auxiliary supply voltage alone does not establish its function.
+        if not current and not voltage and re.search(r'\b0\s*[-–]\s*\d+(?:[.,]\d+)?\s*V\b', str(spec or ''), re.I):
+            return 'VOLTMETER'
     if kind in {'SELECTOR','SELECTORSWITCH','CHUYENMACH','CONGTACCHONDIENAP'}: return 'SELECTOR'
     if kind in {'SWITCH','CONGTAC'} and any(term in label for term in ('CHUYENMACH','CHON','SELECTOR')): return 'SELECTOR'
     if kind in {'FUSE','CAUCHI'}: return 'FUSE'
+    canonical = ('POWER_SUPPLY','SHUNT_TRIP','UNDERVOLTAGE_RELEASE','AUX_CONTACT',
+                 'OVERLOAD_RELAY','MOTOR_PROTECTION','ALTERNATING_RELAY','ENERGY_METER',
+                 'POWER_FACTOR_CONTROLLER','LEVEL_RELAY','ATS_CONTROLLER','SOFT_STARTER')
+    for value in canonical:
+        if kind == value.replace('_',''):return value
     return kind
 
 
@@ -148,15 +163,26 @@ def merge_panel_observations(original, observations, devices):
 
 
 def count_mismatches(devices, payload):
-    actual = Counter()
-    for device in devices:
-        actual[(panel_key(device.panel_code), inventory_kind(device.category,device.name,device.spec))] += device.quantity
     differences = []
     counts = payload.get('counts') if isinstance(payload, dict) else None
     if not isinstance(counts, list) or not counts:
         raise ValueError('Không đọc được bảng kiểm đếm độc lập.')
+    source_panels = {panel_key(row.get('panel_code')): row.get('panel_code')
+                     for row in counts if isinstance(row, dict) and panel_key(row.get('panel_code'))}
+    known_panels = {panel_key(d.panel_code) for d in devices if panel_key(d.panel_code)}
+    # A repaired row may omit the sole panel identifier. Inherit only from the
+    # independent source inventory and never across multiple panel boundaries.
+    if len(source_panels) == 1 and known_panels.issubset(source_panels):
+        code = next(iter(source_panels.values()))
+        for device in devices:
+            if not panel_key(device.panel_code):
+                device.panel_code = code
+    actual = Counter()
+    for device in devices:
+        actual[(panel_key(device.panel_code), inventory_kind(device.category,device.name,device.spec))] += device.quantity
     source = Counter()
     evidence = {}
+    ambiguous_generic_counts = set()
     for row in counts:
         if not isinstance(row, dict):
             raise ValueError('Bảng kiểm đếm có dòng không hợp lệ.')
@@ -169,6 +195,9 @@ def count_mismatches(devices, payload):
             if len(types) == 1:
                 kind = next(iter(types))
         key = (panel_key(row.get('panel_code')), kind)
+        evidence_key = panel_key(row.get('evidence'))
+        if kind == 'CB' and (len(types) > 1 or any(term in evidence_key for term in ('CHUAROLOAI','KHONGROLOAI','UNKNOWNTYPE'))):
+            ambiguous_generic_counts.add(key)
         expected = row.get('quantity')
         if not key[0] or not key[1] or not isinstance(expected, int) or isinstance(expected, bool) or expected < 0:
             raise ValueError('Bảng kiểm đếm độc lập thiếu tủ, loại hoặc số lượng hợp lệ.')
@@ -179,7 +208,7 @@ def count_mismatches(devices, payload):
     # retain every explicit source subtype constraint and each panel boundary.
     breaker_types = ('MCB', 'MCCB', 'RCBO', 'RCCB')
     for panel, kind in list(source):
-        if kind != 'CB' or source[(panel, kind)] <= 0:
+        if kind != 'CB' or source[(panel, kind)] <= 0 or (panel, kind) in ambiguous_generic_counts:
             continue
         residual = actual[(panel, 'CB')]
         for subtype in breaker_types:

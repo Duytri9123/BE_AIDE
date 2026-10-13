@@ -14,6 +14,7 @@ import tempfile
 import uuid
 import time
 import asyncio
+import math
 from typing import List, Dict, Any, Optional, Tuple
 from datetime import datetime, timedelta
 from fastapi import HTTPException
@@ -118,6 +119,10 @@ class AnalysisPipelineService:
                 value = str(item.get(field) or "").strip()
                 if len(value) >= 2:
                     candidates[value.casefold()] = value
+                    if value.casefold().endswith(' electric'):
+                        short_name = value[:-len(' electric')].strip()
+                        if len(short_name) >= 2:
+                            candidates[short_name.casefold()] = value
         for normalized, display in sorted(candidates.items(), key=lambda pair: len(pair[0]), reverse=True):
             if re.search(rf"(?<!\w){re.escape(normalized)}(?!\w)", normalized_prompt):
                 return display
@@ -396,6 +401,7 @@ class AnalysisPipelineService:
 
         # Every attachment remains available as chat context. Generated artifacts
         # are kept for reference but are never re-extracted into a new BOM.
+        log_event(stage='request_review', title='Đọc yêu cầu và phạm vi hồ sơ', detail='Xác định yêu cầu kỹ thuật và các tệp cần đối chiếu trước khi bóc tách.', status='running')
         document_contexts = [DocumentContextService.extract(file_obj) for file_obj in project_files]
 
         # STAGE 1: TIẾP NHẬN VÀ THẨM ĐỊNH TỆP BẢN VẼ
@@ -435,6 +441,17 @@ class AnalysisPipelineService:
                        + "; ".join(map(str, circuit_assessment.get("source_limits") or []))
             )
 
+        from app.services.ai.takeoff_scope import plan_files
+        scope_plan = await plan_files([f for f in project_files if not getattr(f, 'is_generated', False)],
+            document_contexts, circuit_assessment, user_prompt or '', all_connections or ([active_ai] if active_ai else []), db)
+        circuit_assessment['extraction_plan'] = scope_plan
+        extraction_ids = {row['file_id'] for row in scope_plan['files'] if row['extract']}
+        for row in scope_plan['files']:
+            log_event(stage='file_context', title='Thông tin tệp: '+str(row['filename']), detail=str(row.get('summary') or row.get('role') or ''), status='success')
+        log_event(stage='extraction_scope', title='Đã xác định phạm vi bóc tách', detail=scope_plan['scope'], status='success')
+        if not extraction_ids:
+            raise HTTPException(status_code=422, detail='Chưa có tệp được xác nhận để bóc tách trong phạm vi yêu cầu.')
+        preflight_context += '\nPHẠM VI BÓC TÁCH ĐÃ XÁC ĐỊNH: '+json.dumps(scope_plan, ensure_ascii=False)
         for consideration in circuit_assessment.get("installation_considerations") or []:
             if isinstance(consideration, dict):
                 label = str(consideration.get("name") or consideration.get("component") or "").strip()
@@ -452,6 +469,10 @@ class AnalysisPipelineService:
 
         # 1. Trích xuất thiết bị từ các file bản vẽ
         for pfile in project_files:
+            if pfile.id not in extraction_ids:
+                role = next((row for row in scope_plan['files'] if row['file_id'] == pfile.id), {})
+                files_assessment.append({'file_id':pfile.id,'filename':pfile.filename,'file_size':getattr(pfile,'file_size',0),'status':'processed','devices_count':0,'is_extraction_source':False,'role':role.get('role'),'summary':role.get('summary'),'reason':'Đã đọc để đối chiếu; không bóc tách thành thiết bị trong phạm vi yêu cầu.'})
+                continue
             file_path = pfile.file_path
             if not file_path or not os.path.exists(file_path):
                 files_assessment.append({
@@ -530,6 +551,15 @@ class AnalysisPipelineService:
                         )
                         vision_prompt = append_completeness_review_instruction(vision_prompt)
                         vision_prompt = append_canonical_output_contract(vision_prompt)
+                        vision_prompt += ('\nGIAI ĐOẠN ĐỌC NGUỒN ẢNH: chỉ trả JSON hợp lệ, gọn, đầy đủ devices và thông tin tủ thực sự ghi trên ảnh; '
+                            'chưa tìm mã sản phẩm hoặc viết phân tích lựa chọn ở bước này. '
+                            'Mỗi devices có category,name,spec,tag,panel_code,panel_name,section,quantity,poles,in_a,icu_ka,connected_load. '
+                            'Spec phải giữ đủ thông số nguồn bằng chuỗi ngắn, không để rỗng nếu đọc được số cực/dòng/kA. '
+                            'Category dùng mã loại ghi trên nguồn, không đổi MCCB thành MCB vì dòng nhỏ. '
+                            'Không lấy số 2 trong 2A làm số lượng cầu chì; 3XCT là một dòng CT quantity=3. '
+                            'AS/VS là chuyển mạch riêng, A/V là đồng hồ riêng. '
+                            'Kích thước vỏ tủ không phải panel_code; không có mã thì CHUA_XAC_DINH. '
+                            'Thông số chưa đọc được để null và nêu thiếu, không tự suy từ tải. Không Markdown hoặc dấu ... .')
                         # Sử dụng ConnectionPool fallback thay vì gọi trực tiếp 1 connection
                         ai_response, used_conn = await ConnectionPoolService.call_with_fallback(
                             db=db,
@@ -540,6 +570,71 @@ class AnalysisPipelineService:
                         )
                         active_ai = used_conn  # Cập nhật active_ai cho log/warning
                         parsed_devs = ResponseParserService.parse_device_list(ai_response)
+                        from app.services.ai.source_image_evidence import oriented_source, verify_image_inventory, count_source_tiles, refine_locations, audit_crops, retry_unverified_evidence
+                        source_image = oriented_source(file_path)
+                        from app.services.ai.ocr_source_evidence import observations, grounded_boxes, supplement_selectors, reread_measurement_cluster
+                        ocr_rows, circles, markers = await asyncio.to_thread(observations, source_image)
+                        async def verify_source_image(prompt):
+                            response, _ = await ConnectionPoolService.call_with_fallback(
+                                db=db, connections=all_connections,
+                                call_fn=VisionAnalyzerService.analyze_image,
+                                image_path=file_path, prompt=prompt)
+                            return response
+                        async def verify_source_detail(prompt):
+                            import tempfile
+                            detail = source_image.copy()
+                            scale = min(2.0, 2400 / max(detail.size))
+                            if scale > 1:
+                                detail = detail.resize((round(detail.width * scale), round(detail.height * scale)), Image.Resampling.LANCZOS)
+                            with tempfile.NamedTemporaryFile(suffix='.png', delete=False) as handle:
+                                detail_path = handle.name
+                            try:
+                                detail.save(detail_path)
+                                response, _ = await ConnectionPoolService.call_with_fallback(
+                                    db=db, connections=all_connections,
+                                    call_fn=VisionAnalyzerService.analyze_image,
+                                    image_path=detail_path, prompt=prompt)
+                                return response
+                            finally:
+                                os.remove(detail_path)
+                        async def call_detail_image(image_path, prompt):
+                            response, _ = await ConnectionPoolService.call_with_fallback(
+                                db=db, connections=all_connections,
+                                call_fn=VisionAnalyzerService.analyze_image,
+                                image_path=image_path, prompt=prompt)
+                            return response
+                        async def tile_count(prompt):
+                            return await count_source_tiles(source_image, call_detail_image, prompt)
+                        async def supplement_source(devices, counts):
+                            devices = await reread_measurement_cluster(source_image, call_detail_image, devices, counts, ocr_rows)
+                            return await supplement_selectors(source_image, call_detail_image, devices, counts, markers)
+                        async def locate_detail(devices, payload):
+                            log_event(stage='source_evidence', title='Đang đối chiếu ký hiệu và thông số nguồn',
+                                detail='Kiểm tra từng nhóm ký hiệu, vị trí lộ và ảnh đối chiếu trước khi hoàn tất.', status='running')
+                            grounded = grounded_boxes(source_image, devices, ocr_rows, circles, markers)
+                            grounded_ids = {str(row['device_id']) for row in grounded['boxes']}
+                            if len(grounded_ids) == len(devices):
+                                refined = grounded
+                            else:
+                                refined = await refine_locations(source_image, call_detail_image, devices, payload)
+                                refined['boxes'] = [row for row in refined['boxes'] if str(row.get('device_id')) not in grounded_ids] + grounded['boxes']
+                            audited = await audit_crops(source_image, call_detail_image, devices, refined)
+                            if any(row.get('verified') is not True for row in audited['boxes']) or len(audited['boxes'])<len(devices):
+                                audited = await retry_unverified_evidence(source_image, call_detail_image, devices, audited)
+                            failures = [{'tag':devices[int(row['device_id'])].tag,'observed':row.get('audit_observed')}
+                                        for row in audited['boxes'] if row.get('verified') is not True]
+                            if failures:logger.warning('Source crop audit unresolved: %s', failures)
+                            return audited
+                        parsed_devs, location_payload = await verify_image_inventory(
+                            verify_source_image, vision_prompt, parsed_devs, source_image.size, verify_source_detail, tile_count, locate_detail, supplement_source)
+                        AnalysisPipelineService._apply_verified_boxes(parsed_devs, location_payload, require_symbols=True)
+                        unverified = [d for d in parsed_devs if not d.box_2d]
+                        if unverified:
+                            raise HTTPException(status_code=422, detail='Chưa hoàn tất đối chiếu ký hiệu trên ảnh nguồn: '
+                                + ', '.join(str(d.tag or d.name) for d in unverified[:8])
+                                + '. Cần ảnh rõ hơn hoặc mô hình đọc ảnh phù hợp để xác minh; chưa công bố kết quả bóc tách.')
+                        AnalysisPipelineService._attach_evidence_thumbnails(parsed_devs, file_path)
+
                         warnings.extend(ResponseParserService.extract_completeness_warnings(ai_response))
                         img_props = ResponseParserService.extract_technical_proposals(ai_response)
                         if img_props:
@@ -627,6 +722,7 @@ class AnalysisPipelineService:
                                     technical_analysis=getattr(d, "technical_analysis", None),
                                     confidence=float(d.confidence or 0.95),
                                     box_2d=getattr(d, "box_2d", None),
+                                    evidence_region=getattr(d, "evidence_region", None),
                                     evidence_image=d.evidence_image,
                                     evidence_images=getattr(d, "evidence_images", None),
                                     suggested_brands=[
@@ -648,6 +744,9 @@ class AnalysisPipelineService:
                         raise
                     except Exception as e:
                         logger.error(f"AI Vision image error: {str(e)}", exc_info=True)
+                        if isinstance(e, ValueError):
+                            raise HTTPException(status_code=422, detail=f'Chưa đối chiếu đủ ký hiệu và danh mục trong {pfile.filename}. '
+                                'Kết quả chưa được công bố; cần kiểm tra ảnh nguồn và thử lại.') from e
                         raise HTTPException(
                             status_code=502,
                             detail=f"AI Vision gặp sự cố khi phân tích ảnh {pfile.filename}: {str(e)}"
@@ -708,6 +807,7 @@ class AnalysisPipelineService:
 
             # C. File CAD (DXF & DWG)
             elif ext in ["dxf", "dwg"]:
+                file_path = CadParserService.prepare_analysis_path(file_path)
                 try:
                     cad_quick = CadParserService.parse_cad(file_path)
                     cad_evidence_result = cad_quick
@@ -896,29 +996,11 @@ class AnalysisPipelineService:
                 })
                 log_event(
                     stage="file_extraction",
-                    title=f"Trích xuất thành công: {pfile.filename}",
+                    title=f"Đang đối chiếu thông tin: {pfile.filename}",
                     detail=f"Nhận diện được {file_devs_added} thiết bị điện từ sơ đồ ({ext.upper()})",
                     status="success",
                     data={"filename": pfile.filename, "devices_count": file_devs_added, "file_id": getattr(pfile, "id", None)}
                 )
-                # PDF đã phát partial_devices theo từng trang. Ảnh/CAD cũng phát
-                # đúng cùng contract để frontend dùng chung một UI kết quả thay vì
-                # rẽ sang màn hình chỉ-hiện-kết-quả-cuối.
-                if progress_callback and ext != "pdf":
-                    try:
-                        partial_result = progress_callback(AnalysisPipelineService._partial_devices_payload(
-                            devices=file_devices,
-                            page_number=1,
-                            total_pages=1,
-                            source_type=ext,
-                            filename=pfile.filename or "",
-                            panel_code=next((d.panel_code for d in file_devices if d.panel_code), None),
-                            panel_name=next((d.panel_name for d in file_devices if d.panel_name), None),
-                        ))
-                        if asyncio.iscoroutine(partial_result):
-                            await partial_result
-                    except Exception as callback_error:
-                        logger.warning("partial_devices callback failed for %s: %s", pfile.filename, callback_error)
                 files_assessment.append({
                     "file_id": getattr(pfile, "id", None),
                     "filename": pfile.filename,
@@ -1096,7 +1178,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 await asyncio.sleep(0.35)
             log_event(
                 stage="ai_vision",
-                title="Trích xuất thành công thiết bị điện",
+                title="Đang đối chiếu danh mục thiết bị",
                 detail=f"Đã nhận diện {len(extracted_devices)} thiết bị điện từ sơ đồ bản vẽ",
                 status="success",
                 data={"total_extracted": len(extracted_devices)}
@@ -1189,7 +1271,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             title="Tra cứu Catalog để lập báo giá" if catalog_for_quotation else "Ghi nhận dữ liệu thiết bị",
             detail=(f"Đang đối chiếu thông số với {len(catalog_engine.items)} sản phẩm để lập báo giá..."
                     if catalog_for_quotation else
-                    f"Đang tổng hợp {len(extracted_devices)} thiết bị theo nguồn và yêu cầu đi kèm. Việc chọn sản phẩm sẽ thực hiện khi tạo thiết kế."),
+                    f"Đang hoàn thiện danh mục {len(extracted_devices)} thiết bị và đánh giá theo yêu cầu."),
             status="info"
         )
 
@@ -1224,6 +1306,9 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 raw_brand = str(dev.brand or '').strip()
                 dev.brand = '' if raw_brand.casefold() in {'asian', 'asia', 'oem', '-', '---'} else raw_brand
                 dev.detected_brand = dev.brand
+                from app.services.ai.device_recommendations import recommendations
+                dev.catalog_candidates = recommendations(catalog_engine, dev, requested_brand)
+                dev.technical_match_note = 'Gợi ý catalog theo thông số; chọn mã trong bảng thiết bị trước khi lập báo giá.'
                 continue
 
             cat_upper = (dev.category or "").upper()
@@ -1326,7 +1411,8 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                     }
 
             dev.catalog_matches = catalog_matches
-            dev.catalog_candidates = catalog_candidates
+            from app.services.ai.device_recommendations import recommendations
+            dev.catalog_candidates = recommendations(catalog_engine, dev, requested_brand)
             dev.catalog_references = catalog_engine.search_references(dev.category, requested_brand or dev_raw_brand or preferred_brand, dev.poles, allow_other_brands=not bool(requested_brand or dev_raw_brand), query=dev.part_number or dev.name, group_views=True)
             if not dev.catalog_references:
                 source_refs=catalog_engine.search_source_documents(dev.part_number or dev.name)
@@ -1362,19 +1448,16 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             dev.detected_brand = dev_raw_brand if has_explicit_brand else ""
 
             # 1. Ưu tiên yêu cầu người dùng nếu có chỉ định hãng
-            if requested_brand and requested_brand in catalog_matches:
+            if requested_brand and requested_brand in pool:
                 chosen_brand = preferred_brand
                 dev.selection_source = "user_request"
             # 2. Ưu tiên hãng tự nhiên do AI trích xuất được từ bản vẽ (Selec, Mikro, Emic, Mitsubishi, Schneider...)
             elif has_explicit_brand:
                 chosen_brand = dev_raw_brand
                 dev.selection_source = "drawing"
-            elif requested_brand:
-                chosen_brand = requested_brand
-                dev.selection_source = "user_request"
-            elif preferred_brand:
-                chosen_brand = preferred_brand if preferred_brand in catalog_matches else 'Asian'
-                dev.selection_source = "catalog_auto" if preferred_brand in catalog_matches else 'unspecified_brand'
+            elif preferred_brand and preferred_brand in pool:
+                chosen_brand = preferred_brand
+                dev.selection_source = "catalog_auto"
             # 3. Tự động chọn nhà cung cấp có model catalog khớp kỹ thuật nhất.
             elif pool:
                 chosen_brand = pool[0]
@@ -1444,6 +1527,26 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                         "ứng viên catalog theo thông số. Chưa xác định duy nhất mã hàng/giá."
                     )
                 device_price_map[dev.part_number or dev.name] = 0
+
+        log_event(stage="web_product_research", title="Đang phân tích và tìm thiết bị phù hợp",
+                  detail="Đối chiếu thông số kỹ thuật, chức năng và hãng sản xuất theo yêu cầu.", status="running")
+        from app.services.ai.web_device_recommendations import research_device_products
+        await research_device_products(extracted_devices,
+            all_connections or ([active_ai] if active_ai else []), db, requested_brand)
+        from app.services.ai.takeoff_scope import complete_accessories
+        await complete_accessories(extracted_devices, user_prompt or '', all_connections or ([active_ai] if active_ai else []), db)
+        unavailable = [str(d.tag or d.name) for d in extracted_devices
+                       if (d.web_research or {}).get('status') == 'search_unavailable']
+        unavailable.extend(str(a.get('name') or 'Phụ kiện') for d in extracted_devices for a in (d.accompanying_accessories or [])
+                           if (a.get('web_research') or {}).get('status') == 'search_unavailable')
+        if unavailable:
+            raise HTTPException(status_code=503, detail='Chưa hoàn tất đối chiếu thiết bị: '
+                + ', '.join(unavailable[:8]) + '. Dịch vụ tra cứu tạm thời gián đoạn; vui lòng thử lại.')
+        from app.services.ai.takeoff_device_assessment import assess_takeoff_devices
+        await assess_takeoff_devices(extracted_devices,
+            all_connections or ([active_ai] if active_ai else []), db, user_prompt or '')
+        log_event(stage="web_product_research", title="Hoàn tất phân tích và tìm thiết bị phù hợp",
+                  detail="Kết quả đề xuất đã được cập nhật. Vui lòng kiểm tra thông số và lựa chọn thiết bị phù hợp.", status="success")
 
         log_event(
             stage="catalog_matching",
@@ -2038,7 +2141,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 continue
 
     @staticmethod
-    def _apply_verified_boxes(devices: List[ExtractedDeviceSchema], payload: Any) -> None:
+    def _apply_verified_boxes(devices: List[ExtractedDeviceSchema], payload: Any, require_symbols: bool = False) -> None:
         """Join verifier results by request-local identity, never by repeated tags."""
         candidates = payload.get("boxes", []) if isinstance(payload, dict) else []
         by_id: Dict[str, list] = {}
@@ -2047,15 +2150,44 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 by_id.setdefault(str(candidate.get("device_id", "")), []).append(candidate)
         for index, device in enumerate(devices):
             device.box_2d = None
+            device.evidence_image = None
+            device.evidence_images = []
             device.evidence_region = {key: value for key, value in (getattr(device, 'evidence_region', None) or {}).items()
-                                      if key not in ('load_box_2d', 'load_verified', 'load_label', 'relationship_evidence')}
+                                      if key not in ('load_box_2d', 'load_verified', 'load_label', 'relationship_evidence', 'branch_quad', 'branch_header_separate')}
             matches = by_id.get(str(index), [])
             if len(matches) != 1 or matches[0].get("verified") is not True:
                 continue
             box = matches[0].get("box_2d")
+            if require_symbols and (matches[0].get('symbol_verified') is not True or not matches[0].get('symbol_box_2d') or not matches[0].get('text_box_2d')):
+                continue
+            if matches[0].get('symbol_verified') is False:
+                continue
+            if str(device.category).upper() == 'LIGHT' and device.quantity == 1:
+                duplicate = any(other is not device and str(other.category).upper() == 'LIGHT'
+                    and other.quantity == 1 and other.tag != device.tag
+                    and by_id.get(str(other_index), [{}])[0].get('symbol_box_2d') == matches[0].get('symbol_box_2d')
+                    for other_index, other in enumerate(devices))
+                if duplicate:
+                    continue
+            if matches[0].get('symbol_box_2d') and matches[0].get('text_box_2d'):
+                try:
+                    symbol = ExtractedDeviceSchema.normalize_evidence_box(matches[0]['symbol_box_2d'])
+                    text = ExtractedDeviceSchema.normalize_evidence_box(matches[0]['text_box_2d'])
+                except (TypeError, ValueError, OverflowError):
+                    continue
+                if not symbol or not text:
+                    continue
+                box = [min(symbol[0], text[0]), min(symbol[1], text[1]), max(symbol[2], text[2]), max(symbol[3], text[3])]
+
             try:
                 device.box_2d = ExtractedDeviceSchema.normalize_evidence_box(box)
                 device.evidence_region.update(coordinate_space='normalized_1000', box_2d=list(device.box_2d))
+                quad = matches[0].get('branch_quad')
+                if isinstance(quad, list) and len(quad) == 4 and all(
+                    isinstance(pt, list) and len(pt) == 2 and all(isinstance(v, (int, float)) and 0 <= v <= 1000 for v in pt)
+                    for pt in quad):
+                    device.evidence_region['branch_quad'] = quad
+                    device.evidence_region['branch_header_separate'] = matches[0].get('branch_header_separate') is True
                 load_box = matches[0].get('load_box_2d')
                 if matches[0].get('load_verified') is True and load_box and matches[0].get('relationship_evidence'):
                     device.evidence_region = {**(getattr(device, 'evidence_region', None) or {}),
@@ -2092,7 +2224,23 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 import math
                 endpoints = [AnalysisPipelineService._evidence_crop_pixels(endpoint, *page_image.size)
                              for endpoint in (symbol_box, load_box)]
-                if all(endpoints):
+                verified_quad = region.get('branch_quad')
+                if verified_quad:
+                    points = [(x * page_image.width / 1000, y * page_image.height / 1000) for x, y in verified_quad]
+                    tl, tr, br, bl = points
+                    out_w = round(max(math.dist(tl, tr), math.dist(bl, br)))
+                    out_h = round(max(math.dist(tl, bl), math.dist(tr, br)))
+                    if out_w > 0 and out_h > 0:
+                        crop = page_image.convert('RGB').transform((out_w, out_h), Image.Transform.QUAD,
+                            tuple(v for pt in (tl, bl, br, tr) for v in pt), resample=Image.Resampling.BICUBIC)
+                        if region.get('branch_header_separate'):
+                            header_pixels = AnalysisPipelineService._evidence_crop_pixels(symbol_box, *page_image.size)
+                            header = page_image.crop(header_pixels).convert('RGB')
+                            combined = Image.new('RGB', (max(header.width,crop.width),header.height+crop.height), 'white')
+                            combined.paste(header, ((combined.width-header.width)//2,0))
+                            combined.paste(crop, ((combined.width-crop.width)//2,header.height))
+                            crop = combined
+                elif all(endpoints):
                     centers = [((l+r)/2, (t+b)/2) for l,t,r,b in endpoints]
                     dx, dy = centers[1][0]-centers[0][0], centers[1][1]-centers[0][1]
                     length = math.hypot(dx, dy)
@@ -2158,9 +2306,14 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                     logger.warning(f"Evidence image path not found: {image_path}")
                     return
 
-            with Image.open(resolved_path) as im:
-                if im.mode in ("RGBA", "LA", "P"):
-                    im = im.convert("RGB")
+            from PIL import ImageOps
+            with Image.open(resolved_path) as opened:
+                im = ImageOps.exif_transpose(opened)
+                if im.mode in ('RGBA','LA') or (im.mode=='P' and 'transparency' in im.info):
+                    rgba=im.convert('RGBA')
+                    im=Image.alpha_composite(Image.new('RGBA',rgba.size,'white'),rgba).convert('RGB')
+                elif im.mode != 'RGB':
+                    im=im.convert('RGB')
                 w, h = im.size
                 panel_preview = im.copy()
                 panel_preview.thumbnail((1800, 1400), Image.Resampling.LANCZOS)
@@ -2193,11 +2346,17 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                         buf = io.BytesIO()
                         crop_im.save(buf, format="JPEG", quality=95)
                         dev.evidence_image = f"data:image/jpeg;base64,{base64.b64encode(buf.getvalue()).decode()}"
-                        dev.evidence_region = {
+                        dev.evidence_region = {**(getattr(dev, 'evidence_region', None) or {}),
                             "coordinate_space": "normalized_1000",
                             "box_2d": [int(value) for value in box],
                             "page": dev.source_page,
+                            "source_width": w,
+                            "source_height": h,
                         }
+                        linked = AnalysisPipelineService._linked_evidence_images(dev, im)
+                        if linked:
+                            dev.evidence_images = linked
+                            dev.evidence_image = linked[0]['evidence_image']
                     except Exception as dev_err:
                         logger.warning(f"Error cropping evidence for device {dev.name}: {dev_err}")
         except Exception as err:
@@ -3065,16 +3224,16 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 location_response = await verify_page_inventory(
                                     'Chỉ định vị ảnh đối chiếu cho danh sách cuối cùng; không sửa danh mục. '
                                     'Tìm đúng ký hiệu và nhãn riêng của từng thiết bị, không bao nhánh kế bên. '
-                                    'Bao trọn ký hiệu và mọi dòng thông số; vùng cắt dài/ngắn theo nội dung, không ép ô vuông. '
+                                    'Bắt buộc tìm hình ký hiệu điện thực sự (tiếp điểm nghiêng, cơ cấu đóng cắt, vòng tròn đồng hồ, dấu cầu chì), không chỉ chữ CB/3P/20A. Trả symbol_box_2d riêng bao hình ký hiệu và text_box_2d riêng bao nhãn; box_2d là hợp nhất hai vùng. Nếu chỉ đọc được chữ mà chưa tìm thấy hình ký hiệu thì symbol_verified=false và verified=false; tuyệt đối không gọi vùng chữ là ký hiệu. Vùng cắt không bao thiết bị nhánh bên cạnh. '
                                     'Với thiết bị nối đến tải: lần theo đúng dây/nhánh tới nhãn tải, trả thêm load_box_2d, load_label, load_verified và relationship_evidence (một câu bằng chứng cùng nhánh). '
                                     'Không coi thông số trùng nhau hoặc hàng gần nhau là bằng chứng liên kết. Không đọc rõ nhãn hay không xác nhận đường nối thì load_verified=false. '
                                     'Không đoán vị trí; không rõ thì verified=false, box_2d=null. '
-                                    'Trả JSON {"boxes":[{"device_id":0,"verified":true,"box_2d":[ymin,xmin,ymax,xmax]}]}. '
+                                    'Trả JSON {"boxes":[{"device_id":0,"verified":true,"symbol_verified":true,"symbol_box_2d":[ymin,xmin,ymax,xmax],"text_box_2d":[ymin,xmin,ymax,xmax],"box_2d":[ymin,xmin,ymax,xmax]}]}. '
                                     'Tọa độ 0..1000 theo toàn trang ảnh. Danh sách:\n' +
                                     json.dumps(final_rows, ensure_ascii=False))
                                 location_payload = next((block for block in ResponseParserService.extract_json_blocks(location_response)
                                                          if isinstance(block, dict) and isinstance(block.get('boxes'), list)), None)
-                                AnalysisPipelineService._apply_verified_boxes(parsed_devs, location_payload)
+                                AnalysisPipelineService._apply_verified_boxes(parsed_devs, location_payload, require_symbols=True)
                         except Exception as verify_error:
                             logger.warning("Evidence verification failed on page %s: %s", page_num, verify_error)
                             raise ValueError("Đối chiếu thiết bị với ảnh nguồn chưa đạt: " + str(verify_error)[:1400]) from verify_error
@@ -3212,80 +3371,11 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             extracted_devs.append(new_dev)
                             page_new_devs.append(new_dev)
 
-                        if page_new_devs:
-                            # CẬP NHẬT NGAY VÀO PHIÊN PHÂN TÍCH TRONG DB
-                            if db and project_id and persist_partial_iterations:
-                                try:
-                                    from app.models.conversation_session import ConversationSession
-                                    from app.models.analysis_iteration import AnalysisIteration
-                                    from sqlalchemy import select
-                                    sess_stmt = select(ConversationSession).where(
-                                        ConversationSession.project_id == project_id,
-                                        ConversationSession.status == "active"
-                                    ).order_by(ConversationSession.created_at.desc())
-                                    sess_res = await db.execute(sess_stmt)
-                                    active_sess = sess_res.scalars().first()
-                                    if active_sess:
-                                        active_sess.total_iterations += 1
-                                        iter_entry = AnalysisIteration(
-                                            session_id=active_sess.id,
-                                            iteration_number=active_sess.total_iterations,
-                                            trigger_type=f"partial_panel_p{page_num}",
-                                            files_analyzed={"file_name": filename, "page_number": page_num},
-                                            ai_parsed_devices=[d.model_dump() for d in extracted_devs],
-                                            confidence_scores={
-                                                "panel_code": page_panel_code,
-                                                "panel_name": page_panel_name,
-                                                "page_number": page_num,
-                                                "page_devices_count": len(page_new_devs),
-                                                "total_devices_so_far": len(extracted_devs)
-                                            }
-                                        )
-                                        db.add(iter_entry)
-                                        await db.commit()
-                                except Exception as sess_err:
-                                    logger.warning(f"Error saving partial session iteration: {sess_err}")
-
-                            # PHÁT SỰ KIỆN LOG & HIỂN THỊ THIẾT BỊ LÊN GIAO DIỆN NGAY LẬP TỨC
-                            if progress_callback:
-                                try:
-                                    p_title_display = page_panel_name or page_title or f"Tủ điện Trang {page_num}"
-                                    p_code_display = f" [{page_panel_code}]" if page_panel_code else ""
-                                    coro1 = progress_callback({
-                                        "type": "log",
-                                        "stage": "incomer_feeder",
-                                        "status": "success",
-                                        "timestamp": datetime.now().strftime("%H:%M:%S"),
-                                        "title": f"Hoàn tất Trang {page_num}: Tủ điện{p_code_display} • Đã cập nhật vào phiên (+{len(page_new_devs)} thiết bị)",
-                                    "detail": f"Trích xuất thành công {len(page_new_devs)} thiết bị điện đóng cắt & phụ tải trong {time.monotonic() - page_started_at:.1f}s. Tổng tích lũy hiện tại: {len(extracted_devs)} thiết bị.",
-                                        "data": {
-                                            "page_num": page_num,
-                                            "devices_count": len(page_new_devs),
-                                            "panel_code": page_panel_code,
-                                            "panel_name": page_panel_name
-                                        }
-                                    })
-                                    if asyncio.iscoroutine(coro1):
-                                        await coro1
-
-                                    coro2 = progress_callback(AnalysisPipelineService._partial_devices_payload(
-                                        devices=page_new_devs,
-                                        page_number=page_num,
-                                        total_pages=total_pages,
-                                        source_type="pdf",
-                                        filename=filename,
-                                        panel_code=page_panel_code,
-                                        panel_name=page_panel_name,
-                                    ))
-                                    if asyncio.iscoroutine(coro2):
-                                        await coro2
-                                except Exception as cb_err:
-                                    logger.warning(f"progress_callback error: {cb_err}")
                 except Exception as page_err:
                     logger.warning(f"Lỗi phân tích trang {page_num}: {page_err}")
                     # Preserve partial sessions, but never approve a whole-file
                     # takeoff when any selected source page could not be read.
-                    raise HTTPException(status_code=422, detail=f"Bóc tách trang chưa đạt: {filename} / trang {page_num}: {str(page_err)[:1400]}. Kết quả đã lưu chỉ là bản tạm; chưa dùng tạo thiết kế hoặc báo giá.") from page_err
+                    raise HTTPException(status_code=422, detail=f"Bóc tách trang chưa đạt: {filename} / trang {page_num}: {str(page_err)[:1400]}. Vui lòng kiểm tra ảnh nguồn và thử lại.") from page_err
                 finally:
                     if os.path.exists(temp_img_path):
                         try:
@@ -3597,6 +3687,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     selection_source=d.get("selection_source"),
                     catalog_matches=d.get("catalog_matches"),
                     catalog_candidates=d.get("catalog_candidates"),
+                    web_research=d.get("web_research"),
+                    selected_product=d.get("selected_product"),
                     catalog_references=d.get("catalog_references"),
                     part_number=d.get("part_number", ""),
                     section=d.get("section"),
@@ -3654,6 +3746,16 @@ Chỉ trả một JSON hợp lệ, không markdown:
             return actual in aliases.get(expected, {expected})
 
         for dev in extracted_devices:
+            selected = dev.selected_product or {}
+            if dev.selection_source == 'user_selected' and selected.get('price_source') == 'web_reference':
+                from app.services.ai.web_device_recommendations import public_url
+                price = selected.get('price')
+                if (selected.get('sku') == dev.part_number and selected.get('brand') == dev.brand
+                        and isinstance(price, (int, float)) and not isinstance(price, bool)
+                        and math.isfinite(price) and price > 0 and public_url(selected.get('price_url'))):
+                    device_price_map[dev.part_number] = int(price)
+                    dev.technical_match_note = f"Giá tham khảo web {int(price):,} đ; cần xác nhận VAT và nhà cung cấp. Nguồn: {selected['price_url']}"
+                    continue
             brand_to_match = (
                 resolved_brand_pref
                 if explicit_brand_preference
@@ -3702,7 +3804,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
             # A generic symbol does not establish an exact catalog model.
             # Preserve circuit evidence and leave the quote unpriced for review.
             if not dev.part_number or not catalog_engine.get_by_sku(dev.part_number):
-                if dev.selection_source != 'approved_quotation':
+                if dev.selection_source not in {'approved_quotation', 'user_selected'}:
                     dev.part_number = ""
                 dev.technical_match_note = (
                     "Chưa xác định được mã catalog từ thông số và chức năng mạch; "

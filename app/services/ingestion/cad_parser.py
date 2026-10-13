@@ -196,22 +196,32 @@ class CadParserService:
         return found_texts
 
     @staticmethod
+    def prepare_analysis_path(file_path: str) -> str:
+        from pathlib import Path
+        import hashlib
+        from ezdxf.addons import odafc
+        source = Path(file_path)
+        if source.suffix.lower() != '.dwg':
+            return str(source)
+        folder = source.parent / '.cad-analysis'
+        dest = folder / (hashlib.sha256(source.read_bytes()).hexdigest() + '.dxf')
+        if not dest.is_file():
+            if not odafc.is_installed():
+                raise CADParsingError('Cần bộ chuyển đổi DWG sang DXF trước khi phân tích. Chưa có ODA File Converter; hãy cài bộ chuyển đổi hoặc tải DXF.', {'path': str(source)})
+            folder.mkdir(parents=True, exist_ok=True)
+            odafc.convert(str(source), str(dest), version='R2018', audit=True, replace=False)
+        # A renamed DWG or invalid conversion must never reach analysis.
+        ezdxf.readfile(str(dest))
+        return str(dest)
+
+    @staticmethod
     def parse_cad(file_path: str) -> CadParseResult:
         """Đọc và trích xuất thông tin thiết bị từ file CAD (hỗ trợ cả DXF và DWG)."""
         ext = file_path.split(".")[-1].lower() if "." in file_path else ""
         if ext == "dxf":
             return CadParserService.parse_dxf(file_path)
         elif ext == "dwg":
-            texts = CadParserService.extract_strings_from_dwg(file_path)
-            devices = CadParserService.extract_devices_from_texts(texts)
-            return CadParseResult(
-                layers=[],
-                blocks=[],
-                texts=texts,
-                bounds={"min_x": 0, "min_y": 0, "max_x": 1000, "max_y": 1000, "width": 1000, "height": 1000},
-                devices=devices,
-                is_reliable=False  # DWG binary scan KHÔNG đáng tin cậy
-            )
+            return CadParserService.parse_dxf(CadParserService.prepare_analysis_path(file_path))
         else:
             return CadParseResult()
 

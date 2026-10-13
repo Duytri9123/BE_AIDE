@@ -2,13 +2,13 @@
 
 import base64
 import io
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 
 def render_evidence_overview(image_path, devices):
     """Return a data URL and legend; unlocated items remain explicitly unmarked."""
     with Image.open(image_path) as source:
-        image = source.convert("RGB")
+        image = ImageOps.exif_transpose(source).convert("RGB")
     width, height = image.size
     draw = ImageDraw.Draw(image)
     legend = []

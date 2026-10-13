@@ -171,8 +171,12 @@ Quy tắc bóc tách bắt buộc:
    - Trả về toạ độ [ymin, xmin, ymax, xmax] (chuẩn hóa 0-1000) bao quanh trọn vẹn cả KÝ HIỆU HÌNH VẼ LẪN NHÃN THÔNG SỐ của từng thiết bị.
    - Thiết bị nào đóng khung đúng ký hiệu của thiết bị đó (ví dụ VS đóng khung đúng chuyển mạch Vôn ở cụm đo lường, không đóng lệch sang aptomat nhánh hay cáp nguồn). Mỗi thiết bị có toạ độ thực tế riêng biệt.
 7. BÓC TÁCH CỤM THIẾT BỊ & PHỤ KIỆN ĐI KÈM (accompanying_accessories):
+   - Một ký hiệu có thể là một cụm chức năng: nhận diện các cấu phần có căn cứ trong chính ký hiệu/nhãn cụm và gắn vào thiết bị cha; không coi mọi ký hiệu là một món đơn lẻ, không tạo trùng cấu phần đã có dòng độc lập.
+   - Phụ kiện khách hàng yêu cầu rõ (kể cả không vẽ): ghi basis='user_request', request_quote trích nguyên văn yêu cầu, evidence='Theo yêu cầu: ...', not_drawn=true và gắn đúng cha theo tag/phạm vi. Không coi ví dụ hoặc phủ định là yêu cầu bổ sung.
+   - Shunt trip/suntrip/cuộn cắt, tiếp điểm phụ, bộ thấp áp phải đúng hãng, dòng và cỡ khung thiết bị cha; không suy điện áp cuộn nếu chưa có dữ liệu. Các thiết bị liên kết điện độc lập có thể khác hãng nếu tương thích.
+
    - MỌI phần tử có ký hiệu, nhãn hoặc nhánh độc lập trên SLD phải nằm trong `devices`, không được đưa vào danh sách này.
-   - Chỉ phân tích phụ kiện đi kèm khi có bằng chứng cụ thể ngay trên SLD qua dây nối, tiếp điểm, chú thích hoặc ký hiệu trong cùng cụm. Không được tự thêm CT, cầu chì, shunt trip, rơ-le nhiệt, khóa liên động hay bất kỳ phụ kiện nào chỉ vì chúng thường được sử dụng cùng thiết bị chính.
+   - Với phụ kiện quan sát trên bản vẽ, chỉ phân tích khi có bằng chứng cụ thể ngay trên SLD qua dây nối, tiếp điểm, chú thích hoặc ký hiệu trong cùng cụm. Không được tự thêm CT, cầu chì, shunt trip, rơ-le nhiệt, khóa liên động hay bất kỳ phụ kiện nào chỉ vì chúng thường được sử dụng cùng thiết bị chính.
    - Gắn danh sách phụ kiện vào mảng 'accompanying_accessories' của thiết bị (mỗi phụ kiện: name, spec, unit, quantity, notes, evidence). Không có evidence cụ thể thì để mảng rỗng.
    - Trường notes PHẢI giải thích lý do kỹ thuật phụ kiện cần có và quan hệ với thiết bị chính trên sơ đồ; không chỉ lặp lại tên phụ kiện.
 8. PHÂN TÍCH VÀ ĐỀ XUẤT THIẾT BỊ TƯƠNG THÍCH (technical_proposals) - BẢO TOÀN 100% SƠ ĐỒ NGUYÊN LÝ:
