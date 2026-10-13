@@ -24,7 +24,7 @@ def manufacturer_identity(profile, current, profile_path=None):
                 'brand_label':confirmed,'brand_identity_note':'Hãng được ghi trong hồ sơ thiết bị.'}
     if profile_path and EVIDENCE_PATH.is_file():
         evidence = json.loads(EVIDENCE_PATH.read_text(encoding='utf8')).get('evidence',{}).get(profile.get('id'))
-        if evidence and evidence.get('status') == 'manufacturer_label_reviewed':
+        if evidence and evidence.get('status') in {'manufacturer_label_reviewed', 'manufacturer_candidate_reviewed'}:
             view_paths = {v['id_hinh_goc']:v.get('duong_dan') for v in current.get('cad_don',[])}
             for view in evidence.get('views',[]):
                 relative = view_paths.get(view['view_id'])
@@ -33,7 +33,9 @@ def manufacturer_identity(profile, current, profile_path=None):
                 drawing = (profile_path.parent / relative).resolve()
                 if drawing.is_relative_to(profile_path.parent.resolve()) and drawing.is_file() and hashlib.sha256(drawing.read_bytes()).hexdigest() == view['sha256']:
                     maker = evidence['brand']
-                    return {'brand':maker,'brand_kind':'manufacturer','brand_identification_status':'verified',
+                    candidate = evidence['status'] == 'manufacturer_candidate_reviewed'
+                    return {'brand':maker,'brand_kind':'manufacturer_candidate' if candidate else 'manufacturer',
+                            'brand_identification_status':'candidate' if candidate else 'verified',
                             'brand_label':maker,'brand_identity_note':evidence.get('note') or 'Hãng được đọc từ nhãn CAD; cấu hình điện và mã đặt hàng được đối chiếu riêng.'}
     kind = str(profile.get('type') or current.get('ban_chat') or '').casefold()
     if any(term in kind for term in GENERIC_TYPES):

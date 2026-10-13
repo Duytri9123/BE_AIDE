@@ -23,7 +23,7 @@ class LibraryPriceMatchingTests(unittest.TestCase):
         self.assertEqual(len(configuration_links(self.device(),rows)),65)
 
     def test_unknown_brand_identity_missing_code_or_poles_stays_empty(self):
-        for device in [self.device(brand_identification_status='unknown'),self.device(product_code=None),self.device(spec={})]:
+        for device in [self.device(brand_identification_status='unknown'),self.device(brand_identification_status='candidate'),self.device(product_code=None),self.device(spec={})]:
             self.assertEqual(configuration_links(device,[self.row()]),{})
 
     def test_shared_contactor_models_and_main_poles(self):

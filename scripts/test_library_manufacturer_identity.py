@@ -24,6 +24,12 @@ class ManufacturerIdentityTests(unittest.TestCase):
                 result = manufacturer_identity({'id': 'TB-test'}, current, root / 'profile.json')
                 self.assertEqual(result['brand'], 'CHINT')
                 self.assertEqual(result['brand_identity_note'], 'Original nested block label reviewed.')
+                evidence = json.loads(registry.read_text(encoding='utf8'))
+                evidence['evidence']['TB-test']['status'] = 'manufacturer_candidate_reviewed'
+                registry.write_text(json.dumps(evidence), encoding='utf8')
+                result = manufacturer_identity({'id': 'TB-test'}, current, root / 'profile.json')
+                self.assertEqual(result['brand_identification_status'], 'candidate')
+                self.assertEqual(result['brand_kind'], 'manufacturer_candidate')
                 drawing.write_bytes(b'changed drawing')
                 result = manufacturer_identity({'id': 'TB-test'}, current, root / 'profile.json')
                 self.assertIsNone(result['brand'])

@@ -11,20 +11,23 @@ Tổng: 837 thiết bị. Có dòng giá đúng mã/cấu hình: 32.
 | CHINT | 28 | 1 |
 | CLIPSAL | 2 | 0 |
 | CML | 5 | 0 |
-| Cần bổ sung hãng | 98 | 0 |
+| Cần bổ sung hãng | 81 | 0 |
 | DELAB | 1 | 0 |
 | Deep Sea Electronics | 1 | 0 |
 | EMIC | 13 | 0 |
+| Hanyoung Nux | 4 | 0 |
+| Hanyoung Nux (ứng viên) | 13 | 0 |
 | Holley | 1 | 0 |
 | KACON | 1 | 0 |
 | KDE | 2 | 0 |
 | LS Electric | 134 | 11 |
 | Leipole | 3 | 0 |
 | LightStar | 8 | 0 |
-| MIKRO | 3 | 0 |
+| MIKRO | 4 | 0 |
 | MITEX | 1 | 0 |
 | MORELE | 2 | 0 |
-| Mitsubishi Electric | 39 | 20 |
+| Mitsubishi Electric | 38 | 20 |
+| Mitsubishi Electric (ứng viên) | 1 | 0 |
 | Nuintek | 20 | 0 |
 | O-Sung / OSEMCO | 1 | 0 |
 | Omega | 2 | 0 |
