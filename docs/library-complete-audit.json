@@ -1,8 +1,8 @@
 {
-  "checked_at": "2026-10-14T07:06:35.821394+00:00",
+  "checked_at": "2026-10-14T13:49:58.263046+00:00",
   "checked_devices": 837,
   "checked_views": 1448,
-  "linked_devices": 103,
+  "linked_devices": 121,
   "devices_with_structural_issues": 0,
   "manufacturer_status_counts": {
     "verified": 383,
@@ -10,6 +10,20 @@
     "candidate": 15,
     "source_library": 251,
     "not_applicable": 111
+  },
+  "price_status_counts": {
+    "choices_available": 121,
+    "different_poles": 7,
+    "no_device_code": 54,
+    "no_model_prices": 154,
+    "no_brand_prices": 36,
+    "unknown": 77,
+    "candidate": 15,
+    "missing_transformer_configuration": 1,
+    "source_library": 251,
+    "not_applicable": 111,
+    "no_matching_configuration": 8,
+    "incomplete_ordering_code": 2
   },
   "review_scope": "All public devices: identity metadata, view routes, source files, SVG bounds and published price links. Not visual/engineering approval.",
   "items": [
@@ -83,8 +97,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "different_poles",
+        "message": "Đã có giá dòng A2, nhưng bảng giá hiện có 2P, 3P, 4P; CAD đang xem là 1P. Cần bổ sung dòng giá đúng số cực, không dùng giá khác số cực."
       },
       "structural_issues": []
     },
@@ -368,8 +382,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · Aux_Contact · CAL5-11. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -383,8 +397,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · RCBO · DS201L. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -398,8 +412,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · RCCB · FH202. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -413,8 +427,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · RCCB · FH204. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -428,8 +442,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · SPD · OVR T1 25 255. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -443,8 +457,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · SPD · OVR T1 25 440-50. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -458,8 +472,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · SPD · OVR T1 2L 25 255. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -473,8 +487,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · SPD · OVR T1 2L 25 255 TS. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -488,8 +502,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · SPD · OVR T1 3L 25 255. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -503,8 +517,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · SPD · OVR T1 3L 25 255 TS. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -518,8 +532,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · SPD · OVR T1 3N 25 255. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -533,8 +547,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · SPD · OVR T1 3N 25 255 TS. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -548,8 +562,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · SPD · OVR T1 4L 25 255. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -563,8 +577,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · SPD · OVR T1 4L 25 255 TS. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -638,8 +652,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCB · S280UC-K. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -653,8 +667,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCB · S280UC-K. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -668,8 +682,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCB · S280UC-K. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -683,8 +697,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCB · S280UC-K. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -758,8 +772,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · T1. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -773,8 +787,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · T1. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -788,8 +802,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · T2. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -803,8 +817,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · T2. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -818,8 +832,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · T3. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -833,8 +847,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · T3. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -848,8 +862,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · T4. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -863,8 +877,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · T4. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -878,8 +892,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · T5. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -893,8 +907,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · T5. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -908,8 +922,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · T6. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -923,8 +937,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · T6. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -938,8 +952,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · T7. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -953,8 +967,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · T7. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -968,8 +982,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · T7M. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -983,8 +997,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · T7M. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -1058,8 +1072,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · Interlock · VE5-1. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -1073,8 +1087,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · Interlock · VE5-2. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -1088,8 +1102,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · XT1. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -1103,8 +1117,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · XT1. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -1118,8 +1132,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · XT2. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -1133,8 +1147,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · XT2. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -1148,8 +1162,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · XT3. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -1163,8 +1177,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · XT3. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -1178,8 +1192,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · XT4. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -1193,8 +1207,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện ABB · MCCB · XT4. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -1433,8 +1447,8 @@
       "view_count": 5,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện MIKRO · CT · ZCT120. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -1493,8 +1507,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện MORELE · CT · MSQ-125. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -1508,8 +1522,8 @@
       "view_count": 6,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện MORELE · CT · MSQ-30. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -2153,8 +2167,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_device_code",
-        "message": "Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá."
+        "status": "missing_transformer_configuration",
+        "message": "Đã phân loại là biến áp điều khiển. Cần xác nhận mã, công suất VA và điện áp sơ/thứ cấp để chọn đúng dòng giá; CAD hiện chưa ghi đủ cấu hình này."
       },
       "structural_issues": []
     },
@@ -2198,8 +2212,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện CHINT · Indicator · NP2. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -2243,8 +2257,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện CHINT · Selector · NP2. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -2258,8 +2272,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện CHINT · Relay · RJ25-CL. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -2273,8 +2287,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện CHINT · FuseAssembly · RT36-00. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -2813,8 +2827,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Hanyoung Nux · Dãy cầu đấu bắt vít · HYT-203. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -2828,8 +2842,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Hanyoung Nux · Dãy cầu đấu bắt vít · HYT-204. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -2843,8 +2857,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Hanyoung Nux · Dãy cầu đấu bắt vít · HYT30. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -2858,8 +2872,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Hanyoung Nux · Dãy cầu đấu bắt vít · HYT304. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3593,8 +3607,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · RCBO · 32KGRc. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3608,8 +3622,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · Isolator · BKD. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3623,8 +3637,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · Isolator · BKD. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3638,8 +3652,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · Isolator · BKD. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3653,8 +3667,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · Isolator · BKD. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3668,8 +3682,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCB · BKH. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3683,8 +3697,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCB · BKH. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3698,8 +3712,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCB · BKH. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3713,8 +3727,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCB · BKH. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3788,8 +3802,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCB · BKP. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3803,8 +3817,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · RCBO · BS32c. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3818,8 +3832,8 @@
       "view_count": 6,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · Contactor · MC-35 / MC-40 / MC-50 / MC-63. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3833,8 +3847,8 @@
       "view_count": 7,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · Contactor · MC-9 / MC-12 / MC-18 / MC-25 / MC-32. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3848,8 +3862,8 @@
       "view_count": 6,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · Contactor · MC-95 / MC-65 / MC-75 / MC-85. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3878,8 +3892,8 @@
       "view_count": 4,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCCB · ABN 100. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3893,8 +3907,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCCB · ABN 100. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3908,8 +3922,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCCB · ABN 100. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3923,8 +3937,8 @@
       "view_count": 4,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCCB · ABH 125. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3938,8 +3952,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCCB · ABH 125. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3953,8 +3967,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCCB · ABH 125. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3968,8 +3982,8 @@
       "view_count": 4,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCCB · ABN / ABH / ABS 250. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3983,8 +3997,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCCB · ABN / ABH / ABS 250. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -3998,8 +4012,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCCB · ABN / ABH / ABS 250. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -4013,8 +4027,8 @@
       "view_count": 5,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCCB · ABN 400. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -4028,8 +4042,8 @@
       "view_count": 4,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCCB · ABN 400. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -4043,8 +4057,8 @@
       "view_count": 4,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCCB · ABN 400. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -4058,8 +4072,8 @@
       "view_count": 5,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCCB · ABN 800. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -4073,8 +4087,8 @@
       "view_count": 4,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCCB · ABN 800. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -4088,8 +4102,8 @@
       "view_count": 4,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCCB · ABN 800. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -4103,8 +4117,8 @@
       "view_count": 4,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · ELCB · EBS 1000. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -4118,8 +4132,8 @@
       "view_count": 4,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCCB · ABS 1000. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -4133,8 +4147,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · MCCB · ABS 1000. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -4178,8 +4192,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · RCCB · RKN. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -4193,8 +4207,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · RCCB · RKN. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -4208,8 +4222,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · RCBO · RKP. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -5196,10 +5210,10 @@
       "product_code": "TD100 / TD160",
       "type": "MCCB",
       "view_count": 3,
-      "price_choice_count": 0,
+      "price_choice_count": 6,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -5213,8 +5227,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "different_poles",
+        "message": "Đã có giá dòng TD100 / TD160, nhưng bảng giá hiện có 3P, 4P; CAD đang xem là 2P. Cần bổ sung dòng giá đúng số cực, không dùng giá khác số cực."
       },
       "structural_issues": []
     },
@@ -5226,10 +5240,10 @@
       "product_code": "TD100 / TD160",
       "type": "MCCB",
       "view_count": 3,
-      "price_choice_count": 0,
+      "price_choice_count": 6,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -5256,10 +5270,10 @@
       "product_code": "TS100 / TS160 / TS250",
       "type": "MCCB",
       "view_count": 3,
-      "price_choice_count": 0,
+      "price_choice_count": 17,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -5273,8 +5287,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "different_poles",
+        "message": "Đã có giá dòng TS100 / TS160 / TS250, nhưng bảng giá hiện có 3P, 4P; CAD đang xem là 2P. Cần bổ sung dòng giá đúng số cực, không dùng giá khác số cực."
       },
       "structural_issues": []
     },
@@ -5286,10 +5300,10 @@
       "product_code": "TS100 / TS160 / TS250",
       "type": "MCCB",
       "view_count": 3,
-      "price_choice_count": 0,
+      "price_choice_count": 10,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -5301,10 +5315,10 @@
       "product_code": "TS400 / TS630",
       "type": "MCCB",
       "view_count": 3,
-      "price_choice_count": 0,
+      "price_choice_count": 8,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -5318,8 +5332,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "different_poles",
+        "message": "Đã có giá dòng TS400 / TS630, nhưng bảng giá hiện có 3P, 4P; CAD đang xem là 2P. Cần bổ sung dòng giá đúng số cực, không dùng giá khác số cực."
       },
       "structural_issues": []
     },
@@ -5331,10 +5345,10 @@
       "product_code": "TS400 / TS630",
       "type": "MCCB",
       "view_count": 3,
-      "price_choice_count": 0,
+      "price_choice_count": 4,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -5346,10 +5360,10 @@
       "product_code": "TS800",
       "type": "MCCB",
       "view_count": 3,
-      "price_choice_count": 0,
+      "price_choice_count": 4,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -5363,8 +5377,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "different_poles",
+        "message": "Đã có giá dòng TS800, nhưng bảng giá hiện có 3P, 4P; CAD đang xem là 2P. Cần bổ sung dòng giá đúng số cực, không dùng giá khác số cực."
       },
       "structural_issues": []
     },
@@ -5376,10 +5390,10 @@
       "product_code": "TS800",
       "type": "MCCB",
       "view_count": 3,
-      "price_choice_count": 0,
+      "price_choice_count": 2,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -5391,10 +5405,10 @@
       "product_code": "TS1000 / TS1250 / TS1600",
       "type": "MCCB",
       "view_count": 3,
-      "price_choice_count": 0,
+      "price_choice_count": 7,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -5406,10 +5420,10 @@
       "product_code": "TS1000 / TS1250 / TS1600",
       "type": "MCCB",
       "view_count": 3,
-      "price_choice_count": 0,
+      "price_choice_count": 6,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -5423,8 +5437,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện LS Electric · Aux Contact · UA-1. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -5573,8 +5587,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Mitsubishi Electric · MCCB · NF1250-SDW. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -5633,8 +5647,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Mitsubishi Electric · MCCB · NF1600-SDW. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -5723,8 +5737,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Mitsubishi Electric · MCCB · NF30-CS. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -5738,8 +5752,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Mitsubishi Electric · MCCB · NF30-CS. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -5858,8 +5872,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Mitsubishi Electric · MCCB · NF63-CW. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -5933,8 +5947,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Mitsubishi Electric · MCCB · NF800-SDW. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7418,8 +7432,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · RMU · CCVV-24kV. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7433,8 +7447,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · RMU · CV-24kV. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7448,8 +7462,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · RMU · CCV-24kV. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7523,8 +7537,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "incomplete_ordering_code",
+        "message": "Đã nhận diện hãng Schneider Electric và tiền tố A9D. A9D chưa phải mã đặt hàng đầy đủ; cần đọc các chữ số còn lại, loại chống rò và cấu hình điện. Nhãn 2P/4P trên mặt CAD được giữ riêng để tránh chọn nhầm RCBO/RCCB."
       },
       "structural_issues": []
     },
@@ -7538,8 +7552,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "incomplete_ordering_code",
+        "message": "Đã nhận diện hãng Schneider Electric và tiền tố A9D. A9D chưa phải mã đặt hàng đầy đủ; cần đọc các chữ số còn lại, loại chống rò và cấu hình điện. Nhãn 2P/4P trên mặt CAD được giữ riêng để tránh chọn nhầm RCBO/RCCB."
       },
       "structural_issues": []
     },
@@ -7553,8 +7567,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCB · C120. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7568,8 +7582,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCB · C120. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7583,8 +7597,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCB · C120. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7598,8 +7612,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCB · C120. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7613,8 +7627,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · CVS100. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7628,8 +7642,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · CVS100. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7643,8 +7657,8 @@
       "view_count": 4,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · CVS400. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7658,8 +7672,8 @@
       "view_count": 4,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · CVS400. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7671,10 +7685,10 @@
       "product_code": "EZC100",
       "type": "MCCB",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 2,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -7686,10 +7700,10 @@
       "product_code": "EZC100",
       "type": "MCCB",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 1,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -7701,10 +7715,10 @@
       "product_code": "EZC100",
       "type": "MCCB",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 4,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -7718,8 +7732,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "different_poles",
+        "message": "Đã có giá dòng EZC100, nhưng bảng giá hiện có 1P, 2P, 3P; CAD đang xem là 4P. Cần bổ sung dòng giá đúng số cực, không dùng giá khác số cực."
       },
       "structural_issues": []
     },
@@ -7731,10 +7745,10 @@
       "product_code": "EZC250",
       "type": "MCCB",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 1,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -7746,10 +7760,10 @@
       "product_code": "EZC250",
       "type": "MCCB",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 3,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -7761,10 +7775,10 @@
       "product_code": "EZC250",
       "type": "MCCB",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 1,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -7776,10 +7790,10 @@
       "product_code": "EZC400",
       "type": "MCCB",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 2,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -7791,10 +7805,10 @@
       "product_code": "EZC400",
       "type": "MCCB",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 2,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -7808,8 +7822,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · EZCV250. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7823,8 +7837,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · EZCV250. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7838,8 +7852,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · EZS100. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7853,8 +7867,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · EZS100. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7868,8 +7882,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · EZS100. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7883,8 +7897,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · EZS100. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7898,8 +7912,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · EZS250. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7913,8 +7927,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · EZS250. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7928,8 +7942,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · EZS250. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7943,8 +7957,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · EZS400. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -7958,8 +7972,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · EZS400. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8018,8 +8032,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "different_poles",
+        "message": "Đã có giá dòng iC60, nhưng bảng giá hiện có 1P, 2P, 3P; CAD đang xem là 4P. Cần bổ sung dòng giá đúng số cực, không dùng giá khác số cực."
       },
       "structural_issues": []
     },
@@ -8033,8 +8047,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · Contactor · iCT 1P. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8048,8 +8062,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · RCCB · iIDK. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8063,8 +8077,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · RCCB · iIDK. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8138,8 +8152,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · Contactor · LC1D25-38. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8153,8 +8167,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · Contactor · LC1D40. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8168,8 +8182,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · Contactor · LC1D40-65. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8183,8 +8197,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · Contactor · LC1D9-18. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8198,8 +8212,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · Contactor · LC1E06-18. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8213,8 +8227,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · Contactor · LC1E160. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8228,8 +8242,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · Contactor · LC1E25. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8243,8 +8257,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · Contactor · LC1E32. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8258,8 +8272,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · Contactor · LC1F115. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8273,8 +8287,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · Contactor · LC1F150. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8288,8 +8302,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · Contactor · LC1F185. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8303,8 +8317,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · Contactor · LC1F225. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8318,8 +8332,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · Contactor · LC1F265. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8333,8 +8347,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · Contactor · LC1F330. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8348,8 +8362,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · NS100. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8363,8 +8377,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · NS100. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8378,8 +8392,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · NS100. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8393,8 +8407,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · NS400. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8408,8 +8422,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · NS400. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8423,8 +8437,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · NS630b. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8438,8 +8452,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · MCCB · NS630b. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -11048,8 +11062,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Shihlin Electric · MCB · BHA. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -11063,8 +11077,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Shihlin Electric · MCB · BHA. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -11078,8 +11092,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Shihlin Electric · MCB · BHA. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -11093,8 +11107,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Shihlin Electric · MCB · BHA. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -11108,8 +11122,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Shihlin Electric · RCBO · BHL. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -11123,8 +11137,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Shihlin Electric · RCBO · BHL. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -11513,8 +11527,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện EMIC · METER · MV. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -11558,8 +11572,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện EMIC · METER · CV130/CV140. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -11573,8 +11587,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện EMIC · METER · CV130/CV140. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -11588,8 +11602,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện EMIC · METER · CV131/CV141. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -11633,8 +11647,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_matching_configuration",
-        "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · METER · PM710. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },

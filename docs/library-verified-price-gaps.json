@@ -1,8 +1,8 @@
 {
-  "linked_count": 103,
-  "verified_unlinked_count": 280,
+  "linked_count": 121,
+  "verified_unlinked_count": 262,
   "reason_counts": {
-    "related_code_only": 52,
+    "related_code_only": 34,
     "no_device_code": 55,
     "code_not_in_published_prices": 137,
     "no_brand_prices": 36
@@ -364,6 +364,66 @@
       "choices": 1
     },
     {
+      "id": "TB-9ab210cbda2e391b",
+      "brand": "LS Electric",
+      "name": "MCCB LS TD100/TD160 · 3P",
+      "choices": 6
+    },
+    {
+      "id": "TB-3749e5869d4a229b",
+      "brand": "LS Electric",
+      "name": "MCCB LS TD100/TD160 · 4P",
+      "choices": 6
+    },
+    {
+      "id": "TB-1a9cf1153b3a9d32",
+      "brand": "LS Electric",
+      "name": "MCCB LS TS100/TS160/TS250 · 3P",
+      "choices": 17
+    },
+    {
+      "id": "TB-5f2d827cb879ab2e",
+      "brand": "LS Electric",
+      "name": "MCCB LS TS100/TS160/TS250 · 4P",
+      "choices": 10
+    },
+    {
+      "id": "TB-75bd318a1e901a1a",
+      "brand": "LS Electric",
+      "name": "MCCB LS TS400/TS630 · 3P",
+      "choices": 8
+    },
+    {
+      "id": "TB-778796047f518b42",
+      "brand": "LS Electric",
+      "name": "MCCB LS TS400/TS630 · 4P",
+      "choices": 4
+    },
+    {
+      "id": "TB-0e02c7e94c961077",
+      "brand": "LS Electric",
+      "name": "MCCB LS TS800 · 3P",
+      "choices": 4
+    },
+    {
+      "id": "TB-55168af30042063d",
+      "brand": "LS Electric",
+      "name": "MCCB LS TS800 · 4P",
+      "choices": 2
+    },
+    {
+      "id": "TB-0c8e2670d0feaf67",
+      "brand": "LS Electric",
+      "name": "MCCB LS TS1000/TS1250/TS1600 · 3P",
+      "choices": 7
+    },
+    {
+      "id": "TB-57ef608c3abf2d75",
+      "brand": "LS Electric",
+      "name": "MCCB LS TS1000/TS1250/TS1600 · 4P",
+      "choices": 6
+    },
+    {
       "id": "TB-ff95536ede815844",
       "brand": "Mitsubishi Electric",
       "name": "MCB Mitsubishi BH-D6 · 1P",
@@ -524,6 +584,54 @@
       "brand": "Omron",
       "name": "Nguồn Omron S8FS-C05024J",
       "choices": 1
+    },
+    {
+      "id": "TB-2db736dd18a9914c",
+      "brand": "Schneider Electric",
+      "name": "MCCB Schneider EZC100 · 1P",
+      "choices": 2
+    },
+    {
+      "id": "TB-b26987552aa8750d",
+      "brand": "Schneider Electric",
+      "name": "MCCB Schneider EZC100 · 2P",
+      "choices": 1
+    },
+    {
+      "id": "TB-3bd2bd962e5e7024",
+      "brand": "Schneider Electric",
+      "name": "MCCB Schneider EZC100 · 3P",
+      "choices": 4
+    },
+    {
+      "id": "TB-d7052dd5a9e5de7b",
+      "brand": "Schneider Electric",
+      "name": "MCCB Schneider EZC250 · 2P",
+      "choices": 1
+    },
+    {
+      "id": "TB-07d6c18d5a6e1e83",
+      "brand": "Schneider Electric",
+      "name": "MCCB Schneider EZC250 · 3P",
+      "choices": 3
+    },
+    {
+      "id": "TB-36f4ac1bec738cea",
+      "brand": "Schneider Electric",
+      "name": "MCCB Schneider EZC250 · 4P",
+      "choices": 1
+    },
+    {
+      "id": "TB-ef7b5ab441b31e47",
+      "brand": "Schneider Electric",
+      "name": "MCCB Schneider EZC400 · 3P",
+      "choices": 2
+    },
+    {
+      "id": "TB-de932c87174f7640",
+      "brand": "Schneider Electric",
+      "name": "MCCB Schneider EZC400 · 4P",
+      "choices": 2
     },
     {
       "id": "TB-49ae8f3071f94c61",
@@ -2656,62 +2764,6 @@
       "related_price_rows": []
     },
     {
-      "id": "TB-9ab210cbda2e391b",
-      "name": "MCCB LS TD100/TD160 · 3P",
-      "brand": "LS Electric",
-      "type": "MCCB",
-      "product_code": "TD100 / TD160",
-      "reason": "related_code_only",
-      "brand_price_count": 697,
-      "related_price_rows": [
-        {
-          "id": "ls-pdf:d7f1db9a3f9f9202",
-          "sku": "TD100N FTU100 3P",
-          "item_name": "TD100N FTU100 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "50"
-          }
-        },
-        {
-          "id": "ls-pdf:7615818add32615c",
-          "sku": "TD160N FTU160 3P",
-          "item_name": "TD160N FTU160 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "50"
-          }
-        },
-        {
-          "id": "ls-pdf:747ff2a80f3093b9",
-          "sku": "TD160N FTU160 3P",
-          "item_name": "TD160N FTU160 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "50"
-          }
-        },
-        {
-          "id": "ls-pdf:d9fbdcb59a9567fe",
-          "sku": "TD100N FMU100 3P",
-          "item_name": "TD100N FMU100 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "50"
-          }
-        },
-        {
-          "id": "ls-pdf:4603e26a78df026f",
-          "sku": "TD160N FMU160 3P",
-          "item_name": "TD160N FMU160 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "50"
-          }
-        }
-      ]
-    },
-    {
       "id": "TB-300ba7d6dfff5a0f",
       "name": "MCCB LS TD100/TD160 · 2P",
       "brand": "LS Electric",
@@ -2726,7 +2778,8 @@
           "item_name": "TD100N FTU100 3P",
           "category": "MCCB",
           "specifications": {
-            "Thông tin": "50"
+            "Thông tin": "50",
+            "Họ thiết bị": "TD100"
           }
         },
         {
@@ -2735,7 +2788,8 @@
           "item_name": "TD160N FTU160 3P",
           "category": "MCCB",
           "specifications": {
-            "Thông tin": "50"
+            "Thông tin": "50",
+            "Họ thiết bị": "TD160"
           }
         },
         {
@@ -2744,7 +2798,8 @@
           "item_name": "TD160N FTU160 3P",
           "category": "MCCB",
           "specifications": {
-            "Thông tin": "50"
+            "Thông tin": "50",
+            "Họ thiết bị": "TD160"
           }
         },
         {
@@ -2753,7 +2808,8 @@
           "item_name": "TD100N FMU100 3P",
           "category": "MCCB",
           "specifications": {
-            "Thông tin": "50"
+            "Thông tin": "50",
+            "Họ thiết bị": "TD100"
           }
         },
         {
@@ -2762,63 +2818,8 @@
           "item_name": "TD160N FMU160 3P",
           "category": "MCCB",
           "specifications": {
-            "Thông tin": "50"
-          }
-        }
-      ]
-    },
-    {
-      "id": "TB-3749e5869d4a229b",
-      "name": "MCCB LS TD100/TD160 · 4P",
-      "brand": "LS Electric",
-      "type": "MCCB",
-      "product_code": "TD100 / TD160",
-      "reason": "related_code_only",
-      "brand_price_count": 697,
-      "related_price_rows": [
-        {
-          "id": "ls-pdf:d7f1db9a3f9f9202",
-          "sku": "TD100N FTU100 3P",
-          "item_name": "TD100N FTU100 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "50"
-          }
-        },
-        {
-          "id": "ls-pdf:7615818add32615c",
-          "sku": "TD160N FTU160 3P",
-          "item_name": "TD160N FTU160 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "50"
-          }
-        },
-        {
-          "id": "ls-pdf:747ff2a80f3093b9",
-          "sku": "TD160N FTU160 3P",
-          "item_name": "TD160N FTU160 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "50"
-          }
-        },
-        {
-          "id": "ls-pdf:d9fbdcb59a9567fe",
-          "sku": "TD100N FMU100 3P",
-          "item_name": "TD100N FMU100 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "50"
-          }
-        },
-        {
-          "id": "ls-pdf:4603e26a78df026f",
-          "sku": "TD160N FMU160 3P",
-          "item_name": "TD160N FMU160 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "50"
+            "Thông tin": "50",
+            "Họ thiết bị": "TD160"
           }
         }
       ]
@@ -2838,7 +2839,8 @@
           "item_name": "TD160N FTU160 3P",
           "category": "MCCB",
           "specifications": {
-            "Thông tin": "50"
+            "Thông tin": "50",
+            "Họ thiết bị": "TD160"
           }
         },
         {
@@ -2847,7 +2849,8 @@
           "item_name": "TD160N FTU160 3P",
           "category": "MCCB",
           "specifications": {
-            "Thông tin": "50"
+            "Thông tin": "50",
+            "Họ thiết bị": "TD160"
           }
         },
         {
@@ -2856,7 +2859,8 @@
           "item_name": "TD160N FMU160 3P",
           "category": "MCCB",
           "specifications": {
-            "Thông tin": "50"
+            "Thông tin": "50",
+            "Họ thiết bị": "TD160"
           }
         },
         {
@@ -2865,7 +2869,8 @@
           "item_name": "TD160N FMU160 3P",
           "category": "MCCB",
           "specifications": {
-            "Thông tin": "50"
+            "Thông tin": "50",
+            "Họ thiết bị": "TD160"
           }
         },
         {
@@ -2874,68 +2879,8 @@
           "item_name": "TD160N FTU160 4P",
           "category": "MCCB",
           "specifications": {
-            "Thông tin": "50"
-          }
-        }
-      ]
-    },
-    {
-      "id": "TB-1a9cf1153b3a9d32",
-      "name": "MCCB LS TS100/TS160/TS250 · 3P",
-      "brand": "LS Electric",
-      "type": "MCCB",
-      "product_code": "TS100 / TS160 / TS250",
-      "reason": "related_code_only",
-      "brand_price_count": 697,
-      "related_price_rows": [
-        {
-          "id": "ls-pdf:3a31c548ad8a21e0",
-          "sku": "TS1000N 3P",
-          "item_name": "TS1000N 3P",
-          "category": "MCCB",
-          "specifications": {
-            "In (A)": "1000A",
-            "Icu(KA)": "50"
-          }
-        },
-        {
-          "id": "ls-pdf:1fcb9a08fe6386e0",
-          "sku": "TS1600N 3P",
-          "item_name": "TS1600N 3P",
-          "category": "MCCB",
-          "specifications": {
-            "In (A)": "1600A",
-            "Icu(KA)": "50"
-          }
-        },
-        {
-          "id": "ls-pdf:8a4f54089a4fc7d5",
-          "sku": "TS1000H 3P",
-          "item_name": "TS1000H 3P",
-          "category": "MCCB",
-          "specifications": {
-            "In (A)": "1000A",
-            "Icu(KA)": "70"
-          }
-        },
-        {
-          "id": "ls-pdf:622991eee7af0265",
-          "sku": "TS1600H 3P",
-          "item_name": "TS1600H 3P",
-          "category": "MCCB",
-          "specifications": {
-            "In (A)": "1600A",
-            "Icu(KA)": "70"
-          }
-        },
-        {
-          "id": "ls-pdf:fb3b0c22bd04bc83",
-          "sku": "TS1000L 3P",
-          "item_name": "TS1000L 3P",
-          "category": "MCCB",
-          "specifications": {
-            "In (A)": "1000A",
-            "Icu(KA)": "150"
+            "Thông tin": "50",
+            "Họ thiết bị": "TD160"
           }
         }
       ]
@@ -2956,7 +2901,8 @@
           "category": "MCCB",
           "specifications": {
             "In (A)": "1000A",
-            "Icu(KA)": "50"
+            "Icu(KA)": "50",
+            "Họ thiết bị": "TS1000"
           }
         },
         {
@@ -2966,7 +2912,8 @@
           "category": "MCCB",
           "specifications": {
             "In (A)": "1600A",
-            "Icu(KA)": "50"
+            "Icu(KA)": "50",
+            "Họ thiết bị": "TS1600"
           }
         },
         {
@@ -2976,7 +2923,8 @@
           "category": "MCCB",
           "specifications": {
             "In (A)": "1000A",
-            "Icu(KA)": "70"
+            "Icu(KA)": "70",
+            "Họ thiết bị": "TS1000"
           }
         },
         {
@@ -2986,7 +2934,8 @@
           "category": "MCCB",
           "specifications": {
             "In (A)": "1600A",
-            "Icu(KA)": "70"
+            "Icu(KA)": "70",
+            "Họ thiết bị": "TS1600"
           }
         },
         {
@@ -2996,124 +2945,8 @@
           "category": "MCCB",
           "specifications": {
             "In (A)": "1000A",
-            "Icu(KA)": "150"
-          }
-        }
-      ]
-    },
-    {
-      "id": "TB-5f2d827cb879ab2e",
-      "name": "MCCB LS TS100/TS160/TS250 · 4P",
-      "brand": "LS Electric",
-      "type": "MCCB",
-      "product_code": "TS100 / TS160 / TS250",
-      "reason": "related_code_only",
-      "brand_price_count": 697,
-      "related_price_rows": [
-        {
-          "id": "ls-pdf:3a31c548ad8a21e0",
-          "sku": "TS1000N 3P",
-          "item_name": "TS1000N 3P",
-          "category": "MCCB",
-          "specifications": {
-            "In (A)": "1000A",
-            "Icu(KA)": "50"
-          }
-        },
-        {
-          "id": "ls-pdf:1fcb9a08fe6386e0",
-          "sku": "TS1600N 3P",
-          "item_name": "TS1600N 3P",
-          "category": "MCCB",
-          "specifications": {
-            "In (A)": "1600A",
-            "Icu(KA)": "50"
-          }
-        },
-        {
-          "id": "ls-pdf:8a4f54089a4fc7d5",
-          "sku": "TS1000H 3P",
-          "item_name": "TS1000H 3P",
-          "category": "MCCB",
-          "specifications": {
-            "In (A)": "1000A",
-            "Icu(KA)": "70"
-          }
-        },
-        {
-          "id": "ls-pdf:622991eee7af0265",
-          "sku": "TS1600H 3P",
-          "item_name": "TS1600H 3P",
-          "category": "MCCB",
-          "specifications": {
-            "In (A)": "1600A",
-            "Icu(KA)": "70"
-          }
-        },
-        {
-          "id": "ls-pdf:fb3b0c22bd04bc83",
-          "sku": "TS1000L 3P",
-          "item_name": "TS1000L 3P",
-          "category": "MCCB",
-          "specifications": {
-            "In (A)": "1000A",
-            "Icu(KA)": "150"
-          }
-        }
-      ]
-    },
-    {
-      "id": "TB-75bd318a1e901a1a",
-      "name": "MCCB LS TS400/TS630 · 3P",
-      "brand": "LS Electric",
-      "type": "MCCB",
-      "product_code": "TS400 / TS630",
-      "reason": "related_code_only",
-      "brand_price_count": 697,
-      "related_price_rows": [
-        {
-          "id": "ls-pdf:7798860487d0e77d",
-          "sku": "Barrier insulation for ABS803c/TS630",
-          "item_name": "Barrier insulation for ABS803c/TS630",
-          "category": "ACCESSORY",
-          "specifications": {
-            "Loại phụ kiện": "Tấm chắn pha: Insulation barrier"
-          }
-        },
-        {
-          "id": "ls-pdf:71767ef1a5c395a7",
-          "sku": "TS400N FTU400 3P",
-          "item_name": "TS400N FTU400 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "65"
-          }
-        },
-        {
-          "id": "ls-pdf:3c1acc47f08f48bf",
-          "sku": "TS630N FTU630 3P",
-          "item_name": "TS630N FTU630 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "65"
-          }
-        },
-        {
-          "id": "ls-pdf:2ff77b8ff5aaf211",
-          "sku": "TS400N FMU400 3P",
-          "item_name": "TS400N FMU400 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "65"
-          }
-        },
-        {
-          "id": "ls-pdf:78d79a36ce77aaa7",
-          "sku": "TS630N FMU630 3P",
-          "item_name": "TS630N FMU630 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "65"
+            "Icu(KA)": "150",
+            "Họ thiết bị": "TS1000"
           }
         }
       ]
@@ -3142,7 +2975,8 @@
           "item_name": "TS400N FTU400 3P",
           "category": "MCCB",
           "specifications": {
-            "Thông tin": "65"
+            "Thông tin": "65",
+            "Họ thiết bị": "TS400"
           }
         },
         {
@@ -3151,7 +2985,8 @@
           "item_name": "TS630N FTU630 3P",
           "category": "MCCB",
           "specifications": {
-            "Thông tin": "65"
+            "Thông tin": "65",
+            "Họ thiết bị": "TS630"
           }
         },
         {
@@ -3160,7 +2995,8 @@
           "item_name": "TS400N FMU400 3P",
           "category": "MCCB",
           "specifications": {
-            "Thông tin": "65"
+            "Thông tin": "65",
+            "Họ thiết bị": "TS400"
           }
         },
         {
@@ -3169,117 +3005,8 @@
           "item_name": "TS630N FMU630 3P",
           "category": "MCCB",
           "specifications": {
-            "Thông tin": "65"
-          }
-        }
-      ]
-    },
-    {
-      "id": "TB-778796047f518b42",
-      "name": "MCCB LS TS400/TS630 · 4P",
-      "brand": "LS Electric",
-      "type": "MCCB",
-      "product_code": "TS400 / TS630",
-      "reason": "related_code_only",
-      "brand_price_count": 697,
-      "related_price_rows": [
-        {
-          "id": "ls-pdf:7798860487d0e77d",
-          "sku": "Barrier insulation for ABS803c/TS630",
-          "item_name": "Barrier insulation for ABS803c/TS630",
-          "category": "ACCESSORY",
-          "specifications": {
-            "Loại phụ kiện": "Tấm chắn pha: Insulation barrier"
-          }
-        },
-        {
-          "id": "ls-pdf:71767ef1a5c395a7",
-          "sku": "TS400N FTU400 3P",
-          "item_name": "TS400N FTU400 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "65"
-          }
-        },
-        {
-          "id": "ls-pdf:3c1acc47f08f48bf",
-          "sku": "TS630N FTU630 3P",
-          "item_name": "TS630N FTU630 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "65"
-          }
-        },
-        {
-          "id": "ls-pdf:2ff77b8ff5aaf211",
-          "sku": "TS400N FMU400 3P",
-          "item_name": "TS400N FMU400 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "65"
-          }
-        },
-        {
-          "id": "ls-pdf:78d79a36ce77aaa7",
-          "sku": "TS630N FMU630 3P",
-          "item_name": "TS630N FMU630 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "65"
-          }
-        }
-      ]
-    },
-    {
-      "id": "TB-0e02c7e94c961077",
-      "name": "MCCB LS TS800 · 3P",
-      "brand": "LS Electric",
-      "type": "MCCB",
-      "product_code": "TS800",
-      "reason": "related_code_only",
-      "brand_price_count": 697,
-      "related_price_rows": [
-        {
-          "id": "ls-pdf:71e93054734458e4",
-          "sku": "TS800N FTU800 3P",
-          "item_name": "TS800N FTU800 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "65"
-          }
-        },
-        {
-          "id": "ls-pdf:f8b8a871c679a10c",
-          "sku": "TS800N FMU800 3P",
-          "item_name": "TS800N FMU800 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "65"
-          }
-        },
-        {
-          "id": "ls-pdf:ac3b7f53c04fc222",
-          "sku": "TS800N ATU800 3P",
-          "item_name": "TS800N ATU800 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "65"
-          }
-        },
-        {
-          "id": "ls-pdf:f298e48cdf396618",
-          "sku": "DH4 for TS800",
-          "item_name": "DH4 for TS800",
-          "category": "ACCESSORY",
-          "specifications": {}
-        },
-        {
-          "id": "ls-pdf:2fdfeb97d13188f1",
-          "sku": "TS800N FTU800 4P",
-          "item_name": "TS800N FTU800 4P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "65"
+            "Thông tin": "65",
+            "Họ thiết bị": "TS630"
           }
         }
       ]
@@ -3299,7 +3026,8 @@
           "item_name": "TS800N FTU800 3P",
           "category": "MCCB",
           "specifications": {
-            "Thông tin": "65"
+            "Thông tin": "65",
+            "Họ thiết bị": "TS800"
           }
         },
         {
@@ -3308,7 +3036,8 @@
           "item_name": "TS800N FMU800 3P",
           "category": "MCCB",
           "specifications": {
-            "Thông tin": "65"
+            "Thông tin": "65",
+            "Họ thiết bị": "TS800"
           }
         },
         {
@@ -3317,7 +3046,8 @@
           "item_name": "TS800N ATU800 3P",
           "category": "MCCB",
           "specifications": {
-            "Thông tin": "65"
+            "Thông tin": "65",
+            "Họ thiết bị": "TS800"
           }
         },
         {
@@ -3333,183 +3063,8 @@
           "item_name": "TS800N FTU800 4P",
           "category": "MCCB",
           "specifications": {
-            "Thông tin": "65"
-          }
-        }
-      ]
-    },
-    {
-      "id": "TB-55168af30042063d",
-      "name": "MCCB LS TS800 · 4P",
-      "brand": "LS Electric",
-      "type": "MCCB",
-      "product_code": "TS800",
-      "reason": "related_code_only",
-      "brand_price_count": 697,
-      "related_price_rows": [
-        {
-          "id": "ls-pdf:71e93054734458e4",
-          "sku": "TS800N FTU800 3P",
-          "item_name": "TS800N FTU800 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "65"
-          }
-        },
-        {
-          "id": "ls-pdf:f8b8a871c679a10c",
-          "sku": "TS800N FMU800 3P",
-          "item_name": "TS800N FMU800 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "65"
-          }
-        },
-        {
-          "id": "ls-pdf:ac3b7f53c04fc222",
-          "sku": "TS800N ATU800 3P",
-          "item_name": "TS800N ATU800 3P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "65"
-          }
-        },
-        {
-          "id": "ls-pdf:f298e48cdf396618",
-          "sku": "DH4 for TS800",
-          "item_name": "DH4 for TS800",
-          "category": "ACCESSORY",
-          "specifications": {}
-        },
-        {
-          "id": "ls-pdf:2fdfeb97d13188f1",
-          "sku": "TS800N FTU800 4P",
-          "item_name": "TS800N FTU800 4P",
-          "category": "MCCB",
-          "specifications": {
-            "Thông tin": "65"
-          }
-        }
-      ]
-    },
-    {
-      "id": "TB-0c8e2670d0feaf67",
-      "name": "MCCB LS TS1000/TS1250/TS1600 · 3P",
-      "brand": "LS Electric",
-      "type": "MCCB",
-      "product_code": "TS1000 / TS1250 / TS1600",
-      "reason": "related_code_only",
-      "brand_price_count": 697,
-      "related_price_rows": [
-        {
-          "id": "ls-pdf:3a31c548ad8a21e0",
-          "sku": "TS1000N 3P",
-          "item_name": "TS1000N 3P",
-          "category": "MCCB",
-          "specifications": {
-            "In (A)": "1000A",
-            "Icu(KA)": "50"
-          }
-        },
-        {
-          "id": "ls-pdf:c9bf6a2faa431ab0",
-          "sku": "TS1250N 3P",
-          "item_name": "TS1250N 3P",
-          "category": "MCCB",
-          "specifications": {
-            "In (A)": "1250A",
-            "Icu(KA)": "50"
-          }
-        },
-        {
-          "id": "ls-pdf:1fcb9a08fe6386e0",
-          "sku": "TS1600N 3P",
-          "item_name": "TS1600N 3P",
-          "category": "MCCB",
-          "specifications": {
-            "In (A)": "1600A",
-            "Icu(KA)": "50"
-          }
-        },
-        {
-          "id": "ls-pdf:8a4f54089a4fc7d5",
-          "sku": "TS1000H 3P",
-          "item_name": "TS1000H 3P",
-          "category": "MCCB",
-          "specifications": {
-            "In (A)": "1000A",
-            "Icu(KA)": "70"
-          }
-        },
-        {
-          "id": "ls-pdf:1b3e84b761dfe97a",
-          "sku": "TS1250H 3P",
-          "item_name": "TS1250H 3P",
-          "category": "MCCB",
-          "specifications": {
-            "In (A)": "1250A",
-            "Icu(KA)": "70"
-          }
-        }
-      ]
-    },
-    {
-      "id": "TB-57ef608c3abf2d75",
-      "name": "MCCB LS TS1000/TS1250/TS1600 · 4P",
-      "brand": "LS Electric",
-      "type": "MCCB",
-      "product_code": "TS1000 / TS1250 / TS1600",
-      "reason": "related_code_only",
-      "brand_price_count": 697,
-      "related_price_rows": [
-        {
-          "id": "ls-pdf:3a31c548ad8a21e0",
-          "sku": "TS1000N 3P",
-          "item_name": "TS1000N 3P",
-          "category": "MCCB",
-          "specifications": {
-            "In (A)": "1000A",
-            "Icu(KA)": "50"
-          }
-        },
-        {
-          "id": "ls-pdf:c9bf6a2faa431ab0",
-          "sku": "TS1250N 3P",
-          "item_name": "TS1250N 3P",
-          "category": "MCCB",
-          "specifications": {
-            "In (A)": "1250A",
-            "Icu(KA)": "50"
-          }
-        },
-        {
-          "id": "ls-pdf:1fcb9a08fe6386e0",
-          "sku": "TS1600N 3P",
-          "item_name": "TS1600N 3P",
-          "category": "MCCB",
-          "specifications": {
-            "In (A)": "1600A",
-            "Icu(KA)": "50"
-          }
-        },
-        {
-          "id": "ls-pdf:8a4f54089a4fc7d5",
-          "sku": "TS1000H 3P",
-          "item_name": "TS1000H 3P",
-          "category": "MCCB",
-          "specifications": {
-            "In (A)": "1000A",
-            "Icu(KA)": "70"
-          }
-        },
-        {
-          "id": "ls-pdf:1b3e84b761dfe97a",
-          "sku": "TS1250H 3P",
-          "item_name": "TS1250H 3P",
-          "category": "MCCB",
-          "specifications": {
-            "In (A)": "1250A",
-            "Icu(KA)": "70"
+            "Thông tin": "65",
+            "Họ thiết bị": "TS800"
           }
         }
       ]
@@ -4217,144 +3772,6 @@
       "related_price_rows": []
     },
     {
-      "id": "TB-2db736dd18a9914c",
-      "name": "MCCB Schneider EZC100 · 1P",
-      "brand": "Schneider Electric",
-      "type": "MCCB",
-      "product_code": "EZC100",
-      "reason": "related_code_only",
-      "brand_price_count": 135,
-      "related_price_rows": [
-        {
-          "id": "web:407825c541e9f481",
-          "sku": "EZC100B3015",
-          "item_name": "EZC100B3015",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:7724b8b1f47d4f35",
-          "sku": "EZC100F3015",
-          "item_name": "EZC100F3015",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:b857f96c780aa59f",
-          "sku": "EZC100H1015",
-          "item_name": "EZC100H1015",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:01a3d084c68d49f1",
-          "sku": "EZC100H2015",
-          "item_name": "EZC100H2015",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:486a0e91206f852b",
-          "sku": "EZC100H3015",
-          "item_name": "EZC100H3015",
-          "category": "MCCB",
-          "specifications": null
-        }
-      ]
-    },
-    {
-      "id": "TB-b26987552aa8750d",
-      "name": "MCCB Schneider EZC100 · 2P",
-      "brand": "Schneider Electric",
-      "type": "MCCB",
-      "product_code": "EZC100",
-      "reason": "related_code_only",
-      "brand_price_count": 135,
-      "related_price_rows": [
-        {
-          "id": "web:407825c541e9f481",
-          "sku": "EZC100B3015",
-          "item_name": "EZC100B3015",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:7724b8b1f47d4f35",
-          "sku": "EZC100F3015",
-          "item_name": "EZC100F3015",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:b857f96c780aa59f",
-          "sku": "EZC100H1015",
-          "item_name": "EZC100H1015",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:01a3d084c68d49f1",
-          "sku": "EZC100H2015",
-          "item_name": "EZC100H2015",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:486a0e91206f852b",
-          "sku": "EZC100H3015",
-          "item_name": "EZC100H3015",
-          "category": "MCCB",
-          "specifications": null
-        }
-      ]
-    },
-    {
-      "id": "TB-3bd2bd962e5e7024",
-      "name": "MCCB Schneider EZC100 · 3P",
-      "brand": "Schneider Electric",
-      "type": "MCCB",
-      "product_code": "EZC100",
-      "reason": "related_code_only",
-      "brand_price_count": 135,
-      "related_price_rows": [
-        {
-          "id": "web:407825c541e9f481",
-          "sku": "EZC100B3015",
-          "item_name": "EZC100B3015",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:7724b8b1f47d4f35",
-          "sku": "EZC100F3015",
-          "item_name": "EZC100F3015",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:b857f96c780aa59f",
-          "sku": "EZC100H1015",
-          "item_name": "EZC100H1015",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:01a3d084c68d49f1",
-          "sku": "EZC100H2015",
-          "item_name": "EZC100H2015",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:486a0e91206f852b",
-          "sku": "EZC100H3015",
-          "item_name": "EZC100H3015",
-          "category": "MCCB",
-          "specifications": null
-        }
-      ]
-    },
-    {
       "id": "TB-1e0536a2f6d34ed1",
       "name": "MCCB Schneider EZC100 · 4P",
       "brand": "Schneider Electric",
@@ -4368,251 +3785,55 @@
           "sku": "EZC100B3015",
           "item_name": "EZC100B3015",
           "category": "MCCB",
-          "specifications": null
+          "specifications": {
+            "Họ thiết bị": "EZC100",
+            "Số cực": "3P",
+            "In (A)": "15"
+          }
         },
         {
           "id": "web:7724b8b1f47d4f35",
           "sku": "EZC100F3015",
           "item_name": "EZC100F3015",
           "category": "MCCB",
-          "specifications": null
+          "specifications": {
+            "Họ thiết bị": "EZC100",
+            "Số cực": "3P",
+            "In (A)": "15"
+          }
         },
         {
           "id": "web:b857f96c780aa59f",
           "sku": "EZC100H1015",
           "item_name": "EZC100H1015",
           "category": "MCCB",
-          "specifications": null
+          "specifications": {
+            "Họ thiết bị": "EZC100",
+            "Số cực": "1P",
+            "In (A)": "15"
+          }
         },
         {
           "id": "web:01a3d084c68d49f1",
           "sku": "EZC100H2015",
           "item_name": "EZC100H2015",
           "category": "MCCB",
-          "specifications": null
+          "specifications": {
+            "Họ thiết bị": "EZC100",
+            "Số cực": "2P",
+            "In (A)": "15"
+          }
         },
         {
           "id": "web:486a0e91206f852b",
           "sku": "EZC100H3015",
           "item_name": "EZC100H3015",
           "category": "MCCB",
-          "specifications": null
-        }
-      ]
-    },
-    {
-      "id": "TB-d7052dd5a9e5de7b",
-      "name": "MCCB Schneider EZC250 · 2P",
-      "brand": "Schneider Electric",
-      "type": "MCCB",
-      "product_code": "EZC250",
-      "reason": "related_code_only",
-      "brand_price_count": 135,
-      "related_price_rows": [
-        {
-          "id": "web:3811c6c3afb9187a",
-          "sku": "EZC250F3100",
-          "item_name": "EZC250F3100",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:f2a2b16fad74d5d8",
-          "sku": "EZC250H2100",
-          "item_name": "EZC250H2100",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:ebdc543833adc490",
-          "sku": "EZC250H3100",
-          "item_name": "EZC250H3100",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:a50e5f7672564840",
-          "sku": "EZC250H4063",
-          "item_name": "EZC250H4063",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:cfc301a2dd992d68",
-          "sku": "EZC250N3100",
-          "item_name": "EZC250N3100",
-          "category": "MCCB",
-          "specifications": null
-        }
-      ]
-    },
-    {
-      "id": "TB-07d6c18d5a6e1e83",
-      "name": "MCCB Schneider EZC250 · 3P",
-      "brand": "Schneider Electric",
-      "type": "MCCB",
-      "product_code": "EZC250",
-      "reason": "related_code_only",
-      "brand_price_count": 135,
-      "related_price_rows": [
-        {
-          "id": "web:3811c6c3afb9187a",
-          "sku": "EZC250F3100",
-          "item_name": "EZC250F3100",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:f2a2b16fad74d5d8",
-          "sku": "EZC250H2100",
-          "item_name": "EZC250H2100",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:ebdc543833adc490",
-          "sku": "EZC250H3100",
-          "item_name": "EZC250H3100",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:a50e5f7672564840",
-          "sku": "EZC250H4063",
-          "item_name": "EZC250H4063",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:cfc301a2dd992d68",
-          "sku": "EZC250N3100",
-          "item_name": "EZC250N3100",
-          "category": "MCCB",
-          "specifications": null
-        }
-      ]
-    },
-    {
-      "id": "TB-36f4ac1bec738cea",
-      "name": "MCCB Schneider EZC250 · 4P",
-      "brand": "Schneider Electric",
-      "type": "MCCB",
-      "product_code": "EZC250",
-      "reason": "related_code_only",
-      "brand_price_count": 135,
-      "related_price_rows": [
-        {
-          "id": "web:3811c6c3afb9187a",
-          "sku": "EZC250F3100",
-          "item_name": "EZC250F3100",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:f2a2b16fad74d5d8",
-          "sku": "EZC250H2100",
-          "item_name": "EZC250H2100",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:ebdc543833adc490",
-          "sku": "EZC250H3100",
-          "item_name": "EZC250H3100",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:a50e5f7672564840",
-          "sku": "EZC250H4063",
-          "item_name": "EZC250H4063",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:cfc301a2dd992d68",
-          "sku": "EZC250N3100",
-          "item_name": "EZC250N3100",
-          "category": "MCCB",
-          "specifications": null
-        }
-      ]
-    },
-    {
-      "id": "TB-ef7b5ab441b31e47",
-      "name": "MCCB Schneider EZC400 · 3P",
-      "brand": "Schneider Electric",
-      "type": "MCCB",
-      "product_code": "EZC400",
-      "reason": "related_code_only",
-      "brand_price_count": 135,
-      "related_price_rows": [
-        {
-          "id": "web:af393becd39c2775",
-          "sku": "EZC400H3320N",
-          "item_name": "EZC400H3320N",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:3a264c43bbf72a31",
-          "sku": "EZC400H4320N",
-          "item_name": "EZC400H4320N",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:c9af2562f087721e",
-          "sku": "EZC400N3320N",
-          "item_name": "EZC400N3320N",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:e80613f0acb80a01",
-          "sku": "EZC400N4320N",
-          "item_name": "EZC400N4320N",
-          "category": "MCCB",
-          "specifications": null
-        }
-      ]
-    },
-    {
-      "id": "TB-de932c87174f7640",
-      "name": "MCCB Schneider EZC400 · 4P",
-      "brand": "Schneider Electric",
-      "type": "MCCB",
-      "product_code": "EZC400",
-      "reason": "related_code_only",
-      "brand_price_count": 135,
-      "related_price_rows": [
-        {
-          "id": "web:af393becd39c2775",
-          "sku": "EZC400H3320N",
-          "item_name": "EZC400H3320N",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:3a264c43bbf72a31",
-          "sku": "EZC400H4320N",
-          "item_name": "EZC400H4320N",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:c9af2562f087721e",
-          "sku": "EZC400N3320N",
-          "item_name": "EZC400N3320N",
-          "category": "MCCB",
-          "specifications": null
-        },
-        {
-          "id": "web:e80613f0acb80a01",
-          "sku": "EZC400N4320N",
-          "item_name": "EZC400N4320N",
-          "category": "MCCB",
-          "specifications": null
+          "specifications": {
+            "Họ thiết bị": "EZC100",
+            "Số cực": "3P",
+            "In (A)": "15"
+          }
         }
       ]
     },

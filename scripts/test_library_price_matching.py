@@ -3,6 +3,37 @@ from app.services.library_price_matching import configuration_links
 
 
 class LibraryPriceMatchingTests(unittest.TestCase):
+    def test_diagnostic_reports_actual_missing_fields_in_screenshots(self):
+        from unittest.mock import patch
+        from app.services.library_price_matching import device_price_diagnostic
+        cases=[(self.device(spec={'so_cuc':'1P'}),[self.row(specifications={'Họ thiết bị':'A2','Số cực':'2P'})],'different_poles'),
+               (self.device(brand='CHINT',type='Transformer',product_code=None),[self.row(brand='CHINT')],'missing_transformer_configuration'),
+               (self.device(brand='Schneider Electric',type='RCD',product_code='A9D'),[self.row(brand='Schneider Electric')],'incomplete_ordering_code')]
+        for device,rows,status in cases:
+            with patch('app.services.catalogtb_browser.browser_data',return_value={'items':[device]}),patch('app.services.ai.takeoff_pricebook.published_rows',return_value=rows):
+                self.assertEqual(device_price_diagnostic(device['id'])['status'],status)
+
+    def test_ls_frames_keep_boundaries_poles_and_manual_selection(self):
+        from scripts.review_mccb_family_metadata import review
+        from app.services.ai.takeoff_pricebook import match_device
+        rows=[self.row(brand='LS Electric',item_name='TD100N FTU100 3P',sku='TD100N FTU100 3P',specifications={}),
+              self.row(id='wrong-frame',brand='LS Electric',item_name='TS1000N 3P',sku='TS1000N 3P',specifications={})]
+        for row in rows:self.assertTrue(review(row))
+        device=self.device(brand='LS Electric',product_code='TD100/TD160',spec={'so_cuc':'3P'})
+        self.assertEqual(configuration_links(device,rows),{'price-A2':'TB-A2'})
+        self.assertEqual(configuration_links({**device,'spec':{'so_cuc':'2P'}},rows),{})
+        self.assertEqual(configuration_links({**device,'product_code':'TS100'},rows),{})
+        self.assertEqual(match_device({'brand':'LS Electric','category':'MCCB','part_number':'TD100','poles':3},rows)['status'],'needs_selection')
+
+    def test_ezc_order_code_restores_family_and_real_poles(self):
+        from scripts.review_mccb_family_metadata import review
+        row=self.row(brand='Schneider Electric',sku='EZC100H1015',item_name='EZC100H1015',specifications={})
+        self.assertTrue(review(row));self.assertEqual(row['specifications']['Số cực'],'1P')
+        device=self.device(brand='Schneider Electric',product_code='EZC100',spec={'so_cuc':'1P'})
+        self.assertEqual(configuration_links(device,[row]),{'price-A2':'TB-A2'})
+        self.assertEqual(configuration_links({**device,'spec':{'so_cuc':'4P'}},[row]),{})
+        self.assertFalse(review({**row,'sku':'EZC100AUX'}))
+
     def test_price_diagnostic_explains_each_identity_status_without_linking(self):
         from unittest.mock import patch
         from app.services.library_price_matching import device_price_diagnostic

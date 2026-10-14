@@ -87,6 +87,12 @@ def match_device(device, rows, *, candidate_limit=30):
                      and code == 'NP2' and re.match(r'NP2-EA\d+(?=\s|$)',label))
                  or (canonical_brand(brand) == 'Schneider Electric' and category == 'MCB'
                      and code == 'IC60' and re.match(r'IC60N(?=\s|$)',label))
+                 or (canonical_brand(brand) == 'LS Electric' and category == 'MCCB'
+                     and re.fullmatch(r'(?:TD|TS)(?:100|160|250|400|630|800|1000|1250|1600)',code)
+                     and re.match(re.escape(code)+r'[NHL](?=\s|$)',label))
+                 or (canonical_brand(brand) == 'Schneider Electric' and category == 'MCCB'
+                     and re.fullmatch(r'EZC(?:100|250|400)',code)
+                     and re.fullmatch(re.escape(code)+r'[BFHN][1-4]\d{3}N?',sku))
                  or (canonical_brand(brand) == 'Mikro' and category in {'PHASE_RELAY', 'VOLTAGE_RELAY', 'POWER_FACTOR_CONTROLLER'}
                      and re.fullmatch(r'(?:MX|PFR)\d+[A-Z]*', code) and re.match(re.escape(code)+r'-', label))))
         if selected_id:

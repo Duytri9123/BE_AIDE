@@ -57,6 +57,7 @@ def audit():
             'linked_devices':sum(bool(r['price_choice_count']) for r in records),
             'devices_with_structural_issues':sum(bool(r['structural_issues']) for r in records),
             'manufacturer_status_counts':dict(Counter(r['manufacturer_status'] for r in records)),
+            'price_status_counts':dict(Counter(r['price_diagnostic']['status'] for r in records)),
             'review_scope':'All public devices: identity metadata, view routes, source files, SVG bounds and published price links. Not visual/engineering approval.',
             'items':records}
 
@@ -64,6 +65,21 @@ def audit():
 if __name__=='__main__':
     result=audit()
     (ROOT/'docs/library-complete-audit.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
+    lines=['# Phân loại đối chiếu đủ 837 thiết bị','',
+           'Phân loại theo loại thiết bị, hãng, mã và lý do chưa đối chiếu. Có lựa chọn giá không đồng nghĩa tự chốt mã đặt hàng hoặc xác nhận hình học CAD.','',
+           '| Trạng thái | Số thiết bị |','| --- | ---: |']
+    labels={'choices_available':'Có lựa chọn giá','different_poles':'Giá cùng dòng nhưng khác số cực',
+            'no_device_code':'Chưa xác nhận mã','no_model_prices':'Chưa có giá đúng mã/loại trong dữ liệu công bố',
+            'no_brand_prices':'Chưa có giá theo nhãn hãng','unknown':'Chưa rõ hãng','candidate':'Hãng ứng viên',
+            'missing_transformer_configuration':'Biến áp thiếu mã/VA/điện áp',
+            'source_library':'Hãng theo thư viện nguồn','not_applicable':'Phụ kiện phổ thông',
+            'no_matching_configuration':'Chưa khớp cấu hình','incomplete_ordering_code':'Thiếu mã đặt hàng đầy đủ'}
+    lines += [f'| {labels.get(status,status)} | {count} |' for status,count in sorted(result['price_status_counts'].items())]
+    lines += ['', '| Thiết bị | Loại | Hãng | Mã/dòng | Lựa chọn giá | Kết quả / việc cần bổ sung |','| --- | --- | --- | --- | ---: | --- |']
+    for item in sorted(result['items'],key=lambda r:(r['brand'] or '',r['type'] or '',r['name'] or '')):
+        cells=[item['name'],item['type'],item['brand'] or 'Phụ kiện phổ thông' if item['manufacturer_status']=='not_applicable' else item['brand'] or 'Chưa xác định',item['product_code'] or 'Chưa ghi mã',item['price_choice_count'],item['price_diagnostic']['message'] or 'Có cấu hình giá để chọn; cần chốt mã đầy đủ.']
+        lines.append('| '+' | '.join(str(v or '').replace('|','/').replace('\n',' ') for v in cells)+' |')
+    (ROOT/'docs/library-classified-price-review.md').write_text('\n'.join(lines)+'\n',encoding='utf8')
     print(json.dumps({k:v for k,v in result.items() if k!='items'},ensure_ascii=False))
     for item in result['items']:
         if item['structural_issues']:print(item['id'],item['name'],item['structural_issues'])

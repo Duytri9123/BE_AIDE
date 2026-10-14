@@ -17,7 +17,7 @@ def configuration_links(device, rows):
     codes = [*codes, *((device.get('reviewed_description') or {}).get('price_family_codes') or [])]
     product_code = str(device.get('product_code') or '').strip()
     if product_code:
-        parts = re.split(r'\s+/\s+', product_code)
+        parts = re.split(r'\s*/\s*(?=(?:TD|TS)\d)', product_code) if re.fullmatch(r'(?:TD|TS)\d+(?:/(?:TD|TS)\d+)+',product_code) else re.split(r'\s+/\s+', product_code)
         prefix = re.match(r'^([^\d]+)\d', parts[0])
         expanded = [prefix[1]+part if prefix and re.match(r'^\d',part) else part for part in parts]
         codes = [*codes, *expanded]
@@ -91,6 +91,26 @@ def device_price_diagnostic(equipment_id):
     code=str(device.get('product_code') or '').strip()
     codes=(device.get('ai_identification') or {}).get('cac_ma_dong_san_pham') or []
     codes=[*codes,*((device.get('reviewed_description') or {}).get('price_family_codes') or [])]
+    if str(device.get('type') or '').upper()=='TRANSFORMER' and not code:
+        return {'status':'missing_transformer_configuration','message':'Đã phân loại là biến áp điều khiển. Cần xác nhận mã, công suất VA và điện áp sơ/thứ cấp để chọn đúng dòng giá; CAD hiện chưa ghi đủ cấu hình này.'}
     if not code and not codes:
         return {'status':'no_device_code','message':'Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá.'}
+    family_codes={str(c).upper() for c in [code,*codes] if c}
+    kind=str(device.get('type') or '').upper().replace(' ','_')
+    family_rows=[r for r in own if r.get('category')==kind and str((r.get('specifications') or {}).get('Họ thiết bị') or '').upper() in family_codes]
+    if family_rows:
+        from app.services.ai.takeoff_pricebook import _values
+        available=sorted({int(p) for r in family_rows for p in _values(r,'poles')})
+        required=str((device.get('spec') or {}).get('so_cuc') or '')
+        pole=re.fullmatch(r'(\d+)P',required,re.I)
+        if pole and available and int(pole[1]) not in available:
+            return {'status':'different_poles','message':f'Đã có giá dòng {code}, nhưng bảng giá hiện có '+', '.join(f'{p}P' for p in available)+f'; CAD đang xem là {required}. Cần bổ sung dòng giá đúng số cực, không dùng giá khác số cực.'}
+    if kind=='TRANSFORMER':
+        return {'status':'missing_transformer_configuration','message':'Đã phân loại là biến áp điều khiển. Cần xác nhận mã, công suất VA và điện áp sơ/thứ cấp để chọn đúng dòng giá; CAD hiện chưa ghi đủ cấu hình này.'}
+    if code.upper()=='A9D' and canonical_brand(device.get('brand'))=='Schneider Electric':
+        return {'status':'incomplete_ordering_code','message':'Đã nhận diện hãng Schneider Electric và tiền tố A9D. A9D chưa phải mã đặt hàng đầy đủ; cần đọc các chữ số còn lại, loại chống rò và cấu hình điện. Nhãn 2P/4P trên mặt CAD được giữ riêng để tránh chọn nhầm RCBO/RCCB.'}
+    lookup_kind={'INDICATOR':'LIGHT','PILOTLAMP':'LIGHT','SELECTOR':'SELECTOR_SWITCH','THERMALRELAY':'THERMAL_RELAY','PHASERELAY':'PHASE_RELAY'}.get(kind,kind)
+    unconstrained=[c for model in family_codes for c in match_device({'brand':device.get('brand'),'category':lookup_kind,'part_number':model},own,candidate_limit=None)['candidates']]
+    if not unconstrained:
+        return {'status':'no_model_prices','message':f'Đã nhận diện {device.get("brand")} · {device.get("type")} · {code or "/".join(sorted(family_codes))}. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị.'}
     return {'status':'no_matching_configuration','message':'Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác.'}
