@@ -33,7 +33,7 @@ def _norm(value):
 
 def _values(row, field):
     spec = row.get('specifications') or {}
-    keys = {'poles':('Số cực', 'Poles', 'so_cuc'), 'current':('In (A)', 'Dòng định mức (A)', 'Rated current (A)'),
+    keys = {'poles':('Số cực', 'Poles', 'so_cuc'), 'current':('In (A)', 'Dòng định mức (A)', 'Dòng định mức', 'Rated current (A)'),
             'icu':('Icu(KA)', 'Icu (kA)', 'Khả năng cắt và điện áp')}[field]
     text = ' '.join(str(spec.get(k) or '') for k in keys)
     if field == 'poles':
@@ -83,6 +83,10 @@ def match_device(device, rows, *, candidate_limit=30):
                   and re.fullmatch(r'BM\d+', code) and re.match(re.escape(code)+r'-[A-Z]', label))
                  or (canonical_brand(brand) == 'ABB' and category == 'THERMAL_RELAY'
                      and re.fullmatch(r'TA\d+DU',code) and re.match(re.escape(code)+r'-[\d.]',label))
+                 or (canonical_brand(brand) == 'CHINT' and category == 'PUSHBUTTON'
+                     and code == 'NP2' and re.match(r'NP2-EA\d+(?=\s|$)',label))
+                 or (canonical_brand(brand) == 'Schneider Electric' and category == 'MCB'
+                     and code == 'IC60' and re.match(r'IC60N(?=\s|$)',label))
                  or (canonical_brand(brand) == 'Mikro' and category in {'PHASE_RELAY', 'VOLTAGE_RELAY', 'POWER_FACTOR_CONTROLLER'}
                      and re.fullmatch(r'(?:MX|PFR)\d+[A-Z]*', code) and re.match(re.escape(code)+r'-', label))))
         if selected_id:
@@ -100,6 +104,11 @@ def match_device(device, rows, *, candidate_limit=30):
             continue
         source_spec = str(device.get('spec') or '')
         row_text = ' '.join([label,sku,*[str(v) for v in (row.get('specifications') or {}).values()]])
+        if device.get('pole_configuration'):
+            pole_text=' '.join([row_text,str(row.get('group') or '')])
+            notations={re.sub(r'\s+','',v).upper() for v in re.findall(r'(?<!\w)([1-4]\s*P\s*\+\s*N)(?!\w)',pole_text,re.I)}
+            if str(device['pole_configuration']).upper() not in notations:
+                continue
         requirements = [(number.replace(',', '.'),unit.upper()) for number,unit in re.findall(r'(?<![\w.])(\d+(?:[.,]\d+)?)\s*(mA|V|Hz)\b',source_spec,re.I)]
         published = {(number.replace(',', '.'),unit.upper()) for number,unit in re.findall(r'(?<![\w.])(\d+(?:[.,]\d+)?)\s*(mA|V|Hz)(?:AC|DC)?\b',row_text,re.I)}
         if any(required not in published for required in requirements):

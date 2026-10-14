@@ -3,6 +3,23 @@ from app.services.library_price_matching import configuration_links
 
 
 class LibraryPriceMatchingTests(unittest.TestCase):
+    def test_neutral_configuration_never_matches_plain_single_pole(self):
+        row=self.row(brand='Mitsubishi Electric',category='MCB',item_name='BH-DN 1P+N 6A',
+                     specifications={'Số cực':'1P+N','In (A)':'6'})
+        device=self.device(brand='Mitsubishi Electric',type='MCB',product_code='BH-DN',spec={'so_cuc':'1P+N'})
+        self.assertEqual(configuration_links(device,[row]),{'price-A2':'TB-A2'})
+        self.assertEqual(configuration_links(device,[{**row,'item_name':'BH-DN 1P 6A','specifications':{'Số cực':'1P','In (A)':'6'}}]),{})
+        self.assertEqual(configuration_links({**device,'spec':{'so_cuc':'3P+N'}},[row]),{})
+
+    def test_reviewed_np2_family_is_not_an_automatic_ordering_code(self):
+        from app.services.ai.takeoff_pricebook import match_device
+        row=self.row(brand='CHINT',category='PUSHBUTTON',sku='NP2-EA32',item_name='NP2-EA32',
+                     specifications={'Họ thiết bị':'NP2'})
+        d={'brand':'CHINT','category':'PUSHBUTTON','part_number':'NP2'}
+        self.assertEqual(match_device(d,[row])['status'],'needs_selection')
+        self.assertEqual(match_device(d,[{**row,'specifications':{}}])['status'],'not_found')
+        self.assertEqual(match_device(d,[{**row,'sku':'NP20-EA32','item_name':'NP20-EA32'}])['status'],'not_found')
+
     def test_reviewed_ls_four_pole_price_does_not_change_other_models(self):
         from scripts.review_ls_four_pole_prices import review
         row=self.row(brand='LS Electric',category='CONTACTOR',sku='MC-9a/4',item_name='MC-9a/4',specifications={})

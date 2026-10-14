@@ -33,14 +33,18 @@ def configuration_links(device, rows):
         return {}
     spec = device.get('spec') or {}
     poles_match = re.fullmatch(r'(\d+)(?:P)?', str(spec.get('so_cuc') or spec.get('so_cuc_chinh') or ''), re.I)
+    neutral_match = re.fullmatch(r'([1-4])P\+N',str(spec.get('so_cuc') or '').replace(' ',''),re.I)
     kind = str(device.get('type') or '').upper().replace(' ', '_')
-    kind = {'PILOTLAMP':'LIGHT','THERMALRELAY':'THERMAL_RELAY','PUSHBUTTON':'PUSHBUTTON',
+    kind = {'PILOTLAMP':'LIGHT','INDICATOR':'LIGHT','SELECTOR':'SELECTOR_SWITCH',
+            'PHASERELAY':'PHASE_RELAY','AUX_CONTACT':'AUX_CONTACT','AUX_CONTACTS':'AUX_CONTACT',
+            'THERMALRELAY':'THERMAL_RELAY','PUSHBUTTON':'PUSHBUTTON',
             'RƠ_LE_BẢO_VỆ_PHA':'PHASE_RELAY', 'DÃY_CẦU_ĐẤU_BẮT_VÍT':'TERMINAL_BLOCK'}.get(kind,kind)
-    if kind in {'MCB','MCCB','ACB','RCCB','RCBO'} and not poles_match:
+    if kind in {'MCB','MCCB','ACB','RCCB','RCBO'} and not (poles_match or neutral_match):
         return {}
     selected_current = spec.get('dong_dinh_muc_da_chon')
     criteria = {'category':kind, 'brand':device.get('brand'),
                 'poles':int(poles_match[1]) if poles_match else None,
+                'pole_configuration':neutral_match[0].upper() if neutral_match else None,
                 'in_a':selected_current if isinstance(selected_current,(int,float)) else None}
     identities = set()
     for code in set(codes):

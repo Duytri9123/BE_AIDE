@@ -47,6 +47,7 @@ def import_book(source):
                           else 'MCCB' if sheet.title.startswith('MCCB') else 'CONTACTOR' if sheet.title=='S-T S-N'
                           else 'THERMAL_RELAY' if sheet.title=='TH-T TH-N' else 'CB' if sheet.title=='CP'
                           else 'RELAY' if 'Relay' in sheet.title else 'METER')
+                if re.match(r'^BV-D(?:\s|$)',model):category='RCCB'
                 specs={'Mã đặt hàng':code}
                 poles=re.search(r'\b([1-4]P(?:\+N)?)\b',model)
                 current=re.search(r'\b(\d+(?:\.\d+)?)A\b',model)

@@ -27,6 +27,7 @@ def import_book(source):
                 (('NXBLE','NB1L'),'RCBO'),(('NXB','NB1','NCH8'),'MCB'),(('NM','NXM'),'MCCB'),
                 (('NA','NXA'),'ACB'),(('NXC','NC1','NC2'),'CONTACTOR'),(('NXR','NR2'),'THERMAL_RELAY'),
                 (('ND16','ND9'),'LIGHT'),(('NJS','JSS','KG316'),'TIMER'),(('NP2','NP8'),'PUSHBUTTON'),
+                (('XJ3-G',),'PHASE_RELAY'),
                 (('RT28','RT36'),'FUSE'),(('NU6','NXU'),'SPD'),(('BH','LMZ','NCT'),'CT'),
                 (('DTS','DT','DDS','DSS','PS','PA','PV','NP96','NP72'),'METER'),(('JQX','JZX','NJ','NXJ','JTX'),'RELAY'),
                 (('YBLX',),'LIMIT_SWITCH')]

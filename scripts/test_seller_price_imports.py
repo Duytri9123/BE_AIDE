@@ -6,6 +6,19 @@ from scripts.refresh_scope_gaps import sino_rows
 
 
 class SellerPriceImportTests(unittest.TestCase):
+    def test_exact_price_metadata_repair_retains_commercial_identity(self):
+        from scripts.repair_price_identity_metadata import repair
+        row={'id':'original','brand':'Mitsubishi Electric','item_name':'BV-D 2P 25A 30mA',
+             'category':'MCB','sku':'BV2P25030N','price':1759000}
+        self.assertTrue(repair(row))
+        self.assertEqual((row['category'],row['price'],row['sku'],row['id']),('RCCB',1759000,'BV2P25030N','original'))
+        other={'brand':'CHINT','sku':'XJ3-D','item_name':'XJ3-D','category':'ACCESSORY','price':1}
+        self.assertFalse(repair(other));self.assertEqual(other['category'],'ACCESSORY')
+
+    def test_omron_separator_is_not_part_of_model(self):
+        row=parse_card(self.ple('Bộ nguồn Omron-S8FS-C05024J'),'Omron','Omron','https://www.ple.vn/','today')
+        self.assertEqual((row['sku'],row['category']),('S8FS-C05024J','POWER_SUPPLY'))
+
     def ple(self, title, price='210,000 ₫'):
         return BeautifulSoup(f'<div><h2><a href="/product-detail.html">{title}</a></h2><div class="product-price"><span class="PricesalesPrice">{price}</span></div></div>','html.parser')
 

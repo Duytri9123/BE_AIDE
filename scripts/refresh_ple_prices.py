@@ -37,7 +37,7 @@ def parse_card(card, brand, source_label, collection, checked):
              and not re.fullmatch(r'(?:AC|DC)?\d+(?:[.,]\d+)?(?:/\d+)?(?:P|A|mA|V|VAC|VDC|kA|kW|kVA|kVAR|Hz|uF|nF)', t, re.I)]
     if not codes:
         return None
-    sku = codes[0]
+    sku = codes[0].lstrip('-')
     if brand == 'EMIC':
         model = re.search(r'\b(?:EM\dH\d+[A-Z]?|CV\d+[A-Z]?|CE\d+[A-Z]?|VA\d+)\b', tail, re.I)
         if not model:
@@ -49,6 +49,7 @@ def parse_card(card, brand, source_label, collection, checked):
         (r'khởi động từ|contactor', 'CONTACTOR'), (r'rơ le nhiệt|relay nhiệt', 'THERMAL_RELAY'),
         (r'bộ điều khiển tụ bù', 'POWER_FACTOR_CONTROLLER'),
         (r'biến tần', 'INVERTER'), (r'biến dòng', 'CT'), (r'cầu đấu', 'TERMINAL_BLOCK'),
+        (r'bộ nguồn|power supply', 'POWER_SUPPLY'),
         (r'tụ bù', 'CAPACITOR'), (r'đèn báo', 'LIGHT'), (r'nút nhấn', 'PUSHBUTTON'),
         (r'đồng hồ|công tơ', 'METER'), (r'rơ le|relay', 'RELAY')]
         if re.search(pattern, name, re.I)), 'ACCESSORY')
