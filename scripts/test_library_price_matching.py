@@ -3,6 +3,41 @@ from app.services.library_price_matching import configuration_links
 
 
 class LibraryPriceMatchingTests(unittest.TestCase):
+    def test_schneider_shared_body_never_mixes_four_pole_or_coil_selection(self):
+        from scripts.review_control_price_metadata import review
+        from app.services.ai.takeoff_pricebook import match_device
+        rows=[self.row(id=sku,brand='Schneider Electric',category='CONTACTOR',item_name=sku,sku=sku,specifications={})
+              for sku in ('LC1D12B7','LC1D18B7','LC1D128B7','LC1D25B7')]
+        for row in rows:self.assertTrue(review(row))
+        device=self.device(brand='Schneider Electric',type='Contactor',product_code='LC1D9-18',spec={'so_cuc':'3P'})
+        self.assertEqual(set(configuration_links(device,rows)),{'LC1D12B7','LC1D18B7'})
+        result=match_device({'brand':'Schneider Electric','category':'CONTACTOR','part_number':'LC1D12','poles':3},rows)
+        self.assertEqual(result['status'],'needs_selection')
+        self.assertFalse(result['candidates'][0]['auto_selectable'])
+
+    def test_din310_auxiliary_voltage_is_not_rated_current(self):
+        from scripts.review_control_price_metadata import review
+        from app.services.ai.takeoff_pricebook import match_device
+        row=self.row(brand='Mikro',category='RELAY',sku='DIN310-230A',item_name='DIN310-230A',specifications={'In (A)':'230'})
+        self.assertTrue(review(row));self.assertNotIn('In (A)',row['specifications'])
+        device=self.device(brand='MIKRO',type='EARTH_LEAKAGE_RELAY',product_code='DIN310',spec={})
+        self.assertEqual(configuration_links(device,[row]),{'price-A2':'TB-A2'})
+        self.assertEqual(configuration_links({**device,'type':'PHASE_RELAY'},[row]),{})
+        self.assertEqual(match_device({'brand':'MIKRO','category':'EARTH_LEAKAGE_RELAY','part_number':'DIN310','in_a':230},[row])['status'],'not_found')
+
+    def test_control_metadata_keeps_auxiliary_type_and_switched_neutral(self):
+        from scripts.review_control_price_metadata import review
+        aux=self.row(brand='LS Electric',category='CONTACTOR',item_name='UA-1 (bên hông)',sku='UA-1 (bên hông)')
+        self.assertTrue(review(aux));self.assertEqual(aux['category'],'AUX_CONTACT')
+        device=self.device(brand='LS Electric',type='Aux Contact',product_code='UA-1',spec={})
+        self.assertEqual(configuration_links(device,[aux]),{'price-A2':'TB-A2'})
+        self.assertEqual(configuration_links({**device,'type':'Contactor'},[aux]),{})
+        row=self.row(brand='Mitsubishi Electric',category='MCB',item_name='BH-DN 1PN 6A C',sku='DN006CN',specifications={})
+        self.assertTrue(review(row))
+        device=self.device(brand='Mitsubishi Electric',type='MCB',product_code='BH-DN',spec={'so_cuc':'1P+N'})
+        self.assertEqual(configuration_links(device,[row]),{'price-A2':'TB-A2'})
+        self.assertEqual(configuration_links({**device,'spec':{'so_cuc':'2P'}},[row]),{})
+
     def test_diagnostic_reports_actual_missing_fields_in_screenshots(self):
         from unittest.mock import patch
         from app.services.library_price_matching import device_price_diagnostic

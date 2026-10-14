@@ -29,6 +29,9 @@ def configuration_links(device, rows):
             codes += [part if part.startswith('BM') else 'BM'+part for part in product_code.split('/')]
         if canonical_brand(device.get('brand')) == 'Hanyoung Nux' and re.fullmatch(r'HYT\d{3,4}', product_code):
             codes.append('HYT-'+product_code[3:])
+        if canonical_brand(device.get('brand'))=='Schneider Electric':
+            codes += {'LC1D9-18':['LC1D09','LC1D12','LC1D18'],
+                      'LC1D25-38':['LC1D25','LC1D32','LC1D38']}.get(product_code.upper(),[])
     if not codes:
         return {}
     spec = device.get('spec') or {}

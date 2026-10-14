@@ -868,25 +868,22 @@
     },
     "TB-c02623ff6b0d78b7": {
       "brand": "MIKRO",
-      "status": "manufacturer_candidate_reviewed",
-      "review_date": "2026-10-14",
-      "basis": "Manual visual comparison of CAD fascia against original manufacturer product photograph and catalogue; manufacturer/family only, no ordering code approval.",
-      "family": "DIN330 / MU250",
-      "sources": [
-        "https://itmikro.com.my/wp-content/uploads/2020/08/Mikro-Catalogue-High-Quality-Print-V5-CMYK.pdf"
-      ],
-      "note": "Hãng ứng viên Mikro: mặt CAD có LED số và bốn phím tương tự dòng DIN330/MU250; chưa phân biệt được chức năng rò đất hay giám sát điện áp. Không dùng lấy giá tự động.",
-      "library_description": {
-        "display": "Rơ le số · cần đối chiếu chức năng",
-        "type": "RELAY",
-        "use": "Cần đọc mã trên nhãn thiết bị để phân biệt bảo vệ dòng rò với giám sát điện áp."
-      },
+      "status": "manufacturer_label_reviewed",
       "views": [
         {
           "view_id": "C05_cluster1-V006",
           "sha256": "a73ac38c626f777ddaa290016b1feab4e85bebd79180e250b8cf485c6e904706"
         }
-      ]
+      ],
+      "basis": "Exact DXF lettering reviewed; DIN310 matched to original Mikro user manual where maker is implicit.",
+      "note": "Hãng/mã được đối chiếu từ chữ trong CAD; cấu hình điện và mã đặt hàng đầy đủ được chọn riêng.",
+      "library_description": {
+        "display": "Rơ le bảo vệ dòng rò MIKRO DIN310",
+        "type": "EARTH_LEAKAGE_RELAY",
+        "product_code": "DIN310",
+        "manufacturer_document": "https://itmikro.com.my/wp-content/uploads/2020/08/din310_man-1.pdf",
+        "use": "Đo dòng rò qua ZCT và phát lệnh cắt. Đây là rơ le dòng rò, không phải bộ giám sát pha."
+      }
     },
     "TB-5d645048468ae080": {
       "brand": "MIKRO",
@@ -942,6 +939,41 @@
           "sha256": "d1577eed7b6a0494048ce70f17f1f59577353ef2296e0c717794ca1337ea165f"
         }
       ]
+    },
+    "TB-7cc48f9630399020": {
+      "brand": "IDEC",
+      "status": "manufacturer_label_reviewed",
+      "views": [
+        {
+          "view_id": "C03_cluster5-V005",
+          "sha256": "5df57161e53871c459ba7a9f202f43f6e10ffe2b009b2f4d3da602cd75309c50"
+        }
+      ],
+      "basis": "Exact DXF lettering reviewed; DIN310 matched to original Mikro user manual where maker is implicit.",
+      "note": "Hãng/mã được đối chiếu từ chữ trong CAD; cấu hình điện và mã đặt hàng đầy đủ được chọn riêng.",
+      "library_description": {
+        "display": "Công tắc xoay IDEC · chưa rõ mã",
+        "type": "SELECTOR_SWITCH",
+        "use": "Chọn chế độ điều khiển. SW0.1 là nhãn trên CAD, chưa xác nhận mã đặt hàng."
+      }
+    },
+    "TB-043714973953d640": {
+      "brand": "RISESUN",
+      "status": "manufacturer_label_reviewed",
+      "views": [
+        {
+          "view_id": "front",
+          "sha256": "71f99ece9fb67d1b6f6a586905a4711032ebe8b2bfcca45a40023f4fcac77a3c"
+        }
+      ],
+      "basis": "Exact DXF lettering reviewed; DIN310 matched to original Mikro user manual where maker is implicit.",
+      "note": "Hãng/mã được đối chiếu từ chữ trong CAD; cấu hình điện và mã đặt hàng đầy đủ được chọn riêng.",
+      "library_description": {
+        "display": "Cụm cầu chì RISESUN RT18-32",
+        "type": "FUSE",
+        "product_code": "RT18-32",
+        "use": "Bảo vệ bằng cầu chì; CAD ghi RT18-32, 32A, 690V và 10×38. Cần xác nhận mã và nguồn giá thực tế."
+      }
     }
   }
 }

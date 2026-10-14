@@ -181,7 +181,7 @@ def _build_browser_data():
         from .library_manufacturer_identity import manufacturer_identity
         profile.update(manufacturer_identity(profile, current, path))
         reviewed = profile.get('reviewed_description') or {}
-        for key in ('display', 'type', 'use'):
+        for key in ('display', 'type', 'use', 'product_code', 'manufacturer_document'):
             if reviewed.get(key):
                 profile[key] = reviewed[key]
         profiles.append(profile)

@@ -1,32 +1,47 @@
 # Đối chiếu toàn bộ thư viện thiết bị
 
+## Rà chữ bên trong toàn bộ DXF và sửa dữ liệu điều khiển
+
+Đã đọc đủ 837 CAD và 1.448 file DXF, gồm TEXT/MTEXT, thuộc tính INSERT và chữ trong block lồng nhau. Không có lỗi trích xuất. Đây là rà dữ liệu chữ, chưa phải đọc bằng mắt mọi logo được vẽ bằng đường nét. [Bằng chứng chữ và SHA256 từng mặt](library-dxf-identity-audit.json).
+
+- Thêm xác nhận IDEC từ nhãn chữ ở mặt bên; SW0.1 không được biến thành mã đặt hàng.
+- Thêm xác nhận nhãn RISESUN và mã RT18-32 từ chữ trong CAD; chưa có nguồn giá của RISESUN, không lấy giá RT18-32 của hãng khác.
+- Xác nhận DIN310 là rơ le dòng rò Mikro theo manual hãng, sửa tên/loại đang bị ghi thành giám sát pha. Dòng giá DIN310-230A được sửa điện áp phụ trợ 230V AC, loại bỏ giá trị sai In=230A; giá và ID không thay đổi.
+- LS UA-1 được sửa từ CONTACTOR thành AUX_CONTACT. Mitsubishi BH-DN được ghi rõ 1P+N theo bảng thông số hãng. Schneider LC1D khớp mã thân cho nhóm CAD chung 9–18 và 25–38; LC1D098/128 là 4P, không đưa vào CAD 3P. Điện áp cuộn hút chưa được chọn tự động.
+
+Tăng thêm 5 CAD có lựa chọn giá: tổng 126/837, còn 711. Hãng xác nhận 386, chưa rõ 75, ứng viên 14, theo thư viện nguồn 251, phụ kiện phổ thông 111. Trong 711: 151 chưa có giá đúng mã/loại; 55 chưa xác nhận mã; 37 chưa có giá theo nhãn hãng; 7 khác số cực; 7 chưa khớp cấu hình; 2 A9D thiếu mã đầy đủ; 1 biến áp thiếu cấu hình; cùng các nhóm hãng nguồn/ứng viên/chưa rõ/phụ kiện nêu trên.
+
+Toàn bộ 251 CAD theo thư viện nguồn không có TEXT/MTEXT/thuộc tính chữ nhận diện trong các DXF kiểm tra. Tên block có mã gợi ý vẫn được giữ, nhưng không xem đó là chữ trên thiết bị hoặc tự xác nhận mã đặt hàng. Các logo dạng đường nét cần đối chiếu hình hoặc bản vẽ hãng riêng.
+
+Kiểm thử: 53 kiểm tra đạt, gồm trích xuất block lồng nhau, ngăn vòng lặp block, giữ đúng số cực và không tự chọn điện áp cuộn hút. [Manual DIN310 của Mikro](https://itmikro.com.my/wp-content/uploads/2020/08/din310_man-1.pdf), [BH-DN của Mitsubishi](https://www.mitsubishielectric.com/fa/sg_en/products/faspec/detail.page?category=ex&formNm=MCB_BH-DN_4892&id=spec&kisyu=%2Flvcb&lang=2), [UA-1 của LS](https://gics.ls-electric.com/knowledgeBase/user/detail.do?baseId=170).
+
 ## Sửa đối chiếu mã khung và phân loại ngày 14/10/2026 (đợt tiếp theo)
 
-Sửa metadata của 70 dòng LS TD/TS và 16 dòng Schneider EZC, giữ nguyên ID và giá. Khớp theo mã khung đã được đối chiếu, loại thiết bị và số cực; hậu tố N/H/L, bộ trip và dòng điện vẫn phải được chọn. Không nhận TS1000 là TS100. 18 CAD có thêm lựa chọn giá (LS +10, Schneider +8); tổng 121, còn 716 chưa có lựa chọn phù hợp.
+Đợt trước sửa metadata của 70 dòng LS TD/TS và 16 dòng Schneider EZC, giữ nguyên ID và giá. Khớp theo mã khung đã được đối chiếu, loại thiết bị và số cực; hậu tố N/H/L, bộ trip và dòng điện vẫn phải được chọn. Không nhận TS1000 là TS100. Đợt đó thêm 18 CAD có lựa chọn giá (LS +10, Schneider +8); sau đợt đọc chữ DXF ở trên, tổng là 126, còn 711.
 
 - ABB A2 · 1P: đã có giá A2 nhưng dữ liệu hiện là 2P/3P/4P; báo rõ khác số cực.
 - Transformer CHINT: đã phân loại biến áp điều khiển, thiếu mã, VA và điện áp sơ/thứ cấp. NDK là dòng tham khảo có tài liệu, chưa gán thành mã của CAD từ hình dạng.
 - Schneider A9D: đã nhận diện hãng và tiền tố, còn thiếu mã đầy đủ và xác nhận cấu hình chống rò; giữ nhãn CAD riêng.
 
-[Bảng phân loại từng thiết bị trong toàn bộ 837 CAD](library-classified-price-review.md). Tách 716 trường hợp: 154 chưa có giá đúng mã/loại trong dữ liệu công bố; 54 chưa xác nhận mã; 36 chưa có giá theo nhãn hãng; 7 khác số cực; 8 chưa khớp cấu hình; 2 A9D thiếu mã đầy đủ; 1 biến áp thiếu cấu hình; 251 hãng theo thư viện nguồn; 77 chưa rõ hãng; 15 hãng ứng viên; 111 phụ kiện phổ thông.
+[Bảng phân loại từng thiết bị trong toàn bộ 837 CAD](library-classified-price-review.md) đã cập nhật theo 711 trường hợp còn thiếu ở đợt đọc chữ DXF.
 
 Nguồn đối chiếu: [LS Susol MCCB](https://www.ls-electric.com/ko/cat/%5BSusol%20MCCB%5D_Catalog_EN_202006.pdf), [Schneider EZC100H1015 1P](https://www.se.com/ph/en/product/EZC100H1015/circuit-breaker-easypact-ezc100h-tmd-15-a-1-pole-1d/), [Schneider EZC400H4320N 4P](https://www.se.com/in/en/product/EZC400H4320N/circuit-breaker-easypact-ezc400h-tmd-320-a-4-poles-3d/), [CHINT NDK](https://www.chintglobal.com/in/en/products/low-voltage/iec/industrial-control/ndk.html).
 
-Cập nhật 14/10/2026: 837 thiết bị; 121 thiết bị có lựa chọn giá theo mã/họ thiết bị và cấu hình, tăng từ 103 sau khi sửa dữ liệu và đối chiếu. 8764 dòng giá được công bố; đủ 32/32 hãng trong phạm vi bảng giá có ít nhất một dòng. Đây không phải xác nhận toàn bộ CAD đã có mã đặt hàng hoặc hình vẽ được phê duyệt.
+Cập nhật 14/10/2026: 837 thiết bị; 126 thiết bị có lựa chọn giá theo mã/họ thiết bị và cấu hình, tăng từ 121 sau khi sửa dữ liệu và đối chiếu. 8764 dòng giá được công bố; đủ 32/32 hãng trong phạm vi bảng giá có ít nhất một dòng. Đây không phải xác nhận toàn bộ CAD đã có mã đặt hàng hoặc hình vẽ được phê duyệt.
 
 Bổ sung ròng 421 dòng PDF và 2.619 dòng giá nhà bán hàng so với lần cập nhật trước. Các bản Fuji/IDEC là năm 2025; các bản Mikro/Shihlin/Vinakip là 2026. Nguồn web có thời điểm kiểm tra và ghi chú cần xác nhận VAT/tồn kho. Không đổi giá tham khảo thành giá hãng.
 
 | Hãng | Dòng giá | CAD trong thư viện theo nhãn hãng | CAD có lựa chọn giá |
 | --- | ---: | ---: | ---: |
-| Schneider Electric | 135 | 241 | 15 |
+| Schneider Electric | 135 | 241 | 17 |
 | ABB | 726 | 80 | 33 |
 | Siemens | 127 | 0 | 0 |
 | Hager | 200 | 0 | 0 |
 | Legrand | 103 | 0 | 0 |
 | BTB Electric | 38 | 0 | 0 |
-| Mitsubishi Electric | 3066 | 39 | 26 |
+| Mitsubishi Electric | 3066 | 39 | 27 |
 | Fuji Electric | 152 | 0 | 0 |
-| LS Electric | 697 | 134 | 22 |
+| LS Electric | 697 | 134 | 23 |
 | Shihlin | 246 | 20 | 10 |
 | CHINT | 1729 | 28 | 4 |
 | Andeli | 1 | 0 | 0 |
@@ -37,13 +52,13 @@ Bổ sung ròng 421 dòng PDF và 2.619 dòng giá nhà bán hàng so với lầ
 | Yaskawa | 6 | 0 | 0 |
 | Danfoss | 6 | 0 | 0 |
 | INVT | 102 | 0 | 0 |
-| IDEC | 183 | 0 | 0 |
+| IDEC | 183 | 1 | 0 |
 | Hanyoung Nux | 214 | 17 | 0 |
 | Samwha | 45 | 9 | 0 |
 | TDK / EPCOS | 29 | 0 | 0 |
 | Shizuki | 42 | 0 | 0 |
 | Nuintek | 135 | 20 | 0 |
-| Mikro | 214 | 8 | 5 |
+| Mikro | 214 | 8 | 6 |
 | SK | 3 | 0 | 0 |
 | Ducati Energia | 2 | 0 | 0 |
 | Selec | 28 | 0 | 0 |
@@ -53,7 +68,7 @@ Bổ sung ròng 421 dòng PDF và 2.619 dòng giá nhà bán hàng so với lầ
 
 ## Phần còn thiếu
 
-716/837 CAD chưa có lựa chọn giá phù hợp. Trong đó: 262 CAD đã xác định hãng nhưng thiếu mã/cấu hình hoặc nguồn giá đúng mã; 251 CAD chỉ xác định thư viện nguồn; 77 chưa rõ hãng; 15 nhãn hãng ứng viên; 111 phụ kiện phổ thông không áp hãng. Các mã ứng viên dựa kích thước của tụ Nuintek/Samwha chưa được đưa thành mã xác nhận. Không tự thay NX201A/MK201A bằng N201/R201.
+711/837 CAD chưa có lựa chọn giá phù hợp. Trong đó: 260 CAD đã xác định hãng nhưng thiếu mã/cấu hình hoặc nguồn giá đúng mã; 251 CAD chỉ xác định thư viện nguồn; 75 chưa rõ hãng; 14 nhãn hãng ứng viên; 111 phụ kiện phổ thông không áp hãng. Các mã ứng viên dựa kích thước của tụ Nuintek/Samwha chưa được đưa thành mã xác nhận. Không tự thay NX201A/MK201A bằng N201/R201.
 
 Andeli mới có 1 dòng, Ducati Energia 2, SK 3, Danfoss 6, Yaskawa 6; cần bổ sung thêm danh mục đúng mã khi có nguồn. Nguồn PLE/Makel chỉ rà trang hãng đầu tiên, không tuyên bố đã lấy toàn bộ kho nhà bán hàng.
 
@@ -79,20 +94,20 @@ Bảng giá, thư viện CAD và bóc tách dùng chung published_rows. Một CA
 - [Morele](https://hanhdungelectric.com.vn/quat-lam-mat-huong-truc-morele)
 - [Delta](https://codienhaiau.com/brand/delta/)
 
-Kiểm tra hồi quy: 48 tests về parser giá, liên kết CAD, bóc tách/báo giá và nhận diện hãng.
+Kiểm tra hồi quy: 53 tests về parser giá, liên kết CAD, bóc tách/báo giá và nhận diện hãng.
 
 Cập nhật tiếp: thêm 73 dòng ABB 2026 (contactor 1SFL và rơ le nhiệt trang 117), gắn họ S200/SH200 theo trang 141–143; giữ dải chỉnh định rơ le thay vì gán thành dòng cố định. Xác nhận 4 cực cho MC-9a/4, MC-12a/4, MC-18a/4 theo [tài liệu LS, trang 14](https://www.ls-electric.com/upload/customer/download/280b6197-f4bb-4f86-a60d-917b7b8bf890/Metasol_MC_E_170915.pdf). Không đổi các MC-40 cũ thành MC-40a hoặc lấy điện áp cuộn hút theo suy đoán.
 
 ## Rà lại 293 CAD đã rõ hãng, ngày 14/10/2026
 
-Đây là phân loại sau sửa, không còn gộp toàn bộ thành thiếu báo giá. Đợt trước có thêm 13 CAD dùng được giá đã có sẵn; đợt này thêm 18 CAD; không bổ sung hay thay đổi giá bán trong đợt này. Tổng có lựa chọn giá 121/837; còn 262 CAD đã xác định hãng chưa có lựa chọn phù hợp.
+Đây là phân loại sau sửa, không còn gộp toàn bộ thành thiếu báo giá. Đợt trước có thêm 13 CAD dùng được giá đã có sẵn; đợt này thêm 18 CAD; không bổ sung hay thay đổi giá bán trong đợt này. Tổng có lựa chọn giá 126/837; còn 260 CAD đã xác định hãng chưa có lựa chọn phù hợp.
 
 | Lý do hiện tại | CAD | Ý nghĩa |
 | --- | ---: | --- |
-| Chưa có mã/họ thiết bị đủ căn cứ | 55 | Hãng đã xác định, nhưng mã chỉ là ứng viên theo kích thước hoặc chưa đọc được. |
+| Chưa có mã/họ thiết bị đủ căn cứ | 56 | Hãng đã xác định, nhưng mã chỉ là ứng viên theo kích thước hoặc chưa đọc được. |
 | Không thấy mã trong dữ liệu giá đã công bố | 137 | Không kết luận thị trường không có giá; cần thêm nguồn đúng mã, mã cũ hoặc mã đầy đủ. |
-| Có chuỗi mã liên quan nhưng chưa khớp | 34 | Có thể khác thế hệ, khác loại, thiếu số cực/thông số hoặc chỉ là giá phụ kiện cho thiết bị. Không lấy giá theo chuỗi con. |
-| Chưa có giá dưới nhãn hãng hiện tại | 36 | Có hãng ngoài 32 hãng bảng giá và hai nhãn Schneider RM6 kèm ghi chú; giá cùng hãng của thiết bị khác không thay thế được. |
+| Có chuỗi mã liên quan nhưng chưa khớp | 30 | Có thể khác thế hệ, khác loại, thiếu số cực/thông số hoặc chỉ là giá phụ kiện cho thiết bị. Không lấy giá theo chuỗi con. |
+| Chưa có giá dưới nhãn hãng hiện tại | 37 | Có hãng ngoài 32 hãng bảng giá và hai nhãn Schneider RM6 kèm ghi chú; giá cùng hãng của thiết bị khác không thay thế được. |
 
 Đã sửa: BV-D nhập từ sheet “MCB China” được phân loại đúng RCCB; S-T10/12/20/21/25/35/50 có 3 cực theo tài liệu hãng; XJ3-G là rơ le bảo vệ pha; Omron-S8FS-C05024J được bỏ dấu nối giữa tên hãng và mã; họ NP2-EA và iC60N thành lựa chọn có kiểm soát. Đối chiếu 1P+N yêu cầu đúng ký hiệu trung tính, không coi tương đương 1P. Giữ nguyên giá bán và ID nguồn.
 
@@ -106,6 +121,6 @@ Nguồn kiểm tra phân loại: [BV-D](https://www.mitsubishielectric.com/fa/sg
 
 Đã kiểm tra toàn bộ 837 hồ sơ và 1.448 mặt bản vẽ: ID thiết bị/mặt chính, đường dẫn xem trước, tồn tại file nguồn DXF, cấu trúc SVG và liên kết giá. Không phát hiện file thiếu, mặt chính không hợp lệ, ID trùng hoặc SVG lỗi cấu trúc. Đây là kiểm tra dữ liệu/file; không phải duyệt hình học hoặc thông số điện bằng mắt cho mọi bản vẽ.
 
-121 thiết bị có lựa chọn giá; 716 chưa đủ đối chiếu. Mỗi thiết bị giờ có lý do trạng thái giá trong API device-catalog: phụ kiện phổ thông, hãng ứng viên/chưa rõ, hãng từ thư viện nguồn, chưa xác nhận mã, chưa có dữ liệu giá của hãng, hoặc chưa khớp cấu hình. Giao diện hiển thị lý do đó khi chưa có lựa chọn giá, không chỉ yêu cầu bổ sung bảng giá chung chung.
+126 thiết bị có lựa chọn giá; 711 chưa đủ đối chiếu. Mỗi thiết bị giờ có lý do trạng thái giá trong API device-catalog: phụ kiện phổ thông, hãng ứng viên/chưa rõ, hãng từ thư viện nguồn, chưa xác nhận mã, chưa có dữ liệu giá của hãng, hoặc chưa khớp cấu hình. Giao diện hiển thị lý do đó khi chưa có lựa chọn giá, không chỉ yêu cầu bổ sung bảng giá chung chung.
 
-[Báo cáo từng thiết bị](library-complete-audit.json), tái lập bằng `venv/Scripts/python.exe scripts/audit_complete_equipment_library.py`. 48 kiểm tra hồi quy đạt, gồm kiểm tra hộp thông báo và thao tác đánh dấu đã đọc không truy cập tài khoản khác.
+[Báo cáo từng thiết bị](library-complete-audit.json), tái lập bằng `venv/Scripts/python.exe scripts/audit_complete_equipment_library.py`. 53 kiểm tra hồi quy đạt, gồm kiểm tra hộp thông báo và thao tác đánh dấu đã đọc không truy cập tài khoản khác.

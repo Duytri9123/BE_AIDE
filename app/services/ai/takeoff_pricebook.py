@@ -42,7 +42,8 @@ def _values(row, field):
     if field == 'current':
         text = re.sub(r'\([^)]*\)', '', text)
     if field == 'current' and not text.strip():
-        return [float(v.replace(',', '.')) for v in re.findall(r'(?<!\w)(\d+(?:[.,]\d+)?)\s*A\b',str(row.get('item_name') or ''),re.I)]
+        # A suffix such as DIN310-230A is an ordering/voltage variant, not In.
+        return [float(v.replace(',', '.')) for v in re.findall(r'(?<![\w-])(\d+(?:[.,]\d+)?)\s*A\b',str(row.get('item_name') or ''),re.I)]
     if field == 'icu':
         return [float(v.replace(',', '.')) for v in re.findall(r'(\d+(?:[.,]\d+)?)\s*kA', text,re.I)] or ([float(text)] if re.fullmatch(r'\s*\d+(?:\.\d+)?\s*',text) else [])
     return [float(v.replace(',', '.')) for v in re.findall(r'\d+(?:[.,]\d+)?', text)]
@@ -77,6 +78,10 @@ def match_device(device, rows, *, candidate_limit=30):
                           and re.fullmatch(r'AX\d+-\d+-\d+', code)
                           and (row.get('specifications') or {}).get('Mã thân') == code
                           and re.match(re.escape(code)+r'-\d+(?=\s|$)', label))
+        body_match = body_match or bool(known_brand and canonical_brand(brand)=='Schneider Electric'
+            and category=='CONTACTOR' and re.fullmatch(r'LC1D(?:09|12|18|25|32|38|098|128)',code)
+            and (row.get('specifications') or {}).get('Mã thân')==code
+            and sku==code+'B7')
         reviewed_family_match = bool(known_brand
             and (row.get('specifications') or {}).get('Họ thiết bị') == code
             and ((canonical_brand(brand) == 'Shihlin' and category == 'MCCB'
@@ -94,7 +99,9 @@ def match_device(device, rows, *, candidate_limit=30):
                      and re.fullmatch(r'EZC(?:100|250|400)',code)
                      and re.fullmatch(re.escape(code)+r'[BFHN][1-4]\d{3}N?',sku))
                  or (canonical_brand(brand) == 'Mikro' and category in {'PHASE_RELAY', 'VOLTAGE_RELAY', 'POWER_FACTOR_CONTROLLER'}
-                     and re.fullmatch(r'(?:MX|PFR)\d+[A-Z]*', code) and re.match(re.escape(code)+r'-', label))))
+                     and re.fullmatch(r'(?:MX|PFR)\d+[A-Z]*', code) and re.match(re.escape(code)+r'-', label))
+                 or (canonical_brand(brand)=='Mikro' and category=='EARTH_LEAKAGE_RELAY'
+                     and code=='DIN310' and sku=='DIN310-230A')))
         if selected_id:
             if public_id(row) != selected_id or not exact:
                 continue

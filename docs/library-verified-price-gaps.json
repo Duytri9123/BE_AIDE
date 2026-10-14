@@ -1,11 +1,11 @@
 {
-  "linked_count": 121,
-  "verified_unlinked_count": 262,
+  "linked_count": 126,
+  "verified_unlinked_count": 260,
   "reason_counts": {
-    "related_code_only": 34,
-    "no_device_code": 55,
+    "related_code_only": 30,
+    "no_device_code": 56,
     "code_not_in_published_prices": 137,
-    "no_brand_prices": 36
+    "no_brand_prices": 37
   },
   "price_row_count": 8764,
   "linked": [
@@ -250,6 +250,12 @@
       "choices": 1
     },
     {
+      "id": "TB-c02623ff6b0d78b7",
+      "brand": "MIKRO",
+      "name": "Rơ le bảo vệ dòng rò MIKRO DIN310",
+      "choices": 1
+    },
+    {
       "id": "TB-c8e96f985b637563",
       "brand": "MIKRO",
       "name": "Rơ le bảo vệ pha Mikro MX100",
@@ -424,6 +430,12 @@
       "choices": 6
     },
     {
+      "id": "TB-d2e88e5a25dc68bc",
+      "brand": "LS Electric",
+      "name": "Aux Contact LS UA-1",
+      "choices": 1
+    },
+    {
       "id": "TB-ff95536ede815844",
       "brand": "Mitsubishi Electric",
       "name": "MCB Mitsubishi BH-D6 · 1P",
@@ -446,6 +458,12 @@
       "brand": "Mitsubishi Electric",
       "name": "MCB Mitsubishi BH-D6 · 4P",
       "choices": 16
+    },
+    {
+      "id": "TB-fbf7edfff318225e",
+      "brand": "Mitsubishi Electric",
+      "name": "MCB Mitsubishi BH-DN · 1P+N",
+      "choices": 4
     },
     {
       "id": "TB-c36ae15b454e797c",
@@ -674,6 +692,18 @@
       "brand": "Schneider Electric",
       "name": "MCB Schneider iK60N · 4P",
       "choices": 9
+    },
+    {
+      "id": "TB-5a85d0fb1b71c309",
+      "brand": "Schneider Electric",
+      "name": "Contactor Schneider LC1D25-38 · 3P",
+      "choices": 3
+    },
+    {
+      "id": "TB-77ad9af6edcecd8b",
+      "brand": "Schneider Electric",
+      "name": "Contactor Schneider LC1D9-18 · 3P",
+      "choices": 2
     },
     {
       "id": "TB-26cbc7271ef1b2ef",
@@ -1809,6 +1839,16 @@
       "product_code": "",
       "reason": "no_brand_prices",
       "brand_price_count": 0,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-7cc48f9630399020",
+      "name": "Công tắc xoay IDEC · chưa rõ mã",
+      "brand": "IDEC",
+      "type": "SELECTOR_SWITCH",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 183,
       "related_price_rows": []
     },
     {
@@ -3070,81 +3110,6 @@
       ]
     },
     {
-      "id": "TB-d2e88e5a25dc68bc",
-      "name": "Aux Contact LS UA-1",
-      "brand": "LS Electric",
-      "type": "Aux Contact",
-      "product_code": "UA-1",
-      "reason": "related_code_only",
-      "brand_price_count": 697,
-      "related_price_rows": [
-        {
-          "id": "ls-pdf:9fbc0ba16f3fcc94",
-          "sku": "UA-1 (bên hông)",
-          "item_name": "UA-1 (bên hông)",
-          "category": "CONTACTOR",
-          "specifications": {
-            "Thông tin": "1NO+1NC dùng cho MC-6a~150a"
-          }
-        }
-      ]
-    },
-    {
-      "id": "TB-fbf7edfff318225e",
-      "name": "MCB Mitsubishi BH-DN · 1P+N",
-      "brand": "Mitsubishi Electric",
-      "type": "MCB",
-      "product_code": "BH-DN",
-      "reason": "related_code_only",
-      "brand_price_count": 3066,
-      "related_price_rows": [
-        {
-          "id": "mitsubishi-xlsx:55199ebbb1bb44af",
-          "sku": "DN006CN",
-          "item_name": "BH-DN 1PN 6A C",
-          "category": "MCB",
-          "specifications": {
-            "Mã đặt hàng": "DN006CN",
-            "In (A)": "6",
-            "Khả năng cắt và điện áp": "Icu = 4.5kA"
-          }
-        },
-        {
-          "id": "mitsubishi-xlsx:d55e7b06309c1dfb",
-          "sku": "DN010CN",
-          "item_name": "BH-DN 1PN 10A C",
-          "category": "MCB",
-          "specifications": {
-            "Mã đặt hàng": "DN010CN",
-            "In (A)": "10",
-            "Khả năng cắt và điện áp": "Icu = 4.5kA"
-          }
-        },
-        {
-          "id": "mitsubishi-xlsx:cc4a459208a2396d",
-          "sku": "DN016CN",
-          "item_name": "BH-DN 1PN 16A C",
-          "category": "MCB",
-          "specifications": {
-            "Mã đặt hàng": "DN016CN",
-            "In (A)": "16",
-            "Khả năng cắt và điện áp": "Icu = 4.5kA"
-          }
-        },
-        {
-          "id": "mitsubishi-xlsx:e54119e71a08f45f",
-          "sku": "DN020CN",
-          "item_name": "BH-DN 1PN 20A C",
-          "category": "MCB",
-          "specifications": {
-            "Mã đặt hàng": "DN020CN",
-            "In (A)": "20",
-            "Khả năng cắt và điện áp": "Icu = 4.5kA"
-          }
-        }
-      ]
-    },
-    {
       "id": "TB-6b45e85650dab6f7",
       "name": "MCCB Mitsubishi NF1250-SDW · 2P · DC",
       "brand": "Mitsubishi Electric",
@@ -3549,6 +3514,16 @@
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 697,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-043714973953d640",
+      "name": "Cụm cầu chì RISESUN RT18-32",
+      "brand": "RISESUN",
+      "type": "FUSE",
+      "product_code": "RT18-32",
+      "reason": "no_brand_prices",
+      "brand_price_count": 0,
       "related_price_rows": []
     },
     {
@@ -4049,38 +4024,6 @@
       "related_price_rows": []
     },
     {
-      "id": "TB-5a85d0fb1b71c309",
-      "name": "Contactor Schneider LC1D25-38 · 3P",
-      "brand": "Schneider Electric",
-      "type": "Contactor",
-      "product_code": "LC1D25-38",
-      "reason": "related_code_only",
-      "brand_price_count": 135,
-      "related_price_rows": [
-        {
-          "id": "web:cb187a630110e35b",
-          "sku": "LC1D25B7",
-          "item_name": "LC1D25B7",
-          "category": "CONTACTOR",
-          "specifications": null
-        },
-        {
-          "id": "web:8a68b7c2962f342e",
-          "sku": "LC1D32B7",
-          "item_name": "LC1D32B7",
-          "category": "CONTACTOR",
-          "specifications": null
-        },
-        {
-          "id": "web:d6484be9e408efde",
-          "sku": "LC1D38B7",
-          "item_name": "LC1D38B7",
-          "category": "CONTACTOR",
-          "specifications": null
-        }
-      ]
-    },
-    {
       "id": "TB-5bfee5cfd0ad64df",
       "name": "Contactor Schneider LC1D40 · 3P",
       "brand": "Schneider Electric",
@@ -4107,45 +4050,6 @@
       "reason": "code_not_in_published_prices",
       "brand_price_count": 135,
       "related_price_rows": []
-    },
-    {
-      "id": "TB-77ad9af6edcecd8b",
-      "name": "Contactor Schneider LC1D9-18 · 3P",
-      "brand": "Schneider Electric",
-      "type": "Contactor",
-      "product_code": "LC1D9-18",
-      "reason": "related_code_only",
-      "brand_price_count": 135,
-      "related_price_rows": [
-        {
-          "id": "web:a73b3660bbe0c6b8",
-          "sku": "LC1D098B7",
-          "item_name": "LC1D098B7",
-          "category": "CONTACTOR",
-          "specifications": null
-        },
-        {
-          "id": "web:4209b54de74ae03d",
-          "sku": "LC1D128B7",
-          "item_name": "LC1D128B7",
-          "category": "CONTACTOR",
-          "specifications": null
-        },
-        {
-          "id": "web:b4c1df5e551c9f54",
-          "sku": "LC1D12B7",
-          "item_name": "LC1D12B7",
-          "category": "CONTACTOR",
-          "specifications": null
-        },
-        {
-          "id": "web:0a2456a0f5ff03ce",
-          "sku": "LC1D18B7",
-          "item_name": "LC1D18B7",
-          "category": "CONTACTOR",
-          "specifications": null
-        }
-      ]
     },
     {
       "id": "TB-7d1974c4701a6074",

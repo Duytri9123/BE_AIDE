@@ -241,7 +241,7 @@ class DeviceCatalogEngine:
                 brand=identity['brand'], brand_kind=identity['brand_kind'], brand_identification_status=identity['brand_identification_status'],
                 approximate_identity=profile.get('nhan_dien_web') or {},
                 cad_dimensions=profile.get('kich_thuoc_cad_goc_mm') or {},
-                series=profile.get('ma_dong_san_pham'),
+                series=reviewed.get('product_code') or profile.get('ma_dong_san_pham'),
                 poles=ai.get('so_cuc'), cad_poles=ai.get('so_cuc_cad'),
                 specifications=profile.get('thong_so') or {},
                 sources=profile.get('nguon_tham_khao') or [],

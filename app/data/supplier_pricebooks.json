@@ -16110,8 +16110,8 @@
       "item_name": "UA-1 (bên hông)",
       "name": "UA-1 (bên hông)",
       "brand": "LS Electric",
-      "category": "CONTACTOR",
-      "group": "TIẾP ĐIỂM PHỤ",
+      "category": "AUX_CONTACT",
+      "group": "Tiếp điểm phụ · UA-1",
       "price": 150000,
       "currency": "VND",
       "specifications": {
@@ -16136,7 +16136,12 @@
       "effective_date": "2026-10-01",
       "checked_at": "2026-10-13T11:05:51.289272+00:00",
       "vat_status": "excluded",
-      "price_note": "Giá bảng LS áp dụng 01/10/2026, chưa gồm VAT."
+      "price_note": "Giá bảng LS áp dụng 01/10/2026, chưa gồm VAT.",
+      "identity_metadata_review": {
+        "source_url": "https://gics.ls-electric.com/knowledgeBase/user/detail.do?baseId=170",
+        "checked_date": "2026-10-14",
+        "note": "Explicit manufacturer accessory type or switched-neutral configuration. Original price and row ID preserved."
+      }
     },
     {
       "id": "ls-pdf:05cf276c5a1f5fd1",
@@ -181220,7 +181225,8 @@
       "specifications": {
         "Mã đặt hàng": "DN006CN",
         "In (A)": "6",
-        "Khả năng cắt và điện áp": "Icu = 4.5kA"
+        "Khả năng cắt và điện áp": "Icu = 4.5kA",
+        "Số cực": "1P+N"
       },
       "columns": [
         "Tên hàng",
@@ -181246,7 +181252,12 @@
       "effective_date": null,
       "vat_status": "unknown",
       "checked_at": "2026-10-13T13:04:57.923963+00:00",
-      "price_note": "Ngày áp dụng và VAT chưa xác định trong bảng; không suy ra từ ngày đăng."
+      "price_note": "Ngày áp dụng và VAT chưa xác định trong bảng; không suy ra từ ngày đăng.",
+      "identity_metadata_review": {
+        "source_url": "https://www.mitsubishielectric.com/fa/sg_en/products/faspec/detail.page?category=ex&formNm=MCB_BH-DN_4892&id=spec&kisyu=%2Flvcb&lang=2",
+        "checked_date": "2026-10-14",
+        "note": "Explicit manufacturer accessory type or switched-neutral configuration. Original price and row ID preserved."
+      }
     },
     {
       "id": "mitsubishi-xlsx:66e51be36aa64ed4",
@@ -181302,7 +181313,8 @@
       "specifications": {
         "Mã đặt hàng": "DN010CN",
         "In (A)": "10",
-        "Khả năng cắt và điện áp": "Icu = 4.5kA"
+        "Khả năng cắt và điện áp": "Icu = 4.5kA",
+        "Số cực": "1P+N"
       },
       "columns": [
         "Tên hàng",
@@ -181328,7 +181340,12 @@
       "effective_date": null,
       "vat_status": "unknown",
       "checked_at": "2026-10-13T13:04:57.923963+00:00",
-      "price_note": "Ngày áp dụng và VAT chưa xác định trong bảng; không suy ra từ ngày đăng."
+      "price_note": "Ngày áp dụng và VAT chưa xác định trong bảng; không suy ra từ ngày đăng.",
+      "identity_metadata_review": {
+        "source_url": "https://www.mitsubishielectric.com/fa/sg_en/products/faspec/detail.page?category=ex&formNm=MCB_BH-DN_4892&id=spec&kisyu=%2Flvcb&lang=2",
+        "checked_date": "2026-10-14",
+        "note": "Explicit manufacturer accessory type or switched-neutral configuration. Original price and row ID preserved."
+      }
     },
     {
       "id": "mitsubishi-xlsx:7cee5b2883b6db26",
@@ -181425,7 +181442,8 @@
       "specifications": {
         "Mã đặt hàng": "DN016CN",
         "In (A)": "16",
-        "Khả năng cắt và điện áp": "Icu = 4.5kA"
+        "Khả năng cắt và điện áp": "Icu = 4.5kA",
+        "Số cực": "1P+N"
       },
       "columns": [
         "Tên hàng",
@@ -181451,7 +181469,12 @@
       "effective_date": null,
       "vat_status": "unknown",
       "checked_at": "2026-10-13T13:04:57.923963+00:00",
-      "price_note": "Ngày áp dụng và VAT chưa xác định trong bảng; không suy ra từ ngày đăng."
+      "price_note": "Ngày áp dụng và VAT chưa xác định trong bảng; không suy ra từ ngày đăng.",
+      "identity_metadata_review": {
+        "source_url": "https://www.mitsubishielectric.com/fa/sg_en/products/faspec/detail.page?category=ex&formNm=MCB_BH-DN_4892&id=spec&kisyu=%2Flvcb&lang=2",
+        "checked_date": "2026-10-14",
+        "note": "Explicit manufacturer accessory type or switched-neutral configuration. Original price and row ID preserved."
+      }
     },
     {
       "id": "mitsubishi-xlsx:bc9aff8f0e9a6afe",
@@ -181507,7 +181530,8 @@
       "specifications": {
         "Mã đặt hàng": "DN020CN",
         "In (A)": "20",
-        "Khả năng cắt và điện áp": "Icu = 4.5kA"
+        "Khả năng cắt và điện áp": "Icu = 4.5kA",
+        "Số cực": "1P+N"
       },
       "columns": [
         "Tên hàng",
@@ -181533,7 +181557,12 @@
       "effective_date": null,
       "vat_status": "unknown",
       "checked_at": "2026-10-13T13:04:57.923963+00:00",
-      "price_note": "Ngày áp dụng và VAT chưa xác định trong bảng; không suy ra từ ngày đăng."
+      "price_note": "Ngày áp dụng và VAT chưa xác định trong bảng; không suy ra từ ngày đăng.",
+      "identity_metadata_review": {
+        "source_url": "https://www.mitsubishielectric.com/fa/sg_en/products/faspec/detail.page?category=ex&formNm=MCB_BH-DN_4892&id=spec&kisyu=%2Flvcb&lang=2",
+        "checked_date": "2026-10-14",
+        "note": "Explicit manufacturer accessory type or switched-neutral configuration. Original price and row ID preserved."
+      }
     },
     {
       "id": "mitsubishi-xlsx:3e3afdbc8eae4392",

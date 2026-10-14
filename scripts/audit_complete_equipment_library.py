@@ -78,7 +78,7 @@ if __name__=='__main__':
     lines += ['', '| Thiết bị | Loại | Hãng | Mã/dòng | Lựa chọn giá | Kết quả / việc cần bổ sung |','| --- | --- | --- | --- | ---: | --- |']
     for item in sorted(result['items'],key=lambda r:(r['brand'] or '',r['type'] or '',r['name'] or '')):
         cells=[item['name'],item['type'],item['brand'] or 'Phụ kiện phổ thông' if item['manufacturer_status']=='not_applicable' else item['brand'] or 'Chưa xác định',item['product_code'] or 'Chưa ghi mã',item['price_choice_count'],item['price_diagnostic']['message'] or 'Có cấu hình giá để chọn; cần chốt mã đầy đủ.']
-        lines.append('| '+' | '.join(str(v or '').replace('|','/').replace('\n',' ') for v in cells)+' |')
+        lines.append('| '+' | '.join(str(v if v is not None else '').replace('|','/').replace('\n',' ') for v in cells)+' |')
     (ROOT/'docs/library-classified-price-review.md').write_text('\n'.join(lines)+'\n',encoding='utf8')
     print(json.dumps({k:v for k,v in result.items() if k!='items'},ensure_ascii=False))
     for item in result['items']:

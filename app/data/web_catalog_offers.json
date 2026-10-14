@@ -27523,7 +27523,7 @@
       "sku": "DIN310-230A",
       "name": "Relay Mikro DIN310-230A",
       "brand": "Mikro",
-      "category": "RELAY",
+      "category": "EARTH_LEAKAGE_RELAY",
       "price": 1911000,
       "currency": "VND",
       "source_url": "https://www.ple.vn/role-bao-ve/role-bao-ve-mikro/mikro-din310-detail.html",
@@ -27532,9 +27532,17 @@
       "source_kind": "web_seller",
       "checked_at": "2026-10-14T01:05:31.840292+00:00",
       "specifications": {
-        "In (A)": "230"
+        "Họ thiết bị": "DIN310",
+        "Điện áp cấp phụ trợ": "230V AC",
+        "Dải điện áp cấp phụ trợ": "184–276V AC"
       },
-      "price_note": "Giá bán niêm yết tại lần kiểm tra; VAT và tồn kho cần xác nhận, không phải bảng giá hãng."
+      "price_note": "Giá bán niêm yết tại lần kiểm tra; VAT và tồn kho cần xác nhận, không phải bảng giá hãng.",
+      "group": "Rơ le dòng rò · DIN310",
+      "identity_metadata_review": {
+        "source_url": "https://itmikro.com.my/wp-content/uploads/2020/08/din310_man-1.pdf",
+        "checked_date": "2026-10-14",
+        "note": "Explicit manufacturer accessory type or switched-neutral configuration. Original price and row ID preserved."
+      }
     },
     {
       "id": "web:05f20370877684c2",
@@ -32138,8 +32146,17 @@
       "source_label": "PLE",
       "source_kind": "web_seller",
       "checked_at": "2026-10-14T01:05:31.840292+00:00",
-      "specifications": {},
-      "price_note": "Giá bán niêm yết tại lần kiểm tra; VAT và tồn kho cần xác nhận, không phải bảng giá hãng."
+      "specifications": {
+        "Mã thân": "LC1D098",
+        "Số cực": "4P",
+        "Điện áp cuộn hút": "24V AC"
+      },
+      "price_note": "Giá bán niêm yết tại lần kiểm tra; VAT và tồn kho cần xác nhận, không phải bảng giá hãng.",
+      "identity_metadata_review": {
+        "source_url": "https://www.se.com/in/en/product/LC1D098B7/tesys-d-contactor-4p2-no-%2B-2-nc-ac1-440-v-20-a-24-v-ac-coil/",
+        "checked_date": "2026-10-14",
+        "note": "Explicit manufacturer accessory type or switched-neutral configuration. Original price and row ID preserved."
+      }
     },
     {
       "id": "web:c5bbcf0bf4018caf",
@@ -32170,8 +32187,17 @@
       "source_label": "PLE",
       "source_kind": "web_seller",
       "checked_at": "2026-10-14T01:05:31.840292+00:00",
-      "specifications": {},
-      "price_note": "Giá bán niêm yết tại lần kiểm tra; VAT và tồn kho cần xác nhận, không phải bảng giá hãng."
+      "specifications": {
+        "Mã thân": "LC1D128",
+        "Số cực": "4P",
+        "Điện áp cuộn hút": "24V AC"
+      },
+      "price_note": "Giá bán niêm yết tại lần kiểm tra; VAT và tồn kho cần xác nhận, không phải bảng giá hãng.",
+      "identity_metadata_review": {
+        "source_url": "https://www.se.com/in/en/product/LC1D098B7/tesys-d-contactor-4p2-no-%2B-2-nc-ac1-440-v-20-a-24-v-ac-coil/",
+        "checked_date": "2026-10-14",
+        "note": "Explicit manufacturer accessory type or switched-neutral configuration. Original price and row ID preserved."
+      }
     },
     {
       "id": "web:b4c1df5e551c9f54",
@@ -32186,8 +32212,17 @@
       "source_label": "PLE",
       "source_kind": "web_seller",
       "checked_at": "2026-10-14T01:05:31.840292+00:00",
-      "specifications": {},
-      "price_note": "Giá bán niêm yết tại lần kiểm tra; VAT và tồn kho cần xác nhận, không phải bảng giá hãng."
+      "specifications": {
+        "Mã thân": "LC1D12",
+        "Số cực": "3P",
+        "Điện áp cuộn hút": "24V AC"
+      },
+      "price_note": "Giá bán niêm yết tại lần kiểm tra; VAT và tồn kho cần xác nhận, không phải bảng giá hãng.",
+      "identity_metadata_review": {
+        "source_url": "https://iportal.se.com/Contents/docs/SQD-LC1D25B7.PDF",
+        "checked_date": "2026-10-14",
+        "note": "Explicit manufacturer accessory type or switched-neutral configuration. Original price and row ID preserved."
+      }
     },
     {
       "id": "web:40b5299b0bd209ce",
@@ -32218,8 +32253,17 @@
       "source_label": "PLE",
       "source_kind": "web_seller",
       "checked_at": "2026-10-14T01:05:31.840292+00:00",
-      "specifications": {},
-      "price_note": "Giá bán niêm yết tại lần kiểm tra; VAT và tồn kho cần xác nhận, không phải bảng giá hãng."
+      "specifications": {
+        "Mã thân": "LC1D18",
+        "Số cực": "3P",
+        "Điện áp cuộn hút": "24V AC"
+      },
+      "price_note": "Giá bán niêm yết tại lần kiểm tra; VAT và tồn kho cần xác nhận, không phải bảng giá hãng.",
+      "identity_metadata_review": {
+        "source_url": "https://iportal.se.com/Contents/docs/SQD-LC1D25B7.PDF",
+        "checked_date": "2026-10-14",
+        "note": "Explicit manufacturer accessory type or switched-neutral configuration. Original price and row ID preserved."
+      }
     },
     {
       "id": "web:cb187a630110e35b",
@@ -32234,8 +32278,17 @@
       "source_label": "PLE",
       "source_kind": "web_seller",
       "checked_at": "2026-10-14T01:05:31.840292+00:00",
-      "specifications": {},
-      "price_note": "Giá bán niêm yết tại lần kiểm tra; VAT và tồn kho cần xác nhận, không phải bảng giá hãng."
+      "specifications": {
+        "Mã thân": "LC1D25",
+        "Số cực": "3P",
+        "Điện áp cuộn hút": "24V AC"
+      },
+      "price_note": "Giá bán niêm yết tại lần kiểm tra; VAT và tồn kho cần xác nhận, không phải bảng giá hãng.",
+      "identity_metadata_review": {
+        "source_url": "https://iportal.se.com/Contents/docs/SQD-LC1D25B7.PDF",
+        "checked_date": "2026-10-14",
+        "note": "Explicit manufacturer accessory type or switched-neutral configuration. Original price and row ID preserved."
+      }
     },
     {
       "id": "web:8a68b7c2962f342e",
@@ -32250,8 +32303,17 @@
       "source_label": "PLE",
       "source_kind": "web_seller",
       "checked_at": "2026-10-14T01:05:31.840292+00:00",
-      "specifications": {},
-      "price_note": "Giá bán niêm yết tại lần kiểm tra; VAT và tồn kho cần xác nhận, không phải bảng giá hãng."
+      "specifications": {
+        "Mã thân": "LC1D32",
+        "Số cực": "3P",
+        "Điện áp cuộn hút": "24V AC"
+      },
+      "price_note": "Giá bán niêm yết tại lần kiểm tra; VAT và tồn kho cần xác nhận, không phải bảng giá hãng.",
+      "identity_metadata_review": {
+        "source_url": "https://iportal.se.com/Contents/docs/SQD-LC1D25B7.PDF",
+        "checked_date": "2026-10-14",
+        "note": "Explicit manufacturer accessory type or switched-neutral configuration. Original price and row ID preserved."
+      }
     },
     {
       "id": "web:d6484be9e408efde",
@@ -32266,8 +32328,17 @@
       "source_label": "PLE",
       "source_kind": "web_seller",
       "checked_at": "2026-10-14T01:05:31.840292+00:00",
-      "specifications": {},
-      "price_note": "Giá bán niêm yết tại lần kiểm tra; VAT và tồn kho cần xác nhận, không phải bảng giá hãng."
+      "specifications": {
+        "Mã thân": "LC1D38",
+        "Số cực": "3P",
+        "Điện áp cuộn hút": "24V AC"
+      },
+      "price_note": "Giá bán niêm yết tại lần kiểm tra; VAT và tồn kho cần xác nhận, không phải bảng giá hãng.",
+      "identity_metadata_review": {
+        "source_url": "https://iportal.se.com/Contents/docs/SQD-LC1D25B7.PDF",
+        "checked_date": "2026-10-14",
+        "note": "Explicit manufacturer accessory type or switched-neutral configuration. Original price and row ID preserved."
+      }
     },
     {
       "id": "web:096dc2a4efc63326",
