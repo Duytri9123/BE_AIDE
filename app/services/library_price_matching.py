@@ -31,7 +31,8 @@ def configuration_links(device, rows):
             codes.append('HYT-'+product_code[3:])
         if canonical_brand(device.get('brand'))=='Schneider Electric':
             codes += {'LC1D9-18':['LC1D09','LC1D12','LC1D18'],
-                      'LC1D25-38':['LC1D25','LC1D32','LC1D38']}.get(product_code.upper(),[])
+                      'LC1D25-38':['LC1D25','LC1D32','LC1D38'],
+                      'LC1E06-18':['LC1E06','LC1E09','LC1E12','LC1E18']}.get(product_code.upper(),[])
     if not codes:
         return {}
     spec = device.get('spec') or {}
@@ -41,7 +42,8 @@ def configuration_links(device, rows):
     kind = {'PILOTLAMP':'LIGHT','INDICATOR':'LIGHT','SELECTOR':'SELECTOR_SWITCH',
             'PHASERELAY':'PHASE_RELAY','AUX_CONTACT':'AUX_CONTACT','AUX_CONTACTS':'AUX_CONTACT',
             'THERMALRELAY':'THERMAL_RELAY','PUSHBUTTON':'PUSHBUTTON',
-            'RƠ_LE_BẢO_VỆ_PHA':'PHASE_RELAY', 'DÃY_CẦU_ĐẤU_BẮT_VÍT':'TERMINAL_BLOCK'}.get(kind,kind)
+            'RƠ_LE_BẢO_VỆ_PHA':'PHASE_RELAY', 'DÃY_CẦU_ĐẤU_BẮT_VÍT':'TERMINAL_BLOCK',
+            'QUẠT_LỌC_GIÓ_TỦ_ĐIỆN':'FAN'}.get(kind,kind)
     if kind in {'MCB','MCCB','ACB','RCCB','RCBO'} and not (poles_match or neutral_match):
         return {}
     selected_current = spec.get('dong_dinh_muc_da_chon')
@@ -80,6 +82,9 @@ def device_price_diagnostic(equipment_id):
     from app.services.ai.takeoff_pricebook import published_rows
     device=next((d for d in browser_data()['items'] if d['id']==equipment_id),None)
     if device is None:return {'status':'not_found','message':'Không tìm thấy thiết bị đang đối chiếu.'}
+    from app.services.library_review_scope import exact_price_required
+    if not exact_price_required(device):
+        return {'status':'optional_price','message':'Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác.'}
     status=device.get('brand_identification_status')
     messages={
         'not_applicable':'Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá.',
@@ -92,6 +97,9 @@ def device_price_diagnostic(equipment_id):
     if not own:return {'status':'no_brand_prices','message':'Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố.'}
     if device_configuration_links(equipment_id):return {'status':'choices_available','message':''}
     code=str(device.get('product_code') or '').strip()
+    if code.upper()=='PM710' and canonical_brand(device.get('brand'))=='Schneider Electric':
+        return {'status':'discontinued_model','message':'Schneider đã ngừng thương mại PM710 tại châu Á–Thái Bình Dương từ 30/04/2015. Cần báo giá đúng mã cũ hoặc chọn thiết bị thay thế phù hợp; không tự gán giá PM51xx cho CAD PM710.',
+                'source_url':'https://www.se.com/uk/en/faqs/FA264122/'}
     codes=(device.get('ai_identification') or {}).get('cac_ma_dong_san_pham') or []
     codes=[*codes,*((device.get('reviewed_description') or {}).get('price_family_codes') or [])]
     if str(device.get('type') or '').upper()=='TRANSFORMER' and not code:
@@ -112,8 +120,15 @@ def device_price_diagnostic(equipment_id):
         return {'status':'missing_transformer_configuration','message':'Đã phân loại là biến áp điều khiển. Cần xác nhận mã, công suất VA và điện áp sơ/thứ cấp để chọn đúng dòng giá; CAD hiện chưa ghi đủ cấu hình này.'}
     if code.upper()=='A9D' and canonical_brand(device.get('brand'))=='Schneider Electric':
         return {'status':'incomplete_ordering_code','message':'Đã nhận diện hãng Schneider Electric và tiền tố A9D. A9D chưa phải mã đặt hàng đầy đủ; cần đọc các chữ số còn lại, loại chống rò và cấu hình điện. Nhãn 2P/4P trên mặt CAD được giữ riêng để tránh chọn nhầm RCBO/RCCB.'}
-    lookup_kind={'INDICATOR':'LIGHT','PILOTLAMP':'LIGHT','SELECTOR':'SELECTOR_SWITCH','THERMALRELAY':'THERMAL_RELAY','PHASERELAY':'PHASE_RELAY'}.get(kind,kind)
+    lookup_kind={'INDICATOR':'LIGHT','PILOTLAMP':'LIGHT','SELECTOR':'SELECTOR_SWITCH','THERMALRELAY':'THERMAL_RELAY','PHASERELAY':'PHASE_RELAY','QUẠT_LỌC_GIÓ_TỦ_ĐIỆN':'FAN'}.get(kind,kind)
     unconstrained=[c for model in family_codes for c in match_device({'brand':device.get('brand'),'category':lookup_kind,'part_number':model},own,candidate_limit=None)['candidates']]
     if not unconstrained:
         return {'status':'no_model_prices','message':f'Đã nhận diện {device.get("brand")} · {device.get("type")} · {code or "/".join(sorted(family_codes))}. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị.'}
+    from app.services.ai.takeoff_pricebook import _values
+    ids={c['price_row_id'] for c in unconstrained}
+    available=sorted({int(p) for r in own if public_id(r) in ids for p in _values(r,'poles')})
+    required=str((device.get('spec') or {}).get('so_cuc') or '')
+    pole=re.fullmatch(r'(\d+)P',required,re.I)
+    if pole and available and int(pole[1]) not in available:
+        return {'status':'different_poles','message':f'Đã có giá đúng dòng {code}, nhưng dữ liệu giá chỉ có '+', '.join(f'{p}P' for p in available)+f'; CAD này là {required}. Cần giá đúng số cực.'}
     return {'status':'no_matching_configuration','message':'Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác.'}

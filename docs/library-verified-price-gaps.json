@@ -1,13 +1,13 @@
 {
-  "linked_count": 140,
-  "verified_unlinked_count": 246,
+  "linked_count": 157,
+  "verified_unlinked_count": 229,
   "reason_counts": {
-    "related_code_only": 38,
+    "related_code_only": 36,
     "no_device_code": 56,
-    "code_not_in_published_prices": 116,
-    "no_brand_prices": 36
+    "code_not_in_published_prices": 105,
+    "no_brand_prices": 32
   },
-  "price_row_count": 9180,
+  "price_row_count": 9378,
   "linked": [
     {
       "id": "TB-88adac8683ca9439",
@@ -688,6 +688,78 @@
       "choices": 1
     },
     {
+      "id": "TB-e059eef428a073ae",
+      "brand": "O-Sung / OSEMCO",
+      "name": "ATS O-Sung OSS-612-PC · 4P",
+      "choices": 1
+    },
+    {
+      "id": "TB-9fa26e93c8a3ea41",
+      "brand": "Leipole",
+      "name": "Quạt lọc gió Leipole FKL6621.230",
+      "choices": 1
+    },
+    {
+      "id": "TB-cedaec592367d18f",
+      "brand": "Leipole",
+      "name": "Quạt lọc gió Leipole FKL6622.230",
+      "choices": 1
+    },
+    {
+      "id": "TB-bfbdc254731538cd",
+      "brand": "Leipole",
+      "name": "Quạt lọc gió Leipole FKL6623.230",
+      "choices": 1
+    },
+    {
+      "id": "TB-e3fc8970733974ad",
+      "brand": "Schneider Electric",
+      "name": "MCB Schneider C120 · 1P",
+      "choices": 7
+    },
+    {
+      "id": "TB-213254590a9ed914",
+      "brand": "Schneider Electric",
+      "name": "MCB Schneider C120 · 2P",
+      "choices": 8
+    },
+    {
+      "id": "TB-a6b013e73f33598f",
+      "brand": "Schneider Electric",
+      "name": "MCB Schneider C120 · 3P",
+      "choices": 8
+    },
+    {
+      "id": "TB-c50afde0c81b2886",
+      "brand": "Schneider Electric",
+      "name": "MCB Schneider C120 · 4P",
+      "choices": 8
+    },
+    {
+      "id": "TB-caf9059b74d15cc8",
+      "brand": "Schneider Electric",
+      "name": "MCCB Schneider CVS100/160/250 · 3P",
+      "choices": 37
+    },
+    {
+      "id": "TB-6b869a3c7294f6c8",
+      "brand": "Schneider Electric",
+      "name": "MCCB Schneider CVS100/160/250 · 4P",
+      "choices": 37
+    },
+    {
+      "id": "TB-edaa3c1aa248d7b4",
+      "brand": "Schneider Electric",
+      "name": "MCCB Schneider CVS400 · 3P",
+      "choices": 4
+    },
+    {
+      "id": "TB-bfdb79c4e8f2b4e0",
+      "brand": "Schneider Electric",
+      "name": "MCCB Schneider CVS400 · 4P",
+      "choices": 4
+    },
+    {
       "id": "TB-2db736dd18a9914c",
       "brand": "Schneider Electric",
       "name": "MCCB Schneider EZC100 · 1P",
@@ -754,6 +826,18 @@
       "choices": 1
     },
     {
+      "id": "TB-1d1ab36d75cb2b5c",
+      "brand": "Schneider Electric",
+      "name": "RCCB Schneider iIDK · 2P",
+      "choices": 4
+    },
+    {
+      "id": "TB-0c2fc0e9ac12479c",
+      "brand": "Schneider Electric",
+      "name": "RCCB Schneider iIDK · 4P",
+      "choices": 6
+    },
+    {
       "id": "TB-64ce7e11085b43f8",
       "brand": "Schneider Electric",
       "name": "MCB Schneider iK60N · 1P",
@@ -788,6 +872,24 @@
       "brand": "Schneider Electric",
       "name": "Contactor Schneider LC1D9-18 · 3P",
       "choices": 2
+    },
+    {
+      "id": "TB-7d1974c4701a6074",
+      "brand": "Schneider Electric",
+      "name": "Contactor Schneider LC1E06-18 · 3P",
+      "choices": 16
+    },
+    {
+      "id": "TB-db95704b91d7554c",
+      "brand": "Schneider Electric",
+      "name": "Contactor Schneider LC1E25 · 3P",
+      "choices": 4
+    },
+    {
+      "id": "TB-c0c09ede8847559a",
+      "brand": "Schneider Electric",
+      "name": "Contactor Schneider LC1E32 · 3P",
+      "choices": 4
     },
     {
       "id": "TB-26cbc7271ef1b2ef",
@@ -3989,16 +4091,6 @@
       "related_price_rows": []
     },
     {
-      "id": "TB-e059eef428a073ae",
-      "name": "ATS O-Sung OSS-612-PC · 4P",
-      "brand": "O-Sung / OSEMCO",
-      "type": "ATS",
-      "product_code": "OSS-612-PC",
-      "reason": "no_brand_prices",
-      "brand_price_count": 0,
-      "related_price_rows": []
-    },
-    {
       "id": "TB-b51343ec0fb5af0c",
       "name": "BKN-LS · 1P · mẫu dự án",
       "brand": "LS Electric",
@@ -4079,43 +4171,13 @@
       "related_price_rows": []
     },
     {
-      "id": "TB-9fa26e93c8a3ea41",
-      "name": "Quạt lọc gió Leipole FKL6621.230",
-      "brand": "Leipole",
-      "type": "Quạt lọc gió tủ điện",
-      "product_code": "FKL6621.230",
-      "reason": "no_brand_prices",
-      "brand_price_count": 0,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-cedaec592367d18f",
-      "name": "Quạt lọc gió Leipole FKL6622.230",
-      "brand": "Leipole",
-      "type": "Quạt lọc gió tủ điện",
-      "product_code": "FKL6622.230",
-      "reason": "no_brand_prices",
-      "brand_price_count": 0,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-bfbdc254731538cd",
-      "name": "Quạt lọc gió Leipole FKL6623.230",
-      "brand": "Leipole",
-      "type": "Quạt lọc gió tủ điện",
-      "product_code": "FKL6623.230",
-      "reason": "no_brand_prices",
-      "brand_price_count": 0,
-      "related_price_rows": []
-    },
-    {
       "id": "TB-bb5602d5a042b864",
       "name": "RMU CCVV-24kV",
       "brand": "Schneider Electric",
       "type": "RMU",
       "product_code": "CCVV-24kV",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4125,7 +4187,7 @@
       "type": "RMU",
       "product_code": "CV-24kV",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4135,7 +4197,7 @@
       "type": "RMU",
       "product_code": "CCV-24kV",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4165,7 +4227,7 @@
       "type": "RCD",
       "product_code": "A9D",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4175,87 +4237,7 @@
       "type": "RCD",
       "product_code": "A9D",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-e3fc8970733974ad",
-      "name": "MCB Schneider C120 · 1P",
-      "brand": "Schneider Electric",
-      "type": "MCB",
-      "product_code": "C120",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-213254590a9ed914",
-      "name": "MCB Schneider C120 · 2P",
-      "brand": "Schneider Electric",
-      "type": "MCB",
-      "product_code": "C120",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-a6b013e73f33598f",
-      "name": "MCB Schneider C120 · 3P",
-      "brand": "Schneider Electric",
-      "type": "MCB",
-      "product_code": "C120",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-c50afde0c81b2886",
-      "name": "MCB Schneider C120 · 4P",
-      "brand": "Schneider Electric",
-      "type": "MCB",
-      "product_code": "C120",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-caf9059b74d15cc8",
-      "name": "MCCB Schneider CVS100/160/250 · 3P",
-      "brand": "Schneider Electric",
-      "type": "MCCB",
-      "product_code": "CVS100",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-6b869a3c7294f6c8",
-      "name": "MCCB Schneider CVS100/160/250 · 4P",
-      "brand": "Schneider Electric",
-      "type": "MCCB",
-      "product_code": "CVS100",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-edaa3c1aa248d7b4",
-      "name": "MCCB Schneider CVS400 · 3P",
-      "brand": "Schneider Electric",
-      "type": "MCCB",
-      "product_code": "CVS400",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-bfdb79c4e8f2b4e0",
-      "name": "MCCB Schneider CVS400 · 4P",
-      "brand": "Schneider Electric",
-      "type": "MCCB",
-      "product_code": "CVS400",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4265,7 +4247,7 @@
       "type": "MCCB",
       "product_code": "EZC100",
       "reason": "related_code_only",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": [
         {
           "id": "web:407825c541e9f481",
@@ -4331,7 +4313,7 @@
       "type": "MCCB",
       "product_code": "EZCV250",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4341,7 +4323,7 @@
       "type": "MCCB",
       "product_code": "EZCV250",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4351,7 +4333,7 @@
       "type": "MCCB",
       "product_code": "EZS100",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4361,7 +4343,7 @@
       "type": "MCCB",
       "product_code": "EZS100",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4371,7 +4353,7 @@
       "type": "MCCB",
       "product_code": "EZS100",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4381,7 +4363,7 @@
       "type": "MCCB",
       "product_code": "EZS100",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4391,7 +4373,7 @@
       "type": "MCCB",
       "product_code": "EZS250",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4401,7 +4383,7 @@
       "type": "MCCB",
       "product_code": "EZS250",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4411,7 +4393,7 @@
       "type": "MCCB",
       "product_code": "EZS250",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4421,7 +4403,7 @@
       "type": "MCCB",
       "product_code": "EZS400",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4431,7 +4413,7 @@
       "type": "MCCB",
       "product_code": "EZS400",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4441,7 +4423,7 @@
       "type": "MCB",
       "product_code": "iC60",
       "reason": "related_code_only",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": [
         {
           "id": "web:a2eea0a2e428a2b5",
@@ -4512,27 +4494,7 @@
       "type": "Contactor",
       "product_code": "iCT 1P",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-1d1ab36d75cb2b5c",
-      "name": "RCCB Schneider iIDK · 2P",
-      "brand": "Schneider Electric",
-      "type": "RCCB",
-      "product_code": "iIDK",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-0c2fc0e9ac12479c",
-      "name": "RCCB Schneider iIDK · 4P",
-      "brand": "Schneider Electric",
-      "type": "RCCB",
-      "product_code": "iIDK",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4542,7 +4504,7 @@
       "type": "Contactor",
       "product_code": "LC1D40",
       "reason": "related_code_only",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": [
         {
           "id": "web:096dc2a4efc63326",
@@ -4560,17 +4522,7 @@
       "type": "Contactor",
       "product_code": "LC1D40-65",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-7d1974c4701a6074",
-      "name": "Contactor Schneider LC1E06-18 · 3P",
-      "brand": "Schneider Electric",
-      "type": "Contactor",
-      "product_code": "LC1E06-18",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4580,58 +4532,8 @@
       "type": "Contactor",
       "product_code": "LC1E160",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
-    },
-    {
-      "id": "TB-db95704b91d7554c",
-      "name": "Contactor Schneider LC1E25 · 3P",
-      "brand": "Schneider Electric",
-      "type": "Contactor",
-      "product_code": "LC1E25",
-      "reason": "related_code_only",
-      "brand_price_count": 135,
-      "related_price_rows": [
-        {
-          "id": "web:4814bb09a01d0e49",
-          "sku": "LC1E2501B5",
-          "item_name": "LC1E2501B5",
-          "category": "CONTACTOR",
-          "specifications": null
-        },
-        {
-          "id": "web:e97324836f350d83",
-          "sku": "LC1E2510B5",
-          "item_name": "LC1E2510B5",
-          "category": "CONTACTOR",
-          "specifications": null
-        }
-      ]
-    },
-    {
-      "id": "TB-c0c09ede8847559a",
-      "name": "Contactor Schneider LC1E32 · 3P",
-      "brand": "Schneider Electric",
-      "type": "Contactor",
-      "product_code": "LC1E32",
-      "reason": "related_code_only",
-      "brand_price_count": 135,
-      "related_price_rows": [
-        {
-          "id": "web:e5b593e79e11b41e",
-          "sku": "LC1E3201B",
-          "item_name": "LC1E3201B",
-          "category": "CONTACTOR",
-          "specifications": null
-        },
-        {
-          "id": "web:c58cd7d8cc448be1",
-          "sku": "LC1E3210B5",
-          "item_name": "LC1E3210B5",
-          "category": "CONTACTOR",
-          "specifications": null
-        }
-      ]
     },
     {
       "id": "TB-042b1f4863190ee7",
@@ -4640,7 +4542,7 @@
       "type": "Contactor",
       "product_code": "LC1F115",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4650,7 +4552,7 @@
       "type": "Contactor",
       "product_code": "LC1F150",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4660,7 +4562,7 @@
       "type": "Contactor",
       "product_code": "LC1F185",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4670,7 +4572,7 @@
       "type": "Contactor",
       "product_code": "LC1F225",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4680,7 +4582,7 @@
       "type": "Contactor",
       "product_code": "LC1F265",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4690,7 +4592,7 @@
       "type": "Contactor",
       "product_code": "LC1F330",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4700,7 +4602,7 @@
       "type": "MCCB",
       "product_code": "NS100",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4710,7 +4612,7 @@
       "type": "MCCB",
       "product_code": "NS100",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4720,7 +4622,7 @@
       "type": "MCCB",
       "product_code": "NS100",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4730,7 +4632,7 @@
       "type": "MCCB",
       "product_code": "NS400",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4740,7 +4642,7 @@
       "type": "MCCB",
       "product_code": "NS400",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4750,7 +4652,7 @@
       "type": "MCCB",
       "product_code": "NS630b",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4760,7 +4662,7 @@
       "type": "MCCB",
       "product_code": "NS630b",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4770,7 +4672,7 @@
       "type": "Contactor",
       "product_code": "",
       "reason": "no_device_code",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -4910,7 +4812,7 @@
       "type": "METER",
       "product_code": "",
       "reason": "no_device_code",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {
@@ -5000,7 +4902,7 @@
       "type": "METER",
       "product_code": "PM710",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 135,
+      "brand_price_count": 302,
       "related_price_rows": []
     },
     {

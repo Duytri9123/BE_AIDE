@@ -1,35 +1,37 @@
 # Rà thư viện theo thư mục
 
+Ưu tiên thiết bị phục vụ bóc tách: 684 CAD cần đối chiếu giá, 530 chưa có lựa chọn. 153 cầu đấu/phụ kiện không yêu cầu khớp mã/giá chính xác theo yêu cầu người dùng. Đây là thay đổi phạm vi, không phải tăng số CAD đã khớp giá.
+
 Một thư mục đã rà tài liệu web vẫn có thể còn thiếu giá hoặc mã cấu hình. Hãng/mã theo block nguồn và hãng đọc trực tiếp từ CAD được ghi riêng.
 
-| Thư mục | CAD | Có lựa chọn giá | Chưa có lựa chọn | Trạng thái rà web |
-| --- | ---: | ---: | ---: | --- |
-| ABB | 79 | 46 | 33 | reviewed_with_remaining_gaps |
-| BienDong | 43 | 8 | 35 | reviewed_with_remaining_gaps |
-| Biến tần | 1 | 0 | 1 | pending_web_review |
-| Bộ điều khiển | 19 | 4 | 15 | web_review_in_progress |
-| Chint | 23 | 4 | 19 | pending_web_review |
-| Chống sét | 5 | 0 | 5 | pending_web_review |
-| Cuộn kháng | 1 | 0 | 1 | pending_web_review |
-| Cầu đấu | 37 | 0 | 37 | pending_web_review |
-| DenBaoNutNhanCauChiContactor | 20 | 6 | 14 | pending_web_review |
-| Khóa | 17 | 0 | 17 | pending_web_review |
-| LS | 123 | 17 | 106 | pending_web_review |
-| Mitsubishi | 38 | 27 | 11 | pending_web_review |
-| Nguồn và biến áp | 4 | 1 | 3 | pending_web_review |
-| O-Sung | 1 | 0 | 1 | pending_web_review |
-| Phíp | 13 | 0 | 13 | pending_web_review |
-| Phụ kiện tủ điện | 58 | 0 | 58 | pending_web_review |
-| ProjectSamples | 9 | 0 | 9 | pending_web_review |
-| Quạt | 9 | 0 | 9 | pending_web_review |
-| RMU | 7 | 0 | 7 | pending_web_review |
-| Schneider | 236 | 17 | 219 | pending_web_review |
-| Shihlin | 20 | 10 | 10 | pending_web_review |
-| ThietBiDoLuongHienThi | 21 | 0 | 21 | pending_web_review |
-| Tụ bù | 29 | 0 | 29 | pending_web_review |
-| Đố | 16 | 0 | 16 | pending_web_review |
-| Đồng | 1 | 0 | 1 | pending_web_review |
-| Ổ cắm | 7 | 0 | 7 | pending_web_review |
+| Thư mục | CAD | Có lựa chọn giá | Thiết bị ưu tiên chưa có giá | Cầu đấu/phụ kiện không bắt buộc | Trạng thái rà |
+| --- | ---: | ---: | ---: | ---: | --- |
+| ABB | 79 | 46 | 31 | 4 | Đã rà; còn thiếu dữ liệu |
+| BienDong | 43 | 8 | 35 | 0 | Đã rà; còn thiếu dữ liệu |
+| Biến tần | 1 | 0 | 1 | 0 | Đã rà dữ liệu và nguồn theo dòng; còn xác minh |
+| Bộ điều khiển | 19 | 4 | 15 | 0 | Đã rà dữ liệu và nguồn theo dòng; còn xác minh |
+| Chint | 23 | 4 | 19 | 0 | Đã rà dữ liệu và nguồn theo dòng; còn xác minh |
+| Chống sét | 5 | 0 | 5 | 0 | Đã rà dữ liệu và nguồn theo dòng; còn xác minh |
+| Cuộn kháng | 1 | 0 | 1 | 0 | Đã rà dữ liệu và nguồn theo dòng; còn xác minh |
+| Cầu đấu | 37 | 0 | 0 | 37 | Đã rà tên/nhóm/bản vẽ; không bắt buộc giá |
+| DenBaoNutNhanCauChiContactor | 20 | 6 | 14 | 0 | Đã rà dữ liệu và nguồn theo dòng; còn xác minh |
+| Khóa | 17 | 0 | 0 | 17 | Đã rà tên/nhóm/bản vẽ; không bắt buộc giá |
+| LS | 123 | 17 | 106 | 1 | Đã rà dữ liệu và nguồn theo dòng; còn xác minh |
+| Mitsubishi | 38 | 27 | 11 | 0 | Đã rà dữ liệu và nguồn theo dòng; còn xác minh |
+| Nguồn và biến áp | 4 | 1 | 3 | 0 | Đã rà dữ liệu và nguồn theo dòng; còn xác minh |
+| O-Sung | 1 | 1 | 0 | 0 | Đã rà dữ liệu và nguồn theo dòng; còn xác minh |
+| Phíp | 13 | 0 | 0 | 13 | Đã rà tên/nhóm/bản vẽ; không bắt buộc giá |
+| Phụ kiện tủ điện | 58 | 0 | 0 | 58 | Đã rà tên/nhóm/bản vẽ; không bắt buộc giá |
+| ProjectSamples | 9 | 0 | 9 | 0 | Đã rà dữ liệu và nguồn theo dòng; còn xác minh |
+| Quạt | 9 | 3 | 0 | 6 | Đã rà dữ liệu và nguồn theo dòng; còn xác minh |
+| RMU | 7 | 0 | 7 | 0 | Đã rà dữ liệu và nguồn theo dòng; còn xác minh |
+| Schneider | 236 | 30 | 206 | 0 | Đã rà dữ liệu và nguồn theo dòng; còn xác minh |
+| Shihlin | 20 | 10 | 10 | 0 | Đã rà dữ liệu và nguồn theo dòng; còn xác minh |
+| ThietBiDoLuongHienThi | 21 | 0 | 21 | 0 | Đã rà dữ liệu và nguồn theo dòng; còn xác minh |
+| Tụ bù | 29 | 0 | 29 | 0 | Đã rà dữ liệu và nguồn theo dòng; còn xác minh |
+| Đố | 16 | 0 | 0 | 16 | Đã rà tên/nhóm/bản vẽ; không bắt buộc giá |
+| Đồng | 1 | 0 | 0 | 1 | Đã rà tên/nhóm/bản vẽ; không bắt buộc giá |
+| Ổ cắm | 7 | 0 | 7 | 0 | Đã rà dữ liệu và nguồn theo dòng; còn xác minh |
 
 ## ABB
 
@@ -54,7 +56,7 @@ Rà 79 CAD trong thư mục ABB. Bổ sung 355 dòng giá hãng Việt Nam 2026:
 | MCCB ABB A2 · 4P | ABB | A2 | 21 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCCB ABB A3 · 3P | ABB | A3 | 6 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCCB ABB A3 · 4P | ABB | A3 | 6 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
-| Accessory ABB chưa rõ mã | ABB | Chưa xác nhận mã | 0 | Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá. |
+| Accessory ABB chưa rõ mã | ABB | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
 | Contactor ABB AX115-30-11 · 3P | ABB | AX115-30-11 | 4 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | Contactor ABB AX12-30-10 · 3P | ABB | AX12-30-10 | 4 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | Contactor ABB AX150-30-11 · 3P | ABB | AX150-30-11 | 4 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
@@ -67,7 +69,7 @@ Rà 79 CAD trong thư mục ABB. Bổ sung 355 dòng giá hãng Việt Nam 2026:
 | Contactor ABB AX80-30-11 · 3P | ABB | AX80-30-11 | 4 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | Contactor ABB AX95-30-11 · 3P | ABB | AX95-30-11 | 4 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | Contactor ABB AX9-30-10 · 3P | ABB | AX9-30-10 | 4 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
-| Aux Contact ABB CAL5-11 | ABB | CAL5-11 | 0 | Đã nhận diện ABB · Aux_Contact · CAL5-11. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| Aux Contact ABB CAL5-11 | ABB | CAL5-11 | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
 | RCBO ABB DS201L · 1P+N | ABB | DS201L | 12 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | RCCB ABB FH202 · 2P | ABB | FH202 | 9 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | RCCB ABB FH204 · 4P | ABB | FH204 | 9 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
@@ -113,8 +115,8 @@ Rà 79 CAD trong thư mục ABB. Bổ sung 355 dòng giá hãng Việt Nam 2026:
 | Thermal Relay ABB TA42-DU | ABB | TA42-DU | 3 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | Thermal Relay ABB TA75-DU | ABB | TA75-DU | 6 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | Thermal Relay ABB TA80-DU | ABB | TA80-DU | 4 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
-| Interlock ABB VE5-1 | ABB | VE5-1 | 1 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
-| Interlock ABB VE5-2 | ABB | VE5-2 | 1 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
+| Interlock ABB VE5-1 | ABB | VE5-1 | 1 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Interlock ABB VE5-2 | ABB | VE5-2 | 1 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
 | MCCB ABB XT1 · 3P | ABB | XT1 | 55 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCCB ABB XT1 · 4P | ABB | XT1 | 55 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCCB ABB XT2 · 3P | ABB | XT2 | 33 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
@@ -182,8 +184,9 @@ Rà 79 CAD trong thư mục ABB. Bổ sung 355 dòng giá hãng Việt Nam 2026:
 
 ## Biến tần
 
-Chưa hoàn tất rà web cho thư mục này.
+Rà CAD FR-S500. Tài liệu hãng xác nhận dòng biến tần cũ; nhãn hãng trong hồ sơ vẫn là ứng viên, thiếu mã đầy đủ, kW và điện áp. Không lấy giá FR-D/FR-E hiện hành thay FR-S500.
 
+- [Mitsubishi — manual FR-S500](https://dl.mitsubishielectric.com/dl/fa/document/manual/inv/ib0600027/ib0600027c.pdf)
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
@@ -191,7 +194,7 @@ Chưa hoàn tất rà web cho thư mục này.
 
 ## Bộ điều khiển
 
-Đã rà metadata và chữ DXF của 19 CAD; đang đối chiếu tài liệu hãng. Tìm được giá bán NX201A-240A 1.461.600 đồng, giữ đúng mã cũ, không lấy N201/R201 thay thế. CAD NX201A/MK201A vẫn chưa phân biệt rõ dòng để liên kết tự động. DSE8610 là mã ứng viên; DELAB APFC 12 cấp chưa có mã đặt hàng xác nhận. Chưa hoàn tất nhận diện các ATS/biến tần/rơ le chưa rõ hãng trong thư mục này.
+Đã rà metadata và chữ DXF của 19 CAD; đang đối chiếu tài liệu hãng. Tìm được giá bán NX201A-240A 1.461.600 đồng, giữ đúng mã cũ, không lấy N201/R201 thay thế. CAD NX201A/MK201A vẫn chưa phân biệt rõ dòng để liên kết tự động. DSE8610 là mã ứng viên; DELAB APFC 12 cấp chưa có mã đặt hàng xác nhận. Chưa hoàn tất nhận diện các ATS/biến tần/rơ le chưa rõ hãng trong thư mục này. Đã kết thúc lượt rà danh sách 19 CAD và nguồn theo dòng; 11 mẫu chưa rõ hãng vẫn chưa đủ nhãn/mã để chọn giá.
 
 - [Mikro NX201A — các biến thể điện áp phụ trợ](https://itmikro.com.my/nx201a-earth-fault-relay/)
 - [Cơ điện Hải Âu — giá NX201A-240A](https://codienhaiau.com/product/ro-le-bao-ve-cham-dat-mikro-nx201a-240a-0-1-2a/)
@@ -222,8 +225,11 @@ Chưa hoàn tất rà web cho thư mục này.
 
 ## Chint
 
-Chưa hoàn tất rà web cho thư mục này.
+Rà 23 CAD. NCH8-20/25 là CAD dùng chung hai dòng, cần chọn dòng/tiếp điểm/điện áp cuộn hút. NP2 là họ nút nhấn/đèn/công tắc xoay, không áp giá nút nhấn NP2-EA cho đèn hay selector. Transformer thiếu mã/VA/điện áp. 13 CAD từ @CHINT vẫn thiếu xác nhận thiết bị; NXB/NXM/NM1 không coi tương đương nhau.
 
+- [CHINT NCH8 — tài liệu và CAD dùng chung](https://www.chintglobal.com/mx/es/products/low-voltage/iec/industrial-control/nch8.html)
+- [CHINT NP2 — cấu trúc mã theo chức năng](https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/push-button/np2/catalog/NP2-Pushbuttons-catalog.pdf)
+- [CHINT Industrial Control](https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/-cluster-/Industrial%20Control-Low%20Voltage-Master%20Catalog.pdf)
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
@@ -253,8 +259,9 @@ Chưa hoàn tất rà web cho thư mục này.
 
 ## Chống sét
 
-Chưa hoàn tất rà web cho thư mục này.
+Rà 5 CAD: 3 chưa rõ hãng, 2 có nhãn Suntree nhưng chưa có mã. Cần Uc, loại AC/DC, Type 1/2, Iimp/In/Imax và số cực. Không gán SUP2-PV hoặc SPD hãng khác chỉ từ số mô-đun.
 
+- [Suntree — catalogue DC SPD](https://www.chinasuntree.com/upload/1c/pdf/DC-SPD-T1-T2.pdf)
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
@@ -266,8 +273,10 @@ Chưa hoàn tất rà web cho thư mục này.
 
 ## Cuộn kháng
 
-Chưa hoàn tất rà web cho thư mục này.
+Rà CAD cuộn kháng ba pha. Chưa có hãng/mã, kvar, điện áp, Hz và hệ số p%. Một kích thước chung có thể dùng cho nhiều mức kvar; không áp mã Schneider từ hình dạng.
 
+- [Schneider — lựa chọn tụ/kháng](https://www.se.com/hk/en/download/document/26679713/)
+- [Schneider — CAD chung cho nhiều mức kvar](https://www.se.com/ng/en/faqs/FA401137/)
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
@@ -275,53 +284,55 @@ Chưa hoàn tất rà web cho thư mục này.
 
 ## Cầu đấu
 
-Chưa hoàn tất rà web cho thư mục này.
+Rà 37 CAD về nhóm, tên và bản vẽ. Theo yêu cầu người dùng, không bắt buộc tìm đúng mã/giá cầu đấu. Giữ hãng chưa rõ/ứng viên, không suy hãng chỉ từ CTS/UK/CD/TB.
 
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
-| Dãy cầu đấu CD · 10 cực 10 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Hãng hiện là ứng viên; cần xác nhận nhãn hãng trước khi liên kết bảng giá. |
-| Dãy cầu đấu CD · 10 cực 30 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
-| Dãy cầu đấu CD · 1 cực 100 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
-| Dãy cầu đấu CD · 20 cực 20 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Hãng hiện là ứng viên; cần xác nhận nhãn hãng trước khi liên kết bảng giá. |
-| Dãy cầu đấu CD · 3 cực 100 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Hãng hiện là ứng viên; cần xác nhận nhãn hãng trước khi liên kết bảng giá. |
-| Dãy cầu đấu CD · 3 cực 150 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Hãng hiện là ứng viên; cần xác nhận nhãn hãng trước khi liên kết bảng giá. |
-| Dãy cầu đấu CD · 3 cực 200 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
-| Dãy cầu đấu CD · 3 cực 300 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Hãng hiện là ứng viên; cần xác nhận nhãn hãng trước khi liên kết bảng giá. |
-| Dãy cầu đấu CD · 3 cực 400 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Hãng hiện là ứng viên; cần xác nhận nhãn hãng trước khi liên kết bảng giá. |
-| Dãy cầu đấu CD · 3 cực 500 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Hãng hiện là ứng viên; cần xác nhận nhãn hãng trước khi liên kết bảng giá. |
-| Dãy cầu đấu CD · 3 cực 60 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
-| Dãy cầu đấu CD · 4 cực 100 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Hãng hiện là ứng viên; cần xác nhận nhãn hãng trước khi liên kết bảng giá. |
-| Dãy cầu đấu CD · 4 cực 150 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Hãng hiện là ứng viên; cần xác nhận nhãn hãng trước khi liên kết bảng giá. |
-| Dãy cầu đấu CD · 4 cực 200 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Hãng hiện là ứng viên; cần xác nhận nhãn hãng trước khi liên kết bảng giá. |
-| Dãy cầu đấu CD · 4 cực 300 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Hãng hiện là ứng viên; cần xác nhận nhãn hãng trước khi liên kết bảng giá. |
-| Dãy cầu đấu CD · 4 cực 400 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Hãng hiện là ứng viên; cần xác nhận nhãn hãng trước khi liên kết bảng giá. |
-| Dãy cầu đấu CD · 4 cực 500 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
-| Dãy cầu đấu CD · 4 cực 60 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Hãng hiện là ứng viên; cần xác nhận nhãn hãng trước khi liên kết bảng giá. |
-| Chặn cuối dãy cầu đấu | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
-| Cầu đấu đơn CTS25 | Chưa chỉ định hãng | CTS25 | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
-| Cầu đấu đơn CTS4 | Chưa chỉ định hãng | CTS4 | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
-| Cầu đấu đơn CTS6 | Chưa chỉ định hãng | CTS6 | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
-| Dãy cầu đấu HYT HYT-203 | Hanyoung Nux | HYT-203 | 0 | Đã nhận diện Hanyoung Nux · Dãy cầu đấu bắt vít · HYT-203. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| Dãy cầu đấu HYT HYT-204 | Hanyoung Nux | HYT-204 | 0 | Đã nhận diện Hanyoung Nux · Dãy cầu đấu bắt vít · HYT-204. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| Dãy cầu đấu HYT HYT30 | Hanyoung Nux | HYT30 | 0 | Đã nhận diện Hanyoung Nux · Dãy cầu đấu bắt vít · HYT30. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| Dãy cầu đấu HYT HYT304 | Hanyoung Nux | HYT304 | 0 | Đã nhận diện Hanyoung Nux · Dãy cầu đấu bắt vít · HYT304. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| Dãy cầu đấu TB · 12 cực 15 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
-| Dãy cầu đấu TB · 12 cực 20 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
-| Dãy cầu đấu TB · 4 cực 150 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
-| Dãy cầu đấu TB · 4 cực 15 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
-| Dãy cầu đấu TB · 4 cực 200 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
-| Dãy cầu đấu TB · 4 cực 20 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
-| Dãy cầu đấu TB · 4 cực 300 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
-| Dãy cầu đấu TB · 4 cực 30 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
-| Dãy cầu đấu TB · 4 cực 60 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
-| Dãy cầu đấu TB · 6 cực 20 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
-| Cầu đấu đơn UK3N | Chưa chỉ định hãng | UK3N | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
+| Dãy cầu đấu CD · 10 cực 10 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu CD · 10 cực 30 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu CD · 1 cực 100 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu CD · 20 cực 20 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu CD · 3 cực 100 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu CD · 3 cực 150 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu CD · 3 cực 200 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu CD · 3 cực 300 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu CD · 3 cực 400 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu CD · 3 cực 500 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu CD · 3 cực 60 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu CD · 4 cực 100 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu CD · 4 cực 150 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu CD · 4 cực 200 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu CD · 4 cực 300 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu CD · 4 cực 400 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu CD · 4 cực 500 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu CD · 4 cực 60 A | Hanyoung Nux | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Chặn cuối dãy cầu đấu | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Cầu đấu đơn CTS25 | Chưa chỉ định hãng | CTS25 | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Cầu đấu đơn CTS4 | Chưa chỉ định hãng | CTS4 | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Cầu đấu đơn CTS6 | Chưa chỉ định hãng | CTS6 | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu HYT HYT-203 | Hanyoung Nux | HYT-203 | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu HYT HYT-204 | Hanyoung Nux | HYT-204 | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu HYT HYT30 | Hanyoung Nux | HYT30 | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu HYT HYT304 | Hanyoung Nux | HYT304 | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu TB · 12 cực 15 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu TB · 12 cực 20 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu TB · 4 cực 150 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu TB · 4 cực 15 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu TB · 4 cực 200 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu TB · 4 cực 20 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu TB · 4 cực 300 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu TB · 4 cực 30 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu TB · 4 cực 60 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Dãy cầu đấu TB · 6 cực 20 A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Cầu đấu đơn UK3N | Chưa chỉ định hãng | UK3N | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
 
 ## DenBaoNutNhanCauChiContactor
 
-Chưa hoàn tất rà web cho thư mục này.
+Rà 20 CAD. Giữ đúng chức năng đèn, nút nhấn, selector, cụm cầu chì và khởi động từ. IDEC có nhãn hãng nhưng SW0.1 không phải mã đặt hàng; các đèn chưa rõ mã cần màu, điện áp và tiếp điểm. Không đổi tên chung thành mã NP2/ND16 tùy ý.
 
+- [CHINT NP2 — các chức năng và mã](https://www.chintglobal.com/sa/en/products/low-voltage/iec/industrial-control/np2.html?section=Catalog)
+- [IDEC — công tắc và đèn báo](https://www.idec.com/en-us/switches-indicator-lights/switches-pushbuttons/pushbuttons-pilot-lights)
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
@@ -348,33 +359,36 @@ Chưa hoàn tất rà web cho thư mục này.
 
 ## Khóa
 
-Chưa hoàn tất rà web cho thư mục này.
+Đã rà từng mục về tên, phân nhóm, mặt vẽ và dữ liệu nguồn. Theo yêu cầu người dùng, phụ kiện không cần khớp chính xác mã/giá. Giữ kích thước/mã hình nguồn nếu có; không gán Asian hoặc Rittal thành hãng của phụ kiện phổ thông.
 
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
-| Khóa xoay tay nắm bầu dục A-19 | Chưa chỉ định hãng | A-19 | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa tay nắm âm A-480 | Chưa chỉ định hãng | A-480 | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa tay nắm âm AB301-1-1 | Chưa chỉ định hãng | AB301-1-1 | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa tay nắm âm AB301-2-1 | Chưa chỉ định hãng | AB301-2-1 | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa tay nắm âm AB301-3-1 | Chưa chỉ định hãng | AB301-3-1 | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa tay nắm âm C45-72 | Chưa chỉ định hãng | C45-72 | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Chốt cửa tủ nằm ngang | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa tay nắm âm cửa tủ | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa bật cửa tủ MS603-3 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa móc cửa tủ | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa xoay tay nắm MS301 | Chưa chỉ định hãng | MS301 | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa xoay tay nắm MS303 | Chưa chỉ định hãng | MS303 | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa tay nắm MS308-2 | Chưa chỉ định hãng | MS308-2 | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa cam đầu tam giác MS8712 | Chưa chỉ định hãng | MS8712 | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Tay nắm kéo cửa tủ dạng thanh | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Tay nắm kéo cửa tủ dạng chữ U | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa xoay đầu tam giác TG-504 | Chưa chỉ định hãng | TG-504 | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
+| Khóa xoay tay nắm bầu dục A-19 | Chưa chỉ định hãng | A-19 | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa tay nắm âm A-480 | Chưa chỉ định hãng | A-480 | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa tay nắm âm AB301-1-1 | Chưa chỉ định hãng | AB301-1-1 | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa tay nắm âm AB301-2-1 | Chưa chỉ định hãng | AB301-2-1 | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa tay nắm âm AB301-3-1 | Chưa chỉ định hãng | AB301-3-1 | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa tay nắm âm C45-72 | Chưa chỉ định hãng | C45-72 | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Chốt cửa tủ nằm ngang | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa tay nắm âm cửa tủ | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa bật cửa tủ MS603-3 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa móc cửa tủ | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa xoay tay nắm MS301 | Chưa chỉ định hãng | MS301 | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa xoay tay nắm MS303 | Chưa chỉ định hãng | MS303 | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa tay nắm MS308-2 | Chưa chỉ định hãng | MS308-2 | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa cam đầu tam giác MS8712 | Chưa chỉ định hãng | MS8712 | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Tay nắm kéo cửa tủ dạng thanh | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Tay nắm kéo cửa tủ dạng chữ U | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa xoay đầu tam giác TG-504 | Chưa chỉ định hãng | TG-504 | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
 
 ## LS
 
-Chưa hoàn tất rà web cho thư mục này.
+Rà 123 CAD, giữ riêng mã khung, số cực và loại. MC-40 không tự đổi MC-40a; ABN/ABH/ABS, TD/TS và EBS khác chức năng/dòng. BKN 4P có giá BKN 1P/2P/3P nhưng thiếu 4P trong dữ liệu, đã sửa chẩn đoán. 65 CAD thư viện nguồn chưa được tự nâng thành nhãn hãng/mã đã xác nhận.
 
+- [LS — công cụ tìm dòng sản phẩm](https://lens.ls-electric.com/)
+- [LS Metasol MCCB/ELCB](https://www.ls-electric.com/upload/customer/download/0f7505a1-9187-42e2-bc87-d6f557990b24/Metasol%20MCCB_E_1907%280%29.pdf)
+- [LS — Metasol contactor, khác biệt dòng cũ/mới](https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf)
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
@@ -390,7 +404,7 @@ Chưa hoàn tất rà web cho thư mục này.
 | MCB LS BKN · 1P | LS Electric | BKN | 2 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCB LS BKN · 2P | LS Electric | BKN | 2 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCB LS BKN · 3P | LS Electric | BKN | 2 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
-| MCB LS BKN · 4P | LS Electric | BKN | 0 | Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác. |
+| MCB LS BKN · 4P | LS Electric | BKN | 0 | Đã có giá đúng dòng BKN, nhưng dữ liệu giá chỉ có 1P, 2P, 3P; CAD này là 4P. Cần giá đúng số cực. |
 | MCB LS BKP · 1P+N | LS Electric | BKP | 0 | Đã nhận diện LS Electric · MCB · BKP. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | RCBO LS BS32c · 2P | LS Electric | BS32c | 0 | Đã nhận diện LS Electric · RCBO · BS32c. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | Contactor LS MC-35/MC-40/MC-50/MC-63 | LS Electric | MC-35 / MC-40 / MC-50 / MC-63 | 0 | Đã nhận diện LS Electric · Contactor · MC-35 / MC-40 / MC-50 / MC-63. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
@@ -500,12 +514,14 @@ Chưa hoàn tất rà web cho thư mục này.
 | MCCB LS TS800 · 4P | LS Electric | TS800 | 2 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCCB LS TS1000/TS1250/TS1600 · 3P | LS Electric | TS1000 / TS1250 / TS1600 | 7 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCCB LS TS1000/TS1250/TS1600 · 4P | LS Electric | TS1000 / TS1250 / TS1600 | 6 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
-| Aux Contact LS UA-1 | LS Electric | UA-1 | 1 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
+| Aux Contact LS UA-1 | LS Electric | UA-1 | 1 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
 
 ## Mitsubishi
 
-Chưa hoàn tất rà web cho thư mục này.
+Rà 38 CAD. 5 CAD 4P NF125-CV/NF250-CV/NF400-CW/NF630-CW/NF800-CEW hiện thiếu giá đúng 4P, không lấy 2P/3P; đã sửa thông báo để thể hiện nguyên nhân này. NF30-CS/NF63-CW và NF-SDW DC còn thiếu nguồn giá đúng mã; không thay bằng dòng CV/SV/SEW mới. Trang CAD hãng là nguồn đối chiếu, không phải chứng nhận thông số của CAD đang có.
 
+- [Mitsubishi — CAD theo mã và số cực](https://www.mitsubishielectric.com/fa/download/cad/search.page?category1=102&kisyu=%2Flvcb&mode=cad)
+- [Mitsubishi — catalogue MCCB](https://dl.mitsubishielectric.com/dl/fa/document/catalog/lvcb/yn-c-0720/y0720c1609.pdf)
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
@@ -521,27 +537,27 @@ Chưa hoàn tất rà web cho thư mục này.
 | MCCB Mitsubishi NF1250-SDW · 2P · DC | Mitsubishi Electric | NF1250-SDW | 0 | Đã nhận diện Mitsubishi Electric · MCCB · NF1250-SDW. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | MCCB Mitsubishi NF125-CV · 2P | Mitsubishi Electric | NF125-CV | 14 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCCB Mitsubishi NF125-CV · 3P | Mitsubishi Electric | NF125-CV | 14 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
-| MCCB Mitsubishi NF125-CV · 4P | Mitsubishi Electric | NF125-CV | 0 | Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác. |
+| MCCB Mitsubishi NF125-CV · 4P | Mitsubishi Electric | NF125-CV | 0 | Đã có giá đúng dòng NF125-CV, nhưng dữ liệu giá chỉ có 2P, 3P; CAD này là 4P. Cần giá đúng số cực. |
 | MCCB Mitsubishi NF1600-SDW · 2P · DC | Mitsubishi Electric | NF1600-SDW | 0 | Đã nhận diện Mitsubishi Electric · MCCB · NF1600-SDW. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | MCCB Mitsubishi NF1600-SEW · 3P | Mitsubishi Electric | NF1600-SEW | 1 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCCB Mitsubishi NF1600-SEW · 4P | Mitsubishi Electric | NF1600-SEW | 1 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCCB Mitsubishi NF250-CV · 2P | Mitsubishi Electric | NF250-CV | 14 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCCB Mitsubishi NF250-CV · 3P | Mitsubishi Electric | NF250-CV | 14 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
-| MCCB Mitsubishi NF250-CV · 4P | Mitsubishi Electric | NF250-CV | 0 | Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác. |
+| MCCB Mitsubishi NF250-CV · 4P | Mitsubishi Electric | NF250-CV | 0 | Đã có giá đúng dòng NF250-CV, nhưng dữ liệu giá chỉ có 2P, 3P; CAD này là 4P. Cần giá đúng số cực. |
 | MCCB Mitsubishi NF30-CS · 2P | Mitsubishi Electric | NF30-CS | 0 | Đã nhận diện Mitsubishi Electric · MCCB · NF30-CS. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | MCCB Mitsubishi NF30-CS · 3P | Mitsubishi Electric | NF30-CS | 0 | Đã nhận diện Mitsubishi Electric · MCCB · NF30-CS. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | MCCB Mitsubishi NF32-SV · 2P | Mitsubishi Electric | NF32-SV | 11 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCCB Mitsubishi NF400-CW · 2P | Mitsubishi Electric | NF400-CW | 4 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCCB Mitsubishi NF400-CW · 3P | Mitsubishi Electric | NF400-CW | 4 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
-| MCCB Mitsubishi NF400-CW · 4P | Mitsubishi Electric | NF400-CW | 0 | Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác. |
+| MCCB Mitsubishi NF400-CW · 4P | Mitsubishi Electric | NF400-CW | 0 | Đã có giá đúng dòng NF400-CW, nhưng dữ liệu giá chỉ có 2P, 3P; CAD này là 4P. Cần giá đúng số cực. |
 | MCCB Mitsubishi NF630-CW · 2P | Mitsubishi Electric | NF630-CW | 3 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCCB Mitsubishi NF630-CW · 3P | Mitsubishi Electric | NF630-CW | 3 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
-| MCCB Mitsubishi NF630-CW · 4P | Mitsubishi Electric | NF630-CW | 0 | Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác. |
+| MCCB Mitsubishi NF630-CW · 4P | Mitsubishi Electric | NF630-CW | 0 | Đã có giá đúng dòng NF630-CW, nhưng dữ liệu giá chỉ có 2P, 3P; CAD này là 4P. Cần giá đúng số cực. |
 | MCCB Mitsubishi NF63-CW · 3P | Mitsubishi Electric | NF63-CW | 0 | Đã nhận diện Mitsubishi Electric · MCCB · NF63-CW. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | MCCB Mitsubishi NF63-SV · 3P | Mitsubishi Electric | NF63-SV | 26 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCCB Mitsubishi NF63-SV · 4P | Mitsubishi Electric | NF63-SV | 15 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCCB Mitsubishi NF800-CEW · 3P | Mitsubishi Electric | NF800-CEW | 1 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
-| MCCB Mitsubishi NF800-CEW · 4P | Mitsubishi Electric | NF800-CEW | 0 | Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác. |
+| MCCB Mitsubishi NF800-CEW · 4P | Mitsubishi Electric | NF800-CEW | 0 | Đã có giá đúng dòng NF800-CEW, nhưng dữ liệu giá chỉ có 3P; CAD này là 4P. Cần giá đúng số cực. |
 | MCCB Mitsubishi NF800-SDW · 2P · DC | Mitsubishi Electric | NF800-SDW | 0 | Đã nhận diện Mitsubishi Electric · MCCB · NF800-SDW. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | Contactor Mitsubishi S-T10 · 3P | Mitsubishi Electric | S-T10 | 14 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | Contactor Mitsubishi S-T12/S-T20 · 3P | Mitsubishi Electric | S-T12 / S-T20 | 36 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
@@ -550,8 +566,10 @@ Chưa hoàn tất rà web cho thư mục này.
 
 ## Nguồn và biến áp
 
-Chưa hoàn tất rà web cho thư mục này.
+Rà 4 CAD. Nhãn TR/24VAC/24VDC không đủ xác định hãng và mã. Nguồn DC không phải biến áp AC; cần công suất, đầu vào/đầu ra và kiểu lắp. Không áp mã chỉ từ nhãn điện áp.
 
+- [Schneider — control transformers](https://www.se.com/us/en/product-range/7278-control-transformers/)
+- [Omron — S8FS, phân biệt phiên bản](https://www.ia.omron.com/products/family/3460/lineup.html)
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
@@ -562,104 +580,108 @@ Chưa hoàn tất rà web cho thư mục này.
 
 ## O-Sung
 
-Chưa hoàn tất rà web cho thư mục này.
+Rà ATS OSS-612-PC 4P. Bổ sung bảng giá ETINCO áp dụng 15/03/2026: 14 mã, mỗi mã có 3P/4P, chưa VAT. OSS-612-PC 4P 1250A có giá 70.150.000 đồng, giữ riêng giá 3P 56.500.000 đồng. PC/PCN và cách lắp không tự xem tương đương.
 
+- [ETINCO — bảng giá OSEMCO 15/03/2026](https://etinco.vn/wp-content/uploads/2025/05/bang-gia-bo-chuyen-nguon-ats-osemco-osung.pdf)
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
-| ATS O-Sung OSS-612-PC · 4P | O-Sung / OSEMCO | OSS-612-PC | 0 | Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố. |
+| ATS O-Sung OSS-612-PC · 4P | O-Sung / OSEMCO | OSS-612-PC | 1 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 
 ## Phíp
 
-Chưa hoàn tất rà web cho thư mục này.
+Đã rà từng mục về tên, phân nhóm, mặt vẽ và dữ liệu nguồn. Theo yêu cầu người dùng, phụ kiện không cần khớp chính xác mã/giá. Giữ kích thước/mã hình nguồn nếu có; không gán Asian hoặc Rittal thành hãng của phụ kiện phổ thông.
 
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
-| Sứ đỡ cách điện S25 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Sứ đỡ cách điện S35 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Sứ đỡ cách điện S50 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Sứ đỡ cách điện S54 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh tiếp địa PE | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh trung tính N | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh đỡ cách điện EUROKLAS MH1 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh đỡ cách điện EUROKLAS MH2 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh đỡ cách điện H&T 10D3 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh đỡ cách điện H&T 10D3 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh đỡ cách điện JSJ-180 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh đỡ cách điện JSJ 270-3P | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh đỡ cách điện JSJ 290-4P | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
+| Sứ đỡ cách điện S25 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Sứ đỡ cách điện S35 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Sứ đỡ cách điện S50 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Sứ đỡ cách điện S54 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh tiếp địa PE | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh trung tính N | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh đỡ cách điện EUROKLAS MH1 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh đỡ cách điện EUROKLAS MH2 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh đỡ cách điện H&T 10D3 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh đỡ cách điện H&T 10D3 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh đỡ cách điện JSJ-180 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh đỡ cách điện JSJ 270-3P | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh đỡ cách điện JSJ 290-4P | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
 
 ## Phụ kiện tủ điện
 
-Chưa hoàn tất rà web cho thư mục này.
+Đã rà từng mục về tên, phân nhóm, mặt vẽ và dữ liệu nguồn. Theo yêu cầu người dùng, phụ kiện không cần khớp chính xác mã/giá. Giữ kích thước/mã hình nguồn nếu có; không gán Asian hoặc Rittal thành hãng của phụ kiện phổ thông.
 
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
-| Bản lề cửa kiểu BL2 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Bản lề cửa kiểu BL1 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Bản lề lá | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Bản lề rùa HL035-1 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Bản lề HL012 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Bản lề chốt nhỏ HL003-2 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Bản lề âm HL036 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Bản lề âm chốt nhỏ HL011-2 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Bản lề âm chốt lớn HL011-1 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Bản lề rùa HL044-1.3 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Bản lề BL1 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Bản lề HL009 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Bản lề lá | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Bản lề lá | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Bản lề lá | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Bu lông M6 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Bu lông M8 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh đấu nối có vít · chưa xác định N hay PE | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Chi tiết đỡ cách điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Đầu cos đồng 120-2 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Đầu cos đồng 185-2 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Đầu cos đồng 240-2 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Đầu cos đồng 300-2 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Đầu cos đồng 400-2 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Đầu cos đồng 70-2 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Cửa sổ quan sát công tơ | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Đai ốc M8 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Đai ốc M8 có vành | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Kẹp thanh đồng | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khay tài liệu gắn cửa tủ | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa bấm rời | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa bấm cỡ lớn | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa bấm cỡ trung AB301-3-1 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa bấm cỡ nhỏ AB301-2-1 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa bấm A47036 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa bấm MS463-1-1A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa bấm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa tay xoay MS306-1 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa tay xoay A2055 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa tay xoay A45 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa tay xoay A19 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Khóa chìa hai ngạnh MS705-1 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Máng đi dây nhựa | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Nhãn cài thiết bị | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Nhãn cảnh báo điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Cặp sứ đỡ thanh cái | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Đế sứ đỡ thanh cái | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Giá kẹp thanh cái | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh kẹp cách điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh kẹp cách điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Sứ kẹp thanh cái C100 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Bộ kẹp thanh cái EL | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Móc cẩu tủ M10 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Tai cẩu dạng bản mã | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Tai treo tủ | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh đỡ cách điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh đỡ cách điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Vít vặn cửa tủ | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
+| Bản lề cửa kiểu BL2 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Bản lề cửa kiểu BL1 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Bản lề lá | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Bản lề rùa HL035-1 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Bản lề HL012 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Bản lề chốt nhỏ HL003-2 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Bản lề âm HL036 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Bản lề âm chốt nhỏ HL011-2 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Bản lề âm chốt lớn HL011-1 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Bản lề rùa HL044-1.3 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Bản lề BL1 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Bản lề HL009 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Bản lề lá | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Bản lề lá | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Bản lề lá | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Bu lông M6 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Bu lông M8 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh đấu nối có vít · chưa xác định N hay PE | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Chi tiết đỡ cách điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Đầu cos đồng 120-2 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Đầu cos đồng 185-2 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Đầu cos đồng 240-2 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Đầu cos đồng 300-2 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Đầu cos đồng 400-2 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Đầu cos đồng 70-2 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Cửa sổ quan sát công tơ | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Đai ốc M8 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Đai ốc M8 có vành | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Kẹp thanh đồng | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khay tài liệu gắn cửa tủ | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa bấm rời | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa bấm cỡ lớn | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa bấm cỡ trung AB301-3-1 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa bấm cỡ nhỏ AB301-2-1 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa bấm A47036 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa bấm MS463-1-1A | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa bấm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa tay xoay MS306-1 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa tay xoay A2055 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa tay xoay A45 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa tay xoay A19 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Khóa chìa hai ngạnh MS705-1 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Máng đi dây nhựa | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Nhãn cài thiết bị | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Nhãn cảnh báo điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Cặp sứ đỡ thanh cái | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Đế sứ đỡ thanh cái | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Giá kẹp thanh cái | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh kẹp cách điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh kẹp cách điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Sứ kẹp thanh cái C100 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Bộ kẹp thanh cái EL | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Móc cẩu tủ M10 | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Tai cẩu dạng bản mã | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Tai treo tủ | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh đỡ cách điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh đỡ cách điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Vít vặn cửa tủ | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
 
 ## ProjectSamples
 
-Chưa hoàn tất rà web cho thư mục này.
+Rà 9 CAD từ dự án. Mã S8FS-C05024J trong tên block có tài liệu Omron, nhưng hình chỉ ghi POWER SUPPLY/DC ON/V.ADJ; giữ là tham chiếu nguồn, chưa tự xác nhận thông số hình học. BKN-LS thiếu mã mua hàng và dòng điện; MC 12AF không phải mã contactor đầy đủ; TIMER 24H chưa có mã. RISESUN RT18-32 không dùng giá CHINT cùng tên.
 
+- [Omron S8FS-C05024J](https://industrial.omron.eu/en/products/S8FS-C05024J)
+- [LS — product match guide](https://pmg.ls-electric.com/)
+- [CHINT — timer NJS1](https://www.chintglobal.com/in/en/products/low-voltage/iec/industrial-control/njs1.html)
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
@@ -675,25 +697,28 @@ Chưa hoàn tất rà web cho thư mục này.
 
 ## Quạt
 
-Chưa hoàn tất rà web cho thư mục này.
+Rà 9 CAD: 3 quạt Leipole có mã xác nhận và 6 miệng/lưới lọc phổ thông. Bổ sung giá FKL6621.230/FKL6622.230/FKL6623.230 từ bảng DGE 01/2026 chưa VAT, giữ màu RAL7032/IP54 và điện áp 230VAC. Miệng gió rời không lấy giá cả quạt.
 
+- [Leipole — FKL66](https://vi.leipole.net/products/fkl66-fan-and-filter.html)
+- [DGE — bảng giá Leipole 01/2026](https://dge.vn/uploads/bao-gia/435736_20260114_122258.pdf)
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
-| Quạt lọc gió Leipole FKL6621.230 | Leipole | FKL6621.230 | 0 | Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố. |
-| Bộ lọc gió tủ điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Quạt lọc gió Leipole FKL6622.230 | Leipole | FKL6622.230 | 0 | Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố. |
-| Bộ lọc gió tủ điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Quạt lọc gió Leipole FKL6623.230 | Leipole | FKL6623.230 | 0 | Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố. |
-| Bộ lọc gió tủ điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Lưới thông gió tủ điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Lưới thông gió tủ điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Lưới bảo vệ quạt | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
+| Quạt lọc gió Leipole FKL6621.230 | Leipole | FKL6621.230 | 1 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
+| Bộ lọc gió tủ điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Quạt lọc gió Leipole FKL6622.230 | Leipole | FKL6622.230 | 1 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
+| Bộ lọc gió tủ điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Quạt lọc gió Leipole FKL6623.230 | Leipole | FKL6623.230 | 1 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
+| Bộ lọc gió tủ điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Lưới thông gió tủ điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Lưới thông gió tủ điện | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Lưới bảo vệ quạt | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
 
 ## RMU
 
-Chưa hoàn tất rà web cho thư mục này.
+Rà 7 CAD: tổ hợp CCV/CCVV và RM6 NE. Cần hãng, cấp điện áp, số lộ, chức năng D/I, bộ bảo vệ và cấu hình đặt hàng. 40.5kV không lấy giá RM6 24kV. Các tổ hợp cần báo giá dự án; không dựng giá từ số ngăn.
 
+- [Schneider — RM6 và tổ hợp NE/DI](https://ckm-content.se.com/ckmContent/sfc/servlet.shepherd/document/download/0691H00000FJtkaQAD)
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
@@ -707,21 +732,24 @@ Chưa hoàn tất rà web cho thư mục này.
 
 ## Schneider
 
-Chưa hoàn tất rà web cho thư mục này.
+Rà 236 CAD. Bổ sung 167 dòng từ Master Pricebook 07/2026 chính hãng: C120N/H, iIDK, CVS và LC1E. Giá gồm VAT; giữ dòng rò, 3P/4P, bộ trip và cuộn 220VAC/24VDC. CVS100BS không gộp với CVS100B/F/N vì cấu tạo/phụ kiện khác. PDF ghi CVS639F: bỏ nhóm chưa rõ, không gán sang CVS400F hay tự đổi 630F. Các LC1E có dấu * yêu cầu liên hệ giá hiện tại được bỏ khỏi nhập tự động. A9D chưa đủ mã; NS không tự đổi NSX; 173 CAD thư viện nguồn vẫn chưa xác nhận thiết bị thực.
 
+- [Schneider — Master Pricebook 2026](https://www.se.com/vn/vi/download/document/MasterPriceBook/)
+- [Schneider — CAD hãng](https://www.se.com/us/en/work/support/resources-and-tools/cad-drawings/)
+- [Schneider — A9D là tiền tố có nhiều cấu hình](https://www.se.com/es/es/faqs/FAQ000234157/)
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
 | RCD Schneider A9D · CAD 2P | Schneider Electric | A9D | 0 | Đã nhận diện hãng Schneider Electric và tiền tố A9D. A9D chưa phải mã đặt hàng đầy đủ; cần đọc các chữ số còn lại, loại chống rò và cấu hình điện. Nhãn 2P/4P trên mặt CAD được giữ riêng để tránh chọn nhầm RCBO/RCCB. |
 | RCD Schneider A9D · CAD 4P | Schneider Electric | A9D | 0 | Đã nhận diện hãng Schneider Electric và tiền tố A9D. A9D chưa phải mã đặt hàng đầy đủ; cần đọc các chữ số còn lại, loại chống rò và cấu hình điện. Nhãn 2P/4P trên mặt CAD được giữ riêng để tránh chọn nhầm RCBO/RCCB. |
-| MCB Schneider C120 · 1P | Schneider Electric | C120 | 0 | Đã nhận diện Schneider Electric · MCB · C120. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| MCB Schneider C120 · 2P | Schneider Electric | C120 | 0 | Đã nhận diện Schneider Electric · MCB · C120. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| MCB Schneider C120 · 3P | Schneider Electric | C120 | 0 | Đã nhận diện Schneider Electric · MCB · C120. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| MCB Schneider C120 · 4P | Schneider Electric | C120 | 0 | Đã nhận diện Schneider Electric · MCB · C120. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| MCCB Schneider CVS100/160/250 · 3P | Schneider Electric | CVS100 | 0 | Đã nhận diện Schneider Electric · MCCB · CVS100. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| MCCB Schneider CVS100/160/250 · 4P | Schneider Electric | CVS100 | 0 | Đã nhận diện Schneider Electric · MCCB · CVS100. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| MCCB Schneider CVS400 · 3P | Schneider Electric | CVS400 | 0 | Đã nhận diện Schneider Electric · MCCB · CVS400. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| MCCB Schneider CVS400 · 4P | Schneider Electric | CVS400 | 0 | Đã nhận diện Schneider Electric · MCCB · CVS400. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| MCB Schneider C120 · 1P | Schneider Electric | C120 | 7 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
+| MCB Schneider C120 · 2P | Schneider Electric | C120 | 8 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
+| MCB Schneider C120 · 3P | Schneider Electric | C120 | 8 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
+| MCB Schneider C120 · 4P | Schneider Electric | C120 | 8 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
+| MCCB Schneider CVS100/160/250 · 3P | Schneider Electric | CVS100 | 37 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
+| MCCB Schneider CVS100/160/250 · 4P | Schneider Electric | CVS100 | 37 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
+| MCCB Schneider CVS400 · 3P | Schneider Electric | CVS400 | 4 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
+| MCCB Schneider CVS400 · 4P | Schneider Electric | CVS400 | 4 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCCB Schneider EZC100 · 1P | Schneider Electric | EZC100 | 2 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCCB Schneider EZC100 · 2P | Schneider Electric | EZC100 | 1 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCCB Schneider EZC100 · 3P | Schneider Electric | EZC100 | 4 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
@@ -747,8 +775,8 @@ Chưa hoàn tất rà web cho thư mục này.
 | MCB Schneider iC60 · 3P | Schneider Electric | iC60 | 1 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCB Schneider iC60 · 4P | Schneider Electric | iC60 | 0 | Đã có giá dòng iC60, nhưng bảng giá hiện có 1P, 2P, 3P; CAD đang xem là 4P. Cần bổ sung dòng giá đúng số cực, không dùng giá khác số cực. |
 | Contactor Schneider iCT 1P · 1P | Schneider Electric | iCT 1P | 0 | Đã nhận diện Schneider Electric · Contactor · iCT 1P. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| RCCB Schneider iIDK · 2P | Schneider Electric | iIDK | 0 | Đã nhận diện Schneider Electric · RCCB · iIDK. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| RCCB Schneider iIDK · 4P | Schneider Electric | iIDK | 0 | Đã nhận diện Schneider Electric · RCCB · iIDK. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| RCCB Schneider iIDK · 2P | Schneider Electric | iIDK | 4 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
+| RCCB Schneider iIDK · 4P | Schneider Electric | iIDK | 6 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCB Schneider iK60N · 1P | Schneider Electric | iK60N | 9 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCB Schneider iK60N · 2P | Schneider Electric | iK60N | 9 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | MCB Schneider iK60N · 3P | Schneider Electric | iK60N | 9 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
@@ -757,10 +785,10 @@ Chưa hoàn tất rà web cho thư mục này.
 | Contactor Schneider LC1D40 · 3P | Schneider Electric | LC1D40 | 0 | Đã nhận diện Schneider Electric · Contactor · LC1D40. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | Contactor Schneider LC1D40-65 · 3P | Schneider Electric | LC1D40-65 | 0 | Đã nhận diện Schneider Electric · Contactor · LC1D40-65. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | Contactor Schneider LC1D9-18 · 3P | Schneider Electric | LC1D9-18 | 2 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
-| Contactor Schneider LC1E06-18 · 3P | Schneider Electric | LC1E06-18 | 0 | Đã nhận diện Schneider Electric · Contactor · LC1E06-18. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| Contactor Schneider LC1E06-18 · 3P | Schneider Electric | LC1E06-18 | 16 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | Contactor Schneider LC1E160 · 3P | Schneider Electric | LC1E160 | 0 | Đã nhận diện Schneider Electric · Contactor · LC1E160. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| Contactor Schneider LC1E25 · 3P | Schneider Electric | LC1E25 | 0 | Đã nhận diện Schneider Electric · Contactor · LC1E25. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| Contactor Schneider LC1E32 · 3P | Schneider Electric | LC1E32 | 0 | Đã nhận diện Schneider Electric · Contactor · LC1E32. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| Contactor Schneider LC1E25 · 3P | Schneider Electric | LC1E25 | 4 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
+| Contactor Schneider LC1E32 · 3P | Schneider Electric | LC1E32 | 4 | Có lựa chọn cấu hình; chốt mã đặt hàng riêng. |
 | Contactor Schneider LC1F115 · 3P | Schneider Electric | LC1F115 | 0 | Đã nhận diện Schneider Electric · Contactor · LC1F115. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | Contactor Schneider LC1F150 · 3P | Schneider Electric | LC1F150 | 0 | Đã nhận diện Schneider Electric · Contactor · LC1F150. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | Contactor Schneider LC1F185 · 3P | Schneider Electric | LC1F185 | 0 | Đã nhận diện Schneider Electric · Contactor · LC1F185. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
@@ -951,8 +979,10 @@ Chưa hoàn tất rà web cho thư mục này.
 
 ## Shihlin
 
-Chưa hoàn tất rà web cho thư mục này.
+Rà 20 CAD. BHA là MCB, BHL là RCBO; không đổi BHL thành RCCB hoặc tự thay BHA bằng BHA-B3/RPL. Giá BHA/BHL tìm được có bản cũ 2017, chưa dùng thành giá hiện tại. Các mã BM đã có giá giữ đúng dòng và số cực; 4 MCB không có mã vẫn cần đọc nhãn.
 
+- [Shihlin — BHA/BHL/BHN](https://global.seec.com.tw/ja/product/7100.html)
+- [Shihlin — BHL-A RCBO](https://en.seec.com.tw/Content/Goods/GCont.aspx?CatId=2016011810180707458&MSID=746515325375074434&MmmID=707031024777534630&SiteID=30)
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
@@ -979,8 +1009,10 @@ Chưa hoàn tất rà web cho thư mục này.
 
 ## ThietBiDoLuongHienThi
 
-Chưa hoàn tất rà web cho thư mục này.
+Rà 21 CAD. EMIC CV130/140/131/141 cần hệ số đo, dòng và biến thể nắp; không lấy giá CE/ME khác dòng. PM710 được hãng thông báo ngừng thương mại năm 2015; PM51xx là gợi ý thay thế, không gán giá hoặc CAD thay thế tự động. Holley/Omega BE-96 và đồng hồ chưa rõ mã còn thiếu nguồn đúng mã.
 
+- [EMIC — công tơ CV/MV/CE/ME](https://emic.com.vn/vn/cong-to-dien)
+- [Schneider — PM710 ngừng thương mại](https://www.se.com/uk/en/faqs/FA264122/)
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
@@ -1003,13 +1035,15 @@ Chưa hoàn tất rà web cho thư mục này.
 | Công tơ cơ 1 pha CV131/CV141, nắp dài | EMIC | CV131/CV141 | 0 | Đã nhận diện EMIC · METER · CV131/CV141. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | Công tơ Holley | Holley | Chưa xác nhận mã | 0 | Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố. |
 | Vôn kế Omega BE-96 | Omega | BE-96 | 0 | Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố. |
-| Đồng hồ đa năng Schneider PowerLogic PM710 | Schneider Electric | PM710 | 0 | Đã nhận diện Schneider Electric · METER · PM710. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| Đồng hồ đa năng Schneider PowerLogic PM710 | Schneider Electric | PM710 | 0 | Schneider đã ngừng thương mại PM710 tại châu Á–Thái Bình Dương từ 30/04/2015. Cần báo giá đúng mã cũ hoặc chọn thiết bị thay thế phù hợp; không tự gán giá PM51xx cho CAD PM710. |
 | Vôn kế kim gắn tủ | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá. |
 
 ## Tụ bù
 
-Chưa hoàn tất rà web cho thư mục này.
+Rà 29 CAD Nuintek/Samwha. Có giá theo hãng nhưng các CAD chưa ghi mã/kvar/điện áp/Hz để chốt giá. Tài liệu Samwha cho thấy nhiều kvar/điện áp có kích thước trùng nhau. Mã suy từ kích thước vẫn là ứng viên, không dùng làm mã đã xác nhận.
 
+- [Samwha — bảng biến thể tụ công suất](https://www.samwha.com/fc/010102.asp)
+- [NuinTEK — trang sản phẩm do hãng cung cấp](https://nuintek.en.ec21.com/product_list.html)
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
@@ -1045,41 +1079,42 @@ Chưa hoàn tất rà web cho thư mục này.
 
 ## Đố
 
-Chưa hoàn tất rà web cho thư mục này.
+Đã rà từng mục về tên, phân nhóm, mặt vẽ và dữ liệu nguồn. Theo yêu cầu người dùng, phụ kiện không cần khớp chính xác mã/giá. Giữ kích thước/mã hình nguồn nếu có; không gán Asian hoặc Rittal thành hãng của phụ kiện phổ thông.
 
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
-| Xa sau (Rev CDTA) · 20×55 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh U ngang 1.5 (Rev CDTA) · 667×120 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh U ngang 1.5 (Rev CDTA) · 719×750 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh U ngang 1.5 (Rev CDTA) · 667×205 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh U ngang 1.5 (Rev CDTA) · 667×40 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh U ngang 1.5 (Rev CDTA) · 719×370 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh U ngang 1.5 (Rev CDTA) · 719×165 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh U ngang 1.5 (Rev CDTA) · 919×40 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh U ngang 1.5 (Rev CDTA) · 667×80 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh U ngang 1.5 (Rev CDTA) · 20×40 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh U ngang 1.5 (Rev CDTA) · 667×260 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh U ngang 1.5 (Rev CDTA) · 719×40 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh U ngang 1.5 (Rev CDTA) · 30×165 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh U ngang 1.5 (Rev CDTA) · 919×552 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh U ngang 1.5 (Rev CDTA) · 919×697 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
-| Thanh U ngang 1.5 (Rev CDTA) · 919×130 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
+| Xa sau (Rev CDTA) · 20×55 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh U ngang 1.5 (Rev CDTA) · 667×120 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh U ngang 1.5 (Rev CDTA) · 719×750 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh U ngang 1.5 (Rev CDTA) · 667×205 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh U ngang 1.5 (Rev CDTA) · 667×40 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh U ngang 1.5 (Rev CDTA) · 719×370 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh U ngang 1.5 (Rev CDTA) · 719×165 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh U ngang 1.5 (Rev CDTA) · 919×40 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh U ngang 1.5 (Rev CDTA) · 667×80 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh U ngang 1.5 (Rev CDTA) · 20×40 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh U ngang 1.5 (Rev CDTA) · 667×260 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh U ngang 1.5 (Rev CDTA) · 719×40 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh U ngang 1.5 (Rev CDTA) · 30×165 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh U ngang 1.5 (Rev CDTA) · 919×552 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh U ngang 1.5 (Rev CDTA) · 919×697 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
+| Thanh U ngang 1.5 (Rev CDTA) · 919×130 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
 
 ## Đồng
 
-Chưa hoàn tất rà web cho thư mục này.
+Đã rà từng mục về tên, phân nhóm, mặt vẽ và dữ liệu nguồn. Theo yêu cầu người dùng, phụ kiện không cần khớp chính xác mã/giá. Giữ kích thước/mã hình nguồn nếu có; không gán Asian hoặc Rittal thành hãng của phụ kiện phổ thông.
 
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |
-| Thanh đồng uốn Cu 20×5 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá. |
+| Thanh đồng uốn Cu 20×5 mm | Chưa chỉ định hãng | Chưa xác nhận mã | 0 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
 
 ## Ổ cắm
 
-Chưa hoàn tất rà web cho thư mục này.
+Rà 7 CAD. Giữ riêng CHENG LI, CLIPSAL, PCE, VANLOCK-DELTA và 2 mẫu chưa rõ hãng. 63A/5p/6h xác định cấu hình PCE nhưng chưa đủ SKU/kiểu lắp/IP; không tự gán 135-6 chỉ từ số tiếp điểm.
 
+- [PCE — ví dụ cấu hình 63A 5p 6h](https://www.pce.pl/images/produkty/135-6_EN.PDF)
 
 | Thiết bị | Hãng | Mã/dòng | Lựa chọn giá | Kết quả |
 | --- | --- | --- | ---: | --- |

@@ -8,6 +8,7 @@ CUSTOMER_MANUFACTURERS = (
     'Andeli', 'Sino - Vanlock', 'Vinakip', 'Omron', 'Delta', 'Yaskawa', 'Danfoss',
     'INVT', 'IDEC', 'Hanyoung Nux', 'Samwha', 'TDK / EPCOS', 'Shizuki', 'Nuintek',
     'Mikro', 'SK', 'Ducati Energia', 'Selec', 'Delixi', 'Morele', 'EMIC', 'MITEX',
+    'Leipole', 'O-Sung / OSEMCO',
 )
 
 CUSTOMER_ALIASES = {

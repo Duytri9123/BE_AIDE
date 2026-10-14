@@ -3,33 +3,388 @@
     "status": "reviewed_with_remaining_gaps",
     "note": "Rà 79 CAD trong thư mục ABB. Bổ sung 355 dòng giá hãng Việt Nam 2026: Tmax XT1–XT4, FH/F200, DS201L và VE5. Không đổi T1–T7 thành XT1–XT7, S280UC-K thành S200M UC, hoặc CAL5-11 thành CAL5X-11. Các dòng OVR T1 trong CAD không trùng OVR T1-T2/T2 trong bảng giá 2026; còn phải tìm giá đúng mã. Tài liệu kỹ thuật xác nhận hãng/dòng, không tự xác nhận hình học hay thông số đã chọn.",
     "sources": [
-      {"title":"ABB Việt Nam 2026, bảng giá 218 trang","url":"https://library.e.abb.com/public/8fa0d161aec14871ae110caa57108c49/9AKK108472A7059_vi_B_EL%20Vietnam%20Master%20price%20list%202026%20%28VIE%29.pdf"},
-      {"title":"ABB FORMULA","url":"https://new.abb.com/low-voltage/products/circuit-breakers/formula"},
-      {"title":"ABB DS201, datasheet","url":"https://library.e.abb.com/public/b7eab409b968427bbc8743fb035574b1/9AKK107492A9205_Tech%20Datasheet_DS201_FULL_rev3.pdf"},
-      {"title":"ABB CAL5-11","url":"https://catalogo-generale.abb.com/avviamento-motori/accessori-e-ricambi-contattori-e-minicontattori/CAL5-11"},
-      {"title":"ABB VE5-1","url":"https://new.abb.com/products/it/1SBN030110R1000/ve5-1"},
-      {"title":"ABB S280 UC và ứng dụng DC","url":"https://library.e.abb.com/public/de4ebee4798b6724852576be007b74d4/1SXU210206G0201.pdf"}
+      {
+        "title": "ABB Việt Nam 2026, bảng giá 218 trang",
+        "url": "https://library.e.abb.com/public/8fa0d161aec14871ae110caa57108c49/9AKK108472A7059_vi_B_EL%20Vietnam%20Master%20price%20list%202026%20%28VIE%29.pdf"
+      },
+      {
+        "title": "ABB FORMULA",
+        "url": "https://new.abb.com/low-voltage/products/circuit-breakers/formula"
+      },
+      {
+        "title": "ABB DS201, datasheet",
+        "url": "https://library.e.abb.com/public/b7eab409b968427bbc8743fb035574b1/9AKK107492A9205_Tech%20Datasheet_DS201_FULL_rev3.pdf"
+      },
+      {
+        "title": "ABB CAL5-11",
+        "url": "https://catalogo-generale.abb.com/avviamento-motori/accessori-e-ricambi-contattori-e-minicontattori/CAL5-11"
+      },
+      {
+        "title": "ABB VE5-1",
+        "url": "https://new.abb.com/products/it/1SBN030110R1000/ve5-1"
+      },
+      {
+        "title": "ABB S280 UC và ứng dụng DC",
+        "url": "https://library.e.abb.com/public/de4ebee4798b6724852576be007b74d4/1SXU210206G0201.pdf"
+      }
     ]
   },
   "BienDong": {
     "status": "reviewed_with_remaining_gaps",
     "note": "Đối chiếu danh sách 43 CAD biến dòng. Thêm 60 cấu hình MITEX BD01/BD02/BD03 từ giá bán công khai của PLE, gồm 20 cấu hình BD01; cần chọn tỷ số, cấp chính xác, VA, số vòng và cửa sổ. EM4H09D không tự đổi thành EM4H09; ZCT120 không tự đổi thành ZCT120S. LightStar hiện nguồn tìm được yêu cầu liên hệ; không dùng USD năm 2022 thành giá VND hiện tại. MSQ/RCT là tên dùng ở nhiều nguồn, chưa đủ để gán hãng cho các CAD chưa có nhãn.",
     "sources": [
-      {"title":"MITEX — sản phẩm hãng","url":"https://mitex.vn/"},
-      {"title":"PLE — giá bán MITEX theo cấu hình","url":"https://www.ple.vn/manufacturer/mitex/by,product_name.html?lang=vi&language=vi-VN"},
-      {"title":"Mikro — thay đổi ZCT120S","url":"https://itmikro.com.my/wp-content/uploads/2020/08/ZCT_Change.pdf"},
-      {"title":"EMIC — catalogue biến dòng CT0.6","url":"https://emic.com.vn/img/files/bien-dong/Catalog%20xuy%E1%BA%BFn%20CT0.6%20%28290623%29.pdf"},
-      {"title":"LightStar KBD-13 — nhà cung cấp yêu cầu liên hệ","url":"https://thietbidien286.com/san-pham/kbd-13-lightstar-bien-dong-3-pha-50-5a-200-5a/"}
+      {
+        "title": "MITEX — sản phẩm hãng",
+        "url": "https://mitex.vn/"
+      },
+      {
+        "title": "PLE — giá bán MITEX theo cấu hình",
+        "url": "https://www.ple.vn/manufacturer/mitex/by,product_name.html?lang=vi&language=vi-VN"
+      },
+      {
+        "title": "Mikro — thay đổi ZCT120S",
+        "url": "https://itmikro.com.my/wp-content/uploads/2020/08/ZCT_Change.pdf"
+      },
+      {
+        "title": "EMIC — catalogue biến dòng CT0.6",
+        "url": "https://emic.com.vn/img/files/bien-dong/Catalog%20xuy%E1%BA%BFn%20CT0.6%20%28290623%29.pdf"
+      },
+      {
+        "title": "LightStar KBD-13 — nhà cung cấp yêu cầu liên hệ",
+        "url": "https://thietbidien286.com/san-pham/kbd-13-lightstar-bien-dong-3-pha-50-5a-200-5a/"
+      }
     ]
   },
   "Bộ điều khiển": {
-    "status": "web_review_in_progress",
-    "note": "Đã rà metadata và chữ DXF của 19 CAD; đang đối chiếu tài liệu hãng. Tìm được giá bán NX201A-240A 1.461.600 đồng, giữ đúng mã cũ, không lấy N201/R201 thay thế. CAD NX201A/MK201A vẫn chưa phân biệt rõ dòng để liên kết tự động. DSE8610 là mã ứng viên; DELAB APFC 12 cấp chưa có mã đặt hàng xác nhận. Chưa hoàn tất nhận diện các ATS/biến tần/rơ le chưa rõ hãng trong thư mục này.",
+    "status": "reviewed_metadata_and_family_sources",
+    "note": "Đã rà metadata và chữ DXF của 19 CAD; đang đối chiếu tài liệu hãng. Tìm được giá bán NX201A-240A 1.461.600 đồng, giữ đúng mã cũ, không lấy N201/R201 thay thế. CAD NX201A/MK201A vẫn chưa phân biệt rõ dòng để liên kết tự động. DSE8610 là mã ứng viên; DELAB APFC 12 cấp chưa có mã đặt hàng xác nhận. Chưa hoàn tất nhận diện các ATS/biến tần/rơ le chưa rõ hãng trong thư mục này. Đã kết thúc lượt rà danh sách 19 CAD và nguồn theo dòng; 11 mẫu chưa rõ hãng vẫn chưa đủ nhãn/mã để chọn giá.",
     "sources": [
-      {"title":"Mikro NX201A — các biến thể điện áp phụ trợ","url":"https://itmikro.com.my/nx201a-earth-fault-relay/"},
-      {"title":"Cơ điện Hải Âu — giá NX201A-240A","url":"https://codienhaiau.com/product/ro-le-bao-ve-cham-dat-mikro-nx201a-240a-0-1-2a/"},
-      {"title":"DELAB — bộ điều khiển hệ số công suất","url":"https://www.delab.com.my/product-category/digital-power-factor-regulator/"},
-      {"title":"Deep Sea DSE8610 — datasheet hãng","url":"https://www.deepseaelectronics.com/genset/load-sharing-synchronising-control-modules/dse8610/downloads/datasheet"}
+      {
+        "title": "Mikro NX201A — các biến thể điện áp phụ trợ",
+        "url": "https://itmikro.com.my/nx201a-earth-fault-relay/"
+      },
+      {
+        "title": "Cơ điện Hải Âu — giá NX201A-240A",
+        "url": "https://codienhaiau.com/product/ro-le-bao-ve-cham-dat-mikro-nx201a-240a-0-1-2a/"
+      },
+      {
+        "title": "DELAB — bộ điều khiển hệ số công suất",
+        "url": "https://www.delab.com.my/product-category/digital-power-factor-regulator/"
+      },
+      {
+        "title": "Deep Sea DSE8610 — datasheet hãng",
+        "url": "https://www.deepseaelectronics.com/genset/load-sharing-synchronising-control-modules/dse8610/downloads/datasheet"
+      }
     ]
+  },
+  "Biến tần": {
+    "status": "reviewed_metadata_and_family_sources",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Rà CAD FR-S500. Tài liệu hãng xác nhận dòng biến tần cũ; nhãn hãng trong hồ sơ vẫn là ứng viên, thiếu mã đầy đủ, kW và điện áp. Không lấy giá FR-D/FR-E hiện hành thay FR-S500.",
+    "sources": [
+      {
+        "title": "Mitsubishi — manual FR-S500",
+        "url": "https://dl.mitsubishielectric.com/dl/fa/document/manual/inv/ib0600027/ib0600027c.pdf"
+      }
+    ]
+  },
+  "Chint": {
+    "status": "reviewed_metadata_and_family_sources",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Rà 23 CAD. NCH8-20/25 là CAD dùng chung hai dòng, cần chọn dòng/tiếp điểm/điện áp cuộn hút. NP2 là họ nút nhấn/đèn/công tắc xoay, không áp giá nút nhấn NP2-EA cho đèn hay selector. Transformer thiếu mã/VA/điện áp. 13 CAD từ @CHINT vẫn thiếu xác nhận thiết bị; NXB/NXM/NM1 không coi tương đương nhau.",
+    "sources": [
+      {
+        "title": "CHINT NCH8 — tài liệu và CAD dùng chung",
+        "url": "https://www.chintglobal.com/mx/es/products/low-voltage/iec/industrial-control/nch8.html"
+      },
+      {
+        "title": "CHINT NP2 — cấu trúc mã theo chức năng",
+        "url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/push-button/np2/catalog/NP2-Pushbuttons-catalog.pdf"
+      },
+      {
+        "title": "CHINT Industrial Control",
+        "url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/-cluster-/Industrial%20Control-Low%20Voltage-Master%20Catalog.pdf"
+      }
+    ]
+  },
+  "Chống sét": {
+    "status": "reviewed_metadata_and_family_sources",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Rà 5 CAD: 3 chưa rõ hãng, 2 có nhãn Suntree nhưng chưa có mã. Cần Uc, loại AC/DC, Type 1/2, Iimp/In/Imax và số cực. Không gán SUP2-PV hoặc SPD hãng khác chỉ từ số mô-đun.",
+    "sources": [
+      {
+        "title": "Suntree — catalogue DC SPD",
+        "url": "https://www.chinasuntree.com/upload/1c/pdf/DC-SPD-T1-T2.pdf"
+      }
+    ]
+  },
+  "Cuộn kháng": {
+    "status": "reviewed_metadata_and_family_sources",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Rà CAD cuộn kháng ba pha. Chưa có hãng/mã, kvar, điện áp, Hz và hệ số p%. Một kích thước chung có thể dùng cho nhiều mức kvar; không áp mã Schneider từ hình dạng.",
+    "sources": [
+      {
+        "title": "Schneider — lựa chọn tụ/kháng",
+        "url": "https://www.se.com/hk/en/download/document/26679713/"
+      },
+      {
+        "title": "Schneider — CAD chung cho nhiều mức kvar",
+        "url": "https://www.se.com/ng/en/faqs/FA401137/"
+      }
+    ]
+  },
+  "Cầu đấu": {
+    "status": "reviewed_optional_price_scope",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Rà 37 CAD về nhóm, tên và bản vẽ. Theo yêu cầu người dùng, không bắt buộc tìm đúng mã/giá cầu đấu. Giữ hãng chưa rõ/ứng viên, không suy hãng chỉ từ CTS/UK/CD/TB.",
+    "sources": []
+  },
+  "DenBaoNutNhanCauChiContactor": {
+    "status": "reviewed_metadata_and_family_sources",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Rà 20 CAD. Giữ đúng chức năng đèn, nút nhấn, selector, cụm cầu chì và khởi động từ. IDEC có nhãn hãng nhưng SW0.1 không phải mã đặt hàng; các đèn chưa rõ mã cần màu, điện áp và tiếp điểm. Không đổi tên chung thành mã NP2/ND16 tùy ý.",
+    "sources": [
+      {
+        "title": "CHINT NP2 — các chức năng và mã",
+        "url": "https://www.chintglobal.com/sa/en/products/low-voltage/iec/industrial-control/np2.html?section=Catalog"
+      },
+      {
+        "title": "IDEC — công tắc và đèn báo",
+        "url": "https://www.idec.com/en-us/switches-indicator-lights/switches-pushbuttons/pushbuttons-pilot-lights"
+      }
+    ]
+  },
+  "LS": {
+    "status": "reviewed_metadata_and_family_sources",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Rà 123 CAD, giữ riêng mã khung, số cực và loại. MC-40 không tự đổi MC-40a; ABN/ABH/ABS, TD/TS và EBS khác chức năng/dòng. BKN 4P có giá BKN 1P/2P/3P nhưng thiếu 4P trong dữ liệu, đã sửa chẩn đoán. 65 CAD thư viện nguồn chưa được tự nâng thành nhãn hãng/mã đã xác nhận.",
+    "sources": [
+      {
+        "title": "LS — công cụ tìm dòng sản phẩm",
+        "url": "https://lens.ls-electric.com/"
+      },
+      {
+        "title": "LS Metasol MCCB/ELCB",
+        "url": "https://www.ls-electric.com/upload/customer/download/0f7505a1-9187-42e2-bc87-d6f557990b24/Metasol%20MCCB_E_1907%280%29.pdf"
+      },
+      {
+        "title": "LS — Metasol contactor, khác biệt dòng cũ/mới",
+        "url": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf"
+      }
+    ]
+  },
+  "Mitsubishi": {
+    "status": "reviewed_metadata_and_family_sources",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Rà 38 CAD. 5 CAD 4P NF125-CV/NF250-CV/NF400-CW/NF630-CW/NF800-CEW hiện thiếu giá đúng 4P, không lấy 2P/3P; đã sửa thông báo để thể hiện nguyên nhân này. NF30-CS/NF63-CW và NF-SDW DC còn thiếu nguồn giá đúng mã; không thay bằng dòng CV/SV/SEW mới. Trang CAD hãng là nguồn đối chiếu, không phải chứng nhận thông số của CAD đang có.",
+    "sources": [
+      {
+        "title": "Mitsubishi — CAD theo mã và số cực",
+        "url": "https://www.mitsubishielectric.com/fa/download/cad/search.page?category1=102&kisyu=%2Flvcb&mode=cad"
+      },
+      {
+        "title": "Mitsubishi — catalogue MCCB",
+        "url": "https://dl.mitsubishielectric.com/dl/fa/document/catalog/lvcb/yn-c-0720/y0720c1609.pdf"
+      }
+    ]
+  },
+  "Nguồn và biến áp": {
+    "status": "reviewed_metadata_and_family_sources",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Rà 4 CAD. Nhãn TR/24VAC/24VDC không đủ xác định hãng và mã. Nguồn DC không phải biến áp AC; cần công suất, đầu vào/đầu ra và kiểu lắp. Không áp mã chỉ từ nhãn điện áp.",
+    "sources": [
+      {
+        "title": "Schneider — control transformers",
+        "url": "https://www.se.com/us/en/product-range/7278-control-transformers/"
+      },
+      {
+        "title": "Omron — S8FS, phân biệt phiên bản",
+        "url": "https://www.ia.omron.com/products/family/3460/lineup.html"
+      }
+    ]
+  },
+  "O-Sung": {
+    "status": "reviewed_metadata_and_family_sources",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Rà ATS OSS-612-PC 4P. Bổ sung bảng giá ETINCO áp dụng 15/03/2026: 14 mã, mỗi mã có 3P/4P, chưa VAT. OSS-612-PC 4P 1250A có giá 70.150.000 đồng, giữ riêng giá 3P 56.500.000 đồng. PC/PCN và cách lắp không tự xem tương đương.",
+    "sources": [
+      {
+        "title": "ETINCO — bảng giá OSEMCO 15/03/2026",
+        "url": "https://etinco.vn/wp-content/uploads/2025/05/bang-gia-bo-chuyen-nguon-ats-osemco-osung.pdf"
+      }
+    ]
+  },
+  "ProjectSamples": {
+    "status": "reviewed_metadata_and_family_sources",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Rà 9 CAD từ dự án. Mã S8FS-C05024J trong tên block có tài liệu Omron, nhưng hình chỉ ghi POWER SUPPLY/DC ON/V.ADJ; giữ là tham chiếu nguồn, chưa tự xác nhận thông số hình học. BKN-LS thiếu mã mua hàng và dòng điện; MC 12AF không phải mã contactor đầy đủ; TIMER 24H chưa có mã. RISESUN RT18-32 không dùng giá CHINT cùng tên.",
+    "sources": [
+      {
+        "title": "Omron S8FS-C05024J",
+        "url": "https://industrial.omron.eu/en/products/S8FS-C05024J"
+      },
+      {
+        "title": "LS — product match guide",
+        "url": "https://pmg.ls-electric.com/"
+      },
+      {
+        "title": "CHINT — timer NJS1",
+        "url": "https://www.chintglobal.com/in/en/products/low-voltage/iec/industrial-control/njs1.html"
+      }
+    ]
+  },
+  "Quạt": {
+    "status": "reviewed_metadata_and_family_sources",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Rà 9 CAD: 3 quạt Leipole có mã xác nhận và 6 miệng/lưới lọc phổ thông. Bổ sung giá FKL6621.230/FKL6622.230/FKL6623.230 từ bảng DGE 01/2026 chưa VAT, giữ màu RAL7032/IP54 và điện áp 230VAC. Miệng gió rời không lấy giá cả quạt.",
+    "sources": [
+      {
+        "title": "Leipole — FKL66",
+        "url": "https://vi.leipole.net/products/fkl66-fan-and-filter.html"
+      },
+      {
+        "title": "DGE — bảng giá Leipole 01/2026",
+        "url": "https://dge.vn/uploads/bao-gia/435736_20260114_122258.pdf"
+      }
+    ]
+  },
+  "RMU": {
+    "status": "reviewed_metadata_and_family_sources",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Rà 7 CAD: tổ hợp CCV/CCVV và RM6 NE. Cần hãng, cấp điện áp, số lộ, chức năng D/I, bộ bảo vệ và cấu hình đặt hàng. 40.5kV không lấy giá RM6 24kV. Các tổ hợp cần báo giá dự án; không dựng giá từ số ngăn.",
+    "sources": [
+      {
+        "title": "Schneider — RM6 và tổ hợp NE/DI",
+        "url": "https://ckm-content.se.com/ckmContent/sfc/servlet.shepherd/document/download/0691H00000FJtkaQAD"
+      }
+    ]
+  },
+  "Schneider": {
+    "status": "reviewed_metadata_and_family_sources",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Rà 236 CAD. Bổ sung 167 dòng từ Master Pricebook 07/2026 chính hãng: C120N/H, iIDK, CVS và LC1E. Giá gồm VAT; giữ dòng rò, 3P/4P, bộ trip và cuộn 220VAC/24VDC. CVS100BS không gộp với CVS100B/F/N vì cấu tạo/phụ kiện khác. PDF ghi CVS639F: bỏ nhóm chưa rõ, không gán sang CVS400F hay tự đổi 630F. Các LC1E có dấu * yêu cầu liên hệ giá hiện tại được bỏ khỏi nhập tự động. A9D chưa đủ mã; NS không tự đổi NSX; 173 CAD thư viện nguồn vẫn chưa xác nhận thiết bị thực.",
+    "sources": [
+      {
+        "title": "Schneider — Master Pricebook 2026",
+        "url": "https://www.se.com/vn/vi/download/document/MasterPriceBook/"
+      },
+      {
+        "title": "Schneider — CAD hãng",
+        "url": "https://www.se.com/us/en/work/support/resources-and-tools/cad-drawings/"
+      },
+      {
+        "title": "Schneider — A9D là tiền tố có nhiều cấu hình",
+        "url": "https://www.se.com/es/es/faqs/FAQ000234157/"
+      }
+    ]
+  },
+  "Shihlin": {
+    "status": "reviewed_metadata_and_family_sources",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Rà 20 CAD. BHA là MCB, BHL là RCBO; không đổi BHL thành RCCB hoặc tự thay BHA bằng BHA-B3/RPL. Giá BHA/BHL tìm được có bản cũ 2017, chưa dùng thành giá hiện tại. Các mã BM đã có giá giữ đúng dòng và số cực; 4 MCB không có mã vẫn cần đọc nhãn.",
+    "sources": [
+      {
+        "title": "Shihlin — BHA/BHL/BHN",
+        "url": "https://global.seec.com.tw/ja/product/7100.html"
+      },
+      {
+        "title": "Shihlin — BHL-A RCBO",
+        "url": "https://en.seec.com.tw/Content/Goods/GCont.aspx?CatId=2016011810180707458&MSID=746515325375074434&MmmID=707031024777534630&SiteID=30"
+      }
+    ]
+  },
+  "ThietBiDoLuongHienThi": {
+    "status": "reviewed_metadata_and_family_sources",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Rà 21 CAD. EMIC CV130/140/131/141 cần hệ số đo, dòng và biến thể nắp; không lấy giá CE/ME khác dòng. PM710 được hãng thông báo ngừng thương mại năm 2015; PM51xx là gợi ý thay thế, không gán giá hoặc CAD thay thế tự động. Holley/Omega BE-96 và đồng hồ chưa rõ mã còn thiếu nguồn đúng mã.",
+    "sources": [
+      {
+        "title": "EMIC — công tơ CV/MV/CE/ME",
+        "url": "https://emic.com.vn/vn/cong-to-dien"
+      },
+      {
+        "title": "Schneider — PM710 ngừng thương mại",
+        "url": "https://www.se.com/uk/en/faqs/FA264122/"
+      }
+    ]
+  },
+  "Tụ bù": {
+    "status": "reviewed_metadata_and_family_sources",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Rà 29 CAD Nuintek/Samwha. Có giá theo hãng nhưng các CAD chưa ghi mã/kvar/điện áp/Hz để chốt giá. Tài liệu Samwha cho thấy nhiều kvar/điện áp có kích thước trùng nhau. Mã suy từ kích thước vẫn là ứng viên, không dùng làm mã đã xác nhận.",
+    "sources": [
+      {
+        "title": "Samwha — bảng biến thể tụ công suất",
+        "url": "https://www.samwha.com/fc/010102.asp"
+      },
+      {
+        "title": "NuinTEK — trang sản phẩm do hãng cung cấp",
+        "url": "https://nuintek.en.ec21.com/product_list.html"
+      }
+    ]
+  },
+  "Ổ cắm": {
+    "status": "reviewed_metadata_and_family_sources",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Rà 7 CAD. Giữ riêng CHENG LI, CLIPSAL, PCE, VANLOCK-DELTA và 2 mẫu chưa rõ hãng. 63A/5p/6h xác định cấu hình PCE nhưng chưa đủ SKU/kiểu lắp/IP; không tự gán 135-6 chỉ từ số tiếp điểm.",
+    "sources": [
+      {
+        "title": "PCE — ví dụ cấu hình 63A 5p 6h",
+        "url": "https://www.pce.pl/images/produkty/135-6_EN.PDF"
+      }
+    ]
+  },
+  "Khóa": {
+    "status": "reviewed_optional_price_scope",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Đã rà từng mục về tên, phân nhóm, mặt vẽ và dữ liệu nguồn. Theo yêu cầu người dùng, phụ kiện không cần khớp chính xác mã/giá. Giữ kích thước/mã hình nguồn nếu có; không gán Asian hoặc Rittal thành hãng của phụ kiện phổ thông.",
+    "sources": []
+  },
+  "Phíp": {
+    "status": "reviewed_optional_price_scope",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Đã rà từng mục về tên, phân nhóm, mặt vẽ và dữ liệu nguồn. Theo yêu cầu người dùng, phụ kiện không cần khớp chính xác mã/giá. Giữ kích thước/mã hình nguồn nếu có; không gán Asian hoặc Rittal thành hãng của phụ kiện phổ thông.",
+    "sources": []
+  },
+  "Phụ kiện tủ điện": {
+    "status": "reviewed_optional_price_scope",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Đã rà từng mục về tên, phân nhóm, mặt vẽ và dữ liệu nguồn. Theo yêu cầu người dùng, phụ kiện không cần khớp chính xác mã/giá. Giữ kích thước/mã hình nguồn nếu có; không gán Asian hoặc Rittal thành hãng của phụ kiện phổ thông.",
+    "sources": []
+  },
+  "Đố": {
+    "status": "reviewed_optional_price_scope",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Đã rà từng mục về tên, phân nhóm, mặt vẽ và dữ liệu nguồn. Theo yêu cầu người dùng, phụ kiện không cần khớp chính xác mã/giá. Giữ kích thước/mã hình nguồn nếu có; không gán Asian hoặc Rittal thành hãng của phụ kiện phổ thông.",
+    "sources": []
+  },
+  "Đồng": {
+    "status": "reviewed_optional_price_scope",
+    "checked_date": "2026-10-14",
+    "scope": "Đã rà danh sách từng CAD, metadata, kết quả chữ DXF và giá công bố; tài liệu web đối chiếu theo dòng/nhóm. Không phải xác nhận kỹ thuật hoặc đọc bằng mắt mọi mặt vẽ.",
+    "note": "Đã rà từng mục về tên, phân nhóm, mặt vẽ và dữ liệu nguồn. Theo yêu cầu người dùng, phụ kiện không cần khớp chính xác mã/giá. Giữ kích thước/mã hình nguồn nếu có; không gán Asian hoặc Rittal thành hãng của phụ kiện phổ thông.",
+    "sources": []
   }
 }

@@ -11,6 +11,7 @@ from app.services.catalogtb_browser import browser_data
 from app.services.ai.takeoff_pricebook import published_rows
 from app.services.library_price_matching import configuration_links,device_price_diagnostic
 from app.services.equipment_library import CATALOG_TB_ROOT
+from app.services.library_review_scope import exact_price_required
 
 
 def audit():
@@ -25,14 +26,21 @@ def audit():
         folder=path.relative_to(CATALOG_TB_ROOT).parts[0]
         groups[folder].append({'id':d['id'],'name':d.get('display'),'type':d.get('type'),'brand':d.get('brand'),
             'product_code':d.get('product_code'),'price_choices':len(configuration_links(d,prices)),
+            'exact_price_required':exact_price_required(d),
             'diagnostic':device_price_diagnostic(d['id'])})
     records=[]
     for folder,items in sorted(groups.items()):
         records.append({'folder':folder,'devices':len(items),'with_prices':sum(bool(i['price_choices']) for i in items),
+            'required_without_prices':sum(i['exact_price_required'] and not i['price_choices'] for i in items),
+            'optional_price':sum(not i['exact_price_required'] for i in items),
             'review':reviews.get(folder,{'status':'pending_web_review','sources':[]}),
             'remaining_reasons':dict(Counter(i['diagnostic']['status'] for i in items if not i['price_choices'])),
             'items':items})
-    return {'devices':sum(r['devices'] for r in records),'folders':records}
+    items=[i for r in records for i in r['items']]
+    return {'devices':len(items),'exact_price_required':sum(i['exact_price_required'] for i in items),
+            'optional_price_devices':sum(not i['exact_price_required'] for i in items),
+            'required_devices_without_prices':sum(i['exact_price_required'] and not i['price_choices'] for i in items),
+            'folders':records}
 
 
 if __name__=='__main__':
@@ -40,10 +48,14 @@ if __name__=='__main__':
     assert result['devices']==837
     (ROOT/'docs/library-folder-price-audit.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
     lines=['# Rà thư viện theo thư mục','',
+        f'Ưu tiên thiết bị phục vụ bóc tách: {result["exact_price_required"]} CAD cần đối chiếu giá, {result["required_devices_without_prices"]} chưa có lựa chọn. {result["optional_price_devices"]} cầu đấu/phụ kiện không yêu cầu khớp mã/giá chính xác theo yêu cầu người dùng. Đây là thay đổi phạm vi, không phải tăng số CAD đã khớp giá.','',
         'Một thư mục đã rà tài liệu web vẫn có thể còn thiếu giá hoặc mã cấu hình. Hãng/mã theo block nguồn và hãng đọc trực tiếp từ CAD được ghi riêng.','',
-        '| Thư mục | CAD | Có lựa chọn giá | Chưa có lựa chọn | Trạng thái rà web |','| --- | ---: | ---: | ---: | --- |']
+        '| Thư mục | CAD | Có lựa chọn giá | Thiết bị ưu tiên chưa có giá | Cầu đấu/phụ kiện không bắt buộc | Trạng thái rà |','| --- | ---: | ---: | ---: | ---: | --- |']
+    statuses={'reviewed_with_remaining_gaps':'Đã rà; còn thiếu dữ liệu',
+        'reviewed_metadata_and_family_sources':'Đã rà dữ liệu và nguồn theo dòng; còn xác minh',
+        'reviewed_optional_price_scope':'Đã rà tên/nhóm/bản vẽ; không bắt buộc giá'}
     for r in result['folders']:
-        lines.append(f'| {r["folder"]} | {r["devices"]} | {r["with_prices"]} | {r["devices"]-r["with_prices"]} | {r["review"]["status"]} |')
+        lines.append(f'| {r["folder"]} | {r["devices"]} | {r["with_prices"]} | {r["required_without_prices"]} | {r["optional_price"]} | {statuses.get(r["review"]["status"],r["review"]["status"])} |')
     for r in result['folders']:
         lines += ['', '## '+r['folder'], '', r['review'].get('note','Chưa hoàn tất rà web cho thư mục này.'),'']
         lines += [f'- [{s["title"]}]({s["url"]})' for s in r['review'].get('sources',[])]

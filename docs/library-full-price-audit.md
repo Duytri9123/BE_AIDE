@@ -1,5 +1,24 @@
 # Đối chiếu toàn bộ thư viện thiết bị
 
+## Rà đủ các mục và ưu tiên thiết bị bóc tách — cập nhật tiếp 14/10/2026
+
+Đã rà dữ liệu của **26/26 thư mục, 837 CAD và 1.448 mặt vẽ**; đối chiếu web theo dòng/nhóm thiết bị. Đã xem tổng quan thêm **95 hình chiếu của 55 thiết bị ưu tiên chưa rõ hãng** cùng chữ DXF đã trích xuất; chưa có căn cứ đủ chắc để xác nhận thêm hãng từ các hình này. Việc rà dữ liệu/nguồn và xem tổng quan không phải phê duyệt kỹ thuật, kích thước hay mọi mã đặt hàng.
+
+Theo yêu cầu người dùng, **153 cầu đấu/phụ kiện không bắt buộc khớp mã/giá chính xác**. Còn **684 CAD thiết bị cần đối chiếu giá**: **154 có lựa chọn giá, 530 chưa có lựa chọn phù hợp**. Tổng thư viện có 157 CAD có giá nếu tính thêm 3 phụ kiện đã có dữ liệu từ trước. Các phụ kiện được miễn yêu cầu không được tính thành thiết bị đã khớp giá.
+
+Đợt này bổ sung **198 dòng giá**: 167 Schneider từ Master Pricebook 07/2026 chính hãng, 28 cấu hình ATS OSEMCO từ bảng ETINCO 15/03/2026 và 3 quạt Leipole từ bảng DGE 01/2026. Tổng công bố **9.378 dòng giá / 35 hãng**. Không thay giá/ID cũ. Schneider đã gồm VAT; ATS và quạt chưa VAT.
+
+- Schneider tăng 13 CAD có lựa chọn giá: C120 1–4P, iIDK 2P/4P, CVS 3P/4P và LC1E. Giữ 220VAC và 24VDC thành các lựa chọn riêng, chưa tự chọn cuộn hút. CVS100BS không liên kết với CAD CVS100B/F/N. Nhóm in thành CVS639F trong PDF bị bỏ khỏi nhập, không tự sửa thành CVS630F hoặc gán nhầm sang CVS400F. Các LC1E có dấu * yêu cầu hỏi giá hiện tại chưa được nhập.
+- ATS OSS-612-PC 4P 1250A đã có lựa chọn 70.150.000 đồng; không dùng giá 3P 56.500.000 đồng.
+- 3 quạt Leipole đã có giá; sửa ánh xạ loại “Quạt lọc gió tủ điện” với nhóm FAN, giữ quạt kèm lọc khác miệng gió rời.
+- Chẩn đoán Mitsubishi/LS cùng mã nhưng thiếu số cực được sửa thành “khác số cực”. PM710 được ghi rõ hãng đã ngừng thương mại tại châu Á–Thái Bình Dương từ 30/04/2015; không dùng giá PM51xx thay tự động.
+
+530 trường hợp thiết bị ưu tiên còn lại: 251 hãng theo thư viện nguồn; 55 chưa rõ hãng; 1 hãng ứng viên; 54 thiếu mã; 119 thiếu giá đúng mã/loại; 32 thiếu giá theo hãng; 13 khác số cực; 2 A9D thiếu mã đầy đủ; 1 chưa khớp cấu hình; 1 biến áp thiếu cấu hình; 1 PM710 ngừng thương mại. [Từng CAD trong từng thư mục](library-folder-price-audit.md), [kết quả phân loại](library-classified-price-review.md).
+
+66 kiểm tra đạt. Nguồn: [Schneider Master Pricebook](https://www.se.com/vn/vi/download/document/MasterPriceBook/), [ETINCO ATS](https://etinco.vn/wp-content/uploads/2025/05/bang-gia-bo-chuyen-nguon-ats-osemco-osung.pdf), [DGE Leipole](https://dge.vn/uploads/bao-gia/435736_20260114_122258.pdf), [PM710 ngừng thương mại](https://www.se.com/uk/en/faqs/FA264122/).
+
+Các số liệu bên dưới là lịch sử trước lượt rà này.
+
 ## Kết quả hiện tại — bổ sung giá theo thư mục ngày 14/10/2026
 
 Đã bổ sung ròng **416 dòng giá**, tổng **9.180 dòng** trong phạm vi 33 hãng có dữ liệu công bố. Giữ toàn bộ ID và giá cũ; thêm MITEX vào danh sách hãng có giá.

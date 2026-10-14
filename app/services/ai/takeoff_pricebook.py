@@ -96,6 +96,11 @@ def match_device(device, rows, *, candidate_limit=30):
                      and code == 'NP2' and re.match(r'NP2-EA\d+(?=\s|$)',label))
                  or (canonical_brand(brand) == 'Schneider Electric' and category == 'MCB'
                      and code == 'IC60' and re.match(r'IC60N(?=\s|$)',label))
+                 or (canonical_brand(brand)=='Schneider Electric' and category=='MCB'
+                     and code=='C120' and re.match(r'C120[NH](?=\s|$)',label))
+                 or (canonical_brand(brand)=='Schneider Electric' and category=='MCCB'
+                     and re.fullmatch(r'CVS(?:100|160|250|400|630)',code)
+                     and re.match(re.escape(code)+r'[BFN](?=\s|$)',label))
                  or (canonical_brand(brand) == 'LS Electric' and category == 'MCCB'
                      and re.fullmatch(r'(?:TD|TS)(?:100|160|250|400|630|800|1000|1250|1600)',code)
                      and re.match(re.escape(code)+r'[NHL](?=\s|$)',label))
@@ -147,10 +152,16 @@ def match_device(device, rows, *, candidate_limit=30):
                         'cad_price_option_id':options.get(row['id']),
                         'vat_status':row.get('vat_status'), 'effective_date':row.get('effective_date'),
                         'reason':'Dòng giá đã công bố; đối chiếu mã và cấu hình thiết bị.'})
+    from app.services.library_review_scope import exact_price_required
+    required=exact_price_required({'type':category})
+    note='Đã liên kết dòng bảng giá.' if matched else 'Cần chọn mã và cấu hình trong bảng giá.' if matches else 'Chưa có dòng giá phù hợp; cần bổ sung mã hoặc dữ liệu giá.'
+    if not required and not matches:
+        note='Cầu đấu/phụ kiện không bắt buộc khớp chính xác mã và giá; có thể nhập giá nhà cung cấp khi cần.'
     return {'status':'matched' if matched else 'needs_selection' if matches else 'not_found',
+            'exact_price_required':required,
             'price_row_id':public_id(matches[0][0]) if matched else None,
             'row':choices[0] if matched else None, 'candidate_count':len(matches), 'candidates':choices,
-            'note':'Đã liên kết dòng bảng giá.' if matched else 'Cần chọn mã và cấu hình trong bảng giá.' if matches else 'Chưa có dòng giá phù hợp; cần bổ sung mã hoặc dữ liệu giá.'}
+            'note':note}
 
 
 def link_devices(devices, rows=None):
