@@ -1,10 +1,10 @@
 {
-  "linked_count": 216,
-  "verified_unlinked_count": 265,
+  "linked_count": 223,
+  "verified_unlinked_count": 270,
   "reason_counts": {
-    "related_code_only": 55,
+    "related_code_only": 56,
     "no_device_code": 56,
-    "code_not_in_published_prices": 122,
+    "code_not_in_published_prices": 126,
     "no_brand_prices": 32
   },
   "price_row_count": 9476,
@@ -484,6 +484,12 @@
       "choices": 1
     },
     {
+      "id": "TB-ec0313c7afab5af4",
+      "brand": "LS Electric",
+      "name": "MCB LS Electric BKN · CAD tham khảo",
+      "choices": 2
+    },
+    {
       "id": "TB-03adf5a8e67ae581",
       "brand": "LS Electric",
       "name": "MCB LS Electric BKN",
@@ -496,6 +502,30 @@
       "choices": 1
     },
     {
+      "id": "TB-7f55a2533f55451e",
+      "brand": "LS Electric",
+      "name": "CONTACTOR LS Electric MC-500a · CAD tham khảo",
+      "choices": 1
+    },
+    {
+      "id": "TB-bea54fdef5b2acda",
+      "brand": "LS Electric",
+      "name": "CONTACTOR LS Electric MC-265a · CAD tham khảo",
+      "choices": 1
+    },
+    {
+      "id": "TB-290af97db3e4caa7",
+      "brand": "LS Electric",
+      "name": "MCB LS Electric BKN · CAD tham khảo",
+      "choices": 2
+    },
+    {
+      "id": "TB-cacdfd7844526f12",
+      "brand": "LS Electric",
+      "name": "THERMAL_RELAY LS Electric MT-12 · CAD tham khảo",
+      "choices": 1
+    },
+    {
       "id": "TB-51f4558cd68dbb11",
       "brand": "LS Electric",
       "name": "THERMAL_RELAY LS Electric MT-12",
@@ -505,6 +535,12 @@
       "id": "TB-7ec687e49e297901",
       "brand": "LS Electric",
       "name": "CONTACTOR LS Electric MC-265a",
+      "choices": 1
+    },
+    {
+      "id": "TB-967962b721f7375f",
+      "brand": "LS Electric",
+      "name": "CONTACTOR LS Electric MC-185a · CAD tham khảo",
       "choices": 1
     },
     {
@@ -523,6 +559,12 @@
       "id": "TB-2d95b404b4b14f47",
       "brand": "LS Electric",
       "name": "MCB LS Electric BKN",
+      "choices": 2
+    },
+    {
+      "id": "TB-e3db884f56376e35",
+      "brand": "LS Electric",
+      "name": "MCB LS Electric BKN · CAD tham khảo",
       "choices": 2
     },
     {
@@ -3959,6 +4001,52 @@
       ]
     },
     {
+      "id": "TB-f9f9e051a7517681",
+      "name": "MCB LS Electric BKN · CAD tham khảo",
+      "brand": "LS Electric",
+      "type": "MCB",
+      "product_code": "BKN",
+      "reason": "related_code_only",
+      "brand_price_count": 697,
+      "related_price_rows": [
+        {
+          "id": "web:5fe815ac88522858",
+          "sku": "BKN 1P 32A",
+          "item_name": "BKN 1P 32A",
+          "category": "MCB",
+          "specifications": null
+        },
+        {
+          "id": "web:abf86c69f53e46c0",
+          "sku": "BKN 2P 25A",
+          "item_name": "BKN 2P 25A",
+          "category": "MCB",
+          "specifications": null
+        },
+        {
+          "id": "web:584cc2921c934842",
+          "sku": "BKN 1P 20A",
+          "item_name": "BKN 1P 20A",
+          "category": "MCB",
+          "specifications": null
+        },
+        {
+          "id": "web:a305d58084427b37",
+          "sku": "BKN 2P 40A",
+          "item_name": "BKN 2P 40A",
+          "category": "MCB",
+          "specifications": null
+        },
+        {
+          "id": "web:abcc54757ad80ec4",
+          "sku": "BKN 3P 63A",
+          "item_name": "BKN 3P 63A",
+          "category": "MCB",
+          "specifications": null
+        }
+      ]
+    },
+    {
       "id": "TB-d69f76621bed31d5",
       "name": "MCCB LS Electric ABN203c",
       "brand": "LS Electric",
@@ -5569,6 +5657,16 @@
       ]
     },
     {
+      "id": "TB-0032dd9bb37e0165",
+      "name": "CONTACTOR Schneider Electric LC1F185 · CAD tham khảo",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1F185",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
       "id": "TB-f0ad79304b9dfa57",
       "name": "CONTACTOR Schneider Electric LC1E160",
       "brand": "Schneider Electric",
@@ -5584,6 +5682,16 @@
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "A9C20731",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-bc6bce54ba5e3d99",
+      "name": "CONTACTOR Schneider Electric LC1F225 · CAD tham khảo",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1F225",
       "reason": "code_not_in_published_prices",
       "brand_price_count": 400,
       "related_price_rows": []
@@ -5775,11 +5883,31 @@
       "related_price_rows": []
     },
     {
+      "id": "TB-abe0ca387a433690",
+      "name": "CONTACTOR Schneider Electric LC1F185 · CAD tham khảo",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1F185",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
       "id": "TB-4243dcd3bacf6a0f",
       "name": "CONTACTOR Schneider Electric LC1F115",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "LC1F115",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-5153d546d072a06e",
+      "name": "CONTACTOR Schneider Electric LC1F225 · CAD tham khảo",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1F225",
       "reason": "code_not_in_published_prices",
       "brand_price_count": 400,
       "related_price_rows": []

@@ -39,6 +39,7 @@ def audit():
     items=[i for r in records for i in r['items']]
     return {'devices':len(items),'exact_price_required':sum(i['exact_price_required'] for i in items),
             'optional_price_devices':sum(not i['exact_price_required'] for i in items),
+            'mounting_reference_devices':sum(i['type']=='MOUNTING_TEMPLATE' for i in items),
             'required_devices_without_prices':sum(i['exact_price_required'] and not i['price_choices'] for i in items),
             'folders':records}
 
@@ -48,9 +49,9 @@ if __name__=='__main__':
     assert result['devices']==837
     (ROOT/'docs/library-folder-price-audit.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
     lines=['# Rà thư viện theo thư mục','',
-        f'Ưu tiên thiết bị phục vụ bóc tách: {result["exact_price_required"]} CAD cần đối chiếu giá, {result["required_devices_without_prices"]} chưa có lựa chọn. {result["optional_price_devices"]} cầu đấu/phụ kiện không yêu cầu khớp mã/giá chính xác theo yêu cầu người dùng. Đây là thay đổi phạm vi, không phải tăng số CAD đã khớp giá.','',
+        f'Ưu tiên thiết bị phục vụ bóc tách: {result["exact_price_required"]} CAD cần đối chiếu giá, {result["required_devices_without_prices"]} chưa có lựa chọn. {result["optional_price_devices"]} CAD không bắt buộc giá, gồm {result["mounting_reference_devices"]} mẫu khoét/lắp đặt và cầu đấu/phụ kiện. Mẫu lắp đặt không phải thiết bị điện độc lập. Đây là phân loại phạm vi, không phải tăng số CAD đã khớp giá.','',
         'Một thư mục đã rà tài liệu web vẫn có thể còn thiếu giá hoặc mã cấu hình. Hãng/mã theo block nguồn và hãng đọc trực tiếp từ CAD được ghi riêng.','',
-        '| Thư mục | CAD | Có lựa chọn giá | Thiết bị ưu tiên chưa có giá | Cầu đấu/phụ kiện không bắt buộc | Trạng thái rà |','| --- | ---: | ---: | ---: | ---: | --- |']
+        '| Thư mục | CAD | Có lựa chọn giá | Thiết bị ưu tiên chưa có giá | Phụ kiện/mẫu lắp không bắt buộc | Trạng thái rà |','| --- | ---: | ---: | ---: | ---: | --- |']
     statuses={'reviewed_with_remaining_gaps':'Đã rà; còn thiếu dữ liệu',
         'reviewed_metadata_and_family_sources':'Đã rà dữ liệu và nguồn theo dòng; còn xác minh',
         'reviewed_optional_price_scope':'Đã rà tên/nhóm/bản vẽ; không bắt buộc giá'}

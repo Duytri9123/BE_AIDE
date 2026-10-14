@@ -117,6 +117,15 @@ def run():
         block = source.get('block') or ''
         found = documented_model(item['brand'], block)
         result = {'id':cid, 'source_block':block, 'brand':item['brand'], 'status':'pending_specific_model_research'}
+        visual=registry['evidence'].get(cid) or {}
+        if visual.get('visual_geometry_review') and all((visual.get('source') or {}).get(k)==source.get(k) for k in ('file','sha256','block')):
+            paths={v['id_hinh_goc']:v['duong_dan'] for v in current['cad_don']}
+            if all(hashlib.sha256((profile_path.parent/paths[v['view_id']]).read_bytes()).hexdigest()==v['sha256'] for v in visual['views']):
+                description=visual['library_description']
+                result.update(status='source_model_documented' if description.get('product_code') else 'visual_role_corrected',
+                    product_code=description.get('product_code'),manufacturer_document=visual.get('manufacturer_document'),note=visual.get('note'))
+                results.append(result)
+                continue
         if found:
             code, kind, url, spec = found
             spec = dict(spec)
@@ -163,6 +172,7 @@ def run():
         'Các mục còn lại được ghi thành việc cụ thể. HCC/HCN chỉ là viết tắt chưa xác minh, không mặc định là lỗ khoét. Nhãn NS400_600 và LC1D185 không tự sửa thành NS400/630 hay LC1F185.', '',
         '| Kết quả | CAD |', '| --- | ---: |']
     labels={'source_model_documented':'Đã đối chiếu mã/dòng với hãng', 'pending_specific_model_research':'Cần tiếp tục tìm đúng mã/nhãn',
+            'visual_role_corrected':'Đã sửa vai trò bản vẽ dựa các mặt (mẫu lắp/cụm)',
             'mounting_or_cutout_reference':'Nhãn lỗ khoét/lắp đặt; cần kiểm tra phân loại',
             'projection_reference_requires_review':'Nhãn HCC/HCN chưa rõ ý nghĩa',
             'shared_family_or_generic_frame':'Nhãn dùng chung/khung; chưa xác định mã riêng',

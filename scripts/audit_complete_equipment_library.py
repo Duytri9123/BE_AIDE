@@ -69,6 +69,7 @@ if __name__=='__main__':
            'Phân loại theo loại thiết bị, hãng, mã và lý do chưa đối chiếu. Có lựa chọn giá không đồng nghĩa tự chốt mã đặt hàng hoặc xác nhận hình học CAD.','',
            '| Trạng thái | Số thiết bị |','| --- | ---: |']
     labels={'choices_available':'Có lựa chọn giá','optional_price':'Cầu đấu/phụ kiện không yêu cầu giá chính xác','discontinued_model':'Hãng thông báo ngừng thương mại mã cũ','different_poles':'Giá cùng dòng nhưng khác số cực',
+            'mounting_reference':'Mẫu khoét/lắp đặt, không tính như thiết bị độc lập','assembly_requires_components':'Cụm thiết bị cần bóc từng bộ phận',
             'no_device_code':'Chưa xác nhận mã','no_model_prices':'Chưa có giá đúng mã/loại trong dữ liệu công bố',
             'no_brand_prices':'Chưa có giá theo nhãn hãng','unknown':'Chưa rõ hãng','candidate':'Hãng ứng viên',
             'missing_transformer_configuration':'Biến áp thiếu mã/VA/điện áp',

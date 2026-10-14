@@ -1,5 +1,15 @@
 # Đối chiếu toàn bộ thư viện thiết bị
 
+## Đối chiếu hình và mặt vẽ — cập nhật mới nhất 14/10/2026
+
+Đã xem tổng quan **165 mặt của 156 CAD nguồn** còn thiếu đối chiếu ở đầu lượt này; bổ sung **12 tham chiếu mã/dòng** và sửa **31 vai trò bản vẽ**. Các tham chiếu mới gồm mặt bên/top BKN, MC-185a/265a/500a, MT-12 và thân LC1F185/225. Hai mặt trước có nhãn LC1D185 và LC1D225 được so đường bao/cọc và đo 168,5×174 mm / 168,5×197 mm với tài liệu TeSys F trang 53; không sửa theo tên gần giống. Những model khác chưa khớp đủ kích thước vẫn được giữ chưa xác minh. Điện áp cuộn hút và mã đặt hàng chưa tự chọn.
+
+**27 CAD là mẫu khoét/lắp đặt**, không tính như thiết bị điện độc lập; **4 CAD là tham chiếu cụm nhiều bộ phận**, cần bóc từng thành phần, không dùng giá một MCCB cho toàn bộ cụm. Đây là sửa phân loại, không tính thành CAD đã có giá. Phát hiện hậu tố -4 ở một số block là mặt trên của thiết bị 3 cực; không suy thành 4 cực.
+
+Có thêm **7 CAD LS với lựa chọn giá**: tổng **223/837 CAD có lựa chọn**, gồm **220/657 CAD cần đối chiếu thương mại**, còn **437 chưa có lựa chọn**. 180 CAD không yêu cầu giá độc lập gồm 153 cầu đấu/phụ kiện và 27 mẫu lắp đặt. Nhóm 251 nguồn hiện có 107 tham chiếu mã/dòng, 31 vai trò đã sửa và 113 còn cần xác minh tiếp. Không có lỗi cấu trúc trên 837 CAD/1.448 mặt; **73 kiểm tra đạt**. [Báo cáo đối chiếu từng CAD bằng hình](library-source-face-review.md), [danh sách theo thư mục](library-folder-price-audit.md).
+
+Các mục dưới đây là số liệu lịch sử của các lượt trước.
+
 ## Tìm mã cho nhóm 251 CAD nguồn — cập nhật mới nhất 14/10/2026
 
 Đã tìm tài liệu hãng và bổ sung mã/dòng hoặc nhóm mã cho **95/251 CAD nguồn**: CHINT NXB-63, NXM-1600S và NZ7-125; LS BKN, MT-12/63, MC-185a/265a/500a và một số MCCB có hậu tố c rõ ràng; Schneider LC1D/LC1E/LC1F, EZC và Altivar 212/320/630. Nhận diện này dựa trên tên block nguồn đối chiếu tài liệu hãng, có ràng buộc checksum thư viện và từng DXF; không phải đọc logo trực tiếp, xác nhận mọi SKU hay phê duyệt hình học. Vẫn giữ auto_select=false và needs_review=true.

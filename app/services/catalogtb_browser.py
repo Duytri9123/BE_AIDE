@@ -188,6 +188,11 @@ def _build_browser_data():
             profile['spec'] = {**profile.get('spec', {}), **reviewed.get('reviewed_spec', {})}
             profile['auto_select'] = False
             profile['needs_review'] = True
+        for view in profile['views']:
+            label=(reviewed.get('reviewed_view_labels') or {}).get(view['id'])
+            if label:
+                view['label']=label
+                view['face']=label
         profiles.append(profile)
     groups_path=CATALOG_TB_ROOT/'ai_device_groups.json'
     registry=json.loads(groups_path.read_text(encoding='utf8')) if groups_path.is_file() else {}

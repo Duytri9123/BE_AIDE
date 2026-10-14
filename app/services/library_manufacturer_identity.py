@@ -24,11 +24,11 @@ def manufacturer_identity(profile, current, profile_path=None):
                 'brand_label':confirmed,'brand_identity_note':'Hãng được ghi trong hồ sơ thiết bị.'}
     if profile_path and EVIDENCE_PATH.is_file():
         evidence = json.loads(EVIDENCE_PATH.read_text(encoding='utf8')).get('evidence',{}).get(profile.get('id'))
-        if evidence and evidence.get('status') in {'manufacturer_label_reviewed', 'manufacturer_candidate_reviewed', 'source_model_documented'}:
-            if evidence['status'] == 'source_model_documented':
+        if evidence and evidence.get('status') in {'manufacturer_label_reviewed', 'manufacturer_candidate_reviewed', 'source_model_documented', 'source_role_reviewed'}:
+            if evidence['status'] in {'source_model_documented','source_role_reviewed'}:
                 source = current.get('nguon_cad') or {}
                 expected = evidence.get('source') or {}
-                if not expected.get('block') or not expected.get('sha256') or not evidence.get('manufacturer_document') or any(source.get(key) != expected.get(key) for key in ('block', 'sha256', 'file')):
+                if not expected.get('block') or not expected.get('sha256') or (evidence['status']=='source_model_documented' and not evidence.get('manufacturer_document')) or any(source.get(key) != expected.get(key) for key in ('block', 'sha256', 'file')):
                     evidence = None
             if not evidence:
                 return manufacturer_identity(profile, current)
@@ -41,8 +41,9 @@ def manufacturer_identity(profile, current, profile_path=None):
                 if drawing.is_relative_to(profile_path.parent.resolve()) and drawing.is_file() and hashlib.sha256(drawing.read_bytes()).hexdigest() == view['sha256']:
                     maker = evidence['brand']
                     candidate = evidence['status'] == 'manufacturer_candidate_reviewed'
+                    role_only = evidence['status'] == 'source_role_reviewed'
                     return {'brand':maker,'brand_kind':'manufacturer_candidate' if candidate else 'manufacturer',
-                            'brand_identification_status':'candidate' if candidate else 'verified',
+                            'brand_identification_status':'source_library' if role_only else 'candidate' if candidate else 'verified',
                             'brand_label':maker,'brand_identity_note':evidence.get('note') or 'Hãng được đọc từ nhãn CAD; cấu hình điện và mã đặt hàng được đối chiếu riêng.',
                             'reviewed_description':evidence.get('library_description') or {}}
     kind = str(profile.get('type') or current.get('ban_chat') or '').casefold()

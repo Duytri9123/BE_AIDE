@@ -11,6 +11,8 @@ _index_links = {}
 
 
 def configuration_links(device, rows):
+    if device and str(device.get('type') or '').upper() in {'MOUNTING_TEMPLATE','ASSEMBLY_REFERENCE'}:
+        return {}
     if not device or device.get('brand_identification_status') != 'verified':
         return {}
     codes = (device.get('ai_identification') or {}).get('cac_ma_dong_san_pham') or []
@@ -82,6 +84,10 @@ def device_price_diagnostic(equipment_id):
     from app.services.ai.takeoff_pricebook import published_rows
     device=next((d for d in browser_data()['items'] if d['id']==equipment_id),None)
     if device is None:return {'status':'not_found','message':'Không tìm thấy thiết bị đang đối chiếu.'}
+    if device.get('type')=='MOUNTING_TEMPLATE':
+        return {'status':'mounting_reference','message':'Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách.'}
+    if device.get('type')=='ASSEMBLY_REFERENCE':
+        return {'status':'assembly_requires_components','message':'CAD này thuộc cụm chuyển nguồn/lắp đặt có nhiều bộ phận. Cần bóc từng MCCB và phụ kiện theo cấu hình; không lấy giá một MCCB làm giá cả cụm.'}
     from app.services.library_review_scope import exact_price_required
     if not exact_price_required(device):
         return {'status':'optional_price','message':'Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác.'}

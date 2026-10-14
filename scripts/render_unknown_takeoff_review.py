@@ -16,12 +16,22 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--additional',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--additional',action='store_true')
+    parser.add_argument('--source-research',action='store_true');args=parser.parse_args()
     out=ROOT/'outputs/folder-web-review';out.mkdir(parents=True,exist_ok=True)
     font=ImageFont.truetype('C:/Windows/Fonts/arial.ttf',15)
     devices=[d for d in browser_data()['items'] if d['brand_identification_status']=='unknown' and exact_price_required(d)]
     records=[(d,v) for d in devices for v in (d['views'][1:] if args.additional else d['views'][:1])]
     prefix='unknown-additional' if args.additional else 'unknown-priority'
+    if args.source_research:
+        research=json.loads((ROOT/'docs/library-source-model-research.json').read_text(encoding='utf8'))
+        wanted={r['id'] for r in research['items'] if r['status']!='source_model_documented'}
+        pinned=ROOT/'docs/library-source-face-index.json'
+        if pinned.is_file():
+            wanted={r['id'] for r in json.loads(pinned.read_text(encoding='utf8'))}
+        devices=[d for d in browser_data()['items'] if d['id'] in wanted]
+        records=[(d,v) for d in devices for v in d['views']]
+        prefix='source-unresolved-all-faces'
     for start in range(0,len(records),15):
         sheet=Image.new('RGB',(1200,1500),'white');draw=ImageDraw.Draw(sheet)
         for index,(d,view) in enumerate(records[start:start+15]):

@@ -3944,6 +3944,2360 @@
         "price_family_codes": [],
         "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
       }
+    },
+    "TB-13a413428ea18f5c": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB LỖ ĐỤC ROTARY HANDLE",
+        "saved_block": "06 - N - SC MCCB LỖ ĐỤC ROTARY HANDLE",
+        "handle": "263AFF",
+        "geometry_key": "08ddfa280ff634483f13db37350a11383fb3fef5825a4e0b5b2a22c57ad42072",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -22486.47388162482,
+            35096.38940174553,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_08ddfa280ff6",
+          "sha256": "5f0953f12412035062ea913a7bffc543adadd9ada21f80849d3fc3fa741c5b94"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC ROTARY HANDLE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_08ddfa280ff6": [
+            75.0,
+            75.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-a867fda856a6f81b": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB LỖ ĐỤC NS06b~160N3M2 3~4 PHASE",
+        "saved_block": "06 - N - SC MCCB LỖ ĐỤC NS06b~160N3M2 3~4 PHASE",
+        "handle": "2639FA",
+        "geometry_key": "0af880c5cf1e5061cdac30f55fb51e725cbc8a3369d66b41d942128eb872e051",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -21484.21717698956,
+            33545.87504548347,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_0af880c5cf1e",
+          "sha256": "4594dbc8f67be57bb01749056c2dc27195e162866a7fad81ca7c6c76f5eef721"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC NS06b~160N3M2 3~4 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_0af880c5cf1e": [
+            65.0,
+            114.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-26df5a39993a5d8d": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB LÕ ĐỤC EZC100 3 PHASE",
+        "saved_block": "06 - N - SC MCCB LÕ ĐỤC EZC100 3 PHASE",
+        "handle": "263953",
+        "geometry_key": "1231e54bf11e6c9e69fc417d47fc9898a67baf5ad4a1408e04558c5ff96420c7",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -21519.02170643924,
+            35200.04764503029,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_1231e54bf11e",
+          "sha256": "5a7dbac710e53777dce0c8e747414cf72b5b8c89a2ceb6b8207d31252479899a"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCCB LÕ ĐỤC EZC100 3 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_1231e54bf11e": [
+            70.0,
+            50.0058
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-8364b6075caa2a48": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "LV429640ATNSX22A 5",
+        "saved_block": "LV429640ATNSX22A 5",
+        "handle": "22CAA5",
+        "geometry_key": "18037f1684aa7bcec32f296337a4cab72af6d8773ebee9d4959440cb658dcfce",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -26299.85370290314,
+            27089.68594598908,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": "https://www.se.com/pe/es/product/LV429640/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_18037f1684aa",
+          "sha256": "09f45fbe87fd658f93ba4bdb51da3fe5e420772b1aa90032435616607c3abb17"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Xem cả 5 mặt: có 2 MCCB và cơ cấu chuyển nguồn ở giữa, mặt bên, mặt trên và mẫu khoét. LV429640 là mã một MCCB, không phải mã cả cụm. Không dùng giá một bộ phận cho cả cụm.",
+      "library_description": {
+        "type": "ASSEMBLY_REFERENCE",
+        "manufacturer_document": "https://www.se.com/pe/es/product/LV429640/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Xem cả 5 mặt: có 2 MCCB và cơ cấu chuyển nguồn ở giữa, mặt bên, mặt trên và mẫu khoét. LV429640 là mã một MCCB, không phải mã cả cụm. Không dùng giá một bộ phận cho cả cụm.",
+        "display": "Cụm chuyển nguồn Schneider · CAD lắp đặt"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_18037f1684aa": [
+            175.0,
+            100.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-8d768ae917ba96e2": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB LÕ ĐỤC EZC100 3~4 PHASE",
+        "saved_block": "06 - N - SC MCCB LÕ ĐỤC EZC100 3~4 PHASE",
+        "handle": "263B13",
+        "geometry_key": "1f182c66994dbe97f2d37eeac33f782bec250037f0eb6ac6fab058154afb27eb",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -21446.58502646629,
+            35199.96563614649,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_1f182c66994d",
+          "sha256": "28da838b67446d6e82e9550c5e6f9676082d47656f33ffbea3e88167e956bf3d"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCCB LÕ ĐỤC EZC100 3~4 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_1f182c66994d": [
+            22.0464,
+            50.001
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-cb75104f47e9c48c": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB LỖ ĐỤC CVS400~630F~N 3~4 PHASE",
+        "saved_block": "06 - N - SC MCCB LỖ ĐỤC CVS400~630F~N 3~4 PHASE",
+        "handle": "2639C1",
+        "geometry_key": "25ea7ee5c80cd391fd071f87bdadfce71112f990b2d404f6f22d2686576cb2f9",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -21633.81365502119,
+            34360.39644899256,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_25ea7ee5c80c",
+          "sha256": "bc668a2e97628c5d35843efe255d4485c9377b67403cb21825a9afd6f663d9fd"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC CVS400~630F~N 3~4 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_25ea7ee5c80c": [
+            61.0,
+            114.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-2101095072707459": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCB LỖ ĐỤC 2 PHASE",
+        "saved_block": "06 - N - SC MCB LỖ ĐỤC 2 PHASE",
+        "handle": "263AE3",
+        "geometry_key": "3351e8a22deb0356081feae4148496aac305a762219144a46963ec8775f6f406",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -21771.00368130424,
+            35199.84152317492,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_3351e8a22deb",
+          "sha256": "71bee1be56fb19f7dc98df55e2e9b103d1a6e6eb4480bae04661dea8c9aadff6"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCB LỖ ĐỤC 2 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_3351e8a22deb": [
+            35.7,
+            45.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-a9db091b2354a6a6": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB LÕ ĐỤC EZC100 2 PHASE",
+        "saved_block": "06 - N - SC MCCB LÕ ĐỤC EZC100 2 PHASE",
+        "handle": "263B39",
+        "geometry_key": "3ffe840f75942c56e05e951d5f267a12f0080b20352ebbe33a3df2e3bd3bcf27",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -21258.03581886234,
+            35174.31025677663,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_3ffe840f7594",
+          "sha256": "a3822313cc95fd2ba9c29361aa066c83b770761af1c72cfa533ef859636412bf"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCCB LÕ ĐỤC EZC100 2 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_3ffe840f7594": [
+            45.0444,
+            50.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-117815138f330cbe": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "LV429640ATNSX22A 1",
+        "saved_block": "LV429640ATNSX22A 1",
+        "handle": "22CA9C",
+        "geometry_key": "441e59d508459a8dcfec4da3fd535a01aa90c1932b124f30c27bd3a2fd406e7b",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -26704.64212103537,
+            26486.60928091765,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": "https://www.se.com/pe/es/product/LV429640/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_441e59d50845",
+          "sha256": "82343fa91519dc8c41c56cbe6ad027bf2be7ec896b7d3196e6b84bcddd52c633"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Xem cả 5 mặt: có 2 MCCB và cơ cấu chuyển nguồn ở giữa, mặt bên, mặt trên và mẫu khoét. LV429640 là mã một MCCB, không phải mã cả cụm. Không dùng giá một bộ phận cho cả cụm.",
+      "library_description": {
+        "type": "ASSEMBLY_REFERENCE",
+        "manufacturer_document": "https://www.se.com/pe/es/product/LV429640/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Xem cả 5 mặt: có 2 MCCB và cơ cấu chuyển nguồn ở giữa, mặt bên, mặt trên và mẫu khoét. LV429640 là mã một MCCB, không phải mã cả cụm. Không dùng giá một bộ phận cho cả cụm.",
+        "display": "Cụm chuyển nguồn Schneider · CAD lắp đặt"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_441e59d50845": [
+            557.4471,
+            247.6798
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-36a21d6f19764e8a": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB LỖ ĐỤC EZC400~630 4 PHASE",
+        "saved_block": "06 - N - SC MCCB LỖ ĐỤC EZC400~630 4 PHASE",
+        "handle": "263956",
+        "geometry_key": "49043cc0a661f96b1a5ff24aac8da707ce05ed661ea521cf1fd84b8680dc2a74",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -21579.91649384359,
+            34801.66856198545,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_49043cc0a661",
+          "sha256": "0dc74bc9bf3500f951cf1e809ec80adc6218a2dfc48dabd003a061fd1e382d34"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC EZC400~630 4 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_49043cc0a661": [
+            185.0,
+            181.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-7330d99b1d6effe0": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB LỖ ĐỤC EZC250 3 PHASE",
+        "saved_block": "06 - N - SC MCCB LỖ ĐỤC EZC250 3 PHASE",
+        "handle": "263955",
+        "geometry_key": "4cf15ae3a6bce4bbbf4f5e12383229e1c9cc71f8fab106e3b3fffa81a8993621",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -21461.91433252205,
+            35032.45006161046,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_4cf15ae3a6bc",
+          "sha256": "93d9474bbb0ab672249c5e67b3d5223ebd1b5a1e65c878a5a4d8adf8d29d8753"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC EZC250 3 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_4cf15ae3a6bc": [
+            100.0,
+            50.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-b1cfdedd7e8799ba": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCB LỖ ĐỤC 1 PHASE",
+        "saved_block": "06 - N - SC MCB LỖ ĐỤC 1 PHASE",
+        "handle": "263AE2",
+        "geometry_key": "5166db620fd2c2635b79b7a0dcdd097b9878d3cba33c7b441fb127023091a80e",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -21719.60368130424,
+            35199.84152317492,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_5166db620fd2",
+          "sha256": "cc06e0730b59b300b4e1c666d2359d6a04c249dde4adb80e6321083ec5469375"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCB LỖ ĐỤC 1 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_5166db620fd2": [
+            17.85,
+            45.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-0032dd9bb37e0165": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT LC1D185",
+        "saved_block": "06 - N - SC CTT LC1D185",
+        "handle": "263A9A",
+        "geometry_key": "62e1b27f30943e2c035723e1c9028d45e2a5bed0aabd8fa59cebffa6e8d81a02",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -23033.11343083413,
+            33722.70138134613,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_62e1b27f3094",
+          "sha256": "825e8289f9d58fb1de8ee34f93c48fd93eb509a3b3b75219d75ecad7749157df"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã so mặt trước, 3 cặp cọc lực và kích thước 168.5×174.0 mm với TeSys F trang 53. Nhãn block 06 - N - SC CTT LC1D185 khác dòng trên tài liệu; xác định thân LC1F185, chưa chọn điện áp cuộn hút hoặc mã SKU.",
+      "library_description": {
+        "type": "CONTACTOR",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "3P"
+        },
+        "reviewed_view_labels": {},
+        "use": "Đã so mặt trước, 3 cặp cọc lực và kích thước 168.5×174.0 mm với TeSys F trang 53. Nhãn block 06 - N - SC CTT LC1D185 khác dòng trên tài liệu; xác định thân LC1F185, chưa chọn điện áp cuộn hút hoặc mã SKU.",
+        "product_code": "LC1F185",
+        "display": "CONTACTOR Schneider Electric LC1F185 · CAD tham khảo"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_62e1b27f3094": [
+            168.4999,
+            174.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-ce816ff51360718d": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB LỖ ĐỤC CVS100~250B~F 3~4 PHASE",
+        "saved_block": "06 - N - SC MCCB LỖ ĐỤC CVS100~250B~F 3~4 PHASE",
+        "handle": "2639C0",
+        "geometry_key": "693702ebeee0b958261ae511be4df052e6390a3837cd454d1832d20bcebf2000",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -21460.31386125471,
+            34582.89644899258,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_693702ebeee0",
+          "sha256": "d711b4dd694ff2389c9056a978850cccc4c73fdf9da6f0767f382f4c131ace69"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC CVS100~250B~F 3~4 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_693702ebeee0": [
+            27.0,
+            74.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-2a096f089f93e3e4": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB LỖ ĐỤC EZC250 4 PHASE",
+        "saved_block": "06 - N - SC MCCB LỖ ĐỤC EZC250 4 PHASE",
+        "handle": "263954",
+        "geometry_key": "6f1d38656522ac68fa9fdc90f4d6df15bf2f553ede17ad3e0d86d995a4098b1b",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -21604.91737149782,
+            35032.45225511196,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_6f1d38656522",
+          "sha256": "163b2066c4d9ee193ec2e8726dada0e758d232516434d5f63a499ba221ca02ca"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC EZC250 4 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_6f1d38656522": [
+            135.0,
+            50.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-a7617860678230c6": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT LỖ ĐỤC 1P A9C20731",
+        "saved_block": "06 - N - SC CTT LỖ ĐỤC 1P A9C20731",
+        "handle": "263AE8",
+        "geometry_key": "704bb5f2e4fe60f969bcefddae8173199aa6dad7e30cefdd709819e931f587e1",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -23291.44753898665,
+            35063.61975531571,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_704bb5f2e4fe",
+          "sha256": "691b3b484832698674f7541784ce4a2eb4d3671d68ce82b28c3dfbbab4edb147"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · CTT LỖ ĐỤC 1P A9C20731"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_704bb5f2e4fe": [
+            18.0,
+            45.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-ac81b98b36e67e01": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC ACB LÕ ĐỤC DRAWOUT",
+        "saved_block": "06 - N - SC ACB LÕ ĐỤC DRAWOUT",
+        "handle": "263A88",
+        "geometry_key": "7145c4150adaacc8b44f399c9c9c8b3df7bf95f54213601765e811a11d21dcc5",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -20805.26441103406,
+            30419.31350454537,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_7145c4150ada",
+          "sha256": "e85eeed1ea954347ff9860a44336584b965648b4c36981905e977ed251feb4db"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · ACB LÕ ĐỤC DRAWOUT"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_7145c4150ada": [
+            365.0,
+            380.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-4577d82dd63da27b": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB LỖ ĐỤC EZC400~630 3 PHASE",
+        "saved_block": "06 - N - SC MCCB LỖ ĐỤC EZC400~630 3 PHASE",
+        "handle": "263957",
+        "geometry_key": "7534ed491044c4af7a04c9c6fafebb6051b78568228b64e0376b59a666e31950",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -21397.37150919801,
+            34801.66856198545,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_7534ed491044",
+          "sha256": "a58d43985b2aa9f25a6c0f7b420f42ec85e9488b257c1712898ae40252a6574f"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC EZC400~630 3 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_7534ed491044": [
+            140.0,
+            181.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-5c29a91a45b1fb78": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB LỖ ĐỤC EZC250 3~4 PHASE",
+        "saved_block": "06 - N - SC MCCB LỖ ĐỤC EZC250 3~4 PHASE",
+        "handle": "263B14",
+        "geometry_key": "753d876c0c620f47b376d99de59f5091bd24b1c2774452428a24261037538953",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -21378.06872459853,
+            35032.45006161046,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_753d876c0c62",
+          "sha256": "30d512d96e29dcb97a0265601306e6aa0b5450f5adfc20c076baac5c2b5ca704"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC EZC250 3~4 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_753d876c0c62": [
+            22.0017,
+            50.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-4d1383db7342995a": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCB LỖ ĐỤC 4 PHASE",
+        "saved_block": "06 - N - SC MCB LỖ ĐỤC 4 PHASE",
+        "handle": "263AE5",
+        "geometry_key": "7d5e2ac31930fbd5cb2933ed499ddcf7341f6497ce3b2911c74ad719c0fda558",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -21926.60368130424,
+            35199.84152317492,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_7d5e2ac31930",
+          "sha256": "5a6314a0524dcd86ec9be20cbfe7f9a10a61a325d7efac229864cff1d6cb7f3a"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCB LỖ ĐỤC 4 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_7d5e2ac31930": [
+            71.4,
+            45.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-bc6bce54ba5e3d99": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT LC1D225",
+        "saved_block": "06 - N - SC CTT LC1D225",
+        "handle": "263A9C",
+        "geometry_key": "82c656ebb5921feaf5b4e55fedb5cd7e9ed9a855906358f4ad7732a04c91cd92",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -23033.11343083413,
+            33487.20138134613,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_82c656ebb592",
+          "sha256": "2a59b599e056e6bed3b27660841271f9ef1e5d26d6fdd4c80cea5871e4e48758"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã so mặt trước, 3 cặp cọc lực và kích thước 168.5×197.0 mm với TeSys F trang 53. Nhãn block 06 - N - SC CTT LC1D225 khác dòng trên tài liệu; xác định thân LC1F225, chưa chọn điện áp cuộn hút hoặc mã SKU.",
+      "library_description": {
+        "type": "CONTACTOR",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "3P"
+        },
+        "reviewed_view_labels": {},
+        "use": "Đã so mặt trước, 3 cặp cọc lực và kích thước 168.5×197.0 mm với TeSys F trang 53. Nhãn block 06 - N - SC CTT LC1D225 khác dòng trên tài liệu; xác định thân LC1F225, chưa chọn điện áp cuộn hút hoặc mã SKU.",
+        "product_code": "LC1F225",
+        "display": "CONTACTOR Schneider Electric LC1F225 · CAD tham khảo"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_82c656ebb592": [
+            168.4999,
+            197.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-a2b48f372146a81f": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "LV429640ATNSX22A 3",
+        "saved_block": "LV429640ATNSX22A 3",
+        "handle": "22CA9E",
+        "geometry_key": "88818b529e8ca337346c5b75a8455c397888de180304bd2ba1bddf7d25b8d363",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -26295.17434360023,
+            26518.60928091765,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": "https://www.se.com/pe/es/product/LV429640/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_88818b529e8c",
+          "sha256": "80189f74bdb20bdc51114d8c5377ee7de1eae9e2f1b302ac319260785768d34a"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Xem cả 5 mặt: có 2 MCCB và cơ cấu chuyển nguồn ở giữa, mặt bên, mặt trên và mẫu khoét. LV429640 là mã một MCCB, không phải mã cả cụm. Không dùng giá một bộ phận cho cả cụm.",
+      "library_description": {
+        "type": "ASSEMBLY_REFERENCE",
+        "manufacturer_document": "https://www.se.com/pe/es/product/LV429640/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Xem cả 5 mặt: có 2 MCCB và cơ cấu chuyển nguồn ở giữa, mặt bên, mặt trên và mẫu khoét. LV429640 là mã một MCCB, không phải mã cả cụm. Không dùng giá một bộ phận cho cả cụm.",
+        "display": "Cụm chuyển nguồn Schneider · CAD lắp đặt"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_88818b529e8c": [
+            172.7347,
+            220.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-ceb791cdafbe0a60": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "LV429640ATNSX22A 2",
+        "saved_block": "LV429640ATNSX22A 2",
+        "handle": "22CA9D",
+        "geometry_key": "91908345fcabfb14cd1e45f47759cae649e263b4b9a20190fadcd0594ff669d1",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -26704.64212103537,
+            26889.64274171342,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": "https://www.se.com/pe/es/product/LV429640/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_91908345fcab",
+          "sha256": "5ebbdfa320ddd189d42f918585f44dd754f84fd66a116701837c65b175839ee9"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Xem cả 5 mặt: có 2 MCCB và cơ cấu chuyển nguồn ở giữa, mặt bên, mặt trên và mẫu khoét. LV429640 là mã một MCCB, không phải mã cả cụm. Không dùng giá một bộ phận cho cả cụm.",
+      "library_description": {
+        "type": "ASSEMBLY_REFERENCE",
+        "manufacturer_document": "https://www.se.com/pe/es/product/LV429640/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Xem cả 5 mặt: có 2 MCCB và cơ cấu chuyển nguồn ở giữa, mặt bên, mặt trên và mẫu khoét. LV429640 là mã một MCCB, không phải mã cả cụm. Không dùng giá một bộ phận cho cả cụm.",
+        "display": "Cụm chuyển nguồn Schneider · CAD lắp đặt"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_91908345fcab": [
+            550.0,
+            176.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-ecc9581650e4ccba": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC RCCB LỖ ĐỤC 2 PHASE",
+        "saved_block": "06 - N - SC RCCB LỖ ĐỤC 2 PHASE",
+        "handle": "263950",
+        "geometry_key": "9c85409463a18a1b04818231bebba0923e9ad0246f64c18a7961d75ddbe50fb0",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -22461.88306835933,
+            35343.56383784612,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_9c85409463a1",
+          "sha256": "d4f78a31337d7cf2c6f2a862eb793b265a9c10b972072955674113e39e0ec64e"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · RCCB LỖ ĐỤC 2 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_9c85409463a1": [
+            36.0,
+            45.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-0c0511a6f25efb20": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB LỖ ĐỤC-2 CVS100~250B~F 4 PHASE",
+        "saved_block": "06 - N - SC MCCB LỖ ĐỤC-2 CVS100~250B~F 4 PHASE",
+        "handle": "263AEF",
+        "geometry_key": "9f9009c0bd701a886c01116c34be298455cc8a0cb2a0534777521a9c31833985",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -21735.93353799165,
+            34583.21693400039,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_9f9009c0bd70",
+          "sha256": "1bb96bac5ecbf23b920ce17ebf35bae4bf8dd46da5742006f97173c3b1eb30be"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC-2 CVS100~250B~F 4 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_9f9009c0bd70": [
+            142.0,
+            104.5
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-dddeabc7ba9f70fb": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB LỖ ĐỤC NSX100~250BFNH 3 PHASE",
+        "saved_block": "06 - N - SC MCCB LỖ ĐỤC NSX100~250BFNH 3 PHASE",
+        "handle": "263958",
+        "geometry_key": "c2aa84340df18c745ae4de3fd8bec7531204ad7cf85c89fcfb2b7396e948ef73",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -21626.53783261774,
+            34127.89641848438,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_c2aa84340df1",
+          "sha256": "d86db5e415ed142273d1012385a840a26bbc7ab6cdb68fb0c7e50194d3dffe74"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC NSX100~250BFNH 3 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_c2aa84340df1": [
+            92.0,
+            74.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-571c337cecd22fa5": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB LỖ ĐỤC EZC400~630F~N 3~4 PHASE",
+        "saved_block": "06 - N - SC MCCB LỖ ĐỤC EZC400~630F~N 3~4 PHASE",
+        "handle": "263B12",
+        "geometry_key": "cfb55497ba7069d89927f4b44eae1969e9841d5641607cda1db42a5d5fad1a45",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -21765.76102388556,
+            34798.76017619533,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_cfb55497ba70",
+          "sha256": "aa5e6d5fc2e577cc53dbe34a18b9325f2bafd98a78178a958ca4d150d10e4320"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC EZC400~630F~N 3~4 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_cfb55497ba70": [
+            60.0,
+            114.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-abe0ca387a433690": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT CHIẾU HÔNG LC1D185",
+        "saved_block": "06 - N - SC CTT CHIẾU HÔNG LC1D185",
+        "handle": "263A9B",
+        "geometry_key": "d21d5fae269a26f935a6e7f6ff57f60c9855b0ed6e1ae3d8e80d815a2750b239",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -22633.41355583413,
+            33722.70138134613,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_d21d5fae269a",
+          "sha256": "09f1df8d5bfd295ac727700828395bef894ea5fc72b25eee2049110a02aef803"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Mặt bên được so đường bao, vị trí cọc và chiều cao 174.0 mm với mặt trước tương ứng và tài liệu TeSys F. Tham chiếu thân LC1F185; chưa xác nhận cuộn hút và cấu hình đặt hàng.",
+      "library_description": {
+        "type": "CONTACTOR",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Mặt bên được so đường bao, vị trí cọc và chiều cao 174.0 mm với mặt trước tương ứng và tài liệu TeSys F. Tham chiếu thân LC1F185; chưa xác nhận cuộn hút và cấu hình đặt hàng.",
+        "product_code": "LC1F185",
+        "display": "CONTACTOR Schneider Electric LC1F185 · CAD tham khảo"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_d21d5fae269a": [
+            181.1999,
+            174.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-7fcf4a8ea71420a6": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB LỖ ĐỤC NS06b~160N4DM2 4 PHASE",
+        "saved_block": "06 - N - SC MCCB LỖ ĐỤC NS06b~160N4DM2 4 PHASE",
+        "handle": "263A86",
+        "geometry_key": "d4f9bd88c5e580d0e8f7cf2d277f965f0e5cab84a558dc985757329b0901f942",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -21546.41647848917,
+            33186.55463716481,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_d4f9bd88c5e5",
+          "sha256": "c45df6a86f7b9c42c0fa69e36dc1923ee3e117fb11e983df709c8f81aad00a71"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC NS06b~160N4DM2 4 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_d4f9bd88c5e5": [
+            252.0,
+            251.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-9f7cb0f837b9b0b7": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC RCCB LỖ ĐỤC 4 PHASE",
+        "saved_block": "06 - N - SC RCCB LỖ ĐỤC 4 PHASE",
+        "handle": "263951",
+        "geometry_key": "e19f1cd29607915b62be63be00965de1004faf8e0327253c46ccef15a8fc0259",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -22397.88306835991,
+            35343.56383784612,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_e19f1cd29607",
+          "sha256": "e21d7c532e4fc460fb918c8d635f79172fba912626c7d0b424bd6846659a3ab6"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · RCCB LỖ ĐỤC 4 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_e19f1cd29607": [
+            72.105,
+            45.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-e904b26ea73664e1": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC ACB LÕ ĐỤC FIXED",
+        "saved_block": "06 - N - SC ACB LÕ ĐỤC FIXED",
+        "handle": "263A85",
+        "geometry_key": "e1ca145d20e183d99f4885e76a1e01579f7a62528ddfa958249f56b2eaa6a471",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -20416.47804301428,
+            32779.0546371648,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_e1ca145d20e1",
+          "sha256": "88c582c943a25587fcc4f31a5287cbb0eb87dbe6cc47ab0c50d0cc7bed06621b"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · ACB LÕ ĐỤC FIXED"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_e1ca145d20e1": [
+            360.0,
+            312.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-5153d546d072a06e": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT CHIẾU HÔNG LC1D225",
+        "saved_block": "06 - N - SC CTT CHIẾU HÔNG LC1D225",
+        "handle": "263A9D",
+        "geometry_key": "ec94007f7ef1208ecd2bb08c41606d7847a5ea94f10aef700ec7d8a35a208f2b",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -22633.41355583413,
+            33487.20138134613,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_ec94007f7ef1",
+          "sha256": "699e2ac7de5271b04ecc601ff84604aaa996578ef1f86e1240908c29ba28f134"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Mặt bên được so đường bao, vị trí cọc và chiều cao 197.0 mm với mặt trước tương ứng và tài liệu TeSys F. Tham chiếu thân LC1F225; chưa xác nhận cuộn hút và cấu hình đặt hàng.",
+      "library_description": {
+        "type": "CONTACTOR",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Mặt bên được so đường bao, vị trí cọc và chiều cao 197.0 mm với mặt trước tương ứng và tài liệu TeSys F. Tham chiếu thân LC1F225; chưa xác nhận cuộn hút và cấu hình đặt hàng.",
+        "product_code": "LC1F225",
+        "display": "CONTACTOR Schneider Electric LC1F225 · CAD tham khảo"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_ec94007f7ef1": [
+            181.1999,
+            197.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-1db6ca6b2e8499f5": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC RCBO LỖ ĐỤC 2 PHASE",
+        "saved_block": "06 - N - SC RCBO LỖ ĐỤC 2 PHASE",
+        "handle": "263B11",
+        "geometry_key": "f039398d29fa0c8a7948ffb9c059f952742c044c634dddcbb8cb5c6c7356cf80",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -22333.88306836049,
+            35343.56383784612,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_f039398d29fa",
+          "sha256": "3d0074b77c992c9a5db9e359bb65ebc108203a6619c7a975e9727b86f18207ac"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · RCBO LỖ ĐỤC 2 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_f039398d29fa": [
+            36.0,
+            45.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-40c7757b4dae8e61": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCB LỖ ĐỤC 3 PHASE",
+        "saved_block": "06 - N - SC MCB LỖ ĐỤC 3 PHASE",
+        "handle": "263AE4",
+        "geometry_key": "f4e8e9d2229d7b460ee9029887a6aef119384cbb212bc85d5472e1c470cf555b",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -21840.00368130424,
+            35199.84152317492,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_f4e8e9d2229d",
+          "sha256": "3f58b2d0f2d47cbae9dca4ff409519ba10fb6db5cd29a31148c92e66606c3c6d"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCB LỖ ĐỤC 3 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_f4e8e9d2229d": [
+            53.55,
+            45.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-6f45494575c1fa54": {
+      "brand": "Schneider Electric",
+      "status": "source_role_reviewed",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB LÕ ĐỤC EZC100 4 PHASE",
+        "saved_block": "06 - N - SC MCCB LÕ ĐỤC EZC100 4 PHASE",
+        "handle": "263952",
+        "geometry_key": "f51eb962217a0ea33097cc2b5bf76b992bdadb5fb34fd98ccf2c354ee06e6f48",
+        "units": 0,
+        "instance_transform": {
+          "insert": [
+            -21624.91875766447,
+            35199.97545841738,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": null,
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_f51eb962217a",
+          "sha256": "26dc2a392355fe434796b827c7b88cb9d7d76a484d59cff683b01cadcda14775"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+      "library_description": {
+        "type": "MOUNTING_TEMPLATE",
+        "manufacturer_document": null,
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem đường khoét và mặt: đây là mẫu lắp đặt cánh tủ, không phải một thiết bị điện độc lập. Cần gắn với thiết bị tương ứng khi thiết kế.",
+        "display": "Mẫu khoét/lắp đặt Schneider · MCCB LÕ ĐỤC EZC100 4 PHASE"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_SCHNEIDER_f51eb962217a": [
+            95.0,
+            50.0057
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-ec0313c7afab5af4": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "HCN BKN1P",
+        "saved_block": "HCN BKN1P",
+        "handle": "1AAFA6",
+        "geometry_key": "21ad01aeaca0c8d93902b0f3545ee7433d8f55b0a0d17b0356d2c40454e99b11",
+        "units": 4,
+        "instance_transform": {
+          "insert": [
+            10959.7256535096,
+            23132.99889997235,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_21ad01aeaca0",
+          "sha256": "5cc56792aa9544633f0e63e6cfeaa2a574a333337277a0ecb0deeaee3fb18b7e"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem trực tiếp số module và đầu thân: HCN là mặt trên của BKN, không phải thiết bị khác hoặc lỗ khoét. Chưa chọn dòng định mức/đặc tuyến.",
+      "library_description": {
+        "type": "MCB",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "1P"
+        },
+        "reviewed_view_labels": {
+          "SRC_LS_21ad01aeaca0": "Mặt trên"
+        },
+        "use": "Đã xem trực tiếp số module và đầu thân: HCN là mặt trên của BKN, không phải thiết bị khác hoặc lỗ khoét. Chưa chọn dòng định mức/đặc tuyến.",
+        "product_code": "BKN",
+        "display": "MCB LS Electric BKN · CAD tham khảo"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_LS_21ad01aeaca0": [
+            18.0,
+            72.99
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-7f55a2533f55451e": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "CC MC 500a",
+        "saved_block": "CC MC 500a",
+        "handle": "228008",
+        "geometry_key": "418527c4fc245482be725d6f885014e38536a24a0638b608468b14a856cfb7f3",
+        "units": 4,
+        "instance_transform": {
+          "insert": [
+            21195.62996572055,
+            22820.43192620724,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_418527c4fc24",
+          "sha256": "de378076ab10dbaf31cb87a0b6a5d41ff1ac83b39bd53128611706d01e02f012"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem mặt bên, so vị trí đầu nối và thân với hình kích thước LS Metasol; mã rõ trong block nguồn. Chưa chọn cuộn hút hoặc xác nhận SKU.",
+      "library_description": {
+        "type": "CONTACTOR",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem mặt bên, so vị trí đầu nối và thân với hình kích thước LS Metasol; mã rõ trong block nguồn. Chưa chọn cuộn hút hoặc xác nhận SKU.",
+        "product_code": "MC-500a",
+        "display": "CONTACTOR LS Electric MC-500a · CAD tham khảo"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_LS_418527c4fc24": [
+            245.4766,
+            311.6355
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-bea54fdef5b2acda": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "CC MC 265a",
+        "saved_block": "CC MC 265a",
+        "handle": "228006",
+        "geometry_key": "4a8c0a7463983e0d1db6f46849b2305e93f2375af8a9fd06f7a7bd7be45ff1d2",
+        "units": 4,
+        "instance_transform": {
+          "insert": [
+            21195.62996572055,
+            22820.43192620724,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_4a8c0a746398",
+          "sha256": "f85556f3992d1b31a687e86d0ff4fef16b941b5af90ee97628c0450fbe14b798"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem mặt bên, so vị trí đầu nối và thân với hình kích thước LS Metasol; mã rõ trong block nguồn. Chưa chọn cuộn hút hoặc xác nhận SKU.",
+      "library_description": {
+        "type": "CONTACTOR",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem mặt bên, so vị trí đầu nối và thân với hình kích thước LS Metasol; mã rõ trong block nguồn. Chưa chọn cuộn hút hoặc xác nhận SKU.",
+        "product_code": "MC-265a",
+        "display": "CONTACTOR LS Electric MC-265a · CAD tham khảo"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_LS_4a8c0a746398": [
+            204.0869,
+            243.0
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-290af97db3e4caa7": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "HCN BKN3P",
+        "saved_block": "HCN BKN3P",
+        "handle": "1AAFDB",
+        "geometry_key": "4ba3e95b45a8a83bcf6709a13ce1f12028c0367e4cb8c9ff9102c781852b26de",
+        "units": 4,
+        "instance_transform": {
+          "insert": [
+            11071.67930428765,
+            23132.99889997235,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_4ba3e95b45a8",
+          "sha256": "39449337e07f3849d3cb73c56e3a5c185ccf30d6d95e8fe90ed7fcf77eabe7a8"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem trực tiếp số module và đầu thân: HCN là mặt trên của BKN, không phải thiết bị khác hoặc lỗ khoét. Chưa chọn dòng định mức/đặc tuyến.",
+      "library_description": {
+        "type": "MCB",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "3P"
+        },
+        "reviewed_view_labels": {
+          "SRC_LS_4ba3e95b45a8": "Mặt trên"
+        },
+        "use": "Đã xem trực tiếp số module và đầu thân: HCN là mặt trên của BKN, không phải thiết bị khác hoặc lỗ khoét. Chưa chọn dòng định mức/đặc tuyến.",
+        "product_code": "BKN",
+        "display": "MCB LS Electric BKN · CAD tham khảo"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_LS_4ba3e95b45a8": [
+            54.0,
+            72.99
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-cacdfd7844526f12": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "cc mt12",
+        "saved_block": "cc mt12",
+        "handle": "D5B4",
+        "geometry_key": "56b62db7d53510d186be8e3b2d8eb03e0dfb228acdcfaf34c1a7c693a24d3eb4",
+        "units": 4,
+        "instance_transform": {
+          "insert": [
+            10603.7193868709,
+            20353.34754732793,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_56b62db7d535",
+          "sha256": "4316b0b198707f7aae50cd1be47c3ee351c9e5b9b357dea9de5b4f9be2ca68a2"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem mặt bên rơ le nhiệt MT-12 và đối chiếu hình tài liệu LS; cần chọn dải chỉnh dòng riêng.",
+      "library_description": {
+        "type": "THERMAL_RELAY",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem mặt bên rơ le nhiệt MT-12 và đối chiếu hình tài liệu LS; cần chọn dải chỉnh dòng riêng.",
+        "product_code": "MT-12",
+        "display": "THERMAL_RELAY LS Electric MT-12 · CAD tham khảo"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_LS_56b62db7d535": [
+            63.9569,
+            72.6689
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-f9f9e051a7517681": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "HCN BKN4P",
+        "saved_block": "HCN BKN4P",
+        "handle": "1AB003",
+        "geometry_key": "8a940968ef2ad63b1f17defccaa0bbb4d0e66a30ef103b9a897393f75009d9d4",
+        "units": 4,
+        "instance_transform": {
+          "insert": [
+            11151.68662836766,
+            23132.99889997235,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_8a940968ef2a",
+          "sha256": "48d8b36d0464fda877c4f6239f9c2ca5f3e1c4f8b111c3155de1c22e161320b9"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem trực tiếp số module và đầu thân: HCN là mặt trên của BKN, không phải thiết bị khác hoặc lỗ khoét. Chưa chọn dòng định mức/đặc tuyến.",
+      "library_description": {
+        "type": "MCB",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "4P"
+        },
+        "reviewed_view_labels": {
+          "SRC_LS_8a940968ef2a": "Mặt trên"
+        },
+        "use": "Đã xem trực tiếp số module và đầu thân: HCN là mặt trên của BKN, không phải thiết bị khác hoặc lỗ khoét. Chưa chọn dòng định mức/đặc tuyến.",
+        "product_code": "BKN",
+        "display": "MCB LS Electric BKN · CAD tham khảo"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_LS_8a940968ef2a": [
+            72.0,
+            72.99
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-967962b721f7375f": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "CC MC185a",
+        "saved_block": "CC MC185a",
+        "handle": "228004",
+        "geometry_key": "978f1ae5618e9f49b4a72928d667ac431c7b0466cb3533ffb61a6a074bf46665",
+        "units": 4,
+        "instance_transform": {
+          "insert": [
+            21195.62996572055,
+            22820.43192620724,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_978f1ae5618e",
+          "sha256": "46e5a02f457abd361f39b5373ac006ea8a0922d917bece0df786335b165b2181"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem mặt bên, so vị trí đầu nối và thân với hình kích thước LS Metasol; mã rõ trong block nguồn. Chưa chọn cuộn hút hoặc xác nhận SKU.",
+      "library_description": {
+        "type": "CONTACTOR",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "reviewed_view_labels": {},
+        "use": "Đã xem mặt bên, so vị trí đầu nối và thân với hình kích thước LS Metasol; mã rõ trong block nguồn. Chưa chọn cuộn hút hoặc xác nhận SKU.",
+        "product_code": "MC-185a",
+        "display": "CONTACTOR LS Electric MC-185a · CAD tham khảo"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_LS_978f1ae5618e": [
+            185.89,
+            202.8947
+          ]
+        },
+        "date": "2026-10-14"
+      }
+    },
+    "TB-e3db884f56376e35": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "HCN BKN2P",
+        "saved_block": "HCN BKN2P",
+        "handle": "1AAFBC",
+        "geometry_key": "fe6cb49ed8f9fc1000b24682c8e98f8a50ece8fd45820c4467cc4464b58c757b",
+        "units": 4,
+        "instance_transform": {
+          "insert": [
+            11009.08188968611,
+            23132.99889997235,
+            0.0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_fe6cb49ed8f9",
+          "sha256": "02fe2481ed5cdeed7fac0e242cb6e7ec519a21ee549c00537dd3cf8b69ef8c2e"
+        }
+      ],
+      "basis": "Source CAD faces visually compared; explicit measured anchors where stated. Not automatic engineering/ordering approval.",
+      "note": "Đã xem trực tiếp số module và đầu thân: HCN là mặt trên của BKN, không phải thiết bị khác hoặc lỗ khoét. Chưa chọn dòng định mức/đặc tuyến.",
+      "library_description": {
+        "type": "MCB",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "2P"
+        },
+        "reviewed_view_labels": {
+          "SRC_LS_fe6cb49ed8f9": "Mặt trên"
+        },
+        "use": "Đã xem trực tiếp số module và đầu thân: HCN là mặt trên của BKN, không phải thiết bị khác hoặc lỗ khoét. Chưa chọn dòng định mức/đặc tuyến.",
+        "product_code": "BKN",
+        "display": "MCB LS Electric BKN · CAD tham khảo"
+      },
+      "visual_geometry_review": {
+        "dimensions": {
+          "SRC_LS_fe6cb49ed8f9": [
+            36.0,
+            72.99
+          ]
+        },
+        "date": "2026-10-14"
+      }
     }
   }
 }

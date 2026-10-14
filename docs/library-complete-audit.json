@@ -1,29 +1,31 @@
 {
-  "checked_at": "2026-10-14T16:13:31.848045+00:00",
+  "checked_at": "2026-10-14T16:26:43.890364+00:00",
   "checked_devices": 837,
   "checked_views": 1448,
-  "linked_devices": 216,
+  "linked_devices": 223,
   "devices_with_structural_issues": 0,
   "manufacturer_status_counts": {
-    "verified": 481,
+    "verified": 493,
     "unknown": 75,
     "candidate": 14,
     "not_applicable": 111,
-    "source_library": 156
+    "source_library": 144
   },
   "price_status_counts": {
-    "choices_available": 213,
-    "different_poles": 15,
+    "choices_available": 220,
+    "different_poles": 16,
     "optional_price": 153,
-    "no_model_prices": 150,
+    "no_model_prices": 154,
     "no_device_code": 54,
     "no_brand_prices": 32,
     "unknown": 55,
     "candidate": 1,
     "missing_transformer_configuration": 1,
-    "source_library": 156,
+    "source_library": 113,
     "no_matching_configuration": 4,
     "incomplete_ordering_code": 2,
+    "mounting_reference": 27,
+    "assembly_requires_components": 4,
     "discontinued_model": 1
   },
   "review_scope": "All public devices: identity metadata, view routes, source files, SVG bounds and published price links. Not visual/engineering approval.",
@@ -4335,16 +4337,16 @@
     },
     {
       "id": "TB-ec0313c7afab5af4",
-      "name": "LS · HCN BKN1P · CAD nguồn",
+      "name": "MCB LS Electric BKN · CAD tham khảo",
       "brand": "LS Electric",
-      "manufacturer_status": "source_library",
-      "product_code": null,
+      "manufacturer_status": "verified",
+      "product_code": "BKN",
       "type": "MCB",
       "view_count": 1,
-      "price_choice_count": 0,
+      "price_choice_count": 2,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -4500,16 +4502,16 @@
     },
     {
       "id": "TB-7f55a2533f55451e",
-      "name": "LS · CC MC 500a · CAD nguồn",
+      "name": "CONTACTOR LS Electric MC-500a · CAD tham khảo",
       "brand": "LS Electric",
-      "manufacturer_status": "source_library",
-      "product_code": null,
+      "manufacturer_status": "verified",
+      "product_code": "MC-500a",
       "type": "CONTACTOR",
       "view_count": 1,
-      "price_choice_count": 0,
+      "price_choice_count": 1,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -4560,31 +4562,31 @@
     },
     {
       "id": "TB-bea54fdef5b2acda",
-      "name": "LS · CC MC 265a · CAD nguồn",
+      "name": "CONTACTOR LS Electric MC-265a · CAD tham khảo",
       "brand": "LS Electric",
-      "manufacturer_status": "source_library",
-      "product_code": null,
+      "manufacturer_status": "verified",
+      "product_code": "MC-265a",
       "type": "CONTACTOR",
       "view_count": 1,
-      "price_choice_count": 0,
+      "price_choice_count": 1,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
     {
       "id": "TB-290af97db3e4caa7",
-      "name": "LS · HCN BKN3P · CAD nguồn",
+      "name": "MCB LS Electric BKN · CAD tham khảo",
       "brand": "LS Electric",
-      "manufacturer_status": "source_library",
-      "product_code": null,
+      "manufacturer_status": "verified",
+      "product_code": "BKN",
       "type": "MCB",
       "view_count": 1,
-      "price_choice_count": 0,
+      "price_choice_count": 2,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -4665,16 +4667,16 @@
     },
     {
       "id": "TB-cacdfd7844526f12",
-      "name": "LS · cc mt12 · CAD nguồn",
+      "name": "THERMAL_RELAY LS Electric MT-12 · CAD tham khảo",
       "brand": "LS Electric",
-      "manufacturer_status": "source_library",
-      "product_code": null,
-      "type": "Rơ le nhiệt",
+      "manufacturer_status": "verified",
+      "product_code": "MT-12",
+      "type": "THERMAL_RELAY",
       "view_count": 1,
-      "price_choice_count": 0,
+      "price_choice_count": 1,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -4755,16 +4757,16 @@
     },
     {
       "id": "TB-f9f9e051a7517681",
-      "name": "LS · HCN BKN4P · CAD nguồn",
+      "name": "MCB LS Electric BKN · CAD tham khảo",
       "brand": "LS Electric",
-      "manufacturer_status": "source_library",
-      "product_code": null,
+      "manufacturer_status": "verified",
+      "product_code": "BKN",
       "type": "MCB",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "different_poles",
+        "message": "Đã có giá đúng dòng BKN, nhưng dữ liệu giá chỉ có 1P, 2P, 3P; CAD này là 4P. Cần giá đúng số cực."
       },
       "structural_issues": []
     },
@@ -4800,16 +4802,16 @@
     },
     {
       "id": "TB-967962b721f7375f",
-      "name": "LS · CC MC185a · CAD nguồn",
+      "name": "CONTACTOR LS Electric MC-185a · CAD tham khảo",
       "brand": "LS Electric",
-      "manufacturer_status": "source_library",
-      "product_code": null,
+      "manufacturer_status": "verified",
+      "product_code": "MC-185a",
       "type": "CONTACTOR",
       "view_count": 1,
-      "price_choice_count": 0,
+      "price_choice_count": 1,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -5190,16 +5192,16 @@
     },
     {
       "id": "TB-e3db884f56376e35",
-      "name": "LS · HCN BKN2P · CAD nguồn",
+      "name": "MCB LS Electric BKN · CAD tham khảo",
       "brand": "LS Electric",
-      "manufacturer_status": "source_library",
-      "product_code": null,
+      "manufacturer_status": "verified",
+      "product_code": "BKN",
       "type": "MCB",
       "view_count": 1,
-      "price_choice_count": 0,
+      "price_choice_count": 2,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -8520,16 +8522,16 @@
     },
     {
       "id": "TB-13a413428ea18f5c",
-      "name": "Schneider · 06 - N - SC MCCB LỖ ĐỤC ROTARY HANDLE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC ROTARY HANDLE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
@@ -8550,16 +8552,16 @@
     },
     {
       "id": "TB-a867fda856a6f81b",
-      "name": "Schneider · 06 - N - SC MCCB LỖ ĐỤC NS06b~160N3M2 3~4 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC NS06b~160N3M2 3~4 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
@@ -8640,16 +8642,16 @@
     },
     {
       "id": "TB-26df5a39993a5d8d",
-      "name": "Schneider · 06 - N - SC MCCB LÕ ĐỤC EZC100 3 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCCB LÕ ĐỤC EZC100 3 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
@@ -8760,16 +8762,16 @@
     },
     {
       "id": "TB-8364b6075caa2a48",
-      "name": "Schneider · LV429640ATNSX22A 5 · CAD nguồn",
+      "name": "Cụm chuyển nguồn Schneider · CAD lắp đặt",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "ASSEMBLY_REFERENCE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "assembly_requires_components",
+        "message": "CAD này thuộc cụm chuyển nguồn/lắp đặt có nhiều bộ phận. Cần bóc từng MCCB và phụ kiện theo cấu hình; không lấy giá một MCCB làm giá cả cụm."
       },
       "structural_issues": []
     },
@@ -8820,16 +8822,16 @@
     },
     {
       "id": "TB-8d768ae917ba96e2",
-      "name": "Schneider · 06 - N - SC MCCB LÕ ĐỤC EZC100 3~4 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCCB LÕ ĐỤC EZC100 3~4 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
@@ -8925,16 +8927,16 @@
     },
     {
       "id": "TB-cb75104f47e9c48c",
-      "name": "Schneider · 06 - N - SC MCCB LỖ ĐỤC CVS400~630F~N 3~4 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC CVS400~630F~N 3~4 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
@@ -9030,16 +9032,16 @@
     },
     {
       "id": "TB-2101095072707459",
-      "name": "Schneider · 06 - N - SC MCB LỖ ĐỤC 2 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCB LỖ ĐỤC 2 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
@@ -9150,16 +9152,16 @@
     },
     {
       "id": "TB-a9db091b2354a6a6",
-      "name": "Schneider · 06 - N - SC MCCB LÕ ĐỤC EZC100 2 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCCB LÕ ĐỤC EZC100 2 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
@@ -9195,16 +9197,16 @@
     },
     {
       "id": "TB-117815138f330cbe",
-      "name": "Schneider · LV429640ATNSX22A 1 · CAD nguồn",
+      "name": "Cụm chuyển nguồn Schneider · CAD lắp đặt",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "ASSEMBLY_REFERENCE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "assembly_requires_components",
+        "message": "CAD này thuộc cụm chuyển nguồn/lắp đặt có nhiều bộ phận. Cần bóc từng MCCB và phụ kiện theo cấu hình; không lấy giá một MCCB làm giá cả cụm."
       },
       "structural_issues": []
     },
@@ -9240,16 +9242,16 @@
     },
     {
       "id": "TB-36a21d6f19764e8a",
-      "name": "Schneider · 06 - N - SC MCCB LỖ ĐỤC EZC400~630 4 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC EZC400~630 4 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
@@ -9270,16 +9272,16 @@
     },
     {
       "id": "TB-7330d99b1d6effe0",
-      "name": "Schneider · 06 - N - SC MCCB LỖ ĐỤC EZC250 3 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC EZC250 3 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
@@ -9300,16 +9302,16 @@
     },
     {
       "id": "TB-b1cfdedd7e8799ba",
-      "name": "Schneider · 06 - N - SC MCB LỖ ĐỤC 1 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCB LỖ ĐỤC 1 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
@@ -9465,16 +9467,16 @@
     },
     {
       "id": "TB-0032dd9bb37e0165",
-      "name": "Schneider · 06 - N - SC CTT LC1D185 · CAD nguồn",
+      "name": "CONTACTOR Schneider Electric LC1F185 · CAD tham khảo",
       "brand": "Schneider Electric",
-      "manufacturer_status": "source_library",
-      "product_code": null,
+      "manufacturer_status": "verified",
+      "product_code": "LC1F185",
       "type": "CONTACTOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1F185. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -9495,16 +9497,16 @@
     },
     {
       "id": "TB-ce816ff51360718d",
-      "name": "Schneider · 06 - N - SC MCCB LỖ ĐỤC CVS100~250B~F 3~4 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC CVS100~250B~F 3~4 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
@@ -9540,46 +9542,46 @@
     },
     {
       "id": "TB-2a096f089f93e3e4",
-      "name": "Schneider · 06 - N - SC MCCB LỖ ĐỤC EZC250 4 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC EZC250 4 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
     {
       "id": "TB-a7617860678230c6",
-      "name": "Schneider · 06 - N - SC CTT LỖ ĐỤC 1P A9C20731 · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · CTT LỖ ĐỤC 1P A9C20731",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "CONTACTOR",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
     {
       "id": "TB-ac81b98b36e67e01",
-      "name": "Schneider · 06 - N - SC ACB LÕ ĐỤC DRAWOUT · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · ACB LÕ ĐỤC DRAWOUT",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "ACB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
@@ -9600,31 +9602,31 @@
     },
     {
       "id": "TB-4577d82dd63da27b",
-      "name": "Schneider · 06 - N - SC MCCB LỖ ĐỤC EZC400~630 3 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC EZC400~630 3 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
     {
       "id": "TB-5c29a91a45b1fb78",
-      "name": "Schneider · 06 - N - SC MCCB LỖ ĐỤC EZC250 3~4 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC EZC250 3~4 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
@@ -9660,16 +9662,16 @@
     },
     {
       "id": "TB-4d1383db7342995a",
-      "name": "Schneider · 06 - N - SC MCB LỖ ĐỤC 4 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCB LỖ ĐỤC 4 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
@@ -9705,16 +9707,16 @@
     },
     {
       "id": "TB-bc6bce54ba5e3d99",
-      "name": "Schneider · 06 - N - SC CTT LC1D225 · CAD nguồn",
+      "name": "CONTACTOR Schneider Electric LC1F225 · CAD tham khảo",
       "brand": "Schneider Electric",
-      "manufacturer_status": "source_library",
-      "product_code": null,
+      "manufacturer_status": "verified",
+      "product_code": "LC1F225",
       "type": "CONTACTOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1F225. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -9840,16 +9842,16 @@
     },
     {
       "id": "TB-a2b48f372146a81f",
-      "name": "Schneider · LV429640ATNSX22A 3 · CAD nguồn",
+      "name": "Cụm chuyển nguồn Schneider · CAD lắp đặt",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "ASSEMBLY_REFERENCE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "assembly_requires_components",
+        "message": "CAD này thuộc cụm chuyển nguồn/lắp đặt có nhiều bộ phận. Cần bóc từng MCCB và phụ kiện theo cấu hình; không lấy giá một MCCB làm giá cả cụm."
       },
       "structural_issues": []
     },
@@ -9975,16 +9977,16 @@
     },
     {
       "id": "TB-ceb791cdafbe0a60",
-      "name": "Schneider · LV429640ATNSX22A 2 · CAD nguồn",
+      "name": "Cụm chuyển nguồn Schneider · CAD lắp đặt",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "ASSEMBLY_REFERENCE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "assembly_requires_components",
+        "message": "CAD này thuộc cụm chuyển nguồn/lắp đặt có nhiều bộ phận. Cần bóc từng MCCB và phụ kiện theo cấu hình; không lấy giá một MCCB làm giá cả cụm."
       },
       "structural_issues": []
     },
@@ -10080,31 +10082,31 @@
     },
     {
       "id": "TB-ecc9581650e4ccba",
-      "name": "Schneider · 06 - N - SC RCCB LỖ ĐỤC 2 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · RCCB LỖ ĐỤC 2 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "RCCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
     {
       "id": "TB-0c0511a6f25efb20",
-      "name": "Schneider · 06 - N - SC MCCB LỖ ĐỤC-2 CVS100~250B~F 4 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC-2 CVS100~250B~F 4 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
@@ -10350,16 +10352,16 @@
     },
     {
       "id": "TB-dddeabc7ba9f70fb",
-      "name": "Schneider · 06 - N - SC MCCB LỖ ĐỤC NSX100~250BFNH 3 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC NSX100~250BFNH 3 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
@@ -10470,16 +10472,16 @@
     },
     {
       "id": "TB-571c337cecd22fa5",
-      "name": "Schneider · 06 - N - SC MCCB LỖ ĐỤC EZC400~630F~N 3~4 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC EZC400~630F~N 3~4 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
@@ -10500,16 +10502,16 @@
     },
     {
       "id": "TB-abe0ca387a433690",
-      "name": "Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D185 · CAD nguồn",
+      "name": "CONTACTOR Schneider Electric LC1F185 · CAD tham khảo",
       "brand": "Schneider Electric",
-      "manufacturer_status": "source_library",
-      "product_code": null,
+      "manufacturer_status": "verified",
+      "product_code": "LC1F185",
       "type": "CONTACTOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1F185. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -10545,16 +10547,16 @@
     },
     {
       "id": "TB-7fcf4a8ea71420a6",
-      "name": "Schneider · 06 - N - SC MCCB LỖ ĐỤC NS06b~160N4DM2 4 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCCB LỖ ĐỤC NS06b~160N4DM2 4 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
@@ -10680,31 +10682,31 @@
     },
     {
       "id": "TB-9f7cb0f837b9b0b7",
-      "name": "Schneider · 06 - N - SC RCCB LỖ ĐỤC 4 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · RCCB LỖ ĐỤC 4 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "RCCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
     {
       "id": "TB-e904b26ea73664e1",
-      "name": "Schneider · 06 - N - SC ACB LÕ ĐỤC FIXED · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · ACB LÕ ĐỤC FIXED",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "ACB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
@@ -10845,16 +10847,16 @@
     },
     {
       "id": "TB-5153d546d072a06e",
-      "name": "Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D225 · CAD nguồn",
+      "name": "CONTACTOR Schneider Electric LC1F225 · CAD tham khảo",
       "brand": "Schneider Electric",
-      "manufacturer_status": "source_library",
-      "product_code": null,
+      "manufacturer_status": "verified",
+      "product_code": "LC1F225",
       "type": "CONTACTOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1F225. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -10875,16 +10877,16 @@
     },
     {
       "id": "TB-1db6ca6b2e8499f5",
-      "name": "Schneider · 06 - N - SC RCBO LỖ ĐỤC 2 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · RCBO LỖ ĐỤC 2 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "RCBO",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
@@ -10905,31 +10907,31 @@
     },
     {
       "id": "TB-40c7757b4dae8e61",
-      "name": "Schneider · 06 - N - SC MCB LỖ ĐỤC 3 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCB LỖ ĐỤC 3 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
     {
       "id": "TB-6f45494575c1fa54",
-      "name": "Schneider · 06 - N - SC MCCB LÕ ĐỤC EZC100 4 PHASE · CAD nguồn",
+      "name": "Mẫu khoét/lắp đặt Schneider · MCCB LÕ ĐỤC EZC100 4 PHASE",
       "brand": "Schneider Electric",
       "manufacturer_status": "source_library",
       "product_code": null,
-      "type": "MCCB",
+      "type": "MOUNTING_TEMPLATE",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "mounting_reference",
+        "message": "Đây là bản vẽ lỗ khoét/lắp đặt, không phải một thiết bị điện độc lập để tính giá. Chọn thiết bị đầy đủ và cấu hình riêng khi bóc tách."
       },
       "structural_issues": []
     },
