@@ -67,7 +67,7 @@ Bảng giá, thư viện CAD và bóc tách dùng chung published_rows. Một CA
 - [Morele](https://hanhdungelectric.com.vn/quat-lam-mat-huong-truc-morele)
 - [Delta](https://codienhaiau.com/brand/delta/)
 
-Kiểm tra hồi quy: 39 tests về parser giá, liên kết CAD, bóc tách/báo giá và nhận diện hãng.
+Kiểm tra hồi quy: 45 tests về parser giá, liên kết CAD, bóc tách/báo giá và nhận diện hãng.
 
 Cập nhật tiếp: thêm 73 dòng ABB 2026 (contactor 1SFL và rơ le nhiệt trang 117), gắn họ S200/SH200 theo trang 141–143; giữ dải chỉnh định rơ le thay vì gán thành dòng cố định. Xác nhận 4 cực cho MC-9a/4, MC-12a/4, MC-18a/4 theo [tài liệu LS, trang 14](https://www.ls-electric.com/upload/customer/download/280b6197-f4bb-4f86-a60d-917b7b8bf890/Metasol_MC_E_170915.pdf). Không đổi các MC-40 cũ thành MC-40a hoặc lấy điện áp cuộn hút theo suy đoán.
 
@@ -89,3 +89,11 @@ Ví dụ phải giữ chưa khớp: ABB A2 trong CAD là 1P nhưng các dòng A2
 Chi tiết từng CAD: [library-verified-price-gaps.json](library-verified-price-gaps.json). Tái lập bằng `venv/Scripts/python.exe scripts/audit_library_price_gaps.py`. “related_code_only” chỉ là gợi ý tra cứu, không phải xác nhận giá đúng hoặc phê duyệt CAD.
 
 Nguồn kiểm tra phân loại: [BV-D](https://www.mitsubishielectric.com/fa/sg_en/products/faspec/detail.page?category=ex&formNm=RCCB_RCBO_BV-D_4885&id=spec&kisyu=%2Flvcb&lang=2), [S-T](https://www.mitsubishielectric.com/dl/fa/document/catalog/lvsw/sh020011eng/SH%28NA%29020011ENG-A.pdf), [XJ3-G](https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/xj3.html), [S8FS-C](https://www.ia.omron.com/products/family/3460/lineup.html), [NP2](https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/push-button/np2/catalog/NP2-Push-button-Catalog.pdf), [iC60N](https://eshop.se.com/sg/ic60n-miniature-circuit-breaker-3p-2a-c-curve-a9f74302.html).
+
+## Kiểm tra đủ 837 thiết bị, ngày 14/10/2026
+
+Đã kiểm tra toàn bộ 837 hồ sơ và 1.448 mặt bản vẽ: ID thiết bị/mặt chính, đường dẫn xem trước, tồn tại file nguồn DXF, cấu trúc SVG và liên kết giá. Không phát hiện file thiếu, mặt chính không hợp lệ, ID trùng hoặc SVG lỗi cấu trúc. Đây là kiểm tra dữ liệu/file; không phải duyệt hình học hoặc thông số điện bằng mắt cho mọi bản vẽ.
+
+103 thiết bị có lựa chọn giá; 734 chưa đủ đối chiếu. Mỗi thiết bị giờ có lý do trạng thái giá trong API device-catalog: phụ kiện phổ thông, hãng ứng viên/chưa rõ, hãng từ thư viện nguồn, chưa xác nhận mã, chưa có dữ liệu giá của hãng, hoặc chưa khớp cấu hình. Giao diện hiển thị lý do đó khi chưa có lựa chọn giá, không chỉ yêu cầu bổ sung bảng giá chung chung.
+
+[Báo cáo từng thiết bị](library-complete-audit.json), tái lập bằng `venv/Scripts/python.exe scripts/audit_complete_equipment_library.py`. 45 kiểm tra hồi quy đạt, gồm kiểm tra hộp thông báo và thao tác đánh dấu đã đọc không truy cập tài khoản khác.

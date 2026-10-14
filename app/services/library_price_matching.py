@@ -69,3 +69,28 @@ def device_configuration_links(equipment_id):
                 return {}
             _index_links[equipment_id] = configuration_links(device,prices)
         return dict(_index_links[equipment_id])
+
+
+def device_price_diagnostic(equipment_id):
+    """Explain availability independently of a price or CAD approval."""
+    from app.services.catalogtb_browser import browser_data
+    from app.services.ai.takeoff_pricebook import published_rows
+    device=next((d for d in browser_data()['items'] if d['id']==equipment_id),None)
+    if device is None:return {'status':'not_found','message':'Không tìm thấy thiết bị đang đối chiếu.'}
+    status=device.get('brand_identification_status')
+    messages={
+        'not_applicable':'Đây là phụ kiện phổ thông. Cần chọn nhà cung cấp và mã hàng thực tế để đối chiếu giá.',
+        'unknown':'Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá.',
+        'candidate':'Hãng hiện là ứng viên; cần xác nhận nhãn hãng trước khi liên kết bảng giá.',
+        'source_library':'Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế.'}
+    if status!='verified':return {'status':status or 'unknown','message':messages.get(status,messages['unknown'])}
+    prices=published_rows()
+    own=[r for r in prices if canonical_brand(r['brand'])==canonical_brand(device.get('brand'))]
+    if not own:return {'status':'no_brand_prices','message':'Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố.'}
+    if device_configuration_links(equipment_id):return {'status':'choices_available','message':''}
+    code=str(device.get('product_code') or '').strip()
+    codes=(device.get('ai_identification') or {}).get('cac_ma_dong_san_pham') or []
+    codes=[*codes,*((device.get('reviewed_description') or {}).get('price_family_codes') or [])]
+    if not code and not codes:
+        return {'status':'no_device_code','message':'Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá.'}
+    return {'status':'no_matching_configuration','message':'Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác.'}

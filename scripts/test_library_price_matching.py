@@ -3,6 +3,25 @@ from app.services.library_price_matching import configuration_links
 
 
 class LibraryPriceMatchingTests(unittest.TestCase):
+    def test_price_diagnostic_explains_each_identity_status_without_linking(self):
+        from unittest.mock import patch
+        from app.services.library_price_matching import device_price_diagnostic
+        for status in ('unknown','candidate','source_library','not_applicable'):
+            device=self.device(brand_identification_status=status)
+            with patch('app.services.catalogtb_browser.browser_data',return_value={'items':[device]}):
+                result=device_price_diagnostic(device['id'])
+            self.assertEqual(result['status'],status);self.assertTrue(result['message'])
+
+    def test_verified_diagnostic_distinguishes_missing_code_and_configuration(self):
+        from unittest.mock import patch
+        from app.services.library_price_matching import device_price_diagnostic
+        for device,rows,status in [(self.device(product_code=None),[self.row()],'no_device_code'),
+                                   (self.device(),[],'no_brand_prices'),
+                                   (self.device(),[self.row(item_name='A2 3P 100A',specifications={'Số cực':'3P'})],'no_matching_configuration'),
+                                   (self.device(),[self.row()],'choices_available')]:
+            with patch('app.services.catalogtb_browser.browser_data',return_value={'items':[device]}),patch('app.services.ai.takeoff_pricebook.published_rows',return_value=rows):
+                self.assertEqual(device_price_diagnostic(device['id'])['status'],status)
+
     def test_neutral_configuration_never_matches_plain_single_pole(self):
         row=self.row(brand='Mitsubishi Electric',category='MCB',item_name='BH-DN 1P+N 6A',
                      specifications={'Số cực':'1P+N','In (A)':'6'})
