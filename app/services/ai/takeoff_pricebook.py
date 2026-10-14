@@ -63,10 +63,22 @@ def match_device(device, rows, *, candidate_limit=30):
         label, sku = _norm(row.get('item_name')), _norm(row.get('sku'))
         exact = bool(code and code in {label, sku})
         model_match = bool(code and re.match(re.escape(code)+r'(?=\s|$)', label))
+        # Reviewed ABB pricebooks distinguish the CAD frame (A1/A2/A3)
+        # from ordering series (A1A/A1B/A1C/A1N). Frame matches are choices,
+        # never an automatically approved order code.
+        family_match = bool(known_brand and canonical_brand(brand) == 'ABB'
+                            and category == 'MCCB' and code in {'A1', 'A2', 'A3'}
+                            and (row.get('specifications') or {}).get('Họ thiết bị') == code
+                            and re.match(re.escape(code)+r'[A-Z](?=\s|$)', label))
+        body_match = bool(known_brand and canonical_brand(brand) == 'ABB'
+                          and category == 'CONTACTOR'
+                          and re.fullmatch(r'AX\d+-\d+-\d+', code)
+                          and (row.get('specifications') or {}).get('Mã thân') == code
+                          and re.match(re.escape(code)+r'-\d+(?=\s|$)', label))
         if selected_id:
             if public_id(row) != selected_id or not exact:
                 continue
-        elif code and not (exact or model_match):
+        elif code and not (exact or model_match or family_match or body_match):
             continue
         if any(value and (not _values(row,field) or not any(abs(float(value)-v)<0.001 for v in _values(row,field)))
                for field,value in [('poles',device.get('poles')),('current',device.get('in_a'))]):

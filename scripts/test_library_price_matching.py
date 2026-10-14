@@ -3,6 +3,28 @@ from app.services.library_price_matching import configuration_links
 
 
 class LibraryPriceMatchingTests(unittest.TestCase):
+    def test_abb_contactor_body_does_not_auto_select_coil_variant(self):
+        from app.services.ai.takeoff_pricebook import match_device
+        row = self.row(brand='ABB', category='CONTACTOR', item_name='AX32-30-10-80 3P 32A',
+                       specifications={'Mã thân': 'AX32-30-10', 'Số cực': '3P', 'In (A)': '32'})
+        device = {'brand': 'ABB', 'category': 'CONTACTOR', 'part_number': 'AX32-30-10', 'poles': 3, 'in_a': 32}
+        self.assertEqual(match_device(device, [row])['status'], 'needs_selection')
+        self.assertEqual(match_device({**device, 'part_number': 'AX40-30-10'}, [row])['status'], 'not_found')
+
+    def test_abb_frame_options_need_reviewed_family_and_matching_poles(self):
+        row = self.row(item_name='A1N TMF 4P 125A', sku='1SDA066768R1',
+                       specifications={'Họ thiết bị': 'A1', 'Số cực': '4P', 'In (A)': '125'})
+        device = self.device(product_code='A1', spec={'so_cuc': '4P'})
+        self.assertEqual(configuration_links(device, [row]), {'price-A2': 'TB-A2'})
+        self.assertEqual(configuration_links(self.device(product_code='A1'), [row]), {})
+        self.assertEqual(configuration_links(device, [{**row, 'brand': 'CHINT'}]), {})
+        self.assertEqual(configuration_links(device, [{**row, 'specifications': {'Số cực': '4P'}}]), {})
+        from app.services.ai.takeoff_pricebook import match_device
+        result = match_device({'brand': 'ABB', 'category': 'MCCB', 'part_number': 'A1',
+                               'poles': 4, 'in_a': 125}, [row])
+        self.assertEqual(result['status'], 'needs_selection')
+        self.assertFalse(result['candidates'][0]['auto_selectable'])
+
     def device(self, **changes):
         return {**dict(id='TB-A2',brand='ABB',brand_identification_status='verified',
                        type='MCCB',product_code='A2',spec={'so_cuc':'2P'}), **changes}

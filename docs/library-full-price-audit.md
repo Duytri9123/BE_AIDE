@@ -1,12 +1,15 @@
 # Đối chiếu toàn bộ thư viện thiết bị
 
-Tổng: 837 thiết bị. Có dòng giá đúng mã/cấu hình: 32.
+Tổng: 837 thiết bị. Có lựa chọn giá theo mã/họ thiết bị và số cực: 49.
 
 Đã sửa phân loại hãng: không dùng Asian. Hãng theo thư viện CAD nguồn được giữ tách biệt với mã hàng/thông số được xác nhận. Xem library-manufacturer-review.md để biết các mẫu cần bổ sung nhãn hãng.
 
-| Hãng / phân loại | Thiết bị | Có giá đối chiếu |
+
+Cập nhật ABB ngày 14/10/2026: nhập 427 dòng từ bảng giá ABB Việt Nam 2026, gồm MCCB Formula, MCB và contactor. A1 4P có 60 lựa chọn A1A/A1B/A1C/A1N theo số cực; chưa tự chọn Icu, In hoặc mã đặt hàng. Họ A1/A2/A3 và mã thân contactor được đối chiếu riêng, không phê duyệt hình CAD.
+
+| Hãng / phân loại | Thiết bị | Có lựa chọn giá |
 | --- | ---: | ---: |
-| ABB | 80 | 0 |
+| ABB | 80 | 17 |
 | CHENG LI | 1 | 0 |
 | CHINT | 28 | 1 |
 | CLIPSAL | 2 | 0 |
