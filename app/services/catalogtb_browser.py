@@ -206,6 +206,9 @@ def _build_browser_data():
         merged['physical_family_id']=group['id'];merged['member_profile_ids']=sorted(member_ids)
         merged['auto_select']=False;merged['needs_review']=True
         profiles=[p for p in profiles if p['id'] not in member_ids]+[merged]
+    from .library_ordering_configurations import ordering_configurations
+    for profile in profiles:
+        profile['ordering_configurations']=ordering_configurations(profile)
     categories=[{'name':name,'count':sum(p['category']==name for p in profiles)} for name in sorted({p['category'] for p in profiles})]
     labels={}
     for block in re.findall(r'const (?:extraLabels|labels)=\{([^}]+)\}',html):
