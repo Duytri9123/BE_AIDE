@@ -184,6 +184,10 @@ def _build_browser_data():
         for key in ('display', 'type', 'use', 'product_code', 'manufacturer_document'):
             if reviewed.get(key):
                 profile[key] = reviewed[key]
+        if reviewed.get('source_model_reference'):
+            profile['spec'] = {**profile.get('spec', {}), **reviewed.get('reviewed_spec', {})}
+            profile['auto_select'] = False
+            profile['needs_review'] = True
         profiles.append(profile)
     groups_path=CATALOG_TB_ROOT/'ai_device_groups.json'
     registry=json.loads(groups_path.read_text(encoding='utf8')) if groups_path.is_file() else {}

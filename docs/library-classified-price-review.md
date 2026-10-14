@@ -5,17 +5,17 @@ Phân loại theo loại thiết bị, hãng, mã và lý do chưa đối chiế
 | Trạng thái | Số thiết bị |
 | --- | ---: |
 | Hãng ứng viên | 1 |
-| Có lựa chọn giá | 154 |
-| Giá cùng dòng nhưng khác số cực | 13 |
+| Có lựa chọn giá | 213 |
+| Giá cùng dòng nhưng khác số cực | 15 |
 | Hãng thông báo ngừng thương mại mã cũ | 1 |
 | Thiếu mã đặt hàng đầy đủ | 2 |
 | Biến áp thiếu mã/VA/điện áp | 1 |
 | Chưa có giá theo nhãn hãng | 32 |
 | Chưa xác nhận mã | 54 |
-| Chưa khớp cấu hình | 1 |
-| Chưa có giá đúng mã/loại trong dữ liệu công bố | 119 |
+| Chưa khớp cấu hình | 4 |
+| Chưa có giá đúng mã/loại trong dữ liệu công bố | 150 |
 | Cầu đấu/phụ kiện không yêu cầu giá chính xác | 153 |
-| Hãng theo thư viện nguồn | 251 |
+| Hãng theo thư viện nguồn | 156 |
 | Chưa rõ hãng | 55 |
 
 | Thiết bị | Loại | Hãng | Mã/dòng | Lựa chọn giá | Kết quả / việc cần bổ sung |
@@ -287,16 +287,16 @@ Phân loại theo loại thiết bị, hãng, mã và lý do chưa đối chiế
 | Thermal Relay ABB TA75-DU | Thermal_Relay | ABB | TA75-DU | 6 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | Thermal Relay ABB TA80-DU | Thermal_Relay | ABB | TA80-DU | 4 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | Ổ cắm đôi CHENG LI | Ổ cắm điện | CHENG LI | Chưa ghi mã | 0 | Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố. |
-| Chint · ats chint NZ7-125 100A 4P · CAD nguồn | ATS | CHINT | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
+| ATS CHINT NZ7-125 | ATS | CHINT | NZ7-125 | 0 | Đã nhận diện CHINT · ATS · NZ7-125. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | Contactor CHINT NCH8-20 / NCH8-25 · 2P | CONTACTOR | CHINT | Chưa ghi mã | 0 | Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá. |
 | Fuse Assembly CHINT RT36-00 · 160A | FuseAssembly | CHINT | RT36-00 | 0 | Đã nhận diện CHINT · FuseAssembly · RT36-00. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | Indicator CHINT NP2 · FAULT | Indicator | CHINT | NP2 | 0 | Đã nhận diện CHINT · Indicator · NP2. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | Đèn báo pha CHINT | LIGHT | CHINT | Chưa ghi mã | 0 | Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá. |
-| Chint · nxb63-1 · CAD nguồn | MCB | CHINT | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Chint · nxb63-2 · CAD nguồn | MCB | CHINT | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Chint · nxb63-2p · CAD nguồn | MCB | CHINT | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Chint · nxb63-3p · CAD nguồn | MCB | CHINT | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Chint · NXM-1600S-3 · CAD nguồn | MCCB | CHINT | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
+| MCB CHINT NXB-63 | MCB | CHINT | NXB-63 | 11 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| MCB CHINT NXB-63 | MCB | CHINT | NXB-63 | 11 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| MCB CHINT NXB-63 | MCB | CHINT | NXB-63 | 11 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| MCB CHINT NXB-63 | MCB | CHINT | NXB-63 | 11 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| MCCB CHINT NXM-1600S | MCCB | CHINT | NXM-1600S | 0 | Đã nhận diện CHINT · MCCB · NXM-1600S. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | MCCB Chint NM1-800S · CAD tham khảo | MCCB | CHINT | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | MCCB Chint NXM-1000 · CAD tham khảo | MCCB | CHINT | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | MCCB Chint NXM-125 · CAD tham khảo | MCCB | CHINT | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
@@ -361,6 +361,9 @@ Phân loại theo loại thiết bị, hãng, mã và lý do chưa đối chiế
 | Biến dòng đo lường KDE-800A | CT | KDE | Chưa ghi mã | 0 | Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố. |
 | Aux Contact LS UA-1 | Aux Contact | LS Electric | UA-1 | 1 | Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác. |
 | Biến tần LS Electric | Biến tần điều khiển động cơ | LS Electric | Chưa ghi mã | 0 | Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá. |
+| CONTACTOR LS Electric MC-185a | CONTACTOR | LS Electric | MC-185a | 1 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| CONTACTOR LS Electric MC-265a | CONTACTOR | LS Electric | MC-265a | 1 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| CONTACTOR LS Electric MC-500a | CONTACTOR | LS Electric | MC-500a | 1 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | Contactor LS 3 cực MC-130a / MC-150a | CONTACTOR | LS Electric | MC-130a / MC-150a | 2 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | Contactor LS 3 cực MC-32a / MC-40a | CONTACTOR | LS Electric | MC-32a / MC-40a | 2 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | Contactor LS 3 cực MC-50a / MC-65a | CONTACTOR | LS Electric | MC-50a / MC-65a | 2 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
@@ -370,9 +373,6 @@ Phân loại theo loại thiết bị, hãng, mã và lý do chưa đối chiế
 | LS · CC MC 265a · CAD nguồn | CONTACTOR | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · CC MC 500a · CAD nguồn | CONTACTOR | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · CC MC185a · CAD nguồn | CONTACTOR | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| LS · MC 185a · CAD nguồn | CONTACTOR | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| LS · MC 265a · CAD nguồn | CONTACTOR | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| LS · MC 500a · CAD nguồn | CONTACTOR | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · MC 75a-100a AC · CAD nguồn | CONTACTOR | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | MC 12AF · mẫu dự án | CONTACTOR | LS Electric | Chưa ghi mã | 0 | Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá. |
 | Contactor LS MC-35/MC-40/MC-50/MC-63 | Contactor | LS Electric | MC-35 / MC-40 / MC-50 / MC-63 | 0 | Đã nhận diện LS Electric · Contactor · MC-35 / MC-40 / MC-50 / MC-63. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
@@ -387,10 +387,6 @@ Phân loại theo loại thiết bị, hãng, mã và lý do chưa đối chiế
 | BKN-LS · 1P · mẫu dự án | MCB | LS Electric | Chưa ghi mã | 0 | Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá. |
 | BKN-LS · 2P · mẫu dự án | MCB | LS Electric | Chưa ghi mã | 0 | Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá. |
 | BKN-LS · 3P · mẫu dự án | MCB | LS Electric | Chưa ghi mã | 0 | Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá. |
-| LS · BKN 1P · CAD nguồn | MCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| LS · BKN 2P · CAD nguồn | MCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| LS · BKN 3P · CAD nguồn | MCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| LS · BKN 4P · CAD nguồn | MCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · HCC BKN · CAD nguồn | MCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · HCN BKN1P · CAD nguồn | MCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · HCN BKN2P · CAD nguồn | MCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
@@ -408,15 +404,17 @@ Phân loại theo loại thiết bị, hãng, mã và lý do chưa đối chiế
 | MCB LS BKN · 3P | MCB | LS Electric | BKN | 2 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | MCB LS BKN · 4P | MCB | LS Electric | BKN | 0 | Đã có giá đúng dòng BKN, nhưng dữ liệu giá chỉ có 1P, 2P, 3P; CAD này là 4P. Cần giá đúng số cực. |
 | MCB LS BKP · 1P+N | MCB | LS Electric | BKP | 0 | Đã nhận diện LS Electric · MCB · BKP. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| MCB LS Electric BKN | MCB | LS Electric | BKN | 2 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| MCB LS Electric BKN | MCB | LS Electric | BKN | 0 | Đã có giá đúng dòng BKN, nhưng dữ liệu giá chỉ có 1P, 2P, 3P; CAD này là 4P. Cần giá đúng số cực. |
+| MCB LS Electric BKN | MCB | LS Electric | BKN | 2 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| MCB LS Electric BKN | MCB | LS Electric | BKN | 2 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | LS · ABE203 · CAD nguồn | MCCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · ABN203-2 · CAD nguồn | MCCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · ABN403-2 · CAD nguồn | MCCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · ABN53-2 · CAD nguồn | MCCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| LS · ABN53c · CAD nguồn | MCCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · ABN53c-4 · CAD nguồn | MCCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · ABS(N)803 · CAD nguồn | MCCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · ABS(N)803-3 · CAD nguồn | MCCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| LS · ABS403c · CAD nguồn | MCCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · ERYHR REH W4 TS1600AF · CAD nguồn | MCCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · GYER HERH  WRE TS1600AF 4P · CAD nguồn | MCCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · HCC1 LS 250AF · CAD nguồn | MCCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
@@ -446,8 +444,6 @@ Phân loại theo loại thiết bị, hãng, mã và lý do chưa đối chiế
 | LS · LS 800AF 2P · CAD nguồn | MCCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · LS 800AF 3P · CAD nguồn | MCCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · LS 800AF 4P · CAD nguồn | MCCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| LS · LS ABH52C 2P · CAD nguồn | MCCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| LS · abn203c · CAD nguồn | MCCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · abn203c-4 · CAD nguồn | MCCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · abs103 · CAD nguồn | MCCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · abs103-4 · CAD nguồn | MCCB | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
@@ -468,6 +464,10 @@ Phân loại theo loại thiết bị, hãng, mã và lý do chưa đối chiế
 | MCCB LS ABN800AF · 4P | MCCB | LS Electric | ABN 800 | 0 | Đã nhận diện LS Electric · MCCB · ABN 800. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | MCCB LS ABS 1000 · 3P | MCCB | LS Electric | ABS 1000 | 0 | Đã nhận diện LS Electric · MCCB · ABS 1000. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | MCCB LS ABS 1000 · 4P | MCCB | LS Electric | ABS 1000 | 0 | Đã nhận diện LS Electric · MCCB · ABS 1000. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| MCCB LS Electric ABH52c | MCCB | LS Electric | ABH52c | 0 | Đã nhận diện LS Electric · MCCB · ABH52c. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| MCCB LS Electric ABN203c | MCCB | LS Electric | ABN203c | 0 | Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác. |
+| MCCB LS Electric ABN53c | MCCB | LS Electric | ABN53c | 0 | Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác. |
+| MCCB LS Electric ABS403c | MCCB | LS Electric | ABS403c | 0 | Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác. |
 | MCCB LS TD100/TD160 · 2P | MCCB | LS Electric | TD100 / TD160 | 0 | Đã có giá dòng TD100 / TD160, nhưng bảng giá hiện có 3P, 4P; CAD đang xem là 2P. Cần bổ sung dòng giá đúng số cực, không dùng giá khác số cực. |
 | MCCB LS TD100/TD160 · 3P | MCCB | LS Electric | TD100 / TD160 | 6 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | MCCB LS TD100/TD160 · 4P | MCCB | LS Electric | TD100 / TD160 | 6 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
@@ -488,9 +488,9 @@ Phân loại theo loại thiết bị, hãng, mã và lý do chưa đối chiế
 | RCBO LS RKP · 1P+N | RCBO | LS Electric | RKP | 0 | Đã nhận diện LS Electric · RCBO · RKP. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | RCCB LS RKN · 1P+N | RCCB | LS Electric | RKN | 0 | Đã nhận diện LS Electric · RCCB · RKN. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | RCCB LS RKN · 3P+N | RCCB | LS Electric | RKN | 0 | Đã nhận diện LS Electric · RCCB · RKN. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| LS · MT-63 · CAD nguồn | Rơ le nhiệt | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | LS · cc mt12 · CAD nguồn | Rơ le nhiệt | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| LS · mt12 · CAD nguồn | Rơ le nhiệt | LS Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
+| THERMAL_RELAY LS Electric MT-12 | THERMAL_RELAY | LS Electric | MT-12 | 1 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| THERMAL_RELAY LS Electric MT-63 | THERMAL_RELAY | LS Electric | MT-63 | 1 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | Thermal Relay LS MT-32 | Thermal Relay | LS Electric | MT-32 | 2 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | Thermal Relay LS MT-63 | Thermal Relay | LS Electric | MT-63 | 1 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | Quạt lọc gió Leipole FKL6621.230 | Quạt lọc gió tủ điện | Leipole | FKL6621.230 | 1 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
@@ -598,85 +598,53 @@ Phân loại theo loại thiết bị, hãng, mã và lý do chưa đối chiế
 | Schneider · 06 - N - SC ACB DRAWOUT CHIẾU HÔNG · CAD nguồn | ACB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC ACB LÕ ĐỤC DRAWOUT · CAD nguồn | ACB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC ACB LÕ ĐỤC FIXED · CAD nguồn | ACB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD ATV212H075~U22N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD ATV212HD15~18N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD ATV212HU30~U55N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD ATV212HU75~D11N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD ATV320U22~40N4C · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD ATV320U55~75N4B · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD ATV630C11~C16N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD ATV630D15~D22N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD ATV630D30~D45N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD ATV630D55~D90N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD ATV630U07~55N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD ATV630U75~D11N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV212H075~U22N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV212HD15~18N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV212HU30~U55N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV212HU75~D11N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV320U22~40N4C · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV320U55~75N4B · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630C11~C16N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630D15~D22N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630D30~D45N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630D55~D90N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630U07~55N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630U75~D11N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV320U22~40N4C · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV320U55~75N4B · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630C11~C16N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630D15~D22N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630D30~D45N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630D55~D90N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630U07~55N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630U75~D11N4 · CAD nguồn | Biến tần | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC CTT 1P A9C20731 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC CTT CHIẾU HÔNG 1P A9C20731 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D09 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D115 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D150 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D18 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
+| CONTACTOR Schneider Electric A9C20731 | CONTACTOR | Schneider Electric | A9C20731 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · A9C20731. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| CONTACTOR Schneider Electric A9C20731 | CONTACTOR | Schneider Electric | A9C20731 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · A9C20731. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| CONTACTOR Schneider Electric LC1D09 | CONTACTOR | Schneider Electric | LC1D09 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · LC1D09. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| CONTACTOR Schneider Electric LC1D09 | CONTACTOR | Schneider Electric | LC1D09 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · LC1D09. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| CONTACTOR Schneider Electric LC1D115 | CONTACTOR | Schneider Electric | LC1D115 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · LC1D115. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| CONTACTOR Schneider Electric LC1D115 | CONTACTOR | Schneider Electric | LC1D115 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · LC1D115. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| CONTACTOR Schneider Electric LC1D150 | CONTACTOR | Schneider Electric | LC1D150 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · LC1D150. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| CONTACTOR Schneider Electric LC1D150 | CONTACTOR | Schneider Electric | LC1D150 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · LC1D150. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| CONTACTOR Schneider Electric LC1D18 | CONTACTOR | Schneider Electric | LC1D18 | 1 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| CONTACTOR Schneider Electric LC1D18 | CONTACTOR | Schneider Electric | LC1D18 | 1 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| CONTACTOR Schneider Electric LC1D25 | CONTACTOR | Schneider Electric | LC1D25 | 1 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| CONTACTOR Schneider Electric LC1D25 | CONTACTOR | Schneider Electric | LC1D25 | 1 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| CONTACTOR Schneider Electric LC1D25-38 | CONTACTOR | Schneider Electric | LC1D25-38 | 3 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| CONTACTOR Schneider Electric LC1D32 | CONTACTOR | Schneider Electric | LC1D32 | 1 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| CONTACTOR Schneider Electric LC1D32 | CONTACTOR | Schneider Electric | LC1D32 | 1 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| CONTACTOR Schneider Electric LC1D40 | CONTACTOR | Schneider Electric | LC1D40 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · LC1D40. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| CONTACTOR Schneider Electric LC1D40-65 | CONTACTOR | Schneider Electric | LC1D40-65 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · LC1D40-65. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| CONTACTOR Schneider Electric LC1D40-65 | CONTACTOR | Schneider Electric | LC1D40-65 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · LC1D40-65. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| CONTACTOR Schneider Electric LC1D40-65 | CONTACTOR | Schneider Electric | LC1D40-65 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · LC1D40-65. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| CONTACTOR Schneider Electric LC1D80 | CONTACTOR | Schneider Electric | LC1D80 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · LC1D80. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| CONTACTOR Schneider Electric LC1D80 | CONTACTOR | Schneider Electric | LC1D80 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · LC1D80. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| CONTACTOR Schneider Electric LC1D9-18 | CONTACTOR | Schneider Electric | LC1D9-18 | 2 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| CONTACTOR Schneider Electric LC1E06-18 | CONTACTOR | Schneider Electric | LC1E06-18 | 16 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| CONTACTOR Schneider Electric LC1E160 | CONTACTOR | Schneider Electric | LC1E160 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · LC1E160. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| CONTACTOR Schneider Electric LC1E25 | CONTACTOR | Schneider Electric | LC1E25 | 4 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| CONTACTOR Schneider Electric LC1E32 | CONTACTOR | Schneider Electric | LC1E32 | 4 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| CONTACTOR Schneider Electric LC1F115 | CONTACTOR | Schneider Electric | LC1F115 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · LC1F115. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| CONTACTOR Schneider Electric LC1F150 | CONTACTOR | Schneider Electric | LC1F150 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · LC1F150. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| CONTACTOR Schneider Electric LC1F185 | CONTACTOR | Schneider Electric | LC1F185 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · LC1F185. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| CONTACTOR Schneider Electric LC1F225 | CONTACTOR | Schneider Electric | LC1F225 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · LC1F225. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| CONTACTOR Schneider Electric LC1F265 | CONTACTOR | Schneider Electric | LC1F265 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · LC1F265. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| CONTACTOR Schneider Electric LC1F330 | CONTACTOR | Schneider Electric | LC1F330 | 0 | Đã nhận diện Schneider Electric · CONTACTOR · LC1F330. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D185 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D225 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D25 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D265 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D32 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D330 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D400 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D40~65 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D500 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D600 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D80 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC CTT LC1D09 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC CTT LC1D115 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC CTT LC1D150 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC CTT LC1D18 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC CTT LC1D185 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC CTT LC1D225 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC CTT LC1D25 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC CTT LC1D265 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC CTT LC1D32 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC CTT LC1D330 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC CTT LC1D400 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC CTT LC1D40~65 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC CTT LC1D500 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC CTT LC1D600 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC CTT LC1D80 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC CTT LỖ ĐỤC 1P A9C20731 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · LC1D25-38 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · LC1D40 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · LC1D40-65 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · LC1D9-18 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · LC1E160 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · LC1F115 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · LC1F150 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · LC1F185 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · LC1F225 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · LC1F265 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · LC1F330 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · SN_LC1E06-18 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · SN_LC1E25 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · SN_LC1E32 · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · SN_iCT 1P · CAD nguồn | CONTACTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Contactor Schneider LC1D25-38 · 3P | Contactor | Schneider Electric | LC1D25-38 | 3 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | Contactor Schneider LC1D40 · 3P | Contactor | Schneider Electric | LC1D40 | 0 | Đã nhận diện Schneider Electric · Contactor · LC1D40. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
@@ -743,6 +711,18 @@ Phân loại theo loại thiết bị, hãng, mã và lý do chưa đối chiế
 | MCCB Schneider EZS250 · 4P | MCCB | Schneider Electric | EZS250 | 0 | Đã nhận diện Schneider Electric · MCCB · EZS250. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | MCCB Schneider EZS400 · 3P | MCCB | Schneider Electric | EZS400 | 0 | Đã nhận diện Schneider Electric · MCCB · EZS400. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | MCCB Schneider EZS400 · 4P | MCCB | Schneider Electric | EZS400 | 0 | Đã nhận diện Schneider Electric · MCCB · EZS400. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| MCCB Schneider Electric EZC100 | MCCB | Schneider Electric | EZC100 | 4 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| MCCB Schneider Electric EZC100 | MCCB | Schneider Electric | EZC100 | 0 | Đã có giá dòng EZC100, nhưng bảng giá hiện có 1P, 2P, 3P; CAD đang xem là 4P. Cần bổ sung dòng giá đúng số cực, không dùng giá khác số cực. |
+| MCCB Schneider Electric EZC100 | MCCB | Schneider Electric | EZC100 | 1 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| MCCB Schneider Electric EZC100 | MCCB | Schneider Electric | EZC100 | 1 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| MCCB Schneider Electric EZC100 | MCCB | Schneider Electric | EZC100 | 4 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| MCCB Schneider Electric EZC250 | MCCB | Schneider Electric | EZC250 | 3 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| MCCB Schneider Electric EZC250 | MCCB | Schneider Electric | EZC250 | 3 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| MCCB Schneider Electric EZC250 | MCCB | Schneider Electric | EZC250 | 1 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| MCCB Schneider Electric NS100 / NS160 | MCCB | Schneider Electric | NS100 / NS160 | 0 | Đã nhận diện Schneider Electric · MCCB · NS100 / NS160. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| MCCB Schneider Electric NS100 / NS160 | MCCB | Schneider Electric | NS100 / NS160 | 0 | Đã nhận diện Schneider Electric · MCCB · NS100 / NS160. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| MCCB Schneider Electric NS100 / NS160 | MCCB | Schneider Electric | NS100 / NS160 | 0 | Đã nhận diện Schneider Electric · MCCB · NS100 / NS160. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| MCCB Schneider Electric NS100 / NS160 | MCCB | Schneider Electric | NS100 / NS160 | 0 | Đã nhận diện Schneider Electric · MCCB · NS100 / NS160. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | MCCB Schneider NS100 · 2P | MCCB | Schneider Electric | NS100 | 0 | Đã nhận diện Schneider Electric · MCCB · NS100. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | MCCB Schneider NS100 · 3P | MCCB | Schneider Electric | NS100 | 0 | Đã nhận diện Schneider Electric · MCCB · NS100. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | MCCB Schneider NS100 · 4P | MCCB | Schneider Electric | NS100 | 0 | Đã nhận diện Schneider Electric · MCCB · NS100. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
@@ -753,19 +733,11 @@ Phân loại theo loại thiết bị, hãng, mã và lý do chưa đối chiế
 | Schneider · 06 - N - SC MCCB CHIẾU HÔNG NS06b~160N4DM2 · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC MCCB CHIẾU TRÊN CVS100~250B~F 3 PHASE · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC MCCB CHIẾU TRÊN CVS100~250B~F 4 PHASE · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC MCCB CHIẾU TRÊN EZC100 2 PHASE · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC MCCB CHIẾU TRÊN EZC100 3 PHASE · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC MCCB CHIẾU TRÊN EZC250 3 PHASE · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC MCCB CHIẾU TRÊN EZC400~630 3 PHASE · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC MCCB CVS100~250B~F 3 PHASE · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC MCCB CVS100~250B~F 4 PHASE · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC MCCB CVS400~630F~N 3 PHASE · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC MCCB CVS400~630F~N 4 PHASE · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC MCCB EZC100 2 PHASE · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC MCCB EZC100 3 PHASE · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC MCCB EZC100 4 PHASE · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC MCCB EZC250 3 PHASE · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · 06 - N - SC MCCB EZC250 4 PHASE · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC MCCB EZC400~630 3 PHASE · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC MCCB EZC400~630 4 PHASE · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC MCCB LÕ ĐỤC EZC100 2 PHASE · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
@@ -795,10 +767,6 @@ Phân loại theo loại thiết bị, hãng, mã và lý do chưa đối chiế
 | Schneider · LV429640ATNSX22A 2 · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · LV429640ATNSX22A 3 · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · LV429640ATNSX22A 5 · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · NS100_160NHL_4_c · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · NS100_160NHL_4_d · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · NS100_160NHL_5_d · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
-| Schneider · NS100_160NHL_c · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · NS400_600NHL_1_d · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · NS400_600NHL_3_d · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · NS400_600NHL_6_c · CAD nguồn | MCCB | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
@@ -832,6 +800,38 @@ Phân loại theo loại thiết bị, hãng, mã và lý do chưa đối chiế
 | Schneider · 06 - N - SC ROLE NHIỆT LRD3xxx · CAD nguồn | Rơ le nhiệt | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC ROLE NHIỆT LRD4xxx · CAD nguồn | Rơ le nhiệt | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
 | Schneider · 06 - N - SC INS 28901~5 4P · CAD nguồn | SWITCH_DISCONNECTOR | Schneider Electric | Chưa ghi mã | 0 | Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế. |
+| VFD Schneider Electric ATV212H075~U22N4 | VFD | Schneider Electric | ATV212H075~U22N4 | 3 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV212H075~U22N4 | VFD | Schneider Electric | ATV212H075~U22N4 | 3 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV212HD15~18N4 | VFD | Schneider Electric | ATV212HD15~18N4 | 2 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV212HD15~18N4 | VFD | Schneider Electric | ATV212HD15~18N4 | 2 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV212HU30~U55N4 | VFD | Schneider Electric | ATV212HU30~U55N4 | 3 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV212HU30~U55N4 | VFD | Schneider Electric | ATV212HU30~U55N4 | 3 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV212HU75~D11N4 | VFD | Schneider Electric | ATV212HU75~D11N4 | 2 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV212HU75~D11N4 | VFD | Schneider Electric | ATV212HU75~D11N4 | 2 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV320U22~40N4C | VFD | Schneider Electric | ATV320U22~40N4C | 3 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV320U22~40N4C | VFD | Schneider Electric | ATV320U22~40N4C | 3 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV320U22~40N4C | VFD | Schneider Electric | ATV320U22~40N4C | 3 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV320U55~75N4B | VFD | Schneider Electric | ATV320U55~75N4B | 2 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV320U55~75N4B | VFD | Schneider Electric | ATV320U55~75N4B | 2 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV320U55~75N4B | VFD | Schneider Electric | ATV320U55~75N4B | 2 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV630C11~C16N4 | VFD | Schneider Electric | ATV630C11~C16N4 | 0 | Đã nhận diện Schneider Electric · VFD · ATV630C11~C16N4. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| VFD Schneider Electric ATV630C11~C16N4 | VFD | Schneider Electric | ATV630C11~C16N4 | 0 | Đã nhận diện Schneider Electric · VFD · ATV630C11~C16N4. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| VFD Schneider Electric ATV630C11~C16N4 | VFD | Schneider Electric | ATV630C11~C16N4 | 0 | Đã nhận diện Schneider Electric · VFD · ATV630C11~C16N4. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| VFD Schneider Electric ATV630D15~D22N4 | VFD | Schneider Electric | ATV630D15~D22N4 | 3 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV630D15~D22N4 | VFD | Schneider Electric | ATV630D15~D22N4 | 3 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV630D15~D22N4 | VFD | Schneider Electric | ATV630D15~D22N4 | 3 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV630D30~D45N4 | VFD | Schneider Electric | ATV630D30~D45N4 | 3 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV630D30~D45N4 | VFD | Schneider Electric | ATV630D30~D45N4 | 3 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV630D30~D45N4 | VFD | Schneider Electric | ATV630D30~D45N4 | 3 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV630D55~D90N4 | VFD | Schneider Electric | ATV630D55~D90N4 | 3 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV630D55~D90N4 | VFD | Schneider Electric | ATV630D55~D90N4 | 3 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV630D55~D90N4 | VFD | Schneider Electric | ATV630D55~D90N4 | 3 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV630U07~55N4 | VFD | Schneider Electric | ATV630U07~55N4 | 6 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV630U07~55N4 | VFD | Schneider Electric | ATV630U07~55N4 | 6 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV630U07~55N4 | VFD | Schneider Electric | ATV630U07~55N4 | 6 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV630U75~D11N4 | VFD | Schneider Electric | ATV630U75~D11N4 | 2 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV630U75~D11N4 | VFD | Schneider Electric | ATV630U75~D11N4 | 2 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| VFD Schneider Electric ATV630U75~D11N4 | VFD | Schneider Electric | ATV630U75~D11N4 | 2 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | RMU RM6-NE:DI | RMU | Schneider Electric (dòng RM6; cần đối chiếu cấu hình CAD) | RM6-NE:DI | 0 | Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố. |
 | RMU RM6-NE:IiI | RMU | Schneider Electric (dòng RM6; cần đối chiếu cấu hình CAD) | RM6-NE:IiI | 0 | Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố. |
 | MCB Shihlin BHA · 1P | MCB | Shihlin Electric | BHA | 0 | Đã nhận diện Shihlin Electric · MCB · BHA. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |

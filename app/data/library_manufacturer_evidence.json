@@ -974,6 +974,2976 @@
         "product_code": "RT18-32",
         "use": "Bảo vệ bằng cầu chì; CAD ghi RT18-32, 32A, 690V và 10×38. Cần xác nhận mã và nguồn giá thực tế."
       }
+    },
+    "TB-4092570e76365c9b": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB CHIẾU TRÊN EZC100 3 PHASE"
+      },
+      "manufacturer_document": "https://www.se.com/uk/en/download/document/LVED212091ENWEB/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_0c146a561b2e",
+          "sha256": "04f0d8b7b9c840cc6c398139f34a98920ee8c1c8fe824ffa47f2f40f27bc600d",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCCB Schneider Electric EZC100",
+        "type": "MCCB",
+        "product_code": "EZC100",
+        "manufacturer_document": "https://www.se.com/uk/en/download/document/LVED212091ENWEB/",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "3P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-874c5547cd458752": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "SN_LC1E32"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/download/document/EAV78697/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_0e0727ccad3a",
+          "sha256": "af182908257f8998a91176725b492992f920d69b5a0ad10a3cd38e766012257f",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1E32",
+        "type": "CONTACTOR",
+        "product_code": "LC1E32",
+        "manufacturer_document": "https://www.se.com/us/en/download/document/EAV78697/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-0cc0c56bd994d60d": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT LC1D32"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_0f3f2cc3117d",
+          "sha256": "1df9c454036d303a08c3fb818eda36f607b37101a21621d93ba7cfcbb01a5b98",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1D32",
+        "type": "CONTACTOR",
+        "product_code": "LC1D32",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-d1219758854616f1": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT CHIẾU HÔNG LC1D115"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_176cb38d9714",
+          "sha256": "8dacd76002bb18636d9fb222217ad6e9988b291130950e3657c084b5efd3ef74",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1D115",
+        "type": "CONTACTOR",
+        "product_code": "LC1D115",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-3f2345dccb53e572": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT LC1D09"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_18821c7f7f99",
+          "sha256": "b8f5b61aeba646a920248c787fb318bc2acfced0cb4bb506dc36a1c37d9ae0d2",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1D09",
+        "type": "CONTACTOR",
+        "product_code": "LC1D09",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-436f8c8137844f85": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT CHIẾU HÔNG LC1D18"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_1bcf2f0d7fab",
+          "sha256": "a2723eb8fdf0833928dc881c087eca59f32e451e7fcfe2ceb8d3313a3d167f6f",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1D18",
+        "type": "CONTACTOR",
+        "product_code": "LC1D18",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-cc4d7e2ce43e4773": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB CHIẾU TRÊN EZC250 3 PHASE"
+      },
+      "manufacturer_document": "https://www.se.com/uk/en/download/document/LVED212091ENWEB/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_22800e879da5",
+          "sha256": "83eb099bc096595c11794de9ff973430c40a026618165a4cd243b71fd6fffa0e",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCCB Schneider Electric EZC250",
+        "type": "MCCB",
+        "product_code": "EZC250",
+        "manufacturer_document": "https://www.se.com/uk/en/download/document/LVED212091ENWEB/",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "3P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-c20aafa063938808": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "LC1F265"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA102501/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_242bb3b8d833",
+          "sha256": "8afbc0e5029234c1d893dbbf39b87931f33c141d27482de64a50c08143edfe24",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1F265",
+        "type": "CONTACTOR",
+        "product_code": "LC1F265",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA102501/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-3aabcfa28ac7f3ba": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "LC1D9-18"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_32698b91a8ae",
+          "sha256": "b257ee8cbc80551f771eb9b8c7631167f0ffd5f31961591a4153030f51d8b3b7",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1D9-18",
+        "type": "CONTACTOR",
+        "product_code": "LC1D9-18",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-924df46499ef6b4d": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "LC1F330"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA102501/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_380f630c64d5",
+          "sha256": "57f192f98622aafec9e3afb830bbbad9c13b4ea72bad518c70a60b5705909ca5",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1F330",
+        "type": "CONTACTOR",
+        "product_code": "LC1F330",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA102501/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-74256dce63c6f12b": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "LC1F150"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA102501/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_39b4dd61631d",
+          "sha256": "fa349142931726e30ab3243641372233072ba87fbcf6fc97087bccd7eb94e9ae",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1F150",
+        "type": "CONTACTOR",
+        "product_code": "LC1F150",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA102501/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-ffb3f20bf4122403": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT LC1D150"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_3fa9cf08be2d",
+          "sha256": "d6d2b581eed812b70744f8ed8c693af4cae2a725892945bdedb4e79eeed378c7",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1D150",
+        "type": "CONTACTOR",
+        "product_code": "LC1D150",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-2c205339e7db99d0": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "LC1D40"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/product/LC1D40M7/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_3fe829f3ae9c",
+          "sha256": "5f1a74c1bd0bbb5e79be0bb406385cf999a1ef4748911887ce36cf82cd73b6c6",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1D40",
+        "type": "CONTACTOR",
+        "product_code": "LC1D40",
+        "manufacturer_document": "https://www.se.com/us/en/product/LC1D40M7/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-79ddf299eca7273e": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT CHIẾU HÔNG LC1D25"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_4087bc31e293",
+          "sha256": "8d378e76c5b14ced1e554d8cd1c44493a7549e14edf05ff27dcfd8151c867651",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1D25",
+        "type": "CONTACTOR",
+        "product_code": "LC1D25",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-95c74c0f4e250dd3": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "SN_LC1E06-18"
+      },
+      "manufacturer_document": "https://www.se.com/au/en/download/document/EAV84852/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_4399437d77c9",
+          "sha256": "352be9345e3f8e515d43a8ce650a08c7978e3eed6e1b84ce5cdcfbc77472d7d5",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1E06-18",
+        "type": "CONTACTOR",
+        "product_code": "LC1E06-18",
+        "manufacturer_document": "https://www.se.com/au/en/download/document/EAV84852/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-532a8b377a573470": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB EZC100 4 PHASE"
+      },
+      "manufacturer_document": "https://www.se.com/uk/en/download/document/LVED212091ENWEB/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_44f598411e40",
+          "sha256": "0ad912dac590f31c13af86e31a7aa40bcae8da0eac699c2f341be94de9681725",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCCB Schneider Electric EZC100",
+        "type": "MCCB",
+        "product_code": "EZC100",
+        "manufacturer_document": "https://www.se.com/uk/en/download/document/LVED212091ENWEB/",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "4P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-fa2c70999cd97df4": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT CHIẾU HÔNG LC1D32"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_46544aa3322e",
+          "sha256": "61c7fcfcfb751ecc3723c58893aa1186db45381dc26f6ce2ad2219eb09afcda9",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1D32",
+        "type": "CONTACTOR",
+        "product_code": "LC1D32",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-87c193b36a5be2d9": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT LC1D115"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_5f4fe3f5c66a",
+          "sha256": "bbb9179d5b5d1a264eb392e9f9b13529c08bd7a6fcb34cfcd23791d065da1907",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1D115",
+        "type": "CONTACTOR",
+        "product_code": "LC1D115",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-76b60c464e85531d": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT 1P A9C20731"
+      },
+      "manufacturer_document": "https://www.se.com/nl/en/product/A9C20731/ict-25a-1no-230-240v-50hz-contactor/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_7f66c0963103",
+          "sha256": "c85d795b10eaabb36f66af9e980c87221f9a7d155d3a0cce655966652d990b93",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric A9C20731",
+        "type": "CONTACTOR",
+        "product_code": "A9C20731",
+        "manufacturer_document": "https://www.se.com/nl/en/product/A9C20731/ict-25a-1no-230-240v-50hz-contactor/",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "1P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-39b0e1bd1634ae8b": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB EZC250 3 PHASE"
+      },
+      "manufacturer_document": "https://www.se.com/uk/en/download/document/LVED212091ENWEB/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_85611a5cfd9e",
+          "sha256": "71471e0c660363fcd944b45a397847029b35503264297216561f94e0e0e7b358",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCCB Schneider Electric EZC250",
+        "type": "MCCB",
+        "product_code": "EZC250",
+        "manufacturer_document": "https://www.se.com/uk/en/download/document/LVED212091ENWEB/",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "3P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-dced0a03b7ea334e": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT LC1D18"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_85eed14c2ecf",
+          "sha256": "00a10f20ab7302ac690ad97a5c26b72ac4be7559e7a5ed00ac7ec0a5f97d132b",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1D18",
+        "type": "CONTACTOR",
+        "product_code": "LC1D18",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-1f6e3c1f906f7fd8": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT CHIẾU HÔNG LC1D09"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_86478c4838be",
+          "sha256": "a8c8977b132df89e83283924151e60c4fdcf146eaf172f4457d25bcbfdeb71f7",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1D09",
+        "type": "CONTACTOR",
+        "product_code": "LC1D09",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-9d5dda2dfc6b5d35": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT LC1D80"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_88c5708d59bd",
+          "sha256": "7af687ef1cc32861b1dcd68f0a8fb2d223d76ea384894bcaece3c7a468d85e30",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1D80",
+        "type": "CONTACTOR",
+        "product_code": "LC1D80",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-12d065e49e4559f5": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT CHIẾU HÔNG LC1D80"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_97a4f5be2835",
+          "sha256": "1716cd01a55de3cd84932649b278e11021f9b07b87253e4074f522910c1d2570",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1D80",
+        "type": "CONTACTOR",
+        "product_code": "LC1D80",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-92e2043a2bd511a7": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "LC1D25-38"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_a12b38e9846b",
+          "sha256": "77c3d9db60f8159e24d4a5b78d4665262425ca5b01db22f38c3ac04566ae8c8e",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1D25-38",
+        "type": "CONTACTOR",
+        "product_code": "LC1D25-38",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-afd60a00b7d134cd": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "SN_LC1E25"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/download/document/EAV78697/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_a36e5711bb2a",
+          "sha256": "5f008d172434ccd48ec51224eb0c5ad2d55b041290d1076448b2e3270ddcffda",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1E25",
+        "type": "CONTACTOR",
+        "product_code": "LC1E25",
+        "manufacturer_document": "https://www.se.com/us/en/download/document/EAV78697/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-c6b1fa1fb05f17c0": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT LC1D25"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_ad003f9dae14",
+          "sha256": "840ee55b22b0651bd80adff79157a9a8b86f1a0baea25aa586748a0993fc5684",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1D25",
+        "type": "CONTACTOR",
+        "product_code": "LC1D25",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-2201734d78c06790": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT CHIẾU HÔNG LC1D150"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_b03edbbbe1fa",
+          "sha256": "712e60a67001d9b8f6c461d6e16da419d9f960ae99fecf8ba32d527c3d4f28e1",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1D150",
+        "type": "CONTACTOR",
+        "product_code": "LC1D150",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-4219006a98570a3b": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "LC1F185"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA102501/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_bf1cd308eb6a",
+          "sha256": "456893a0ac6c05786fe2d4431c7cd83661e2489f4d5be4e617ceac3c907664e1",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1F185",
+        "type": "CONTACTOR",
+        "product_code": "LC1F185",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA102501/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-22a3a85328e5a35e": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT CHIẾU HÔNG 1P A9C20731"
+      },
+      "manufacturer_document": "https://www.se.com/nl/en/product/A9C20731/ict-25a-1no-230-240v-50hz-contactor/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_cae3f66de332",
+          "sha256": "52bd8559cff29cf923b1c65163051f27913c07c8cad499a9f6e2feb5daed9509",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric A9C20731",
+        "type": "CONTACTOR",
+        "product_code": "A9C20731",
+        "manufacturer_document": "https://www.se.com/nl/en/product/A9C20731/ict-25a-1no-230-240v-50hz-contactor/",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "1P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-b2127e7ca1b65481": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB EZC250 4 PHASE"
+      },
+      "manufacturer_document": "https://www.se.com/uk/en/download/document/LVED212091ENWEB/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_de74538a1186",
+          "sha256": "1bbc92c3109b9ee66f9ce90d39fd57dddbe786ecbb0e3db6563f763b0c51acb3",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCCB Schneider Electric EZC250",
+        "type": "MCCB",
+        "product_code": "EZC250",
+        "manufacturer_document": "https://www.se.com/uk/en/download/document/LVED212091ENWEB/",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "4P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-50b9e0b14ec25b83": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB EZC100 2 PHASE"
+      },
+      "manufacturer_document": "https://www.se.com/uk/en/download/document/LVED212091ENWEB/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_df91c12def74",
+          "sha256": "e07a1b6fb37eb5b95b05eaedf0bca25051890560b291e3b82056e02eb56da255",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCCB Schneider Electric EZC100",
+        "type": "MCCB",
+        "product_code": "EZC100",
+        "manufacturer_document": "https://www.se.com/uk/en/download/document/LVED212091ENWEB/",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "2P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-4243dcd3bacf6a0f": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "LC1F115"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA102501/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_e110d79fa466",
+          "sha256": "ee1587cb0c8eede1c1d0bde6d7efa962c81fb60221d3d25d5c72a0ae142380ee",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1F115",
+        "type": "CONTACTOR",
+        "product_code": "LC1F115",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA102501/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-b05de4d1c90b9878": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB CHIẾU TRÊN EZC100 2 PHASE"
+      },
+      "manufacturer_document": "https://www.se.com/uk/en/download/document/LVED212091ENWEB/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_e53b27706f11",
+          "sha256": "e956ec58f184f2040ccf99afe90124af5181a13cdc64fff02faf161b721e1a59",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCCB Schneider Electric EZC100",
+        "type": "MCCB",
+        "product_code": "EZC100",
+        "manufacturer_document": "https://www.se.com/uk/en/download/document/LVED212091ENWEB/",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "2P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-1cac077415383e54": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC MCCB EZC100 3 PHASE"
+      },
+      "manufacturer_document": "https://www.se.com/uk/en/download/document/LVED212091ENWEB/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_fb4da93d1dbf",
+          "sha256": "f555e041f42c8ff502017aae67b24048ec6ae90bfbd51331aa67b99270016450",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCCB Schneider Electric EZC100",
+        "type": "MCCB",
+        "product_code": "EZC100",
+        "manufacturer_document": "https://www.se.com/uk/en/download/document/LVED212091ENWEB/",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "3P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-c00290a70bf823c0": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "LC1F225"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA102501/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_fccb82b1d2b0",
+          "sha256": "dc8fdb4cdbe2d92bae0e283c894d7869f8643e1db46ee1ce6e42ccff9f43ab8f",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1F225",
+        "type": "CONTACTOR",
+        "product_code": "LC1F225",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA102501/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-93b90144bbbf3109": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "MT-63"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_118a8e291679",
+          "sha256": "72953475e7f86d0a4ee39e176c4e965f5e1ea26c183ff1b971646f36b1a8fac7",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "THERMAL_RELAY LS Electric MT-63",
+        "type": "THERMAL_RELAY",
+        "product_code": "MT-63",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-03adf5a8e67ae581": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "BKN 3P"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_2f3a4b500b66",
+          "sha256": "52f28333800c66506e07885a2d1c0f67ad7c09fc4ecf0a444f15a948db9f427d",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCB LS Electric BKN",
+        "type": "MCB",
+        "product_code": "BKN",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "3P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-7dd2ecb5a38cc051": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "MC 185a"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_3b7482fcca9f",
+          "sha256": "54689a3577fc1432120d936a0851468e61d83201da4ac068fc23896e7f30da8f",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR LS Electric MC-185a",
+        "type": "CONTACTOR",
+        "product_code": "MC-185a",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-ca53bae6a5bfdab3": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "BKN 4P"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_55dfd3ebcb4d",
+          "sha256": "d394887bd2352a3593e238479f63088f6908bdc0462b5d429bac2645855cf774",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCB LS Electric BKN",
+        "type": "MCB",
+        "product_code": "BKN",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "4P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-51f4558cd68dbb11": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "mt12"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_7b513915a600",
+          "sha256": "ce3ef47124d797b147cc2f84635062a1614c426376b9a2bfa790b6016074fcbc",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "THERMAL_RELAY LS Electric MT-12",
+        "type": "THERMAL_RELAY",
+        "product_code": "MT-12",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-7ec687e49e297901": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "MC 265a"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_8ac6446915e3",
+          "sha256": "16ea2d245a617840c337bb4229f2090af7beb0238dcb2f9365a5644c09c90448",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR LS Electric MC-265a",
+        "type": "CONTACTOR",
+        "product_code": "MC-265a",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-4cca6dc255bc2167": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "MC 500a"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_aa32841393b9",
+          "sha256": "186a51bf1b51c2da94b6712635c421915e699d5a8dbeec2ced9d96932a8b6697",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR LS Electric MC-500a",
+        "type": "CONTACTOR",
+        "product_code": "MC-500a",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-32144d13a2436f0b": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "BKN 2P"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_d039da15da5b",
+          "sha256": "a48f817fd1c0bc704599a60e5fdef14a7275a1c40d5c1e27d3c9cd552eb4c199",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCB LS Electric BKN",
+        "type": "MCB",
+        "product_code": "BKN",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "2P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-2d95b404b4b14f47": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "BKN 1P"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_dbb420436983",
+          "sha256": "eb17de0234879970c24456c84775d67b4049bb2015cc0bab2841d2050fd2fd67",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCB LS Electric BKN",
+        "type": "MCB",
+        "product_code": "BKN",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "1P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-03aa3238dabc4094": {
+      "brand": "CHINT",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@CHINT.dwg",
+        "sha256": "aa426c85a63c42369c7ec4e44b374030232c0d81793325963bb4a82b00aaf35a",
+        "block": "nxb63-2"
+      },
+      "manufacturer_document": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
+      "views": [
+        {
+          "view_id": "SRC_CHINT_238c8f605e12",
+          "sha256": "3c6d818fe3ed0c3879a9b52216ce53f25045fbdb1ca46849da81822e3c9b490c",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCB CHINT NXB-63",
+        "type": "MCB",
+        "product_code": "NXB-63",
+        "manufacturer_document": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "2P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-e1b1231f6ae8fd19": {
+      "brand": "CHINT",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@CHINT.dwg",
+        "sha256": "aa426c85a63c42369c7ec4e44b374030232c0d81793325963bb4a82b00aaf35a",
+        "block": "nxb63-2p"
+      },
+      "manufacturer_document": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
+      "views": [
+        {
+          "view_id": "SRC_CHINT_32fc1ea2167e",
+          "sha256": "6f456453293329f6b9254b7573efbf3691c1452d836566f2311c7f74355a6faf",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCB CHINT NXB-63",
+        "type": "MCB",
+        "product_code": "NXB-63",
+        "manufacturer_document": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "2P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-1300f9bd47ebfd6f": {
+      "brand": "CHINT",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@CHINT.dwg",
+        "sha256": "aa426c85a63c42369c7ec4e44b374030232c0d81793325963bb4a82b00aaf35a",
+        "block": "nxb63-1"
+      },
+      "manufacturer_document": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
+      "views": [
+        {
+          "view_id": "SRC_CHINT_461e4acca29b",
+          "sha256": "2701a939f9dae3fdab35c4b6d394946392f835ba18db02b7c8bd101d2e73d0f2",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCB CHINT NXB-63",
+        "type": "MCB",
+        "product_code": "NXB-63",
+        "manufacturer_document": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "1P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-d1bbcfffa8445d84": {
+      "brand": "CHINT",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@CHINT.dwg",
+        "sha256": "aa426c85a63c42369c7ec4e44b374030232c0d81793325963bb4a82b00aaf35a",
+        "block": "nxb63-3p"
+      },
+      "manufacturer_document": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
+      "views": [
+        {
+          "view_id": "SRC_CHINT_86e3bb0dcf16",
+          "sha256": "cc4ed66fe7254f2439c622a6128df91b1a0a390cce2a6f10327cafeeeb849f8d",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCB CHINT NXB-63",
+        "type": "MCB",
+        "product_code": "NXB-63",
+        "manufacturer_document": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "3P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-faa371b9ff857b8f": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD CHIẾU HÔNG ATV320U22~40N4C"
+      },
+      "manufacturer_document": "https://download.schneider-electric.com/files?filename=Catalog&p_Doc_Ref=DIA2ED2160311EN",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_058bf2c8b2fe",
+          "sha256": "710d4aed8f0707442f0321d6db98b5c043864b22bb6007ad70a6184c6aee22f2",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV320U22~40N4C",
+        "type": "VFD",
+        "product_code": "ATV320U22~40N4C",
+        "manufacturer_document": "https://download.schneider-electric.com/files?filename=Catalog&p_Doc_Ref=DIA2ED2160311EN",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV320U22N4C",
+          "ATV320U30N4C",
+          "ATV320U40N4C"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-aa88cc78f94d3ba5": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD ATV320U55~75N4B"
+      },
+      "manufacturer_document": "https://download.schneider-electric.com/files?filename=Catalog&p_Doc_Ref=DIA2ED2160311EN",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_0ea8157d6bfb",
+          "sha256": "6157ef977b07bbcea94094382ce77b19823da8c3685cf6e93a2e9b1e1fe038c1",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV320U55~75N4B",
+        "type": "VFD",
+        "product_code": "ATV320U55~75N4B",
+        "manufacturer_document": "https://download.schneider-electric.com/files?filename=Catalog&p_Doc_Ref=DIA2ED2160311EN",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV320U55N4B",
+          "ATV320U75N4B"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-b3db3f72b1386e95": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD CHIẾU TRÊN ATV630D55~D90N4"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_161cf3536b74",
+          "sha256": "eb0a18473e4e349ea9633f1e90108634e551010200a953ed04f80fbd46ba7a5f",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV630D55~D90N4",
+        "type": "VFD",
+        "product_code": "ATV630D55~D90N4",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV630D55N4",
+          "ATV630D75N4",
+          "ATV630D90N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-4fc8d9679c3649ef": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD ATV630U07~55N4"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_23e4b18f5bd7",
+          "sha256": "3624a906634c86a8c475f0dd339645e15b83ea614bac8b0bd611e4731196a240",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV630U07~55N4",
+        "type": "VFD",
+        "product_code": "ATV630U07~55N4",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV630U07N4",
+          "ATV630U15N4",
+          "ATV630U22N4",
+          "ATV630U30N4",
+          "ATV630U40N4",
+          "ATV630U55N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-90f636ce9ec4344c": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD CHIẾU TRÊN ATV630D15~D22N4"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_2dfa2f3e5e6c",
+          "sha256": "6c9284e714c2e78d71e5c912311c783df72e36bd346c9f3baa656a61fccd45e3",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV630D15~D22N4",
+        "type": "VFD",
+        "product_code": "ATV630D15~D22N4",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV630D15N4",
+          "ATV630D18N4",
+          "ATV630D22N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-68dece17b8b6f28a": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD CHIẾU TRÊN ATV320U22~40N4C"
+      },
+      "manufacturer_document": "https://download.schneider-electric.com/files?filename=Catalog&p_Doc_Ref=DIA2ED2160311EN",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_314a82afba2b",
+          "sha256": "268a195b075bc6cd90079046cbbf09add68d7c3e76ab1cdc76c4230111a27329",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV320U22~40N4C",
+        "type": "VFD",
+        "product_code": "ATV320U22~40N4C",
+        "manufacturer_document": "https://download.schneider-electric.com/files?filename=Catalog&p_Doc_Ref=DIA2ED2160311EN",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV320U22N4C",
+          "ATV320U30N4C",
+          "ATV320U40N4C"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-3efb9e65d9ab07f2": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD ATV630C11~C16N4"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_33a51ba91d09",
+          "sha256": "d1fe37a2fe0dd04a4abd87e61f3a722b30e60b6781fa02d94b9dce64f2d56140",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV630C11~C16N4",
+        "type": "VFD",
+        "product_code": "ATV630C11~C16N4",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV630C11N4",
+          "ATV630C13N4",
+          "ATV630C16N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-06f8e3cb26b68f79": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD ATV630D30~D45N4"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_358e40f8ff4f",
+          "sha256": "dc9878e18cdeb1ff7ae5d7fbfd81795c87aa51e9f348f787a03c9fe0b2d76c8a",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV630D30~D45N4",
+        "type": "VFD",
+        "product_code": "ATV630D30~D45N4",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV630D30N4",
+          "ATV630D37N4",
+          "ATV630D45N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-8753a6ee78d8b997": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD CHIẾU TRÊN ATV630D30~D45N4"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_49ab242e176c",
+          "sha256": "f64d8e66935856e1010e5ae9e1c37867dded4a19bf2f261e6e2c52d434c60140",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV630D30~D45N4",
+        "type": "VFD",
+        "product_code": "ATV630D30~D45N4",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV630D30N4",
+          "ATV630D37N4",
+          "ATV630D45N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-373e361e224af273": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD ATV320U22~40N4C"
+      },
+      "manufacturer_document": "https://download.schneider-electric.com/files?filename=Catalog&p_Doc_Ref=DIA2ED2160311EN",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_58bc7a6f14bc",
+          "sha256": "4f0cd45d1a07516b8188b8232d3140e1bff7200aac1edffa5cc39a6219fc7191",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV320U22~40N4C",
+        "type": "VFD",
+        "product_code": "ATV320U22~40N4C",
+        "manufacturer_document": "https://download.schneider-electric.com/files?filename=Catalog&p_Doc_Ref=DIA2ED2160311EN",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV320U22N4C",
+          "ATV320U30N4C",
+          "ATV320U40N4C"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-ca67cfdfe75b87a5": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD ATV630U75~D11N4"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_5c988195731d",
+          "sha256": "3fe6e74f6b2d400b143fad5518c9ce3a2ff3db7e7891b842e91523a48ed5b566",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV630U75~D11N4",
+        "type": "VFD",
+        "product_code": "ATV630U75~D11N4",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV630U75N4",
+          "ATV630D11N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-2daaa9b96edcee06": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD CHIẾU HÔNG ATV630D30~D45N4"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_6d6c422dc5fe",
+          "sha256": "88d161867bccb8d0bce399cadefae247ccf980439e13d98c1c5b53a3e34470fa",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV630D30~D45N4",
+        "type": "VFD",
+        "product_code": "ATV630D30~D45N4",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV630D30N4",
+          "ATV630D37N4",
+          "ATV630D45N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-709136a5f2362a55": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD ATV630D55~D90N4"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_74819135e595",
+          "sha256": "4999a70d764434af19be743ce3354f69b12e89ab68e49a974eada5be6d880fed",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV630D55~D90N4",
+        "type": "VFD",
+        "product_code": "ATV630D55~D90N4",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV630D55N4",
+          "ATV630D75N4",
+          "ATV630D90N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-147acacf560564bc": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD CHIẾU HÔNG ATV630C11~C16N4"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_86072b6ccbea",
+          "sha256": "baa579b84d1dde5d9fac7baaa47d5eb2d75124f1d47febd28937a5d6fa8436aa",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV630C11~C16N4",
+        "type": "VFD",
+        "product_code": "ATV630C11~C16N4",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV630C11N4",
+          "ATV630C13N4",
+          "ATV630C16N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-d2ed90668cccf5cb": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD CHIẾU HÔNG ATV630U07~55N4"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_88da6ea67680",
+          "sha256": "b1218c0eac3d1f89a115299b0b237b0ea149024cc194c6509692b11ac9bb3547",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV630U07~55N4",
+        "type": "VFD",
+        "product_code": "ATV630U07~55N4",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV630U07N4",
+          "ATV630U15N4",
+          "ATV630U22N4",
+          "ATV630U30N4",
+          "ATV630U40N4",
+          "ATV630U55N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-8b4d2edbd76f927a": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD ATV212HU75~D11N4"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/ATV212_CATALOG.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_8a0420b87cbc",
+          "sha256": "9db78e2a728be693acf66fc86131fa9ed40a39d5009215337a102a6c11287c48",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV212HU75~D11N4",
+        "type": "VFD",
+        "product_code": "ATV212HU75~D11N4",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/ATV212_CATALOG.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV212HU75N4",
+          "ATV212HD11N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-41d72221c38b347d": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD ATV212HD15~18N4"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/ATV212_CATALOG.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_8e108be7e751",
+          "sha256": "8dddfaea9883c34d4284f2007d6172f08c72139d0943a83b7950931de84e94c8",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV212HD15~18N4",
+        "type": "VFD",
+        "product_code": "ATV212HD15~18N4",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/ATV212_CATALOG.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV212HD15N4",
+          "ATV212HD18N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-2598dbf214bce578": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD ATV630D15~D22N4"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_8f5caae993dd",
+          "sha256": "4c42681672e7b4269607e5a390cac05b214ba4d48aabedc34f02c7fbbe0a17f0",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV630D15~D22N4",
+        "type": "VFD",
+        "product_code": "ATV630D15~D22N4",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV630D15N4",
+          "ATV630D18N4",
+          "ATV630D22N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-f0b01f81ba66ed54": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD CHIẾU HÔNG ATV630U75~D11N4"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_90f086eb6e47",
+          "sha256": "25f2568d6c310b694e40f740611a760ca474af1c1b1c682929673c9f026e6181",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV630U75~D11N4",
+        "type": "VFD",
+        "product_code": "ATV630U75~D11N4",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV630U75N4",
+          "ATV630D11N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-f74086e706b33994": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD CHIẾU TRÊN ATV630U07~55N4"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_a518cf7b3896",
+          "sha256": "b34ab716645cb8c23a0c37e37f9b6329d68e598f1a26c5ee7086d88a895b066f",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV630U07~55N4",
+        "type": "VFD",
+        "product_code": "ATV630U07~55N4",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV630U07N4",
+          "ATV630U15N4",
+          "ATV630U22N4",
+          "ATV630U30N4",
+          "ATV630U40N4",
+          "ATV630U55N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-0e51ad1ddf186f06": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD CHIẾU TRÊN ATV630C11~C16N4"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_bb1c21736baf",
+          "sha256": "8d863baec89f0a2b95d3924805957b22eb0571dcde067432f1080b3dc4b13397",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV630C11~C16N4",
+        "type": "VFD",
+        "product_code": "ATV630C11~C16N4",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV630C11N4",
+          "ATV630C13N4",
+          "ATV630C16N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-58ec6416f4e1a238": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD CHIẾU HÔNG ATV630D55~D90N4"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_c4727eaa7e75",
+          "sha256": "c8724a34345b4b1a5ca730603aadf126112732d5b480b454598848b9a4a16f94",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV630D55~D90N4",
+        "type": "VFD",
+        "product_code": "ATV630D55~D90N4",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV630D55N4",
+          "ATV630D75N4",
+          "ATV630D90N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-2137b5bec46ab654": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD ATV212HU30~U55N4"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/ATV212_CATALOG.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_d26fff0217a9",
+          "sha256": "1868c59ef46ee4a2b6e547befc0f4ee984bfb4d89a0f16e2ac8f338bcc8b8620",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV212HU30~U55N4",
+        "type": "VFD",
+        "product_code": "ATV212HU30~U55N4",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/ATV212_CATALOG.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV212HU30N4",
+          "ATV212HU40N4",
+          "ATV212HU55N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-eeb309129ee454c2": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD ATV212H075~U22N4"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/ATV212_CATALOG.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_d3fbe3701965",
+          "sha256": "6c2f83ee30d6631fe6caeeb7c93c69599126f0cb457a8797edc81ba31c448b98",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV212H075~U22N4",
+        "type": "VFD",
+        "product_code": "ATV212H075~U22N4",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/ATV212_CATALOG.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV212H075N4",
+          "ATV212HU15N4",
+          "ATV212HU22N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-e98d817c07787f40": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD CHIẾU HÔNG ATV212HU75~D11N4"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/ATV212_CATALOG.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_db743ee67821",
+          "sha256": "32603521204a2f3547bb4bcf06c2da4c2eb5d564362cf4bbf5a4c6959d731f8f",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV212HU75~D11N4",
+        "type": "VFD",
+        "product_code": "ATV212HU75~D11N4",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/ATV212_CATALOG.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV212HU75N4",
+          "ATV212HD11N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-35e99c520436de04": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD CHIẾU HÔNG ATV630D15~D22N4"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_ea13c12cc0ff",
+          "sha256": "325542315fda9752706fd84eaa37f833575dd1c566d11fef478a20e5eb206f42",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV630D15~D22N4",
+        "type": "VFD",
+        "product_code": "ATV630D15~D22N4",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV630D15N4",
+          "ATV630D18N4",
+          "ATV630D22N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-41f14468dd34f079": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD CHIẾU HÔNG ATV212H075~U22N4"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/ATV212_CATALOG.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_ec3c394f71a8",
+          "sha256": "64bb30621729a7c2a06a7f9836f237a332962a207ade89eedbdaab51707283ee",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV212H075~U22N4",
+        "type": "VFD",
+        "product_code": "ATV212H075~U22N4",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/ATV212_CATALOG.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV212H075N4",
+          "ATV212HU15N4",
+          "ATV212HU22N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-a2d574560532040a": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD CHIẾU TRÊN ATV320U55~75N4B"
+      },
+      "manufacturer_document": "https://download.schneider-electric.com/files?filename=Catalog&p_Doc_Ref=DIA2ED2160311EN",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_f103efdb4aa3",
+          "sha256": "910b7644f8a7b8812e0747318029c3f795a355fbc65f0f40b7597edf9f44aa74",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV320U55~75N4B",
+        "type": "VFD",
+        "product_code": "ATV320U55~75N4B",
+        "manufacturer_document": "https://download.schneider-electric.com/files?filename=Catalog&p_Doc_Ref=DIA2ED2160311EN",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV320U55N4B",
+          "ATV320U75N4B"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-a0ae757e8e2112d3": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD CHIẾU TRÊN ATV630U75~D11N4"
+      },
+      "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_f956fdeb4632",
+          "sha256": "a6e07cf7e5f96e07cf30d8d8b48aeb7e4596e50e4cf55becd2f541952e4197d3",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV630U75~D11N4",
+        "type": "VFD",
+        "product_code": "ATV630U75~D11N4",
+        "manufacturer_document": "https://www.se.com/us/en/faqs/FA302753/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV630U75N4",
+          "ATV630D11N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-425c7029e22b929e": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD CHIẾU HÔNG ATV320U55~75N4B"
+      },
+      "manufacturer_document": "https://download.schneider-electric.com/files?filename=Catalog&p_Doc_Ref=DIA2ED2160311EN",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_facec8449dbc",
+          "sha256": "c8b40dec9ba091e3a93095331ddfb64a7876e54bf56b24294fc49b09a579207e",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV320U55~75N4B",
+        "type": "VFD",
+        "product_code": "ATV320U55~75N4B",
+        "manufacturer_document": "https://download.schneider-electric.com/files?filename=Catalog&p_Doc_Ref=DIA2ED2160311EN",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV320U55N4B",
+          "ATV320U75N4B"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-6845e19a84e2c404": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD CHIẾU HÔNG ATV212HU30~U55N4"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/ATV212_CATALOG.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_fb4483cb899d",
+          "sha256": "2806f1ea395b265669821eea35ec157d20479861816ab105dbb705f89f8356b2",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV212HU30~U55N4",
+        "type": "VFD",
+        "product_code": "ATV212HU30~U55N4",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/ATV212_CATALOG.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV212HU30N4",
+          "ATV212HU40N4",
+          "ATV212HU55N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-2d4d3ed05b2dd448": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC VSD CHIẾU HÔNG ATV212HD15~18N4"
+      },
+      "manufacturer_document": "https://iportal.se.com/Contents/docs/ATV212_CATALOG.PDF",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_fc3a5b21375f",
+          "sha256": "9cb5b09c643837e93366cda447573962c0be97d84c7b64ed42b5956eea841717",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "VFD Schneider Electric ATV212HD15~18N4",
+        "type": "VFD",
+        "product_code": "ATV212HD15~18N4",
+        "manufacturer_document": "https://iportal.se.com/Contents/docs/ATV212_CATALOG.PDF",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "ATV212HD15N4",
+          "ATV212HD18N4"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-62fdbbeb72474fdf": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT CHIẾU HÔNG LC1D40~65"
+      },
+      "manufacturer_document": "https://www.se.com/es/es/faqs/FA279562/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_03e9216c2c59",
+          "sha256": "b42598cba993a07f82dba8c1e0021484798c3436dc873b06a63e5655e8b47b16",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1D40-65",
+        "type": "CONTACTOR",
+        "product_code": "LC1D40-65",
+        "manufacturer_document": "https://www.se.com/es/es/faqs/FA279562/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "LC1D40",
+          "LC1D50",
+          "LC1D65"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-f797252cdf24c89e": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "NS100_160NHL_c"
+      },
+      "manufacturer_document": "https://ckm-content.se.com/ckmContent/sfc/servlet.shepherd/document/download/0691H00000FWbNdQAL",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_22efc6b88da2",
+          "sha256": "5fdfffc57d11f65f412785f4aec2775f6d452216ef9794ac2c5f3c70d722e310",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCCB Schneider Electric NS100 / NS160",
+        "type": "MCCB",
+        "product_code": "NS100 / NS160",
+        "manufacturer_document": "https://ckm-content.se.com/ckmContent/sfc/servlet.shepherd/document/download/0691H00000FWbNdQAL",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "NS100N",
+          "NS100H",
+          "NS100L",
+          "NS160N",
+          "NS160H",
+          "NS160L"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-3711aa4710cccad3": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "NS100_160NHL_4_c"
+      },
+      "manufacturer_document": "https://ckm-content.se.com/ckmContent/sfc/servlet.shepherd/document/download/0691H00000FWbNdQAL",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_5b9925d03960",
+          "sha256": "94ee45694f21860497c8a00a7677e651dbdd16c618ab70dfe573efaeb7330cc0",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCCB Schneider Electric NS100 / NS160",
+        "type": "MCCB",
+        "product_code": "NS100 / NS160",
+        "manufacturer_document": "https://ckm-content.se.com/ckmContent/sfc/servlet.shepherd/document/download/0691H00000FWbNdQAL",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "NS100N",
+          "NS100H",
+          "NS100L",
+          "NS160N",
+          "NS160H",
+          "NS160L"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-f0ad79304b9dfa57": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "LC1E160"
+      },
+      "manufacturer_document": "https://www.se.com/pl/pl/faqs/FAQ000267489/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_63c4f6f26b83",
+          "sha256": "5b16227d48bdaaeb84ccd3f03e9cecbba7a9420ba877febb6315846e839d6345",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1E160",
+        "type": "CONTACTOR",
+        "product_code": "LC1E160",
+        "manufacturer_document": "https://www.se.com/pl/pl/faqs/FAQ000267489/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-be8517e7eec2f604": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "LC1D40-65"
+      },
+      "manufacturer_document": "https://www.se.com/es/es/faqs/FA279562/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_8719337e0457",
+          "sha256": "a52e7823b1246c53f8f7d3d96ab0d5974d41e6daf902204f82c50f35db45f7da",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1D40-65",
+        "type": "CONTACTOR",
+        "product_code": "LC1D40-65",
+        "manufacturer_document": "https://www.se.com/es/es/faqs/FA279562/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "LC1D40",
+          "LC1D50",
+          "LC1D65"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-70f3194c438e827c": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "06 - N - SC CTT LC1D40~65"
+      },
+      "manufacturer_document": "https://www.se.com/es/es/faqs/FA279562/",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_875fe478eb07",
+          "sha256": "a8afe01d2497e54219cb64a505ef75ee9c29452165b5e366baa9dc624f4096ba",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "CONTACTOR Schneider Electric LC1D40-65",
+        "type": "CONTACTOR",
+        "product_code": "LC1D40-65",
+        "manufacturer_document": "https://www.se.com/es/es/faqs/FA279562/",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "LC1D40",
+          "LC1D50",
+          "LC1D65"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-4054679f8749671a": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "NS100_160NHL_4_d"
+      },
+      "manufacturer_document": "https://ckm-content.se.com/ckmContent/sfc/servlet.shepherd/document/download/0691H00000FWbNdQAL",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_abb4ad340d76",
+          "sha256": "33380ebfeded2aaaccea4e1298064ac88b99d5d9bd5d8ec706a93a1162572e87",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCCB Schneider Electric NS100 / NS160",
+        "type": "MCCB",
+        "product_code": "NS100 / NS160",
+        "manufacturer_document": "https://ckm-content.se.com/ckmContent/sfc/servlet.shepherd/document/download/0691H00000FWbNdQAL",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "NS100N",
+          "NS100H",
+          "NS100L",
+          "NS160N",
+          "NS160H",
+          "NS160L"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-3a9d29b8dbb7b411": {
+      "brand": "Schneider Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+        "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "block": "NS100_160NHL_5_d"
+      },
+      "manufacturer_document": "https://ckm-content.se.com/ckmContent/sfc/servlet.shepherd/document/download/0691H00000FWbNdQAL",
+      "views": [
+        {
+          "view_id": "SRC_SCHNEIDER_add57b51121b",
+          "sha256": "a90961f81a2281833d51b3c1cafac735ea1f0211e7740184438d6b9353261894",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCCB Schneider Electric NS100 / NS160",
+        "type": "MCCB",
+        "product_code": "NS100 / NS160",
+        "manufacturer_document": "https://ckm-content.se.com/ckmContent/sfc/servlet.shepherd/document/download/0691H00000FWbNdQAL",
+        "source_model_reference": true,
+        "reviewed_spec": {},
+        "price_family_codes": [
+          "NS100N",
+          "NS100H",
+          "NS100L",
+          "NS160N",
+          "NS160H",
+          "NS160L"
+        ],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-e59254bbdb7e0b3f": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "LS ABH52C 2P"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1526/Metasol_MCCB_E_1407.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_08f05b6a7d61",
+          "sha256": "a5fff83b36bdc26101a7ae70051c53010e0b687182ebe684d7a599d1189ed164",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCCB LS Electric ABH52c",
+        "type": "MCCB",
+        "product_code": "ABH52c",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1526/Metasol_MCCB_E_1407.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "2P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-a2e5e1b1200b4783": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "ABS403c"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1526/Metasol_MCCB_E_1407.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_3c36f48a9dc2",
+          "sha256": "4509f49d19a232d9ef99776a06bf1d1ac95312d92a7183dfa0320693f814cc56",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCCB LS Electric ABS403c",
+        "type": "MCCB",
+        "product_code": "ABS403c",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1526/Metasol_MCCB_E_1407.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "3P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-d69f76621bed31d5": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "abn203c"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1526/Metasol_MCCB_E_1407.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_a0e89a56dd19",
+          "sha256": "032c0c4eb263f87bb76529b9090738eb3f26b32c6b94222b984187ea2f626317",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCCB LS Electric ABN203c",
+        "type": "MCCB",
+        "product_code": "ABN203c",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1526/Metasol_MCCB_E_1407.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "3P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-dbfa3fc69f482c5e": {
+      "brand": "LS Electric",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "ABN53c"
+      },
+      "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1526/Metasol_MCCB_E_1407.pdf",
+      "views": [
+        {
+          "view_id": "SRC_LS_c3db0431a799",
+          "sha256": "02f1b23658aa4cfd2a29b01fdd87a1da0d9d0fec70de724edabed9e45265b259",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCCB LS Electric ABN53c",
+        "type": "MCCB",
+        "product_code": "ABN53c",
+        "manufacturer_document": "https://www.ls-electric.com/upload/customer/download/1526/Metasol_MCCB_E_1407.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "3P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-e62130601b4d5568": {
+      "brand": "CHINT",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@CHINT.dwg",
+        "sha256": "aa426c85a63c42369c7ec4e44b374030232c0d81793325963bb4a82b00aaf35a",
+        "block": "ats chint NZ7-125 100A 4P"
+      },
+      "manufacturer_document": "https://chintglobal.vn/wp-content/uploads/2021/09/nz7-catalog.pdf",
+      "views": [
+        {
+          "view_id": "SRC_CHINT_24d4f273feda",
+          "sha256": "5e9bdfdbb1866f9b4d156b2cc527303c7282bc4ff23f941151599cc773eb4d15",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "ATS CHINT NZ7-125",
+        "type": "ATS",
+        "product_code": "NZ7-125",
+        "manufacturer_document": "https://chintglobal.vn/wp-content/uploads/2021/09/nz7-catalog.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "4P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
+    },
+    "TB-997f2440e6109dc2": {
+      "brand": "CHINT",
+      "status": "source_model_documented",
+      "source": {
+        "file": "D:\\THƯ VIỆN\\@CHINT.dwg",
+        "sha256": "aa426c85a63c42369c7ec4e44b374030232c0d81793325963bb4a82b00aaf35a",
+        "block": "NXM-1600S-3"
+      },
+      "manufacturer_document": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nxm/certificate/2406-NXM-1600-MCCB-CB%20Certificate.pdf",
+      "views": [
+        {
+          "view_id": "SRC_CHINT_54593f3909d0",
+          "sha256": "950b4b772fea26287a0b8814acb4febeb7fbc6ebf45bc7163cd71a47751f5a44",
+          "texts": []
+        }
+      ],
+      "basis": "Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.",
+      "note": "Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.",
+      "library_description": {
+        "display": "MCCB CHINT NXM-1600S",
+        "type": "MCCB",
+        "product_code": "NXM-1600S",
+        "manufacturer_document": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nxm/certificate/2406-NXM-1600-MCCB-CB%20Certificate.pdf",
+        "source_model_reference": true,
+        "reviewed_spec": {
+          "so_cuc": "3P"
+        },
+        "price_family_codes": [],
+        "use": "Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí."
+      }
     }
   }
 }

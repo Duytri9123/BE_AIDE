@@ -1,13 +1,13 @@
 {
-  "linked_count": 157,
-  "verified_unlinked_count": 229,
+  "linked_count": 216,
+  "verified_unlinked_count": 265,
   "reason_counts": {
-    "related_code_only": 36,
+    "related_code_only": 55,
     "no_device_code": 56,
-    "code_not_in_published_prices": 105,
+    "code_not_in_published_prices": 122,
     "no_brand_prices": 32
   },
-  "price_row_count": 9378,
+  "price_row_count": 9476,
   "linked": [
     {
       "id": "TB-88adac8683ca9439",
@@ -376,6 +376,30 @@
       "choices": 12
     },
     {
+      "id": "TB-03aa3238dabc4094",
+      "brand": "CHINT",
+      "name": "MCB CHINT NXB-63",
+      "choices": 11
+    },
+    {
+      "id": "TB-e1b1231f6ae8fd19",
+      "brand": "CHINT",
+      "name": "MCB CHINT NXB-63",
+      "choices": 11
+    },
+    {
+      "id": "TB-1300f9bd47ebfd6f",
+      "brand": "CHINT",
+      "name": "MCB CHINT NXB-63",
+      "choices": 11
+    },
+    {
+      "id": "TB-d1bbcfffa8445d84",
+      "brand": "CHINT",
+      "name": "MCB CHINT NXB-63",
+      "choices": 11
+    },
+    {
       "id": "TB-ca3b557c85ccd8c2",
       "brand": "CHINT",
       "name": "Phase Relay CHINT XJ3-G",
@@ -452,6 +476,54 @@
       "brand": "LS Electric",
       "name": "Thermal Relay LS MT-63",
       "choices": 1
+    },
+    {
+      "id": "TB-93b90144bbbf3109",
+      "brand": "LS Electric",
+      "name": "THERMAL_RELAY LS Electric MT-63",
+      "choices": 1
+    },
+    {
+      "id": "TB-03adf5a8e67ae581",
+      "brand": "LS Electric",
+      "name": "MCB LS Electric BKN",
+      "choices": 2
+    },
+    {
+      "id": "TB-7dd2ecb5a38cc051",
+      "brand": "LS Electric",
+      "name": "CONTACTOR LS Electric MC-185a",
+      "choices": 1
+    },
+    {
+      "id": "TB-51f4558cd68dbb11",
+      "brand": "LS Electric",
+      "name": "THERMAL_RELAY LS Electric MT-12",
+      "choices": 1
+    },
+    {
+      "id": "TB-7ec687e49e297901",
+      "brand": "LS Electric",
+      "name": "CONTACTOR LS Electric MC-265a",
+      "choices": 1
+    },
+    {
+      "id": "TB-4cca6dc255bc2167",
+      "brand": "LS Electric",
+      "name": "CONTACTOR LS Electric MC-500a",
+      "choices": 1
+    },
+    {
+      "id": "TB-32144d13a2436f0b",
+      "brand": "LS Electric",
+      "name": "MCB LS Electric BKN",
+      "choices": 2
+    },
+    {
+      "id": "TB-2d95b404b4b14f47",
+      "brand": "LS Electric",
+      "name": "MCB LS Electric BKN",
+      "choices": 2
     },
     {
       "id": "TB-9ab210cbda2e391b",
@@ -890,6 +962,288 @@
       "brand": "Schneider Electric",
       "name": "Contactor Schneider LC1E32 · 3P",
       "choices": 4
+    },
+    {
+      "id": "TB-faa371b9ff857b8f",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV320U22~40N4C",
+      "choices": 3
+    },
+    {
+      "id": "TB-4092570e76365c9b",
+      "brand": "Schneider Electric",
+      "name": "MCCB Schneider Electric EZC100",
+      "choices": 4
+    },
+    {
+      "id": "TB-874c5547cd458752",
+      "brand": "Schneider Electric",
+      "name": "CONTACTOR Schneider Electric LC1E32",
+      "choices": 4
+    },
+    {
+      "id": "TB-aa88cc78f94d3ba5",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV320U55~75N4B",
+      "choices": 2
+    },
+    {
+      "id": "TB-0cc0c56bd994d60d",
+      "brand": "Schneider Electric",
+      "name": "CONTACTOR Schneider Electric LC1D32",
+      "choices": 1
+    },
+    {
+      "id": "TB-b3db3f72b1386e95",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV630D55~D90N4",
+      "choices": 3
+    },
+    {
+      "id": "TB-436f8c8137844f85",
+      "brand": "Schneider Electric",
+      "name": "CONTACTOR Schneider Electric LC1D18",
+      "choices": 1
+    },
+    {
+      "id": "TB-cc4d7e2ce43e4773",
+      "brand": "Schneider Electric",
+      "name": "MCCB Schneider Electric EZC250",
+      "choices": 3
+    },
+    {
+      "id": "TB-4fc8d9679c3649ef",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV630U07~55N4",
+      "choices": 6
+    },
+    {
+      "id": "TB-90f636ce9ec4344c",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV630D15~D22N4",
+      "choices": 3
+    },
+    {
+      "id": "TB-68dece17b8b6f28a",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV320U22~40N4C",
+      "choices": 3
+    },
+    {
+      "id": "TB-3aabcfa28ac7f3ba",
+      "brand": "Schneider Electric",
+      "name": "CONTACTOR Schneider Electric LC1D9-18",
+      "choices": 2
+    },
+    {
+      "id": "TB-06f8e3cb26b68f79",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV630D30~D45N4",
+      "choices": 3
+    },
+    {
+      "id": "TB-79ddf299eca7273e",
+      "brand": "Schneider Electric",
+      "name": "CONTACTOR Schneider Electric LC1D25",
+      "choices": 1
+    },
+    {
+      "id": "TB-95c74c0f4e250dd3",
+      "brand": "Schneider Electric",
+      "name": "CONTACTOR Schneider Electric LC1E06-18",
+      "choices": 16
+    },
+    {
+      "id": "TB-fa2c70999cd97df4",
+      "brand": "Schneider Electric",
+      "name": "CONTACTOR Schneider Electric LC1D32",
+      "choices": 1
+    },
+    {
+      "id": "TB-8753a6ee78d8b997",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV630D30~D45N4",
+      "choices": 3
+    },
+    {
+      "id": "TB-373e361e224af273",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV320U22~40N4C",
+      "choices": 3
+    },
+    {
+      "id": "TB-ca67cfdfe75b87a5",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV630U75~D11N4",
+      "choices": 2
+    },
+    {
+      "id": "TB-2daaa9b96edcee06",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV630D30~D45N4",
+      "choices": 3
+    },
+    {
+      "id": "TB-709136a5f2362a55",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV630D55~D90N4",
+      "choices": 3
+    },
+    {
+      "id": "TB-39b0e1bd1634ae8b",
+      "brand": "Schneider Electric",
+      "name": "MCCB Schneider Electric EZC250",
+      "choices": 3
+    },
+    {
+      "id": "TB-dced0a03b7ea334e",
+      "brand": "Schneider Electric",
+      "name": "CONTACTOR Schneider Electric LC1D18",
+      "choices": 1
+    },
+    {
+      "id": "TB-d2ed90668cccf5cb",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV630U07~55N4",
+      "choices": 6
+    },
+    {
+      "id": "TB-8b4d2edbd76f927a",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV212HU75~D11N4",
+      "choices": 2
+    },
+    {
+      "id": "TB-41d72221c38b347d",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV212HD15~18N4",
+      "choices": 2
+    },
+    {
+      "id": "TB-2598dbf214bce578",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV630D15~D22N4",
+      "choices": 3
+    },
+    {
+      "id": "TB-f0b01f81ba66ed54",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV630U75~D11N4",
+      "choices": 2
+    },
+    {
+      "id": "TB-92e2043a2bd511a7",
+      "brand": "Schneider Electric",
+      "name": "CONTACTOR Schneider Electric LC1D25-38",
+      "choices": 3
+    },
+    {
+      "id": "TB-afd60a00b7d134cd",
+      "brand": "Schneider Electric",
+      "name": "CONTACTOR Schneider Electric LC1E25",
+      "choices": 4
+    },
+    {
+      "id": "TB-f74086e706b33994",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV630U07~55N4",
+      "choices": 6
+    },
+    {
+      "id": "TB-c6b1fa1fb05f17c0",
+      "brand": "Schneider Electric",
+      "name": "CONTACTOR Schneider Electric LC1D25",
+      "choices": 1
+    },
+    {
+      "id": "TB-58ec6416f4e1a238",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV630D55~D90N4",
+      "choices": 3
+    },
+    {
+      "id": "TB-2137b5bec46ab654",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV212HU30~U55N4",
+      "choices": 3
+    },
+    {
+      "id": "TB-eeb309129ee454c2",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV212H075~U22N4",
+      "choices": 3
+    },
+    {
+      "id": "TB-e98d817c07787f40",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV212HU75~D11N4",
+      "choices": 2
+    },
+    {
+      "id": "TB-b2127e7ca1b65481",
+      "brand": "Schneider Electric",
+      "name": "MCCB Schneider Electric EZC250",
+      "choices": 1
+    },
+    {
+      "id": "TB-50b9e0b14ec25b83",
+      "brand": "Schneider Electric",
+      "name": "MCCB Schneider Electric EZC100",
+      "choices": 1
+    },
+    {
+      "id": "TB-b05de4d1c90b9878",
+      "brand": "Schneider Electric",
+      "name": "MCCB Schneider Electric EZC100",
+      "choices": 1
+    },
+    {
+      "id": "TB-35e99c520436de04",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV630D15~D22N4",
+      "choices": 3
+    },
+    {
+      "id": "TB-41f14468dd34f079",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV212H075~U22N4",
+      "choices": 3
+    },
+    {
+      "id": "TB-a2d574560532040a",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV320U55~75N4B",
+      "choices": 2
+    },
+    {
+      "id": "TB-a0ae757e8e2112d3",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV630U75~D11N4",
+      "choices": 2
+    },
+    {
+      "id": "TB-425c7029e22b929e",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV320U55~75N4B",
+      "choices": 2
+    },
+    {
+      "id": "TB-6845e19a84e2c404",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV212HU30~U55N4",
+      "choices": 3
+    },
+    {
+      "id": "TB-1cac077415383e54",
+      "brand": "Schneider Electric",
+      "name": "MCCB Schneider Electric EZC100",
+      "choices": 4
+    },
+    {
+      "id": "TB-2d4d3ed05b2dd448",
+      "brand": "Schneider Electric",
+      "name": "VFD Schneider Electric ATV212HD15~18N4",
+      "choices": 2
     },
     {
       "id": "TB-26cbc7271ef1b2ef",
@@ -2356,6 +2710,106 @@
       "related_price_rows": []
     },
     {
+      "id": "TB-e62130601b4d5568",
+      "name": "ATS CHINT NZ7-125",
+      "brand": "CHINT",
+      "type": "ATS",
+      "product_code": "NZ7-125",
+      "reason": "related_code_only",
+      "brand_price_count": 1729,
+      "related_price_rows": [
+        {
+          "id": "web:0c03c2a40c3a4036",
+          "sku": "NZ7-125S/3",
+          "item_name": "NZ7-125S/3",
+          "category": "ACCESSORY",
+          "specifications": {
+            "In (A)": "25"
+          }
+        },
+        {
+          "id": "web:6dd45fc4014bfceb",
+          "sku": "NZ7-125S/3",
+          "item_name": "NZ7-125S/3",
+          "category": "ACCESSORY",
+          "specifications": {
+            "In (A)": "32"
+          }
+        },
+        {
+          "id": "web:7b33e651dcfa7abd",
+          "sku": "NZ7-125S/3",
+          "item_name": "NZ7-125S/3",
+          "category": "ACCESSORY",
+          "specifications": {
+            "In (A)": "40"
+          }
+        },
+        {
+          "id": "web:7fad454bf61fa57f",
+          "sku": "NZ7-125S/3",
+          "item_name": "NZ7-125S/3",
+          "category": "ACCESSORY",
+          "specifications": {
+            "In (A)": "50"
+          }
+        },
+        {
+          "id": "web:8d4378a9e583430a",
+          "sku": "NZ7-125S/3",
+          "item_name": "NZ7-125S/3",
+          "category": "ACCESSORY",
+          "specifications": {
+            "In (A)": "63"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-997f2440e6109dc2",
+      "name": "MCCB CHINT NXM-1600S",
+      "brand": "CHINT",
+      "type": "MCCB",
+      "product_code": "NXM-1600S",
+      "reason": "related_code_only",
+      "brand_price_count": 1729,
+      "related_price_rows": [
+        {
+          "id": "chint-pdf:8d59a98663da477d",
+          "sku": "NXM-1600S/3300T 1600A",
+          "item_name": "NXM-1600S/3300T 1600A",
+          "category": "MCCB",
+          "specifications": {
+            "In": "1600A",
+            "Icu": "50kA",
+            "Mã hàng": "131378"
+          }
+        },
+        {
+          "id": "chint-pdf:c036745a6e48181b",
+          "sku": "NXM-1600S/4300TB 1250A",
+          "item_name": "NXM-1600S/4300TB 1250A",
+          "category": "MCCB",
+          "specifications": {
+            "In": "1250A",
+            "Icu": "50kA",
+            "Mã hàng": "844320"
+          }
+        },
+        {
+          "id": "chint-pdf:12bd3dbed5328391",
+          "sku": "NXM-1600S/4300TB 1600A",
+          "item_name": "NXM-1600S/4300TB 1600A",
+          "category": "MCCB",
+          "specifications": {
+            "In": "1600A",
+            "Icu": "50kA",
+            "Mã hàng": "844321"
+          }
+        }
+      ]
+    },
+    {
       "id": "TB-f67c2315fe687372",
       "name": "Chống sét · mẫu CAD 9acc8a",
       "brand": "Suntree",
@@ -3418,6 +3872,200 @@
       "related_price_rows": []
     },
     {
+      "id": "TB-e59254bbdb7e0b3f",
+      "name": "MCCB LS Electric ABH52c",
+      "brand": "LS Electric",
+      "type": "MCCB",
+      "product_code": "ABH52c",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 697,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-a2e5e1b1200b4783",
+      "name": "MCCB LS Electric ABS403c",
+      "brand": "LS Electric",
+      "type": "MCCB",
+      "product_code": "ABS403c",
+      "reason": "related_code_only",
+      "brand_price_count": 697,
+      "related_price_rows": [
+        {
+          "id": "ls-pdf:2f1f1ac3df70e08a",
+          "sku": "ABS403c",
+          "item_name": "ABS403c",
+          "category": "MCCB",
+          "specifications": {
+            "In (A)": "250-300-350-400A",
+            "Icu(KA)": "65"
+          }
+        },
+        {
+          "id": "web:02b2ddc10303c1ec",
+          "sku": "ABS403c",
+          "item_name": "ABS403c",
+          "category": "ACCESSORY",
+          "specifications": {
+            "In (A)": "400",
+            "Khả năng cắt và điện áp": "65Ka"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-ca53bae6a5bfdab3",
+      "name": "MCB LS Electric BKN",
+      "brand": "LS Electric",
+      "type": "MCB",
+      "product_code": "BKN",
+      "reason": "related_code_only",
+      "brand_price_count": 697,
+      "related_price_rows": [
+        {
+          "id": "web:5fe815ac88522858",
+          "sku": "BKN 1P 32A",
+          "item_name": "BKN 1P 32A",
+          "category": "MCB",
+          "specifications": null
+        },
+        {
+          "id": "web:abf86c69f53e46c0",
+          "sku": "BKN 2P 25A",
+          "item_name": "BKN 2P 25A",
+          "category": "MCB",
+          "specifications": null
+        },
+        {
+          "id": "web:584cc2921c934842",
+          "sku": "BKN 1P 20A",
+          "item_name": "BKN 1P 20A",
+          "category": "MCB",
+          "specifications": null
+        },
+        {
+          "id": "web:a305d58084427b37",
+          "sku": "BKN 2P 40A",
+          "item_name": "BKN 2P 40A",
+          "category": "MCB",
+          "specifications": null
+        },
+        {
+          "id": "web:abcc54757ad80ec4",
+          "sku": "BKN 3P 63A",
+          "item_name": "BKN 3P 63A",
+          "category": "MCB",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-d69f76621bed31d5",
+      "name": "MCCB LS Electric ABN203c",
+      "brand": "LS Electric",
+      "type": "MCCB",
+      "product_code": "ABN203c",
+      "reason": "related_code_only",
+      "brand_price_count": 697,
+      "related_price_rows": [
+        {
+          "id": "ls-pdf:bca2d5c4a9d6111c",
+          "sku": "ABN203c",
+          "item_name": "ABN203c",
+          "category": "MCCB",
+          "specifications": {
+            "In (A)": "100,125,150,175,200,225,250A",
+            "Icu(KA)": "30",
+            "Kích thước bao W×H×D (mm)": "105 × 165 × 87",
+            "Độ sâu thân c1 (mm)": "60",
+            "Độ sâu vỏ c2 (mm)": "64",
+            "Ui": "750V",
+            "Uimp": "8kV",
+            "Lắp đặt": "Bắt vít"
+          }
+        },
+        {
+          "id": "web:d54f651cd46f1b2e",
+          "sku": "ABN203c",
+          "item_name": "ABN203c",
+          "category": "ACCESSORY",
+          "specifications": {
+            "In (A)": "225,250",
+            "Khả năng cắt và điện áp": "30Ka"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-dbfa3fc69f482c5e",
+      "name": "MCCB LS Electric ABN53c",
+      "brand": "LS Electric",
+      "type": "MCCB",
+      "product_code": "ABN53c",
+      "reason": "related_code_only",
+      "brand_price_count": 697,
+      "related_price_rows": [
+        {
+          "id": "ls-pdf:4f798be10a387dc7",
+          "sku": "ABN53c",
+          "item_name": "ABN53c",
+          "category": "MCCB",
+          "specifications": {
+            "In (A)": "15-20-30-40-50A",
+            "Icu(KA)": "18",
+            "Kích thước bao W×H×D (mm)": "75 × 130 × 82",
+            "Độ sâu thân c1 (mm)": "60",
+            "Độ sâu vỏ c2 (mm)": "64",
+            "Ui": "750V",
+            "Uimp": "8kV",
+            "Lắp đặt": "Bắt vít"
+          }
+        },
+        {
+          "id": "web:148738d80b3ac9ff",
+          "sku": "ABN53c",
+          "item_name": "ABN53c",
+          "category": "ACCESSORY",
+          "specifications": {
+            "In (A)": "50",
+            "Khả năng cắt và điện áp": "18Ka"
+          }
+        },
+        {
+          "id": "web:8dfa37ae4d5970b1",
+          "sku": "ABN53c",
+          "item_name": "ABN53c",
+          "category": "ACCESSORY",
+          "specifications": {
+            "Số cực": "3P",
+            "In (A)": "15",
+            "Khả năng cắt và điện áp": "18kA"
+          }
+        },
+        {
+          "id": "web:0fdae45071fba66b",
+          "sku": "ABN53c",
+          "item_name": "ABN53c",
+          "category": "ACCESSORY",
+          "specifications": {
+            "Số cực": "3P",
+            "In (A)": "20",
+            "Khả năng cắt và điện áp": "18kA"
+          }
+        },
+        {
+          "id": "web:76865a8f87074076",
+          "sku": "ABN53c",
+          "item_name": "ABN53c",
+          "category": "ACCESSORY",
+          "specifications": {
+            "Số cực": "3P",
+            "In (A)": "30",
+            "Khả năng cắt và điện áp": "18kA"
+          }
+        }
+      ]
+    },
+    {
       "id": "TB-300ba7d6dfff5a0f",
       "name": "MCCB LS TD100/TD160 · 2P",
       "brand": "LS Electric",
@@ -4177,7 +4825,7 @@
       "type": "RMU",
       "product_code": "CCVV-24kV",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4187,7 +4835,7 @@
       "type": "RMU",
       "product_code": "CV-24kV",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4197,7 +4845,7 @@
       "type": "RMU",
       "product_code": "CCV-24kV",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4227,7 +4875,7 @@
       "type": "RCD",
       "product_code": "A9D",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4237,7 +4885,7 @@
       "type": "RCD",
       "product_code": "A9D",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4247,7 +4895,7 @@
       "type": "MCCB",
       "product_code": "EZC100",
       "reason": "related_code_only",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": [
         {
           "id": "web:407825c541e9f481",
@@ -4313,7 +4961,7 @@
       "type": "MCCB",
       "product_code": "EZCV250",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4323,7 +4971,7 @@
       "type": "MCCB",
       "product_code": "EZCV250",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4333,7 +4981,7 @@
       "type": "MCCB",
       "product_code": "EZS100",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4343,7 +4991,7 @@
       "type": "MCCB",
       "product_code": "EZS100",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4353,7 +5001,7 @@
       "type": "MCCB",
       "product_code": "EZS100",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4363,7 +5011,7 @@
       "type": "MCCB",
       "product_code": "EZS100",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4373,7 +5021,7 @@
       "type": "MCCB",
       "product_code": "EZS250",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4383,7 +5031,7 @@
       "type": "MCCB",
       "product_code": "EZS250",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4393,7 +5041,7 @@
       "type": "MCCB",
       "product_code": "EZS250",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4403,7 +5051,7 @@
       "type": "MCCB",
       "product_code": "EZS400",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4413,7 +5061,7 @@
       "type": "MCCB",
       "product_code": "EZS400",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4423,7 +5071,7 @@
       "type": "MCB",
       "product_code": "iC60",
       "reason": "related_code_only",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": [
         {
           "id": "web:a2eea0a2e428a2b5",
@@ -4494,7 +5142,7 @@
       "type": "Contactor",
       "product_code": "iCT 1P",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4504,7 +5152,7 @@
       "type": "Contactor",
       "product_code": "LC1D40",
       "reason": "related_code_only",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": [
         {
           "id": "web:096dc2a4efc63326",
@@ -4522,7 +5170,7 @@
       "type": "Contactor",
       "product_code": "LC1D40-65",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4532,7 +5180,7 @@
       "type": "Contactor",
       "product_code": "LC1E160",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4542,7 +5190,7 @@
       "type": "Contactor",
       "product_code": "LC1F115",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4552,7 +5200,7 @@
       "type": "Contactor",
       "product_code": "LC1F150",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4562,7 +5210,7 @@
       "type": "Contactor",
       "product_code": "LC1F185",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4572,7 +5220,7 @@
       "type": "Contactor",
       "product_code": "LC1F225",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4582,7 +5230,7 @@
       "type": "Contactor",
       "product_code": "LC1F265",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4592,7 +5240,7 @@
       "type": "Contactor",
       "product_code": "LC1F330",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4602,7 +5250,7 @@
       "type": "MCCB",
       "product_code": "NS100",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4612,7 +5260,7 @@
       "type": "MCCB",
       "product_code": "NS100",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4622,7 +5270,7 @@
       "type": "MCCB",
       "product_code": "NS100",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4632,7 +5280,7 @@
       "type": "MCCB",
       "product_code": "NS400",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4642,7 +5290,7 @@
       "type": "MCCB",
       "product_code": "NS400",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4652,7 +5300,7 @@
       "type": "MCCB",
       "product_code": "NS630b",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4662,7 +5310,7 @@
       "type": "MCCB",
       "product_code": "NS630b",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4672,7 +5320,478 @@
       "type": "Contactor",
       "product_code": "",
       "reason": "no_device_code",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-62fdbbeb72474fdf",
+      "name": "CONTACTOR Schneider Electric LC1D40-65",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1D40-65",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:096dc2a4efc63326",
+          "sku": "LC1D40AB7",
+          "item_name": "LC1D40AB7",
+          "category": "CONTACTOR",
+          "specifications": null
+        },
+        {
+          "id": "web:295056d5ddf870f9",
+          "sku": "LC1D65AB7",
+          "item_name": "LC1D65AB7",
+          "category": "CONTACTOR",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-d1219758854616f1",
+      "name": "CONTACTOR Schneider Electric LC1D115",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1D115",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:c5bbcf0bf4018caf",
+          "sku": "LC1D115B7",
+          "item_name": "LC1D115B7",
+          "category": "CONTACTOR",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-3f2345dccb53e572",
+      "name": "CONTACTOR Schneider Electric LC1D09",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1D09",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:a73b3660bbe0c6b8",
+          "sku": "LC1D098B7",
+          "item_name": "LC1D098B7",
+          "category": "CONTACTOR",
+          "specifications": {
+            "Mã thân": "LC1D098",
+            "Số cực": "4P",
+            "Điện áp cuộn hút": "24V AC"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-f797252cdf24c89e",
+      "name": "MCCB Schneider Electric NS100 / NS160",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "NS100 / NS160",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-c20aafa063938808",
+      "name": "CONTACTOR Schneider Electric LC1F265",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1F265",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-3efb9e65d9ab07f2",
+      "name": "VFD Schneider Electric ATV630C11~C16N4",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "ATV630C11~C16N4",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-924df46499ef6b4d",
+      "name": "CONTACTOR Schneider Electric LC1F330",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1F330",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-74256dce63c6f12b",
+      "name": "CONTACTOR Schneider Electric LC1F150",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1F150",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-ffb3f20bf4122403",
+      "name": "CONTACTOR Schneider Electric LC1D150",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1D150",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:40b5299b0bd209ce",
+          "sku": "LC1D150B7",
+          "item_name": "LC1D150B7",
+          "category": "CONTACTOR",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-2c205339e7db99d0",
+      "name": "CONTACTOR Schneider Electric LC1D40",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1D40",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:096dc2a4efc63326",
+          "sku": "LC1D40AB7",
+          "item_name": "LC1D40AB7",
+          "category": "CONTACTOR",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-532a8b377a573470",
+      "name": "MCCB Schneider Electric EZC100",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "EZC100",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:407825c541e9f481",
+          "sku": "EZC100B3015",
+          "item_name": "EZC100B3015",
+          "category": "MCCB",
+          "specifications": {
+            "Họ thiết bị": "EZC100",
+            "Số cực": "3P",
+            "In (A)": "15"
+          }
+        },
+        {
+          "id": "web:7724b8b1f47d4f35",
+          "sku": "EZC100F3015",
+          "item_name": "EZC100F3015",
+          "category": "MCCB",
+          "specifications": {
+            "Họ thiết bị": "EZC100",
+            "Số cực": "3P",
+            "In (A)": "15"
+          }
+        },
+        {
+          "id": "web:b857f96c780aa59f",
+          "sku": "EZC100H1015",
+          "item_name": "EZC100H1015",
+          "category": "MCCB",
+          "specifications": {
+            "Họ thiết bị": "EZC100",
+            "Số cực": "1P",
+            "In (A)": "15"
+          }
+        },
+        {
+          "id": "web:01a3d084c68d49f1",
+          "sku": "EZC100H2015",
+          "item_name": "EZC100H2015",
+          "category": "MCCB",
+          "specifications": {
+            "Họ thiết bị": "EZC100",
+            "Số cực": "2P",
+            "In (A)": "15"
+          }
+        },
+        {
+          "id": "web:486a0e91206f852b",
+          "sku": "EZC100H3015",
+          "item_name": "EZC100H3015",
+          "category": "MCCB",
+          "specifications": {
+            "Họ thiết bị": "EZC100",
+            "Số cực": "3P",
+            "In (A)": "15"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-3711aa4710cccad3",
+      "name": "MCCB Schneider Electric NS100 / NS160",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "NS100 / NS160",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-87c193b36a5be2d9",
+      "name": "CONTACTOR Schneider Electric LC1D115",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1D115",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:c5bbcf0bf4018caf",
+          "sku": "LC1D115B7",
+          "item_name": "LC1D115B7",
+          "category": "CONTACTOR",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-f0ad79304b9dfa57",
+      "name": "CONTACTOR Schneider Electric LC1E160",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1E160",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-76b60c464e85531d",
+      "name": "CONTACTOR Schneider Electric A9C20731",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "A9C20731",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-147acacf560564bc",
+      "name": "VFD Schneider Electric ATV630C11~C16N4",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "ATV630C11~C16N4",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-1f6e3c1f906f7fd8",
+      "name": "CONTACTOR Schneider Electric LC1D09",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1D09",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:a73b3660bbe0c6b8",
+          "sku": "LC1D098B7",
+          "item_name": "LC1D098B7",
+          "category": "CONTACTOR",
+          "specifications": {
+            "Mã thân": "LC1D098",
+            "Số cực": "4P",
+            "Điện áp cuộn hút": "24V AC"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-be8517e7eec2f604",
+      "name": "CONTACTOR Schneider Electric LC1D40-65",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1D40-65",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:096dc2a4efc63326",
+          "sku": "LC1D40AB7",
+          "item_name": "LC1D40AB7",
+          "category": "CONTACTOR",
+          "specifications": null
+        },
+        {
+          "id": "web:295056d5ddf870f9",
+          "sku": "LC1D65AB7",
+          "item_name": "LC1D65AB7",
+          "category": "CONTACTOR",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-70f3194c438e827c",
+      "name": "CONTACTOR Schneider Electric LC1D40-65",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1D40-65",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:096dc2a4efc63326",
+          "sku": "LC1D40AB7",
+          "item_name": "LC1D40AB7",
+          "category": "CONTACTOR",
+          "specifications": null
+        },
+        {
+          "id": "web:295056d5ddf870f9",
+          "sku": "LC1D65AB7",
+          "item_name": "LC1D65AB7",
+          "category": "CONTACTOR",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-9d5dda2dfc6b5d35",
+      "name": "CONTACTOR Schneider Electric LC1D80",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1D80",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:e89d322235f8782b",
+          "sku": "LC1D80B7",
+          "item_name": "LC1D80B7",
+          "category": "CONTACTOR",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-12d065e49e4559f5",
+      "name": "CONTACTOR Schneider Electric LC1D80",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1D80",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:e89d322235f8782b",
+          "sku": "LC1D80B7",
+          "item_name": "LC1D80B7",
+          "category": "CONTACTOR",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-4054679f8749671a",
+      "name": "MCCB Schneider Electric NS100 / NS160",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "NS100 / NS160",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-3a9d29b8dbb7b411",
+      "name": "MCCB Schneider Electric NS100 / NS160",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "NS100 / NS160",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-2201734d78c06790",
+      "name": "CONTACTOR Schneider Electric LC1D150",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1D150",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:40b5299b0bd209ce",
+          "sku": "LC1D150B7",
+          "item_name": "LC1D150B7",
+          "category": "CONTACTOR",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-0e51ad1ddf186f06",
+      "name": "VFD Schneider Electric ATV630C11~C16N4",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "ATV630C11~C16N4",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-4219006a98570a3b",
+      "name": "CONTACTOR Schneider Electric LC1F185",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1F185",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-22a3a85328e5a35e",
+      "name": "CONTACTOR Schneider Electric A9C20731",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "A9C20731",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-4243dcd3bacf6a0f",
+      "name": "CONTACTOR Schneider Electric LC1F115",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1F115",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-c00290a70bf823c0",
+      "name": "CONTACTOR Schneider Electric LC1F225",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1F225",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4812,7 +5931,7 @@
       "type": "METER",
       "product_code": "",
       "reason": "no_device_code",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {
@@ -4902,7 +6021,7 @@
       "type": "METER",
       "product_code": "PM710",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 302,
+      "brand_price_count": 400,
       "related_price_rows": []
     },
     {

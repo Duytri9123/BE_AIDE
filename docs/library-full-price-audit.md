@@ -1,5 +1,19 @@
 # Đối chiếu toàn bộ thư viện thiết bị
 
+## Tìm mã cho nhóm 251 CAD nguồn — cập nhật mới nhất 14/10/2026
+
+Đã tìm tài liệu hãng và bổ sung mã/dòng hoặc nhóm mã cho **95/251 CAD nguồn**: CHINT NXB-63, NXM-1600S và NZ7-125; LS BKN, MT-12/63, MC-185a/265a/500a và một số MCCB có hậu tố c rõ ràng; Schneider LC1D/LC1E/LC1F, EZC và Altivar 212/320/630. Nhận diện này dựa trên tên block nguồn đối chiếu tài liệu hãng, có ràng buộc checksum thư viện và từng DXF; không phải đọc logo trực tiếp, xác nhận mọi SKU hay phê duyệt hình học. Vẫn giữ auto_select=false và needs_review=true.
+
+**59 CAD trong nhóm này đã có lựa chọn giá**. Bổ sung **98 dòng giá biến tần Schneider 07/2026 đã gồm VAT** từ 4 trang PDF được xem và kiểm tra cột: ATV320 Book/Compact, ATV212 IP21/IP55 và ATV630 có giá số. Không nhập các dòng ATV630C11 trở lên ghi “Contact for price”, không đổi hậu tố B/C, H/W hoặc lấy giá cùng công suất khác thân.
+
+Nhóm nguồn còn **156 CAD cần xác minh thêm**: 51 nhãn/mã riêng chưa tìm đủ chứng cứ; 54 nhãn dùng chung/khung; 28 nhãn lỗ khoét/lắp đặt cần đối chiếu hình; 15 nhãn HCC/HCN chưa rõ ý nghĩa; 8 nhóm CAD cần kiểm tra từng thành viên. Đây là danh sách công việc còn lại, không phải toàn bộ đã xác minh xong. Không tự đổi LC1D185 thành LC1F185, ABS103 thành ABS103c, NS400_600 thành NS400/630 hoặc lấy mã mới thay bản vẽ đời cũ.
+
+Hiện có **216/837 CAD có lựa chọn giá**, gồm **213/684 CAD ưu tiên bóc tách**, còn **471 CAD ưu tiên chưa có lựa chọn**; 153 cầu đấu/phụ kiện vẫn không bắt buộc giá chính xác. Tổng **9.476 dòng giá**. Kiểm tra đủ 837 CAD/1.448 mặt vẽ: không có lỗi cấu trúc; **70 kiểm tra đạt**. [Danh sách 251 CAD và nguồn đối chiếu](library-source-model-research.md), [báo cáo theo thư mục](library-folder-price-audit.md).
+
+Nguồn chính: [LS Metasol](https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf), [CHINT NXB-63](https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html), [Schneider LC1E25–38](https://www.se.com/us/en/download/document/EAV78697/), [Schneider nhóm Altivar630](https://www.se.com/us/en/faqs/FA302753/), [Master Pricebook](https://www.se.com/vn/vi/download/document/MasterPriceBook/).
+
+Các mục dưới đây ghi lịch sử các lượt trước; dùng số liệu ở mục mới nhất phía trên.
+
 ## Rà đủ các mục và ưu tiên thiết bị bóc tách — cập nhật tiếp 14/10/2026
 
 Đã rà dữ liệu của **26/26 thư mục, 837 CAD và 1.448 mặt vẽ**; đối chiếu web theo dòng/nhóm thiết bị. Đã xem tổng quan thêm **95 hình chiếu của 55 thiết bị ưu tiên chưa rõ hãng** cùng chữ DXF đã trích xuất; chưa có căn cứ đủ chắc để xác nhận thêm hãng từ các hình này. Việc rà dữ liệu/nguồn và xem tổng quan không phải phê duyệt kỹ thuật, kích thước hay mọi mã đặt hàng.

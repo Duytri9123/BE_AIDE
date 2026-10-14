@@ -2,7 +2,7 @@
   "devices": 837,
   "exact_price_required": 684,
   "optional_price_devices": 153,
-  "required_devices_without_prices": 530,
+  "required_devices_without_prices": 471,
   "folders": [
     {
       "folder": "ABB",
@@ -1998,8 +1998,8 @@
     {
       "folder": "Chint",
       "devices": 23,
-      "with_prices": 4,
-      "required_without_prices": 19,
+      "with_prices": 8,
+      "required_without_prices": 15,
       "optional_price": 0,
       "review": {
         "status": "reviewed_metadata_and_family_sources",
@@ -2024,8 +2024,8 @@
       "remaining_reasons": {
         "missing_transformer_configuration": 1,
         "no_device_code": 1,
-        "no_model_prices": 4,
-        "source_library": 13
+        "no_model_prices": 6,
+        "source_library": 7
       },
       "items": [
         {
@@ -2147,80 +2147,80 @@
         },
         {
           "id": "TB-03aa3238dabc4094",
-          "name": "Chint · nxb63-2 · CAD nguồn",
+          "name": "MCB CHINT NXB-63",
           "type": "MCB",
           "brand": "CHINT",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "NXB-63",
+          "price_choices": 11,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-e62130601b4d5568",
-          "name": "Chint · ats chint NZ7-125 100A 4P · CAD nguồn",
+          "name": "ATS CHINT NZ7-125",
           "type": "ATS",
           "brand": "CHINT",
-          "product_code": null,
+          "product_code": "NZ7-125",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện CHINT · ATS · NZ7-125. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
           "id": "TB-e1b1231f6ae8fd19",
-          "name": "Chint · nxb63-2p · CAD nguồn",
+          "name": "MCB CHINT NXB-63",
           "type": "MCB",
           "brand": "CHINT",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "NXB-63",
+          "price_choices": 11,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-1300f9bd47ebfd6f",
-          "name": "Chint · nxb63-1 · CAD nguồn",
+          "name": "MCB CHINT NXB-63",
           "type": "MCB",
           "brand": "CHINT",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "NXB-63",
+          "price_choices": 11,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-997f2440e6109dc2",
-          "name": "Chint · NXM-1600S-3 · CAD nguồn",
+          "name": "MCCB CHINT NXM-1600S",
           "type": "MCCB",
           "brand": "CHINT",
-          "product_code": null,
+          "product_code": "NXM-1600S",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện CHINT · MCCB · NXM-1600S. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
           "id": "TB-d1bbcfffa8445d84",
-          "name": "Chint · nxb63-3p · CAD nguồn",
+          "name": "MCB CHINT NXB-63",
           "type": "MCB",
           "brand": "CHINT",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "NXB-63",
+          "price_choices": 11,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -3493,8 +3493,8 @@
     {
       "folder": "LS",
       "devices": 123,
-      "with_prices": 17,
-      "required_without_prices": 106,
+      "with_prices": 25,
+      "required_without_prices": 98,
       "optional_price": 1,
       "review": {
         "status": "reviewed_metadata_and_family_sources",
@@ -3517,10 +3517,10 @@
         ]
       },
       "remaining_reasons": {
-        "no_model_prices": 35,
-        "different_poles": 5,
-        "source_library": 65,
-        "no_matching_configuration": 1
+        "no_model_prices": 36,
+        "different_poles": 6,
+        "source_library": 52,
+        "no_matching_configuration": 4
       },
       "items": [
         {
@@ -4097,15 +4097,15 @@
         },
         {
           "id": "TB-e59254bbdb7e0b3f",
-          "name": "LS · LS ABH52C 2P · CAD nguồn",
+          "name": "MCCB LS Electric ABH52c",
           "type": "MCCB",
           "brand": "LS Electric",
-          "product_code": null,
+          "product_code": "ABH52c",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện LS Electric · MCCB · ABH52c. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
@@ -4136,15 +4136,15 @@
         },
         {
           "id": "TB-93b90144bbbf3109",
-          "name": "LS · MT-63 · CAD nguồn",
-          "type": "Rơ le nhiệt",
+          "name": "THERMAL_RELAY LS Electric MT-63",
+          "type": "THERMAL_RELAY",
           "brand": "LS Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "MT-63",
+          "price_choices": 1,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -4227,15 +4227,15 @@
         },
         {
           "id": "TB-03adf5a8e67ae581",
-          "name": "LS · BKN 3P · CAD nguồn",
+          "name": "MCB LS Electric BKN",
           "type": "MCB",
           "brand": "LS Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "BKN",
+          "price_choices": 2,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -4266,28 +4266,28 @@
         },
         {
           "id": "TB-7dd2ecb5a38cc051",
-          "name": "LS · MC 185a · CAD nguồn",
+          "name": "CONTACTOR LS Electric MC-185a",
           "type": "CONTACTOR",
           "brand": "LS Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "MC-185a",
+          "price_choices": 1,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-a2e5e1b1200b4783",
-          "name": "LS · ABS403c · CAD nguồn",
+          "name": "MCCB LS Electric ABS403c",
           "type": "MCCB",
           "brand": "LS Electric",
-          "product_code": null,
+          "product_code": "ABS403c",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_matching_configuration",
+            "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
           }
         },
         {
@@ -4422,15 +4422,15 @@
         },
         {
           "id": "TB-ca53bae6a5bfdab3",
-          "name": "LS · BKN 4P · CAD nguồn",
+          "name": "MCB LS Electric BKN",
           "type": "MCB",
           "brand": "LS Electric",
-          "product_code": null,
+          "product_code": "BKN",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "different_poles",
+            "message": "Đã có giá đúng dòng BKN, nhưng dữ liệu giá chỉ có 1P, 2P, 3P; CAD này là 4P. Cần giá đúng số cực."
           }
         },
         {
@@ -4487,15 +4487,15 @@
         },
         {
           "id": "TB-51f4558cd68dbb11",
-          "name": "LS · mt12 · CAD nguồn",
-          "type": "Rơ le nhiệt",
+          "name": "THERMAL_RELAY LS Electric MT-12",
+          "type": "THERMAL_RELAY",
           "brand": "LS Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "MT-12",
+          "price_choices": 1,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -4539,15 +4539,15 @@
         },
         {
           "id": "TB-7ec687e49e297901",
-          "name": "LS · MC 265a · CAD nguồn",
+          "name": "CONTACTOR LS Electric MC-265a",
           "type": "CONTACTOR",
           "brand": "LS Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "MC-265a",
+          "price_choices": 1,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -4591,15 +4591,15 @@
         },
         {
           "id": "TB-d69f76621bed31d5",
-          "name": "LS · abn203c · CAD nguồn",
+          "name": "MCCB LS Electric ABN203c",
           "type": "MCCB",
           "brand": "LS Electric",
-          "product_code": null,
+          "product_code": "ABN203c",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_matching_configuration",
+            "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
           }
         },
         {
@@ -4617,15 +4617,15 @@
         },
         {
           "id": "TB-4cca6dc255bc2167",
-          "name": "LS · MC 500a · CAD nguồn",
+          "name": "CONTACTOR LS Electric MC-500a",
           "type": "CONTACTOR",
           "brand": "LS Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "MC-500a",
+          "price_choices": 1,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -4643,15 +4643,15 @@
         },
         {
           "id": "TB-dbfa3fc69f482c5e",
-          "name": "LS · ABN53c · CAD nguồn",
+          "name": "MCCB LS Electric ABN53c",
           "type": "MCCB",
           "brand": "LS Electric",
-          "product_code": null,
+          "product_code": "ABN53c",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_matching_configuration",
+            "message": "Đã có bảng giá cùng hãng, nhưng chưa khớp mã, loại và cấu hình của CAD này. Cần đối chiếu mã đặt hàng, số cực và thông số; không lấy giá của thiết bị khác."
           }
         },
         {
@@ -4708,15 +4708,15 @@
         },
         {
           "id": "TB-32144d13a2436f0b",
-          "name": "LS · BKN 2P · CAD nguồn",
+          "name": "MCB LS Electric BKN",
           "type": "MCB",
           "brand": "LS Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "BKN",
+          "price_choices": 2,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -4734,15 +4734,15 @@
         },
         {
           "id": "TB-2d95b404b4b14f47",
-          "name": "LS · BKN 1P · CAD nguồn",
+          "name": "MCB LS Electric BKN",
           "type": "MCB",
           "brand": "LS Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "BKN",
+          "price_choices": 2,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -7139,8 +7139,8 @@
     {
       "folder": "Schneider",
       "devices": 236,
-      "with_prices": 30,
-      "required_without_prices": 206,
+      "with_prices": 77,
+      "required_without_prices": 159,
       "optional_price": 0,
       "review": {
         "status": "reviewed_metadata_and_family_sources",
@@ -7164,10 +7164,10 @@
       },
       "remaining_reasons": {
         "incomplete_ordering_code": 2,
-        "different_poles": 2,
-        "no_model_prices": 28,
+        "different_poles": 3,
+        "no_model_prices": 56,
         "no_device_code": 1,
-        "source_library": 173
+        "source_library": 97
       },
       "items": [
         {
@@ -7991,28 +7991,28 @@
         },
         {
           "id": "TB-62fdbbeb72474fdf",
-          "name": "Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D40~65 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1D40-65",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "LC1D40-65",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1D40-65. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
           "id": "TB-faa371b9ff857b8f",
-          "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV320U22~40N4C · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV320U22~40N4C",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV320U22~40N4C",
+          "price_choices": 3,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -8069,54 +8069,54 @@
         },
         {
           "id": "TB-4092570e76365c9b",
-          "name": "Schneider · 06 - N - SC MCCB CHIẾU TRÊN EZC100 3 PHASE · CAD nguồn",
+          "name": "MCCB Schneider Electric EZC100",
           "type": "MCCB",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "EZC100",
+          "price_choices": 4,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-874c5547cd458752",
-          "name": "Schneider · SN_LC1E32 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1E32",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "LC1E32",
+          "price_choices": 4,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-aa88cc78f94d3ba5",
-          "name": "Schneider · 06 - N - SC VSD ATV320U55~75N4B · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV320U55~75N4B",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV320U55~75N4B",
+          "price_choices": 2,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-0cc0c56bd994d60d",
-          "name": "Schneider · 06 - N - SC CTT LC1D32 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1D32",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "LC1D32",
+          "price_choices": 1,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -8199,15 +8199,15 @@
         },
         {
           "id": "TB-b3db3f72b1386e95",
-          "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630D55~D90N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV630D55~D90N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV630D55~D90N4",
+          "price_choices": 3,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -8225,15 +8225,15 @@
         },
         {
           "id": "TB-d1219758854616f1",
-          "name": "Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D115 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1D115",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "LC1D115",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1D115. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
@@ -8251,28 +8251,28 @@
         },
         {
           "id": "TB-3f2345dccb53e572",
-          "name": "Schneider · 06 - N - SC CTT LC1D09 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1D09",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "LC1D09",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1D09. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
           "id": "TB-436f8c8137844f85",
-          "name": "Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D18 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1D18",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "LC1D18",
+          "price_choices": 1,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -8316,54 +8316,54 @@
         },
         {
           "id": "TB-cc4d7e2ce43e4773",
-          "name": "Schneider · 06 - N - SC MCCB CHIẾU TRÊN EZC250 3 PHASE · CAD nguồn",
+          "name": "MCCB Schneider Electric EZC250",
           "type": "MCCB",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "EZC250",
+          "price_choices": 3,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-f797252cdf24c89e",
-          "name": "Schneider · NS100_160NHL_c · CAD nguồn",
+          "name": "MCCB Schneider Electric NS100 / NS160",
           "type": "MCCB",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "NS100 / NS160",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · MCCB · NS100 / NS160. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
           "id": "TB-4fc8d9679c3649ef",
-          "name": "Schneider · 06 - N - SC VSD ATV630U07~55N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV630U07~55N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV630U07~55N4",
+          "price_choices": 6,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-c20aafa063938808",
-          "name": "Schneider · LC1F265 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1F265",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "LC1F265",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1F265. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
@@ -8407,15 +8407,15 @@
         },
         {
           "id": "TB-90f636ce9ec4344c",
-          "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630D15~D22N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV630D15~D22N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV630D15~D22N4",
+          "price_choices": 3,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -8433,28 +8433,28 @@
         },
         {
           "id": "TB-68dece17b8b6f28a",
-          "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV320U22~40N4C · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV320U22~40N4C",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV320U22~40N4C",
+          "price_choices": 3,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-3aabcfa28ac7f3ba",
-          "name": "Schneider · LC1D9-18 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1D9-18",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "LC1D9-18",
+          "price_choices": 2,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -8485,54 +8485,54 @@
         },
         {
           "id": "TB-3efb9e65d9ab07f2",
-          "name": "Schneider · 06 - N - SC VSD ATV630C11~C16N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV630C11~C16N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "ATV630C11~C16N4",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · VFD · ATV630C11~C16N4. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
           "id": "TB-06f8e3cb26b68f79",
-          "name": "Schneider · 06 - N - SC VSD ATV630D30~D45N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV630D30~D45N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV630D30~D45N4",
+          "price_choices": 3,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-924df46499ef6b4d",
-          "name": "Schneider · LC1F330 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1F330",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "LC1F330",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1F330. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
           "id": "TB-74256dce63c6f12b",
-          "name": "Schneider · LC1F150 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1F150",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "LC1F150",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1F150. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
@@ -8550,28 +8550,28 @@
         },
         {
           "id": "TB-ffb3f20bf4122403",
-          "name": "Schneider · 06 - N - SC CTT LC1D150 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1D150",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "LC1D150",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1D150. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
           "id": "TB-2c205339e7db99d0",
-          "name": "Schneider · LC1D40 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1D40",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "LC1D40",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1D40. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
@@ -8589,28 +8589,28 @@
         },
         {
           "id": "TB-79ddf299eca7273e",
-          "name": "Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D25 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1D25",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "LC1D25",
+          "price_choices": 1,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-95c74c0f4e250dd3",
-          "name": "Schneider · SN_LC1E06-18 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1E06-18",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "LC1E06-18",
+          "price_choices": 16,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -8628,28 +8628,28 @@
         },
         {
           "id": "TB-532a8b377a573470",
-          "name": "Schneider · 06 - N - SC MCCB EZC100 4 PHASE · CAD nguồn",
+          "name": "MCCB Schneider Electric EZC100",
           "type": "MCCB",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "EZC100",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "different_poles",
+            "message": "Đã có giá dòng EZC100, nhưng bảng giá hiện có 1P, 2P, 3P; CAD đang xem là 4P. Cần bổ sung dòng giá đúng số cực, không dùng giá khác số cực."
           }
         },
         {
           "id": "TB-fa2c70999cd97df4",
-          "name": "Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D32 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1D32",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "LC1D32",
+          "price_choices": 1,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -8667,15 +8667,15 @@
         },
         {
           "id": "TB-8753a6ee78d8b997",
-          "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630D30~D45N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV630D30~D45N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV630D30~D45N4",
+          "price_choices": 3,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -8784,28 +8784,28 @@
         },
         {
           "id": "TB-373e361e224af273",
-          "name": "Schneider · 06 - N - SC VSD ATV320U22~40N4C · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV320U22~40N4C",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV320U22~40N4C",
+          "price_choices": 3,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-3711aa4710cccad3",
-          "name": "Schneider · NS100_160NHL_4_c · CAD nguồn",
+          "name": "MCCB Schneider Electric NS100 / NS160",
           "type": "MCCB",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "NS100 / NS160",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · MCCB · NS100 / NS160. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
@@ -8823,28 +8823,28 @@
         },
         {
           "id": "TB-ca67cfdfe75b87a5",
-          "name": "Schneider · 06 - N - SC VSD ATV630U75~D11N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV630U75~D11N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV630U75~D11N4",
+          "price_choices": 2,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-87c193b36a5be2d9",
-          "name": "Schneider · 06 - N - SC CTT LC1D115 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1D115",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "LC1D115",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1D115. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
@@ -8862,15 +8862,15 @@
         },
         {
           "id": "TB-f0ad79304b9dfa57",
-          "name": "Schneider · LC1E160 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1E160",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "LC1E160",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1E160. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
@@ -8888,15 +8888,15 @@
         },
         {
           "id": "TB-2daaa9b96edcee06",
-          "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630D30~D45N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV630D30~D45N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV630D30~D45N4",
+          "price_choices": 3,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -8953,15 +8953,15 @@
         },
         {
           "id": "TB-709136a5f2362a55",
-          "name": "Schneider · 06 - N - SC VSD ATV630D55~D90N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV630D55~D90N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV630D55~D90N4",
+          "price_choices": 3,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -9031,15 +9031,15 @@
         },
         {
           "id": "TB-76b60c464e85531d",
-          "name": "Schneider · 06 - N - SC CTT 1P A9C20731 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric A9C20731",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "A9C20731",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · A9C20731. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
@@ -9070,15 +9070,15 @@
         },
         {
           "id": "TB-39b0e1bd1634ae8b",
-          "name": "Schneider · 06 - N - SC MCCB EZC250 3 PHASE · CAD nguồn",
+          "name": "MCCB Schneider Electric EZC250",
           "type": "MCCB",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "EZC250",
+          "price_choices": 3,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -9096,41 +9096,41 @@
         },
         {
           "id": "TB-dced0a03b7ea334e",
-          "name": "Schneider · 06 - N - SC CTT LC1D18 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1D18",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "LC1D18",
+          "price_choices": 1,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-147acacf560564bc",
-          "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630C11~C16N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV630C11~C16N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "ATV630C11~C16N4",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · VFD · ATV630C11~C16N4. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
           "id": "TB-1f6e3c1f906f7fd8",
-          "name": "Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D09 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1D09",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "LC1D09",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1D09. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
@@ -9148,28 +9148,28 @@
         },
         {
           "id": "TB-be8517e7eec2f604",
-          "name": "Schneider · LC1D40-65 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1D40-65",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "LC1D40-65",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1D40-65. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
           "id": "TB-70f3194c438e827c",
-          "name": "Schneider · 06 - N - SC CTT LC1D40~65 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1D40-65",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "LC1D40-65",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1D40-65. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
@@ -9187,41 +9187,41 @@
         },
         {
           "id": "TB-9d5dda2dfc6b5d35",
-          "name": "Schneider · 06 - N - SC CTT LC1D80 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1D80",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "LC1D80",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1D80. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
           "id": "TB-d2ed90668cccf5cb",
-          "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630U07~55N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV630U07~55N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV630U07~55N4",
+          "price_choices": 6,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-8b4d2edbd76f927a",
-          "name": "Schneider · 06 - N - SC VSD ATV212HU75~D11N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV212HU75~D11N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV212HU75~D11N4",
+          "price_choices": 2,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -9252,41 +9252,41 @@
         },
         {
           "id": "TB-41d72221c38b347d",
-          "name": "Schneider · 06 - N - SC VSD ATV212HD15~18N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV212HD15~18N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV212HD15~18N4",
+          "price_choices": 2,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-2598dbf214bce578",
-          "name": "Schneider · 06 - N - SC VSD ATV630D15~D22N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV630D15~D22N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV630D15~D22N4",
+          "price_choices": 3,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-f0b01f81ba66ed54",
-          "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630U75~D11N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV630U75~D11N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV630U75~D11N4",
+          "price_choices": 2,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -9330,15 +9330,15 @@
         },
         {
           "id": "TB-12d065e49e4559f5",
-          "name": "Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D80 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1D80",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "LC1D80",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1D80. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
@@ -9408,41 +9408,41 @@
         },
         {
           "id": "TB-92e2043a2bd511a7",
-          "name": "Schneider · LC1D25-38 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1D25-38",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "LC1D25-38",
+          "price_choices": 3,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-afd60a00b7d134cd",
-          "name": "Schneider · SN_LC1E25 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1E25",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "LC1E25",
+          "price_choices": 4,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-f74086e706b33994",
-          "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630U07~55N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV630U07~55N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV630U07~55N4",
+          "price_choices": 6,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -9460,28 +9460,28 @@
         },
         {
           "id": "TB-4054679f8749671a",
-          "name": "Schneider · NS100_160NHL_4_d · CAD nguồn",
+          "name": "MCCB Schneider Electric NS100 / NS160",
           "type": "MCCB",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "NS100 / NS160",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · MCCB · NS100 / NS160. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
           "id": "TB-c6b1fa1fb05f17c0",
-          "name": "Schneider · 06 - N - SC CTT LC1D25 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1D25",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "LC1D25",
+          "price_choices": 1,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -9499,28 +9499,28 @@
         },
         {
           "id": "TB-3a9d29b8dbb7b411",
-          "name": "Schneider · NS100_160NHL_5_d · CAD nguồn",
+          "name": "MCCB Schneider Electric NS100 / NS160",
           "type": "MCCB",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "NS100 / NS160",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · MCCB · NS100 / NS160. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
           "id": "TB-2201734d78c06790",
-          "name": "Schneider · 06 - N - SC CTT CHIẾU HÔNG LC1D150 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1D150",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "LC1D150",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1D150. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
@@ -9564,15 +9564,15 @@
         },
         {
           "id": "TB-0e51ad1ddf186f06",
-          "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630C11~C16N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV630C11~C16N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "ATV630C11~C16N4",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · VFD · ATV630C11~C16N4. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
@@ -9590,15 +9590,15 @@
         },
         {
           "id": "TB-4219006a98570a3b",
-          "name": "Schneider · LC1F185 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1F185",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "LC1F185",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1F185. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
@@ -9629,15 +9629,15 @@
         },
         {
           "id": "TB-58ec6416f4e1a238",
-          "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630D55~D90N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV630D55~D90N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV630D55~D90N4",
+          "price_choices": 3,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -9655,15 +9655,15 @@
         },
         {
           "id": "TB-22a3a85328e5a35e",
-          "name": "Schneider · 06 - N - SC CTT CHIẾU HÔNG 1P A9C20731 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric A9C20731",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "A9C20731",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · A9C20731. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
@@ -9759,28 +9759,28 @@
         },
         {
           "id": "TB-2137b5bec46ab654",
-          "name": "Schneider · 06 - N - SC VSD ATV212HU30~U55N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV212HU30~U55N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV212HU30~U55N4",
+          "price_choices": 3,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-eeb309129ee454c2",
-          "name": "Schneider · 06 - N - SC VSD ATV212H075~U22N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV212H075~U22N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV212H075~U22N4",
+          "price_choices": 3,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -9824,15 +9824,15 @@
         },
         {
           "id": "TB-e98d817c07787f40",
-          "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV212HU75~D11N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV212HU75~D11N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV212HU75~D11N4",
+          "price_choices": 2,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -9863,41 +9863,41 @@
         },
         {
           "id": "TB-b2127e7ca1b65481",
-          "name": "Schneider · 06 - N - SC MCCB EZC250 4 PHASE · CAD nguồn",
+          "name": "MCCB Schneider Electric EZC250",
           "type": "MCCB",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "EZC250",
+          "price_choices": 1,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-50b9e0b14ec25b83",
-          "name": "Schneider · 06 - N - SC MCCB EZC100 2 PHASE · CAD nguồn",
+          "name": "MCCB Schneider Electric EZC100",
           "type": "MCCB",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "EZC100",
+          "price_choices": 1,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-4243dcd3bacf6a0f",
-          "name": "Schneider · LC1F115 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1F115",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "LC1F115",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1F115. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {
@@ -9980,15 +9980,15 @@
         },
         {
           "id": "TB-b05de4d1c90b9878",
-          "name": "Schneider · 06 - N - SC MCCB CHIẾU TRÊN EZC100 2 PHASE · CAD nguồn",
+          "name": "MCCB Schneider Electric EZC100",
           "type": "MCCB",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "EZC100",
+          "price_choices": 1,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -10006,15 +10006,15 @@
         },
         {
           "id": "TB-35e99c520436de04",
-          "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630D15~D22N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV630D15~D22N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV630D15~D22N4",
+          "price_choices": 3,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -10032,15 +10032,15 @@
         },
         {
           "id": "TB-41f14468dd34f079",
-          "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV212H075~U22N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV212H075~U22N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV212H075~U22N4",
+          "price_choices": 3,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -10084,15 +10084,15 @@
         },
         {
           "id": "TB-a2d574560532040a",
-          "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV320U55~75N4B · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV320U55~75N4B",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV320U55~75N4B",
+          "price_choices": 2,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
@@ -10149,80 +10149,80 @@
         },
         {
           "id": "TB-a0ae757e8e2112d3",
-          "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630U75~D11N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV630U75~D11N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV630U75~D11N4",
+          "price_choices": 2,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-425c7029e22b929e",
-          "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV320U55~75N4B · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV320U55~75N4B",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV320U55~75N4B",
+          "price_choices": 2,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-6845e19a84e2c404",
-          "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV212HU30~U55N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV212HU30~U55N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV212HU30~U55N4",
+          "price_choices": 3,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-1cac077415383e54",
-          "name": "Schneider · 06 - N - SC MCCB EZC100 3 PHASE · CAD nguồn",
+          "name": "MCCB Schneider Electric EZC100",
           "type": "MCCB",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "EZC100",
+          "price_choices": 4,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-2d4d3ed05b2dd448",
-          "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV212HD15~18N4 · CAD nguồn",
-          "type": "Biến tần",
+          "name": "VFD Schneider Electric ATV212HD15~18N4",
+          "type": "VFD",
           "brand": "Schneider Electric",
-          "product_code": null,
-          "price_choices": 0,
+          "product_code": "ATV212HD15~18N4",
+          "price_choices": 2,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "choices_available",
+            "message": ""
           }
         },
         {
           "id": "TB-c00290a70bf823c0",
-          "name": "Schneider · LC1F225 · CAD nguồn",
+          "name": "CONTACTOR Schneider Electric LC1F225",
           "type": "CONTACTOR",
           "brand": "Schneider Electric",
-          "product_code": null,
+          "product_code": "LC1F225",
           "price_choices": 0,
           "exact_price_required": true,
           "diagnostic": {
-            "status": "source_library",
-            "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+            "status": "no_model_prices",
+            "message": "Đã nhận diện Schneider Electric · CONTACTOR · LC1F225. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
           }
         },
         {

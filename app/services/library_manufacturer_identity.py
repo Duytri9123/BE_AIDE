@@ -24,7 +24,14 @@ def manufacturer_identity(profile, current, profile_path=None):
                 'brand_label':confirmed,'brand_identity_note':'Hãng được ghi trong hồ sơ thiết bị.'}
     if profile_path and EVIDENCE_PATH.is_file():
         evidence = json.loads(EVIDENCE_PATH.read_text(encoding='utf8')).get('evidence',{}).get(profile.get('id'))
-        if evidence and evidence.get('status') in {'manufacturer_label_reviewed', 'manufacturer_candidate_reviewed'}:
+        if evidence and evidence.get('status') in {'manufacturer_label_reviewed', 'manufacturer_candidate_reviewed', 'source_model_documented'}:
+            if evidence['status'] == 'source_model_documented':
+                source = current.get('nguon_cad') or {}
+                expected = evidence.get('source') or {}
+                if not expected.get('block') or not expected.get('sha256') or not evidence.get('manufacturer_document') or any(source.get(key) != expected.get(key) for key in ('block', 'sha256', 'file')):
+                    evidence = None
+            if not evidence:
+                return manufacturer_identity(profile, current)
             view_paths = {v['id_hinh_goc']:v.get('duong_dan') for v in current.get('cad_don',[])}
             for view in evidence.get('views',[]):
                 relative = view_paths.get(view['view_id'])
