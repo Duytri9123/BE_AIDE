@@ -1,20 +1,20 @@
 # Đối chiếu toàn bộ thư viện thiết bị
 
-Cập nhật 14/10/2026: 837 thiết bị; 73 thiết bị có lựa chọn giá theo mã/họ thiết bị và cấu hình, tăng từ 49. 8691 dòng giá được công bố; đủ 32/32 hãng trong phạm vi bảng giá có ít nhất một dòng. Đây không phải xác nhận toàn bộ CAD đã có mã đặt hàng hoặc hình vẽ được phê duyệt.
+Cập nhật 14/10/2026: 837 thiết bị; 90 thiết bị có lựa chọn giá theo mã/họ thiết bị và cấu hình, tăng từ 73 (49 trước đợt bổ sung giá). 8764 dòng giá được công bố; đủ 32/32 hãng trong phạm vi bảng giá có ít nhất một dòng. Đây không phải xác nhận toàn bộ CAD đã có mã đặt hàng hoặc hình vẽ được phê duyệt.
 
-Bổ sung ròng 348 dòng PDF và 2.619 dòng giá nhà bán hàng so với lần cập nhật trước. Các bản Fuji/IDEC là năm 2025; các bản Mikro/Shihlin/Vinakip là 2026. Nguồn web có thời điểm kiểm tra và ghi chú cần xác nhận VAT/tồn kho. Không đổi giá tham khảo thành giá hãng.
+Bổ sung ròng 421 dòng PDF và 2.619 dòng giá nhà bán hàng so với lần cập nhật trước. Các bản Fuji/IDEC là năm 2025; các bản Mikro/Shihlin/Vinakip là 2026. Nguồn web có thời điểm kiểm tra và ghi chú cần xác nhận VAT/tồn kho. Không đổi giá tham khảo thành giá hãng.
 
 | Hãng | Dòng giá | CAD trong thư viện theo nhãn hãng | CAD có lựa chọn giá |
 | --- | ---: | ---: | ---: |
 | Schneider Electric | 135 | 241 | 4 |
-| ABB | 653 | 80 | 17 |
+| ABB | 726 | 80 | 33 |
 | Siemens | 127 | 0 | 0 |
 | Hager | 200 | 0 | 0 |
 | Legrand | 103 | 0 | 0 |
 | BTB Electric | 38 | 0 | 0 |
 | Mitsubishi Electric | 3066 | 39 | 20 |
 | Fuji Electric | 152 | 0 | 0 |
-| LS Electric | 697 | 134 | 11 |
+| LS Electric | 697 | 134 | 12 |
 | Shihlin | 246 | 20 | 10 |
 | CHINT | 1729 | 28 | 1 |
 | Andeli | 1 | 0 | 0 |
@@ -41,7 +41,7 @@ Bổ sung ròng 348 dòng PDF và 2.619 dòng giá nhà bán hàng so với lầ
 
 ## Phần còn thiếu
 
-764/837 CAD chưa có lựa chọn giá phù hợp. Trong đó: 310 CAD đã xác định hãng nhưng thiếu mã/cấu hình hoặc nguồn giá đúng mã; 251 CAD chỉ xác định thư viện nguồn; 77 chưa rõ hãng; 15 nhãn hãng ứng viên; 111 phụ kiện phổ thông không áp hãng. Các mã ứng viên dựa kích thước của tụ Nuintek/Samwha chưa được đưa thành mã xác nhận. Không tự thay NX201A/MK201A bằng N201/R201.
+747/837 CAD chưa có lựa chọn giá phù hợp. Trong đó: 293 CAD đã xác định hãng nhưng thiếu mã/cấu hình hoặc nguồn giá đúng mã; 251 CAD chỉ xác định thư viện nguồn; 77 chưa rõ hãng; 15 nhãn hãng ứng viên; 111 phụ kiện phổ thông không áp hãng. Các mã ứng viên dựa kích thước của tụ Nuintek/Samwha chưa được đưa thành mã xác nhận. Không tự thay NX201A/MK201A bằng N201/R201.
 
 Andeli mới có 1 dòng, Ducati Energia 2, SK 3, Danfoss 6, Yaskawa 6; cần bổ sung thêm danh mục đúng mã khi có nguồn. Nguồn PLE/Makel chỉ rà trang hãng đầu tiên, không tuyên bố đã lấy toàn bộ kho nhà bán hàng.
 
@@ -67,4 +67,6 @@ Bảng giá, thư viện CAD và bóc tách dùng chung published_rows. Một CA
 - [Morele](https://hanhdungelectric.com.vn/quat-lam-mat-huong-truc-morele)
 - [Delta](https://codienhaiau.com/brand/delta/)
 
-Kiểm tra hồi quy: 32 tests về parser giá, liên kết CAD, bóc tách/báo giá và nhận diện hãng.
+Kiểm tra hồi quy: 35 tests về parser giá, liên kết CAD, bóc tách/báo giá và nhận diện hãng.
+
+Cập nhật tiếp: thêm 73 dòng ABB 2026 (contactor 1SFL và rơ le nhiệt trang 117), gắn họ S200/SH200 theo trang 141–143; giữ dải chỉnh định rơ le thay vì gán thành dòng cố định. Xác nhận 4 cực cho MC-9a/4, MC-12a/4, MC-18a/4 theo [tài liệu LS, trang 14](https://www.ls-electric.com/upload/customer/download/280b6197-f4bb-4f86-a60d-917b7b8bf890/Metasol_MC_E_170915.pdf). Không đổi các MC-40 cũ thành MC-40a hoặc lấy điện áp cuộn hút theo suy đoán.

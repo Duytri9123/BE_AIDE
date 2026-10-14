@@ -21,6 +21,10 @@ def configuration_links(device, rows):
         prefix = re.match(r'^([^\d]+)\d', parts[0])
         expanded = [prefix[1]+part if prefix and re.match(r'^\d',part) else part for part in parts]
         codes = [*codes, *expanded]
+        if canonical_brand(device.get('brand')) == 'ABB' and re.fullmatch(r'AX[1-9]-\d+-\d+', product_code):
+            codes.append(re.sub(r'^AX([1-9])-',r'AX0\1-',product_code))
+        if canonical_brand(device.get('brand')) == 'ABB' and re.fullmatch(r'TA\d+-DU',product_code):
+            codes.append(product_code.replace('-DU','DU'))
         if canonical_brand(device.get('brand')) == 'Shihlin' and re.fullmatch(r'BM\d+[A-Z-]*(?:/(?:BM)?\d+[A-Z-]*)+', product_code):
             codes += [part if part.startswith('BM') else 'BM'+part for part in product_code.split('/')]
         if canonical_brand(device.get('brand')) == 'Hanyoung Nux' and re.fullmatch(r'HYT\d{3,4}', product_code):

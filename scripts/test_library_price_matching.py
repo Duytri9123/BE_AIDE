@@ -3,6 +3,40 @@ from app.services.library_price_matching import configuration_links
 
 
 class LibraryPriceMatchingTests(unittest.TestCase):
+    def test_reviewed_ls_four_pole_price_does_not_change_other_models(self):
+        from scripts.review_ls_four_pole_prices import review
+        row=self.row(brand='LS Electric',category='CONTACTOR',sku='MC-9a/4',item_name='MC-9a/4',specifications={})
+        others=[{**row,'sku':'MC-9a','specifications':{}},{**row,'brand':'ABB','specifications':{}},
+                {**row,'category':'ACCESSORY','specifications':{}}]
+        self.assertEqual(review([row,*others]),1)
+        self.assertEqual(row['specifications']['Số cực'],'4P')
+        self.assertTrue(all(not r['specifications'] for r in others))
+        device=self.device(brand='LS Electric',type='CONTACTOR',product_code='MC-6a/4 / 9a/4',spec={'so_cuc_chinh':4})
+        self.assertEqual(configuration_links(device,[row]),{'price-A2':'TB-A2'})
+        self.assertEqual(configuration_links({**device,'spec':{'so_cuc_chinh':3}},[row]),{})
+
+    def test_abb_thermal_relay_body_keeps_current_range_as_choice(self):
+        from app.services.ai.takeoff_pricebook import match_device
+        row=self.row(category='THERMAL_RELAY',sku='1SAZ211201R2038',item_name='TA25DU-6.5M',
+                     specifications={'Họ thiết bị':'TA25DU','Dải chỉnh định (A)':'4.50–6.50'})
+        device=self.device(type='THERMAL_RELAY',product_code='TA25-DU',spec={})
+        self.assertEqual(configuration_links(device,[row]),{'price-A2':'TB-A2'})
+        criteria={'brand':'ABB','category':'THERMAL_RELAY','part_number':'TA25DU','in_a':5}
+        self.assertEqual(match_device(criteria,[row])['status'],'needs_selection')
+        self.assertEqual(match_device({**criteria,'in_a':7},[row])['status'],'not_found')
+        self.assertEqual(match_device({**criteria,'part_number':row['sku']},[row])['status'],'matched')
+        self.assertEqual(configuration_links({**device,'product_code':'TA42-DU'},[row]),{})
+
+    def test_abb_mcb_series_requires_reviewed_family_and_poles(self):
+        from app.services.ai.takeoff_pricebook import match_device
+        row=self.row(category='MCB',sku='2CDS211001R0064',item_name='SH201-C6 1P 6A',
+                     specifications={'Họ thiết bị':'SH200','Số cực':'1P','In (A)':'6'})
+        device=self.device(type='MCB',product_code='SH200',spec={'so_cuc':'1P'})
+        self.assertEqual(configuration_links(device,[row]),{'price-A2':'TB-A2'})
+        self.assertEqual(configuration_links({**device,'product_code':'S200'},[row]),{})
+        self.assertEqual(configuration_links({**device,'spec':{'so_cuc':'2P'}},[row]),{})
+        self.assertEqual(match_device({'brand':'ABB','category':'MCB','part_number':'SH200','poles':1,'in_a':6},[row])['status'],'needs_selection')
+
     def test_mikro_reviewed_family_never_approves_voltage_variant(self):
         from app.services.ai.takeoff_pricebook import match_device
         row = self.row(brand='Mikro', category='VOLTAGE_RELAY', sku='MX200A-380V',

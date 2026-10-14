@@ -67,9 +67,11 @@ def match_device(device, rows, *, candidate_limit=30):
         # from ordering series (A1A/A1B/A1C/A1N). Frame matches are choices,
         # never an automatically approved order code.
         family_match = bool(known_brand and canonical_brand(brand) == 'ABB'
-                            and category == 'MCCB' and code in {'A1', 'A2', 'A3'}
                             and (row.get('specifications') or {}).get('Họ thiết bị') == code
-                            and re.match(re.escape(code)+r'[A-Z](?=\s|$)', label))
+                            and ((category == 'MCCB' and code in {'A1', 'A2', 'A3'}
+                                  and re.match(re.escape(code)+r'[A-Z](?=\s|$)', label))
+                                 or (category == 'MCB' and code in {'S200', 'SH200'}
+                                     and re.match(r'(?:SH|S)20[1-4][LM]?-C\d+\b', label))))
         body_match = bool(known_brand and canonical_brand(brand) == 'ABB'
                           and category == 'CONTACTOR'
                           and re.fullmatch(r'AX\d+-\d+-\d+', code)
@@ -79,6 +81,8 @@ def match_device(device, rows, *, candidate_limit=30):
             and (row.get('specifications') or {}).get('Họ thiết bị') == code
             and ((canonical_brand(brand) == 'Shihlin' and category == 'MCCB'
                   and re.fullmatch(r'BM\d+', code) and re.match(re.escape(code)+r'-[A-Z]', label))
+                 or (canonical_brand(brand) == 'ABB' and category == 'THERMAL_RELAY'
+                     and re.fullmatch(r'TA\d+DU',code) and re.match(re.escape(code)+r'-[\d.]',label))
                  or (canonical_brand(brand) == 'Mikro' and category in {'PHASE_RELAY', 'VOLTAGE_RELAY', 'POWER_FACTOR_CONTROLLER'}
                      and re.fullmatch(r'(?:MX|PFR)\d+[A-Z]*', code) and re.match(re.escape(code)+r'-', label))))
         if selected_id:
@@ -86,8 +90,13 @@ def match_device(device, rows, *, candidate_limit=30):
                 continue
         elif code and not (exact or model_match or family_match or body_match or reviewed_family_match):
             continue
+        current_range = re.fullmatch(r'(\d+(?:\.\d+)?)–(\d+(?:\.\d+)?)',
+                                    str((row.get('specifications') or {}).get('Dải chỉnh định (A)') or '')) if category == 'THERMAL_RELAY' else None
+        current = device.get('in_a')
+        if current and current_range and not (float(current_range[1]) <= float(current) <= float(current_range[2])):
+            continue
         if any(value and (not _values(row,field) or not any(abs(float(value)-v)<0.001 for v in _values(row,field)))
-               for field,value in [('poles',device.get('poles')),('current',device.get('in_a'))]):
+               for field,value in [('poles',device.get('poles')),('current',None if current_range else current)]):
             continue
         source_spec = str(device.get('spec') or '')
         row_text = ' '.join([label,sku,*[str(v) for v in (row.get('specifications') or {}).values()]])

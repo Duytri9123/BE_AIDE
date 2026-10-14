@@ -57,12 +57,26 @@ def extract_rows(source):
         for line in doc[page-1].get_text(sort=True).splitlines():
             m = re.search(r'\b((?:SH|SY|S)20([1-4])[LM]?-C(\d+))\s+(2CDS\w+)\s+(\d{1,3}(?:,\d{3})+)\s*$', line)
             if m:
-                add(page, line.strip(), m[1], m[4], 'MCB', m[2]+'P', m[3], m[5])
+                family = ('SH200' if m[1].startswith('SH') else 'SY200' if m[1].startswith('SY') else 'S200')
+                add(page, line.strip(), m[1], m[4], 'MCB', m[2]+'P', m[3], m[5], family)
     for page in range(113, 118):
         for line in doc[page-1].get_text(sort=True).splitlines():
-            m = re.search(r'\b(AX(\d{2,3})-(\d)\d-\d+-\d+)\s+(1SBL\w+)\s+(\d{1,3}(?:,\d{3})+)\s*$', line)
+            m = re.search(r'\b(AX(\d{2,3})-(\d)\d-\d+-\d+)\s+(1S(?:BL|FL)\w+)\s+(\d{1,3}(?:,\d{3})+)\s*$', line)
             if m:
                 add(page, line.strip(), m[1], m[4], 'CONTACTOR', m[3]+'P', m[2], m[5])
+    for line in doc[116].get_text(sort=True).splitlines():
+        m = re.search(r'(\d+(?:\.\d+)?)\s+\.\.\.\s+(\d+(?:\.\d+)?)\s+(TA\d+DU-[\d.]+M?)\s+(1SAZ\w+)\s+(\d{1,3}(?:,\d{3})+)\s*$', line)
+        if not m:
+            continue
+        family=m[3].split('-')[0]
+        add(117,line.strip(),m[3],m[4],'THERMAL_RELAY','',m[2],m[5],family)
+        row=rows[-1]
+        row['item_name']=row['name']=m[3]
+        row['specifications'].pop('In (A)')
+        row['specifications'].pop('Số cực')
+        row['specifications']['Dải chỉnh định (A)']=m[1]+'–'+m[2]
+        row['columns']=['Tên hàng','Mã đặt hàng','Dải chỉnh định (A)','Giá bán']
+        row['cells']=[m[3],m[4],m[1]+'–'+m[2],m[5]]
     assert rows and len({r['sku'] for r in rows}) == len(rows), 'Duplicate ABB ordering codes'
     return rows
 
