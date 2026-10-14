@@ -3,6 +3,28 @@ from app.services.library_price_matching import configuration_links
 
 
 class LibraryPriceMatchingTests(unittest.TestCase):
+    def test_mikro_reviewed_family_never_approves_voltage_variant(self):
+        from app.services.ai.takeoff_pricebook import match_device
+        row = self.row(brand='Mikro', category='VOLTAGE_RELAY', sku='MX200A-380V',
+                       item_name='MX200A-380V', specifications={'Họ thiết bị':'MX200A'})
+        device = self.device(brand='MIKRO', type='VOLTAGE_RELAY', product_code=None,
+                             reviewed_description={'price_family_codes':['MX200A']}, spec={})
+        self.assertEqual(configuration_links(device,[row]),{'price-A2':'TB-A2'})
+        self.assertEqual(configuration_links({**device,'brand_identification_status':'candidate'},[row]),{})
+        result = match_device({'brand':'Mikro','category':'VOLTAGE_RELAY','part_number':'MX200A'},[row])
+        self.assertEqual(result['status'],'needs_selection')
+        self.assertFalse(result['candidates'][0]['auto_selectable'])
+        self.assertEqual(match_device({'brand':'Mikro','category':'VOLTAGE_RELAY',
+                                      'part_number':'MX200A','spec':'220V'},[row])['status'],'not_found')
+
+    def test_shihlin_shared_frames_keep_pole_and_family_boundaries(self):
+        row = self.row(brand='Shihlin',item_name='BM100-SN 3P',sku='BM100-SN',
+                       specifications={'Họ thiết bị':'BM100','Số cực':'3P'})
+        device = self.device(brand='Shihlin Electric',product_code='BM30/50/60/100',spec={'so_cuc':'3P'})
+        self.assertEqual(configuration_links(device,[row]),{'price-A2':'TB-A2'})
+        self.assertEqual(configuration_links({**device,'spec':{'so_cuc':'4P'}},[row]),{})
+        self.assertEqual(configuration_links({**device,'product_code':'BM300/500'},[row]),{})
+
     def test_abb_contactor_body_does_not_auto_select_coil_variant(self):
         from app.services.ai.takeoff_pricebook import match_device
         row = self.row(brand='ABB', category='CONTACTOR', item_name='AX32-30-10-80 3P 32A',

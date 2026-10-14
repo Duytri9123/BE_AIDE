@@ -902,7 +902,10 @@
       "library_description": {
         "display": "Rơ le giám sát điện áp Mikro · dòng MX200A",
         "type": "VOLTAGE_RELAY",
-        "use": "Giám sát quá áp, thấp áp và mất pha; cần chọn phiên bản điện áp nguồn."
+        "use": "Giám sát quá áp, thấp áp và mất pha; cần chọn phiên bản điện áp nguồn.",
+        "price_family_codes": [
+          "MX200A"
+        ]
       },
       "views": [
         {
@@ -925,7 +928,13 @@
       "library_description": {
         "display": "Bộ điều khiển tụ bù Mikro · dòng PFR",
         "type": "POWER_FACTOR_CONTROLLER",
-        "use": "Điều khiển đóng cắt cấp tụ bù; chọn số cấp và điện áp nguồn theo mã thực tế."
+        "use": "Điều khiển đóng cắt cấp tụ bù; chọn số cấp và điện áp nguồn theo mã thực tế.",
+        "price_family_codes": [
+          "PFR60",
+          "PFR80",
+          "PFR120",
+          "PFR140"
+        ]
       },
       "views": [
         {

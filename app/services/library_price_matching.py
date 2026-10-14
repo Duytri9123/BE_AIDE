@@ -2,6 +2,7 @@
 import re
 from threading import Lock
 from app.services.ai.takeoff_pricebook import match_device, public_id
+from app.services.ai.manufacturer_registry import canonical_brand
 
 _index_lock = Lock()
 _index_devices = None
@@ -13,18 +14,24 @@ def configuration_links(device, rows):
     if not device or device.get('brand_identification_status') != 'verified':
         return {}
     codes = (device.get('ai_identification') or {}).get('cac_ma_dong_san_pham') or []
+    codes = [*codes, *((device.get('reviewed_description') or {}).get('price_family_codes') or [])]
     product_code = str(device.get('product_code') or '').strip()
     if product_code:
         parts = re.split(r'\s+/\s+', product_code)
         prefix = re.match(r'^([^\d]+)\d', parts[0])
         expanded = [prefix[1]+part if prefix and re.match(r'^\d',part) else part for part in parts]
         codes = [*codes, *expanded]
+        if canonical_brand(device.get('brand')) == 'Shihlin' and re.fullmatch(r'BM\d+[A-Z-]*(?:/(?:BM)?\d+[A-Z-]*)+', product_code):
+            codes += [part if part.startswith('BM') else 'BM'+part for part in product_code.split('/')]
+        if canonical_brand(device.get('brand')) == 'Hanyoung Nux' and re.fullmatch(r'HYT\d{3,4}', product_code):
+            codes.append('HYT-'+product_code[3:])
     if not codes:
         return {}
     spec = device.get('spec') or {}
     poles_match = re.fullmatch(r'(\d+)(?:P)?', str(spec.get('so_cuc') or spec.get('so_cuc_chinh') or ''), re.I)
     kind = str(device.get('type') or '').upper().replace(' ', '_')
-    kind = {'PILOTLAMP':'LIGHT','THERMALRELAY':'THERMAL_RELAY','PUSHBUTTON':'PUSHBUTTON'}.get(kind,kind)
+    kind = {'PILOTLAMP':'LIGHT','THERMALRELAY':'THERMAL_RELAY','PUSHBUTTON':'PUSHBUTTON',
+            'RƠ_LE_BẢO_VỆ_PHA':'PHASE_RELAY', 'DÃY_CẦU_ĐẤU_BẮT_VÍT':'TERMINAL_BLOCK'}.get(kind,kind)
     if kind in {'MCB','MCCB','ACB','RCCB','RCBO'} and not poles_match:
         return {}
     selected_current = spec.get('dong_dinh_muc_da_chon')

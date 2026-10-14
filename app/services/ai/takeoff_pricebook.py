@@ -75,10 +75,16 @@ def match_device(device, rows, *, candidate_limit=30):
                           and re.fullmatch(r'AX\d+-\d+-\d+', code)
                           and (row.get('specifications') or {}).get('Mã thân') == code
                           and re.match(re.escape(code)+r'-\d+(?=\s|$)', label))
+        reviewed_family_match = bool(known_brand
+            and (row.get('specifications') or {}).get('Họ thiết bị') == code
+            and ((canonical_brand(brand) == 'Shihlin' and category == 'MCCB'
+                  and re.fullmatch(r'BM\d+', code) and re.match(re.escape(code)+r'-[A-Z]', label))
+                 or (canonical_brand(brand) == 'Mikro' and category in {'PHASE_RELAY', 'VOLTAGE_RELAY', 'POWER_FACTOR_CONTROLLER'}
+                     and re.fullmatch(r'(?:MX|PFR)\d+[A-Z]*', code) and re.match(re.escape(code)+r'-', label))))
         if selected_id:
             if public_id(row) != selected_id or not exact:
                 continue
-        elif code and not (exact or model_match or family_match or body_match):
+        elif code and not (exact or model_match or family_match or body_match or reviewed_family_match):
             continue
         if any(value and (not _values(row,field) or not any(abs(float(value)-v)<0.001 for v in _values(row,field)))
                for field,value in [('poles',device.get('poles')),('current',device.get('in_a'))]):

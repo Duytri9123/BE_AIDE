@@ -22,7 +22,16 @@ def parse_card(card,brand,category,collection,checked):
     title=card.select_one('h3.product-title a');price=card.select_one('.price')
     if title is None or price is None:return None
     name=title.get_text(' ',strip=True);code=name.split('|')[0].strip()
-    if '|' not in name or not re.fullmatch(r'[A-Za-z0-9._/-]+',code) or not re.search(r'\d',code):return None
+    ct_ratio = None
+    if brand == 'EMIC':
+        model = re.search(r'\bEM\dH\d+[A-Z]?\b', name, re.I)
+        ratios = re.findall(r'\b(\d+)\s*/\s*(\d+)\s*A\b', name, re.I)
+        if not model or len(ratios) != 1 or 'Biến dòng' not in name:
+            return None
+        ct_ratio = ratios[0]
+        code = model[0].upper()+' '+ct_ratio[0]+'/'+ct_ratio[1]+'A'
+        category = 'CT'
+    elif '|' not in name or not re.fullmatch(r'[A-Za-z0-9._/-]+',code) or not re.search(r'\d',code):return None
     amounts=[]
     for span in price.select('span'):
         if span.select('span') or 'line-through' in span.get('class',[]) or span.find_parent('del'):continue
@@ -34,6 +43,9 @@ def parse_card(card,brand,category,collection,checked):
     url=title.get('href','')
     if urlparse(url).hostname!='etinco.vn':return None
     specs={}
+    if ct_ratio:
+        specs.update({'In (A)': ct_ratio[0], 'Dòng thứ cấp (A)': ct_ratio[1],
+                      'Tỷ số CT': ct_ratio[0]+'/'+ct_ratio[1]+'A'})
     for label,pattern in [('Điện áp',r'\b\d+(?:[.,]\d+)?\s*(?:V|VAC)\b'),
                           ('Dung lượng bù',r'\b\d+(?:[.,]\d+)?\s*kVAr\b'),
                           ('Dòng định mức',r'\b\d+(?:[.,]\d+)?\s*A\b'),
