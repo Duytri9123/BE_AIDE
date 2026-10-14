@@ -1,0 +1,35 @@
+{
+  "ABB": {
+    "status": "reviewed_with_remaining_gaps",
+    "note": "Rà 79 CAD trong thư mục ABB. Bổ sung 355 dòng giá hãng Việt Nam 2026: Tmax XT1–XT4, FH/F200, DS201L và VE5. Không đổi T1–T7 thành XT1–XT7, S280UC-K thành S200M UC, hoặc CAL5-11 thành CAL5X-11. Các dòng OVR T1 trong CAD không trùng OVR T1-T2/T2 trong bảng giá 2026; còn phải tìm giá đúng mã. Tài liệu kỹ thuật xác nhận hãng/dòng, không tự xác nhận hình học hay thông số đã chọn.",
+    "sources": [
+      {"title":"ABB Việt Nam 2026, bảng giá 218 trang","url":"https://library.e.abb.com/public/8fa0d161aec14871ae110caa57108c49/9AKK108472A7059_vi_B_EL%20Vietnam%20Master%20price%20list%202026%20%28VIE%29.pdf"},
+      {"title":"ABB FORMULA","url":"https://new.abb.com/low-voltage/products/circuit-breakers/formula"},
+      {"title":"ABB DS201, datasheet","url":"https://library.e.abb.com/public/b7eab409b968427bbc8743fb035574b1/9AKK107492A9205_Tech%20Datasheet_DS201_FULL_rev3.pdf"},
+      {"title":"ABB CAL5-11","url":"https://catalogo-generale.abb.com/avviamento-motori/accessori-e-ricambi-contattori-e-minicontattori/CAL5-11"},
+      {"title":"ABB VE5-1","url":"https://new.abb.com/products/it/1SBN030110R1000/ve5-1"},
+      {"title":"ABB S280 UC và ứng dụng DC","url":"https://library.e.abb.com/public/de4ebee4798b6724852576be007b74d4/1SXU210206G0201.pdf"}
+    ]
+  },
+  "BienDong": {
+    "status": "reviewed_with_remaining_gaps",
+    "note": "Đối chiếu danh sách 43 CAD biến dòng. Thêm 60 cấu hình MITEX BD01/BD02/BD03 từ giá bán công khai của PLE, gồm 20 cấu hình BD01; cần chọn tỷ số, cấp chính xác, VA, số vòng và cửa sổ. EM4H09D không tự đổi thành EM4H09; ZCT120 không tự đổi thành ZCT120S. LightStar hiện nguồn tìm được yêu cầu liên hệ; không dùng USD năm 2022 thành giá VND hiện tại. MSQ/RCT là tên dùng ở nhiều nguồn, chưa đủ để gán hãng cho các CAD chưa có nhãn.",
+    "sources": [
+      {"title":"MITEX — sản phẩm hãng","url":"https://mitex.vn/"},
+      {"title":"PLE — giá bán MITEX theo cấu hình","url":"https://www.ple.vn/manufacturer/mitex/by,product_name.html?lang=vi&language=vi-VN"},
+      {"title":"Mikro — thay đổi ZCT120S","url":"https://itmikro.com.my/wp-content/uploads/2020/08/ZCT_Change.pdf"},
+      {"title":"EMIC — catalogue biến dòng CT0.6","url":"https://emic.com.vn/img/files/bien-dong/Catalog%20xuy%E1%BA%BFn%20CT0.6%20%28290623%29.pdf"},
+      {"title":"LightStar KBD-13 — nhà cung cấp yêu cầu liên hệ","url":"https://thietbidien286.com/san-pham/kbd-13-lightstar-bien-dong-3-pha-50-5a-200-5a/"}
+    ]
+  },
+  "Bộ điều khiển": {
+    "status": "web_review_in_progress",
+    "note": "Đã rà metadata và chữ DXF của 19 CAD; đang đối chiếu tài liệu hãng. Tìm được giá bán NX201A-240A 1.461.600 đồng, giữ đúng mã cũ, không lấy N201/R201 thay thế. CAD NX201A/MK201A vẫn chưa phân biệt rõ dòng để liên kết tự động. DSE8610 là mã ứng viên; DELAB APFC 12 cấp chưa có mã đặt hàng xác nhận. Chưa hoàn tất nhận diện các ATS/biến tần/rơ le chưa rõ hãng trong thư mục này.",
+    "sources": [
+      {"title":"Mikro NX201A — các biến thể điện áp phụ trợ","url":"https://itmikro.com.my/nx201a-earth-fault-relay/"},
+      {"title":"Cơ điện Hải Âu — giá NX201A-240A","url":"https://codienhaiau.com/product/ro-le-bao-ve-cham-dat-mikro-nx201a-240a-0-1-2a/"},
+      {"title":"DELAB — bộ điều khiển hệ số công suất","url":"https://www.delab.com.my/product-category/digital-power-factor-regulator/"},
+      {"title":"Deep Sea DSE8610 — datasheet hãng","url":"https://www.deepseaelectronics.com/genset/load-sharing-synchronising-control-modules/dse8610/downloads/datasheet"}
+    ]
+  }
+}

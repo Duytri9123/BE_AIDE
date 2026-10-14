@@ -59,6 +59,49 @@ def extract_rows(source):
             if m:
                 family = ('SH200' if m[1].startswith('SH') else 'SY200' if m[1].startswith('SY') else 'S200')
                 add(page, line.strip(), m[1], m[4], 'MCB', m[2]+'P', m[3], m[5], family)
+    # Tmax XT columns are verified against the 3P/4P table headers.
+    # InN=50% rows have only the right-hand order code; never assign by pair count.
+    for page in range(35,42):
+        sheet=doc[page-1]
+        positions={w[4]:w[0] for w in sheet.get_text('words') if re.fullmatch(r'1SDA\w+',w[4])}
+        for line in sheet.get_text(sort=True).splitlines():
+            model=re.search(r'\b(XT[1-4][BCNSHL])\s+(\d+)\s+(TMF|TMD|TMA)\s+(\d+)-\d+',line)
+            if not model:continue
+            for sku,price in re.findall(r'\b(1SDA\w+)\s+(\d{1,3}(?:,\d{3})+)\b',line):
+                x=positions[sku]
+                if not (300<x<400 or 430<x<500):raise ValueError(f'Unexpected XT code column: {page}, {sku}, {x}')
+                poles='3P' if x<400 else '4P'
+                add(page,line.strip(),model[1]+' '+model[3],sku,'MCCB',poles,model[4],price,model[1][:3])
+                rows[-1]['specifications']['Cỡ khung (A)']=model[2]
+                rows[-1]['specifications']['Trip']=model[3]
+                neutral=re.search(r'InN=(\d+)%',line)
+                if poles=='4P' and neutral:rows[-1]['specifications']['Dòng cực N (%)']=neutral[1]
+                rows[-1]['columns']=['Tên hàng','Mã đặt hàng','Số cực','In (A)','Cỡ khung (A)','Trip','Dòng cực N (%)','Giá bán']
+                rows[-1]['cells']=[rows[-1]['item_name'],sku,poles,model[4],model[2],model[3],neutral[1] if poles=='4P' and neutral else '',price]
+    for line in doc[148].get_text(sort=True).splitlines():
+        m=re.search(r'\b((?:FH|F)20([24]))\s+AC-(\d+)/(0\.\d+)\s+(2CSF\w+)\s+(\d{1,3}(?:,\d{3})+)\s*$',line)
+        if m:
+            add(149,line.strip(),m[1]+' AC',m[5],'RCCB',m[2]+'P',m[3],m[6],m[1])
+            residual=str(round(float(m[4])*1000))
+            rows[-1]['specifications']['Dòng rò (mA)']=residual+' mA'
+            rows[-1]['columns']=['Tên hàng','Mã đặt hàng','Số cực','In (A)','Dòng rò (mA)','Giá bán']
+            rows[-1]['cells']=[rows[-1]['item_name'],m[5],m[2]+'P',m[3],residual,m[6]]
+    for line in doc[149].get_text(sort=True).splitlines():
+        m=re.search(r'\bDS201\s+L\s+C(\d+)\s+AC(30|300)\s+(2CSR\w+)\s+(\d{1,3}(?:,\d{3})+)\s*$',line)
+        if m:
+            add(150,line.strip(),'DS201L C'+m[1]+' AC'+m[2],m[3],'RCBO','1P+N',m[1],m[4],'DS201L')
+            rows[-1]['specifications'].update({'Dòng rò (mA)':m[2]+' mA','Icn (kA)':'4.5','Đặc tuyến':'C','Loại dòng rò':'AC'})
+    for line in doc[115].get_text(sort=True).splitlines():
+        m=re.search(r'\b(VE5-[12])(?:\(3\))?\s+(1SBN\w+)\s+(\d{1,3}(?:,\d{3})+)\s*$',line)
+        if m:
+            existing=next((r for r in rows if r['sku']==m[2]),None)
+            if existing:
+                if existing['price']!=int(m[3].replace(',','')):raise ValueError('Conflicting interlock price')
+                continue
+            add(116,line.strip(),m[1],m[2],'INTERLOCK','',0,m[3])
+            row=rows[-1];row['item_name']=row['name']=m[1]
+            row['specifications']={'Mã đặt hàng':m[2],'Loại phụ kiện':'Liên động cơ điện'}
+            row['columns']=['Tên hàng','Mã đặt hàng','Giá bán'];row['cells']=[m[1],m[2],m[3]]
     for page in range(113, 118):
         for line in doc[page-1].get_text(sort=True).splitlines():
             m = re.search(r'\b(AX(\d{2,3})-(\d)\d-\d+-\d+)\s+(1S(?:BL|FL)\w+)\s+(\d{1,3}(?:,\d{3})+)\s*$', line)

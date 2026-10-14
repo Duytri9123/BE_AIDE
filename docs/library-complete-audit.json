@@ -1,8 +1,8 @@
 {
-  "checked_at": "2026-10-14T14:27:55.683905+00:00",
+  "checked_at": "2026-10-14T15:07:11.554545+00:00",
   "checked_devices": 837,
   "checked_views": 1448,
-  "linked_devices": 126,
+  "linked_devices": 140,
   "devices_with_structural_issues": 0,
   "manufacturer_status_counts": {
     "verified": 386,
@@ -12,11 +12,11 @@
     "not_applicable": 111
   },
   "price_status_counts": {
-    "choices_available": 126,
+    "choices_available": 140,
     "different_poles": 7,
     "no_device_code": 55,
-    "no_model_prices": 151,
-    "no_brand_prices": 37,
+    "no_model_prices": 138,
+    "no_brand_prices": 36,
     "unknown": 75,
     "candidate": 14,
     "missing_transformer_configuration": 1,
@@ -395,10 +395,10 @@
       "product_code": "DS201L",
       "type": "RCBO",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 12,
       "price_diagnostic": {
-        "status": "no_model_prices",
-        "message": "Đã nhận diện ABB · RCBO · DS201L. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -410,10 +410,10 @@
       "product_code": "FH202",
       "type": "RCCB",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 9,
       "price_diagnostic": {
-        "status": "no_model_prices",
-        "message": "Đã nhận diện ABB · RCCB · FH202. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -425,10 +425,10 @@
       "product_code": "FH204",
       "type": "RCCB",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 9,
       "price_diagnostic": {
-        "status": "no_model_prices",
-        "message": "Đã nhận diện ABB · RCCB · FH204. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -1070,10 +1070,10 @@
       "product_code": "VE5-1",
       "type": "Interlock",
       "view_count": 1,
-      "price_choice_count": 0,
+      "price_choice_count": 1,
       "price_diagnostic": {
-        "status": "no_model_prices",
-        "message": "Đã nhận diện ABB · Interlock · VE5-1. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -1085,10 +1085,10 @@
       "product_code": "VE5-2",
       "type": "Interlock",
       "view_count": 1,
-      "price_choice_count": 0,
+      "price_choice_count": 1,
       "price_diagnostic": {
-        "status": "no_model_prices",
-        "message": "Đã nhận diện ABB · Interlock · VE5-2. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -1100,10 +1100,10 @@
       "product_code": "XT1",
       "type": "MCCB",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 55,
       "price_diagnostic": {
-        "status": "no_model_prices",
-        "message": "Đã nhận diện ABB · MCCB · XT1. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -1115,10 +1115,10 @@
       "product_code": "XT1",
       "type": "MCCB",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 55,
       "price_diagnostic": {
-        "status": "no_model_prices",
-        "message": "Đã nhận diện ABB · MCCB · XT1. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -1130,10 +1130,10 @@
       "product_code": "XT2",
       "type": "MCCB",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 33,
       "price_diagnostic": {
-        "status": "no_model_prices",
-        "message": "Đã nhận diện ABB · MCCB · XT2. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -1145,10 +1145,10 @@
       "product_code": "XT2",
       "type": "MCCB",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 33,
       "price_diagnostic": {
-        "status": "no_model_prices",
-        "message": "Đã nhận diện ABB · MCCB · XT2. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -1160,10 +1160,10 @@
       "product_code": "XT3",
       "type": "MCCB",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 14,
       "price_diagnostic": {
-        "status": "no_model_prices",
-        "message": "Đã nhận diện ABB · MCCB · XT3. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -1175,10 +1175,10 @@
       "product_code": "XT3",
       "type": "MCCB",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 22,
       "price_diagnostic": {
-        "status": "no_model_prices",
-        "message": "Đã nhận diện ABB · MCCB · XT3. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -1190,10 +1190,10 @@
       "product_code": "XT4",
       "type": "MCCB",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 42,
       "price_diagnostic": {
-        "status": "no_model_prices",
-        "message": "Đã nhận diện ABB · MCCB · XT4. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -1205,10 +1205,10 @@
       "product_code": "XT4",
       "type": "MCCB",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 57,
       "price_diagnostic": {
-        "status": "no_model_prices",
-        "message": "Đã nhận diện ABB · MCCB · XT4. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -1490,10 +1490,10 @@
       "product_code": "BD01",
       "type": "CT",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 20,
       "price_diagnostic": {
-        "status": "no_brand_prices",
-        "message": "Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },

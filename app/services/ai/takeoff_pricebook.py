@@ -73,6 +73,10 @@ def match_device(device, rows, *, candidate_limit=30):
                                   and re.match(re.escape(code)+r'[A-Z](?=\s|$)', label))
                                  or (category == 'MCB' and code in {'S200', 'SH200'}
                                      and re.match(r'(?:SH|S)20[1-4][LM]?-C\d+\b', label))))
+        family_match = family_match or bool(known_brand and canonical_brand(brand)=='ABB'
+            and category=='MCCB' and code in {'XT1','XT2','XT3','XT4'}
+            and (row.get('specifications') or {}).get('Họ thiết bị')==code
+            and re.match(re.escape(code)+r'[BCNSHL](?=\s|$)',label))
         body_match = bool(known_brand and canonical_brand(brand) == 'ABB'
                           and category == 'CONTACTOR'
                           and re.fullmatch(r'AX\d+-\d+-\d+', code)

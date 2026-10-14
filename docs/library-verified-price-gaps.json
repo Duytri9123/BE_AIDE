@@ -1,13 +1,13 @@
 {
-  "linked_count": 126,
-  "verified_unlinked_count": 260,
+  "linked_count": 140,
+  "verified_unlinked_count": 246,
   "reason_counts": {
-    "related_code_only": 30,
+    "related_code_only": 38,
     "no_device_code": 56,
-    "code_not_in_published_prices": 137,
-    "no_brand_prices": 37
+    "code_not_in_published_prices": 116,
+    "no_brand_prices": 36
   },
-  "price_row_count": 8764,
+  "price_row_count": 9180,
   "linked": [
     {
       "id": "TB-88adac8683ca9439",
@@ -136,6 +136,24 @@
       "choices": 4
     },
     {
+      "id": "TB-f6a1beab59022e94",
+      "brand": "ABB",
+      "name": "RCBO ABB DS201L · 1P+N",
+      "choices": 12
+    },
+    {
+      "id": "TB-ab8adb16123a5546",
+      "brand": "ABB",
+      "name": "RCCB ABB FH202 · 2P",
+      "choices": 9
+    },
+    {
+      "id": "TB-8f879e32ac14a090",
+      "brand": "ABB",
+      "name": "RCCB ABB FH204 · 4P",
+      "choices": 9
+    },
+    {
       "id": "TB-236d909f2f67a025",
       "brand": "ABB",
       "name": "MCB ABB S200 · 1P",
@@ -208,6 +226,66 @@
       "choices": 4
     },
     {
+      "id": "TB-dfb0d04434e0dce5",
+      "brand": "ABB",
+      "name": "Interlock ABB VE5-1",
+      "choices": 1
+    },
+    {
+      "id": "TB-86824ea210f427c7",
+      "brand": "ABB",
+      "name": "Interlock ABB VE5-2",
+      "choices": 1
+    },
+    {
+      "id": "TB-e99e037800d505a5",
+      "brand": "ABB",
+      "name": "MCCB ABB XT1 · 3P",
+      "choices": 55
+    },
+    {
+      "id": "TB-7c82e425cbabfa75",
+      "brand": "ABB",
+      "name": "MCCB ABB XT1 · 4P",
+      "choices": 55
+    },
+    {
+      "id": "TB-21ea7f0e831de8d7",
+      "brand": "ABB",
+      "name": "MCCB ABB XT2 · 3P",
+      "choices": 33
+    },
+    {
+      "id": "TB-23bfc1d4c3d92835",
+      "brand": "ABB",
+      "name": "MCCB ABB XT2 · 4P",
+      "choices": 33
+    },
+    {
+      "id": "TB-a3b217c01c3d5995",
+      "brand": "ABB",
+      "name": "MCCB ABB XT3 · 3P",
+      "choices": 14
+    },
+    {
+      "id": "TB-9f731f5936fb2699",
+      "brand": "ABB",
+      "name": "MCCB ABB XT3 · 4P",
+      "choices": 22
+    },
+    {
+      "id": "TB-4d6744551b590b73",
+      "brand": "ABB",
+      "name": "MCCB ABB XT4 · 3P",
+      "choices": 42
+    },
+    {
+      "id": "TB-3b0a67f29691c91f",
+      "brand": "ABB",
+      "name": "MCCB ABB XT4 · 4P",
+      "choices": 57
+    },
+    {
       "id": "TB-cf19862a7d242bfc",
       "brand": "EMIC",
       "name": "Biến dòng đo lường EMIC EM4H03",
@@ -248,6 +326,12 @@
       "brand": "MIKRO",
       "name": "Biến dòng thứ tự không MIKRO ZCT80S",
       "choices": 1
+    },
+    {
+      "id": "TB-1eaa9fd733e664be",
+      "brand": "MITEX",
+      "name": "Biến dòng đo lường MITEX BD01",
+      "choices": 20
     },
     {
       "id": "TB-c02623ff6b0d78b7",
@@ -774,7 +858,7 @@
       "type": "MCCB",
       "product_code": "A2",
       "reason": "related_code_only",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": [
         {
           "id": "abb-2026:1SDA066542R1",
@@ -845,7 +929,7 @@
       "type": "Accessory",
       "product_code": "",
       "reason": "no_device_code",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -855,37 +939,7 @@
       "type": "Aux_Contact",
       "product_code": "CAL5-11",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-f6a1beab59022e94",
-      "name": "RCBO ABB DS201L · 1P+N",
-      "brand": "ABB",
-      "type": "RCBO",
-      "product_code": "DS201L",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-ab8adb16123a5546",
-      "name": "RCCB ABB FH202 · 2P",
-      "brand": "ABB",
-      "type": "RCCB",
-      "product_code": "FH202",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-8f879e32ac14a090",
-      "name": "RCCB ABB FH204 · 4P",
-      "brand": "ABB",
-      "type": "RCCB",
-      "product_code": "FH204",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -895,7 +949,7 @@
       "type": "SPD",
       "product_code": "OVR T1 25 255",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -905,7 +959,7 @@
       "type": "SPD",
       "product_code": "OVR T1 25 440-50",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -915,7 +969,7 @@
       "type": "SPD",
       "product_code": "OVR T1 2L 25 255",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -925,7 +979,7 @@
       "type": "SPD",
       "product_code": "OVR T1 2L 25 255 TS",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -935,7 +989,7 @@
       "type": "SPD",
       "product_code": "OVR T1 3L 25 255",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -945,7 +999,7 @@
       "type": "SPD",
       "product_code": "OVR T1 3L 25 255 TS",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -955,7 +1009,7 @@
       "type": "SPD",
       "product_code": "OVR T1 3N 25 255",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -965,7 +1019,7 @@
       "type": "SPD",
       "product_code": "OVR T1 3N 25 255 TS",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -975,7 +1029,7 @@
       "type": "SPD",
       "product_code": "OVR T1 4L 25 255",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -985,7 +1039,7 @@
       "type": "SPD",
       "product_code": "OVR T1 4L 25 255 TS",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -995,7 +1049,7 @@
       "type": "MCB",
       "product_code": "S280UC-K",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -1005,7 +1059,7 @@
       "type": "MCB",
       "product_code": "S280UC-K",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -1015,7 +1069,7 @@
       "type": "MCB",
       "product_code": "S280UC-K",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -1025,7 +1079,7 @@
       "type": "MCB",
       "product_code": "S280UC-K",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -1034,9 +1088,80 @@
       "brand": "ABB",
       "type": "MCCB",
       "product_code": "T1",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
+      "reason": "related_code_only",
+      "brand_price_count": 1081,
+      "related_price_rows": [
+        {
+          "id": "abb-2026:1SDA066799R1",
+          "sku": "1SDA066799R1",
+          "item_name": "XT1B TMD 3P 16A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA066799R1",
+            "Số cực": "3P",
+            "In (A)": "16",
+            "Họ thiết bị": "XT1",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA066810R1",
+          "sku": "1SDA066810R1",
+          "item_name": "XT1B TMD 4P 16A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA066810R1",
+            "Số cực": "4P",
+            "In (A)": "16",
+            "Họ thiết bị": "XT1",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA066800R1",
+          "sku": "1SDA066800R1",
+          "item_name": "XT1B TMD 3P 20A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA066800R1",
+            "Số cực": "3P",
+            "In (A)": "20",
+            "Họ thiết bị": "XT1",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA066811R1",
+          "sku": "1SDA066811R1",
+          "item_name": "XT1B TMD 4P 20A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA066811R1",
+            "Số cực": "4P",
+            "In (A)": "20",
+            "Họ thiết bị": "XT1",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA066801R1",
+          "sku": "1SDA066801R1",
+          "item_name": "XT1B TMD 3P 25A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA066801R1",
+            "Số cực": "3P",
+            "In (A)": "25",
+            "Họ thiết bị": "XT1",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        }
+      ]
     },
     {
       "id": "TB-06a5b5b32049d6e2",
@@ -1044,9 +1169,80 @@
       "brand": "ABB",
       "type": "MCCB",
       "product_code": "T1",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
+      "reason": "related_code_only",
+      "brand_price_count": 1081,
+      "related_price_rows": [
+        {
+          "id": "abb-2026:1SDA066799R1",
+          "sku": "1SDA066799R1",
+          "item_name": "XT1B TMD 3P 16A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA066799R1",
+            "Số cực": "3P",
+            "In (A)": "16",
+            "Họ thiết bị": "XT1",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA066810R1",
+          "sku": "1SDA066810R1",
+          "item_name": "XT1B TMD 4P 16A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA066810R1",
+            "Số cực": "4P",
+            "In (A)": "16",
+            "Họ thiết bị": "XT1",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA066800R1",
+          "sku": "1SDA066800R1",
+          "item_name": "XT1B TMD 3P 20A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA066800R1",
+            "Số cực": "3P",
+            "In (A)": "20",
+            "Họ thiết bị": "XT1",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA066811R1",
+          "sku": "1SDA066811R1",
+          "item_name": "XT1B TMD 4P 20A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA066811R1",
+            "Số cực": "4P",
+            "In (A)": "20",
+            "Họ thiết bị": "XT1",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA066801R1",
+          "sku": "1SDA066801R1",
+          "item_name": "XT1B TMD 3P 25A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA066801R1",
+            "Số cực": "3P",
+            "In (A)": "25",
+            "Họ thiết bị": "XT1",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        }
+      ]
     },
     {
       "id": "TB-d157f39c3bb6aae9",
@@ -1054,9 +1250,80 @@
       "brand": "ABB",
       "type": "MCCB",
       "product_code": "T2",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
+      "reason": "related_code_only",
+      "brand_price_count": 1081,
+      "related_price_rows": [
+        {
+          "id": "abb-2026:1SDA067010R1",
+          "sku": "1SDA067010R1",
+          "item_name": "XT2N TMD 3P 16A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA067010R1",
+            "Số cực": "3P",
+            "In (A)": "16",
+            "Họ thiết bị": "XT2",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA067031R1",
+          "sku": "1SDA067031R1",
+          "item_name": "XT2N TMD 4P 16A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA067031R1",
+            "Số cực": "4P",
+            "In (A)": "16",
+            "Họ thiết bị": "XT2",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA067011R1",
+          "sku": "1SDA067011R1",
+          "item_name": "XT2N TMD 3P 20A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA067011R1",
+            "Số cực": "3P",
+            "In (A)": "20",
+            "Họ thiết bị": "XT2",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA067032R1",
+          "sku": "1SDA067032R1",
+          "item_name": "XT2N TMD 4P 20A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA067032R1",
+            "Số cực": "4P",
+            "In (A)": "20",
+            "Họ thiết bị": "XT2",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA067012R1",
+          "sku": "1SDA067012R1",
+          "item_name": "XT2N TMD 3P 25A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA067012R1",
+            "Số cực": "3P",
+            "In (A)": "25",
+            "Họ thiết bị": "XT2",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        }
+      ]
     },
     {
       "id": "TB-10f4ef9fe052641b",
@@ -1064,9 +1331,80 @@
       "brand": "ABB",
       "type": "MCCB",
       "product_code": "T2",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
+      "reason": "related_code_only",
+      "brand_price_count": 1081,
+      "related_price_rows": [
+        {
+          "id": "abb-2026:1SDA067010R1",
+          "sku": "1SDA067010R1",
+          "item_name": "XT2N TMD 3P 16A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA067010R1",
+            "Số cực": "3P",
+            "In (A)": "16",
+            "Họ thiết bị": "XT2",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA067031R1",
+          "sku": "1SDA067031R1",
+          "item_name": "XT2N TMD 4P 16A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA067031R1",
+            "Số cực": "4P",
+            "In (A)": "16",
+            "Họ thiết bị": "XT2",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA067011R1",
+          "sku": "1SDA067011R1",
+          "item_name": "XT2N TMD 3P 20A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA067011R1",
+            "Số cực": "3P",
+            "In (A)": "20",
+            "Họ thiết bị": "XT2",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA067032R1",
+          "sku": "1SDA067032R1",
+          "item_name": "XT2N TMD 4P 20A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA067032R1",
+            "Số cực": "4P",
+            "In (A)": "20",
+            "Họ thiết bị": "XT2",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA067012R1",
+          "sku": "1SDA067012R1",
+          "item_name": "XT2N TMD 3P 25A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA067012R1",
+            "Số cực": "3P",
+            "In (A)": "25",
+            "Họ thiết bị": "XT2",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        }
+      ]
     },
     {
       "id": "TB-b2c9d79faee3c2fd",
@@ -1074,9 +1412,80 @@
       "brand": "ABB",
       "type": "MCCB",
       "product_code": "T3",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
+      "reason": "related_code_only",
+      "brand_price_count": 1081,
+      "related_price_rows": [
+        {
+          "id": "abb-2026:1SDA068053R1",
+          "sku": "1SDA068053R1",
+          "item_name": "XT3N TMD 3P 63A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA068053R1",
+            "Số cực": "3P",
+            "In (A)": "63",
+            "Họ thiết bị": "XT3",
+            "Cỡ khung (A)": "250",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA068060R1",
+          "sku": "1SDA068060R1",
+          "item_name": "XT3N TMD 4P 63A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA068060R1",
+            "Số cực": "4P",
+            "In (A)": "63",
+            "Họ thiết bị": "XT3",
+            "Cỡ khung (A)": "250",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA068054R1",
+          "sku": "1SDA068054R1",
+          "item_name": "XT3N TMD 3P 80A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA068054R1",
+            "Số cực": "3P",
+            "In (A)": "80",
+            "Họ thiết bị": "XT3",
+            "Cỡ khung (A)": "250",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA068061R1",
+          "sku": "1SDA068061R1",
+          "item_name": "XT3N TMD 4P 80A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA068061R1",
+            "Số cực": "4P",
+            "In (A)": "80",
+            "Họ thiết bị": "XT3",
+            "Cỡ khung (A)": "250",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA068055R1",
+          "sku": "1SDA068055R1",
+          "item_name": "XT3N TMD 3P 100A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA068055R1",
+            "Số cực": "3P",
+            "In (A)": "100",
+            "Họ thiết bị": "XT3",
+            "Cỡ khung (A)": "250",
+            "Trip": "TMD"
+          }
+        }
+      ]
     },
     {
       "id": "TB-49e504a81c585e57",
@@ -1084,9 +1493,80 @@
       "brand": "ABB",
       "type": "MCCB",
       "product_code": "T3",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
+      "reason": "related_code_only",
+      "brand_price_count": 1081,
+      "related_price_rows": [
+        {
+          "id": "abb-2026:1SDA068053R1",
+          "sku": "1SDA068053R1",
+          "item_name": "XT3N TMD 3P 63A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA068053R1",
+            "Số cực": "3P",
+            "In (A)": "63",
+            "Họ thiết bị": "XT3",
+            "Cỡ khung (A)": "250",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA068060R1",
+          "sku": "1SDA068060R1",
+          "item_name": "XT3N TMD 4P 63A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA068060R1",
+            "Số cực": "4P",
+            "In (A)": "63",
+            "Họ thiết bị": "XT3",
+            "Cỡ khung (A)": "250",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA068054R1",
+          "sku": "1SDA068054R1",
+          "item_name": "XT3N TMD 3P 80A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA068054R1",
+            "Số cực": "3P",
+            "In (A)": "80",
+            "Họ thiết bị": "XT3",
+            "Cỡ khung (A)": "250",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA068061R1",
+          "sku": "1SDA068061R1",
+          "item_name": "XT3N TMD 4P 80A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA068061R1",
+            "Số cực": "4P",
+            "In (A)": "80",
+            "Họ thiết bị": "XT3",
+            "Cỡ khung (A)": "250",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA068055R1",
+          "sku": "1SDA068055R1",
+          "item_name": "XT3N TMD 3P 100A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA068055R1",
+            "Số cực": "3P",
+            "In (A)": "100",
+            "Họ thiết bị": "XT3",
+            "Cỡ khung (A)": "250",
+            "Trip": "TMD"
+          }
+        }
+      ]
     },
     {
       "id": "TB-aaf3c86b63b70879",
@@ -1094,9 +1574,80 @@
       "brand": "ABB",
       "type": "MCCB",
       "product_code": "T4",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
+      "reason": "related_code_only",
+      "brand_price_count": 1081,
+      "related_price_rows": [
+        {
+          "id": "abb-2026:1SDA068076R1",
+          "sku": "1SDA068076R1",
+          "item_name": "XT4N TMD 3P 16A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA068076R1",
+            "Số cực": "3P",
+            "In (A)": "16",
+            "Họ thiết bị": "XT4",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA068093R1",
+          "sku": "1SDA068093R1",
+          "item_name": "XT4N TMD 4P 16A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA068093R1",
+            "Số cực": "4P",
+            "In (A)": "16",
+            "Họ thiết bị": "XT4",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA068080R1",
+          "sku": "1SDA068080R1",
+          "item_name": "XT4N TMD 3P 20A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA068080R1",
+            "Số cực": "3P",
+            "In (A)": "20",
+            "Họ thiết bị": "XT4",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA068094R1",
+          "sku": "1SDA068094R1",
+          "item_name": "XT4N TMD 4P 20A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA068094R1",
+            "Số cực": "4P",
+            "In (A)": "20",
+            "Họ thiết bị": "XT4",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA068081R1",
+          "sku": "1SDA068081R1",
+          "item_name": "XT4N TMD 3P 25A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA068081R1",
+            "Số cực": "3P",
+            "In (A)": "25",
+            "Họ thiết bị": "XT4",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        }
+      ]
     },
     {
       "id": "TB-b2adae6ba6110d68",
@@ -1104,9 +1655,80 @@
       "brand": "ABB",
       "type": "MCCB",
       "product_code": "T4",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
+      "reason": "related_code_only",
+      "brand_price_count": 1081,
+      "related_price_rows": [
+        {
+          "id": "abb-2026:1SDA068076R1",
+          "sku": "1SDA068076R1",
+          "item_name": "XT4N TMD 3P 16A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA068076R1",
+            "Số cực": "3P",
+            "In (A)": "16",
+            "Họ thiết bị": "XT4",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA068093R1",
+          "sku": "1SDA068093R1",
+          "item_name": "XT4N TMD 4P 16A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA068093R1",
+            "Số cực": "4P",
+            "In (A)": "16",
+            "Họ thiết bị": "XT4",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA068080R1",
+          "sku": "1SDA068080R1",
+          "item_name": "XT4N TMD 3P 20A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA068080R1",
+            "Số cực": "3P",
+            "In (A)": "20",
+            "Họ thiết bị": "XT4",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA068094R1",
+          "sku": "1SDA068094R1",
+          "item_name": "XT4N TMD 4P 20A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA068094R1",
+            "Số cực": "4P",
+            "In (A)": "20",
+            "Họ thiết bị": "XT4",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        },
+        {
+          "id": "abb-2026:1SDA068081R1",
+          "sku": "1SDA068081R1",
+          "item_name": "XT4N TMD 3P 25A",
+          "category": "MCCB",
+          "specifications": {
+            "Mã đặt hàng": "1SDA068081R1",
+            "Số cực": "3P",
+            "In (A)": "25",
+            "Họ thiết bị": "XT4",
+            "Cỡ khung (A)": "160",
+            "Trip": "TMD"
+          }
+        }
+      ]
     },
     {
       "id": "TB-8fac11ff07aa165b",
@@ -1115,7 +1737,7 @@
       "type": "MCCB",
       "product_code": "T5",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -1125,7 +1747,7 @@
       "type": "MCCB",
       "product_code": "T5",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -1135,7 +1757,7 @@
       "type": "MCCB",
       "product_code": "T6",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -1145,7 +1767,7 @@
       "type": "MCCB",
       "product_code": "T6",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -1155,7 +1777,7 @@
       "type": "MCCB",
       "product_code": "T7",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -1165,7 +1787,7 @@
       "type": "MCCB",
       "product_code": "T7",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -1175,7 +1797,7 @@
       "type": "MCCB",
       "product_code": "T7M",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -1185,107 +1807,7 @@
       "type": "MCCB",
       "product_code": "T7M",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-dfb0d04434e0dce5",
-      "name": "Interlock ABB VE5-1",
-      "brand": "ABB",
-      "type": "Interlock",
-      "product_code": "VE5-1",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-86824ea210f427c7",
-      "name": "Interlock ABB VE5-2",
-      "brand": "ABB",
-      "type": "Interlock",
-      "product_code": "VE5-2",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-e99e037800d505a5",
-      "name": "MCCB ABB XT1 · 3P",
-      "brand": "ABB",
-      "type": "MCCB",
-      "product_code": "XT1",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-7c82e425cbabfa75",
-      "name": "MCCB ABB XT1 · 4P",
-      "brand": "ABB",
-      "type": "MCCB",
-      "product_code": "XT1",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-21ea7f0e831de8d7",
-      "name": "MCCB ABB XT2 · 3P",
-      "brand": "ABB",
-      "type": "MCCB",
-      "product_code": "XT2",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-23bfc1d4c3d92835",
-      "name": "MCCB ABB XT2 · 4P",
-      "brand": "ABB",
-      "type": "MCCB",
-      "product_code": "XT2",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-a3b217c01c3d5995",
-      "name": "MCCB ABB XT3 · 3P",
-      "brand": "ABB",
-      "type": "MCCB",
-      "product_code": "XT3",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-9f731f5936fb2699",
-      "name": "MCCB ABB XT3 · 4P",
-      "brand": "ABB",
-      "type": "MCCB",
-      "product_code": "XT3",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-4d6744551b590b73",
-      "name": "MCCB ABB XT4 · 3P",
-      "brand": "ABB",
-      "type": "MCCB",
-      "product_code": "XT4",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-3b0a67f29691c91f",
-      "name": "MCCB ABB XT4 · 4P",
-      "brand": "ABB",
-      "type": "MCCB",
-      "product_code": "XT4",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -1295,7 +1817,7 @@
       "type": "CT",
       "product_code": "",
       "reason": "no_device_code",
-      "brand_price_count": 726,
+      "brand_price_count": 1081,
       "related_price_rows": []
     },
     {
@@ -1395,7 +1917,7 @@
       "type": "CT",
       "product_code": "ZCT120",
       "reason": "related_code_only",
-      "brand_price_count": 214,
+      "brand_price_count": 215,
       "related_price_rows": [
         {
           "id": "extra-pdf:b21a1618af9f79a97baf",
@@ -1408,16 +1930,6 @@
           }
         }
       ]
-    },
-    {
-      "id": "TB-1eaa9fd733e664be",
-      "name": "Biến dòng đo lường MITEX BD01",
-      "brand": "MITEX",
-      "type": "CT",
-      "product_code": "BD01",
-      "reason": "no_brand_prices",
-      "brand_price_count": 0,
-      "related_price_rows": []
     },
     {
       "id": "TB-098e45ffd50663e3",
@@ -1516,7 +2028,7 @@
       "type": "EARTH_FAULT_RELAY",
       "product_code": "",
       "reason": "no_device_code",
-      "brand_price_count": 214,
+      "brand_price_count": 215,
       "related_price_rows": []
     },
     {

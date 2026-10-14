@@ -1,5 +1,21 @@
 # Đối chiếu toàn bộ thư viện thiết bị
 
+## Kết quả hiện tại — bổ sung giá theo thư mục ngày 14/10/2026
+
+Đã bổ sung ròng **416 dòng giá**, tổng **9.180 dòng** trong phạm vi 33 hãng có dữ liệu công bố. Giữ toàn bộ ID và giá cũ; thêm MITEX vào danh sách hãng có giá.
+
+- **ABB: +355 dòng** theo bảng giá hãng Việt Nam 2026: Tmax XT1–XT4, FH/F200, DS201L và VE5. Thư mục ABB có 46/79 CAD có lựa chọn giá, tăng 13. Số cực được đọc theo cột 3P/4P trong PDF; giữ riêng cực N 50%/100%, bộ trip, dòng rò và mã đặt hàng.
+- **MITEX: +60 cấu hình** từ giá bán công khai PLE, gồm 20 BD01. Giữ tỷ số dòng, cấp chính xác, VA, số vòng và cửa sổ; VAT/tồn kho cần xác nhận. Thư mục Biến dòng tăng từ 7 lên 8/43 CAD có lựa chọn giá.
+- **Mikro: +1 dòng NX201A-240A**, giá bán nhà cung cấp 1.461.600 đồng. Không thay bằng N201/R201 và không tự xác nhận CAD đang có hai mã ứng viên NX201A/MK201A.
+
+Rà lại toàn bộ **837 CAD và 1.448 mặt vẽ**: **140 CAD có lựa chọn giá**, tăng 14; **697 chưa có lựa chọn**. Không có lỗi cấu trúc đường dẫn/file/SVG trong kiểm tra này. Trong 697: 246 đã xác định hãng nhưng còn thiếu mã/giá/cấu hình, 251 theo thư viện nguồn, 75 chưa rõ hãng, 14 hãng ứng viên, 111 phụ kiện phổ thông.
+
+Đã đối chiếu web thư mục ABB và Biến dòng; đang tiếp tục Bộ điều khiển. Các thư mục khác được ghi rõ chưa hoàn tất rà web, không coi việc kiểm tra tự động toàn bộ 837 CAD là đã xác nhận kỹ thuật từng bản vẽ. [Báo cáo từng thư mục, từng CAD và nguồn web](library-folder-price-audit.md), [phân loại kết quả toàn bộ CAD](library-classified-price-review.md).
+
+58 kiểm tra đạt. Nguồn: [ABB Việt Nam 2026](https://library.e.abb.com/public/8fa0d161aec14871ae110caa57108c49/9AKK108472A7059_vi_B_EL%20Vietnam%20Master%20price%20list%202026%20%28VIE%29.pdf), [MITEX tại PLE](https://www.ple.vn/manufacturer/mitex/by,product_name.html?lang=vi&language=vi-VN), [NX201A hãng Mikro](https://itmikro.com.my/nx201a-earth-fault-relay/), [giá NX201A tại Hải Âu](https://codienhaiau.com/product/ro-le-bao-ve-cham-dat-mikro-nx201a-240a-0-1-2a/).
+
+## Lịch sử các đợt trước — số liệu bên dưới giữ theo thời điểm đó
+
 ## Rà chữ bên trong toàn bộ DXF và sửa dữ liệu điều khiển
 
 Đã đọc đủ 837 CAD và 1.448 file DXF, gồm TEXT/MTEXT, thuộc tính INSERT và chữ trong block lồng nhau. Không có lỗi trích xuất. Đây là rà dữ liệu chữ, chưa phải đọc bằng mắt mọi logo được vẽ bằng đường nét. [Bằng chứng chữ và SHA256 từng mặt](library-dxf-identity-audit.json).

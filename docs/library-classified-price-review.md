@@ -5,14 +5,14 @@ Phân loại theo loại thiết bị, hãng, mã và lý do chưa đối chiế
 | Trạng thái | Số thiết bị |
 | --- | ---: |
 | Hãng ứng viên | 14 |
-| Có lựa chọn giá | 126 |
+| Có lựa chọn giá | 140 |
 | Giá cùng dòng nhưng khác số cực | 7 |
 | Thiếu mã đặt hàng đầy đủ | 2 |
 | Biến áp thiếu mã/VA/điện áp | 1 |
-| Chưa có giá theo nhãn hãng | 37 |
+| Chưa có giá theo nhãn hãng | 36 |
 | Chưa xác nhận mã | 55 |
 | Chưa khớp cấu hình | 7 |
-| Chưa có giá đúng mã/loại trong dữ liệu công bố | 151 |
+| Chưa có giá đúng mã/loại trong dữ liệu công bố | 138 |
 | Phụ kiện phổ thông | 111 |
 | Hãng theo thư viện nguồn | 251 |
 | Chưa rõ hãng | 75 |
@@ -220,8 +220,8 @@ Phân loại theo loại thiết bị, hãng, mã và lý do chưa đối chiế
 | Contactor ABB AX80-30-11 · 3P | Contactor | ABB | AX80-30-11 | 4 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | Contactor ABB AX9-30-10 · 3P | Contactor | ABB | AX9-30-10 | 4 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | Contactor ABB AX95-30-11 · 3P | Contactor | ABB | AX95-30-11 | 4 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
-| Interlock ABB VE5-1 | Interlock | ABB | VE5-1 | 0 | Đã nhận diện ABB · Interlock · VE5-1. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| Interlock ABB VE5-2 | Interlock | ABB | VE5-2 | 0 | Đã nhận diện ABB · Interlock · VE5-2. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| Interlock ABB VE5-1 | Interlock | ABB | VE5-1 | 1 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| Interlock ABB VE5-2 | Interlock | ABB | VE5-2 | 1 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | MCB ABB S200 · 1P | MCB | ABB | S200 | 11 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | MCB ABB S200 · 2P | MCB | ABB | S200 | 11 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | MCB ABB S200 · 3P | MCB | ABB | S200 | 11 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
@@ -260,17 +260,17 @@ Phân loại theo loại thiết bị, hãng, mã và lý do chưa đối chiế
 | MCCB ABB T7 · 4P | MCCB | ABB | T7 | 0 | Đã nhận diện ABB · MCCB · T7. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | MCCB ABB T7M · 3P | MCCB | ABB | T7M | 0 | Đã nhận diện ABB · MCCB · T7M. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | MCCB ABB T7M · 4P | MCCB | ABB | T7M | 0 | Đã nhận diện ABB · MCCB · T7M. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| MCCB ABB XT1 · 3P | MCCB | ABB | XT1 | 0 | Đã nhận diện ABB · MCCB · XT1. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| MCCB ABB XT1 · 4P | MCCB | ABB | XT1 | 0 | Đã nhận diện ABB · MCCB · XT1. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| MCCB ABB XT2 · 3P | MCCB | ABB | XT2 | 0 | Đã nhận diện ABB · MCCB · XT2. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| MCCB ABB XT2 · 4P | MCCB | ABB | XT2 | 0 | Đã nhận diện ABB · MCCB · XT2. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| MCCB ABB XT3 · 3P | MCCB | ABB | XT3 | 0 | Đã nhận diện ABB · MCCB · XT3. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| MCCB ABB XT3 · 4P | MCCB | ABB | XT3 | 0 | Đã nhận diện ABB · MCCB · XT3. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| MCCB ABB XT4 · 3P | MCCB | ABB | XT4 | 0 | Đã nhận diện ABB · MCCB · XT4. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| MCCB ABB XT4 · 4P | MCCB | ABB | XT4 | 0 | Đã nhận diện ABB · MCCB · XT4. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| RCBO ABB DS201L · 1P+N | RCBO | ABB | DS201L | 0 | Đã nhận diện ABB · RCBO · DS201L. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| RCCB ABB FH202 · 2P | RCCB | ABB | FH202 | 0 | Đã nhận diện ABB · RCCB · FH202. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
-| RCCB ABB FH204 · 4P | RCCB | ABB | FH204 | 0 | Đã nhận diện ABB · RCCB · FH204. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
+| MCCB ABB XT1 · 3P | MCCB | ABB | XT1 | 55 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| MCCB ABB XT1 · 4P | MCCB | ABB | XT1 | 55 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| MCCB ABB XT2 · 3P | MCCB | ABB | XT2 | 33 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| MCCB ABB XT2 · 4P | MCCB | ABB | XT2 | 33 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| MCCB ABB XT3 · 3P | MCCB | ABB | XT3 | 14 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| MCCB ABB XT3 · 4P | MCCB | ABB | XT3 | 22 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| MCCB ABB XT4 · 3P | MCCB | ABB | XT4 | 42 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| MCCB ABB XT4 · 4P | MCCB | ABB | XT4 | 57 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| RCBO ABB DS201L · 1P+N | RCBO | ABB | DS201L | 12 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| RCCB ABB FH202 · 2P | RCCB | ABB | FH202 | 9 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
+| RCCB ABB FH204 · 4P | RCCB | ABB | FH204 | 9 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | SPD ABB OVR T1 25 255 | SPD | ABB | OVR T1 25 255 | 0 | Đã nhận diện ABB · SPD · OVR T1 25 255. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | SPD ABB OVR T1 25 440-50 | SPD | ABB | OVR T1 25 440-50 | 0 | Đã nhận diện ABB · SPD · OVR T1 25 440-50. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | SPD ABB OVR T1 2L 25 255 | SPD | ABB | OVR T1 2L 25 255 | 0 | Đã nhận diện ABB · SPD · OVR T1 2L 25 255. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
@@ -511,7 +511,7 @@ Phân loại theo loại thiết bị, hãng, mã và lý do chưa đối chiế
 | Bộ điều khiển tụ bù Mikro · dòng PFR | POWER_FACTOR_CONTROLLER | MIKRO | Chưa ghi mã | 8 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | Rơ le bảo vệ pha Mikro MX100 | Rơ le bảo vệ pha | MIKRO | MX100 | 1 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | Rơ le giám sát điện áp Mikro · dòng MX200A | VOLTAGE_RELAY | MIKRO | Chưa ghi mã | 1 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
-| Biến dòng đo lường MITEX BD01 | CT | MITEX | BD01 | 0 | Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố. |
+| Biến dòng đo lường MITEX BD01 | CT | MITEX | BD01 | 20 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |
 | Biến dòng đo lường MORELE MSQ-125 | CT | MORELE | MSQ-125 | 0 | Đã nhận diện MORELE · CT · MSQ-125. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | Biến dòng đo lường MORELE MSQ-30 | CT | MORELE | MSQ-30 | 0 | Đã nhận diện MORELE · CT · MSQ-30. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị. |
 | Contactor Mitsubishi S-T10 · 3P | Contactor | Mitsubishi Electric | S-T10 | 14 | Có cấu hình giá để chọn; cần chốt mã đầy đủ. |

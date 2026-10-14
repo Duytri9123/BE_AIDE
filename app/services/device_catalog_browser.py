@@ -24,6 +24,7 @@ CATEGORY_LABELS = {
     'POWER_FACTOR_CONTROLLER':'Bộ điều khiển tụ bù', 'RCD':'Thiết bị chống rò',
     'SOFT_STARTER':'Khởi động mềm',
     'ACCESSORY':'Phụ kiện',
+    'INTERLOCK':'Liên động cơ điện',
     'EARTH_LEAKAGE_RELAY':'Rơ le bảo vệ dòng rò',
     'EARTH_FAULT_RELAY':'Rơ le bảo vệ chạm đất',
     'SELECTOR_SWITCH':'Công tắc chuyển mạch',

@@ -7,7 +7,7 @@ CUSTOMER_MANUFACTURERS = (
     'Mitsubishi Electric', 'Fuji Electric', 'LS Electric', 'Shihlin', 'CHINT',
     'Andeli', 'Sino - Vanlock', 'Vinakip', 'Omron', 'Delta', 'Yaskawa', 'Danfoss',
     'INVT', 'IDEC', 'Hanyoung Nux', 'Samwha', 'TDK / EPCOS', 'Shizuki', 'Nuintek',
-    'Mikro', 'SK', 'Ducati Energia', 'Selec', 'Delixi', 'Morele', 'EMIC',
+    'Mikro', 'SK', 'Ducati Energia', 'Selec', 'Delixi', 'Morele', 'EMIC', 'MITEX',
 )
 
 CUSTOMER_ALIASES = {
