@@ -25,7 +25,7 @@ def catalog_tb_manifest():
     if not CATALOG_TB.is_dir():
         return items, views
     for profile_path in sorted(CATALOG_TB.rglob('thong_tin_thiet_bi.json')):
-        profile = json.loads(profile_path.read_text(encoding='utf-8'))
+        profile = json.loads(profile_path.read_text(encoding='utf-8-sig'))
         if not profile.get('cad_don'):
             continue
         profile_id = hashlib.sha1(profile_path.relative_to(CATALOG_TB).as_posix().encode()).hexdigest()[:16]

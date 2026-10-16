@@ -10,7 +10,8 @@ with sqlite3.connect(path) as db:
     db.execute('DELETE FROM equipment');db.execute('DELETE FROM equipment_fts')
     count=0
     for p in sorted(ROOT.rglob('thong_tin_thiet_bi.json')):
-        d=json.loads(p.read_text(encoding='utf-8'));views=[]
+        d=json.loads(p.read_text(encoding='utf-8-sig'));views=[]
+        if d.get('browser_hidden'):continue
         for v in d.get('cad_don',[]):
             folder=p.parent/'CadDon'/v['id_hinh_goc'];rel='catalogtb/'+folder.relative_to(ROOT).as_posix()
             if not (folder/'ban_ve.dxf').is_file() or not (folder/'xem_truoc.svg').is_file():continue

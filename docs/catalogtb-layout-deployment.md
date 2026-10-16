@@ -9,3 +9,9 @@ The source shell library needs data/CatalogTB/Form tủ/catalog.json and its ref
 Run: python -m unittest scripts.test_selection_knowledge scripts.test_catalogtb_layout scripts.test_takeoff_integrity scripts.test_circuit_review scripts.test_cad_layout_regressions.MultiPanelQuotationTests
 
 CatalogTB integration tests require the deployed catalog dataset. Do not commit runtime .env, databases, uploads, or generated project files.
+
+## Published device information (2026-10-16)
+
+`app/data/catalogtb_published_information.json` now ships the price-free information tables with BE code. The browser and AI reference search apply this information to the matching profile-relative paths in the managed CAD installation. It includes manufacturer web references and library classification; it cannot change source manufacturer, CAD geometry, electrical facts or insertion approval. Missing prices and unresolved ordering codes do not suppress information tables.
+
+After editing source profiles, regenerate with `python -m scripts.complete_catalog_references`, then `python -m scripts.export_published_catalog_information`. Regenerate the browser display snapshot after exporting, and run the catalog tests. The complete CAD dataset must still be present in the installation; this information bundle does not supply DXF/SVG files for a server that lacks them. Restart backend workers after deployment and publish the new FE build to replace the old price-dependent library page.

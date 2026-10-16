@@ -11,6 +11,18 @@ from app.services.library_price_matching import configuration_links
 
 
 class SourceModelResearchTests(unittest.TestCase):
+    def test_shared_breaker_families_keep_poles_and_do_not_choose_rating(self):
+        code,kind,url,spec=documented_model('Schneider Electric','06 - N - SC MCCB CVS100~250B~F 4 PHASE')
+        self.assertEqual(spec['so_cuc'],'4P')
+        self.assertEqual(len(spec['documented_model_options']),6)
+        self.assertNotIn('CVS250N',spec['documented_model_options'])
+        self.assertNotIn('dong_dinh_muc_da_chon',spec)
+        self.assertIsNone(documented_model('Schneider Electric','06 - N - SC MCCB LỖ ĐỤC CVS100~250B~F 4 PHASE'))
+        self.assertIsNone(documented_model('Schneider Electric','cvs-03'))
+        ls=documented_model('LS Electric','MC 75a-100a AC')[3]
+        self.assertEqual(ls['documented_model_options'],['MC-75a','MC-85a','MC-100a'])
+        self.assertNotIn('dien_ap_da_chon',ls)
+
     def test_source_identity_cannot_survive_changed_block_or_document(self):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder);(root/'view.dxf').write_bytes(b'original')

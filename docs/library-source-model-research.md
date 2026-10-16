@@ -1,6 +1,6 @@
 # Tìm mã cho 251 CAD theo thư viện nguồn
 
-Đối chiếu tài liệu hãng ngày 14/10/2026: 107 CAD có mã/dòng hoặc nhóm mã được tài liệu hãng xác nhận. Các bản vẽ vẫn cần kiểm tra kích thước, mặt nhìn và cấu hình đặt hàng trước khi dùng; không bật tự chèn CAD.
+Đối chiếu tài liệu hãng ngày 14/10/2026: 117 CAD có mã/dòng hoặc nhóm mã được tài liệu hãng xác nhận. Các bản vẽ vẫn cần kiểm tra kích thước, mặt nhìn và cấu hình đặt hàng trước khi dùng; không bật tự chèn CAD.
 
 Nguồn nhận diện là tên block trong thư viện có checksum và tài liệu hãng, không phải khẳng định đã đọc logo trực tiếp trên bản vẽ. Bộ nhận diện kiểm tra cả block, checksum thư viện và checksum DXF để tránh dùng chứng cứ cũ.
 
@@ -8,10 +8,10 @@ Các mục còn lại được ghi thành việc cụ thể. HCC/HCN chỉ là v
 
 | Kết quả | CAD |
 | --- | ---: |
-| Đã đối chiếu mã/dòng với hãng | 107 |
-| Cần tiếp tục tìm đúng mã/nhãn | 39 |
+| Đã đối chiếu mã/dòng với hãng | 117 |
+| Cần tiếp tục tìm đúng mã/nhãn | 38 |
 | Đã sửa vai trò bản vẽ dựa các mặt (mẫu lắp/cụm) | 31 |
-| Nhãn dùng chung/khung; chưa xác định mã riêng | 54 |
+| Nhãn dùng chung/khung; chưa xác định mã riêng | 45 |
 | Nhãn lỗ khoét/lắp đặt; cần kiểm tra phân loại | 1 |
 | Nhãn HCC/HCN chưa rõ ý nghĩa | 11 |
 | Nhóm CAD cần đối chiếu từng thành viên | 8 |
@@ -54,7 +54,7 @@ Các mục còn lại được ghi thành việc cụ thể. HCC/HCN chỉ là v
 | TB-5c17dc4cd305a645 | 06 - N - SC MCB 2 PHASE | Schneider Electric |  | Nhãn dùng chung/khung; chưa xác định mã riêng | Chưa có đối chiếu đủ cho CAD này |
 | TB-68dece17b8b6f28a | 06 - N - SC VSD CHIẾU TRÊN ATV320U22~40N4C | Schneider Electric | ATV320U22~40N4C | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://download.schneider-electric.com/files?filename=Catalog&p_Doc_Ref=DIA2ED2160311EN) |
 | TB-3aabcfa28ac7f3ba | LC1D9-18 | Schneider Electric | LC1D9-18 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF) |
-| TB-fb64554b0d314355 | 06 - N - SC MCCB EZC400~630 3 PHASE | Schneider Electric |  | Nhãn dùng chung/khung; chưa xác định mã riêng | Chưa có đối chiếu đủ cho CAD này |
+| TB-fb64554b0d314355 | 06 - N - SC MCCB EZC400~630 3 PHASE | Schneider Electric | EZC400 / EZC630 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.se.com/uk/en/download/document/LVED212091ENWEB/) |
 | TB-2101095072707459 | 06 - N - SC MCB LỖ ĐỤC 2 PHASE | Schneider Electric |  | Đã sửa vai trò bản vẽ dựa các mặt (mẫu lắp/cụm) | Chưa có đối chiếu đủ cho CAD này |
 | TB-3efb9e65d9ab07f2 | 06 - N - SC VSD ATV630C11~C16N4 | Schneider Electric | ATV630C11~C16N4 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.se.com/us/en/faqs/FA302753/) |
 | TB-06f8e3cb26b68f79 | 06 - N - SC VSD ATV630D30~D45N4 | Schneider Electric | ATV630D30~D45N4 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.se.com/us/en/faqs/FA302753/) |
@@ -106,7 +106,7 @@ Các mục còn lại được ghi thành việc cụ thể. HCC/HCN chỉ là v
 | TB-dced0a03b7ea334e | 06 - N - SC CTT LC1D18 | Schneider Electric | LC1D18 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF) |
 | TB-147acacf560564bc | 06 - N - SC VSD CHIẾU HÔNG ATV630C11~C16N4 | Schneider Electric | ATV630C11~C16N4 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.se.com/us/en/faqs/FA302753/) |
 | TB-1f6e3c1f906f7fd8 | 06 - N - SC CTT CHIẾU HÔNG LC1D09 | Schneider Electric | LC1D09 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF) |
-| TB-4607133ea2f2fbe9 | 06 - N - SC MCCB CHIẾU TRÊN CVS100~250B~F 4 PHASE | Schneider Electric |  | Nhãn dùng chung/khung; chưa xác định mã riêng | Chưa có đối chiếu đủ cho CAD này |
+| TB-4607133ea2f2fbe9 | 06 - N - SC MCCB CHIẾU TRÊN CVS100~250B~F 4 PHASE | Schneider Electric | CVS100~250B~F | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://download.schneider-electric.com/files?p_Doc_Ref=EASYSERIES-2021-CATALOGUE-AU) |
 | TB-be8517e7eec2f604 | LC1D40-65 | Schneider Electric | LC1D40-65 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.se.com/es/es/faqs/FA279562/) |
 | TB-70f3194c438e827c | 06 - N - SC CTT LC1D40~65 | Schneider Electric | LC1D40-65 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.se.com/es/es/faqs/FA279562/) |
 | TB-a2b48f372146a81f | LV429640ATNSX22A 3 | Schneider Electric |  | Đã sửa vai trò bản vẽ dựa các mặt (mẫu lắp/cụm) | [Tài liệu hãng](https://www.se.com/pe/es/product/LV429640/) |
@@ -114,12 +114,12 @@ Các mục còn lại được ghi thành việc cụ thể. HCC/HCN chỉ là v
 | TB-d2ed90668cccf5cb | 06 - N - SC VSD CHIẾU HÔNG ATV630U07~55N4 | Schneider Electric | ATV630U07~55N4 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.se.com/us/en/faqs/FA302753/) |
 | TB-8b4d2edbd76f927a | 06 - N - SC VSD ATV212HU75~D11N4 | Schneider Electric | ATV212HU75~D11N4 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://iportal.se.com/Contents/docs/ATV212_CATALOG.PDF) |
 | TB-04b873a346424d72 | 06 - N - SC MCCB CHIẾU HÔNG NS06b~160N4DM2 | Schneider Electric |  | Nhãn dùng chung/khung; chưa xác định mã riêng | Chưa có đối chiếu đủ cho CAD này |
-| TB-d5d19f72a16a6a0f | 06 - N - SC MCCB CHIẾU TRÊN CVS100~250B~F 3 PHASE | Schneider Electric |  | Nhãn dùng chung/khung; chưa xác định mã riêng | Chưa có đối chiếu đủ cho CAD này |
+| TB-d5d19f72a16a6a0f | 06 - N - SC MCCB CHIẾU TRÊN CVS100~250B~F 3 PHASE | Schneider Electric | CVS100~250B~F | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://download.schneider-electric.com/files?p_Doc_Ref=EASYSERIES-2021-CATALOGUE-AU) |
 | TB-41d72221c38b347d | 06 - N - SC VSD ATV212HD15~18N4 | Schneider Electric | ATV212HD15~18N4 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://iportal.se.com/Contents/docs/ATV212_CATALOG.PDF) |
 | TB-2598dbf214bce578 | 06 - N - SC VSD ATV630D15~D22N4 | Schneider Electric | ATV630D15~D22N4 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.se.com/us/en/faqs/FA302753/) |
 | TB-f0b01f81ba66ed54 | 06 - N - SC VSD CHIẾU HÔNG ATV630U75~D11N4 | Schneider Electric | ATV630U75~D11N4 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.se.com/us/en/faqs/FA302753/) |
 | TB-ceb791cdafbe0a60 | LV429640ATNSX22A 2 | Schneider Electric |  | Đã sửa vai trò bản vẽ dựa các mặt (mẫu lắp/cụm) | [Tài liệu hãng](https://www.se.com/pe/es/product/LV429640/) |
-| TB-01f7d9a0e8d5003b | 06 - N - SC MCCB CVS400~630F~N 4 PHASE | Schneider Electric |  | Nhãn dùng chung/khung; chưa xác định mã riêng | Chưa có đối chiếu đủ cho CAD này |
+| TB-01f7d9a0e8d5003b | 06 - N - SC MCCB CVS400~630F~N 4 PHASE | Schneider Electric | CVS400~630F~N | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://download.schneider-electric.com/files?p_Doc_Ref=EASYSERIES-2021-CATALOGUE-AU) |
 | TB-1f959604312e6d7e | 06 - N - SC RCCB 4 PHASE | Schneider Electric |  | Cần tiếp tục tìm đúng mã/nhãn | Chưa có đối chiếu đủ cho CAD này |
 | TB-12d065e49e4559f5 | 06 - N - SC CTT CHIẾU HÔNG LC1D80 | Schneider Electric | LC1D80 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://iportal.se.com/Contents/docs/0100CT1501_SEC-18.PDF) |
 | TB-cf7857853f1a534f | NS400_600NHL_7_c | Schneider Electric |  | Cần tiếp tục tìm đúng mã/nhãn | Chưa có đối chiếu đủ cho CAD này |
@@ -142,14 +142,14 @@ Các mục còn lại được ghi thành việc cụ thể. HCC/HCN chỉ là v
 | TB-0e51ad1ddf186f06 | 06 - N - SC VSD CHIẾU TRÊN ATV630C11~C16N4 | Schneider Electric | ATV630C11~C16N4 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.se.com/us/en/faqs/FA302753/) |
 | TB-e20ca154a55a29a6 | NS400_630NHL_3_c | Schneider Electric |  | Cần tiếp tục tìm đúng mã/nhãn | Chưa có đối chiếu đủ cho CAD này |
 | TB-4219006a98570a3b | LC1F185 | Schneider Electric | LC1F185 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.se.com/us/en/faqs/FA102501/) |
-| TB-6970e3b171f91828 | 06 - N - SC MCCB CHIẾU TRÊN EZC400~630 3 PHASE | Schneider Electric |  | Nhãn dùng chung/khung; chưa xác định mã riêng | Chưa có đối chiếu đủ cho CAD này |
+| TB-6970e3b171f91828 | 06 - N - SC MCCB CHIẾU TRÊN EZC400~630 3 PHASE | Schneider Electric | EZC400 / EZC630 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.se.com/uk/en/download/document/LVED212091ENWEB/) |
 | TB-dddeabc7ba9f70fb | 06 - N - SC MCCB LỖ ĐỤC NSX100~250BFNH 3 PHASE | Schneider Electric |  | Đã sửa vai trò bản vẽ dựa các mặt (mẫu lắp/cụm) | Chưa có đối chiếu đủ cho CAD này |
 | TB-58ec6416f4e1a238 | 06 - N - SC VSD CHIẾU HÔNG ATV630D55~D90N4 | Schneider Electric | ATV630D55~D90N4 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.se.com/us/en/faqs/FA302753/) |
 | TB-435b63f4ede054ef | 06 - N - SC RCCB 2 PHASE | Schneider Electric |  | Cần tiếp tục tìm đúng mã/nhãn | Chưa có đối chiếu đủ cho CAD này |
 | TB-22a3a85328e5a35e | 06 - N - SC CTT CHIẾU HÔNG 1P A9C20731 | Schneider Electric | A9C20731 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.se.com/nl/en/product/A9C20731/ict-25a-1no-230-240v-50hz-contactor/) |
 | TB-a8940a8ce25111c9 | NS400_600NHL_6_d | Schneider Electric |  | Cần tiếp tục tìm đúng mã/nhãn | Chưa có đối chiếu đủ cho CAD này |
 | TB-ecc1ca22715801ca | NS400_600NHL_7_d | Schneider Electric |  | Cần tiếp tục tìm đúng mã/nhãn | Chưa có đối chiếu đủ cho CAD này |
-| TB-c8909fbf0732bb69 | 06 - N - SC MCCB CVS100~250B~F 3 PHASE | Schneider Electric |  | Nhãn dùng chung/khung; chưa xác định mã riêng | Chưa có đối chiếu đủ cho CAD này |
+| TB-c8909fbf0732bb69 | 06 - N - SC MCCB CVS100~250B~F 3 PHASE | Schneider Electric | CVS100~250B~F | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://download.schneider-electric.com/files?p_Doc_Ref=EASYSERIES-2021-CATALOGUE-AU) |
 | TB-55403af2b65fcf9e | 06 - N - SC CTT CHIẾU HÔNG LC1D600 | Schneider Electric |  | Cần tiếp tục tìm đúng mã/nhãn | Chưa có đối chiếu đủ cho CAD này |
 | TB-571c337cecd22fa5 | 06 - N - SC MCCB LỖ ĐỤC EZC400~630F~N 3~4 PHASE | Schneider Electric |  | Đã sửa vai trò bản vẽ dựa các mặt (mẫu lắp/cụm) | Chưa có đối chiếu đủ cho CAD này |
 | TB-4317904220161dda | 06 - N - SC MCB 1 PHASE | Schneider Electric |  | Nhãn dùng chung/khung; chưa xác định mã riêng | Chưa có đối chiếu đủ cho CAD này |
@@ -170,9 +170,9 @@ Các mục còn lại được ghi thành việc cụ thể. HCC/HCN chỉ là v
 | TB-b63b63c7f05a63f3 | 06 - N - SC CTT CHIẾU HÔNG LC1D500 | Schneider Electric |  | Cần tiếp tục tìm đúng mã/nhãn | Chưa có đối chiếu đủ cho CAD này |
 | TB-6598b61585b1b34b | 06 - N - SC CTT LC1D330 | Schneider Electric |  | Cần tiếp tục tìm đúng mã/nhãn | Chưa có đối chiếu đủ cho CAD này |
 | TB-5bd1ff88901796bc | NS400_600NHL_6_c | Schneider Electric |  | Cần tiếp tục tìm đúng mã/nhãn | Chưa có đối chiếu đủ cho CAD này |
-| TB-7233c2f474aba377 | 06 - N - SC MCCB CVS400~630F~N 3 PHASE | Schneider Electric |  | Nhãn dùng chung/khung; chưa xác định mã riêng | Chưa có đối chiếu đủ cho CAD này |
+| TB-7233c2f474aba377 | 06 - N - SC MCCB CVS400~630F~N 3 PHASE | Schneider Electric | CVS400~630F~N | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://download.schneider-electric.com/files?p_Doc_Ref=EASYSERIES-2021-CATALOGUE-AU) |
 | TB-b05de4d1c90b9878 | 06 - N - SC MCCB CHIẾU TRÊN EZC100 2 PHASE | Schneider Electric | EZC100 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.se.com/uk/en/download/document/LVED212091ENWEB/) |
-| TB-2f799c2cfd1f6924 | 06 - N - SC MCCB EZC400~630 4 PHASE | Schneider Electric |  | Nhãn dùng chung/khung; chưa xác định mã riêng | Chưa có đối chiếu đủ cho CAD này |
+| TB-2f799c2cfd1f6924 | 06 - N - SC MCCB EZC400~630 4 PHASE | Schneider Electric | EZC400 / EZC630 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.se.com/uk/en/download/document/LVED212091ENWEB/) |
 | TB-35e99c520436de04 | 06 - N - SC VSD CHIẾU HÔNG ATV630D15~D22N4 | Schneider Electric | ATV630D15~D22N4 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.se.com/us/en/faqs/FA302753/) |
 | TB-d5a82010538e0289 | 06 - N - SC CTT LC1D600 | Schneider Electric |  | Cần tiếp tục tìm đúng mã/nhãn | Chưa có đối chiếu đủ cho CAD này |
 | TB-41f14468dd34f079 | 06 - N - SC VSD CHIẾU HÔNG ATV212H075~U22N4 | Schneider Electric | ATV212H075~U22N4 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://iportal.se.com/Contents/docs/ATV212_CATALOG.PDF) |
@@ -183,7 +183,7 @@ Các mục còn lại được ghi thành việc cụ thể. HCC/HCN chỉ là v
 | TB-40c7757b4dae8e61 | 06 - N - SC MCB LỖ ĐỤC 3 PHASE | Schneider Electric |  | Đã sửa vai trò bản vẽ dựa các mặt (mẫu lắp/cụm) | Chưa có đối chiếu đủ cho CAD này |
 | TB-6f45494575c1fa54 | 06 - N - SC MCCB LÕ ĐỤC EZC100 4 PHASE | Schneider Electric |  | Đã sửa vai trò bản vẽ dựa các mặt (mẫu lắp/cụm) | Chưa có đối chiếu đủ cho CAD này |
 | TB-84eec13377390504 | 06 - N - SC CTT CHIẾU HÔNG LC1D330 | Schneider Electric |  | Cần tiếp tục tìm đúng mã/nhãn | Chưa có đối chiếu đủ cho CAD này |
-| TB-df56809b4d7f0518 | 06 - N - SC MCCB CVS100~250B~F 4 PHASE | Schneider Electric |  | Nhãn dùng chung/khung; chưa xác định mã riêng | Chưa có đối chiếu đủ cho CAD này |
+| TB-df56809b4d7f0518 | 06 - N - SC MCCB CVS100~250B~F 4 PHASE | Schneider Electric | CVS100~250B~F | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://download.schneider-electric.com/files?p_Doc_Ref=EASYSERIES-2021-CATALOGUE-AU) |
 | TB-a0ae757e8e2112d3 | 06 - N - SC VSD CHIẾU TRÊN ATV630U75~D11N4 | Schneider Electric | ATV630U75~D11N4 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.se.com/us/en/faqs/FA302753/) |
 | TB-425c7029e22b929e | 06 - N - SC VSD CHIẾU HÔNG ATV320U55~75N4B | Schneider Electric | ATV320U55~75N4B | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://download.schneider-electric.com/files?filename=Catalog&p_Doc_Ref=DIA2ED2160311EN) |
 | TB-6845e19a84e2c404 | 06 - N - SC VSD CHIẾU HÔNG ATV212HU30~U55N4 | Schneider Electric | ATV212HU30~U55N4 | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://iportal.se.com/Contents/docs/ATV212_CATALOG.PDF) |
@@ -209,7 +209,7 @@ Các mục còn lại được ghi thành việc cụ thể. HCC/HCN chỉ là v
 | TB-a2e5e1b1200b4783 | ABS403c | LS Electric | ABS403c | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.ls-electric.com/upload/customer/download/1526/Metasol_MCCB_E_1407.pdf) |
 | TB-fe1caa9134a33672 | HCC1 LS 800AF | LS Electric |  | Nhãn HCC/HCN chưa rõ ý nghĩa | Chưa có đối chiếu đủ cho CAD này |
 | TB-7f55a2533f55451e | CC MC 500a | LS Electric | MC-500a | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf) |
-| TB-cbd0ce36cee43ca9 | MC 75a-100a AC | LS Electric |  | Cần tiếp tục tìm đúng mã/nhãn | Chưa có đối chiếu đủ cho CAD này |
+| TB-cbd0ce36cee43ca9 | MC 75a-100a AC | LS Electric | MC-75a / MC-85a / MC-100a | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.ls-electric.com/upload/customer/download/1416/Metasol_MC_E_1310.pdf) |
 | TB-87836a2ee0f3f3ce | LS 1000-1200AF 3P | LS Electric |  | Nhãn dùng chung/khung; chưa xác định mã riêng | Chưa có đối chiếu đủ cho CAD này |
 | TB-178273f149e130de | HCC BKN | LS Electric |  | Nhãn HCC/HCN chưa rõ ý nghĩa | Chưa có đối chiếu đủ cho CAD này |
 | TB-bea54fdef5b2acda | CC MC 265a | LS Electric | MC-265a | Đã đối chiếu mã/dòng với hãng | [Tài liệu hãng](https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf) |

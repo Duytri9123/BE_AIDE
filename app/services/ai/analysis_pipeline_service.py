@@ -85,11 +85,12 @@ class AnalysisPipelineService:
         manifest_path=Path(__file__).resolve().parents[3] / 'data/CatalogTB/ai_library_manifest.json'
         recognition_manifest=json.loads(manifest_path.read_text(encoding='utf-8')) if manifest_path.is_file() else {}
         source_document_count=len(recognition_manifest.get('source_cad_documents') or [])
+        pending_source_count=sum(not str(row.get('status','')).startswith('processed_') for row in recognition_manifest.get('source_cad_documents') or [])
         parts.append(
             f"THƯ VIỆN HỆ THỐNG (không phải tệp người dùng phải đính kèm): "
             f"BE_AIDE/data/CatalogTB có {profile_count} hồ sơ, {len(library_views)} mặt CAD; "
             f"CatalogTB/Form tủ có {len(form_inventory())} form nguồn; "
-            f"có {source_document_count} CAD nguồn chưa gắn hồ sơ thiết bị để tra cứu bổ sung. "
+            f"có {source_document_count} mục CAD nguồn, còn {pending_source_count} mục chưa lập hồ sơ thông tin hoặc phân loại. "
             "Không báo thư viện không có chỉ vì không nằm trong tệp đính kèm. "
             "Thư viện chứng minh có hồ sơ, không chứng minh đã khớp model hoặc mặt CAD. "
             "Không nhận câu mô tả thư viện là thiết bị trên sơ đồ. "

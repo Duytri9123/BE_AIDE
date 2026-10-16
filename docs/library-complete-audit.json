@@ -1,27 +1,26 @@
 {
-  "checked_at": "2026-10-14T16:26:43.890364+00:00",
+  "checked_at": "2026-10-15T00:52:40.632584+00:00",
   "checked_devices": 837,
   "checked_views": 1448,
-  "linked_devices": 223,
+  "linked_devices": 196,
   "devices_with_structural_issues": 0,
   "manufacturer_status_counts": {
-    "verified": 493,
-    "unknown": 75,
-    "candidate": 14,
+    "verified": 516,
+    "unknown": 56,
+    "candidate": 13,
     "not_applicable": 111,
-    "source_library": 144
+    "source_library": 141
   },
   "price_status_counts": {
-    "choices_available": 220,
+    "choices_available": 187,
     "different_poles": 16,
-    "optional_price": 153,
-    "no_model_prices": 154,
-    "no_device_code": 54,
-    "no_brand_prices": 32,
-    "unknown": 55,
-    "candidate": 1,
+    "optional_price": 212,
+    "no_model_prices": 198,
+    "no_device_code": 45,
+    "no_brand_prices": 21,
+    "unknown": 9,
     "missing_transformer_configuration": 1,
-    "source_library": 113,
+    "source_library": 110,
     "no_matching_configuration": 4,
     "incomplete_ordering_code": 2,
     "mounting_reference": 27,
@@ -1533,15 +1532,15 @@
     {
       "id": "TB-2cf48f2006d1fe75",
       "name": "Biến dòng đo lường BD1200A",
-      "brand": null,
-      "manufacturer_status": "unknown",
+      "brand": "EMIC",
+      "manufacturer_status": "verified",
       "product_code": null,
       "type": "CT",
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện EMIC · CT · 1200/5A/BD1200A. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -1563,60 +1562,60 @@
     {
       "id": "TB-2fb06d36a7b98053",
       "name": "Biến dòng đo lường CML250A",
-      "brand": "CML",
+      "brand": "EMIC",
       "manufacturer_status": "verified",
       "product_code": null,
       "type": "CT",
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_brand_prices",
-        "message": "Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện EMIC · CT · 250/5A/CML 250A/CML250A. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
     {
       "id": "TB-33ba68a62afca29e",
       "name": "Biến dòng đo lường CML3200A",
-      "brand": "CML",
+      "brand": "EMIC",
       "manufacturer_status": "verified",
       "product_code": null,
       "type": "CT",
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_brand_prices",
-        "message": "Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện EMIC · CT · 3200/5A/CML 3200A/CML3200A. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
     {
       "id": "TB-ada5a9d0155b3136",
       "name": "Biến dòng đo lường CML400A",
-      "brand": "CML",
+      "brand": "EMIC",
       "manufacturer_status": "verified",
       "product_code": null,
       "type": "CT",
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_brand_prices",
-        "message": "Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện EMIC · CT · 400/5A/CML 400A/CML400A. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
     {
       "id": "TB-6e9ef22b7db833ac",
       "name": "Biến dòng đo lường CML800A",
-      "brand": "CML",
+      "brand": "EMIC",
       "manufacturer_status": "verified",
       "product_code": null,
       "type": "CT",
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_brand_prices",
-        "message": "Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện EMIC · CT · 800/5A/CML 800A/CML800A. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -1630,8 +1629,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -1645,8 +1644,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -1660,8 +1659,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -1675,8 +1674,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -1713,60 +1712,60 @@
     {
       "id": "TB-d5acf7f6ec42b2d2",
       "name": "Biến dòng đo lường MSQ-100",
-      "brand": null,
-      "manufacturer_status": "unknown",
+      "brand": "Morele",
+      "manufacturer_status": "verified",
       "product_code": "MSQ-100",
       "type": "CT",
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Morele · CT · MSQ-100. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
     {
       "id": "TB-491281dba4b34de2",
       "name": "Biến dòng đo lường MSQ-30",
-      "brand": null,
-      "manufacturer_status": "unknown",
+      "brand": "Morele",
+      "manufacturer_status": "verified",
       "product_code": "MSQ-30",
       "type": "CT",
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Morele · CT · MSQ-30. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
     {
       "id": "TB-75603fab5dd96398",
       "name": "Biến dòng đo lường MSQ-40",
-      "brand": null,
-      "manufacturer_status": "unknown",
+      "brand": "Morele",
+      "manufacturer_status": "verified",
       "product_code": "MSQ-40",
       "type": "CT",
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Morele · CT · MSQ-40. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
     {
       "id": "TB-38ffa2dad97bbdba",
       "name": "Biến dòng đo lường MSQ-60",
-      "brand": null,
-      "manufacturer_status": "unknown",
+      "brand": "Morele",
+      "manufacturer_status": "verified",
       "product_code": "MSQ-60",
       "type": "CT",
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Morele · CT · MSQ-60. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -1788,7 +1787,7 @@
     {
       "id": "TB-8192478908c2aa69",
       "name": "Biến dòng đo lường RCT-58",
-      "brand": "CML",
+      "brand": "KDE",
       "manufacturer_status": "verified",
       "product_code": "RCT-58",
       "type": "CT",
@@ -1803,60 +1802,60 @@
     {
       "id": "TB-a37cb0d851511891",
       "name": "Biến dòng đo lường RCT110",
-      "brand": null,
-      "manufacturer_status": "unknown",
+      "brand": "Master Electric",
+      "manufacturer_status": "verified",
       "product_code": "RCT110",
       "type": "CT",
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "no_brand_prices",
+        "message": "Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố."
       },
       "structural_issues": []
     },
     {
       "id": "TB-269133918d00ee9b",
       "name": "Biến dòng đo lường RCT35",
-      "brand": null,
-      "manufacturer_status": "unknown",
+      "brand": "Master Electric",
+      "manufacturer_status": "verified",
       "product_code": "RCT35",
       "type": "CT",
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "no_brand_prices",
+        "message": "Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố."
       },
       "structural_issues": []
     },
     {
       "id": "TB-f3bceac24829a18e",
       "name": "Biến dòng đo lường RCT60",
-      "brand": null,
-      "manufacturer_status": "unknown",
+      "brand": "Master Electric",
+      "manufacturer_status": "verified",
       "product_code": "RCT60",
       "type": "CT",
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "no_brand_prices",
+        "message": "Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố."
       },
       "structural_issues": []
     },
     {
       "id": "TB-514066881c92d2e7",
       "name": "Biến dòng đo lường RCT90",
-      "brand": null,
-      "manufacturer_status": "unknown",
+      "brand": "Master Electric",
+      "manufacturer_status": "verified",
       "product_code": "RCT90",
       "type": "CT",
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "no_brand_prices",
+        "message": "Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố."
       },
       "structural_issues": []
     },
@@ -1864,14 +1863,14 @@
       "id": "TB-bf08998ed0675426",
       "name": "Biến tần Mitsubishi FR-S500",
       "brand": "Mitsubishi Electric",
-      "manufacturer_status": "candidate",
+      "manufacturer_status": "verified",
       "product_code": null,
       "type": "VFD",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "candidate",
-        "message": "Hãng hiện là ứng viên; cần xác nhận nhãn hãng trước khi liên kết bảng giá."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Mitsubishi Electric · VFD · FR-S500/FR-S520/FR-S540. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -1881,12 +1880,12 @@
       "brand": null,
       "manufacturer_status": "unknown",
       "product_code": null,
-      "type": "Bộ điều khiển chuyển nguồn",
+      "type": "ATS",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -1896,12 +1895,12 @@
       "brand": null,
       "manufacturer_status": "unknown",
       "product_code": null,
-      "type": "Bộ điều khiển chuyển nguồn",
+      "type": "ATS",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -1911,12 +1910,12 @@
       "brand": null,
       "manufacturer_status": "unknown",
       "product_code": null,
-      "type": "Bộ điều khiển chuyển nguồn",
+      "type": "ATS",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -1930,8 +1929,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_device_code",
-        "message": "Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -1945,8 +1944,8 @@
       "view_count": 1,
       "price_choice_count": 1,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -1956,12 +1955,12 @@
       "brand": null,
       "manufacturer_status": "unknown",
       "product_code": null,
-      "type": "Bộ giám sát pha",
+      "type": "Rơ le bảo vệ pha",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -1971,19 +1970,19 @@
       "brand": null,
       "manufacturer_status": "unknown",
       "product_code": null,
-      "type": "Bộ giám sát pha",
+      "type": "Rơ le bảo vệ pha",
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
     {
       "id": "TB-c8e96f985b637563",
       "name": "Rơ le bảo vệ pha Mikro MX100",
-      "brand": "MIKRO",
+      "brand": "Mikro",
       "manufacturer_status": "verified",
       "product_code": "MX100",
       "type": "Rơ le bảo vệ pha",
@@ -2005,8 +2004,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -2020,8 +2019,8 @@
       "view_count": 1,
       "price_choice_count": 1,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -2031,12 +2030,12 @@
       "brand": null,
       "manufacturer_status": "unknown",
       "product_code": null,
-      "type": "Biến tần điều khiển động cơ",
+      "type": "VFD",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -2046,12 +2045,12 @@
       "brand": null,
       "manufacturer_status": "unknown",
       "product_code": null,
-      "type": "Biến tần điều khiển động cơ",
+      "type": "VFD",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -2061,12 +2060,12 @@
       "brand": null,
       "manufacturer_status": "unknown",
       "product_code": null,
-      "type": "Biến tần điều khiển động cơ",
+      "type": "VFD",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -2076,7 +2075,7 @@
       "brand": "LS Electric",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Biến tần điều khiển động cơ",
+      "type": "VFD",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -2091,7 +2090,7 @@
       "brand": "Deep Sea Electronics",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Bộ điều khiển hòa đồng bộ máy phát",
+      "type": "GENERATOR_CONTROLLER",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -2106,12 +2105,12 @@
       "brand": null,
       "manufacturer_status": "unknown",
       "product_code": null,
-      "type": "Thiết bị ổn áp",
+      "type": "VOLTAGE_STABILIZER",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -2121,12 +2120,12 @@
       "brand": null,
       "manufacturer_status": "unknown",
       "product_code": null,
-      "type": "Thiết bị ổn áp",
+      "type": "VOLTAGE_STABILIZER",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -2136,12 +2135,12 @@
       "brand": "DELAB",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Bộ điều khiển hệ số công suất",
+      "type": "POWER_FACTOR_CONTROLLER",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_brand_prices",
-        "message": "Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -2155,8 +2154,8 @@
       "view_count": 1,
       "price_choice_count": 8,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -2406,12 +2405,12 @@
       "brand": null,
       "manufacturer_status": "unknown",
       "product_code": null,
-      "type": "Chống sét",
+      "type": "SPD",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -2421,12 +2420,12 @@
       "brand": null,
       "manufacturer_status": "unknown",
       "product_code": null,
-      "type": "Chống sét",
+      "type": "SPD",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -2436,12 +2435,12 @@
       "brand": "Suntree",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Chống sét",
+      "type": "SPD",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_brand_prices",
-        "message": "Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -2451,12 +2450,12 @@
       "brand": "Suntree",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Chống sét",
+      "type": "SPD",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_brand_prices",
-        "message": "Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -2466,12 +2465,12 @@
       "brand": null,
       "manufacturer_status": "unknown",
       "product_code": null,
-      "type": "Chống sét",
+      "type": "SPD",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -3048,15 +3047,15 @@
     {
       "id": "TB-9cb5f156b39818d7",
       "name": "Đế cầu chì 1 cực",
-      "brand": null,
-      "manufacturer_status": "unknown",
+      "brand": "Morele",
+      "manufacturer_status": "verified",
       "product_code": null,
       "type": "FUSE_HOLDER",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -3078,150 +3077,150 @@
     {
       "id": "TB-9997955003fedf62",
       "name": "Dãy 3 đế cầu chì 1 cực · kiểu gạt",
-      "brand": null,
-      "manufacturer_status": "unknown",
+      "brand": "Morele",
+      "manufacturer_status": "verified",
       "product_code": null,
       "type": "FUSE_HOLDER",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
     {
       "id": "TB-024d691bfe2b4f13",
       "name": "Dãy 3 đế cầu chì 1 cực · kiểu hộp",
-      "brand": null,
-      "manufacturer_status": "unknown",
+      "brand": "Morele",
+      "manufacturer_status": "verified",
       "product_code": null,
       "type": "FUSE_HOLDER",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
     {
       "id": "TB-9d2cca434cfba792",
       "name": "Dãy 5 đế cầu chì 1 cực · kiểu gạt",
-      "brand": null,
-      "manufacturer_status": "unknown",
+      "brand": "Morele",
+      "manufacturer_status": "verified",
       "product_code": null,
       "type": "FUSE_HOLDER",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
     {
       "id": "TB-08f8748c6e0ccaee",
       "name": "Đèn báo pha đầu tròn",
-      "brand": null,
-      "manufacturer_status": "unknown",
+      "brand": "Morele",
+      "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Đèn báo pha mặt tủ",
+      "type": "LIGHT",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
     {
       "id": "TB-3f8074c3c953c10c",
       "name": "Đèn báo pha đầu tròn",
-      "brand": null,
-      "manufacturer_status": "unknown",
+      "brand": "Morele",
+      "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Đèn báo pha mặt tủ",
+      "type": "LIGHT",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
     {
       "id": "TB-5aef0fb4178a87bc",
       "name": "Đèn báo pha thân mô-đun",
-      "brand": "CHINT",
+      "brand": "Morele",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Đèn báo pha mặt tủ",
+      "type": "LIGHT",
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_device_code",
-        "message": "Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
     {
       "id": "TB-8b9ba27dffad20d2",
       "name": "Đèn báo pha thân mô-đun",
-      "brand": "CHINT",
+      "brand": "Morele",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Đèn báo pha mặt tủ",
+      "type": "LIGHT",
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_device_code",
-        "message": "Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
     {
       "id": "TB-558d087f12bf103b",
       "name": "Đèn báo pha đầu phẳng",
-      "brand": null,
-      "manufacturer_status": "unknown",
+      "brand": "Morele",
+      "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Đèn báo pha mặt tủ",
+      "type": "LIGHT",
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
     {
       "id": "TB-9d5ad7168166cdd8",
       "name": "Đèn báo trạng thái mặt tủ",
-      "brand": "KACON",
+      "brand": "Morele",
       "manufacturer_status": "verified",
       "product_code": null,
       "type": "LIGHT",
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_brand_prices",
-        "message": "Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
     {
       "id": "TB-cc921bcbde929c49",
       "name": "Đèn báo tín hiệu",
-      "brand": null,
-      "manufacturer_status": "unknown",
+      "brand": "Morele",
+      "manufacturer_status": "verified",
       "product_code": null,
       "type": "LIGHT",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -3318,30 +3317,30 @@
     {
       "id": "TB-31847fc5c129a57e",
       "name": "Nút nhấn điều khiển mặt tủ",
-      "brand": null,
-      "manufacturer_status": "unknown",
+      "brand": "Morele",
+      "manufacturer_status": "verified",
       "product_code": null,
-      "type": "BUTTON",
+      "type": "PUSHBUTTON",
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
     {
       "id": "TB-7cc48f9630399020",
-      "name": "Công tắc xoay IDEC · chưa rõ mã",
-      "brand": "IDEC",
+      "name": "Công tắc xoay chọn chế độ",
+      "brand": "Morele",
       "manufacturer_status": "verified",
       "product_code": null,
       "type": "SELECTOR_SWITCH",
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_device_code",
-        "message": "Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -7300,8 +7299,8 @@
       "view_count": 2,
       "price_choice_count": 1,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -7330,8 +7329,8 @@
       "view_count": 2,
       "price_choice_count": 1,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -7360,8 +7359,8 @@
       "view_count": 2,
       "price_choice_count": 1,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -8492,16 +8491,16 @@
     },
     {
       "id": "TB-faa371b9ff857b8f",
-      "name": "VFD Schneider Electric ATV320U22~40N4C",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV320U22~40N4C · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV320U22~40N4C",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 3,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV320U22. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8597,16 +8596,16 @@
     },
     {
       "id": "TB-aa88cc78f94d3ba5",
-      "name": "VFD Schneider Electric ATV320U55~75N4B",
+      "name": "Schneider · 06 - N - SC VSD ATV320U55~75N4B · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV320U55~75N4B",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 2,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV320U55. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8717,16 +8716,16 @@
     },
     {
       "id": "TB-b3db3f72b1386e95",
-      "name": "VFD Schneider Electric ATV630D55~D90N4",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630D55~D90N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV630D55~D90N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 3,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV630D55. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8882,16 +8881,16 @@
     },
     {
       "id": "TB-4fc8d9679c3649ef",
-      "name": "VFD Schneider Electric ATV630U07~55N4",
+      "name": "Schneider · 06 - N - SC VSD ATV630U07~55N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV630U07~55N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 6,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV630U07. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8957,16 +8956,16 @@
     },
     {
       "id": "TB-90f636ce9ec4344c",
-      "name": "VFD Schneider Electric ATV630D15~D22N4",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630D15~D22N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV630D15~D22N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 3,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV630D15. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -8987,16 +8986,16 @@
     },
     {
       "id": "TB-68dece17b8b6f28a",
-      "name": "VFD Schneider Electric ATV320U22~40N4C",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV320U22~40N4C · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV320U22~40N4C",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 3,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV320U22. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -9047,31 +9046,31 @@
     },
     {
       "id": "TB-3efb9e65d9ab07f2",
-      "name": "VFD Schneider Electric ATV630C11~C16N4",
+      "name": "Schneider · 06 - N - SC VSD ATV630C11~C16N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV630C11~C16N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
         "status": "no_model_prices",
-        "message": "Đã nhận diện Schneider Electric · VFD · ATV630C11~C16N4. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV630C11. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
     {
       "id": "TB-06f8e3cb26b68f79",
-      "name": "VFD Schneider Electric ATV630D30~D45N4",
+      "name": "Schneider · 06 - N - SC VSD ATV630D30~D45N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV630D30~D45N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 3,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV630D30. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -9257,16 +9256,16 @@
     },
     {
       "id": "TB-8753a6ee78d8b997",
-      "name": "VFD Schneider Electric ATV630D30~D45N4",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630D30~D45N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV630D30~D45N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 3,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV630D30. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -9364,14 +9363,14 @@
       "id": "TB-860a56696f57cf73",
       "name": "Schneider · 06 - N - SC ROLE NHIỆT CHIẾU HÔNG LRD3xxx · CAD nguồn",
       "brand": "Schneider Electric",
-      "manufacturer_status": "source_library",
+      "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Rơ le nhiệt",
+      "type": "VFD",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "no_device_code",
+        "message": "Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá."
       },
       "structural_issues": []
     },
@@ -9392,16 +9391,16 @@
     },
     {
       "id": "TB-373e361e224af273",
-      "name": "VFD Schneider Electric ATV320U22~40N4C",
+      "name": "Schneider · 06 - N - SC VSD ATV320U22~40N4C · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV320U22~40N4C",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 3,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV320U22. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -9437,16 +9436,16 @@
     },
     {
       "id": "TB-ca67cfdfe75b87a5",
-      "name": "VFD Schneider Electric ATV630U75~D11N4",
+      "name": "Schneider · 06 - N - SC VSD ATV630U75~D11N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV630U75~D11N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 2,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV630U75. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -9512,16 +9511,16 @@
     },
     {
       "id": "TB-2daaa9b96edcee06",
-      "name": "VFD Schneider Electric ATV630D30~D45N4",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630D30~D45N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV630D30~D45N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 3,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV630D30. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -9587,16 +9586,16 @@
     },
     {
       "id": "TB-709136a5f2362a55",
-      "name": "VFD Schneider Electric ATV630D55~D90N4",
+      "name": "Schneider · 06 - N - SC VSD ATV630D55~D90N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV630D55~D90N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 3,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV630D55. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -9634,14 +9633,14 @@
       "id": "TB-4244fe4b84812257",
       "name": "Schneider · 06 - N - SC ROLE NHIỆT CHIẾU HÔNG LRD0xxx · CAD nguồn",
       "brand": "Schneider Electric",
-      "manufacturer_status": "source_library",
+      "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Rơ le nhiệt",
+      "type": "VFD",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "no_device_code",
+        "message": "Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá."
       },
       "structural_issues": []
     },
@@ -9767,16 +9766,16 @@
     },
     {
       "id": "TB-147acacf560564bc",
-      "name": "VFD Schneider Electric ATV630C11~C16N4",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630C11~C16N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV630C11~C16N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
         "status": "no_model_prices",
-        "message": "Đã nhận diện Schneider Electric · VFD · ATV630C11~C16N4. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV630C11. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -9872,31 +9871,31 @@
     },
     {
       "id": "TB-d2ed90668cccf5cb",
-      "name": "VFD Schneider Electric ATV630U07~55N4",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630U07~55N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV630U07~55N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 6,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV630U07. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
     {
       "id": "TB-8b4d2edbd76f927a",
-      "name": "VFD Schneider Electric ATV212HU75~D11N4",
+      "name": "Schneider · 06 - N - SC VSD ATV212HU75~D11N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV212HU75~D11N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 2,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV212HU75. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -9932,46 +9931,46 @@
     },
     {
       "id": "TB-41d72221c38b347d",
-      "name": "VFD Schneider Electric ATV212HD15~18N4",
+      "name": "Schneider · 06 - N - SC VSD ATV212HD15~18N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV212HD15~18N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 2,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV212HD15. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
     {
       "id": "TB-2598dbf214bce578",
-      "name": "VFD Schneider Electric ATV630D15~D22N4",
+      "name": "Schneider · 06 - N - SC VSD ATV630D15~D22N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV630D15~D22N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 3,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV630D15. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
     {
       "id": "TB-f0b01f81ba66ed54",
-      "name": "VFD Schneider Electric ATV630U75~D11N4",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630U75~D11N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV630U75~D11N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 2,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV630U75. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -10142,16 +10141,16 @@
     },
     {
       "id": "TB-f74086e706b33994",
-      "name": "VFD Schneider Electric ATV630U07~55N4",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630U07~55N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV630U07~55N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 6,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV630U07. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -10204,14 +10203,14 @@
       "id": "TB-0e740c59b2c2c11e",
       "name": "Schneider · 06 - N - SC ROLE NHIỆT CHIẾU HÔNG LRD4xxx · CAD nguồn",
       "brand": "Schneider Electric",
-      "manufacturer_status": "source_library",
+      "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Rơ le nhiệt",
+      "type": "VFD",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "source_library",
-        "message": "Hãng mới được xác định theo thư viện nguồn. Cần xác nhận hãng và mã trên thiết bị thực tế."
+        "status": "no_device_code",
+        "message": "Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá."
       },
       "structural_issues": []
     },
@@ -10292,16 +10291,16 @@
     },
     {
       "id": "TB-0e51ad1ddf186f06",
-      "name": "VFD Schneider Electric ATV630C11~C16N4",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630C11~C16N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV630C11~C16N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
         "status": "no_model_prices",
-        "message": "Đã nhận diện Schneider Electric · VFD · ATV630C11~C16N4. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV630C11. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -10367,16 +10366,16 @@
     },
     {
       "id": "TB-58ec6416f4e1a238",
-      "name": "VFD Schneider Electric ATV630D55~D90N4",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630D55~D90N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV630D55~D90N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 3,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV630D55. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -10517,31 +10516,31 @@
     },
     {
       "id": "TB-2137b5bec46ab654",
-      "name": "VFD Schneider Electric ATV212HU30~U55N4",
+      "name": "Schneider · 06 - N - SC VSD ATV212HU30~U55N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV212HU30~U55N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 3,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV212HU30. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
     {
       "id": "TB-eeb309129ee454c2",
-      "name": "VFD Schneider Electric ATV212H075~U22N4",
+      "name": "Schneider · 06 - N - SC VSD ATV212H075~U22N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV212H075~U22N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 3,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV212H075. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -10592,16 +10591,16 @@
     },
     {
       "id": "TB-e98d817c07787f40",
-      "name": "VFD Schneider Electric ATV212HU75~D11N4",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV212HU75~D11N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV212HU75~D11N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 2,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV212HU75. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -10802,16 +10801,16 @@
     },
     {
       "id": "TB-35e99c520436de04",
-      "name": "VFD Schneider Electric ATV630D15~D22N4",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630D15~D22N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV630D15~D22N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 3,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV630D15. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -10832,16 +10831,16 @@
     },
     {
       "id": "TB-41f14468dd34f079",
-      "name": "VFD Schneider Electric ATV212H075~U22N4",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV212H075~U22N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV212H075~U22N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 3,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV212H075. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -10892,16 +10891,16 @@
     },
     {
       "id": "TB-a2d574560532040a",
-      "name": "VFD Schneider Electric ATV320U55~75N4B",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV320U55~75N4B · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV320U55~75N4B",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 2,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV320U55. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -10967,46 +10966,46 @@
     },
     {
       "id": "TB-a0ae757e8e2112d3",
-      "name": "VFD Schneider Electric ATV630U75~D11N4",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630U75~D11N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV630U75~D11N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 2,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV630U75. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
     {
       "id": "TB-425c7029e22b929e",
-      "name": "VFD Schneider Electric ATV320U55~75N4B",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV320U55~75N4B · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV320U55~75N4B",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 2,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV320U55. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
     {
       "id": "TB-6845e19a84e2c404",
-      "name": "VFD Schneider Electric ATV212HU30~U55N4",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV212HU30~U55N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV212HU30~U55N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 3,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV212HU30. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -11027,16 +11026,16 @@
     },
     {
       "id": "TB-2d4d3ed05b2dd448",
-      "name": "VFD Schneider Electric ATV212HD15~18N4",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV212HD15~18N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "manufacturer_status": "verified",
-      "product_code": "ATV212HD15~18N4",
+      "product_code": null,
       "type": "VFD",
       "view_count": 1,
-      "price_choice_count": 2,
+      "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "choices_available",
-        "message": ""
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Schneider Electric · VFD · ATV212HD15. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -11305,8 +11304,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_device_code",
-        "message": "Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Shihlin Electric · MCB · BKN 1P/BKN-B 1P. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -11320,8 +11319,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_device_code",
-        "message": "Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Shihlin Electric · MCB · BKN 2P/BKN-B 2P. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -11335,8 +11334,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_device_code",
-        "message": "Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Shihlin Electric · MCB · BKN 3P/BKN-B 3P. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -11350,8 +11349,8 @@
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_device_code",
-        "message": "Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện Shihlin Electric · MCB · BKN 4P/BKN-B 4P. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -11365,53 +11364,53 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
     {
       "id": "TB-7a18aeb8a676eff9",
       "name": "Công tắc chọn dòng điện",
-      "brand": null,
-      "manufacturer_status": "unknown",
+      "brand": "Morele",
+      "manufacturer_status": "verified",
       "product_code": null,
       "type": "SELECTOR",
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
     {
       "id": "TB-26da92e8996e3f63",
       "name": "Công tắc chọn điện áp",
-      "brand": "Omega",
+      "brand": "Morele",
       "manufacturer_status": "verified",
       "product_code": null,
       "type": "SELECTOR",
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_brand_prices",
-        "message": "Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
     {
       "id": "TB-8905d98908ba16fe",
       "name": "Công tắc xoay ON/OFF",
-      "brand": "SUNGHO",
+      "brand": "Morele",
       "manufacturer_status": "verified",
       "product_code": null,
       "type": "SELECTOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_brand_prices",
-        "message": "Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -11425,8 +11424,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_device_code",
-        "message": "Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện EMIC · METER · CV125. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -11440,8 +11439,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -11455,8 +11454,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -11470,8 +11469,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -11485,8 +11484,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -11500,8 +11499,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -11515,8 +11514,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_device_code",
-        "message": "Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -11545,8 +11544,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_device_code",
-        "message": "Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện EMIC · METER · EM4E01/SINGLE PHASE ELECTRONIC METER. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -11560,8 +11559,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_device_code",
-        "message": "Đã xác định hãng và có bảng giá cùng hãng, nhưng chưa xác nhận mã thiết bị. Mã ứng viên hoặc kích thước hình vẽ chưa đủ để chọn giá."
+        "status": "no_model_prices",
+        "message": "Đã nhận diện EMIC · METER · 3-PHASE ELECTRONIC METER/EM4E03. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
       },
       "structural_issues": []
     },
@@ -11573,10 +11572,10 @@
       "product_code": "CV130/CV140",
       "type": "METER",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 4,
       "price_diagnostic": {
-        "status": "no_model_prices",
-        "message": "Đã nhận diện EMIC · METER · CV130/CV140. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -11588,10 +11587,10 @@
       "product_code": "CV130/CV140",
       "type": "METER",
       "view_count": 2,
-      "price_choice_count": 0,
+      "price_choice_count": 4,
       "price_diagnostic": {
-        "status": "no_model_prices",
-        "message": "Đã nhận diện EMIC · METER · CV130/CV140. Dữ liệu giá đã công bố chưa có mã/họ này đúng loại thiết bị. Cần bổ sung giá đúng mã; không phải chưa phân loại thiết bị."
+        "status": "choices_available",
+        "message": ""
       },
       "structural_issues": []
     },
@@ -11666,8 +11665,8 @@
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -11677,7 +11676,7 @@
       "brand": "Nuintek",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11692,7 +11691,7 @@
       "brand": "Nuintek",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11707,7 +11706,7 @@
       "brand": "Nuintek",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11722,7 +11721,7 @@
       "brand": "Nuintek",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11737,7 +11736,7 @@
       "brand": "Nuintek",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11752,7 +11751,7 @@
       "brand": "Nuintek",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11767,7 +11766,7 @@
       "brand": "Nuintek",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11782,7 +11781,7 @@
       "brand": "Nuintek",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11797,7 +11796,7 @@
       "brand": "Nuintek",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11812,7 +11811,7 @@
       "brand": "Nuintek",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11827,7 +11826,7 @@
       "brand": "Nuintek",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11842,7 +11841,7 @@
       "brand": "Nuintek",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11857,7 +11856,7 @@
       "brand": "Nuintek",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11872,7 +11871,7 @@
       "brand": "Nuintek",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11887,7 +11886,7 @@
       "brand": "Nuintek",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu khô",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11902,7 +11901,7 @@
       "brand": "Nuintek",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu khô",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11917,7 +11916,7 @@
       "brand": "Nuintek",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu khô",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11932,7 +11931,7 @@
       "brand": "Nuintek",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu khô",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11947,7 +11946,7 @@
       "brand": "Nuintek",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu khô",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11962,7 +11961,7 @@
       "brand": "Nuintek",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu khô",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11977,7 +11976,7 @@
       "brand": "Samwha",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -11992,7 +11991,7 @@
       "brand": "Samwha",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -12007,7 +12006,7 @@
       "brand": "Samwha",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -12022,7 +12021,7 @@
       "brand": "Samwha",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -12037,7 +12036,7 @@
       "brand": "Samwha",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -12052,7 +12051,7 @@
       "brand": "Samwha",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -12067,7 +12066,7 @@
       "brand": "Samwha",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -12082,7 +12081,7 @@
       "brand": "Samwha",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu khô",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -12097,7 +12096,7 @@
       "brand": "Samwha",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Tụ bù hạ áp kiểu khô",
+      "type": "CAPACITOR",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
@@ -12367,12 +12366,12 @@
       "brand": "CHENG LI",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Ổ cắm điện",
+      "type": "SOCKET",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_brand_prices",
-        "message": "Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -12382,12 +12381,12 @@
       "brand": "CLIPSAL",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Ổ cắm điện",
+      "type": "SOCKET",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_brand_prices",
-        "message": "Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -12397,12 +12396,12 @@
       "brand": "CLIPSAL",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Ổ cắm điện",
+      "type": "SOCKET",
       "view_count": 1,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_brand_prices",
-        "message": "Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -12416,8 +12415,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -12431,8 +12430,8 @@
       "view_count": 3,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "unknown",
-        "message": "Chưa xác định được hãng. Cần kiểm tra nhãn trên thiết bị hoặc tài liệu nguồn trước khi chọn giá."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -12442,12 +12441,12 @@
       "brand": "PCE",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Ổ cắm điện",
+      "type": "SOCKET",
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_brand_prices",
-        "message": "Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },
@@ -12457,12 +12456,12 @@
       "brand": "VANLOCK-DELTA",
       "manufacturer_status": "verified",
       "product_code": null,
-      "type": "Ổ cắm điện",
+      "type": "SOCKET",
       "view_count": 2,
       "price_choice_count": 0,
       "price_diagnostic": {
-        "status": "no_brand_prices",
-        "message": "Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố."
+        "status": "optional_price",
+        "message": "Cầu đấu/phụ kiện: không yêu cầu khớp chính xác mã và giá trong phạm vi bóc tách hiện tại. Có thể bổ sung giá nhà cung cấp khi cần; không tự lấy giá của thiết bị điện khác."
       },
       "structural_issues": []
     },

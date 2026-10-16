@@ -57,7 +57,7 @@ def customer_catalog_page(payload):
                         for maker in payload['brands']]
     fields = ('sku','item_name','name','brand','category','group','price','columns','cells',
               'specifications','model_key','effective_date','edition','vat_status','updated_at',
-              'checked_at','product_line','line_label')
+              'checked_at','product_line','line_label','equipment_catalog_id')
     public['items'] = []
     for row in payload['items']:
         item = {key:row[key] for key in fields if key in row}
@@ -65,6 +65,12 @@ def customer_catalog_page(payload):
         # Preserve table grouping without disclosing supplier, URL or document page.
         identity = [row.get(k) for k in ('brand','group','source_url','source_label','source_page','effective_date','columns')]
         item['book_key'] = hashlib.sha256(json.dumps(identity,ensure_ascii=False).encode()).hexdigest()[:24]
+
+        # Add CAD preview information if equipment_catalog_id exists
+        if row.get('equipment_catalog_id'):
+            item['cad_preview_url'] = f"/equipment-library/{row['equipment_catalog_id']}/preview"
+            item['has_cad'] = True
+
         public['items'].append(item)
     return public
 

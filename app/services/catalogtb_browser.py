@@ -81,16 +81,21 @@ def browser_page(q='', category='', brand='', skip=0, limit=24):
         return query in normalize(identity + ' ' + str(item.get('brand') or ''))
     rows = [p for p in data['items'] if (not category or p.get('category') == category)
             and (not brand or p.get('brand') == brand
+                 or brand in {o['brand'] for o in (p.get('catalog_references') or {}).get('options', [])}
                  or (brand == '__generic__' and p.get('brand_kind') == 'generic')
                  or (brand == '__unidentified__' and p.get('brand_kind') == 'unidentified_equipment')) and (not query or matches(p))]
     display_data={key:value for key,value in data.items() if key!='view_count'}
     return {**display_data, 'items': rows[skip:skip+limit], 'total': len(rows),
             'catalog_total': data['total'], 'skip': skip, 'limit': limit,
             'has_more': skip + limit < len(rows),
-            'brands': sorted({p['brand'] for p in data['items'] if p.get('brand')})}
+            'brands': sorted({p['brand'] for p in data['items'] if p.get('brand')} |
+                             {o['brand'] for p in data['items'] for o in (p.get('catalog_references') or {}).get('options', [])
+                              if o['brand'] and o['brand'] != 'Chưa xác định'})}
 
 
 def _build_browser_data():
+    from .published_catalog_information import published_information, apply_published_information
+    information=published_information()
     resolved_root=CATALOG_TB_ROOT.resolve()
     html=(CATALOG_TB_ROOT/'index.html').read_text(encoding='utf-8')
     match=re.search(r'<script id="catalog-data" type="application/json">(.*?)</script>',html,re.S)
@@ -101,7 +106,9 @@ def _build_browser_data():
     originals=[]
     for path in sorted(CATALOG_TB_ROOT.rglob('thong_tin_thiet_bi.json')):
         relative=path.relative_to(CATALOG_TB_ROOT).as_posix()
-        current=json.loads(path.read_text(encoding='utf-8'))
+        current=json.loads(path.read_text(encoding='utf-8-sig'))
+        current=apply_published_information(current,relative,information)
+        if current.get('browser_hidden'):continue
         original=dict(known.get(relative) or {})
         original.update(json=relative)
         original['_current_profile']=current
@@ -127,6 +134,14 @@ def _build_browser_data():
         profile={k:v for k,v in original.items() if k not in {'json','drawings','single_views','primary','sources','_current_profile'}}
         profile['id']=cid
         current=original['_current_profile']
+        if current.get('nhom_thu_vien'):
+            profile['category']=current['nhom_thu_vien']
+        profile['catalog_references']=current.get('catalog_tham_khao') or {}
+        profile['display']=current.get('ten_san_pham') or profile.get('display')
+        profile['spec']={**(profile.get('spec') or {}),**(current.get('thong_so') or {})}
+        profile['product_code']=current.get('ma_dong_san_pham') or profile.get('product_code')
+        profile['use']=current.get('cong_dung') or profile.get('use')
+        profile['source_catalog_review']=current.get('source_catalog_review') or {}
         identification=current.get('nhan_dien_web') or {}
         if identification.get('user_accepts_approximate_family'):
             profile['display']=current.get('ten_san_pham') or profile['display']
@@ -139,7 +154,7 @@ def _build_browser_data():
         profile['recognition_review']=current.get('nhan_dien_bo_sung_20261010') or {}
         profile['auto_select']=bool(current.get('auto_select',False))
         profile['needs_review']=current.get('needs_review',True)
-        kind=ai.get('loai_thiet_bi_code') or profile['recognition_review'].get('category_code')
+        kind=current.get('catalog_information_type') or ai.get('loai_thiet_bi_code') or profile['recognition_review'].get('category_code')
         if kind:profile['type']={'PHASE_RELAY':'Rơ le bảo vệ pha'}.get(kind,kind)
         profile['views']=[{'id':v['source_id'],'label':v.get('label') or v['face'],'face':v['face'],
                            'preview':f'/equipment-library/{cid}/views/{quote(v["source_id"],safe="")}/preview',
@@ -193,6 +208,8 @@ def _build_browser_data():
             if label:
                 view['label']=label
                 view['face']=label
+        from .library_control_meter_review import apply_review
+        apply_review(profile, current, path)
         profiles.append(profile)
     groups_path=CATALOG_TB_ROOT/'ai_device_groups.json'
     registry=json.loads(groups_path.read_text(encoding='utf8')) if groups_path.is_file() else {}
@@ -204,11 +221,18 @@ def _build_browser_data():
         merged['views']=[v for member in members for v in member['views']]
         merged['primary_view']=next((v['id'] for v in merged['views'] if v['face']=='Mặt trước'),merged['views'][0]['id'])
         merged['physical_family_id']=group['id'];merged['member_profile_ids']=sorted(member_ids)
+        references={}
+        for member in members:
+            for option in (member.get('catalog_references') or {}).get('options', []):
+                references.setdefault((option['brand'],option['model']),option)
+        merged['catalog_references']={**(merged.get('catalog_references') or {}),'options':list(references.values())}
         merged['auto_select']=False;merged['needs_review']=True
         profiles=[p for p in profiles if p['id'] not in member_ids]+[merged]
     from .library_ordering_configurations import ordering_configurations
+    from .library_catalog_references import catalog_reference
     for profile in profiles:
         profile['ordering_configurations']=ordering_configurations(profile)
+        profile['catalog_reference']=catalog_reference(profile)
     categories=[{'name':name,'count':sum(p['category']==name for p in profiles)} for name in sorted({p['category'] for p in profiles})]
     labels={}
     for block in re.findall(r'const (?:extraLabels|labels)=\{([^}]+)\}',html):

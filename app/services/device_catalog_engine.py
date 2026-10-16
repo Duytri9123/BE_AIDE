@@ -205,7 +205,8 @@ class DeviceCatalogEngine:
     def _reference_signature(self):
         root=Path(__file__).resolve().parents[2] / 'data' / 'CatalogTB'
         from app.services.library_manufacturer_identity import EVIDENCE_PATH
-        paths=[EVIDENCE_PATH,root/'ai_library_manifest.json',root/'ai_device_groups.json',*sorted(root.rglob('thong_tin_thiet_bi.json'))]
+        from app.services.published_catalog_information import INFORMATION_PATH
+        paths=[EVIDENCE_PATH,INFORMATION_PATH,root/'ai_library_manifest.json',root/'ai_device_groups.json',*sorted(root.rglob('thong_tin_thiet_bi.json'))]
         return tuple((str(p),p.stat().st_mtime_ns,p.stat().st_size) for p in paths if p.is_file())
 
     def refresh_reference_profiles(self):
@@ -226,12 +227,15 @@ class DeviceCatalogEngine:
         discovered = {item['profile_path']: item for item in assets(refresh=True)}
         for path in sorted(root.rglob('thong_tin_thiet_bi.json')):
             try:
-                profile = json.loads(path.read_text(encoding='utf-8'))
+                profile = json.loads(path.read_text(encoding='utf-8-sig'))
+                from app.services.published_catalog_information import apply_published_information
+                profile=apply_published_information(profile,path.relative_to(root).as_posix())
             except (OSError, ValueError):
                 continue
             ai = profile.get('nhan_dien_ai') or {}
+            if profile.get('browser_hidden'):continue
             discovery = discovered.get(path.relative_to(root).as_posix(), {})
-            kind = str(ai.get('loai_thiet_bi_code') or discovery.get('category') or 'UNCLASSIFIED').upper()
+            kind = str(profile.get('catalog_information_type') or ai.get('loai_thiet_bi_code') or discovery.get('category') or 'UNCLASSIFIED').upper()
             from app.services.library_manufacturer_identity import identity_for_profile
             identity = identity_for_profile(profile,path,root)
             reviewed = identity.get('reviewed_description') or {}
@@ -247,6 +251,7 @@ class DeviceCatalogEngine:
                 sources=profile.get('nguon_tham_khao') or [],
                 selection_note=profile.get('muc_do_xac_nhan'),
                 search_aliases=profile.get('tu_khoa_tim_kiem') or [],
+                catalog_references=profile.get('catalog_tham_khao') or {},
                 physical_family_id=self.reviewed_groups.get(path.relative_to(root).as_posix(),{}).get('id'),
                 reference_path=path.relative_to(root).as_posix(),
                 sku=None, price=None, status='reference_only'))
@@ -263,13 +268,18 @@ class DeviceCatalogEngine:
             if kind and not category_matches(kind, aliases.get(profile['category'], profile['category'])):
                 continue
             actual_brand = strip_accents(str(profile['brand'] or '')).lower().replace(' electric','').strip()
-            if wanted_brand and actual_brand and wanted_brand != actual_brand:
+            shared_brand = any(strip_accents(str(o.get('brand') or '')).lower().replace(' electric','').strip() == wanted_brand
+                               for o in (profile.get('catalog_references') or {}).get('options', [])) if wanted_brand else False
+            if wanted_brand and actual_brand and wanted_brand != actual_brand and not shared_brand:
                 continue
             if poles and profile['poles']:
                 observed_poles = re.fullmatch(r'\s*(\d+)\s*P?\s*', str(profile['poles']), re.I)
                 if not observed_poles or int(observed_poles.group(1)) != int(poles):
                     continue
-            if wanted_brand and not actual_brand:
+            if shared_brand and wanted_brand != actual_brand:
+                matches.append(dict(profile, brand_match='shared_cad_reference', requested_brand=brand,
+                                    auto_select=False, exact_model=False))
+            elif wanted_brand and not actual_brand:
                 unknown_brand.append(dict(profile, brand_match='unknown_requires_confirmation'))
             else:
                 matches.append(dict(profile, brand_match='preferred' if wanted_brand else 'unspecified'))

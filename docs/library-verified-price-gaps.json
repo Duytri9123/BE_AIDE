@@ -1,13 +1,13 @@
 {
-  "linked_count": 223,
-  "verified_unlinked_count": 270,
+  "linked_count": 175,
+  "verified_unlinked_count": 364,
   "reason_counts": {
-    "related_code_only": 56,
-    "no_device_code": 56,
-    "code_not_in_published_prices": 126,
-    "no_brand_prices": 32
+    "related_code_only": 122,
+    "no_device_code": 67,
+    "code_not_in_published_prices": 140,
+    "no_brand_prices": 35
   },
-  "price_row_count": 9476,
+  "price_row_count": 9496,
   "linked": [
     {
       "id": "TB-88adac8683ca9439",
@@ -328,20 +328,14 @@
       "choices": 1
     },
     {
-      "id": "TB-1eaa9fd733e664be",
-      "brand": "MITEX",
-      "name": "Biến dòng đo lường MITEX BD01",
-      "choices": 20
-    },
-    {
-      "id": "TB-c02623ff6b0d78b7",
-      "brand": "MIKRO",
-      "name": "Rơ le bảo vệ dòng rò MIKRO DIN310",
+      "id": "TB-489e1696d1c01dd8",
+      "brand": "CHINT",
+      "name": "Rơ le bảo vệ pha CHINT XJ3-G",
       "choices": 1
     },
     {
       "id": "TB-c8e96f985b637563",
-      "brand": "MIKRO",
+      "brand": "Mikro",
       "name": "Rơ le bảo vệ pha Mikro MX100",
       "choices": 1
     },
@@ -349,6 +343,12 @@
       "id": "TB-5d645048468ae080",
       "brand": "MIKRO",
       "name": "Rơ le giám sát điện áp Mikro · dòng MX200A",
+      "choices": 1
+    },
+    {
+      "id": "TB-de4306f8b83b75df",
+      "brand": "Schneider Electric",
+      "name": "Biến tần Schneider ATV320D11N4B",
       "choices": 1
     },
     {
@@ -480,7 +480,7 @@
     {
       "id": "TB-93b90144bbbf3109",
       "brand": "LS Electric",
-      "name": "THERMAL_RELAY LS Electric MT-63",
+      "name": "Rơ le nhiệt LS Electric MT-63",
       "choices": 1
     },
     {
@@ -498,7 +498,7 @@
     {
       "id": "TB-7dd2ecb5a38cc051",
       "brand": "LS Electric",
-      "name": "CONTACTOR LS Electric MC-185a",
+      "name": "Khởi động từ LS Electric MC-185a",
       "choices": 1
     },
     {
@@ -506,6 +506,12 @@
       "brand": "LS Electric",
       "name": "CONTACTOR LS Electric MC-500a · CAD tham khảo",
       "choices": 1
+    },
+    {
+      "id": "TB-cbd0ce36cee43ca9",
+      "brand": "LS Electric",
+      "name": "Khởi động từ LS Electric MC-75a / MC-85a / MC-100a",
+      "choices": 3
     },
     {
       "id": "TB-bea54fdef5b2acda",
@@ -528,13 +534,13 @@
     {
       "id": "TB-51f4558cd68dbb11",
       "brand": "LS Electric",
-      "name": "THERMAL_RELAY LS Electric MT-12",
+      "name": "Rơ le nhiệt LS Electric MT-12",
       "choices": 1
     },
     {
       "id": "TB-7ec687e49e297901",
       "brand": "LS Electric",
-      "name": "CONTACTOR LS Electric MC-265a",
+      "name": "Khởi động từ LS Electric MC-265a",
       "choices": 1
     },
     {
@@ -546,7 +552,7 @@
     {
       "id": "TB-4cca6dc255bc2167",
       "brand": "LS Electric",
-      "name": "CONTACTOR LS Electric MC-500a",
+      "name": "Khởi động từ LS Electric MC-500a",
       "choices": 1
     },
     {
@@ -874,72 +880,6 @@
       "choices": 4
     },
     {
-      "id": "TB-2db736dd18a9914c",
-      "brand": "Schneider Electric",
-      "name": "MCCB Schneider EZC100 · 1P",
-      "choices": 2
-    },
-    {
-      "id": "TB-b26987552aa8750d",
-      "brand": "Schneider Electric",
-      "name": "MCCB Schneider EZC100 · 2P",
-      "choices": 1
-    },
-    {
-      "id": "TB-3bd2bd962e5e7024",
-      "brand": "Schneider Electric",
-      "name": "MCCB Schneider EZC100 · 3P",
-      "choices": 4
-    },
-    {
-      "id": "TB-d7052dd5a9e5de7b",
-      "brand": "Schneider Electric",
-      "name": "MCCB Schneider EZC250 · 2P",
-      "choices": 1
-    },
-    {
-      "id": "TB-07d6c18d5a6e1e83",
-      "brand": "Schneider Electric",
-      "name": "MCCB Schneider EZC250 · 3P",
-      "choices": 3
-    },
-    {
-      "id": "TB-36f4ac1bec738cea",
-      "brand": "Schneider Electric",
-      "name": "MCCB Schneider EZC250 · 4P",
-      "choices": 1
-    },
-    {
-      "id": "TB-ef7b5ab441b31e47",
-      "brand": "Schneider Electric",
-      "name": "MCCB Schneider EZC400 · 3P",
-      "choices": 2
-    },
-    {
-      "id": "TB-de932c87174f7640",
-      "brand": "Schneider Electric",
-      "name": "MCCB Schneider EZC400 · 4P",
-      "choices": 2
-    },
-    {
-      "id": "TB-49ae8f3071f94c61",
-      "brand": "Schneider Electric",
-      "name": "MCB Schneider iC60 · 1P",
-      "choices": 9
-    },
-    {
-      "id": "TB-e1e255d56a1c0054",
-      "brand": "Schneider Electric",
-      "name": "MCB Schneider iC60 · 2P",
-      "choices": 9
-    },
-    {
-      "id": "TB-d849389763b7f44c",
-      "brand": "Schneider Electric",
-      "name": "MCB Schneider iC60 · 3P",
-      "choices": 1
-    },
-    {
       "id": "TB-1d1ab36d75cb2b5c",
       "brand": "Schneider Electric",
       "name": "RCCB Schneider iIDK · 2P",
@@ -976,18 +916,6 @@
       "choices": 9
     },
     {
-      "id": "TB-5a85d0fb1b71c309",
-      "brand": "Schneider Electric",
-      "name": "Contactor Schneider LC1D25-38 · 3P",
-      "choices": 3
-    },
-    {
-      "id": "TB-77ad9af6edcecd8b",
-      "brand": "Schneider Electric",
-      "name": "Contactor Schneider LC1D9-18 · 3P",
-      "choices": 2
-    },
-    {
       "id": "TB-7d1974c4701a6074",
       "brand": "Schneider Electric",
       "name": "Contactor Schneider LC1E06-18 · 3P",
@@ -1006,286 +934,58 @@
       "choices": 4
     },
     {
-      "id": "TB-faa371b9ff857b8f",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV320U22~40N4C",
-      "choices": 3
-    },
-    {
-      "id": "TB-4092570e76365c9b",
-      "brand": "Schneider Electric",
-      "name": "MCCB Schneider Electric EZC100",
-      "choices": 4
-    },
-    {
       "id": "TB-874c5547cd458752",
       "brand": "Schneider Electric",
-      "name": "CONTACTOR Schneider Electric LC1E32",
+      "name": "Khởi động từ Schneider Electric LC1E32",
       "choices": 4
-    },
-    {
-      "id": "TB-aa88cc78f94d3ba5",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV320U55~75N4B",
-      "choices": 2
-    },
-    {
-      "id": "TB-0cc0c56bd994d60d",
-      "brand": "Schneider Electric",
-      "name": "CONTACTOR Schneider Electric LC1D32",
-      "choices": 1
-    },
-    {
-      "id": "TB-b3db3f72b1386e95",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV630D55~D90N4",
-      "choices": 3
-    },
-    {
-      "id": "TB-436f8c8137844f85",
-      "brand": "Schneider Electric",
-      "name": "CONTACTOR Schneider Electric LC1D18",
-      "choices": 1
-    },
-    {
-      "id": "TB-cc4d7e2ce43e4773",
-      "brand": "Schneider Electric",
-      "name": "MCCB Schneider Electric EZC250",
-      "choices": 3
-    },
-    {
-      "id": "TB-4fc8d9679c3649ef",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV630U07~55N4",
-      "choices": 6
-    },
-    {
-      "id": "TB-90f636ce9ec4344c",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV630D15~D22N4",
-      "choices": 3
-    },
-    {
-      "id": "TB-68dece17b8b6f28a",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV320U22~40N4C",
-      "choices": 3
-    },
-    {
-      "id": "TB-3aabcfa28ac7f3ba",
-      "brand": "Schneider Electric",
-      "name": "CONTACTOR Schneider Electric LC1D9-18",
-      "choices": 2
-    },
-    {
-      "id": "TB-06f8e3cb26b68f79",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV630D30~D45N4",
-      "choices": 3
-    },
-    {
-      "id": "TB-79ddf299eca7273e",
-      "brand": "Schneider Electric",
-      "name": "CONTACTOR Schneider Electric LC1D25",
-      "choices": 1
     },
     {
       "id": "TB-95c74c0f4e250dd3",
       "brand": "Schneider Electric",
-      "name": "CONTACTOR Schneider Electric LC1E06-18",
+      "name": "Khởi động từ Schneider Electric LC1E06-18",
       "choices": 16
     },
     {
-      "id": "TB-fa2c70999cd97df4",
+      "id": "TB-4607133ea2f2fbe9",
       "brand": "Schneider Electric",
-      "name": "CONTACTOR Schneider Electric LC1D32",
-      "choices": 1
+      "name": "Áptômát khối Schneider Electric CVS100~250B~F",
+      "choices": 24
     },
     {
-      "id": "TB-8753a6ee78d8b997",
+      "id": "TB-d5d19f72a16a6a0f",
       "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV630D30~D45N4",
-      "choices": 3
+      "name": "Áptômát khối Schneider Electric CVS100~250B~F",
+      "choices": 24
     },
     {
-      "id": "TB-373e361e224af273",
+      "id": "TB-01f7d9a0e8d5003b",
       "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV320U22~40N4C",
-      "choices": 3
-    },
-    {
-      "id": "TB-ca67cfdfe75b87a5",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV630U75~D11N4",
-      "choices": 2
-    },
-    {
-      "id": "TB-2daaa9b96edcee06",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV630D30~D45N4",
-      "choices": 3
-    },
-    {
-      "id": "TB-709136a5f2362a55",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV630D55~D90N4",
-      "choices": 3
-    },
-    {
-      "id": "TB-39b0e1bd1634ae8b",
-      "brand": "Schneider Electric",
-      "name": "MCCB Schneider Electric EZC250",
-      "choices": 3
-    },
-    {
-      "id": "TB-dced0a03b7ea334e",
-      "brand": "Schneider Electric",
-      "name": "CONTACTOR Schneider Electric LC1D18",
-      "choices": 1
-    },
-    {
-      "id": "TB-d2ed90668cccf5cb",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV630U07~55N4",
-      "choices": 6
-    },
-    {
-      "id": "TB-8b4d2edbd76f927a",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV212HU75~D11N4",
-      "choices": 2
-    },
-    {
-      "id": "TB-41d72221c38b347d",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV212HD15~18N4",
-      "choices": 2
-    },
-    {
-      "id": "TB-2598dbf214bce578",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV630D15~D22N4",
-      "choices": 3
-    },
-    {
-      "id": "TB-f0b01f81ba66ed54",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV630U75~D11N4",
-      "choices": 2
-    },
-    {
-      "id": "TB-92e2043a2bd511a7",
-      "brand": "Schneider Electric",
-      "name": "CONTACTOR Schneider Electric LC1D25-38",
-      "choices": 3
+      "name": "Áptômát khối Schneider Electric CVS400~630F~N",
+      "choices": 7
     },
     {
       "id": "TB-afd60a00b7d134cd",
       "brand": "Schneider Electric",
-      "name": "CONTACTOR Schneider Electric LC1E25",
+      "name": "Khởi động từ Schneider Electric LC1E25",
       "choices": 4
     },
     {
-      "id": "TB-f74086e706b33994",
+      "id": "TB-c8909fbf0732bb69",
       "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV630U07~55N4",
-      "choices": 6
+      "name": "Áptômát khối Schneider Electric CVS100~250B~F",
+      "choices": 24
     },
     {
-      "id": "TB-c6b1fa1fb05f17c0",
+      "id": "TB-7233c2f474aba377",
       "brand": "Schneider Electric",
-      "name": "CONTACTOR Schneider Electric LC1D25",
-      "choices": 1
+      "name": "Áptômát khối Schneider Electric CVS400~630F~N",
+      "choices": 7
     },
     {
-      "id": "TB-58ec6416f4e1a238",
+      "id": "TB-df56809b4d7f0518",
       "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV630D55~D90N4",
-      "choices": 3
-    },
-    {
-      "id": "TB-2137b5bec46ab654",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV212HU30~U55N4",
-      "choices": 3
-    },
-    {
-      "id": "TB-eeb309129ee454c2",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV212H075~U22N4",
-      "choices": 3
-    },
-    {
-      "id": "TB-e98d817c07787f40",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV212HU75~D11N4",
-      "choices": 2
-    },
-    {
-      "id": "TB-b2127e7ca1b65481",
-      "brand": "Schneider Electric",
-      "name": "MCCB Schneider Electric EZC250",
-      "choices": 1
-    },
-    {
-      "id": "TB-50b9e0b14ec25b83",
-      "brand": "Schneider Electric",
-      "name": "MCCB Schneider Electric EZC100",
-      "choices": 1
-    },
-    {
-      "id": "TB-b05de4d1c90b9878",
-      "brand": "Schneider Electric",
-      "name": "MCCB Schneider Electric EZC100",
-      "choices": 1
-    },
-    {
-      "id": "TB-35e99c520436de04",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV630D15~D22N4",
-      "choices": 3
-    },
-    {
-      "id": "TB-41f14468dd34f079",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV212H075~U22N4",
-      "choices": 3
-    },
-    {
-      "id": "TB-a2d574560532040a",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV320U55~75N4B",
-      "choices": 2
-    },
-    {
-      "id": "TB-a0ae757e8e2112d3",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV630U75~D11N4",
-      "choices": 2
-    },
-    {
-      "id": "TB-425c7029e22b929e",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV320U55~75N4B",
-      "choices": 2
-    },
-    {
-      "id": "TB-6845e19a84e2c404",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV212HU30~U55N4",
-      "choices": 3
-    },
-    {
-      "id": "TB-1cac077415383e54",
-      "brand": "Schneider Electric",
-      "name": "MCCB Schneider Electric EZC100",
-      "choices": 4
-    },
-    {
-      "id": "TB-2d4d3ed05b2dd448",
-      "brand": "Schneider Electric",
-      "name": "VFD Schneider Electric ATV212HD15~18N4",
-      "choices": 2
+      "name": "Áptômát khối Schneider Electric CVS100~250B~F",
+      "choices": 24
     },
     {
       "id": "TB-26cbc7271ef1b2ef",
@@ -1346,6 +1046,18 @@
       "brand": "Shihlin Electric",
       "name": "MCCB Shihlin BM630/800 · 4P",
       "choices": 2
+    },
+    {
+      "id": "TB-9c3ace6cc670668f",
+      "brand": "EMIC",
+      "name": "Công tơ cơ 1 pha CV130/CV140, nắp dài",
+      "choices": 4
+    },
+    {
+      "id": "TB-dbac6bea296dd57b",
+      "brand": "EMIC",
+      "name": "Công tơ cơ 1 pha CV130/CV140, nắp ngắn",
+      "choices": 4
     }
   ],
   "gaps": [
@@ -2430,6 +2142,62 @@
       ]
     },
     {
+      "id": "TB-1eaa9fd733e664be",
+      "name": "Biến dòng đo lường MITEX BD01",
+      "brand": "MITEX",
+      "type": "CT",
+      "product_code": "BD01",
+      "reason": "related_code_only",
+      "brand_price_count": 68,
+      "related_price_rows": [
+        {
+          "id": "web:d3eded1eb103528f",
+          "sku": "BD01",
+          "item_name": "BD01",
+          "category": "ACCESSORY",
+          "specifications": {
+            "In (A)": "5"
+          }
+        },
+        {
+          "id": "web:5300c70900498929",
+          "sku": "BD01",
+          "item_name": "BD01",
+          "category": "ACCESSORY",
+          "specifications": {
+            "In (A)": "5"
+          }
+        },
+        {
+          "id": "web:9a8ebb4876ae4f99",
+          "sku": "BD01",
+          "item_name": "BD01",
+          "category": "ACCESSORY",
+          "specifications": {
+            "In (A)": "5"
+          }
+        },
+        {
+          "id": "web:ce234adf8afd78d9",
+          "sku": "BD01",
+          "item_name": "BD01",
+          "category": "ACCESSORY",
+          "specifications": {
+            "In (A)": "5"
+          }
+        },
+        {
+          "id": "web:64e12e6e321fb3d9",
+          "sku": "BD01",
+          "item_name": "BD01",
+          "category": "ACCESSORY",
+          "specifications": {
+            "In (A)": "5"
+          }
+        }
+      ]
+    },
+    {
       "id": "TB-098e45ffd50663e3",
       "name": "Biến dòng đo lường MORELE MSQ-125",
       "brand": "MORELE",
@@ -2450,44 +2218,262 @@
       "related_price_rows": []
     },
     {
-      "id": "TB-2fb06d36a7b98053",
-      "name": "Biến dòng đo lường CML250A",
-      "brand": "CML",
+      "id": "TB-2cf48f2006d1fe75",
+      "name": "Biến dòng đo lường BD1200A",
+      "brand": "EMIC",
       "type": "CT",
       "product_code": "",
-      "reason": "no_brand_prices",
-      "brand_price_count": 0,
-      "related_price_rows": []
+      "reason": "related_code_only",
+      "brand_price_count": 86,
+      "related_price_rows": [
+        {
+          "id": "web:0e59d26343ff49f8",
+          "sku": "EM4H11 1200/5A",
+          "item_name": "EM4H11 1200/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "1200",
+            "Điện áp": "600VAC",
+            "Dòng thứ cấp (A)": "5"
+          }
+        },
+        {
+          "id": "web:51d7234f30abdcf9",
+          "sku": "EM4H05 1200/5A",
+          "item_name": "EM4H05 1200/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "1200",
+            "Điện áp": "600VAC",
+            "Dòng thứ cấp (A)": "5"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-2fb06d36a7b98053",
+      "name": "Biến dòng đo lường CML250A",
+      "brand": "EMIC",
+      "type": "CT",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 86,
+      "related_price_rows": [
+        {
+          "id": "web:3fd8ee2e9f068a94",
+          "sku": "EM4H03 250/5A",
+          "item_name": "EM4H03 250/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "250",
+            "Dòng thứ cấp (A)": "5",
+            "Tỷ số CT": "250/5A",
+            "Dòng định mức": "5A"
+          }
+        },
+        {
+          "id": "web:85946e618ac357b9",
+          "sku": "EM4H03 250/5A",
+          "item_name": "EM4H03 250/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "250",
+            "Điện áp": "600VAC",
+            "Dòng thứ cấp (A)": "5"
+          }
+        },
+        {
+          "id": "web:b9fe7f9456275758",
+          "sku": "EM4H09 250/5A",
+          "item_name": "EM4H09 250/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "250",
+            "Điện áp": "600VAC",
+            "Dòng thứ cấp (A)": "5"
+          }
+        }
+      ]
     },
     {
       "id": "TB-33ba68a62afca29e",
       "name": "Biến dòng đo lường CML3200A",
-      "brand": "CML",
+      "brand": "EMIC",
       "type": "CT",
       "product_code": "",
-      "reason": "no_brand_prices",
-      "brand_price_count": 0,
-      "related_price_rows": []
+      "reason": "related_code_only",
+      "brand_price_count": 86,
+      "related_price_rows": [
+        {
+          "id": "web:69278d48fbe8325a",
+          "sku": "EM4H07 3200/5A",
+          "item_name": "EM4H07 3200/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "3200",
+            "Dòng thứ cấp (A)": "5",
+            "Tỷ số CT": "3200/5A",
+            "Dòng định mức": "5A"
+          }
+        },
+        {
+          "id": "web:068cc373b92dd4ed",
+          "sku": "EM4H11 3200/5A",
+          "item_name": "EM4H11 3200/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "3200",
+            "Điện áp": "600VAC",
+            "Dòng thứ cấp (A)": "5"
+          }
+        },
+        {
+          "id": "web:8dc18ace02a3a8f8",
+          "sku": "EM4H03 200/5A",
+          "item_name": "EM4H03 200/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "200",
+            "Điện áp": "600VAC",
+            "Dòng thứ cấp (A)": "5"
+          }
+        },
+        {
+          "id": "web:cb097a594fd094dc",
+          "sku": "EM4H07 3200/5A",
+          "item_name": "EM4H07 3200/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "3200",
+            "Điện áp": "600VAC",
+            "Dòng thứ cấp (A)": "5"
+          }
+        }
+      ]
     },
     {
       "id": "TB-ada5a9d0155b3136",
       "name": "Biến dòng đo lường CML400A",
-      "brand": "CML",
+      "brand": "EMIC",
       "type": "CT",
       "product_code": "",
-      "reason": "no_brand_prices",
-      "brand_price_count": 0,
-      "related_price_rows": []
+      "reason": "related_code_only",
+      "brand_price_count": 86,
+      "related_price_rows": [
+        {
+          "id": "web:675fd5eb038128ca",
+          "sku": "EM4H04 400/5A",
+          "item_name": "EM4H04 400/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "400",
+            "Dòng thứ cấp (A)": "5",
+            "Tỷ số CT": "400/5A",
+            "Dòng định mức": "5A"
+          }
+        },
+        {
+          "id": "web:55eccb99a364a441",
+          "sku": "EM4H05 400/5A",
+          "item_name": "EM4H05 400/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "400",
+            "Dòng thứ cấp (A)": "5",
+            "Tỷ số CT": "400/5A",
+            "Dòng định mức": "5A"
+          }
+        },
+        {
+          "id": "web:5c27983860346433",
+          "sku": "EM4H04 400/5A",
+          "item_name": "EM4H04 400/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "400",
+            "Điện áp": "600VAC",
+            "Dòng thứ cấp (A)": "5"
+          }
+        },
+        {
+          "id": "web:0b54d5f450dc22d4",
+          "sku": "EM4H05 400/5A",
+          "item_name": "EM4H05 400/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "400",
+            "Điện áp": "600VAC",
+            "Dòng thứ cấp (A)": "5"
+          }
+        },
+        {
+          "id": "web:fc55e4aaf08bafaa",
+          "sku": "EM4H10 400/5A",
+          "item_name": "EM4H10 400/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "400",
+            "Điện áp": "600VAC",
+            "Dòng thứ cấp (A)": "5"
+          }
+        }
+      ]
     },
     {
       "id": "TB-6e9ef22b7db833ac",
       "name": "Biến dòng đo lường CML800A",
-      "brand": "CML",
+      "brand": "EMIC",
       "type": "CT",
       "product_code": "",
-      "reason": "no_brand_prices",
-      "brand_price_count": 0,
-      "related_price_rows": []
+      "reason": "related_code_only",
+      "brand_price_count": 86,
+      "related_price_rows": [
+        {
+          "id": "web:cb749b5f6b203f08",
+          "sku": "EM4H05 800/5A",
+          "item_name": "EM4H05 800/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "800",
+            "Dòng thứ cấp (A)": "5",
+            "Tỷ số CT": "800/5A",
+            "Dòng định mức": "5A"
+          }
+        },
+        {
+          "id": "web:513a1ef7dc4e2531",
+          "sku": "EM4H11 1800/5A",
+          "item_name": "EM4H11 1800/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "1800",
+            "Điện áp": "600VAC",
+            "Dòng thứ cấp (A)": "5"
+          }
+        },
+        {
+          "id": "web:34c8fa828b3278f2",
+          "sku": "EM4H05 800/5A",
+          "item_name": "EM4H05 800/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "800",
+            "Điện áp": "600VAC",
+            "Dòng thứ cấp (A)": "5"
+          }
+        },
+        {
+          "id": "web:cf21fb582f3e0efb",
+          "sku": "EM4H11 800/5A",
+          "item_name": "EM4H11 800/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "800",
+            "Điện áp": "600VAC",
+            "Dòng thứ cấp (A)": "5"
+          }
+        }
+      ]
     },
     {
       "id": "TB-2f0bedd4bec63789",
@@ -2510,11 +2496,121 @@
       "related_price_rows": []
     },
     {
+      "id": "TB-d5acf7f6ec42b2d2",
+      "name": "Biến dòng đo lường MSQ-100",
+      "brand": "Morele",
+      "type": "CT",
+      "product_code": "MSQ-100",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-491281dba4b34de2",
+      "name": "Biến dòng đo lường MSQ-30",
+      "brand": "Morele",
+      "type": "CT",
+      "product_code": "MSQ-30",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-75603fab5dd96398",
+      "name": "Biến dòng đo lường MSQ-40",
+      "brand": "Morele",
+      "type": "CT",
+      "product_code": "MSQ-40",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-38ffa2dad97bbdba",
+      "name": "Biến dòng đo lường MSQ-60",
+      "brand": "Morele",
+      "type": "CT",
+      "product_code": "MSQ-60",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
       "id": "TB-8192478908c2aa69",
       "name": "Biến dòng đo lường RCT-58",
-      "brand": "CML",
+      "brand": "KDE",
       "type": "CT",
       "product_code": "RCT-58",
+      "reason": "no_brand_prices",
+      "brand_price_count": 0,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-a37cb0d851511891",
+      "name": "Biến dòng đo lường RCT110",
+      "brand": "Master Electric",
+      "type": "CT",
+      "product_code": "RCT110",
+      "reason": "no_brand_prices",
+      "brand_price_count": 0,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-269133918d00ee9b",
+      "name": "Biến dòng đo lường RCT35",
+      "brand": "Master Electric",
+      "type": "CT",
+      "product_code": "RCT35",
+      "reason": "no_brand_prices",
+      "brand_price_count": 0,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-f3bceac24829a18e",
+      "name": "Biến dòng đo lường RCT60",
+      "brand": "Master Electric",
+      "type": "CT",
+      "product_code": "RCT60",
+      "reason": "no_brand_prices",
+      "brand_price_count": 0,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-514066881c92d2e7",
+      "name": "Biến dòng đo lường RCT90",
+      "brand": "Master Electric",
+      "type": "CT",
+      "product_code": "RCT90",
+      "reason": "no_brand_prices",
+      "brand_price_count": 0,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-bf08998ed0675426",
+      "name": "Biến tần Mitsubishi FR-S500",
+      "brand": "Mitsubishi Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 3066,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-2cc9ba3420f74b4e",
+      "name": "Bộ điều khiển ATS OSEMCO ACD-III",
+      "brand": "OSEMCO",
+      "type": "ATS_CONTROLLER",
+      "product_code": "ACD-III",
+      "reason": "no_brand_prices",
+      "brand_price_count": 0,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-cd1c538175f9a6ae",
+      "name": "Bộ điều khiển ATS SmartGen · chưa rõ mã",
+      "brand": "SmartGen",
+      "type": "ATS_CONTROLLER",
+      "product_code": "",
       "reason": "no_brand_prices",
       "brand_price_count": 0,
       "related_price_rows": []
@@ -2530,10 +2626,80 @@
       "related_price_rows": []
     },
     {
+      "id": "TB-c02623ff6b0d78b7",
+      "name": "Rơ le bảo vệ dòng rò MIKRO DIN310",
+      "brand": "MIKRO",
+      "type": "EARTH_LEAKAGE_RELAY",
+      "product_code": "DIN310",
+      "reason": "related_code_only",
+      "brand_price_count": 215,
+      "related_price_rows": [
+        {
+          "id": "web:2ac49b218d7f809a",
+          "sku": "DIN310-230A",
+          "item_name": "DIN310-230A",
+          "category": "RELAY",
+          "specifications": {
+            "In (A)": "230"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-e178aa3c9dd67cc7",
+      "name": "Rơ le bảo vệ dòng rò Mikro DIN300",
+      "brand": "Mikro",
+      "type": "EARTHLEAKAGERELAY",
+      "product_code": "DIN300",
+      "reason": "related_code_only",
+      "brand_price_count": 215,
+      "related_price_rows": [
+        {
+          "id": "extra-pdf:5c260b9659c67e616400",
+          "sku": "DIN300-240A",
+          "item_name": "DIN300-240A",
+          "category": "EARTH_LEAKAGE_RELAY",
+          "specifications": {
+            "Dòng trong bảng giá": "DIN300-240A",
+            "Họ thiết bị": "DIN300"
+          }
+        },
+        {
+          "id": "web:f301f25b24a30b9a",
+          "sku": "DIN300-240A",
+          "item_name": "DIN300-240A",
+          "category": "RELAY",
+          "specifications": {
+            "In (A)": "240"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-df6642c0e15a7c33",
+      "name": "Rơ le bảo vệ pha Selec 600PSR",
+      "brand": "Selec",
+      "type": "PHASERELAY",
+      "product_code": "600PSR",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 28,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-6afd381f8090861a",
+      "name": "Biến tần SUMO · nhãn CAD 1.5 kW",
+      "brand": "SUMO",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "no_brand_prices",
+      "brand_price_count": 0,
+      "related_price_rows": []
+    },
+    {
       "id": "TB-797d6deb5872737d",
       "name": "Biến tần LS Electric",
       "brand": "LS Electric",
-      "type": "Biến tần điều khiển động cơ",
+      "type": "VFD",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 697,
@@ -2543,8 +2709,28 @@
       "id": "TB-9d53f121b6725d5e",
       "name": "Bộ điều khiển máy phát điện",
       "brand": "Deep Sea Electronics",
-      "type": "Bộ điều khiển hòa đồng bộ máy phát",
+      "type": "GENERATOR_CONTROLLER",
       "product_code": "",
+      "reason": "no_brand_prices",
+      "brand_price_count": 0,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-0679d39feb15577a",
+      "name": "Ổn áp ROBOT AP15 · 600 VA",
+      "brand": "ROBOT",
+      "type": "VOLTAGE_STABILIZER",
+      "product_code": "AP15",
+      "reason": "no_brand_prices",
+      "brand_price_count": 0,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-7d563103819b0e05",
+      "name": "Ổn áp ROBOT AP15 · 350 VA",
+      "brand": "ROBOT",
+      "type": "VOLTAGE_STABILIZER",
+      "product_code": "AP15",
       "reason": "no_brand_prices",
       "brand_price_count": 0,
       "related_price_rows": []
@@ -2553,7 +2739,7 @@
       "id": "TB-04c5ba29ddeb4906",
       "name": "Bộ điều khiển tụ bù APFC · 12 cấp",
       "brand": "DELAB",
-      "type": "Bộ điều khiển hệ số công suất",
+      "type": "POWER_FACTOR_CONTROLLER",
       "product_code": "",
       "reason": "no_brand_prices",
       "brand_price_count": 0,
@@ -2809,7 +2995,7 @@
     },
     {
       "id": "TB-997f2440e6109dc2",
-      "name": "MCCB CHINT NXM-1600S",
+      "name": "Áptômát khối CHINT NXM-1600S",
       "brand": "CHINT",
       "type": "MCCB",
       "product_code": "NXM-1600S",
@@ -2855,7 +3041,7 @@
       "id": "TB-f67c2315fe687372",
       "name": "Chống sét · mẫu CAD 9acc8a",
       "brand": "Suntree",
-      "type": "Chống sét",
+      "type": "SPD",
       "product_code": "",
       "reason": "no_brand_prices",
       "brand_price_count": 0,
@@ -2865,7 +3051,7 @@
       "id": "TB-88fc3e95d606a688",
       "name": "Chống sét · mẫu CAD be6917",
       "brand": "Suntree",
-      "type": "Chống sét",
+      "type": "SPD",
       "product_code": "",
       "reason": "no_brand_prices",
       "brand_price_count": 0,
@@ -2912,6 +3098,16 @@
       "related_price_rows": []
     },
     {
+      "id": "TB-9cb5f156b39818d7",
+      "name": "Đế cầu chì 1 cực",
+      "brand": "Morele",
+      "type": "FUSE_HOLDER",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
       "id": "TB-59237fb955c46162",
       "name": "Đèn báo pha CHINT",
       "brand": "CHINT",
@@ -2922,43 +3118,123 @@
       "related_price_rows": []
     },
     {
-      "id": "TB-5aef0fb4178a87bc",
-      "name": "Đèn báo pha thân mô-đun",
-      "brand": "CHINT",
-      "type": "Đèn báo pha mặt tủ",
+      "id": "TB-9997955003fedf62",
+      "name": "Dãy 3 đế cầu chì 1 cực · kiểu gạt",
+      "brand": "Morele",
+      "type": "FUSE_HOLDER",
       "product_code": "",
       "reason": "no_device_code",
-      "brand_price_count": 1729,
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-024d691bfe2b4f13",
+      "name": "Dãy 3 đế cầu chì 1 cực · kiểu hộp",
+      "brand": "Morele",
+      "type": "FUSE_HOLDER",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-9d2cca434cfba792",
+      "name": "Dãy 5 đế cầu chì 1 cực · kiểu gạt",
+      "brand": "Morele",
+      "type": "FUSE_HOLDER",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-08f8748c6e0ccaee",
+      "name": "Đèn báo pha đầu tròn",
+      "brand": "Morele",
+      "type": "LIGHT",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-3f8074c3c953c10c",
+      "name": "Đèn báo pha đầu tròn",
+      "brand": "Morele",
+      "type": "LIGHT",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-5aef0fb4178a87bc",
+      "name": "Đèn báo pha thân mô-đun",
+      "brand": "Morele",
+      "type": "LIGHT",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 14,
       "related_price_rows": []
     },
     {
       "id": "TB-8b9ba27dffad20d2",
       "name": "Đèn báo pha thân mô-đun",
-      "brand": "CHINT",
-      "type": "Đèn báo pha mặt tủ",
+      "brand": "Morele",
+      "type": "LIGHT",
       "product_code": "",
       "reason": "no_device_code",
-      "brand_price_count": 1729,
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-558d087f12bf103b",
+      "name": "Đèn báo pha đầu phẳng",
+      "brand": "Morele",
+      "type": "LIGHT",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 14,
       "related_price_rows": []
     },
     {
       "id": "TB-9d5ad7168166cdd8",
       "name": "Đèn báo trạng thái mặt tủ",
-      "brand": "KACON",
+      "brand": "Morele",
       "type": "LIGHT",
       "product_code": "",
-      "reason": "no_brand_prices",
-      "brand_price_count": 0,
+      "reason": "no_device_code",
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-cc921bcbde929c49",
+      "name": "Đèn báo tín hiệu",
+      "brand": "Morele",
+      "type": "LIGHT",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-31847fc5c129a57e",
+      "name": "Nút nhấn điều khiển mặt tủ",
+      "brand": "Morele",
+      "type": "PUSHBUTTON",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 14,
       "related_price_rows": []
     },
     {
       "id": "TB-7cc48f9630399020",
-      "name": "Công tắc xoay IDEC · chưa rõ mã",
-      "brand": "IDEC",
+      "name": "Công tắc xoay chọn chế độ",
+      "brand": "Morele",
       "type": "SELECTOR_SWITCH",
       "product_code": "",
       "reason": "no_device_code",
-      "brand_price_count": 183,
+      "brand_price_count": 14,
       "related_price_rows": []
     },
     {
@@ -3915,7 +4191,7 @@
     },
     {
       "id": "TB-e59254bbdb7e0b3f",
-      "name": "MCCB LS Electric ABH52c",
+      "name": "Áptômát khối LS Electric ABH52c",
       "brand": "LS Electric",
       "type": "MCCB",
       "product_code": "ABH52c",
@@ -3925,7 +4201,7 @@
     },
     {
       "id": "TB-a2e5e1b1200b4783",
-      "name": "MCCB LS Electric ABS403c",
+      "name": "Áptômát khối LS Electric ABS403c",
       "brand": "LS Electric",
       "type": "MCCB",
       "product_code": "ABS403c",
@@ -4048,7 +4324,7 @@
     },
     {
       "id": "TB-d69f76621bed31d5",
-      "name": "MCCB LS Electric ABN203c",
+      "name": "Áptômát khối LS Electric ABN203c",
       "brand": "LS Electric",
       "type": "MCCB",
       "product_code": "ABN203c",
@@ -4085,7 +4361,7 @@
     },
     {
       "id": "TB-dbfa3fc69f482c5e",
-      "name": "MCCB LS Electric ABN53c",
+      "name": "Áptômát khối LS Electric ABN53c",
       "brand": "LS Electric",
       "type": "MCCB",
       "product_code": "ABN53c",
@@ -4977,6 +5253,144 @@
       "related_price_rows": []
     },
     {
+      "id": "TB-2db736dd18a9914c",
+      "name": "MCCB Schneider EZC100 · 1P",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "EZC100",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:407825c541e9f481",
+          "sku": "EZC100B3015",
+          "item_name": "EZC100B3015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:7724b8b1f47d4f35",
+          "sku": "EZC100F3015",
+          "item_name": "EZC100F3015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:b857f96c780aa59f",
+          "sku": "EZC100H1015",
+          "item_name": "EZC100H1015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:01a3d084c68d49f1",
+          "sku": "EZC100H2015",
+          "item_name": "EZC100H2015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:486a0e91206f852b",
+          "sku": "EZC100H3015",
+          "item_name": "EZC100H3015",
+          "category": "MCCB",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-b26987552aa8750d",
+      "name": "MCCB Schneider EZC100 · 2P",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "EZC100",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:407825c541e9f481",
+          "sku": "EZC100B3015",
+          "item_name": "EZC100B3015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:7724b8b1f47d4f35",
+          "sku": "EZC100F3015",
+          "item_name": "EZC100F3015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:b857f96c780aa59f",
+          "sku": "EZC100H1015",
+          "item_name": "EZC100H1015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:01a3d084c68d49f1",
+          "sku": "EZC100H2015",
+          "item_name": "EZC100H2015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:486a0e91206f852b",
+          "sku": "EZC100H3015",
+          "item_name": "EZC100H3015",
+          "category": "MCCB",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-3bd2bd962e5e7024",
+      "name": "MCCB Schneider EZC100 · 3P",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "EZC100",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:407825c541e9f481",
+          "sku": "EZC100B3015",
+          "item_name": "EZC100B3015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:7724b8b1f47d4f35",
+          "sku": "EZC100F3015",
+          "item_name": "EZC100F3015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:b857f96c780aa59f",
+          "sku": "EZC100H1015",
+          "item_name": "EZC100H1015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:01a3d084c68d49f1",
+          "sku": "EZC100H2015",
+          "item_name": "EZC100H2015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:486a0e91206f852b",
+          "sku": "EZC100H3015",
+          "item_name": "EZC100H3015",
+          "category": "MCCB",
+          "specifications": null
+        }
+      ]
+    },
+    {
       "id": "TB-1e0536a2f6d34ed1",
       "name": "MCCB Schneider EZC100 · 4P",
       "brand": "Schneider Electric",
@@ -4990,55 +5404,251 @@
           "sku": "EZC100B3015",
           "item_name": "EZC100B3015",
           "category": "MCCB",
-          "specifications": {
-            "Họ thiết bị": "EZC100",
-            "Số cực": "3P",
-            "In (A)": "15"
-          }
+          "specifications": null
         },
         {
           "id": "web:7724b8b1f47d4f35",
           "sku": "EZC100F3015",
           "item_name": "EZC100F3015",
           "category": "MCCB",
-          "specifications": {
-            "Họ thiết bị": "EZC100",
-            "Số cực": "3P",
-            "In (A)": "15"
-          }
+          "specifications": null
         },
         {
           "id": "web:b857f96c780aa59f",
           "sku": "EZC100H1015",
           "item_name": "EZC100H1015",
           "category": "MCCB",
-          "specifications": {
-            "Họ thiết bị": "EZC100",
-            "Số cực": "1P",
-            "In (A)": "15"
-          }
+          "specifications": null
         },
         {
           "id": "web:01a3d084c68d49f1",
           "sku": "EZC100H2015",
           "item_name": "EZC100H2015",
           "category": "MCCB",
-          "specifications": {
-            "Họ thiết bị": "EZC100",
-            "Số cực": "2P",
-            "In (A)": "15"
-          }
+          "specifications": null
         },
         {
           "id": "web:486a0e91206f852b",
           "sku": "EZC100H3015",
           "item_name": "EZC100H3015",
           "category": "MCCB",
-          "specifications": {
-            "Họ thiết bị": "EZC100",
-            "Số cực": "3P",
-            "In (A)": "15"
-          }
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-d7052dd5a9e5de7b",
+      "name": "MCCB Schneider EZC250 · 2P",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "EZC250",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:3811c6c3afb9187a",
+          "sku": "EZC250F3100",
+          "item_name": "EZC250F3100",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:f2a2b16fad74d5d8",
+          "sku": "EZC250H2100",
+          "item_name": "EZC250H2100",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:ebdc543833adc490",
+          "sku": "EZC250H3100",
+          "item_name": "EZC250H3100",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:a50e5f7672564840",
+          "sku": "EZC250H4063",
+          "item_name": "EZC250H4063",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:cfc301a2dd992d68",
+          "sku": "EZC250N3100",
+          "item_name": "EZC250N3100",
+          "category": "MCCB",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-07d6c18d5a6e1e83",
+      "name": "MCCB Schneider EZC250 · 3P",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "EZC250",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:3811c6c3afb9187a",
+          "sku": "EZC250F3100",
+          "item_name": "EZC250F3100",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:f2a2b16fad74d5d8",
+          "sku": "EZC250H2100",
+          "item_name": "EZC250H2100",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:ebdc543833adc490",
+          "sku": "EZC250H3100",
+          "item_name": "EZC250H3100",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:a50e5f7672564840",
+          "sku": "EZC250H4063",
+          "item_name": "EZC250H4063",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:cfc301a2dd992d68",
+          "sku": "EZC250N3100",
+          "item_name": "EZC250N3100",
+          "category": "MCCB",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-36f4ac1bec738cea",
+      "name": "MCCB Schneider EZC250 · 4P",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "EZC250",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:3811c6c3afb9187a",
+          "sku": "EZC250F3100",
+          "item_name": "EZC250F3100",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:f2a2b16fad74d5d8",
+          "sku": "EZC250H2100",
+          "item_name": "EZC250H2100",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:ebdc543833adc490",
+          "sku": "EZC250H3100",
+          "item_name": "EZC250H3100",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:a50e5f7672564840",
+          "sku": "EZC250H4063",
+          "item_name": "EZC250H4063",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:cfc301a2dd992d68",
+          "sku": "EZC250N3100",
+          "item_name": "EZC250N3100",
+          "category": "MCCB",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-ef7b5ab441b31e47",
+      "name": "MCCB Schneider EZC400 · 3P",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "EZC400",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:af393becd39c2775",
+          "sku": "EZC400H3320N",
+          "item_name": "EZC400H3320N",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:3a264c43bbf72a31",
+          "sku": "EZC400H4320N",
+          "item_name": "EZC400H4320N",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:c9af2562f087721e",
+          "sku": "EZC400N3320N",
+          "item_name": "EZC400N3320N",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:e80613f0acb80a01",
+          "sku": "EZC400N4320N",
+          "item_name": "EZC400N4320N",
+          "category": "MCCB",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-de932c87174f7640",
+      "name": "MCCB Schneider EZC400 · 4P",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "EZC400",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:af393becd39c2775",
+          "sku": "EZC400H3320N",
+          "item_name": "EZC400H3320N",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:3a264c43bbf72a31",
+          "sku": "EZC400H4320N",
+          "item_name": "EZC400H4320N",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:c9af2562f087721e",
+          "sku": "EZC400N3320N",
+          "item_name": "EZC400N3320N",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:e80613f0acb80a01",
+          "sku": "EZC400N4320N",
+          "item_name": "EZC400N4320N",
+          "category": "MCCB",
+          "specifications": null
         }
       ]
     },
@@ -5153,6 +5763,204 @@
       "related_price_rows": []
     },
     {
+      "id": "TB-49ae8f3071f94c61",
+      "name": "MCB Schneider iC60 · 1P",
+      "brand": "Schneider Electric",
+      "type": "MCB",
+      "product_code": "iC60",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:a2eea0a2e428a2b5",
+          "sku": "iC60N",
+          "item_name": "iC60N",
+          "category": "MCB",
+          "specifications": {
+            "Số cực": "1P",
+            "In (A)": "6",
+            "Khả năng cắt và điện áp": "6kA"
+          }
+        },
+        {
+          "id": "web:07fd6eff1426cd41",
+          "sku": "iC60N",
+          "item_name": "iC60N",
+          "category": "MCB",
+          "specifications": {
+            "Số cực": "1P",
+            "In (A)": "10",
+            "Khả năng cắt và điện áp": "6kA"
+          }
+        },
+        {
+          "id": "web:c8c1fd24c290a3cc",
+          "sku": "iC60N",
+          "item_name": "iC60N",
+          "category": "MCB",
+          "specifications": {
+            "Số cực": "1P",
+            "In (A)": "16",
+            "Khả năng cắt và điện áp": "6kA"
+          }
+        },
+        {
+          "id": "web:faeee0238f786950",
+          "sku": "iC60N",
+          "item_name": "iC60N",
+          "category": "MCB",
+          "specifications": {
+            "Số cực": "1P",
+            "In (A)": "20",
+            "Khả năng cắt và điện áp": "6kA"
+          }
+        },
+        {
+          "id": "web:2b9b92120ae5091f",
+          "sku": "iC60N",
+          "item_name": "iC60N",
+          "category": "MCB",
+          "specifications": {
+            "Số cực": "1P",
+            "In (A)": "25",
+            "Khả năng cắt và điện áp": "6kA"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-e1e255d56a1c0054",
+      "name": "MCB Schneider iC60 · 2P",
+      "brand": "Schneider Electric",
+      "type": "MCB",
+      "product_code": "iC60",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:a2eea0a2e428a2b5",
+          "sku": "iC60N",
+          "item_name": "iC60N",
+          "category": "MCB",
+          "specifications": {
+            "Số cực": "1P",
+            "In (A)": "6",
+            "Khả năng cắt và điện áp": "6kA"
+          }
+        },
+        {
+          "id": "web:07fd6eff1426cd41",
+          "sku": "iC60N",
+          "item_name": "iC60N",
+          "category": "MCB",
+          "specifications": {
+            "Số cực": "1P",
+            "In (A)": "10",
+            "Khả năng cắt và điện áp": "6kA"
+          }
+        },
+        {
+          "id": "web:c8c1fd24c290a3cc",
+          "sku": "iC60N",
+          "item_name": "iC60N",
+          "category": "MCB",
+          "specifications": {
+            "Số cực": "1P",
+            "In (A)": "16",
+            "Khả năng cắt và điện áp": "6kA"
+          }
+        },
+        {
+          "id": "web:faeee0238f786950",
+          "sku": "iC60N",
+          "item_name": "iC60N",
+          "category": "MCB",
+          "specifications": {
+            "Số cực": "1P",
+            "In (A)": "20",
+            "Khả năng cắt và điện áp": "6kA"
+          }
+        },
+        {
+          "id": "web:2b9b92120ae5091f",
+          "sku": "iC60N",
+          "item_name": "iC60N",
+          "category": "MCB",
+          "specifications": {
+            "Số cực": "1P",
+            "In (A)": "25",
+            "Khả năng cắt và điện áp": "6kA"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-d849389763b7f44c",
+      "name": "MCB Schneider iC60 · 3P",
+      "brand": "Schneider Electric",
+      "type": "MCB",
+      "product_code": "iC60",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:a2eea0a2e428a2b5",
+          "sku": "iC60N",
+          "item_name": "iC60N",
+          "category": "MCB",
+          "specifications": {
+            "Số cực": "1P",
+            "In (A)": "6",
+            "Khả năng cắt và điện áp": "6kA"
+          }
+        },
+        {
+          "id": "web:07fd6eff1426cd41",
+          "sku": "iC60N",
+          "item_name": "iC60N",
+          "category": "MCB",
+          "specifications": {
+            "Số cực": "1P",
+            "In (A)": "10",
+            "Khả năng cắt và điện áp": "6kA"
+          }
+        },
+        {
+          "id": "web:c8c1fd24c290a3cc",
+          "sku": "iC60N",
+          "item_name": "iC60N",
+          "category": "MCB",
+          "specifications": {
+            "Số cực": "1P",
+            "In (A)": "16",
+            "Khả năng cắt và điện áp": "6kA"
+          }
+        },
+        {
+          "id": "web:faeee0238f786950",
+          "sku": "iC60N",
+          "item_name": "iC60N",
+          "category": "MCB",
+          "specifications": {
+            "Số cực": "1P",
+            "In (A)": "20",
+            "Khả năng cắt và điện áp": "6kA"
+          }
+        },
+        {
+          "id": "web:2b9b92120ae5091f",
+          "sku": "iC60N",
+          "item_name": "iC60N",
+          "category": "MCB",
+          "specifications": {
+            "Số cực": "1P",
+            "In (A)": "25",
+            "Khả năng cắt và điện áp": "6kA"
+          }
+        }
+      ]
+    },
+    {
       "id": "TB-c0120cdf0a87faf7",
       "name": "MCB Schneider iC60 · 4P",
       "brand": "Schneider Electric",
@@ -5169,8 +5977,7 @@
           "specifications": {
             "Số cực": "1P",
             "In (A)": "6",
-            "Khả năng cắt và điện áp": "6kA",
-            "Họ thiết bị": "IC60"
+            "Khả năng cắt và điện áp": "6kA"
           }
         },
         {
@@ -5181,8 +5988,7 @@
           "specifications": {
             "Số cực": "1P",
             "In (A)": "10",
-            "Khả năng cắt và điện áp": "6kA",
-            "Họ thiết bị": "IC60"
+            "Khả năng cắt và điện áp": "6kA"
           }
         },
         {
@@ -5193,8 +5999,7 @@
           "specifications": {
             "Số cực": "1P",
             "In (A)": "16",
-            "Khả năng cắt và điện áp": "6kA",
-            "Họ thiết bị": "IC60"
+            "Khả năng cắt và điện áp": "6kA"
           }
         },
         {
@@ -5205,8 +6010,7 @@
           "specifications": {
             "Số cực": "1P",
             "In (A)": "20",
-            "Khả năng cắt và điện áp": "6kA",
-            "Họ thiết bị": "IC60"
+            "Khả năng cắt và điện áp": "6kA"
           }
         },
         {
@@ -5217,8 +6021,7 @@
           "specifications": {
             "Số cực": "1P",
             "In (A)": "25",
-            "Khả năng cắt và điện áp": "6kA",
-            "Họ thiết bị": "IC60"
+            "Khả năng cắt và điện áp": "6kA"
           }
         }
       ]
@@ -5232,6 +6035,38 @@
       "reason": "code_not_in_published_prices",
       "brand_price_count": 400,
       "related_price_rows": []
+    },
+    {
+      "id": "TB-5a85d0fb1b71c309",
+      "name": "Contactor Schneider LC1D25-38 · 3P",
+      "brand": "Schneider Electric",
+      "type": "Contactor",
+      "product_code": "LC1D25-38",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:cb187a630110e35b",
+          "sku": "LC1D25B7",
+          "item_name": "LC1D25B7",
+          "category": "CONTACTOR",
+          "specifications": null
+        },
+        {
+          "id": "web:8a68b7c2962f342e",
+          "sku": "LC1D32B7",
+          "item_name": "LC1D32B7",
+          "category": "CONTACTOR",
+          "specifications": null
+        },
+        {
+          "id": "web:d6484be9e408efde",
+          "sku": "LC1D38B7",
+          "item_name": "LC1D38B7",
+          "category": "CONTACTOR",
+          "specifications": null
+        }
+      ]
     },
     {
       "id": "TB-5bfee5cfd0ad64df",
@@ -5260,6 +6095,45 @@
       "reason": "code_not_in_published_prices",
       "brand_price_count": 400,
       "related_price_rows": []
+    },
+    {
+      "id": "TB-77ad9af6edcecd8b",
+      "name": "Contactor Schneider LC1D9-18 · 3P",
+      "brand": "Schneider Electric",
+      "type": "Contactor",
+      "product_code": "LC1D9-18",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:a73b3660bbe0c6b8",
+          "sku": "LC1D098B7",
+          "item_name": "LC1D098B7",
+          "category": "CONTACTOR",
+          "specifications": null
+        },
+        {
+          "id": "web:4209b54de74ae03d",
+          "sku": "LC1D128B7",
+          "item_name": "LC1D128B7",
+          "category": "CONTACTOR",
+          "specifications": null
+        },
+        {
+          "id": "web:b4c1df5e551c9f54",
+          "sku": "LC1D12B7",
+          "item_name": "LC1D12B7",
+          "category": "CONTACTOR",
+          "specifications": null
+        },
+        {
+          "id": "web:0a2456a0f5ff03ce",
+          "sku": "LC1D18B7",
+          "item_name": "LC1D18B7",
+          "category": "CONTACTOR",
+          "specifications": null
+        }
+      ]
     },
     {
       "id": "TB-b25affd365b63fc4",
@@ -5413,7 +6287,7 @@
     },
     {
       "id": "TB-62fdbbeb72474fdf",
-      "name": "CONTACTOR Schneider Electric LC1D40-65",
+      "name": "Khởi động từ Schneider Electric LC1D40-65",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "LC1D40-65",
@@ -5437,8 +6311,212 @@
       ]
     },
     {
+      "id": "TB-faa371b9ff857b8f",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV320U22~40N4C · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV320U22M2C",
+          "sku": "ATV320U22M2C",
+          "item_name": "ATV320U22M2C",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U22M2C",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Compact (C)",
+            "Mã đặt hàng": "ATV320U22M2C"
+          }
+        },
+        {
+          "id": "schneider-2026-drives:ATV320U22M3C",
+          "sku": "ATV320U22M3C",
+          "item_name": "ATV320U22M3C",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U22M3C",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Compact (C)",
+            "Mã đặt hàng": "ATV320U22M3C"
+          }
+        },
+        {
+          "id": "schneider-2026-drives:ATV320U22N4C",
+          "sku": "ATV320U22N4C",
+          "item_name": "ATV320U22N4C",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U22N4C",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Compact (C)",
+            "Mã đặt hàng": "ATV320U22N4C"
+          }
+        },
+        {
+          "id": "schneider-2026-drives:ATV320U22M2B",
+          "sku": "ATV320U22M2B",
+          "item_name": "ATV320U22M2B",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U22M2B",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Book (B)",
+            "Mã đặt hàng": "ATV320U22M2B"
+          }
+        },
+        {
+          "id": "schneider-2026-drives:ATV320U22N4B",
+          "sku": "ATV320U22N4B",
+          "item_name": "ATV320U22N4B",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U22N4B",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Book (B)",
+            "Mã đặt hàng": "ATV320U22N4B"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-4092570e76365c9b",
+      "name": "Áptômát khối Schneider Electric EZC100",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "EZC100",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:407825c541e9f481",
+          "sku": "EZC100B3015",
+          "item_name": "EZC100B3015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:7724b8b1f47d4f35",
+          "sku": "EZC100F3015",
+          "item_name": "EZC100F3015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:b857f96c780aa59f",
+          "sku": "EZC100H1015",
+          "item_name": "EZC100H1015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:01a3d084c68d49f1",
+          "sku": "EZC100H2015",
+          "item_name": "EZC100H2015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:486a0e91206f852b",
+          "sku": "EZC100H3015",
+          "item_name": "EZC100H3015",
+          "category": "MCCB",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-aa88cc78f94d3ba5",
+      "name": "Schneider · 06 - N - SC VSD ATV320U55~75N4B · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV320U55M3C",
+          "sku": "ATV320U55M3C",
+          "item_name": "ATV320U55M3C",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U55M3C",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Compact (C)",
+            "Mã đặt hàng": "ATV320U55M3C"
+          }
+        },
+        {
+          "id": "schneider-2026-drives:ATV320U55N4C",
+          "sku": "ATV320U55N4C",
+          "item_name": "ATV320U55N4C",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U55N4C",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Compact (C)",
+            "Mã đặt hàng": "ATV320U55N4C"
+          }
+        },
+        {
+          "id": "schneider-2026-drives:ATV320U55N4B",
+          "sku": "ATV320U55N4B",
+          "item_name": "ATV320U55N4B",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U55N4B",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Book (B)",
+            "Mã đặt hàng": "ATV320U55N4B"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-0cc0c56bd994d60d",
+      "name": "Khởi động từ Schneider Electric LC1D32",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1D32",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:8a68b7c2962f342e",
+          "sku": "LC1D32B7",
+          "item_name": "LC1D32B7",
+          "category": "CONTACTOR",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-b3db3f72b1386e95",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630D55~D90N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV630D55N4",
+          "sku": "ATV630D55N4",
+          "item_name": "ATV630D55N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV630D55N4",
+            "Dòng sản phẩm": "ATV630",
+            "Mã đặt hàng": "ATV630D55N4"
+          }
+        }
+      ]
+    },
+    {
       "id": "TB-d1219758854616f1",
-      "name": "CONTACTOR Schneider Electric LC1D115",
+      "name": "Khởi động từ Schneider Electric LC1D115",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "LC1D115",
@@ -5456,7 +6534,7 @@
     },
     {
       "id": "TB-3f2345dccb53e572",
-      "name": "CONTACTOR Schneider Electric LC1D09",
+      "name": "Khởi động từ Schneider Electric LC1D09",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "LC1D09",
@@ -5468,17 +6546,77 @@
           "sku": "LC1D098B7",
           "item_name": "LC1D098B7",
           "category": "CONTACTOR",
-          "specifications": {
-            "Mã thân": "LC1D098",
-            "Số cực": "4P",
-            "Điện áp cuộn hút": "24V AC"
-          }
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-436f8c8137844f85",
+      "name": "Khởi động từ Schneider Electric LC1D18",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1D18",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:0a2456a0f5ff03ce",
+          "sku": "LC1D18B7",
+          "item_name": "LC1D18B7",
+          "category": "CONTACTOR",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-cc4d7e2ce43e4773",
+      "name": "Áptômát khối Schneider Electric EZC250",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "EZC250",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:3811c6c3afb9187a",
+          "sku": "EZC250F3100",
+          "item_name": "EZC250F3100",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:f2a2b16fad74d5d8",
+          "sku": "EZC250H2100",
+          "item_name": "EZC250H2100",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:ebdc543833adc490",
+          "sku": "EZC250H3100",
+          "item_name": "EZC250H3100",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:a50e5f7672564840",
+          "sku": "EZC250H4063",
+          "item_name": "EZC250H4063",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:cfc301a2dd992d68",
+          "sku": "EZC250N3100",
+          "item_name": "EZC250N3100",
+          "category": "MCCB",
+          "specifications": null
         }
       ]
     },
     {
       "id": "TB-f797252cdf24c89e",
-      "name": "MCCB Schneider Electric NS100 / NS160",
+      "name": "Áptômát khối Schneider Electric NS100 / NS160",
       "brand": "Schneider Electric",
       "type": "MCCB",
       "product_code": "NS100 / NS160",
@@ -5487,8 +6625,30 @@
       "related_price_rows": []
     },
     {
+      "id": "TB-4fc8d9679c3649ef",
+      "name": "Schneider · 06 - N - SC VSD ATV630U07~55N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV630U07N4",
+          "sku": "ATV630U07N4",
+          "item_name": "ATV630U07N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV630U07N4",
+            "Dòng sản phẩm": "ATV630",
+            "Mã đặt hàng": "ATV630U07N4"
+          }
+        }
+      ]
+    },
+    {
       "id": "TB-c20aafa063938808",
-      "name": "CONTACTOR Schneider Electric LC1F265",
+      "name": "Khởi động từ Schneider Electric LC1F265",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "LC1F265",
@@ -5497,18 +6657,189 @@
       "related_price_rows": []
     },
     {
-      "id": "TB-3efb9e65d9ab07f2",
-      "name": "VFD Schneider Electric ATV630C11~C16N4",
+      "id": "TB-90f636ce9ec4344c",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630D15~D22N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "type": "VFD",
-      "product_code": "ATV630C11~C16N4",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV630D15N4",
+          "sku": "ATV630D15N4",
+          "item_name": "ATV630D15N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV630D15N4",
+            "Dòng sản phẩm": "ATV630",
+            "Mã đặt hàng": "ATV630D15N4"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-68dece17b8b6f28a",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV320U22~40N4C · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV320U22M2C",
+          "sku": "ATV320U22M2C",
+          "item_name": "ATV320U22M2C",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U22M2C",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Compact (C)",
+            "Mã đặt hàng": "ATV320U22M2C"
+          }
+        },
+        {
+          "id": "schneider-2026-drives:ATV320U22M3C",
+          "sku": "ATV320U22M3C",
+          "item_name": "ATV320U22M3C",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U22M3C",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Compact (C)",
+            "Mã đặt hàng": "ATV320U22M3C"
+          }
+        },
+        {
+          "id": "schneider-2026-drives:ATV320U22N4C",
+          "sku": "ATV320U22N4C",
+          "item_name": "ATV320U22N4C",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U22N4C",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Compact (C)",
+            "Mã đặt hàng": "ATV320U22N4C"
+          }
+        },
+        {
+          "id": "schneider-2026-drives:ATV320U22M2B",
+          "sku": "ATV320U22M2B",
+          "item_name": "ATV320U22M2B",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U22M2B",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Book (B)",
+            "Mã đặt hàng": "ATV320U22M2B"
+          }
+        },
+        {
+          "id": "schneider-2026-drives:ATV320U22N4B",
+          "sku": "ATV320U22N4B",
+          "item_name": "ATV320U22N4B",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U22N4B",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Book (B)",
+            "Mã đặt hàng": "ATV320U22N4B"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-3aabcfa28ac7f3ba",
+      "name": "Khởi động từ Schneider Electric LC1D9-18",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1D9-18",
       "reason": "code_not_in_published_prices",
       "brand_price_count": 400,
       "related_price_rows": []
     },
     {
+      "id": "TB-fb64554b0d314355",
+      "name": "Áptômát khối Schneider Electric EZC400 / EZC630",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "EZC400 / EZC630",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:af393becd39c2775",
+          "sku": "EZC400H3320N",
+          "item_name": "EZC400H3320N",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:3a264c43bbf72a31",
+          "sku": "EZC400H4320N",
+          "item_name": "EZC400H4320N",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:c9af2562f087721e",
+          "sku": "EZC400N3320N",
+          "item_name": "EZC400N3320N",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:e80613f0acb80a01",
+          "sku": "EZC400N4320N",
+          "item_name": "EZC400N4320N",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:30172eff337625aa",
+          "sku": "EZC630H3400N",
+          "item_name": "EZC630H3400N",
+          "category": "MCCB",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-3efb9e65d9ab07f2",
+      "name": "Schneider · 06 - N - SC VSD ATV630C11~C16N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-06f8e3cb26b68f79",
+      "name": "Schneider · 06 - N - SC VSD ATV630D30~D45N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV630D30N4",
+          "sku": "ATV630D30N4",
+          "item_name": "ATV630D30N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV630D30N4",
+            "Dòng sản phẩm": "ATV630",
+            "Mã đặt hàng": "ATV630D30N4"
+          }
+        }
+      ]
+    },
+    {
       "id": "TB-924df46499ef6b4d",
-      "name": "CONTACTOR Schneider Electric LC1F330",
+      "name": "Khởi động từ Schneider Electric LC1F330",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "LC1F330",
@@ -5518,7 +6849,7 @@
     },
     {
       "id": "TB-74256dce63c6f12b",
-      "name": "CONTACTOR Schneider Electric LC1F150",
+      "name": "Khởi động từ Schneider Electric LC1F150",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "LC1F150",
@@ -5528,7 +6859,7 @@
     },
     {
       "id": "TB-ffb3f20bf4122403",
-      "name": "CONTACTOR Schneider Electric LC1D150",
+      "name": "Khởi động từ Schneider Electric LC1D150",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "LC1D150",
@@ -5546,7 +6877,7 @@
     },
     {
       "id": "TB-2c205339e7db99d0",
-      "name": "CONTACTOR Schneider Electric LC1D40",
+      "name": "Khởi động từ Schneider Electric LC1D40",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "LC1D40",
@@ -5563,8 +6894,26 @@
       ]
     },
     {
+      "id": "TB-79ddf299eca7273e",
+      "name": "Khởi động từ Schneider Electric LC1D25",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1D25",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:cb187a630110e35b",
+          "sku": "LC1D25B7",
+          "item_name": "LC1D25B7",
+          "category": "CONTACTOR",
+          "specifications": null
+        }
+      ]
+    },
+    {
       "id": "TB-532a8b377a573470",
-      "name": "MCCB Schneider Electric EZC100",
+      "name": "Áptômát khối Schneider Electric EZC100",
       "brand": "Schneider Electric",
       "type": "MCCB",
       "product_code": "EZC100",
@@ -5576,61 +6925,162 @@
           "sku": "EZC100B3015",
           "item_name": "EZC100B3015",
           "category": "MCCB",
-          "specifications": {
-            "Họ thiết bị": "EZC100",
-            "Số cực": "3P",
-            "In (A)": "15"
-          }
+          "specifications": null
         },
         {
           "id": "web:7724b8b1f47d4f35",
           "sku": "EZC100F3015",
           "item_name": "EZC100F3015",
           "category": "MCCB",
-          "specifications": {
-            "Họ thiết bị": "EZC100",
-            "Số cực": "3P",
-            "In (A)": "15"
-          }
+          "specifications": null
         },
         {
           "id": "web:b857f96c780aa59f",
           "sku": "EZC100H1015",
           "item_name": "EZC100H1015",
           "category": "MCCB",
-          "specifications": {
-            "Họ thiết bị": "EZC100",
-            "Số cực": "1P",
-            "In (A)": "15"
-          }
+          "specifications": null
         },
         {
           "id": "web:01a3d084c68d49f1",
           "sku": "EZC100H2015",
           "item_name": "EZC100H2015",
           "category": "MCCB",
-          "specifications": {
-            "Họ thiết bị": "EZC100",
-            "Số cực": "2P",
-            "In (A)": "15"
-          }
+          "specifications": null
         },
         {
           "id": "web:486a0e91206f852b",
           "sku": "EZC100H3015",
           "item_name": "EZC100H3015",
           "category": "MCCB",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-fa2c70999cd97df4",
+      "name": "Khởi động từ Schneider Electric LC1D32",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1D32",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:8a68b7c2962f342e",
+          "sku": "LC1D32B7",
+          "item_name": "LC1D32B7",
+          "category": "CONTACTOR",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-8753a6ee78d8b997",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630D30~D45N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV630D30N4",
+          "sku": "ATV630D30N4",
+          "item_name": "ATV630D30N4",
+          "category": "VFD",
           "specifications": {
-            "Họ thiết bị": "EZC100",
-            "Số cực": "3P",
-            "In (A)": "15"
+            "Họ thiết bị": "ATV630D30N4",
+            "Dòng sản phẩm": "ATV630",
+            "Mã đặt hàng": "ATV630D30N4"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-860a56696f57cf73",
+      "name": "Schneider · 06 - N - SC ROLE NHIỆT CHIẾU HÔNG LRD3xxx · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-373e361e224af273",
+      "name": "Schneider · 06 - N - SC VSD ATV320U22~40N4C · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV320U22M2C",
+          "sku": "ATV320U22M2C",
+          "item_name": "ATV320U22M2C",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U22M2C",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Compact (C)",
+            "Mã đặt hàng": "ATV320U22M2C"
+          }
+        },
+        {
+          "id": "schneider-2026-drives:ATV320U22M3C",
+          "sku": "ATV320U22M3C",
+          "item_name": "ATV320U22M3C",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U22M3C",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Compact (C)",
+            "Mã đặt hàng": "ATV320U22M3C"
+          }
+        },
+        {
+          "id": "schneider-2026-drives:ATV320U22N4C",
+          "sku": "ATV320U22N4C",
+          "item_name": "ATV320U22N4C",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U22N4C",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Compact (C)",
+            "Mã đặt hàng": "ATV320U22N4C"
+          }
+        },
+        {
+          "id": "schneider-2026-drives:ATV320U22M2B",
+          "sku": "ATV320U22M2B",
+          "item_name": "ATV320U22M2B",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U22M2B",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Book (B)",
+            "Mã đặt hàng": "ATV320U22M2B"
+          }
+        },
+        {
+          "id": "schneider-2026-drives:ATV320U22N4B",
+          "sku": "ATV320U22N4B",
+          "item_name": "ATV320U22N4B",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U22N4B",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Book (B)",
+            "Mã đặt hàng": "ATV320U22N4B"
           }
         }
       ]
     },
     {
       "id": "TB-3711aa4710cccad3",
-      "name": "MCCB Schneider Electric NS100 / NS160",
+      "name": "Áptômát khối Schneider Electric NS100 / NS160",
       "brand": "Schneider Electric",
       "type": "MCCB",
       "product_code": "NS100 / NS160",
@@ -5639,8 +7089,30 @@
       "related_price_rows": []
     },
     {
+      "id": "TB-ca67cfdfe75b87a5",
+      "name": "Schneider · 06 - N - SC VSD ATV630U75~D11N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV630U75N4",
+          "sku": "ATV630U75N4",
+          "item_name": "ATV630U75N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV630U75N4",
+            "Dòng sản phẩm": "ATV630",
+            "Mã đặt hàng": "ATV630U75N4"
+          }
+        }
+      ]
+    },
+    {
       "id": "TB-87c193b36a5be2d9",
-      "name": "CONTACTOR Schneider Electric LC1D115",
+      "name": "Khởi động từ Schneider Electric LC1D115",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "LC1D115",
@@ -5668,7 +7140,7 @@
     },
     {
       "id": "TB-f0ad79304b9dfa57",
-      "name": "CONTACTOR Schneider Electric LC1E160",
+      "name": "Khởi động từ Schneider Electric LC1E160",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "LC1E160",
@@ -5677,8 +7149,62 @@
       "related_price_rows": []
     },
     {
+      "id": "TB-2daaa9b96edcee06",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630D30~D45N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV630D30N4",
+          "sku": "ATV630D30N4",
+          "item_name": "ATV630D30N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV630D30N4",
+            "Dòng sản phẩm": "ATV630",
+            "Mã đặt hàng": "ATV630D30N4"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-709136a5f2362a55",
+      "name": "Schneider · 06 - N - SC VSD ATV630D55~D90N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV630D55N4",
+          "sku": "ATV630D55N4",
+          "item_name": "ATV630D55N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV630D55N4",
+            "Dòng sản phẩm": "ATV630",
+            "Mã đặt hàng": "ATV630D55N4"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-4244fe4b84812257",
+      "name": "Schneider · 06 - N - SC ROLE NHIỆT CHIẾU HÔNG LRD0xxx · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
       "id": "TB-76b60c464e85531d",
-      "name": "CONTACTOR Schneider Electric A9C20731",
+      "name": "Khởi động từ Schneider Electric A9C20731",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "A9C20731",
@@ -5697,18 +7223,82 @@
       "related_price_rows": []
     },
     {
+      "id": "TB-39b0e1bd1634ae8b",
+      "name": "Áptômát khối Schneider Electric EZC250",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "EZC250",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:3811c6c3afb9187a",
+          "sku": "EZC250F3100",
+          "item_name": "EZC250F3100",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:f2a2b16fad74d5d8",
+          "sku": "EZC250H2100",
+          "item_name": "EZC250H2100",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:ebdc543833adc490",
+          "sku": "EZC250H3100",
+          "item_name": "EZC250H3100",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:a50e5f7672564840",
+          "sku": "EZC250H4063",
+          "item_name": "EZC250H4063",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:cfc301a2dd992d68",
+          "sku": "EZC250N3100",
+          "item_name": "EZC250N3100",
+          "category": "MCCB",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-dced0a03b7ea334e",
+      "name": "Khởi động từ Schneider Electric LC1D18",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1D18",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:0a2456a0f5ff03ce",
+          "sku": "LC1D18B7",
+          "item_name": "LC1D18B7",
+          "category": "CONTACTOR",
+          "specifications": null
+        }
+      ]
+    },
+    {
       "id": "TB-147acacf560564bc",
-      "name": "VFD Schneider Electric ATV630C11~C16N4",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630C11~C16N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "type": "VFD",
-      "product_code": "ATV630C11~C16N4",
+      "product_code": "",
       "reason": "code_not_in_published_prices",
       "brand_price_count": 400,
       "related_price_rows": []
     },
     {
       "id": "TB-1f6e3c1f906f7fd8",
-      "name": "CONTACTOR Schneider Electric LC1D09",
+      "name": "Khởi động từ Schneider Electric LC1D09",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "LC1D09",
@@ -5720,17 +7310,13 @@
           "sku": "LC1D098B7",
           "item_name": "LC1D098B7",
           "category": "CONTACTOR",
-          "specifications": {
-            "Mã thân": "LC1D098",
-            "Số cực": "4P",
-            "Điện áp cuộn hút": "24V AC"
-          }
+          "specifications": null
         }
       ]
     },
     {
       "id": "TB-be8517e7eec2f604",
-      "name": "CONTACTOR Schneider Electric LC1D40-65",
+      "name": "Khởi động từ Schneider Electric LC1D40-65",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "LC1D40-65",
@@ -5755,7 +7341,7 @@
     },
     {
       "id": "TB-70f3194c438e827c",
-      "name": "CONTACTOR Schneider Electric LC1D40-65",
+      "name": "Khởi động từ Schneider Electric LC1D40-65",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "LC1D40-65",
@@ -5780,7 +7366,7 @@
     },
     {
       "id": "TB-9d5dda2dfc6b5d35",
-      "name": "CONTACTOR Schneider Electric LC1D80",
+      "name": "Khởi động từ Schneider Electric LC1D80",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "LC1D80",
@@ -5793,12 +7379,124 @@
           "item_name": "LC1D80B7",
           "category": "CONTACTOR",
           "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-d2ed90668cccf5cb",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630U07~55N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV630U07N4",
+          "sku": "ATV630U07N4",
+          "item_name": "ATV630U07N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV630U07N4",
+            "Dòng sản phẩm": "ATV630",
+            "Mã đặt hàng": "ATV630U07N4"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-8b4d2edbd76f927a",
+      "name": "Schneider · 06 - N - SC VSD ATV212HU75~D11N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV212HU75N4",
+          "sku": "ATV212HU75N4",
+          "item_name": "ATV212HU75N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV212HU75N4",
+            "Dòng sản phẩm": "ATV212",
+            "Cấp bảo vệ": "IP21",
+            "Mã đặt hàng": "ATV212HU75N4"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-41d72221c38b347d",
+      "name": "Schneider · 06 - N - SC VSD ATV212HD15~18N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV212HD15N4",
+          "sku": "ATV212HD15N4",
+          "item_name": "ATV212HD15N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV212HD15N4",
+            "Dòng sản phẩm": "ATV212",
+            "Cấp bảo vệ": "IP21",
+            "Mã đặt hàng": "ATV212HD15N4"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-2598dbf214bce578",
+      "name": "Schneider · 06 - N - SC VSD ATV630D15~D22N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV630D15N4",
+          "sku": "ATV630D15N4",
+          "item_name": "ATV630D15N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV630D15N4",
+            "Dòng sản phẩm": "ATV630",
+            "Mã đặt hàng": "ATV630D15N4"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-f0b01f81ba66ed54",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630U75~D11N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV630U75N4",
+          "sku": "ATV630U75N4",
+          "item_name": "ATV630U75N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV630U75N4",
+            "Dòng sản phẩm": "ATV630",
+            "Mã đặt hàng": "ATV630U75N4"
+          }
         }
       ]
     },
     {
       "id": "TB-12d065e49e4559f5",
-      "name": "CONTACTOR Schneider Electric LC1D80",
+      "name": "Khởi động từ Schneider Electric LC1D80",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "LC1D80",
@@ -5815,8 +7513,40 @@
       ]
     },
     {
+      "id": "TB-92e2043a2bd511a7",
+      "name": "Khởi động từ Schneider Electric LC1D25-38",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1D25-38",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-f74086e706b33994",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630U07~55N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV630U07N4",
+          "sku": "ATV630U07N4",
+          "item_name": "ATV630U07N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV630U07N4",
+            "Dòng sản phẩm": "ATV630",
+            "Mã đặt hàng": "ATV630U07N4"
+          }
+        }
+      ]
+    },
+    {
       "id": "TB-4054679f8749671a",
-      "name": "MCCB Schneider Electric NS100 / NS160",
+      "name": "Áptômát khối Schneider Electric NS100 / NS160",
       "brand": "Schneider Electric",
       "type": "MCCB",
       "product_code": "NS100 / NS160",
@@ -5825,8 +7555,36 @@
       "related_price_rows": []
     },
     {
+      "id": "TB-c6b1fa1fb05f17c0",
+      "name": "Khởi động từ Schneider Electric LC1D25",
+      "brand": "Schneider Electric",
+      "type": "CONTACTOR",
+      "product_code": "LC1D25",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:cb187a630110e35b",
+          "sku": "LC1D25B7",
+          "item_name": "LC1D25B7",
+          "category": "CONTACTOR",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-0e740c59b2c2c11e",
+      "name": "Schneider · 06 - N - SC ROLE NHIỆT CHIẾU HÔNG LRD4xxx · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
       "id": "TB-3a9d29b8dbb7b411",
-      "name": "MCCB Schneider Electric NS100 / NS160",
+      "name": "Áptômát khối Schneider Electric NS100 / NS160",
       "brand": "Schneider Electric",
       "type": "MCCB",
       "product_code": "NS100 / NS160",
@@ -5836,7 +7594,7 @@
     },
     {
       "id": "TB-2201734d78c06790",
-      "name": "CONTACTOR Schneider Electric LC1D150",
+      "name": "Khởi động từ Schneider Electric LC1D150",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "LC1D150",
@@ -5854,17 +7612,17 @@
     },
     {
       "id": "TB-0e51ad1ddf186f06",
-      "name": "VFD Schneider Electric ATV630C11~C16N4",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630C11~C16N4 · CAD nguồn",
       "brand": "Schneider Electric",
       "type": "VFD",
-      "product_code": "ATV630C11~C16N4",
+      "product_code": "",
       "reason": "code_not_in_published_prices",
       "brand_price_count": 400,
       "related_price_rows": []
     },
     {
       "id": "TB-4219006a98570a3b",
-      "name": "CONTACTOR Schneider Electric LC1F185",
+      "name": "Khởi động từ Schneider Electric LC1F185",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "LC1F185",
@@ -5873,8 +7631,76 @@
       "related_price_rows": []
     },
     {
+      "id": "TB-6970e3b171f91828",
+      "name": "Áptômát khối Schneider Electric EZC400 / EZC630",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "EZC400 / EZC630",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:af393becd39c2775",
+          "sku": "EZC400H3320N",
+          "item_name": "EZC400H3320N",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:3a264c43bbf72a31",
+          "sku": "EZC400H4320N",
+          "item_name": "EZC400H4320N",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:c9af2562f087721e",
+          "sku": "EZC400N3320N",
+          "item_name": "EZC400N3320N",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:e80613f0acb80a01",
+          "sku": "EZC400N4320N",
+          "item_name": "EZC400N4320N",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:30172eff337625aa",
+          "sku": "EZC630H3400N",
+          "item_name": "EZC630H3400N",
+          "category": "MCCB",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-58ec6416f4e1a238",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630D55~D90N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV630D55N4",
+          "sku": "ATV630D55N4",
+          "item_name": "ATV630D55N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV630D55N4",
+            "Dòng sản phẩm": "ATV630",
+            "Mã đặt hàng": "ATV630D55N4"
+          }
+        }
+      ]
+    },
+    {
       "id": "TB-22a3a85328e5a35e",
-      "name": "CONTACTOR Schneider Electric A9C20731",
+      "name": "Khởi động từ Schneider Electric A9C20731",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "A9C20731",
@@ -5893,14 +7719,312 @@
       "related_price_rows": []
     },
     {
+      "id": "TB-2137b5bec46ab654",
+      "name": "Schneider · 06 - N - SC VSD ATV212HU30~U55N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV212HU30N4",
+          "sku": "ATV212HU30N4",
+          "item_name": "ATV212HU30N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV212HU30N4",
+            "Dòng sản phẩm": "ATV212",
+            "Cấp bảo vệ": "IP21",
+            "Mã đặt hàng": "ATV212HU30N4"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-eeb309129ee454c2",
+      "name": "Schneider · 06 - N - SC VSD ATV212H075~U22N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV212H075N4",
+          "sku": "ATV212H075N4",
+          "item_name": "ATV212H075N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV212H075N4",
+            "Dòng sản phẩm": "ATV212",
+            "Cấp bảo vệ": "IP21",
+            "Mã đặt hàng": "ATV212H075N4"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-e98d817c07787f40",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV212HU75~D11N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV212HU75N4",
+          "sku": "ATV212HU75N4",
+          "item_name": "ATV212HU75N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV212HU75N4",
+            "Dòng sản phẩm": "ATV212",
+            "Cấp bảo vệ": "IP21",
+            "Mã đặt hàng": "ATV212HU75N4"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-b2127e7ca1b65481",
+      "name": "Áptômát khối Schneider Electric EZC250",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "EZC250",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:3811c6c3afb9187a",
+          "sku": "EZC250F3100",
+          "item_name": "EZC250F3100",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:f2a2b16fad74d5d8",
+          "sku": "EZC250H2100",
+          "item_name": "EZC250H2100",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:ebdc543833adc490",
+          "sku": "EZC250H3100",
+          "item_name": "EZC250H3100",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:a50e5f7672564840",
+          "sku": "EZC250H4063",
+          "item_name": "EZC250H4063",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:cfc301a2dd992d68",
+          "sku": "EZC250N3100",
+          "item_name": "EZC250N3100",
+          "category": "MCCB",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-50b9e0b14ec25b83",
+      "name": "Áptômát khối Schneider Electric EZC100",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "EZC100",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:407825c541e9f481",
+          "sku": "EZC100B3015",
+          "item_name": "EZC100B3015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:7724b8b1f47d4f35",
+          "sku": "EZC100F3015",
+          "item_name": "EZC100F3015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:b857f96c780aa59f",
+          "sku": "EZC100H1015",
+          "item_name": "EZC100H1015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:01a3d084c68d49f1",
+          "sku": "EZC100H2015",
+          "item_name": "EZC100H2015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:486a0e91206f852b",
+          "sku": "EZC100H3015",
+          "item_name": "EZC100H3015",
+          "category": "MCCB",
+          "specifications": null
+        }
+      ]
+    },
+    {
       "id": "TB-4243dcd3bacf6a0f",
-      "name": "CONTACTOR Schneider Electric LC1F115",
+      "name": "Khởi động từ Schneider Electric LC1F115",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "LC1F115",
       "reason": "code_not_in_published_prices",
       "brand_price_count": 400,
       "related_price_rows": []
+    },
+    {
+      "id": "TB-b05de4d1c90b9878",
+      "name": "Áptômát khối Schneider Electric EZC100",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "EZC100",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:407825c541e9f481",
+          "sku": "EZC100B3015",
+          "item_name": "EZC100B3015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:7724b8b1f47d4f35",
+          "sku": "EZC100F3015",
+          "item_name": "EZC100F3015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:b857f96c780aa59f",
+          "sku": "EZC100H1015",
+          "item_name": "EZC100H1015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:01a3d084c68d49f1",
+          "sku": "EZC100H2015",
+          "item_name": "EZC100H2015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:486a0e91206f852b",
+          "sku": "EZC100H3015",
+          "item_name": "EZC100H3015",
+          "category": "MCCB",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-2f799c2cfd1f6924",
+      "name": "Áptômát khối Schneider Electric EZC400 / EZC630",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "EZC400 / EZC630",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:af393becd39c2775",
+          "sku": "EZC400H3320N",
+          "item_name": "EZC400H3320N",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:3a264c43bbf72a31",
+          "sku": "EZC400H4320N",
+          "item_name": "EZC400H4320N",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:c9af2562f087721e",
+          "sku": "EZC400N3320N",
+          "item_name": "EZC400N3320N",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:e80613f0acb80a01",
+          "sku": "EZC400N4320N",
+          "item_name": "EZC400N4320N",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:30172eff337625aa",
+          "sku": "EZC630H3400N",
+          "item_name": "EZC630H3400N",
+          "category": "MCCB",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-35e99c520436de04",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV630D15~D22N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV630D15N4",
+          "sku": "ATV630D15N4",
+          "item_name": "ATV630D15N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV630D15N4",
+            "Dòng sản phẩm": "ATV630",
+            "Mã đặt hàng": "ATV630D15N4"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-41f14468dd34f079",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV212H075~U22N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV212H075N4",
+          "sku": "ATV212H075N4",
+          "item_name": "ATV212H075N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV212H075N4",
+            "Dòng sản phẩm": "ATV212",
+            "Cấp bảo vệ": "IP21",
+            "Mã đặt hàng": "ATV212H075N4"
+          }
+        }
+      ]
     },
     {
       "id": "TB-5153d546d072a06e",
@@ -5913,8 +8037,216 @@
       "related_price_rows": []
     },
     {
+      "id": "TB-a2d574560532040a",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV320U55~75N4B · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV320U55M3C",
+          "sku": "ATV320U55M3C",
+          "item_name": "ATV320U55M3C",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U55M3C",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Compact (C)",
+            "Mã đặt hàng": "ATV320U55M3C"
+          }
+        },
+        {
+          "id": "schneider-2026-drives:ATV320U55N4C",
+          "sku": "ATV320U55N4C",
+          "item_name": "ATV320U55N4C",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U55N4C",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Compact (C)",
+            "Mã đặt hàng": "ATV320U55N4C"
+          }
+        },
+        {
+          "id": "schneider-2026-drives:ATV320U55N4B",
+          "sku": "ATV320U55N4B",
+          "item_name": "ATV320U55N4B",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U55N4B",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Book (B)",
+            "Mã đặt hàng": "ATV320U55N4B"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-a0ae757e8e2112d3",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU TRÊN ATV630U75~D11N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV630U75N4",
+          "sku": "ATV630U75N4",
+          "item_name": "ATV630U75N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV630U75N4",
+            "Dòng sản phẩm": "ATV630",
+            "Mã đặt hàng": "ATV630U75N4"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-425c7029e22b929e",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV320U55~75N4B · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV320U55M3C",
+          "sku": "ATV320U55M3C",
+          "item_name": "ATV320U55M3C",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U55M3C",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Compact (C)",
+            "Mã đặt hàng": "ATV320U55M3C"
+          }
+        },
+        {
+          "id": "schneider-2026-drives:ATV320U55N4C",
+          "sku": "ATV320U55N4C",
+          "item_name": "ATV320U55N4C",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U55N4C",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Compact (C)",
+            "Mã đặt hàng": "ATV320U55N4C"
+          }
+        },
+        {
+          "id": "schneider-2026-drives:ATV320U55N4B",
+          "sku": "ATV320U55N4B",
+          "item_name": "ATV320U55N4B",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV320U55N4B",
+            "Dòng sản phẩm": "ATV320",
+            "Kiểu thân": "Book (B)",
+            "Mã đặt hàng": "ATV320U55N4B"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-6845e19a84e2c404",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV212HU30~U55N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV212HU30N4",
+          "sku": "ATV212HU30N4",
+          "item_name": "ATV212HU30N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV212HU30N4",
+            "Dòng sản phẩm": "ATV212",
+            "Cấp bảo vệ": "IP21",
+            "Mã đặt hàng": "ATV212HU30N4"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-1cac077415383e54",
+      "name": "Áptômát khối Schneider Electric EZC100",
+      "brand": "Schneider Electric",
+      "type": "MCCB",
+      "product_code": "EZC100",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "web:407825c541e9f481",
+          "sku": "EZC100B3015",
+          "item_name": "EZC100B3015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:7724b8b1f47d4f35",
+          "sku": "EZC100F3015",
+          "item_name": "EZC100F3015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:b857f96c780aa59f",
+          "sku": "EZC100H1015",
+          "item_name": "EZC100H1015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:01a3d084c68d49f1",
+          "sku": "EZC100H2015",
+          "item_name": "EZC100H2015",
+          "category": "MCCB",
+          "specifications": null
+        },
+        {
+          "id": "web:486a0e91206f852b",
+          "sku": "EZC100H3015",
+          "item_name": "EZC100H3015",
+          "category": "MCCB",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-2d4d3ed05b2dd448",
+      "name": "Schneider · 06 - N - SC VSD CHIẾU HÔNG ATV212HD15~18N4 · CAD nguồn",
+      "brand": "Schneider Electric",
+      "type": "VFD",
+      "product_code": "",
+      "reason": "related_code_only",
+      "brand_price_count": 400,
+      "related_price_rows": [
+        {
+          "id": "schneider-2026-drives:ATV212HD15N4",
+          "sku": "ATV212HD15N4",
+          "item_name": "ATV212HD15N4",
+          "category": "VFD",
+          "specifications": {
+            "Họ thiết bị": "ATV212HD15N4",
+            "Dòng sản phẩm": "ATV212",
+            "Cấp bảo vệ": "IP21",
+            "Mã đặt hàng": "ATV212HD15N4"
+          }
+        }
+      ]
+    },
+    {
       "id": "TB-c00290a70bf823c0",
-      "name": "CONTACTOR Schneider Electric LC1F225",
+      "name": "Khởi động từ Schneider Electric LC1F225",
       "brand": "Schneider Electric",
       "type": "CONTACTOR",
       "product_code": "LC1F225",
@@ -5988,7 +8320,7 @@
       "brand": "Shihlin Electric",
       "type": "MCB",
       "product_code": "",
-      "reason": "no_device_code",
+      "reason": "code_not_in_published_prices",
       "brand_price_count": 246,
       "related_price_rows": []
     },
@@ -5998,7 +8330,7 @@
       "brand": "Shihlin Electric",
       "type": "MCB",
       "product_code": "",
-      "reason": "no_device_code",
+      "reason": "code_not_in_published_prices",
       "brand_price_count": 246,
       "related_price_rows": []
     },
@@ -6008,7 +8340,7 @@
       "brand": "Shihlin Electric",
       "type": "MCB",
       "product_code": "",
-      "reason": "no_device_code",
+      "reason": "code_not_in_published_prices",
       "brand_price_count": 246,
       "related_price_rows": []
     },
@@ -6018,28 +8350,38 @@
       "brand": "Shihlin Electric",
       "type": "MCB",
       "product_code": "",
-      "reason": "no_device_code",
+      "reason": "code_not_in_published_prices",
       "brand_price_count": 246,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-7a18aeb8a676eff9",
+      "name": "Công tắc chọn dòng điện",
+      "brand": "Morele",
+      "type": "SELECTOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 14,
       "related_price_rows": []
     },
     {
       "id": "TB-26da92e8996e3f63",
       "name": "Công tắc chọn điện áp",
-      "brand": "Omega",
+      "brand": "Morele",
       "type": "SELECTOR",
       "product_code": "",
-      "reason": "no_brand_prices",
-      "brand_price_count": 0,
+      "reason": "no_device_code",
+      "brand_price_count": 14,
       "related_price_rows": []
     },
     {
       "id": "TB-8905d98908ba16fe",
       "name": "Công tắc xoay ON/OFF",
-      "brand": "SUNGHO",
+      "brand": "Morele",
       "type": "SELECTOR",
       "product_code": "",
-      "reason": "no_brand_prices",
-      "brand_price_count": 0,
+      "reason": "no_device_code",
+      "brand_price_count": 14,
       "related_price_rows": []
     },
     {
@@ -6048,8 +8390,48 @@
       "brand": "EMIC",
       "type": "METER",
       "product_code": "",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-f9ed176ec4ac1425",
+      "name": "Công tơ EMIC · nhãn kWh/kvarh",
+      "brand": "EMIC",
+      "type": "METER",
+      "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-991b8c4a7bab4123",
+      "name": "Công tơ điện tử Elster A1700 (dòng ABB Vision)",
+      "brand": "Elster",
+      "type": "METER",
+      "product_code": "A1700",
+      "reason": "no_brand_prices",
+      "brand_price_count": 0,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-177f377fb9b8a5a8",
+      "name": "Đồng hồ đa năng Selec MFM383",
+      "brand": "Selec",
+      "type": "METER",
+      "product_code": "MFM383",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 28,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-20ef8236d4d75c8b",
+      "name": "Đồng hồ Selec · block VAF36 / MFM384",
+      "brand": "Selec",
+      "type": "METER",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 28,
       "related_price_rows": []
     },
     {
@@ -6078,7 +8460,7 @@
       "brand": "EMIC",
       "type": "METER",
       "product_code": "",
-      "reason": "no_device_code",
+      "reason": "code_not_in_published_prices",
       "brand_price_count": 86,
       "related_price_rows": []
     },
@@ -6088,26 +8470,6 @@
       "brand": "EMIC",
       "type": "METER",
       "product_code": "",
-      "reason": "no_device_code",
-      "brand_price_count": 86,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-9c3ace6cc670668f",
-      "name": "Công tơ cơ 1 pha CV130/CV140, nắp dài",
-      "brand": "EMIC",
-      "type": "METER",
-      "product_code": "CV130/CV140",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 86,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-dbac6bea296dd57b",
-      "name": "Công tơ cơ 1 pha CV130/CV140, nắp ngắn",
-      "brand": "EMIC",
-      "type": "METER",
-      "product_code": "CV130/CV140",
       "reason": "code_not_in_published_prices",
       "brand_price_count": 86,
       "related_price_rows": []
@@ -6156,7 +8518,7 @@
       "id": "TB-b0ace4410c804dee",
       "name": "Tụ bù dầu Nuintek",
       "brand": "Nuintek",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 135,
@@ -6166,7 +8528,7 @@
       "id": "TB-abdd27644c490020",
       "name": "Tụ bù dầu Nuintek",
       "brand": "Nuintek",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 135,
@@ -6176,7 +8538,7 @@
       "id": "TB-92e23455618a05f2",
       "name": "Tụ bù dầu Nuintek",
       "brand": "Nuintek",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 135,
@@ -6186,7 +8548,7 @@
       "id": "TB-d7afb04ec2b02294",
       "name": "Tụ bù dầu Nuintek",
       "brand": "Nuintek",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 135,
@@ -6196,7 +8558,7 @@
       "id": "TB-7ae39bcda9950d48",
       "name": "Tụ bù dầu Nuintek",
       "brand": "Nuintek",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 135,
@@ -6206,7 +8568,7 @@
       "id": "TB-c829cf7308332018",
       "name": "Tụ bù dầu Nuintek",
       "brand": "Nuintek",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 135,
@@ -6216,7 +8578,7 @@
       "id": "TB-98e2ce87d7ce7c0f",
       "name": "Tụ bù dầu Nuintek",
       "brand": "Nuintek",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 135,
@@ -6226,7 +8588,7 @@
       "id": "TB-3348e5eda0af2d96",
       "name": "Tụ bù dầu Nuintek",
       "brand": "Nuintek",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 135,
@@ -6236,7 +8598,7 @@
       "id": "TB-ecb5cfd038525f2d",
       "name": "Tụ bù dầu Nuintek",
       "brand": "Nuintek",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 135,
@@ -6246,7 +8608,7 @@
       "id": "TB-ae48f954fb845b4b",
       "name": "Tụ bù dầu Nuintek",
       "brand": "Nuintek",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 135,
@@ -6256,7 +8618,7 @@
       "id": "TB-dff5af4bbf405355",
       "name": "Tụ bù dầu Nuintek",
       "brand": "Nuintek",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 135,
@@ -6266,7 +8628,7 @@
       "id": "TB-4ea5701c6a79795f",
       "name": "Tụ bù dầu Nuintek",
       "brand": "Nuintek",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 135,
@@ -6276,7 +8638,7 @@
       "id": "TB-2247ebef5fbd1b60",
       "name": "Tụ bù dầu Nuintek",
       "brand": "Nuintek",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 135,
@@ -6286,7 +8648,7 @@
       "id": "TB-eab6f34118c62130",
       "name": "Tụ bù dầu Nuintek",
       "brand": "Nuintek",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 135,
@@ -6296,7 +8658,7 @@
       "id": "TB-844f2581004e4eb7",
       "name": "Tụ bù khô Nuintek",
       "brand": "Nuintek",
-      "type": "Tụ bù hạ áp kiểu khô",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 135,
@@ -6306,7 +8668,7 @@
       "id": "TB-104077a50ea15151",
       "name": "Tụ bù khô Nuintek",
       "brand": "Nuintek",
-      "type": "Tụ bù hạ áp kiểu khô",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 135,
@@ -6316,7 +8678,7 @@
       "id": "TB-e8879bf8326b7df6",
       "name": "Tụ bù khô Nuintek",
       "brand": "Nuintek",
-      "type": "Tụ bù hạ áp kiểu khô",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 135,
@@ -6326,7 +8688,7 @@
       "id": "TB-6d7f5e9629d2b1e8",
       "name": "Tụ bù khô Nuintek",
       "brand": "Nuintek",
-      "type": "Tụ bù hạ áp kiểu khô",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 135,
@@ -6336,7 +8698,7 @@
       "id": "TB-cc64036f1ce8256f",
       "name": "Tụ bù khô Nuintek",
       "brand": "Nuintek",
-      "type": "Tụ bù hạ áp kiểu khô",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 135,
@@ -6346,7 +8708,7 @@
       "id": "TB-ce3dbea33100fcc4",
       "name": "Tụ bù khô Nuintek",
       "brand": "Nuintek",
-      "type": "Tụ bù hạ áp kiểu khô",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 135,
@@ -6356,7 +8718,7 @@
       "id": "TB-c3610c35b468ed87",
       "name": "Tụ bù dầu Samwha",
       "brand": "Samwha",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 45,
@@ -6366,7 +8728,7 @@
       "id": "TB-92ec277bee7d6218",
       "name": "Tụ bù dầu Samwha",
       "brand": "Samwha",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 45,
@@ -6376,7 +8738,7 @@
       "id": "TB-51d26a5bafb246c3",
       "name": "Tụ bù dầu Samwha",
       "brand": "Samwha",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 45,
@@ -6386,7 +8748,7 @@
       "id": "TB-9c8d9f97c0a10841",
       "name": "Tụ bù dầu Samwha",
       "brand": "Samwha",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 45,
@@ -6396,7 +8758,7 @@
       "id": "TB-0822e475eff0fb1c",
       "name": "Tụ bù dầu Samwha",
       "brand": "Samwha",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 45,
@@ -6406,7 +8768,7 @@
       "id": "TB-be1b82dafc31f1e0",
       "name": "Tụ bù dầu Samwha",
       "brand": "Samwha",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 45,
@@ -6416,7 +8778,7 @@
       "id": "TB-669be89e4d54d3b0",
       "name": "Tụ bù dầu Samwha",
       "brand": "Samwha",
-      "type": "Tụ bù hạ áp kiểu dầu",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 45,
@@ -6426,7 +8788,7 @@
       "id": "TB-a50b49821da73139",
       "name": "Tụ bù khô Samwha",
       "brand": "Samwha",
-      "type": "Tụ bù hạ áp kiểu khô",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 45,
@@ -6436,7 +8798,7 @@
       "id": "TB-36edcb59be843344",
       "name": "Tụ bù khô Samwha",
       "brand": "Samwha",
-      "type": "Tụ bù hạ áp kiểu khô",
+      "type": "CAPACITOR",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 45,
@@ -6446,7 +8808,7 @@
       "id": "TB-72ab848db040ac03",
       "name": "Ổ cắm đôi CHENG LI",
       "brand": "CHENG LI",
-      "type": "Ổ cắm điện",
+      "type": "SOCKET",
       "product_code": "",
       "reason": "no_brand_prices",
       "brand_price_count": 0,
@@ -6456,7 +8818,7 @@
       "id": "TB-efbdb06f484c977c",
       "name": "Ổ cắm đôi CLIPSAL",
       "brand": "CLIPSAL",
-      "type": "Ổ cắm điện",
+      "type": "SOCKET",
       "product_code": "",
       "reason": "no_brand_prices",
       "brand_price_count": 0,
@@ -6466,7 +8828,7 @@
       "id": "TB-71e2eeec761ca83b",
       "name": "Ổ cắm đơn CLIPSAL",
       "brand": "CLIPSAL",
-      "type": "Ổ cắm điện",
+      "type": "SOCKET",
       "product_code": "",
       "reason": "no_brand_prices",
       "brand_price_count": 0,
@@ -6476,7 +8838,7 @@
       "id": "TB-01a93be086fa288f",
       "name": "Ổ cắm công nghiệp PCE · 5 cực · 63 A · 6h",
       "brand": "PCE",
-      "type": "Ổ cắm điện",
+      "type": "SOCKET",
       "product_code": "",
       "reason": "no_brand_prices",
       "brand_price_count": 0,
@@ -6486,7 +8848,7 @@
       "id": "TB-dbfb828412bb8a03",
       "name": "Ổ cắm công nghiệp VANLOCK-DELTA",
       "brand": "VANLOCK-DELTA",
-      "type": "Ổ cắm điện",
+      "type": "SOCKET",
       "product_code": "",
       "reason": "no_brand_prices",
       "brand_price_count": 0,

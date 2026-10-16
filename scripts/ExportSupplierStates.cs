@@ -21,6 +21,24 @@ public class ExportSupplierStates {
        foreach(var allowed in prop.GetAllowedValues())if(Convert.ToString(allowed)==parts[1]){prop.Value=allowed;found=true;break;}
       }
       if(!found)throw new System.Exception("Source option missing: "+parts[1]);
+      // Contactor visibility, model lookup and rating lookup are independent.
+      // Explicit job columns must match allowed native values; never just relabel a preview.
+      if(parts.Length>=5){
+       string[] names={"Type","Rate"};
+       for(int i=0;i<names.Length;i++){
+        bool applied=false;
+        foreach(DynamicBlockReferenceProperty prop in br.DynamicBlockReferencePropertyCollection){
+         if(!prop.PropertyName.Equals(names[i],StringComparison.OrdinalIgnoreCase))continue;
+         foreach(var allowed in prop.GetAllowedValues())if(Convert.ToString(allowed)==parts[3+i]){prop.Value=allowed;applied=true;break;}
+        }
+        if(!applied)throw new System.Exception("Missing native "+names[i]+" state: "+parts[3+i]);
+       }
+       foreach(ObjectId attributeId in br.AttributeCollection){
+        var attribute=(AttributeReference)tx.GetObject(attributeId,OpenMode.ForWrite);
+        if(attribute.Tag.Equals("TYPE",StringComparison.OrdinalIgnoreCase))attribute.TextString=parts[3];
+        if(attribute.Tag.Equals("RATE",StringComparison.OrdinalIgnoreCase))attribute.TextString=parts[4]=="None"?"":parts[4];
+       }
+      }
       // Options and Poles are separate lookup properties in supplier blocks.
       // Leaving Poles at the original 3P/f can export a mixed 4P state.
       var match=System.Text.RegularExpressions.Regex.Match(parts[1],@"^([1-4]P):.*?(Front|Cover)",System.Text.RegularExpressions.RegexOptions.IgnoreCase);

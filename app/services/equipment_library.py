@@ -6,6 +6,7 @@ import re
 import sqlite3
 from pathlib import Path
 from functools import lru_cache
+from contextlib import closing
 from zipfile import ZipFile
 from typing import Any
 
@@ -79,7 +80,7 @@ def _with_availability(item: dict[str, Any]) -> dict[str, Any]:
 
 def get_equipment(catalog_id: str) -> dict[str, Any] | None:
     """Get one full record, including provenance and every CAD view."""
-    with _connect() as db:
+    with closing(_connect()) as db:
         row = db.execute('SELECT record_json FROM equipment WHERE catalog_id = ?', (catalog_id,)).fetchone()
     return _with_availability(json.loads(row[0])) if row else None
 
@@ -100,7 +101,7 @@ def search_equipment(text: str = '', brand: str | None = None,
         clauses.append('e.cad_status = ?')
         params.append(cad_status)
     where = ' WHERE ' + ' AND '.join(clauses) if clauses else ''
-    with _connect() as db:
+    with closing(_connect()) as db:
         rows = db.execute('SELECT e.record_json FROM equipment e' + where +
                           ' ORDER BY e.brand,e.model,e.catalog_id LIMIT ?', (*params, limit)).fetchall()
     return [_with_availability(json.loads(row[0])) for row in rows]
@@ -121,7 +122,7 @@ def resolve_price_variant(part_number: str, brand: str | None = None,
     code = (part_number or '').strip().casefold()
     if not code:
         return None
-    with _connect() as db:
+    with closing(_connect()) as db:
         rows = db.execute("SELECT record_json FROM equipment WHERE record_type = 'priced_variant' AND "
                           '(lower(model) = ? OR lower(json_extract(record_json,\'$.material_code\')) = ?)',
                           (code, code)).fetchall()

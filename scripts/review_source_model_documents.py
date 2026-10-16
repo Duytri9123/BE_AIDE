@@ -36,6 +36,8 @@ def documented_model(maker, block):
         if match:
             return 'NXB-63', 'MCB', CHINT_NXB, {'so_cuc': match[1]+'P'}
     if maker == 'LS Electric':
+        if upper == 'MC 75A-100A AC':
+            return 'MC-75a / MC-85a / MC-100a', 'CONTACTOR', 'https://www.ls-electric.com/upload/customer/download/1416/Metasol_MC_E_1310.pdf', {'so_cuc':'3P', 'loai_cuon_hut':'AC; cần chọn điện áp', 'documented_model_options':['MC-75a','MC-85a','MC-100a']}
         # Exact suffixes only: ABS103 is not silently converted to ABS103c.
         match = re.fullmatch(r'(?:LS )?(ABH52C|ABS403C|ABN53C|ABN203C)(?: ([2-4])P)?', upper)
         if match:
@@ -51,6 +53,21 @@ def documented_model(maker, block):
         if match:
             return 'BKN', 'MCB', LS_BKN, {'so_cuc': match[1]+'P'}
     if maker == 'Schneider Electric':
+        # Shared outlines identify a catalog family, not a selected trip rating.
+        match = re.fullmatch(r'06 - N - SC MCCB (?:CHIẾU TRÊN )?CVS(100~250B~F|400~630F~N) ([34]) PHASE', upper)
+        if match:
+            small = match[1] == '100~250B~F'
+            frames = ['100','160','250'] if small else ['400','630']
+            levels = ['B','F'] if small else ['F','N']
+            return 'CVS'+match[1], 'MCCB', 'https://download.schneider-electric.com/files?p_Doc_Ref=EASYSERIES-2021-CATALOGUE-AU', {
+                'so_cuc':match[2]+'P', 'dong_san_pham':'EasyPact CVS',
+                'documented_model_options':['CVS'+frame+level for frame in frames for level in levels],
+                'cau_hinh_can_chon':'Dòng định mức, cấp cắt, bộ bảo vệ và bảo vệ cực trung tính'}
+        match = re.fullmatch(r'06 - N - SC MCCB (?:CHIẾU TRÊN )?EZC400~630 ([34]) PHASE', upper)
+        if match:
+            return 'EZC400 / EZC630', 'MCCB', SE_EZC, {'so_cuc':match[1]+'P',
+                'dong_san_pham':'EasyPact EZC', 'documented_model_options':['EZC400','EZC630'],
+                'cau_hinh_can_chon':'Chọn khung 400/630, dòng định mức và khả năng cắt theo catalog'}
         if upper == 'LC1E160':
             return upper, 'CONTACTOR', 'https://www.se.com/pl/pl/faqs/FAQ000267489/', {}
         if upper in {'LC1D40-65','06 - N - SC CTT LC1D40~65','06 - N - SC CTT CHIẾU HÔNG LC1D40~65'}:
@@ -142,7 +159,7 @@ def run():
                 'manufacturer_document':url, 'views':item['views'],
                 'basis':'Explicit source block model cross-referenced with manufacturer documentation; no direct logo claim or geometry approval.',
                 'note':'Hãng và dòng/mã trong block nguồn đã đối chiếu tài liệu hãng. Cần chọn cấu hình đặt hàng; chưa xác nhận hình học CAD.',
-                'library_description':{'display':f'{kind} {item["brand"]} {code}', 'type':kind, 'product_code':code,
+                'library_description':{'display':f'{ {"MCCB":"Áptômát khối", "CONTACTOR":"Khởi động từ", "THERMAL_RELAY":"Rơ le nhiệt"}.get(kind,kind)} {item["brand"]} {code}', 'type':kind, 'product_code':code,
                     'manufacturer_document':url, 'source_model_reference':True, 'reviewed_spec':spec,
                     'price_family_codes':options,
                     'use':'Mã/dòng tra từ block CAD nguồn và tài liệu hãng. Chọn thông số điện, điện áp điều khiển và mã đặt hàng riêng; kiểm tra kích thước trước khi bố trí.'}}

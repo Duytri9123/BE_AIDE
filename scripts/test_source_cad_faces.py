@@ -17,7 +17,9 @@ class SourceFaceTests(unittest.TestCase):
 
     def test_assembly_is_not_one_component_price(self):
         device={'id':'A','type':'ASSEMBLY_REFERENCE','brand_identification_status':'verified','product_code':'LV429640'}
-        self.assertTrue(exact_price_required(device))
+        # A drawing of an assembly has no independent mandatory price;
+        # its actual components are priced separately.
+        self.assertFalse(exact_price_required(device))
         self.assertEqual(configuration_links(device,[]),{})
         with patch('app.services.catalogtb_browser.browser_data',return_value={'items':[device]}):
             self.assertEqual(device_price_diagnostic('A')['status'],'assembly_requires_components')

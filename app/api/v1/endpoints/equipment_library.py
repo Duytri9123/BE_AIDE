@@ -239,6 +239,16 @@ def drawing_source(catalog_id: str):
 def _cad_view_file(catalog_id: str, view_id: str, field: str):
     record = get_equipment(catalog_id)
     views = _record_views(record) if record else []
+    if not record:
+        # Browser families combine reviewed member projections; their display ID
+        # is distinct from each member's private equipment record.
+        groups_path=SOURCE_ROOT/'ai_device_groups.json'
+        groups=json.loads(groups_path.read_text(encoding='utf8')).get('groups',[]) if groups_path.is_file() else []
+        group=next((g for g in groups if g['id']==catalog_id),None)
+        for member in (group or {}).get('profiles',[]):
+            member_id='TB-'+hashlib.sha1(member['profile'].encode()).hexdigest()[:16]
+            member_record=get_equipment(member_id)
+            if member_record:views.extend(_record_views(member_record))
     view = next((view for view in views if view.get('id') == view_id), None)
     if not view or not view.get(field):
         raise HTTPException(404, 'Góc nhìn CAD này chưa có file.')

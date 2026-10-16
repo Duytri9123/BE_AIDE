@@ -108,7 +108,8 @@ def _read(signature):
     for filename,_,_ in signature:
         p = Path(filename)
         if p.name!='thong_tin_thiet_bi.json':continue
-        profile = json.loads(p.read_text(encoding='utf-8'))
+        profile = json.loads(p.read_text(encoding='utf-8-sig'))
+        if profile.get('browser_hidden'):continue
         ai = profile.get('nhan_dien_ai') or {}
         mapped=discovery.get(p.relative_to(ROOT).as_posix()) or {}
         if mapped.get('sha256')!=hashlib.sha256(p.read_bytes()).hexdigest():mapped={}
@@ -198,7 +199,7 @@ def inventory_diagnostics():
     """Distinguish unindexed CAD from genuinely absent equipment."""
     missing=[]
     for p in sorted(ROOT.rglob('thong_tin_thiet_bi.json')):
-        profile=json.loads(p.read_text(encoding='utf8'))
+        profile=json.loads(p.read_text(encoding='utf-8-sig'))
         if not (profile.get('nhan_dien_ai') or {}).get('loai_thiet_bi_code'):
             missing.append({'profile':p.relative_to(ROOT).as_posix(),
                             'name':profile.get('ten_san_pham'),

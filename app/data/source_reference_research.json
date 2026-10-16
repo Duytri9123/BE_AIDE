@@ -1,0 +1,530 @@
+{
+  "checked_at": "2026-10-16",
+  "scope": "Manufacturer catalog facts for shared CAD information tables; never a claim of exact source manufacturer or geometry.",
+  "references": {
+    "CT": [
+      {
+        "brand": "Socomec",
+        "model": "TCA21 / 192T2010",
+        "specifications": {
+          "Tỷ số": "100/5 A",
+          "Cấp chính xác": "0.5",
+          "Công suất": "1.5 VA",
+          "Cửa sổ": "Ø21 mm"
+        },
+        "source_url": "https://emea.socomec.com/en/generate-pdf/192T2010"
+      }
+    ],
+    "ZCT": [
+      {
+        "brand": "Mikro",
+        "model": "ZCT40S",
+        "specifications": {
+          "Loại": "Biến dòng thứ tự không / dòng rò",
+          "Cửa sổ A": "40 mm",
+          "Kích thước B×C×E": "89 × 94 × 37 mm"
+        },
+        "source_url": "https://itmikro.com.my/wp-content/uploads/2020/08/zct40_60_80_120_210s_man-1.pdf"
+      },
+      {
+        "brand": "Mikro",
+        "model": "ZCT80S",
+        "specifications": {
+          "Loại": "Biến dòng thứ tự không / dòng rò",
+          "Cửa sổ A": "80 mm",
+          "Kích thước B×C×E": "130 × 135 × 37 mm"
+        },
+        "source_url": "https://itmikro.com.my/wp-content/uploads/2020/08/zct40_60_80_120_210s_man-1.pdf"
+      }
+    ],
+    "IO_MODULE": [
+      {
+        "brand": "Trend / Honeywell",
+        "model": "IQ4/IO/16DI",
+        "specifications": {
+          "Số kênh": "16 đầu vào số",
+          "Lắp đặt": "Mô-đun mở rộng I/O trên ray DIN; chọn bộ điều khiển và nguồn tương ứng"
+        },
+        "source_url": "https://prod-edam.honeywell.com/content/dam/honeywell-edam/hbt/en-us/documents/literature-and-specs/datasheets/trends-110725/hon-ba-bms-en-ta201341-uk8pr0823n.pdf?download=false"
+      },
+      {
+        "brand": "Trend / Honeywell",
+        "model": "IQ4/IO/8UI",
+        "specifications": {
+          "Số kênh": "8 đầu vào đa năng"
+        },
+        "source_url": "https://prod-edam.honeywell.com/content/dam/honeywell-edam/hbt/en-us/documents/literature-and-specs/datasheets/trends-110725/hon-ba-bms-en-ta201341-uk8pr0823n.pdf?download=false"
+      },
+      {
+        "brand": "Trend / Honeywell",
+        "model": "IQ4/IO/8AO",
+        "specifications": {
+          "Số kênh": "8 đầu ra analog"
+        },
+        "source_url": "https://prod-edam.honeywell.com/content/dam/honeywell-edam/hbt/en-us/documents/literature-and-specs/datasheets/trends-110725/hon-ba-bms-en-ta201341-uk8pr0823n.pdf?download=false"
+      },
+      {
+        "brand": "Trend / Honeywell",
+        "model": "IQ4/IO/8DO",
+        "specifications": {
+          "Số kênh": "8 đầu ra số"
+        },
+        "source_url": "https://prod-edam.honeywell.com/content/dam/honeywell-edam/hbt/en-us/documents/literature-and-specs/datasheets/trends-110725/hon-ba-bms-en-ta201341-uk8pr0823n.pdf?download=false"
+      }
+    ],
+    "PLC": [
+      {
+        "brand": "Siemens",
+        "model": "SIMATIC S7-1200",
+        "specifications": {
+          "Chức năng": "PLC điều khiển lập trình, mở rộng mô-đun DI/DO/AI/AO",
+          "Cấu hình": "Chọn CPU, nguồn và I/O theo ứng dụng"
+        },
+        "source_url": "https://cache.industry.siemens.com/dl/files/829/109814829/att_1120874/v1/s71200_system_manual_en-US_en-US.pdf"
+      },
+      {
+        "brand": "Siemens",
+        "model": "LOGO! 8 / 6ED1052-1MD08-0BA2",
+        "specifications": {
+          "Phiên bản": "12/24RCE",
+          "I/O": "8DI (4AI) / 4DO"
+        },
+        "source_url": "https://mall.industry.siemens.com/tst/Api/Catalog/ExportInformation?catalogItemId=LOGO8&lang=en"
+      }
+    ],
+    "DDC": [
+      {
+        "brand": "Trend / Honeywell",
+        "model": "IQ4E / IQ4",
+        "specifications": {
+          "Chức năng": "Bộ điều khiển DDC hệ thống quản lý tòa nhà",
+          "Mở rộng": "Mô-đun IQ4/IO; chọn số kênh theo cấu hình"
+        },
+        "source_url": "https://prod-edam.honeywell.com/content/dam/honeywell-edam/hbt/en-us/documents/literature-and-specs/datasheets/trends-110725/hon-ba-bms-en-ta201341-uk8pr0823n.pdf?download=false"
+      }
+    ],
+    "SPD": [
+      {
+        "brand": "Schneider Electric",
+        "model": "Acti9 iPRD40r / A9L40601",
+        "specifications": {
+          "Loại": "SPD Type 2",
+          "Số cực": "3P+N",
+          "Uc": "350 V",
+          "Imax": "40 kA",
+          "Tín hiệu": "Tiếp điểm báo trạng thái từ xa"
+        },
+        "source_url": "https://www.se.com/in/en/product/A9L40601/iprd40r-modular-surge-arrester-3p-%2B-n-350v-with-remote-transfert/"
+      },
+      {
+        "brand": "Suntree",
+        "model": "SUP2",
+        "specifications": {
+          "Loại": "SPD AC Class II",
+          "Cực lựa chọn": "1P / 2P / 1P+N / 3P / 3P+N / 4P",
+          "Lắp đặt": "Ray DIN 35 mm",
+          "Tần số": "50/60 Hz"
+        },
+        "source_url": "https://www.chinasuntree.com/ac-spd/scup2-surge-protector.htm"
+      },
+      {
+        "brand": "CHINT",
+        "model": "NU6-I+II",
+        "specifications": {
+          "Loại": "SPD Type 1+2",
+          "Mạng điện": "AC 230/400 V, 50/60 Hz",
+          "Tiêu chuẩn": "IEC/EN 61643-11"
+        },
+        "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/final-power-distribution/spd/nu6-i-ii/catalog/NU6%20-I%2BII-SPD-Catalog.pdf"
+      }
+    ],
+    "FAN": [
+      {
+        "brand": "Leipole",
+        "model": "FKL6622.230",
+        "specifications": {
+          "Loại": "Quạt kèm lọc gió tủ điện",
+          "Nguồn": "230 VAC 50/60 Hz"
+        },
+        "source_url": "https://leipole.pl/en/products/fkl6622/"
+      }
+    ],
+    "FILTER": [
+      {
+        "brand": "Leipole",
+        "model": "FKL6621 / FKL6622 / FKL6623 .300",
+        "specifications": {
+          "Loại": "Lưới/lọc thoát gió; không có động cơ",
+          "Chọn kích thước": "Theo kích thước khoét và mặt nạ thực tế"
+        },
+        "source_url": "https://leipole.com.sg/product/fan-filters/"
+      }
+    ],
+    "INSULATING_SUPPORT": [
+      {
+        "brand": "Gia công / phổ thông",
+        "model": "Theo mẫu phíp/giá đỡ CAD",
+        "specifications": {
+          "Chức năng": "Đỡ và cách điện thanh dẫn",
+          "Thông số cần chọn": "Khoảng cách pha, vật liệu, kích thước và lỗ gá"
+        },
+        "source_url": ""
+      },
+      {
+        "brand": "Wöhner",
+        "model": "01485 000",
+        "specifications": {
+          "Tên hàng": "Bộ đỡ thanh cái 4 cực",
+          "Cấu hình": "4 cực, lỗ vít phía trong",
+          "Thanh cái phù hợp": "Rộng 12/15/20/25/30 mm; dày 5/10 mm"
+        },
+        "source_url": "https://pim.woehner.de/EN/NL/System/60Classic_4P/Busbar_supports_busbars_and_covers/4-pole_60mm_system"
+      }
+    ],
+    "NAMEPLATE": [
+      {
+        "brand": "Gia công / phổ thông",
+        "model": "Nhãn khắc mica theo bản vẽ",
+        "specifications": {
+          "Nội dung": "Khắc tên tủ, tên mạch, ON/OFF/RUN/FAULT theo nhãn CAD",
+          "Vật liệu": "Chọn mica/nhựa khắc theo yêu cầu"
+        },
+        "source_url": ""
+      },
+      {
+        "brand": "Phoenix Contact",
+        "model": "STP 5-2 / 0800967",
+        "specifications": {
+          "Tên hàng": "Giá giữ nhãn cầu đấu",
+          "Cỡ cầu đấu tham khảo": ">5 mm",
+          "Nhãn tương thích": "UCT-TM 5 / 0828734"
+        },
+        "source_url": "https://blog.phoenixcontact.com/marketing-hr/wp-content/uploads/sites/16/2017/06/1005361_EN_HQ_Thermotansferdruck_LoRes.pdf"
+      }
+    ],
+    "EARTH_LEAKAGE_RELAY": [
+      {
+        "brand": "Mikro",
+        "model": "DIN300-240A",
+        "specifications": {
+          "Tên hàng": "Rơ le bảo vệ dòng rò DIN300",
+          "Nguồn phụ": "198–265 VAC",
+          "Tần số": "50/60 Hz",
+          "Dải chỉnh dòng rò": "30 mA–30 A (25 mức)",
+          "Thời gian trễ": "0–3 s (9 mức)",
+          "Tiếp điểm": "5 A, 250 VAC",
+          "Lắp đặt": "Ray DIN; dùng với ZCT Mikro"
+        },
+        "source_url": "https://itmikro.com.my/wp-content/uploads/2020/08/DIN300_300E_Catalogue_100425.pdf"
+      }
+    ],
+    "PHASE_RELAY": [
+      {
+        "brand": "Selec",
+        "model": "600PSR-CE",
+        "specifications": {
+          "Tên hàng": "Rơ le giám sát thứ tự pha 600PSR",
+          "Chức năng": "Thứ tự pha, mất pha và mất cân bằng pha",
+          "Nguồn đo": "3 pha 3 dây, 154–500 VAC (L-L)",
+          "Tiếp điểm": "1 C/O SPDT",
+          "Lắp đặt": "Ray DIN"
+        },
+        "source_url": "https://www.selecuk.com/600psr-series-phase-sequence-relay-3-phase-3-wire.html"
+      }
+    ],
+    "TERMINAL_STOP": [
+      {
+        "brand": "Phoenix Contact",
+        "model": "CLIPFIX 35-5 / 3022276",
+        "specifications": {
+          "Tên hàng": "Chặn cuối dãy cầu đấu",
+          "Ray lắp": "NS 35/7.5 hoặc NS 35/15",
+          "Rộng": "5.2 mm",
+          "Vật liệu": "PA"
+        },
+        "source_url": "https://www.phoenixcontact.com/en-us/products/end-block-clipfix-35-5-3022276"
+      }
+    ],
+    "PHỤ_KIỆN_CỐ_ĐỊNH_CẦU_ĐẤU": [
+      {
+        "brand": "Phoenix Contact",
+        "model": "CLIPFIX 35-5 / 3022276",
+        "specifications": {
+          "Tên hàng": "Chặn cuối dãy cầu đấu",
+          "Ray lắp": "NS 35/7.5 hoặc NS 35/15",
+          "Rộng": "5.2 mm",
+          "Vật liệu": "PA"
+        },
+        "source_url": "https://www.phoenixcontact.com/en-us/products/end-block-clipfix-35-5-3022276"
+      }
+    ],
+    "SELECTOR_METER": [
+      {
+        "brand": "Schneider Electric",
+        "model": "K1F027MLH",
+        "specifications": {
+          "Tên hàng": "Công tắc chuyển mạch vôn kế Harmony K",
+          "Chức năng": "Đo 3 điện áp dây và 3 điện áp pha–N",
+          "Góc chuyển": "45°",
+          "Dòng nhiệt": "12 A"
+        },
+        "source_url": "https://www.se.com/uk/en/product/K1F027MLH/harmony-k1-k2-cam-voltmeter-switch-3l-and-3ln-45-12-a-screw-mounting/"
+      }
+    ],
+    "VENT_HOOD": [
+      {
+        "brand": "Pfannenberg",
+        "model": "PTFA 60.000 / 11786001055",
+        "specifications": {
+          "Tên hàng": "Chụp thoát khí có lọc trên nóc tủ",
+          "Động cơ": "Không có; bộ lọc thoát khí thụ động",
+          "Lỗ khoét": "291 × 291 mm",
+          "Cấp bảo vệ biến thể": "IP54",
+          "Màu": "RAL7035"
+        },
+        "source_url": "https://www.pfannenberg.com/en/thermal-management/filterfans/top-exhaust-filter/ptfa-60000/"
+      }
+    ],
+    "BẢN_LỀ_CỬA_TỦ": [
+      {
+        "brand": "Rittal",
+        "model": "SZ 2449.000",
+        "specifications": {
+          "Tên hàng": "Bản lề mở rộng góc mở cửa",
+          "Góc mở danh nghĩa": "180°",
+          "Dòng tủ tham khảo": "AE; chọn theo cửa và bộ gá"
+        },
+        "source_url": "https://www.rittal.com/uk-en/products/PG20231215ZUB101/PG20240411ZUB101/PG20240327ZUB104/PRO35433?variantId=2449000"
+      }
+    ],
+    "KHÓA_CỬA_TỦ_ĐIỆN": [
+      {
+        "brand": "EMKA",
+        "model": "1000-U859-IA",
+        "specifications": {
+          "Tên hàng": "Khóa nén xoay cửa tủ",
+          "Vật liệu": "Kẽm đúc mạ crôm",
+          "Lõi thao tác": "Vuông 7",
+          "Chiều cao thân GH": "18 mm",
+          "Hành trình nén": "4.5 mm"
+        },
+        "source_url": "https://www.emka.com/products/1000-u859-ia"
+      }
+    ],
+    "CHỐT_VẶN_CỬA_TỦ": [
+      {
+        "brand": "EMKA",
+        "model": "1000-U859-IA",
+        "specifications": {
+          "Tên hàng": "Khóa nén xoay cửa tủ",
+          "Vật liệu": "Kẽm đúc mạ crôm",
+          "Lõi thao tác": "Vuông 7",
+          "Chiều cao thân GH": "18 mm",
+          "Hành trình nén": "4.5 mm"
+        },
+        "source_url": "https://www.emka.com/products/1000-u859-ia"
+      }
+    ],
+    "TAY_NẮM_CỬA_TỦ": [
+      {
+        "brand": "EMKA",
+        "model": "1095-27-128AA",
+        "specifications": {
+          "Tên hàng": "Tay nắm kéo dạng cầu",
+          "Vật liệu": "Nhôm phủ nhựa đen",
+          "Khoảng tâm A": "128 mm",
+          "Chiều cao H": "55 mm"
+        },
+        "source_url": "https://www.emka.com/products/1095-27-128aa"
+      }
+    ],
+    "TRỤ_ĐỠ_CÁCH_ĐIỆN": [
+      {
+        "brand": "Cnhici / Suntree Insulator",
+        "model": "SM-25 / SM-35 / SM-50",
+        "specifications": {
+          "Tên hàng": "Trụ đỡ cách điện thanh cái dòng SM",
+          "Vật liệu lựa chọn": "BMC / SMC",
+          "Nhiệt độ làm việc dòng": "−40…+140 °C",
+          "Ren và kích thước": "Chọn biến thể theo bản vẽ sản phẩm"
+        },
+        "source_url": "https://www.suntreeinsulator.com/sm-lnsulator-series"
+      }
+    ],
+    "THANH_ĐỠ_CÁCH_ĐIỆN": [
+      {
+        "brand": "Wöhner",
+        "model": "01485 000",
+        "specifications": {
+          "Tên hàng": "Bộ đỡ thanh cái 4 cực",
+          "Cấu hình": "4 cực, lỗ vít phía trong",
+          "Thanh cái phù hợp": "Rộng 12/15/20/25/30 mm; dày 5/10 mm"
+        },
+        "source_url": "https://pim.woehner.de/EN/NL/System/60Classic_4P/Busbar_supports_busbars_and_covers/4-pole_60mm_system"
+      }
+    ],
+    "GIÁ_ĐỠ_CÁCH_ĐIỆN": [
+      {
+        "brand": "Wöhner",
+        "model": "01485 000",
+        "specifications": {
+          "Tên hàng": "Bộ đỡ thanh cái 4 cực",
+          "Cấu hình": "4 cực, lỗ vít phía trong",
+          "Thanh cái phù hợp": "Rộng 12/15/20/25/30 mm; dày 5/10 mm"
+        },
+        "source_url": "https://pim.woehner.de/EN/NL/System/60Classic_4P/Busbar_supports_busbars_and_covers/4-pole_60mm_system"
+      }
+    ],
+    "BỘ_ĐỠ_CÁCH_ĐIỆN": [
+      {
+        "brand": "Wöhner",
+        "model": "01485 000",
+        "specifications": {
+          "Tên hàng": "Bộ đỡ thanh cái 4 cực",
+          "Cấu hình": "4 cực, lỗ vít phía trong",
+          "Thanh cái phù hợp": "Rộng 12/15/20/25/30 mm; dày 5/10 mm"
+        },
+        "source_url": "https://pim.woehner.de/EN/NL/System/60Classic_4P/Busbar_supports_busbars_and_covers/4-pole_60mm_system"
+      }
+    ],
+    "ĐẦU_CỐT_CÁP_BẮT_BU_LÔNG": [
+      {
+        "brand": "Klauke",
+        "model": "6R10",
+        "specifications": {
+          "Tên hàng": "Đầu cốt ống đồng bắt bu lông",
+          "Tiết diện": "50 mm²",
+          "Lỗ bu lông": "M10",
+          "Vật liệu": "Đồng mạ thiếc, dòng R"
+        },
+        "source_url": "https://www.klauke.com/Media/Default/Downloads/CatalogsBrochures/BRBESTOFR21GB_07-2021_I_GB.pdf"
+      }
+    ],
+    "CỬA_SỔ_QUAN_SÁT": [
+      {
+        "brand": "Rittal",
+        "model": "FT 2734.000",
+        "specifications": {
+          "Tên hàng": "Cửa sổ quan sát tủ điện",
+          "Kích thước W×H×D": "597 × 197 × 34 mm",
+          "Khung": "Nhôm"
+        },
+        "source_url": "https://www.rittal.com/pdf-creator/variant/gr-en/2734000"
+      }
+    ],
+    "TÚI_ĐỰNG_SƠ_ĐỒ": [
+      {
+        "brand": "Rittal",
+        "model": "2515200",
+        "specifications": {
+          "Tên hàng": "Túi đựng sơ đồ bằng thép, thay đổi bề rộng",
+          "Bề rộng biến thể": "400 mm",
+          "Lắp đặt": "Trong cửa tủ, chọn bộ gá phù hợp"
+        },
+        "source_url": "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240411ZUB101/PG20240327ZUB105/PRO99664"
+      }
+    ],
+    "MÁNG_DÂY_TRONG_TỦ": [
+      {
+        "brand": "Rittal",
+        "model": "TS 8800.750",
+        "specifications": {
+          "Tên hàng": "Máng đi dây có nắp",
+          "Kích thước": "Rộng 30 × sâu 80 × dài 2000 mm",
+          "Vật liệu": "PVC cứng",
+          "Màu": "RAL7030"
+        },
+        "source_url": "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240405ZUB003/PG20240405ZUB008/PRO13416?variantId=8800750"
+      }
+    ],
+    "ĐIỂM_NÂNG_TỦ": [
+      {
+        "brand": "Rittal",
+        "model": "4568000",
+        "specifications": {
+          "Tên hàng": "Bu lông vòng nâng tủ",
+          "Ren": "M12",
+          "Vật liệu": "Thép carbon",
+          "Dòng tủ": "VX / TS / VX SE; tải nâng chọn theo tài liệu bộ tủ"
+        },
+        "source_url": "https://www.rittal.com/us-en_US/products/PG20231215ZUB101/PG20240411ZUB102/PG20240402ZUB103/PRO13662"
+      }
+    ],
+    "BẢN_MÃ_TREO_TỦ": [
+      {
+        "brand": "Rittal",
+        "model": "SZ 2508.010",
+        "specifications": {
+          "Tên hàng": "Tai gá treo tủ lên tường",
+          "Vật liệu": "Thép mạ kẽm",
+          "Khoảng cách tường": "10 mm",
+          "Dòng tham khảo": "KL/EB/BG/AE/EL; mẫu catalog cũ"
+        },
+        "source_url": "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240402ZUB104/PRO11706?variantId=2508010"
+      }
+    ],
+    "GIÁ_GIỮ_NHÃN": [
+      {
+        "brand": "Phoenix Contact",
+        "model": "STP 5-2 / 0800967",
+        "specifications": {
+          "Tên hàng": "Giá giữ nhãn cầu đấu",
+          "Cỡ cầu đấu tham khảo": ">5 mm",
+          "Nhãn tương thích": "UCT-TM 5 / 0828734"
+        },
+        "source_url": "https://blog.phoenixcontact.com/marketing-hr/wp-content/uploads/sites/16/2017/06/1005361_EN_HQ_Thermotansferdruck_LoRes.pdf"
+      }
+    ],
+    "TẤM_CHE_BẢO_VỆ_QUẠT": [
+      {
+        "brand": "Rittal",
+        "model": "SK 3237.080",
+        "specifications": {
+          "Tên hàng": "Chụp bảo vệ quạt/lọc tủ",
+          "Vật liệu": "Inox AISI304",
+          "Kích thước W×H×D": "150 × 230 × 40 mm",
+          "Dùng với": "Quạt/lọc dòng 3237"
+        },
+        "source_url": "https://www.rittal.com/us-en_US/products/PG20231215KLI101/PG20231215KLI1007/PRO0305?variantId=3237080"
+      }
+    ],
+    "ENCLOSURE_REFERENCE": [
+      {
+        "brand": "Rittal",
+        "model": "AX 1058.000",
+        "specifications": {
+          "Tên hàng": "Vỏ tủ compact có tấm lắp",
+          "Kích thước W×H×D": "600 × 800 × 250 mm",
+          "Vật liệu": "Thép tấm",
+          "Cấp bảo vệ mẫu catalog": "IP66",
+          "Ghi chú": "Vỏ tủ tham khảo; bản CAD khác kích thước chọn mã khác"
+        },
+        "source_url": "https://www.rittal.com/com-en/products/PG20231215SCH101/PG20231512SCH301/PRO70850?variantId=1058000"
+      }
+    ],
+    "FIRE_SUPPRESSION_REFERENCE": [
+      {
+        "brand": "ELIDE FIRE",
+        "model": "ELIDE FIRE BALL",
+        "specifications": {
+          "Tên hàng": "Bóng chữa cháy tự kích hoạt",
+          "Chức năng": "Kích hoạt khi tiếp xúc ngọn lửa",
+          "Phương án sử dụng": "Cố định tại vùng nguy cơ hoặc sử dụng theo hướng dẫn hãng"
+        },
+        "source_url": "https://www.elidefire.com/"
+      }
+    ],
+    "THERMAL_RELAY": [
+      {
+        "brand": "ABB",
+        "model": "TF42-3.1 / 1SAZ721201R1033",
+        "specifications": {
+          "Tên hàng": "Rơ le nhiệt bảo vệ quá tải động cơ",
+          "Dải chỉnh mẫu": "2.30–3.10 A",
+          "Dòng sản phẩm": "TF42; chọn dải theo dòng động cơ"
+        },
+        "source_url": "https://empower.abb.com/ecatalog/ec/EN_CA/p/1SAZ721201R1033"
+      }
+    ]
+  }
+}

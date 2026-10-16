@@ -9,8 +9,8 @@ from ezdxf.addons.drawing.layout import Page
 from ezdxf.addons.drawing.properties import LayoutProperties
 logging.disable(logging.CRITICAL)
 base=Path(__file__).resolve().parents[1];root=base/'data/CatalogTB';w=base/'tmp/accessory_source_review'
-rows=json.loads((w/'front-state-jobs.json').read_text(encoding='utf-8'));jobs=[]
-rows=[row for row in rows if not ((root/row['profile']).parent/'CadDon'/row['view']/'native_preview.json').exists()
+rows=json.loads(Path(os.environ.get('AIDE_STATE_MANIFEST',str(w/'front-state-jobs.json'))).read_text(encoding='utf-8'));jobs=[]
+rows=[row for row in rows if os.environ.get('AIDE_FORCE_STATES')=='1' or not ((root/row['profile']).parent/'CadDon'/row['view']/'native_preview.json').exists()
       or json.loads(((root/row['profile']).parent/'CadDon'/row['view']/'native_preview.json').read_text(encoding='utf-8')).get('state')!=row['option']]
 if not rows:
  print('All requested native states already restored');raise SystemExit(0)
@@ -29,6 +29,7 @@ for row in rows:
  attrs={k.upper():v for k,v in inventory.get(row['handle'],{}).get('attributes',{}).items()}
  if attrs.get('BRAND0'):attrs.setdefault('ORIGIN',attrs['BRAND0'])
  if attrs.get('TYPE0'):attrs.setdefault('TYPE',attrs['TYPE0'])
+ attrs.update(row.get('selected_attributes',{}))
  if 'POLES' in attrs and row['option'].split(':')[0].upper() not in attrs['POLES'].upper():attrs.pop('POLES')
  meta.update(source_attributes=attrs,source_handle=row['handle'],source_state_verified=True,trang_thai_block=row['option'],kich_thuoc_hinh_mm={'ngang':round(ext.size.x,3),'cao':round(ext.size.y,3)})
  meta_path.write_text(json.dumps(meta,ensure_ascii=False,indent=2),encoding='utf-8')

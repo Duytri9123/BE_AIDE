@@ -17,12 +17,17 @@ ROOT=Path(__file__).resolve().parents[1]
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--additional',action='store_true')
-    parser.add_argument('--source-research',action='store_true');args=parser.parse_args()
+    parser.add_argument('--source-research',action='store_true')
+    parser.add_argument('--control-meter',action='store_true');args=parser.parse_args()
     out=ROOT/'outputs/folder-web-review';out.mkdir(parents=True,exist_ok=True)
     font=ImageFont.truetype('C:/Windows/Fonts/arial.ttf',15)
     devices=[d for d in browser_data()['items'] if d['brand_identification_status']=='unknown' and exact_price_required(d)]
     records=[(d,v) for d in devices for v in (d['views'][1:] if args.additional else d['views'][:1])]
     prefix='unknown-additional' if args.additional else 'unknown-priority'
+    if args.control_meter:
+        devices=[d for d in browser_data()['items'] if d['category'] in {'Bộ điều khiển','ThietBiDoLuongHienThi'}]
+        records=[(d,v) for d in devices for v in d['views']]
+        prefix='control-meter-all'
     if args.source_research:
         research=json.loads((ROOT/'docs/library-source-model-research.json').read_text(encoding='utf8'))
         wanted={r['id'] for r in research['items'] if r['status']!='source_model_documented'}

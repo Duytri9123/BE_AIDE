@@ -60,9 +60,9 @@ def classify(name, category=''):
 
 
 def explicit_brands(text):
-    from app.services.device_catalog_engine import DeviceCatalogEngine
+    from app.services.ai.manufacturer_registry import ALIASES
     key = normalize(text)
     return list(dict.fromkeys(
-        brand for alias, brand in DeviceCatalogEngine().brand_alias_index.items()
-        if re.search(r"\b" + re.escape(alias) + r"\b", key)
+        brand for alias, brand in ALIASES.items()
+        if re.search(r"\b" + re.escape(normalize(alias)) + r"\b", key)
     ))
