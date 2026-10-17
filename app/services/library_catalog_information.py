@@ -47,7 +47,8 @@ def information_rows(device,rows=None):
     kind=references.get('category') or device.get('type')
     selected={}
     index=price_index(rows)
-    observed=(device.get('source_identification') or {}).get('source_models_read') or []
+    observed=list((device.get('source_identification') or {}).get('source_models_read') or [])
+    if device.get('product_code'):observed.append(device['product_code'])
     for row in rows:
         if not str(row.get('id') or '').startswith('external:'):continue
         if device.get('brand') and canonical_brand(device['brand'])!=canonical_brand(row.get('brand')):continue
