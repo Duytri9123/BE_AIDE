@@ -30,5 +30,14 @@ class CustomerEquipmentTests(unittest.TestCase):
         self.assertFalse(external_url('/device-catalog/documents/private'))
         self.assertFalse(external_url('https://127.0.0.1/private'))
 
+    def test_original_schema_survives_empty_cells_and_embedded_private_evidence(self):
+        row={'id':'a','brand':'ABB','sku':'A1','columns':['Tên hàng','Mã đặt hàng','Ghi chú','Thông số','Giá bán'],
+             'cells':['A1','1SDA','', '16 A; Căn cứ: nhãn CAD nguồn; Phạm vi: mã trên bản vẽ', '1,000'],
+             'price':1000,'information_kind':'pricebook'}
+        result=customer_information_rows([row],{'brand':'ABB'})[0]
+        self.assertEqual(result['columns'],row['columns'])
+        self.assertEqual(result['cells'],['A1','1SDA','','16 A','1,000'])
+        self.assertEqual(result['information_kind'],'pricebook')
+
 
 if __name__=='__main__':unittest.main()

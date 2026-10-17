@@ -95,16 +95,18 @@ def customer_information_rows(rows,device):
     for row in rows:
         if str(row.get('sku') or '').startswith('*'):continue
         if maker and canonical_brand(row.get('brand'))!=maker:continue
-        item={k:row[k] for k in ('id','book_key','sku','item_name','name','brand','category','group','price','columns','cells','edition','vat_status') if k in row}
+        item={k:row[k] for k in ('id','book_key','sku','item_name','name','brand','category','group','price','columns','cells','edition','vat_status','information_kind') if k in row}
         item['specifications']=product_specs(row.get('specifications'))
         item['source_url']=external_url(row.get('source_url'))
         # Source-only metadata is not a product specification or table column.
         pairs=[]
-        for column,value in zip(item.get('columns',[]),item.get('cells',[])):
+        for index,column in enumerate(item.get('columns',[])):
+            value=(item.get('cells') or [])[index] if index<len(item.get('cells') or []) else ''
             if PRIVATE_KEYS.search(column):continue
-            if column.casefold() in {'thông số','thông tin'} and row.get('specifications'):
-                value='; '.join(f'{k}: {v}' for k,v in item['specifications'].items())
-            if not INTERNAL.search(str(value)):pairs.append((column,value))
+            if isinstance(value,str):
+                value='; '.join(part.strip() for part in re.split(r'\r?\n|;\s*',value)
+                    if not INTERNAL.search(part) and not re.match(r'\s*phạm vi\s*:',part,re.I))
+            pairs.append((column,value))
         item['columns']=[p[0] for p in pairs];item['cells']=[p[1] for p in pairs]
         if not any(INTERNAL.search(str(item.get(k) or '')) for k in ('sku','item_name','name','group')):out.append(item)
     if not out:
@@ -114,5 +116,5 @@ def customer_information_rows(rows,device):
             'sku':model,'item_name':name,'name':name,'group':'Thông tin thiết bị','price':None,
             'columns':['Tên thiết bị','Mã / dòng','Thông số'],
             'cells':[name,model,'; '.join(f'{k}: {v}' for k,v in spec.items()) or 'Thông số đang được bổ sung'],
-            'specifications':spec,'source_url':''}]
+            'specifications':spec,'source_url':'','information_kind':'device'}]
     return out

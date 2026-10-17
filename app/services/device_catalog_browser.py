@@ -62,6 +62,7 @@ def customer_catalog_page(payload):
     for row in payload['items']:
         item = {key:row[key] for key in fields if key in row}
         item['id'] = hashlib.sha256(row['id'].encode()).hexdigest()[:24]
+        item['information_kind']='pricebook' if row.get('source_kind')=='supplier_pricebook' else 'price_reference'
         # Preserve table grouping without disclosing supplier, URL or document page.
         identity = [row.get(k) for k in ('brand','group','source_url','source_label','source_page','effective_date','columns')]
         item['book_key'] = hashlib.sha256(json.dumps(identity,ensure_ascii=False).encode()).hexdigest()[:24]

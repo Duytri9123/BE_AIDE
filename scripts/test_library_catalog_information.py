@@ -53,5 +53,17 @@ class CatalogInformationTests(unittest.TestCase):
         self.assertIsNone(result[0]['price'])
         self.assertEqual(result[0]['cells'],['A1 example','A1','Số cực: 1P'])
 
+    def test_manufacturer_table_excludes_other_makers_even_with_explicit_references(self):
+        device=self.device()
+        device['catalog_references']['options'].append({'brand':'CHINT','model':'NM8',
+            'source_row_id':'NM8','specifications':{'Số cực':'1P'}})
+        abb=self.row('A1-16');abb['source_kind']='supplier_pricebook'
+        other={**self.row('NM8'),'brand':'CHINT'}
+        rows=information_rows(device,[abb,other])
+        self.assertEqual([r['brand'] for r in rows],['ABB'])
+        self.assertEqual(rows[0]['columns'],abb['columns'])
+        self.assertEqual(rows[0]['cells'],abb['cells'])
+        self.assertEqual(rows[0]['information_kind'],'pricebook')
+
 
 if __name__=='__main__':unittest.main()

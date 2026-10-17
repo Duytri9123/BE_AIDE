@@ -21,7 +21,8 @@ def optional_price(value):
 def _rows(revision):
     rows=[]
     for name,_,_ in revision:
-        rows.extend(json.loads(Path(name).read_text(encoding='utf8')).get('items',[]))
+        kind='pricebook' if Path(name).name=='supplier_pricebooks.json' else 'manufacturer_catalog' if Path(name).name=='external_product_information.json' else 'price_reference'
+        rows.extend({**row,'information_kind':kind} for row in json.loads(Path(name).read_text(encoding='utf8')).get('items',[]))
     return rows
 
 
@@ -44,6 +45,12 @@ def named_family_rows(model,brand,kind,spec,rows):
 def information_rows(device,rows=None):
     rows=source_rows() if rows is None else rows
     references=device.get('catalog_references') or {}
+    maker=canonical_brand(device.get('brand'))
+    if maker:
+        rows=[row for row in rows if canonical_brand(row.get('brand'))==maker]
+        own_ids={row['id'] for row in rows}
+        references={**references,'options':[o for o in references.get('options',[])
+            if canonical_brand(o.get('brand'))==maker or (not o.get('brand') and o.get('source_row_id') in own_ids)]}
     kind=references.get('category') or device.get('type')
     selected={}
     index=price_index(rows)
@@ -87,7 +94,8 @@ def information_rows(device,rows=None):
     for row,basis,priority in sorted(selected.values(),key=lambda r:(r[2],canonical_brand(r[0].get('brand')),r[0].get('source_page') or 0,str(r[0].get('sku')))):
         if not row.get('sku') and not row.get('item_name'):continue
         item={k:row.get(k) for k in ('sku','item_name','name','brand','category','group','columns','cells',
-             'specifications','source_url','source_label','source_page','edition','effective_date','vat_status')}
+             'specifications','source_url','source_label','source_page','edition','effective_date','vat_status','information_kind')}
+        item['information_kind']=item.get('information_kind') or ('pricebook' if row.get('source_kind')=='supplier_pricebook' else 'manufacturer_catalog')
         item.update(id=hashlib.sha256(row['id'].encode()).hexdigest()[:24],price=optional_price(row.get('price')),
             basis=basis,identity_verified=False,match_scope='source_family' if priority==0 else 'catalog_reference')
         item['item_name']=item.get('item_name') or item.get('name') or item['sku']
@@ -110,5 +118,6 @@ def information_rows(device,rows=None):
             'source_url':option.get('source_url'),'source_page':option.get('source_page'),
             'columns':['Tên hàng','Mã hàng','Thông số'],'cells':[name,model,detail],
             'price':optional_price(option.get('price')),'basis':option.get('basis'),
+            'information_kind':'catalog_reference',
             'identity_verified':False,'match_scope':'catalog_reference'})
     return result
