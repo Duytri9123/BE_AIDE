@@ -50,7 +50,11 @@ def priced_references(device, rows):
     references = device.get('catalog_references') or {}
     kind = references.get('category') or device.get('type')
     result=[]
-    for original in references.get('options',[]):
+    from .catalog_other_manufacturers import other_manufacturer_options
+    unique={}
+    for original in [*references.get('options',[]),*other_manufacturer_options(device)]:
+        unique.setdefault((canonical_brand(original.get('brand')),original.get('model')),original)
+    for original in unique.values():
         option=dict(original)
         matches=reference_matches(option,kind,rows)
         option['price_choices']=[{'price_row_id':r['id'],'model':r['sku'],'price':r['price'],

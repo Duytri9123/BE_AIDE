@@ -34,6 +34,39 @@ def product_specs(spec):
             and value is not None and value!='' and not INTERNAL.search(str(value))}
 
 
+def reference_specs(spec):
+    # Drawing measurements and generic installation prose are not product facts.
+    return {k:v for k,v in product_specs(spec).items()
+            if not re.search(r'hình chiếu|lắp đặt tham khảo|kích thước.*(?:CAD|bản vẽ)',k,re.I)}
+
+
+def reference_options(device):
+    own={};other={};maker=canonical_brand(device.get('brand'))
+    from .catalog_other_manufacturers import other_manufacturer_options
+    original=(device.get('catalog_references') or {}).get('options',[])
+    known={(canonical_brand(o.get('brand')),str(o.get('model') or '').casefold()) for o in original}
+    registry=[o for o in other_manufacturer_options(device)
+              if (canonical_brand(o.get('brand')),str(o.get('model') or '').casefold()) not in known]
+    options=[*original,*registry]
+    for option in options:
+        model=str(option.get('model') or '').strip();brand=canonical_brand(option.get('brand'))
+        if not model or model.startswith('*') or INTERNAL.search(model) or not brand:continue
+        specs=reference_specs(option.get('specifications'))
+        if not specs:continue
+        bucket=other if maker and brand!=maker else own
+        key=(brand,model.casefold())
+        item={'brand':brand,'model':model,'specifications':specs,
+              'source_url':external_url(option.get('source_url')),'basis':'product_reference',
+              'price':option.get('price') if isinstance(option.get('price'),(int,float)) and not isinstance(option.get('price'),bool) else None}
+        if key in bucket:
+            previous=bucket[key]
+            previous['specifications'].update({k:v for k,v in specs.items() if k not in previous['specifications']})
+            if previous['price']!=item['price']:previous['price']=None
+            if not previous['source_url']:previous['source_url']=item['source_url']
+        else:bucket[key]=item
+    return list(own.values()),list(other.values())
+
+
 def customer_device(device):
     fields=('id','display','brand','type','category','product_code','spec_hint','primary_view',
             'brand_label','brand_kind','brand_identification_status','use','placement')
@@ -58,16 +91,9 @@ def customer_device(device):
         out['views'].append(item)
     if device.get('primary_view'):out['primary_view']=public_view_id(device['primary_view'])
     maker=canonical_brand(device.get('brand'))
-    options=[]
-    for option in (device.get('catalog_references') or {}).get('options',[]):
-        if str(option.get('model') or '').startswith('*') or INTERNAL.search(str(option.get('model') or '')):continue
-        if maker and canonical_brand(option.get('brand'))!=maker:continue
-        specs=product_specs(option.get('specifications'))
-        if not specs:continue
-        item={k:option[k] for k in ('brand','model','price') if k in option}
-        item.update(specifications=specs,source_url=external_url(option.get('source_url')),basis='product_reference')
-        options.append(item)
+    options,other=reference_options(device)
     out['catalog_references']={'options':options}
+    out['other_brand_references']=other
     out['reference_product_codes']=list(dict.fromkeys(o['model'] for o in options))
     doc=external_url(device.get('manufacturer_document'))
     if doc:out['manufacturer_document']=doc

@@ -106,8 +106,8 @@ def information_rows(device,rows=None):
     existing={(canonical_brand(r['brand']),r['sku']) for r in result}
     for option in references.get('options',[]):
         brand=canonical_brand(option.get('brand'));model=str(option.get('model') or '').strip()
-        specs={k:v for k,v in (option.get('specifications') or {}).items()
-               if k not in {'Căn cứ','Phạm vi','Trang tài liệu'} and v is not None and v!=''}
+        from .customer_equipment_information import reference_specs
+        specs=reference_specs(option.get('specifications'))
         if not model or not specs or (brand,model) in existing:continue
         existing.add((brand,model))
         name=str(specs.get('Tên hàng') or model)

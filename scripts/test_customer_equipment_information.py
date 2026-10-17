@@ -18,6 +18,19 @@ class CustomerEquipmentTests(unittest.TestCase):
         for secret in ('SOURCE-SECRET','private/file','source_catalog_review','source_identification','Căn cứ','Trang tài liệu','nhan_block'):self.assertNotIn(secret,text)
         self.assertEqual(item['primary_view'],public_view_id('SOURCE-SECRET'))
         self.assertEqual(item['spec'],{'so_cuc':'1P'})
+        self.assertEqual([o['brand'] for o in item['other_brand_references']],['Hager'])
+
+    def test_reference_rows_are_deduplicated_without_drawing_measurements(self):
+        raw={'id':'test-only','brand':'ABB','display':'ABB A3','views':[],
+             'catalog_references':{'options':[
+                 {'brand':'ABB','model':'A3','specifications':{'Căn cứ':'CAD nguồn'}},
+                 {'brand':'ABB','model':'A3','specifications':{'Số cực':'3P','Hình chiếu Mặt bên':'100x200','Lắp đặt tham khảo':'generic'}},
+                 {'brand':'ABB','model':'A3','specifications':{'Số cực':'3P'}},
+                 {'brand':'CHINT','model':'NM8','specifications':{'Số cực':'3P'}}]}}
+        result=customer_device(raw)
+        self.assertEqual(len(result['catalog_references']['options']),1)
+        self.assertEqual(result['catalog_references']['options'][0]['specifications'],{'Số cực':'3P'})
+        self.assertEqual(result['other_brand_references'][0]['brand'],'CHINT')
 
     def test_product_rows_keep_specifications_and_external_documents(self):
         row={'id':'x','sku':'A1','item_name':'A1 1P','brand':'ABB','price':None,
