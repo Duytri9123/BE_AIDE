@@ -1,0 +1,57 @@
+import unittest
+from app.services.library_catalog_information import information_rows,optional_price
+
+
+class CatalogInformationTests(unittest.TestCase):
+    def row(self,code,price=None):
+        return {'id':code,'sku':code,'brand':'ABB','category':'MCCB','price':price,
+            'item_name':'MCCB '+code,'columns':['Tên hàng','Dòng điện','Giá'],
+            'cells':['MCCB '+code,'16 A','the original price cell'],
+            'specifications':{'Dòng điện':'16 A'},'source_url':'https://example.com/catalog.pdf'}
+
+    def device(self):
+        return {'brand':'ABB','product_code':'A1','type':'MCCB','catalog_references':
+            {'category':'MCCB','options':[{'brand':'ABB','model':'A1'},{'brand':'ABB','model':'A2'}]}}
+
+    def test_original_unpriced_rows_and_cells_are_preserved(self):
+        rows=information_rows(self.device(),[self.row('A1-16'),self.row('A2-16',1200)])
+        self.assertEqual({r['sku'] for r in rows},{'A1-16','A2-16'})
+        unpriced=next(r for r in rows if r['sku']=='A1-16')
+        self.assertIsNone(unpriced['price'])
+        self.assertEqual(unpriced['cells'],self.row('A1-16')['cells'])
+        self.assertEqual(unpriced['specifications'],{'Dòng điện':'16 A'})
+        self.assertTrue(all(r['identity_verified'] is False for r in rows))
+
+    def test_zero_invalid_prices_do_not_remove_information(self):
+        for price in (0,-1,float('nan'),float('inf'),True,'1000',None):
+            with self.subTest(price=price):
+                self.assertIsNone(optional_price(price))
+                self.assertEqual(len(information_rows(self.device(),[self.row('A1-16',price)])),1)
+
+    def test_numeric_boundaries_and_row_identity(self):
+        device=self.device();device['catalog_references']['options']=[{'brand':'ABB','model':'A1'}]
+        rows=information_rows(device,[self.row('A1-16'),self.row('A100-16')])
+        self.assertEqual([r['sku'] for r in rows],['A1-16'])
+        device['catalog_references']['options'].append({'source_row_id':'A100-16'})
+        self.assertEqual(len(information_rows(device,[self.row('A1-16'),self.row('A100-16')])),2)
+
+    def test_marketing_family_and_order_code_are_distinct(self):
+        device=self.device();device['spec']={'so_cuc':'1P'}
+        row=self.row('1SDA066485R1');row.update(item_name='A1C TMF 1P 15A',group='MCCB · A1')
+        row['specifications']['Số cực']='1P'
+        other=self.row('1SDA-OTHER');other.update(item_name='A1C TMF 3P 15A',group='MCCB · A1')
+        other['specifications']['Số cực']='3P'
+        result=information_rows(device,[row,other])
+        self.assertEqual([r['sku'] for r in result],['1SDA066485R1'])
+        self.assertEqual(result[0]['match_scope'],'source_family')
+
+    def test_catalog_only_model_without_price_is_visible(self):
+        device=self.device();device['catalog_references']['options']=[{'brand':'ABB','model':'A1',
+            'specifications':{'Tên hàng':'A1 example','Số cực':'1P'},'price':'---'}]
+        result=information_rows(device,[])
+        self.assertEqual(result[0]['sku'],'A1')
+        self.assertIsNone(result[0]['price'])
+        self.assertEqual(result[0]['cells'],['A1 example','A1','Số cực: 1P'])
+
+
+if __name__=='__main__':unittest.main()

@@ -5,6 +5,7 @@ updates information tables and reviewed library classification, never ratings
 on the source CAD or permission to insert a drawing.
 """
 import json
+import hashlib
 from functools import lru_cache
 from pathlib import Path
 
@@ -24,7 +25,8 @@ def published_information():
 
 
 def apply_published_information(profile, relative, information=None):
-    row=(published_information() if information is None else information).get(relative)
+    rows=published_information() if information is None else information
+    row=rows.get(relative) or rows.get('TB-'+hashlib.sha1(relative.encode()).hexdigest()[:16])
     if not row:
         return profile
     allowed={'catalog_tham_khao','nhom_thu_vien','ten_san_pham','ma_dong_san_pham','catalog_information_type'}

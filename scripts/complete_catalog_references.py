@@ -49,7 +49,7 @@ def supplemental_references(typ):
                                  'https://www.smartgen.com.cn/data/download/HAT560N_HAT560NB_en.pdf')],
         'GENERATOR_CONTROLLER':[choice('Deep Sea Electronics','DSE8610 MKII',{'Chức năng':'Điều khiển hòa đồng bộ/chia tải máy phát','Nguồn DC':'8–35 V','Kích thước W×H×D':'245 × 184 × 51 mm'},
                                        'https://www.deepseaelectronics.com/genset/load-sharing-synchronising-control-modules/dse8610-mkii')],
-        'TRANSFORMER':[ndk], 'NGUỒN_VÀ_BIẾN_ÁP':[ndk,supply], 'POWER_SUPPLY':[supply],
+        'TRANSFORMER':ndk_references(), 'NGUỒN_VÀ_BIẾN_ÁP':[*ndk_references(),supply], 'POWER_SUPPLY':[supply],
         'TERMINAL_BLOCK':[choice('Phoenix Contact','UK 5 N / 3004362',{'Điện áp danh định':'800 V','Dòng danh định':'32 A','Tiết diện danh định':'4 mm²','Đơn vị':'Một cầu đấu; dãy trong CAD có thể ghép nhiều cầu'},
                                  'https://www.phoenixcontact.com/en-us/products/feed-through-terminal-block-uk-5-n-3004362')],
         'CUỘN_KHÁNG_BA_PHA_LÕI_THÉP':[choice('TDK / EPCOS','B44066D5050M440',{'Loại':'Cuộn kháng lọc sóng hài; chọn định mức theo datasheet của mã'},
@@ -60,6 +60,19 @@ def supplemental_references(typ):
         'SWITCH_DISCONNECTOR':[choice('Schneider Electric','A9S65363',{'Dòng thiết bị':'Acti9 iSW','Cực':'3P','Dòng':'63 A'},
                                       'https://www.se.com/it/it/product/A9S65363/interruttore-sezionatore-isw-3p-63a/')],
     }.get(typ, [])
+
+
+def ndk_references():
+    """Model/capacity rows from CHINT's two-page NDK catalog, checked 2026-10-17."""
+    url = 'https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/control-transformer/ndk/catalog/NDK-Control%20Transformer-Catalog.pdf'
+    return [choice('CHINT', f'NDK-{va}', {
+        'Loại':'Biến áp điều khiển một pha', 'Công suất (VA)':va,
+        'Tần số':'50/60 Hz', 'Điện áp vào lựa chọn (V)':'230, 400',
+        'Điện áp ra lựa chọn (V)':'6, 12, 24, 36, 110, 127, 230, 400',
+        'Cấu hình':'Chọn điện áp sơ/thứ cấp khi đặt hàng',
+    }, url, 'manufacturer_catalog_model',
+        'Mã và công suất theo bảng 5 trang 2 của catalog CHINT. Chưa đối chiếu kích thước với CAD nguồn.')
+        for va in (25,50,100,150,200,250,300,400,500,700,1000,1500,2000,3000,4000,5000)]
 
 
 def main():
@@ -105,7 +118,10 @@ def main():
             metadata=p.parent/'HinhChieu'/view['id_hinh_goc']/'thong_tin.json'
             if metadata.is_file():
                 shape=json.loads(metadata.read_text(encoding='utf-8-sig'))
-                if shape.get('ten_hinh'):source_codes.append(shape['ten_hinh'])
+                if shape.get('ten_hinh') and shape['ten_hinh'].strip().casefold() not in {
+                    'mặt trước','mặt sau','mặt bên','mặt trên','mặt dưới','mặt đấu dây',
+                    'front','rear','side','top','bottom'}:
+                    source_codes.append(shape['ten_hinh'])
                 dimensions=shape.get('kich_thuoc_hinh_mm') or {}
                 if dimensions.get('ngang') and dimensions.get('cao'):
                     label=view.get('huong_nhin') or view['id_hinh_goc']

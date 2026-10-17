@@ -14,6 +14,28 @@ _cache_root = None
 _cache_lock = Lock()
 
 
+def catalog_query_matches(query, text):
+    """Match reordered words and punctuation variants of product identifiers."""
+    def normalize(value):
+        return ''.join(c for c in unicodedata.normalize('NFD', str(value).casefold())
+                       if not unicodedata.combining(c)).replace('đ', 'd')
+    query, text = normalize(query), normalize(text)
+    if query in text and not re.search(r'\d', query):
+        return True
+    # Keep model numbers attached: NDK-25 matches NDK25, not NDK250.
+    compact = lambda value: re.sub(r'(?<=\w)[\-_/](?=\w)', '', value)
+    terms = re.findall(r'\w+', compact(query))
+    words = re.findall(r'\w+', compact(text))
+    def match_term(term):
+        if term in words:
+            return True
+        # A catalog family may omit an alphabetic ordering suffix, while its
+        # numeric frame must stay intact (NSX100 -> NSX100N, never NSX1000).
+        return any(word.startswith(term) and len(word)>len(term) and
+                   term[-1].isdigit() and word[len(term)].isalpha() for word in words)
+    return bool(terms) and all(match_term(term) for term in terms)
+
+
 def _snapshot_path():
     return CATALOG_TB_ROOT / '_agent_index' / 'browser_display_v5.json'
 
@@ -68,6 +90,12 @@ def browser_page(q='', category='', brand='', skip=0, limit=24):
         return ''.join(c for c in unicodedata.normalize('NFD', str(value).lower())
                        if not unicodedata.combining(c)).replace('đ', 'd')
     query = normalize(q.strip())
+    reference_candidates = None
+    if len(query) >= 2 and re.search(r'\d', query):
+        from .ai.takeoff_pricebook import published_rows
+        from .library_reference_prices import price_index
+        reference_candidates = price_index([row for row in published_rows()
+            if catalog_query_matches(query, ' '.join(str(row.get(k) or '') for k in ('brand','sku','item_name','specifications')))])
     def matches(item):
         identity = normalize(' '.join(str(item.get(k) or '') for k in
                                      ('display', 'type', 'category', 'product_code')) +
@@ -78,12 +106,25 @@ def browser_page(q='', category='', brand='', skip=0, limit=24):
             return bool(re.search(r'ampe|ammeter|dong ho.*dong dien', identity))
         if query == 'v':
             return bool(re.search(r'volt|von ke|dong ho.*dien ap', identity))
-        return query in normalize(identity + ' ' + str(item.get('brand') or ''))
+        reference_text = ' '.join(' '.join(str(option.get(k) or '') for k in
+            ('brand', 'model')) for option in
+            (item.get('catalog_references') or {}).get('options', []))
+        if catalog_query_matches(query, identity + ' ' + str(item.get('brand') or '') + ' ' + reference_text):
+            return True
+        if reference_candidates:
+            from .library_reference_prices import reference_rows
+            return bool(reference_rows(item, reference_candidates))
+        return False
     rows = [p for p in data['items'] if (not category or p.get('category') == category)
             and (not brand or p.get('brand') == brand
                  or brand in {o['brand'] for o in (p.get('catalog_references') or {}).get('options', [])}
                  or (brand == '__generic__' and p.get('brand_kind') == 'generic')
                  or (brand == '__unidentified__' and p.get('brand_kind') == 'unidentified_equipment')) and (not query or matches(p))]
+    if query:
+        # A match on the drawing's own name/model precedes a selectable reference.
+        # Stable sorting keeps the library order within each evidence level.
+        rows.sort(key=lambda item: not catalog_query_matches(query, ' '.join(
+            str(item.get(k) or '') for k in ('display','product_code','brand','type','category'))))
     display_data={key:value for key,value in data.items() if key!='view_count'}
     return {**display_data, 'items': rows[skip:skip+limit], 'total': len(rows),
             'catalog_total': data['total'], 'skip': skip, 'limit': limit,
@@ -93,23 +134,25 @@ def browser_page(q='', category='', brand='', skip=0, limit=24):
                               if o['brand'] and o['brand'] != 'Chưa xác định'})}
 
 
-def _build_browser_data():
+def _build_browser_data(information_override=None):
     from .published_catalog_information import published_information, apply_published_information
-    information=published_information()
+    information=published_information() if information_override is None else information_override
     resolved_root=CATALOG_TB_ROOT.resolve()
     html=(CATALOG_TB_ROOT/'index.html').read_text(encoding='utf-8')
     match=re.search(r'<script id="catalog-data" type="application/json">(.*?)</script>',html,re.S)
     if not match:raise ValueError('CatalogTB index data is missing')
     source=json.loads(match[1]);profiles=[]
     # The HTML supplies display hints, never the inventory authority.
-    known={unquote(p['json']):p for p in source['profiles']}
+    known={unquote(p['json']):p for p in source['profiles'] if p.get('json')}
+    known_ids={p.get('id'):p for p in source['profiles']}
     originals=[]
     for path in sorted(CATALOG_TB_ROOT.rglob('thong_tin_thiet_bi.json')):
         relative=path.relative_to(CATALOG_TB_ROOT).as_posix()
         current=json.loads(path.read_text(encoding='utf-8-sig'))
         current=apply_published_information(current,relative,information)
         if current.get('browser_hidden'):continue
-        original=dict(known.get(relative) or {})
+        profile_id='TB-'+hashlib.sha1(relative.encode()).hexdigest()[:16]
+        original=dict(known.get(relative) or known_ids.get(profile_id) or {})
         original.update(json=relative)
         original['_current_profile']=current
         original.setdefault('display',current.get('ten_san_pham') or path.parent.name)
@@ -131,7 +174,7 @@ def _build_browser_data():
         path=(CATALOG_TB_ROOT/relative).resolve()
         if not path.is_relative_to(resolved_root) or path.name!='thong_tin_thiet_bi.json':continue
         cid='TB-'+hashlib.sha1(path.relative_to(CATALOG_TB_ROOT).as_posix().encode()).hexdigest()[:16]
-        profile={k:v for k,v in original.items() if k not in {'json','drawings','single_views','primary','sources','_current_profile'}}
+        profile={k:v for k,v in original.items() if k not in {'json','drawings','single_views','primary','sources','_current_profile','catalog_information','visual_candidates'}}
         profile['id']=cid
         current=original['_current_profile']
         if current.get('nhom_thu_vien'):
@@ -139,14 +182,19 @@ def _build_browser_data():
         profile['catalog_references']=current.get('catalog_tham_khao') or {}
         profile['display']=current.get('ten_san_pham') or profile.get('display')
         profile['spec']={**(profile.get('spec') or {}),**(current.get('thong_so') or {})}
-        profile['product_code']=current.get('ma_dong_san_pham') or profile.get('product_code')
+        # Old embedded snapshots cannot restore an identity cleared in the source.
+        # Reviewed model evidence is applied below after checking its hashes.
+        profile['product_code']=current.get('ma_dong_san_pham')
         profile['use']=current.get('cong_dung') or profile.get('use')
         profile['source_catalog_review']=current.get('source_catalog_review') or {}
         identification=current.get('nhan_dien_web') or {}
         if identification.get('user_accepts_approximate_family'):
             profile['display']=current.get('ten_san_pham') or profile['display']
             profile['use']=current.get('cong_dung') or profile.get('use')
-        profile['search_aliases']=list(dict.fromkeys([*(profile.get('search_aliases') or []),*(current.get('tu_khoa_tim_kiem') or [])]))
+        # The embedded HTML may contain aliases from older catalog enrichment.
+        # Current source aliases are authoritative; selectable model references
+        # are searched separately so removed/incorrect aliases cannot return.
+        profile['search_aliases']=list(dict.fromkeys(current.get('tu_khoa_tim_kiem') or []))
         profile['brand']=current.get('hang_xac_nhan') or identification.get('brand_candidate') or profile.get('brand')
         profile['brand_identification_status']='verified' if current.get('hang_xac_nhan') else identification.get('status','unknown')
         ai=current.get('nhan_dien_ai') or {}
@@ -210,7 +258,11 @@ def _build_browser_data():
                 view['face']=label
         from .library_control_meter_review import apply_review
         apply_review(profile, current, path)
+        from .catalog_source_identification import apply_source_identification
+        apply_source_identification(profile,current,path,CATALOG_TB_ROOT)
         profiles.append(profile)
+    from .catalog_projection_corrections import apply_projection_corrections
+    apply_projection_corrections(profiles,CATALOG_TB_ROOT)
     groups_path=CATALOG_TB_ROOT/'ai_device_groups.json'
     registry=json.loads(groups_path.read_text(encoding='utf8')) if groups_path.is_file() else {}
     for group in registry.get('groups',[]):
@@ -228,6 +280,8 @@ def _build_browser_data():
         merged['catalog_references']={**(merged.get('catalog_references') or {}),'options':list(references.values())}
         merged['auto_select']=False;merged['needs_review']=True
         profiles=[p for p in profiles if p['id'] not in member_ids]+[merged]
+    from .catalog_visual_candidates import apply_visual_candidates
+    apply_visual_candidates(profiles,CATALOG_TB_ROOT)
     from .library_ordering_configurations import ordering_configurations
     from .library_catalog_references import catalog_reference
     for profile in profiles:

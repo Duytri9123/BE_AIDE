@@ -15,13 +15,26 @@ from app.services.equipment_library import (BACKEND_CATALOG_DIR, SOURCE_ROOT, DB
 
 router = APIRouter()
 
+@router.get('/{equipment_id}/catalog-information')
+def catalog_information(equipment_id:str,skip:int=Query(0,ge=0),limit:int=Query(100,ge=1,le=100)):
+    from app.services.catalogtb_browser import browser_data
+    from app.services.library_catalog_information import information_rows
+    device=next((d for d in browser_data()['items'] if d['id']==equipment_id),None)
+    if not device:raise HTTPException(404,'Không tìm thấy thiết bị.')
+    from app.services.customer_equipment_information import customer_information_rows
+    rows=customer_information_rows(information_rows(device),device)
+    return {'items':rows[skip:skip+limit],'total':len(rows),'skip':skip,'limit':limit,
+            'price_optional':True,'identity_verified':False}
+
 @router.get('/browser-data')
 def catalogtb_browser_data(q: str = '', category: str = '', brand: str = '',
                            skip: int = Query(0, ge=0),
                            limit: int | None = Query(None, ge=1, le=100)):
     from app.services.catalogtb_browser import browser_data, browser_page
     # Keep the full-data contract for existing workspace consumers.
-    return browser_data() if limit is None else browser_page(q, category, brand, skip, limit)
+    from app.services.library_reference_prices import enrich_browser_prices
+    from app.services.customer_equipment_information import customer_browser
+    return customer_browser(enrich_browser_prices(browser_data() if limit is None else browser_page(q, category, brand, skip, limit)))
 
 @router.get('/projection-catalog')
 def projection_catalog():
@@ -36,8 +49,12 @@ def projection_catalog():
 
 def _public_record(value):
     if isinstance(value, dict):
+        from app.services.customer_equipment_information import external_url
         return {key: _public_record(item) for key, item in value.items()
-                if key not in {'path', 'source_file', 'profile_path', 'path_base'}}
+                if key not in {'path','source_file','profile_path','path_base','provenance','source_page',
+                    'source_block','source_handle','original_path','original_handle','checksum','sha256',
+                    'source_id','source_info','evidence','metadata','extraction','source_identification'}
+                and (key!='source_url' or external_url(item))}
     if isinstance(value, list):
         return [_public_record(item) for item in value]
     return value
@@ -249,7 +266,8 @@ def _cad_view_file(catalog_id: str, view_id: str, field: str):
             member_id='TB-'+hashlib.sha1(member['profile'].encode()).hexdigest()[:16]
             member_record=get_equipment(member_id)
             if member_record:views.extend(_record_views(member_record))
-    view = next((view for view in views if view.get('id') == view_id), None)
+    from app.services.customer_equipment_information import public_view_id
+    view = next((view for view in views if view.get('id') == view_id or public_view_id(view.get('id') or '') == view_id), None)
     if not view or not view.get(field):
         raise HTTPException(404, 'Góc nhìn CAD này chưa có file.')
     relative = view[field]['path']

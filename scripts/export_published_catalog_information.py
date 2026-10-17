@@ -19,13 +19,17 @@ def main():
         if d.get('nhom_thu_vien'):
             row.update({k:d[k] for k in ('nhom_thu_vien','ten_san_pham','ma_dong_san_pham') if k in d})
         profiles[p.relative_to(CAT).as_posix()]=row
-    dest=ROOT/'app/data/catalogtb_published_information.json'
+    # Extraction evidence is an internal artifact, never a tracked publication.
+    dest=ROOT/'tmp/catalog_private_information.json'
+    dest.parent.mkdir(exist_ok=True)
     payload='{"schema_version":1,"prices":"---","profiles":{\n'+',\n'.join(
         json.dumps(key,ensure_ascii=False)+':'+json.dumps(value,ensure_ascii=False,separators=(',',':'))
         for key,value in profiles.items())+'\n}}\n'
     pending=dest.with_suffix('.tmp')
     pending.write_text(payload,encoding='utf8')
     pending.replace(dest)
+    from scripts.export_customer_catalog_publication import main as publish_customer
+    publish_customer(private_information=profiles)
     from app.services.catalogtb_browser import _build_browser_data, _snapshot_path
     snapshot=_build_browser_data()
     _snapshot_path().write_text(json.dumps(snapshot,ensure_ascii=False),encoding='utf8')

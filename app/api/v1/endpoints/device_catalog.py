@@ -22,6 +22,18 @@ async def catalog(q: str='', brand: str='', category: str='', product_line: str=
         if equipment_catalog_id:
             from app.services.library_price_matching import device_price_diagnostic
             result['price_diagnostic']=device_price_diagnostic(equipment_catalog_id)
+            if not result['total']:
+                from app.services.catalogtb_browser import browser_data
+                from app.services.ai.takeoff_pricebook import published_rows
+                from app.services.library_reference_prices import reference_rows
+                device=next((d for d in browser_data()['items'] if d['id']==equipment_catalog_id),None)
+                references=reference_rows(device,published_rows()) if device else []
+                if references:
+                    # Browse documented alternatives without asserting the
+                    # source CAD has their model, ratings or physical geometry.
+                    result=customer_catalog_page(build_catalog_page([],[],supplier_items=[{**r,'currency':'VND'} for r in references],
+                        q=q,brand=brand,category=category,product_line=product_line,price_row_id=price_row_id,skip=skip,limit=limit))
+                    result['price_diagnostic']={'status':'catalog_reference_prices','message':'Giá các mã trong catalog tham khảo dưới đây. Chọn mã, hãng và thông số theo từng dòng; đây chưa phải mã hoặc giá đã xác nhận cho CAD nguồn.'}
         return result
     return await run_in_threadpool(read)
 

@@ -11,6 +11,14 @@ def compact(value):
     return re.sub(r'[^A-Z0-9]', '', str(value or '').upper())
 
 
+def category_key(value):
+    key = re.sub(r'[\s_-]', '', str(value or '')).upper()
+    return {'VFD':'INVERTER','SELECTOR':'SELECTORSWITCH','INDICATOR':'LIGHT',
+            'PILOTLAMP':'LIGHT','PILOTLIGHT':'LIGHT','FUSEASSEMBLY':'FUSEHOLDER',
+            'RCD':'RCCB','AUXCONTACT':'AUXCONTACT','TERMINAL':'TERMINALBLOCK',
+            'POWERSUPPLY':'POWERSUPPLY','PHASERELAY':'PHASERELAY'}.get(key,key)
+
+
 def poles(value):
     text = str(value or '').upper().strip()
     if re.fullmatch('[1-4]', text):
@@ -31,7 +39,16 @@ def source_identity(raw, display):
     values += (raw.get('nhan_dien_ai') or {}).get('cac_ma_dong_san_pham') or []
     source = raw.get('nguon_cad') or []
     if isinstance(source, list):
-        values += [r.get('effective_block') for r in source if isinstance(r, dict)]
+        values += [r.get('effective_block') or r.get('block') for r in source if isinstance(r, dict)]
+    elif isinstance(source, dict):
+        values += [source.get('block'),source.get('effective_block')]
+    spec = raw.get('thong_so') or {}
+    values += [spec.get(k) for k in ('nhan_block_nguon','nhan_tren_hinh','Mã/dòng trên nguồn')]
+    for variant in (raw.get('source_catalog_review') or {}).get('shared_source_variants') or []:
+        values += variant.get('models') or []
+    # Only reviewed manufacturer evidence supplies an additional model here.
+    reviewed = display.get('reviewed_description') or {}
+    values += reviewed.get('price_family_codes') or []
     return ' '.join(str(v) for v in values if v).upper()
 
 
@@ -63,9 +80,9 @@ def matching_rows(raw, display, rows, category=None):
     expected = str(category or (raw.get('source_catalog_review') or {}).get('component_type') or ai.get('source_component_type') or ai.get('loai_thiet_bi_code') or display.get('type') or '').upper()
     aliases = {'SELECTOR':'SELECTOR_SWITCH', 'INDICATOR':'LIGHT', 'PILOT_LIGHT':'LIGHT', 'THERMALRELAY':'THERMAL_RELAY', 'FUSEASSEMBLY':'FUSE_HOLDER', 'TERMINAL':'TERMINAL_BLOCK'}
     expected = aliases.get(expected, expected)
-    normalize_category = lambda value: re.sub(r'[\s_-]', '', str(value or '')).upper()
+    normalize_category = category_key
     expected = normalize_category(expected)
-    wanted = poles(spec.get('so_cuc') or spec.get('so_cuc_chinh') or ai.get('so_cuc'))
+    wanted = poles(spec.get('so_cuc') or spec.get('so_cuc_chinh') or spec.get('so_cuc_theo_nhan_hinh') or ai.get('so_cuc'))
     if not wanted:
         wanted = poles(identity)
     matches = []
@@ -76,7 +93,7 @@ def matching_rows(raw, display, rows, category=None):
             continue
         actual_category = aliases.get(str(row.get('category') or '').upper(), str(row.get('category') or '').upper())
         actual_category = normalize_category(actual_category)
-        if expected and actual_category != expected and actual_category != 'ACCESSORY':
+        if expected and actual_category != expected:
             continue
         actual = row_poles(row)
         if wanted and actual and wanted != actual:

@@ -101,7 +101,8 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
     for offer in web_offers:
         if offer.get('currency')!='VND' or not str(offer.get('source_url','')).startswith('https://') or not offer.get('sku') or not offer.get('checked_at'): continue
         rows[('web',offer['id'])] = {k:offer.get(k) for k in ('id','sku','name','brand','category','price','source_label','source_url','collection_url','checked_at','source_kind','price_note')}
-        if offer.get('specifications'):rows[('web',offer['id'])]['specifications']=offer['specifications']
+        for key in ('specifications','columns','cells','group','vat_status'):
+            if offer.get(key):rows[('web',offer['id'])][key]=offer[key]
         rows[('web',offer['id'])]['brand']=canonical_brand(offer.get('brand'))
         rows[('web',offer['id'])]['updated_at']=offer['checked_at']
     for item in supplier_items:

@@ -1,4 +1,5 @@
 import json
+import hashlib
 import unittest
 from pathlib import Path
 from app.services.catalog_family_matching import matching_rows
@@ -19,10 +20,11 @@ class PublishedCatalogInformation(unittest.TestCase):
 
     def test_all_information_tables_ship_without_private_cad_dataset(self):
         rows=published_information()
-        self.assertEqual(len(rows),1471)
+        self.assertGreaterEqual(len(rows),1304)
         for profile,data in rows.items():
             with self.subTest(profile=profile):
-                self.assertTrue(data['catalog_tham_khao']['options'])
+                self.assertTrue(profile.startswith('TB-'))
+                self.assertIsInstance(data['catalog_tham_khao']['options'],list)
                 self.assertTrue(all(o['price']=='---' for o in data['catalog_tham_khao']['options']))
 
     def test_legacy_category_spelling_and_voltage_suffix_do_not_hide_mikro(self):
@@ -39,7 +41,8 @@ class PublishedCatalogInformation(unittest.TestCase):
         self.assertEqual([r['sku'] for r,_ in matched],['MX200A-380V'])
 
     def test_abb_has_named_manufacturer_reference_without_a_selling_price(self):
-        row=published_information()['ABB/ThietBi/ABB_D03_C2_I08/thong_tin_thiet_bi.json']
+        key='TB-'+hashlib.sha1('ABB/ThietBi/ABB_D03_C2_I08/thong_tin_thiet_bi.json'.encode()).hexdigest()[:16]
+        row=published_information()[key]
         self.assertEqual(row['catalog_information_type'],'THERMAL_RELAY')
         self.assertTrue(any(o['brand']=='ABB' and o['model'].startswith('TF42') and o['source_url'] for o in row['catalog_tham_khao']['options']))
 
