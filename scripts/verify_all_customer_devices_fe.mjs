@@ -7,6 +7,7 @@ const browser=await chromium.launch({headless:true});
 const errors=[],failures=[];let checked=0,views=0;
 try{
  const page=await browser.newPage({viewport:{width:1600,height:1000}});
+ page.setDefaultTimeout(7000);
  page.on('pageerror',e=>errors.push(e.message));
  await page.route('**/*',async route=>{
   const url=new URL(route.request().url());const pathname=url.pathname.replace(/^\/api\/v1/,'');
@@ -30,7 +31,9 @@ try{
   const before=await page.locator('[data-device-id]').count();
   await page.getByRole('button',{name:'Tải thêm thiết bị',exact:true}).click();
   await page.waitForFunction(n=>document.querySelectorAll('[data-device-id]').length>n,before);
+  if(before%120===0)console.log(`FE loaded ${before}/${fixture.browser.items.length}`);
  }
+ console.log('FE pagination complete; checking device details and every view.');
  for(const device of fixture.browser.items){
   try{
    await page.locator(`[data-device-id="${device.id}"]`).click();
