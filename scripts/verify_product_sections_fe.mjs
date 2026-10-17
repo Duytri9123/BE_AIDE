@@ -21,6 +21,12 @@ try{
   return route.continue();
  });
  await page.goto('http://127.0.0.1:5197/catalog-qa.html');
+ const aliases=await page.evaluate(async()=>{
+  const {manufacturerKey}=await import('/src/components/dashboard/customerProductInfo.ts');
+  return [['Phoenix','Phoenix Contact'],['Shihlin Electric','Shihlin'],['LSIS','LS Electric']]
+   .every(([a,b])=>manufacturerKey(a)===manufacturerKey(b));
+ });
+ if(!aliases)throw Error('Manufacturer aliases hide valid catalog records');
  await page.waitForFunction(()=>document.querySelectorAll('[data-product-scope]').length===3 && !document.querySelector('.library-prices [role="status"]'));
  const text=await page.locator('.device-detail').innerText();
  if(/Đối chiếu theo hình ảnh CAD|must not render|WRONG-3P|Bảng thông tin thiết bị/.test(text))throw Error('Removed content or incorrect pole configuration visible');

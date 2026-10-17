@@ -5,6 +5,10 @@ from .ai.manufacturer_registry import canonical_brand
 
 BREAKERS={'MCB','MCCB','RCBO','RCCB','ACB','ISOLATOR'}
 
+def current_kinds(value):
+    text=str(value or '').upper()
+    return {kind for kind in ('AC','DC') if re.search(r'(?<![A-Z])V?'+kind+r'(?![A-Z])',text)}
+
 def device_poles(device):
     spec=device.get('spec') or {}
     text=str(spec.get('so_cuc') or spec.get('so_cuc_chinh') or spec.get('so_cuc_theo_nhan_hinh') or spec.get('Số cực') or device.get('display') or '').strip().upper()
@@ -52,6 +56,7 @@ def candidate_rows(device,rows,other=False):
                 values=lambda value:{float(n) for n in re.findall(r'\d+(?:\.\d+)?',str(value))}
                 if not wanted or not values(wanted):continue
                 if not actual or not values(actual):missing.append(label);continue
+                if 'điện áp' in label and current_kinds(wanted) and current_kinds(actual) and not current_kinds(wanted)&current_kinds(actual):conflict=True;break
                 if not values(wanted)&values(actual):conflict=True;break
                 anchors+=1
             if conflict or not anchors:continue
@@ -67,6 +72,10 @@ def candidate_rows(device,rows,other=False):
                 voltage=source.get('dien_ap_V') or source.get('dien_ap_dinh_muc')
                 actual_voltage=spec.get('Ue (V)') or spec.get('Điện áp định mức') or spec.get('Điện áp (V)')
                 if voltage and actual_voltage and numbers(voltage) and numbers(actual_voltage) and not numbers(voltage)&numbers(actual_voltage):continue
+                if current_kinds(voltage) and current_kinds(actual_voltage) and not current_kinds(voltage)&current_kinds(actual_voltage):continue
+                leakage=source.get('dong_ro_mA') or source.get('dong_ro_tac_dong')
+                actual_leakage=spec.get('Dòng rò (mA)') or spec.get('Dòng rò tác động (mA)')
+                if leakage and (not actual_leakage or not numbers(leakage)&numbers(actual_leakage)):continue
                 breaking=source.get('kha_nang_cat')
                 actual_breaking=spec.get('Icu(KA)') or spec.get('Icu (kA)') or spec.get('Icn') or spec.get('Khả năng cắt (kA)')
                 if breaking and actual_breaking and numbers(breaking) and numbers(actual_breaking) and min(numbers(actual_breaking))<max(numbers(breaking)):continue

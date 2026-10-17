@@ -30,6 +30,7 @@ def main():
         if index%200==0:print(f'Checked {index}/{data["total"]}',flush=True)
     report={'devices_checked':data['total'],'with_external_catalog_rows':covered,'without_external_catalog_rows':len(gaps),
             'without_identified_model':sum(not g['model'] for g in gaps),
+            'gaps_by_device_type':dict(Counter(g['type'] or 'Chưa xác định' for g in gaps)),
             'gaps_by_manufacturer':dict(counts),'scope':'Generated CAD facts and generic reference options are not counted as external catalog coverage.'}
     (ROOT/'tmp/catalog-research').mkdir(parents=True,exist_ok=True)
     (ROOT/'tmp/catalog-research/information-gaps.json').write_text(json.dumps(gaps,ensure_ascii=False,indent=2),encoding='utf8')

@@ -68,6 +68,34 @@ def reviewed_rows():
         {'Điện áp danh định': '3 × 57.5/100 V đến 3 × 240/415 V', 'Dòng danh định': '3 × 5(10) A',
          'Tần số': '50 Hz', 'Cấp chính xác hữu công': '0.5S', 'Cấp chính xác vô công': '2',
          'Đấu nối': 'Gián tiếp; lưới 3 pha 3 dây hoặc 3 pha 4 dây', 'Cấp bảo vệ vỏ': 'IP51'})
+    # Manufacturer selector links may change the frame as well as the poles.
+    # Record the actual destination SKU; never derive variants from a link label.
+    for family, sku, poles, current in [
+        ('EZC100','EZC100B3015','3P','15'), ('EZC100','EZC100F3015','3P','15'),
+        ('EZC100','EZC100N1015','1P','15'), ('EZC100','EZC100H2015','2P','15'),
+        ('EZC630','EZC630H4630N','4P','630'), ('EZS100','EZS100F3025','3P','25')]:
+        add('Schneider Electric', family, sku, 'MCCB',
+            f'https://www.se.com/sg/en/product/{sku}/',
+            {'Số cực': poles, 'In (A)': current, 'Bộ bảo vệ': 'TMD'})
+    add('CHINT', 'KG316T', 'KG316T', 'TIMER',
+        'https://www.chintglobal.com/in/en/products/low-voltage/iec/industrial-control/kg316t.html',
+        {'Điện áp nguồn theo biến thể': '220 hoặc 380 VAC; 50/60 Hz', 'Số nhóm lập trình': '16',
+         'Khoảng điều khiển thời gian': '1 phút đến 168 giờ', 'Sai số thời gian': '±2 giây/ngày',
+         'Tiếp điểm': '1NO', 'Khả năng tiếp điểm AC-15': '240 V / 3 A', 'Dòng nhiệt Ith': '30 A'})
+    # These are documented family configurations, not invented ordering codes.
+    for pole in ('1P','2P','3P','4P'):
+        add('Shihlin', 'BHA', 'BHA', 'MCB',
+            'https://en.seec.com.tw/content/Goods/GCont.aspx?CatId=2016102709295716333&MSID=655607566254022725&MmmID=655575436061073254&SiteID=10',
+            {'Số cực': pole, 'Dòng điện theo biến thể': '1, 2, 3, 4, 5, 6, 10, 16, 20, 25, 32, 40, 50, 63 A',
+             'Ui': '690 V', 'Đặc tính tác động theo biến thể': 'C hoặc D',
+             'Icu': '6 kA tại 220 VAC' if pole=='1P' else '6 kA tại 220/380 VAC', 'Ics': '100% Icu'})
+        rows[-1]['id']+=':'+pole
+    for pole in ('2P','3P'):
+        add('Mitsubishi Electric', 'NF125-CV', 'NF125-CV', 'MCCB',
+            'https://dl.mitsubishielectric.com/dl/fa/document/catalog/lvcb/yn-c-0720/y0720c1609.pdf',
+            {'Số cực': pole, 'Ui': '600 V', 'Dòng điện theo biến thể': '50, 60, 63, 75, 80, 100, 125 A',
+             'Icu/Ics tại 415 VAC': '10/5 kA', 'Icu/Ics tại 230 VAC': '30/15 kA'})
+        rows[-1]['id']+=':'+pole
     return rows
 
 def main():

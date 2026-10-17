@@ -36,5 +36,17 @@ class ProductSectionTests(unittest.TestCase):
         device={'spec':{'so_cuc':'5P'}}
         self.assertTrue(pole_compatible(device,self.row(pole='5P')))
         self.assertFalse(pole_compatible(device,self.row(pole='4P')))
+    def test_ac_and_dc_are_not_interchangeable_at_same_numeric_voltage(self):
+        device=self.device();device['spec']['dien_ap_dinh_muc']='230 VAC'
+        row=self.row(brand='ABB');row['specifications']['Điện áp định mức']='230 VDC'
+        self.assertEqual(candidate_rows(device,[row],True),[])
+    def test_required_leakage_sensitivity_cannot_be_missing_or_different(self):
+        device=self.device();device['type']='RCBO';device['spec']['dong_ro_mA']='30'
+        row={**self.row(brand='ABB'),'category':'RCBO'}
+        self.assertEqual(candidate_rows(device,[row],True),[])
+        row['specifications']['Dòng rò (mA)']='300'
+        self.assertEqual(candidate_rows(device,[row],True),[])
+        row['specifications']['Dòng rò (mA)']='30'
+        self.assertEqual(len(candidate_rows(device,[row],True)),1)
 
 if __name__=='__main__':unittest.main()
