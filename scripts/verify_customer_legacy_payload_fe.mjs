@@ -12,7 +12,10 @@ try{
  await page.route('**/*',async route=>{
   const path=new URL(route.request().url()).pathname.replace(/^\/api\/v1/,'');
   if(path==='/equipment-library/browser-data')return route.fulfill({json:{...fixture.browser,items:[device],total:1}});
-  if(path.endsWith('/catalog-information'))return route.fulfill({status:404,json:{detail:'Not Found'}});
+  if(path.endsWith('/catalog-information')){
+   if(new URL(route.request().url()).searchParams.get('scope')!=='current')return route.fulfill({json:{items:[],total:0}});
+   return route.fulfill({status:404,json:{detail:'Not Found'}});
+  }
   if(path==='/device-catalog')return route.fulfill({json:{total:1,items:[{
    id:'manufacturer-original-row',brand:'CHINT',sku:'NXB-63 2P',item_name:'NXB-63 2P',group:'MCB · NXB-63',
    information_kind:'pricebook',price:null,book_key:'chint-nxb63',columns:['Tên hàng','Thông số','Giá'],

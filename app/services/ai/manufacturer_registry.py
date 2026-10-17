@@ -157,7 +157,7 @@ ALIASES = {'ls': 'LS Electric', 'ls electric': 'LS Electric', 'chint': 'CHINT',
            'weidmüller': 'Weidmüller', 'shihlin electric':'Shihlin',
            'selec controls':'Selec', 'hager group':'Hager', 'lsis':'LS Electric',
            'ls industrial systems':'LS Electric', 'lselectric':'LS Electric',
-           'chint electric':'CHINT', 'eaton moeller':'Eaton'}
+             'chint electric':'CHINT', 'eaton moeller':'Eaton', 'phoenix':'Phoenix Contact'}
 ALIASES.update({name.casefold(): name for rows in PORTFOLIOS.values() for name in rows})
 from app.services.customer_manufacturers import CUSTOMER_ALIASES
 ALIASES.update(CUSTOMER_ALIASES)

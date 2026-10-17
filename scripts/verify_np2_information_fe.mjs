@@ -11,6 +11,7 @@ try{
   const url=new URL(route.request().url()),path=url.pathname.replace(/^\/api\/v1/,'');
   if(path==='/equipment-library/browser-data')return route.fulfill({json:{...fixture.browser,items:[device],total:1}});
   if(path.endsWith('/catalog-information')){
+    if(url.searchParams.get('scope')!=='current')return route.fulfill({json:{items:[],total:0}});
    const skip=Number(url.searchParams.get('skip')||0);
    return route.fulfill({json:{items:information.slice(skip,skip+100),total:information.length}});
   }
@@ -24,7 +25,7 @@ try{
   const count=await rows.count();await page.getByRole('button',{name:'Xem thêm mã và thông số',exact:true}).click();
   await page.waitForFunction(n=>document.querySelectorAll('.library-prices tbody tr').length>n,count);
  }
- const text=await page.locator('.library-prices').innerText();
+  const text=await page.locator('[data-product-scope="current"]').innerText();
  if(/Căn cứ|Trang tài liệu|bóc tách|CatalogTB|SOURCE[-_]|SRC_/i.test(text))throw Error('Private metadata visible');
  for(const sku of ['NP2-BA35','NP2-BW4462','NP2-BE101'])if(!text.includes(sku))throw Error('Missing '+sku);
  if(errors.length)throw Error(errors.join('\n'));

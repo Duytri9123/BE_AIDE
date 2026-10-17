@@ -18,6 +18,7 @@ try{
    const url=new URL(route.request().url()),path=url.pathname.replace(/^\/api\/v1/,'');
    if(path==='/equipment-library/browser-data')return route.fulfill({json:{...fixture.browser,items:[device],total:1}});
    if(path.endsWith('/catalog-information')){
+    if((url.searchParams.get('scope')||'current')!=='current')return route.fulfill({json:{items:[],total:0}});
     if(legacy)return route.fulfill({status:404,json:{detail:'Not Found'}});
     return route.fulfill({json:{items:[...actualRows,wrong],total:actualRows.length+1}});
    }
@@ -33,10 +34,10 @@ try{
   const table=page.locator('.library-prices table').first();await table.locator('tbody tr').first().waitFor();
   const headings=await table.locator('thead th').allTextContents();
   if(JSON.stringify(headings)!==JSON.stringify(actualRows[0].columns))throw Error('Original pricebook columns altered: '+headings);
-  const text=await page.locator('.library-prices').innerText();
+  const text=await page.locator('[data-product-scope="current"]').innerText();
   if(/CHINT|Thông tin sản phẩm|Căn cứ|Trang tài liệu/i.test(text))throw Error('Wrong manufacturer or synthetic table visible');
   if(!text.includes('Bảng giá ABB'))throw Error('Actual manufacturer pricebook not identified');
-  if(!await page.locator('.other-manufacturers').innerText().then(t=>t.includes('CHINT')))throw Error('Other manufacturer references are not separately displayed');
+  if(!await page.locator('[data-product-scope="other_brands"]').count())throw Error('Missing separate other manufacturer section');
   if(await page.getByRole('heading',{name:'Bảng thông tin thiết bị',exact:true}).count())throw Error('Duplicate information table still visible');
   const cells=await table.locator('tbody tr').first().locator('td').allTextContents();
   if(cells[0]!==actualRows[0].cells[0]||cells[1]!==actualRows[0].sku)throw Error('Original item name or ordering code lost');

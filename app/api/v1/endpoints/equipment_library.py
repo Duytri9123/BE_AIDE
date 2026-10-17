@@ -16,13 +16,30 @@ from app.services.equipment_library import (BACKEND_CATALOG_DIR, SOURCE_ROOT, DB
 router = APIRouter()
 
 @router.get('/{equipment_id}/catalog-information')
-def catalog_information(equipment_id:str,skip:int=Query(0,ge=0),limit:int=Query(100,ge=1,le=100)):
+def catalog_information(equipment_id:str,skip:int=Query(0,ge=0),limit:int=Query(100,ge=1,le=100),scope:str=Query('current',pattern='^(current|same_brand|other_brands)$')):
     from app.services.catalogtb_browser import browser_data
     from app.services.library_catalog_information import information_rows
     device=next((d for d in browser_data()['items'] if d['id']==equipment_id),None)
     if not device:raise HTTPException(404,'Không tìm thấy thiết bị.')
     from app.services.customer_equipment_information import customer_information_rows
-    rows=customer_information_rows(information_rows(device),device)
+    if scope=='current':
+        selected=information_rows(device)
+        if device.get('product_code'):
+            selected=[r for r in selected if r.get('match_scope')=='source_family' or r.get('sku')==device['product_code']]
+        rows=customer_information_rows(selected,device)
+    else:
+        from app.services.library_catalog_information import source_rows
+        from app.services.catalog_product_sections import candidate_rows
+        candidates=candidate_rows(device,source_rows(),other=scope=='other_brands')
+        rows=[]
+        if candidates:
+            existing={r.get('sku') for r in information_rows(device) if r.get('match_scope')=='source_family'} if scope=='same_brand' else set()
+            for row in candidates:
+                if row.get('sku') in existing:continue
+                row={**row,'id':hashlib.sha256(row['id'].encode()).hexdigest()[:24],
+                     'book_key':hashlib.sha256(json.dumps([row.get(k) for k in ('brand','group','columns','source_url','source_page')],ensure_ascii=False).encode()).hexdigest()[:24]}
+                public=customer_information_rows([row],{**device,'brand':row['brand']})
+                rows.extend(r for r in public if r.get('id')!=device['id'])
     return {'items':rows[skip:skip+limit],'total':len(rows),'skip':skip,'limit':limit,
             'price_optional':True,'identity_verified':False}
 

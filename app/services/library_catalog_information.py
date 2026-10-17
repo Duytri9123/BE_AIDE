@@ -12,6 +12,26 @@ from .library_reference_prices import reference_matches,price_index
 
 ROOT=Path(__file__).resolve().parents[1]/'data'
 
+def catalog_model_pattern(value):
+    # Only split explicitly written, complete alternatives. Never expand
+    # abbreviated suffixes such as "MC-6a / 9a" into guessed model numbers.
+    alternatives=re.split(r'\s+/\s+',str(value or '').strip())
+    if len(alternatives)>1:
+        patterns=[model_pattern(v) for v in alternatives if re.match(r'^[A-Za-z]',v)]
+        patterns=[p for p in patterns if p]
+        return re.compile('|'.join('(?:'+p.pattern+')' for p in patterns),re.I) if patterns else None
+    pattern=model_pattern(value)
+    if pattern:return pattern
+    text=str(value or '').strip().upper()
+    from .catalog_family_matching import STOP
+    if re.fullmatch('[A-Z]{2,12}',text) and text not in STOP|{'ABB','SIEMENS','OEM'}:
+        return re.compile(r'(?<![A-Z0-9])'+re.escape(text)+r'(?![A-Z0-9])',re.I)
+    return None
+
+def explicit_family_compatible(model,row):
+    family=(row.get('specifications') or {}).get('Dòng sản phẩm')
+    return not (family and str(model).isalpha()) or str(family).casefold()==str(model).casefold()
+
 
 def optional_price(value):
     return value if isinstance(value,(int,float)) and not isinstance(value,bool) and math.isfinite(value) and value>0 else None
@@ -32,11 +52,12 @@ def source_rows():
 
 
 def named_family_rows(model,brand,kind,spec,rows):
-    pattern=model_pattern(model)
+    pattern=catalog_model_pattern(model)
     if not pattern:return []
     if str(model)[-1:].isdigit():pattern=re.compile(pattern.pattern.replace('(?![A-Z0-9])','(?![0-9])'),re.I)
     wanted=poles(spec.get('so_cuc') or spec.get('so_cuc_chinh'))
     return [r for r in rows if canonical_brand(r.get('brand'))==canonical_brand(brand)
+        and explicit_family_compatible(model,r)
         and category_key(r.get('category'))==category_key(kind)
         and (not wanted or not row_poles(r) or wanted==row_poles(r))
         and pattern.search(' '.join(str(r.get(k) or '') for k in ('sku','item_name','name','group')))]
@@ -44,6 +65,8 @@ def named_family_rows(model,brand,kind,spec,rows):
 
 def information_rows(device,rows=None):
     rows=source_rows() if rows is None else rows
+    from .catalog_product_sections import pole_compatible
+    rows=[row for row in rows if pole_compatible(device,row)]
     references=device.get('catalog_references') or {}
     maker=canonical_brand(device.get('brand'))
     if maker:
@@ -59,7 +82,7 @@ def information_rows(device,rows=None):
     for row in rows:
         if not str(row.get('id') or '').startswith('external:'):continue
         if device.get('brand') and canonical_brand(device['brand'])!=canonical_brand(row.get('brand')):continue
-        if any((pattern:=model_pattern(label)) and pattern.search(' '.join(str(row.get(k) or '') for k in ('sku','item_name','name'))) for label in observed):
+        if any(explicit_family_compatible(label,row) and (pattern:=catalog_model_pattern(label)) and pattern.search(' '.join(str(row.get(k) or '') for k in ('sku','item_name','name'))) for label in observed):
             selected[row['id']]=(row,'documented_product_information',0)
     identity={'ma_dong_san_pham':device.get('product_code'),'ten_san_pham':device.get('display'),
               'hang_xac_nhan':device.get('brand'),'thong_so':device.get('spec') or {}}
@@ -108,6 +131,7 @@ def information_rows(device,rows=None):
         brand=canonical_brand(option.get('brand'));model=str(option.get('model') or '').strip()
         from .customer_equipment_information import reference_specs
         specs=reference_specs(option.get('specifications'))
+        if not pole_compatible(device,{'specifications':specs,'sku':model}):continue
         if not model or not specs or (brand,model) in existing:continue
         existing.add((brand,model))
         name=str(specs.get('Tên hàng') or model)

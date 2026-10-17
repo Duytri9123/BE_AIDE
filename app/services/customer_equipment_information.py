@@ -52,6 +52,8 @@ def reference_options(device):
         model=str(option.get('model') or '').strip();brand=canonical_brand(option.get('brand'))
         if not model or model.startswith('*') or INTERNAL.search(model) or not brand:continue
         specs=reference_specs(option.get('specifications'))
+        from .catalog_product_sections import pole_compatible
+        if not pole_compatible(device,{'specifications':specs,'sku':model}):continue
         if not specs:continue
         bucket=other if maker and brand!=maker else own
         key=(brand,model.casefold())
@@ -97,15 +99,6 @@ def customer_device(device):
     out['reference_product_codes']=list(dict.fromkeys(o['model'] for o in options))
     doc=external_url(device.get('manufacturer_document'))
     if doc:out['manufacturer_document']=doc
-    candidates=[]
-    for candidate in device.get('visual_candidates',[]):
-        models=[m for m in candidate['models'] if not maker or canonical_brand(m['brand'])==maker]
-        if not models:continue
-        candidates.append({'comparison_name':re.sub(r'mẫu nguồn','Mẫu thiết bị',candidate['comparison_name'],flags=re.I),
-            'comparison_preview':re.sub(r'/views/([^/]+)/',lambda m:'/views/'+public_view_id(m[1])+'/',candidate['comparison_preview']),
-            'models':models,'documents':[{'url':url} for d in candidate.get('documents',[]) if (url:=external_url(d.get('url')))],
-            'identity_verified':False})
-    if candidates:out['visual_candidates']=candidates
     return out
 
 
@@ -121,7 +114,7 @@ def customer_information_rows(rows,device):
     for row in rows:
         if str(row.get('sku') or '').startswith('*'):continue
         if maker and canonical_brand(row.get('brand'))!=maker:continue
-        item={k:row[k] for k in ('id','book_key','sku','item_name','name','brand','category','group','price','columns','cells','edition','vat_status','information_kind') if k in row}
+        item={k:row[k] for k in ('id','book_key','sku','item_name','name','brand','category','group','price','columns','cells','edition','vat_status','information_kind','compatibility_note') if k in row}
         item['specifications']=product_specs(row.get('specifications'))
         item['source_url']=external_url(row.get('source_url'))
         # Source-only metadata is not a product specification or table column.
