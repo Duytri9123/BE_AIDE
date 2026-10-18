@@ -22,7 +22,7 @@ def _published_rows(revision):
 def published_rows():
     root = Path(__file__).resolve().parents[2] / 'data'
     files = [root / name for name in ('supplier_pricebooks.json', 'web_catalog_offers.json',
-                                     'pricebook_library_links.json')]+[Path(CUSTOM_PRICES_PATH)]
+                                     'pricebook_library_links.json', 'library_price_options.json')]+[Path(CUSTOM_PRICES_PATH)]
     revision = tuple((str(p), p.stat().st_mtime_ns, p.stat().st_size) for p in files if p.is_file())
     return _published_rows(revision)
 
@@ -138,7 +138,7 @@ def match_device(device, rows, *, candidate_limit=30):
         if device.get('icu_ka') and (not _values(row,'icu') or min(_values(row,'icu')) < float(device['icu_ka'])):
             continue
         # A frame name needs its electrical configuration; a complete SKU can identify one row.
-        automatic = known_brand and bool(code) and (exact or (model_match and device.get('poles') and device.get('in_a')))
+        automatic = known_brand and bool(code) and not (row.get('specifications') or {}).get('Phạm vi giá') and (exact or (model_match and device.get('poles') and device.get('in_a')))
         matches.append((row, automatic))
     matched = len(matches)==1 and bool(matches[0][1])
     options = load_price_options()

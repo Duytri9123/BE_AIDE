@@ -24,14 +24,17 @@ def import_book(source):
             price=int(match[1].replace(',',''))
             prefix=model.split()[0]
             category=next((cat for stems,cat in [
-                (('NXBLE','NB1L'),'RCBO'),(('NXB','NB1','NCH8'),'MCB'),(('NM','NXM'),'MCCB'),
-                (('NA','NXA'),'ACB'),(('NXC','NC1','NC2'),'CONTACTOR'),(('NXR','NR2'),'THERMAL_RELAY'),
+                (('NXBLE','NB1L'),'RCBO'),(('NXB','NB1'),'MCB'),(('NM','NXM'),'MCCB'),
+                (('NA','NXA'),'ACB'),(('NXC','NC1','NC2','NCH8'),'CONTACTOR'),(('NXR','NR2'),'THERMAL_RELAY'),
                 (('ND16','ND9'),'LIGHT'),(('NJS','JSS','KG316'),'TIMER'),(('NP2','NP8'),'PUSHBUTTON'),
                 (('XJ3-G',),'PHASE_RELAY'),
+                (('NDK',),'TRANSFORMER'),
                 (('RT28','RT36'),'FUSE'),(('NU6','NXU'),'SPD'),(('BH','LMZ','NCT'),'CT'),
                 (('DTS','DT','DDS','DSS','PS','PA','PV','NP96','NP72'),'METER'),(('JQX','JZX','NJ','NXJ','JTX'),'RELAY'),
                 (('YBLX',),'LIMIT_SWITCH')]
                 if prefix.startswith(stems)), 'ACCESSORY')
+            if re.fullmatch(r'NP2-E[DJG]\d+', model):
+                category='SELECTOR_SWITCH'
             fingerprint=hashlib.sha1((str(number)+str(n)+model+code).encode()).hexdigest()[:16]
             items.append({'id':'chint-pdf:'+fingerprint,'sku':model,'item_name':model,'name':model,'brand':'CHINT',
                 'category':category,'group':prefix.split('-')[0]+' · '+category,'price':price,'currency':'VND',

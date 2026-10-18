@@ -15,6 +15,11 @@ def configuration_links(device, rows):
         return {}
     if not device or device.get('brand_identification_status') != 'verified':
         return {}
+    from app.services.pricebook_library_links import load_price_options
+    reviewed = load_price_options()
+    explicit = {row['id']:device['id'] for row in rows
+                if reviewed.get(row['id']) == device['id']
+                and canonical_brand(row.get('brand')) == canonical_brand(device.get('brand'))}
     codes = (device.get('ai_identification') or {}).get('cac_ma_dong_san_pham') or []
     codes = [*codes, *((device.get('reviewed_description') or {}).get('price_family_codes') or [])]
     product_code = str(device.get('product_code') or '').strip()
@@ -36,7 +41,7 @@ def configuration_links(device, rows):
                       'LC1D25-38':['LC1D25','LC1D32','LC1D38'],
                       'LC1E06-18':['LC1E06','LC1E09','LC1E12','LC1E18']}.get(product_code.upper(),[])
     if not codes:
-        return {}
+        return explicit
     spec = device.get('spec') or {}
     poles_match = re.fullmatch(r'(\d+)(?:P)?', str(spec.get('so_cuc') or spec.get('so_cuc_chinh') or ''), re.I)
     neutral_match = re.fullmatch(r'([1-4])P\+N',str(spec.get('so_cuc') or '').replace(' ',''),re.I)
@@ -59,7 +64,7 @@ def configuration_links(device, rows):
             continue
         result = match_device({**criteria,'part_number':code},rows,candidate_limit=None)
         identities.update(c['price_row_id'] for c in result['candidates'])
-    return {row['id']:device['id'] for row in rows if public_id(row) in identities}
+    return {**explicit, **{row['id']:device['id'] for row in rows if public_id(row) in identities}}
 
 
 def device_configuration_links(equipment_id):
@@ -101,7 +106,12 @@ def device_price_diagnostic(equipment_id):
     prices=published_rows()
     own=[r for r in prices if canonical_brand(r['brand'])==canonical_brand(device.get('brand'))]
     if not own:return {'status':'no_brand_prices','message':'Chưa có bảng giá đối chiếu theo nhãn hãng này trong dữ liệu đã công bố.'}
-    if device_configuration_links(equipment_id):return {'status':'choices_available','message':''}
+    links = device_configuration_links(equipment_id)
+    if links:
+        components = [r for r in prices if r['id'] in links and (r.get('specifications') or {}).get('Phạm vi giá')]
+        if components:
+            return {'status':'component_prices_available','message':'Giá theo phạm vi ghi ở từng dòng. Đối chiếu bộ phận hoặc bộ đầy đủ, tình trạng hàng và VAT trước khi chọn.'}
+        return {'status':'choices_available','message':''}
     code=str(device.get('product_code') or '').strip()
     if code.upper()=='PM710' and canonical_brand(device.get('brand'))=='Schneider Electric':
         return {'status':'discontinued_model','message':'Schneider đã ngừng thương mại PM710 tại châu Á–Thái Bình Dương từ 30/04/2015. Cần báo giá đúng mã cũ hoặc chọn thiết bị thay thế phù hợp; không tự gán giá PM51xx cho CAD PM710.',

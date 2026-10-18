@@ -1,0 +1,427 @@
+{
+  "scope": "Reviewed all six remaining CADs against source labels, drawings and manufacturer references. A1700 family identified as Elster / legacy ABB Vision; five lack manufacturer/model evidence. Prices not required.",
+  "items": [
+    {
+      "id": "TB-8c40e2d424325405",
+      "name": "Bộ điều khiển ATS · màn hình và phím",
+      "status": "unresolved_after_comparison",
+      "observed": "Màn hình đứng và 6 phím; đường bao 84.71×206.89. Chức năng ATS mới theo hồ sơ, chưa có chữ xác nhận.",
+      "missing": "Mã bộ điều khiển, chức năng, cọc đấu và kích thước thân. UA/BA 145×145 không khớp trực tiếp.",
+      "comparison_source": "https://iportal.se.com/Contents/docs/PACT%20SERIES%20TRANSFERPACT%20CATALOG%202020.PDF",
+      "views": [
+        {
+          "id": "C05_cluster4-V002",
+          "texts": [],
+          "width": 84.71,
+          "height": 206.89,
+          "sha256": "5dbf91c989bb547916a4785790c2eadc46a89c88cd9a800beb78a32a8282345d"
+        }
+      ],
+      "manufacturer_confirmed": false,
+      "price_required": false,
+      "review_2026_10_15": {
+        "source": "https://catalogue.lovatoelectric.com/gl_en/ATL20A240/snp",
+        "conclusion": "ATL20/30 có 8 phím, mặt 144×144; không khớp hình đứng 6 phím. MicroLogic P cũng có 6 phím nhưng chưa có nhãn hoặc bố trí đầy đủ để nhận hãng. Không đủ căn cứ giữ ATS là chức năng đã xác nhận."
+      }
+    },
+    {
+      "id": "TB-2cc9ba3420f74b4e",
+      "name": "Bộ điều khiển ATS OSEMCO ACD-III",
+      "status": "manufacturer_label_recovered",
+      "observed": "ACD-III | OSEMCO | A | ~ | B | AUTO | MANUAL | A FAULT | B FAULT | LOCK | UNLOCK",
+      "missing": "Cần kiểm tra hình học và cấu hình ứng dụng.",
+      "comparison_source": "https://diencongnghiephcm.com/wp-content/uploads/2017/07/Manual05_ACD-IIIEN_rev_1.0.pdf",
+      "views": [
+        {
+          "id": "C05_cluster4-V001",
+          "texts": [],
+          "width": 169.0,
+          "height": 110.0,
+          "sha256": "caee4702328271ce48c22ab3e0c443ef25ae15f7ee5f0e52a3fad5320ab5ebd1"
+        }
+      ],
+      "manufacturer_confirmed": true,
+      "price_required": false,
+      "brand": "OSEMCO",
+      "model": "ACD-III"
+    },
+    {
+      "id": "TB-cd1c538175f9a6ae",
+      "name": "Bộ điều khiển ATS SmartGen · chưa rõ mã",
+      "status": "manufacturer_label_recovered",
+      "observed": "SmartGen | Source 1 | Source 2 | AUTO | MAN | OPEN | 1#Close | 2#Close | LOAD | ATS CONTROL",
+      "missing": "Cần xác minh cấu hình/lắp đặt; chưa chốt mã riêng.",
+      "comparison_source": "https://smartgen.cn/",
+      "views": [
+        {
+          "id": "C05_cluster4-V003",
+          "texts": [],
+          "width": 139.0,
+          "height": 140.0,
+          "sha256": "7165a90217db4e6afe2116eda24fb50fec2aef93e4f51470b81f4182666c25f5"
+        }
+      ],
+      "manufacturer_confirmed": true,
+      "price_required": false,
+      "brand": "SmartGen",
+      "model": null
+    },
+    {
+      "id": "TB-489e1696d1c01dd8",
+      "name": "Rơ le bảo vệ pha CHINT XJ3-G",
+      "status": "manufacturer_label_recovered",
+      "observed": "CHINT | XJ3-G | INDICATOR LIGHT | PHASE FAILURE AND PHASE | SEQUENCE PROTECTIVE RELAY | VOLTAGE: THREE PHASE 380V",
+      "missing": "Cần kiểm tra hình học và cấu hình ứng dụng.",
+      "comparison_source": "https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/xj3.html",
+      "views": [
+        {
+          "id": "C05_cluster1-V002",
+          "texts": [],
+          "width": 129.75,
+          "height": 80.0,
+          "sha256": "e5b13dcfc1adf4ac1852f52e638e3c55cb41e1734c6eb9ef8ccbfb18ef79643c"
+        }
+      ],
+      "manufacturer_confirmed": true,
+      "price_required": false,
+      "brand": "CHINT",
+      "model": "XJ3-G"
+    },
+    {
+      "id": "TB-e178aa3c9dd67cc7",
+      "name": "Rơ le bảo vệ dòng rò Mikro DIN300",
+      "status": "manufacturer_label_recovered",
+      "observed": "DIN300",
+      "missing": "Cần kiểm tra hình học và cấu hình ứng dụng.",
+      "comparison_source": "https://itmikro.com.my/earth-leakage-relays-2/",
+      "views": [
+        {
+          "id": "C05_cluster1-V007",
+          "texts": [],
+          "width": 71.0,
+          "height": 85.0,
+          "sha256": "3f5d2271df70014f6f51d4ff60d4d8ebe58037a7e406030c212225b3c6481b83"
+        },
+        {
+          "id": "C05_cluster1-V008",
+          "texts": [],
+          "width": 75.0,
+          "height": 50.0,
+          "sha256": "766a38473ed8e764c3f2576da090ccf527209b26e6983153f8fe34d9a526ef28"
+        }
+      ],
+      "manufacturer_confirmed": true,
+      "price_required": false,
+      "brand": "Mikro",
+      "model": "DIN300"
+    },
+    {
+      "id": "TB-df6642c0e15a7c33",
+      "name": "Rơ le bảo vệ pha Selec 600PSR",
+      "status": "manufacturer_label_recovered",
+      "observed": "L1 | L2 | L3 | Selec | 600PSR | 18 | 16 | 15 | 25",
+      "missing": "Cần kiểm tra hình học và cấu hình ứng dụng.",
+      "comparison_source": "https://indmart.org/wp-content/uploads/2025/09/600psr_Datasheet.pdf",
+      "views": [
+        {
+          "id": "C05_cluster1-V001",
+          "texts": [],
+          "width": 64.0,
+          "height": 92.0,
+          "sha256": "9006df9a4c14c739283e027a5b9bbc44315e5b1e874b6a99ab2d2460c03a97f7"
+        }
+      ],
+      "manufacturer_confirmed": true,
+      "price_required": false,
+      "brand": "Selec",
+      "model": "600PSR"
+    },
+    {
+      "id": "TB-6afd381f8090861a",
+      "name": "Biến tần SUMO · nhãn CAD 1.5 kW",
+      "status": "manufacturer_label_recovered",
+      "observed": "RUN | STOP | ENTER | RESET | MIN | MAX | PRG | MF | DIR | TRIP | HZ | A | V | SUMO | WARNING | Read the user manual before operation. | Risk of electrical shock. Wait 10 mutines\nafter removing power before sevicing.",
+      "missing": "Cần xác minh cấu hình/lắp đặt; chưa chốt mã riêng.",
+      "comparison_source": null,
+      "views": [
+        {
+          "id": "C05_cluster3-V004",
+          "texts": [
+            "1.5 Kw"
+          ],
+          "width": 134.4,
+          "height": 150.6,
+          "sha256": "0eb01dc8111b8d7a9bb2bad1c47b64e8bfaca6ad305bd3fa9e0c667137dbb562"
+        }
+      ],
+      "manufacturer_confirmed": true,
+      "price_required": false,
+      "brand": "SUMO",
+      "model": null
+    },
+    {
+      "id": "TB-de4306f8b83b75df",
+      "name": "Biến tần Schneider ATV320D11N4B",
+      "status": "manufacturer_label_recovered",
+      "observed": "ATV320D11N4B",
+      "missing": "Cần kiểm tra hình học và cấu hình ứng dụng.",
+      "comparison_source": "https://iportal.se.com/Contents/docs/SQD-ATV320D11N4B_DATA%20SHEET.PDF",
+      "views": [
+        {
+          "id": "C05_cluster3-V003",
+          "texts": [],
+          "width": 321.35,
+          "height": 404.68,
+          "sha256": "67345bbef9451173b28e5ccbee66b609102972a8472dd05ebadb395d6fe5722d"
+        }
+      ],
+      "manufacturer_confirmed": true,
+      "price_required": false,
+      "brand": "Schneider Electric",
+      "model": "ATV320D11N4B"
+    },
+    {
+      "id": "TB-c6b859d113fa6bca",
+      "name": "Biến tần · kiểu BT 7.5",
+      "status": "unresolved_after_comparison",
+      "observed": "Mặt sau có quạt, khe gió và vít; không có chữ 7.5 trong DXF.",
+      "missing": "BT 7.5 là tên hồ sơ, chưa phải công suất xác nhận trên nhãn; cần model và mặt trước.",
+      "comparison_source": "https://www.invt.com/uploads/file1/20200706/CHF100A%20Catalog.pdf",
+      "views": [
+        {
+          "id": "C05_cluster3-V002",
+          "texts": [],
+          "width": 180.17,
+          "height": 239.87,
+          "sha256": "1e1adff84e517eac63e56091683d44448d5b020fc2493b267de7ae8910c36fe5"
+        }
+      ],
+      "manufacturer_confirmed": false,
+      "price_required": false,
+      "review_2026_10_15": {
+        "source": "https://sol.ls-electric.com/uploads/document/16411846892410/iG5A_User%2BManual%28Standard%29_Eng_210303.pdf",
+        "conclusion": "BT7.5 chỉ là tên block; mặt quạt/tản nhiệt không có chữ. Không đủ căn cứ gán LS iG5A hoặc coi 7.5 là công suất đã xác nhận."
+      }
+    },
+    {
+      "id": "TB-0679d39feb15577a",
+      "name": "Ổn áp ROBOT AP15 · 600 VA",
+      "status": "manufacturer_label_recovered",
+      "observed": "220V | 120V | 100V | 0 | 100 | 200 | 300 | AC AUTOMATIC VOLTAGE STABILIZER | POWER 600VA | INPUT : 125V-240V | OUTPUT: 100V-120V-220V | FREQUENCY :50/60Hz | RoboT | AP15 | series | I | O | ON | OFF | FUSE | ROBOT INVESTMENT CORP. | OUTPUT",
+      "missing": "Cần kiểm tra hình học và cấu hình ứng dụng.",
+      "comparison_source": "https://robot.com.vn/collections/on-ap",
+      "views": [
+        {
+          "id": "C05_cluster2-V002",
+          "texts": [],
+          "width": 190.5,
+          "height": 163.0,
+          "sha256": "3b66e277c0fd5b27d45b6051da8188f4afdf5fc444f3bee2b8761bbb536f66a4"
+        }
+      ],
+      "manufacturer_confirmed": true,
+      "price_required": false,
+      "brand": "ROBOT",
+      "model": "AP15"
+    },
+    {
+      "id": "TB-7d563103819b0e05",
+      "name": "Ổn áp ROBOT AP15 · 350 VA",
+      "status": "manufacturer_label_recovered",
+      "observed": "220V | 120V | 100V | 0 | 100 | 200 | 300 | AC AUTOMATIC | VOLTAGE STABILIZER | POWER 350VA | INPUT : 125V-240V | OUTPUT: 100V-120V-220V | FREQUENCY :50/60Hz | RoboT | AP15 | series | I | O | ON | OFF | FUSE | ROBOT INVESTMENT CORP.",
+      "missing": "Cần kiểm tra hình học và cấu hình ứng dụng.",
+      "comparison_source": "https://robot.com.vn/collections/on-ap",
+      "views": [
+        {
+          "id": "C05_cluster2-V001",
+          "texts": [],
+          "width": 190.0,
+          "height": 190.0,
+          "sha256": "8e9b4a28453ed1d20a7ff199507628cdf9714bf358d0810e62c7b400a8ccb29c"
+        }
+      ],
+      "manufacturer_confirmed": true,
+      "price_required": false,
+      "brand": "ROBOT",
+      "model": "AP15"
+    },
+    {
+      "id": "TB-eeb533e15b1abd01",
+      "name": "Ampe kế kim gắn tủ",
+      "status": "unresolved_after_comparison",
+      "observed": "Đọc A, 500; mặt CAD 96×96.",
+      "missing": "Giữ thang 0–500 A. Hãng, mã, cấp chính xác và đầu vào CT 1A/5A chưa rõ; mặt BE-96 không độc quyền một hãng.",
+      "comparison_source": "https://www.kdsimeter.com/Industrial-universal-BE-96-AC25V-4000V-rectifier-analog-ac-panel-voltmeter-pd96194226.html",
+      "views": [
+        {
+          "id": "C04_cluster5-V004",
+          "texts": [
+            "A",
+            "O",
+            "500"
+          ],
+          "width": 96.0,
+          "height": 96.0,
+          "sha256": "6d8f5d4c943bd9af15a8e185470c5ceaa4485870774472a493ecad16cf04047c"
+        }
+      ],
+      "manufacturer_confirmed": false,
+      "price_required": false,
+      "review_2026_10_15": {
+        "source": "https://www.kdsimeter.com/New-Model-BE-96-DC60mV-500A-Analog-Panel-DC-High-Precision-Ammeter-pd508517068.html",
+        "conclusion": "KDSI BE-96 có 96×96 và thang 500A nhưng có thể OEM, bản tham khảo DC60mV; CAD không xác nhận AC/DC hay CT/shunt. Không gán hãng theo kích thước."
+      }
+    },
+    {
+      "id": "TB-f9ed176ec4ac1425",
+      "name": "Công tơ EMIC · nhãn kWh/kvarh",
+      "status": "manufacturer_label_recovered",
+      "observed": "000000   kwh | KWh - KVARh | EMIC",
+      "missing": "Cần xác minh cấu hình/lắp đặt; chưa chốt mã riêng.",
+      "comparison_source": "https://emic.com.vn/vn/cong-to-dien",
+      "views": [
+        {
+          "id": "C04_cluster3-V002",
+          "texts": [],
+          "width": 224.5,
+          "height": 347.72,
+          "sha256": "14802f3393b38f59bc9f444791d082395937f3802f8e886a0e70798bddf6507e"
+        }
+      ],
+      "manufacturer_confirmed": true,
+      "price_required": false,
+      "brand": "EMIC",
+      "model": null
+    },
+    {
+      "id": "TB-991b8c4a7bab4123",
+      "name": "Công tơ điện tử Elster A1700 (dòng ABB Vision)",
+      "status": "source_model_documented",
+      "observed": "Công tơ có bộ số và cửa sổ; đường bao 173.5×311.6; không có chữ.",
+      "missing": "Dòng/áp, kiểu đấu trực tiếp hay qua CT, tùy chọn và kích thước gá; CAD 173.5×311.6 không đồng nhất kích thước thân catalog 170×279.",
+      "comparison_source": "https://prod-edam.honeywell.com/content/dam/honeywell-edam/pmt/hps/products/sme/electricity/commercial-and-industrial-meters/a1700/A1700-31052012.pdf",
+      "views": [
+        {
+          "id": "C04_cluster3-V003",
+          "texts": [],
+          "width": 173.5,
+          "height": 311.6,
+          "sha256": "7f68481ab69ff40b9bae5b2e390686ad8105c7cdc3a72529767dfc995a60b4f5"
+        }
+      ],
+      "manufacturer_confirmed": true,
+      "price_required": false,
+      "brand": "Elster",
+      "model": "A1700"
+    },
+    {
+      "id": "TB-2250a9171c9f2733",
+      "name": "Đồng hồ đo điện dạng kim",
+      "status": "unresolved_after_comparison",
+      "observed": "Hai mặt trước 81×81 và mặt bên 52×81; không có đơn vị đo.",
+      "missing": "Chưa xác nhận ampe/vôn/cos phi, thang đo hoặc hãng; không ép vào BE-96 96×96.",
+      "comparison_source": "https://www.kdsimeter.com/Industrial-universal-BE-96-AC25V-4000V-rectifier-analog-ac-panel-voltmeter-pd96194226.html",
+      "views": [
+        {
+          "id": "C04_cluster6-V001",
+          "texts": [],
+          "width": 81.0,
+          "height": 81.0,
+          "sha256": "291cc2199ad8b3b683a2e3290f74bb4451966bc24c750218ad330698ae0088ef"
+        },
+        {
+          "id": "C04_cluster6-V002",
+          "texts": [],
+          "width": 81.0,
+          "height": 81.0,
+          "sha256": "799210ff3f07af2f886752535b97a90375516d6baae318578a276dcfc48ba48f"
+        },
+        {
+          "id": "C04_cluster6-V003",
+          "texts": [],
+          "width": 52.0,
+          "height": 81.0,
+          "sha256": "43cdfc021e32039fa3906a47b360e12edf6cece042fa8c123816fbd5ee23344e"
+        }
+      ],
+      "manufacturer_confirmed": false,
+      "price_required": false,
+      "review_2026_10_15": {
+        "source": "",
+        "conclusion": "Block nguồn có A/V, 400 và ký hiệu AC; ba hình gồm hai cấu hình đo khác nhau và mặt bên. Không có nhãn hãng/model, chưa xác nhận tỉ số CT hoặc kiểu đấu. Giữ loại ampe kế/vôn kế AC và thang 400 đã đọc được."
+      }
+    },
+    {
+      "id": "TB-177f377fb9b8a5a8",
+      "name": "Đồng hồ đa năng Selec MFM383",
+      "status": "manufacturer_label_recovered",
+      "observed": "SELEC | MFM383 | V | A | PF | kWh | A/M | VI | VAF | P | E | PRG",
+      "missing": "Cần kiểm tra hình học và cấu hình ứng dụng.",
+      "comparison_source": "https://www.dien-congnghiep.com/upload/selec/mfm383.pdf",
+      "views": [
+        {
+          "id": "C04_cluster4-V004",
+          "texts": [],
+          "width": 104.5,
+          "height": 99.0,
+          "sha256": "f53c86eb4cf316dc871713a87bcebe35d1355fcd186ea9d81126076f027de034"
+        }
+      ],
+      "manufacturer_confirmed": true,
+      "price_required": false,
+      "brand": "Selec",
+      "model": "MFM383"
+    },
+    {
+      "id": "TB-20ef8236d4d75c8b",
+      "name": "Đồng hồ Selec · block VAF36 / MFM384",
+      "status": "manufacturer_label_recovered",
+      "observed": "selec | VAF 36 | VAF | A/M | I/h | V/r | PRG | V | A | Hz | MFM384 | E | P | I | PF | KWH",
+      "missing": "Cần xác minh cấu hình/lắp đặt; chưa chốt mã riêng.",
+      "comparison_source": "https://selec-europe.com/downloads",
+      "views": [
+        {
+          "id": "C04_cluster4-V003",
+          "texts": [],
+          "width": 100.5,
+          "height": 99.0,
+          "sha256": "7a0f6559d34cd97756d9430dddf6be8198912108cf7c50bf8623989c6e83ebff"
+        }
+      ],
+      "manufacturer_confirmed": true,
+      "price_required": false,
+      "brand": "Selec",
+      "model": null
+    },
+    {
+      "id": "TB-83c508f9a35bfbcf",
+      "name": "Vôn kế kim gắn tủ",
+      "status": "unresolved_after_comparison",
+      "observed": "Đọc V, 500; mặt CAD 96×96.",
+      "missing": "Giữ thang 0–500 V; chưa biết AC/DC, cấp chính xác và hãng. Không sao chép Omega từ CAD khác.",
+      "comparison_source": "https://www.kdsimeter.com/Industrial-universal-BE-96-AC25V-4000V-rectifier-analog-ac-panel-voltmeter-pd96194226.html",
+      "views": [
+        {
+          "id": "C04_cluster5-V001",
+          "texts": [
+            "V",
+            "O",
+            "500"
+          ],
+          "width": 96.0,
+          "height": 96.0,
+          "sha256": "9ae791a0b98ad3f266ca0d0e9acd8fcc734499e31ae203c85697be68701d2a54"
+        }
+      ],
+      "manufacturer_confirmed": false,
+      "price_required": false,
+      "review_2026_10_15": {
+        "source": "https://www.em.co.za/BE-96-500VAC",
+        "conclusion": "BE-96 500VAC là mẫu tham khảo 96×96. CAD chỉ có V và thang 500; chưa có logo/AC/DC. Không tự điền AC500V hay hãng EM."
+      }
+    }
+  ],
+  "recovered_manufacturers": 12,
+  "remaining_without_confirmed_manufacturer": 6,
+  "source_export_sha256": "cc201e73955a9f06a3bae5c369a3bce6e9117ff6867fdc283f999f220d47843d"
+}

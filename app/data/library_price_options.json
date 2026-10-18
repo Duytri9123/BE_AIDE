@@ -970,6 +970,462 @@
       "source_sha256": "69e4125973c967f2e0754a23a4d96b883af69e4e0c4b1da70694cec025ee349f",
       "identity_evidence": "Workbook MCCB Adjustable row 140: NF1600-SEW 4P; CAD metadata identifies the same maker, full model and poles. In is a price option, not a verified CAD rating.",
       "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "web:70f8e58c923505f4",
+      "equipment_catalog_id": "TB-e62130601b4d5568",
+      "status": "configuration_option",
+      "model": "NZ7-125H/4 100A",
+      "identity_evidence": "CHINT NZ7-125 CAD is 4P; seller specifies NZ7-125H/4 with separate rated-current variants. Select subtype and current; no geometry approval.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "web:597cb8a45a3d55b6",
+      "equipment_catalog_id": "TB-e62130601b4d5568",
+      "status": "configuration_option",
+      "model": "NZ7-125H/4 25A",
+      "identity_evidence": "CHINT NZ7-125 CAD is 4P; seller specifies NZ7-125H/4 with separate rated-current variants. Select subtype and current; no geometry approval.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "web:0548ef8111ed83f2",
+      "equipment_catalog_id": "TB-e62130601b4d5568",
+      "status": "configuration_option",
+      "model": "NZ7-125H/4 32A",
+      "identity_evidence": "CHINT NZ7-125 CAD is 4P; seller specifies NZ7-125H/4 with separate rated-current variants. Select subtype and current; no geometry approval.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "web:f9c089b0f9577c26",
+      "equipment_catalog_id": "TB-e62130601b4d5568",
+      "status": "configuration_option",
+      "model": "NZ7-125H/4 40A",
+      "identity_evidence": "CHINT NZ7-125 CAD is 4P; seller specifies NZ7-125H/4 with separate rated-current variants. Select subtype and current; no geometry approval.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "web:b4b54eb919835484",
+      "equipment_catalog_id": "TB-e62130601b4d5568",
+      "status": "configuration_option",
+      "model": "NZ7-125H/4 50A",
+      "identity_evidence": "CHINT NZ7-125 CAD is 4P; seller specifies NZ7-125H/4 with separate rated-current variants. Select subtype and current; no geometry approval.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "web:1b362f417bca2e33",
+      "equipment_catalog_id": "TB-e62130601b4d5568",
+      "status": "configuration_option",
+      "model": "NZ7-125H/4 63A",
+      "identity_evidence": "CHINT NZ7-125 CAD is 4P; seller specifies NZ7-125H/4 with separate rated-current variants. Select subtype and current; no geometry approval.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "web:20a96a19e1ae1646",
+      "equipment_catalog_id": "TB-e62130601b4d5568",
+      "status": "configuration_option",
+      "model": "NZ7-125H/4 80A",
+      "identity_evidence": "CHINT NZ7-125 CAD is 4P; seller specifies NZ7-125H/4 with separate rated-current variants. Select subtype and current; no geometry approval.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "web:452b5cfa0925e674",
+      "equipment_catalog_id": "TB-23fd57135f41bb9f",
+      "status": "configuration_option",
+      "model": "RT36-00 (NT00) gG 160A",
+      "identity_evidence": "RT36-00 CAD contains fuse and base; this offer prices only the explicitly named component, never the entire assembly.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "web:bef49f97da3e7d37",
+      "equipment_catalog_id": "TB-23fd57135f41bb9f",
+      "status": "configuration_option",
+      "model": "BASE RT36-00",
+      "identity_evidence": "RT36-00 CAD contains fuse and base; this offer prices only the explicitly named component, never the entire assembly.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:1b30ce8ebee05254",
+      "equipment_catalog_id": "TB-f23727fc64d7aabb",
+      "status": "configuration_option",
+      "model": "NCH8-20/20 220/230V",
+      "identity_evidence": "2026 PDF page 25: NCH8-20/25 modular contactor, 2 main contacts; 2NO, 1NO+1NC or 2NC variants. CAD is shared family reference; select coil and contacts.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:13a144f844c533b7",
+      "equipment_catalog_id": "TB-f23727fc64d7aabb",
+      "status": "configuration_option",
+      "model": "NCH8-20/11 220/230V",
+      "identity_evidence": "2026 PDF page 25: NCH8-20/25 modular contactor, 2 main contacts; 2NO, 1NO+1NC or 2NC variants. CAD is shared family reference; select coil and contacts.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:a2234660fc8ae3f1",
+      "equipment_catalog_id": "TB-f23727fc64d7aabb",
+      "status": "configuration_option",
+      "model": "NCH8-20/02 220/230V",
+      "identity_evidence": "2026 PDF page 25: NCH8-20/25 modular contactor, 2 main contacts; 2NO, 1NO+1NC or 2NC variants. CAD is shared family reference; select coil and contacts.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:f77e71e222e0ec57",
+      "equipment_catalog_id": "TB-f23727fc64d7aabb",
+      "status": "configuration_option",
+      "model": "NCH8-25/20 220/230V",
+      "identity_evidence": "2026 PDF page 25: NCH8-20/25 modular contactor, 2 main contacts; 2NO, 1NO+1NC or 2NC variants. CAD is shared family reference; select coil and contacts.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:2320f21aecea0d20",
+      "equipment_catalog_id": "TB-f23727fc64d7aabb",
+      "status": "configuration_option",
+      "model": "NCH8-25/11 220/230V",
+      "identity_evidence": "2026 PDF page 25: NCH8-20/25 modular contactor, 2 main contacts; 2NO, 1NO+1NC or 2NC variants. CAD is shared family reference; select coil and contacts.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:0709bb94454f4533",
+      "equipment_catalog_id": "TB-f23727fc64d7aabb",
+      "status": "configuration_option",
+      "model": "NCH8-25/02 220/230V",
+      "identity_evidence": "2026 PDF page 25: NCH8-20/25 modular contactor, 2 main contacts; 2NO, 1NO+1NC or 2NC variants. CAD is shared family reference; select coil and contacts.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:1d9c6fd200c1866f",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-ED21",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:af7e9c0b1880d6f9",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-ED22",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:83826081ca678daf",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-ED23",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:3ae427b660d88fb1",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-ED24",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:520641e0360bc940",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-ED25",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:7f3058759ef477e1",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-ED41",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:2980c4d960a8a57b",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-ED42",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:31a47780af7aa78c",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-ED43",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:fd4564714fb8b0ed",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-ED44",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:cb6dff331136aa21",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-ED45",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:44172af4e3684149",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EJ21",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:82fb4dda84dc2e2e",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EJ22",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:be0f20ec685368fd",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EJ23",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:f230264ce7850535",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EJ24",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:24acd05c817d4c19",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EJ25",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:96b1fbcd2dbaef73",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EJ41",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:bb12866fda6aba8e",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EJ42",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:9e7ef8a29d966302",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EJ43",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:2a19532f1db4acc0",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EJ44",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:618085051a9986fe",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EJ45",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:e7bb78edb90079ef",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-ED33",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:1b44d63b523c5957",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-ED34",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:8e1ba4a7124aaee3",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-ED35",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:8cb9a81b11304870",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-ED53",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:83f15e1bc39369a6",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-ED54",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:2f6165bd915a6de2",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-ED55",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:5e7e08da5397c45b",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EJ33",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:30d551cee33bf525",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EJ34",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:fc0652bffd157dd4",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EJ35",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:626ea01e2d5ea62e",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EJ53",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:69b87bac4dd097f6",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EJ54",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:6b2ffd4c95d6a54b",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EJ55",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:34c06d0cba16bec0",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EG21",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:03a86deafa98124b",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EG25",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:a2262646cf3dffed",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EG41",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:45cfede6d30721b4",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EG45",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:f15627fab4f5f305",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EG33",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:a08d5f788e008855",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EG34",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:ac8595ab76a03356",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EG35",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:10db52aa6363c94e",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EG53",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:63708fe2eddf1a8a",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EG54",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
+    },
+    {
+      "price_row_id": "chint-pdf:df01fefdd86dc318",
+      "equipment_catalog_id": "TB-9ae0c2b23bf4de77",
+      "status": "configuration_option",
+      "model": "NP2-EG55",
+      "identity_evidence": "2026 PDF pages 62-63 specify NP2 rotary selectors; CAD identifies NP2 selector only. Choose positions, return action and contacts separately.",
+      "cad_insertion_verified": false
     }
   ]
 }

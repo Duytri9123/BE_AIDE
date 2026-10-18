@@ -1,0 +1,36 @@
+{
+  "checked_at": "2026-10-17",
+  "image_search_campaigns": [
+    {
+      "query": "CHINT control transformer NDK BK transformer dimensions front drawing",
+      "method": "web_image_search",
+      "sources": [
+        "https://inelektro.com/odnofaznyi-transformator-ndk-250va-220-24-5-iec-chint/",
+        "https://www.ebuy7.com/chint-control-transformer-ndk-bk-50va-380v-220v-to-110v-36v-24v-12v.html"
+      ],
+      "result": "Multiple different NDK/BK sizes share the broad core, terminal and mounting layout. Image retrieval does not uniquely identify the source transformer. No SKU assigned."
+    },
+    {
+      "query": "Hanyoung HYBT 35A terminal block dimensions",
+      "method": "web_image_search_plus_manufacturer_authored_catalog",
+      "sources": [
+        "https://aditech.com.vn/cau-dau-noi-dien-lap-ghep-hanyoung-hybt-60a.html",
+        "https://baa.vn/vn/san-pham/cau-dau-lap-ghep-domino-hanyoung-hybt-35a_474874",
+        "https://www.thegioidien.com/fckupload/Hanyoung_HYBT.pdf"
+      ],
+      "result": "Product photo and dimension drawing leads complement source CAD image candidates. Mirror and seller copies may share the same manufacturer drawing; independent verification is still required."
+    },
+    {
+      "query": "Phoenix Contact UK 3 N terminal block dimension drawing",
+      "method": "web_image_search_plus_official_product_page",
+      "sources": [
+        "https://www.phoenixcontact.com/de-de/produkte/durchgangsklemme-uk-3-n-3001501",
+        "https://www.electric-b2c.com/products/din-rail-terminal-block-universal-conductor-uk-3n-screw-connection-electrical-wiring-terminal-strip-block-connector-uk3n-10pcs"
+      ],
+      "result": "A generic UK-3N shape is sold by other suppliers too; identical outlines do not prove Phoenix Contact manufacture."
+    }
+  ],
+  "local_outline_views": 2073,
+  "local_candidate_profiles": 89,
+  "automatic_model_assignments": 0
+}

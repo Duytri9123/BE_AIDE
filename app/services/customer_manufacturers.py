@@ -8,7 +8,9 @@ CUSTOMER_MANUFACTURERS = (
     'Andeli', 'Sino - Vanlock', 'Vinakip', 'Omron', 'Delta', 'Yaskawa', 'Danfoss',
     'INVT', 'IDEC', 'Hanyoung Nux', 'Samwha', 'TDK / EPCOS', 'Shizuki', 'Nuintek',
     'Mikro', 'SK', 'Ducati Energia', 'Selec', 'Delixi', 'Morele', 'EMIC', 'MITEX',
-    'Leipole', 'O-Sung / OSEMCO',
+    'Leipole', 'O-Sung / OSEMCO', 'LightStar', 'SmartGen', 'Deep Sea Electronics',
+    'Phoenix Contact', 'Rittal', 'Wöhner', 'EMKA', 'CML', 'Omega', 'ROBOT',
+    'KDE', 'Master Electric', 'KACON', 'Suntree', 'Trend / Honeywell', 'MEAN WELL',
 )
 
 CUSTOMER_ALIASES = {

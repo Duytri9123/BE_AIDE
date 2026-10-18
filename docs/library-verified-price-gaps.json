@@ -1,13 +1,13 @@
 {
-  "linked_count": 175,
-  "verified_unlinked_count": 364,
+  "linked_count": 189,
+  "verified_unlinked_count": 458,
   "reason_counts": {
-    "related_code_only": 122,
-    "no_device_code": 67,
-    "code_not_in_published_prices": 140,
-    "no_brand_prices": 35
+    "related_code_only": 130,
+    "no_device_code": 131,
+    "code_not_in_published_prices": 153,
+    "no_brand_prices": 44
   },
-  "price_row_count": 9496,
+  "price_row_count": 9498,
   "linked": [
     {
       "id": "TB-88adac8683ca9439",
@@ -364,6 +364,12 @@
       "choices": 1
     },
     {
+      "id": "TB-f23727fc64d7aabb",
+      "brand": "CHINT",
+      "name": "Contactor CHINT NCH8-20 / NCH8-25 · 2P",
+      "choices": 6
+    },
+    {
       "id": "TB-e3719a5d6bde114f",
       "brand": "CHINT",
       "name": "Pushbutton CHINT NP2 · NC",
@@ -376,10 +382,28 @@
       "choices": 12
     },
     {
+      "id": "TB-9ae0c2b23bf4de77",
+      "brand": "CHINT",
+      "name": "Selector CHINT NP2",
+      "choices": 42
+    },
+    {
+      "id": "TB-23fd57135f41bb9f",
+      "brand": "CHINT",
+      "name": "Fuse Assembly CHINT RT36-00 · 160A",
+      "choices": 2
+    },
+    {
       "id": "TB-03aa3238dabc4094",
       "brand": "CHINT",
       "name": "MCB CHINT NXB-63",
       "choices": 11
+    },
+    {
+      "id": "TB-e62130601b4d5568",
+      "brand": "CHINT",
+      "name": "ATS CHINT NZ7-125",
+      "choices": 7
     },
     {
       "id": "TB-e1b1231f6ae8fd19",
@@ -440,6 +464,42 @@
       "brand": "LS Electric",
       "name": "Contactor LS 3 cực MC-75a / 85a / 100a",
       "choices": 3
+    },
+    {
+      "id": "TB-f8e6f7e11d865754",
+      "brand": "CHINT",
+      "name": "Nút nhấn · NBC",
+      "choices": 12
+    },
+    {
+      "id": "TB-dcde1880e921f20c",
+      "brand": "CHINT",
+      "name": "Nút nhấn · NBD",
+      "choices": 12
+    },
+    {
+      "id": "TB-a24212d1d6c9e438",
+      "brand": "CHINT",
+      "name": "Cầu chì · RT36-00",
+      "choices": 1
+    },
+    {
+      "id": "TB-e87c9d2681a60b91",
+      "brand": "CHINT",
+      "name": "Nút nhấn · NBCD",
+      "choices": 12
+    },
+    {
+      "id": "TB-a959ebf4ad6828e6",
+      "brand": "CHINT",
+      "name": "Nút nhấn · NBDD",
+      "choices": 12
+    },
+    {
+      "id": "TB-d983c006e454cb56",
+      "brand": "CHINT",
+      "name": "Nút nhấn · NP2",
+      "choices": 12
     },
     {
       "id": "TB-cc15557431671b6b",
@@ -814,6 +874,30 @@
       "choices": 1
     },
     {
+      "id": "TB-b51343ec0fb5af0c",
+      "brand": "LS Electric",
+      "name": "MCB LS BKN · 1P",
+      "choices": 2
+    },
+    {
+      "id": "TB-c6c2d7a651dcf612",
+      "brand": "LS Electric",
+      "name": "MCB LS BKN · 2P",
+      "choices": 2
+    },
+    {
+      "id": "TB-fc0880379361d98a",
+      "brand": "LS Electric",
+      "name": "MCB LS BKN · 3P",
+      "choices": 2
+    },
+    {
+      "id": "TB-19ad71dea6466ed4",
+      "brand": "Omron",
+      "name": "Bộ nguồn Omron S8FS-C05024J",
+      "choices": 1
+    },
+    {
       "id": "TB-9fa26e93c8a3ea41",
       "brand": "Leipole",
       "name": "Quạt lọc gió Leipole FKL6621.230",
@@ -1134,9 +1218,9 @@
     },
     {
       "id": "TB-4a0fc80b476e4dcd",
-      "name": "Accessory ABB chưa rõ mã",
+      "name": "Rơ le nhiệt ABB · CAD tham khảo",
       "brand": "ABB",
-      "type": "Accessory",
+      "type": "THERMAL_RELAY",
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 1081,
@@ -2586,6 +2670,455 @@
       "related_price_rows": []
     },
     {
+      "id": "TB-59aaaa61e7d8fc41",
+      "name": "Biến dòng · MSQ-40",
+      "brand": "Morele",
+      "type": "CT",
+      "product_code": "MSQ-40",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-7b0ade9bada30d0f",
+      "name": "Biến dòng · MIKRO ZCT 40S · cụm đầy đủ",
+      "brand": "Mikro",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "ZCT 40S",
+      "reason": "related_code_only",
+      "brand_price_count": 215,
+      "related_price_rows": [
+        {
+          "id": "extra-pdf:ded000a3f48df8ba72e9",
+          "sku": "ZCT40S",
+          "item_name": "ZCT40S",
+          "category": "CT",
+          "specifications": {
+            "Dòng trong bảng giá": "ZCT 40S",
+            "Họ thiết bị": "ZCT40S"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-bff3507a2f7bf61e",
+      "name": "Biến dòng · mẫu nguồn 45",
+      "brand": "MITEX",
+      "type": "CT",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 68,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-fd4a0414158dfb16",
+      "name": "Biến dòng · mẫu nguồn 72",
+      "brand": "EMIC",
+      "type": "CT",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-f342154f1a7900e1",
+      "name": "Biến dòng · mẫu nguồn 43",
+      "brand": "MITEX",
+      "type": "CT",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 68,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-c72a5cf9faa81e61",
+      "name": "Biến dòng · MIKRO ZCT 80S — các hình chiếu",
+      "brand": "Mikro",
+      "type": "CT",
+      "product_code": "ZCT 80S",
+      "reason": "related_code_only",
+      "brand_price_count": 215,
+      "related_price_rows": [
+        {
+          "id": "extra-pdf:d039080f56f59004bb2d",
+          "sku": "ZCT80S",
+          "item_name": "ZCT80S",
+          "category": "CT",
+          "specifications": {
+            "Dòng trong bảng giá": "ZCT 80S",
+            "Họ thiết bị": "ZCT80S"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-8aebd979cf3c7f8a",
+      "name": "Biến dòng · MIKRO ZCT 40S — các hình chiếu",
+      "brand": "Mikro",
+      "type": "CT",
+      "product_code": "ZCT 40S",
+      "reason": "related_code_only",
+      "brand_price_count": 215,
+      "related_price_rows": [
+        {
+          "id": "extra-pdf:ded000a3f48df8ba72e9",
+          "sku": "ZCT40S",
+          "item_name": "ZCT40S",
+          "category": "CT",
+          "specifications": {
+            "Dòng trong bảng giá": "ZCT 40S",
+            "Họ thiết bị": "ZCT40S"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-486bfcc891bbb314",
+      "name": "Biến dòng · MSQ-30",
+      "brand": "Morele",
+      "type": "CT",
+      "product_code": "MSQ-30",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-1036a1edd852539d",
+      "name": "Biến dòng · MIKRO ZCT 80S · cụm đầy đủ",
+      "brand": "Mikro",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "ZCT 80S",
+      "reason": "related_code_only",
+      "brand_price_count": 215,
+      "related_price_rows": [
+        {
+          "id": "extra-pdf:d039080f56f59004bb2d",
+          "sku": "ZCT80S",
+          "item_name": "ZCT80S",
+          "category": "CT",
+          "specifications": {
+            "Dòng trong bảng giá": "ZCT 80S",
+            "Họ thiết bị": "ZCT80S"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-f1e2bee08173f7d1",
+      "name": "Biến dòng · MSQ-30 / MSQ-40 / MSQ-60",
+      "brand": "Andeli",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "MSQ-30 / MSQ-40 / MSQ-60 / MSQ-100 / RCT 35 / RCT 60 / RCT 90 / RCT 110",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 1,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-9a303c1dec2a4747",
+      "name": "Biến dòng · mẫu nguồn 71",
+      "brand": "EMIC",
+      "type": "CT",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-79b2ed4371132b6f",
+      "name": "Biến dòng · EM4H05 · EM4H04 · EM4H03 · cụm đầy đủ",
+      "brand": "EMIC",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "EM4H05 / EM4H04 / EM4H03 / EM4H06 / EM4H07",
+      "reason": "related_code_only",
+      "brand_price_count": 86,
+      "related_price_rows": [
+        {
+          "id": "web:3fd8ee2e9f068a94",
+          "sku": "EM4H03 250/5A",
+          "item_name": "EM4H03 250/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "250",
+            "Dòng thứ cấp (A)": "5",
+            "Tỷ số CT": "250/5A",
+            "Dòng định mức": "5A"
+          }
+        },
+        {
+          "id": "web:96dda33f413bee6f",
+          "sku": "EM4H04 300/5A",
+          "item_name": "EM4H04 300/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "300",
+            "Dòng thứ cấp (A)": "5",
+            "Tỷ số CT": "300/5A",
+            "Dòng định mức": "5A"
+          }
+        },
+        {
+          "id": "web:675fd5eb038128ca",
+          "sku": "EM4H04 400/5A",
+          "item_name": "EM4H04 400/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "400",
+            "Dòng thứ cấp (A)": "5",
+            "Tỷ số CT": "400/5A",
+            "Dòng định mức": "5A"
+          }
+        },
+        {
+          "id": "web:73cfd6f4116e693d",
+          "sku": "EM4H04 500/5A",
+          "item_name": "EM4H04 500/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "500",
+            "Dòng thứ cấp (A)": "5",
+            "Tỷ số CT": "500/5A",
+            "Dòng định mức": "5A"
+          }
+        },
+        {
+          "id": "web:16e62673145bddec",
+          "sku": "EM4H04 600/5A",
+          "item_name": "EM4H04 600/5A",
+          "category": "CT",
+          "specifications": {
+            "In (A)": "600",
+            "Dòng thứ cấp (A)": "5",
+            "Tỷ số CT": "600/5A",
+            "Dòng định mức": "5A"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-db01057563e3f2be",
+      "name": "Biến dòng · MSQ-30",
+      "brand": "Morele",
+      "type": "CT",
+      "product_code": "MSQ-30",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-5455de532faa667e",
+      "name": "Biến dòng · MSQ 30 / MSQ-30 / MSQ 40",
+      "brand": "Morele",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "MSQ 30 / MSQ-30 / MSQ 40 / MSQ 60 / MSQ 100 / MSQ 125 / MSQ-40 / MSQ-60",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-e89144cd1c415b77",
+      "name": "Biến dòng · mẫu nguồn 69",
+      "brand": "EMIC",
+      "type": "CT",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-6f542b6b99620278",
+      "name": "Biến dòng · MSQ-40",
+      "brand": "Morele",
+      "type": "CT",
+      "product_code": "MSQ-40",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-478841f000e8925d",
+      "name": "Biến dòng · ZCT 40S / ZCT 80S",
+      "brand": "Mikro",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "ZCT 40S / ZCT 80S",
+      "reason": "related_code_only",
+      "brand_price_count": 215,
+      "related_price_rows": [
+        {
+          "id": "extra-pdf:ded000a3f48df8ba72e9",
+          "sku": "ZCT40S",
+          "item_name": "ZCT40S",
+          "category": "CT",
+          "specifications": {
+            "Dòng trong bảng giá": "ZCT 40S",
+            "Họ thiết bị": "ZCT40S"
+          }
+        },
+        {
+          "id": "extra-pdf:d039080f56f59004bb2d",
+          "sku": "ZCT80S",
+          "item_name": "ZCT80S",
+          "category": "CT",
+          "specifications": {
+            "Dòng trong bảng giá": "ZCT 80S",
+            "Họ thiết bị": "ZCT80S"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-a13bed4b7f5c008d",
+      "name": "Biến dòng · mẫu nguồn 73",
+      "brand": "EMIC",
+      "type": "CT",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-530b835fc283d67d",
+      "name": "Biến dòng · MSQ-125 / MSQ-30 / KDE 800",
+      "brand": "Morele",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "MSQ-125 / MSQ-30 / KDE 800 / KDE 300 / KDE 400 / KDE 1200",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-cf2127412b920e90",
+      "name": "Biến dòng · Vuông · LightStar · cụm đầy đủ",
+      "brand": "LightStar",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "",
+      "reason": "no_brand_prices",
+      "brand_price_count": 0,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-87d81261e7206a22",
+      "name": "Biến dòng · MIKRO ZCT 80S — các hình chiếu",
+      "brand": "Mikro",
+      "type": "CT",
+      "product_code": "ZCT 80S",
+      "reason": "related_code_only",
+      "brand_price_count": 215,
+      "related_price_rows": [
+        {
+          "id": "extra-pdf:d039080f56f59004bb2d",
+          "sku": "ZCT80S",
+          "item_name": "ZCT80S",
+          "category": "CT",
+          "specifications": {
+            "Dòng trong bảng giá": "ZCT 80S",
+            "Họ thiết bị": "ZCT80S"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-4d18bc4549940dfc",
+      "name": "Biến dòng · MIKRO · zct120 · cụm đầy đủ",
+      "brand": "Mikro",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "zct120 / ZCT-D40",
+      "reason": "related_code_only",
+      "brand_price_count": 215,
+      "related_price_rows": [
+        {
+          "id": "extra-pdf:b21a1618af9f79a97baf",
+          "sku": "ZCT120S",
+          "item_name": "ZCT120S",
+          "category": "CT",
+          "specifications": {
+            "Dòng trong bảng giá": "ZCT 120S",
+            "Họ thiết bị": "ZCT120S"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-37c1259d271bc753",
+      "name": "Biến dòng · Vuông · LightStar · cụm đầy đủ",
+      "brand": "LightStar",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "",
+      "reason": "no_brand_prices",
+      "brand_price_count": 0,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-2a280c8ef08c92fa",
+      "name": "Biến dòng · MSQ-60",
+      "brand": "Morele",
+      "type": "CT",
+      "product_code": "MSQ-60",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-e1aae03ed2b9afda",
+      "name": "Biến dòng · mẫu nguồn 112",
+      "brand": "MITEX",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 68,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-801e690fe1f958e3",
+      "name": "Biến dòng · MIKRO ZCT 40S — các hình chiếu",
+      "brand": "Mikro",
+      "type": "CT",
+      "product_code": "ZCT 40S",
+      "reason": "related_code_only",
+      "brand_price_count": 215,
+      "related_price_rows": [
+        {
+          "id": "extra-pdf:ded000a3f48df8ba72e9",
+          "sku": "ZCT40S",
+          "item_name": "ZCT40S",
+          "category": "CT",
+          "specifications": {
+            "Dòng trong bảng giá": "ZCT 40S",
+            "Họ thiết bị": "ZCT40S"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TB-49e8a28a1b036f92",
+      "name": "Biến dòng · mẫu nguồn 70",
+      "brand": "EMIC",
+      "type": "CT",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-cd423b7b98bf5877",
+      "name": "Biến dòng · MSQ-125",
+      "brand": "Morele",
+      "type": "CT",
+      "product_code": "MSQ-125",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-08a9ba277902109e",
+      "name": "Biến dòng · MSQ-30 / MSQ-40 / MSQ-60",
+      "brand": "Andeli",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "MSQ-30 / MSQ-40 / MSQ-60 / MSQ-100 / RCT 35 / RCT 60 / RCT 90 / RCT 110",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 1,
+      "related_price_rows": []
+    },
+    {
       "id": "TB-bf08998ed0675426",
       "name": "Biến tần Mitsubishi FR-S500",
       "brand": "Mitsubishi Electric",
@@ -2752,17 +3285,7 @@
       "type": "Transformer",
       "product_code": "",
       "reason": "no_device_code",
-      "brand_price_count": 1729,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-f23727fc64d7aabb",
-      "name": "Contactor CHINT NCH8-20 / NCH8-25 · 2P",
-      "brand": "CHINT",
-      "type": "CONTACTOR",
-      "product_code": "",
-      "reason": "no_device_code",
-      "brand_price_count": 1729,
+      "brand_price_count": 1731,
       "related_price_rows": []
     },
     {
@@ -2772,83 +3295,7 @@
       "type": "Indicator",
       "product_code": "NP2",
       "reason": "related_code_only",
-      "brand_price_count": 1729,
-      "related_price_rows": [
-        {
-          "id": "chint-pdf:d422931d49c6932e",
-          "sku": "NP2-EA31",
-          "item_name": "NP2-EA31",
-          "category": "PUSHBUTTON",
-          "specifications": {
-            "Màu sắc": "🟢",
-            "NO": "1",
-            "NC": "-",
-            "Mã hàng": "574816",
-            "Họ thiết bị": "NP2"
-          }
-        },
-        {
-          "id": "chint-pdf:9bffd898d2a2910d",
-          "sku": "NP2-EA32",
-          "item_name": "NP2-EA32",
-          "category": "PUSHBUTTON",
-          "specifications": {
-            "Màu sắc": "🟢",
-            "NO": "-",
-            "NC": "1",
-            "Mã hàng": "573860",
-            "Họ thiết bị": "NP2"
-          }
-        },
-        {
-          "id": "chint-pdf:3f06c942ac801f15",
-          "sku": "NP2-EA41",
-          "item_name": "NP2-EA41",
-          "category": "PUSHBUTTON",
-          "specifications": {
-            "Màu sắc": "🔴",
-            "NO": "1",
-            "NC": "-",
-            "Mã hàng": "573774",
-            "Họ thiết bị": "NP2"
-          }
-        },
-        {
-          "id": "chint-pdf:48d1f0cbe9fe519a",
-          "sku": "NP2-EA42",
-          "item_name": "NP2-EA42",
-          "category": "PUSHBUTTON",
-          "specifications": {
-            "Màu sắc": "🔴",
-            "NO": "-",
-            "NC": "1",
-            "Mã hàng": "574817",
-            "Họ thiết bị": "NP2"
-          }
-        },
-        {
-          "id": "chint-pdf:c2a73c18dcf90a44",
-          "sku": "NP2-EA51",
-          "item_name": "NP2-EA51",
-          "category": "PUSHBUTTON",
-          "specifications": {
-            "Màu sắc": "🟡",
-            "NO": "1",
-            "NC": "-",
-            "Mã hàng": "574818",
-            "Họ thiết bị": "NP2"
-          }
-        }
-      ]
-    },
-    {
-      "id": "TB-9ae0c2b23bf4de77",
-      "name": "Selector CHINT NP2",
-      "brand": "CHINT",
-      "type": "Selector",
-      "product_code": "NP2",
-      "reason": "related_code_only",
-      "brand_price_count": 1729,
+      "brand_price_count": 1731,
       "related_price_rows": [
         {
           "id": "chint-pdf:d422931d49c6932e",
@@ -2924,74 +3371,8 @@
       "type": "Relay",
       "product_code": "RJ25-CL",
       "reason": "code_not_in_published_prices",
-      "brand_price_count": 1729,
+      "brand_price_count": 1731,
       "related_price_rows": []
-    },
-    {
-      "id": "TB-23fd57135f41bb9f",
-      "name": "Fuse Assembly CHINT RT36-00 · 160A",
-      "brand": "CHINT",
-      "type": "FuseAssembly",
-      "product_code": "RT36-00",
-      "reason": "code_not_in_published_prices",
-      "brand_price_count": 1729,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-e62130601b4d5568",
-      "name": "ATS CHINT NZ7-125",
-      "brand": "CHINT",
-      "type": "ATS",
-      "product_code": "NZ7-125",
-      "reason": "related_code_only",
-      "brand_price_count": 1729,
-      "related_price_rows": [
-        {
-          "id": "web:0c03c2a40c3a4036",
-          "sku": "NZ7-125S/3",
-          "item_name": "NZ7-125S/3",
-          "category": "ACCESSORY",
-          "specifications": {
-            "In (A)": "25"
-          }
-        },
-        {
-          "id": "web:6dd45fc4014bfceb",
-          "sku": "NZ7-125S/3",
-          "item_name": "NZ7-125S/3",
-          "category": "ACCESSORY",
-          "specifications": {
-            "In (A)": "32"
-          }
-        },
-        {
-          "id": "web:7b33e651dcfa7abd",
-          "sku": "NZ7-125S/3",
-          "item_name": "NZ7-125S/3",
-          "category": "ACCESSORY",
-          "specifications": {
-            "In (A)": "40"
-          }
-        },
-        {
-          "id": "web:7fad454bf61fa57f",
-          "sku": "NZ7-125S/3",
-          "item_name": "NZ7-125S/3",
-          "category": "ACCESSORY",
-          "specifications": {
-            "In (A)": "50"
-          }
-        },
-        {
-          "id": "web:8d4378a9e583430a",
-          "sku": "NZ7-125S/3",
-          "item_name": "NZ7-125S/3",
-          "category": "ACCESSORY",
-          "specifications": {
-            "In (A)": "63"
-          }
-        }
-      ]
     },
     {
       "id": "TB-997f2440e6109dc2",
@@ -3000,7 +3381,7 @@
       "type": "MCCB",
       "product_code": "NXM-1600S",
       "reason": "related_code_only",
-      "brand_price_count": 1729,
+      "brand_price_count": 1731,
       "related_price_rows": [
         {
           "id": "chint-pdf:8d59a98663da477d",
@@ -3114,7 +3495,7 @@
       "type": "LIGHT",
       "product_code": "",
       "reason": "no_device_code",
-      "brand_price_count": 1729,
+      "brand_price_count": 1731,
       "related_price_rows": []
     },
     {
@@ -3235,6 +3616,136 @@
       "product_code": "",
       "reason": "no_device_code",
       "brand_price_count": 14,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-d21323ca4cb50cb0",
+      "name": "Đế cầu chì · RT18-32",
+      "brand": "RISESUN",
+      "type": "FUSE_HOLDER",
+      "product_code": "RT18-32",
+      "reason": "no_brand_prices",
+      "brand_price_count": 0,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-0a82c1d075da8b70",
+      "name": "Contactor · mẫu nguồn 362",
+      "brand": "Omega",
+      "type": "CONTACTOR",
+      "product_code": "",
+      "reason": "no_brand_prices",
+      "brand_price_count": 0,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-f4db70fc807a6099",
+      "name": "Đèn báo · mẫu nguồn 371",
+      "brand": "IDEC",
+      "type": "LIGHT",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 183,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-d3e21658618d1357",
+      "name": "Đèn báo · mẫu nguồn 393",
+      "brand": "IDEC",
+      "type": "LIGHT",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 183,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-22e72b28657bca9f",
+      "name": "Công tắc chọn · mẫu nguồn 398",
+      "brand": "IDEC",
+      "type": "SELECTOR_SWITCH",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 183,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-78d75fda02a7cff7",
+      "name": "Còi báo · *U2376",
+      "brand": "KACON",
+      "type": "BUZZER",
+      "product_code": "",
+      "reason": "no_brand_prices",
+      "brand_price_count": 0,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-aea61f819f1a9f72",
+      "name": "Đèn báo · mẫu nguồn 390",
+      "brand": "IDEC",
+      "type": "LIGHT",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 183,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-2c46e717685cf607",
+      "name": "Đèn báo · mẫu nguồn 406",
+      "brand": "IDEC",
+      "type": "LIGHT",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 183,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-90b8e2908e5c924e",
+      "name": "Đèn báo · mẫu nguồn 392",
+      "brand": "IDEC",
+      "type": "LIGHT",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 183,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-34714e8a11fd336c",
+      "name": "Công tắc chọn · AUTO",
+      "brand": "IDEC",
+      "type": "SELECTOR_SWITCH",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 183,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-54d6069fdbbb31b6",
+      "name": "Nút nhấn · mẫu nguồn 413",
+      "brand": "IDEC",
+      "type": "PUSHBUTTON",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 183,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-68892a1653d61c08",
+      "name": "Đèn báo · mẫu nguồn 368",
+      "brand": "IDEC",
+      "type": "LIGHT",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 183,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-0a6e993c8a8abb7a",
+      "name": "Bộ điều khiển PLC · mẫu nguồn 409",
+      "brand": "Siemens",
+      "type": "PLC",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 127,
       "related_price_rows": []
     },
     {
@@ -5103,36 +5614,6 @@
       "related_price_rows": []
     },
     {
-      "id": "TB-b51343ec0fb5af0c",
-      "name": "BKN-LS · 1P · mẫu dự án",
-      "brand": "LS Electric",
-      "type": "MCB",
-      "product_code": "",
-      "reason": "no_device_code",
-      "brand_price_count": 697,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-c6c2d7a651dcf612",
-      "name": "BKN-LS · 2P · mẫu dự án",
-      "brand": "LS Electric",
-      "type": "MCB",
-      "product_code": "",
-      "reason": "no_device_code",
-      "brand_price_count": 697,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-fc0880379361d98a",
-      "name": "BKN-LS · 3P · mẫu dự án",
-      "brand": "LS Electric",
-      "type": "MCB",
-      "product_code": "",
-      "reason": "no_device_code",
-      "brand_price_count": 697,
-      "related_price_rows": []
-    },
-    {
       "id": "TB-043714973953d640",
       "name": "Cụm cầu chì RISESUN RT18-32",
       "brand": "RISESUN",
@@ -5144,7 +5625,7 @@
     },
     {
       "id": "TB-55eecf647ab1508a",
-      "name": "MC 12AF · mẫu dự án",
+      "name": "Khởi động từ LS MC-12a · CAD MC12AF",
       "brand": "LS Electric",
       "type": "CONTACTOR",
       "product_code": "",
@@ -5154,32 +5635,42 @@
     },
     {
       "id": "TB-efe7fe1223480cbd",
-      "name": "CHUYEN MACH · mẫu dự án",
+      "name": "Công tắc chuyển mạch CHINT",
       "brand": "CHINT",
       "type": "SELECTOR",
       "product_code": "",
       "reason": "no_device_code",
-      "brand_price_count": 1729,
-      "related_price_rows": []
-    },
-    {
-      "id": "TB-19ad71dea6466ed4",
-      "name": "VTPK_S8FS-C05024J · mẫu dự án",
-      "brand": "Omron",
-      "type": "POWER_SUPPLY",
-      "product_code": "",
-      "reason": "no_device_code",
-      "brand_price_count": 10,
+      "brand_price_count": 1731,
       "related_price_rows": []
     },
     {
       "id": "TB-03274a9372763222",
-      "name": "TIMER 24H CHINT · mẫu dự án",
+      "name": "Timer lịch 24H CHINT",
       "brand": "CHINT",
       "type": "TIMER",
       "product_code": "",
       "reason": "no_device_code",
-      "brand_price_count": 1729,
+      "brand_price_count": 1731,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-734a4eccf77643cc",
+      "name": "Lưới lọc/thông gió · FAN: FLK6621.230 116x116 230VAC\nFILTER: FLK6621.300\nCUT OUT 92 x 92 · FAN: FLK6622.230 148.5x1487.5 230VAC\nFILTER: FLK6622.300\nCUT OUT 124 x 124 · FAN · cụm đầy đủ",
+      "brand": "Leipole",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 15,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-790bcd7819bd6371",
+      "name": "Lưới lọc/thông gió · mẫu nguồn 489",
+      "brand": "Leipole",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 15,
       "related_price_rows": []
     },
     {
@@ -8512,6 +9003,615 @@
       "product_code": "PM710",
       "reason": "code_not_in_published_prices",
       "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-6509e6eb0b0e5be1",
+      "name": "Đồng hồ đo điện · mẫu nguồn 556",
+      "brand": "Omega",
+      "type": "METER",
+      "product_code": "",
+      "reason": "no_brand_prices",
+      "brand_price_count": 0,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-c5932702b3757eaa",
+      "name": "Đồng hồ đo điện · mẫu nguồn 550",
+      "brand": "EMIC",
+      "type": "METER",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-4abae8d16e300ff2",
+      "name": "Đồng hồ đo điện · EMIC — Điện kế 1 pha — hình trước",
+      "brand": "EMIC",
+      "type": "METER",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-e6bc4120a9de6f81",
+      "name": "Đồng hồ đo điện · Đồng hồ điện tử · Selec · Schneider · cụm đầy đủ",
+      "brand": "Schneider Electric",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "PM710 / PM2220",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-f20a06f574da010b",
+      "name": "Đồng hồ đo điện · EMIC — Điện kế 3 pha MV-3Tb — hình trước",
+      "brand": "EMIC",
+      "type": "METER",
+      "product_code": "MV-3Tb",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-1f4f58de54f24d5c",
+      "name": "Đồng hồ đo điện · EMIC — Điện kế 1 pha — hình trước",
+      "brand": "EMIC",
+      "type": "METER",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-84e1f568156bc37a",
+      "name": "Đồng hồ đo điện · KWh · HOLLEY GROUP CO., LTD · HOLLEY-TMS · cụm đầy đủ",
+      "brand": "Holley",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "",
+      "reason": "no_brand_prices",
+      "brand_price_count": 0,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-2e637f7011c99aff",
+      "name": "Đồng hồ đo điện · mẫu nguồn 552",
+      "brand": "EMIC",
+      "type": "METER",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-8da6cc318c241d5c",
+      "name": "Đồng hồ đo điện · Đồng hồ \n Chuyển mạch · 3 Ampe + 1 Vôn · 1 Ampe + 1 Vôn · cụm đầy đủ",
+      "brand": "Omega",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "",
+      "reason": "no_brand_prices",
+      "brand_price_count": 0,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-c0d57feb3919581e",
+      "name": "Đồng hồ đo điện · mẫu nguồn 544",
+      "brand": "EMIC",
+      "type": "METER",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-ebd657822ea4929b",
+      "name": "Đồng hồ đo điện · CÔNG TƠ CƠ 1 PHA EMIC · Công Tơ · CT cơ · cụm đầy đủ",
+      "brand": "EMIC",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-0733cf647f5960e6",
+      "name": "Đồng hồ đo điện · mẫu nguồn 548",
+      "brand": "EMIC",
+      "type": "METER",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-658e43ffab5b9a0f",
+      "name": "Đồng hồ đo điện · EMIC — Điện kế 3 pha — hình bên",
+      "brand": "EMIC",
+      "type": "METER",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-a4851bf19f2a1f77",
+      "name": "Đồng hồ đo điện · mẫu nguồn 558",
+      "brand": "EMIC",
+      "type": "METER",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-3dad6b3d51e1b76f",
+      "name": "Đồng hồ đo điện · Điện kế 3 pha EMIC — DK3P · cụm đầy đủ",
+      "brand": "EMIC",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "MV-3Tb",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-52d659b90649aab9",
+      "name": "Đồng hồ đo điện · EMIC — Điện kế 1 pha — hình trước",
+      "brand": "EMIC",
+      "type": "METER",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-f5aeab4c2bda288a",
+      "name": "Đồng hồ đo điện · CÔNG TƠ ĐIỆN TỬ 1 PHA EMIC · CÔNG TƠ ĐIỆN TỬ 3 PHA EMIC · cụm đầy đủ",
+      "brand": "EMIC",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-9457866743e7a94e",
+      "name": "Đồng hồ đo điện · Điện kế 1 pha CV130–CV140 — nắp che ổ đấu dây dài · cụm đầy đủ",
+      "brand": "EMIC",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "CV130 / CV140",
+      "reason": "related_code_only",
+      "brand_price_count": 86,
+      "related_price_rows": [
+        {
+          "id": "web:4255443f39cadfd0",
+          "sku": "CV130",
+          "item_name": "CV130",
+          "category": "METER",
+          "specifications": null
+        },
+        {
+          "id": "web:41d8d40f60da7d94",
+          "sku": "CV140",
+          "item_name": "CV140",
+          "category": "METER",
+          "specifications": null
+        },
+        {
+          "id": "web:a17bacf85e777502",
+          "sku": "CV140",
+          "item_name": "CV140",
+          "category": "METER",
+          "specifications": null
+        },
+        {
+          "id": "web:99e11075d31f64cf",
+          "sku": "CV140",
+          "item_name": "CV140",
+          "category": "METER",
+          "specifications": null
+        }
+      ]
+    },
+    {
+      "id": "TB-6bba66b06d6afe00",
+      "name": "Đồng hồ đo điện · CONG TO DT 1P EMIC",
+      "brand": "EMIC",
+      "type": "METER",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-038cd8839937b614",
+      "name": "Đồng hồ đo điện · EMIC — Điện kế 1 pha — hình bên",
+      "brand": "EMIC",
+      "type": "METER",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-125950ed706104db",
+      "name": "Đồng hồ đo điện · EMIC — Điện kế 3 pha — hình trước",
+      "brand": "EMIC",
+      "type": "METER",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-c12702ceba3c145c",
+      "name": "Chuyển mạch đo · mẫu nguồn 553",
+      "brand": "Omega",
+      "type": "SELECTOR_METER",
+      "product_code": "",
+      "reason": "no_brand_prices",
+      "brand_price_count": 0,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-eb8e4d0dd9fab2bb",
+      "name": "Đồng hồ đo điện · EMIC — Điện kế 1 pha — hình bên",
+      "brand": "EMIC",
+      "type": "METER",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 86,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-2e1e984cfccd8e20",
+      "name": "Đồng hồ đo điện · Schneider — Đồng hồ đa năng PM2220",
+      "brand": "Schneider Electric",
+      "type": "METER",
+      "product_code": "PM2220",
+      "reason": "code_not_in_published_prices",
+      "brand_price_count": 400,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-e42c7deac15252d9",
+      "name": "Tụ bù · Tụ dầu 440V\nSamwha · 10Kva · 15Kva · cụm đầy đủ",
+      "brand": "Samwha",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 45,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-d4afb08b4c317002",
+      "name": "Tụ bù · mẫu nguồn 577",
+      "brand": "Samwha",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 45,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-d588237cd9330ada",
+      "name": "Tụ bù · mẫu nguồn 582",
+      "brand": "Nuintek",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-6361baf292271ffa",
+      "name": "Tụ bù · Tụ dầu 440V\nNuintek · 10Kva · 15Kva · cụm đầy đủ",
+      "brand": "Nuintek",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-0eb1422f05734f7b",
+      "name": "Tụ bù · mẫu nguồn 574",
+      "brand": "Nuintek",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-91e932eb91867eba",
+      "name": "Tụ bù · mẫu nguồn 596",
+      "brand": "Nuintek",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-50449c6359791240",
+      "name": "Tụ bù · mẫu nguồn 589",
+      "brand": "Nuintek",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-39bedc6367c57490",
+      "name": "Tụ bù · mẫu nguồn 586",
+      "brand": "Samwha",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 45,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-74053a7578bd148c",
+      "name": "Tụ bù · mẫu nguồn 578",
+      "brand": "Samwha",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 45,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-90bfc07289fc6d33",
+      "name": "Tụ bù · mẫu nguồn 587",
+      "brand": "Samwha",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 45,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-ad99a0d7609284ef",
+      "name": "Tụ bù · Tụ khô 440V\nNuintek · 10Kva · 15Kva · cụm đầy đủ",
+      "brand": "Nuintek",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-9342751ec2e44e41",
+      "name": "Tụ bù · mẫu nguồn 592",
+      "brand": "Nuintek",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-d48c3b3480ab6b3a",
+      "name": "Tụ bù · mẫu nguồn 593",
+      "brand": "Nuintek",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-b8eee2fcffd35c17",
+      "name": "Tụ bù · mẫu nguồn 588",
+      "brand": "Nuintek",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-16f637af13611520",
+      "name": "Tụ bù · mẫu nguồn 600",
+      "brand": "Nuintek",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-0d2d186ab9395de9",
+      "name": "Tụ bù · mẫu nguồn 597",
+      "brand": "Samwha",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 45,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-310f03f5f629a194",
+      "name": "Tụ bù · mẫu nguồn 599",
+      "brand": "Nuintek",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-c2254d30a7976f28",
+      "name": "Tụ bù · mẫu nguồn 591",
+      "brand": "Nuintek",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-b40bfd7083e7da4b",
+      "name": "Tụ bù · mẫu nguồn 584",
+      "brand": "Nuintek",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-34d904f0c691f2e3",
+      "name": "Tụ bù · mẫu nguồn 594",
+      "brand": "Nuintek",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-cc5444ece7c61d84",
+      "name": "Tụ bù · mẫu nguồn 601",
+      "brand": "Nuintek",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-3efe0fc795c139de",
+      "name": "Tụ bù · mẫu nguồn 576",
+      "brand": "Samwha",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 45,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-03a9cfdda87c1618",
+      "name": "Tụ bù · mẫu nguồn 598",
+      "brand": "Nuintek",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-4fb44aa22cbb6603",
+      "name": "Tụ bù · mẫu nguồn 573",
+      "brand": "Nuintek",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-47cc5faafe494e24",
+      "name": "Tụ bù · mẫu nguồn 579",
+      "brand": "Nuintek",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-fc0b336b027082b2",
+      "name": "Tụ bù · mẫu nguồn 575",
+      "brand": "Samwha",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 45,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-29a2bccd904c99f3",
+      "name": "Tụ bù · mẫu nguồn 583",
+      "brand": "Nuintek",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-620438c832d23f81",
+      "name": "Tụ bù · mẫu nguồn 580",
+      "brand": "Samwha",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 45,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-5e97e74723792b13",
+      "name": "Tụ bù · Tụ dầu 415V\nNuintek · 10Kva · 15Kva · cụm đầy đủ",
+      "brand": "Nuintek",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-5d52bd74166d0918",
+      "name": "Tụ bù · mẫu nguồn 585",
+      "brand": "Nuintek",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-4c1d4307b8f8b08f",
+      "name": "Tụ bù · mẫu nguồn 595",
+      "brand": "Nuintek",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-ab6083b034ff1a3b",
+      "name": "Tụ bù · Tụ khô 440V\nSamwha · 10,15,20,25Kva · 30,40,50Kva · cụm đầy đủ",
+      "brand": "Samwha",
+      "type": "ASSEMBLY_REFERENCE",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 45,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-da2e98b7581d53fe",
+      "name": "Tụ bù · mẫu nguồn 590",
+      "brand": "Samwha",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 45,
+      "related_price_rows": []
+    },
+    {
+      "id": "TB-f6444cbff25e8f69",
+      "name": "Tụ bù · mẫu nguồn 581",
+      "brand": "Nuintek",
+      "type": "CAPACITOR",
+      "product_code": "",
+      "reason": "no_device_code",
+      "brand_price_count": 135,
       "related_price_rows": []
     },
     {
