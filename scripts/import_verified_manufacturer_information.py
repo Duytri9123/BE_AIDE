@@ -96,6 +96,55 @@ def reviewed_rows():
             {'Số cực': pole, 'Ui': '600 V', 'Dòng điện theo biến thể': '50, 60, 63, 75, 80, 100, 125 A',
              'Icu/Ics tại 415 VAC': '10/5 kA', 'Icu/Ics tại 230 VAC': '30/15 kA'})
         rows[-1]['id']+=':'+pole
+    ls_metasol='https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf'
+    for model in ('MC-6a','MC-9a','MC-12a','MC-18a','MC-32a','MC-40a','MC-50a','MC-65a',
+                  'MC-75a','MC-85a','MC-100a','MC-130a','MC-150a','MC-185a','MC-225a',
+                  'MC-265a','MC-330a','MC-400a','MC-500a','MC-630a','MC-800a'):
+        voltage='690 V' if model in ('MC-6a','MC-9a','MC-12a','MC-18a') else '1000 V'
+        add('LS Electric',model,model,'CONTACTOR',ls_metasol,
+            {'Số cực':'3P','Điện áp làm việc Ue':voltage,'Điện áp cách điện Ui':voltage,
+             'Tần số định mức':'50/60 Hz','Cấu hình':'Chọn điện áp cuộn hút và định mức theo tải'})
+    for model in ('MC-6a/4','MC-9a/4','MC-12a/4','MC-18a/4'):
+        add('LS Electric',model,model,'CONTACTOR',ls_metasol,
+            {'Số cực':'4P','Điện áp làm việc Ue':'690 V','Điện áp cách điện Ui':'690 V',
+             'Tần số định mức':'50/60 Hz','Cấu hình':'Chọn điện áp cuộn hút và định mức theo tải'})
+    for model, setting in [('MT-12','0.1–18 A'),('MT-32','0.1–40 A'),('MT-63','4–65 A')]:
+        add('LS Electric',model,model,'THERMAL_RELAY',ls_metasol,
+            {'Dải chỉnh dòng theo biến thể':setting,'Điện áp làm việc Ue':'690 V',
+             'Điện áp cách điện Ui':'690 V','Cấp tác động theo biến thể':'10A hoặc 20'})
+    add('MITEX','BD01','BD01','CT',
+        'https://mitex.vn/san-pham/bien-dong-do-luong-ha-the-kieu-bd01/',
+        {'Tiêu chuẩn':'IEC 61869-1; IEC 61869-2','Dòng sơ cấp theo biến thể':'50–6300 A',
+         'Dòng thứ cấp theo biến thể':'1 A hoặc 5 A','Tần số':'50/60 Hz',
+         'Nhiệt độ làm việc':'-5 đến +50 °C','Lắp đặt':'Trong nhà; chọn đúng tỷ số, cấp chính xác và dung lượng'})
+    master_url='https://masterelectric.com.vn/storage/catalogue-master-electric/master-catalog-current-transformer.pdf'
+    for model, currents, burden, aperture in [('RCT-35',(50,75,100,150,200,250,300),5,34),
+            ('RCT-90',(800,1000,1200),15,88),('RCT-110',(1000,1600,2000),15,110)]:
+        for current in currents:
+            add('Master Electric',model,model,'CT',master_url,
+                {'Tỷ số':f'{current}/5 A','Dòng sơ cấp (A)':current,'Dòng thứ cấp (A)':5,
+                 'Cấp chính xác':'1.0','Dung lượng (VA)':burden,'Đường kính trong (mm)':aperture})
+            rows[-1]['id']+=':'+str(current)+'/5'
+    for model, frame, insulation in [('T1','160',800),('T2','160',800),('T3','250',800),
+            ('T4','250 / 320',1000),('T5','400 / 630',1000),('T6','630 / 800 / 1000',1000),
+            ('T7','800 / 1000 / 1250 / 1600',1000)]:
+        for pole in ('3P','4P'):
+            add('ABB',model,model,'MCCB',
+                'https://library.e.abb.com/public/2ede0ead2a4842dec125790a00357f85/1SDC210015D0206.pdf',
+                {'Dòng sản phẩm':'Tmax '+model,'Số cực':pole,'Iu theo cỡ khung (A)':frame,
+                 'Điện áp làm việc Ue':'690 VAC; 50/60 Hz','Điện áp cách điện Ui':str(insulation)+' V',
+                 'Điện áp chịu xung Uimp':'8 kV','Tiêu chuẩn':'IEC 60947-2',
+                 'Cấu hình':'Chọn mã đặt hàng, bộ bảo vệ và cấp khả năng cắt theo biến thể'})
+            rows[-1]['id']+=':'+pole
+    add('Selec','600PSR','600PSR-CE','PHASE_RELAY',
+        'https://selec-europe.com/schutzrelais/phasensequenz/462/600psr-ce',
+        {'Điện áp hoạt động':'154–500 VAC (giữa hai pha)','Chức năng':'Giám sát thứ tự pha và mất pha',
+         'Ngõ ra':'1 SPDT','Lắp đặt':'Ray DIN; bề rộng 17.5 mm'})
+    add('Selec','MFM383','MFM383','POWER_METER',
+        'https://www.dien-congnghiep.com/upload/selec/mfm383.pdf',
+        {'Điện áp nguồn':'90–270 VAC; 50/60 Hz','Dòng đầu vào tối đa':'5 A',
+         'Hệ thống đo':'3 pha 4 dây hoặc 1 pha 2 dây','Hiển thị':'LCD có đèn nền',
+         'Lỗ khoét tủ':'92 × 92 mm','Mặt trước':'99 × 99 mm'})
     return rows
 
 def main():

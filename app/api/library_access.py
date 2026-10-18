@@ -14,6 +14,13 @@ from app.models.payment import Payment
 
 _requests = defaultdict(deque)
 
+def allows_free_library_read(method: str, path: str) -> bool:
+    equipment_path=path.split('/equipment-library/',1)[-1]
+    return bool(method=='GET' and '/equipment-library/' in path and (
+        equipment_path in ('browse','browser-data') or
+        re.fullmatch(r'[^/]+/catalog-information',equipment_path) or
+        re.fullmatch(r'(?:TB-[0-9a-f]{16}|[A-Z][A-Z0-9-]{2,95}-REFERENCE)(?:/(?:preview|drawing-source|views/[^/]+/preview))?',equipment_path)))
+
 async def library_entitlement(user: User = Depends(get_current_active_user), db=Depends(get_db)):
     if user.role == 'library_reviewer':
         return {'full_access': True, 'reason': 'library_reviewer'}
@@ -35,10 +42,7 @@ async def require_library_access(request: Request,
                                  entitlement=Depends(library_entitlement)):
     # Free can browse public product information and raster previews.
     # CAD assets, manifests and insertion data still require full access.
-    equipment_path = request.url.path.split('/equipment-library/', 1)[-1]
-    free_view = (request.method == 'GET' and '/equipment-library/' in request.url.path
-                 and (equipment_path in ('browse', 'browser-data') or
-                      re.fullmatch(r'TB-[0-9a-f]{16}(?:/(?:catalog-information|preview|drawing-source|views/[^/]+/preview))?', equipment_path)))
+    free_view = allows_free_library_read(request.method,request.url.path)
     if not entitlement['full_access'] and not free_view:
         raise HTTPException(403,detail='Gói Free được xem thư viện. Nâng cấp để tải hoặc chèn CAD.',
                             headers={'Cache-Control':'private, no-store'})

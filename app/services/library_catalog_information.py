@@ -30,6 +30,14 @@ def catalog_model_pattern(value):
 
 def explicit_family_compatible(model,row):
     family=(row.get('specifications') or {}).get('Dòng sản phẩm')
+    # Metasol's c/d generation suffix changes the physical product. Generic
+    # catalog family fields elsewhere may intentionally be broader than a SKU.
+    if family and canonical_brand(row.get('brand'))=='LS Electric':
+        code=re.sub(r'[^A-Z0-9]','',str(model).upper())
+        if re.fullmatch(re.escape(code)+r'[cd]',str(family)):return False
+    if family and re.search(r'/\d+$',str(family)):
+        base=str(family).rsplit('/',1)[0]
+        if re.sub(r'[^A-Z0-9]','',str(model).upper())==re.sub(r'[^A-Z0-9]','',base.upper()):return False
     return not (family and str(model).isalpha()) or str(family).casefold()==str(model).casefold()
 
 
@@ -66,11 +74,12 @@ def named_family_rows(model,brand,kind,spec,rows):
 def information_rows(device,rows=None):
     rows=source_rows() if rows is None else rows
     from .catalog_product_sections import pole_compatible
-    rows=[row for row in rows if pole_compatible(device,row)]
-    references=device.get('catalog_references') or {}
     maker=canonical_brand(device.get('brand'))
+    if maker:rows=[row for row in rows if canonical_brand(row.get('brand'))==maker]
+    rows=[row for row in rows if pole_compatible(device,row) and
+          (not device.get('product_code') or explicit_family_compatible(device['product_code'],row))]
+    references=device.get('catalog_references') or {}
     if maker:
-        rows=[row for row in rows if canonical_brand(row.get('brand'))==maker]
         own_ids={row['id'] for row in rows}
         references={**references,'options':[o for o in references.get('options',[])
             if canonical_brand(o.get('brand'))==maker or (not o.get('brand') and o.get('source_row_id') in own_ids)]}

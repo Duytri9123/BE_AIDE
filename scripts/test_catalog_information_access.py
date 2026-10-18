@@ -13,6 +13,9 @@ class CatalogInformationAccessTests(unittest.TestCase):
         for suffix in ('catalog-information','dxf','dwg','views/front/dxf','views/front/preview'):
             self.app.add_api_route('/equipment-library/TB-0123456789abcdef/'+suffix,fixture,
                 dependencies=[Depends(require_library_access)])
+        for suffix in ('catalog-information','dxf','views/front/preview'):
+            self.app.add_api_route('/equipment-library/CHINT-NXM-1000-REFERENCE/'+suffix,fixture,
+                dependencies=[Depends(require_library_access)])
         self.client=TestClient(self.app)
         self.app.dependency_overrides[get_current_active_user]=lambda:SimpleNamespace(id=98017,role='user',is_superuser=False)
         self.app.dependency_overrides[library_entitlement]=lambda:{'full_access':False,'reason':'upgrade_required'}
@@ -28,5 +31,9 @@ class CatalogInformationAccessTests(unittest.TestCase):
     def test_catalog_information_remains_authenticated(self):
         self.app.dependency_overrides.pop(get_current_active_user)
         self.assertEqual(self.client.get('/equipment-library/TB-0123456789abcdef/catalog-information').status_code,401)
+    def test_reference_devices_also_have_free_product_information(self):
+        self.assertEqual(self.client.get('/equipment-library/CHINT-NXM-1000-REFERENCE/catalog-information').status_code,200)
+        self.assertEqual(self.client.get('/equipment-library/CHINT-NXM-1000-REFERENCE/views/front/preview').status_code,200)
+        self.assertEqual(self.client.get('/equipment-library/CHINT-NXM-1000-REFERENCE/dxf').status_code,403)
 
 if __name__=='__main__':unittest.main()
