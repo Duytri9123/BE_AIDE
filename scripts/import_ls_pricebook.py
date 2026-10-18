@@ -47,7 +47,7 @@ def import_book(source):
                     if any(c=='Giá bán' for c in cells): headers=cells;continue
                     nonempty=[c for c in cells if c]
                     if len(nonempty)==1 and not re.fullmatch(r'[\d,.]+',nonempty[0]) and len(nonempty[0])<170:
-                        group=nonempty[0];previous_label='';headers=[]
+                        group=nonempty[0];previous_label=''
                         candidate_category=category_for(group)
                         if candidate_category!='ACCESSORY' or 'PHỤ KIỆN' in group.upper() or 'CUỘN HÚT' in group.upper():current_category=candidate_category
                         continue

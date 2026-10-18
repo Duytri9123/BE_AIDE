@@ -145,6 +145,56 @@ def reviewed_rows():
         {'Điện áp nguồn':'90–270 VAC; 50/60 Hz','Dòng đầu vào tối đa':'5 A',
          'Hệ thống đo':'3 pha 4 dây hoặc 1 pha 2 dây','Hiển thị':'LCD có đèn nền',
          'Lỗ khoét tủ':'92 × 92 mm','Mặt trước':'99 × 99 mm'})
+    mitsubishi='https://dl.mitsubishielectric.com/dl/fa/document/catalog/lvcb/yn-c-0720/y0720c1609.pdf'
+    # Pole lists and rating columns visually checked in the manufacturer's tables.
+    for model,poles,current,ui,icu,ics in [
+        ('NF250-CV',('2P','3P'),'125, 150, 175, 200, 225, 250 A',600,25,19),
+        ('NF400-CW',('2P','3P'),'250, 300, 350, 400 A',690,36,18),
+        ('NF630-CW',('2P','3P'),'500, 600, 630 A',690,36,18),
+        ('NF800-CEW',('3P',),'400–800 A; điều chỉnh',690,36,18)]:
+        for pole in poles:
+            add('Mitsubishi Electric',model,model,'MCCB',mitsubishi,
+                {'Số cực':pole,'Dòng định mức theo biến thể':current,'Ui':f'{ui} V',
+                 'Icu tại 400 VAC':f'{icu} kA','Ics tại 400 VAC':f'{ics} kA',
+                 'Tiêu chuẩn':'IEC 60947-2'})
+            rows[-1]['id']+=':'+pole
+    add('ABB','A2','1SDA066769R1','MCCB',
+        'https://shop.in.abb.com/1sda066769r1/a2n-250-tmf-125-1250-1p-f-f.html',
+        {'Tên hàng':'A2N 250 TMF 125-1250 1p F F','Số cực':'1P','In (A)':'125',
+         'Lắp đặt':'Cố định; đầu nối phía trước','Bộ bảo vệ':'Nhiệt từ TMF'})
+    add('Elster','A1700','A1700','METER',
+        'https://process.honeywell.com/us/en/products/utilities/electricity/commercial-and-industrial-meters/a1700-meter',
+        {'Loại thiết bị':'Công tơ điện tử đa biểu giá',
+         'Kết nối theo biến thể':'Trực tiếp, qua CT hoặc CT/VT',
+         'Cấp chính xác theo biến thể':'IEC 0.2S, 0.5S, 1, 2; MID A, B, C',
+         'Tần số':'50/60 Hz','Hiển thị':'LCD hai dòng',
+         'Kích thước':'279 × 170 × 81 mm'})
+    for pole,voltage,width in [('2P',230,72),('3P',400,117),('4P',400,135)]:
+        add('Shihlin Electric','BHL','BHL','RCBO',
+            'https://shihlin-th.com/uploads/pdfproductload/MCB_Din_Rail.pdf',
+            {'Số cực':pole,'Điện áp định mức':f'{voltage} VAC',
+             'Dòng định mức theo biến thể':'1, 2, 3, 4, 5, 6, 10, 16, 20, 25, 32, 40, 50, 63 A',
+             'Dòng rò tác động':'30 mA','Icn theo biến thể':'4.5 / 6 kA',
+             'Đặc tính tác động':'C hoặc D','Tiêu chuẩn':'IEC 61009 / GB 16917',
+             'Chiều rộng':f'{width} mm'})
+        rows[-1]['id']+=':'+pole
+    chint_nxm='https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nxm/catalog/NXM-MCCB-Catalog.pdf'
+    for model,frame in [('NXM-800S',800),('NXM-1600S',1600),('NXM-1600H',1600)]:
+        for pole in ('3P','4P'):
+            add('CHINT',model,model,'MCCB',chint_nxm,
+                {'Số cực':pole,'Cỡ khung AF':f'{frame} A','Tiêu chuẩn':'IEC 60947-2',
+                 'Chức năng':'Bảo vệ quá tải và ngắn mạch','Vận hành':'Tay gạt trực tiếp'})
+            rows[-1]['id']+=':'+pole
+    # Only the 4P columns printed for these models, not CV/CW/CEW variants.
+    for model,frame,ui,icu,ics in [('NF125-SV',125,690,30,30),('NF125-HV',125,690,50,38),
+        ('NF250-SV',250,690,36,36),('NF250-HV',250,690,75,75),
+        ('NF400-SW',400,690,45,45),('NF630-SW',630,690,50,50),
+        ('NF800-SEW',800,690,50,50),('NF800-HEW',800,690,70,70)]:
+        add('Mitsubishi Electric',model,model,'MCCB',mitsubishi,
+            {'Số cực':'4P','Cỡ khung AF':f'{frame} A','Ui':f'{ui} V',
+             'Icu tại 400 VAC':f'{icu} kA','Ics tại 400 VAC':f'{ics} kA',
+             'Tiêu chuẩn':'IEC 60947-2'})
+        rows[-1]['id']+=':4P'
     return rows
 
 def main():

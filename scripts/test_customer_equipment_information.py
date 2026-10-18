@@ -1,6 +1,6 @@
 import json
 import unittest
-from app.services.customer_equipment_information import customer_device,customer_information_rows,external_url,public_view_id
+from app.services.customer_equipment_information import customer_device,customer_information_rows,external_url,public_view_id,product_specs
 
 
 class CustomerEquipmentTests(unittest.TestCase):
@@ -64,6 +64,30 @@ class CustomerEquipmentTests(unittest.TestCase):
         self.assertEqual(result['columns'],row['columns'])
         self.assertEqual(result['cells'],['A1','1SDA','','16 A','1,000'])
         self.assertEqual(result['information_kind'],'pricebook')
+
+    def test_catalog_json_fallback_is_replaced_by_product_facts(self):
+        row={'id':'offer','brand':'LS Electric','sku':'BKN 2P 25A','name':'MCB LS BKN 25A 2P',
+             'information_kind':'price_reference','price':None,
+             'columns':['Tên hàng','Mã hàng','Thông tin'],'cells':['BKN','BKN','{}'],
+             'specifications':{'Số cực':'2P','Dòng chỉnh định':'Chưa xác định'}}
+        item=customer_information_rows([row],{'brand':'LS Electric'})[0]
+        self.assertEqual(item['cells'][2],'Số cực: 2P')
+        self.assertNotIn('{}',item['cells'])
+        self.assertNotIn('Chưa xác định',item['cells'][2])
+
+    def test_pricebook_page_boundaries_share_book_identity(self):
+        common={'brand':'ABB','information_kind':'pricebook','source_url':'https://abb.com/prices.pdf',
+                'group':'MCCB','columns':['Mã hàng','Giá bán'],'cells':['A1','100'],'price':100}
+        rows=[{**common,'id':'a','sku':'A1','book_key':'page1','source_page':1},
+              {**common,'id':'b','sku':'A2','book_key':'page2','source_page':2}]
+        result=customer_information_rows(rows,{'brand':'ABB'})
+        self.assertEqual(result[0]['book_key'],result[1]['book_key'])
+
+    def test_drawing_metadata_is_hidden_but_supply_specification_is_preserved(self):
+        spec={'nhan_tren_cad':'private','so_hinh_cung_nhan':4,'ma_ung_vien':'X',
+              'Nguồn cấp':'230 VAC','loai_nguon':'AC','so_cuc':'4P',
+              'kha_nang_cat':'Chọn Icu/Ics theo mã'}
+        self.assertEqual(product_specs(spec),{'Nguồn cấp':'230 VAC','loai_nguon':'AC','so_cuc':'4P'})
 
 
 if __name__=='__main__':unittest.main()

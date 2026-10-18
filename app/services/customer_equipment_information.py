@@ -10,6 +10,7 @@ from .ai.manufacturer_registry import canonical_brand
 
 INTERNAL=re.compile(r'CatalogTB|thong_tin_|TuLieuBanVe|SOURCE[-_]|SRC_|cluster\d|sha256|checksum|fingerprint|provenance|(?<![A-Z])[A-Z]:[\\/]|nguồn (?:CAD|DWG|hệ thống|bóc)|hồ sơ nguồn|nhãn (?:CAD|block)|bóc tách|trang tài liệu|căn cứ',re.I)
 PRIVATE_KEYS=re.compile(r'^nguon$|^nguồn$|nguon_cad|nhan_block|nhan_tren_hinh|tom_tat|luu_y|source|checksum|fingerprint|profile|file|handle|evidence|basis|căn cứ|phạm vi|trang tài liệu|nhan_dien|review|trên nguồn|từ nguồn|nhãn thông số',re.I)
+DRAWING_KEYS=re.compile(r'(?:^|_)cad(?:_|$)|nhan_tren|nhan_nhin|nhan_nguon|ban_ve|ung_vien|tham_khao|theo_hinh|^so_hinh|^so_ban_ve|cac_ma_dung_chung',re.I)
 
 
 def external_url(value):
@@ -30,8 +31,10 @@ def public_view_id(value):
 
 
 def product_specs(spec):
-    return {key:value for key,value in (spec or {}).items() if not PRIVATE_KEYS.search(key)
-            and value is not None and value!='' and not INTERNAL.search(str(value))}
+    return {key:value for key,value in (spec or {}).items() if not PRIVATE_KEYS.search(key) and not DRAWING_KEYS.search(key)
+            and value is not None and value!='' and str(value).strip().casefold() not in {'chưa xác định','{}','[]','null'}
+            and not re.match(r'^(?:chọn\b|dòng định mức in:\s*chọn)',str(value).strip(),re.I)
+            and not INTERNAL.search(str(value))}
 
 
 def reference_specs(spec):
@@ -117,6 +120,11 @@ def customer_information_rows(rows,device):
         item={k:row[k] for k in ('id','book_key','sku','item_name','name','brand','category','group','price','columns','cells','edition','vat_status','information_kind','compatibility_note') if k in row}
         item['specifications']=product_specs(row.get('specifications'))
         item['source_url']=external_url(row.get('source_url'))
+        if item.get('information_kind')=='pricebook':
+            # A page boundary is not a new price table. Keep book identity opaque
+            # while letting the UI join identical sections across source pages.
+            item['book_key']=hashlib.sha256(repr(tuple(row.get(k) for k in
+                ('brand','source_url','edition','effective_date'))).encode()).hexdigest()[:24]
         # Source-only metadata is not a product specification or table column.
         pairs=[]
         for index,column in enumerate(item.get('columns',[])):
@@ -127,7 +135,7 @@ def customer_information_rows(rows,device):
                     if not INTERNAL.search(part) and not re.match(r'\s*phạm vi\s*:',part,re.I))
             pairs.append((column,value))
         item['columns']=[p[0] for p in pairs];item['cells']=[p[1] for p in pairs]
-        if not item['columns']:
+        if item.get('information_kind') in {'price_reference','manufacturer_catalog','catalog_reference','device'} or not item['columns']:
             # Discovery offers carry structured facts rather than source-table
             # columns. Publish those facts instead of an empty one-cell table.
             item['columns']=['Tên hàng','Mã hàng','Thông số','Đơn giá']

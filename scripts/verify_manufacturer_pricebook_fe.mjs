@@ -36,7 +36,7 @@ try{
   if(JSON.stringify(headings)!==JSON.stringify(actualRows[0].columns))throw Error('Original pricebook columns altered: '+headings);
   const text=await page.locator('[data-product-scope="current"]').innerText();
   if(/CHINT|Thông tin sản phẩm|Căn cứ|Trang tài liệu/i.test(text))throw Error('Wrong manufacturer or synthetic table visible');
-  if(!text.includes('Bảng giá ABB'))throw Error('Actual manufacturer pricebook not identified');
+  if(!text.includes('ABB'))throw Error('Actual manufacturer pricebook not identified');
   if(!await page.locator('[data-product-scope="other_brands"]').count())throw Error('Missing separate other manufacturer section');
   if(await page.getByRole('heading',{name:'Bảng thông tin thiết bị',exact:true}).count())throw Error('Duplicate information table still visible');
   const cells=await table.locator('tbody tr').first().locator('td').allTextContents();

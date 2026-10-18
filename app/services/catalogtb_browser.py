@@ -75,6 +75,8 @@ def browser_data():
                     # CAD scan on the first request after deployment.
                     from .catalog_complementary_views import merge_complementary_views
                     _cache['items']=merge_complementary_views(_cache['items'])
+                    from .catalog_verified_configuration import apply_verified_configuration
+                    for profile in _cache['items']:apply_verified_configuration(profile)
                     _cache['total']=len(_cache['items'])
                     _cache['view_count']=sum(len(p['views']) for p in _cache['items'])
                     _cache['categories']=[{**c,'count':sum(p['category']==c['name'] for p in _cache['items'])} for c in _cache.get('categories',[])]
@@ -290,6 +292,8 @@ def _build_browser_data(information_override=None):
         profiles=[p for p in profiles if p['id'] not in member_ids]+[merged]
     from .catalog_complementary_views import merge_complementary_views
     profiles=merge_complementary_views(profiles)
+    from .catalog_verified_configuration import apply_verified_configuration
+    for profile in profiles:apply_verified_configuration(profile)
     from .catalog_visual_candidates import apply_visual_candidates
     apply_visual_candidates(profiles,CATALOG_TB_ROOT)
     from .library_ordering_configurations import ordering_configurations
