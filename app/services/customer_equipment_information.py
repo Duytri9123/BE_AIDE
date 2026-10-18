@@ -138,10 +138,9 @@ def customer_information_rows(rows,device):
         if item.get('information_kind') in {'price_reference','manufacturer_catalog','catalog_reference','device'} or not item['columns']:
             # Discovery offers carry structured facts rather than source-table
             # columns. Publish those facts instead of an empty one-cell table.
-            item['columns']=['Tên hàng','Mã hàng','Thông số','Đơn giá']
-            item['cells']=[item.get('item_name') or item.get('name') or item.get('sku') or '',
-                item.get('sku') or '',
-                '; '.join(f'{key}: {value}' for key,value in item['specifications'].items()),'']
+            from .product_table_columns import table_columns
+            item['columns'],item['cells']=table_columns(item)
+            item['item_name']=item['cells'][0]
         if not any(INTERNAL.search(str(item.get(k) or '')) for k in ('sku','item_name','name','group')):out.append(item)
     if not out:
         spec=product_specs(device.get('spec'))

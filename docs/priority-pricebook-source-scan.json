@@ -1,0 +1,29 @@
+{
+  "books": [
+    {
+      "brand": "ABB",
+      "pages_scanned": 218,
+      "paired_price_tokens": 4528,
+      "already_present": 937,
+      "new_priced_rows": 3591,
+      "unpaired_price_tokens": 19
+    },
+    {
+      "brand": "Schneider Electric",
+      "pages_scanned": 282,
+      "paired_price_tokens": 4630,
+      "new_priced_rows": 4149,
+      "unpaired_price_tokens": 510,
+      "already_present": 481
+    },
+    {
+      "brand": "Shihlin",
+      "pages_scanned": 18,
+      "paired_price_tokens": 116,
+      "already_present": 60,
+      "unpaired_price_tokens": 349,
+      "new_priced_rows": 56,
+      "new_unpriced_rows": 30
+    }
+  ]
+}

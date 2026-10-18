@@ -49,9 +49,9 @@ class CustomerEquipmentTests(unittest.TestCase):
              'specifications':{'Số cực':'1P','In (A)':'20','nguon':'private'},
              'source_url':'https://www.hager.com/product/HDA018Z','source_page':4}
         item=customer_information_rows([row],{'brand':'Hager'})[0]
-        self.assertEqual(item['columns'],['Tên hàng','Mã hàng','Thông số','Đơn giá'])
+        self.assertEqual(item['columns'],['Tên hàng','Mã hàng','Số cực','In (A)','Giá bán'])
         self.assertEqual(item['cells'][:2],[row['name'],'HDA018Z'])
-        self.assertIn('In (A): 20',item['cells'][2])
+        self.assertEqual(item['cells'][2:4],['1P','20'])
         self.assertNotIn('private',json.dumps(item))
         self.assertEqual(item['price'],1056990)
         self.assertNotIn('columns',row)
@@ -71,7 +71,7 @@ class CustomerEquipmentTests(unittest.TestCase):
              'columns':['Tên hàng','Mã hàng','Thông tin'],'cells':['BKN','BKN','{}'],
              'specifications':{'Số cực':'2P','Dòng chỉnh định':'Chưa xác định'}}
         item=customer_information_rows([row],{'brand':'LS Electric'})[0]
-        self.assertEqual(item['cells'][2],'Số cực: 2P')
+        self.assertEqual(item['cells'][2],'2P')
         self.assertNotIn('{}',item['cells'])
         self.assertNotIn('Chưa xác định',item['cells'][2])
 

@@ -25,7 +25,7 @@ try{
   if(await section.locator('.pricebook').count()!==1)throw Error('Offers are still split into separate books');
   if(await section.locator('tbody tr').count()!==4)throw Error('Missing Hager offers');
   const text=await section.innerText();
-  for(const value of ['HDA014Z','HDA018Z','HDA023Z','HDA030Z','Số cực: 1P','1.056.990 ₫'])if(!text.includes(value))throw Error('Missing '+value);
+  for(const value of ['HDA014Z','HDA018Z','HDA023Z','HDA030Z','Số cực','1P','1.056.990 ₫'])if(!text.includes(value))throw Error('Missing '+value);
   if(/Hager\s*·\s*$/.test(text))throw Error('Empty group heading');
   const links=await section.locator('tbody a').evaluateAll(nodes=>nodes.map(n=>n.href));
   if(JSON.stringify(links)!==JSON.stringify(offers[variant].map(r=>r.source_url)))throw Error('Row document links changed');

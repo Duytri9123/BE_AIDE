@@ -3,7 +3,7 @@ from fastapi.responses import FileResponse
 from pathlib import Path
 from starlette.concurrency import run_in_threadpool
 from app.api.deps import get_current_active_user, get_current_admin_user
-from app.services.device_catalog_browser import build_catalog_page, load_web_offers, load_supplier_items, load_catalog_documents, customer_catalog_page
+from app.services.device_catalog_browser import build_catalog_page, load_web_offers, load_supplier_items, load_catalog_items, load_catalog_documents, customer_catalog_page
 from app.services.ai.device_price_resolver import CustomPriceStore
 from app.services.pricebook_library_links import load_links, load_price_options
 
@@ -18,7 +18,7 @@ async def catalog(q: str='', brand: str='', category: str='', product_line: str=
             from app.services.library_price_matching import device_configuration_links
             display_links = {**device_configuration_links(equipment_catalog_id), **load_price_options()}
         result=customer_catalog_page(build_catalog_page([], CustomPriceStore.list_all(),
-                                  web_offers=load_web_offers(),supplier_items=load_supplier_items(),documents=load_catalog_documents(),library_links={**display_links, **load_links()},q=q,brand=brand,category=category,product_line=product_line,equipment_catalog_id=equipment_catalog_id,price_row_id=price_row_id,skip=skip,limit=limit))
+                                  web_offers=load_web_offers(),supplier_items=load_supplier_items(),catalog_items=load_catalog_items(),documents=load_catalog_documents(),library_links={**display_links, **load_links()} if equipment_catalog_id else {},q=q,brand=brand,category=category,product_line=product_line,equipment_catalog_id=equipment_catalog_id,price_row_id=price_row_id,skip=skip,limit=limit))
         if equipment_catalog_id:
             from app.services.library_price_matching import device_price_diagnostic
             result['price_diagnostic']=device_price_diagnostic(equipment_catalog_id)

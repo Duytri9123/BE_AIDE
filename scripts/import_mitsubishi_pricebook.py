@@ -31,7 +31,8 @@ def import_book(source):
                 continue
             if not pairs:continue
             has_price=any(isinstance(row[p],(int,float)) and not isinstance(row[p],bool) and row[p]>0 for _,_,p in pairs)
-            if not has_price:
+            has_identity=any(values[m] and values[c] and re.search(r'\d',values[m]) and re.match(r'^[A-Z]',values[m]) and re.search(r'\d',values[c]) for m,c,_ in pairs)
+            if not has_price and not has_identity:
                 for model,_,_ in pairs:
                     if re.search(r'\bIcu\s*=',values[model],re.I):local_capacity[model]=values[model].splitlines()[0]
                 for i,value in enumerate(values):
@@ -40,7 +41,7 @@ def import_book(source):
                 continue
             for model_col,code_col,price_col in pairs:
                 model,code,price=values[model_col],values[code_col],row[price_col]
-                if not isinstance(price,(int,float)) or isinstance(price,bool) or price<=0 or int(price)!=price:continue
+                if not isinstance(price,(int,float)) or isinstance(price,bool) or price<=0 or int(price)!=price:price=None
                 if not model or not code or not re.search(r'\d',model) or not re.match(r'^[A-Z]',model):continue
                 category=('ACCESSORY' if 'Accessory' in sheet.title else 'ACB' if sheet.title.startswith('ACB')
                           else 'MCB' if sheet.title.startswith('MCB') else 'ELCB' if sheet.title.startswith('ELCB')
@@ -61,10 +62,10 @@ def import_book(source):
                         label=field_headers.get(i)
                         if label and value and len(value)<700 and not value.startswith('*'):
                             specs.setdefault(label,re.sub(r'\s+',' ',value))
-                columns=['Tên hàng']+list(specs)+['Giá bán'];cells=[model]+list(specs.values())+[str(int(price))]
+                columns=['Tên hàng']+list(specs)+['Giá bán'];cells=[model]+list(specs.values())+[str(int(price)) if price is not None else '']
                 fingerprint=hashlib.sha1(f'{sheet.title}:{number}:{price_col}:{code}'.encode()).hexdigest()[:16]
                 items.append({'id':'mitsubishi-xlsx:'+fingerprint,'sku':code,'item_name':model,'name':model,
-                    'brand':'Mitsubishi Electric','category':category,'group':sheet.title,'price':int(price),'currency':'VND',
+                    'brand':'Mitsubishi Electric','category':category,'group':sheet.title,'price':int(price) if price is not None else None,'currency':'VND',
                     'specifications':specs,'columns':columns,'cells':cells,'source_kind':'supplier_pricebook',
                     'source_label':'Mitsubishi 06-2026 · Điện Sài Gòn','source_url':SOURCE_URL,
                     'source_sheet':sheet.title,'source_row':number,'source_sha256':checksum,

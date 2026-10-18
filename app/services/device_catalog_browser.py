@@ -44,6 +44,10 @@ def load_supplier_items():
     path=Path(__file__).resolve().parents[1]/'data/supplier_pricebooks.json'
     return json.loads(path.read_text(encoding='utf8')).get('items',[]) if path.exists() else []
 
+def load_catalog_items():
+    path=Path(__file__).resolve().parents[1]/'data/external_product_information.json'
+    return json.loads(path.read_text(encoding='utf8')).get('items',[]) if path.exists() else []
+
 def load_catalog_documents():
     path=Path(__file__).resolve().parents[1]/'data/catalog_documents.json'
     return json.loads(path.read_text(encoding='utf8')).get('items',[]) if path.exists() else []
@@ -51,20 +55,25 @@ def load_catalog_documents():
 def customer_catalog_page(payload):
     """Allowlist commercial fields; never send sourcing intelligence to customers."""
     public = {key:payload[key] for key in ('categories','total','priced_total','checked_date','primary_key','skip','limit')}
-    public['brands'] = [{'name':maker['name'], 'price_count':maker['price_count'],
+    public['brands'] = [{'name':maker['name'], 'price_count':maker['price_count'],'product_count':maker.get('product_count',maker['price_count']),
                          'categories':[{'code':c['code'],'label':c['label']} for c in maker['categories']],
-                         'priced_categories':maker.get('priced_categories', [])}
+                         'priced_categories':maker.get('priced_categories', []),'catalog_categories':maker.get('catalog_categories',[])}
                         for maker in payload['brands']]
     fields = ('sku','item_name','name','brand','category','group','price','columns','cells',
               'specifications','model_key','effective_date','edition','vat_status','updated_at',
               'checked_at','product_line','line_label','equipment_catalog_id')
     public['items'] = []
     for row in payload['items']:
+        from .customer_equipment_information import customer_information_rows
+        kind=row.get('information_kind') or ('pricebook' if row.get('source_kind')=='supplier_pricebook' else 'price_reference')
+        clean=customer_information_rows([{**row,'information_kind':kind}],{'brand':row['brand']})[0]
         item = {key:row[key] for key in fields if key in row}
+        for key in ('columns','cells','specifications','item_name','name'):
+            if key in clean:item[key]=clean[key]
         item['id'] = hashlib.sha256(row['id'].encode()).hexdigest()[:24]
-        item['information_kind']='pricebook' if row.get('source_kind')=='supplier_pricebook' else 'price_reference'
+        item['information_kind']=row.get('information_kind') or ('pricebook' if row.get('source_kind')=='supplier_pricebook' else 'price_reference')
         # Preserve table grouping without disclosing supplier, URL or document page.
-        identity = [row.get(k) for k in ('brand','group','source_url','source_label','source_page','effective_date','columns')]
+        identity = [row.get(k) for k in ('brand','group','source_url','edition','effective_date','columns')]
         item['book_key'] = hashlib.sha256(json.dumps(identity,ensure_ascii=False).encode()).hexdigest()[:24]
 
         # Add CAD preview information if equipment_catalog_id exists
@@ -75,7 +84,7 @@ def customer_catalog_page(payload):
         public['items'].append(item)
     return public
 
-def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_items=(), documents=(), library_links=None, q='', brand='', category='', product_line='', equipment_catalog_id='', price_row_id='', skip=0, limit=30):
+def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_items=(), catalog_items=(), documents=(), library_links=None, q='', brand='', category='', product_line='', equipment_catalog_id='', price_row_id='', skip=0, limit=30):
     rows = {}
     for item in priced_items:
         code = str(item.get('sku') or item.get('ma') or '').strip()
@@ -110,17 +119,23 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
         if item.get('currency')!='VND' or not item.get('item_name') or not item.get('checked_at'):continue
         rows[('supplier',item['id'])]={k:item.get(k) for k in ('id','sku','item_name','name','brand','category','price','source_label','source_url','checked_at','source_kind','price_note','effective_date','edition','vat_status','source_page','specifications','columns','cells','group','product_line','line_label')}
         rows[('supplier',item['id'])]['updated_at']=item['checked_at']
-    items = [row for row in rows.values() if isinstance(row['price'], (int,float))
-             and not isinstance(row['price'], bool) and math.isfinite(row['price']) and row['price'] > 0
-             and canonical_brand(row['brand']) in CUSTOMER_MANUFACTURERS]
+    for item in catalog_items:
+        if not item.get('sku') or not item.get('brand'):continue
+        rows[('catalog',item['id'])]={**item,'information_kind':'manufacturer_catalog',
+            'source_kind':'manufacturer_catalog','price':item.get('price'),
+            'updated_at':item.get('checked_at')}
+    items = [row for row in rows.values() if canonical_brand(row['brand']) in CUSTOMER_MANUFACTURERS
+             and (row.get('sku') or row.get('item_name') or row.get('name'))]
     for row in items:
+        price=row.get('price')
+        if not isinstance(price,(int,float)) or isinstance(price,bool) or not math.isfinite(price) or price<=0:row['price']=None
         row['brand']=canonical_brand(row['brand'])
         row['item_name']=row.get('item_name') or row['sku'] or row['name']
         row['model_key']=row['brand']+'::'+row['item_name']
         row['equipment_catalog_id']=(library_links or {}).get(row['id'])
         row.setdefault('group',label(row['category']))
-        row.setdefault('columns',['Tên hàng','Thông tin','Giá bán'])
-        row.setdefault('cells',[row['item_name'],row['name'],str(row['price'])])
+        if not row.get('columns'):row['columns']=['Tên hàng','Thông tin','Giá bán']
+        if not row.get('cells'):row['cells']=[row['item_name'],row.get('name') or row['item_name'],str(row['price']) if row['price'] is not None else '']
     makers = {name:{'name':name,'categories':[],'price_count':0} for name in CUSTOMER_MANUFACTURERS}
     for name, info in manufacturer_categories().items():
         name = canonical_brand(name)
@@ -130,7 +145,8 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
             for code,evidence in sorted(info['categories'].items())], 'price_count':0}
     for row in items:
         makers.setdefault(row['brand'], {'name':row['brand'], 'categories':[], 'price_count':0})
-        makers[row['brand']]['price_count'] += 1
+        makers[row['brand']]['product_count']=makers[row['brand']].get('product_count',0)+1
+        if row['price'] is not None:makers[row['brand']]['price_count'] += 1
         if row['category'] not in {c['code'] for c in makers[row['brand']]['categories']}:
             makers[row['brand']]['categories'].append({'code':row['category'],'label':label(row['category']),
                 'source':None,'checked_date':CHECKED_DATE})
@@ -139,12 +155,13 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
         if name not in makers:continue
         makers.setdefault(name,{'name':name,'categories':[],'price_count':0})
     for maker in makers.values():
-        counts = {}
+        counts = {};priced_counts={}
         for row in items:
             if row['brand'] == maker['name']:
                 counts[row['category']] = counts.get(row['category'], 0) + 1
-        maker['priced_categories'] = [{'code':code,'label':label(code),'price_count':count}
-                                      for code,count in sorted(counts.items())]
+                if row['price'] is not None:priced_counts[row['category']]=priced_counts.get(row['category'],0)+1
+        maker['catalog_categories']=[{'code':code,'label':label(code),'product_count':count} for code,count in sorted(counts.items())]
+        maker['priced_categories'] = [{'code':code,'label':label(code),'price_count':count} for code,count in sorted(priced_counts.items())]
     categories = sorted({i['category'] for i in items})
     normalize = lambda text: strip_accents(str(text)).casefold()
     query = normalize(q.strip())
@@ -157,7 +174,7 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
     filtered.sort(key=lambda row:(row['brand'],row.get('source_kind')!='supplier_pricebook',row.get('source_page') or 0))
     return {'brands':sorted(makers.values(),key=lambda m:m['name']),
             'categories':[{'code':c,'label':label(c)} for c in categories],
-            'items':filtered[skip:skip+limit], 'total':len(filtered), 'priced_total':len(items),
+            'items':filtered[skip:skip+limit], 'total':len(filtered), 'priced_total':sum(row['price'] is not None for row in items),
             'documents':[d for d in documents if canonical_brand(d['brand']) in CUSTOMER_MANUFACTURERS
                          and (not brand or canonical_brand(d['brand'])==canonical_brand(brand))],
             'checked_date':CHECKED_DATE, 'primary_key':'item_name', 'skip':skip, 'limit':limit}
