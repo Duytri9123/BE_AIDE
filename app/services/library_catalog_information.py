@@ -74,12 +74,12 @@ def named_family_rows(model,brand,kind,spec,rows):
 def information_rows(device,rows=None):
     rows=source_rows() if rows is None else rows
     from .catalog_product_sections import pole_compatible
-    maker=canonical_brand(device.get('brand'))
-    if maker:rows=[row for row in rows if canonical_brand(row.get('brand'))==maker]
     rows=[row for row in rows if pole_compatible(device,row) and
           (not device.get('product_code') or explicit_family_compatible(device['product_code'],row))]
     references=device.get('catalog_references') or {}
+    maker=canonical_brand(device.get('brand'))
     if maker:
+        rows=[row for row in rows if canonical_brand(row.get('brand'))==maker]
         own_ids={row['id'] for row in rows}
         references={**references,'options':[o for o in references.get('options',[])
             if canonical_brand(o.get('brand'))==maker or (not o.get('brand') and o.get('source_row_id') in own_ids)]}
