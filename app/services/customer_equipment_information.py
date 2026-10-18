@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 from .ai.manufacturer_registry import canonical_brand
 
 INTERNAL=re.compile(r'CatalogTB|thong_tin_|TuLieuBanVe|SOURCE[-_]|SRC_|cluster\d|sha256|checksum|fingerprint|provenance|(?<![A-Z])[A-Z]:[\\/]|nguồn (?:CAD|DWG|hệ thống|bóc)|hồ sơ nguồn|nhãn (?:CAD|block)|bóc tách|trang tài liệu|căn cứ',re.I)
-PRIVATE_KEYS=re.compile(r'nguon_cad|nhan_block|nhan_tren_hinh|tom_tat|luu_y|source|checksum|fingerprint|profile|file|handle|evidence|basis|căn cứ|phạm vi|trang tài liệu|nhan_dien|review|trên nguồn|từ nguồn|nhãn thông số',re.I)
+PRIVATE_KEYS=re.compile(r'^nguon$|^nguồn$|nguon_cad|nhan_block|nhan_tren_hinh|tom_tat|luu_y|source|checksum|fingerprint|profile|file|handle|evidence|basis|căn cứ|phạm vi|trang tài liệu|nhan_dien|review|trên nguồn|từ nguồn|nhãn thông số',re.I)
 
 
 def external_url(value):
@@ -127,6 +127,13 @@ def customer_information_rows(rows,device):
                     if not INTERNAL.search(part) and not re.match(r'\s*phạm vi\s*:',part,re.I))
             pairs.append((column,value))
         item['columns']=[p[0] for p in pairs];item['cells']=[p[1] for p in pairs]
+        if not item['columns']:
+            # Discovery offers carry structured facts rather than source-table
+            # columns. Publish those facts instead of an empty one-cell table.
+            item['columns']=['Tên hàng','Mã hàng','Thông số','Đơn giá']
+            item['cells']=[item.get('item_name') or item.get('name') or item.get('sku') or '',
+                item.get('sku') or '',
+                '; '.join(f'{key}: {value}' for key,value in item['specifications'].items()),'']
         if not any(INTERNAL.search(str(item.get(k) or '')) for k in ('sku','item_name','name','group')):out.append(item)
     if not out:
         spec=product_specs(device.get('spec'))

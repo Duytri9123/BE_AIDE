@@ -43,6 +43,19 @@ class CustomerEquipmentTests(unittest.TestCase):
         self.assertFalse(external_url('/device-catalog/documents/private'))
         self.assertFalse(external_url('https://127.0.0.1/private'))
 
+    def test_offers_without_table_columns_keep_name_specs_and_optional_price(self):
+        row={'id':'offer','brand':'Hager','sku':'HDA018Z','name':'MCCB 1P 20A 18kA',
+             'price':1056990,'information_kind':'price_reference',
+             'specifications':{'Số cực':'1P','In (A)':'20','nguon':'private'},
+             'source_url':'https://www.hager.com/product/HDA018Z','source_page':4}
+        item=customer_information_rows([row],{'brand':'Hager'})[0]
+        self.assertEqual(item['columns'],['Tên hàng','Mã hàng','Thông số','Đơn giá'])
+        self.assertEqual(item['cells'][:2],[row['name'],'HDA018Z'])
+        self.assertIn('In (A): 20',item['cells'][2])
+        self.assertNotIn('private',json.dumps(item))
+        self.assertEqual(item['price'],1056990)
+        self.assertNotIn('columns',row)
+
     def test_original_schema_survives_empty_cells_and_embedded_private_evidence(self):
         row={'id':'a','brand':'ABB','sku':'A1','columns':['Tên hàng','Mã đặt hàng','Ghi chú','Thông số','Giá bán'],
              'cells':['A1','1SDA','', '16 A; Căn cứ: nhãn CAD nguồn; Phạm vi: mã trên bản vẽ', '1,000'],
