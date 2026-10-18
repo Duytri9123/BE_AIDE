@@ -33,11 +33,12 @@ async def library_entitlement(user: User = Depends(get_current_active_user), db=
 async def require_library_access(request: Request,
                                  user: User=Depends(get_current_active_user),
                                  entitlement=Depends(library_entitlement)):
-    # Free can browse and view raster previews, never CAD, manifests or insertion data.
+    # Free can browse public product information and raster previews.
+    # CAD assets, manifests and insertion data still require full access.
     equipment_path = request.url.path.split('/equipment-library/', 1)[-1]
     free_view = (request.method == 'GET' and '/equipment-library/' in request.url.path
                  and (equipment_path in ('browse', 'browser-data') or
-                      re.fullmatch(r'TB-[0-9a-f]{16}(?:/(?:preview|drawing-source|views/[^/]+/preview))?', equipment_path)))
+                      re.fullmatch(r'TB-[0-9a-f]{16}(?:/(?:catalog-information|preview|drawing-source|views/[^/]+/preview))?', equipment_path)))
     if not entitlement['full_access'] and not free_view:
         raise HTTPException(403,detail='Gói Free được xem thư viện. Nâng cấp để tải hoặc chèn CAD.',
                             headers={'Cache-Control':'private, no-store'})
