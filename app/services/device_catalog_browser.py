@@ -31,6 +31,10 @@ CATEGORY_LABELS = {
     'SELECTOR_SWITCH':'Công tắc chuyển mạch',
     'LIMIT_SWITCH':'Công tắc hành trình',
     'ENCLOSURE':'Vỏ tủ điện',
+    'CABINET_LOCK':'Khóa tủ điện',
+    'BUSBAR_SUPPORT':'Giá đỡ thanh cái',
+    'VOLTAGE_STABILIZER':'Ổn áp',
+    'CONTROLLER':'Bộ điều khiển',
 }
 
 def label(code):
@@ -170,7 +174,7 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
                 and (not product_line or i.get('product_line')==product_line)
                 and (not equipment_catalog_id or i.get('equipment_catalog_id')==equipment_catalog_id)
                 and (not price_row_id or hashlib.sha256(i['id'].encode()).hexdigest()[:24]==price_row_id)
-                and query in normalize(' '.join(str(i.get(k) or '') for k in ('sku','item_name','name','brand','category','group','specifications')))]
+                and (not query or query in normalize(' '.join(str(i.get(k) or '') for k in ('sku','item_name','name','brand','category','group','specifications'))))]
     filtered.sort(key=lambda row:(row['brand'],row.get('source_kind')!='supplier_pricebook',row.get('source_page') or 0))
     return {'brands':sorted(makers.values(),key=lambda m:m['name']),
             'categories':[{'code':c,'label':label(c)} for c in categories],

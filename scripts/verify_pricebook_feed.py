@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from app.api.v1.endpoints.device_catalog import router
 from app.api.deps import get_current_active_user
+from app.services.customer_manufacturers import CUSTOMER_MANUFACTURERS
 from app.services.device_catalog_browser import (build_catalog_page,customer_catalog_page,
     load_supplier_items,load_web_offers,load_catalog_items)
 
@@ -22,8 +23,9 @@ def main():
     app.dependency_overrides[get_current_active_user]=lambda:object()
     client=TestClient(app)
     report=[]
-    for brand in ['LS Electric','CHINT','Mitsubishi Electric','Schneider Electric','Shihlin','ABB']:
+    for brand in CUSTOMER_MANUFACTURERS:
         rows=[r for r in public['items'] if r['brand']==brand]
+        assert rows, f'Manufacturer has no imported products: {brand}'
         for skip in (0,max(0,len(rows)-100)):
             response=client.get('/device-catalog',params={'brand':brand,'skip':skip,'limit':100})
             assert response.status_code==200,response.text

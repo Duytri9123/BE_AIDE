@@ -23,19 +23,22 @@ try{
  });
  await page.route('**/users/me',route=>route.fulfill({json:{id:1,name:'QA',role:'user'}}));
  await page.goto('http://127.0.0.1:5197/pricebook-qa.html');
- for(const brand of ['LS Electric','CHINT','Mitsubishi Electric','Schneider Electric','Shihlin','ABB']){
+ for(const brand of feed.brands.map(b=>b.name)){
+   const all=feed.items.filter(r=>r.brand===brand);
+   const priced=all.filter(r=>r.price!=null).slice(0,2).length,unpriced=all.filter(r=>r.price==null).slice(0,2).length;
+   if(!priced&&!unpriced)throw Error('Manufacturer has no products: '+brand);
    await page.getByLabel('Lọc theo hãng',{exact:true}).selectOption(brand);
-   await page.waitForFunction(b=>document.querySelector('.result-heading h2')?.textContent?.includes(b)&&document.querySelectorAll('.pricebook tbody tr').length===4,brand);
+   await page.waitForFunction(({brand,count})=>document.querySelector('.result-heading h2')?.textContent?.includes(brand)&&document.querySelectorAll('.pricebook tbody tr').length===count,{brand,count:priced+unpriced});
    const rows=page.locator('.pricebook tbody tr');
-   if(await rows.count()!==4)throw Error('Missing rows: '+brand);
+   if(await rows.count()!==priced+unpriced)throw Error('Missing rows: '+brand);
    const text=await page.locator('.pricebook-grid').innerText();
-   if(!text.includes('---'))throw Error('Missing price placeholder: '+brand);
+   if(unpriced&&!text.includes('---'))throw Error('Missing price placeholder: '+brand);
    if(/Căn cứ|Trang tài liệu|source_sha256|\{\}/.test(text))throw Error('Private or empty metadata: '+brand);
    for(const table of await page.locator('.pricebook table').all()){
       const headers=await table.locator('th').count();
       for(const row of await table.locator('tbody tr').all())if(await row.locator('td').count()!==headers)throw Error('Misaligned cells: '+brand);
    }
-   results.push({brand,priced_rows:2,unpriced_rows:2,missing_price:'---',aligned_columns:true});
+   results.push({brand,priced_rows:priced,unpriced_rows:unpriced,missing_price:unpriced?'---':null,aligned_columns:true});
  }
  if(errors.length)throw Error(errors.join('\n'));
  fs.writeFileSync('docs/unpriced-pricebook-fe-check.json',JSON.stringify({results,page_errors:errors},null,2)+'\n');

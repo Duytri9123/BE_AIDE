@@ -1,21 +1,49 @@
 {
-  "products": 18883,
-  "without_price": 1521,
+  "products": 18994,
+  "without_price": 1613,
   "all_imported_rows_serialized": true,
   "cad_required": false,
   "manufacturers": [
     {
-      "brand": "LS Electric",
-      "products": 1322,
-      "priced": 697,
-      "without_price": 625,
+      "brand": "Schneider Electric",
+      "products": 4627,
+      "priced": 4552,
+      "without_price": 75,
       "api_first_last_pages": "passed"
     },
     {
-      "brand": "CHINT",
-      "products": 2256,
-      "priced": 1731,
-      "without_price": 525,
+      "brand": "ABB",
+      "products": 4702,
+      "priced": 4672,
+      "without_price": 30,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Siemens",
+      "products": 130,
+      "priced": 127,
+      "without_price": 3,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Hager",
+      "products": 200,
+      "priced": 200,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Legrand",
+      "products": 103,
+      "priced": 103,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "BTB Electric",
+      "products": 38,
+      "priced": 38,
+      "without_price": 0,
       "api_first_last_pages": "passed"
     },
     {
@@ -26,10 +54,17 @@
       "api_first_last_pages": "passed"
     },
     {
-      "brand": "Schneider Electric",
-      "products": 4627,
-      "priced": 4552,
-      "without_price": 75,
+      "brand": "Fuji Electric",
+      "products": 152,
+      "priced": 152,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "LS Electric",
+      "products": 1322,
+      "priced": 697,
+      "without_price": 625,
       "api_first_last_pages": "passed"
     },
     {
@@ -40,10 +75,290 @@
       "api_first_last_pages": "passed"
     },
     {
-      "brand": "ABB",
-      "products": 4702,
-      "priced": 4672,
+      "brand": "CHINT",
+      "products": 2256,
+      "priced": 1731,
+      "without_price": 525,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Andeli",
+      "products": 1,
+      "priced": 1,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Sino - Vanlock",
+      "products": 178,
+      "priced": 178,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Vinakip",
+      "products": 26,
+      "priced": 26,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Omron",
+      "products": 15,
+      "priced": 10,
+      "without_price": 5,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Delta",
+      "products": 49,
+      "priced": 49,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Yaskawa",
+      "products": 6,
+      "priced": 6,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Danfoss",
+      "products": 6,
+      "priced": 6,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "INVT",
+      "products": 102,
+      "priced": 102,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "IDEC",
+      "products": 183,
+      "priced": 183,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Hanyoung Nux",
+      "products": 237,
+      "priced": 214,
+      "without_price": 23,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Samwha",
+      "products": 45,
+      "priced": 45,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "TDK / EPCOS",
+      "products": 29,
+      "priced": 29,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Shizuki",
+      "products": 42,
+      "priced": 42,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Nuintek",
+      "products": 135,
+      "priced": 135,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Mikro",
+      "products": 217,
+      "priced": 215,
+      "without_price": 2,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "SK",
+      "products": 3,
+      "priced": 3,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Ducati Energia",
+      "products": 2,
+      "priced": 2,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Selec",
+      "products": 30,
+      "priced": 28,
+      "without_price": 2,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Delixi",
+      "products": 172,
+      "priced": 172,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Morele",
+      "products": 36,
+      "priced": 36,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "EMIC",
+      "products": 87,
+      "priced": 86,
+      "without_price": 1,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "MITEX",
+      "products": 69,
+      "priced": 68,
+      "without_price": 1,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Leipole",
+      "products": 21,
+      "priced": 18,
+      "without_price": 3,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "O-Sung / OSEMCO",
+      "products": 28,
+      "priced": 28,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "LightStar",
+      "products": 20,
+      "priced": 20,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "SmartGen",
+      "products": 13,
+      "priced": 13,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Deep Sea Electronics",
+      "products": 5,
+      "priced": 5,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Phoenix Contact",
+      "products": 3,
+      "priced": 2,
+      "without_price": 1,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Rittal",
+      "products": 15,
+      "priced": 0,
+      "without_price": 15,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "W\u00f6hner",
+      "products": 6,
+      "priced": 0,
+      "without_price": 6,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "EMKA",
+      "products": 16,
+      "priced": 0,
+      "without_price": 16,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "CML",
+      "products": 4,
+      "priced": 0,
+      "without_price": 4,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Omega",
+      "products": 1,
+      "priced": 0,
+      "without_price": 1,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "ROBOT",
+      "products": 4,
+      "priced": 4,
+      "without_price": 0,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "KDE",
+      "products": 45,
+      "priced": 15,
       "without_price": 30,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Master Electric",
+      "products": 13,
+      "priced": 0,
+      "without_price": 13,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "KACON",
+      "products": 1,
+      "priced": 0,
+      "without_price": 1,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Suntree",
+      "products": 5,
+      "priced": 0,
+      "without_price": 5,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "Trend / Honeywell",
+      "products": 1,
+      "priced": 0,
+      "without_price": 1,
+      "api_first_last_pages": "passed"
+    },
+    {
+      "brand": "MEAN WELL",
+      "products": 13,
+      "priced": 0,
+      "without_price": 13,
       "api_first_last_pages": "passed"
     }
   ]
