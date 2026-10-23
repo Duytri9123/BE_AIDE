@@ -254,6 +254,7 @@ class CadMacroBlockSchema(BaseModel):
 
 
 class ChatRequest(BaseModel):
+    request_id: Optional[UUID] = None
     session_id: Optional[UUID] = None
     project_id: int
     message: str
@@ -276,11 +277,16 @@ class ChatRequest(BaseModel):
 
 
 class ChatResponse(BaseModel):
+    project_id: Optional[int] = None
+    base_iteration_id: Optional[int] = None
+    iteration_id: Optional[int] = None
+    iteration_number: Optional[int] = None
+    session_id: Optional[UUID] = None
     reply: str
     action_type: str = "general_chat"  # 'macro_draft', 'update_devices', 'resize_panel', 'general_chat'
     macro_blocks: Optional[List[CadMacroBlockSchema]] = None
     enclosure_specs: Optional[dict] = None
-    devices: Optional[List[ExtractedDeviceSchema]] = None
+    devices: Optional[List[dict]] = None
     quotation_rows: Optional[List[dict]] = None
     cad_file: Optional[dict] = None
     cad_commands: Optional[List[str]] = None

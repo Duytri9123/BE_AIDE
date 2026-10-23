@@ -1,436 +1,132 @@
-import os
-import re
+"""Project chat replies and persisted follow-up edits; never rerun extraction."""
+import asyncio
+import logging
 import uuid
-from typing import List, Dict, Any, Optional
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
+from copy import deepcopy
 
-from app.db.session import get_db
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy import select, func, text
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from app.api.deps import get_current_active_user
+from app.db.session import get_db
 from app.models.user import User
 from app.models.project import Project
-from app.models.project_file import ProjectFile
-from app.models.ai_connection import AiConnection
-from app.schemas.ai import (
-    ChatRequest,
-    ChatResponse,
-    CadMacroBlockSchema,
-    ExtractedDeviceSchema
-)
-from app.services.device_catalog_engine import DeviceCatalogEngine
-from app.services.cad.enclosure_cad_generator import EnclosureCadGeneratorService
-from app.services.export.quotation_exporter import QuotationExporterService
-from app.services.ingestion.pdf_drawing_indexer import PdfDrawingIndexerService
-from app.core.config import settings
+from app.models.conversation_session import ConversationSession
+from app.models.analysis_iteration import AnalysisIteration
+from app.schemas.ai import ChatRequest, ChatResponse
+from app.services.ai.connection_pool import ConnectionPoolService
+from app.services.ai.vision_analyzer import VisionAnalyzerService
+from app.services.ai.project_chat import conversation_prompt, parse_plan, apply_plan, updated_confidence
 
+logger = logging.getLogger(__name__)
 router = APIRouter()
 
-def parse_electrical_intent(message: str, current_devices: List[Dict[str, Any]]) -> Dict[str, Any]:
-    """
-    Phân tích câu lệnh kỹ thuật điện của người dùng để sinh hoặc cập nhật danh sách thiết bị.
-    Hỗ trợ cả thiết kế mới toàn diện và thêm/bớt/sửa thiết bị.
-    """
-    msg = message.lower()
-    updated_devices = list(current_devices) if current_devices else []
-    action_type = "macro_draft"
-    explanation = []
 
-    # 1. Phát hiện thiết kế tủ mới từ đầu (MSB, DB, ATS, Tủ bơm...)
-    is_new_design = any(k in msg for k in ["thiết kế tủ", "tạo tủ", "vẽ tủ", "tủ mới", "tủ msb", "tủ db", "tủ ats", "tủ điện"])
-    
-    if is_new_design or not updated_devices:
-        updated_devices = []
-        # Incomer Rating
-        incomer_rating = int(settings.DEFAULT_INCOMER_RATING or 630)
-        inc_match = re.search(r'(\d+)\s*a', msg)
-        if inc_match:
-            incomer_rating = int(inc_match.group(1))
-        elif "1000" in msg:
-            incomer_rating = 1000
-        elif "800" in msg:
-            incomer_rating = 800
-        elif "400" in msg:
-            incomer_rating = 400
-        elif "250" in msg:
-            incomer_rating = 250
-        elif "100" in msg:
-            incomer_rating = 100
+def saved_response(iteration, project_id):
+    meta = iteration.user_corrections or {}
+    return ChatResponse(reply=meta["reply"], action_type="update_devices",
+        devices=iteration.ai_parsed_devices or [], project_id=project_id,
+        base_iteration_id=meta.get("base_iteration_id"), iteration_id=iteration.id,
+        iteration_number=iteration.iteration_number, session_id=iteration.session_id)
 
-        # Incomer Breaker
-        inc_cat = "ACB" if incomer_rating >= 1000 else "MCCB"
-        updated_devices.append({
-            "category": inc_cat,
-            "name": f"{inc_cat} Tổng {incomer_rating}A 3P",
-            "spec": f"3P - {incomer_rating}A - 45kA",
-            "in_a": float(incomer_rating),
-            "icu_ka": 45.0 if incomer_rating >= 400 else 30.0,
-            "poles": 3,
-            "quantity": 1,
-            "brand": "",
-            "part_number": "",
-            "section": "Đầu vào",
-            "confidence": settings.DEFAULT_CONFIDENCE
-        })
 
-        # Đo lường & đèn báo
-        updated_devices.append({
-            "category": "METER",
-            "name": "Đồng hồ đa năng MFM hiển thị số (V, A, Hz, CosPhi, kWh)",
-            "spec": "Màn hình LCD 3 pha - Class 0.5",
-            "quantity": 1,
-            "brand": "",
-            "part_number": "",
-            "section": "Đo lường & Giám sát",
-            "confidence": settings.DEFAULT_CONFIDENCE
-        })
-        updated_devices.append({
-            "category": "LIGHT",
-            "name": "Bộ 3 đèn báo pha LED R-S-T (Đỏ, Vàng, Xanh)",
-            "spec": "Phi 22 - 220VAC",
-            "quantity": 3,
-            "brand": "",
-            "part_number": "",
-            "section": "Đo lường & Giám sát",
-            "confidence": settings.DEFAULT_CONFIDENCE
-        })
+async def replay(db, project_id, request_id):
+    if request_id is None:
+        return None
+    return (await db.execute(select(AnalysisIteration)
+        .join(ConversationSession, AnalysisIteration.session_id == ConversationSession.id)
+        .where(ConversationSession.project_id == project_id,
+            AnalysisIteration.trigger_type == "chat_update",
+            AnalysisIteration.user_corrections["request_id"].as_string() == str(request_id))
+        .limit(1))).scalar_one_or_none()
 
-        # Lộ nhánh mặc định theo công suất tủ
-        if incomer_rating >= 630:
-            updated_devices.append({
-                "category": "MCCB",
-                "name": "MCCB 3P 250A 30kA Phân phối",
-                "spec": "3P - 250A - 30kA",
-                "in_a": 250.0,
-                "icu_ka": 30.0,
-                "poles": 3,
-                "quantity": 3,
-                "brand": "",
-                "part_number": "",
-                "section": "Đầu ra",
-                "confidence": 0.94
-            })
-            updated_devices.append({
-                "category": "MCCB",
-                "name": "MCCB 3P 100A 18kA Phân phối",
-                "spec": "3P - 100A - 18kA",
-                "in_a": 100.0,
-                "icu_ka": 18.0,
-                "poles": 3,
-                "quantity": 4,
-                "brand": "",
-                "part_number": "",
-                "section": "Đầu ra",
-                "confidence": 0.94
-            })
-            updated_devices.append({
-                "category": "MCB",
-                "name": "MCB 1P 20A 6kA Chiếu sáng & Ổ cắm",
-                "spec": "1P - 20A - 6kA",
-                "in_a": 20.0,
-                "icu_ka": 6.0,
-                "poles": 1,
-                "quantity": 6,
-                "brand": "",
-                "part_number": "",
-                "section": "Đầu ra",
-                "confidence": 0.92
-            })
-        else:
-            updated_devices.append({
-                "category": "MCCB",
-                "name": "MCCB 3P 100A 18kA Phân phối",
-                "spec": "3P - 100A - 18kA",
-                "in_a": 100.0,
-                "icu_ka": 18.0,
-                "poles": 3,
-                "quantity": 3,
-                "brand": "",
-                "part_number": "",
-                "section": "Đầu ra",
-                "confidence": 0.94
-            })
-            updated_devices.append({
-                "category": "MCB",
-                "name": "MCB 3P 32A 6kA Phụ tải",
-                "spec": "3P - 32A - 6kA",
-                "in_a": 32.0,
-                "icu_ka": 6.0,
-                "poles": 3,
-                "quantity": 4,
-                "brand": "",
-                "part_number": "",
-                "section": "Đầu ra",
-                "confidence": 0.92
-            })
-
-        # Quạt hút & cảm biến nhiệt độ
-        updated_devices.append({
-            "category": "COOLING",
-            "name": "Quạt hút thông gió tủ điện gắn nóc/hông",
-            "spec": "220VAC - Kèm lưới lọc bụi",
-            "quantity": 2,
-            "brand": "",
-            "part_number": "",
-            "section": "Làm mát cho ngăn tủ",
-            "confidence": 0.95
-        })
-        updated_devices.append({
-            "category": "COOLING",
-            "name": "Bộ điều khiển nhiệt độ tủ điện (Thermostat)",
-            "spec": "0-60°C - Tiếp điểm 10A",
-            "quantity": 1,
-            "brand": "",
-            "part_number": "",
-            "section": "Làm mát cho ngăn tủ",
-            "confidence": 0.95
-        })
-
-        explanation.append(f"⚡ Đã thiết kế hoàn chỉnh hệ thống **Tủ Điện {incomer_rating}A**.")
-        explanation.append(f"🔹 Aptomat tổng Incomer: **{inc_cat} 3P {incomer_rating}A**.")
-        explanation.append(f"🔹 Hệ thống đo lường & bảo vệ: Đồng hồ đa năng MFM, 3 đèn báo pha LED R-S-T.")
-        explanation.append(f"🔹 Xuất tuyến phân phối: Gồm các lộ MCCB và MCB phân tầng tối ưu không gian lắp ráp.")
-    else:
-        # 2. Xử lý câu lệnh thêm thiết bị cụ thể (Increment)
-        mccb_add = re.search(r'thêm\s*(\d+)?\s*(mccb|aptomat|cb)\s*(\d+)?a?', msg)
-        mcb_add = re.search(r'thêm\s*(\d+)?\s*(mcb)\s*(\d+)?a?', msg)
-        
-        qty = 2
-        rating = 100
-        if mccb_add:
-            qty_str = mccb_add.group(1)
-            rating_str = mccb_add.group(3)
-            qty = int(qty_str) if qty_str else 2
-            rating = int(rating_str) if rating_str else 100
-            
-            updated_devices.append({
-                "category": "MCCB",
-                "name": f"MCCB 3P {rating}A Phân phối nhánh",
-                "spec": f"3P - {rating}A - 30kA",
-                "in_a": float(rating),
-                "icu_ka": 30.0,
-                "poles": 3,
-                "quantity": qty,
-                "brand": "",
-                "part_number": "",
-                "section": "Đầu ra",
-                "confidence": 0.96
-            })
-            explanation.append(f"➕ Đã thêm **{qty}x MCCB 3P {rating}A** vào ngăn phân phối nhánh.")
-            action_type = "update_devices"
-        elif mcb_add:
-            qty_str = mcb_add.group(1)
-            rating_str = mcb_add.group(3)
-            qty = int(qty_str) if qty_str else 4
-            rating = int(rating_str) if rating_str else 20
-            
-            updated_devices.append({
-                "category": "MCB",
-                "name": f"MCB 1P {rating}A 6kA Chiếu sáng",
-                "spec": f"1P - {rating}A - 6kA",
-                "in_a": float(rating),
-                "icu_ka": 6.0,
-                "poles": 1,
-                "quantity": qty,
-                "brand": "",
-                "part_number": "",
-                "section": "Đầu ra",
-                "confidence": 0.95
-            })
-            explanation.append(f"➕ Đã thêm **{qty}x MCB 1P {rating}A** trên thanh DIN-Rail.")
-            action_type = "update_devices"
-        else:
-            explanation.append(f"💡 Đã ghi nhận yêu cầu và tối ưu lại sơ đồ bố trí không gian tủ điện.")
-
-    return {
-        "devices": updated_devices,
-        "action_type": action_type,
-        "explanation": "\n\n".join(explanation)
-    }
-
-def generate_macro_blocks(enclosure_spec: Dict[str, Any], devices: List[Dict[str, Any]]) -> List[CadMacroBlockSchema]:
-    """
-    Sinh danh sách các Macro Blocks đồ họa cấp cao cho CAD Canvas và AutoCAD Commands.
-    """
-    H = enclosure_spec.get("height", 1700)
-    W = enclosure_spec.get("width", 700)
-    plinth = enclosure_spec.get("plinth_height", settings.ENCLOSURE_DEFAULT_PLINTH_HEIGHT)
-    incomer_a = enclosure_spec.get("incomer_rating", settings.DEFAULT_INCOMER_RATING or 630)
-
-    blocks: List[CadMacroBlockSchema] = []
-
-    # 1. Macro Block: Khung vỏ tủ & Đế tủ
-    blocks.append(CadMacroBlockSchema(
-        id="mb-enclosure",
-        type="ENCLOSURE_BODY",
-        name=f"Vỏ tủ & Đế đỡ {plinth}mm",
-        layer="0_ENCLOSURE",
-        command_line=f"_RECTANGLE 0,0 {W},{H} -> Khung tủ điện 2 lớp cánh H{H}xW{W}xD600 kèm đế {plinth}mm",
-        bounds={"x": 0, "y": 0, "w": W, "h": H},
-        metadata={"thickness": settings.ENCLOSURE_DEFAULT_THICKNESS, "plinth": plinth, "ip_rating": "IP54"}
-    ))
-
-    # 2. Macro Block: Ngăn thanh cái đồng chính (Cu Busbar)
-    busbar_cu = int(incomer_a / 2)
-    blocks.append(CadMacroBlockSchema(
-        id="mb-busbar",
-        type="BUSBAR_SYSTEM",
-        name=f"Hệ thanh cái đồng {incomer_a}A (R-S-T-N)",
-        layer="0_BUSBAR",
-        command_line=f"_BUSBAR 4P {incomer_a}A Cu {busbar_cu}mm² N=50% -> Kéo 4 thanh cái đồng đỏ",
-        bounds={"x": 35, "y": 140, "w": W - 70, "h": 220},
-        metadata={"rating": incomer_a, "cu_area": busbar_cu, "phases": ["R", "S", "T", "N"]}
-    ))
-
-    # 3. Macro Block: Ngăn Incomer đầu vào
-    blocks.append(CadMacroBlockSchema(
-        id="mb-incomer",
-        type="INCOMER_UNIT",
-        name=f"Khối Incomer {incomer_a}A & 3 Đèn pha",
-        layer="0_DEVICES",
-        command_line=f"_INSERT INCOMER_{incomer_a}A_3P -> Bố trí MCCB tổng và 3 đèn báo pha R-S-T",
-        bounds={"x": (W - 240) / 2, "y": 380, "w": 240, "h": 210},
-        metadata={"rating": incomer_a, "icu_ka": 45, "part_number": f"ABN {incomer_a}C"}
-    ))
-
-    # 4. Macro Block: Dãy phân phối nhánh Feeder Rails
-    feeder_devs = [d for d in devices if d.get("category") in ["MCCB", "MCB", "CONTACTOR"] and float(d.get("in_a") or 0) < incomer_a]
-    blocks.append(CadMacroBlockSchema(
-        id="mb-feeders",
-        type="FEEDER_ROW",
-        name=f"Dãy xuất tuyến phân phối ({len(feeder_devs)} lộ)",
-        layer="0_DEVICES",
-        command_line=f"_ARRAY Feeder Breakers -> Gắn 3 dãy DIN-rail và bố trí các lộ nhánh MCCB/MCB",
-        bounds={"x": 40, "y": 620, "w": W - 80, "h": 500},
-        metadata={"feeder_count": len(feeder_devs)}
-    ))
-
-    # 5. Macro Block: Đo lường & Làm mát
-    blocks.append(CadMacroBlockSchema(
-        id="mb-accessories",
-        type="ACCESSORY_PANEL",
-        name="Đo lường MFM & Làm mát Rack",
-        layer="0_DEVICES",
-        command_line=f"_INSERT MFM383A + 2x FAN 220V -> Đồng hồ đa năng và cụm quạt hút giải nhiệt",
-        bounds={"x": 50, "y": 1150, "w": W - 100, "h": 120},
-        metadata={"cooling": "2x 220V", "meter": "MFM383A"}
-    ))
-
-    # 6. Macro Block: Kích thước & Khung tên
-    blocks.append(CadMacroBlockSchema(
-        id="mb-titleblock",
-        type="TITLEBLOCK",
-        name="Khung tên kỹ thuật & Dim kích thước",
-        layer="0_TITLEBLOCK",
-        command_line=f"_DIMLINEAR H{H}xW{W} & _TITLEBLOCK -> Đóng khung tên bản vẽ kỹ thuật",
-        bounds={"x": W - 280, "y": H - 160, "w": 260, "h": 140},
-        metadata={"dimensions": f"H{H}xW{W}xD600"}
-    ))
-
-    return blocks
 
 @router.post("/", response_model=ChatResponse)
-async def chat_with_cad_agent(
-    request: ChatRequest,
-    db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_active_user),
-):
-    """
-    CAD AI Agent Orchestrator (Kiến trúc Hybrid BE + Macro Blocks).
-    Tự động suy luận thiết kế, tra cứu Catalog SKU, sinh Macro CAD Blocks và đồng bộ bảng Báo giá BOM.
-    """
-    # 1. Lấy thông tin dự án
-    proj_stmt = select(Project).where(
-        Project.id == request.project_id,
-        Project.user_id == current_user.id,
-    )
-    proj_res = await db.execute(proj_stmt)
-    project = proj_res.scalar_one_or_none()
-    if not project:
-        raise HTTPException(status_code=404, detail="Dự án không tồn tại")
+async def chat_with_cad_agent(request: ChatRequest, db: AsyncSession = Depends(get_db),
+                             current_user: User = Depends(get_current_active_user)):
+    project = (await db.execute(select(Project).where(Project.id == request.project_id,
+        Project.user_id == current_user.id, Project.deleted_at.is_(None)))).scalar_one_or_none()
+    if project is None:
+        raise HTTPException(404, "Dự án không tồn tại")
+    previous = await replay(db, project.id, request.request_id)
+    if previous:
+        return saved_response(previous, project.id)
 
-    # 2. Kiểm tra nếu người dùng hỏi về danh sách / các trang có tủ điện trong bản vẽ
-    if PdfDrawingIndexerService.detect_panel_query_intent(request.message):
-        pdf_file_stmt = select(ProjectFile).where(
-            ProjectFile.project_id == request.project_id,
-            ProjectFile.filename.ilike("%.pdf")
-        ).order_by(ProjectFile.id.desc())
-        pdf_file_res = await db.execute(pdf_file_stmt)
-        pdf_file = pdf_file_res.scalars().first()
-        if pdf_file and pdf_file.file_path and os.path.exists(pdf_file.file_path):
-            idx_res = PdfDrawingIndexerService.index_pdf(pdf_file.file_path)
-            if idx_res.get("has_text_layer"):
-                return ChatResponse(
-                    reply=idx_res["report_markdown"],
-                    action_type="query_drawings",
-                    devices=request.current_devices or [],
-                    enclosure_specs={},
-                    cad_macro_blocks=[]
-                )
+    base_id = (request.context or {}).get("iteration_id")
+    if base_id is not None and (type(base_id) is not int or base_id <= 0):
+        raise HTTPException(422, "Phiên thiết bị không hợp lệ.")
+    statement = select(AnalysisIteration).join(ConversationSession,
+        AnalysisIteration.session_id == ConversationSession.id).where(
+            ConversationSession.project_id == project.id,
+            ConversationSession.user_id == current_user.id,
+            AnalysisIteration.status == "completed")
+    if base_id is not None:
+        statement = statement.where(AnalysisIteration.id == base_id)
+    source = (await db.execute(statement.order_by(AnalysisIteration.created_at.desc(),
+        AnalysisIteration.id.desc()).limit(1))).scalar_one_or_none()
+    if base_id is not None and source is None:
+        raise HTTPException(404, "Phiên thiết bị không thuộc dự án này.")
+    devices = deepcopy(request.current_devices if request.current_devices is not None
+                       else (source.ai_parsed_devices if source else []) or [])
+    if len(devices) > 5000:
+        raise HTTPException(413, "Danh sách thiết bị quá lớn cho một lượt chat.")
+    prompt = conversation_prompt(request.message, devices, request.context)
+    if len(prompt) > 600000:
+        raise HTTPException(413, "Ngữ cảnh hội thoại quá dài. Vui lòng rút gọn yêu cầu.")
+    connections = await ConnectionPoolService.get_ordered_connections(db)
+    if not connections:
+        raise HTTPException(503, "Chưa có kết nối AI khả dụng cho chat. Vui lòng thử lại sau.")
+    try:
+        raw, _ = await asyncio.wait_for(ConnectionPoolService.call_with_fallback(
+            db=db, connections=connections, call_fn=VisionAnalyzerService.analyze_text,
+            prompt=prompt), timeout=90)
+    except Exception:
+        logger.exception("Project chat inference failed")
+        raise HTTPException(502, "AI chưa phản hồi thành công. Chưa có thay đổi nào được áp dụng.")
+    try:
+        plan = parse_plan(raw)
+        edited = apply_plan(devices, plan)
+    except Exception:
+        logger.warning("Invalid project chat plan", exc_info=True)
+        raise HTTPException(502, "AI trả về chỉnh sửa chưa hợp lệ. Chưa có thay đổi nào được áp dụng; vui lòng thử lại.")
+    if edited == devices:
+        return ChatResponse(reply=plan.reply, action_type="general_chat", project_id=project.id,
+                            base_iteration_id=base_id)
 
-    # 3. Phân tích lệnh kỹ thuật của người dùng
-    intent = parse_electrical_intent(request.message, request.current_devices or [])
-    devices_raw = intent["devices"]
-    action_type = intent["action_type"]
-    reply_text = intent["explanation"]
-
-    # 3. Khớp SKU và đơn giá từ DeviceCatalogEngine trên Backend
-    eng = DeviceCatalogEngine.get_instance()
-    extracted_devices: List[ExtractedDeviceSchema] = []
-    
-    for dev in devices_raw:
-        cat = dev.get("category", "MCCB")
-        poles = dev.get("poles", 3)
-        in_a = dev.get("in_a", 100.0)
-        p_num = dev.get("part_number")
-
-        info = eng.lookup_device_info(
-            category=cat,
-            in_a=in_a,
-            poles=poles,
-            brand=dev.get("brand"),
-            part_number=p_num,
-            name=dev.get("name")
-        )
-        p_num = info["sku"]
-
-        extracted_devices.append(ExtractedDeviceSchema(
-            category=cat,
-            name=dev.get("name", f"{cat} {in_a}A"),
-            spec=dev.get("spec", f"{poles}P - {in_a}A"),
-            in_a=float(in_a) if in_a else None,
-            icu_ka=float(dev.get("icu_ka", 30.0)),
-            poles=int(poles) if poles else None,
-            quantity=int(dev.get("quantity", 1)),
-            brand=info.get("brand") or dev.get("brand") or "",
-            part_number=p_num,
-            section=dev.get("section", "Đầu ra"),
-            confidence=float(dev.get("confidence", settings.DEFAULT_CONFIDENCE))
-        ))
-
-    # 4. Tính toán quy cách vỏ tủ điện & thanh cái
-    enclosure_specs = EnclosureCadGeneratorService.calculate_enclosure_specs([d.model_dump() for d in extracted_devices])
-
-    # CAD is selected from the indexed source library in the workspace.
-    # Chat analysis must not create macro geometry or a synthetic DXF.
-    macro_blocks = []
-    cad_file_info = None
-
-    # 7. Trừ token hợp lý
-    token_cost = 250
-    if current_user.tokens >= token_cost:
-        current_user.tokens -= token_cost
+    # Serialize saves for this project, then recheck retry idempotency. Provider
+    # fallback may commit connection health earlier, so take the lock only now.
+    if db.bind.dialect.name == "sqlite":
+        # SQLite ignores FOR UPDATE. Release the read transaction and acquire
+        # a writer reservation before replay/save, including across workers.
         await db.commit()
-
-    cad_commands = [b.command_line for b in macro_blocks]
-
-    return ChatResponse(
-        reply=reply_text,
-        action_type=action_type,
-        macro_blocks=macro_blocks,
-        enclosure_specs=enclosure_specs,
-        devices=extracted_devices,
-        cad_file=cad_file_info,
-        cad_commands=cad_commands,
-        suggested_corrections=[]
-    )
+        await db.execute(text("BEGIN IMMEDIATE"))
+    else:
+        await db.execute(select(Project.id).where(Project.id == project.id).with_for_update())
+    previous = await replay(db, project.id, request.request_id)
+    if previous:
+        return saved_response(previous, project.id)
+    if source:
+        session = (await db.execute(select(ConversationSession)
+            .where(ConversationSession.id == source.session_id))).scalar_one()
+    else:
+        session = ConversationSession(id=uuid.uuid4(), project_id=project.id,
+                                      user_id=current_user.id, total_iterations=0)
+        db.add(session)
+        await db.flush()
+    latest_number = (await db.execute(select(func.max(AnalysisIteration.iteration_number))
+        .where(AnalysisIteration.session_id == session.id))).scalar_one() or 0
+    reply = plan.reply.strip() + "\n\nĐã lưu danh sách thiết bị cập nhật vào project."
+    iteration = AnalysisIteration(session_id=session.id, iteration_number=latest_number + 1,
+        trigger_type="chat_update", user_message=request.message,
+        user_corrections={"request_id": str(request.request_id) if request.request_id else None,
+                          "base_iteration_id": base_id, "reply": reply},
+        files_analyzed=deepcopy(source.files_analyzed) if source else {},
+        ai_parsed_devices=edited, devices_after_validation=edited,
+        confidence_scores=updated_confidence(source.confidence_scores if source else {}, edited),
+        status="completed")
+    db.add(iteration)
+    session.total_iterations = latest_number + 1
+    await db.commit()
+    await db.refresh(iteration)
+    return saved_response(iteration, project.id)

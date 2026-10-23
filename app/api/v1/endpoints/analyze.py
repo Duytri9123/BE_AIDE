@@ -622,43 +622,11 @@ async def get_latest_project_analysis(
     current_user: User = Depends(get_current_active_user),
 ):
     """Lấy kết quả bóc tách gần nhất của dự án để phục hồi khi tải lại trang."""
-    project_stmt = select(Project.id).where(
-        Project.id == project_id,
-        Project.user_id == current_user.id,
-    )
-    if (await db.execute(project_stmt)).scalar_one_or_none() is None:
-        raise HTTPException(status_code=404, detail="Dự án không tồn tại")
-
-    sess_stmt = select(ConversationSession).where(
-        ConversationSession.project_id == project_id
-    ).order_by(ConversationSession.created_at.desc())
-    sess_res = await db.execute(sess_stmt)
-    session = sess_res.scalars().first()
-    if not session:
+    from app.services.analysis_reads import latest_analysis
+    session_id, latest_iter, cad_file = await latest_analysis(db, project_id, current_user)
+    if latest_iter is None:
         return None
 
-    iter_stmt = select(AnalysisIteration).where(
-        AnalysisIteration.session_id == session.id
-    ).order_by(AnalysisIteration.iteration_number.desc())
-    iter_res = await db.execute(iter_stmt)
-    all_iters = iter_res.scalars().all()
-    if not all_iters:
-        return None
-
-    latest_iter = None
-    for it in all_iters:
-        if it.ai_parsed_devices and len(it.ai_parsed_devices) > 0:
-            latest_iter = it
-            break
-    if not latest_iter:
-        latest_iter = all_iters[0]
-
-    existing_cad_stmt = select(ProjectFile).where(
-        ProjectFile.project_id == project_id,
-        (ProjectFile.filename.like("BanVe_%") | ProjectFile.filename.like("PhacThao_%"))
-    )
-    cad_res = await db.execute(existing_cad_stmt)
-    cad_file = cad_res.scalars().first()
     cad_file_info = {
         "id": cad_file.id,
         "filename": cad_file.filename,
@@ -667,7 +635,7 @@ async def get_latest_project_analysis(
     } if cad_file else None
 
     return _build_analysis_result_schema(
-        session_id=session.id,
+        session_id=session_id,
         iteration_number=latest_iter.iteration_number,
         raw_devices=latest_iter.ai_parsed_devices or [],
         conf_scores=latest_iter.confidence_scores or {},
