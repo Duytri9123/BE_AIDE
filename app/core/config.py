@@ -1,6 +1,6 @@
 import json
 from typing import List, Union, Optional
-from pydantic import AnyHttpUrl, field_validator
+from pydantic import AnyHttpUrl, Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -125,6 +125,7 @@ class Settings(BaseSettings):
     # Enclosure Calculation Defaults
     ENCLOSURE_DEFAULT_THICKNESS: int = 2  # mm
     ENCLOSURE_DEFAULT_PLINTH_HEIGHT: int = 200  # mm
+    ENCLOSURE_RESERVE_SPACE_PCT: float = Field(default=15, ge=0, le=50)
     ENCLOSURE_MIN_WIDTH: int = 400  # mm
     ENCLOSURE_MIN_HEIGHT: int = 600  # mm
     ENCLOSURE_MIN_DEPTH: int = 300  # mm

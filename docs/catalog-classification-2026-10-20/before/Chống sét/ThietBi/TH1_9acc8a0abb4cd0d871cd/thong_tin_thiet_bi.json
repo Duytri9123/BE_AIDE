@@ -1,0 +1,310 @@
+{
+  "nhom": "Chống sét",
+  "ten_kieu": "Chống sét · mẫu CAD 9acc8a",
+  "ten_san_pham": "Chống sét · mẫu CAD 9acc8a",
+  "ban_chat": "Chống sét",
+  "cong_dung": "Hạn chế quá điện áp xung và dẫn dòng xung xuống hệ thống bảo vệ; chọn loại SPD, điện áp Uc, dòng xả và sơ đồ cực theo mã tham khảo trong bảng thông tin.",
+  "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp theo mã thiết bị.",
+  "hang_xac_nhan": null,
+  "ma_dong_san_pham": null,
+  "thong_so": {
+    "nhan_block_nguon": "*U431",
+    "dien_ap_xac_nhan_V": null,
+    "cong_suat_xac_nhan": null,
+    "Loại thiết bị": "Thiết bị chống sét lan truyền (SPD)"
+  },
+  "muc_do_xac_nhan": "CAD tham khảo từ thư viện nguồn; chưa xác nhận mã đặt hàng, hãng, hướng nhìn và thông số điện.",
+  "nguon_tham_khao": [],
+  "nguon_cad": {
+    "file": "D:/THƯ VIỆN/TỔNG HỢP 1.dwg",
+    "sha256": "68e8bb43ccee0bceaf49fa982510ef29c3a6a2f7c11b00a7330f181d9e6ff7b5",
+    "block": "*U431",
+    "asset_id": "9acc8a0abb4cd0d871cd",
+    "parent_asset_id": "3031c3cc81e9ef73e98b",
+    "geometry_key": "ee83a6e96f4b9ac4b83108f1aaebdb38f101059949aa0ceeedfb95331eba9ee2"
+  },
+  "cac_hinh_cad": [
+    "TH1_9acc8a0abb4cd0d871cd"
+  ],
+  "auto_select": false,
+  "needs_review": true,
+  "trang_thai_lua_chon": "Chỉ tham khảo, cần xác nhận mã và trạng thái CAD trước sử dụng.",
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Chọn theo từng kết nối, thông số điện và bảo vệ phía trước; không suy từ hình CAD. Vật tư thuần cơ khí không yêu cầu dây.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa có dữ liệu gá/cọc theo mã đầy đủ",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "TH1_9acc8a0abb4cd0d871cd",
+      "huong_nhin": "Mặt trước",
+      "nhan_hien_thi": "Hình nguồn · chưa xác nhận mặt",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": false,
+        "huong_dan": "Cần xác nhận mặt và mã thiết bị trước sử dụng."
+      },
+      "duong_dan": "CadDon/TH1_9acc8a0abb4cd0d871cd/ban_ve.dxf",
+      "nhan_dien_mat": {
+        "review_date": "2026-10-11",
+        "method": "individual_visual_review",
+        "evidence_card": 35,
+        "evidence_image": "outputs\\catalogtb-projection-review\\035.png",
+        "previous_label": "Chưa xác nhận hướng nhìn",
+        "projection": "Mặt trước",
+        "basis": "Device controls/terminals and relative projection geometry; source block label used only when consistent with the inspected image.",
+        "mounting_orientation_verified": false,
+        "exact_sku_verified": false
+      }
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "TH1_9acc8a0abb4cd0d871cd",
+    "huong_nhin": "Mặt trước",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "SPD",
+    "cac_ma_dong_san_pham": [],
+    "fabrication_ready": false,
+    "generic_shape": true,
+    "ghi_chu": "CAD mẫu SPD dạng 3P+N, chưa xác định hãng."
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "Chống sét",
+    "ma_san_pham": "Chống sét · mẫu CAD 9acc8a",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khảo - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "SPD",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "Suntree",
+        "model": "SUP1-40",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 1
+        },
+        "source_url": "https://www.suntree-electric.com/search/product",
+        "source_page": 1,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng là ứng viên theo mã trong tài liệu; chưa xác nhận logo trên CAD. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "Suntree",
+        "model": "SUP2",
+        "specifications": {
+          "Loại": "SPD AC Class II",
+          "Cực lựa chọn": "1P / 2P / 1P+N / 3P / 3P+N / 4P",
+          "Lắp đặt": "Ray DIN 35 mm",
+          "Tần số": "50/60 Hz"
+        },
+        "source_url": "https://www.chinasuntree.com/ac-spd/scup2-surge-protector.htm",
+        "basis": "manufacturer_web_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NU6-IIG 40kA/275V 1P",
+        "specifications": {
+          "Tiếp điểm": "1P",
+          "Imax": "40kA",
+          "Điện áp": "275V",
+          "Mã hàng": "252491"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "BK05S-T3 2P",
+        "specifications": {
+          "Uc [V] L/N-PE": "385V",
+          "Icu(KA)": "10KV"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Schneider Electric",
+        "model": "Acti9 iPRD40r / A9L40601",
+        "specifications": {
+          "Loại": "SPD Type 2",
+          "Số cực": "3P+N",
+          "Uc": "350 V",
+          "Imax": "40 kA",
+          "Tín hiệu": "Tiếp điểm báo trạng thái từ xa"
+        },
+        "source_url": "https://www.se.com/in/en/product/A9L40601/iprd40r-modular-surge-arrester-3p-%2B-n-350v-with-remote-transfert/",
+        "basis": "manufacturer_web_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NU6-I+II",
+        "specifications": {
+          "Loại": "SPD Type 1+2",
+          "Mạng điện": "AC 230/400 V, 50/60 Hz",
+          "Tiêu chuẩn": "IEC/EN 61643-11"
+        },
+        "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/final-power-distribution/spd/nu6-i-ii/catalog/NU6%20-I%2BII-SPD-Catalog.pdf",
+        "basis": "manufacturer_web_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Suntree",
+        "model": "Chống sét · mẫu CAD 9acc8a",
+        "specifications": {
+          "nhan_block_nguon": "*U431",
+          "Loại thiết bị": "Thiết bị chống sét lan truyền (SPD)",
+          "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp theo mã thiết bị.",
+          "Hình chiếu Mặt trước (ngang × cao, mm)": "166.5 × 90.005"
+        },
+        "source_url": "",
+        "basis": "cad_reference_code",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      }
+    ],
+    "observed_specifications": {
+      "nhan_block_nguon": "*U431",
+      "Loại thiết bị": "Thiết bị chống sét lan truyền (SPD)",
+      "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp theo mã thiết bị.",
+      "Hình chiếu Mặt trước (ngang × cao, mm)": "166.5 × 90.005"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "documented_source_label",
+      "source_model": null,
+      "matched_catalog_rows": 0,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Xác định hãng/mã từ nhãn hoặc block CAD nguồn",
+        "Đối chiếu và chọn mã đặt hàng đầy đủ",
+        "Tra catalog đúng hãng/dòng; các mã cùng loại hiện có chỉ là tham khảo",
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": true,
+      "source_label_models": [
+        "SUP1-40"
+      ],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "documented_source_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [
+        "SUP1-40"
+      ],
+      "documented_models": [
+        {
+          "model": "SUP1-40",
+          "brand": "Suntree",
+          "manufacturer_confirmed_on_source": false,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://www.suntree-electric.com/search/product",
+              "sha256": "9bfc047f98a71ac1f1b9473ff96f455a37001a063b85c486c579f320f3f7d1c9",
+              "page": 1,
+              "format": "html",
+              "match": "SUP1-40",
+              "basis": "literal_model_label"
+            }
+          ]
+        }
+      ],
+      "source_text_count": 15,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "tu_khoa_tim_kiem": [
+    "SPD",
+    "chống sét lan truyền",
+    "iPRD40r",
+    "NU6",
+    "Chống sét",
+    "Chống sét · mẫu CAD 9acc8a",
+    "",
+    "SUP1-40"
+  ],
+  "nhan_dien_web": {
+    "source_label_review": {
+      "status": "documented_source_label",
+      "models": [
+        "SUP1-40"
+      ],
+      "manufacturer_candidates": [
+        "Suntree"
+      ],
+      "checked_at": "2026-10-17",
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "brand_candidate": "Suntree",
+    "status": "candidate_from_documented_source_label"
+  }
+}

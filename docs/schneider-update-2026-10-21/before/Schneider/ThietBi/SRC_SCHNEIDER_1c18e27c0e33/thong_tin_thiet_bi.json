@@ -1,0 +1,432 @@
+{
+  "nhom": "Schneider",
+  "ten_kieu": "Schneider · cvs-03 · CAD nguồn",
+  "ten_san_pham": "Schneider · cvs-03 · CAD nguồn",
+  "ban_chat": "CAD thiết bị theo nhãn nguồn",
+  "cong_dung": "Tham khảo hình học; xác nhận chức năng, mã thiết bị và thông số trước thiết kế.",
+  "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+  "hang_xac_nhan": null,
+  "ma_dong_san_pham": null,
+  "thong_so": {
+    "nhan_block_nguon": "cvs-03",
+    "dong_dinh_muc_A": null,
+    "dien_ap_V": null
+  },
+  "tu_khoa_tim_kiem": [
+    "Schneider",
+    "CAD thiết bị theo nhãn nguồn",
+    "MCCB",
+    "Schneider · cvs-03 · CAD nguồn",
+    ""
+  ],
+  "muc_do_xac_nhan": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp. Hình nhìn theo đầu thiết bị hoặc nắp: chưa phân biệt chắc mặt trên/dưới và thành phần; không tự gán mặt.",
+  "nguon_tham_khao": [],
+  "nguon_cad": {
+    "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+    "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+    "block": "cvs-03",
+    "saved_block": "cvs-03",
+    "handle": "1C5273",
+    "geometry_key": "1c18e27c0e33cb2c137cc41eef2d203f014a9fc9798523a2c7d79d6bb57b6839",
+    "units": 0,
+    "instance_transform": {
+      "insert": [
+        -11233.82354802377,
+        7062.911248209487,
+        0.0
+      ],
+      "rotation": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+  },
+  "cac_hinh_cad": [
+    "SRC_SCHNEIDER_1c18e27c0e33"
+  ],
+  "auto_select": false,
+  "needs_review": true,
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa xác nhận dữ liệu hãng",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "SRC_SCHNEIDER_1c18e27c0e33",
+      "huong_nhin": "Chưa xác nhận hướng nhìn",
+      "nhan_hien_thi": "cvs-03",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": false,
+        "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+      },
+      "duong_dan": "CadDon/SRC_SCHNEIDER_1c18e27c0e33/ban_ve.dxf",
+      "recognition_evidence": "nhan_dien_bo_sung_20261010",
+      "unit_verification": {
+        "status": "source_coordinate_unit_inferred_mm",
+        "review_date": "2026-10-11",
+        "raw_header_units_code": 0,
+        "coordinate_scale_to_mm": 1,
+        "target_units_code": 4,
+        "source_document_sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "anchors": [
+          {
+            "card": 176,
+            "profile": "Schneider/ThietBi/SRC_SCHNEIDER_32698b91a8ae/thong_tin_thiet_bi.json",
+            "view": "SRC_SCHNEIDER_32698b91a8ae",
+            "cad_dimensions": [
+              44.89583250347579,
+              77.00009171779948
+            ],
+            "official_mm": [
+              45,
+              77
+            ],
+            "absolute_tolerance_mm": 0.2,
+            "url": "https://www.clipsal.com/products/industrial/tesys/contactor-3p3-no-ac-3-ac-3e-0-to-440v-9a-115vac-50-60hz-coil-lc1d09fe7?itemno=LC1D09FE7"
+          },
+          {
+            "card": 311,
+            "profile": "Schneider/ThietBi/SRC_SCHNEIDER_fb4da93d1dbf/thong_tin_thiet_bi.json",
+            "view": "SRC_SCHNEIDER_fb4da93d1dbf",
+            "cad_dimensions": [
+              74.99999607048994,
+              130.00003669942816
+            ],
+            "official_mm": [
+              75,
+              130
+            ],
+            "absolute_tolerance_mm": 0.2,
+            "url": "https://eshop.se.com/in/mccb-easypact-ezc-ezc100f3100-100a-10ka-3pole-mccb.html"
+          }
+        ],
+        "basis": "Multiple independent official dimension anchors in the same native-coordinate source document; each extracted view has unit instance scale.",
+        "geometry_resized": false,
+        "exact_model_dimensions_verified": false,
+        "limitation": "Unit calibration does not certify each device envelope, hidden geometry, mounting holes or exact model."
+      }
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "SRC_SCHNEIDER_1c18e27c0e33",
+    "huong_nhin": "Chưa xác nhận hướng nhìn",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "nhan_dien_bo_sung_20261010": {
+    "review_date": "2026-10-10",
+    "category_code": "MCCB",
+    "visual_review": true,
+    "preview": "65-0.png",
+    "source_block": "cvs-03",
+    "text_entities_found": 0,
+    "text_outline_note": "No extractable TEXT/MTEXT/ATTRIB found; visible lettering may be linework, not searchable text.",
+    "face": null,
+    "face_basis": "Unconfirmed",
+    "official_family_sources": [
+      "https://www.se.com/sa/en/download/document/LVED210011EN/"
+    ],
+    "exact_sku_verified": false,
+    "automatic_insertion_approved": false,
+    "limitation": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp. Hình nhìn theo đầu thiết bị hoặc nắp: chưa phân biệt chắc mặt trên/dưới và thành phần; không tự gán mặt."
+  },
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "MCCB",
+    "exact_sku_verified": false
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": null,
+    "ma_san_pham": "Schneider · cvs-03 · CAD nguồn",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [
+      "https://www.se.com/vn/vi/",
+      "https://schneider.net.vn",
+      "https://etinco.vn"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khảo - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "MCCB",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "Schneider Electric",
+        "model": "LV510300",
+        "specifications": {
+          "Họ thiết bị": "CVS100",
+          "Số cực": "3P",
+          "In (A)": "16",
+          "Dòng sản phẩm": "CVS100B",
+          "Trip": "TMD",
+          "Icu (kA)": "25",
+          "Điện áp Icu": "415 V"
+        },
+        "source_url": "https://www.se.com/vn/vi/download/document/MasterPriceBook/",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "ABB",
+        "model": "1SDA066485R1",
+        "specifications": {
+          "Mã đặt hàng": "1SDA066485R1",
+          "Số cực": "1P",
+          "In (A)": "15",
+          "Họ thiết bị": "A1"
+        },
+        "source_url": "https://library.e.abb.com/public/8fa0d161aec14871ae110caa57108c49/9AKK108472A7059_vi_B_EL%20Vietnam%20Master%20price%20list%202026%20%28VIE%29.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NM8N-125C TM 100 1P",
+        "specifications": {
+          "In": "100A",
+          "Icu": "36kA",
+          "Ics": "100%",
+          "Số cực": "1P",
+          "Mã hàng": "271519"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Delixi",
+        "model": "CDM3S125C1002300",
+        "specifications": {
+          "Số cực": "2P",
+          "In (A)": "100",
+          "Khả năng cắt và điện áp": "25kA"
+        },
+        "source_url": "https://www.ple.vn/mccb/delixi-mccb/cdm3s125c1002300-detail.html",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Fuji Electric",
+        "model": "BW100EAG-2P",
+        "specifications": {
+          "Dòng trong bảng giá": "2 10 75, 100 BW100EAG-2P",
+          "Số cực": "2P"
+        },
+        "source_url": "https://www.saigonelectric.vn/images/prices/Fuji_2025_MNE.2.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "HD Hyundai Electric",
+        "model": "HGM1000S 3P",
+        "specifications": {
+          "Số cực": "3P",
+          "Dòng định mức In (A)": "1000A",
+          "Icu (kA)": "70kA"
+        },
+        "source_url": "https://www.saigonelectric.vn/images/prices/HYUNDAI_2026.2.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Hager",
+        "model": "HDA014Z",
+        "specifications": {
+          "Số cực": "1P",
+          "In (A)": "16"
+        },
+        "source_url": "https://www.makel.vn/mccb-1p-16a-18ka-hda014z.html?category=2&brand=2",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABN102c",
+        "specifications": {
+          "In (A)": "15-20-30-40-50-60-75-100A",
+          "Icu(KA)": "35",
+          "Kích thước bao W×H×D (mm)": "50 × 130 × 82",
+          "Độ sâu thân c1 (mm)": "60",
+          "Độ sâu vỏ c2 (mm)": "64",
+          "Ui": "750V",
+          "Uimp": "8kV",
+          "Lắp đặt": "Bắt vít"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Legrand",
+        "model": "027000",
+        "specifications": {
+          "Số cực": "3P",
+          "In (A)": "15"
+        },
+        "source_url": "https://www.makel.vn/mccb-3p-15a-10ka-027000.html?category=2&brand=3",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Mitsubishi Electric",
+        "model": "2CB002A000002",
+        "specifications": {
+          "Mã đặt hàng": "2CB002A000002",
+          "Số cực": "2P",
+          "In (A)": "3",
+          "Khả năng cắt và điện áp": "Icu=7.5kA @230VAC"
+        },
+        "source_url": "https://www.saigonelectric.vn/images/prices/Mitsubishi_Summary_LVS_06.2026.2.xlsx",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Shihlin",
+        "model": "BM100-HN",
+        "specifications": {
+          "Dòng trong bảng giá": "BM 100-HN/125-SN.HN",
+          "Họ thiết bị": "BM100"
+        },
+        "source_url": "https://www.saigonelectric.vn/images/prices/SHIHLIN_01.02.2026.2.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Siemens",
+        "model": "3VJ1002-0DA32-0AA0",
+        "specifications": {
+          "Số cực": "3P",
+          "In (A)": "20"
+        },
+        "source_url": "https://www.makel.vn/mccb-3-poles-20a-10ka-type-fixed-3vj1002-0da32-0aa0.html?category=2&brand=29",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Vinakip",
+        "model": "AT 56",
+        "specifications": {
+          "In (A)": "75"
+        },
+        "source_url": "https://kimquang.vn/wp-content/uploads/2022/07/bang-gia-cau-dao-hop-vinakip.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Schneider Electric",
+        "model": "cvs-03",
+        "specifications": {
+          "nhan_block_nguon": "cvs-03",
+          "Loại thiết bị": "MCCB",
+          "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp."
+        },
+        "source_url": "",
+        "basis": "cad_reference_code",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      }
+    ],
+    "observed_specifications": {
+      "nhan_block_nguon": "cvs-03",
+      "Loại thiết bị": "MCCB",
+      "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp."
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "source_geometry_without_model_label",
+      "source_model": null,
+      "matched_catalog_rows": 0,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Xác định hãng/mã từ nhãn hoặc block CAD nguồn",
+        "Đối chiếu và chọn mã đặt hàng đầy đủ",
+        "Tra catalog đúng hãng/dòng; các mã cùng loại hiện có chỉ là tham khảo",
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "source_geometry_without_model_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [],
+      "documented_models": [],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

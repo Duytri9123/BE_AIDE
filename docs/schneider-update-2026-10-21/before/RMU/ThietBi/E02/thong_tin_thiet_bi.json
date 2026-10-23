@@ -1,0 +1,215 @@
+{
+  "nhom": "RMU",
+  "ten_kieu": "RMU CV-24kV",
+  "ten_san_pham": "RMU CV-24kV",
+  "hang_xac_nhan": null,
+  "ma_dong_san_pham": "CV-24kV",
+  "ban_chat": "RMU",
+  "cong_dung": "tủ trung thế",
+  "bo_tri_lap_dat": {
+    "vi_tri_uu_tien": "san_phong_dien",
+    "vi_tri_phu_hop": [
+      "san_phong_dien"
+    ],
+    "huong_dan": "Cụm tủ trung thế độc lập; kiểm tra nền, khoảng thao tác, cáp và thoát áp theo tài liệu đúng cấu hình."
+  },
+  "vi_tri_lap_dat": "Cụm tủ trung thế độc lập; kiểm tra nền, khoảng thao tác, cáp và thoát áp theo tài liệu đúng cấu hình.",
+  "thong_so": {
+    "so_cuc": null,
+    "dong_dinh_muc_da_chon": null,
+    "dien_ap_da_chon": null,
+    "kha_nang_cat_da_chon": null,
+    "dien_ap_nhan_nguon_kV": 24,
+    "dong_dinh_muc_A": null,
+    "dong_ngan_mach_kA": null
+  },
+  "quy_cach_hien_thi": "Cần xác nhận mã/cấu hình",
+  "cad_don": [
+    {
+      "id_hinh_goc": "E02-V1",
+      "huong_nhin": "Mặt trên",
+      "nhan_hien_thi": "Mặt trên",
+      "duong_dan": "CadDon/E02-V1/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trên",
+        "cho_phep_chen": true,
+        "huong_dan": "Chọn đúng mặt và biến thể. Mặt bên thể hiện chiều sâu, không thay cho mặt trước cánh tủ. Xoay CAD không xác nhận tư thế lắp được hãng cho phép."
+      },
+      "bien_the_cad": null,
+      "vai_tro_cad": "device_view"
+    },
+    {
+      "id_hinh_goc": "E02-V2",
+      "huong_nhin": "Mặt trước",
+      "nhan_hien_thi": "Mặt trước",
+      "duong_dan": "CadDon/E02-V2/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Chọn đúng mặt và biến thể. Mặt bên thể hiện chiều sâu, không thay cho mặt trước cánh tủ. Xoay CAD không xác nhận tư thế lắp được hãng cho phép."
+      },
+      "bien_the_cad": null,
+      "vai_tro_cad": "device_view"
+    }
+  ],
+  "cac_hinh_cad": [
+    "E02-V1",
+    "E02-V2"
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "E02-V2",
+    "huong_nhin": "Mặt trước",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "tu_khoa_tim_kiem": [
+    "RMU CV-24kV",
+    "RMU",
+    "tủ trung thế",
+    "CV-24kV"
+  ],
+  "nguon_tham_khao": [],
+  "tai_lieu_hang": null,
+  "muc_do_xac_nhan": "Nhãn CAD nguồn; chưa xác nhận đầy đủ mã và cấu hình lắp.",
+  "dac_diem": [
+    "Giữ kích thước CAD gốc; không suy thông số điện từ nhãn mẫu.",
+    "Mỗi CAD là một mặt hoặc biến thể; chọn đúng mặt chính theo bố trí.",
+    "Đây là một cụm tủ hoàn chỉnh; các ngăn C/V không phải nhiều góc nhìn.",
+    "Nhãn cấu hình lấy từ vùng nguồn; không suy hãng hoặc dòng định mức từ nhãn vùng.",
+    "RM6 tham khảo tối đa 24 kV; không dùng tài liệu này để xác nhận bản 40,5 kV."
+  ],
+  "lua_chon_ky_thuat": [
+    "Chọn mã đầy đủ, thông số điện, phụ kiện, kiểu gá và mặt CAD trước lắp."
+  ],
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "RMU",
+    "hang": null,
+    "cac_ma_dong_san_pham": [
+      "CV-24kV"
+    ],
+    "so_cuc": null,
+    "pham_vi_ma": "source_model_or_family",
+    "tu_dong_chon_theo_vai_tro": false,
+    "ma_dat_hang_da_chon": null,
+    "fabrication_ready": false,
+    "cad_represents": "complete_switchgear_assembly"
+  },
+  "cau_hinh_chon": {
+    "can_chon": [
+      "Mã đầy đủ",
+      "Thông số điện",
+      "Phụ kiện",
+      "Kiểu gá",
+      "Mặt CAD"
+    ],
+    "ma_da_chon": null
+  },
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Nguồn vào",
+      "Ra tải",
+      "Điều khiển/phụ kiện nếu có"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Chọn theo từng cọc, dòng tải, bảo vệ và giới hạn đầu nối mã đầy đủ; không suy từ CAD.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Cần dữ liệu gá và cọc theo mã đầy đủ",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "RMU",
+    "ma_san_pham": "CV-24kV",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khảo - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "RMU",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "Schneider Electric",
+        "model": "CV-24kV",
+        "specifications": {
+          "dien_ap_nhan_nguon_kV": 24,
+          "Loại thiết bị": "RMU",
+          "Lắp đặt tham khảo": "Cụm tủ trung thế độc lập; kiểm tra nền, khoảng thao tác, cáp và thoát áp theo tài liệu đúng cấu hình.",
+          "Hình chiếu Mặt trên (ngang × cao, mm)": "694.715 × 766.251",
+          "Hình chiếu Mặt trước (ngang × cao, mm)": "693.185 × 1351.748"
+        },
+        "source_url": "",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      }
+    ],
+    "observed_specifications": {
+      "dien_ap_nhan_nguon_kV": 24,
+      "Loại thiết bị": "RMU",
+      "Lắp đặt tham khảo": "Cụm tủ trung thế độc lập; kiểm tra nền, khoảng thao tác, cáp và thoát áp theo tài liệu đúng cấu hình.",
+      "Hình chiếu Mặt trên (ngang × cao, mm)": "694.715 × 766.251",
+      "Hình chiếu Mặt trước (ngang × cao, mm)": "693.185 × 1351.748"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "source_geometry_without_model_label",
+      "source_model": "CV-24kV",
+      "matched_catalog_rows": 0,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Tra catalog đúng hãng/dòng; các mã cùng loại hiện có chỉ là tham khảo",
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "source_geometry_without_model_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [],
+      "documented_models": [],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

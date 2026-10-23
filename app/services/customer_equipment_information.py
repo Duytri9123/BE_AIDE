@@ -11,6 +11,8 @@ from .ai.manufacturer_registry import canonical_brand
 INTERNAL=re.compile(r'CatalogTB|thong_tin_|TuLieuBanVe|SOURCE[-_]|SRC_|cluster\d|sha256|checksum|fingerprint|provenance|(?<![A-Z])[A-Z]:[\\/]|nguồn (?:CAD|DWG|hệ thống|bóc)|hồ sơ nguồn|nhãn (?:CAD|block)|bóc tách|trang tài liệu|căn cứ',re.I)
 PRIVATE_KEYS=re.compile(r'^nguon$|^nguồn$|nguon_cad|nhan_block|nhan_tren_hinh|tom_tat|luu_y|source|checksum|fingerprint|profile|file|handle|evidence|basis|căn cứ|phạm vi|trang tài liệu|nhan_dien|review|trên nguồn|từ nguồn|nhãn thông số',re.I)
 DRAWING_KEYS=re.compile(r'(?:^|_)cad(?:_|$)|nhan_tren|nhan_nhin|nhan_nguon|ban_ve|ung_vien|tham_khao|theo_hinh|^so_hinh|^so_ban_ve|cac_ma_dung_chung',re.I)
+EDITORIAL_KEYS=re.compile(r'đối chiếu|bao hình|cấu hình đặt hàng|^đặt hàng$|phạm vi cad|trục và khoảng cách|kiểu cad|kiểm tra|^head_shape_reference$|^kich_thuoc_hinh',re.I)
+EDITORIAL_TEXT=re.compile(r'\bSTEP\b|\bSKU\b|CAD gốc|hình học gốc|dải mã tham khảo|chưa (?:xác nhận|xác định|rõ)|(?:^|[;·])\s*(?:kiểm tra|đối chiếu|xác nhận|chọn|giữ tư thế|giữ nguyên)|trước gia công|theo mô hình|không bao gồm thân|cần xác nhận',re.I)
 
 
 def external_url(value):
@@ -31,10 +33,10 @@ def public_view_id(value):
 
 
 def product_specs(spec):
-    return {key:value for key,value in (spec or {}).items() if not PRIVATE_KEYS.search(key) and not DRAWING_KEYS.search(key)
+    return {key:value for key,value in (spec or {}).items() if not PRIVATE_KEYS.search(key) and not DRAWING_KEYS.search(key) and not EDITORIAL_KEYS.search(key)
             and value is not None and value!='' and str(value).strip().casefold() not in {'chưa xác định','{}','[]','null'}
             and not re.match(r'^(?:chọn\b|dòng định mức in:\s*chọn)',str(value).strip(),re.I)
-            and not INTERNAL.search(str(value))}
+            and not INTERNAL.search(str(value)) and not EDITORIAL_TEXT.search(str(value))}
 
 
 def reference_specs(spec):
@@ -55,6 +57,8 @@ def reference_options(device):
         model=str(option.get('model') or '').strip();brand=canonical_brand(option.get('brand'))
         if not model or model.startswith('*') or INTERNAL.search(model) or not brand:continue
         specs=reference_specs(option.get('specifications'))
+        from .customer_technical_specs import qualified_breaking_specs
+        specs.update(qualified_breaking_specs(brand,model))
         from .catalog_product_sections import pole_compatible
         if not pole_compatible(device,{'specifications':specs,'sku':model}):continue
         if not specs:continue
@@ -76,39 +80,69 @@ def customer_device(device):
     fields=('id','display','brand','type','category','product_code','spec_hint','primary_view',
             'brand_label','brand_kind','brand_identification_status','use','placement')
     out={k:device[k] for k in fields if k in device}
+    for key in ('brand','brand_label'):
+        if out.get(key):out[key]=canonical_brand(out[key])
+    from .catalog_device_names import apply_device_name
+    named=dict(device)
+    if apply_device_name(named):
+        out['display']=named['display']
+        if named.get('spec_hint'):out['spec_hint']=named['spec_hint']
     out['brand_identification_status']='verified' if device.get('brand_identification_status')=='verified' else 'candidate' if device.get('brand') else 'unknown'
     out['type']={'SOURCE_REFERENCE':'DRAWING','ASSEMBLY_REFERENCE':'ASSEMBLY'}.get(out.get('type'),out.get('type'))
     out['display']=re.sub(r'mẫu nguồn','Mẫu thiết bị',str(out.get('display') or ''),flags=re.I)
     out['display']=re.sub(r'\s*·\s*nhãn CAD','',out['display'],flags=re.I)
     if INTERNAL.search(out['display']):out['display']=' '.join(str(out.get(k) or '') for k in ('type','brand')).strip() or 'Thiết bị'
     for key in ('use','placement','spec_hint'):
-        if INTERNAL.search(str(out.get(key) or '')):out.pop(key,None)
+        if INTERNAL.search(str(out.get(key) or '')) or EDITORIAL_TEXT.search(str(out.get(key) or '')):out.pop(key,None)
     if INTERNAL.search(str(out.get('product_code') or '')):out.pop('product_code',None)
     out['spec']=product_specs(device.get('spec'))
+    from .customer_technical_specs import technical_specs
+    out['spec']=technical_specs(device,out['spec'])
     out['views']=[]
+    from .cad.ls_view_coverage import is_ls, view_coverage
+    ls_groups={}
+    if is_ls(device.get('brand')):
+        for view in device.get('views',[]):
+            ls_groups.setdefault(view.get('cad_variant_id') or device['id'],[]).append(view)
     for view in device.get('views',[]):
-        item={k:view[k] for k in ('label','face','preview','download') if k in view}
+        from .catalog_view_health import targeted, displayable, quarantined, current_view_displayable
+        if quarantined(device.get('id'),view['id']) or (targeted(device.get('brand')) and (not displayable(view) or not current_view_displayable(device.get('id'),view['id']))):continue
+        item={k:view[k] for k in ('label','face','preview','download','model_codes') if k in view}
         item['id']=public_view_id(view['id'])
+        from .customer_technical_specs import view_technical_specs
+        view_specs=view_technical_specs(device,view['id'])
+        if view_specs:item['spec']=view_specs
+        if ls_groups:
+            item['cad_coverage']=view_coverage(ls_groups[view.get('cad_variant_id') or device['id']])
         for key in ('label','face'):
             if INTERNAL.search(str(item.get(key) or '')):item[key]='Bản vẽ'
         for key in ('preview','download'):
             if item.get(key):item[key]=re.sub(r'/views/[^/]+/',f'/views/{item["id"]}/',item[key])
         out['views'].append(item)
     if device.get('primary_view'):out['primary_view']=public_view_id(device['primary_view'])
+    if out.get('primary_view') not in {v['id'] for v in out['views']}:
+        out['primary_view']=out['views'][0]['id'] if out['views'] else None
     maker=canonical_brand(device.get('brand'))
     options,other=reference_options(device)
     out['catalog_references']={'options':options}
     out['other_brand_references']=other
     out['reference_product_codes']=list(dict.fromkeys(o['model'] for o in options))
+    model_codes=list(dict.fromkeys(m for v in out['views'] for m in v.get('model_codes',[])))
+    if model_codes:
+        out['cad_model_variants']=[{'model':model,'view_ids':[v['id'] for v in out['views'] if not v.get('model_codes') or model in v['model_codes']]} for model in model_codes]
     doc=external_url(device.get('manufacturer_document'))
     if doc:out['manufacturer_document']=doc
     return out
 
 
 def customer_browser(payload):
+    from .catalog_publication_policy import public_device_allowed
     out={k:v for k,v in payload.items() if k in {'categories','brands','total','view_count','skip','limit'}}
+    if 'brands' in out:out['brands']=sorted({canonical_brand(name) for name in out['brands'] if name})
     out['labels']=product_specs(payload.get('labels'))
-    out['items']=[customer_device(d) for d in payload['items']]
+    out['items']=[item for d in payload['items'] if public_device_allowed(d) and (item:=customer_device(d))['views']]
+    if 'total' in out:out['total']-=len(payload['items'])-len(out['items'])
+    if 'view_count' in out:out['view_count']=sum(len(item['views']) for item in out['items'])
     return out
 
 
@@ -119,6 +153,12 @@ def customer_information_rows(rows,device):
         if maker and canonical_brand(row.get('brand'))!=maker:continue
         item={k:row[k] for k in ('id','book_key','sku','item_name','name','brand','category','group','price','columns','cells','edition','vat_status','information_kind','compatibility_note') if k in row}
         item['specifications']=product_specs(row.get('specifications'))
+        from .customer_technical_specs import qualified_breaking_specs
+        qualified=qualified_breaking_specs(row.get('brand'),row.get('sku'))
+        if not qualified and str(row.get('brand') or '').upper() in {'MITSUBISHI','MITSUBISHI ELECTRIC'}:
+            named=re.match(r'^(NF(?:125|250)-(?:CV|SV|HV)|BV-DN6?)(?=\s+(?:[234]P|1PN)\b)',str(row.get('item_name') or ''),re.I)
+            if named:qualified=qualified_breaking_specs(row.get('brand'),named[1])
+        item['specifications'].update(qualified)
         item['source_url']=external_url(row.get('source_url'))
         if item.get('information_kind')=='pricebook':
             # A page boundary is not a new price table. Keep book identity opaque
@@ -129,12 +169,14 @@ def customer_information_rows(rows,device):
         pairs=[]
         for index,column in enumerate(item.get('columns',[])):
             value=(item.get('cells') or [])[index] if index<len(item.get('cells') or []) else ''
-            if PRIVATE_KEYS.search(column):continue
+            if PRIVATE_KEYS.search(column) or EDITORIAL_KEYS.search(column):continue
             if isinstance(value,str):
                 value='; '.join(part.strip() for part in re.split(r'\r?\n|;\s*',value)
-                    if not INTERNAL.search(part) and not re.match(r'\s*phạm vi\s*:',part,re.I))
+                    if not INTERNAL.search(part) and not EDITORIAL_TEXT.search(part) and not re.match(r'\s*phạm vi\s*:',part,re.I))
             pairs.append((column,value))
         item['columns']=[p[0] for p in pairs];item['cells']=[p[1] for p in pairs]
+        for key,value in qualified.items():
+            if key not in item['columns']:item['columns'].append(key);item['cells'].append(value)
         if item.get('information_kind') in {'price_reference','manufacturer_catalog','catalog_reference','device'} or not item['columns']:
             # Discovery offers carry structured facts rather than source-table
             # columns. Publish those facts instead of an empty one-cell table.

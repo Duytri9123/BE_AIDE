@@ -30,3 +30,22 @@ def exact_price_required(device):
     if ai.get('generic_shape'):
         return False
     return True
+
+
+MAIN_DEVICE_TYPES = {'CB', 'MCB', 'MCCB', 'ACB', 'RCBO', 'RCCB', 'ISOLATOR',
+                     'CONTACTOR', 'THERMAL_RELAY', 'VFD', 'INVERTER', 'ATS'}
+DEPENDENT_ACCESSORY_TYPES = {'SHUNT_TRIP', 'UNDERVOLTAGE_RELEASE', 'AUX_CONTACT',
+                            'AUX_CONTACTS', 'INTERLOCK'}
+
+
+def preferred_brand_for_device(device, preferred_brand=None):
+    """Project brand preferences concern main devices; retain explicit identities."""
+    get = device.get if isinstance(device, dict) else lambda key, default=None: getattr(device, key, default)
+    explicit = get('detected_brand') or (get('brand') if get('selection_source') not in
+                                       {'default_brand', 'unspecified_brand'} else None)
+    if explicit and str(explicit).strip().casefold() not in {'asian', 'asia', 'oem'}:
+        return explicit
+    kind = str(get('category') or get('type') or '').upper().replace(' ', '_')
+    if kind in MAIN_DEVICE_TYPES or kind in DEPENDENT_ACCESSORY_TYPES or get('requires_same_brand'):
+        return preferred_brand
+    return None

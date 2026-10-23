@@ -1,3 +1,4 @@
+from sqlalchemy import Index
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, Integer, ForeignKey, Boolean
 from typing import Optional
@@ -5,6 +6,10 @@ from .base import Base, TimestampMixin
 
 class ProjectFile(Base, TimestampMixin):
     __tablename__ = "project_files"
+    __table_args__ = (
+        Index('ix_files_project_created_id', 'project_id', 'created_at', 'id'),
+    )
+
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     project_id: Mapped[int] = mapped_column(ForeignKey("projects.id", ondelete="CASCADE"), index=True)

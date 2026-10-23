@@ -1,0 +1,204 @@
+{
+  "nhom": "Khóa",
+  "ten_kieu": "Khóa tay nắm MS308-2",
+  "ten_san_pham": "Khóa tay nắm MS308-2",
+  "ma_dong_san_pham": "MS308-2",
+  "hang_xac_nhan": null,
+  "ban_chat": "Khóa xoay tay nắm",
+  "cong_dung": "Giữ cửa tủ đóng và điều khiển việc mở cửa.",
+  "vi_tri_lap_dat": "Trên cánh cửa; cơ cấu chốt làm việc phía trong tủ.",
+  "thong_so": {
+    "kich_thuoc_mat_truoc_mm": "72.9 × 122"
+  },
+  "dac_diem": [],
+  "cac_hinh_cad": [
+    "A08_cluster14-V001",
+    "A08_cluster14-V002"
+  ],
+  "lua_chon_ky_thuat": [
+    "Chọn kiểu tay nắm, ổ chìa hoặc đầu tam giác phù hợp cách vận hành.",
+    "Đối chiếu lỗ khoét cửa, chiều dày tôn, chiều dài thân và vị trí lưỡi chốt."
+  ],
+  "muc_do_xac_nhan": "Chưa xác định mã đặt hàng đầy đủ; cần đối chiếu kiểu lắp và cấu hình trước khi chọn sản phẩm.",
+  "tai_lieu_hang": "https://www.haixianglock.com/productshow/273.html",
+  "nguon_tham_khao": [
+    "https://www.haixianglock.com/productshow/273.html"
+  ],
+  "cad_don": [
+    {
+      "id_hinh_goc": "A08_cluster14-V001",
+      "huong_nhin": "Mặt trước",
+      "nhan_hien_thi": "Mặt trước",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt trước form tủ khi mặt thao tác hoặc mặt chính của thiết bị hướng về người nhìn."
+      },
+      "duong_dan": "CadDon/A08_cluster14-V001/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "canh_ngoai",
+        "vi_tri_phu_hop": [
+          "canh_ngoai",
+          "canh_trong"
+        ],
+        "huong_dan": "Gắn trên cánh và mép khung tương ứng. Phần tay nắm ở mặt thao tác; chốt hoặc bản lề làm việc phía sau/mép cánh.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/ca-en/products/PG20231215ZUB101/PG20240411ZUB101"
+        ]
+      }
+    },
+    {
+      "id_hinh_goc": "A08_cluster14-V002",
+      "huong_nhin": "Mặt bên",
+      "nhan_hien_thi": "Mặt bên",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt bên",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt bên form tủ khi thiết bị giữ tư thế lắp đứng. Nếu xoay tư thế lắp, cần đối chiếu lại hướng nhìn."
+      },
+      "duong_dan": "CadDon/A08_cluster14-V002/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "canh_ngoai",
+        "vi_tri_phu_hop": [
+          "canh_ngoai",
+          "canh_trong"
+        ],
+        "huong_dan": "Gắn trên cánh và mép khung tương ứng. Phần tay nắm ở mặt thao tác; chốt hoặc bản lề làm việc phía sau/mép cánh.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/ca-en/products/PG20231215ZUB101/PG20240411ZUB101"
+        ]
+      }
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "A08_cluster14-V001",
+    "huong_nhin": "Mặt trước",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "bo_tri_lap_dat": {
+    "vi_tri_uu_tien": "canh_ngoai",
+    "vi_tri_phu_hop": [
+      "canh_ngoai",
+      "canh_trong"
+    ],
+    "huong_dan": "Gắn trên cánh và mép khung tương ứng. Phần tay nắm ở mặt thao tác; chốt hoặc bản lề làm việc phía sau/mép cánh.",
+    "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+    "nguon_tham_khao": [
+      "https://www.rittal.com/ca-en/products/PG20231215ZUB101/PG20240411ZUB101"
+    ]
+  },
+  "quy_cach_hien_thi": "72.9 × 122 mm",
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Chọn theo từng kết nối, thông số điện và bảo vệ phía trước; không suy từ hình CAD. Vật tư thuần cơ khí không yêu cầu dây.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa có dữ liệu gá/cọc theo mã đầy đủ",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "Khóa",
+    "ma_san_pham": "MS308-2",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khảo - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "Khóa xoay tay nắm",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "Chưa xác định",
+        "model": "MS308-2",
+        "specifications": {
+          "kich_thuoc_mat_truoc_mm": "72.9 × 122",
+          "Loại thiết bị": "Khóa xoay tay nắm",
+          "Lắp đặt tham khảo": "Trên cánh cửa; cơ cấu chốt làm việc phía trong tủ.",
+          "Hình chiếu Mặt trước (ngang × cao, mm)": "72.9 × 122.0",
+          "Hình chiếu Mặt bên (ngang × cao, mm)": "38.0 × 120.0"
+        },
+        "source_url": "https://www.haixianglock.com/productshow/273.html",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      }
+    ],
+    "observed_specifications": {
+      "kich_thuoc_mat_truoc_mm": "72.9 × 122",
+      "Loại thiết bị": "Khóa xoay tay nắm",
+      "Lắp đặt tham khảo": "Trên cánh cửa; cơ cấu chốt làm việc phía trong tủ.",
+      "Hình chiếu Mặt trước (ngang × cao, mm)": "72.9 × 122.0",
+      "Hình chiếu Mặt bên (ngang × cao, mm)": "38.0 × 120.0"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "generic_mechanical",
+      "source_model": "MS308-2",
+      "matched_catalog_rows": 0,
+      "model_identity_verified": false,
+      "remaining_tasks": [],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "generic_mechanical",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [
+        "MS308-2"
+      ],
+      "documented_models": [],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "tu_khoa_tim_kiem": [
+    "Khóa tay nắm MS308-2",
+    "Khóa xoay tay nắm",
+    "MS308-2"
+  ]
+}

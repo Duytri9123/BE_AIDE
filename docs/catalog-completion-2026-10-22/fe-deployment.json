@@ -1,0 +1,26 @@
+{
+  "commit": "3398c80f6d82986df2b564c97bf0b373cf799c7e",
+  "statuses": [
+    {
+      "state": "success",
+      "context": "Vercel",
+      "description": "Deployment has completed",
+      "target_url": "https://vercel.com/duytris-projects/aide-cad-simple-viewer-cli/E5EfkkSegHunTV2Qy9jLhTx1xETK"
+    }
+  ],
+  "production_frontend_smoke": {
+    "url": "https://www.elquote.top/library",
+    "passed": true,
+    "scope": "Deployed frontend assets with controlled API fixtures and original MC-9/MC-12 CAD files; native MC-12 preview and byte-identical download, canonical manufacturers, unknown-device hiding and mobile viewport verified"
+  },
+  "build": {
+    "vite": "passed",
+    "prerender_pages": 121,
+    "api_articles": 108,
+    "source": "https://admin.elquote.top/api/v1"
+  },
+  "typecheck": {
+    "status": "baseline_errors_outside_changed_library_files",
+    "changed_library_files_errors": 0
+  }
+}

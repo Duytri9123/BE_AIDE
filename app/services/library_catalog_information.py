@@ -30,14 +30,6 @@ def catalog_model_pattern(value):
 
 def explicit_family_compatible(model,row):
     family=(row.get('specifications') or {}).get('Dòng sản phẩm')
-    # Metasol's c/d generation suffix changes the physical product. Generic
-    # catalog family fields elsewhere may intentionally be broader than a SKU.
-    if family and canonical_brand(row.get('brand'))=='LS Electric':
-        code=re.sub(r'[^A-Z0-9]','',str(model).upper())
-        if re.fullmatch(re.escape(code)+r'[cd]',str(family)):return False
-    if family and re.search(r'/\d+$',str(family)):
-        base=str(family).rsplit('/',1)[0]
-        if re.sub(r'[^A-Z0-9]','',str(model).upper())==re.sub(r'[^A-Z0-9]','',base.upper()):return False
     return not (family and str(model).isalpha()) or str(family).casefold()==str(model).casefold()
 
 
@@ -51,7 +43,8 @@ def _rows(revision):
     for name,_,_ in revision:
         kind='pricebook' if Path(name).name=='supplier_pricebooks.json' else 'manufacturer_catalog' if Path(name).name=='external_product_information.json' else 'price_reference'
         rows.extend({**row,'information_kind':kind} for row in json.loads(Path(name).read_text(encoding='utf8')).get('items',[]))
-    return rows
+    from .reviewed_product_taxonomy import reviewed_price_row
+    return [reviewed_price_row(r) for r in rows]
 
 
 def source_rows():
@@ -73,9 +66,7 @@ def named_family_rows(model,brand,kind,spec,rows):
 
 def information_rows(device,rows=None):
     rows=source_rows() if rows is None else rows
-    from .catalog_product_sections import pole_compatible
-    rows=[row for row in rows if pole_compatible(device,row) and
-          (not device.get('product_code') or explicit_family_compatible(device['product_code'],row))]
+    from .catalog_product_sections import pole_compatible, coil_compatible, aux_contacts_compatible
     references=device.get('catalog_references') or {}
     maker=canonical_brand(device.get('brand'))
     if maker:
@@ -83,6 +74,13 @@ def information_rows(device,rows=None):
         own_ids={row['id'] for row in rows}
         references={**references,'options':[o for o in references.get('options',[])
             if canonical_brand(o.get('brand'))==maker or (not o.get('brand') and o.get('source_row_id') in own_ids)]}
+    # Some pricebooks repeat a model/pole pair for physically different terminals.
+    # A reviewed native body can explicitly restrict links to the source row IDs
+    # that actually describe its mounting/terminal configuration. Fail closed.
+    if references.get('source_row_scope')=='explicit_only':
+        allowed={o.get('source_row_id') for o in references.get('options',[]) if o.get('source_row_id')}
+        rows=[row for row in rows if row.get('id') in allowed]
+    rows=[row for row in rows if pole_compatible(device,row) and coil_compatible(device,row) and aux_contacts_compatible(device,row)]
     kind=references.get('category') or device.get('type')
     selected={}
     index=price_index(rows)

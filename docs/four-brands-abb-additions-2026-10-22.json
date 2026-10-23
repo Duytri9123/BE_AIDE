@@ -1,0 +1,1346 @@
+[
+  {
+    "family": "S200-9AKK106930A4834",
+    "view": "FRONT",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4834/CadDon/ABB-OFFICIAL-S200-9AKK106930A4834-FRONT",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4834&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4834",
+    "title": "S200, S200M, S200L, SC200, SZ200 1P_3D",
+    "sha256": "21bc0ecc834176e81dada7edc09fb7546145a5edd37af7006e354dd9369d7194",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S201M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 17.400002853860883,
+    "height_mm": 88.0,
+    "entity_count": 639,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4834",
+    "view": "REAR",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4834/CadDon/ABB-OFFICIAL-S200-9AKK106930A4834-REAR",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4834&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4834",
+    "title": "S200, S200M, S200L, SC200, SZ200 1P_3D",
+    "sha256": "ae9f5ac07bb391924785d9475404f98bde44de0f2dbe792cd0cc899294bf9a75",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S201M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 17.400443031282915,
+    "height_mm": 88.00000023576,
+    "entity_count": 429,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4834",
+    "view": "SIDE-L",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4834/CadDon/ABB-OFFICIAL-S200-9AKK106930A4834-SIDE-L",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4834&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4834",
+    "title": "S200, S200M, S200L, SC200, SZ200 1P_3D",
+    "sha256": "e3464c5dbcc0a2cc9608114bfc81d0b42bec20cbf794a62d6b70f40fcafbac70",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S201M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 72.47738919212783,
+    "height_mm": 88.00000023576,
+    "entity_count": 3772,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4834",
+    "view": "SIDE",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4834/CadDon/ABB-OFFICIAL-S200-9AKK106930A4834-SIDE",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4834&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4834",
+    "title": "S200, S200M, S200L, SC200, SZ200 1P_3D",
+    "sha256": "d935bafb93756155e1776df1fd2eeb195169637eb298226888ded14bbcb9be92",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S201M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 72.47738919212782,
+    "height_mm": 88.0,
+    "entity_count": 1018,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4834",
+    "view": "TOP",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4834/CadDon/ABB-OFFICIAL-S200-9AKK106930A4834-TOP",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4834&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4834",
+    "title": "S200, S200M, S200L, SC200, SZ200 1P_3D",
+    "sha256": "db3014da81dfe57defc4c65c62422903f5de6ea60669f80e5348f6b6c2ea9ae7",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S201M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 17.410855972733152,
+    "height_mm": 72.48046638345647,
+    "entity_count": 585,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4834",
+    "view": "BOTTOM",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4834/CadDon/ABB-OFFICIAL-S200-9AKK106930A4834-BOTTOM",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4834&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4834",
+    "title": "S200, S200M, S200L, SC200, SZ200 1P_3D",
+    "sha256": "b42e8dcff4a64891e3cbe12dfba85e09384e0668b4557368679d8a94e45fffbd",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S201M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 17.410856098404558,
+    "height_mm": 72.48046638345647,
+    "entity_count": 999,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4835",
+    "view": "FRONT",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4835/CadDon/ABB-OFFICIAL-S200-9AKK106930A4835-FRONT",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4835&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4835",
+    "title": "S200, S200M, S200L, SC200, SZ200 1P+N/2P_3D",
+    "sha256": "71adf928454272db3027c63b112813710ac2fa30b9bcc149e7994b75c250090a",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S202M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 34.8000001131505,
+    "height_mm": 88.0,
+    "entity_count": 1357,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4835",
+    "view": "REAR",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4835/CadDon/ABB-OFFICIAL-S200-9AKK106930A4835-REAR",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4835&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4835",
+    "title": "S200, S200M, S200L, SC200, SZ200 1P+N/2P_3D",
+    "sha256": "b386158e5fe3db12ad1c7c5216c85b2df0489cda5a3a6b8127bd40c3831925db",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S202M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 34.80066858062823,
+    "height_mm": 88.00000002573,
+    "entity_count": 777,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4835",
+    "view": "SIDE-L",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4835/CadDon/ABB-OFFICIAL-S200-9AKK106930A4835-SIDE-L",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4835&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4835",
+    "title": "S200, S200M, S200L, SC200, SZ200 1P+N/2P_3D",
+    "sha256": "daac60f491ce9f8dfb54cb3f5f282beceebb8b1ff2aa1953c700456a3d83a6ca",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S202M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 74.70328726504684,
+    "height_mm": 88.00000002573,
+    "entity_count": 3948,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4835",
+    "view": "SIDE",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4835/CadDon/ABB-OFFICIAL-S200-9AKK106930A4835-SIDE",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4835&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4835",
+    "title": "S200, S200M, S200L, SC200, SZ200 1P+N/2P_3D",
+    "sha256": "040ca155c10eab3dc1422a2e755fdb33f25d1e35cf8dee7892bde708407ef7cb",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S202M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 74.70328726504675,
+    "height_mm": 88.00000002573,
+    "entity_count": 1310,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4835",
+    "view": "TOP",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4835/CadDon/ABB-OFFICIAL-S200-9AKK106930A4835-TOP",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4835&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4835",
+    "title": "S200, S200M, S200L, SC200, SZ200 1P+N/2P_3D",
+    "sha256": "f5d26929d1d2173d70af28c40e078bb204048f34983f46a12b3b198b03744fe6",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S202M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 34.8078508604877,
+    "height_mm": 74.70356971528913,
+    "entity_count": 1120,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4835",
+    "view": "BOTTOM",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4835/CadDon/ABB-OFFICIAL-S200-9AKK106930A4835-BOTTOM",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4835&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4835",
+    "title": "S200, S200M, S200L, SC200, SZ200 1P+N/2P_3D",
+    "sha256": "6eea41eee6bfe717a5143882be07b9742eb35527fb06833207341a6aeabc11d5",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S202M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 34.80785138614005,
+    "height_mm": 74.70356971528915,
+    "entity_count": 2078,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4836",
+    "view": "FRONT",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4836/CadDon/ABB-OFFICIAL-S200-9AKK106930A4836-FRONT",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4836&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4836",
+    "title": "S200, S200M, S200L, SC200, SZ200 3P_3D",
+    "sha256": "6b98345ab18f87e9c69227baf3f59544bb702d1ca63997611cbe0544224933a5",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S203M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 52.40000135061901,
+    "height_mm": 88.0,
+    "entity_count": 2236,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4836",
+    "view": "REAR",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4836/CadDon/ABB-OFFICIAL-S200-9AKK106930A4836-REAR",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4836&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4836",
+    "title": "S200, S200M, S200L, SC200, SZ200 3P_3D",
+    "sha256": "076445490b6e277ea4ebf4373a1205d5a219fc078da0aa2789e153ef40fb3ba8",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S203M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 52.400004687929,
+    "height_mm": 88.00000002573,
+    "entity_count": 1253,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4836",
+    "view": "SIDE-L",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4836/CadDon/ABB-OFFICIAL-S200-9AKK106930A4836-SIDE-L",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4836&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4836",
+    "title": "S200, S200M, S200L, SC200, SZ200 3P_3D",
+    "sha256": "84bd36b25dc161a7d0e6043444e229446dc6af4ecf74fc8fbde4eeff90bc462b",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S203M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 74.70328725449673,
+    "height_mm": 88.00000002573,
+    "entity_count": 3953,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4836",
+    "view": "SIDE",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4836/CadDon/ABB-OFFICIAL-S200-9AKK106930A4836-SIDE",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4836&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4836",
+    "title": "S200, S200M, S200L, SC200, SZ200 3P_3D",
+    "sha256": "ced82906908589104198894233adec7685984cdb1c3b75346442aa3157a43149",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S203M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 74.70328725449673,
+    "height_mm": 88.00000002573,
+    "entity_count": 1284,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4836",
+    "view": "TOP",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4836/CadDon/ABB-OFFICIAL-S200-9AKK106930A4836-TOP",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4836&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4836",
+    "title": "S200, S200M, S200L, SC200, SZ200 3P_3D",
+    "sha256": "c2b3fdcf3da00f12cd494cbebc43c09765d549449b65bd0d5cb15e545f5a0e85",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S203M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 52.40000495233264,
+    "height_mm": 74.70356971528985,
+    "entity_count": 1749,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4836",
+    "view": "BOTTOM",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4836/CadDon/ABB-OFFICIAL-S200-9AKK106930A4836-BOTTOM",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4836&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4836",
+    "title": "S200, S200M, S200L, SC200, SZ200 3P_3D",
+    "sha256": "6a8ca5787ece35800862c455406735274ef9685d914d4ee14d7241582c3d1f12",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S203M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 52.400004952332644,
+    "height_mm": 74.70356971528983,
+    "entity_count": 3035,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4837",
+    "view": "FRONT",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4837/CadDon/ABB-OFFICIAL-S200-9AKK106930A4837-FRONT",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4837&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4837",
+    "title": "S200, S200M, S200L, SC200, SZ200 3P+N/4P_3D",
+    "sha256": "745157387cb0f56176ea9c254459aed946c651ce01b7ab2f8af88074455c08fd",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S204M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 69.60000000005066,
+    "height_mm": 88.0,
+    "entity_count": 2999,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4837",
+    "view": "REAR",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4837/CadDon/ABB-OFFICIAL-S200-9AKK106930A4837-REAR",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4837&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4837",
+    "title": "S200, S200M, S200L, SC200, SZ200 3P+N/4P_3D",
+    "sha256": "eb1651deea5756332fcf4d97f8daa14f5ad877d684e7b7b2e8c8929f60ac7fc5",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S204M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 69.60048303388722,
+    "height_mm": 88.0,
+    "entity_count": 1587,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4837",
+    "view": "SIDE-L",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4837/CadDon/ABB-OFFICIAL-S200-9AKK106930A4837-SIDE-L",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4837&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4837",
+    "title": "S200, S200M, S200L, SC200, SZ200 3P+N/4P_3D",
+    "sha256": "ac5c905b454c9d05e31256faed3075ad7ae7b3d1213716232999c0b6b18a29c5",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S204M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 74.70328735618509,
+    "height_mm": 88.0,
+    "entity_count": 4126,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4837",
+    "view": "SIDE",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4837/CadDon/ABB-OFFICIAL-S200-9AKK106930A4837-SIDE",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4837&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4837",
+    "title": "S200, S200M, S200L, SC200, SZ200 3P+N/4P_3D",
+    "sha256": "9293e6d6faa85586bf783e458c45d036d2b1b704012e06d3432673048a6820d6",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S204M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 74.70328735618537,
+    "height_mm": 88.0,
+    "entity_count": 1372,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4837",
+    "view": "TOP",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4837/CadDon/ABB-OFFICIAL-S200-9AKK106930A4837-TOP",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4837&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4837",
+    "title": "S200, S200M, S200L, SC200, SZ200 3P+N/4P_3D",
+    "sha256": "4348dc978a22f962efc25243992bf85173a859f2948e0a4e572bf6d084fdeb30",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S204M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 69.60000017669911,
+    "height_mm": 74.70356971528885,
+    "entity_count": 2676,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "S200-9AKK106930A4837",
+    "view": "BOTTOM",
+    "path": "ABB/ThietBi/OFFICIAL-S200-9AKK106930A4837/CadDon/ABB-OFFICIAL-S200-9AKK106930A4837-BOTTOM",
+    "source_url": "https://search.abb.com/library/Download.aspx?DocumentID=9AKK106930A4837&LanguageCode=en&DocumentPartId=&Action=Launch",
+    "source_page": "https://www.abbconnect.nl/Details/Index.aspx/2CDS251001R0061?ShowBorder=True&country=nl&languageCode=en",
+    "document_id": "9AKK106930A4837",
+    "title": "S200, S200M, S200L, SC200, SZ200 3P+N/4P_3D",
+    "sha256": "6280c3d4f1f25b983b8f18a5b13a980e2159566ad97bccf8de0587cd4b4b09ea",
+    "checked_at": "2026-10-22",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR from complete original STEP; 0.05 mm mesh, 0.025 mm chord deflection",
+    "unit_evidence": "Original STEP millimetres; STEPControl import MM; output INSUNITS=4; no geometry resize",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "source_title_includes": "S200, S200M, S200L, SC200, SZ200",
+      "price_scope": "S204M only, In <=63 A; excludes S200 80/100 A and neutral variants",
+      "orientation": "Front handle and rear DIN clip visually reviewed; X-positive is upward, front +Y, horizontal +Z. All six independent source directions retained."
+    },
+    "width_mm": 69.60000053143345,
+    "height_mm": 74.70356971528885,
+    "entity_count": 3870,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  }
+]

@@ -1,18 +1,21 @@
 """Server-side entitlement for private library data and CAD assets."""
 from collections import defaultdict, deque
-from datetime import datetime, timezone
 from time import monotonic
 import re
 from fastapi import Depends, HTTPException, Request
-from sqlalchemy import select
 from app.api.deps import get_current_active_user
 from app.db.session import get_db
 from app.models.user import User
-from app.models.subscription import Subscription
-from app.models.plan import Plan
-from app.models.payment import Payment
 
 _requests = defaultdict(deque)
+
+
+def library_rate_bucket(method: str, path: str) -> str:
+    # Raster thumbnails must not consume the product-list / metadata budget.
+    if method == 'GET' and path.rstrip('/').endswith('/preview'):
+        return 'preview'
+    return 'read'
+
 
 def allows_free_library_read(method: str, path: str) -> bool:
     equipment_path=path.split('/equipment-library/',1)[-1]
@@ -26,16 +29,8 @@ async def library_entitlement(user: User = Depends(get_current_active_user), db=
         return {'full_access': True, 'reason': 'library_reviewer'}
     if user.is_superuser or user.role == 'admin':
         return {'full_access': True, 'reason': 'admin'}
-    now=datetime.now(timezone.utc)
-    stmt=(select(Subscription.id).join(Plan,Plan.id==Subscription.plan_id)
-          .join(Payment,(Payment.user_id==Subscription.user_id)&(Payment.plan_id==Plan.id))
-          .where(Subscription.user_id==user.id,Subscription.status=='active',
-                 Subscription.starts_at<=now,Subscription.ends_at>now,
-                 Plan.is_active.is_(True),Plan.price>0,Payment.status=='completed',
-                 Payment.amount>=Plan.price,Payment.payment_method!='Hệ thống DGP')
-          .limit(1))
-    paid=(await db.execute(stmt)).scalar_one_or_none() is not None
-    return {'full_access':paid,'reason':'paid' if paid else 'upgrade_required'}
+    # Library viewing, downloads and insertion are available to active accounts.
+    return {'full_access': True, 'reason': 'authenticated'}
 
 async def require_library_access(request: Request,
                                  user: User=Depends(get_current_active_user),
@@ -47,10 +42,10 @@ async def require_library_access(request: Request,
         raise HTTPException(403,detail='Gói Free được xem thư viện. Nâng cấp để tải hoặc chèn CAD.',
                             headers={'Cache-Control':'private, no-store'})
     if not user.is_superuser and user.role!='admin':
-        now=monotonic();queue=_requests[user.id]
+        now=monotonic();queue=_requests[(user.id,library_rate_bucket(request.method,request.url.path))]
         while queue and queue[0]<now-60:queue.popleft()
         if len(queue)>=120:
-            raise HTTPException(429,'Quá nhiều yêu cầu thư viện. Vui lòng thử lại sau.',headers={'Retry-After':'60'})
+            raise HTTPException(429,'Quá nhiều yêu cầu thư viện. Vui lòng thử lại sau.',headers={'Retry-After':str(max(1,int(60-(now-queue[0]))+1))})
         queue.append(now)
         # Avoid accumulating inactive identities in a long-running worker.
         if len(_requests)>10000:

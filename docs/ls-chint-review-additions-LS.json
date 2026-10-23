@@ -1,0 +1,794 @@
+[
+  {
+    "family": "STEP-55731-model-030",
+    "view": "FRONT",
+    "path": "LS/ThietBi/OFFICIAL-STEP-55731-model-030/CadDon/LS-OFFICIAL-STEP-55731-model-030-FRONT",
+    "document_id": 419750,
+    "file": {
+      "rownum": 1,
+      "df_name": "[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_id": 55731,
+      "df_path": "/ko/cat/HPDT/[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_size": 24169,
+      "df_order": 1,
+      "df_download_count": 264,
+      "df_regdate": "2026/08/11 09:00:10"
+    },
+    "source_url": "https://www.ls-electric.com/ko/cat/HPDT/%5BMetasol%2BMS%5D_MC_Accessories_3D.zip",
+    "source_page": "https://www.ls-electric.com/ko/download/",
+    "sha256": "1aefe8dca420e858d3657ee735e6173e584590e3eec0ea1df45e22079c77827a",
+    "archive_member": "[Metasol+MS]_MC_Accessories_3D (1)/MC_ACCE_AR-600_3P.stp",
+    "step_sha256": "6ca8b73c97b915f1ccb344c8face114d6d853b906004bab285cd2c57fdc4da56",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR; absolute mesh deflection 0.05 mm",
+    "unit_evidence": "Manufacturer STEP; imported in MM; DXF INSUNITS=4",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "catalogue": "METASOL-MS-CATALOG-202609/source.pdf",
+      "pdf_page": 93,
+      "review": "AR-600 source contains two contactors plus the interlock/baseplate. Retain complete assembly; do not link the whole assembly to the standalone AR-600 price. Front is rotated upright using the terminal/coil markings; other five projections use the same physical frame."
+    },
+    "width_mm": 680.0,
+    "height_mm": 350.00000000000006,
+    "entity_count": 3614,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "STEP-55731-model-030",
+    "view": "REAR",
+    "path": "LS/ThietBi/OFFICIAL-STEP-55731-model-030/CadDon/LS-OFFICIAL-STEP-55731-model-030-REAR",
+    "document_id": 419750,
+    "file": {
+      "rownum": 1,
+      "df_name": "[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_id": 55731,
+      "df_path": "/ko/cat/HPDT/[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_size": 24169,
+      "df_order": 1,
+      "df_download_count": 264,
+      "df_regdate": "2026/08/11 09:00:10"
+    },
+    "source_url": "https://www.ls-electric.com/ko/cat/HPDT/%5BMetasol%2BMS%5D_MC_Accessories_3D.zip",
+    "source_page": "https://www.ls-electric.com/ko/download/",
+    "sha256": "857ec0c037c58cd1306b4f61cc5c25a2c4ef1f5b09da1c3432e64b0eeb11239d",
+    "archive_member": "[Metasol+MS]_MC_Accessories_3D (1)/MC_ACCE_AR-600_3P.stp",
+    "step_sha256": "6ca8b73c97b915f1ccb344c8face114d6d853b906004bab285cd2c57fdc4da56",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR; absolute mesh deflection 0.05 mm",
+    "unit_evidence": "Manufacturer STEP; imported in MM; DXF INSUNITS=4",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "catalogue": "METASOL-MS-CATALOG-202609/source.pdf",
+      "pdf_page": 93,
+      "review": "AR-600 source contains two contactors plus the interlock/baseplate. Retain complete assembly; do not link the whole assembly to the standalone AR-600 price. Front is rotated upright using the terminal/coil markings; other five projections use the same physical frame."
+    },
+    "width_mm": 680.0,
+    "height_mm": 350.00000000000006,
+    "entity_count": 62,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "STEP-55731-model-030",
+    "view": "SIDE-L",
+    "path": "LS/ThietBi/OFFICIAL-STEP-55731-model-030/CadDon/LS-OFFICIAL-STEP-55731-model-030-SIDE-L",
+    "document_id": 419750,
+    "file": {
+      "rownum": 1,
+      "df_name": "[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_id": 55731,
+      "df_path": "/ko/cat/HPDT/[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_size": 24169,
+      "df_order": 1,
+      "df_download_count": 264,
+      "df_regdate": "2026/08/11 09:00:10"
+    },
+    "source_url": "https://www.ls-electric.com/ko/cat/HPDT/%5BMetasol%2BMS%5D_MC_Accessories_3D.zip",
+    "source_page": "https://www.ls-electric.com/ko/download/",
+    "sha256": "a0656918576b07506b94e49702cfbe0c181ea23b48283a0b16ff552fbbd14894",
+    "archive_member": "[Metasol+MS]_MC_Accessories_3D (1)/MC_ACCE_AR-600_3P.stp",
+    "step_sha256": "6ca8b73c97b915f1ccb344c8face114d6d853b906004bab285cd2c57fdc4da56",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR; absolute mesh deflection 0.05 mm",
+    "unit_evidence": "Manufacturer STEP; imported in MM; DXF INSUNITS=4",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "catalogue": "METASOL-MS-CATALOG-202609/source.pdf",
+      "pdf_page": 93,
+      "review": "AR-600 source contains two contactors plus the interlock/baseplate. Retain complete assembly; do not link the whole assembly to the standalone AR-600 price. Front is rotated upright using the terminal/coil markings; other five projections use the same physical frame."
+    },
+    "width_mm": 324.3,
+    "height_mm": 350.0,
+    "entity_count": 1258,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "STEP-55731-model-030",
+    "view": "SIDE",
+    "path": "LS/ThietBi/OFFICIAL-STEP-55731-model-030/CadDon/LS-OFFICIAL-STEP-55731-model-030-SIDE",
+    "document_id": 419750,
+    "file": {
+      "rownum": 1,
+      "df_name": "[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_id": 55731,
+      "df_path": "/ko/cat/HPDT/[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_size": 24169,
+      "df_order": 1,
+      "df_download_count": 264,
+      "df_regdate": "2026/08/11 09:00:10"
+    },
+    "source_url": "https://www.ls-electric.com/ko/cat/HPDT/%5BMetasol%2BMS%5D_MC_Accessories_3D.zip",
+    "source_page": "https://www.ls-electric.com/ko/download/",
+    "sha256": "b9e449443e1f21a96a74d1e5ea63e5e4f4c367e3ff6c8ad43ad7bdae3a3b13f2",
+    "archive_member": "[Metasol+MS]_MC_Accessories_3D (1)/MC_ACCE_AR-600_3P.stp",
+    "step_sha256": "6ca8b73c97b915f1ccb344c8face114d6d853b906004bab285cd2c57fdc4da56",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR; absolute mesh deflection 0.05 mm",
+    "unit_evidence": "Manufacturer STEP; imported in MM; DXF INSUNITS=4",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "catalogue": "METASOL-MS-CATALOG-202609/source.pdf",
+      "pdf_page": 93,
+      "review": "AR-600 source contains two contactors plus the interlock/baseplate. Retain complete assembly; do not link the whole assembly to the standalone AR-600 price. Front is rotated upright using the terminal/coil markings; other five projections use the same physical frame."
+    },
+    "width_mm": 324.3,
+    "height_mm": 350.0,
+    "entity_count": 1261,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "STEP-55731-model-030",
+    "view": "TOP",
+    "path": "LS/ThietBi/OFFICIAL-STEP-55731-model-030/CadDon/LS-OFFICIAL-STEP-55731-model-030-TOP",
+    "document_id": 419750,
+    "file": {
+      "rownum": 1,
+      "df_name": "[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_id": 55731,
+      "df_path": "/ko/cat/HPDT/[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_size": 24169,
+      "df_order": 1,
+      "df_download_count": 264,
+      "df_regdate": "2026/08/11 09:00:10"
+    },
+    "source_url": "https://www.ls-electric.com/ko/cat/HPDT/%5BMetasol%2BMS%5D_MC_Accessories_3D.zip",
+    "source_page": "https://www.ls-electric.com/ko/download/",
+    "sha256": "bc7ed845bfdce856234a4928b7986559af12f9d9d372ebfbd80fdff274c8c2eb",
+    "archive_member": "[Metasol+MS]_MC_Accessories_3D (1)/MC_ACCE_AR-600_3P.stp",
+    "step_sha256": "6ca8b73c97b915f1ccb344c8face114d6d853b906004bab285cd2c57fdc4da56",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR; absolute mesh deflection 0.05 mm",
+    "unit_evidence": "Manufacturer STEP; imported in MM; DXF INSUNITS=4",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "catalogue": "METASOL-MS-CATALOG-202609/source.pdf",
+      "pdf_page": 93,
+      "review": "AR-600 source contains two contactors plus the interlock/baseplate. Retain complete assembly; do not link the whole assembly to the standalone AR-600 price. Front is rotated upright using the terminal/coil markings; other five projections use the same physical frame."
+    },
+    "width_mm": 680.0,
+    "height_mm": 324.30000000000007,
+    "entity_count": 2381,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "STEP-55731-model-030",
+    "view": "BOTTOM",
+    "path": "LS/ThietBi/OFFICIAL-STEP-55731-model-030/CadDon/LS-OFFICIAL-STEP-55731-model-030-BOTTOM",
+    "document_id": 419750,
+    "file": {
+      "rownum": 1,
+      "df_name": "[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_id": 55731,
+      "df_path": "/ko/cat/HPDT/[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_size": 24169,
+      "df_order": 1,
+      "df_download_count": 264,
+      "df_regdate": "2026/08/11 09:00:10"
+    },
+    "source_url": "https://www.ls-electric.com/ko/cat/HPDT/%5BMetasol%2BMS%5D_MC_Accessories_3D.zip",
+    "source_page": "https://www.ls-electric.com/ko/download/",
+    "sha256": "9233a2ec79e7d42ed9fff14f1c1e9f96cd63ba130e99c171c0bf259253236f53",
+    "archive_member": "[Metasol+MS]_MC_Accessories_3D (1)/MC_ACCE_AR-600_3P.stp",
+    "step_sha256": "6ca8b73c97b915f1ccb344c8face114d6d853b906004bab285cd2c57fdc4da56",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR; absolute mesh deflection 0.05 mm",
+    "unit_evidence": "Manufacturer STEP; imported in MM; DXF INSUNITS=4",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "catalogue": "METASOL-MS-CATALOG-202609/source.pdf",
+      "pdf_page": 93,
+      "review": "AR-600 source contains two contactors plus the interlock/baseplate. Retain complete assembly; do not link the whole assembly to the standalone AR-600 price. Front is rotated upright using the terminal/coil markings; other five projections use the same physical frame."
+    },
+    "width_mm": 680.0,
+    "height_mm": 324.30000000000007,
+    "entity_count": 2061,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "STEP-55731-model-031",
+    "view": "FRONT",
+    "path": "LS/ThietBi/OFFICIAL-STEP-55731-model-031/CadDon/LS-OFFICIAL-STEP-55731-model-031-FRONT",
+    "document_id": 419750,
+    "file": {
+      "rownum": 1,
+      "df_name": "[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_id": 55731,
+      "df_path": "/ko/cat/HPDT/[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_size": 24169,
+      "df_order": 1,
+      "df_download_count": 264,
+      "df_regdate": "2026/08/11 09:00:10"
+    },
+    "source_url": "https://www.ls-electric.com/ko/cat/HPDT/%5BMetasol%2BMS%5D_MC_Accessories_3D.zip",
+    "source_page": "https://www.ls-electric.com/ko/download/",
+    "sha256": "ebe8e34561ed2b0805927b3af26b1cbdde2a633dae6aeb263fa0994f11a17f68",
+    "archive_member": "[Metasol+MS]_MC_Accessories_3D (1)/MC_ACCE_AR-600_4P.stp",
+    "step_sha256": "274cd24c7ee3431811ba62e930d17e8f57d6b80038d54f325dd2a4850daa52ee",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR; absolute mesh deflection 0.05 mm",
+    "unit_evidence": "Manufacturer STEP; imported in MM; DXF INSUNITS=4",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "catalogue": "METASOL-MS-CATALOG-202609/source.pdf",
+      "pdf_page": 93,
+      "review": "AR-600 source contains two contactors plus the interlock/baseplate. Retain complete assembly; do not link the whole assembly to the standalone AR-600 price. Front is rotated upright using the terminal/coil markings; other five projections use the same physical frame."
+    },
+    "width_mm": 740.0,
+    "height_mm": 370.0000000000001,
+    "entity_count": 3371,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "STEP-55731-model-031",
+    "view": "REAR",
+    "path": "LS/ThietBi/OFFICIAL-STEP-55731-model-031/CadDon/LS-OFFICIAL-STEP-55731-model-031-REAR",
+    "document_id": 419750,
+    "file": {
+      "rownum": 1,
+      "df_name": "[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_id": 55731,
+      "df_path": "/ko/cat/HPDT/[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_size": 24169,
+      "df_order": 1,
+      "df_download_count": 264,
+      "df_regdate": "2026/08/11 09:00:10"
+    },
+    "source_url": "https://www.ls-electric.com/ko/cat/HPDT/%5BMetasol%2BMS%5D_MC_Accessories_3D.zip",
+    "source_page": "https://www.ls-electric.com/ko/download/",
+    "sha256": "0f219fad2ef315be702b400d4ee891225d8a56fb08ec7de5309fcdae7dca1944",
+    "archive_member": "[Metasol+MS]_MC_Accessories_3D (1)/MC_ACCE_AR-600_4P.stp",
+    "step_sha256": "274cd24c7ee3431811ba62e930d17e8f57d6b80038d54f325dd2a4850daa52ee",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR; absolute mesh deflection 0.05 mm",
+    "unit_evidence": "Manufacturer STEP; imported in MM; DXF INSUNITS=4",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "catalogue": "METASOL-MS-CATALOG-202609/source.pdf",
+      "pdf_page": 93,
+      "review": "AR-600 source contains two contactors plus the interlock/baseplate. Retain complete assembly; do not link the whole assembly to the standalone AR-600 price. Front is rotated upright using the terminal/coil markings; other five projections use the same physical frame."
+    },
+    "width_mm": 740.0,
+    "height_mm": 370.0000000000001,
+    "entity_count": 24,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "STEP-55731-model-031",
+    "view": "SIDE-L",
+    "path": "LS/ThietBi/OFFICIAL-STEP-55731-model-031/CadDon/LS-OFFICIAL-STEP-55731-model-031-SIDE-L",
+    "document_id": 419750,
+    "file": {
+      "rownum": 1,
+      "df_name": "[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_id": 55731,
+      "df_path": "/ko/cat/HPDT/[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_size": 24169,
+      "df_order": 1,
+      "df_download_count": 264,
+      "df_regdate": "2026/08/11 09:00:10"
+    },
+    "source_url": "https://www.ls-electric.com/ko/cat/HPDT/%5BMetasol%2BMS%5D_MC_Accessories_3D.zip",
+    "source_page": "https://www.ls-electric.com/ko/download/",
+    "sha256": "2dfba1db077b3197b6e223ee5a3d7539f1df55bbcdb84e1323e3982d6faf8496",
+    "archive_member": "[Metasol+MS]_MC_Accessories_3D (1)/MC_ACCE_AR-600_4P.stp",
+    "step_sha256": "274cd24c7ee3431811ba62e930d17e8f57d6b80038d54f325dd2a4850daa52ee",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR; absolute mesh deflection 0.05 mm",
+    "unit_evidence": "Manufacturer STEP; imported in MM; DXF INSUNITS=4",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "catalogue": "METASOL-MS-CATALOG-202609/source.pdf",
+      "pdf_page": 93,
+      "review": "AR-600 source contains two contactors plus the interlock/baseplate. Retain complete assembly; do not link the whole assembly to the standalone AR-600 price. Front is rotated upright using the terminal/coil markings; other five projections use the same physical frame."
+    },
+    "width_mm": 320.1,
+    "height_mm": 370.0,
+    "entity_count": 586,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "STEP-55731-model-031",
+    "view": "SIDE",
+    "path": "LS/ThietBi/OFFICIAL-STEP-55731-model-031/CadDon/LS-OFFICIAL-STEP-55731-model-031-SIDE",
+    "document_id": 419750,
+    "file": {
+      "rownum": 1,
+      "df_name": "[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_id": 55731,
+      "df_path": "/ko/cat/HPDT/[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_size": 24169,
+      "df_order": 1,
+      "df_download_count": 264,
+      "df_regdate": "2026/08/11 09:00:10"
+    },
+    "source_url": "https://www.ls-electric.com/ko/cat/HPDT/%5BMetasol%2BMS%5D_MC_Accessories_3D.zip",
+    "source_page": "https://www.ls-electric.com/ko/download/",
+    "sha256": "9fd70bdb612d32fc94c530bd5b8d34891c56fbd4e6509702f332dff9d0baacfd",
+    "archive_member": "[Metasol+MS]_MC_Accessories_3D (1)/MC_ACCE_AR-600_4P.stp",
+    "step_sha256": "274cd24c7ee3431811ba62e930d17e8f57d6b80038d54f325dd2a4850daa52ee",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR; absolute mesh deflection 0.05 mm",
+    "unit_evidence": "Manufacturer STEP; imported in MM; DXF INSUNITS=4",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "catalogue": "METASOL-MS-CATALOG-202609/source.pdf",
+      "pdf_page": 93,
+      "review": "AR-600 source contains two contactors plus the interlock/baseplate. Retain complete assembly; do not link the whole assembly to the standalone AR-600 price. Front is rotated upright using the terminal/coil markings; other five projections use the same physical frame."
+    },
+    "width_mm": 320.1,
+    "height_mm": 370.0,
+    "entity_count": 599,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "STEP-55731-model-031",
+    "view": "TOP",
+    "path": "LS/ThietBi/OFFICIAL-STEP-55731-model-031/CadDon/LS-OFFICIAL-STEP-55731-model-031-TOP",
+    "document_id": 419750,
+    "file": {
+      "rownum": 1,
+      "df_name": "[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_id": 55731,
+      "df_path": "/ko/cat/HPDT/[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_size": 24169,
+      "df_order": 1,
+      "df_download_count": 264,
+      "df_regdate": "2026/08/11 09:00:10"
+    },
+    "source_url": "https://www.ls-electric.com/ko/cat/HPDT/%5BMetasol%2BMS%5D_MC_Accessories_3D.zip",
+    "source_page": "https://www.ls-electric.com/ko/download/",
+    "sha256": "133d0b6b8d2bb3d10de9de273b7334ee54ed7d64c844019224a04851e97536ac",
+    "archive_member": "[Metasol+MS]_MC_Accessories_3D (1)/MC_ACCE_AR-600_4P.stp",
+    "step_sha256": "274cd24c7ee3431811ba62e930d17e8f57d6b80038d54f325dd2a4850daa52ee",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR; absolute mesh deflection 0.05 mm",
+    "unit_evidence": "Manufacturer STEP; imported in MM; DXF INSUNITS=4",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "catalogue": "METASOL-MS-CATALOG-202609/source.pdf",
+      "pdf_page": 93,
+      "review": "AR-600 source contains two contactors plus the interlock/baseplate. Retain complete assembly; do not link the whole assembly to the standalone AR-600 price. Front is rotated upright using the terminal/coil markings; other five projections use the same physical frame."
+    },
+    "width_mm": 740.0,
+    "height_mm": 320.1000000000001,
+    "entity_count": 1601,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  },
+  {
+    "family": "STEP-55731-model-031",
+    "view": "BOTTOM",
+    "path": "LS/ThietBi/OFFICIAL-STEP-55731-model-031/CadDon/LS-OFFICIAL-STEP-55731-model-031-BOTTOM",
+    "document_id": 419750,
+    "file": {
+      "rownum": 1,
+      "df_name": "[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_id": 55731,
+      "df_path": "/ko/cat/HPDT/[Metasol+MS]_MC_Accessories_3D.zip",
+      "df_size": 24169,
+      "df_order": 1,
+      "df_download_count": 264,
+      "df_regdate": "2026/08/11 09:00:10"
+    },
+    "source_url": "https://www.ls-electric.com/ko/cat/HPDT/%5BMetasol%2BMS%5D_MC_Accessories_3D.zip",
+    "source_page": "https://www.ls-electric.com/ko/download/",
+    "sha256": "6d04774e81f8e31b02f3c89aa80e9f005ac30665775a92ed7406218fbe63c39d",
+    "archive_member": "[Metasol+MS]_MC_Accessories_3D (1)/MC_ACCE_AR-600_4P.stp",
+    "step_sha256": "274cd24c7ee3431811ba62e930d17e8f57d6b80038d54f325dd2a4850daa52ee",
+    "projection_method": "Open CASCADE polygonal visible-edge HLR; absolute mesh deflection 0.05 mm",
+    "unit_evidence": "Manufacturer STEP; imported in MM; DXF INSUNITS=4",
+    "axis_mapping": [
+      {
+        "view": "FRONT",
+        "source_projector": "FRONT",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "REAR",
+        "source_projector": "REAR",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE-L",
+        "source_projector": "SIDE",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "SIDE",
+        "source_projector": "SIDE-L",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "TOP",
+        "source_projector": "BOTTOM",
+        "rotation_degrees": 180
+      },
+      {
+        "view": "BOTTOM",
+        "source_projector": "TOP",
+        "rotation_degrees": 180
+      }
+    ],
+    "six_views_verified": true,
+    "family_compatibility_evidence": {
+      "catalogue": "METASOL-MS-CATALOG-202609/source.pdf",
+      "pdf_page": 93,
+      "review": "AR-600 source contains two contactors plus the interlock/baseplate. Retain complete assembly; do not link the whole assembly to the standalone AR-600 price. Front is rotated upright using the terminal/coil markings; other five projections use the same physical frame."
+    },
+    "width_mm": 740.0,
+    "height_mm": 320.10000000000014,
+    "entity_count": 1361,
+    "coordinate_scale_to_mm": 1,
+    "ordering_code_verified": false
+  }
+]

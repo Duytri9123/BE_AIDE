@@ -1,0 +1,307 @@
+{
+  "nhom": "LS",
+  "ten_kieu": "Aux Contact LS UA-1",
+  "ten_san_pham": "Aux Contact LS UA-1",
+  "hang_xac_nhan": "LS Electric",
+  "ma_dong_san_pham": "UA-1",
+  "ban_chat": "Khối tiếp điểm phụ",
+  "cong_dung": "Đưa trạng thái đóng/mở contactor về mạch điều khiển.",
+  "vi_tri_lap_dat": "Trên ray DIN hoặc tấm lắp trong ngăn điều khiển/động lực, theo kiểu gá của thiết bị.",
+  "thong_so": {},
+  "dac_diem": [
+    "Chưa xác nhận số tiếp điểm NO/NC và kiểu gá của đúng biến thể.",
+    "Mỗi mặt CAD chỉ chứa phần hiển thị của trạng thái đã chọn. Nắp che là phương án biểu diễn khi đóng nắp, không phải một góc nhìn khác."
+  ],
+  "cac_hinh_cad": [
+    "D02_cluster2-V001",
+    "LS-D02-C2-I01-VIEW-SIDE"
+  ],
+  "tai_lieu_hang": "https://www.ls-electric.com/upload/customer/download/1412/Susol_MC_E_1108.pdf",
+  "nguon_tham_khao": [
+    "https://www.ls-electric.com/upload/customer/download/1412/Susol_MC_E_1108.pdf"
+  ],
+  "muc_do_xac_nhan": "Đã xác định dòng thiết bị; mã đặt hàng đầy đủ và cấu hình điện cần chọn theo biến thể.",
+  "lua_chon_ky_thuat": [
+    "Chọn dòng làm việc, điện áp, số cực và khả năng cắt theo hệ thống.",
+    "Với thiết bị chống rò, chọn dòng rò tác động và phối hợp bảo vệ quá dòng."
+  ],
+  "trang_thai_ls_da_cap_nhat": true,
+  "cad_don": [
+    {
+      "id_hinh_goc": "D02_cluster2-V001",
+      "huong_nhin": "Mặt trước",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt trước form tủ khi mặt thao tác hoặc mặt chính của thiết bị hướng về người nhìn."
+      },
+      "duong_dan": "CadDon/D02_cluster2-V001/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong"
+        ],
+        "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      }
+    },
+    {
+      "id_hinh_goc": "LS-D02-C2-I01-VIEW-SIDE",
+      "huong_nhin": "Mặt bên",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt bên",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt bên form tủ khi thiết bị giữ tư thế lắp đứng. Nếu xoay tư thế lắp, cần đối chiếu lại hướng nhìn."
+      },
+      "duong_dan": "CadDon/LS-D02-C2-I01-VIEW-SIDE/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong"
+        ],
+        "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      }
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "D02_cluster2-V001",
+    "huong_nhin": "Mặt trước",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "bo_tri_lap_dat": {
+    "vi_tri_uu_tien": "ben_trong",
+    "vi_tri_phu_hop": [
+      "ben_trong"
+    ],
+    "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+    "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+    "nguon_tham_khao": [
+      "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+    ]
+  },
+  "quy_cach_hien_thi": "",
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Chọn theo từng kết nối, thông số điện và bảo vệ phía trước; không suy từ hình CAD. Vật tư thuần cơ khí không yêu cầu dây.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa có dữ liệu gá/cọc theo mã đầy đủ",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "tu_khoa_tim_kiem": [
+    "Aux Contact LS UA-1",
+    "tiếp điểm phụ",
+    "auxiliary contact",
+    "UA1",
+    "Morele",
+    "ML-01",
+    "Auxiliary switch: AX for LA/LC",
+    "Auxiliary switch: AX for LB",
+    "Auxiliary switch: AX for TD/TS100->800",
+    "Auxiliary switch: AX for TS1000~1600",
+    "Khối tiếp điểm phụ",
+    "UA-1"
+  ],
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "Aux Contact",
+    "hang": "LS",
+    "cac_ma_dong_san_pham": [
+      "UA-1"
+    ],
+    "so_cuc": null,
+    "loai_nguon": null,
+    "pham_vi_ma": "model_or_shared_cad_family",
+    "ma_dat_hang_da_chon": null,
+    "quy_tac": "Tra từng mã trong nhóm; CAD chung không xác nhận cùng thông số điện. Chọn cấu hình và mã đặt hàng trước thi công. Giá trị null là chưa xác định."
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "LS Electric",
+    "ma_san_pham": "UA-1",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [
+      "https://www.ls-electric.com",
+      "https://anhphatelectric.com",
+      "https://etinco.vn"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Chưa có giá"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "Aux Contact",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "LS Electric",
+        "model": "UA-1",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 10
+        },
+        "source_url": "https://www.ls-electric.com/upload/customer/download/280b6197-f4bb-4f86-a60d-917b7b8bf890/Metasol_MC_E_170915.pdf",
+        "source_page": 10,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng được ghi trong hồ sơ nguồn. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "UA-1 (bên hông)",
+        "specifications": {
+          "Thông tin": "1NO+1NC dùng cho MC-6a~150a",
+          "Tên hàng": "UA-1 (bên hông)"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 4,
+        "source_row_id": "ls-pdf:9fbc0ba16f3fcc94",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "UA-1",
+        "specifications": {
+          "Loại thiết bị": "Aux Contact",
+          "Lắp đặt tham khảo": "Trên ray DIN hoặc tấm lắp trong ngăn điều khiển/động lực, theo kiểu gá của thiết bị.",
+          "Hình chiếu Mặt trước (ngang × cao, mm)": "12.0 × 71.0",
+          "Hình chiếu Mặt bên (ngang × cao, mm)": "68.0 × 71.0"
+        },
+        "source_url": "https://www.ls-electric.com/upload/customer/download/1412/Susol_MC_E_1108.pdf",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      }
+    ],
+    "observed_specifications": {
+      "Loại thiết bị": "Aux Contact",
+      "Lắp đặt tham khảo": "Trên ray DIN hoặc tấm lắp trong ngăn điều khiển/động lực, theo kiểu gá của thiết bị.",
+      "Hình chiếu Mặt trước (ngang × cao, mm)": "12.0 × 71.0",
+      "Hình chiếu Mặt bên (ngang × cao, mm)": "68.0 × 71.0"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "documented_source_label",
+      "source_model": "UA-1",
+      "matched_catalog_rows": 1,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": true,
+      "source_label_models": [
+        "UA-1"
+      ],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "documented_source_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [
+        "UA-1"
+      ],
+      "documented_models": [
+        {
+          "model": "UA-1",
+          "brand": "LS Electric",
+          "manufacturer_confirmed_on_source": true,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/280b6197-f4bb-4f86-a60d-917b7b8bf890/Metasol_MC_E_170915.pdf",
+              "sha256": "46d017e9c1c7e498670c8aa51ba4cb5ab3445b40d19b81ced563e1b5bf4e3bc0",
+              "page": 10,
+              "format": "pdf",
+              "match": "UA-1",
+              "basis": "literal_model_label"
+            },
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/1627/Electric%20Products_E_1703.pdf",
+              "sha256": "c3939090de81ca1dd1927bf03f64af3d6acf0a4301ec687a1964ade42c0f85aa",
+              "page": 14,
+              "format": "pdf",
+              "match": "UA-1",
+              "basis": "literal_model_label"
+            },
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+              "sha256": "0e7eec7924fe497009656a8e9c86371c8e9bedef842bc6c99572deac272ce5f4",
+              "page": 10,
+              "format": "pdf",
+              "match": "UA-1",
+              "basis": "literal_model_label"
+            }
+          ]
+        }
+      ],
+      "source_text_count": 3,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "nhan_dien_web": {
+    "source_label_review": {
+      "status": "documented_source_label",
+      "models": [
+        "UA-1"
+      ],
+      "manufacturer_candidates": [
+        "LS Electric"
+      ],
+      "checked_at": "2026-10-17",
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

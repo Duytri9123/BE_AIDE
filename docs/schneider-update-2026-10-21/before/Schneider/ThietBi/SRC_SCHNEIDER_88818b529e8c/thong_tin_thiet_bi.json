@@ -1,0 +1,239 @@
+{
+  "nhom": "Schneider",
+  "ten_kieu": "Schneider · LV429640ATNSX22A 3 · CAD nguồn",
+  "ten_san_pham": "Schneider · LV429640ATNSX22A 3 · CAD nguồn",
+  "ban_chat": "CAD thiết bị theo nhãn nguồn",
+  "cong_dung": "Tham khảo hình học; xác nhận chức năng, mã thiết bị và thông số trước thiết kế.",
+  "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+  "hang_xac_nhan": null,
+  "ma_dong_san_pham": null,
+  "thong_so": {
+    "nhan_block_nguon": "LV429640ATNSX22A 3",
+    "dong_dinh_muc_A": null,
+    "dien_ap_V": null
+  },
+  "tu_khoa_tim_kiem": [
+    "Schneider",
+    "CAD thiết bị theo nhãn nguồn",
+    "MCCB",
+    "Schneider · LV429640ATNSX22A 3 · CAD nguồn",
+    ""
+  ],
+  "muc_do_xac_nhan": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp. CAD có nhiều thành phần/trạng thái hoặc hình chồng; chưa đủ để chèn nguyên bản như một thiết bị.",
+  "nguon_tham_khao": [],
+  "nguon_cad": {
+    "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+    "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+    "block": "LV429640ATNSX22A 3",
+    "saved_block": "LV429640ATNSX22A 3",
+    "handle": "22CA9E",
+    "geometry_key": "88818b529e8ca337346c5b75a8455c397888de180304bd2ba1bddf7d25b8d363",
+    "units": 0,
+    "instance_transform": {
+      "insert": [
+        -26295.17434360023,
+        26518.60928091765,
+        0.0
+      ],
+      "rotation": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+  },
+  "cac_hinh_cad": [
+    "SRC_SCHNEIDER_88818b529e8c"
+  ],
+  "auto_select": false,
+  "needs_review": true,
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa xác nhận dữ liệu hãng",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "SRC_SCHNEIDER_88818b529e8c",
+      "huong_nhin": "Chưa xác nhận hướng nhìn",
+      "nhan_hien_thi": "LV429640ATNSX22A 3",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": false,
+        "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+      },
+      "duong_dan": "CadDon/SRC_SCHNEIDER_88818b529e8c/ban_ve.dxf",
+      "recognition_evidence": "nhan_dien_bo_sung_20261010",
+      "unit_verification": {
+        "status": "source_coordinate_unit_inferred_mm",
+        "review_date": "2026-10-11",
+        "raw_header_units_code": 0,
+        "coordinate_scale_to_mm": 1,
+        "target_units_code": 4,
+        "source_document_sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+        "anchors": [
+          {
+            "card": 176,
+            "profile": "Schneider/ThietBi/SRC_SCHNEIDER_32698b91a8ae/thong_tin_thiet_bi.json",
+            "view": "SRC_SCHNEIDER_32698b91a8ae",
+            "cad_dimensions": [
+              44.89583250347579,
+              77.00009171779948
+            ],
+            "official_mm": [
+              45,
+              77
+            ],
+            "absolute_tolerance_mm": 0.2,
+            "url": "https://www.clipsal.com/products/industrial/tesys/contactor-3p3-no-ac-3-ac-3e-0-to-440v-9a-115vac-50-60hz-coil-lc1d09fe7?itemno=LC1D09FE7"
+          },
+          {
+            "card": 311,
+            "profile": "Schneider/ThietBi/SRC_SCHNEIDER_fb4da93d1dbf/thong_tin_thiet_bi.json",
+            "view": "SRC_SCHNEIDER_fb4da93d1dbf",
+            "cad_dimensions": [
+              74.99999607048994,
+              130.00003669942816
+            ],
+            "official_mm": [
+              75,
+              130
+            ],
+            "absolute_tolerance_mm": 0.2,
+            "url": "https://eshop.se.com/in/mccb-easypact-ezc-ezc100f3100-100a-10ka-3pole-mccb.html"
+          }
+        ],
+        "basis": "Multiple independent official dimension anchors in the same native-coordinate source document; each extracted view has unit instance scale.",
+        "geometry_resized": false,
+        "exact_model_dimensions_verified": false,
+        "limitation": "Unit calibration does not certify each device envelope, hidden geometry, mounting holes or exact model."
+      }
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "SRC_SCHNEIDER_88818b529e8c",
+    "huong_nhin": "Chưa xác nhận hướng nhìn",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "nhan_dien_bo_sung_20261010": {
+    "review_date": "2026-10-10",
+    "category_code": "MCCB",
+    "visual_review": true,
+    "preview": "74-0.png",
+    "source_block": "LV429640ATNSX22A 3",
+    "text_entities_found": 0,
+    "text_outline_note": "No extractable TEXT/MTEXT/ATTRIB found; visible lettering may be linework, not searchable text.",
+    "face": null,
+    "face_basis": "Unconfirmed",
+    "official_family_sources": [
+      "https://www.se.com/jp/ja/product/LV429640/circuit-breaker-compact-nsx100f-36ka-415vac-tmd-trip-unit-100a-4-poles-3d/"
+    ],
+    "exact_sku_verified": false,
+    "automatic_insertion_approved": false,
+    "limitation": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp. CAD có nhiều thành phần/trạng thái hoặc hình chồng; chưa đủ để chèn nguyên bản như một thiết bị."
+  },
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "MCCB",
+    "exact_sku_verified": false
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": null,
+    "ma_san_pham": "Schneider · LV429640ATNSX22A 3 · CAD nguồn",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [
+      "https://www.se.com/vn/vi/",
+      "https://schneider.net.vn",
+      "https://etinco.vn"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khảo - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "ASSEMBLY_REFERENCE",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "Schneider Electric",
+        "model": "LV429640ATNSX22A 3",
+        "specifications": {
+          "nhan_block_nguon": "LV429640ATNSX22A 3",
+          "Loại thiết bị": "ASSEMBLY_REFERENCE",
+          "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp."
+        },
+        "source_url": "https://www.se.com/pe/es/product/LV429640/",
+        "basis": "cad_reference_code",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      }
+    ],
+    "observed_specifications": {
+      "nhan_block_nguon": "LV429640ATNSX22A 3",
+      "Loại thiết bị": "ASSEMBLY_REFERENCE",
+      "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp."
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "drawing_or_assembly",
+      "source_model": null,
+      "matched_catalog_rows": 0,
+      "model_identity_verified": true,
+      "remaining_tasks": [],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "drawing_or_assembly",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [],
+      "documented_models": [],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

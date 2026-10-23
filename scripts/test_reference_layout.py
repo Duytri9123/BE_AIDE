@@ -10,7 +10,7 @@ from app.services.cad.output_status import output_status
 class ReferenceLayoutTests(unittest.TestCase):
     def test_generic_cb_resolves_geometry_without_changing_source_type(self):
         row = select_device_geometry(dict(category='CB',name='Branch',brand='LS',
-            poles=2,in_a=16,icu_ka=6,quantity=1,selection_source='default_brand'))
+            poles=2,in_a=16,icu_ka=6,quantity=1,selection_source='default_brand'),allow_unverified_electrical=True)
         self.assertTrue(row['cad'].get('asset_id'))
         self.assertEqual(row['category'],'CB')
         self.assertEqual(row['in_a'],16)
@@ -18,7 +18,7 @@ class ReferenceLayoutTests(unittest.TestCase):
 
     def test_partial_drawing_keeps_real_geometry_and_lists_unresolved_device(self):
         known = select_device_geometry(dict(category='MCB',name='Branch',tag='L1',brand='LS',
-            poles=2,in_a=16,icu_ka=6,quantity=2,selection_source='default_brand'))
+            poles=2,in_a=16,icu_ka=6,quantity=2,selection_source='default_brand'),allow_unverified_electrical=True)
         unknown = dict(category='CB',name='Spare',tag='SPARE',quantity=1)
         with tempfile.TemporaryDirectory() as folder, patch(
             'app.services.cad.source_project_generator.SourceProjectGenerator.generate',
@@ -43,6 +43,19 @@ class ReferenceLayoutTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             with self.assertRaises(ValueError):
                 ReferenceLayoutGenerator.generate(1,folder,None,[])
+
+    def test_available_device_geometry_can_propose_size_without_source_dimensions(self):
+        known = select_device_geometry(dict(category='MCB',name='Branch',tag='L1',brand='LS',
+            poles=2,in_a=16,icu_ka=6,quantity=1,selection_source='default_brand'),allow_unverified_electrical=True)
+        with tempfile.TemporaryDirectory() as folder, patch(
+            'app.services.cad.source_project_generator.SourceProjectGenerator.generate',
+            side_effect=ValueError('No complete cabinet form')):
+            result = ReferenceLayoutGenerator.generate(1,folder,None,[known])
+            self.assertEqual(result['dimension_basis'],'proposed_from_available_device_geometry')
+            self.assertIsNone(result['source_reference_dimensions'])
+            self.assertTrue(all(v>0 for v in result['dimensions'].values()))
+            self.assertFalse(result['release_ready'])
+            self.assertFalse(ezdxf.readfile(result['path']).audit().errors)
 
 
 if __name__=='__main__': unittest.main()

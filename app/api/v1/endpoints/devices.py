@@ -1,3 +1,4 @@
+from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, or_, and_
@@ -196,8 +197,8 @@ async def get_models(
     min_in: Optional[float] = None,
     max_in: Optional[float] = None,
     min_icu: Optional[float] = None,
-    skip: int = 0,
-    limit: int = 2000,
+    skip: Annotated[int, Query(ge=0)] = 0,
+    limit: Annotated[int, Query(ge=1, le=2000)] = 100,
     db: AsyncSession = Depends(get_db)
 ):
     """Danh sách model thiết bị với bộ lọc nâng cao"""
@@ -237,6 +238,16 @@ async def get_models(
             )
         )
     
+    # Apply JSON parameter predicates before SQL pagination, otherwise a page
+    # can be empty even when matching devices exist beyond the first page.
+    if poles is not None:
+        stmt = stmt.where(DeviceModel.parameters['p'].as_integer() == poles)
+    if min_in is not None:
+        stmt = stmt.where(DeviceModel.parameters['in'].as_float() >= min_in)
+    if max_in is not None:
+        stmt = stmt.where(DeviceModel.parameters['in'].as_float() <= max_in)
+    if min_icu is not None:
+        stmt = stmt.where(DeviceModel.parameters['icu'].as_float() >= min_icu)
     stmt = stmt.order_by(DeviceModel.id).offset(skip).limit(limit)
     result = await db.execute(stmt)
     models = result.scalars().all()
@@ -274,7 +285,7 @@ async def get_models(
 @router.get('/browse')
 async def browse_library(q: str = '', kind: str = '', group: str = '', cad: str = 'all', face: str = '', review: str = 'all',
                          brand_id: int | None = None, category_id: int | None = None, poles: int | None = None,
-                         skip: int = 0, limit: int = 24, db: AsyncSession = Depends(get_db)):
+                         skip: Annotated[int, Query(ge=0)] = 0, limit: Annotated[int, Query(ge=1, le=100)] = 24, db: AsyncSession = Depends(get_db)):
     from app.api.v1.endpoints.cad_library import manifest
     from app.services.cad.library_browser import browse_rows
     from app.services.cad.library_taxonomy import normalize

@@ -1,0 +1,72 @@
+{
+  "checked_at": "2026-10-21 20:41:55",
+  "brands": {
+    "ABB": {
+      "visible_items": 94,
+      "visible_views": 246,
+      "one_view_items": 3,
+      "complete_six_items": 0,
+      "incomplete_six_items": 94,
+      "unknown_face_items": 1,
+      "identity_review_items": 2,
+      "no_measurement_items": 0,
+      "snapshot_differences": 0,
+      "not_exact_ordering_code_verified": 94,
+      "price_rows": 4446,
+      "price_no_explicit_cad_link": 4135,
+      "price_linked_incomplete_views": 311
+    },
+    "LS Electric": {
+      "visible_items": 264,
+      "visible_views": 1009,
+      "one_view_items": 61,
+      "complete_six_items": 111,
+      "incomplete_six_items": 153,
+      "unknown_face_items": 0,
+      "identity_review_items": 41,
+      "no_measurement_items": 0,
+      "snapshot_differences": 0,
+      "not_exact_ordering_code_verified": 264,
+      "price_rows": 517,
+      "price_six_view_family_reference": 336,
+      "price_linked_incomplete_views": 43,
+      "price_no_explicit_cad_link": 138
+    },
+    "CHINT": {
+      "visible_items": 37,
+      "visible_views": 79,
+      "one_view_items": 18,
+      "complete_six_items": 5,
+      "incomplete_six_items": 32,
+      "unknown_face_items": 0,
+      "identity_review_items": 12,
+      "no_measurement_items": 0,
+      "snapshot_differences": 0,
+      "not_exact_ordering_code_verified": 37,
+      "price_rows": 1505,
+      "price_linked_incomplete_views": 380,
+      "price_no_explicit_cad_link": 1114,
+      "price_six_view_family_reference": 11
+    }
+  },
+  "source_profiles": 416,
+  "hidden_profiles": 12,
+  "active_profiles_without_cad": [],
+  "unique_dxf_files": 1340,
+  "readable_dxf_files": 1340,
+  "dxf_files_with_errors": 0,
+  "dxf_files_with_in_memory_fixes": 18,
+  "issue_counts": {
+    "unresolved_face": 2
+  },
+  "active_issue_counts": {
+    "unresolved_face": 2
+  },
+  "snapshot_only_ids": [],
+  "limits": [
+    "Six directions counted per variant; missing optional views is a coverage gap, not evidence of corrupt geometry.",
+    "No explicit source_row_id link is an unverified pricebook linkage, not proof that no related CAD exists.",
+    "Structural parsing and metadata checks do not certify visual direction or exact SKU/coil/terminal/electrical compatibility.",
+    "DXF audit changes are in memory only; no source CAD repaired or deleted."
+  ]
+}

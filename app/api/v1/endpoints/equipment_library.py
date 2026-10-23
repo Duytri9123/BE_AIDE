@@ -16,17 +16,21 @@ from app.services.equipment_library import (BACKEND_CATALOG_DIR, SOURCE_ROOT, DB
 router = APIRouter()
 
 @router.get('/{equipment_id}/catalog-information')
-def catalog_information(equipment_id:str,skip:int=Query(0,ge=0),limit:int=Query(100,ge=1,le=100),scope:str=Query('current',pattern='^(current|same_brand|other_brands)$')):
+def catalog_information(equipment_id:str,skip:int=Query(0,ge=0),limit:int=Query(100,ge=1,le=100),scope:str=Query('current',pattern='^(current|same_brand|other_brands)$'),model:str=''):
     from app.services.catalogtb_browser import browser_data
     from app.services.library_catalog_information import information_rows
     device=next((d for d in browser_data()['items'] if d['id']==equipment_id),None)
-    if not device:raise HTTPException(404,'Không tìm thấy thiết bị.')
+    from app.services.catalog_publication_policy import public_device_allowed,selected_model_rows
+    if not device or not public_device_allowed(device):raise HTTPException(404,'Không tìm thấy thiết bị.')
+    try:selected_model_rows(device,[],model)
+    except ValueError as e:raise HTTPException(400,str(e))
     from app.services.customer_equipment_information import customer_information_rows
     if scope=='current':
         selected=information_rows(device)
         if device.get('product_code'):
             selected=[r for r in selected if r.get('match_scope')=='source_family' or r.get('sku')==device['product_code']]
         rows=customer_information_rows(selected,device)
+        rows=selected_model_rows(device,rows,model)
     else:
         from app.services.library_catalog_information import source_rows
         from app.services.catalog_product_sections import candidate_rows
@@ -254,6 +258,8 @@ def _cad_file(catalog_id: str, field: str):
     if not record or not record['cad'].get(field):
         raise HTTPException(404, 'Bản CAD này chưa có file.')
     relative = record['cad'][field]['path']
+    from app.services.catalog_view_health import targeted, asset_displayable
+    if targeted(record.get('brand')) and not asset_displayable(relative):raise HTTPException(404,'Bản CAD không khả dụng.')
     if not asset_available(relative):
         raise HTTPException(404, 'Không tìm thấy file CAD nguồn.')
     return relative
@@ -271,6 +277,8 @@ def drawing_source(catalog_id: str):
 
 
 def _cad_view_file(catalog_id: str, view_id: str, field: str):
+    from app.services.catalog_view_health import quarantined, targeted, displayable
+    if quarantined(catalog_id,view_id):raise HTTPException(404,'Góc nhìn CAD không khả dụng.')
     record = get_equipment(catalog_id)
     views = _record_views(record) if record else []
     if not record:
@@ -287,7 +295,11 @@ def _cad_view_file(catalog_id: str, view_id: str, field: str):
     view = next((view for view in views if view.get('id') == view_id or public_view_id(view.get('id') or '') == view_id), None)
     if not view or not view.get(field):
         raise HTTPException(404, 'Góc nhìn CAD này chưa có file.')
+    if record and targeted(record.get('brand')) and not displayable(view):
+        raise HTTPException(404,'Góc nhìn CAD không khả dụng.')
     relative = view[field]['path']
+    from app.services.catalog_view_health import asset_displayable
+    if record and targeted(record.get('brand')) and not asset_displayable(relative):raise HTTPException(404,'Góc nhìn CAD không khả dụng.')
     if not asset_available(relative):
         raise HTTPException(404, 'Không tìm thấy góc nhìn CAD nguồn.')
     return relative

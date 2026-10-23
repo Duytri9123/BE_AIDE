@@ -1,0 +1,394 @@
+{
+  "nhom": "LS",
+  "ten_san_pham": "MCB LS BKN · 1P",
+  "ten_kieu": "BKN",
+  "hang_xac_nhan": "LS Electric",
+  "muc_do_xac_nhan": "Hình CAD nguồn và các mặt; chưa xác nhận mã mua hàng/thông số điện",
+  "tu_khoa_tim_kiem": [
+    "BKN-LS",
+    "BKN_1P",
+    "ABB",
+    "2CDS211001R0064",
+    "CHINT",
+    "NCH8-20/01 220/230V",
+    "Delixi",
+    "CDB6i1251C100",
+    "HD Hyundai Electric",
+    "HGD100S",
+    "Hager",
+    "HLF180S",
+    "LA125H 1P",
+    "Legrand",
+    "419837",
+    "Mitsubishi Electric",
+    "BHW-T10",
+    "Schneider Electric",
+    "A9N18357",
+    "Sino - Vanlock",
+    "PS45N/C1006",
+    "Vinakip",
+    "AT 07",
+    "MCB LS BKN · 1P",
+    "BKN",
+    "",
+    "BKN-1P",
+    "BKN-2P",
+    "BKN-3P",
+    "BKN-4P"
+  ],
+  "thong_so": {
+    "so_cuc": 1
+  },
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "MCB",
+    "so_cuc": 1,
+    "fabrication_ready": false,
+    "kich_thuoc_cad_la_kich_thuoc_hang": false,
+    "cac_ma_dong_san_pham": [
+      "BKN"
+    ],
+    "pham_vi_ma": "product_family"
+  },
+  "bo_tri_lap_dat": {
+    "source_project_reference": true
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "front",
+      "huong_nhin": "Mặt trước",
+      "nhan_hien_thi": "Mặt trước",
+      "duong_dan": "CadDon/front/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": true,
+        "fabrication_ready": false
+      },
+      "kiem_tra_net_cad": {
+        "status": "source_visible_primitives_preserved"
+      }
+    },
+    {
+      "id_hinh_goc": "side",
+      "huong_nhin": "Mặt bên",
+      "nhan_hien_thi": "Mặt bên",
+      "duong_dan": "CadDon/side/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": true,
+        "fabrication_ready": false
+      },
+      "kiem_tra_net_cad": {
+        "status": "source_visible_primitives_preserved"
+      }
+    },
+    {
+      "id_hinh_goc": "cover",
+      "huong_nhin": "Nắp che mặt trước",
+      "nhan_hien_thi": "Nắp che mặt trước",
+      "duong_dan": "CadDon/cover/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": true,
+        "fabrication_ready": false
+      },
+      "kiem_tra_net_cad": {
+        "status": "source_visible_primitives_preserved"
+      }
+    }
+  ],
+  "nguon_cad": [
+    {
+      "order": "457",
+      "handle": "10FF338",
+      "source_dwg": "C:\\Users\\admin\\Downloads\\Đơn 457. (24.9.2026) BVSX TỦ ĐIỆN PHUN SƯƠNG - TOXCOM.dwg",
+      "source_sha256": "5b1f76f4db2c1327b470d51b67c9bf3a8f4d9c1361e25dadea596df2a11a6502",
+      "effective_block": "BKN-LS",
+      "dynamic_state": {
+        "Visibility1": "1P-BKN"
+      },
+      "owner_face_in_source": "mounting_plate"
+    },
+    {
+      "order": "457",
+      "handle": "1100723",
+      "source_dwg": "C:\\Users\\admin\\Downloads\\Đơn 457. (24.9.2026) BVSX TỦ ĐIỆN PHUN SƯƠNG - TOXCOM.dwg",
+      "source_sha256": "5b1f76f4db2c1327b470d51b67c9bf3a8f4d9c1361e25dadea596df2a11a6502",
+      "effective_block": "BKN-LS",
+      "dynamic_state": {
+        "Visibility1": "SIDE"
+      },
+      "owner_face_in_source": "side_projection"
+    },
+    {
+      "order": "447",
+      "handle": "A220",
+      "source_dwg": "C:\\Users\\admin\\Downloads\\Đơn 447.BVSX - Tủ Điện - Hòa Trung.dwg",
+      "source_sha256": "fab29afb3fc2663d3b05bff45e246967afa449729eb038730417e02ef043a334",
+      "effective_block": "BKN-LS",
+      "dynamic_state": {
+        "Visibility1": "1P-COVER"
+      },
+      "owner_face_in_source": "inner_door"
+    }
+  ],
+  "quy_tac_ghep_mat": {
+    "basis": "same_effective_source_block_current_state",
+    "exact_order_code_verified": false
+  },
+  "cad_chen_tu": {
+    "id_hinh_goc": "front",
+    "huong_nhin": "Mặt trước",
+    "duong_dan": "CadDon/front/ban_ve.dxf"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "MCB",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "LS Electric",
+        "model": "BKN-1P",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 12
+        },
+        "source_url": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+        "source_page": 12,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng được ghi trong hồ sơ nguồn. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "BKN-2P",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 11
+        },
+        "source_url": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+        "source_page": 11,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng được ghi trong hồ sơ nguồn. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "BKN-3P",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 13
+        },
+        "source_url": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+        "source_page": 13,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng được ghi trong hồ sơ nguồn. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "BKN-4P",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 13
+        },
+        "source_url": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+        "source_page": 13,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng được ghi trong hồ sơ nguồn. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "BKN 1P 32A",
+        "specifications": {
+          "Tên hàng": "MCB LS BKN 32A 1P 6kA",
+          "Số cực": "1P"
+        },
+        "source_url": "https://codienhaiau.com/product/mcb-ls-bkn-32a-6ka-1p/",
+        "source_label": "Cơ Điện Hải Âu",
+        "source_page": null,
+        "source_row_id": "web:5fe815ac88522858",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "BKN 1P 20A",
+        "specifications": {
+          "Tên hàng": "MCB LS BKN 20A 1P 6kA",
+          "Số cực": "1P"
+        },
+        "source_url": "https://codienhaiau.com/product/mcb-ls-bkn-20a-6ka-1p/",
+        "source_label": "Cơ Điện Hải Âu",
+        "source_page": null,
+        "source_row_id": "web:584cc2921c934842",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "BKN",
+        "specifications": {
+          "so_cuc": 1,
+          "Loại thiết bị": "MCB"
+        },
+        "source_url": "",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      }
+    ],
+    "observed_specifications": {
+      "so_cuc": 1,
+      "Loại thiết bị": "MCB"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "documented_source_label",
+      "source_model": "BKN",
+      "matched_catalog_rows": 2,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": true,
+      "source_label_models": [
+        "BKN-1P",
+        "BKN-2P",
+        "BKN-3P",
+        "BKN-4P"
+      ],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "documented_source_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [
+        "BKN-1P",
+        "BKN-2P",
+        "BKN-3P",
+        "BKN-4P",
+        "Din-35"
+      ],
+      "documented_models": [
+        {
+          "model": "BKN-1P",
+          "brand": "LS Electric",
+          "manufacturer_confirmed_on_source": true,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+              "sha256": "be077c3d2f7ed270760364beef6cc9218180aa73d48d3bb97de994c08e720c3b",
+              "page": 12,
+              "format": "pdf",
+              "match": "BKN 1P",
+              "basis": "literal_model_label"
+            }
+          ]
+        },
+        {
+          "model": "BKN-2P",
+          "brand": "LS Electric",
+          "manufacturer_confirmed_on_source": true,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+              "sha256": "be077c3d2f7ed270760364beef6cc9218180aa73d48d3bb97de994c08e720c3b",
+              "page": 11,
+              "format": "pdf",
+              "match": "BKN 2P",
+              "basis": "literal_model_label"
+            }
+          ]
+        },
+        {
+          "model": "BKN-3P",
+          "brand": "LS Electric",
+          "manufacturer_confirmed_on_source": true,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+              "sha256": "be077c3d2f7ed270760364beef6cc9218180aa73d48d3bb97de994c08e720c3b",
+              "page": 13,
+              "format": "pdf",
+              "match": "BKN 3P",
+              "basis": "literal_model_label"
+            }
+          ]
+        },
+        {
+          "model": "BKN-4P",
+          "brand": "LS Electric",
+          "manufacturer_confirmed_on_source": true,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+              "sha256": "be077c3d2f7ed270760364beef6cc9218180aa73d48d3bb97de994c08e720c3b",
+              "page": 13,
+              "format": "pdf",
+              "match": "BKN 4P",
+              "basis": "literal_model_label"
+            }
+          ]
+        }
+      ],
+      "source_text_count": 8,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao."
+  },
+  "nhom_thu_vien": "LS",
+  "ma_dong_san_pham": "BKN",
+  "library_classification_review": {
+    "basis": "User requested manufacturer/family classification instead of ProjectSamples",
+    "source_paths_preserved": true,
+    "manufacturer_unassigned": false
+  },
+  "nhan_dien_web": {
+    "source_label_review": {
+      "status": "documented_source_label",
+      "models": [
+        "BKN-1P",
+        "BKN-2P",
+        "BKN-3P",
+        "BKN-4P"
+      ],
+      "manufacturer_candidates": [
+        "LS Electric"
+      ],
+      "checked_at": "2026-10-17",
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

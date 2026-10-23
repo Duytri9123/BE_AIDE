@@ -1,0 +1,351 @@
+{
+  "nhom": "LS",
+  "ten_kieu": "MCB LS BKN · 2P",
+  "ten_san_pham": "MCB LS BKN · 2P",
+  "hang_xac_nhan": "LS Electric",
+  "ma_dong_san_pham": "BKN",
+  "ban_chat": "MCB bảo vệ quá tải và ngắn mạch",
+  "cong_dung": "Bảo vệ mạch trước quá tải, ngắn mạch.",
+  "vi_tri_lap_dat": "Trên ray DIN hoặc tấm lắp trong ngăn điều khiển/động lực, theo kiểu gá của thiết bị.",
+  "thong_so": {
+    "so_cuc": "2P",
+    "dong_dinh_muc": "1, 2, 3, 4, 6, 10, 13, 16, 20, 25, 32, 40, 50, 63 A — chọn biến thể",
+    "kha_nang_cat": "6 kA (IEC 60898)",
+    "dac_tinh_tac_dong": "B / C / D — chọn biến thể",
+    "dien_ap_dinh_muc": "1P: 230/400 VAC; 2–4P: 400 VAC"
+  },
+  "dac_diem": [
+    "Mỗi mặt CAD chỉ chứa phần hiển thị của trạng thái đã chọn. Nắp che là phương án biểu diễn khi đóng nắp, không phải một góc nhìn khác."
+  ],
+  "cac_hinh_cad": [
+    "LS-D02-C3-I03-2P",
+    "LS-D02-C3-I03-VIEW-SIDE-VIEW",
+    "LS-D02-C3-I03-VIEW-2P-COVER"
+  ],
+  "tai_lieu_hang": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+  "nguon_tham_khao": [
+    "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf"
+  ],
+  "muc_do_xac_nhan": "Thông số dòng sản phẩm đã đối chiếu catalog hãng; cần chọn mã đặt hàng và cấu hình cụ thể.",
+  "lua_chon_ky_thuat": [
+    "Chọn dòng làm việc, điện áp, số cực và khả năng cắt theo hệ thống.",
+    "Với thiết bị chống rò, chọn dòng rò tác động và phối hợp bảo vệ quá dòng."
+  ],
+  "trang_thai_ls_da_cap_nhat": true,
+  "cad_don": [
+    {
+      "id_hinh_goc": "LS-D02-C3-I03-2P",
+      "huong_nhin": "Mặt trước",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt trước form tủ khi mặt thao tác hoặc mặt chính của thiết bị hướng về người nhìn."
+      },
+      "duong_dan": "CadDon/LS-D02-C3-I03-2P/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong",
+          "canh_trong"
+        ],
+        "huong_dan": "Thân thiết bị cố định trên ray DIN hoặc tấm lắp bên trong. Cánh trong chỉ để lộ tay gạt qua lỗ khoét; không treo toàn bộ thiết bị nặng lên cánh.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      }
+    },
+    {
+      "id_hinh_goc": "LS-D02-C3-I03-VIEW-2P-COVER",
+      "huong_nhin": "Mặt trước",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt trước form tủ khi mặt thao tác hoặc mặt chính của thiết bị hướng về người nhìn."
+      },
+      "duong_dan": "CadDon/LS-D02-C3-I03-VIEW-2P-COVER/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong",
+          "canh_trong"
+        ],
+        "huong_dan": "Thân thiết bị cố định trên ray DIN hoặc tấm lắp bên trong. Cánh trong chỉ để lộ tay gạt qua lỗ khoét; không treo toàn bộ thiết bị nặng lên cánh.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      }
+    },
+    {
+      "id_hinh_goc": "LS-D02-C3-I03-VIEW-SIDE-VIEW",
+      "huong_nhin": "Mặt bên",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt bên",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt bên form tủ khi thiết bị giữ tư thế lắp đứng. Nếu xoay tư thế lắp, cần đối chiếu lại hướng nhìn."
+      },
+      "duong_dan": "CadDon/LS-D02-C3-I03-VIEW-SIDE-VIEW/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong",
+          "canh_trong"
+        ],
+        "huong_dan": "Thân thiết bị cố định trên ray DIN hoặc tấm lắp bên trong. Cánh trong chỉ để lộ tay gạt qua lỗ khoét; không treo toàn bộ thiết bị nặng lên cánh.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      }
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "LS-D02-C3-I03-2P",
+    "huong_nhin": "Mặt trước",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "bo_tri_lap_dat": {
+    "vi_tri_uu_tien": "ben_trong",
+    "vi_tri_phu_hop": [
+      "ben_trong",
+      "canh_trong"
+    ],
+    "huong_dan": "Thân thiết bị cố định trên ray DIN hoặc tấm lắp bên trong. Cánh trong chỉ để lộ tay gạt qua lỗ khoét; không treo toàn bộ thiết bị nặng lên cánh.",
+    "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+    "nguon_tham_khao": [
+      "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+    ]
+  },
+  "quy_cach_hien_thi": "2P · 1P: 230/400 VAC; 2–4P: 400 VAC",
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Nguồn vào",
+      "Ra tải",
+      "Phụ kiện điều khiển nếu có"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Chọn theo từng kết nối, thông số điện và bảo vệ phía trước; không suy từ hình CAD. Vật tư thuần cơ khí không yêu cầu dây.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa có dữ liệu gá/cọc theo mã đầy đủ",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "tu_khoa_tim_kiem": [
+    "MCB LS BKN · 2P",
+    "aptomat tep",
+    "aptomat tép",
+    "cầu dao tự động",
+    "miniature circuit breaker",
+    "ABB",
+    "2CDS212001R0064",
+    "CHINT",
+    "NCH8-20/01 220/230V",
+    "Delixi",
+    "CDB6i1252C100",
+    "HD Hyundai Electric",
+    "HGD100S",
+    "Hager",
+    "HLF280S",
+    "BKN 1P 20A",
+    "Legrand",
+    "419870",
+    "Mitsubishi Electric",
+    "D1P-0.5C6NM",
+    "Schneider Electric",
+    "A9N18360",
+    "Sino - Vanlock",
+    "PS45N/C2006",
+    "Vinakip",
+    "AT 07",
+    "MCB bảo vệ quá tải và ngắn mạch",
+    "BKN"
+  ],
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "MCB",
+    "hang": "LS",
+    "cac_ma_dong_san_pham": [
+      "BKN"
+    ],
+    "so_cuc": "2P",
+    "loai_nguon": null,
+    "pham_vi_ma": "model_or_shared_cad_family",
+    "ma_dat_hang_da_chon": null,
+    "quy_tac": "Tra từng mã trong nhóm; CAD chung không xác nhận cùng thông số điện. Chọn cấu hình và mã đặt hàng trước thi công. Giá trị null là chưa xác định."
+  },
+  "phuong_an_thay_the_agent": {
+    "status": "needs_confirmation",
+    "auto_apply": false,
+    "options": [
+      {
+        "original_spec": "2P 30A 6kA",
+        "proposed_spec": "2P 32A 6kA",
+        "display": "2P 30A 6kA → 2P 32A 6kA",
+        "reason": "Chỉ xem xét nếu biến thể 30A không có trong danh mục được xác nhận",
+        "order_code": null,
+        "required_checks": [
+          "Dòng tải thiết kế",
+          "Khả năng tải dây và cọc",
+          "Đặc tuyến tác động",
+          "Khả năng cắt tại điện áp làm việc",
+          "Phối hợp bảo vệ",
+          "Người phụ trách kỹ thuật duyệt"
+        ]
+      }
+    ]
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "LS Electric",
+    "ma_san_pham": "BKN",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [
+      "https://anhphatelectric.com/upload/file/bang-gia-ls-15-04-2026-7279.pdf",
+      "https://etinco.vn/san-pham-ls-electric",
+      "Tham khảo đại lý LS Electric Việt Nam"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khảo - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "MCB",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "LS Electric",
+        "model": "BKN 2P 25A",
+        "specifications": {
+          "Tên hàng": "MCB LS BKN 25A 2P 6kA",
+          "Số cực": "2P"
+        },
+        "source_url": "https://codienhaiau.com/product/mcb-ls-bkn-25a-6ka-2p/",
+        "source_label": "Cơ Điện Hải Âu",
+        "source_page": null,
+        "source_row_id": "web:abf86c69f53e46c0",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "BKN 2P 40A",
+        "specifications": {
+          "Tên hàng": "MCB LS BKN 40A 2P 6kA",
+          "Số cực": "2P"
+        },
+        "source_url": "https://codienhaiau.com/product/mcb-ls-bkn-40a-6ka-2p/",
+        "source_label": "Cơ Điện Hải Âu",
+        "source_page": null,
+        "source_row_id": "web:a305d58084427b37",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "BKN",
+        "specifications": {
+          "so_cuc": "2P",
+          "dong_dinh_muc": "1, 2, 3, 4, 6, 10, 13, 16, 20, 25, 32, 40, 50, 63 A — chọn biến thể",
+          "kha_nang_cat": "6 kA (IEC 60898)",
+          "dac_tinh_tac_dong": "B / C / D — chọn biến thể",
+          "dien_ap_dinh_muc": "1P: 230/400 VAC; 2–4P: 400 VAC",
+          "Loại thiết bị": "MCB",
+          "Lắp đặt tham khảo": "Trên ray DIN hoặc tấm lắp trong ngăn điều khiển/động lực, theo kiểu gá của thiết bị.",
+          "Hình chiếu Mặt trước (ngang × cao, mm)": "41.0 × 107.3",
+          "Hình chiếu Mặt bên (ngang × cao, mm)": "75.25 × 82.0"
+        },
+        "source_url": "https://www.ls-electric.com/upload/customer/download/1483/150905_MCB_E.pdf",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      }
+    ],
+    "observed_specifications": {
+      "so_cuc": "2P",
+      "dong_dinh_muc": "1, 2, 3, 4, 6, 10, 13, 16, 20, 25, 32, 40, 50, 63 A — chọn biến thể",
+      "kha_nang_cat": "6 kA (IEC 60898)",
+      "dac_tinh_tac_dong": "B / C / D — chọn biến thể",
+      "dien_ap_dinh_muc": "1P: 230/400 VAC; 2–4P: 400 VAC",
+      "Loại thiết bị": "MCB",
+      "Lắp đặt tham khảo": "Trên ray DIN hoặc tấm lắp trong ngăn điều khiển/động lực, theo kiểu gá của thiết bị.",
+      "Hình chiếu Mặt trước (ngang × cao, mm)": "41.0 × 107.3",
+      "Hình chiếu Mặt bên (ngang × cao, mm)": "75.25 × 82.0"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "source_text_without_unique_model",
+      "source_model": "BKN",
+      "matched_catalog_rows": 2,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "source_text_without_unique_model",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [],
+      "documented_models": [],
+      "source_text_count": 10,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "gia_ban_tham_khao_cu": {
+    "don_gia": "180000-350000",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Có giá (phạm vi)",
+    "hang": "LS Electric",
+    "ma_san_pham": "BKN",
+    "ghi_chu": "MCB LS BKN · 2P. Switch disconnector dòng BKN. Giá tham khảo từ đại lý, chưa bao gồm VAT",
+    "nguon_tham_khao": [
+      "https://anhphatelectric.com/upload/file/bang-gia-ls-15-04-2026-7279.pdf",
+      "https://etinco.vn/san-pham-ls-electric",
+      "Tham khảo đại lý LS Electric Việt Nam"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khảo - cần xác nhận với nhà cung cấp"
+  }
+}

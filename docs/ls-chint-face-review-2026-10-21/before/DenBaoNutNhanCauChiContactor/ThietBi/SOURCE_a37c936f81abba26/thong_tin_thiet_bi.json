@@ -1,0 +1,516 @@
+{
+  "nhom": "DenBaoNutNhanCauChiContactor",
+  "ten_kieu": "Hình CAD chưa xác định tên",
+  "ten_san_pham": "Cầu chì · RT36-00",
+  "ban_chat": "FUSE",
+  "ma_dong_san_pham": "RT36-00",
+  "hang_xac_nhan": "CHINT",
+  "thong_so": {
+    "Loại thiết bị": "Cầu chì",
+    "Phạm vi bản vẽ": "Hình chiếu/chi tiết nguồn",
+    "Mã/dòng trên nguồn": "RT36-00",
+    "Giá": "---",
+    "Nhãn thông số đọc từ nguồn": "160A"
+  },
+  "cong_dung": "Cầu chì dùng để tra cứu thông tin, chọn mã và bố trí theo mẫu CAD tham khảo.",
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "FUSE",
+    "source_component_type": "FUSE",
+    "cac_ma_dong_san_pham": [
+      "RT36-00"
+    ],
+    "fabrication_ready": false,
+    "generic_shape": false
+  },
+  "auto_select": false,
+  "needs_review": true,
+  "source_catalog_review": {
+    "source_path": "DenBaoNutNhanCauChiContactor/TuLieuBanVe/C03/ThanhPhanCAD/B_696b26c03c1d/ban_ve.dxf",
+    "source_sha256": "e8f8b48759f9ace339fb39a7beca45c01f9cd19d2e42bb30776d37a329cfe112",
+    "texts": [
+      "CHINT\nRT36-00(NT00)\nAC690V 160A"
+    ],
+    "component_type": "FUSE",
+    "contains_multiple_components": false,
+    "status": "information_catalogued",
+    "visual_review": "category_contact_sheet_2026_10_16",
+    "brands_read_from_source": [
+      "CHINT"
+    ],
+    "shared_source_variants": [
+      {
+        "name": "Hình CAD chưa xác định tên",
+        "models": [
+          "RT36-00"
+        ],
+        "brand": "CHINT",
+        "source": "DenBaoNutNhanCauChiContactor/TuLieuBanVe/C03/ThanhPhanCAD/B_696b26c03c1d/ban_ve.dxf"
+      }
+    ]
+  },
+  "nguon_cad": {
+    "file": "DenBaoNutNhanCauChiContactor/TuLieuBanVe/C03/ThanhPhanCAD/B_696b26c03c1d/ban_ve.dxf",
+    "block": "Hình CAD chưa xác định tên",
+    "sha256": "e8f8b48759f9ace339fb39a7beca45c01f9cd19d2e42bb30776d37a329cfe112"
+  },
+  "tu_khoa_tim_kiem": [
+    "Cầu chì",
+    "Hình CAD chưa xác định tên",
+    "Cầu chì · RT36-00",
+    "FUSE",
+    "RT36-00"
+  ],
+  "cad_don": [
+    {
+      "id_hinh_goc": "SOURCE-a37c936f81abba26",
+      "huong_nhin": "Chưa xác nhận hướng nhìn",
+      "duong_dan": "CadDon/SOURCE-a37c936f81abba26/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": false
+      }
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "SOURCE-a37c936f81abba26"
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao."
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "FUSE",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "CHINT",
+        "model": "RT36-00",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 2
+        },
+        "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/fuse1/rt36/catalog/RT36-Fuse-Catalog.pdf",
+        "source_page": 2,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng được ghi trong hồ sơ nguồn. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "CHINT",
+        "model": "RT36-00 (NT00) gG 160A",
+        "specifications": {
+          "Phạm vi giá": "Ruột cầu chì; chưa gồm đế",
+          "Tình trạng": "Hàng đặt trước; không có sẵn",
+          "VAT": "Chưa xác nhận",
+          "In (A)": "160",
+          "Họ thiết bị": "RT36-00",
+          "Cấp sử dụng": "gG",
+          "Tên hàng": "RT36-00 (NT00) gG 160A"
+        },
+        "source_url": "https://shopee.vn/Cầu-chì-Chint-RT36-00-(NT00)-gG-160A-i.400687483.22018556065",
+        "source_label": "BluePower Automation · Shopee",
+        "source_page": null,
+        "source_row_id": "web:452b5cfa0925e674",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "RT28-32 2A gG/gL",
+        "specifications": {
+          "In": "32A",
+          "Icu": "2A",
+          "Mã hàng": "520474",
+          "Tên hàng": "RT28-32 2A gG/gL"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 47,
+        "source_row_id": "chint-pdf:17f30a36c56966f0",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "RT28-32 4A gG/gL",
+        "specifications": {
+          "In": "32A",
+          "Icu": "4A",
+          "Mã hàng": "520475",
+          "Tên hàng": "RT28-32 4A gG/gL"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 47,
+        "source_row_id": "chint-pdf:767f42b1d6ffd5d2",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "RT28-32 6A gG/gL",
+        "specifications": {
+          "In": "32A",
+          "Icu": "6A",
+          "Mã hàng": "520476",
+          "Tên hàng": "RT28-32 6A gG/gL"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 47,
+        "source_row_id": "chint-pdf:6a433f16a169e658",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "RT28-32 10A gG/gL",
+        "specifications": {
+          "In": "32A",
+          "Icu": "10A",
+          "Mã hàng": "520478",
+          "Tên hàng": "RT28-32 10A gG/gL"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 47,
+        "source_row_id": "chint-pdf:7aaade043c2b802a",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "RT28-32 16A gG/gL",
+        "specifications": {
+          "In": "32A",
+          "Icu": "16A",
+          "Mã hàng": "520480",
+          "Tên hàng": "RT28-32 16A gG/gL"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 47,
+        "source_row_id": "chint-pdf:09fb5e93b63f638f",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "RT28-32 20A gG/gL",
+        "specifications": {
+          "In": "32A",
+          "Icu": "20A",
+          "Mã hàng": "520481",
+          "Tên hàng": "RT28-32 20A gG/gL"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 47,
+        "source_row_id": "chint-pdf:d28bfa86196caed7",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "RT28-32 25A gG/gL",
+        "specifications": {
+          "In": "32A",
+          "Icu": "25A",
+          "Mã hàng": "520482",
+          "Tên hàng": "RT28-32 25A gG/gL"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 47,
+        "source_row_id": "chint-pdf:c062164cabf07bd0",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "RT28-32 32A gG/gL",
+        "specifications": {
+          "In": "32A",
+          "Icu": "32A",
+          "Mã hàng": "520483",
+          "Tên hàng": "RT28-32 32A gG/gL"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 47,
+        "source_row_id": "chint-pdf:868064d8fb945059",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "RT28-63 10A gG/gL",
+        "specifications": {
+          "In": "63A",
+          "Icu": "10A",
+          "Mã hàng": "520489",
+          "Tên hàng": "RT28-63 10A gG/gL"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 47,
+        "source_row_id": "chint-pdf:6e4d5f9d14e11253",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "RT28-63 16A gG/gL",
+        "specifications": {
+          "In": "63A",
+          "Icu": "16A",
+          "Mã hàng": "520490",
+          "Tên hàng": "RT28-63 16A gG/gL"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 47,
+        "source_row_id": "chint-pdf:f0578728ec300c45",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "RT28-63 20A gG/gL",
+        "specifications": {
+          "In": "63A",
+          "Icu": "20A",
+          "Mã hàng": "520491",
+          "Tên hàng": "RT28-63 20A gG/gL"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 47,
+        "source_row_id": "chint-pdf:b391682a1df26c73",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "RT28-63 25A gG/gL",
+        "specifications": {
+          "In": "63A",
+          "Icu": "25A",
+          "Mã hàng": "520492",
+          "Tên hàng": "RT28-63 25A gG/gL"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 47,
+        "source_row_id": "chint-pdf:879a5506c0a738e6",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "RT28-63 32A gG/gL",
+        "specifications": {
+          "In": "63A",
+          "Icu": "32A",
+          "Mã hàng": "520493",
+          "Tên hàng": "RT28-63 32A gG/gL"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 47,
+        "source_row_id": "chint-pdf:34e7fb7456fbeed3",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "RT28-63 40A gG/gL",
+        "specifications": {
+          "In": "63A",
+          "Icu": "40A",
+          "Mã hàng": "520494",
+          "Tên hàng": "RT28-63 40A gG/gL"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 47,
+        "source_row_id": "chint-pdf:786048d1964039d3",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "RT28-63 50A gG/gL",
+        "specifications": {
+          "In": "63A",
+          "Icu": "50A",
+          "Mã hàng": "520495",
+          "Tên hàng": "RT28-63 50A gG/gL"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 47,
+        "source_row_id": "chint-pdf:9f58f5ca5b03f4bd",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "RT28-63 63A gG/gL",
+        "specifications": {
+          "In": "63A",
+          "Icu": "63A",
+          "Mã hàng": "520496",
+          "Tên hàng": "RT28-63 63A gG/gL"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 47,
+        "source_row_id": "chint-pdf:2badaf9f9aab6bce",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "RT36-00",
+        "specifications": {
+          "Loại thiết bị": "Cầu chì",
+          "Phạm vi bản vẽ": "Hình chiếu/chi tiết nguồn",
+          "Mã/dòng trên nguồn": "RT36-00",
+          "Giá": "---",
+          "Nhãn thông số đọc từ nguồn": "160A"
+        },
+        "source_url": "",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      },
+      {
+        "brand": "Andex",
+        "model": "---",
+        "specifications": {
+          "Loại": "Cầu chì · RT36-00",
+          "Mã và định mức": "Chọn theo sản phẩm thực tế"
+        },
+        "source_url": "",
+        "basis": "user_shared_cad_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng dùng chung mẫu CAD theo yêu cầu người dùng; chưa có mã catalog để xác nhận thông số."
+      }
+    ],
+    "observed_specifications": {
+      "Loại thiết bị": "Cầu chì",
+      "Phạm vi bản vẽ": "Hình chiếu/chi tiết nguồn",
+      "Mã/dòng trên nguồn": "RT36-00",
+      "Giá": "---",
+      "Nhãn thông số đọc từ nguồn": "160A"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "documented_source_label",
+      "source_model": "RT36-00",
+      "matched_catalog_rows": 1,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": true,
+      "source_label_models": [
+        "RT36-00"
+      ],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "documented_source_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [
+        "RT36-00"
+      ],
+      "documented_models": [
+        {
+          "model": "RT36-00",
+          "brand": "CHINT",
+          "manufacturer_confirmed_on_source": true,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/fuse1/rt36/catalog/RT36-Fuse-Catalog.pdf",
+              "sha256": "91d184ade8cb302ec860a51d20b8ef7a3e287cea60ba795986c9ab3a76e26132",
+              "page": 2,
+              "format": "pdf",
+              "match": "RT36-00",
+              "basis": "literal_model_label"
+            }
+          ]
+        }
+      ],
+      "source_text_count": 1,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "nhan_dien_web": {
+    "source_label_review": {
+      "status": "documented_source_label",
+      "models": [
+        "RT36-00"
+      ],
+      "manufacturer_candidates": [
+        "CHINT"
+      ],
+      "checked_at": "2026-10-17",
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

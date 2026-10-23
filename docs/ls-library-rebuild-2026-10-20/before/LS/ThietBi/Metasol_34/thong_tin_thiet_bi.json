@@ -1,0 +1,337 @@
+{
+  "nhom": "LS",
+  "ten_kieu": "ELCB LS EBS 1000 · 3P",
+  "ten_san_pham": "ELCB LS EBS 1000 · 3P",
+  "hang_xac_nhan": "LS Electric",
+  "ma_dong_san_pham": "EBS 1000",
+  "ban_chat": "ELCB dạng khối",
+  "cong_dung": "Bảo vệ mạch động lực trước quá tải và ngắn mạch; có chức năng bảo vệ dòng rò theo biến thể ELCB.",
+  "vi_tri_lap_dat": "Trên ray DIN hoặc tấm lắp trong ngăn điều khiển/động lực, theo kiểu gá của thiết bị.",
+  "thong_so": {
+    "so_cuc": "3P",
+    "dong_chinh_dinh": "Chưa xác định",
+    "kha_nang_cat": "Chưa xác định"
+  },
+  "dac_diem": [
+    "Cỡ khung không thay thế cho dòng chỉnh định hoặc mã đặt hàng đầy đủ.",
+    "Mỗi mặt CAD chỉ chứa phần hiển thị của trạng thái đã chọn. Nắp che là phương án biểu diễn khi đóng nắp, không phải một góc nhìn khác."
+  ],
+  "cac_hinh_cad": [
+    "D02_cluster6-V006",
+    "LS-D02-C6-I06-VIEW-SIDE-VIEW",
+    "LS-D02-C6-I06-VIEW-3P-COVER",
+    "LS-ORIGINAL-37AABF"
+  ],
+  "tai_lieu_hang": "https://pfinder.ls-electric.com/IEC/product/mccb_metasol.do",
+  "nguon_tham_khao": [
+    "https://pfinder.ls-electric.com/IEC/product/mccb_metasol.do"
+  ],
+  "muc_do_xac_nhan": "Đã xác định dòng thiết bị; mã đặt hàng đầy đủ và cấu hình điện cần chọn theo biến thể.",
+  "lua_chon_ky_thuat": [
+    "Chọn dòng làm việc, điện áp, số cực và khả năng cắt theo hệ thống.",
+    "Với thiết bị chống rò, chọn dòng rò tác động và phối hợp bảo vệ quá dòng."
+  ],
+  "trang_thai_ls_da_cap_nhat": true,
+  "cad_don": [
+    {
+      "id_hinh_goc": "D02_cluster6-V006",
+      "huong_nhin": "Mặt trước",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt trước form tủ khi mặt thao tác hoặc mặt chính của thiết bị hướng về người nhìn."
+      },
+      "duong_dan": "CadDon/D02_cluster6-V006/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong",
+          "canh_trong"
+        ],
+        "huong_dan": "Thân thiết bị cố định trên ray DIN hoặc tấm lắp bên trong. Cánh trong chỉ để lộ tay gạt qua lỗ khoét; không treo toàn bộ thiết bị nặng lên cánh.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      }
+    },
+    {
+      "id_hinh_goc": "LS-D02-C6-I06-VIEW-3P-COVER",
+      "huong_nhin": "Mặt trước",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt trước form tủ khi mặt thao tác hoặc mặt chính của thiết bị hướng về người nhìn."
+      },
+      "duong_dan": "CadDon/LS-D02-C6-I06-VIEW-3P-COVER/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong",
+          "canh_trong"
+        ],
+        "huong_dan": "Thân thiết bị cố định trên ray DIN hoặc tấm lắp bên trong. Cánh trong chỉ để lộ tay gạt qua lỗ khoét; không treo toàn bộ thiết bị nặng lên cánh.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      }
+    },
+    {
+      "id_hinh_goc": "LS-D02-C6-I06-VIEW-SIDE-VIEW",
+      "huong_nhin": "Mặt bên",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt bên",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt bên form tủ khi thiết bị giữ tư thế lắp đứng. Nếu xoay tư thế lắp, cần đối chiếu lại hướng nhìn."
+      },
+      "duong_dan": "CadDon/LS-D02-C6-I06-VIEW-SIDE-VIEW/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong",
+          "canh_trong"
+        ],
+        "huong_dan": "Thân thiết bị cố định trên ray DIN hoặc tấm lắp bên trong. Cánh trong chỉ để lộ tay gạt qua lỗ khoét; không treo toàn bộ thiết bị nặng lên cánh.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      }
+    },
+    {
+      "id_hinh_goc": "LS-ORIGINAL-37AABF",
+      "huong_nhin": "Mặt trước",
+      "nhan_hien_thi": "Mặt trước · EBS 1003b · 1000A",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": false,
+        "huong_dan": "Bản CAD nguồn có đồng/đầu nối tích hợp. Đối chiếu cấu hình, đầu nối và thông số trước khi dùng cho thi công."
+      },
+      "duong_dan": "CadDon/LS-ORIGINAL-37AABF/ban_ve.dxf"
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "D02_cluster6-V006",
+    "huong_nhin": "Mặt trước",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "bo_tri_lap_dat": {
+    "vi_tri_uu_tien": "ben_trong",
+    "vi_tri_phu_hop": [
+      "ben_trong",
+      "canh_trong"
+    ],
+    "huong_dan": "Thân thiết bị cố định trên ray DIN hoặc tấm lắp bên trong. Cánh trong chỉ để lộ tay gạt qua lỗ khoét; không treo toàn bộ thiết bị nặng lên cánh.",
+    "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+    "nguon_tham_khao": [
+      "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+    ]
+  },
+  "quy_cach_hien_thi": "3P",
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Chọn theo từng kết nối, thông số điện và bảo vệ phía trước; không suy từ hình CAD. Vật tư thuần cơ khí không yêu cầu dây.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa có dữ liệu gá/cọc theo mã đầy đủ",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "tu_khoa_tim_kiem": [
+    "ELCB LS EBS 1000 · 3P",
+    "cầu dao chống rò",
+    "earth leakage circuit breaker",
+    "EBS1000",
+    "HD Hyundai Electric",
+    "HGE100S",
+    "32GRc",
+    "Mitsubishi Electric",
+    "2DB022A000001",
+    "Shihlin",
+    "BL160-SN",
+    "ELCB dạng khối",
+    "EBS 1000"
+  ],
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "ELCB",
+    "hang": "LS",
+    "cac_ma_dong_san_pham": [
+      "EBS 1000"
+    ],
+    "so_cuc": "3P",
+    "loai_nguon": null,
+    "pham_vi_ma": "model_or_shared_cad_family",
+    "ma_dat_hang_da_chon": null,
+    "quy_tac": "Tra từng mã trong nhóm; CAD chung không xác nhận cùng thông số điện. Chọn cấu hình và mã đặt hàng trước thi công. Giá trị null là chưa xác định."
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "LS Electric",
+    "ma_san_pham": "EBS 1000",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [
+      "https://anhphatelectric.com",
+      "https://etinco.vn/san-pham-ls-electric"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Ước tính - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "ELCB",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "LS Electric",
+        "model": "EBS52Fb",
+        "specifications": {
+          "In (A)": "40-50A",
+          "Icu(KA)": "5",
+          "Tên hàng": "EBS52Fb"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:f6266a1fd9335ba4",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "EBS104c",
+        "specifications": {
+          "In (A)": "15,20,30,40,50,60,75,100,125A",
+          "Icu(KA)": "37",
+          "Tên hàng": "EBS104c"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 2,
+        "source_row_id": "ls-pdf:9a3f72a51d269362",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "EBS204c",
+        "specifications": {
+          "In (A)": "125,150,175,200,225,250A",
+          "Icu(KA)": "37",
+          "Tên hàng": "EBS204c"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 2,
+        "source_row_id": "ls-pdf:2ecefbcd8c1fc41f",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "EBS 1000",
+        "specifications": {
+          "so_cuc": "3P",
+          "dong_chinh_dinh": "Chưa xác định",
+          "kha_nang_cat": "Chưa xác định",
+          "Loại thiết bị": "ELCB",
+          "Lắp đặt tham khảo": "Trên ray DIN hoặc tấm lắp trong ngăn điều khiển/động lực, theo kiểu gá của thiết bị.",
+          "Hình chiếu Mặt trước (ngang × cao, mm)": "228.65 × 745.0",
+          "Hình chiếu Mặt bên (ngang × cao, mm)": "228.65 × 745.0"
+        },
+        "source_url": "https://pfinder.ls-electric.com/IEC/product/mccb_metasol.do",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      }
+    ],
+    "observed_specifications": {
+      "so_cuc": "3P",
+      "dong_chinh_dinh": "Chưa xác định",
+      "kha_nang_cat": "Chưa xác định",
+      "Loại thiết bị": "ELCB",
+      "Lắp đặt tham khảo": "Trên ray DIN hoặc tấm lắp trong ngăn điều khiển/động lực, theo kiểu gá của thiết bị.",
+      "Hình chiếu Mặt trước (ngang × cao, mm)": "228.65 × 745.0",
+      "Hình chiếu Mặt bên (ngang × cao, mm)": "228.65 × 745.0"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "source_text_without_unique_model",
+      "source_model": "EBS 1000",
+      "matched_catalog_rows": 3,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "source_text_without_unique_model",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [],
+      "documented_models": [],
+      "source_text_count": 10,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "gia_ban_tham_khao_cu": {
+    "don_gia": "300000-700000",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Có giá (phạm vi ước tính)",
+    "hang": "LS Electric",
+    "ma_san_pham": "EBS 1000",
+    "ghi_chu": "ELCB LS EBS 1000 · 3P. ELCB - giá ước tính. Liên hệ đại lý để có giá chính xác",
+    "nguon_tham_khao": [
+      "https://anhphatelectric.com",
+      "https://etinco.vn/san-pham-ls-electric"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Ước tính - cần xác nhận với nhà cung cấp"
+  }
+}

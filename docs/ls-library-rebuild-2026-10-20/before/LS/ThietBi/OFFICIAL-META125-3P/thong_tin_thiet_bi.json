@@ -1,0 +1,171 @@
+{
+  "nhom": "LS",
+  "ten_kieu": "LS · MCCB · ABS125c / ABH50c / ABH125c / ABL125c · 3P · Icu 42 kA theo bảng giá",
+  "ten_san_pham": "LS · MCCB · ABS125c / ABH50c / ABH125c / ABL125c · 3P · Icu 42 kA theo bảng giá",
+  "hang_xac_nhan": "LS",
+  "ma_dong_san_pham": "ABS125c / ABH50c / ABH125c / ABL125c",
+  "ban_chat": "MCCB",
+  "cong_dung": "CAD thân gốc LS, đơn vị mm đã đối chiếu kích thước. Các mã trong bảng giá là lựa chọn cấu hình; xác nhận In, Icu/Ics tại điện áp sử dụng, đầu nối và phụ kiện trước khi chọn mã.",
+  "thong_so": {
+    "so_cuc": "3P",
+    "Kích thước mặt trước (mm)": "90 × 155"
+  },
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "MCCB",
+    "so_cuc": 3,
+    "cac_ma_dong_san_pham": [
+      "ABS125c",
+      "ABH50c",
+      "ABH125c",
+      "ABL125c"
+    ],
+    "exact_SKU_confirmed": false
+  },
+  "tu_khoa_tim_kiem": [
+    "LS",
+    "LS ELECTRIC",
+    "MCCB",
+    "ABS125c",
+    "ABH50c",
+    "ABH125c",
+    "ABL125c",
+    "ABS103c"
+  ],
+  "nguon_tham_khao": [
+    "https://www.ls-electric.com/ko/cat/HPDT/2%20ABS125c%2CABH50c%2CABH125c%2CABL125c.dwg"
+  ],
+  "cad_don": [
+    {
+      "id_hinh_goc": "LS-OFFICIAL-META125-3P-FRONT",
+      "huong_nhin": "Mặt trước",
+      "nhan_hien_thi": "LS · MCCB · ABS125c / ABH50c / ABH125c / ABL125c · 3P · Icu 42 kA theo bảng giá · Mặt trước",
+      "duong_dan": "CadDon/LS-OFFICIAL-META125-3P-FRONT/ban_ve.dxf",
+      "bien_the_cad": "META125-3P",
+      "unit_verification": {
+        "document_id": 417152,
+        "file": {
+          "rownum": 2,
+          "df_name": "2 ABS125c,ABH50c,ABH125c,ABL125c.dwg",
+          "df_id": 45191,
+          "df_path": "/ko/cat/HPDT/2 ABS125c,ABH50c,ABH125c,ABL125c.dwg",
+          "df_size": 476,
+          "df_order": 2,
+          "df_download_count": 23245,
+          "df_regdate": "2023/09/23 11:23:17"
+        },
+        "source_url": "https://www.ls-electric.com/ko/cat/HPDT/2%20ABS125c%2CABH50c%2CABH125c%2CABL125c.dwg",
+        "source_page": "https://www.ls-electric.com/ko/download/?k_word=Metasol",
+        "sha256": "e7d414ec09ed78ecc30cfdd20f3c94656a789790ad4901c8acd61a2da9dd7ad1",
+        "checked_at": "2026-10-20",
+        "source_dxf_sha256": "6e6fec48941de7f67edb187088e359171f74336b5321072ae3f8476da81e7eb2",
+        "extraction_window": [
+          2242.636,
+          826.726,
+          2332.639,
+          981.729
+        ],
+        "width_mm": 90.0,
+        "height_mm": 155.0000000005,
+        "entity_count": 526,
+        "coordinate_scale_to_mm": 1,
+        "dimension_scale_samples": {
+          "1.0": 136
+        },
+        "ordering_code_verified": false
+      },
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": true,
+        "huong_dan": "CAD tham khảo bố trí; xác nhận mã và phụ kiện trước gia công."
+      }
+    },
+    {
+      "id_hinh_goc": "LS-OFFICIAL-META125-3P-SIDE",
+      "huong_nhin": "Mặt bên",
+      "nhan_hien_thi": "LS · MCCB · ABS125c / ABH50c / ABH125c / ABL125c · 3P · Icu 42 kA theo bảng giá · Mặt bên",
+      "duong_dan": "CadDon/LS-OFFICIAL-META125-3P-SIDE/ban_ve.dxf",
+      "bien_the_cad": "META125-3P",
+      "unit_verification": {
+        "document_id": 417152,
+        "file": {
+          "rownum": 2,
+          "df_name": "2 ABS125c,ABH50c,ABH125c,ABL125c.dwg",
+          "df_id": 45191,
+          "df_path": "/ko/cat/HPDT/2 ABS125c,ABH50c,ABH125c,ABL125c.dwg",
+          "df_size": 476,
+          "df_order": 2,
+          "df_download_count": 23245,
+          "df_regdate": "2023/09/23 11:23:17"
+        },
+        "source_url": "https://www.ls-electric.com/ko/cat/HPDT/2%20ABS125c%2CABH50c%2CABH125c%2CABL125c.dwg",
+        "source_page": "https://www.ls-electric.com/ko/download/?k_word=Metasol",
+        "sha256": "e6e57da4d8f069d9735481b455d7cc78d156e5c2f4ca46e65b5d6640bef69b71",
+        "checked_at": "2026-10-20",
+        "source_dxf_sha256": "6e6fec48941de7f67edb187088e359171f74336b5321072ae3f8476da81e7eb2",
+        "extraction_window": [
+          2777.662,
+          826.726,
+          2859.665,
+          981.729
+        ],
+        "width_mm": 81.99907406563885,
+        "height_mm": 155.0,
+        "entity_count": 79,
+        "coordinate_scale_to_mm": 1,
+        "dimension_scale_samples": {
+          "1.0": 136
+        },
+        "ordering_code_verified": false
+      },
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": true,
+        "huong_dan": "CAD tham khảo bố trí; xác nhận mã và phụ kiện trước gia công."
+      }
+    }
+  ],
+  "cac_hinh_cad": [
+    "LS-OFFICIAL-META125-3P-FRONT",
+    "LS-OFFICIAL-META125-3P-SIDE"
+  ],
+  "auto_select": false,
+  "needs_review": true,
+  "muc_do_xac_nhan": "CAD thân gốc LS, đơn vị mm đã đối chiếu kích thước. Các mã trong bảng giá là lựa chọn cấu hình; xác nhận In, Icu/Ics tại điện áp sử dụng, đầu nối và phụ kiện trước khi chọn mã.",
+  "catalog_tham_khao": {
+    "category": "MCCB",
+    "options": [
+      {
+        "brand": "LS",
+        "model": "ABS103c",
+        "source_row_id": "ls-pdf:afff83701eb29628",
+        "specifications": {
+          "In (A)": "15,20,30,40,50,60,75,100,125A",
+          "Icu(KA)": "42",
+          "Kích thước bao W×H×D (mm)": "90 × 155 × 82",
+          "Độ sâu thân c1 (mm)": "60",
+          "Độ sâu vỏ c2 (mm)": "64",
+          "Ui": "750V",
+          "Uimp": "8kV",
+          "Lắp đặt": "Bắt vít",
+          "Tên hàng": "ABS103c"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_page": 1,
+        "basis": "ls_shared_body_price_configuration",
+        "exact_cad_match": false
+      }
+    ]
+  },
+  "quy_tac_dung_chung_cad": {
+    "relationship": "one_geometry_many_configuration_options",
+    "electrical_rating_from_geometry": false,
+    "requirements": [
+      "Đúng họ, số cực, kiểu lắp và đầu nối",
+      "Icu/Ics phải kiểm tra tại điện áp làm việc",
+      "Đúng In và cơ cấu bảo vệ; contactor cần đúng cuộn hút và tiếp điểm phụ"
+    ]
+  },
+  "cad_chen_tu": {
+    "id_hinh_goc": "LS-OFFICIAL-META125-3P-FRONT",
+    "huong_nhin": "Mặt trước",
+    "duong_dan": "CadDon/LS-OFFICIAL-META125-3P-FRONT/ban_ve.dxf"
+  }
+}

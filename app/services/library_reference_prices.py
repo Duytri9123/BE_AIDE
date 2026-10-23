@@ -5,6 +5,11 @@ separate from a price matched to the original drawing.
 """
 import re
 from collections import defaultdict
+from threading import Lock
+
+_price_index_lock = Lock()
+_price_index_rows = None
+_price_index_value = None
 from app.services.ai.manufacturer_registry import canonical_brand
 
 
@@ -13,25 +18,29 @@ def category(value):
     return {'INDICATOR':'LIGHT', 'PILOTLAMP':'LIGHT', 'PILOTLIGHT':'LIGHT',
             'SELECTOR':'SELECTORSWITCH', 'FUSEASSEMBLY':'FUSEHOLDER',
             'INVERTER':'VFD', 'TERMINAL':'TERMINALBLOCK','ZCT':'CT',
-            'CUỘNKHÁNGBAPHALÕITHÉP':'REACTOR'}.get(value,value)
+            'CUỘNKHÁNGBAPHALÕITHÉP':'REACTOR',
+            'INTERLOCK':'ACCESSORY','AUXCONTACT':'ACCESSORY'}.get(value,value)
 
 
 def price_index(rows):
     if isinstance(rows,dict):return rows
     index=defaultdict(list)
-    for row in rows:index[(canonical_brand(row.get('brand')),category(row.get('category')))].append(row)
+    from .reviewed_product_taxonomy import reviewed_price_row
+    for original in rows:
+        row=reviewed_price_row(original)
+        index[(canonical_brand(row.get('brand')),category(row.get('category')))].append(row)
     return index
 
 
 def reference_matches(option, kind, rows):
     brand = canonical_brand(option.get('brand'))
     model = str(option.get('model') or '').strip().upper()
-    if not brand or not re.search(r'[A-Z]',model) or model.startswith('*') or model in {'---','MẶT TRƯỚC','MẶT BÊN'}:
+    source_id = option.get('source_row_id')
+    if not brand or (not source_id and not re.search(r'[A-Z]',model)) or model.startswith('*') or model in {'---','MẶT TRƯỚC','MẶT BÊN'}:
         return []
     kinds={'NGUỒNVÀBIẾNÁP':('TRANSFORMER','POWERSUPPLY')}.get(category(kind),(category(kind),))
     index=price_index(rows)
     pool = [r for expected in kinds for r in index.get((brand,expected),[])]
-    source_id = option.get('source_row_id')
     if source_id:
         # An explicit row identity is authoritative; a missing row is not
         # silently replaced by another voltage/current variant.
@@ -77,9 +86,20 @@ def reference_rows(device, rows):
     return list(selected.values())
 
 
-def enrich_browser_prices(payload):
+def published_price_index():
+    """Reuse the index while the revision-aware published row list is unchanged."""
     from app.services.ai.takeoff_pricebook import published_rows
-    rows=price_index(published_rows())
+    global _price_index_rows, _price_index_value
+    rows = published_rows()
+    with _price_index_lock:
+        if rows is not _price_index_rows:
+            _price_index_value = price_index(rows)
+            _price_index_rows = rows
+        return _price_index_value
+
+
+def enrich_browser_prices(payload):
+    rows=published_price_index()
     items=[]
     for device in payload['items']:
         references=priced_references(device,rows)

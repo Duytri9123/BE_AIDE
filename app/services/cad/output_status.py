@@ -4,6 +4,9 @@
 def output_status(cad_file, quotation_file, layout, conflicts=None, *, reason=None, devices=None):
     layout = layout or {}
     blockers = []
+    reserve = layout.get('reserve_space')
+    if reserve and reserve.get('status') not in ('verified_empty', 'not_requested'):
+        blockers.append('Chưa kiểm chứng vùng dự phòng trên CAD bố trí.')
     reconciliation=layout.get('source_reconciliation')
     if cad_file and not reconciliation:
         blockers.append('Chưa có kết quả đối chiếu nguồn theo từng thiết bị để xác nhận CAD hoàn tất.')

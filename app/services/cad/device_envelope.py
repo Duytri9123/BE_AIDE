@@ -60,9 +60,11 @@ def selected_envelope(device):
     if not str(asset_id or '').startswith('tb:'):
         return None
     from app.services.cad.catalogtb_assets import assets, resolve
-    front = resolve(asset_id, 'front')
+    front = resolve(asset_id)
+    if front.get('face') not in {'front','wire_passage'}:
+        raise ValueError('Cần chọn mặt trước hoặc mặt xuyên dây để xác nhận bao hình.')
     width, height = _bounds(front, require_mounting=True)
-    sides = [a for a in assets() if a['family_id'] == front['family_id'] and a['face'] == 'side' and a['placement'].get('cho_phep_chen') is not False]
+    sides = [a for a in assets() if a['family_id'] == front['family_id'] and a.get('variant_id') == front.get('variant_id') and a['face'] == 'side' and a['placement'].get('cho_phep_chen') is not False and a['placement'].get('envelope_depth_source') is not False]
     if len(sides) != 1:
         raise ValueError(f"{device.get('tag') or front['name']}: cần một mặt bên CAD để xác nhận chiều sâu.")
     depth, side_height = _bounds(sides[0], require_mounting=True)

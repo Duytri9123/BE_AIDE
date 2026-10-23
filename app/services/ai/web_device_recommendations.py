@@ -299,7 +299,9 @@ async def research_device_products(devices, connections, db=None, preferred_bran
             'Không có nguồn thì để trống; giá phải đúng mã, ghi rõ giá tham khảo và VAT trong reason.')
         if getattr(device, 'parent_compatibility', None):
             query += ' Điều kiện tương thích thiết bị cha: '+json.dumps(device.parent_compatibility, ensure_ascii=False)
-        preferred = preferred_brand
+        from app.services.library_review_scope import preferred_brand_for_device
+        preferred = preferred_brand_for_device(device, preferred_brand)
+        status['requested_brand'] = preferred
         if preferred:
             query += f' Hãng yêu cầu: {preferred}; nếu không phù hợp hãy tìm hãng khác.'
         async with semaphore:

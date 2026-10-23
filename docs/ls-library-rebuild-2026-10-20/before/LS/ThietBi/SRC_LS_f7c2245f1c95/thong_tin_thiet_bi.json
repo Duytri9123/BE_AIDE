@@ -1,0 +1,409 @@
+{
+  "nhom": "LS",
+  "ten_kieu": "LS · LS 250AF 2P · CAD nguồn",
+  "ten_san_pham": "LS · LS 250AF 2P · CAD nguồn",
+  "ban_chat": "CAD thiết bị theo nhãn nguồn",
+  "cong_dung": "Tham khảo hình học; xác nhận chức năng, mã thiết bị và thông số trước thiết kế.",
+  "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+  "hang_xac_nhan": null,
+  "ma_dong_san_pham": null,
+  "thong_so": {
+    "nhan_block_nguon": "LS 250AF 2P",
+    "dong_dinh_muc_A": null,
+    "dien_ap_V": null
+  },
+  "tu_khoa_tim_kiem": [
+    "LS",
+    "CAD thiết bị theo nhãn nguồn",
+    "MCCB",
+    "LS · LS 250AF 2P · CAD nguồn",
+    ""
+  ],
+  "muc_do_xac_nhan": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp.",
+  "nguon_tham_khao": [],
+  "nguon_cad": {
+    "file": "D:\\THƯ VIỆN\\@LS.dwg",
+    "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+    "block": "LS 250AF 2P",
+    "saved_block": "LS 250AF 2P",
+    "handle": "4086A",
+    "geometry_key": "f7c2245f1c95d93ca3185dddb73a1e4d1dc81c2d0f6b02ed023635303ef98622",
+    "units": 4,
+    "instance_transform": {
+      "insert": [
+        14132.65023509284,
+        25938.89968830738,
+        0
+      ],
+      "rotation": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+  },
+  "cac_hinh_cad": [
+    "SRC_LS_f7c2245f1c95"
+  ],
+  "auto_select": false,
+  "needs_review": true,
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa xác nhận dữ liệu hãng",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "SRC_LS_f7c2245f1c95",
+      "huong_nhin": "Mặt trước",
+      "nhan_hien_thi": "LS 250AF 2P",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": false,
+        "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+      },
+      "duong_dan": "CadDon/SRC_LS_f7c2245f1c95/ban_ve.dxf",
+      "recognition_evidence": "nhan_dien_bo_sung_20261010"
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "SRC_LS_f7c2245f1c95",
+    "huong_nhin": "Chưa xác nhận hướng nhìn",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "nhan_dien_bo_sung_20261010": {
+    "review_date": "2026-10-10",
+    "category_code": "MCCB",
+    "visual_review": true,
+    "preview": "61-0.png",
+    "source_block": "LS 250AF 2P",
+    "text_entities_found": 0,
+    "text_outline_note": "No extractable TEXT/MTEXT/ATTRIB found; visible lettering may be linework, not searchable text.",
+    "face": "Mặt trước",
+    "face_basis": "Visual linework review: front handle and terminals / body depth and protruding handle",
+    "official_family_sources": [
+      "https://www.ls-electric.com/upload/customer/download/1213/Metasol_MCCB-ELCB_Technical%20Manual_E.pdf"
+    ],
+    "exact_sku_verified": false,
+    "automatic_insertion_approved": false,
+    "limitation": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp."
+  },
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "MCCB",
+    "exact_sku_verified": false
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "LS Electric",
+    "ma_san_pham": "",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [
+      "https://www.ls-electric.com",
+      "https://anhphatelectric.com",
+      "https://etinco.vn"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Chưa có giá"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "MCCB",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "LS Electric",
+        "model": "Metasol MCCB/ELCB",
+        "specifications": {
+          "Dòng thiết bị": "Metasol MCCB/ELCB"
+        },
+        "source_url": "https://pfinder.ls-electric.com/IEC/product/mccb_metasol.do",
+        "basis": "manufacturer_family_document",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Tài liệu đúng hãng/dòng để tiếp tục đối chiếu mã trong CAD; không xác nhận mã đầy đủ hoặc kích thước."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABN102c",
+        "specifications": {
+          "In (A)": "15-20-30-40-50-60-75-100A",
+          "Icu(KA)": "35",
+          "Kích thước bao W×H×D (mm)": "50 × 130 × 82",
+          "Độ sâu thân c1 (mm)": "60",
+          "Độ sâu vỏ c2 (mm)": "64",
+          "Ui": "750V",
+          "Uimp": "8kV",
+          "Lắp đặt": "Bắt vít"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "ABB",
+        "model": "1SDA066485R1",
+        "specifications": {
+          "Mã đặt hàng": "1SDA066485R1",
+          "Số cực": "1P",
+          "In (A)": "15",
+          "Họ thiết bị": "A1"
+        },
+        "source_url": "https://library.e.abb.com/public/8fa0d161aec14871ae110caa57108c49/9AKK108472A7059_vi_B_EL%20Vietnam%20Master%20price%20list%202026%20%28VIE%29.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NM8N-125C TM 100 1P",
+        "specifications": {
+          "In": "100A",
+          "Icu": "36kA",
+          "Ics": "100%",
+          "Số cực": "1P",
+          "Mã hàng": "271519"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Delixi",
+        "model": "CDM3S125C1002300",
+        "specifications": {
+          "Số cực": "2P",
+          "In (A)": "100",
+          "Khả năng cắt và điện áp": "25kA"
+        },
+        "source_url": "https://www.ple.vn/mccb/delixi-mccb/cdm3s125c1002300-detail.html",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Fuji Electric",
+        "model": "BW100EAG-2P",
+        "specifications": {
+          "Dòng trong bảng giá": "2 10 75, 100 BW100EAG-2P",
+          "Số cực": "2P"
+        },
+        "source_url": "https://www.saigonelectric.vn/images/prices/Fuji_2025_MNE.2.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "HD Hyundai Electric",
+        "model": "HGM1000S 3P",
+        "specifications": {
+          "Số cực": "3P",
+          "Dòng định mức In (A)": "1000A",
+          "Icu (kA)": "70kA"
+        },
+        "source_url": "https://www.saigonelectric.vn/images/prices/HYUNDAI_2026.2.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Hager",
+        "model": "HDA014Z",
+        "specifications": {
+          "Số cực": "1P",
+          "In (A)": "16"
+        },
+        "source_url": "https://www.makel.vn/mccb-1p-16a-18ka-hda014z.html?category=2&brand=2",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Legrand",
+        "model": "027000",
+        "specifications": {
+          "Số cực": "3P",
+          "In (A)": "15"
+        },
+        "source_url": "https://www.makel.vn/mccb-3p-15a-10ka-027000.html?category=2&brand=3",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Mitsubishi Electric",
+        "model": "2CB002A000002",
+        "specifications": {
+          "Mã đặt hàng": "2CB002A000002",
+          "Số cực": "2P",
+          "In (A)": "3",
+          "Khả năng cắt và điện áp": "Icu=7.5kA @230VAC"
+        },
+        "source_url": "https://www.saigonelectric.vn/images/prices/Mitsubishi_Summary_LVS_06.2026.2.xlsx",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Schneider Electric",
+        "model": "LV510300",
+        "specifications": {
+          "Họ thiết bị": "CVS100",
+          "Số cực": "3P",
+          "In (A)": "16",
+          "Dòng sản phẩm": "CVS100B",
+          "Trip": "TMD",
+          "Icu (kA)": "25",
+          "Điện áp Icu": "415 V"
+        },
+        "source_url": "https://www.se.com/vn/vi/download/document/MasterPriceBook/",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Shihlin",
+        "model": "BM100-HN",
+        "specifications": {
+          "Dòng trong bảng giá": "BM 100-HN/125-SN.HN",
+          "Họ thiết bị": "BM100"
+        },
+        "source_url": "https://www.saigonelectric.vn/images/prices/SHIHLIN_01.02.2026.2.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Siemens",
+        "model": "3VJ1002-0DA32-0AA0",
+        "specifications": {
+          "Số cực": "3P",
+          "In (A)": "20"
+        },
+        "source_url": "https://www.makel.vn/mccb-3-poles-20a-10ka-type-fixed-3vj1002-0da32-0aa0.html?category=2&brand=29",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Vinakip",
+        "model": "AT 56",
+        "specifications": {
+          "In (A)": "75"
+        },
+        "source_url": "https://kimquang.vn/wp-content/uploads/2022/07/bang-gia-cau-dao-hop-vinakip.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "LS 250AF 2P",
+        "specifications": {
+          "nhan_block_nguon": "LS 250AF 2P",
+          "Loại thiết bị": "MCCB",
+          "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp.",
+          "Hình chiếu Mặt trước (ngang × cao, mm)": "105.0 × 165.0"
+        },
+        "source_url": "",
+        "basis": "cad_reference_code",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      }
+    ],
+    "observed_specifications": {
+      "nhan_block_nguon": "LS 250AF 2P",
+      "Loại thiết bị": "MCCB",
+      "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp.",
+      "Hình chiếu Mặt trước (ngang × cao, mm)": "105.0 × 165.0"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [
+      {
+        "brand": "LS Electric",
+        "family": "Metasol MCCB/ELCB",
+        "url": "https://pfinder.ls-electric.com/IEC/product/mccb_metasol.do",
+        "scope": "manufacturer_family",
+        "checked_at": "2026-10-17"
+      }
+    ],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "source_geometry_without_model_label",
+      "source_model": null,
+      "matched_catalog_rows": 0,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Xác định hãng/mã từ nhãn hoặc block CAD nguồn",
+        "Đối chiếu và chọn mã đặt hàng đầy đủ",
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "source_geometry_without_model_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [],
+      "documented_models": [],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

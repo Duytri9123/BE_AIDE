@@ -121,11 +121,14 @@ async def refresh_terminal_job(job_id, info):
 async def events(job_id):
     """Disconnecting a browser does not destroy an already accepted job."""
     cursor = 0
+    idle_ticks = 0  # seconds since last real event
     async with async_redis.from_url(settings.REDIS_URL,decode_responses=True,
                                    socket_connect_timeout=10,socket_timeout=10) as client:
         yield 'data: '+json.dumps({'type':'log','stage':'queued','title':'Đã tiếp nhận, đang chờ xử lý','task_id':job_id},ensure_ascii=False)+'\n\n'
         while True:
             rows = await client.lrange(PREFIX+job_id+':events',cursor,-1)
+            if rows:
+                idle_ticks = 0
             for row in rows:
                 cursor += 1
                 yield 'data: '+row+'\n\n'
@@ -142,8 +145,22 @@ async def events(job_id):
             if status is None:
                 yield 'data: '+json.dumps({'type':'error','detail':'Tác vụ đã hết hạn.','message':'Tác vụ đã hết hạn.'},ensure_ascii=False)+'\n\n'
                 return
-            yield ': heartbeat\n\n'
+            idle_ticks += 1
+            # Send a real log event every 30 idle seconds so the browser sidebar
+            # shows the job is still alive (SSE comment lines are ignored by FE).
+            if idle_ticks % 30 == 0:
+                current_msg = await client.hget(PREFIX+job_id,'message') or 'Đang xử lý…'
+                current_stage = await client.hget(PREFIX+job_id,'stage') or 'processing'
+                yield 'data: '+json.dumps({
+                    'type':'log','stage':current_stage,
+                    'title':current_msg,
+                    'detail':f'Đang chờ kết quả từ pipeline AI ({idle_ticks}s)',
+                    'status':'running'
+                },ensure_ascii=False)+'\n\n'
+            else:
+                yield ': heartbeat\n\n'
             await asyncio.sleep(1)
+
 
 
 async def wait_result(job_id):

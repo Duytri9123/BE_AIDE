@@ -1,0 +1,173 @@
+{
+  "nhom": "BienDong",
+  "ten_kieu": "Biến dòng thứ tự không LS LZT-030",
+  "ten_san_pham": "Biến dòng thứ tự không LS LZT-030",
+  "hang_xac_nhan": "LS",
+  "ma_dong_san_pham": "LZT-030",
+  "ban_chat": "ZCT",
+  "cong_dung": "Biến dòng thứ tự không dùng với bảo vệ chạm đất EMPR LS; không thay cho CT đo lường 1A/5A.",
+  "thong_so": {},
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "ZCT",
+    "measurement_function": "earth_leakage",
+    "fabrication_ready": false
+  },
+  "tu_khoa_tim_kiem": [
+    "LS",
+    "LS ELECTRIC",
+    "EMPR",
+    "ZCT",
+    "LZT-030",
+    "Biến dòng thứ tự không",
+    "LZT-030"
+  ],
+  "nguon_tham_khao": [
+    "https://www.ls-electric.com/ko/cat/HPDT/Metasol%20EMPR%20ZCT_LZT030~080.dwg",
+    "https://www.ls-electric.com/ko/download/?k_word=ZCT"
+  ],
+  "cad_don": [
+    {
+      "id_hinh_goc": "LS-OFFICIAL-LZT-030-WIRE",
+      "huong_nhin": "Mặt xuyên dây",
+      "nhan_hien_thi": "LS · ZCT · LZT-030 · Mặt xuyên dây",
+      "duong_dan": "CadDon/LS-OFFICIAL-LZT-030-WIRE/ban_ve.dxf",
+      "bien_the_cad": "ls_official_LZT-030",
+      "unit_verification": {
+        "document_id": 417383,
+        "file": {
+          "rownum": 1,
+          "df_name": "Metasol EMPR ZCT_LZT030~080.dwg",
+          "df_id": 45886,
+          "df_path": "/ko/cat/HPDT/Metasol EMPR ZCT_LZT030~080.dwg",
+          "df_size": 1098,
+          "df_order": 1,
+          "df_download_count": 1307,
+          "df_regdate": "2023/09/23 11:23:18"
+        },
+        "source_url": "https://www.ls-electric.com/ko/cat/HPDT/Metasol%20EMPR%20ZCT_LZT030~080.dwg",
+        "source_page": "https://www.ls-electric.com/ko/download/?k_word=ZCT",
+        "sha256": "1dfec84767843f390e637052b4e3db2f0615b6d9e608d592b8a12f09ba2c71f0",
+        "checked_at": "2026-10-20",
+        "source_dxf_sha256": "cfbab5104b67d60ddb748fee50ec95730eb1fbdc40adc5a898a03b8c5dbd4cb3",
+        "extraction_window": [
+          -1390,
+          253,
+          -1275,
+          366
+        ],
+        "width_mm": 110.0,
+        "height_mm": 107.20002503317264,
+        "entity_count": 67,
+        "coordinate_scale_to_mm": 1,
+        "unit_evidence": "Supplier drawing dimension table: mm; no coordinate rescaling",
+        "geometry_status": "supplier_reference_pending_dimensions",
+        "ordering_code_verified": false
+      },
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": false,
+        "huong_dan": "CAD gốc LS; cần đối chiếu kích thước và đúng phiên bản với mã đặt hàng trước khi bố trí."
+      }
+    },
+    {
+      "id_hinh_goc": "LS-OFFICIAL-LZT-030-SIDE",
+      "huong_nhin": "Mặt bên",
+      "nhan_hien_thi": "LS · ZCT · LZT-030 · Mặt bên",
+      "duong_dan": "CadDon/LS-OFFICIAL-LZT-030-SIDE/ban_ve.dxf",
+      "bien_the_cad": "ls_official_LZT-030",
+      "unit_verification": {
+        "document_id": 417383,
+        "file": {
+          "rownum": 1,
+          "df_name": "Metasol EMPR ZCT_LZT030~080.dwg",
+          "df_id": 45886,
+          "df_path": "/ko/cat/HPDT/Metasol EMPR ZCT_LZT030~080.dwg",
+          "df_size": 1098,
+          "df_order": 1,
+          "df_download_count": 1307,
+          "df_regdate": "2023/09/23 11:23:18"
+        },
+        "source_url": "https://www.ls-electric.com/ko/cat/HPDT/Metasol%20EMPR%20ZCT_LZT030~080.dwg",
+        "source_page": "https://www.ls-electric.com/ko/download/?k_word=ZCT",
+        "sha256": "5ed81fe2f78df8758edae453402e618964dfb52cb177e89ccfe06e0fe3b69746",
+        "checked_at": "2026-10-20",
+        "source_dxf_sha256": "cfbab5104b67d60ddb748fee50ec95730eb1fbdc40adc5a898a03b8c5dbd4cb3",
+        "extraction_window": [
+          -1185,
+          250,
+          -1140,
+          366
+        ],
+        "width_mm": 28.600000000000136,
+        "height_mm": 107.20000000000002,
+        "entity_count": 23,
+        "coordinate_scale_to_mm": 1,
+        "unit_evidence": "Supplier drawing dimension table: mm; no coordinate rescaling",
+        "geometry_status": "supplier_reference_pending_dimensions",
+        "ordering_code_verified": false
+      },
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": false,
+        "huong_dan": "CAD gốc LS; cần đối chiếu kích thước và đúng phiên bản với mã đặt hàng trước khi bố trí."
+      }
+    },
+    {
+      "id_hinh_goc": "LS-OFFICIAL-LZT-030-MOUNT",
+      "huong_nhin": "Mặt đế gá theo bản vẽ",
+      "nhan_hien_thi": "LS · ZCT · LZT-030 · Mặt đế gá theo bản vẽ",
+      "duong_dan": "CadDon/LS-OFFICIAL-LZT-030-MOUNT/ban_ve.dxf",
+      "bien_the_cad": "ls_official_LZT-030",
+      "unit_verification": {
+        "document_id": 417383,
+        "file": {
+          "rownum": 1,
+          "df_name": "Metasol EMPR ZCT_LZT030~080.dwg",
+          "df_id": 45886,
+          "df_path": "/ko/cat/HPDT/Metasol EMPR ZCT_LZT030~080.dwg",
+          "df_size": 1098,
+          "df_order": 1,
+          "df_download_count": 1307,
+          "df_regdate": "2023/09/23 11:23:18"
+        },
+        "source_url": "https://www.ls-electric.com/ko/cat/HPDT/Metasol%20EMPR%20ZCT_LZT030~080.dwg",
+        "source_page": "https://www.ls-electric.com/ko/download/?k_word=ZCT",
+        "sha256": "12b6e422e1fe5a9e82a42fa80b6079daedc4e8d7b270448fe03fd0ef9e4d76f0",
+        "checked_at": "2026-10-20",
+        "source_dxf_sha256": "cfbab5104b67d60ddb748fee50ec95730eb1fbdc40adc5a898a03b8c5dbd4cb3",
+        "extraction_window": [
+          -1110,
+          234,
+          -1070,
+          366
+        ],
+        "width_mm": 28.0,
+        "height_mm": 121.2881493585758,
+        "entity_count": 26,
+        "coordinate_scale_to_mm": 1,
+        "unit_evidence": "Supplier drawing dimension table: mm; no coordinate rescaling",
+        "geometry_status": "supplier_reference_pending_dimensions",
+        "ordering_code_verified": false
+      },
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": false,
+        "huong_dan": "CAD gốc LS; cần đối chiếu kích thước và đúng phiên bản với mã đặt hàng trước khi bố trí."
+      }
+    }
+  ],
+  "cac_hinh_cad": [
+    "LS-OFFICIAL-LZT-030-WIRE",
+    "LS-OFFICIAL-LZT-030-SIDE",
+    "LS-OFFICIAL-LZT-030-MOUNT"
+  ],
+  "auto_select": false,
+  "needs_review": true,
+  "muc_do_xac_nhan": "CAD gốc LS; cần đối chiếu kích thước và đúng phiên bản với mã đặt hàng trước khi bố trí.",
+  "quy_tac_dung_chung_cad": {
+    "relationship": "supplier_projection_pending_ordering_code",
+    "ratio_from_cad": false
+  },
+  "cad_chen_tu": {
+    "id_hinh_goc": "LS-OFFICIAL-LZT-030-WIRE",
+    "huong_nhin": "Mặt xuyên dây",
+    "duong_dan": "CadDon/LS-OFFICIAL-LZT-030-WIRE/ban_ve.dxf"
+  }
+}

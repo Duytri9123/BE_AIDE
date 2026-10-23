@@ -4,6 +4,20 @@ import json
 import time
 from pathlib import Path
 from functools import lru_cache
+from contextlib import contextmanager
+from contextvars import ContextVar
+
+_selection_assets = ContextVar('cad_selection_assets', default=None)
+
+
+@contextmanager
+def selection_snapshot():
+    """Use one library revision throughout a batch of device selections."""
+    token = _selection_assets.set(assets())
+    try:
+        yield
+    finally:
+        _selection_assets.reset(token)
 
 ROOT = Path(__file__).resolve().parents[3] / 'data' / 'CatalogTB'
 FACES = {'Mặt trước':'front', 'Mặt bên':'side', 'Mặt trên':'top', 'Mặt sau':'rear', 'Mặt cắt':'section', 'Mặt có các lỗ đấu nối':'front', 'Mặt đứng':'front', 'Mặt hông':'side', 'Mặt bằng':'top', 'Mặt xuyên dây':'wire_passage', 'Mặt đấu dây':'wiring', 'Nắp che mặt trước':'cover'}
@@ -13,6 +27,8 @@ def face_code(label):
     """Read explicit projection labels, including state/rating annotations."""
     base=str(label or '').split(' · ')[0]
     aliases={'Mặt dưới':'bottom','Mặt trước mở nắp':'front_open',
+             'Mặt bên trái':'side','Mặt bên phải':'side',
+             'Hình trục đo':'isometric','Mặt đế gá theo bản vẽ':'mounting',
              'Mặt đấu nối phía sau':'rear_wiring','Mặt nhìn dọc thân khóa':'axial',
              'Lỗ khoét cánh':'cutout'}
     return FACES.get(base,aliases.get(base,'unknown'))
@@ -77,6 +93,9 @@ def category_matches(requested, actual):
 
 
 def assets(refresh=False):
+    snapshot = _selection_assets.get()
+    if snapshot is not None and not refresh:
+        return snapshot
     if refresh:
         _signature.cache_clear()
         _read.cache_clear()
@@ -116,11 +135,15 @@ def _read(signature):
         kind = str(ai.get('loai_thiet_bi_code') or mapped.get('category_code') or 'UNCLASSIFIED').upper()
         from app.services.library_manufacturer_identity import identity_for_profile
         identity = identity_for_profile(profile,p,ROOT)
+        from app.services.catalog_publication_policy import public_profile_allowed
+        if not public_profile_allowed(profile,p,ROOT):continue
         reviewed = identity.get('reviewed_description') or {}
         kind = reviewed.get('type') or kind
         family = hashlib.sha1(p.relative_to(ROOT).as_posix().encode()).hexdigest()[:16]
         primary = (profile.get('cad_chen_tu') or {}).get('id_hinh_goc')
         for entry in profile.get('cad_don') or []:
+            from app.services.catalog_view_health import targeted, source_displayable
+            if (targeted(identity.get('brand') or profile.get('hang_xac_nhan')) or p.relative_to(ROOT).parts[0] in {'ABB','LS','Chint','Schneider'}) and not source_displayable(entry,p):continue
             face = face_code(entry.get('huong_nhin'))
             path = (p.parent / entry.get('duong_dan',f"CadDon/{entry['id_hinh_goc']}/ban_ve.dxf")).resolve()
             if not path.is_relative_to(ROOT.resolve()) or not path.is_file():
@@ -133,6 +156,7 @@ def _read(signature):
                 classification_source='profile' if ai.get('loai_thiet_bi_code') else 'ai_library_manifest' if mapped else 'unclassified_discovery',
                 brand=identity['brand'] or '', brand_kind=identity['brand_kind'], category=kind,
                 variant_id=entry.get('bien_the_cad') or entry.get('bien_the'),
+                model_codes=entry.get('model_codes') or [],
                 variant_pairing_rule=profile.get('quy_tac_ghep_mat') or {},
                 poles=ai.get('so_cuc'), measurement_function=ai.get('measurement_function'), search_aliases=profile.get('tu_khoa_tim_kiem') or [], face=face, primary=entry['id_hinh_goc']==primary,
                 path=str(path), original_path=str(original_path), profile_path=p.relative_to(ROOT).as_posix(),
@@ -190,8 +214,9 @@ def candidates(category, brand=None, poles=None, measurement_function=None, face
     rows.sort(key=lambda a:(not a['primary'],a['name'],a['id']))
     seen=set();unique=[]
     for a in rows:
-        if a['family_id'] in seen:continue
-        seen.add(a['family_id']);unique.append(a)
+        key=(a['family_id'],tuple(a.get('model_codes') or []))
+        if key in seen:continue
+        seen.add(key);unique.append(a)
     return unique
 
 

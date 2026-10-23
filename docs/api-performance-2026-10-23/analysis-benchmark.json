@@ -1,0 +1,57 @@
+{
+  "environment": "local, in-memory SQLite, synthetic data, DAL only (not HTTP or production)",
+  "sessions": 100,
+  "iterations": 1000,
+  "page_size": 50,
+  "samples": 5,
+  "before": {
+    "median_ms": 135.49,
+    "max_ms": 164.96,
+    "sql_queries": [
+      101,
+      101,
+      101,
+      101,
+      101
+    ],
+    "rows_materialized": [
+      1000,
+      1000,
+      1000,
+      1000,
+      1000
+    ],
+    "samples_ms": [
+      135.49,
+      131.68,
+      128.74,
+      164.96,
+      136.73
+    ]
+  },
+  "after": {
+    "median_ms": 9.03,
+    "max_ms": 17.87,
+    "sql_queries": [
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    "rows_materialized": [
+      50,
+      50,
+      50,
+      50,
+      50
+    ],
+    "samples_ms": [
+      17.87,
+      8.81,
+      9.03,
+      8.45,
+      10.04
+    ]
+  }
+}

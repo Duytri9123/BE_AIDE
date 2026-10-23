@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Depends, UploadFile, File, HTTPException
+from typing import Annotated
+from fastapi import APIRouter, Depends, Query, UploadFile, File, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
 from app.db.session import get_db
@@ -9,7 +10,6 @@ from app.api.deps import get_current_active_user
 from pydantic import BaseModel, field_serializer
 from typing import List, Optional
 from datetime import datetime, timezone
-import aiofiles
 import os
 import re
 from pathlib import Path
@@ -93,8 +93,8 @@ async def get_project_or_404(project_id: int, db: AsyncSession, current_user: Us
 
 @router.get("", response_model=List[ProjectResponse])
 async def list_projects(
-    skip: int = 0,
-    limit: int = 100,
+    skip: Annotated[int, Query(ge=0)] = 0,
+    limit: Annotated[int, Query(ge=1, le=100)] = 100,
     db: AsyncSession = Depends(get_db), 
     current_user: User = Depends(get_current_active_user)
 ):
@@ -296,13 +296,8 @@ async def upload_project_file(
     upload_dir = Path(getattr(settings, "PROJECTS_DIR", "storage/projects")) / str(id)
     upload_dir.mkdir(parents=True, exist_ok=True)
     
-    # Lưu file
-    file_path = upload_dir / file.filename
-    async with aiofiles.open(file_path, 'wb') as out_file:
-        content = await file.read()
-        await out_file.write(content)
-    
-    file_size = os.path.getsize(file_path)
+    from app.services.upload_storage import save_upload
+    file_path, file_size = await save_upload(file, upload_dir, settings.MAX_FILE_SIZE_MB * 1024 * 1024)
     
     # Kiểm tra xem file đã tồn tại trong DB chưa để tránh tạo bản ghi trùng lặp
     existing_stmt = select(ProjectFile).where(

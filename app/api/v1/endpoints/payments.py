@@ -443,22 +443,18 @@ async def get_my_payment_history(
 ):
     """Lấy danh sách các giao dịch thanh toán của người dùng hiện tại."""
     stmt = (
-        select(Payment)
+        select(Payment, Plan.name)
+        .outerjoin(Plan, Payment.plan_id == Plan.id)
         .where(Payment.user_id == current_user.id)
-        .order_by(desc(Payment.created_at))
+        .order_by(desc(Payment.created_at), Payment.id.desc())
         .limit(30)
     )
     res = await db.execute(stmt)
-    payments = res.scalars().all()
+    payments = res.all()
 
     items = []
-    for p in payments:
-        plan_name = "Nạp dịch vụ"
-        if p.plan_id:
-            res_p = await db.execute(select(Plan.name).where(Plan.id == p.plan_id))
-            pn = res_p.scalar_one_or_none()
-            if pn:
-                plan_name = pn
+    for p, name in payments:
+        plan_name = name or "Nạp dịch vụ"
 
         items.append(
             PaymentHistoryItem(

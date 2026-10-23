@@ -7,6 +7,7 @@ import logging
 from pathlib import Path
 from urllib.parse import unquote,quote
 from .equipment_library import CATALOG_TB_ROOT
+from .ai.manufacturer_registry import canonical_brand
 
 _cache = None
 _cache_until = 0
@@ -25,7 +26,7 @@ def catalog_query_matches(query, text):
     # Keep model numbers attached: NDK-25 matches NDK25, not NDK250.
     compact = lambda value: re.sub(r'(?<=\w)[\-_/](?=\w)', '', value)
     terms = re.findall(r'\w+', compact(query))
-    words = re.findall(r'\w+', compact(text))
+    words = re.findall(r'\w+', compact(text)) + re.findall(r'\w+', text)
     def match_term(term):
         if term in words:
             return True
@@ -77,6 +78,8 @@ def browser_data():
                     _cache['items']=merge_complementary_views(_cache['items'])
                     from .catalog_verified_configuration import apply_verified_configuration
                     for profile in _cache['items']:apply_verified_configuration(profile)
+                    from .catalog_device_names import apply_device_name
+                    for profile in _cache['items']:apply_device_name(profile)
                     _cache['total']=len(_cache['items'])
                     _cache['view_count']=sum(len(p['views']) for p in _cache['items'])
                     _cache['categories']=[{**c,'count':sum(p['category']==c['name'] for p in _cache['items'])} for c in _cache.get('categories',[])]
@@ -91,6 +94,9 @@ def browser_data():
         if time.monotonic() >= _cache_until:
             _cache_until = time.monotonic() + 300
             Thread(target=_refresh_browser_data, args=(CATALOG_TB_ROOT,), daemon=True).start()
+        for profile in _cache['items']:
+            for key in ('brand', 'brand_label'):
+                if profile.get(key):profile[key]=canonical_brand(profile[key])
         return _cache
 
 
@@ -125,9 +131,11 @@ def browser_page(q='', category='', brand='', skip=0, limit=24):
             from .library_reference_prices import reference_rows
             return bool(reference_rows(item, reference_candidates))
         return False
-    rows = [p for p in data['items'] if (not category or p.get('category') == category)
-            and (not brand or p.get('brand') == brand
-                 or brand in {o['brand'] for o in (p.get('catalog_references') or {}).get('options', [])}
+    from .catalog_publication_policy import public_device_allowed
+    public_items=[p for p in data['items'] if public_device_allowed(p)]
+    rows = [p for p in public_items if (not category or p.get('category') == category)
+            and (not brand or canonical_brand(p.get('brand')) == canonical_brand(brand)
+                 or canonical_brand(brand) in {canonical_brand(o['brand']) for o in (p.get('catalog_references') or {}).get('options', [])}
                  or (brand == '__generic__' and p.get('brand_kind') == 'generic')
                  or (brand == '__unidentified__' and p.get('brand_kind') == 'unidentified_equipment')) and (not query or matches(p))]
     if query:
@@ -139,13 +147,12 @@ def browser_page(q='', category='', brand='', skip=0, limit=24):
     return {**display_data, 'items': rows[skip:skip+limit], 'total': len(rows),
             'catalog_total': data['total'], 'skip': skip, 'limit': limit,
             'has_more': skip + limit < len(rows),
-            'brands': sorted({p['brand'] for p in data['items'] if p.get('brand')} |
-                             {o['brand'] for p in data['items'] for o in (p.get('catalog_references') or {}).get('options', [])
-                              if o['brand'] and o['brand'] != 'Chưa xác định'})}
+            'brands': sorted({canonical_brand(p['brand']) for p in public_items if p.get('brand')})}
 
 
 def _build_browser_data(information_override=None):
     from .published_catalog_information import published_information, apply_published_information
+    from .catalog_publication_policy import public_profile_allowed
     information=published_information() if information_override is None else information_override
     resolved_root=CATALOG_TB_ROOT.resolve()
     html=(CATALOG_TB_ROOT/'index.html').read_text(encoding='utf-8')
@@ -161,6 +168,9 @@ def _build_browser_data(information_override=None):
         current=json.loads(path.read_text(encoding='utf-8-sig'))
         current=apply_published_information(current,relative,information)
         if current.get('browser_hidden'):continue
+        # Asset serving already requires this identity contract. Reject unknown
+        # source blocks before expensive DXF validation as well as at output.
+        if not public_profile_allowed(current,path,CATALOG_TB_ROOT):continue
         profile_id='TB-'+hashlib.sha1(relative.encode()).hexdigest()[:16]
         original=dict(known.get(relative) or known_ids.get(profile_id) or {})
         original.update(json=relative)
@@ -170,6 +180,9 @@ def _build_browser_data(information_override=None):
         original.setdefault('brand',current.get('hang_xac_nhan'))
         views=[]
         for view in current.get('cad_don',[]):
+            from .catalog_view_health import targeted, source_displayable
+            folder_brand=relative.split('/')[0]
+            if (targeted(current.get('hang_xac_nhan')) or folder_brand in {'ABB','LS','Chint','Schneider'}) and not source_displayable(view,path):continue
             drawing=(path.parent/view.get('duong_dan','')).resolve()
             if not drawing.is_relative_to(resolved_root) or not drawing.is_file():continue
             views.append({'source_id':view['id_hinh_goc'],'face':view.get('huong_nhin','Mặt trước'),
@@ -222,6 +235,11 @@ def _build_browser_data(information_override=None):
         current_views={v['id_hinh_goc']:v for v in current.get('cad_don',[])}
         for view in profile['views']:
             latest=current_views.get(view['id']) or {}
+            if latest.get('model_codes'):view['model_codes']=latest['model_codes']
+            if str(current.get('hang_xac_nhan') or profile.get('brand') or '').casefold() in {'ls','ls electric'}:
+                view['cad_variant_id']=hashlib.sha256((cid+':'+str(latest.get('bien_the_cad') or latest.get('bien_the') or '')).encode()).hexdigest()[:20]
+                drawing=path.parent/latest.get('duong_dan',f"CadDon/{view['id']}/ban_ve.dxf")
+                view['available']=drawing.is_file()
             if latest.get('huong_nhin'):view['face']=latest['huong_nhin']
             if latest.get('kiem_tra_net_cad'):view['linework_review']=latest['kiem_tra_net_cad']
             preview_file=path.parent/Path(latest.get('duong_dan','')).parent/'xem_truoc.svg'
@@ -270,6 +288,13 @@ def _build_browser_data(information_override=None):
         apply_review(profile, current, path)
         from .catalog_source_identification import apply_source_identification
         apply_source_identification(profile,current,path,CATALOG_TB_ROOT)
+        from .catalog_projection_review import apply_projection_review
+        apply_projection_review(profile,current,path)
+        from .catalog_view_health import targeted, source_displayable, displayable
+        if targeted(profile.get('brand')):
+            profile['views']=[v for v in profile['views'] if displayable(v) and source_displayable(current_views.get(v['id']) or {},path)]
+            if not profile['views']:continue
+            if profile['primary_view'] not in {v['id'] for v in profile['views']}:profile['primary_view']=profile['views'][0]['id']
         profiles.append(profile)
     from .catalog_projection_corrections import apply_projection_corrections
     apply_projection_corrections(profiles,CATALOG_TB_ROOT)
@@ -278,7 +303,7 @@ def _build_browser_data(information_override=None):
     for group in registry.get('groups',[]):
         member_ids={'TB-'+hashlib.sha1(m['profile'].encode()).hexdigest()[:16] for m in group['profiles']}
         members=[p for p in profiles if p['id'] in member_ids]
-        if len(members)!=len(member_ids):raise ValueError('Reviewed CAD group has missing profiles')
+        if len(members)!=len(member_ids):continue
         merged=dict(members[0]);merged['id']=group['id'];merged['display']=group['name'];merged['type']=group['category']
         merged['views']=[v for member in members for v in member['views']]
         merged['primary_view']=next((v['id'] for v in merged['views'] if v['face']=='Mặt trước'),merged['views'][0]['id'])
@@ -301,6 +326,10 @@ def _build_browser_data(information_override=None):
     for profile in profiles:
         profile['ordering_configurations']=ordering_configurations(profile)
         profile['catalog_reference']=catalog_reference(profile)
+    from .catalog_device_names import apply_device_name
+    for profile in profiles:apply_device_name(profile)
+    from .catalog_publication_policy import public_device_allowed
+    profiles=[p for p in profiles if public_device_allowed(p)]
     categories=[{'name':name,'count':sum(p['category']==name for p in profiles)} for name in sorted({p['category'] for p in profiles})]
     labels={}
     for block in re.findall(r'const (?:extraLabels|labels)=\{([^}]+)\}',html):

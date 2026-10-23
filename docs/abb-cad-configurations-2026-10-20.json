@@ -1,0 +1,103 @@
+{
+  "profiles": [
+    {
+      "profile": "ABB/ThietBi/XT1_3P/thong_tin_thiet_bi.json",
+      "configuration_count": 55,
+      "faces": [
+        "Mặt trước",
+        "Mặt bên"
+      ]
+    },
+    {
+      "profile": "ABB/ThietBi/XT1_4P/thong_tin_thiet_bi.json",
+      "configuration_count": 55,
+      "faces": [
+        "Mặt trước",
+        "Mặt bên"
+      ]
+    },
+    {
+      "profile": "ABB/ThietBi/XT2_3P/thong_tin_thiet_bi.json",
+      "configuration_count": 33,
+      "faces": [
+        "Mặt trước",
+        "Mặt bên"
+      ]
+    },
+    {
+      "profile": "ABB/ThietBi/XT2_4P/thong_tin_thiet_bi.json",
+      "configuration_count": 33,
+      "faces": [
+        "Mặt trước",
+        "Mặt bên"
+      ]
+    },
+    {
+      "profile": "ABB/ThietBi/XT3_3P/thong_tin_thiet_bi.json",
+      "configuration_count": 14,
+      "faces": [
+        "Mặt trước",
+        "Mặt bên"
+      ]
+    },
+    {
+      "profile": "ABB/ThietBi/XT3_4P/thong_tin_thiet_bi.json",
+      "configuration_count": 22,
+      "faces": [
+        "Mặt trước",
+        "Mặt bên"
+      ]
+    },
+    {
+      "profile": "ABB/ThietBi/XT4_3P/thong_tin_thiet_bi.json",
+      "configuration_count": 42,
+      "faces": [
+        "Mặt trước",
+        "Mặt bên"
+      ]
+    },
+    {
+      "profile": "ABB/ThietBi/XT4_4P/thong_tin_thiet_bi.json",
+      "configuration_count": 57,
+      "faces": [
+        "Mặt trước",
+        "Mặt bên"
+      ]
+    }
+  ],
+  "source": "https://abb-control-products.partcommunity.com/3d-cad-models/molded-case-circuit-breakers-tmax-xt-abb-low-voltage-systems?info=abb_ww%2Flow_voltage%2Fbreakers%2Fmodular20case20circuit20breakers20tmax20xt",
+  "new_faces_imported": true,
+  "acquisition_status": "Downloaded 4 official supplier DXF sheets; extracted 12 projections and linked 16 views to 8 profiles.",
+  "sources_checked": [
+    {
+      "name": "ABB Library current",
+      "url": "https://library.abb.com/",
+      "result": "4 original DXF sheets downloaded and parsed"
+    },
+    {
+      "name": "ABB PARTcommunity / CADENAS",
+      "url": "https://abb-control-products.partcommunity.com/3d-cad-models/",
+      "result": "XT1/XT2 configured model metadata and CAD catalog available"
+    },
+    {
+      "name": "ABB US Empower",
+      "url": "https://empower.abb.com/ecatalog/ec/EN_NA/p/1SDA068458R1",
+      "result": "XT4 product identity and specifications checked; publications point to ABB library"
+    },
+    {
+      "name": "ABB Connect Netherlands",
+      "url": "https://www.abbconnect.nl/details/index.aspx?id=1603679",
+      "result": "XT1 document catalog found"
+    },
+    {
+      "name": "TraceParts",
+      "url": "https://www.traceparts.com/",
+      "result": "Search did not identify a suitable Tmax XT source; not used for geometry"
+    },
+    {
+      "name": "ABB Turkey technical support",
+      "url": "https://new.abb.com/low-voltage/tr/abb-elektrifikasyon-turkiye-teknik-destek",
+      "result": "Working drawing selector and PARTcommunity references found"
+    }
+  ]
+}

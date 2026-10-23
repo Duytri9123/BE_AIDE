@@ -1,0 +1,440 @@
+{
+  "nhom": "ABB",
+  "ten_kieu": "MCCB ABB A2 · 2P",
+  "ten_san_pham": "MCCB ABB A2 · 2P",
+  "hang_xac_nhan": "ABB",
+  "ma_dong_san_pham": "A2",
+  "ban_chat": "MCCB",
+  "cong_dung": "aptomat khối",
+  "bo_tri_lap_dat": {
+    "vi_tri_uu_tien": "ben_trong",
+    "vi_tri_phu_hop": [
+      "ben_trong"
+    ],
+    "huong_dan": "Gá ray/tấm lắp hoặc gắn trên thiết bị chủ theo tài liệu mã đầy đủ; kiểm tra chiều sâu, cọc và khoảng đấu dây."
+  },
+  "vi_tri_lap_dat": "Gá ray/tấm lắp hoặc gắn trên thiết bị chủ theo tài liệu mã đầy đủ; kiểm tra chiều sâu, cọc và khoảng đấu dây.",
+  "thong_so": {
+    "so_cuc": "2P",
+    "dong_dinh_muc_da_chon": null,
+    "dien_ap_da_chon": null,
+    "kha_nang_cat_da_chon": null
+  },
+  "quy_cach_hien_thi": "2P · Chọn thông số điện",
+  "cad_don": [
+    {
+      "id_hinh_goc": "ABB-D03-C6-I02-STATE-2P-FRONT-VIEW",
+      "huong_nhin": "Mặt trước",
+      "nhan_hien_thi": "Mặt trước",
+      "duong_dan": "CadDon/ABB-D03-C6-I02-STATE-2P-FRONT-VIEW/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Chọn đúng mặt và biến thể. Mặt bên thể hiện chiều sâu, không thay cho mặt trước cánh tủ. Xoay CAD không xác nhận tư thế lắp được hãng cho phép."
+      },
+      "bien_the_cad": null,
+      "vai_tro_cad": "device_view"
+    },
+    {
+      "id_hinh_goc": "ABB-D03-C6-I02-STATE-SIDE-VIEW",
+      "huong_nhin": "Mặt bên",
+      "nhan_hien_thi": "Mặt bên",
+      "duong_dan": "CadDon/ABB-D03-C6-I02-STATE-SIDE-VIEW/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt bên",
+        "cho_phep_chen": true,
+        "huong_dan": "Chọn đúng mặt và biến thể. Mặt bên thể hiện chiều sâu, không thay cho mặt trước cánh tủ. Xoay CAD không xác nhận tư thế lắp được hãng cho phép."
+      },
+      "bien_the_cad": null,
+      "vai_tro_cad": "device_view"
+    }
+  ],
+  "cac_hinh_cad": [
+    "ABB-D03-C6-I02-STATE-2P-FRONT-VIEW",
+    "ABB-D03-C6-I02-STATE-SIDE-VIEW"
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "ABB-D03-C6-I02-STATE-2P-FRONT-VIEW",
+    "huong_nhin": "Mặt trước",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "tu_khoa_tim_kiem": [
+    "MCCB ABB A2 · 2P",
+    "MCCB",
+    "aptomat khối",
+    "Hager",
+    "HHA014Z",
+    "Legrand",
+    "027020",
+    "3VJ1002-3DA32-0AA0",
+    "A2"
+  ],
+  "nguon_tham_khao": [
+    "https://new.abb.com/docs/librariesprovider22/technical-documentation/formula.pdf?sfvrsn=2"
+  ],
+  "tai_lieu_hang": "https://new.abb.com/docs/librariesprovider22/technical-documentation/formula.pdf?sfvrsn=2",
+  "muc_do_xac_nhan": "Mã/dòng trong CAD; tài liệu hãng tham khảo, chưa chọn mã đặt hàng đầy đủ.",
+  "dac_diem": [
+    "Giữ kích thước CAD gốc; không suy thông số điện từ nhãn mẫu.",
+    "Mỗi CAD là một mặt hoặc biến thể; chọn đúng mặt chính theo bố trí.",
+    "Nhãn dòng nguồn: 250A; không phải dòng đã chọn."
+  ],
+  "lua_chon_ky_thuat": [
+    "Chọn mã đầy đủ, thông số điện, phụ kiện, kiểu gá và mặt CAD trước lắp."
+  ],
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "MCCB",
+    "hang": "ABB",
+    "cac_ma_dong_san_pham": [
+      "A2"
+    ],
+    "so_cuc": "2P",
+    "pham_vi_ma": "source_model_or_family",
+    "tu_dong_chon_theo_vai_tro": true,
+    "ma_dat_hang_da_chon": null,
+    "fabrication_ready": false
+  },
+  "cau_hinh_chon": {
+    "can_chon": [
+      "Mã đầy đủ",
+      "Thông số điện",
+      "Phụ kiện",
+      "Kiểu gá",
+      "Mặt CAD"
+    ],
+    "ma_da_chon": null
+  },
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Nguồn vào",
+      "Ra tải",
+      "Điều khiển/phụ kiện nếu có"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Chọn theo từng cọc, dòng tải, bảo vệ và giới hạn đầu nối mã đầy đủ; không suy từ CAD.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Cần dữ liệu gá và cọc theo mã đầy đủ",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "ABB",
+    "ma_san_pham": "A2",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [
+      "https://new.abb.com/low-voltage",
+      "https://new.abb.com/products"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khảo - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "MCCB",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "ABB",
+        "model": "A2",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 4
+        },
+        "source_url": "https://new.abb.com/docs/librariesprovider22/technical-documentation/formula.pdf?sfvrsn=2",
+        "source_page": 4,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng được ghi trong hồ sơ nguồn. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "ABB",
+        "model": "A2",
+        "specifications": {
+          "so_cuc": "2P",
+          "Loại thiết bị": "MCCB",
+          "Lắp đặt tham khảo": "Gá ray/tấm lắp hoặc gắn trên thiết bị chủ theo tài liệu mã đầy đủ; kiểm tra chiều sâu, cọc và khoảng đấu dây.",
+          "Hình chiếu Mặt trước (ngang × cao, mm)": "142.5 × 162.0",
+          "Hình chiếu Mặt bên (ngang × cao, mm)": "142.5 × 162.0"
+        },
+        "source_url": "https://new.abb.com/docs/librariesprovider22/technical-documentation/formula.pdf?sfvrsn=2",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      },
+      {
+        "brand": "ABB",
+        "model": "1SDA066542R1",
+        "specifications": {
+          "Mã đặt hàng": "1SDA066542R1",
+          "Số cực": "2P",
+          "In (A)": "125",
+          "Họ thiết bị": "A2"
+        },
+        "source_url": "https://library.e.abb.com/public/8fa0d161aec14871ae110caa57108c49/9AKK108472A7059_vi_B_EL%20Vietnam%20Master%20price%20list%202026%20%28VIE%29.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NM8N-125C TM 100 2P",
+        "specifications": {
+          "In": "100A",
+          "Icu": "36kA",
+          "Ics": "100%",
+          "Số cực": "2P",
+          "Mã hàng": "271529"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Delixi",
+        "model": "CDM3S125C1002300",
+        "specifications": {
+          "Số cực": "2P",
+          "In (A)": "100",
+          "Khả năng cắt và điện áp": "25kA"
+        },
+        "source_url": "https://www.ple.vn/mccb/delixi-mccb/cdm3s125c1002300-detail.html",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Fuji Electric",
+        "model": "BW100EAG-2P",
+        "specifications": {
+          "Dòng trong bảng giá": "2 10 75, 100 BW100EAG-2P",
+          "Số cực": "2P"
+        },
+        "source_url": "https://www.saigonelectric.vn/images/prices/Fuji_2025_MNE.2.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "HD Hyundai Electric",
+        "model": "HGM100E- F",
+        "specifications": {
+          "Số cực": "2P",
+          "Dòng định mức In (A)": "16/ 20/ 25/ 32/ 40/ 50",
+          "Icu (kA)": ""
+        },
+        "source_url": "https://www.saigonelectric.vn/images/prices/HYUNDAI_2026.2.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABN102c",
+        "specifications": {
+          "In (A)": "15-20-30-40-50-60-75-100A",
+          "Icu(KA)": "35",
+          "Kích thước bao W×H×D (mm)": "50 × 130 × 82",
+          "Độ sâu thân c1 (mm)": "60",
+          "Độ sâu vỏ c2 (mm)": "64",
+          "Ui": "750V",
+          "Uimp": "8kV",
+          "Lắp đặt": "Bắt vít"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Mitsubishi Electric",
+        "model": "2CB002A000002",
+        "specifications": {
+          "Mã đặt hàng": "2CB002A000002",
+          "Số cực": "2P",
+          "In (A)": "3",
+          "Khả năng cắt và điện áp": "Icu=7.5kA @230VAC"
+        },
+        "source_url": "https://www.saigonelectric.vn/images/prices/Mitsubishi_Summary_LVS_06.2026.2.xlsx",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Schneider Electric",
+        "model": "EZC100B3015",
+        "specifications": {},
+        "source_url": "https://www.ple.vn/mccb/mccb-schneider/ezc100b3015-detail.html",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Shihlin",
+        "model": "BM400-CN-2P-250A",
+        "specifications": {
+          "Số cực": "2P",
+          "In (A)": "250",
+          "Khả năng cắt và điện áp": "25kA"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-shihlin/shihlin-mccb-2p/bm400-cn-2p-250a-detail.html",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Siemens",
+        "model": "3VJ1108-7EA42-0AA0",
+        "specifications": {
+          "In (A)": "80"
+        },
+        "source_url": "https://www.makel.vn/mccb-4-poles-80a-55ka-type-fixed-3vj1108-7ea42-0aa0.html?category=2&brand=29",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Vinakip",
+        "model": "AT 56",
+        "specifications": {
+          "In (A)": "75"
+        },
+        "source_url": "https://kimquang.vn/wp-content/uploads/2022/07/bang-gia-cau-dao-hop-vinakip.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      }
+    ],
+    "observed_specifications": {
+      "so_cuc": "2P",
+      "Loại thiết bị": "MCCB",
+      "Lắp đặt tham khảo": "Gá ray/tấm lắp hoặc gắn trên thiết bị chủ theo tài liệu mã đầy đủ; kiểm tra chiều sâu, cọc và khoảng đấu dây.",
+      "Hình chiếu Mặt trước (ngang × cao, mm)": "142.5 × 162.0",
+      "Hình chiếu Mặt bên (ngang × cao, mm)": "142.5 × 162.0"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "documented_source_label",
+      "source_model": "A2",
+      "matched_catalog_rows": 0,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Tra catalog đúng hãng/dòng; các mã cùng loại hiện có chỉ là tham khảo",
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": true,
+      "source_label_models": [
+        "A2"
+      ],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "documented_source_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [
+        "A2"
+      ],
+      "documented_models": [
+        {
+          "model": "A2",
+          "brand": "ABB",
+          "manufacturer_confirmed_on_source": true,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://new.abb.com/docs/librariesprovider22/technical-documentation/formula.pdf?sfvrsn=2",
+              "sha256": "6bf99519102ee8bc09f4839990a8d8510df4c6bdc921a49793c428ff7def978b",
+              "page": 4,
+              "format": "pdf",
+              "match": "A2",
+              "basis": "literal_model_label"
+            },
+            {
+              "url": "https://library.e.abb.com/public/819d3b51acd74e06b1b5c7b2c09a12b4/AX%20main%20catalogue_Catalogue_ZH_1SXF101005C2001_RevJ-20230726.pdf",
+              "sha256": "a3be7c41f95cfe29605f107b07421020f3c697bd4d32d2ee77bcf4fedbe7ad40",
+              "page": 16,
+              "format": "pdf",
+              "match": "A2",
+              "basis": "literal_model_label"
+            },
+            {
+              "url": "https://new.abb.com/docs/librariesprovider74/lp-materials/prom-2014-2csc400002d0211.pdf?sfvrsn=2",
+              "sha256": "c2067a84e420ff6df9fe863945a264395711edae75eca1522fc705feb1c4b2b0",
+              "page": 336,
+              "format": "pdf",
+              "match": "A\n2",
+              "basis": "literal_model_label"
+            }
+          ]
+        }
+      ],
+      "source_text_count": 8,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "nhan_dien_web": {
+    "source_label_review": {
+      "status": "documented_source_label",
+      "models": [
+        "A2"
+      ],
+      "manufacturer_candidates": [
+        "ABB"
+      ],
+      "checked_at": "2026-10-17",
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

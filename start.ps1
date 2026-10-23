@@ -18,5 +18,6 @@ Write-Host "Starting uvicorn server on port 8000..." -ForegroundColor Yellow
 Write-Host "API Docs will be available at: http://localhost:8000/docs" -ForegroundColor Cyan
 Write-Host "Admin Panel: http://localhost:8000/admin`n" -ForegroundColor Cyan
 
+& (Join-Path (Split-Path -Parent $PSScriptRoot) 'start_redis.ps1')
 & (Join-Path $PSScriptRoot 'start_worker.ps1')
 python -m uvicorn app.main:app --workers 2 --port 8000 --host 127.0.0.1

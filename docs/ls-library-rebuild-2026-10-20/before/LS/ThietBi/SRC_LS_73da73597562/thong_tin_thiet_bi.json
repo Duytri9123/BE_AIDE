@@ -1,0 +1,1125 @@
+{
+  "nhom": "LS",
+  "ten_kieu": "LS · ABS(N)803-3 · CAD nguồn",
+  "ten_san_pham": "LS · ABS(N)803-3 · CAD nguồn",
+  "ban_chat": "CAD thiết bị theo nhãn nguồn",
+  "cong_dung": "Tham khảo hình học; xác nhận chức năng, mã thiết bị và thông số trước thiết kế.",
+  "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+  "hang_xac_nhan": null,
+  "ma_dong_san_pham": null,
+  "thong_so": {
+    "nhan_block_nguon": "ABS(N)803-3",
+    "dong_dinh_muc_A": null,
+    "dien_ap_V": null
+  },
+  "tu_khoa_tim_kiem": [
+    "LS",
+    "CAD thiết bị theo nhãn nguồn",
+    "MCCB",
+    "ABB",
+    "1SDA066485R1",
+    "CHINT",
+    "NM8N-125C TM 100 1P",
+    "Delixi",
+    "CDM3S125C1002300",
+    "Fuji Electric",
+    "BW100EAG-2P",
+    "HD Hyundai Electric",
+    "HGM1000S 3P",
+    "Hager",
+    "HDA014Z",
+    "ABN102c",
+    "Legrand",
+    "027000",
+    "Mitsubishi Electric",
+    "2CB002A000002",
+    "Schneider Electric",
+    "LV510300",
+    "Shihlin",
+    "BM100-HN",
+    "Siemens",
+    "3VJ1002-0DA32-0AA0",
+    "Vinakip",
+    "AT 56",
+    "LS · ABS(N)803-3 · CAD nguồn",
+    ""
+  ],
+  "muc_do_xac_nhan": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp. Hình nhìn theo đầu thiết bị hoặc nắp: chưa phân biệt chắc mặt trên/dưới và thành phần; không tự gán mặt.",
+  "nguon_tham_khao": [],
+  "nguon_cad": {
+    "file": "D:\\THƯ VIỆN\\@LS.dwg",
+    "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+    "block": "ABS(N)803-3",
+    "saved_block": "ABS(N)803-3",
+    "handle": "17D447",
+    "geometry_key": "73da735975627eafbc27d8a784b6f2d575907945c3a7bf61b70920bb190719ed",
+    "units": 4,
+    "instance_transform": {
+      "insert": [
+        -118662.3542155647,
+        -17777.31694107538,
+        0
+      ],
+      "rotation": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+  },
+  "cac_hinh_cad": [
+    "SRC_LS_73da73597562"
+  ],
+  "auto_select": false,
+  "needs_review": true,
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa xác nhận dữ liệu hãng",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "SRC_LS_73da73597562",
+      "huong_nhin": "Chưa xác nhận hướng nhìn",
+      "nhan_hien_thi": "ABS(N)803-3",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": false,
+        "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+      },
+      "duong_dan": "CadDon/SRC_LS_73da73597562/ban_ve.dxf",
+      "recognition_evidence": "nhan_dien_bo_sung_20261010"
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "SRC_LS_73da73597562",
+    "huong_nhin": "Chưa xác nhận hướng nhìn",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "nhan_dien_bo_sung_20261010": {
+    "review_date": "2026-10-10",
+    "category_code": "MCCB",
+    "visual_review": true,
+    "preview": "36-0.png",
+    "source_block": "ABS(N)803-3",
+    "text_entities_found": 0,
+    "text_outline_note": "No extractable TEXT/MTEXT/ATTRIB found; visible lettering may be linework, not searchable text.",
+    "face": null,
+    "face_basis": "Unconfirmed",
+    "official_family_sources": [
+      "https://www.ls-electric.com/upload/customer/download/1213/Metasol_MCCB-ELCB_Technical%20Manual_E.pdf"
+    ],
+    "exact_sku_verified": false,
+    "automatic_insertion_approved": false,
+    "limitation": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp. Hình nhìn theo đầu thiết bị hoặc nắp: chưa phân biệt chắc mặt trên/dưới và thành phần; không tự gán mặt."
+  },
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "MCCB",
+    "exact_sku_verified": false
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "LS Electric",
+    "ma_san_pham": "",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [
+      "https://www.ls-electric.com",
+      "https://anhphatelectric.com",
+      "https://etinco.vn"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Chưa có giá"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "MCCB",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "LS Electric",
+        "model": "ABS32c",
+        "specifications": {
+          "In (A)": "5-10-15-20-30A",
+          "Icu(KA)": "25",
+          "Kích thước bao W×H×D (mm)": "50 × 130 × 82",
+          "Độ sâu thân c1 (mm)": "60",
+          "Độ sâu vỏ c2 (mm)": "64",
+          "Ui": "750V",
+          "Uimp": "8kV",
+          "Lắp đặt": "Bắt vít",
+          "Tên hàng": "ABS32c"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:3dd9345ef1384790",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS52c",
+        "specifications": {
+          "In (A)": "15-20-30-40-50A",
+          "Icu(KA)": "35",
+          "Kích thước bao W×H×D (mm)": "50 × 130 × 82",
+          "Độ sâu thân c1 (mm)": "60",
+          "Độ sâu vỏ c2 (mm)": "64",
+          "Ui": "750V",
+          "Uimp": "8kV",
+          "Lắp đặt": "Bắt vít",
+          "Tên hàng": "ABS52c"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:5aaa162679d0206b",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS102c",
+        "specifications": {
+          "In (A)": "40-50-60-75-100-125A",
+          "Icu(KA)": "85",
+          "Kích thước bao W×H×D (mm)": "60 × 155 × 82",
+          "Độ sâu thân c1 (mm)": "60",
+          "Độ sâu vỏ c2 (mm)": "64",
+          "Ui": "750V",
+          "Uimp": "8kV",
+          "Lắp đặt": "Bắt vít",
+          "Tên hàng": "ABS102c"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:fba74ccddebf22b4",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS202c",
+        "specifications": {
+          "In (A)": "125-150-175-200-225-250A",
+          "Icu(KA)": "85",
+          "Kích thước bao W×H×D (mm)": "105 × 165 × 87",
+          "Độ sâu thân c1 (mm)": "60",
+          "Độ sâu vỏ c2 (mm)": "64",
+          "Ui": "750V",
+          "Uimp": "8kV",
+          "Lắp đặt": "Bắt vít",
+          "Tên hàng": "ABS202c"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:29d5fc53ec581446",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS33c",
+        "specifications": {
+          "In (A)": "5-10-20-30A",
+          "Icu(KA)": "14",
+          "Kích thước bao W×H×D (mm)": "75 × 130 × 82",
+          "Độ sâu thân c1 (mm)": "60",
+          "Độ sâu vỏ c2 (mm)": "64",
+          "Ui": "750V",
+          "Uimp": "8kV",
+          "Lắp đặt": "Bắt vít",
+          "Tên hàng": "ABS33c"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:49c9cc2b5d493930",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS53c",
+        "specifications": {
+          "In (A)": "15-20-30-40-50A",
+          "Icu(KA)": "22",
+          "Kích thước bao W×H×D (mm)": "75 × 130 × 82",
+          "Độ sâu thân c1 (mm)": "60",
+          "Độ sâu vỏ c2 (mm)": "64",
+          "Ui": "750V",
+          "Uimp": "8kV",
+          "Lắp đặt": "Bắt vít",
+          "Tên hàng": "ABS53c"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:551325c25434a499",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS103c",
+        "specifications": {
+          "In (A)": "15,20,30,40,50,60,75,100,125A",
+          "Icu(KA)": "42",
+          "Kích thước bao W×H×D (mm)": "90 × 155 × 82",
+          "Độ sâu thân c1 (mm)": "60",
+          "Độ sâu vỏ c2 (mm)": "64",
+          "Ui": "750V",
+          "Uimp": "8kV",
+          "Lắp đặt": "Bắt vít",
+          "Tên hàng": "ABS103c"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:afff83701eb29628",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS203c",
+        "specifications": {
+          "In (A)": "125,150,175,200,225,250A",
+          "Icu(KA)": "42",
+          "Kích thước bao W×H×D (mm)": "105 × 165 × 87",
+          "Độ sâu thân c1 (mm)": "60",
+          "Độ sâu vỏ c2 (mm)": "64",
+          "Ui": "750V",
+          "Uimp": "8kV",
+          "Lắp đặt": "Bắt vít",
+          "Tên hàng": "ABS203c"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:4866bccb487f652b",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS403c",
+        "specifications": {
+          "In (A)": "250-300-350-400A",
+          "Icu(KA)": "65",
+          "Tên hàng": "ABS403c"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:2f1f1ac3df70e08a",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS803c",
+        "specifications": {
+          "In (A)": "500-630A",
+          "Icu(KA)": "75",
+          "Tên hàng": "ABS803c"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:9c550054d7e232d8",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS803c",
+        "specifications": {
+          "In (A)": "700-800A",
+          "Icu(KA)": "75",
+          "Tên hàng": "ABS803c"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:3c864b289362ff91",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS1003b",
+        "specifications": {
+          "In (A)": "1000A",
+          "Icu(KA)": "65",
+          "Tên hàng": "ABS1003b"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:48afaf56e331dfd4",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS1203b",
+        "specifications": {
+          "In (A)": "1200A",
+          "Icu(KA)": "65",
+          "Tên hàng": "ABS1203b"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:b2c9c69033688df1",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS54c",
+        "specifications": {
+          "In (A)": "15-20-30-40-50A",
+          "Icu(KA)": "22",
+          "Kích thước bao W×H×D (mm)": "100 × 130 × 82",
+          "Độ sâu thân c1 (mm)": "60",
+          "Độ sâu vỏ c2 (mm)": "64",
+          "Ui": "750V",
+          "Uimp": "8kV",
+          "Lắp đặt": "Bắt vít",
+          "Tên hàng": "ABS54c"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:3eb158644e881342",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS104c",
+        "specifications": {
+          "In (A)": "20,30,40,50,60,75,100,125A",
+          "Icu(KA)": "42",
+          "Kích thước bao W×H×D (mm)": "120 × 155 × 82",
+          "Độ sâu thân c1 (mm)": "60",
+          "Độ sâu vỏ c2 (mm)": "64",
+          "Ui": "750V",
+          "Uimp": "8kV",
+          "Lắp đặt": "Bắt vít",
+          "Tên hàng": "ABS104c"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:39ebc13b2b063447",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS204c",
+        "specifications": {
+          "In (A)": "150,175,200,225,250A",
+          "Icu(KA)": "42",
+          "Kích thước bao W×H×D (mm)": "140 × 165 × 87",
+          "Độ sâu thân c1 (mm)": "60",
+          "Độ sâu vỏ c2 (mm)": "64",
+          "Ui": "750V",
+          "Uimp": "8kV",
+          "Lắp đặt": "Bắt vít",
+          "Tên hàng": "ABS204c"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:1d65e2a3cd7e3d2c",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS404c",
+        "specifications": {
+          "In (A)": "250-300-350-400A",
+          "Icu(KA)": "65",
+          "Tên hàng": "ABS404c"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:cd6cfc0e9d4e791c",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS804c",
+        "specifications": {
+          "In (A)": "500-630A",
+          "Icu(KA)": "75",
+          "Tên hàng": "ABS804c"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:8cf3255165817286",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS804c",
+        "specifications": {
+          "In (A)": "700-800A",
+          "Icu(KA)": "75",
+          "Tên hàng": "ABS804c"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:c55c3d626cd4344f",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS1004b",
+        "specifications": {
+          "In (A)": "1000A",
+          "Icu(KA)": "65",
+          "Tên hàng": "ABS1004b"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:144aa6881632fb26",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS1204b",
+        "specifications": {
+          "In (A)": "1200A",
+          "Icu(KA)": "65",
+          "Tên hàng": "ABS1204b"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:23f120448411f1b9",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS103c FMU",
+        "specifications": {
+          "In (A)": "20-25-32-40-50-63-80-100-125A",
+          "Icu(KA)": "37",
+          "Tên hàng": "ABS103c FMU"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 2,
+        "source_row_id": "ls-pdf:44c89842a4f6a8d5",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS203c FMU",
+        "specifications": {
+          "In (A)": "100-125-160-200-250A",
+          "Icu(KA)": "37",
+          "Tên hàng": "ABS203c FMU"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 2,
+        "source_row_id": "ls-pdf:5ce5ce7b888649f4",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS104c FMU",
+        "specifications": {
+          "Thông tin": "37",
+          "Tên hàng": "ABS104c FMU"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 2,
+        "source_row_id": "ls-pdf:74f7a7ef5d30a0d4",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS204c FMU",
+        "specifications": {
+          "Thông tin": "37",
+          "Tên hàng": "ABS204c FMU"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 2,
+        "source_row_id": "ls-pdf:8e79e00d5b8af20e",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS32c",
+        "specifications": {
+          "In (A)": "30",
+          "Khả năng cắt và điện áp": "25Ka",
+          "Tên hàng": "Ls ABS32c 10~30A 25Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs32c-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:0fc514793c62a4c0",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS52c",
+        "specifications": {
+          "In (A)": "50",
+          "Khả năng cắt và điện áp": "35Ka",
+          "Tên hàng": "Ls ABS52c 30~50A 35Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs52c-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:bffdbedd01e6e1ba",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS102c",
+        "specifications": {
+          "In (A)": "125",
+          "Khả năng cắt và điện áp": "85Ka",
+          "Tên hàng": "Ls ABS102c 40-50-60-75-100-125A 85Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs102c-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:83a8b097e600833e",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS202c",
+        "specifications": {
+          "In (A)": "250",
+          "Khả năng cắt và điện áp": "85Ka",
+          "Tên hàng": "Ls ABS202c 125-150-175-200-225-250A 85Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs202c-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:9d7e3ac9dda8d13e",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS33c",
+        "specifications": {
+          "In (A)": "5",
+          "Khả năng cắt và điện áp": "14Ka",
+          "Tên hàng": "Ls ABS33c 5A-10A 14Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs33c-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:76818184e31207d7",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS53c",
+        "specifications": {
+          "In (A)": "50",
+          "Khả năng cắt và điện áp": "22Ka",
+          "Tên hàng": "Ls ABS53c 15-20-30-40-50A 22Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs53c-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:bb8c9f4f247e26fa",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS103c",
+        "specifications": {
+          "In (A)": "100,125",
+          "Khả năng cắt và điện áp": "42Ka",
+          "Tên hàng": "Ls ABS103c 15,20,30,40,50,60,75,100,125A 42Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs103c-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:33f704d48dd5d413",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS203c",
+        "specifications": {
+          "In (A)": "225,250",
+          "Khả năng cắt và điện áp": "42Ka",
+          "Tên hàng": "Ls ABS203c 125,150,175,200,225,250A 42Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs203c-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:a8748a597b21c3c3",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS403c",
+        "specifications": {
+          "In (A)": "400",
+          "Khả năng cắt và điện áp": "65Ka",
+          "Tên hàng": "Ls ABS403c 250-300-350-400A 65Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs403c-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:02b2ddc10303c1ec",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS803c",
+        "specifications": {
+          "In (A)": "630",
+          "Khả năng cắt và điện áp": "75Ka",
+          "Tên hàng": "Ls ABS803c 500-630A 75Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs803c-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:9eca1910afbfeb14",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS1003b",
+        "specifications": {
+          "In (A)": "1000",
+          "Khả năng cắt và điện áp": "65Ka",
+          "Tên hàng": "Ls ABS1003b 1000A 65Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs1003b-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:a395ce03f57ba530",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS1203b",
+        "specifications": {
+          "In (A)": "1200",
+          "Khả năng cắt và điện áp": "65Ka",
+          "Tên hàng": "Ls ABS1203b 1200A 65Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs1203b-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:02d02171b4c568c3",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS103c",
+        "specifications": {
+          "In (A)": "125",
+          "Khả năng cắt và điện áp": "37Ka",
+          "Tên hàng": "Ls ABS103c FMU 20-25-32-40-50-63-80-100-125A 37Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs103c-fmu-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:7b83ad098945c7db",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS203c",
+        "specifications": {
+          "In (A)": "250",
+          "Khả năng cắt và điện áp": "37Ka",
+          "Tên hàng": "Ls ABS203c FMU 100-125-160-200-250A 37Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs203c-fmu-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:5aa0c161475f5640",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS54c",
+        "specifications": {
+          "In (A)": "50",
+          "Khả năng cắt và điện áp": "22Ka",
+          "Tên hàng": "Ls ABS54c 15-20-30-40-50A 22Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs54c-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:9077b92826f34e44",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS104c",
+        "specifications": {
+          "In (A)": "100,125",
+          "Khả năng cắt và điện áp": "42Ka",
+          "Tên hàng": "Ls ABS104c 20,30,40,50,60,75,100,125A 42Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs104c-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:8d443c877676b714",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS204c",
+        "specifications": {
+          "In (A)": "225,250",
+          "Khả năng cắt và điện áp": "42Ka",
+          "Tên hàng": "Ls ABS204c 150,175,200,225,250A 42Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs204c-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:6a41e3d867299354",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS404c",
+        "specifications": {
+          "In (A)": "400",
+          "Khả năng cắt và điện áp": "65Ka",
+          "Tên hàng": "Ls ABS404c 250-300-350-400A 65Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs404c-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:84b7532b40830b14",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS804c",
+        "specifications": {
+          "In (A)": "630",
+          "Khả năng cắt và điện áp": "75Ka",
+          "Tên hàng": "Ls ABS804c 500-630A 75Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs804c-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:dfb77420950ca3be",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS1004b",
+        "specifications": {
+          "In (A)": "1000",
+          "Khả năng cắt và điện áp": "65Ka",
+          "Tên hàng": "Ls ABS1004b 1000A 65Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs1004b-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:afa7578936fd6205",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS1204b",
+        "specifications": {
+          "In (A)": "1200",
+          "Khả năng cắt và điện áp": "65Ka",
+          "Tên hàng": "Ls ABS1204b 1200A 65Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs1204b-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:252e6f2fb44a2f2f",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS104c",
+        "specifications": {
+          "In (A)": "100,125",
+          "Khả năng cắt và điện áp": "37Ka",
+          "Tên hàng": "Ls ABS104c FMU 20,25,32,40,50,63,80,100,125A 37Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs104c-fmu-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:1a181e7b817de9c1",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS204c",
+        "specifications": {
+          "In (A)": "250",
+          "Khả năng cắt và điện áp": "37Ka",
+          "Tên hàng": "Ls ABS204c FMU 100-125-160-200-250A 37Ka"
+        },
+        "source_url": "https://www.ple.vn/mccb/mccb-ls/abs204c-fmu-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:192a3cc253752532",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "Metasol MCCB/ELCB",
+        "specifications": {
+          "Dòng thiết bị": "Metasol MCCB/ELCB"
+        },
+        "source_url": "https://pfinder.ls-electric.com/IEC/product/mccb_metasol.do",
+        "basis": "manufacturer_family_document",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Tài liệu đúng hãng/dòng để tiếp tục đối chiếu mã trong CAD; không xác nhận mã đầy đủ hoặc kích thước."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABS(N)803-3",
+        "specifications": {
+          "nhan_block_nguon": "ABS(N)803-3",
+          "Loại thiết bị": "MCCB",
+          "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp.",
+          "Hình chiếu Chưa xác nhận hướng nhìn (ngang × cao, mm)": "210.0 × 142.069"
+        },
+        "source_url": "",
+        "basis": "cad_reference_code",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      }
+    ],
+    "observed_specifications": {
+      "nhan_block_nguon": "ABS(N)803-3",
+      "Loại thiết bị": "MCCB",
+      "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp.",
+      "Hình chiếu Chưa xác nhận hướng nhìn (ngang × cao, mm)": "210.0 × 142.069"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [
+      {
+        "brand": "LS Electric",
+        "family": "Metasol MCCB/ELCB",
+        "url": "https://pfinder.ls-electric.com/IEC/product/mccb_metasol.do",
+        "scope": "manufacturer_family",
+        "checked_at": "2026-10-17"
+      }
+    ],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "source_geometry_without_model_label",
+      "source_model": null,
+      "matched_catalog_rows": 25,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Đối chiếu và chọn mã đặt hàng đầy đủ",
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "source_geometry_without_model_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [],
+      "documented_models": [],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

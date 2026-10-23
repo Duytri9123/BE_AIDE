@@ -1,0 +1,638 @@
+{
+  "nhom": "Chint",
+  "ten_kieu": "Chint · ats chint NZ7-125 100A 4P · CAD nguồn",
+  "ten_san_pham": "Chint · ats chint NZ7-125 100A 4P · CAD nguồn",
+  "ban_chat": "ATS",
+  "cong_dung": "Chuyển nguồn theo sơ đồ và cấu hình thực tế.",
+  "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+  "hang_xac_nhan": null,
+  "ma_dong_san_pham": null,
+  "thong_so": {
+    "nhan_block_nguon": "ats chint NZ7-125 100A 4P",
+    "dong_dinh_muc_A": null,
+    "dien_ap_V": null
+  },
+  "tu_khoa_tim_kiem": [
+    "ats chint NZ7-125 100A 4P",
+    "Chint",
+    "ATS",
+    "BTB Electric",
+    "BA063HY4M",
+    "O-Sung / OSEMCO",
+    "OSS-608-PC 4P",
+    "Chint · ats chint NZ7-125 100A 4P · CAD nguồn",
+    "",
+    "NZ7-125"
+  ],
+  "muc_do_xac_nhan": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện.",
+  "nguon_tham_khao": [],
+  "nguon_cad": {
+    "file": "D:\\THƯ VIỆN\\@CHINT.dwg",
+    "sha256": "aa426c85a63c42369c7ec4e44b374030232c0d81793325963bb4a82b00aaf35a",
+    "block": "ats chint NZ7-125 100A 4P",
+    "saved_block": "ats chint NZ7-125 100A 4P",
+    "handle": "8F894",
+    "geometry_key": "24d4f273fedabcec64d27e3f64551ea097982f8a9de477890594a115f73fbdd8",
+    "units": 1,
+    "instance_transform": {
+      "insert": [
+        55326.98751824461,
+        -114737.9571513498,
+        0.0
+      ],
+      "rotation": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+  },
+  "cac_hinh_cad": [
+    "SRC_CHINT_24d4f273feda"
+  ],
+  "auto_select": false,
+  "needs_review": true,
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa xác nhận dữ liệu hãng",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "SRC_CHINT_24d4f273feda",
+      "huong_nhin": "Mặt trước",
+      "nhan_hien_thi": "ats chint NZ7-125 100A 4P",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": false,
+        "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+      },
+      "duong_dan": "CadDon/SRC_CHINT_24d4f273feda/ban_ve.dxf",
+      "nhan_dien_mat": {
+        "review_date": "2026-10-11",
+        "method": "individual_visual_review",
+        "evidence_card": 15,
+        "evidence_image": "outputs\\catalogtb-projection-review\\015.png",
+        "previous_label": "Chưa xác nhận hướng nhìn",
+        "projection": "Mặt trước",
+        "basis": "Device controls/terminals and relative projection geometry; source block label used only when consistent with the inspected image.",
+        "mounting_orientation_verified": false,
+        "exact_sku_verified": false
+      },
+      "unit_verification": {
+        "status": "source_coordinate_unit_inferred_mm",
+        "review_date": "2026-10-11",
+        "raw_header_units_code": 1,
+        "coordinate_scale_to_mm": 1,
+        "target_units_code": 4,
+        "source_document_sha256": "aa426c85a63c42369c7ec4e44b374030232c0d81793325963bb4a82b00aaf35a",
+        "anchors": [
+          {
+            "card": 15,
+            "profile": "Chint/ThietBi/SRC_CHINT_24d4f273feda/thong_tin_thiet_bi.json",
+            "view": "SRC_CHINT_24d4f273feda",
+            "cad_dimensions": [
+              420.0,
+              240.0
+            ],
+            "official_mm": [
+              420,
+              240
+            ],
+            "absolute_tolerance_mm": 0.2,
+            "url": "https://chintglobal.vn/wp-content/uploads/2021/09/nz7-catalog.pdf"
+          },
+          {
+            "card": 18,
+            "profile": "Chint/ThietBi/SRC_CHINT_3551f69f1564/thong_tin_thiet_bi.json",
+            "view": "SRC_CHINT_3551f69f1564",
+            "cad_dimensions": [
+              140.0,
+              257.0
+            ],
+            "official_mm": [
+              140,
+              257
+            ],
+            "absolute_tolerance_mm": 0.2,
+            "url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nxm/manual/2104-NXM-MCCB-Manual-2.pdf"
+          },
+          {
+            "card": 27,
+            "profile": "Chint/ThietBi/SRC_CHINT_a5c5ebc505f4/thong_tin_thiet_bi.json",
+            "view": "SRC_CHINT_a5c5ebc505f4",
+            "cad_dimensions": [
+              210.0,
+              280.0
+            ],
+            "official_mm": [
+              210,
+              280
+            ],
+            "absolute_tolerance_mm": 0.2,
+            "url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nxm/manual/2104-NXM-MCCB-Manual-2.pdf"
+          }
+        ],
+        "basis": "Multiple independent official dimension anchors in the same native-coordinate source document; each extracted view has unit instance scale.",
+        "geometry_resized": false,
+        "exact_model_dimensions_verified": false,
+        "limitation": "Unit calibration does not certify each device envelope, hidden geometry, mounting holes or exact model."
+      }
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "SRC_CHINT_24d4f273feda",
+    "huong_nhin": "Mặt trước",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": null,
+    "ma_san_pham": null,
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [
+      "https://chintglobal.com",
+      "https://www.alibaba.com"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khảo - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "ATS",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": null
+        },
+        "source_url": "https://chintglobal.vn/wp-content/uploads/2021/09/nz7-catalog.pdf",
+        "source_page": null,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng là ứng viên theo mã trong tài liệu; chưa xác nhận logo trên CAD. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125S/3",
+        "specifications": {
+          "In (A)": "25",
+          "Tên hàng": "ATS Chint NZ7-125S/3 25A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125s-3-25a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:0c03c2a40c3a4036",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125S/3",
+        "specifications": {
+          "In (A)": "32",
+          "Tên hàng": "ATS Chint NZ7-125S/3 32A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125s-3-32a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:6dd45fc4014bfceb",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125S/3",
+        "specifications": {
+          "In (A)": "40",
+          "Tên hàng": "ATS Chint NZ7-125S/3 40A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125s-3-40a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:7b33e651dcfa7abd",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125S/3",
+        "specifications": {
+          "In (A)": "50",
+          "Tên hàng": "ATS Chint NZ7-125S/3 50A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125s-3-50a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:7fad454bf61fa57f",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125S/3",
+        "specifications": {
+          "In (A)": "63",
+          "Tên hàng": "ATS Chint NZ7-125S/3 63A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125s-3-63a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:8d4378a9e583430a",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125S/3",
+        "specifications": {
+          "In (A)": "80",
+          "Tên hàng": "ATS Chint NZ7-125S/3 80A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125s-3-80a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:2815060999aa48af",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125S/3",
+        "specifications": {
+          "In (A)": "100",
+          "Tên hàng": "ATS Chint NZ7-125S/3 100A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125s-3-100a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:f391f8daaf197133",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125H/3",
+        "specifications": {
+          "In (A)": "25",
+          "Tên hàng": "ATS Chint NZ7-125H/3 25A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125h-3-25a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:9f77db537798c9c9",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125H/3",
+        "specifications": {
+          "In (A)": "32",
+          "Tên hàng": "ATS Chint NZ7-125H/3 32A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125h-3-32a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:5b677c9a4aaa6cf0",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125H/3",
+        "specifications": {
+          "In (A)": "40",
+          "Tên hàng": "ATS Chint NZ7-125H/3 40A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125h-3-40a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:dfa19ffef1338950",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125H/3",
+        "specifications": {
+          "In (A)": "50",
+          "Tên hàng": "ATS Chint NZ7-125H/3 50A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125h-3-50a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:7f7c9d4c95acc86c",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125H/3",
+        "specifications": {
+          "In (A)": "63",
+          "Tên hàng": "ATS Chint NZ7-125H/3 63A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125h-3-63a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:625c41968d9f085e",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125H/3",
+        "specifications": {
+          "In (A)": "80",
+          "Tên hàng": "ATS Chint NZ7-125H/3 80A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125h-3-80a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:5afabfb0c815832e",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125H/3",
+        "specifications": {
+          "In (A)": "100",
+          "Tên hàng": "ATS Chint NZ7-125H/3 100A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125h-3-100a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:add2e5a517ae613c",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125H/4",
+        "specifications": {
+          "In (A)": "25",
+          "Tên hàng": "ATS Chint NZ7-125H/4 25A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125h-4-25a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:597cb8a45a3d55b6",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125H/4",
+        "specifications": {
+          "In (A)": "32",
+          "Tên hàng": "ATS Chint NZ7-125H/4 32A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125h-4-32a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:0548ef8111ed83f2",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125H/4",
+        "specifications": {
+          "In (A)": "40",
+          "Tên hàng": "ATS Chint NZ7-125H/4 40A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125h-4-40a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:f9c089b0f9577c26",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125H/4",
+        "specifications": {
+          "In (A)": "50",
+          "Tên hàng": "ATS Chint NZ7-125H/4 50A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125h-4-50a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:b4b54eb919835484",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125H/4",
+        "specifications": {
+          "In (A)": "63",
+          "Tên hàng": "ATS Chint NZ7-125H/4 63A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125h-4-63a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:1b362f417bca2e33",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125H/4",
+        "specifications": {
+          "In (A)": "80",
+          "Tên hàng": "ATS Chint NZ7-125H/4 80A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125h-4-80a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:20a96a19e1ae1646",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125H/4",
+        "specifications": {
+          "In (A)": "100",
+          "Tên hàng": "ATS Chint NZ7-125H/4 100A"
+        },
+        "source_url": "https://www.ple.vn/bdk-ats/ats-chint/nz7-125h-4-100a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:70f8e58c923505f4",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NZ7-125",
+        "specifications": {
+          "so_cuc": "4P",
+          "nhan_block_nguon": "ats chint NZ7-125 100A 4P",
+          "Loại thiết bị": "ATS",
+          "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp."
+        },
+        "source_url": "https://chintglobal.vn/wp-content/uploads/2021/09/nz7-catalog.pdf",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      }
+    ],
+    "observed_specifications": {
+      "nhan_block_nguon": "ats chint NZ7-125 100A 4P",
+      "so_cuc": "4P",
+      "Loại thiết bị": "ATS",
+      "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp."
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "documented_source_label",
+      "source_model": "NZ7-125",
+      "matched_catalog_rows": 0,
+      "model_identity_verified": true,
+      "remaining_tasks": [
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": true,
+      "source_label_models": [
+        "NZ7-125"
+      ],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "documented_source_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [],
+      "documented_models": [
+        {
+          "model": "NZ7-125",
+          "brand": "CHINT",
+          "manufacturer_confirmed_on_source": false,
+          "scope": "previously_reviewed_source_model_or_family",
+          "documents": [
+            {
+              "url": "https://chintglobal.vn/wp-content/uploads/2021/09/nz7-catalog.pdf",
+              "sha256": null,
+              "page": null,
+              "format": "previous_checksum_bound_manufacturer_review",
+              "match": "NZ7-125",
+              "basis": "existing_manufacturer_evidence_validated_against_source_dxf_hash"
+            }
+          ]
+        }
+      ],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "nhan_dien_web": {
+    "source_label_review": {
+      "status": "documented_source_label",
+      "models": [
+        "NZ7-125"
+      ],
+      "manufacturer_candidates": [
+        "CHINT"
+      ],
+      "checked_at": "2026-10-17",
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "brand_candidate": "CHINT",
+    "status": "candidate_from_documented_source_label"
+  }
+}

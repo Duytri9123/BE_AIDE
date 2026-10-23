@@ -1,0 +1,22 @@
+{
+  "checked_at": "2026-10-23T15:49:04.123252",
+  "supervisor": 14912,
+  "workers": [
+    5392,
+    1344
+  ],
+  "both_workers_initialized": true,
+  "runtime_checks": {
+    "/health": 200,
+    "/api/v1/equipment-library/browser-data": 401
+  },
+  "public_validation": "Actual source-backed customer functions; 9 profiles, 54 directions, exactly 9 pole/terminal-specific price rows verified",
+  "authenticated_browser_session_checked": false,
+  "row_correction": "MT-400N accessory price no longer labelled BM630s-LTA",
+  "fe_changed_this_batch": false,
+  "tests_passed": 17,
+  "visible_profiles": 953,
+  "shihlin_linked_price_rows": 33,
+  "shihlin_total_price_rows": 152,
+  "shihlin_pending_price_rows": 119
+}

@@ -1,0 +1,499 @@
+{
+  "nhom": "Schneider",
+  "ten_kieu": "MCB Schneider iK60N · 1P",
+  "ten_san_pham": "MCB Schneider iK60N · 1P",
+  "hang_xac_nhan": "Schneider Electric",
+  "ma_dong_san_pham": "iK60N",
+  "ban_chat": "Aptomat tép (MCB)",
+  "cong_dung": "Đóng cắt và bảo vệ mạch theo chức năng của đúng mã thiết bị.",
+  "vi_tri_lap_dat": "Thân thiết bị gá trên ray/tấm lắp. Cánh trong chỉ để lộ tay gạt qua lỗ khoét; kiểm tra đúng kiểu gá, chiều sâu và khoảng đấu dây.",
+  "bo_tri_lap_dat": {
+    "vi_tri_uu_tien": "ben_trong",
+    "vi_tri_phu_hop": [
+      "ben_trong",
+      "canh_trong"
+    ],
+    "huong_dan": "Thân thiết bị gá trên ray/tấm lắp. Cánh trong chỉ để lộ tay gạt qua lỗ khoét; kiểm tra đúng kiểu gá, chiều sâu và khoảng đấu dây."
+  },
+  "thong_so": {
+    "so_cuc": "1P",
+    "so_cuc_cad": "1P",
+    "nhan_dong_tren_cad": "63A",
+    "dong_dinh_muc_da_chon": null,
+    "dien_ap_da_chon": null,
+    "kha_nang_cat_da_chon": null,
+    "dong_tham_khao": "1–63 A; chọn B/C theo mã",
+    "kha_nang_cat_tham_khao": "Icn 6 kA theo IEC/EN 60898-1, 230/400 VAC"
+  },
+  "quy_cach_hien_thi": "1P · Chọn thông số điện",
+  "cad_don": [
+    {
+      "id_hinh_goc": "SCH-D01-C3-I03-STATE-1P-FRONT-VIEW",
+      "huong_nhin": "Mặt trước",
+      "nhan_hien_thi": "Mặt trước",
+      "duong_dan": "CadDon/SCH-D01-C3-I03-STATE-1P-FRONT-VIEW/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Chọn đúng mặt và biến thể. Mặt bên thể hiện chiều sâu, không thay cho mặt trước cánh tủ. Xoay CAD không xác nhận tư thế lắp được hãng cho phép."
+      },
+      "bien_the_cad": null,
+      "vai_tro_cad": "device_view",
+      "trang_thai_nguon": "1P: Front View"
+    },
+    {
+      "id_hinh_goc": "SCH-D01-C3-I03-STATE-SIDE-VIEW",
+      "huong_nhin": "Mặt bên",
+      "nhan_hien_thi": "Mặt bên",
+      "duong_dan": "CadDon/SCH-D01-C3-I03-STATE-SIDE-VIEW/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt bên",
+        "cho_phep_chen": true,
+        "huong_dan": "Chọn đúng mặt và biến thể. Mặt bên thể hiện chiều sâu, không thay cho mặt trước cánh tủ. Xoay CAD không xác nhận tư thế lắp được hãng cho phép."
+      },
+      "bien_the_cad": null,
+      "vai_tro_cad": "device_view",
+      "trang_thai_nguon": "Side View"
+    }
+  ],
+  "cac_hinh_cad": [
+    "SCH-D01-C3-I03-STATE-1P-FRONT-VIEW",
+    "SCH-D01-C3-I03-STATE-SIDE-VIEW"
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "SCH-D01-C3-I03-STATE-1P-FRONT-VIEW",
+    "huong_nhin": "Mặt trước",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "tu_khoa_tim_kiem": [
+    "MCB Schneider iK60N · 1P",
+    "C120 · iC60 · iK60",
+    "Aptomat tép",
+    "aptomat",
+    "CB",
+    "ABB",
+    "2CDS211001R0064",
+    "CHINT",
+    "NCH8-20/01 220/230V",
+    "Delixi",
+    "CDB6i1251C100",
+    "HD Hyundai Electric",
+    "HGD100S",
+    "Hager",
+    "HLF180S",
+    "LS Electric",
+    "LA125H 1P",
+    "Legrand",
+    "419837",
+    "Mitsubishi Electric",
+    "D1P-0.5C10DN",
+    "Sino - Vanlock",
+    "PS45N/C1006",
+    "Vinakip",
+    "AT 07",
+    "Aptomat tép (MCB)",
+    "iK60N"
+  ],
+  "nguon_tham_khao": [
+    "https://ckm-content.se.com/ckmContent/sfc/servlet.shepherd/document/download/0698V00000ddL7WQAU"
+  ],
+  "tai_lieu_hang": "https://ckm-content.se.com/ckmContent/sfc/servlet.shepherd/document/download/0698V00000ddL7WQAU",
+  "muc_do_xac_nhan": "Nhận diện dòng từ block/thuộc tính nguồn; chưa chọn mã đầy đủ và thông số điện.",
+  "dac_diem": [
+    "Nhãn dòng trên CAD là dữ liệu nguồn, không phải cấu hình điện đã chọn.",
+    "Mỗi CAD là một trạng thái gốc; nắp che là phương án biểu diễn, không phải góc nhìn khác.",
+    "Trạng thái Cover có hai phần CAD rời: giữ tại nguồn tham khảo, không dùng để chèn nguyên bản."
+  ],
+  "lua_chon_ky_thuat": [
+    "Chọn dòng, điện áp, số cực, khả năng cắt/tiếp điểm và phụ kiện theo đúng mã."
+  ],
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "MCB",
+    "hang": "Schneider Electric",
+    "cac_ma_dong_san_pham": [
+      "iK60N"
+    ],
+    "so_cuc": "1P",
+    "so_cuc_cad": "1P",
+    "pham_vi_ma": "product_family_or_source_label",
+    "tu_dong_chon_theo_vai_tro": true,
+    "ma_dat_hang_da_chon": null,
+    "fabrication_ready": false
+  },
+  "cau_hinh_chon": {
+    "can_chon": [
+      "Mã đầy đủ",
+      "Dòng/điện áp",
+      "Khả năng cắt hoặc cấp sử dụng",
+      "Phụ kiện",
+      "Biến thể và mặt CAD"
+    ],
+    "ma_da_chon": null
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Cần tài liệu gá/cọc theo mã đầy đủ",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Nguồn vào",
+      "Ra tải",
+      "Phụ kiện điều khiển nếu có"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Chọn theo từng kết nối, thông số điện và bảo vệ phía trước; không suy từ hình CAD. Vật tư thuần cơ khí không yêu cầu dây.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "Schneider Electric",
+    "ma_san_pham": "iK60N",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [
+      "https://schneider.net.vn",
+      "https://www.se.com/vn/vi/",
+      "https://etinco.vn",
+      "https://dienquang.com"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khao - can xac nhan voi nha cung cap"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "MCB",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "Schneider Electric",
+        "model": "iK60N",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 1
+        },
+        "source_url": "https://www.se.com/es/es/faqs/FAQ000240682/",
+        "source_page": 1,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng được ghi trong hồ sơ nguồn. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "Schneider Electric",
+        "model": "iK60N",
+        "specifications": {
+          "Số cực": "1P",
+          "In (A)": "6",
+          "Khả năng cắt và điện áp": "6kA",
+          "Tên hàng": "Schneider A9K27106: MCB 1P 6kA 6A dòng iK60N"
+        },
+        "source_url": "https://www.ple.vn/mcb/mcb-schneider/a9k27106-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:af17b3e546d87248",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "Schneider Electric",
+        "model": "iK60N",
+        "specifications": {
+          "Số cực": "1P",
+          "In (A)": "10",
+          "Khả năng cắt và điện áp": "6kA",
+          "Tên hàng": "Schneider A9K27110: MCB 1P 6kA 10A dòng iK60N"
+        },
+        "source_url": "https://www.ple.vn/mcb/mcb-schneider/a9k27110-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:be4a7a8f1679ad92",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "Schneider Electric",
+        "model": "iK60N",
+        "specifications": {
+          "Số cực": "1P",
+          "In (A)": "16",
+          "Khả năng cắt và điện áp": "6kA",
+          "Tên hàng": "Schneider A9K27116: MCB 1P 6kA 16A dòng iK60N"
+        },
+        "source_url": "https://www.ple.vn/mcb/mcb-schneider/a9k27116-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:93496f1716a7c079",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "Schneider Electric",
+        "model": "iK60N",
+        "specifications": {
+          "Số cực": "1P",
+          "In (A)": "20",
+          "Khả năng cắt và điện áp": "6kA",
+          "Tên hàng": "Schneider A9K27120: MCB 1P 6kA 20A dòng iK60N"
+        },
+        "source_url": "https://www.ple.vn/mcb/mcb-schneider/a9k27120-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:c2ae4392899ed63c",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "Schneider Electric",
+        "model": "iK60N",
+        "specifications": {
+          "Số cực": "1P",
+          "In (A)": "25",
+          "Khả năng cắt và điện áp": "6kA",
+          "Tên hàng": "Schneider A9K27125: MCB 1P 6kA 25A dòng iK60N"
+        },
+        "source_url": "https://www.ple.vn/mcb/mcb-schneider/a9k27125-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:363ff9d2f463dac7",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "Schneider Electric",
+        "model": "iK60N",
+        "specifications": {
+          "Số cực": "1P",
+          "In (A)": "32",
+          "Khả năng cắt và điện áp": "6kA",
+          "Tên hàng": "Schneider A9K27132: MCB 1P 6kA 32A dòng iK60N"
+        },
+        "source_url": "https://www.ple.vn/mcb/mcb-schneider/a9k27132-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:13fa26ea356f7bd0",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "Schneider Electric",
+        "model": "iK60N",
+        "specifications": {
+          "Số cực": "1P",
+          "In (A)": "40",
+          "Khả năng cắt và điện áp": "6kA",
+          "Tên hàng": "Schneider A9K24140: MCB 1P 6kA 40A dòng iK60N"
+        },
+        "source_url": "https://www.ple.vn/mcb/mcb-schneider/a9k24140-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:d54bbb51194fde82",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "Schneider Electric",
+        "model": "iK60N",
+        "specifications": {
+          "Số cực": "1P",
+          "In (A)": "50",
+          "Khả năng cắt và điện áp": "6kA",
+          "Tên hàng": "Schneider A9K24150: MCB 1P 6kA 50A dòng iK60N"
+        },
+        "source_url": "https://www.ple.vn/mcb/mcb-schneider/a9k24150-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:ac260d4317a2c8a0",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "Schneider Electric",
+        "model": "iK60N",
+        "specifications": {
+          "Số cực": "1P",
+          "In (A)": "63",
+          "Khả năng cắt và điện áp": "6kA",
+          "Tên hàng": "Schneider A9K24163: MCB 1P 6kA 63A dòng iK60N"
+        },
+        "source_url": "https://www.ple.vn/mcb/mcb-schneider/a9k24163-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:9dd62dcc3eadf67c",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "Schneider Electric",
+        "model": "iK60N",
+        "specifications": {
+          "so_cuc": "1P",
+          "so_cuc_cad": "1P",
+          "nhan_dong_tren_cad": "63A",
+          "dong_tham_khao": "1–63 A; chọn B/C theo mã",
+          "kha_nang_cat_tham_khao": "Icn 6 kA theo IEC/EN 60898-1, 230/400 VAC",
+          "Loại thiết bị": "MCB",
+          "Lắp đặt tham khảo": "Thân thiết bị gá trên ray/tấm lắp. Cánh trong chỉ để lộ tay gạt qua lỗ khoét; kiểm tra đúng kiểu gá, chiều sâu và khoảng đấu dây.",
+          "Hình chiếu Mặt trước (ngang × cao, mm)": "85.0 × 139.5",
+          "Hình chiếu Mặt bên (ngang × cao, mm)": "85.0 × 139.5"
+        },
+        "source_url": "https://ckm-content.se.com/ckmContent/sfc/servlet.shepherd/document/download/0698V00000ddL7WQAU",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      }
+    ],
+    "observed_specifications": {
+      "so_cuc": "1P",
+      "so_cuc_cad": "1P",
+      "nhan_dong_tren_cad": "63A",
+      "dong_tham_khao": "1–63 A; chọn B/C theo mã",
+      "kha_nang_cat_tham_khao": "Icn 6 kA theo IEC/EN 60898-1, 230/400 VAC",
+      "Loại thiết bị": "MCB",
+      "Lắp đặt tham khảo": "Thân thiết bị gá trên ray/tấm lắp. Cánh trong chỉ để lộ tay gạt qua lỗ khoét; kiểm tra đúng kiểu gá, chiều sâu và khoảng đấu dây.",
+      "Hình chiếu Mặt trước (ngang × cao, mm)": "85.0 × 139.5",
+      "Hình chiếu Mặt bên (ngang × cao, mm)": "85.0 × 139.5"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "documented_source_label",
+      "source_model": "iK60N",
+      "matched_catalog_rows": 9,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": true,
+      "source_label_models": [
+        "iK60N"
+      ],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "documented_source_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [
+        "iK60N"
+      ],
+      "documented_models": [
+        {
+          "model": "iK60N",
+          "brand": "Schneider Electric",
+          "manufacturer_confirmed_on_source": true,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://www.se.com/es/es/faqs/FAQ000240682/",
+              "sha256": null,
+              "page": 1,
+              "format": "browsed_page_excerpt",
+              "match": "iK60N",
+              "basis": "manually_reviewed_official_product_page"
+            },
+            {
+              "url": "https://download.schneider-electric.com/files?p_Doc_Ref=CA909006NL&p_File_Ext=.PDF",
+              "sha256": "35a36281b5fe738aaa03b7e1d07041da8ee87293f723b5a505c53ec7c294cf54",
+              "page": 3,
+              "format": "pdf",
+              "match": "iK60N",
+              "basis": "literal_model_label"
+            },
+            {
+              "url": "https://www.se.com/es/es/faqs/FAQ000240682/",
+              "sha256": "74bf8da2cb95cdb6725877a7d349b1c1915e9da46c782cb1a1fae75db8f5ac2e",
+              "page": 1,
+              "format": "html",
+              "match": "iK60N",
+              "basis": "reviewed_manufacturer_model_table"
+            }
+          ]
+        }
+      ],
+      "source_text_count": 9,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "gia_ban_tham_khao_cu": {
+    "don_gia": "100,000 - 400,000",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Co gia (pham vi)",
+    "hang": "Schneider Electric",
+    "ma_san_pham": "iK60N",
+    "ghi_chu": "MCB pho thong, gia theo dong dinh muc",
+    "nguon_tham_khao": [
+      "https://schneider.net.vn",
+      "https://www.se.com/vn/vi/",
+      "https://etinco.vn",
+      "https://dienquang.com"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khao - can xac nhan voi nha cung cap"
+  },
+  "nhan_dien_web": {
+    "source_label_review": {
+      "status": "documented_source_label",
+      "models": [
+        "iK60N"
+      ],
+      "manufacturer_candidates": [
+        "Schneider Electric"
+      ],
+      "checked_at": "2026-10-17",
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

@@ -5,6 +5,27 @@ from collections import defaultdict
 from app.core.device_patterns import DevicePatterns
 
 
+def review_measurement_ranges(devices, texts):
+    warnings=[]
+    for device in devices:
+        if str(device.category).upper() not in {'METER','VOLTMETER','AMMETER'}:continue
+        stated=re.search(r'\d+\s*[-–÷]\s*(\d+(?:[.,]\d+)?)\s*([VA])',str(device.spec or ''),re.I)
+        if not stated:continue
+        anchors=[t for t in texts if str(t.get('text') or '').strip().upper()==str(device.tag or '').strip().upper()]
+        if len(anchors)!=1:continue
+        anchor=anchors[0];radius=max(400,float(anchor.get('height') or 175)*4)
+        local=' '.join(str(t.get('text') or '') for t in texts
+                       if abs(t.get('x',0)-anchor.get('x',0))<radius and abs(t.get('y',0)-anchor.get('y',0))<radius)
+        values=[float(v.replace(',','.')) for v in re.findall(r'(\d+(?:[.,]\d+)?)\s*'+stated[2]+r'\b',local,re.I)]
+        if float(stated[1].replace(',','.')) in values:continue
+        device.source_observations={**(getattr(device,'source_observations',None) or {}),
+            'unverified_measurement_range':{'ai_spec':device.spec,'reason':'No corresponding range in local source labels'}}
+        device.spec='';device.in_a=None
+        device.notes=(device.notes or '')+'; Chưa đọc được dải đo trên nguồn, cần xác minh.'
+        warnings.append('Chưa xác minh dải đo từ nhãn CAD: '+str(device.tag or device.name))
+    return devices,warnings
+
+
 def reconcile_tagged_labels(devices, texts, panel_count=1):
     if panel_count > 1:
         return devices, []

@@ -14,6 +14,9 @@ class CatalogQueryTests(unittest.TestCase):
         self.assertEqual([x['id'] for x in result['items']],['source','generic'])
 
     def test_reordered_unaccented_and_punctuation_variants(self):
+        self.assertTrue(catalog_query_matches('CT1M', 'ABB CT1M-2'))
+        self.assertTrue(catalog_query_matches('CT1M-2', 'ABB CT1M-2'))
+        self.assertFalse(catalog_query_matches('CT1M-2', 'ABB CT1M-20'))
         self.assertTrue(catalog_query_matches('chint bien ap', 'Biến áp điều khiển CHINT'))
         self.assertTrue(catalog_query_matches('NDK25 CHINT', 'CHINT NDK-25'))
         self.assertFalse(catalog_query_matches('NDK-25', 'CHINT NDK-250'))

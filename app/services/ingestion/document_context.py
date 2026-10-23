@@ -142,8 +142,10 @@ class DocumentContextService:
         try:
             if ext == "pdf":
                 text = DocumentContextService._read_pdf(path)
-            elif ext == "dxf":
-                text = DocumentContextService._read_dxf_labels(path)
+            elif ext in {"dxf", "dwg"}:
+                from app.services.ingestion.cad_parser import CadParserService
+                analysis_path = Path(CadParserService.prepare_analysis_path(str(path)))
+                text = DocumentContextService._read_dxf_labels(analysis_path)
             elif ext == "docx":
                 text = DocumentContextService._read_docx(path)
             elif ext in {"xlsx", "xlsm"}:

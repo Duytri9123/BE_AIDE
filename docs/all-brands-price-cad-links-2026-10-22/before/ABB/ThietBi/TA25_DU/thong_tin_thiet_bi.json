@@ -1,0 +1,267 @@
+{
+  "nhom": "ABB",
+  "ten_kieu": "Thermal Relay ABB TA25-DU",
+  "ten_san_pham": "Thermal Relay ABB TA25-DU",
+  "hang_xac_nhan": "ABB",
+  "ma_dong_san_pham": "TA25-DU",
+  "ban_chat": "Thermal Relay",
+  "cong_dung": "rơ le nhiệt",
+  "bo_tri_lap_dat": {
+    "vi_tri_uu_tien": "ben_trong",
+    "vi_tri_phu_hop": [
+      "ben_trong"
+    ],
+    "huong_dan": "Gá ray/tấm lắp hoặc gắn trên thiết bị chủ theo tài liệu mã đầy đủ; kiểm tra chiều sâu, cọc và khoảng đấu dây."
+  },
+  "vi_tri_lap_dat": "Gá ray/tấm lắp hoặc gắn trên thiết bị chủ theo tài liệu mã đầy đủ; kiểm tra chiều sâu, cọc và khoảng đấu dây.",
+  "thong_so": {
+    "so_cuc": null,
+    "dong_dinh_muc_da_chon": null,
+    "dien_ap_da_chon": null,
+    "kha_nang_cat_da_chon": null
+  },
+  "quy_cach_hien_thi": "Chọn thông số điện",
+  "cad_don": [
+    {
+      "id_hinh_goc": "ABB-D03-C2-I07-STATE-TA25-DU",
+      "huong_nhin": "Mặt trước",
+      "nhan_hien_thi": "Mặt trước",
+      "duong_dan": "CadDon/ABB-D03-C2-I07-STATE-TA25-DU/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Chọn đúng mặt và biến thể. Mặt bên thể hiện chiều sâu, không thay cho mặt trước cánh tủ. Xoay CAD không xác nhận tư thế lắp được hãng cho phép."
+      },
+      "bien_the_cad": null,
+      "vai_tro_cad": "device_view"
+    },
+    {
+      "id_hinh_goc": "ABB-D03-C2-I07-STATE-TA25-DU-SIDE",
+      "huong_nhin": "Mặt bên",
+      "nhan_hien_thi": "Mặt bên",
+      "duong_dan": "CadDon/ABB-D03-C2-I07-STATE-TA25-DU-SIDE/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt bên",
+        "cho_phep_chen": true,
+        "huong_dan": "Chọn đúng mặt và biến thể. Mặt bên thể hiện chiều sâu, không thay cho mặt trước cánh tủ. Xoay CAD không xác nhận tư thế lắp được hãng cho phép."
+      },
+      "bien_the_cad": null,
+      "vai_tro_cad": "device_view"
+    }
+  ],
+  "cac_hinh_cad": [
+    "ABB-D03-C2-I07-STATE-TA25-DU",
+    "ABB-D03-C2-I07-STATE-TA25-DU-SIDE"
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "ABB-D03-C2-I07-STATE-TA25-DU",
+    "huong_nhin": "Mặt trước",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "tu_khoa_tim_kiem": [
+    "Thermal Relay ABB TA25-DU",
+    "Thermal Relay",
+    "rơ le nhiệt",
+    "TA25-DU"
+  ],
+  "nguon_tham_khao": [
+    "https://new.abb.com/low-voltage/en-CA/products/motor-protection"
+  ],
+  "tai_lieu_hang": "https://new.abb.com/low-voltage/en-CA/products/motor-protection",
+  "muc_do_xac_nhan": "Mã/dòng trong CAD; tài liệu hãng tham khảo, chưa chọn mã đặt hàng đầy đủ.",
+  "dac_diem": [
+    "Giữ kích thước CAD gốc; không suy thông số điện từ nhãn mẫu.",
+    "Mỗi CAD là một mặt hoặc biến thể; chọn đúng mặt chính theo bố trí.",
+    "Nhãn dòng nguồn: None; không phải dòng đã chọn."
+  ],
+  "lua_chon_ky_thuat": [
+    "Chọn mã đầy đủ, thông số điện, phụ kiện, kiểu gá và mặt CAD trước lắp."
+  ],
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "Thermal_Relay",
+    "hang": "ABB",
+    "cac_ma_dong_san_pham": [
+      "TA25-DU"
+    ],
+    "so_cuc": null,
+    "pham_vi_ma": "source_model_or_family",
+    "tu_dong_chon_theo_vai_tro": true,
+    "ma_dat_hang_da_chon": null,
+    "fabrication_ready": false,
+    "vai_tro": "accessory_or_motor_protection"
+  },
+  "cau_hinh_chon": {
+    "can_chon": [
+      "Mã đầy đủ",
+      "Thông số điện",
+      "Phụ kiện",
+      "Kiểu gá",
+      "Mặt CAD",
+      "Thiết bị chủ tương thích"
+    ],
+    "ma_da_chon": null
+  },
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Nguồn vào",
+      "Ra tải",
+      "Điều khiển/phụ kiện nếu có"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Chọn theo từng cọc, dòng tải, bảo vệ và giới hạn đầu nối mã đầy đủ; không suy từ CAD.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Cần dữ liệu gá và cọc theo mã đầy đủ",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "ABB",
+    "ma_san_pham": "TA25-DU",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [
+      "https://new.abb.com/low-voltage",
+      "https://new.abb.com/products"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khảo - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "Thermal_Relay",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "ABB",
+        "model": "TA25-DU",
+        "specifications": {
+          "Loại thiết bị": "Thermal_Relay",
+          "Lắp đặt tham khảo": "Gá ray/tấm lắp hoặc gắn trên thiết bị chủ theo tài liệu mã đầy đủ; kiểm tra chiều sâu, cọc và khoảng đấu dây.",
+          "Hình chiếu Mặt trước (ngang × cao, mm)": "44.0 × 62.0",
+          "Hình chiếu Mặt bên (ngang × cao, mm)": "94.0 × 80.0"
+        },
+        "source_url": "https://new.abb.com/low-voltage/en-CA/products/motor-protection",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      },
+      {
+        "brand": "ABB",
+        "model": "TF42-3.1 / 1SAZ721201R1033",
+        "specifications": {
+          "Tên hàng": "Rơ le nhiệt bảo vệ quá tải động cơ",
+          "Dải chỉnh mẫu": "2.30–3.10 A",
+          "Dòng sản phẩm": "TF42; chọn dải theo dòng động cơ"
+        },
+        "source_url": "https://empower.abb.com/ecatalog/ec/EN_CA/p/1SAZ721201R1033",
+        "basis": "manufacturer_web_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "ABB",
+        "model": "1SAZ211201R2005",
+        "specifications": {
+          "Mã đặt hàng": "1SAZ211201R2005",
+          "Họ thiết bị": "TA25DU",
+          "Dải chỉnh định (A)": "0.10–0.16"
+        },
+        "source_url": "https://library.e.abb.com/public/8fa0d161aec14871ae110caa57108c49/9AKK108472A7059_vi_B_EL%20Vietnam%20Master%20price%20list%202026%20%28VIE%29.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MT-12 (1)",
+        "specifications": {
+          "In (A)": "0.63~18A"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Mitsubishi Electric",
+        "model": "THA00-397",
+        "specifications": {
+          "Mã đặt hàng": "THA00-397",
+          "In (A)": "42"
+        },
+        "source_url": "https://www.saigonelectric.vn/images/prices/Mitsubishi_Summary_LVS_06.2026.2.xlsx",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      }
+    ],
+    "observed_specifications": {
+      "Loại thiết bị": "Thermal_Relay",
+      "Lắp đặt tham khảo": "Gá ray/tấm lắp hoặc gắn trên thiết bị chủ theo tài liệu mã đầy đủ; kiểm tra chiều sâu, cọc và khoảng đấu dây.",
+      "Hình chiếu Mặt trước (ngang × cao, mm)": "44.0 × 62.0",
+      "Hình chiếu Mặt bên (ngang × cao, mm)": "94.0 × 80.0"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "source_geometry_without_model_label",
+      "source_model": "TA25-DU",
+      "matched_catalog_rows": 0,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Tra catalog đúng hãng/dòng; các mã cùng loại hiện có chỉ là tham khảo",
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "source_geometry_without_model_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [],
+      "documented_models": [],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

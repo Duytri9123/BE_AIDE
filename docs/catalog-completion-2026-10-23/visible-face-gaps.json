@@ -1,0 +1,5331 @@
+{
+  "scope": "Current visible profile direction roles, not per-ordering-code certification. Repeated FRONT states are one role; unqualified SIDE does not prove left/right. Different configurations still require separate pairing review.",
+  "counts": {
+    "ABB": {
+      "profiles": 96,
+      "single_drawing_profiles": 2,
+      "profiles_with_six_direction_roles": 4,
+      "profiles_with_missing_direction_roles": 92
+    },
+    "EMIC": {
+      "profiles": 16,
+      "single_drawing_profiles": 12,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 16
+    },
+    "LightStar": {
+      "profiles": 19,
+      "single_drawing_profiles": 14,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 19
+    },
+    "LS Electric": {
+      "profiles": 231,
+      "single_drawing_profiles": 23,
+      "profiles_with_six_direction_roles": 117,
+      "profiles_with_missing_direction_roles": 114
+    },
+    "Mikro": {
+      "profiles": 14,
+      "single_drawing_profiles": 10,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 14
+    },
+    "MITEX": {
+      "profiles": 1,
+      "single_drawing_profiles": 0,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 1
+    },
+    "Morele": {
+      "profiles": 14,
+      "single_drawing_profiles": 8,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 14
+    },
+    "KDE": {
+      "profiles": 1,
+      "single_drawing_profiles": 0,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 1
+    },
+    "Master Electric": {
+      "profiles": 4,
+      "single_drawing_profiles": 0,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 4
+    },
+    "Andeli": {
+      "profiles": 2,
+      "single_drawing_profiles": 2,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 2
+    },
+    "OSEMCO": {
+      "profiles": 1,
+      "single_drawing_profiles": 1,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 1
+    },
+    "CHINT": {
+      "profiles": 29,
+      "single_drawing_profiles": 14,
+      "profiles_with_six_direction_roles": 7,
+      "profiles_with_missing_direction_roles": 22
+    },
+    "Selec": {
+      "profiles": 2,
+      "single_drawing_profiles": 2,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 2
+    },
+    "Schneider Electric": {
+      "profiles": 152,
+      "single_drawing_profiles": 99,
+      "profiles_with_six_direction_roles": 3,
+      "profiles_with_missing_direction_roles": 149
+    },
+    "Deep Sea Electronics": {
+      "profiles": 1,
+      "single_drawing_profiles": 1,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 1
+    },
+    "ROBOT": {
+      "profiles": 2,
+      "single_drawing_profiles": 2,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 2
+    },
+    "Suntree": {
+      "profiles": 1,
+      "single_drawing_profiles": 1,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 1
+    },
+    "Hanyoung Nux": {
+      "profiles": 13,
+      "single_drawing_profiles": 13,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 13
+    },
+    "Phoenix Contact": {
+      "profiles": 4,
+      "single_drawing_profiles": 4,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 4
+    },
+    "RISESUN": {
+      "profiles": 2,
+      "single_drawing_profiles": 2,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 2
+    },
+    "Siemens": {
+      "profiles": 4,
+      "single_drawing_profiles": 4,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 4
+    },
+    "INVT": {
+      "profiles": 10,
+      "single_drawing_profiles": 0,
+      "profiles_with_six_direction_roles": 10
+    },
+    "Mitsubishi Electric": {
+      "profiles": 263,
+      "single_drawing_profiles": 0,
+      "profiles_with_six_direction_roles": 230,
+      "profiles_with_missing_direction_roles": 33
+    },
+    "Omron": {
+      "profiles": 2,
+      "single_drawing_profiles": 2,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 2
+    },
+    "O-Sung / OSEMCO": {
+      "profiles": 1,
+      "single_drawing_profiles": 0,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 1
+    },
+    "Leipole": {
+      "profiles": 20,
+      "single_drawing_profiles": 17,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 20
+    },
+    "Schneider Electric (dòng RM6; cần đối chiếu cấu hình CAD)": {
+      "profiles": 2,
+      "single_drawing_profiles": 0,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 2
+    },
+    "Shihlin": {
+      "profiles": 27,
+      "single_drawing_profiles": 3,
+      "profiles_with_six_direction_roles": 11,
+      "profiles_with_missing_direction_roles": 16
+    },
+    "Elster": {
+      "profiles": 1,
+      "single_drawing_profiles": 1,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 1
+    },
+    "Omega": {
+      "profiles": 1,
+      "single_drawing_profiles": 1,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 1
+    },
+    "Generic": {
+      "profiles": 17,
+      "single_drawing_profiles": 16,
+      "profiles_with_six_direction_roles": 0,
+      "profiles_with_missing_direction_roles": 17
+    }
+  },
+  "gaps": [
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-88adac8683ca9439",
+      "model": "A1",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-6ba0e4b2ef7978f0",
+      "model": "A1",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-fe43fa36f3f0dea4",
+      "model": "A1",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-39135c513b26a641",
+      "model": "A1",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-850462274ab05d3a",
+      "model": "A2",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-434036040987b4d5",
+      "model": "A2",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-395d8009d8b1bb07",
+      "model": "A2",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-7142405d124fd5ed",
+      "model": "A2",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-4839fc74fcbac612",
+      "model": "A3",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-b83f2c1017297d3f",
+      "model": "A3",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-5d97d4b4c526d493",
+      "model": "AX115-30-11",
+      "type": "Contactor",
+      "drawing_count": 3,
+      "available_faces": "front | rear",
+      "missing_faces": "left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-64f68e1e3bbdc50d",
+      "model": "AX12-30-10",
+      "type": "Contactor",
+      "drawing_count": 3,
+      "available_faces": "front | rear",
+      "missing_faces": "left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-3729fa50e0daa020",
+      "model": "AX150-30-11",
+      "type": "Contactor",
+      "drawing_count": 3,
+      "available_faces": "front | rear",
+      "missing_faces": "left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-87cb8052abb79111",
+      "model": "AX18-30-10",
+      "type": "Contactor",
+      "drawing_count": 3,
+      "available_faces": "front | rear",
+      "missing_faces": "left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-bcf195543c176a8b",
+      "model": "AX25-30-10",
+      "type": "Contactor",
+      "drawing_count": 3,
+      "available_faces": "front | rear",
+      "missing_faces": "left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-36e3b831c88e2013",
+      "model": "AX32-30-10",
+      "type": "Contactor",
+      "drawing_count": 3,
+      "available_faces": "front | rear",
+      "missing_faces": "left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-5afd6852b015a8b0",
+      "model": "AX40-30-10",
+      "type": "Contactor",
+      "drawing_count": 3,
+      "available_faces": "front | rear",
+      "missing_faces": "left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-bd43f6a8c3e47cd5",
+      "model": "AX50-30-11",
+      "type": "Contactor",
+      "drawing_count": 3,
+      "available_faces": "front | rear",
+      "missing_faces": "left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-42b069224db9f77b",
+      "model": "AX65-30-11",
+      "type": "Contactor",
+      "drawing_count": 3,
+      "available_faces": "front | rear",
+      "missing_faces": "left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-ec73c4b7426b510e",
+      "model": "AX80-30-11",
+      "type": "Contactor",
+      "drawing_count": 3,
+      "available_faces": "front | rear",
+      "missing_faces": "left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-55a337cbba8c0c79",
+      "model": "AX95-30-11",
+      "type": "Contactor",
+      "drawing_count": 3,
+      "available_faces": "front | rear",
+      "missing_faces": "left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-db1a06b7ec1ad3df",
+      "model": "AX9-30-10",
+      "type": "Contactor",
+      "drawing_count": 3,
+      "available_faces": "front | rear",
+      "missing_faces": "left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-d3bfd2be3e7d14bc",
+      "model": "CAL5-11",
+      "type": "Aux_Contact",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-f6a1beab59022e94",
+      "model": "DS201L",
+      "type": "RCBO",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-ab8adb16123a5546",
+      "model": "FH202",
+      "type": "RCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-8f879e32ac14a090",
+      "model": "FH204",
+      "type": "RCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-65df350364556e3f",
+      "model": "OVR T1 25 255",
+      "type": "SPD",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-d905ef5baf1acadc",
+      "model": "OVR T1 25 440-50",
+      "type": "SPD",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-9e2ad074e5937be7",
+      "model": "OVR T1 2L 25 255",
+      "type": "SPD",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-4ec6f71325930a03",
+      "model": "OVR T1 2L 25 255 TS",
+      "type": "SPD",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-c362c2d62cce5a66",
+      "model": "OVR T1 3L 25 255",
+      "type": "SPD",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-bf1ac0cbbe34c561",
+      "model": "OVR T1 3L 25 255 TS",
+      "type": "SPD",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-0e9859ea23aae939",
+      "model": "OVR T1 3N 25 255",
+      "type": "SPD",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-17efaec6538b6d4f",
+      "model": "OVR T1 3N 25 255 TS",
+      "type": "SPD",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-b3b09fdeca916e6a",
+      "model": "OVR T1 4L 25 255",
+      "type": "SPD",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-da337a3825751db7",
+      "model": "OVR T1 4L 25 255 TS",
+      "type": "SPD",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-236d909f2f67a025",
+      "model": "S200",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-0b071ff209adbd4b",
+      "model": "S200",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-9761da3c42ffbc76",
+      "model": "S200",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-9422ba4ab55034ac",
+      "model": "S200",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-81b0841c4876ea33",
+      "model": "S280UC-K",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-4bd24d6640d2ce0c",
+      "model": "S280UC-K",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-042c2febc0ed5e4f",
+      "model": "S280UC-K",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-310aacfafb87c253",
+      "model": "S280UC-K",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-ba1b107a7833f2d3",
+      "model": "SH200",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-40e96de6732be2d6",
+      "model": "SH200",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-3f2f7975d84924f1",
+      "model": "SH200",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-998a9390d7ee7259",
+      "model": "SH200",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-31988799a2423949",
+      "model": "T1",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-06a5b5b32049d6e2",
+      "model": "T1",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-d157f39c3bb6aae9",
+      "model": "T2",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-10f4ef9fe052641b",
+      "model": "T2",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-b2c9d79faee3c2fd",
+      "model": "T3",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-49e504a81c585e57",
+      "model": "T3",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-aaf3c86b63b70879",
+      "model": "T4",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-b2adae6ba6110d68",
+      "model": "T4",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-8fac11ff07aa165b",
+      "model": "T5",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-438dd2568da9b4bc",
+      "model": "T5",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-3babf8943e5a8d61",
+      "model": "T6",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-fe7d1a41c6ab3190",
+      "model": "T6",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-6cb3d277418c814e",
+      "model": "T7",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-cfd7525aba9e6e73",
+      "model": "T7",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-2ef9ab21c124e275",
+      "model": "T7M",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-b7b8ee1df6f6f13b",
+      "model": "T7M",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-d8d55975480de411",
+      "model": "TA25-DU",
+      "type": "Thermal_Relay",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-f521f70c2c145765",
+      "model": "TA42-DU",
+      "type": "Thermal_Relay",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-26fc91db1e30aeb2",
+      "model": "TA75-DU",
+      "type": "Thermal_Relay",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-be84f0d2cc4c99dc",
+      "model": "TA80-DU",
+      "type": "Thermal_Relay",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-dfb0d04434e0dce5",
+      "model": "VE5-1",
+      "type": "Interlock",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-86824ea210f427c7",
+      "model": "VE5-2",
+      "type": "Interlock",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-e99e037800d505a5",
+      "model": "XT1",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-7c82e425cbabfa75",
+      "model": "XT1",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-21ea7f0e831de8d7",
+      "model": "XT2",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-23bfc1d4c3d92835",
+      "model": "XT2",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-a3b217c01c3d5995",
+      "model": "XT3",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-9f731f5936fb2699",
+      "model": "XT3",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-4d6744551b590b73",
+      "model": "XT4",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-3b0a67f29691c91f",
+      "model": "XT4",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-5f0139f46c42b357",
+      "model": "CT-MAX",
+      "type": "CT",
+      "drawing_count": 6,
+      "available_faces": "bottom | left | right | top",
+      "missing_faces": "front | rear"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-46c51ebff8428c0d",
+      "model": "CT-PRO-XT",
+      "type": "CT",
+      "drawing_count": 6,
+      "available_faces": "bottom | left | right | top",
+      "missing_faces": "front | rear"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-aac9ad33c494c4a0",
+      "model": "CT1M-10",
+      "type": "CT",
+      "drawing_count": 4,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-cc39ed03e0cb2500",
+      "model": "CT1M-12",
+      "type": "CT",
+      "drawing_count": 4,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-86698d3ba26e5d67",
+      "model": "CT1M-2",
+      "type": "CT",
+      "drawing_count": 4,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-dee15b79b053638e",
+      "model": "CT1M-3",
+      "type": "CT",
+      "drawing_count": 4,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-44fa862645a0f0ea",
+      "model": "CT1M-4",
+      "type": "CT",
+      "drawing_count": 4,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-10555585694b8ee9",
+      "model": "CT1M-5",
+      "type": "CT",
+      "drawing_count": 4,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-c11db8965be3f2cc",
+      "model": "CT1M-6",
+      "type": "CT",
+      "drawing_count": 4,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-3dc2ccdd9c624517",
+      "model": "CT1M-7",
+      "type": "CT",
+      "drawing_count": 4,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-36301f222d45c419",
+      "model": "CT1M-8",
+      "type": "CT",
+      "drawing_count": 4,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-07ecf75eb8bd34ae",
+      "model": "CT1M-S-120",
+      "type": "CT",
+      "drawing_count": 4,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-39b3a6d47161e55d",
+      "model": "CT1M-S-30",
+      "type": "CT",
+      "drawing_count": 4,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "ABB",
+      "catalog_id": "TB-4b27ead70e86656e",
+      "model": "CT1M-S-80",
+      "type": "CT",
+      "drawing_count": 4,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "EMIC",
+      "catalog_id": "TB-cf19862a7d242bfc",
+      "model": "EM4H03",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "EMIC",
+      "catalog_id": "TB-8b2fb39a8e92d8f4",
+      "model": "EM4H04",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "EMIC",
+      "catalog_id": "TB-21d8b11821aec94e",
+      "model": "EM4H05",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "EMIC",
+      "catalog_id": "TB-8095867d785be548",
+      "model": "EM4H06",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "EMIC",
+      "catalog_id": "TB-c488ab80d5f37554",
+      "model": "EM4H07",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LightStar",
+      "catalog_id": "TB-6897fb079a3eb97f",
+      "model": "KBD-13",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LightStar",
+      "catalog_id": "TB-d4b8560781bd5cdd",
+      "model": "KBD-23",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LightStar",
+      "catalog_id": "TB-0cf821d0dc14fa4c",
+      "model": "KBD-43",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LightStar",
+      "catalog_id": "TB-096669450483f99c",
+      "model": "KBF-03",
+      "type": "CT",
+      "drawing_count": 2,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LightStar",
+      "catalog_id": "TB-e6005bc093322dd0",
+      "model": "KBF-13",
+      "type": "CT",
+      "drawing_count": 2,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "LightStar",
+      "catalog_id": "TB-8babbb12486ad4be",
+      "model": "KBF-23",
+      "type": "CT",
+      "drawing_count": 2,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "LightStar",
+      "catalog_id": "TB-33ee25222f3e857a",
+      "model": "KBF-43",
+      "type": "CT",
+      "drawing_count": 2,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "LightStar",
+      "catalog_id": "TB-fd5915df7a365444",
+      "model": "KBF-63",
+      "type": "CT",
+      "drawing_count": 2,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-2f23e66ab8ae3deb",
+      "model": "LZR-030-050-065-V",
+      "type": "ZCT",
+      "drawing_count": 3,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-0defc3e9a9afa8be",
+      "model": "LZR-080-V",
+      "type": "ZCT",
+      "drawing_count": 3,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-45d13ff0a2f76320",
+      "model": "LZT-030",
+      "type": "ZCT",
+      "drawing_count": 3,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-665339c79932863e",
+      "model": "LZT-050-065-080",
+      "type": "ZCT",
+      "drawing_count": 3,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mikro",
+      "catalog_id": "TB-d995f737bf9f28b6",
+      "model": "ZCT120",
+      "type": "CT",
+      "drawing_count": 2,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mikro",
+      "catalog_id": "TB-f73e5399c08c1961",
+      "model": "ZCT40S",
+      "type": "CT",
+      "drawing_count": 4,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "Mikro",
+      "catalog_id": "TB-c2e3bb867ab98eac",
+      "model": "ZCT80S",
+      "type": "CT",
+      "drawing_count": 2,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "MITEX",
+      "catalog_id": "TB-1eaa9fd733e664be",
+      "model": "BD01",
+      "type": "CT",
+      "drawing_count": 2,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Morele",
+      "catalog_id": "TB-098e45ffd50663e3",
+      "model": "MSQ-125",
+      "type": "CT",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Morele",
+      "catalog_id": "TB-f19aae4d9e26208c",
+      "model": "MSQ-30",
+      "type": "CT",
+      "drawing_count": 6,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "Morele",
+      "catalog_id": "TB-d5acf7f6ec42b2d2",
+      "model": "MSQ-100",
+      "type": "CT",
+      "drawing_count": 3,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "Morele",
+      "catalog_id": "TB-491281dba4b34de2",
+      "model": "MSQ-30",
+      "type": "CT",
+      "drawing_count": 2,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Morele",
+      "catalog_id": "TB-75603fab5dd96398",
+      "model": "MSQ-40",
+      "type": "CT",
+      "drawing_count": 2,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Morele",
+      "catalog_id": "TB-38ffa2dad97bbdba",
+      "model": "MSQ-60",
+      "type": "CT",
+      "drawing_count": 3,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "KDE",
+      "catalog_id": "TB-8192478908c2aa69",
+      "model": "RCT-58",
+      "type": "CT",
+      "drawing_count": 3,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "Master Electric",
+      "catalog_id": "TB-a37cb0d851511891",
+      "model": "RCT110",
+      "type": "CT",
+      "drawing_count": 2,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "Master Electric",
+      "catalog_id": "TB-269133918d00ee9b",
+      "model": "RCT35",
+      "type": "CT",
+      "drawing_count": 3,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "Master Electric",
+      "catalog_id": "TB-f3bceac24829a18e",
+      "model": "RCT60",
+      "type": "CT",
+      "drawing_count": 3,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "Master Electric",
+      "catalog_id": "TB-514066881c92d2e7",
+      "model": "RCT90",
+      "type": "CT",
+      "drawing_count": 2,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "Morele",
+      "catalog_id": "TB-59aaaa61e7d8fc41",
+      "model": "MSQ-40",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mikro",
+      "catalog_id": "TB-7b0ade9bada30d0f",
+      "model": "ZCT 40S",
+      "type": "ASSEMBLY_REFERENCE",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LightStar",
+      "catalog_id": "TB-0b1d53ba90cafbcf",
+      "model": "KBF-63",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LightStar",
+      "catalog_id": "TB-59233be02d50b56c",
+      "model": "KBF-63",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LightStar",
+      "catalog_id": "TB-ebf964ffe432a98c",
+      "model": "KBF-23",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LightStar",
+      "catalog_id": "TB-e6426214ca61a9ea",
+      "model": "KBF-03",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mikro",
+      "catalog_id": "TB-c72a5cf9faa81e61",
+      "model": "ZCT 80S",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mikro",
+      "catalog_id": "TB-8aebd979cf3c7f8a",
+      "model": "ZCT 40S",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LightStar",
+      "catalog_id": "TB-e7b88600a9df5e1a",
+      "model": "KBF-03",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Morele",
+      "catalog_id": "TB-486bfcc891bbb314",
+      "model": "MSQ-30",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LightStar",
+      "catalog_id": "TB-05a3da39680944a6",
+      "model": "KBF-23",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LightStar",
+      "catalog_id": "TB-99ace90d8b3ca735",
+      "model": "KBF-43",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mikro",
+      "catalog_id": "TB-1036a1edd852539d",
+      "model": "ZCT 80S",
+      "type": "ASSEMBLY_REFERENCE",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Andeli",
+      "catalog_id": "TB-f1e2bee08173f7d1",
+      "model": "MSQ-30 / MSQ-40 / MSQ-60 / MSQ-100 / RCT 35 / RCT 60 / RCT 90 / RCT 110",
+      "type": "ASSEMBLY_REFERENCE",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "EMIC",
+      "catalog_id": "TB-79b2ed4371132b6f",
+      "model": "EM4H05 / EM4H04 / EM4H03 / EM4H06 / EM4H07",
+      "type": "ASSEMBLY_REFERENCE",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Morele",
+      "catalog_id": "TB-db01057563e3f2be",
+      "model": "MSQ-30",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Morele",
+      "catalog_id": "TB-5455de532faa667e",
+      "model": "MSQ 30 / MSQ-30 / MSQ 40 / MSQ 60 / MSQ 100 / MSQ 125 / MSQ-40 / MSQ-60",
+      "type": "ASSEMBLY_REFERENCE",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LightStar",
+      "catalog_id": "TB-a585e428f22fbb89",
+      "model": "KBD-13",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Morele",
+      "catalog_id": "TB-6f542b6b99620278",
+      "model": "MSQ-40",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mikro",
+      "catalog_id": "TB-478841f000e8925d",
+      "model": "ZCT 40S / ZCT 80S",
+      "type": "ASSEMBLY_REFERENCE",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Morele",
+      "catalog_id": "TB-530b835fc283d67d",
+      "model": "MSQ-125 / MSQ-30 / KDE 800 / KDE 300 / KDE 400 / KDE 1200",
+      "type": "ASSEMBLY_REFERENCE",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mikro",
+      "catalog_id": "TB-87d81261e7206a22",
+      "model": "ZCT 80S",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LightStar",
+      "catalog_id": "TB-9424002125bfe580",
+      "model": "KBF-13",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mikro",
+      "catalog_id": "TB-4d18bc4549940dfc",
+      "model": "zct120 / ZCT-D40",
+      "type": "ASSEMBLY_REFERENCE",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LightStar",
+      "catalog_id": "TB-e991bc7aa56c92f3",
+      "model": "KBF-13",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LightStar",
+      "catalog_id": "TB-130a377b354a990b",
+      "model": "KBF-43",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Morele",
+      "catalog_id": "TB-2a280c8ef08c92fa",
+      "model": "MSQ-60",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mikro",
+      "catalog_id": "TB-801e690fe1f958e3",
+      "model": "ZCT 40S",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "EMIC",
+      "catalog_id": "TB-fdbbbbb1b5e11a46",
+      "model": "zct120 / MSQ-125 / MSQ 30 / MSQ-30 / MSQ 40 / MSQ 60 / MSQ 100 / MSQ 125 / EM4H05 / EM4H04 / EM4H03 / EM4H06 / EM4H07",
+      "type": "ASSEMBLY_REFERENCE",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Morele",
+      "catalog_id": "TB-cd423b7b98bf5877",
+      "model": "MSQ-125",
+      "type": "CT",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Andeli",
+      "catalog_id": "TB-08a9ba277902109e",
+      "model": "MSQ-30 / MSQ-40 / MSQ-60 / MSQ-100 / RCT 35 / RCT 60 / RCT 90 / RCT 110",
+      "type": "ASSEMBLY_REFERENCE",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "OSEMCO",
+      "catalog_id": "TB-2cc9ba3420f74b4e",
+      "model": "ACD-III",
+      "type": "ATS_CONTROLLER",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mikro",
+      "catalog_id": "TB-c02623ff6b0d78b7",
+      "model": "DIN310",
+      "type": "EARTH_LEAKAGE_RELAY",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "TB-489e1696d1c01dd8",
+      "model": "XJ3-G",
+      "type": "PHASERELAY",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mikro",
+      "catalog_id": "TB-e178aa3c9dd67cc7",
+      "model": "DIN300",
+      "type": "EARTHLEAKAGERELAY",
+      "drawing_count": 2,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mikro",
+      "catalog_id": "TB-c8e96f985b637563",
+      "model": "MX100",
+      "type": "Rơ le bảo vệ pha",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Selec",
+      "catalog_id": "TB-df6642c0e15a7c33",
+      "model": "600PSR",
+      "type": "PHASERELAY",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-de4306f8b83b75df",
+      "model": "ATV320D11N4B",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Deep Sea Electronics",
+      "catalog_id": "TB-9d53f121b6725d5e",
+      "model": "DSE8610",
+      "type": "GENERATOR_CONTROLLER",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ROBOT",
+      "catalog_id": "TB-0679d39feb15577a",
+      "model": "AP15",
+      "type": "VOLTAGE_STABILIZER",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "ROBOT",
+      "catalog_id": "TB-7d563103819b0e05",
+      "model": "AP15",
+      "type": "VOLTAGE_STABILIZER",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "TB-5caff3de22bda4ef",
+      "model": "NP2",
+      "type": "Indicator",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "TB-e3719a5d6bde114f",
+      "model": "NP2",
+      "type": "Pushbutton",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "TB-02a57f421f88aa21",
+      "model": "NP2",
+      "type": "Pushbutton",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "TB-9ae0c2b23bf4de77",
+      "model": "NP2",
+      "type": "Selector",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "TB-1480d482583b2003",
+      "model": "RJ25-CL",
+      "type": "Relay",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "TB-23fd57135f41bb9f",
+      "model": "RT36-00",
+      "type": "FuseAssembly",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "TB-e62130601b4d5568",
+      "model": "NZ7-125",
+      "type": "ATS",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "TB-e1b1231f6ae8fd19",
+      "model": "NXB-63",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "TB-1300f9bd47ebfd6f",
+      "model": "NXB-63",
+      "type": "MCB",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "TB-997f2440e6109dc2",
+      "model": "NXM-1600S",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "TB-d1bbcfffa8445d84",
+      "model": "NXB-63",
+      "type": "MCB",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "TB-ca3b557c85ccd8c2",
+      "model": "XJ3-G",
+      "type": "PhaseRelay",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Suntree",
+      "catalog_id": "TB-f67c2315fe687372",
+      "model": "SUP1-40",
+      "type": "SPD",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Hanyoung Nux",
+      "catalog_id": "TB-f8a905820bfa0357",
+      "model": "HYT-203",
+      "type": "TERMINAL_BLOCK",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Hanyoung Nux",
+      "catalog_id": "TB-93b12a9ae3cd936e",
+      "model": "HYT-204",
+      "type": "TERMINAL_BLOCK",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Hanyoung Nux",
+      "catalog_id": "TB-b03ef3879361b10c",
+      "model": "HYT30",
+      "type": "TERMINAL_BLOCK",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Hanyoung Nux",
+      "catalog_id": "TB-1ee4a745f4af5d4b",
+      "model": "HYT304",
+      "type": "TERMINAL_BLOCK",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Hanyoung Nux",
+      "catalog_id": "TB-9c00f795165a4855",
+      "model": "HYBT35A",
+      "type": "TERMINAL_BLOCK",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Hanyoung Nux",
+      "catalog_id": "TB-b57f658abb3b9020",
+      "model": "HYT-603 / HYT-604 / HYT-1003 / HYT-1004 / HYT-1503 / HYT-1504 / HYT-2003 / HYT-2004 / HYT-3003 / HYT-3004 / HYT-4003 / HYT-4004 / HYT-5003 / HYT-5004 / HYT-203 / HYT-204 / HYT-303 / HYT-304",
+      "type": "ASSEMBLY_REFERENCE",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Hanyoung Nux",
+      "catalog_id": "TB-3140f13e10c61426",
+      "model": "HYT-203",
+      "type": "TERMINAL_BLOCK",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Hanyoung Nux",
+      "catalog_id": "TB-c0948e7e919d6076",
+      "model": "HYT304",
+      "type": "TERMINAL_BLOCK",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Hanyoung Nux",
+      "catalog_id": "TB-e97cfbe1fe1e38c9",
+      "model": "HYT-1010 / HYT-20 / HYT-30",
+      "type": "ASSEMBLY_REFERENCE",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Hanyoung Nux",
+      "catalog_id": "TB-37a34c35a12559b2",
+      "model": "HYBT25A",
+      "type": "TERMINAL_BLOCK",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Phoenix Contact",
+      "catalog_id": "TB-c830b49924394040",
+      "model": "UK3N",
+      "type": "TERMINAL_BLOCK",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Phoenix Contact",
+      "catalog_id": "TB-ee0cb10ee8234760",
+      "model": "UK3N",
+      "type": "TERMINAL_BLOCK",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Hanyoung Nux",
+      "catalog_id": "TB-f20818fdea2b2bf9",
+      "model": "HYT30",
+      "type": "TERMINAL_BLOCK",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Hanyoung Nux",
+      "catalog_id": "TB-04d712b564bfec80",
+      "model": "HYT-204",
+      "type": "TERMINAL_BLOCK",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Hanyoung Nux",
+      "catalog_id": "TB-354d47d8aea1aa1c",
+      "model": "HYT-1010 / HYT-20 / HYT-30 / HYT-603 / HYT-604 / HYT-1003 / HYT-1004 / HYT-1503 / HYT-1504 / HYT-2003 / HYT-2004 / HYT-3003 / HYT-3004 / HYT-4003 / HYT-4004 / HYT-5003 / HYT-5004 / HYT-203 / HYT-204 / HYT-303 / HYT-304 / CTS25 / CTS6 / CTS4",
+      "type": "ASSEMBLY_REFERENCE",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Phoenix Contact",
+      "catalog_id": "TB-bc09b9b2e4fba665",
+      "model": "UK3N",
+      "type": "TERMINAL_BLOCK",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Phoenix Contact",
+      "catalog_id": "TB-6e67381fcc2dafd5",
+      "model": "UK3N",
+      "type": "TERMINAL_BLOCK",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-7d42ad303e185254",
+      "model": "MC-130a / MC-150a",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-a730ab797f9b1aa0",
+      "model": "MC-32a / MC-40a",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-b9bdf0f7f424f0ac",
+      "model": "MC-50a / MC-65a",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-9800a5c06c6da4ed",
+      "model": "MC-6a / 9a / 12a / 18a",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-b002664c5f729526",
+      "model": "MC-6a/4 / 9a/4 / 12a/4 / 18a/4",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-4d77898229d54451",
+      "model": "MC-75a / 85a / 100a",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "RISESUN",
+      "catalog_id": "TB-d21323ca4cb50cb0",
+      "model": "RT18-32",
+      "type": "FUSE_HOLDER",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Siemens",
+      "catalog_id": "TB-f8bf3d1326c8d03f",
+      "model": "S7-1200",
+      "type": "PLC",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "TB-f8e6f7e11d865754",
+      "model": "NP2",
+      "type": "PUSHBUTTON",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Siemens",
+      "catalog_id": "TB-a30934926f8aaedc",
+      "model": "S7-1200",
+      "type": "PLC",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "TB-dcde1880e921f20c",
+      "model": "NP2",
+      "type": "PUSHBUTTON",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Siemens",
+      "catalog_id": "TB-6c73649872984c4d",
+      "model": "S7-1200",
+      "type": "PLC",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "TB-a24212d1d6c9e438",
+      "model": "RT36-00",
+      "type": "FUSE",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "TB-e87c9d2681a60b91",
+      "model": "NP2",
+      "type": "PUSHBUTTON",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "TB-a959ebf4ad6828e6",
+      "model": "NP2",
+      "type": "PUSHBUTTON",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Siemens",
+      "catalog_id": "TB-bd5f04a2dbd4e91d",
+      "model": "S7-1200",
+      "type": "PLC",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-1016c994d02a6dc3",
+      "model": "32KGRc",
+      "type": "RCBO",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-27b7e29c45c758e2",
+      "model": "BKD",
+      "type": "Isolator",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-b16ce0d68da4dc63",
+      "model": "BKD",
+      "type": "Isolator",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-f21cadf4596b45de",
+      "model": "BKD",
+      "type": "Isolator",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-314d7f80ed188be8",
+      "model": "BKD",
+      "type": "Isolator",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-5e0eed40ff7c3a7f",
+      "model": "BKH",
+      "type": "MCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-4c8655eb6403cc02",
+      "model": "BKH",
+      "type": "MCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-802253a106716e3a",
+      "model": "BKH",
+      "type": "MCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-ba149bec39b3eded",
+      "model": "BKH",
+      "type": "MCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-cc15557431671b6b",
+      "model": "BKN",
+      "type": "MCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-e9b720d030ab3a96",
+      "model": "BKN",
+      "type": "MCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-d815793af06a4faa",
+      "model": "BKN",
+      "type": "MCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-682d93083797968e",
+      "model": "BKN",
+      "type": "MCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-92ec86e9648fc92f",
+      "model": "BKP",
+      "type": "MCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-dbde2a18c2811f3d",
+      "model": "BS32c",
+      "type": "RCBO",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-74854c116c868bc4",
+      "model": "MC-35 / MC-40 / MC-50 / MC-63",
+      "type": "Contactor",
+      "drawing_count": 6,
+      "available_faces": "front | rear",
+      "missing_faces": "left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-2a19dfb6388b96e1",
+      "model": "MC-9 / MC-12 / MC-18 / MC-25 / MC-32",
+      "type": "Contactor",
+      "drawing_count": 7,
+      "available_faces": "front | rear",
+      "missing_faces": "left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-5ec2026af3f0e376",
+      "model": "MC-95 / MC-65 / MC-75 / MC-85",
+      "type": "Contactor",
+      "drawing_count": 6,
+      "available_faces": "front | rear",
+      "missing_faces": "left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-0dd61db11f752c07",
+      "model": "MC-9a / MC-12a",
+      "type": "Contactor",
+      "drawing_count": 4,
+      "available_faces": "front | rear",
+      "missing_faces": "left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-8baedece22e56af7",
+      "model": "ABN 100",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-c86024fa6a4b9444",
+      "model": "ABN 100",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-9f5b30aa9cecafed",
+      "model": "ABN 100",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-8ab30137a81e30c2",
+      "model": "ABH 125",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-248825f045da2b2c",
+      "model": "ABH 125",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-f14368d4ea8dd2fb",
+      "model": "ABH 125",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-ff73de072c77bbeb",
+      "model": "ABN / ABH / ABS 250",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-8dad1c013a3a2c21",
+      "model": "ABN / ABH / ABS 250",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-f0a8b50fad39c172",
+      "model": "ABN / ABH / ABS 250",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-0359aa12dca2c8ca",
+      "model": "ABN 400",
+      "type": "MCCB",
+      "drawing_count": 5,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-cd24b29934ac7384",
+      "model": "ABN 400",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-cd815f27746ff783",
+      "model": "ABN 400",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-ec1888cadf12b500",
+      "model": "ABN 800",
+      "type": "MCCB",
+      "drawing_count": 5,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-ab2f8bcbddd51207",
+      "model": "ABN 800",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-49289fa34fcd3ef7",
+      "model": "ABN 800",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-9c123a5a46346283",
+      "model": "EBS 1000",
+      "type": "ELCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-0954e0366326316d",
+      "model": "ABS 1000",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-f8ebfa0d69ea2002",
+      "model": "ABS 1000",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-242d430b870da20d",
+      "model": "MT-32",
+      "type": "Thermal Relay",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-80971e9e25ba4985",
+      "model": "MT-63",
+      "type": "Thermal Relay",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-434dfab3372ca129",
+      "model": "AN-06D3 / AN-08D3 / AN-10D3 / AN-13D3 / AN-16D3",
+      "type": "ACB",
+      "drawing_count": 3,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-8fee76c1c28e32fb",
+      "model": "AN-06D4 / AN-08D4 / AN-10D4 / AN-13D4 / AN-16D4",
+      "type": "ACB",
+      "drawing_count": 3,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-c76766d54762b571",
+      "model": "AS-20E3 / AS-25E3 / AS-32E3",
+      "type": "ACB",
+      "drawing_count": 3,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-72739fdfa3765ba8",
+      "model": "AS-20E4 / AS-25E4 / AS-32E4",
+      "type": "ACB",
+      "drawing_count": 3,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-1bb0a8804d4a7d57",
+      "model": "AS-40F3 / AS-50F3",
+      "type": "ACB",
+      "drawing_count": 3,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-0ae18d33887ef107",
+      "model": "AS-40F4 / AS-50F4",
+      "type": "ACB",
+      "drawing_count": 3,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-afd3ac87e0884437",
+      "model": "AS-40E3",
+      "type": "ACB",
+      "drawing_count": 3,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-60ecf17a0185031e",
+      "model": "AS-40E4",
+      "type": "ACB",
+      "drawing_count": 3,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-fcaa56a9c9ca4dbb",
+      "model": "AS-63G3",
+      "type": "ACB",
+      "drawing_count": 3,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-d65efc8ddc2c6347",
+      "model": "AS-63G4",
+      "type": "ACB",
+      "drawing_count": 3,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-1c7655a2928ba799",
+      "model": "GMP22-2P / GMP22-3P",
+      "type": "RELAY",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-fff7ea80fc8601f5",
+      "model": "GMP40-2P / GMP40-3P",
+      "type": "RELAY",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-f39b07c3b169e2e1",
+      "model": "MC-32a / MC-40a",
+      "type": "CONTACTOR",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-f00e2a782a144615",
+      "model": "MC-50a / MC-65a",
+      "type": "CONTACTOR",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-33a402072ea3f628",
+      "model": "MC-6a / MC-9a / MC-12a / MC-18a",
+      "type": "CONTACTOR",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-43781dcd0e1f7d0e",
+      "model": "MC-75a / MC-85a / MC-100a",
+      "type": "CONTACTOR",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-f6c5cb9a27956ee7",
+      "model": "ABN50c / ABN60c / ABN100c / ABS30c / ABS50c / ABS60c",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-424703f1510ef57e",
+      "model": "ABN50c / ABN60c / ABN100c / ABS30c / ABS50c / ABS60c",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-bfc03335d70827e6",
+      "model": "ABN50c / ABN60c / ABN100c / ABS30c / ABS50c / ABS60c",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-eb22d8ae46abb5a5",
+      "model": "ABS125c / ABH50c / ABH125c / ABL125c",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-630d279c69f97ad0",
+      "model": "ABS125c / ABH50c / ABH125c / ABL125c",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-0ab2d034f0345262",
+      "model": "ABS125c / ABH50c / ABH125c / ABL125c",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-da7214abe1aa91f9",
+      "model": "ABN250c / ABS250c / ABH250c / ABL250c",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-3d59f6fd9df22638",
+      "model": "ABN250c / ABS250c / ABH250c / ABL250c",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-d2ac2af1d00e5a65",
+      "model": "ABN400c / ABS400c / ABH400c / ABL400c",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-c9aa09de8434b362",
+      "model": "ABN400c / ABS400c / ABH400c / ABL400c",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-a3b855c3e08b317f",
+      "model": "RKN",
+      "type": "RCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-5cf6d1caf74aa4e1",
+      "model": "RKN",
+      "type": "RCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-84e679022e755540",
+      "model": "RKP",
+      "type": "RCBO",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-e59254bbdb7e0b3f",
+      "model": "ABH52c",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-03adf5a8e67ae581",
+      "model": "BKN",
+      "type": "MCB",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-7dd2ecb5a38cc051",
+      "model": "MC-185a",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-a2e5e1b1200b4783",
+      "model": "ABS403c",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-7f55a2533f55451e",
+      "model": "MC-500a",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-cbd0ce36cee43ca9",
+      "model": "MC-75a / MC-85a / MC-100a",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-bea54fdef5b2acda",
+      "model": "MC-265a",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-ca53bae6a5bfdab3",
+      "model": "BKN",
+      "type": "MCB",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-cacdfd7844526f12",
+      "model": "MT-12",
+      "type": "THERMAL_RELAY",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-51f4558cd68dbb11",
+      "model": "MT-12",
+      "type": "THERMAL_RELAY",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-7ec687e49e297901",
+      "model": "MC-265a",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-967962b721f7375f",
+      "model": "MC-185a",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-d69f76621bed31d5",
+      "model": "ABN203c",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-4cca6dc255bc2167",
+      "model": "MC-500a",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-dbfa3fc69f482c5e",
+      "model": "ABN53c",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-32144d13a2436f0b",
+      "model": "BKN",
+      "type": "MCB",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-2d95b404b4b14f47",
+      "model": "BKN",
+      "type": "MCB",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-9ab210cbda2e391b",
+      "model": "TD100 / TD160",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-300ba7d6dfff5a0f",
+      "model": "TD100 / TD160",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-3749e5869d4a229b",
+      "model": "TD100 / TD160",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-0c247622a7e11c59",
+      "model": "TD160",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-1a9cf1153b3a9d32",
+      "model": "TS100 / TS160 / TS250",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-3c24f54d1e716371",
+      "model": "TS100 / TS160 / TS250",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-5f2d827cb879ab2e",
+      "model": "TS100 / TS160 / TS250",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-75bd318a1e901a1a",
+      "model": "TS400 / TS630",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-2f566883f7298756",
+      "model": "TS400 / TS630",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-778796047f518b42",
+      "model": "TS400 / TS630",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-0e02c7e94c961077",
+      "model": "TS800",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-042153d97a0b16da",
+      "model": "TS800",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-55168af30042063d",
+      "model": "TS800",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-0c8e2670d0feaf67",
+      "model": "TS1000 / TS1250 / TS1600",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "bottom | front",
+      "missing_faces": "rear | left | right | top"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-57ef608c3abf2d75",
+      "model": "TS1000 / TS1250 / TS1600",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "bottom | front",
+      "missing_faces": "rear | left | right | top"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-d2e88e5a25dc68bc",
+      "model": "UA-1",
+      "type": "Aux Contact",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-ff95536ede815844",
+      "model": "BH-D6",
+      "type": "MCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-c3520e1755a23083",
+      "model": "BH-D6",
+      "type": "MCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-0bdfa3aa023ba65c",
+      "model": "BH-D6",
+      "type": "MCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-aef4aa6ca3df7c97",
+      "model": "BH-D6",
+      "type": "MCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-fbf7edfff318225e",
+      "model": "BH-DN",
+      "type": "MCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-c36ae15b454e797c",
+      "model": "BV-D",
+      "type": "RCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-10fc9501d6bd9bb3",
+      "model": "BV-D",
+      "type": "RCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-9ee70ee04f2cb8fb",
+      "model": "NF1000-SEW",
+      "type": "MCCB",
+      "drawing_count": 5,
+      "available_faces": "bottom | front | top",
+      "missing_faces": "rear | left | right"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-fe777313a61efa86",
+      "model": "NF1000-SEW",
+      "type": "MCCB",
+      "drawing_count": 5,
+      "available_faces": "bottom | front | top",
+      "missing_faces": "rear | left | right"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-6b45e85650dab6f7",
+      "model": "NF1250-SDW",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-bb281e9afaa46a61",
+      "model": "NF125-CV",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-7c489171b936446a",
+      "model": "NF125-CV",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-e31af0fcac92e9c6",
+      "model": "NF1600-SDW",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-31bd636b34ef9fc3",
+      "model": "NF1600-SEW",
+      "type": "MCCB",
+      "drawing_count": 5,
+      "available_faces": "bottom | front | top",
+      "missing_faces": "rear | left | right"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-1e9828db272a9323",
+      "model": "NF1600-SEW",
+      "type": "MCCB",
+      "drawing_count": 5,
+      "available_faces": "bottom | front | top",
+      "missing_faces": "rear | left | right"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-c73180aecad8e882",
+      "model": "NF250-CV",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-1583e621039cd660",
+      "model": "NF250-CV",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-e7d4dc358beb4348",
+      "model": "NF30-CS",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-67f07e3b534dd310",
+      "model": "NF30-CS",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-093d75e40cd4d0d0",
+      "model": "NF32-SV",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-a70336db92c799dc",
+      "model": "NF400-CW",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-fc7f0e5c4ebe343d",
+      "model": "NF400-CW",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-68666c9b893f8e7a",
+      "model": "NF630-CW",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-e82d1a06331985d9",
+      "model": "NF630-CW",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-e7a9f89b8e069e64",
+      "model": "NF63-CW",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-25997a35c0ff8819",
+      "model": "NF63-SV",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-ad10c06c9633859c",
+      "model": "NF63-SV",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-a0134cacf0aa1518",
+      "model": "NF800-CEW",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-379cc8a31fd9f995",
+      "model": "NF800-SDW",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-b286ab9c2e69414b",
+      "model": "S-T10",
+      "type": "Contactor",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-3e75c4114d30e71c",
+      "model": "S-T12 / S-T20",
+      "type": "Contactor",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-0c719985e0fb75d7",
+      "model": "S-T21 / S-T25",
+      "type": "Contactor",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Mitsubishi Electric",
+      "catalog_id": "TB-421ec34e4f81e87f",
+      "model": "S-T35 / S-T50",
+      "type": "Contactor",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Omron",
+      "catalog_id": "TB-1c9ff5155b2645e4",
+      "model": "S8FS-C05024J",
+      "type": "POWER_SUPPLY",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "O-Sung / OSEMCO",
+      "catalog_id": "TB-e059eef428a073ae",
+      "model": "OSS-612-PC",
+      "type": "ATS",
+      "drawing_count": 3,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-b51343ec0fb5af0c",
+      "model": "BKN",
+      "type": "MCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-c6c2d7a651dcf612",
+      "model": "BKN",
+      "type": "MCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "LS Electric",
+      "catalog_id": "TB-fc0880379361d98a",
+      "model": "BKN",
+      "type": "MCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "RISESUN",
+      "catalog_id": "TB-043714973953d640",
+      "model": "RT18-32",
+      "type": "FUSE",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Omron",
+      "catalog_id": "TB-19ad71dea6466ed4",
+      "model": "S8FS-C05024J",
+      "type": "POWER_SUPPLY",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Leipole",
+      "catalog_id": "TB-9fa26e93c8a3ea41",
+      "model": "FKL6621.230",
+      "type": "FAN",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Leipole",
+      "catalog_id": "TB-cedaec592367d18f",
+      "model": "FKL6622.230",
+      "type": "FAN",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Leipole",
+      "catalog_id": "TB-bfbdc254731538cd",
+      "model": "FKL6623.230",
+      "type": "FAN",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Leipole",
+      "catalog_id": "TB-736ffc37f5650ff1",
+      "model": "FKL6621.300",
+      "type": "FILTER",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Leipole",
+      "catalog_id": "TB-a580e90cfe53576f",
+      "model": "FKL6622.300",
+      "type": "FILTER",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Leipole",
+      "catalog_id": "TB-f492bcd80bb32eeb",
+      "model": "FKL6623.300",
+      "type": "FILTER",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Leipole",
+      "catalog_id": "TB-e7a1d2b53159f2d8",
+      "model": "FKL6622.300",
+      "type": "FILTER",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Leipole",
+      "catalog_id": "TB-73c7bb99aee1519b",
+      "model": "FKL6623.230",
+      "type": "FAN",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Leipole",
+      "catalog_id": "TB-10065441b8329caf",
+      "model": "FKL6621.230",
+      "type": "FAN",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Leipole",
+      "catalog_id": "TB-24e121ccaf7bd3fc",
+      "model": "FKL6621.230 / FKL6621.300 / FKL6622.230 / FKL6622.300 / FKL6623.230 / FKL6623.300 / FKL6625.230 / FKL6625.300 / FKL6626.230 / FKL6626.300",
+      "type": "ASSEMBLY_REFERENCE",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Leipole",
+      "catalog_id": "TB-823b01b63bc3e8b2",
+      "model": "FKL6622.300",
+      "type": "FILTER",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Leipole",
+      "catalog_id": "TB-375fbebc89eb1c9b",
+      "model": "FKL6621.300",
+      "type": "FILTER",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Leipole",
+      "catalog_id": "TB-fc69f363583b2c20",
+      "model": "FKL6621.230",
+      "type": "FAN",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Leipole",
+      "catalog_id": "TB-38c559cfb70cb7e4",
+      "model": "FKL6623.300",
+      "type": "FILTER",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Leipole",
+      "catalog_id": "TB-a5226e38073345cc",
+      "model": "FKL6623.300",
+      "type": "FILTER",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Leipole",
+      "catalog_id": "TB-2919bcb916596a49",
+      "model": "FKL6621.300",
+      "type": "FILTER",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Leipole",
+      "catalog_id": "TB-38dffff5b6c728c4",
+      "model": "FKL6621.230 / FKL6621.300 / FKL6622.230 / FKL6622.300 / FKL6623.230 / FKL6623.300 / FKL6625.230 / FKL6625.300 / FKL6626.230 / FKL6626.300",
+      "type": "ASSEMBLY_REFERENCE",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Leipole",
+      "catalog_id": "TB-c2a56609c1e20afc",
+      "model": "FKL6623.300",
+      "type": "FILTER",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Leipole",
+      "catalog_id": "TB-90d4f7b3dca1e2c4",
+      "model": "FKL6622.230",
+      "type": "FAN",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Leipole",
+      "catalog_id": "TB-3f39543f91fb1121",
+      "model": "FKL6622",
+      "type": "FAN",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric (dòng RM6; cần đối chiếu cấu hình CAD)",
+      "catalog_id": "TB-4886467a0a9e0fef",
+      "model": "RM6-NE:DI",
+      "type": "RMU",
+      "drawing_count": 2,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "Schneider Electric (dòng RM6; cần đối chiếu cấu hình CAD)",
+      "catalog_id": "TB-974341d8618d129d",
+      "model": "RM6-NE:IiI",
+      "type": "RMU",
+      "drawing_count": 2,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-728649ce3acf4905",
+      "model": "A9D",
+      "type": "RCD",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-f164e25b45bffe10",
+      "model": "A9D",
+      "type": "RCD",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-e3fc8970733974ad",
+      "model": "C120",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-213254590a9ed914",
+      "model": "C120",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-a6b013e73f33598f",
+      "model": "C120",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-c50afde0c81b2886",
+      "model": "C120",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-caf9059b74d15cc8",
+      "model": "CVS100",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-6b869a3c7294f6c8",
+      "model": "CVS100",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-edaa3c1aa248d7b4",
+      "model": "CVS400",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-bfdb79c4e8f2b4e0",
+      "model": "CVS400",
+      "type": "MCCB",
+      "drawing_count": 4,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-2db736dd18a9914c",
+      "model": "EZC100",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-b26987552aa8750d",
+      "model": "EZC100",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-3bd2bd962e5e7024",
+      "model": "EZC100",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-1e0536a2f6d34ed1",
+      "model": "EZC100",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-d7052dd5a9e5de7b",
+      "model": "EZC250",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-07d6c18d5a6e1e83",
+      "model": "EZC250",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-36f4ac1bec738cea",
+      "model": "EZC250",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-ef7b5ab441b31e47",
+      "model": "EZC400",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-de932c87174f7640",
+      "model": "EZC400",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-13b7683c67553c13",
+      "model": "EZCV250",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-3f01e5faa3343ac2",
+      "model": "EZCV250",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-7df8b9f5d5a5f1cd",
+      "model": "EZS100",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-04a81e62385986ea",
+      "model": "EZS100",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-ff1af150c1be7713",
+      "model": "EZS100",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-f36940a4a534aaa7",
+      "model": "EZS100",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-b932597472d6c4c9",
+      "model": "EZS250",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-325c5de9790bc60e",
+      "model": "EZS250",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-0a74fcb8ec23ebd4",
+      "model": "EZS250",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-4927d8bb68415e42",
+      "model": "EZS400",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-8c17af72f7294f70",
+      "model": "EZS400",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-49ae8f3071f94c61",
+      "model": "iC60",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-e1e255d56a1c0054",
+      "model": "iC60",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-d849389763b7f44c",
+      "model": "iC60",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-c0120cdf0a87faf7",
+      "model": "iC60",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-03157e1509e3770e",
+      "model": "iCT 1P",
+      "type": "Contactor",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-1d1ab36d75cb2b5c",
+      "model": "iIDK",
+      "type": "RCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-0c2fc0e9ac12479c",
+      "model": "iIDK",
+      "type": "RCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-64ce7e11085b43f8",
+      "model": "iK60N",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-66a8ff1a32b4b79e",
+      "model": "iK60N",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-e8cacd22e2ab35ba",
+      "model": "iK60N",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-429b4fe9a497237d",
+      "model": "iK60N",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-5a85d0fb1b71c309",
+      "model": "LC1D25-38",
+      "type": "Contactor",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-5bfee5cfd0ad64df",
+      "model": "LC1D40",
+      "type": "Contactor",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-46b3cfb457abd796",
+      "model": "LC1D40-65",
+      "type": "Contactor",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-77ad9af6edcecd8b",
+      "model": "LC1D9-18",
+      "type": "Contactor",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-7d1974c4701a6074",
+      "model": "LC1E06-18",
+      "type": "Contactor",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-b25affd365b63fc4",
+      "model": "LC1E160",
+      "type": "Contactor",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-db95704b91d7554c",
+      "model": "LC1E25",
+      "type": "Contactor",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-c0c09ede8847559a",
+      "model": "LC1E32",
+      "type": "Contactor",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-042b1f4863190ee7",
+      "model": "LC1F115",
+      "type": "Contactor",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-81ae850f258da70d",
+      "model": "LC1F150",
+      "type": "Contactor",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-d4576b496449cbda",
+      "model": "LC1F185",
+      "type": "Contactor",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-84b8d83b890186dc",
+      "model": "LC1F225",
+      "type": "Contactor",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-bf1086a9a77cec6f",
+      "model": "LC1F265",
+      "type": "Contactor",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-23c8a6cda269e108",
+      "model": "LC1F330",
+      "type": "Contactor",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-b3fda8bc5e444540",
+      "model": "NS100",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-ac46a1884987ae41",
+      "model": "NS100",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-52bd625cb9dd1388",
+      "model": "NS100",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-2aa2a2859c5cfcff",
+      "model": "NS400",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-ed01ea45f4548aa4",
+      "model": "NS400",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-546fd887f249bd71",
+      "model": "NS630b",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-ef65c9948cde2638",
+      "model": "NS630b",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-62fdbbeb72474fdf",
+      "model": "LC1D40-65",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-faa371b9ff857b8f",
+      "model": "ATV320U22",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-4092570e76365c9b",
+      "model": "EZC100",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-874c5547cd458752",
+      "model": "LC1E32",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-aa88cc78f94d3ba5",
+      "model": "ATV320U55",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-0cc0c56bd994d60d",
+      "model": "LC1D32",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-b3db3f72b1386e95",
+      "model": "ATV630D55",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-d1219758854616f1",
+      "model": "LC1D115",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-3f2345dccb53e572",
+      "model": "LC1D09",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-436f8c8137844f85",
+      "model": "LC1D18",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-cc4d7e2ce43e4773",
+      "model": "EZC250",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-f797252cdf24c89e",
+      "model": "NS100 / NS160",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-4fc8d9679c3649ef",
+      "model": "ATV630U07",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-c20aafa063938808",
+      "model": "LC1F265",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-90f636ce9ec4344c",
+      "model": "ATV630D15",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-68dece17b8b6f28a",
+      "model": "ATV320U22",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-3aabcfa28ac7f3ba",
+      "model": "LC1D9-18",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-fb64554b0d314355",
+      "model": "EZC400 / EZC630",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-3efb9e65d9ab07f2",
+      "model": "ATV630C11",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-06f8e3cb26b68f79",
+      "model": "ATV630D30",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-924df46499ef6b4d",
+      "model": "LC1F330",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-74256dce63c6f12b",
+      "model": "LC1F150",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-ffb3f20bf4122403",
+      "model": "LC1D150",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-2c205339e7db99d0",
+      "model": "LC1D40",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-79ddf299eca7273e",
+      "model": "LC1D25",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-95c74c0f4e250dd3",
+      "model": "LC1E06-18",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-532a8b377a573470",
+      "model": "EZC100",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-fa2c70999cd97df4",
+      "model": "LC1D32",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-8753a6ee78d8b997",
+      "model": "ATV630D30",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-373e361e224af273",
+      "model": "ATV320U22",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-3711aa4710cccad3",
+      "model": "NS100 / NS160",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-ca67cfdfe75b87a5",
+      "model": "ATV630U75",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-87c193b36a5be2d9",
+      "model": "LC1D115",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-0032dd9bb37e0165",
+      "model": "LC1F185",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-f0ad79304b9dfa57",
+      "model": "LC1E160",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-2daaa9b96edcee06",
+      "model": "ATV630D30",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-709136a5f2362a55",
+      "model": "ATV630D55",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-76b60c464e85531d",
+      "model": "A9C20731",
+      "type": "CONTACTOR",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-bc6bce54ba5e3d99",
+      "model": "LC1F225",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-39b0e1bd1634ae8b",
+      "model": "EZC250",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-dced0a03b7ea334e",
+      "model": "LC1D18",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-147acacf560564bc",
+      "model": "ATV630C11",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-1f6e3c1f906f7fd8",
+      "model": "LC1D09",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-be8517e7eec2f604",
+      "model": "LC1D40-65",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-70f3194c438e827c",
+      "model": "LC1D40-65",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-9d5dda2dfc6b5d35",
+      "model": "LC1D80",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-d2ed90668cccf5cb",
+      "model": "ATV630U07",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-8b4d2edbd76f927a",
+      "model": "ATV212HU75",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-41d72221c38b347d",
+      "model": "ATV212HD15",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-2598dbf214bce578",
+      "model": "ATV630D15",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-f0b01f81ba66ed54",
+      "model": "ATV630U75",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-01f7d9a0e8d5003b",
+      "model": "CVS400~630F~N",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-12d065e49e4559f5",
+      "model": "LC1D80",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-92e2043a2bd511a7",
+      "model": "LC1D25-38",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-afd60a00b7d134cd",
+      "model": "LC1E25",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-f74086e706b33994",
+      "model": "ATV630U07",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-4054679f8749671a",
+      "model": "NS100 / NS160",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-c6b1fa1fb05f17c0",
+      "model": "LC1D25",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-3a9d29b8dbb7b411",
+      "model": "NS100 / NS160",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-2201734d78c06790",
+      "model": "LC1D150",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-0e51ad1ddf186f06",
+      "model": "ATV630C11",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-4219006a98570a3b",
+      "model": "LC1F185",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-58ec6416f4e1a238",
+      "model": "ATV630D55",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-c8909fbf0732bb69",
+      "model": "CVS100~250B~F",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-abe0ca387a433690",
+      "model": "LC1F185",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-2137b5bec46ab654",
+      "model": "ATV212HU30",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-eeb309129ee454c2",
+      "model": "ATV212H075",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-e98d817c07787f40",
+      "model": "ATV212HU75",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-b2127e7ca1b65481",
+      "model": "EZC250",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-50b9e0b14ec25b83",
+      "model": "EZC100",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-4243dcd3bacf6a0f",
+      "model": "LC1F115",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-7233c2f474aba377",
+      "model": "CVS400~630F~N",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-b05de4d1c90b9878",
+      "model": "EZC100",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-2f799c2cfd1f6924",
+      "model": "EZC400 / EZC630",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-35e99c520436de04",
+      "model": "ATV630D15",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-41f14468dd34f079",
+      "model": "ATV212H075",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-5153d546d072a06e",
+      "model": "LC1F225",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-a2d574560532040a",
+      "model": "ATV320U55",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-df56809b4d7f0518",
+      "model": "CVS100~250B~F",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front | top",
+      "missing_faces": "rear | left | right | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-a0ae757e8e2112d3",
+      "model": "ATV630U75",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "top",
+      "missing_faces": "front | rear | left | right | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-425c7029e22b929e",
+      "model": "ATV320U55",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-6845e19a84e2c404",
+      "model": "ATV212HU30",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-1cac077415383e54",
+      "model": "EZC100",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-2d4d3ed05b2dd448",
+      "model": "ATV212HD15",
+      "type": "VFD",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-c00290a70bf823c0",
+      "model": "LC1F225",
+      "type": "CONTACTOR",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Shihlin",
+      "catalog_id": "TB-fef3bebc9b18f681",
+      "model": "BHA",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Shihlin",
+      "catalog_id": "TB-d48ef5e7f18621ff",
+      "model": "BHA",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Shihlin",
+      "catalog_id": "TB-c0172872c1e0b753",
+      "model": "BHA",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Shihlin",
+      "catalog_id": "TB-373ca1111dd6dafe",
+      "model": "BHA",
+      "type": "MCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Shihlin",
+      "catalog_id": "TB-58a36641e1954133",
+      "model": "BHL",
+      "type": "RCBO",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Shihlin",
+      "catalog_id": "TB-0390da87deac3182",
+      "model": "BHL",
+      "type": "RCBO",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Shihlin",
+      "catalog_id": "TB-26cbc7271ef1b2ef",
+      "model": "BM1000-HE/BM1200-HS",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Shihlin",
+      "catalog_id": "TB-258c6022b3caf095",
+      "model": "BM1600-HS",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Shihlin",
+      "catalog_id": "TB-ad287d7fbc195a02",
+      "model": "BM30/50/60/100",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Shihlin",
+      "catalog_id": "TB-f995ce97451f7083",
+      "model": "BM30/50/60/100",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Shihlin",
+      "catalog_id": "TB-f9bcb5f67b61c62e",
+      "model": "BM400",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Shihlin",
+      "catalog_id": "TB-50012f2e04409336",
+      "model": "BM400",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Shihlin",
+      "catalog_id": "TB-bbacd744fb167db7",
+      "model": "BM400",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Shihlin",
+      "catalog_id": "TB-c0ed3f94f952e7d5",
+      "model": "BM60-HBN/BM100-HN/BM125",
+      "type": "MCCB",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Shihlin",
+      "catalog_id": "TB-b6cb741bebbfa000",
+      "model": "BM630/800",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Shihlin",
+      "catalog_id": "TB-d8f1267625d58fbb",
+      "model": "BM630/800",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Elster",
+      "catalog_id": "TB-991b8c4a7bab4123",
+      "model": "A1700",
+      "type": "METER",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Selec",
+      "catalog_id": "TB-177f377fb9b8a5a8",
+      "model": "MFM383",
+      "type": "METER",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "EMIC",
+      "catalog_id": "TB-be4a5900623937aa",
+      "model": "MV",
+      "type": "METER",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "EMIC",
+      "catalog_id": "TB-9c3ace6cc670668f",
+      "model": "CV130/CV140",
+      "type": "METER",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "EMIC",
+      "catalog_id": "TB-dbac6bea296dd57b",
+      "model": "CV130/CV140",
+      "type": "METER",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "EMIC",
+      "catalog_id": "TB-68473c6c81d8741a",
+      "model": "CV131/CV141",
+      "type": "METER",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Omega",
+      "catalog_id": "TB-753c78b030396e0e",
+      "model": "BE-96",
+      "type": "METER",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Schneider Electric",
+      "catalog_id": "TB-b7d3142e277feee5",
+      "model": "PM710",
+      "type": "METER",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "EMIC",
+      "catalog_id": "TB-f20a06f574da010b",
+      "model": "MV-3Tb",
+      "type": "METER",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "EMIC",
+      "catalog_id": "TB-2e637f7011c99aff",
+      "model": "ME-41",
+      "type": "METER",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "EMIC",
+      "catalog_id": "TB-0733cf647f5960e6",
+      "model": "ME-41",
+      "type": "METER",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "EMIC",
+      "catalog_id": "TB-3dad6b3d51e1b76f",
+      "model": "MV-3Tb",
+      "type": "ASSEMBLY_REFERENCE",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "EMIC",
+      "catalog_id": "TB-9457866743e7a94e",
+      "model": "CV130 / CV140",
+      "type": "ASSEMBLY_REFERENCE",
+      "drawing_count": 1,
+      "available_faces": "",
+      "missing_faces": "front | rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Generic",
+      "catalog_id": "TB-4feb0addbd4ba9a7",
+      "model": null,
+      "type": "MountingSupport",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Generic",
+      "catalog_id": "TB-5f085e6a095ca117",
+      "model": null,
+      "type": "MountingSupport",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Generic",
+      "catalog_id": "TB-4359ec61aa9f2d9f",
+      "model": null,
+      "type": "MountingSupport",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Generic",
+      "catalog_id": "TB-a3f10b1394418a04",
+      "model": null,
+      "type": "MountingSupport",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Generic",
+      "catalog_id": "TB-dccd5af580ee2c2e",
+      "model": null,
+      "type": "MountingSupport",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Generic",
+      "catalog_id": "TB-6e74839d1dc62eae",
+      "model": null,
+      "type": "MountingSupport",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Generic",
+      "catalog_id": "TB-d5caf273729f9522",
+      "model": null,
+      "type": "MountingSupport",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Generic",
+      "catalog_id": "TB-0f6222095da388b5",
+      "model": null,
+      "type": "MountingSupport",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Generic",
+      "catalog_id": "TB-93b1f61c66452a57",
+      "model": null,
+      "type": "MountingSupport",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Generic",
+      "catalog_id": "TB-8ec1988286a0f3a5",
+      "model": null,
+      "type": "MountingSupport",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Generic",
+      "catalog_id": "TB-360cfdd102827c3a",
+      "model": null,
+      "type": "MountingSupport",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Generic",
+      "catalog_id": "TB-7681f8de5efe45f5",
+      "model": null,
+      "type": "MountingSupport",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Generic",
+      "catalog_id": "TB-ddb723ad073a318a",
+      "model": null,
+      "type": "MountingSupport",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Generic",
+      "catalog_id": "TB-4fcb410cf8cd361b",
+      "model": null,
+      "type": "MountingSupport",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Generic",
+      "catalog_id": "TB-56c348456def811f",
+      "model": null,
+      "type": "MountingSupport",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Generic",
+      "catalog_id": "TB-b003255da8ed373b",
+      "model": null,
+      "type": "MountingSupport",
+      "drawing_count": 1,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "Generic",
+      "catalog_id": "TB-77ff3efd9e0c7692",
+      "model": null,
+      "type": "CopperBusbar",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "CHINT-NXM-1000-REFERENCE",
+      "model": "nxm-1000",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "CHINT-NXM-800S-REFERENCE",
+      "model": "NXM-800S",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "CHINT-NXM-1600H-REFERENCE",
+      "model": "NXM-1600H",
+      "type": "MCCB",
+      "drawing_count": 3,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    },
+    {
+      "brand": "CHINT",
+      "catalog_id": "CHINT-NXM-125-REFERENCE",
+      "model": "nxm-125",
+      "type": "MCCB",
+      "drawing_count": 2,
+      "available_faces": "front",
+      "missing_faces": "rear | left | right | top | bottom"
+    }
+  ]
+}

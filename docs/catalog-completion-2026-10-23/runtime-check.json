@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-23",
+  "retained_api_supervisor": 11976,
+  "retained_api_workers": [
+    4256,
+    13180
+  ],
+  "removed_duplicate_supervisors": [
+    9000,
+    2824,
+    6572
+  ],
+  "job_queue_checked_empty_before_each_change": true,
+  "health_status": 200,
+  "unauthenticated_browser_status": 401,
+  "api_catalogue_validation": "Actual customer projection and price service functions; authenticated website session not available",
+  "fe_commit": "3398c80f",
+  "fe_deployment": "Previously pushed; Vercel success confirmed; no FE change in this batch",
+  "first_current_worker_ready": 4256,
+  "health_after_source_identity_update": 200,
+  "public_profiles_before": 942,
+  "public_profiles_after": 944,
+  "previous_identified_profiles_removed": 0,
+  "final_regression_tests": 32,
+  "both_current_workers_initialized": true
+}

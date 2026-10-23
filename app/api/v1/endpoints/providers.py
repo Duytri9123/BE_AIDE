@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
-from sqlalchemy.orm import selectinload
+from sqlalchemy.orm import selectinload, raiseload
 from app.db.session import get_db
 from app.models.ai_provider import AiProvider
 from app.models.ai_provider_model import AiProviderModel
@@ -49,6 +49,7 @@ async def get_providers(db: AsyncSession = Depends(get_db)):
     stmt = (
         select(AiProvider)
         .options(
+            raiseload(AiProvider.connections),
             selectinload(
                 AiProvider.models.and_(AiProviderModel.is_active.is_(True))
             )
@@ -65,7 +66,7 @@ async def get_providers(db: AsyncSession = Depends(get_db)):
 async def get_priority_models(db: AsyncSession = Depends(get_db)):
     """Danh sách model AI để thực thi, chỉ gồm provider/model đang hoạt động."""
     stmt = (
-        select(AiProviderModel, AiProvider)
+        select(AiProviderModel, AiProvider).options(raiseload("*"))
         .join(AiProvider, AiProvider.id == AiProviderModel.provider_id)
         .where(
             AiProvider.is_active.is_(True),

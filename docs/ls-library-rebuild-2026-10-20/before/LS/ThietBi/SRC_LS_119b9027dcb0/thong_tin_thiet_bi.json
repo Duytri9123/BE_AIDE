@@ -1,0 +1,628 @@
+{
+  "nhom": "LS",
+  "ten_kieu": "LS · GYER HERH  WRE TS1600AF 4P · CAD nguồn",
+  "ten_san_pham": "LS · GYER HERH  WRE TS1600AF 4P · CAD nguồn",
+  "ban_chat": "CAD thiết bị theo nhãn nguồn",
+  "cong_dung": "Tham khảo hình học; xác nhận chức năng, mã thiết bị và thông số trước thiết kế.",
+  "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+  "hang_xac_nhan": null,
+  "ma_dong_san_pham": null,
+  "thong_so": {
+    "nhan_block_nguon": "GYER HERH  WRE TS1600AF 4P",
+    "dong_dinh_muc_A": null,
+    "dien_ap_V": null
+  },
+  "tu_khoa_tim_kiem": [
+    "LS",
+    "CAD thiết bị theo nhãn nguồn",
+    "MCCB",
+    "ABB",
+    "1SDA066485R1",
+    "CHINT",
+    "NM8N-125C TM 100 1P",
+    "Delixi",
+    "CDM3S125C1002300",
+    "Fuji Electric",
+    "BW100EAG-2P",
+    "HD Hyundai Electric",
+    "HGM1000S 3P",
+    "Hager",
+    "HDA014Z",
+    "ABN102c",
+    "Legrand",
+    "027000",
+    "Mitsubishi Electric",
+    "2CB002A000002",
+    "Schneider Electric",
+    "LV510300",
+    "Shihlin",
+    "BM100-HN",
+    "Siemens",
+    "3VJ1002-0DA32-0AA0",
+    "Vinakip",
+    "AT 56",
+    "LS · GYER HERH  WRE TS1600AF 4P · CAD nguồn",
+    ""
+  ],
+  "muc_do_xac_nhan": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp. CAD có nhiều thành phần/trạng thái hoặc hình chồng; chưa đủ để chèn nguyên bản như một thiết bị.",
+  "nguon_tham_khao": [],
+  "nguon_cad": {
+    "file": "D:\\THƯ VIỆN\\@LS.dwg",
+    "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+    "block": "GYER HERH  WRE TS1600AF 4P",
+    "saved_block": "GYER HERH  WRE TS1600AF 4P",
+    "handle": "2320FD",
+    "geometry_key": "119b9027dcb0972fbdbb8310c20c816d2908307bb7c59e2064945617333c4440",
+    "units": 4,
+    "instance_transform": {
+      "insert": [
+        -55601.94289763938,
+        18905.67539256553,
+        0
+      ],
+      "rotation": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+  },
+  "cac_hinh_cad": [
+    "SRC_LS_119b9027dcb0"
+  ],
+  "auto_select": false,
+  "needs_review": true,
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa xác nhận dữ liệu hãng",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "SRC_LS_119b9027dcb0",
+      "huong_nhin": "Chưa xác nhận hướng nhìn",
+      "nhan_hien_thi": "GYER HERH  WRE TS1600AF 4P",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": false,
+        "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+      },
+      "duong_dan": "CadDon/SRC_LS_119b9027dcb0/ban_ve.dxf",
+      "recognition_evidence": "nhan_dien_bo_sung_20261010"
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "SRC_LS_119b9027dcb0",
+    "huong_nhin": "Chưa xác nhận hướng nhìn",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "nhan_dien_bo_sung_20261010": {
+    "review_date": "2026-10-10",
+    "category_code": "MCCB",
+    "visual_review": true,
+    "preview": "23-0.png",
+    "source_block": "GYER HERH  WRE TS1600AF 4P",
+    "text_entities_found": 0,
+    "text_outline_note": "No extractable TEXT/MTEXT/ATTRIB found; visible lettering may be linework, not searchable text.",
+    "face": null,
+    "face_basis": "Unconfirmed",
+    "official_family_sources": [
+      "https://www.ls-electric.com/upload/customer/download/1213/Metasol_MCCB-ELCB_Technical%20Manual_E.pdf"
+    ],
+    "exact_sku_verified": false,
+    "automatic_insertion_approved": false,
+    "limitation": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp. CAD có nhiều thành phần/trạng thái hoặc hình chồng; chưa đủ để chèn nguyên bản như một thiết bị."
+  },
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "MCCB",
+    "exact_sku_verified": false
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "LS Electric",
+    "ma_san_pham": "",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [
+      "https://www.ls-electric.com",
+      "https://anhphatelectric.com",
+      "https://etinco.vn"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Chưa có giá"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "MCCB",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "LS Electric",
+        "model": "TS1000N 4P",
+        "specifications": {
+          "In (A)": "1000A",
+          "Icu(KA)": "50",
+          "Họ thiết bị": "TS1000",
+          "Tên hàng": "TS1000N 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:8c0a61f2fe2ff6c5",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS1250N 4P",
+        "specifications": {
+          "In (A)": "1250A",
+          "Icu(KA)": "50",
+          "Họ thiết bị": "TS1250",
+          "Tên hàng": "TS1250N 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:dee49e04cc6206c1",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS1600N 4P",
+        "specifications": {
+          "In (A)": "1600A",
+          "Icu(KA)": "50",
+          "Họ thiết bị": "TS1600",
+          "Tên hàng": "TS1600N 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:f9d39d33ebdbbc2a",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS1000H 4P",
+        "specifications": {
+          "In (A)": "1000A",
+          "Icu(KA)": "70",
+          "Họ thiết bị": "TS1000",
+          "Tên hàng": "TS1000H 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:b7ff6993861fc433",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS1250H 4P",
+        "specifications": {
+          "In (A)": "1250A",
+          "Icu(KA)": "70",
+          "Họ thiết bị": "TS1250",
+          "Tên hàng": "TS1250H 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:b2400e7295eb03e3",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS1600H 4P",
+        "specifications": {
+          "In (A)": "1600A",
+          "Icu(KA)": "70",
+          "Họ thiết bị": "TS1600",
+          "Tên hàng": "TS1600H 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 1,
+        "source_row_id": "ls-pdf:1fc208d06c9af0e0",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS100N FTU100 4P",
+        "specifications": {
+          "Thông tin": "50",
+          "Họ thiết bị": "TS100",
+          "Tên hàng": "TS100N FTU100 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:f921a91a0ad1a302",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS160N FTU160 4P",
+        "specifications": {
+          "Thông tin": "50",
+          "Họ thiết bị": "TS160",
+          "Tên hàng": "TS160N FTU160 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:8380e5b12d18c095",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS160N FTU160 4P",
+        "specifications": {
+          "Thông tin": "50",
+          "Họ thiết bị": "TS160",
+          "Tên hàng": "TS160N FTU160 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:7bd5fb9b571825ee",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS250N FTU250 4P",
+        "specifications": {
+          "Thông tin": "50",
+          "Họ thiết bị": "TS250",
+          "Tên hàng": "TS250N FTU250 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:d5edb29d1a898db5",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS250N FTU250 4P",
+        "specifications": {
+          "Thông tin": "50",
+          "Họ thiết bị": "TS250",
+          "Tên hàng": "TS250N FTU250 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:d7a33ef6439dcf94",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS400N FTU400 4P",
+        "specifications": {
+          "Thông tin": "65",
+          "Họ thiết bị": "TS400",
+          "Tên hàng": "TS400N FTU400 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:42837c2aa3e3d9a7",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS630N FTU630 4P",
+        "specifications": {
+          "Thông tin": "65",
+          "Họ thiết bị": "TS630",
+          "Tên hàng": "TS630N FTU630 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:2b2f9f711b40051f",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS800N FTU800 4P",
+        "specifications": {
+          "Thông tin": "65",
+          "Họ thiết bị": "TS800",
+          "Tên hàng": "TS800N FTU800 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:2fdfeb97d13188f1",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS100N FMU100 4P",
+        "specifications": {
+          "Thông tin": "50",
+          "Họ thiết bị": "TS100",
+          "Tên hàng": "TS100N FMU100 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:896f88f2c0af1475",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS160N FMU160 4P",
+        "specifications": {
+          "Thông tin": "50",
+          "Họ thiết bị": "TS160",
+          "Tên hàng": "TS160N FMU160 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:18063c385b029291",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS160N FMU160 4P",
+        "specifications": {
+          "Thông tin": "50",
+          "Họ thiết bị": "TS160",
+          "Tên hàng": "TS160N FMU160 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:1b89b4fce9cd424e",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS250N FMU250 4P",
+        "specifications": {
+          "Thông tin": "50",
+          "Họ thiết bị": "TS250",
+          "Tên hàng": "TS250N FMU250 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:4049320209a6c81f",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS250N FMU250 4P",
+        "specifications": {
+          "Thông tin": "50",
+          "Họ thiết bị": "TS250",
+          "Tên hàng": "TS250N FMU250 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:e9ff33208394c0d2",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS400N FMU400 4P",
+        "specifications": {
+          "Thông tin": "65",
+          "Họ thiết bị": "TS400",
+          "Tên hàng": "TS400N FMU400 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:fbcf1ace0786f214",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS630N FMU630 4P",
+        "specifications": {
+          "Thông tin": "65",
+          "Họ thiết bị": "TS630",
+          "Tên hàng": "TS630N FMU630 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:50444afe4599a3e5",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS800N FMU800 4P",
+        "specifications": {
+          "Thông tin": "65",
+          "Họ thiết bị": "TS800",
+          "Tên hàng": "TS800N FMU800 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:fbe372b25510707a",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "GYER HERH  WRE TS1600AF 4P",
+        "specifications": {
+          "nhan_block_nguon": "GYER HERH  WRE TS1600AF 4P",
+          "Loại thiết bị": "MCCB",
+          "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp.",
+          "Hình chiếu Chưa xác nhận hướng nhìn (ngang × cao, mm)": "283.0 × 327.0"
+        },
+        "source_url": "",
+        "basis": "cad_reference_code",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      }
+    ],
+    "observed_specifications": {
+      "nhan_block_nguon": "GYER HERH  WRE TS1600AF 4P",
+      "Loại thiết bị": "MCCB",
+      "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp.",
+      "Hình chiếu Chưa xác nhận hướng nhìn (ngang × cao, mm)": "283.0 × 327.0"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "source_geometry_without_model_label",
+      "source_model": null,
+      "matched_catalog_rows": 22,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Xác định hãng/mã từ nhãn hoặc block CAD nguồn",
+        "Đối chiếu và chọn mã đặt hàng đầy đủ",
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "source_geometry_without_model_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [],
+      "documented_models": [],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

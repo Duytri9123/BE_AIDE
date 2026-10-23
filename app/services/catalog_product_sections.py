@@ -9,9 +9,26 @@ def current_kinds(value):
     text=str(value or '').upper()
     return {kind for kind in ('AC','DC') if re.search(r'(?<![A-Z])V?'+kind+r'(?![A-Z])',text)}
 
+def auxiliary_contacts(value):
+    text=str(value or '')
+    m=re.search(r'(?<![A-Z0-9])(\d+)\s*A\s*(\d+)\s*B(?![A-Z0-9])',text,re.I)
+    if m:return tuple(map(int,m.groups()))
+    m=re.search(r'(\d+)\s*NO\s*[+/]\s*(\d+)\s*NC',text,re.I)
+    return tuple(map(int,m.groups())) if m else None
+
+
+def aux_contacts_compatible(device,row):
+    if category_key(device.get('type'))!='CONTACTOR' or canonical_brand(device.get('brand'))!='LS Electric':return True
+    expected=auxiliary_contacts((device.get('spec') or {}).get('Tiếp điểm phụ'))
+    if expected is None:return True
+    actual=auxiliary_contacts(' '.join([str(row.get('sku') or ''),*[str(v) for v in (row.get('specifications') or {}).values()]]))
+    return actual==expected
+
+
 def device_poles(device):
     spec=device.get('spec') or {}
     text=str(spec.get('so_cuc') or spec.get('so_cuc_chinh') or spec.get('so_cuc_theo_nhan_hinh') or spec.get('Số cực') or device.get('display') or '').strip().upper()
+    text=re.sub(r'(?<![A-Z0-9])([1-4])PN(?![A-Z0-9])',r'\1P+N',text)
     if re.fullmatch(r'[1-9]\d?',text):return text+'P'
     match=re.search(r'(?<![A-Z0-9])[1-9]\d?\s*P(?:\s*\+\s*N)?(?![A-Z0-9])',text)
     return re.sub(r'\s+','',match[0]) if match else None
@@ -22,9 +39,22 @@ def pole_compatible(device,row):
     spec=row.get('specifications') or {}
     explicit=spec.get('Số cực') or spec.get('Poles') or spec.get('so_cuc')
     text=str(explicit or ' '.join(str(row.get(k) or '') for k in ('sku','model','item_name','name'))).upper()
+    text=re.sub(r'(?<![A-Z0-9])([1-4])PN(?![A-Z0-9])',r'\1P+N',text)
     found={re.sub(r'\s+','',p) for p in re.findall(r'(?<![A-Z0-9])[1-9]\d?\s*P(?:\s*\+\s*N)?(?![A-Z0-9])',text)}
     if explicit and not found and re.fullmatch(r'[1-9]\d?',str(explicit).strip()):found={str(explicit).strip()+'P'}
     return found=={wanted}
+
+
+def coil_compatible(device,row):
+    if category_key(device.get('type')) != 'CONTACTOR':
+        return True
+    source=device.get('spec') or {}
+    wanted=current_kinds(source.get('Loại cuộn hút') or source.get('Nguồn cuộn hút') or source.get('dien_ap_cuon_hut'))
+    if not wanted:
+        return True
+    spec=row.get('specifications') or {}
+    actual=current_kinds(spec.get('Loại cuộn hút') or spec.get('Điện áp cuộn hút') or ' '.join(str(row.get(k) or '') for k in ('item_name','name','group')))
+    return bool(wanted & actual)
 
 def candidate_rows(device,rows,other=False):
     maker=canonical_brand(device.get('brand'));kind=category_key(device.get('type'))
@@ -34,7 +64,7 @@ def candidate_rows(device,rows,other=False):
     result=[]
     for row in rows:
         same=canonical_brand(row.get('brand'))==maker
-        if same==other or category_key(row.get('category'))!=kind or not pole_compatible(device,row):continue
+        if same==other or category_key(row.get('category'))!=kind or not pole_compatible(device,row) or not coil_compatible(device,row) or not aux_contacts_compatible(device,row):continue
         model=str(row.get('sku') or '')
         if not model or model.casefold()==str(device.get('product_code') or '').casefold():continue
         spec=row.get('specifications') or {}

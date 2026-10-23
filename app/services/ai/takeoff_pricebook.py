@@ -50,7 +50,18 @@ def _values(row, field):
 
 
 def match_device(device, rows, *, candidate_limit=30):
+    device = dict(device)
+    source_spec = str(device.get('spec') or '')
+    for field, pattern in [('poles', r'(?<!\w)([1-4])\s*P\b'),
+                           ('icu_ka', r'(?<![\w.])(\d+(?:[.,]\d+)?)\s*k\s*A\b')]:
+        if device.get(field) is None and (match := re.search(pattern, source_spec, re.I)):
+            device[field] = float(match[1].replace(',', '.'))
+    if device.get('in_a') is None and str(device.get('category')).upper() != 'CT':
+        if match := re.search(r'(?<![\w./])(\d+(?:[.,]\d+)?)\s*A\b', source_spec, re.I):
+            device['in_a'] = float(match[1].replace(',', '.'))
     brand = str(device.get('brand') or device.get('detected_brand') or device.get('origin') or '').strip()
+    from app.services.library_review_scope import preferred_brand_for_device
+    brand = preferred_brand_for_device(device, brand) or ''
     known_brand = brand.casefold() not in {'', 'asian', 'asia', 'oem', '-', '---', 'chưa xác định'}
     code = _norm(device.get('part_number') or device.get('sku'))
     category = _norm(device.get('category'))
@@ -118,28 +129,51 @@ def match_device(device, rows, *, candidate_limit=30):
             continue
         current_range = re.fullmatch(r'(\d+(?:\.\d+)?)–(\d+(?:\.\d+)?)',
                                     str((row.get('specifications') or {}).get('Dải chỉnh định (A)') or '')) if category == 'THERMAL_RELAY' else None
-        current = device.get('in_a')
+        current = device.get('in_a') if category != 'CT' else None
         if current and current_range and not (float(current_range[1]) <= float(current) <= float(current_range[2])):
             continue
         if any(value and (not _values(row,field) or not any(abs(float(value)-v)<0.001 for v in _values(row,field)))
                for field,value in [('poles',device.get('poles')),('current',None if current_range else current)]):
             continue
         source_spec = str(device.get('spec') or '')
+        ct_ratio_verified = False
+        if category == 'CT':
+            source_text = ' '.join(str(device.get(k) or '') for k in ('name','spec','part_number','sku'))
+            offered_text = ' '.join([label,sku,*[str(v) for v in (row.get('specifications') or {}).values()]])
+            residual = bool(re.search(r'\bZCT|ZERO[ -]SEQUENCE|CORE[ -]BALANCE|THỨ TỰ KHÔNG',source_text,re.I))
+            offered_residual = bool(re.search(r'\bZCT|ZERO[ -]SEQUENCE|CORE[ -]BALANCE|THỨ TỰ KHÔNG',offered_text,re.I))
+            if residual != offered_residual:continue
+            pattern = r'(?<![\w.])(\d+(?:[.,]\d+)?)\s*/\s*(\d+(?:[.,]\d+)?)\s*A?'
+            wanted = re.search(pattern,source_spec,re.I)
+            ratios = {(float(a.replace(',','.')),float(b.replace(',','.'))) for a,b in re.findall(pattern,offered_text,re.I)}
+            if wanted:
+                ct_ratio_verified = (float(wanted[1].replace(',','.')),float(wanted[2].replace(',','.'))) in ratios
+                if not ct_ratio_verified:continue
+            elif not residual:
+                # A body code cannot establish the required metering ratio.
+                ct_ratio_verified = False
         row_text = ' '.join([label,sku,*[str(v) for v in (row.get('specifications') or {}).values()]])
         if device.get('pole_configuration'):
             pole_text=' '.join([row_text,str(row.get('group') or '')])
             notations={re.sub(r'\s+','',v).upper() for v in re.findall(r'(?<!\w)([1-4]\s*P\s*\+\s*N)(?!\w)',pole_text,re.I)}
             if str(device['pole_configuration']).upper() not in notations:
                 continue
-        requirements = [(number.replace(',', '.'),unit.upper()) for number,unit in re.findall(r'(?<![\w.])(\d+(?:[.,]\d+)?)\s*(mA|V|Hz)\b',source_spec,re.I)]
-        published = {(number.replace(',', '.'),unit.upper()) for number,unit in re.findall(r'(?<![\w.])(\d+(?:[.,]\d+)?)\s*(mA|V|Hz)(?:AC|DC)?\b',row_text,re.I)}
-        if any(required not in published for required in requirements):
+        signal_pattern = r'(?<![\w.])(\d+(?:[.,]\d+)?)\s*(mA|V|Hz)\s*(AC|DC)?\b'
+        requirements = [(number.replace(',', '.'),unit.upper(),kind.upper()) for number,unit,kind in re.findall(signal_pattern,source_spec,re.I)]
+        published = {(number.replace(',', '.'),unit.upper(),kind.upper()) for number,unit,kind in re.findall(signal_pattern,row_text,re.I)}
+        if any(not any(number==n and unit==u and (not kind or kind==k) for n,u,k in published)
+               for number,unit,kind in requirements):
             continue
         if device.get('icu_ka') and (not _values(row,'icu') or min(_values(row,'icu')) < float(device['icu_ka'])):
             continue
         # A frame name needs its electrical configuration; a complete SKU can identify one row.
         automatic = known_brand and bool(code) and not (row.get('specifications') or {}).get('Phạm vi giá') and (exact or (model_match and device.get('poles') and device.get('in_a')))
+        if category == 'CT' and not residual and not ct_ratio_verified:
+            automatic = False
         matches.append((row, automatic))
+    matches.sort(key=lambda match: (not isinstance(match[0].get('price'), (int, float)) or match[0]['price'] <= 0,
+                                    match[0].get('price') if isinstance(match[0].get('price'), (int, float)) else float('inf'),
+                                    match[0]['id']))
     matched = len(matches)==1 and bool(matches[0][1])
     options = load_price_options()
     choices = []

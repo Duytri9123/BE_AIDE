@@ -168,6 +168,8 @@ class PhysicalLayoutEngine:
         - Phụ kiện chưa có kích thước xác minh phải được để trống.
         Không tự tính kích thước hardcode để đảm bảo vị trí và kích thước trên bản vẽ chuẩn xác theo từng hãng.
         """
+        from app.services.cad.ls_view_coverage import require_ls_device_geometry
+        require_ls_device_geometry(device, required_face='front')
         from app.services.cad.device_envelope import selected_envelope
         selected_dimensions = selected_envelope(device)
         if selected_dimensions:

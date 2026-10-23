@@ -262,6 +262,151 @@ class EnclosureCadGeneratorService:
             if isinstance(d, dict) else d
             for d in devices
         ]
+        from .reserved_space import sizing_height, fraction
+        missing = []
+        estimated = []
+        dimension_evidence = []
+
+        def _estimate_dims_from_spec(device):
+            """Ước lượng bao hình từ loại và dòng điện khi chưa ghép được CAD.
+            Kết quả chỉ dùng để tính kích thước tủ sơ bộ.
+            """
+            cat = str(device.get('category') or '').upper()
+            in_a = float(device.get('in_a') or 0)
+            poles = int(device.get('poles') or 3)
+            if 'ACB' in cat:
+                if in_a <= 630:  return (210.0, 300.0, 220.0)
+                if in_a <= 1000: return (255.0, 350.0, 260.0)
+                if in_a <= 1600: return (305.0, 420.0, 300.0)
+                return (355.0, 500.0, 320.0)
+            if 'MCCB' in cat:
+                if in_a <= 100:  return (round(70 * poles / 3, 1), 130.0, 70.0)
+                if in_a <= 250:  return (round(105 * poles / 3, 1), 155.0, 85.0)
+                if in_a <= 630:  return (round(140 * poles / 3, 1), 200.0, 105.0)
+                return (round(210 * poles / 3, 1), 260.0, 120.0)
+            if cat in ('MCB', 'RCBO', 'RCCB', 'ELCB'):
+                return (18.0 * poles, 85.0, 65.0)
+            if 'CONTACTOR' in cat:
+                if in_a <= 18:  return (45.0, 77.0, 85.0)
+                if in_a <= 50:  return (55.0, 95.0, 110.0)
+                if in_a <= 95:  return (70.0, 120.0, 130.0)
+                return (95.0, 150.0, 160.0)
+            if any(k in cat for k in ('VFD', 'INVERTER', 'SOFT_STARTER')):
+                kw = float(device.get('power_kw') or in_a * 0.38)
+                if kw <= 2.2:  return (140.0, 200.0, 160.0)
+                if kw <= 7.5:  return (180.0, 310.0, 200.0)
+                if kw <= 22:   return (220.0, 400.0, 230.0)
+                return (280.0, 520.0, 280.0)
+            if any(k in cat for k in ('RELAY', 'TIMER', 'POWER_SUPPLY')):
+                return (22.0, 90.0, 65.0)
+            if any(k in cat for k in ('METER', 'LIGHT', 'BUTTON', 'SELECTOR', 'HMI')):
+                return (72.0, 72.0, 60.0)
+            if any(k in cat for k in ('SPD', 'FUSE')):
+                return (18.0 * poles, 90.0, 55.0)
+            return None
+
+        def _dims_from_explicit(device):
+            """Tier 3: doc w/h/d tu truong dimensions neu da co."""
+            dr = device.get('dimensions') or {}
+            w = float(dr.get('w') or dr.get('width_mm') or dr.get('width') or 0)
+            h = float(dr.get('h') or dr.get('height_mm') or dr.get('height') or 0)
+            d = float(dr.get('d') or dr.get('depth_mm') or dr.get('depth') or 0)
+            if w > 0 and h > 0 and d > 0:
+                return (w, h, d)
+            if w > 0 and h > 0:
+                cat = str(device.get('category') or '').upper()
+                d = 220.0 if 'ACB' in cat else 100.0 if 'MCCB' in cat else 65.0
+                return (w, h, d)
+            return None
+
+        def _dims_from_asset(device):
+            """Tier 2: doc kich thuoc thang tu tb: asset."""
+            asset_id = str((device.get('cad') or {}).get('asset_id') or '')
+            if not asset_id.startswith('tb:'):
+                return None
+            try:
+                from app.services.cad.catalogtb_assets import resolve, assets as all_assets
+                from app.services.cad.device_envelope import _bounds, placement_bounds
+                asset = resolve(asset_id)
+                try:
+                    left, bottom, right, top = placement_bounds(asset)
+                    w, h = right - left, top - bottom
+                except Exception:
+                    w, h = _bounds(asset)
+                sides = [a for a in all_assets()
+                         if a['family_id'] == asset.get('family_id')
+                         and a.get('variant_id') == asset.get('variant_id')
+                         and a['face'] == 'side'
+                         and a['placement'].get('cho_phep_chen') is not False]
+                d = _bounds(sides[0])[0] if len(sides) == 1 else 65.0
+                if w > 0 and h > 0:
+                    return (w, h, d)
+            except Exception:
+                pass
+            return None
+
+        for device in devices:
+            tag = device.get('tag') or device.get('name') or '?'
+            dims = None
+            source = 'catalog'
+            # Tier 1: PhysicalLayoutEngine catalog lookup
+            try:
+                raw = EnclosureCadGeneratorService._get_device_dimension(device)
+                if len(raw) == 3 and all(math.isfinite(v) and v > 0 for v in raw):
+                    dims = raw
+            except (ValueError, TypeError, KeyError, OSError):
+                pass
+            # Tier 2: doc thang tu tb: asset
+            if not dims:
+                tb = _dims_from_asset(device)
+                if tb:
+                    dims, source = tb, 'catalog_asset'
+            # Tier 3: doc tu truong dimensions da co (tu placement da luu)
+            if not dims:
+                expl = _dims_from_explicit(device)
+                if expl:
+                    dims, source = expl, 'explicit_dimensions'
+            # Tier 4: uoc luong tu loai + dong dien
+            if not dims:
+                est = _estimate_dims_from_spec(device)
+                if est:
+                    dims, source = est, 'estimated_from_rating'
+
+            if dims:
+                if source in ('estimated_from_rating', 'explicit_dimensions'):
+                    estimated.append(tag)
+                dimension_evidence.append({
+                    'tag': tag, 'width_mm': dims[0], 'height_mm': dims[1], 'depth_mm': dims[2],
+                    'asset_id': (device.get('cad') or {}).get('asset_id'),
+                    'quantity': device.get('quantity') or 1,
+                    'dimension_source': source,
+                })
+            else:
+                missing.append(tag)
+
+        if not dimension_evidence:
+            raise ValueError('Chua du kich thuoc thiet bi de tinh tu: ' +
+                             ('; '.join(missing) or 'chua co thiet bi'))
+        if not devices:
+            raise ValueError('Chua du kich thuoc thiet bi de tinh tu: chua co thiet bi')
+        # A takeoff row can represent many physical devices. A multi-device
+        # source block must instead use its evidenced components-per-asset.
+        physical_devices = []
+        for device in devices:
+            count = int(device.get('quantity') or 1)
+            asset_id = (device.get('cad') or {}).get('asset_id')
+            if str(asset_id or '').startswith('tb:'):
+                try:
+                    from .catalogtb_assets import resolve, instance_count
+                    count = instance_count(count, resolve(asset_id))
+                except (ValueError, KeyError, FileNotFoundError):
+                    # Asset ID lưu từ phiên bản cũ có thể không còn trong CatalogTB;
+                    # giữ nguyên quantity=1 thay vì lỗi toàn bộ.
+                    pass
+            if count < 1:
+                raise ValueError('So luong thiet bi phai lon hon 0.')
+            physical_devices.extend({**device, 'quantity':1} for _ in range(count))
+        devices = physical_devices
         protection_types = {"ACB", "MCCB", "MCB", "RCBO", "RCCB", "ELCB"}
         protection = [d for d in devices if str(d.get("category") or "").upper() in protection_types]
         explicit_incomers = [
@@ -273,7 +418,15 @@ class EnclosureCadGeneratorService:
         incomer_a = float(incomer_dev.get("in_a") or 40.0)
         incomer_poles = int(incomer_dev.get("poles") or (3 if incomer_a > 63 else 2))
         is_3phase = incomer_poles >= 3
-        inc_w, inc_h, inc_d = EnclosureCadGeneratorService._get_device_dimension(incomer_dev)
+        inc_w, inc_h, inc_d = 0.0, 0.0, 0.0
+        try:
+            inc_w, inc_h, inc_d = EnclosureCadGeneratorService._get_device_dimension(incomer_dev)
+        except (ValueError, TypeError, KeyError, OSError):
+            # Fallback: doc tu dimensions da co hoac uoc luong
+            dr = incomer_dev.get('dimensions') or {}
+            inc_w = float(dr.get('w') or dr.get('width') or 0) or 100.0
+            inc_h = float(dr.get('h') or dr.get('height') or 0) or 200.0
+            inc_d = float(dr.get('d') or dr.get('depth') or 0) or 150.0
 
         door_devs = [d for d in devices if PhysicalLayoutEngine.classify_mounting(d) == MountingType.DOOR_MOUNTED]
         ctrl_devs = [
@@ -315,7 +468,7 @@ class EnclosureCadGeneratorService:
             raw_h = 170.0 + inc_h + 55.0 + stack_h + 150.0 + 45.0
             raw_d = max([inc_d] + [dim[2] for _, dim in branch_dims] + [60.0]) + 260.0
             minimum_w = round_standard(raw_w, standard_widths)
-            minimum_h = round_standard(raw_h, standard_heights)
+            minimum_h = round_standard(sizing_height(raw_h), standard_heights)
             minimum_d = round_standard(raw_d, standard_depths)
             branch_rows = [central_columns["left"], central_columns["right"]]
         else:
@@ -336,7 +489,7 @@ class EnclosureCadGeneratorService:
                 top_h = (150.0 if need_busbar else 80.0) + inc_h + 45.0
                 control_h = max((EnclosureCadGeneratorService._get_device_dimension(d)[1] for d in ctrl_devs), default=0.0)
                 raw_h_for_w = top_h + branch_h + control_h + 170.0 + 50.0
-                candidate_h = round_standard(raw_h_for_w, standard_heights)
+                candidate_h = round_standard(sizing_height(raw_h_for_w), standard_heights)
                 candidates.append((candidate_w * candidate_h, candidate_w, candidate_h, rows))
             _, minimum_w, minimum_h, branch_rows = min(candidates, key=lambda c: (c[0], c[2], c[1])) if candidates else (0, 800.0, 1200.0, [[]])
             max_device_d = max([inc_d] + [dim[2] for _, dim in branch_dims] + [60.0])
@@ -407,6 +560,12 @@ class EnclosureCadGeneratorService:
             "minimum_required": {"height": required_h, "width": required_w, "depth": required_d},
             "selected": {"height": chosen_h, "width": chosen_w, "depth": chosen_d},
             "catalog_warnings": catalog_warnings,
+            "estimated_devices": estimated,  # thiết bị dùng kích thước ước lượng
+            "missing_geometry_devices": missing,  # thiết bị không ước lượng được
+            "sizing_basis": (
+                "catalog_and_estimated" if estimated else "catalog"
+                if not missing else "partial"
+            ),
         }
 
         layout_eval = {
@@ -417,7 +576,12 @@ class EnclosureCadGeneratorService:
             "control_devices_count": len(ctrl_devs),
             "filling_ratio": round(filling_ratio, 2),
             "is_floor_standing": chosen_h >= 1200,
-            "reserve_space_pct": 15,
+            "reserve_space_pct": fraction() * 100,
+            "reserve_space": {"status": "planned_requires_cad_verification",
+                "policy": "dedicated_mounting_plate_expansion_zone",
+                "basis": "system_design_policy_not_a_standard_requirement",
+                "requested_pct": fraction() * 100},
+            "device_dimension_evidence": dimension_evidence,
             "layout_style": layout_style,
             "fit_check": fit_check,
             "dimension_rationale": (
@@ -445,7 +609,9 @@ class EnclosureCadGeneratorService:
             "central_columns": central_columns,
             "layout_style": layout_style,
             "fit_check": fit_check,
-            "layout_evaluation": layout_eval
+            "layout_evaluation": layout_eval,
+            "reserve_space": layout_eval['reserve_space'],
+            "device_dimension_evidence": dimension_evidence,
         }
 
     @staticmethod

@@ -16,6 +16,24 @@ async def require_project(db, project_id, user):
         raise HTTPException(404, 'Dự án không tồn tại')
 
 
+async def session_page(db, project_id, user, skip=0, limit=50):
+    await require_project(db, project_id, user)
+    relation = (AnalysisIteration.session_id == ConversationSession.id)
+    filters = (ConversationSession.project_id == project_id, AnalysisIteration.status == 'completed')
+    total = (await db.execute(select(func.count(AnalysisIteration.id))
+             .join(ConversationSession, relation).where(*filters))).scalar_one()
+    query = (select(AnalysisIteration, ConversationSession).join(ConversationSession, relation)
+             .where(*filters).options(
+                 load_only(AnalysisIteration.id, AnalysisIteration.session_id,
+                           AnalysisIteration.iteration_number, AnalysisIteration.trigger_type,
+                           AnalysisIteration.ai_parsed_devices, AnalysisIteration.confidence_scores,
+                           AnalysisIteration.files_analyzed, AnalysisIteration.created_at),
+                 load_only(ConversationSession.id, ConversationSession.status))
+             .order_by(AnalysisIteration.created_at.desc(), AnalysisIteration.id.desc())
+             .offset(skip).limit(limit))
+    return (await db.execute(query)).all(), total
+
+
 async def latest_analysis(db, project_id, user):
     await require_project(db, project_id, user)
     # An explicit chat deletion is a valid empty result. Prefer the newest

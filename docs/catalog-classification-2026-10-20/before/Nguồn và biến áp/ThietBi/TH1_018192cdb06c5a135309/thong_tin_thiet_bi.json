@@ -1,0 +1,196 @@
+{
+  "nhom": "Nguồn và biến áp",
+  "ten_kieu": "Biến áp · nhãn TR",
+  "ten_san_pham": "Biến áp · nhãn TR",
+  "ban_chat": "Nguồn và biến áp",
+  "cong_dung": "Cấp nguồn cho mạch điều khiển; cần xác định loại nguồn và sơ đồ cọc.",
+  "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp theo mã thiết bị.",
+  "hang_xac_nhan": null,
+  "ma_dong_san_pham": null,
+  "thong_so": {
+    "nhan_block_nguon": "TR",
+    "dien_ap_xac_nhan_V": null,
+    "cong_suat_xac_nhan": null
+  },
+  "muc_do_xac_nhan": "CAD tham khảo từ thư viện nguồn; chưa xác nhận mã đặt hàng, hãng, hướng nhìn và thông số điện.",
+  "nguon_tham_khao": [],
+  "nguon_cad": {
+    "file": "D:/THƯ VIỆN/TỔNG HỢP 1.dwg",
+    "sha256": "68e8bb43ccee0bceaf49fa982510ef29c3a6a2f7c11b00a7330f181d9e6ff7b5",
+    "block": "TR",
+    "asset_id": "018192cdb06c5a135309",
+    "parent_asset_id": null,
+    "geometry_key": "4caba11d1f8d1677166418ff9072cca78f0e67ed54dde0c1586bf37cada718bf"
+  },
+  "cac_hinh_cad": [
+    "TH1_018192cdb06c5a135309"
+  ],
+  "auto_select": false,
+  "needs_review": true,
+  "trang_thai_lua_chon": "Chỉ tham khảo, cần xác nhận mã và trạng thái CAD trước sử dụng.",
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Chọn theo từng kết nối, thông số điện và bảo vệ phía trước; không suy từ hình CAD. Vật tư thuần cơ khí không yêu cầu dây.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa có dữ liệu gá/cọc theo mã đầy đủ",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "TH1_018192cdb06c5a135309",
+      "huong_nhin": "Chưa xác nhận hướng nhìn",
+      "nhan_hien_thi": "Hình nguồn · chưa xác nhận mặt",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": false,
+        "huong_dan": "Cần xác nhận mặt và mã thiết bị trước sử dụng."
+      },
+      "duong_dan": "CadDon/TH1_018192cdb06c5a135309/ban_ve.dxf"
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "TH1_018192cdb06c5a135309",
+    "huong_nhin": "Chưa xác nhận hướng nhìn",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "Nguồn và biến áp",
+    "ma_san_pham": "Biến áp · nhãn TR",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khảo - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "Nguồn và biến áp",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "CHINT",
+        "model": "NDK",
+        "specifications": {
+          "Loại": "Biến áp điều khiển một pha",
+          "Công suất lựa chọn": "25–5000 VA",
+          "Tần số": "50/60 Hz"
+        },
+        "source_url": "https://www.chintglobal.com/in/en/products/low-voltage/iec/industrial-control/ndk.html",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "MEAN WELL",
+        "model": "LRS-150-24",
+        "specifications": {
+          "Đầu ra DC": "24 V",
+          "Dòng đầu ra": "6.5 A",
+          "Công suất": "156 W"
+        },
+        "source_url": "https://www.meanwell.com/Upload/PDF/LRS-150/LRS-150-SPEC.PDF",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Chưa xác định",
+        "model": "Biến áp · nhãn TR",
+        "specifications": {
+          "nhan_block_nguon": "TR",
+          "Loại thiết bị": "Nguồn và biến áp",
+          "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp theo mã thiết bị.",
+          "Hình chiếu Chưa xác nhận hướng nhìn (ngang × cao, mm)": "103.451 × 98.982"
+        },
+        "source_url": "",
+        "basis": "cad_reference_code",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mã/tên mẫu CAD nguồn để tra cứu và dùng chung; chưa phải mã hàng thương mại."
+      }
+    ],
+    "observed_specifications": {
+      "nhan_block_nguon": "TR",
+      "Loại thiết bị": "Nguồn và biến áp",
+      "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp theo mã thiết bị.",
+      "Hình chiếu Chưa xác nhận hướng nhìn (ngang × cao, mm)": "103.451 × 98.982"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "source_text_without_unique_model",
+      "source_model": null,
+      "matched_catalog_rows": 0,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Xác định hãng/mã từ nhãn hoặc block CAD nguồn",
+        "Đối chiếu và chọn mã đặt hàng đầy đủ",
+        "Tra catalog đúng hãng/dòng; các mã cùng loại hiện có chỉ là tham khảo",
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "source_text_without_unique_model",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [],
+      "documented_models": [],
+      "source_text_count": 2,
+      "contains_multiple_components": false,
+      "original_context": [
+        {
+          "basis": "named_block_in_original_library",
+          "block": "TR",
+          "handle": null,
+          "source_sha256": "cd7c2afc417061349d0f94a95574bf4326df876a4ca60fdaaef0396849dc9bc9",
+          "dynamic_state_verified": false
+        }
+      ],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "tu_khoa_tim_kiem": [
+    "Nguồn và biến áp",
+    "Biến áp · nhãn TR",
+    ""
+  ]
+}

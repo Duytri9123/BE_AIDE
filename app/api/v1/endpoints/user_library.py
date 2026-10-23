@@ -8,7 +8,6 @@ from app.db.session import get_db
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
-import aiofiles
 import os
 from pathlib import Path
 from app.core.config import settings
@@ -48,13 +47,8 @@ async def upload_file(
     upload_dir = Path(getattr(settings, "USER_LIBRARY_DIR", "storage/user_library")) / str(current_user.id)
     upload_dir.mkdir(parents=True, exist_ok=True)
     
-    # Lưu file
-    file_path = upload_dir / file.filename
-    async with aiofiles.open(file_path, 'wb') as out_file:
-        content = await file.read()
-        await out_file.write(content)
-    
-    file_size = os.path.getsize(file_path)
+    from app.services.upload_storage import save_upload
+    file_path, file_size = await save_upload(file, upload_dir, settings.MAX_FILE_SIZE_MB * 1024 * 1024)
     
     # Lưu vào database
     library_file = UserLibraryFile(

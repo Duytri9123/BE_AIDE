@@ -1,0 +1,601 @@
+{
+  "nhom": "LS",
+  "ten_kieu": "MCCB LS TS100/TS160/TS250 · 4P",
+  "ten_san_pham": "MCCB LS TS100/TS160/TS250 · 4P",
+  "hang_xac_nhan": "LS Electric",
+  "ma_dong_san_pham": "TS100 / TS160 / TS250",
+  "ban_chat": "MCCB dạng khối",
+  "cong_dung": "Bảo vệ mạch động lực trước quá tải và ngắn mạch; đóng cắt và cách ly mạch.",
+  "vi_tri_lap_dat": "Trên ray DIN hoặc tấm lắp trong ngăn điều khiển/động lực, theo kiểu gá của thiết bị.",
+  "thong_so": {
+    "so_cuc": "4P",
+    "dong_chinh_dinh": "Chưa xác định",
+    "cap_cat_N_H_L": "Chưa xác định"
+  },
+  "dac_diem": [
+    "Mỗi mặt CAD chỉ chứa phần hiển thị của trạng thái đã chọn. Nắp che là phương án biểu diễn khi đóng nắp, không phải một góc nhìn khác."
+  ],
+  "cac_hinh_cad": [
+    "LS-D02-C5-I03-4P",
+    "LS-D02-C5-I03-VIEW-SIDE-VIEW",
+    "LS-D02-C5-I03-VIEW-4P-COVER"
+  ],
+  "tai_lieu_hang": "https://pfinder.ls-electric.com/IEC/product/mccb_susol.do?region=IEC&spg=mccb_susol",
+  "nguon_tham_khao": [
+    "https://pfinder.ls-electric.com/IEC/product/mccb_susol.do?region=IEC&spg=mccb_susol"
+  ],
+  "muc_do_xac_nhan": "Đã xác định dòng thiết bị; mã đặt hàng đầy đủ và cấu hình điện cần chọn theo biến thể.",
+  "lua_chon_ky_thuat": [
+    "Chọn dòng làm việc, điện áp, số cực và khả năng cắt theo hệ thống.",
+    "Với thiết bị chống rò, chọn dòng rò tác động và phối hợp bảo vệ quá dòng."
+  ],
+  "trang_thai_ls_da_cap_nhat": true,
+  "cad_don": [
+    {
+      "id_hinh_goc": "LS-D02-C5-I03-4P",
+      "huong_nhin": "Mặt trước",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt trước form tủ khi mặt thao tác hoặc mặt chính của thiết bị hướng về người nhìn."
+      },
+      "duong_dan": "CadDon/LS-D02-C5-I03-4P/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong",
+          "canh_trong"
+        ],
+        "huong_dan": "Thân thiết bị cố định trên ray DIN hoặc tấm lắp bên trong. Cánh trong chỉ để lộ tay gạt qua lỗ khoét; không treo toàn bộ thiết bị nặng lên cánh.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      }
+    },
+    {
+      "id_hinh_goc": "LS-D02-C5-I03-VIEW-4P-COVER",
+      "huong_nhin": "Mặt trước",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt trước form tủ khi mặt thao tác hoặc mặt chính của thiết bị hướng về người nhìn."
+      },
+      "duong_dan": "CadDon/LS-D02-C5-I03-VIEW-4P-COVER/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong",
+          "canh_trong"
+        ],
+        "huong_dan": "Thân thiết bị cố định trên ray DIN hoặc tấm lắp bên trong. Cánh trong chỉ để lộ tay gạt qua lỗ khoét; không treo toàn bộ thiết bị nặng lên cánh.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      }
+    },
+    {
+      "id_hinh_goc": "LS-D02-C5-I03-VIEW-SIDE-VIEW",
+      "huong_nhin": "Mặt bên",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt bên",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt bên form tủ khi thiết bị giữ tư thế lắp đứng. Nếu xoay tư thế lắp, cần đối chiếu lại hướng nhìn."
+      },
+      "duong_dan": "CadDon/LS-D02-C5-I03-VIEW-SIDE-VIEW/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong",
+          "canh_trong"
+        ],
+        "huong_dan": "Thân thiết bị cố định trên ray DIN hoặc tấm lắp bên trong. Cánh trong chỉ để lộ tay gạt qua lỗ khoét; không treo toàn bộ thiết bị nặng lên cánh.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      }
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "LS-D02-C5-I03-4P",
+    "huong_nhin": "Mặt trước",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "bo_tri_lap_dat": {
+    "vi_tri_uu_tien": "ben_trong",
+    "vi_tri_phu_hop": [
+      "ben_trong",
+      "canh_trong"
+    ],
+    "huong_dan": "Thân thiết bị cố định trên ray DIN hoặc tấm lắp bên trong. Cánh trong chỉ để lộ tay gạt qua lỗ khoét; không treo toàn bộ thiết bị nặng lên cánh.",
+    "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+    "nguon_tham_khao": [
+      "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+    ]
+  },
+  "quy_cach_hien_thi": "4P",
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Nguồn vào",
+      "Ra tải",
+      "Phụ kiện điều khiển nếu có"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Chọn theo từng kết nối, thông số điện và bảo vệ phía trước; không suy từ hình CAD. Vật tư thuần cơ khí không yêu cầu dây.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa có dữ liệu gá/cọc theo mã đầy đủ",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "tu_khoa_tim_kiem": [
+    "MCCB LS TS100/TS160/TS250 · 4P",
+    "TS100",
+    "TS160",
+    "TS250",
+    "aptomat khoi",
+    "aptomat khối",
+    "molded case circuit breaker",
+    "ABB",
+    "1SDA066524R1",
+    "CHINT",
+    "NM8N-125C TM 100 4C",
+    "Delixi",
+    "CDM3S125C1002300",
+    "Fuji Electric",
+    "BW100ECF-4P",
+    "HD Hyundai Electric",
+    "HGM1000S 4P",
+    "Hager",
+    "HDA017Z",
+    "ABN102c",
+    "Legrand",
+    "027070",
+    "Mitsubishi Electric",
+    "2CE143A00002U",
+    "Schneider Electric",
+    "LV510310",
+    "Shihlin",
+    "BM100-HN",
+    "Siemens",
+    "3VJ1002-0EA42-0AA0",
+    "Vinakip",
+    "AT 56",
+    "TS1000N 4P",
+    "TS1600N 4P",
+    "TS1000H 4P",
+    "TS1600H 4P",
+    "TS1000N",
+    "TS1600N",
+    "MCCB dạng khối",
+    "TS100 / TS160 / TS250"
+  ],
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "MCCB",
+    "hang": "LS",
+    "cac_ma_dong_san_pham": [
+      "TS100",
+      "TS160",
+      "TS250"
+    ],
+    "so_cuc": "4P",
+    "loai_nguon": null,
+    "pham_vi_ma": "model_or_shared_cad_family",
+    "ma_dat_hang_da_chon": null,
+    "quy_tac": "Tra từng mã trong nhóm; CAD chung không xác nhận cùng thông số điện. Chọn cấu hình và mã đặt hàng trước thi công. Giá trị null là chưa xác định."
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "LS Electric",
+    "ma_san_pham": "TS100 / TS160 / TS250",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [
+      "https://anhphatelectric.com",
+      "https://etinco.vn/san-pham-ls-electric"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Ước tính - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "MCCB",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "LS Electric",
+        "model": "TS100",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 120
+        },
+        "source_url": "https://www.ls-electric.com/upload/customer/download/280b6197-f4bb-4f86-a60d-917b7b8bf890/Metasol_MC_E_170915.pdf",
+        "source_page": 120,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng được ghi trong hồ sơ nguồn. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS250",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 121
+        },
+        "source_url": "https://www.ls-electric.com/upload/customer/download/280b6197-f4bb-4f86-a60d-917b7b8bf890/Metasol_MC_E_170915.pdf",
+        "source_page": 121,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng được ghi trong hồ sơ nguồn. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS100N FTU100 4P",
+        "specifications": {
+          "Thông tin": "50",
+          "Họ thiết bị": "TS100",
+          "Tên hàng": "TS100N FTU100 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:f921a91a0ad1a302",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS160N FTU160 4P",
+        "specifications": {
+          "Thông tin": "50",
+          "Họ thiết bị": "TS160",
+          "Tên hàng": "TS160N FTU160 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:8380e5b12d18c095",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS160N FTU160 4P",
+        "specifications": {
+          "Thông tin": "50",
+          "Họ thiết bị": "TS160",
+          "Tên hàng": "TS160N FTU160 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:7bd5fb9b571825ee",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS250N FTU250 4P",
+        "specifications": {
+          "Thông tin": "50",
+          "Họ thiết bị": "TS250",
+          "Tên hàng": "TS250N FTU250 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:d5edb29d1a898db5",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS250N FTU250 4P",
+        "specifications": {
+          "Thông tin": "50",
+          "Họ thiết bị": "TS250",
+          "Tên hàng": "TS250N FTU250 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:d7a33ef6439dcf94",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS100N FMU100 4P",
+        "specifications": {
+          "Thông tin": "50",
+          "Họ thiết bị": "TS100",
+          "Tên hàng": "TS100N FMU100 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:896f88f2c0af1475",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS160N FMU160 4P",
+        "specifications": {
+          "Thông tin": "50",
+          "Họ thiết bị": "TS160",
+          "Tên hàng": "TS160N FMU160 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:18063c385b029291",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS160N FMU160 4P",
+        "specifications": {
+          "Thông tin": "50",
+          "Họ thiết bị": "TS160",
+          "Tên hàng": "TS160N FMU160 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:1b89b4fce9cd424e",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS250N FMU250 4P",
+        "specifications": {
+          "Thông tin": "50",
+          "Họ thiết bị": "TS250",
+          "Tên hàng": "TS250N FMU250 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:4049320209a6c81f",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS250N FMU250 4P",
+        "specifications": {
+          "Thông tin": "50",
+          "Họ thiết bị": "TS250",
+          "Tên hàng": "TS250N FMU250 4P",
+          "Số cực": "4P"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 7,
+        "source_row_id": "ls-pdf:e9ff33208394c0d2",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "TS100 / TS160 / TS250",
+        "specifications": {
+          "so_cuc": "4P",
+          "dong_chinh_dinh": "Chưa xác định",
+          "cap_cat_N_H_L": "Chưa xác định",
+          "Loại thiết bị": "MCCB",
+          "Lắp đặt tham khảo": "Trên ray DIN hoặc tấm lắp trong ngăn điều khiển/động lực, theo kiểu gá của thiết bị.",
+          "Hình chiếu Mặt trước (ngang × cao, mm)": "145.0 × 175.0",
+          "Hình chiếu Mặt bên (ngang × cao, mm)": "110.0 × 160.0"
+        },
+        "source_url": "https://pfinder.ls-electric.com/IEC/product/mccb_susol.do?region=IEC&spg=mccb_susol",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      }
+    ],
+    "observed_specifications": {
+      "so_cuc": "4P",
+      "dong_chinh_dinh": "Chưa xác định",
+      "cap_cat_N_H_L": "Chưa xác định",
+      "Loại thiết bị": "MCCB",
+      "Lắp đặt tham khảo": "Trên ray DIN hoặc tấm lắp trong ngăn điều khiển/động lực, theo kiểu gá của thiết bị.",
+      "Hình chiếu Mặt trước (ngang × cao, mm)": "145.0 × 175.0",
+      "Hình chiếu Mặt bên (ngang × cao, mm)": "110.0 × 160.0"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "documented_source_label",
+      "source_model": "TS100 / TS160 / TS250",
+      "matched_catalog_rows": 10,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": true,
+      "source_label_models": [
+        "TS100",
+        "TS250"
+      ],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "documented_source_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [
+        "TS100",
+        "TS250"
+      ],
+      "documented_models": [
+        {
+          "model": "TS100",
+          "brand": "LS Electric",
+          "manufacturer_confirmed_on_source": true,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/280b6197-f4bb-4f86-a60d-917b7b8bf890/Metasol_MC_E_170915.pdf",
+              "sha256": "46d017e9c1c7e498670c8aa51ba4cb5ab3445b40d19b81ced563e1b5bf4e3bc0",
+              "page": 120,
+              "format": "pdf",
+              "match": "TS100",
+              "basis": "literal_model_label"
+            },
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/1627/Electric%20Products_E_1703.pdf",
+              "sha256": "c3939090de81ca1dd1927bf03f64af3d6acf0a4301ec687a1964ade42c0f85aa",
+              "page": 27,
+              "format": "pdf",
+              "match": "TS100",
+              "basis": "literal_model_label"
+            },
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+              "sha256": "0e7eec7924fe497009656a8e9c86371c8e9bedef842bc6c99572deac272ce5f4",
+              "page": 120,
+              "format": "pdf",
+              "match": "TS100",
+              "basis": "manufacturer_ordering_code_family_prefix"
+            }
+          ]
+        },
+        {
+          "model": "TS250",
+          "brand": "LS Electric",
+          "manufacturer_confirmed_on_source": true,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/280b6197-f4bb-4f86-a60d-917b7b8bf890/Metasol_MC_E_170915.pdf",
+              "sha256": "46d017e9c1c7e498670c8aa51ba4cb5ab3445b40d19b81ced563e1b5bf4e3bc0",
+              "page": 121,
+              "format": "pdf",
+              "match": "TS250",
+              "basis": "manufacturer_ordering_code_family_prefix"
+            },
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/1627/Electric%20Products_E_1703.pdf",
+              "sha256": "c3939090de81ca1dd1927bf03f64af3d6acf0a4301ec687a1964ade42c0f85aa",
+              "page": 27,
+              "format": "pdf",
+              "match": "TS250",
+              "basis": "literal_model_label"
+            },
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+              "sha256": "0e7eec7924fe497009656a8e9c86371c8e9bedef842bc6c99572deac272ce5f4",
+              "page": 120,
+              "format": "pdf",
+              "match": "TS250",
+              "basis": "manufacturer_ordering_code_family_prefix"
+            }
+          ]
+        }
+      ],
+      "source_text_count": 11,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "gia_ban_tham_khao_cu": {
+    "don_gia": "200000-1500000",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Có giá (phạm vi ước tính)",
+    "hang": "LS Electric",
+    "ma_san_pham": "TS100 / TS160 / TS250",
+    "ghi_chu": "MCCB LS TS100/TS160/TS250 · 4P. MCCB - giá ước tính theo công suất. Liên hệ đại lý để có giá chính xác",
+    "nguon_tham_khao": [
+      "https://anhphatelectric.com",
+      "https://etinco.vn/san-pham-ls-electric"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Ước tính - cần xác nhận với nhà cung cấp"
+  },
+  "nhan_dien_web": {
+    "source_label_review": {
+      "status": "documented_source_label",
+      "models": [
+        "TS100",
+        "TS250"
+      ],
+      "manufacturer_candidates": [
+        "LS Electric"
+      ],
+      "checked_at": "2026-10-17",
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

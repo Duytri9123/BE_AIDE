@@ -1,0 +1,222 @@
+{
+  "nhom": "Cuộn kháng",
+  "ten_kieu": "Cuộn kháng ba pha lõi thép",
+  "ten_san_pham": "Cuộn kháng ba pha lõi thép",
+  "ban_chat": "Cuộn kháng ba pha lõi thép",
+  "cong_dung": "Hạn chế biến thiên dòng trong mạch ba pha; chức năng phụ thuộc cách đấu nối.",
+  "vi_tri_lap_dat": "Trong tủ điện, nối vào mạch ba pha theo sơ đồ thiết kế.",
+  "hang_xac_nhan": null,
+  "ma_dong_san_pham": null,
+  "thong_so": {
+    "so_pha_theo_hinh": 3
+  },
+  "muc_do_xac_nhan": "Chưa có nhãn điện hoặc sơ đồ đấu nối để xác định dòng định mức và ứng dụng.",
+  "nguon_tham_khao": [
+    "https://circutor.com/pdf/pdfdatasheet.php?lang=en&prod=P731200000300",
+    "https://www.se.com/us/en/faqs/FA115635/"
+  ],
+  "cac_hinh_cad": [
+    "C11_cluster6-V001",
+    "C11_cluster6-V002"
+  ],
+  "dac_diem": [
+    "Nối tiếp tụ bù: dùng để tránh cộng hưởng sóng hài. Nối trước biến tần: dùng để giảm méo dòng đầu vào."
+  ],
+  "lua_chon_ky_thuat": [
+    "Xem sơ đồ đấu nối để xác định loại; chọn dòng, điện áp và điện kháng theo nhãn của thiết bị thực tế."
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "C11_cluster6-V001",
+    "huong_nhin": "Chưa xác định hướng nhìn",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "C11_cluster6-V001",
+      "huong_nhin": "Chưa xác định hướng nhìn",
+      "duong_dan": "CadDon/C11_cluster6-V001/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": null,
+        "cho_phep_chen": true,
+        "huong_dan": "Chưa đủ căn cứ xác nhận hướng nhìn. Đối chiếu các đầu nối, bề mặt lắp và tư thế đặt trước khi chọn."
+      },
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong"
+        ],
+        "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      }
+    },
+    {
+      "id_hinh_goc": "C11_cluster6-V002",
+      "huong_nhin": "CAD còn nhiều mặt",
+      "duong_dan": "CadDon/C11_cluster6-V002/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": null,
+        "cho_phep_chen": false,
+        "huong_dan": "Cần hoàn thiện hoặc tách CAD trước khi bố trí vào tủ."
+      },
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong"
+        ],
+        "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      }
+    }
+  ],
+  "bo_tri_lap_dat": {
+    "vi_tri_uu_tien": "ben_trong",
+    "vi_tri_phu_hop": [
+      "ben_trong"
+    ],
+    "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+    "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+    "nguon_tham_khao": [
+      "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+    ]
+  },
+  "quy_cach_hien_thi": "",
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Mạch đo / điều khiển, chọn theo đúng cọc thực tế"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Chọn theo từng kết nối, thông số điện và bảo vệ phía trước; không suy từ hình CAD. Vật tư thuần cơ khí không yêu cầu dây.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa có dữ liệu gá/cọc theo mã đầy đủ",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "Cuộn kháng",
+    "ma_san_pham": "Cuộn kháng ba pha lõi thép",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khảo - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "Cuộn kháng ba pha lõi thép",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "TDK / EPCOS",
+        "model": "B44066D5050M440",
+        "specifications": {
+          "Loại": "Cuộn kháng lọc sóng hài; chọn định mức theo datasheet của mã"
+        },
+        "source_url": "https://product.tdk.com/de/search/capacitor/pfc/key-comp_reactor/info?part_no=B44066D5050M440",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Chưa xác định",
+        "model": "BGVFG",
+        "specifications": {
+          "so_pha_theo_hinh": 3,
+          "Loại thiết bị": "Cuộn kháng ba pha lõi thép",
+          "Lắp đặt tham khảo": "Trong tủ điện, nối vào mạch ba pha theo sơ đồ thiết kế.",
+          "Hình chiếu Chưa xác định hướng nhìn (ngang × cao, mm)": "200.0 × 282.6",
+          "Hình chiếu CAD còn nhiều mặt (ngang × cao, mm)": "330.0 × 275.3"
+        },
+        "source_url": "",
+        "basis": "cad_reference_code",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mã/tên mẫu CAD nguồn để tra cứu và dùng chung; chưa phải mã hàng thương mại."
+      }
+    ],
+    "observed_specifications": {
+      "so_pha_theo_hinh": 3,
+      "Loại thiết bị": "Cuộn kháng ba pha lõi thép",
+      "Lắp đặt tham khảo": "Trong tủ điện, nối vào mạch ba pha theo sơ đồ thiết kế.",
+      "Hình chiếu Chưa xác định hướng nhìn (ngang × cao, mm)": "200.0 × 282.6",
+      "Hình chiếu CAD còn nhiều mặt (ngang × cao, mm)": "330.0 × 275.3"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "source_geometry_without_model_label",
+      "source_model": null,
+      "matched_catalog_rows": 0,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Xác định hãng/mã từ nhãn hoặc block CAD nguồn",
+        "Đối chiếu và chọn mã đặt hàng đầy đủ",
+        "Tra catalog đúng hãng/dòng; các mã cùng loại hiện có chỉ là tham khảo",
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "source_geometry_without_model_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [],
+      "documented_models": [],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [
+        {
+          "basis": "named_block_in_original_library",
+          "block": "GVFDXBG",
+          "handle": null,
+          "source_sha256": "cd7c2afc417061349d0f94a95574bf4326df876a4ca60fdaaef0396849dc9bc9",
+          "dynamic_state_verified": false
+        }
+      ],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "tu_khoa_tim_kiem": [
+    "Cuộn kháng ba pha lõi thép",
+    ""
+  ]
+}

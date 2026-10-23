@@ -1,7 +1,7 @@
 from pathlib import Path
-import json,re,unicodedata
+import json,re,unicodedata,sys
 root=Path(__file__).resolve().parents[1]/'data/CatalogTB';before=[]
-for p in sorted(root.rglob('thong_tin_thiet_bi.json')):
+for p in ([] if '--index-only' in sys.argv else sorted(root.rglob('thong_tin_thiet_bi.json'))):
  d=json.loads(p.read_text(encoding='utf8'))
  if 'BienDong' not in p.parts and 'ThietBiDoLuongHienThi' not in p.parts:
   if (d.get('nhan_dien_ai') or {}).get('loai_thiet_bi_code'):continue

@@ -1,0 +1,47 @@
+{
+  "id_hinh_goc": "A02_abb-V002",
+  "huong_nhin": "CAD cần đối chiếu thiết bị",
+  "tep": {
+    "cad_dxf": "ban_ve.dxf",
+    "preview": "xem_truoc.svg"
+  },
+  "hinh_hoc_lap_dat": {
+    "don_vi": "mm",
+    "goc_chen_dxf_mm": {
+      "x": 0,
+      "y": 0
+    },
+    "bao_hinh_mm": {
+      "min_x": -18.5,
+      "min_y": -42.5,
+      "max_x": 18.5,
+      "max_y": 42.5
+    },
+    "tam_bao_hinh_mm": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "dich_chuyen_tu_hinh_goc_mm": {
+      "x": 21605.911,
+      "y": -87467.039
+    }
+  },
+  "ghi_chu": "Một hình chiếu riêng, đặt được độc lập vào bản vẽ tủ.",
+  "nhan_dien_mat": "Đã đối chiếu hình dạng; hướng sử dụng phụ thuộc tư thế lắp.",
+  "bo_tri_trong_tu": {
+    "mat_form_mac_dinh": null,
+    "cho_phep_chen": false,
+    "huong_dan": "Cần hoàn thiện hoặc tách CAD trước khi bố trí vào tủ."
+  },
+  "bo_tri_lap_dat": {
+    "vi_tri_uu_tien": "ben_trong",
+    "vi_tri_phu_hop": [
+      "ben_trong"
+    ],
+    "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+    "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+    "nguon_tham_khao": [
+      "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+    ]
+  }
+}

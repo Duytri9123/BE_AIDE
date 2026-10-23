@@ -1,0 +1,83 @@
+{
+  "id_hinh_goc": "SRC_SCHNEIDER_88818b529e8c",
+  "huong_nhin": "Chưa xác nhận hướng nhìn",
+  "tep": {
+    "cad_dxf": "ban_ve.dxf",
+    "preview": "xem_truoc.svg"
+  },
+  "bo_tri_trong_tu": {
+    "cho_phep_chen": false,
+    "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+  },
+  "nhan_dien_mat": {
+    "verified": false
+  },
+  "nguon": {
+    "file": "D:\\THƯ VIỆN\\@SCHNEIDER.dwg",
+    "sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+    "block": "LV429640ATNSX22A 3",
+    "saved_block": "LV429640ATNSX22A 3",
+    "handle": "22CA9E",
+    "geometry_key": "88818b529e8ca337346c5b75a8455c397888de180304bd2ba1bddf7d25b8d363",
+    "units": 0,
+    "instance_transform": {
+      "insert": [
+        -26295.17434360023,
+        26518.60928091765,
+        0.0
+      ],
+      "rotation": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+  },
+  "ghi_chu": "Giữ số tọa độ và đơn vị nguồn; không tự đổi inch/không đơn vị thành mm.",
+  "unit_verification": {
+    "status": "source_coordinate_unit_inferred_mm",
+    "review_date": "2026-10-11",
+    "raw_header_units_code": 0,
+    "coordinate_scale_to_mm": 1,
+    "target_units_code": 4,
+    "source_document_sha256": "c87e21054c21bd036bd49c7531e3e5c51ef9cf2b9b09e217eaa33280d5bcd591",
+    "anchors": [
+      {
+        "card": 176,
+        "profile": "Schneider/ThietBi/SRC_SCHNEIDER_32698b91a8ae/thong_tin_thiet_bi.json",
+        "view": "SRC_SCHNEIDER_32698b91a8ae",
+        "cad_dimensions": [
+          44.89583250347579,
+          77.00009171779948
+        ],
+        "official_mm": [
+          45,
+          77
+        ],
+        "absolute_tolerance_mm": 0.2,
+        "url": "https://www.clipsal.com/products/industrial/tesys/contactor-3p3-no-ac-3-ac-3e-0-to-440v-9a-115vac-50-60hz-coil-lc1d09fe7?itemno=LC1D09FE7"
+      },
+      {
+        "card": 311,
+        "profile": "Schneider/ThietBi/SRC_SCHNEIDER_fb4da93d1dbf/thong_tin_thiet_bi.json",
+        "view": "SRC_SCHNEIDER_fb4da93d1dbf",
+        "cad_dimensions": [
+          74.99999607048994,
+          130.00003669942816
+        ],
+        "official_mm": [
+          75,
+          130
+        ],
+        "absolute_tolerance_mm": 0.2,
+        "url": "https://eshop.se.com/in/mccb-easypact-ezc-ezc100f3100-100a-10ka-3pole-mccb.html"
+      }
+    ],
+    "basis": "Multiple independent official dimension anchors in the same native-coordinate source document; each extracted view has unit instance scale.",
+    "geometry_resized": false,
+    "exact_model_dimensions_verified": false,
+    "limitation": "Unit calibration does not certify each device envelope, hidden geometry, mounting holes or exact model."
+  }
+}

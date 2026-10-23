@@ -3,6 +3,16 @@ from app.services.catalog_product_sections import candidate_rows,pole_compatible
 from app.services.library_catalog_information import information_rows
 
 class ProductSectionTests(unittest.TestCase):
+    def test_ac_contactor_cad_excludes_dc_and_four_pole_prices(self):
+        device={'brand':'LS','type':'CONTACTOR','product_code':'MC-32a',
+                'spec':{'so_cuc':'3P','Loại cuộn hút':'AC'}}
+        rows=[{'id':str(i),'brand':'LS','category':'CONTACTOR','sku':'MC-32a '+label,
+               'price':100,'information_kind':'pricebook',
+               'specifications':{'Số cực':pole,'Loại cuộn hút':coil}}
+              for i,label,pole,coil in [(1,'AC','3P','AC'),(2,'DC','3P','DC'),(3,'4P','4P','AC')]]
+        result=information_rows(device,rows)
+        self.assertEqual([r['sku'] for r in result],['MC-32a AC'])
+
     def device(self):return {'brand':'LS Electric','type':'MCB','product_code':'BKN','spec':{'so_cuc':'4P'}}
     def row(self,brand='LS Electric',pole='4P',sku='BKN-C20'):
         return {'id':brand+sku+pole,'brand':brand,'category':'MCB','sku':sku,'specifications':{'Số cực':pole,'In (A)':'20'},'price':None}

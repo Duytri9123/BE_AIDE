@@ -1,3 +1,4 @@
+from sqlalchemy import Index
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, ForeignKey, Integer, JSON, Text, UUID
 from typing import Any, Dict, Optional
@@ -6,6 +7,11 @@ from .base import Base, TimestampMixin
 
 class AnalysisIteration(Base, TimestampMixin):
     __tablename__ = "analysis_iterations"
+    __table_args__ = (
+        Index('ix_iterations_session_status_created_id', 'session_id', 'status', 'created_at', 'id'),
+        Index('ix_iterations_session_number_id', 'session_id', 'iteration_number', 'id'),
+    )
+
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     session_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("conversation_sessions.id", ondelete="CASCADE"), index=True)

@@ -1,0 +1,426 @@
+{
+  "nhom": "DenBaoNutNhanCauChiContactor",
+  "ten_kieu": "TĐ-T1 · Đèn báo pha · Idec · cụm đầy đủ",
+  "ten_san_pham": "Đèn báo · TĐ-T1 · Đèn báo pha · Idec · cụm đầy đủ",
+  "ban_chat": "LIGHT",
+  "ma_dong_san_pham": "NP2",
+  "hang_xac_nhan": null,
+  "thong_so": {
+    "Loại thiết bị": "Đèn báo",
+    "Phạm vi bản vẽ": "Cụm/bảng nhiều thành phần",
+    "Mã/dòng trên nguồn": "NP2",
+    "Giá": "---",
+    "Nhãn thông số đọc từ nguồn": "220V; 4.5A; 110V; 0.6A; 230V"
+  },
+  "cong_dung": "Đèn báo dùng để tra cứu thông tin, chọn mã và bố trí theo mẫu CAD tham khảo.",
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "ASSEMBLY_REFERENCE",
+    "source_component_type": "LIGHT",
+    "cac_ma_dong_san_pham": [
+      "NP2"
+    ],
+    "fabrication_ready": false,
+    "generic_shape": false
+  },
+  "auto_select": false,
+  "needs_review": true,
+  "source_catalog_review": {
+    "source_path": "DenBaoNutNhanCauChiContactor/TuLieuBanVe/C03/BanVeCum/C03_cluster6-COMPLETE/ban_ve.dxf",
+    "source_sha256": "ebf207b6d5a6ffd27649974d8437b8678a619031b380ed57ea66a8bbcc6cb298",
+    "texts": [
+      "PHASE INDICATOR",
+      "IDEC",
+      "Pilot Light",
+      "R",
+      "S",
+      "T",
+      "PHASE INDICATIOR",
+      "Red",
+      "Yellow",
+      "Pure White",
+      "Blue",
+      "International Standard",
+      "Japan Standard",
+      "TĐ-T1",
+      "Đèn báo pha",
+      "Idec",
+      "Chint",
+      "China",
+      "Chint     NP2",
+      "BE101.3     .4 (NO)\nAC-15:220V/4.5A\nDC-13:110V/0.6A",
+      "Chint             NP2",
+      "AC/DC 230V",
+      "LED",
+      "BA9s",
+      "Ie<20mA",
+      "BE101.1      .2 (NC)\nAC-15:220V/4.5A\nDC-13:110V/0.6A",
+      "R - PHASE"
+    ],
+    "component_type": "LIGHT",
+    "contains_multiple_components": true,
+    "status": "information_catalogued",
+    "visual_review": "category_contact_sheet_2026_10_16",
+    "brands_read_from_source": [
+      "IDEC",
+      "CHINT"
+    ],
+    "shared_source_variants": [
+      {
+        "name": "TĐ-T1 · Đèn báo pha · Idec · cụm đầy đủ",
+        "models": [
+          "NP2"
+        ],
+        "brand": null,
+        "source": "DenBaoNutNhanCauChiContactor/TuLieuBanVe/C03/BanVeCum/C03_cluster6-COMPLETE/ban_ve.dxf"
+      }
+    ]
+  },
+  "nguon_cad": {
+    "file": "DenBaoNutNhanCauChiContactor/TuLieuBanVe/C03/BanVeCum/C03_cluster6-COMPLETE/ban_ve.dxf",
+    "block": "TĐ-T1 · Đèn báo pha · Idec · cụm đầy đủ",
+    "sha256": "ebf207b6d5a6ffd27649974d8437b8678a619031b380ed57ea66a8bbcc6cb298"
+  },
+  "tu_khoa_tim_kiem": [
+    "Đèn báo",
+    "TĐ-T1 · Đèn báo pha · Idec · cụm đầy đủ",
+    "NP2-EA31",
+    "NP2-EA32",
+    "NP2-EA41",
+    "NP2-EA42",
+    "NP2-EA51",
+    "NP2-EA15",
+    "NP2-EA33",
+    "NP2-EA35",
+    "NP2-EA44",
+    "NP2-EA45",
+    "NP2-EA65",
+    "NP2-EA55",
+    "NP2-EW3161 230V LED",
+    "NP2-EW3361 24V LED",
+    "NP2-EW3362 220V LED",
+    "NP2-EW3363 230V LED",
+    "NP2-EW3365 230V LED",
+    "NP2-EW3461 220V LED",
+    "NP2-EW3461 230V LED",
+    "NP2-EW3462 220V LED",
+    "NP2-EW3462 230V LED",
+    "NP2-EW3462 24V LED",
+    "NP2-EW3464 230V LED",
+    "NP2-EW3465 230V LED",
+    "NP2-EW3561 230V LED",
+    "NP2-EW3561 24V LED",
+    "NP2-EW3663 230V LED",
+    "NP2-EW3361 230V LED",
+    "NP2-EW3362 230V LED",
+    "NP2-ES441",
+    "NP2-ES442",
+    "NP2-ES541",
+    "NP2-ES542",
+    "NP2-ED21",
+    "NP2-ED22",
+    "NP2-ED23",
+    "NP2-ED24",
+    "NP2-ED25",
+    "NP2-ED41",
+    "NP2-ED42",
+    "NP2-ED43",
+    "NP2-ED44",
+    "NP2-ED45",
+    "NP2-EJ21",
+    "NP2-EJ22",
+    "NP2-EJ23",
+    "NP2-EJ24",
+    "NP2-EJ25",
+    "NP2-EJ41",
+    "NP2-EJ42",
+    "NP2-EJ43",
+    "NP2-EJ44",
+    "NP2-EJ45",
+    "NP2-ED33",
+    "NP2-ED34",
+    "NP2-ED35",
+    "NP2-ED53",
+    "NP2-ED54",
+    "NP2-ED55",
+    "NP2-EJ33",
+    "NP2-EJ34",
+    "NP2-EJ35",
+    "NP2-EJ53",
+    "NP2-EJ54",
+    "NP2-EJ55",
+    "NP2-EG21",
+    "NP2-EG25",
+    "NP2-EG41",
+    "NP2-EG45",
+    "NP2-EG33",
+    "NP2-EG34",
+    "NP2-EG35",
+    "NP2-EG53",
+    "NP2-EG54",
+    "NP2-EG55",
+    "NP2-B01",
+    "NP2-B02",
+    "NP2-B03",
+    "NP2-BE101",
+    "NP2-BE102",
+    "NP2-BE103",
+    "NP2-BE104",
+    "NP2-BE105",
+    "Đèn báo · TĐ-T1 · Đèn báo pha · Idec · cụm đầy đủ",
+    "LIGHT",
+    "NP2",
+    "BA9s"
+  ],
+  "cad_don": [
+    {
+      "id_hinh_goc": "SOURCE-2992e2290cfb35c1",
+      "huong_nhin": "Chưa xác nhận hướng nhìn",
+      "duong_dan": "CadDon/SOURCE-2992e2290cfb35c1/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": false
+      }
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "SOURCE-2992e2290cfb35c1"
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao."
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "LIGHT",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "CHINT",
+        "model": "NP2",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 1
+        },
+        "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/push-button/np2/catalog/NP2-PUSH-BUTTON-Catalog.pdf",
+        "source_page": 1,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng được ghi trong hồ sơ nguồn. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "CHINT",
+        "model": "BA9s",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 1
+        },
+        "source_url": "https://productinfo.se.com/nadigest/5c51d645347bdf0001f1f280/Master/17719_MAIN%20%28bookmap%29_0000052086.xml/%24/_17719042_51082",
+        "source_page": 1,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng được ghi trong hồ sơ nguồn. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "Chưa xác định",
+        "model": "NP2",
+        "specifications": {
+          "Loại thiết bị": "Đèn báo",
+          "Phạm vi bản vẽ": "Cụm/bảng nhiều thành phần",
+          "Mã/dòng trên nguồn": "NP2",
+          "Giá": "---",
+          "Nhãn thông số đọc từ nguồn": "220V; 4.5A; 110V; 0.6A; 230V"
+        },
+        "source_url": "",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      },
+      {
+        "brand": "Morele",
+        "model": "AD16-22CS",
+        "specifications": {
+          "Lỗ lắp": "Ø22 mm",
+          "Màu lựa chọn": "Đỏ / vàng / xanh",
+          "Điện áp biến thể tham khảo": "220 VAC"
+        },
+        "source_url": "https://vanvh.com/upload/files/BG2021morele1.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng Morele trong tài liệu nhà cung cấp; hình CAD dùng tham khảo, chọn điện áp và màu khi dùng."
+      },
+      {
+        "brand": "Andeli",
+        "model": "AD16-22DS",
+        "specifications": {},
+        "source_url": "https://vanvh.com/den-bao-pha-cac-loai/den-bao-do-vang-xanh-phi-22-andeli-andeli-ad16-22ds#AD16-22DS",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "CHINT",
+        "model": "ND16-22DS/4 220V BLU",
+        "specifications": {
+          "Màu sắc": "🔵",
+          "Loại": "AC",
+          "Điện áp": "220V",
+          "Mã hàng": "592717"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "IDEC",
+        "model": "AL6M-P4GC",
+        "specifications": {
+          "Dòng trong bảng giá": "AL6M-P4GC xanh lá 24 VDC 50"
+        },
+        "source_url": "https://www.saigonelectric.vn/images/prices/IDEC_04.2025_R4.2.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Schneider Electric",
+        "model": "XA2EVM3LC",
+        "specifications": {},
+        "source_url": "https://codienhaiau.com/product/den-bao-schneider-xa2evm3lc/",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Andex",
+        "model": "---",
+        "specifications": {
+          "Loại": "Đèn báo · TĐ-T1 · Đèn báo pha · Idec · cụm đầy đủ",
+          "Mã và định mức": "Chọn theo sản phẩm thực tế"
+        },
+        "source_url": "",
+        "basis": "user_shared_cad_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng dùng chung mẫu CAD theo yêu cầu người dùng; chưa có mã catalog để xác nhận thông số."
+      }
+    ],
+    "observed_specifications": {
+      "Loại thiết bị": "Đèn báo",
+      "Phạm vi bản vẽ": "Cụm/bảng nhiều thành phần",
+      "Mã/dòng trên nguồn": "NP2",
+      "Giá": "---",
+      "Nhãn thông số đọc từ nguồn": "220V; 4.5A; 110V; 0.6A; 230V"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "documented_source_label",
+      "source_model": "NP2",
+      "matched_catalog_rows": 0,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Tra catalog đúng hãng/dòng; các mã cùng loại hiện có chỉ là tham khảo",
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": true,
+      "source_label_models": [
+        "NP2",
+        "BA9s"
+      ],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "documented_source_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [
+        "NP2",
+        "BE101.3",
+        "BE101.1",
+        "BA9s"
+      ],
+      "documented_models": [
+        {
+          "model": "NP2",
+          "brand": "CHINT",
+          "manufacturer_confirmed_on_source": true,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/push-button/np2/catalog/NP2-PUSH-BUTTON-Catalog.pdf",
+              "sha256": "a5ce74c8fe29250aeb10d7f42535a3b2de32ed152a2d9301129e9176fbb2e4bf",
+              "page": 1,
+              "format": "pdf",
+              "match": "NP2",
+              "basis": "literal_model_label"
+            }
+          ]
+        },
+        {
+          "model": "BA9s",
+          "brand": "CHINT",
+          "manufacturer_confirmed_on_source": true,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://productinfo.se.com/nadigest/5c51d645347bdf0001f1f280/Master/17719_MAIN%20%28bookmap%29_0000052086.xml/%24/_17719042_51082",
+              "sha256": "9d014923fc0bd7645ab2e196945dc124a7e3bd341d2e0b23e9558b297a2e51a9",
+              "page": 1,
+              "format": "html",
+              "match": "BA9s",
+              "basis": "literal_model_label"
+            },
+            {
+              "url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/push-button/np2/catalog/NP2-PUSH-BUTTON-Catalog.pdf",
+              "sha256": "a5ce74c8fe29250aeb10d7f42535a3b2de32ed152a2d9301129e9176fbb2e4bf",
+              "page": 15,
+              "format": "pdf",
+              "match": "BA9s",
+              "basis": "literal_model_label"
+            }
+          ]
+        }
+      ],
+      "source_text_count": 27,
+      "contains_multiple_components": true,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "nhan_dien_web": {
+    "source_label_review": {
+      "status": "documented_source_label",
+      "models": [
+        "NP2",
+        "BA9s"
+      ],
+      "manufacturer_candidates": [
+        "CHINT"
+      ],
+      "checked_at": "2026-10-17",
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "brand_candidate": "CHINT",
+    "status": "candidate_from_documented_source_label"
+  }
+}

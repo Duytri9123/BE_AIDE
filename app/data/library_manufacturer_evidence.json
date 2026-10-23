@@ -449,75 +449,90 @@
       ]
     },
     "TB-bb5602d5a042b864": {
-      "brand": "Schneider Electric",
-      "status": "manufacturer_label_reviewed",
-      "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
-      "source_blocks": [
-        "Mặt trên",
-        "Mặt trước"
-      ],
-      "original_labels": [],
-      "sources": [],
-      "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
-      "views": [
-        {
-          "view_id": "E01-V1",
-          "sha256": "40eb991bf93ebe3b3d6dfca6ae4636d4faae61dcc44e010270fa196f07f3cf8b"
-        },
-        {
-          "view_id": "E01-V2",
-          "sha256": "0757737ae13eb33bdf5d0e44b47a985c776b0875105267bf6a3d7f07ffebe1cd"
-        }
-      ]
+      "brand": null,
+      "status": "needs_manufacturer_review",
+      "reason": "RMU E01-E03 have no manufacturer label/document evidence; CatalogTB AGENTS forbids assigning ABB/Schneider without verification",
+      "invalidated_evidence": {
+        "brand": "Schneider Electric",
+        "status": "manufacturer_label_reviewed",
+        "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
+        "source_blocks": [
+          "Mặt trên",
+          "Mặt trước"
+        ],
+        "original_labels": [],
+        "sources": [],
+        "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
+        "views": [
+          {
+            "view_id": "E01-V1",
+            "sha256": "40eb991bf93ebe3b3d6dfca6ae4636d4faae61dcc44e010270fa196f07f3cf8b"
+          },
+          {
+            "view_id": "E01-V2",
+            "sha256": "0757737ae13eb33bdf5d0e44b47a985c776b0875105267bf6a3d7f07ffebe1cd"
+          }
+        ]
+      }
     },
     "TB-c3480c14384412ab": {
-      "brand": "Schneider Electric",
-      "status": "manufacturer_label_reviewed",
-      "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
-      "source_blocks": [
-        "Mặt trên",
-        "Mặt trước"
-      ],
-      "original_labels": [],
-      "sources": [],
-      "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
-      "views": [
-        {
-          "view_id": "E02-V1",
-          "sha256": "e5702559ce5b94add43356c9e96d5a03c05e405bfbcb89c15a36983274d289de"
-        },
-        {
-          "view_id": "E02-V2",
-          "sha256": "2c3d884dfaf52e8fc644dbf8608176f271d96548f882faea772f0f4839c0dfe1"
-        }
-      ]
+      "brand": null,
+      "status": "needs_manufacturer_review",
+      "reason": "RMU E01-E03 have no manufacturer label/document evidence; CatalogTB AGENTS forbids assigning ABB/Schneider without verification",
+      "invalidated_evidence": {
+        "brand": "Schneider Electric",
+        "status": "manufacturer_label_reviewed",
+        "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
+        "source_blocks": [
+          "Mặt trên",
+          "Mặt trước"
+        ],
+        "original_labels": [],
+        "sources": [],
+        "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
+        "views": [
+          {
+            "view_id": "E02-V1",
+            "sha256": "e5702559ce5b94add43356c9e96d5a03c05e405bfbcb89c15a36983274d289de"
+          },
+          {
+            "view_id": "E02-V2",
+            "sha256": "2c3d884dfaf52e8fc644dbf8608176f271d96548f882faea772f0f4839c0dfe1"
+          }
+        ]
+      }
     },
     "TB-8ba80bde8d79739e": {
-      "brand": "Schneider Electric",
-      "status": "manufacturer_label_reviewed",
-      "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
-      "source_blocks": [
-        "Mặt trên",
-        "Mặt trước",
-        "Mặt bên"
-      ],
-      "original_labels": [],
-      "sources": [],
-      "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
-      "views": [
-        {
-          "view_id": "E03-V1",
-          "sha256": "a1bee5e65e33f0a5cad4e33b962960dd3a424ad15dabe6b28972c0badf92c667"
-        },
-        {
-          "view_id": "E03-V2",
-          "sha256": "1229eaa0fc8dd6bba89880acb17fa5d06b5fdbcbb95c6dcbc066d3288446686d"
-        },
-        {
-          "view_id": "E03-V3",
-          "sha256": "39e89a55d30818601955340a7a17fa2aaf05c3054e5a506c38cfe6ca5c9a65b8"
-        }
-      ]
+      "brand": null,
+      "status": "needs_manufacturer_review",
+      "reason": "RMU E01-E03 have no manufacturer label/document evidence; CatalogTB AGENTS forbids assigning ABB/Schneider without verification",
+      "invalidated_evidence": {
+        "brand": "Schneider Electric",
+        "status": "manufacturer_label_reviewed",
+        "basis": "Original nested CAD labels, source block name and manufacturer product family, or logo on additional CAD face; manufacturer identity only.",
+        "source_blocks": [
+          "Mặt trên",
+          "Mặt trước",
+          "Mặt bên"
+        ],
+        "original_labels": [],
+        "sources": [],
+        "note": "Hãng được đối chiếu từ CAD gốc và hồ sơ dòng sản phẩm; mã đặt hàng và cấu hình điện được kiểm tra riêng.",
+        "views": [
+          {
+            "view_id": "E03-V1",
+            "sha256": "a1bee5e65e33f0a5cad4e33b962960dd3a424ad15dabe6b28972c0badf92c667"
+          },
+          {
+            "view_id": "E03-V2",
+            "sha256": "1229eaa0fc8dd6bba89880acb17fa5d06b5fdbcbb95c6dcbc066d3288446686d"
+          },
+          {
+            "view_id": "E03-V3",
+            "sha256": "39e89a55d30818601955340a7a17fa2aaf05c3054e5a506c38cfe6ca5c9a65b8"
+          }
+        ]
+      }
     },
     "TB-efe7fe1223480cbd": {
       "brand": "CHINT",
@@ -530,11 +545,11 @@
       "views": [
         {
           "view_id": "front",
-          "sha256": "d2a5e4bb4a2ec53831ebf182c7d569f8b643084ce2cb291186247579009d2d69"
+          "sha256": "9f015ffa9f70725fea7230eb41a2c587a397ad7cf842b9b90282a7cd79000a8f"
         },
         {
           "view_id": "side",
-          "sha256": "1655245ed38e8298545d2247e307fa120d8158855e39caf5b567c048dcb1c58c"
+          "sha256": "b958986192512d371588bdd5a4fa8378b617925c2d47e9335720622f29604d38"
         }
       ]
     },

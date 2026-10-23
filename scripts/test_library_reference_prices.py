@@ -15,6 +15,18 @@ class LibraryReferencePricesTests(unittest.TestCase):
         return {'id':'drawing','brand':'CHINT','type':'Transformer','product_code':None,
                 'catalog_references':{'category':'TRANSFORMER','options':[{'brand':'CHINT','model':'NDK','basis':'catalog_type_reference'}]},**changes}
 
+    def test_price_index_reuses_rows_and_invalidates_on_new_revision(self):
+        from app.services.library_reference_prices import published_price_index
+        first = [self.row()]
+        revised = [self.row(price=600000)]
+        with patch('app.services.ai.takeoff_pricebook.published_rows', return_value=first) as published:
+            initial = published_price_index()
+            self.assertIs(published_price_index(), initial)
+            published.return_value = revised
+            updated = published_price_index()
+            self.assertIsNot(updated, initial)
+            self.assertEqual(next(iter(updated.values()))[0]['price'], 600000)
+
     def test_family_prices_do_not_choose_one_voltage_or_capacity(self):
         rows=[self.row(),self.row(id='price-50',sku='NDK-50VA IEC',price=710600)]
         result=priced_references(self.device(),rows)['options'][0]
@@ -50,12 +62,12 @@ class LibraryReferencePricesTests(unittest.TestCase):
 
     def test_search_finds_order_code_belonging_to_documented_family(self):
         from app.services.catalogtb_browser import browser_page
-        device=self.device(display='Biến áp CHINT',search_aliases=[],category='Chint')
+        device=self.device(display='Biến áp CHINT NDK',product_code='NDK',search_aliases=[],category='Chint')
         with patch('app.services.catalogtb_browser.browser_data',return_value={'items':[device],'total':1}),\
              patch('app.services.ai.takeoff_pricebook.published_rows',return_value=[self.row()]):
             result=browser_page(q='NDK-25VA')
         self.assertEqual(result['total'],1)
-        self.assertIsNone(result['items'][0]['product_code'])
+        self.assertEqual(result['items'][0]['product_code'],'NDK')
 
     def test_api_returns_documented_reference_without_asserting_cad_link(self):
         from app.api.v1.endpoints.device_catalog import catalog

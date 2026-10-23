@@ -4,6 +4,8 @@ from .endpoints import analyze, analyze_multi_agent, bom, export, chat, user_lib
 from .endpoints import articles
 
 api_router = APIRouter()
+from .endpoints import cad_agent
+api_router.include_router(cad_agent.router, prefix='/cad-agent', tags=['CAD Agent'])
 from .endpoints import notifications
 api_router.include_router(notifications.router,prefix='/notifications',tags=['Notifications'])
 from .endpoints import device_catalog

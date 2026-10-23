@@ -1,0 +1,13 @@
+[
+  {
+    "url": "http://127.0.0.1:8000/health",
+    "status": 200,
+    "keys": [
+      "status"
+    ]
+  },
+  {
+    "url": "http://127.0.0.1:8000/api/v1/equipment-library/browser-data?q=MC-9&limit=12",
+    "status": 401
+  }
+]

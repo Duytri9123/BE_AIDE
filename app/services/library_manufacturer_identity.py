@@ -2,6 +2,8 @@
 import hashlib
 import json
 from pathlib import Path
+from functools import lru_cache
+from .catalog_source_identification import _drawing_hash
 
 EVIDENCE_PATH = Path(__file__).resolve().parents[1] / 'data/library_manufacturer_evidence.json'
 
@@ -16,6 +18,10 @@ GENERIC_TYPES = ('bản lề','khóa cửa','khóa tay','khóa xoay','khóa cam'
                  'thanh phân phối n và pe','thanh đấu nối')
 PLACEHOLDERS = {'','asian','asia','oem','unknown','chưa xác định','chưa rõ'}
 
+@lru_cache(maxsize=2)
+def _evidence_file(path,modified_ns,size):
+    return json.loads(Path(path).read_text(encoding='utf8')).get('evidence',{})
+
 
 def manufacturer_identity(profile, current, profile_path=None):
     confirmed = current.get('hang_xac_nhan')
@@ -23,7 +29,8 @@ def manufacturer_identity(profile, current, profile_path=None):
         return {'brand':confirmed,'brand_kind':'manufacturer','brand_identification_status':'verified',
                 'brand_label':confirmed,'brand_identity_note':'Hãng được ghi trong hồ sơ thiết bị.'}
     if profile_path and EVIDENCE_PATH.is_file():
-        evidence = json.loads(EVIDENCE_PATH.read_text(encoding='utf8')).get('evidence',{}).get(profile.get('id'))
+        stat=EVIDENCE_PATH.stat()
+        evidence = _evidence_file(str(EVIDENCE_PATH),stat.st_mtime_ns,stat.st_size).get(profile.get('id'))
         if evidence and evidence.get('status') in {'manufacturer_label_reviewed', 'manufacturer_candidate_reviewed', 'source_model_documented', 'source_role_reviewed'}:
             if evidence['status'] in {'source_model_documented','source_role_reviewed'}:
                 source = current.get('nguon_cad') or {}
@@ -38,7 +45,11 @@ def manufacturer_identity(profile, current, profile_path=None):
                 if not relative:
                     continue
                 drawing = (profile_path.parent / relative).resolve()
-                if drawing.is_relative_to(profile_path.parent.resolve()) and drawing.is_file() and hashlib.sha256(drawing.read_bytes()).hexdigest() == view['sha256']:
+                if drawing.is_relative_to(profile_path.parent.resolve()) and drawing.is_file():
+                    drawing_stat=drawing.stat()
+                    matches=_drawing_hash(str(drawing),(drawing_stat.st_mtime_ns,drawing_stat.st_size)) == view['sha256']
+                else:matches=False
+                if matches:
                     maker = evidence['brand']
                     candidate = evidence['status'] == 'manufacturer_candidate_reviewed'
                     role_only = evidence['status'] == 'source_role_reviewed'
@@ -69,5 +80,5 @@ def manufacturer_identity(profile, current, profile_path=None):
 
 def identity_for_profile(current, path, root):
     profile_id = 'TB-' + hashlib.sha1(path.relative_to(root).as_posix().encode()).hexdigest()[:16]
-    profile = {'id':profile_id,'type':current.get('ban_chat') or (current.get('nhan_dien_ai') or {}).get('loai_thiet_bi_code')}
+    profile = {'id':profile_id,'type':current.get('catalog_information_type') or (current.get('nhan_dien_ai') or {}).get('loai_thiet_bi_code') or current.get('ban_chat')}
     return manufacturer_identity(profile,current,path)

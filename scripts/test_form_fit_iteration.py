@@ -40,23 +40,48 @@ class FormFitIterationTests(unittest.TestCase):
         self.assertEqual(region,(20,20,380,580))
 
     def test_tries_next_form_when_smallest_form_cannot_fit_devices(self):
+        import ezdxf, io
+        stream=io.StringIO(); ezdxf.new().write(stream)
+        test_dxf=stream.getvalue()
         def form(key, h, w):
             return dict(id=key, status='needs_review', dimensions=dict(height=h, width=w, depth=250),
                         filename=key + '.dxf', distance=0, can_generate=True)
         forms = [form('small', 600, 400), form('larger', 700, 500)]
         with tempfile.TemporaryDirectory() as directory, \
+             patch('app.services.cad.library_assets.requested_asset', return_value=(True, 'selected')), \
              patch('app.services.cad.source_project_generator.cabinet_templates.candidates', return_value=forms), \
              patch('app.services.cad.source_project_generator.cabinet_templates.generate', return_value='test dxf'), \
              patch('app.services.cad.source_project_generator.cabinet_templates.source_path', return_value='source.dxf'), \
              patch('app.services.cad.source_project_generator.ezdxf.readfile'), \
              patch.object(SourceProjectGenerator, '_interior_region'), \
              patch.object(SourceProjectGenerator, '_place_devices', side_effect=[
-                 ValueError('không đủ chỗ'), ('test dxf', [{'tag': 'Q0'}], [])]):
+                 ValueError('không đủ chỗ'), (test_dxf, [{'tag': 'Q0'}], [])]):
             result = SourceProjectGenerator.generate(16, directory, (600, 400, 250), devices=[{'tag': 'Q0'}])
             self.assertEqual(result['template_id'], 'larger')
             self.assertEqual(result['form_fit_attempts'][0]['template_id'], 'small')
             self.assertTrue(Path(result['path']).is_file())
             self.assertFalse(result['release_ready'])
+
+    def test_missing_device_geometry_does_not_generate_every_cabinet(self):
+        with tempfile.TemporaryDirectory() as directory, \
+             patch('app.services.cad.library_assets.requested_asset', return_value=(False, None)), \
+             patch('app.services.cad.source_project_generator.cabinet_templates.generate') as generate:
+            with self.assertRaisesRegex(ValueError, 'Thiếu CAD thiết bị: Q0'):
+                SourceProjectGenerator.generate(16, directory, (600, 400, 250), devices=[{'tag': 'Q0'}])
+            generate.assert_not_called()
+
+    def test_unusable_source_face_is_rejected_before_expensive_generation(self):
+        forms = [dict(id='bad', status='needs_review', dimensions=dict(height=600,width=400,depth=250),
+                      filename='bad.dxf', distance=0, can_generate=True)]
+        with tempfile.TemporaryDirectory() as directory, \
+             patch('app.services.cad.source_project_generator.cabinet_templates.candidates',return_value=forms), \
+             patch('app.services.cad.source_project_generator.cabinet_templates.source_path',return_value='bad.dxf'), \
+             patch('app.services.cad.source_project_generator.ezdxf.readfile'), \
+             patch.object(SourceProjectGenerator,'_interior_region',side_effect=ValueError('missing face')), \
+             patch('app.services.cad.source_project_generator.cabinet_templates.generate') as generate:
+            with self.assertRaisesRegex(ValueError,'missing face'):
+                SourceProjectGenerator.generate(16,directory,(600,400,250),devices=[{'tag':'Q0'}],allow_partial=True)
+            generate.assert_not_called()
 
 
 if __name__ == '__main__':

@@ -1,0 +1,236 @@
+{
+  "nhom": "Chint",
+  "ten_kieu": "Timer CHINT KG316T",
+  "ten_san_pham": "Timer CHINT KG316T",
+  "ban_chat": "Công tắc hẹn giờ",
+  "hang_xac_nhan": "CHINT",
+  "ma_dong_san_pham": "KG316T",
+  "cong_dung": "Đóng cắt theo lịch; dùng contactor cho tải lớn hoặc ba pha.",
+  "vi_tri_lap_dat": "Gắn trên tấm lắp hoặc ray theo tài liệu đúng biến thể; chừa khoảng đấu dây và bảo trì.",
+  "bo_tri_lap_dat": {
+    "vi_tri_uu_tien": "ben_trong",
+    "vi_tri_phu_hop": [
+      "ben_trong"
+    ],
+    "huong_dan": "Gắn trên tấm lắp hoặc ray theo tài liệu đúng biến thể; chừa khoảng đấu dây và bảo trì."
+  },
+  "thong_so": {
+    "tom_tat": "1NO · chọn điện áp",
+    "dien_ap_da_chon": null,
+    "tiep_diem_tham_khao": "1NO",
+    "luu_y": "Chọn điện áp và tải tiếp điểm theo phiên bản. Trang hãng có mô tả kiểu gá không thống nhất; ưu tiên bản vẽ/manual đúng phiên bản."
+  },
+  "quy_cach_hien_thi": "1NO · chọn điện áp",
+  "cac_hinh_cad": [
+    "B_ce1fd0282461"
+  ],
+  "cad_don": [
+    {
+      "id_hinh_goc": "B_ce1fd0282461",
+      "huong_nhin": "Mặt trước",
+      "nhan_hien_thi": "Mặt trước",
+      "duong_dan": "CadDon/B_ce1fd0282461/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Chọn đúng mặt và biến thể. Mặt bên thể hiện chiều sâu, không thay cho mặt trước cánh tủ. Xoay CAD không xác nhận tư thế lắp được hãng cho phép."
+      },
+      "bien_the_cad": null
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "B_ce1fd0282461",
+    "huong_nhin": "Mặt trước",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "nguon_tham_khao": [
+    "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/time-switch/kg316t/manual/2207-KG316T-Time%20Switch-Manual.pdf",
+    "https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/kg316t.html"
+  ],
+  "tai_lieu_hang": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/time-switch/kg316t/manual/2207-KG316T-Time%20Switch-Manual.pdf",
+  "muc_do_xac_nhan": "Mã/dòng có trên CAD nguồn; thông số hãng là tham khảo theo dòng, chưa xác nhận kích thước và mã đặt hàng của CAD.",
+  "tu_khoa_tim_kiem": [
+    "Timer CHINT KG316T",
+    "Công tắc hẹn giờ",
+    "hen gio",
+    "timer 24h",
+    "Autonics",
+    "AT8N",
+    "Omron",
+    "H3CR-A AC100-240/DC100-125",
+    "Selec",
+    "600SD-2-230",
+    "KG316T"
+  ],
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "Timer",
+    "hang": "CHINT",
+    "cac_ma_dong_san_pham": [
+      "KG316T"
+    ],
+    "ma_dat_hang_da_chon": null,
+    "thong_so_da_chon": {},
+    "tu_dong_chon_theo_vai_tro": true,
+    "kich_thuoc_cad_la_kich_thuoc_hang": false,
+    "fabrication_ready": false
+  },
+  "cau_hinh_chon": {
+    "can_chon": [
+      "Mã đầy đủ",
+      "Thông số điện",
+      "Biến thể CAD",
+      "Mặt CAD",
+      "Kiểu gá"
+    ],
+    "ma_da_chon": null
+  },
+  "dac_diem": [
+    "Mỗi CAD chỉ chứa một mặt của một thiết bị hoặc biến thể.",
+    "Giữ tỷ lệ CAD gốc; không suy dòng chịu tải, màu đặt hàng hoặc lỗ gá từ bao hình."
+  ],
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Dự thảo bố trí; cần xác nhận mã và dữ liệu gá/cọc",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "lua_chon_ky_thuat": [
+    "Đối chiếu điện áp, tiếp điểm, tải, kiểu gá và kích thước thực tế trước lắp đặt."
+  ],
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Chọn theo từng kết nối, thông số điện và bảo vệ phía trước; không suy từ hình CAD. Vật tư thuần cơ khí không yêu cầu dây.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "kich_thuoc_hang_tham_khao": {
+    "model": "KG316T",
+    "width_mm": 74.5,
+    "height_mm": 121.32,
+    "depth_max_mm": 53.5,
+    "source": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/time-switch/kg316t/manual/2207-KG316T-Time%20Switch-Manual.pdf",
+    "figure": "Figure 1",
+    "source_page": 5,
+    "cad_exact_variant_verified": false,
+    "side_cad_available": false,
+    "notes": "KG316T-D là biến thể khác; không dùng kích thước 125.5 của Figure 2 cho KG316T. Chưa dùng dữ liệu này thay mặt CAD bên hoặc chứng nhận lỗ gá của CAD nguồn."
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "CHINT",
+    "ma_san_pham": "KG316T",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [
+      "https://chintglobal.com",
+      "https://www.alibaba.com"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khảo - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "Timer",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "CHINT",
+        "model": "KG316T AC220V",
+        "specifications": {
+          "Loại": "24h/7",
+          "Điện áp": "AC220V",
+          "Tiếp điểm": "NO",
+          "Mã hàng": "309010",
+          "Tên hàng": "KG316T AC220V"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 73,
+        "source_row_id": "chint-pdf:8a4264899b10fd6f",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "KG316T",
+        "specifications": {
+          "tom_tat": "1NO · chọn điện áp",
+          "tiep_diem_tham_khao": "1NO",
+          "luu_y": "Chọn điện áp và tải tiếp điểm theo phiên bản. Trang hãng có mô tả kiểu gá không thống nhất; ưu tiên bản vẽ/manual đúng phiên bản.",
+          "Loại thiết bị": "Timer",
+          "Lắp đặt tham khảo": "Gắn trên tấm lắp hoặc ray theo tài liệu đúng biến thể; chừa khoảng đấu dây và bảo trì.",
+          "Hình chiếu Mặt trước (ngang × cao, mm)": "74.0 × 120.0"
+        },
+        "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/time-switch/kg316t/manual/2207-KG316T-Time%20Switch-Manual.pdf",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      }
+    ],
+    "observed_specifications": {
+      "tom_tat": "1NO · chọn điện áp",
+      "tiep_diem_tham_khao": "1NO",
+      "luu_y": "Chọn điện áp và tải tiếp điểm theo phiên bản. Trang hãng có mô tả kiểu gá không thống nhất; ưu tiên bản vẽ/manual đúng phiên bản.",
+      "Loại thiết bị": "Timer",
+      "Lắp đặt tham khảo": "Gắn trên tấm lắp hoặc ray theo tài liệu đúng biến thể; chừa khoảng đấu dây và bảo trì.",
+      "Hình chiếu Mặt trước (ngang × cao, mm)": "74.0 × 120.0"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "source_geometry_without_model_label",
+      "source_model": "KG316T",
+      "matched_catalog_rows": 1,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "source_geometry_without_model_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [],
+      "documented_models": [],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

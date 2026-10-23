@@ -1,3 +1,4 @@
+from sqlalchemy import Index
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, ForeignKey, Float
 from typing import Optional
@@ -5,6 +6,10 @@ from .base import Base, TimestampMixin
 
 class Payment(Base, TimestampMixin):
     __tablename__ = "payments"
+    __table_args__ = (
+        Index('ix_payments_user_created_id', 'user_id', 'created_at', 'id'),
+    )
+
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)

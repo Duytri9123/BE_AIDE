@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-23",
+  "added_families": 19,
+  "added_views": 114,
+  "added_exact_price_rows": 102,
+  "verified_total": {
+    "families": 230,
+    "views": 1380,
+    "unique_price_rows": 2583,
+    "all_customer_price_skus_verified": true
+  },
+  "pricebook_coverage": {
+    "price_rows": 3184,
+    "explicit_family_link": 2583,
+    "needs_explicit_link_or_source": 601
+  },
+  "regression_tests": 29,
+  "native_meter_archives_pending": 19,
+  "native_meter_price_rows_pending": 22,
+  "sources": [
+    "https://www.mitsubishielectric.com/fa/download/cad/search.page?mode=cad&kisyu=%2Flvsw",
+    "https://www.mitsubishielectric.com/dl/fa/document/catalog/lvsw/l02031eng/L%28NA%2902031ENG-L_21B.pdf",
+    "https://www.mitsubishielectric.com/dl/fa/cad/lvsw/1000000994/S-N150_a_ei.pdf"
+  ],
+  "notes": [
+    "S-N150 has a different original axis system, reviewed against manufacturer BH782D801-A outline",
+    "SQ spring terminals are separate from screw-terminal bodies; AC and DC coil families remain separate",
+    "TH-N600 uses external current sensors with 5 A secondaries; not a direct motor-current thermal relay",
+    "No unresolved source or unavailable view is promoted to verified six-view CAD"
+  ],
+  "final_regression_tests": 32,
+  "final_targeted_hash_identity_tests": 18
+}

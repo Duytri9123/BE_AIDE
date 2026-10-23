@@ -1,0 +1,31 @@
+{
+  "new_additions": [
+    {
+      "brand": "LS",
+      "families": 2,
+      "new_faces_validated": 12
+    },
+    {
+      "brand": "CHINT",
+      "families": 1,
+      "new_faces_validated": 6
+    }
+  ],
+  "reidentified_views": 6,
+  "deleted_unidentifiable_views": 3,
+  "browser_unknown_orientations": 0,
+  "browser_counts": {
+    "LS_profiles": 141,
+    "LS_views": 740,
+    "CHINT_profiles": 37,
+    "CHINT_views": 79,
+    "LS ELECTRIC_profiles": 123,
+    "LS ELECTRIC_views": 269
+  },
+  "service_file_reads": 48,
+  "tests_passed": 41,
+  "removed_download_checks_404": 3,
+  "api_health_status": 200,
+  "all_scoped_customer_views_known": true,
+  "legacy_source_headers_with_verified_mm_copy": 21
+}

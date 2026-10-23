@@ -1,0 +1,191 @@
+{
+  "nhom": "Phíp",
+  "ten_kieu": "Thanh tiếp địa PE",
+  "ten_san_pham": "Thanh tiếp địa PE",
+  "ban_chat": "Thanh đấu nối",
+  "cong_dung": "Đấu dây bảo vệ PE, liên kết tiếp địa vỏ tủ.",
+  "vi_tri_lap_dat": "Trong khoang đấu nối, trên bộ đỡ tương ứng.",
+  "hang_xac_nhan": null,
+  "ma_dong_san_pham": null,
+  "thong_so": {
+    "kich_thuoc_chi_tiet_mm": "10 × 115",
+    "so_lo_tron_tren_cad": 14,
+    "nhom_lo_theo_duong_kinh_mm": "Ø3: 10 lỗ; Ø4: 2 lỗ; Ø6: 2 lỗ"
+  },
+  "muc_do_xac_nhan": "Nhãn E/N của hồ sơ CAD gốc; chưa xác nhận hãng/thông số điện",
+  "nguon_tham_khao": [],
+  "cac_hinh_cad": [
+    "B_a9f51566bd67"
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "B_a9f51566bd67",
+    "huong_nhin": "Mặt có các lỗ đấu nối",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "B_a9f51566bd67",
+      "huong_nhin": "Mặt có các lỗ đấu nối",
+      "duong_dan": "CadDon/B_a9f51566bd67/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng khi nhìn vuông góc vào mặt có các lỗ đấu nối. Phù hợp bố trí trên tấm lắp nếu mặt này hướng ra người nhìn."
+      },
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong"
+        ],
+        "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      }
+    }
+  ],
+  "bo_tri_lap_dat": {
+    "vi_tri_uu_tien": "ben_trong",
+    "vi_tri_phu_hop": [
+      "ben_trong"
+    ],
+    "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+    "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+    "nguon_tham_khao": [
+      "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+    ]
+  },
+  "quy_cach_hien_thi": "PE · mặt lỗ đấu nối · 10 × 115 mm",
+  "nhan_dien_ai": {
+    "vai_tro_dien": "PE",
+    "tu_dong_chon_theo_vai_tro": true,
+    "so_luong_mac_dinh": 1,
+    "can_cu": "Nhãn E/N của hồ sơ CAD gốc; chưa xác nhận hãng/thông số điện",
+    "khong_suy_ra": [
+      "Dòng định mức",
+      "Vật liệu",
+      "Số đầu dây hữu dụng",
+      "Tính thay thế điện từ hình học"
+    ]
+  },
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "PE"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Chọn theo từng kết nối, thông số điện và bảo vệ phía trước; không suy từ hình CAD. Vật tư thuần cơ khí không yêu cầu dây.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa có dữ liệu gá/cọc theo mã đầy đủ",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "cad_tham_so": {
+    "cho_phep_keo_dai": false,
+    "giu_nguyen_cad_mac_dinh": true,
+    "truc": "y_local",
+    "chieu_rong_mm": 10,
+    "buoc_lo_mm": 7,
+    "duong_kinh_lo_giua_mm": 3,
+    "phuong_phap": "Giữ nguyên CAD. Không tự kéo dài, thêm lỗ hay nhân đôi thanh; chọn biến thể theo số cọc thật, không tổng số lỗ",
+    "xac_nhan_dien": false
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "Phíp",
+    "ma_san_pham": "Thanh tiếp địa PE",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khảo - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "Thanh đấu nối",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "Gia công / phổ thông",
+        "model": "Thanh tiếp địa PE",
+        "specifications": {
+          "kich_thuoc_chi_tiet_mm": "10 × 115",
+          "so_lo_tron_tren_cad": 14,
+          "nhom_lo_theo_duong_kinh_mm": "Ø3: 10 lỗ; Ø4: 2 lỗ; Ø6: 2 lỗ",
+          "Loại thiết bị": "Thanh đấu nối",
+          "Lắp đặt tham khảo": "Trong khoang đấu nối, trên bộ đỡ tương ứng."
+        },
+        "source_url": "",
+        "basis": "cad_reference_code",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mã/tên mẫu CAD nguồn để tra cứu và dùng chung; chưa phải mã hàng thương mại."
+      }
+    ],
+    "observed_specifications": {
+      "kich_thuoc_chi_tiet_mm": "10 × 115",
+      "so_lo_tron_tren_cad": 14,
+      "nhom_lo_theo_duong_kinh_mm": "Ø3: 10 lỗ; Ø4: 2 lỗ; Ø6: 2 lỗ",
+      "Loại thiết bị": "Thanh đấu nối",
+      "Lắp đặt tham khảo": "Trong khoang đấu nối, trên bộ đỡ tương ứng."
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "generic_mechanical",
+      "source_model": null,
+      "matched_catalog_rows": 0,
+      "model_identity_verified": false,
+      "remaining_tasks": [],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "generic_mechanical",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [],
+      "documented_models": [],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "tu_khoa_tim_kiem": [
+    "Thanh đấu nối",
+    "Thanh tiếp địa PE",
+    ""
+  ]
+}

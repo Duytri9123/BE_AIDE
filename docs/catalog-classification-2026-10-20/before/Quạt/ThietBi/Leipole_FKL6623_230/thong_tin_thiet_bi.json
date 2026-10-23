@@ -1,0 +1,402 @@
+{
+  "nhom": "Quạt và thông gió",
+  "ten_kieu": "Quạt lọc gió Leipole FKL6623.230",
+  "ten_san_pham": "Quạt lọc gió Leipole FKL6623.230",
+  "ban_chat": "Quạt lọc gió tủ điện",
+  "cong_dung": "Đưa không khí qua lớp lọc để làm mát khoang tủ điện.",
+  "vi_tri_lap_dat": "Trên vách hoặc cửa tủ, phối hợp quạt hút và cửa gió đối diện để tạo đường thông khí.",
+  "hang_xac_nhan": "Leipole",
+  "ma_dong_san_pham": "FKL6623.230",
+  "thong_so": {
+    "dien_ap_VAC": 230,
+    "tan_so_Hz": "50/60",
+    "kich_thuoc_mat_truoc_mm": "204 × 204",
+    "luu_luong_tu_do_m3_h": 105,
+    "luu_luong_voi_mot_tam_loc_m3_h": 71
+  },
+  "muc_do_xac_nhan": "Đã xác định mã qua tên hình và kích thước.",
+  "nguon_tham_khao": [
+    "https://leipole.pl/en/products/fkl6623/"
+  ],
+  "cac_hinh_cad": [
+    "A16_cluster1-V013",
+    "A16_cluster1-V016"
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "A16_cluster1-V013",
+    "huong_nhin": "Mặt trước",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "A16_cluster1-V013",
+      "huong_nhin": "Mặt trước",
+      "duong_dan": "CadDon/A16_cluster1-V013/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt trước form tủ khi mặt thao tác hoặc mặt chính của thiết bị hướng về người nhìn."
+      },
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "vach_tu",
+        "vi_tri_phu_hop": [
+          "vach_tu",
+          "canh_ngoai"
+        ],
+        "huong_dan": "Ưu tiên vách tủ; có thể đặt trên cánh ngoài nếu chừa khoảng mở cửa, dây cấp và đường gió. Không đặt tấm lọc trên cánh trong làm kín đường gió.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://files.danfoss.com/download/Drives/Rittal_description_fans.pdf"
+        ]
+      }
+    },
+    {
+      "id_hinh_goc": "A16_cluster1-V016",
+      "huong_nhin": "Mặt bên",
+      "duong_dan": "CadDon/A16_cluster1-V016/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt bên",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt bên form tủ khi thiết bị giữ tư thế lắp đứng. Nếu xoay tư thế lắp, cần đối chiếu lại hướng nhìn."
+      },
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "vach_tu",
+        "vi_tri_phu_hop": [
+          "vach_tu",
+          "canh_ngoai"
+        ],
+        "huong_dan": "Ưu tiên vách tủ; có thể đặt trên cánh ngoài nếu chừa khoảng mở cửa, dây cấp và đường gió. Không đặt tấm lọc trên cánh trong làm kín đường gió.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://files.danfoss.com/download/Drives/Rittal_description_fans.pdf"
+        ]
+      }
+    }
+  ],
+  "bo_tri_lap_dat": {
+    "vi_tri_uu_tien": "vach_tu",
+    "vi_tri_phu_hop": [
+      "vach_tu",
+      "canh_ngoai"
+    ],
+    "huong_dan": "Ưu tiên vách tủ; có thể đặt trên cánh ngoài nếu chừa khoảng mở cửa, dây cấp và đường gió. Không đặt tấm lọc trên cánh trong làm kín đường gió.",
+    "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+    "nguon_tham_khao": [
+      "https://files.danfoss.com/download/Drives/Rittal_description_fans.pdf"
+    ]
+  },
+  "quy_cach_hien_thi": "204 × 204 mm",
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Mạch đo / điều khiển, chọn theo đúng cọc thực tế"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Chọn theo từng kết nối, thông số điện và bảo vệ phía trước; không suy từ hình CAD. Vật tư thuần cơ khí không yêu cầu dây.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa có dữ liệu gá/cọc theo mã đầy đủ",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "Leipole",
+    "ma_san_pham": "FKL6623.230",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khảo - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "Quạt lọc gió tủ điện",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "Leipole",
+        "model": "FKL6623.230",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 98
+        },
+        "source_url": "https://leipole.pl/wp-content/uploads/2024/12/LEIPOLE-2023.pdf",
+        "source_page": 98,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng được ghi trong hồ sơ nguồn. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "Leipole",
+        "model": "FKL6621.230",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 96
+        },
+        "source_url": "https://leipole.pl/wp-content/uploads/2024/12/LEIPOLE-2023.pdf",
+        "source_page": 96,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng được ghi trong hồ sơ nguồn. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "Leipole",
+        "model": "FKL6623.300",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 98
+        },
+        "source_url": "https://leipole.pl/wp-content/uploads/2024/12/LEIPOLE-2023.pdf",
+        "source_page": 98,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng được ghi trong hồ sơ nguồn. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "Leipole",
+        "model": "FKL6621.230",
+        "specifications": {
+          "Điện áp": "230 VAC",
+          "Màu": "RAL7032",
+          "Cấp bảo vệ": "IP54",
+          "Bộ sản phẩm": "Quạt kèm miệng gió có lọc bụi",
+          "Tên hàng": "FKL6621.230"
+        },
+        "source_url": "https://dge.vn/uploads/bao-gia/435736_20260114_122258.pdf",
+        "source_label": "Leipole · 01/2026",
+        "source_page": 4,
+        "source_row_id": "reviewed-pdf:808e8fa7c60c8ef5",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "Leipole",
+        "model": "FKL6622.230",
+        "specifications": {
+          "Điện áp": "230 VAC",
+          "Màu": "RAL7032",
+          "Cấp bảo vệ": "IP54",
+          "Bộ sản phẩm": "Quạt kèm miệng gió có lọc bụi",
+          "Tên hàng": "FKL6622.230"
+        },
+        "source_url": "https://dge.vn/uploads/bao-gia/435736_20260114_122258.pdf",
+        "source_label": "Leipole · 01/2026",
+        "source_page": 4,
+        "source_row_id": "reviewed-pdf:e304a40f1cc5c501",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "Leipole",
+        "model": "FKL6623.230",
+        "specifications": {
+          "Điện áp": "230 VAC",
+          "Màu": "RAL7032",
+          "Cấp bảo vệ": "IP54",
+          "Bộ sản phẩm": "Quạt kèm miệng gió có lọc bụi",
+          "Tên hàng": "FKL6623.230"
+        },
+        "source_url": "https://dge.vn/uploads/bao-gia/435736_20260114_122258.pdf",
+        "source_label": "Leipole · 01/2026",
+        "source_page": 4,
+        "source_row_id": "reviewed-pdf:a99f9fd4147a1378",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "Leipole",
+        "model": "FKL6623.230",
+        "specifications": {
+          "dien_ap_VAC": 230,
+          "tan_so_Hz": "50/60",
+          "kich_thuoc_mat_truoc_mm": "204 × 204",
+          "luu_luong_tu_do_m3_h": 105,
+          "luu_luong_voi_mot_tam_loc_m3_h": 71,
+          "Loại thiết bị": "Quạt lọc gió tủ điện",
+          "Lắp đặt tham khảo": "Trên vách hoặc cửa tủ, phối hợp quạt hút và cửa gió đối diện để tạo đường thông khí.",
+          "Hình chiếu Mặt trước (ngang × cao, mm)": "204.0 × 204.0",
+          "Hình chiếu Mặt bên (ngang × cao, mm)": "63.2 × 161.5"
+        },
+        "source_url": "",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      },
+      {
+        "brand": "Leipole",
+        "model": "FKL6622.230",
+        "specifications": {
+          "Loại": "Quạt kèm lọc gió tủ điện",
+          "Nguồn": "230 VAC 50/60 Hz"
+        },
+        "source_url": "https://leipole.pl/en/products/fkl6622/",
+        "basis": "manufacturer_web_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      }
+    ],
+    "observed_specifications": {
+      "dien_ap_VAC": 230,
+      "tan_so_Hz": "50/60",
+      "kich_thuoc_mat_truoc_mm": "204 × 204",
+      "luu_luong_tu_do_m3_h": 105,
+      "luu_luong_voi_mot_tam_loc_m3_h": 71,
+      "Loại thiết bị": "Quạt lọc gió tủ điện",
+      "Lắp đặt tham khảo": "Trên vách hoặc cửa tủ, phối hợp quạt hút và cửa gió đối diện để tạo đường thông khí.",
+      "Hình chiếu Mặt trước (ngang × cao, mm)": "204.0 × 204.0",
+      "Hình chiếu Mặt bên (ngang × cao, mm)": "63.2 × 161.5"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "documented_source_label",
+      "source_model": "FKL6623.230",
+      "matched_catalog_rows": 0,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Tra catalog đúng hãng/dòng; các mã cùng loại hiện có chỉ là tham khảo",
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": true,
+      "source_label_models": [
+        "FKL6623.230",
+        "FKL6621.230",
+        "FKL6623.300"
+      ],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "documented_source_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [
+        "FKL6623.230",
+        "FKL6621.230",
+        "FKL6623.300"
+      ],
+      "documented_models": [
+        {
+          "model": "FKL6623.230",
+          "brand": "Leipole",
+          "manufacturer_confirmed_on_source": true,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://leipole.pl/wp-content/uploads/2024/12/LEIPOLE-2023.pdf",
+              "sha256": "c8c98cac28882116a8a378b53e273f7ae6d79c59ea5ab32ef7f019d546674c46",
+              "page": 98,
+              "format": "pdf",
+              "match": "FKL 6623.230",
+              "basis": "literal_model_label"
+            }
+          ]
+        },
+        {
+          "model": "FKL6621.230",
+          "brand": "Leipole",
+          "manufacturer_confirmed_on_source": true,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://leipole.pl/wp-content/uploads/2024/12/LEIPOLE-2023.pdf",
+              "sha256": "c8c98cac28882116a8a378b53e273f7ae6d79c59ea5ab32ef7f019d546674c46",
+              "page": 96,
+              "format": "pdf",
+              "match": "FKL 6621.230",
+              "basis": "literal_model_label"
+            }
+          ]
+        },
+        {
+          "model": "FKL6623.300",
+          "brand": "Leipole",
+          "manufacturer_confirmed_on_source": true,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://leipole.pl/wp-content/uploads/2024/12/LEIPOLE-2023.pdf",
+              "sha256": "c8c98cac28882116a8a378b53e273f7ae6d79c59ea5ab32ef7f019d546674c46",
+              "page": 98,
+              "format": "pdf",
+              "match": "FKL6623.300",
+              "basis": "literal_model_label"
+            }
+          ]
+        }
+      ],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "tu_khoa_tim_kiem": [
+    "Morele",
+    "12038HSL",
+    "Quạt lọc gió Leipole FKL6623.230",
+    "Quạt lọc gió tủ điện",
+    "FKL6623.230",
+    "FKL6621.230",
+    "FKL6623.300"
+  ],
+  "nhan_dien_web": {
+    "source_label_review": {
+      "status": "documented_source_label",
+      "models": [
+        "FKL6623.230",
+        "FKL6621.230",
+        "FKL6623.300"
+      ],
+      "manufacturer_candidates": [
+        "Leipole"
+      ],
+      "checked_at": "2026-10-17",
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

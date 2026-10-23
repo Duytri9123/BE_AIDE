@@ -19,7 +19,22 @@ class CatalogInformationAccessTests(unittest.TestCase):
         self.client=TestClient(self.app)
         self.app.dependency_overrides[get_current_active_user]=lambda:SimpleNamespace(id=98017,role='user',is_superuser=False)
         self.app.dependency_overrides[library_entitlement]=lambda:{'full_access':False,'reason':'upgrade_required'}
-        _requests.pop(98017,None)
+        _requests.pop((98017,'read'),None)
+        _requests.pop((98017,'preview'),None)
+    def test_preview_quota_does_not_block_catalog_information(self):
+        path='/equipment-library/TB-0123456789abcdef/views/front/preview'
+        for _ in range(120):self.assertEqual(self.client.get(path).status_code,200)
+        self.assertEqual(self.client.get(path).status_code,429)
+        self.assertEqual(self.client.get('/equipment-library/TB-0123456789abcdef/catalog-information').status_code,200)
+
+    def test_metadata_still_has_a_bounded_quota_and_retry_after(self):
+        path='/equipment-library/TB-0123456789abcdef/catalog-information'
+        for _ in range(120):self.assertEqual(self.client.get(path).status_code,200)
+        response=self.client.get(path)
+        self.assertEqual(response.status_code,429)
+        self.assertTrue(1<=int(response.headers['Retry-After'])<=61)
+        self.assertEqual(self.client.get('/equipment-library/TB-0123456789abcdef/views/front/preview').status_code,200)
+
     def test_free_user_can_read_all_three_catalog_sections(self):
         for scope in ('current','same_brand','other_brands'):
             response=self.client.get('/equipment-library/TB-0123456789abcdef/catalog-information',params={'scope':scope})

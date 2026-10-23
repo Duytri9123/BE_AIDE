@@ -1,0 +1,523 @@
+{
+  "nhom": "Mitsubishi",
+  "ten_kieu": "MCCB Mitsubishi NF32-SV · 2P",
+  "ten_san_pham": "MCCB Mitsubishi NF32-SV · 2P",
+  "hang_xac_nhan": "Mitsubishi Electric",
+  "ma_dong_san_pham": "NF32-SV",
+  "ban_chat": "MCCB",
+  "cong_dung": "Đóng cắt và bảo vệ lộ nguồn hoặc nhánh động lực trước quá tải và ngắn mạch.",
+  "vi_tri_lap_dat": "Trên ray DIN hoặc tấm lắp bên trong tủ điện; mặt thao tác hướng về phía bảo trì.",
+  "thong_so": {
+    "so_cuc": "2P",
+    "co_khung": "32 AF",
+    "dong_dinh_muc": "Dòng định mức In: chọn theo cấu hình thiết bị",
+    "kha_nang_cat": "Chọn Icu/Ics theo mã, điện áp và số cực",
+    "tieu_chuan": "IEC 60947-2"
+  },
+  "quy_cach_hien_thi": "2P · Dòng định mức In: chọn theo cấu hình thiết bị",
+  "cac_hinh_cad": [
+    "MIT-D04-C6-I06-VIEW-2P-FRONT-VIEW",
+    "MIT-D04-C6-I06-VIEW-SIDE-VIEW",
+    "MIT-D04-C6-I06-VIEW-2P-COVER",
+    "MIT-D04-C6-I06-VIEW-2P-FRONT-VIEW-W-BARRIER"
+  ],
+  "tai_lieu_hang": "https://dl.mitsubishielectric.com/dl/fa/document/catalog/lvcb/yn-c-0720/y0720f2102.pdf",
+  "nguon_tham_khao": [
+    "https://dl.mitsubishielectric.com/dl/fa/document/catalog/lvcb/yn-c-0720/y0720f2102.pdf",
+    "https://www.mitsubishielectric.com/fa/download/search.page?kisyu=%2Flvcb&mode=manual",
+    "https://www.mitsubishielectric.com/fa/download/cad/search.page?category1=102&kisyu=%2Flvcb&mode=cad"
+  ],
+  "muc_do_xac_nhan": "Đã xác định dòng thiết bị; thông số là các tùy chọn của dòng, chưa chọn mã đặt hàng đầy đủ.",
+  "dac_diem": [
+    "Mỗi mặt hoặc phương án nắp che, đầu nối, vách ngăn có một DXF riêng.",
+    "Chọn dòng định mức và thông số điện của biến thể phù hợp hệ thống."
+  ],
+  "lua_chon_ky_thuat": [
+    "Đối chiếu dòng tải, điện áp, khả năng cắt và phối hợp bảo vệ."
+  ],
+  "cad_don": [
+    {
+      "id_hinh_goc": "MIT-D04-C6-I06-VIEW-2P-COVER",
+      "huong_nhin": "Mặt trước",
+      "nhan_hien_thi": "Tấm che đầu cực · 2P",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt trước form tủ khi mặt thao tác hoặc mặt chính của thiết bị hướng về người nhìn."
+      },
+      "duong_dan": "CadDon/MIT-D04-C6-I06-VIEW-2P-COVER/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong"
+        ],
+        "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      },
+      "vai_tro_cad": "Tấm che đầu cực",
+      "kich_thuoc_bao_cad_mm": {
+        "ngang": 50.0,
+        "cao": 50.0
+      }
+    },
+    {
+      "id_hinh_goc": "MIT-D04-C6-I06-VIEW-2P-FRONT-VIEW",
+      "huong_nhin": "Mặt trước",
+      "nhan_hien_thi": "Mặt trước · 2P",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt trước form tủ khi mặt thao tác hoặc mặt chính của thiết bị hướng về người nhìn."
+      },
+      "duong_dan": "CadDon/MIT-D04-C6-I06-VIEW-2P-FRONT-VIEW/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong"
+        ],
+        "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      },
+      "vai_tro_cad": "Mặt thiết bị",
+      "kich_thuoc_bao_cad_mm": {
+        "ngang": 50.0,
+        "cao": 130.0
+      }
+    },
+    {
+      "id_hinh_goc": "MIT-D04-C6-I06-VIEW-2P-FRONT-VIEW-W-BARRIER",
+      "huong_nhin": "Mặt trước",
+      "nhan_hien_thi": "Mặt trước · 2P",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt trước form tủ khi mặt thao tác hoặc mặt chính của thiết bị hướng về người nhìn."
+      },
+      "duong_dan": "CadDon/MIT-D04-C6-I06-VIEW-2P-FRONT-VIEW-W-BARRIER/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong"
+        ],
+        "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      },
+      "vai_tro_cad": "Mặt thiết bị",
+      "kich_thuoc_bao_cad_mm": {
+        "ngang": 50.0,
+        "cao": 230.0
+      }
+    },
+    {
+      "id_hinh_goc": "MIT-D04-C6-I06-VIEW-SIDE-VIEW",
+      "huong_nhin": "Mặt bên",
+      "nhan_hien_thi": "Mặt bên · 2P",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt bên",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt bên form tủ khi thiết bị giữ tư thế lắp đứng. Nếu xoay tư thế lắp, cần đối chiếu lại hướng nhìn."
+      },
+      "duong_dan": "CadDon/MIT-D04-C6-I06-VIEW-SIDE-VIEW/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong"
+        ],
+        "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      },
+      "vai_tro_cad": "Mặt thiết bị",
+      "kich_thuoc_bao_cad_mm": {
+        "ngang": 90.0,
+        "cao": 130.0
+      }
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "MIT-D04-C6-I06-VIEW-2P-FRONT-VIEW",
+    "huong_nhin": "Mặt trước",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "bo_tri_lap_dat": {
+    "vi_tri_uu_tien": "ben_trong",
+    "vi_tri_phu_hop": [
+      "ben_trong"
+    ],
+    "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+    "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+    "nguon_tham_khao": [
+      "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+    ]
+  },
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Nguồn vào",
+      "Ra tải"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Tra dải dây, đầu cốt, cọc đồng thanh và lực siết theo đúng mã. Mạch cuộn hút/tiếp điểm phụ chọn riêng với dây tải; không tự coi cọc cho phép Al.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ],
+    "vat_lieu_da_xac_nhan": null
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa có dữ liệu gá/cọc theo mã đầy đủ",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false,
+    "nguon_hang": [
+      "https://www.mitsubishielectric.com/fa/download/search.page?kisyu=%2Flvcb&mode=manual",
+      "https://www.mitsubishielectric.com/fa/download/cad/search.page?category1=102&kisyu=%2Flvcb&mode=cad"
+    ],
+    "tu_the_lap_duoc_phep": null,
+    "so_do_coc_hang": null,
+    "luc_siet_Nm": null,
+    "co_lo_gia_mm": null,
+    "chieu_sau_than_mm": null,
+    "thanh_dong": {
+      "cho_phep": null,
+      "adapter": null,
+      "buoc_cuc_mm": null,
+      "can_kiem_tra": [
+        "Cọc nguồn/tải",
+        "Đầu nối/đầu cốt tương thích",
+        "Vách cách điện đầu cực",
+        "Khoảng cách và lực siết"
+      ]
+    },
+    "quy_tac_xoay": "Mặt trước/bên là hướng nhìn CAD, không phải tư thế lắp được hãng cho phép; chưa tự duyệt xoay ±90°."
+  },
+  "cau_hinh_chon": {
+    "hang": "Mitsubishi Electric",
+    "dong_san_pham": "NF32-SV",
+    "so_cuc": "2P",
+    "dong_dinh_muc_A_da_chon": null,
+    "dien_ap_lam_viec_V_da_chon": null,
+    "Icu_kA_tai_dien_ap_da_chon": null,
+    "Ics_kA_tai_dien_ap_da_chon": null,
+    "dien_ap_cuon_hut_V_da_chon": "Không áp dụng trừ phụ kiện điện",
+    "dong_ro_mA_da_chon": "Không áp dụng nếu không có bảo vệ rò",
+    "quy_tac": "Thông số dải/dòng sản phẩm không phải cấu hình đặt hàng. Không suy dòng định mức từ AF hay kích thước CAD.",
+    "can_chon": [
+      "Mã đầy đủ, số cực và dòng/trip unit",
+      "Điện áp và khả năng cắt tương ứng",
+      "Phụ kiện theo đúng dòng"
+    ]
+  },
+  "luu_y_thong_so": "Dải tham khảo của dòng, chưa chọn mã đặt hàng; CAD không xác nhận thông số điện. BV-D là RCCB cần bảo vệ quá dòng phía trước; AF không bằng dòng tải chọn.",
+  "cac_ma_cung_than_cad": [
+    "NF32-SV"
+  ],
+  "tu_khoa_tim_kiem": [
+    "MCCB Mitsubishi NF32-SV · 2P",
+    "aptomat khoi",
+    "aptomat khối",
+    "molded case circuit breaker",
+    "NF32SV",
+    "Hager",
+    "HDA014Z",
+    "Legrand",
+    "027000",
+    "MCCB",
+    "NF32-SV"
+  ],
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "MCCB",
+    "hang": "Mitsubishi",
+    "cac_ma_dong_san_pham": [
+      "NF32-SV"
+    ],
+    "so_cuc": "2P",
+    "loai_nguon": null,
+    "pham_vi_ma": "model_or_shared_cad_family",
+    "ma_dat_hang_da_chon": null,
+    "quy_tac": "Tra từng mã trong nhóm; CAD chung không xác nhận cùng thông số điện. Chọn cấu hình và mã đặt hàng trước thi công. Giá trị null là chưa xác định."
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "Mitsubishi Electric",
+    "ma_san_pham": "NF32-SV",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [
+      "https://www.mitsubishielectric.com/fa/products/lvd/",
+      "https://dl.mitsubishielectric.com/dl/fa/document/catalog/lvcb/yn-c-0713/y0713c2303.pdf"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khảo - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "MCCB",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "Mitsubishi Electric",
+        "model": "WS-V / NF",
+        "specifications": {
+          "Dòng thiết bị": "WS-V / NF"
+        },
+        "source_url": "https://us.mitsubishielectric.com/fa/en/products/lvd/circuit-breakers/molded-case/",
+        "basis": "manufacturer_family_document",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Tài liệu đúng hãng/dòng để tiếp tục đối chiếu mã trong CAD; không xác nhận mã đầy đủ hoặc kích thước."
+      },
+      {
+        "brand": "Mitsubishi Electric",
+        "model": "NF32-SV",
+        "specifications": {
+          "so_cuc": "2P",
+          "co_khung": "32 AF",
+          "dong_dinh_muc": "Dòng định mức In: chọn theo cấu hình thiết bị",
+          "kha_nang_cat": "Chọn Icu/Ics theo mã, điện áp và số cực",
+          "tieu_chuan": "IEC 60947-2",
+          "Loại thiết bị": "MCCB",
+          "Lắp đặt tham khảo": "Trên ray DIN hoặc tấm lắp bên trong tủ điện; mặt thao tác hướng về phía bảo trì.",
+          "Hình chiếu Mặt trước (ngang × cao, mm)": "50.0 × 230.0",
+          "Hình chiếu Mặt bên (ngang × cao, mm)": "90.0 × 130.0"
+        },
+        "source_url": "https://dl.mitsubishielectric.com/dl/fa/document/catalog/lvcb/yn-c-0720/y0720f2102.pdf",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      },
+      {
+        "brand": "Mitsubishi Electric",
+        "model": "2CB002A000002",
+        "specifications": {
+          "Mã đặt hàng": "2CB002A000002",
+          "Số cực": "2P",
+          "In (A)": "3",
+          "Khả năng cắt và điện áp": "Icu=7.5kA @230VAC"
+        },
+        "source_url": "https://www.saigonelectric.vn/images/prices/Mitsubishi_Summary_LVS_06.2026.2.xlsx",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "ABB",
+        "model": "1SDA066497R1",
+        "specifications": {
+          "Mã đặt hàng": "1SDA066497R1",
+          "Số cực": "2P",
+          "In (A)": "20",
+          "Họ thiết bị": "A1"
+        },
+        "source_url": "https://library.e.abb.com/public/8fa0d161aec14871ae110caa57108c49/9AKK108472A7059_vi_B_EL%20Vietnam%20Master%20price%20list%202026%20%28VIE%29.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NM8N-125C TM 100 2P",
+        "specifications": {
+          "In": "100A",
+          "Icu": "36kA",
+          "Ics": "100%",
+          "Số cực": "2P",
+          "Mã hàng": "271529"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Delixi",
+        "model": "CDM3S125C1002300",
+        "specifications": {
+          "Số cực": "2P",
+          "In (A)": "100",
+          "Khả năng cắt và điện áp": "25kA"
+        },
+        "source_url": "https://www.ple.vn/mccb/delixi-mccb/cdm3s125c1002300-detail.html",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Fuji Electric",
+        "model": "BW100EAG-2P",
+        "specifications": {
+          "Dòng trong bảng giá": "2 10 75, 100 BW100EAG-2P",
+          "Số cực": "2P"
+        },
+        "source_url": "https://www.saigonelectric.vn/images/prices/Fuji_2025_MNE.2.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "HD Hyundai Electric",
+        "model": "HGM100E- F",
+        "specifications": {
+          "Số cực": "2P",
+          "Dòng định mức In (A)": "16/ 20/ 25/ 32/ 40/ 50",
+          "Icu (kA)": ""
+        },
+        "source_url": "https://www.saigonelectric.vn/images/prices/HYUNDAI_2026.2.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "ABN102c",
+        "specifications": {
+          "In (A)": "15-20-30-40-50-60-75-100A",
+          "Icu(KA)": "35",
+          "Kích thước bao W×H×D (mm)": "50 × 130 × 82",
+          "Độ sâu thân c1 (mm)": "60",
+          "Độ sâu vỏ c2 (mm)": "64",
+          "Ui": "750V",
+          "Uimp": "8kV",
+          "Lắp đặt": "Bắt vít"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Schneider Electric",
+        "model": "EZC100B3015",
+        "specifications": {},
+        "source_url": "https://www.ple.vn/mccb/mccb-schneider/ezc100b3015-detail.html",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Shihlin",
+        "model": "BM100-HN",
+        "specifications": {
+          "Dòng trong bảng giá": "BM 100-HN/125-SN.HN",
+          "Họ thiết bị": "BM100"
+        },
+        "source_url": "https://www.saigonelectric.vn/images/prices/SHIHLIN_01.02.2026.2.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Siemens",
+        "model": "3VJ1108-7EA42-0AA0",
+        "specifications": {
+          "In (A)": "80"
+        },
+        "source_url": "https://www.makel.vn/mccb-4-poles-80a-55ka-type-fixed-3vj1108-7ea42-0aa0.html?category=2&brand=29",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Vinakip",
+        "model": "AT 56",
+        "specifications": {
+          "In (A)": "75"
+        },
+        "source_url": "https://kimquang.vn/wp-content/uploads/2022/07/bang-gia-cau-dao-hop-vinakip.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      }
+    ],
+    "observed_specifications": {
+      "so_cuc": "2P",
+      "co_khung": "32 AF",
+      "dong_dinh_muc": "Dòng định mức In: chọn theo cấu hình thiết bị",
+      "kha_nang_cat": "Chọn Icu/Ics theo mã, điện áp và số cực",
+      "tieu_chuan": "IEC 60947-2",
+      "Loại thiết bị": "MCCB",
+      "Lắp đặt tham khảo": "Trên ray DIN hoặc tấm lắp bên trong tủ điện; mặt thao tác hướng về phía bảo trì.",
+      "Hình chiếu Mặt trước (ngang × cao, mm)": "50.0 × 230.0",
+      "Hình chiếu Mặt bên (ngang × cao, mm)": "90.0 × 130.0"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [
+      {
+        "brand": "Mitsubishi Electric",
+        "family": "WS-V / NF",
+        "url": "https://us.mitsubishielectric.com/fa/en/products/lvd/circuit-breakers/molded-case/",
+        "scope": "manufacturer_family",
+        "checked_at": "2026-10-17"
+      }
+    ],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "source_geometry_without_model_label",
+      "source_model": "NF32-SV",
+      "matched_catalog_rows": 0,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "source_geometry_without_model_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [],
+      "documented_models": [],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

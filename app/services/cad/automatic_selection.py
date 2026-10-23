@@ -38,7 +38,20 @@ def select_device_geometry(device, *, allow_preference_fallback=True, allow_unve
         match = re.search(r'(?<![\w.])(\d+(?:[.,]\d+)?)\s*k\s*A\b', source_spec, re.I)
         if match:
             row['icu_ka'] = float(match[1].replace(',', '.'))
-    selected_asset = resolve(cad['asset_id']) if cad.get('asset_id') else None
+    try:
+        selected_asset = resolve(cad['asset_id']) if cad.get('asset_id') else None
+    except ValueError:
+        # A saved project can outlive a reviewed library asset. Retain the
+        # user's electrical choice, but never silently replace its geometry.
+        unavailable = cad.pop('asset_id')
+        cad.pop('geometry_dimensions_mm', None)
+        cad.pop('geometry_dimensions_status', None)
+        cad['unavailable_asset_id'] = unavailable
+        cad['requires_selection'] = True
+        cad['automatic_selection'] = {'status':'unresolved', 'reason':'selected_asset_unavailable'}
+        row['cad'] = cad
+        row.pop('dimensions', None)
+        return row
     if cad.get('selection_source') == 'automatic_compatible_catalog_geometry':
         selected_asset = None
         row.pop('dimensions', None)
@@ -78,8 +91,11 @@ def select_device_geometry(device, *, allow_preference_fallback=True, allow_unve
         pool = [asset for asset in pool if asset['id'] == selected_asset['id']]
     model = str(row.get('part_number') or '').strip().upper()
     if model:
-        pool = [a for a in pool if re.search(r'(?<![A-Z0-9])' + re.escape(model) + r'(?![A-Z0-9])',
-                                          ' '.join([a['name'], *a['search_aliases']]).upper())]
+        pool = [a for a in pool if (
+            any(re.match(re.escape(str(code).upper())+r'(?=$|[\s/_.-])',model) for code in a['model_codes'])
+            if a.get('model_codes') else
+            re.search(r'(?<![A-Z0-9])' + re.escape(model) + r'(?![A-Z0-9])',
+                      ' '.join([a['name'], *a['search_aliases']]).upper()))]
     eligible, rejected, matched_geometry = [], [], []
     for asset in pool:
         try:
@@ -99,6 +115,22 @@ def select_device_geometry(device, *, allow_preference_fallback=True, allow_unve
             # when its exact electrical variant is not identified. It never
             # establishes a procurement SKU or electrical approval.
             electrical_review = bool(current and not numbers)
+            from .ls_view_coverage import is_ls
+            if is_ls(asset.get('brand')) and category == 'CONTACTOR':
+                from app.services.catalog_product_sections import current_kinds
+                wanted=current_kinds(source_spec+' '+str(row.get('coil_voltage') or ''))
+                actual=current_kinds(specs.get('Loại cuộn hút') or specs.get('dien_ap_cuon_hut'))
+                if wanted and actual and not wanted.issubset(actual):
+                    raise ValueError('Loại cuộn hút AC/DC của CAD LS không đúng yêu cầu')
+                if wanted and not actual:
+                    if not allow_unverified_electrical:raise ValueError('CAD LS chưa xác nhận loại cuộn hút AC/DC')
+                    electrical_review=True
+                from app.services.catalog_product_sections import auxiliary_contacts
+                wanted_aux=auxiliary_contacts(source_spec)
+                actual_aux=auxiliary_contacts(specs.get('Tiếp điểm phụ'))
+                if wanted_aux is not None and actual_aux is not None and wanted_aux!=actual_aux:
+                    raise ValueError('Tiếp điểm phụ của CAD LS không đúng cấu hình 1a1b/2a2b yêu cầu')
+                if wanted_aux is not None and actual_aux is None:electrical_review=True
             if electrical_review and not allow_unverified_electrical:
                 raise ValueError('Hồ sơ chưa có dải dòng điện để đối chiếu')
             if current and numbers:
@@ -110,14 +142,18 @@ def select_device_geometry(device, *, allow_preference_fallback=True, allow_unve
                 if not compatible:
                     raise ValueError('Dòng yêu cầu nằm ngoài biến thể trong hồ sơ')
             requested_icu = row.get('icu_ka')
+            if (category in {'CB', 'MCB', 'MCCB', 'ACB', 'RCBO', 'RCCB'} or is_ls(asset.get('brand')) and category in {'ELCB','MOTOR_PROTECTION'}) and not requested_icu:
+                electrical_review = True
             capacities = [float(n.replace(',', '.')) for n in re.findall(
                 r'(\d+(?:[.,]\d+)?)\s*k\s*A', str(specs.get('kha_nang_cat') or ''), re.I)]
             electrical_review = electrical_review or bool(requested_icu and not capacities)
             if requested_icu and not capacities and not allow_unverified_electrical:
                 raise ValueError('Hồ sơ chưa có khả năng cắt để đối chiếu')
-            if requested_icu and capacities and max(capacities) < float(requested_icu):
+            if requested_icu and capacities and min(capacities) < float(requested_icu):
                 raise ValueError('Khả năng cắt trong hồ sơ thấp hơn yêu cầu')
             instance_count(row.get('quantity') or 1, asset)
+            from .ls_view_coverage import require_complete_ls_views
+            require_complete_ls_views(asset)
             matched_geometry.append(asset)
             probe = {**row, 'cad': {**cad, 'asset_id': asset['id']}}
             dimensions = selected_envelope(probe)
@@ -125,7 +161,10 @@ def select_device_geometry(device, *, allow_preference_fallback=True, allow_unve
                               'electrical_review': electrical_review}, dimensions))
         except (ValueError, KeyError, FileNotFoundError) as exc:
             rejected.append({'asset_id': asset['id'], 'reason': str(exc)})
-    if not eligible and not selected_asset and brand and not model and allow_preference_fallback and row.get('selection_source') == 'default_brand':
+    from app.services.library_review_scope import MAIN_DEVICE_TYPES, DEPENDENT_ACCESSORY_TYPES
+    if (not eligible and not selected_asset and brand and not model and allow_preference_fallback
+            and category not in MAIN_DEVICE_TYPES | DEPENDENT_ACCESSORY_TYPES
+            and row.get('selection_source') == 'default_brand'):
         fallback = select_device_geometry({**row, 'brand': None, 'cad': cad}, allow_preference_fallback=False,
                                           allow_unverified_electrical=allow_unverified_electrical)
         if (fallback.get('cad') or {}).get('asset_id'):
@@ -173,5 +212,9 @@ def select_device_geometry(device, *, allow_preference_fallback=True, allow_unve
                   'model_not_bound_to_source_geometry' if model and not pool else 'no_verified_geometry_match',
     }
     cad['requires_selection'] = not bool(cad.get('asset_id'))
+    from .ls_view_coverage import is_ls
+    if is_ls(brand) and not cad.get('asset_id'):
+        cad['supplement_required'] = True
+        cad['supplement_reason'] = 'LS cần CAD đúng mã/họ và đủ mặt trước, sau, trái, phải, trên, dưới cùng biến thể trước khi bố trí.'
     row['cad'] = cad
     return row

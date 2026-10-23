@@ -1,0 +1,350 @@
+{
+  "nhom": "LS",
+  "ten_kieu": "LS · mcb1p · CAD nguồn",
+  "ten_san_pham": "LS · mcb1p · CAD nguồn",
+  "ban_chat": "MCB",
+  "cong_dung": "Bảo vệ quá dòng theo mã, số cực và khả năng cắt thực tế.",
+  "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+  "hang_xac_nhan": null,
+  "ma_dong_san_pham": null,
+  "thong_so": {
+    "nhan_block_nguon": "mcb1p",
+    "dong_dinh_muc_A": null,
+    "dien_ap_V": null
+  },
+  "tu_khoa_tim_kiem": [
+    "LS",
+    "MCB",
+    "LS · mcb1p · CAD nguồn",
+    ""
+  ],
+  "muc_do_xac_nhan": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện.",
+  "nguon_tham_khao": [],
+  "nguon_cad": {
+    "file": "D:\\THƯ VIỆN\\@LS.dwg",
+    "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+    "block": "mcb1p",
+    "saved_block": "mcb1p",
+    "handle": "17D232",
+    "geometry_key": "cddcfdbb10b866cddfecd2484d76996b10136701f749140f74e293366bdc9b6a",
+    "units": 4,
+    "instance_transform": {
+      "insert": [
+        10727.28940446457,
+        3970.036385717949,
+        0
+      ],
+      "rotation": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+  },
+  "cac_hinh_cad": [
+    "SRC_LS_cddcfdbb10b8"
+  ],
+  "auto_select": false,
+  "needs_review": true,
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Nguồn vào",
+      "Ra tải",
+      "Phụ kiện điều khiển nếu có"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa xác nhận dữ liệu hãng",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "SRC_LS_cddcfdbb10b8",
+      "huong_nhin": "Mặt trước",
+      "nhan_hien_thi": "mcb1p",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": false,
+        "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+      },
+      "duong_dan": "CadDon/SRC_LS_cddcfdbb10b8/ban_ve.dxf",
+      "nhan_dien_mat": {
+        "review_date": "2026-10-11",
+        "method": "individual_visual_review",
+        "evidence_card": 84,
+        "evidence_image": "outputs\\catalogtb-projection-review\\084.png",
+        "previous_label": "Chưa xác nhận hướng nhìn",
+        "projection": "Mặt trước",
+        "basis": "Device controls/terminals and relative projection geometry; source block label used only when consistent with the inspected image.",
+        "mounting_orientation_verified": false,
+        "exact_sku_verified": false
+      }
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "SRC_LS_cddcfdbb10b8",
+    "huong_nhin": "Mặt trước",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "MCB",
+    "recognition_basis": "Tên và bản chất trong hồ sơ hiện có; không xác nhận SKU",
+    "exact_SKU_confirmed": false
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "LS Electric",
+    "ma_san_pham": "",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [
+      "https://www.ls-electric.com",
+      "https://anhphatelectric.com",
+      "https://etinco.vn"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Chưa có giá"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "MCB",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "LS Electric",
+        "model": "LA125H 1P",
+        "specifications": {
+          "In (A)": "80-100A",
+          "Icu(KA)": "10KA"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "ABB",
+        "model": "2CDS211001R0064",
+        "specifications": {
+          "Mã đặt hàng": "2CDS211001R0064",
+          "Số cực": "1P",
+          "In (A)": "6",
+          "Họ thiết bị": "SH200"
+        },
+        "source_url": "https://library.e.abb.com/public/8fa0d161aec14871ae110caa57108c49/9AKK108472A7059_vi_B_EL%20Vietnam%20Master%20price%20list%202026%20%28VIE%29.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NCH8-20/01 220/230V",
+        "specifications": {
+          "Tiếp điểm": "1NC",
+          "Điện áp": "230V",
+          "In": "20A",
+          "Mã hàng": "256245"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Delixi",
+        "model": "CDB6i1251C100",
+        "specifications": {
+          "Số cực": "1P",
+          "In (A)": "100",
+          "Khả năng cắt và điện áp": "10kA"
+        },
+        "source_url": "https://www.ple.vn/mcb/delixi-mcb/cdb6i1251c100-detail.html",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "HD Hyundai Electric",
+        "model": "HGD100S",
+        "specifications": {
+          "Số cực": "1P",
+          "Dòng định mức In (A)": "80/ 100A",
+          "Icu (kA)": "10kA"
+        },
+        "source_url": "https://www.saigonelectric.vn/images/prices/HYUNDAI_2026.2.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Hager",
+        "model": "HLF180S",
+        "specifications": {
+          "Số cực": "1P",
+          "In (A)": "80"
+        },
+        "source_url": "https://www.makel.vn/mcb-1p-80a-10ka-type-c-hlf180s.html?category=2&brand=2",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Legrand",
+        "model": "419837",
+        "specifications": {
+          "Số cực": "1P",
+          "In (A)": "6"
+        },
+        "source_url": "https://www.makel.vn/mcb-1p-6a-6ka-type-c-419837.html?category=2&brand=3",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Mitsubishi Electric",
+        "model": "BHW-T10",
+        "specifications": {
+          "Số cực": "4P"
+        },
+        "source_url": "https://www.ple.vn/mcb/mcb-mitsubishi/bhw-t10-4p-c100-f-detail.html",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Schneider Electric",
+        "model": "A9N18357",
+        "specifications": {
+          "Họ thiết bị": "C120",
+          "Số cực": "1P",
+          "In (A)": "80",
+          "Dòng sản phẩm": "C120N",
+          "Đặc tuyến": "C"
+        },
+        "source_url": "https://www.se.com/vn/vi/download/document/MasterPriceBook/",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Sino - Vanlock",
+        "model": "PS45N/C1006",
+        "specifications": {
+          "Số cực": "1P",
+          "In (A)": "6"
+        },
+        "source_url": "https://thietbidiennuochanoi.vn/pages/bang-gia-aptomat-sino-vanlock#PS45N/C1006",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Vinakip",
+        "model": "AT 07",
+        "specifications": {
+          "In (A)": "10",
+          "Số cực": "2P"
+        },
+        "source_url": "https://kimquang.vn/wp-content/uploads/2022/07/bang-gia-cau-dao-hop-vinakip.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "mcb1p",
+        "specifications": {
+          "nhan_block_nguon": "mcb1p",
+          "Loại thiết bị": "MCB",
+          "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp.",
+          "Hình chiếu Mặt trước (ngang × cao, mm)": "18.0 × 81.0"
+        },
+        "source_url": "",
+        "basis": "cad_reference_code",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      }
+    ],
+    "observed_specifications": {
+      "nhan_block_nguon": "mcb1p",
+      "Loại thiết bị": "MCB",
+      "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp.",
+      "Hình chiếu Mặt trước (ngang × cao, mm)": "18.0 × 81.0"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "source_labels_need_catalog",
+      "source_model": null,
+      "matched_catalog_rows": 0,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Xác định hãng/mã từ nhãn hoặc block CAD nguồn",
+        "Đối chiếu và chọn mã đặt hàng đầy đủ",
+        "Tra catalog đúng hãng/dòng; các mã cùng loại hiện có chỉ là tham khảo",
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "source_labels_need_catalog",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [
+        "mcb1p"
+      ],
+      "documented_models": [],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

@@ -1,0 +1,7 @@
+"""Genuine MMS accessory bodies with source-specific installation orientation."""
+import re
+from import_ls_step_family import import_family,ZUP_YPLUS
+SIDE_MODULE=[('FRONT','SIDE',0),('REAR','SIDE-L',0),('SIDE-L','FRONT',0),('SIDE','REAR',0),('TOP','TOP',-90),('BOTTOM','BOTTOM',90)]
+if __name__=='__main__':
+ for sid,models,mapping in [('50481/model-017',['FX'],ZUP_YPLUS),('50481/model-019',['LX','LA','LAM'],SIDE_MODULE)]:
+  import_family(sid,'ACCESSORY',models,None,lambda r:r.get('category')=='ACCESSORY' and 'MMS' in str(r.get('group') or '') and any(re.search(r'(?<![A-Z0-9])'+re.escape(m)+r'(?=\s|$)',r['sku']) for m in models),mapping=mapping,name='LS · Phụ kiện MMS · '+' / '.join(models)+' · '+('Gắn phía trước' if models==['FX'] else 'Gắn bên trái'),spec={'Kiểu lắp':'Gắn phía trước MMS' if models==['FX'] else 'Gắn bên trái MMS','Phạm vi CAD':'Thân phụ kiện theo tên tệp LS; xác nhận đúng tiếp điểm và cơ cấu gá với MMS đã chọn',**({'Lưu ý LA':'LA cho MMS-32 và LA cho MMS-63/100 có cơ cấu ghép riêng; CAD họ không xác nhận mã cơ cấu ghép'} if 'LA' in models else {})},evidence={'catalog_url':'https://www.ls-electric.com/ko/cat/%5BMetasol_MMS%5D_KO_C01821-06-202609.pdf','pdf_pages':[16,24],'orientation_review':'FX: front horizontal terminal row. LX/LA/LAM: front narrow vertical terminal face; flat broad housing is side elevation, verified against installation illustrations. LA parent-specific mating variant remains unapproved.'})

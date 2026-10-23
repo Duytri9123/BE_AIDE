@@ -1,10 +1,11 @@
+from typing import Annotated
 import os
 import uuid
 import json
 import asyncio
 from typing import List, Optional, Dict, Any, Literal
 from pydantic import BaseModel
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.responses import StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
@@ -696,66 +697,72 @@ async def get_project_sessions(
     project_id: int,
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_active_user),
+    skip: Annotated[int, Query(ge=0)] = 0,
+    limit: Annotated[int, Query(ge=1, le=100)] = 50,
 ):
     """Lấy danh sách tất cả các phiên và lần bóc tách của dự án để chọn xem lại."""
-    sess_stmt = select(ConversationSession).where(
-        ConversationSession.project_id == project_id
-    ).order_by(ConversationSession.created_at.desc())
-    sess_res = await db.execute(sess_stmt)
-    sessions = sess_res.scalars().all()
-
+    from app.services.analysis_reads import session_page
+    rows, total = await session_page(db, project_id, current_user, skip, limit)
     items = []
-    for s in sessions:
-        iter_stmt = select(AnalysisIteration).where(
-            AnalysisIteration.session_id == s.id,
-            AnalysisIteration.status == "completed"
-        ).order_by(AnalysisIteration.iteration_number.desc())
-        iter_res = await db.execute(iter_stmt)
-        iterations = iter_res.scalars().all()
+    for it, s in rows:
+        raw_devs = it.ai_parsed_devices or []
+        total_device_count = 0
+        for device in raw_devs:
+            try:
+                total_device_count += max(int(float(device.get("quantity") or 1)), 0)
+            except (TypeError, ValueError):
+                total_device_count += 1
+        files_meta = it.files_analyzed or {}
+        filenames = files_meta.get("file_names") or []
+        if not filenames and files_meta.get("file_name"):
+            filenames = [files_meta.get("file_name")]
+        file_display = ", ".join(filenames) if filenames else None
 
-        for it in iterations:
-            raw_devs = it.ai_parsed_devices or []
-            total_device_count = 0
-            for device in raw_devs:
-                try:
-                    total_device_count += max(int(float(device.get("quantity") or 1)), 0)
-                except (TypeError, ValueError):
-                    total_device_count += 1
-            files_meta = it.files_analyzed or {}
-            filenames = files_meta.get("file_names") or []
-            if not filenames and files_meta.get("file_name"):
-                filenames = [files_meta.get("file_name")]
-            file_display = ", ".join(filenames) if filenames else None
+        conf = it.confidence_scores or {}
+        panel_code = conf.get("panel_code")
+        panel_name = conf.get("panel_name")
+        if not panel_code and conf.get("panel_info"):
+            panel_code = conf["panel_info"].get("panel_code")
+            panel_name = conf["panel_info"].get("panel_name")
+        if not panel_code and raw_devs:
+            panel_code = raw_devs[0].get("panel_code")
+            panel_name = raw_devs[0].get("panel_name")
 
-            conf = it.confidence_scores or {}
-            panel_code = conf.get("panel_code")
-            panel_name = conf.get("panel_name")
-            if not panel_code and conf.get("panel_info"):
-                panel_code = conf["panel_info"].get("panel_code")
-                panel_name = conf["panel_info"].get("panel_name")
-            if not panel_code and raw_devs:
-                panel_code = raw_devs[0].get("panel_code")
-                panel_name = raw_devs[0].get("panel_name")
-
-            items.append({
-                "id": it.id,
-                "iteration_id": it.id,
-                "session_id": str(s.id),
-                "iteration_number": it.iteration_number,
-                "trigger_type": it.trigger_type,
-                "devices_count": len(raw_devs),
-                "device_count": len(raw_devs),
-                "total_device_count": total_device_count,
-                "panel_code": panel_code or "",
-                "panel_name": panel_name or "",
-                "filename": file_display or "Bản vẽ dự án",
-                "files_analyzed": filenames,
-                "created_at": it.created_at.isoformat() if it.created_at else None,
-                "is_active_session": s.status == "active"
+        panels_by_key = {}
+        for device in raw_devs:
+            code = str(device.get("panel_code") or "").strip()
+            name = str(device.get("panel_name") or "").strip()
+            key = code or name or "CHUA_XAC_DINH"
+            panel = panels_by_key.setdefault(key, {
+                "panel_code": code, "panel_name": name,
+                "devices_count": 0, "total_device_count": 0,
             })
+            panel["devices_count"] += 1
+            try:
+                panel["total_device_count"] += max(int(float(device.get("quantity") or 1)), 0)
+            except (TypeError, ValueError):
+                panel["total_device_count"] += 1
 
-    items.sort(key=lambda x: x["created_at"] or "", reverse=True)
-    return {"sessions": items}
+        items.append({
+            "id": it.id,
+            "iteration_id": it.id,
+            "session_id": str(s.id),
+            "iteration_number": it.iteration_number,
+            "trigger_type": it.trigger_type,
+            "devices_count": len(raw_devs),
+            "device_count": len(raw_devs),
+            "total_device_count": total_device_count,
+            "panel_code": panel_code or "",
+            "panel_name": panel_name or "",
+            "panels": list(panels_by_key.values()),
+            "filename": file_display or "Bản vẽ dự án",
+            "files_analyzed": filenames,
+            "created_at": it.created_at.isoformat() if it.created_at else None,
+            "is_active_session": s.status == "active"
+        })
+
+    return {"sessions": items, "total": total, "skip": skip, "limit": limit,
+            "has_more": skip + len(items) < total}
 
 
 @router.get("/iteration/{iteration_id}", response_model=Optional[AnalysisResultSchema])
@@ -835,14 +842,26 @@ async def get_analysis_history(
     session_id: uuid.UUID,
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_active_user),
+    skip: Annotated[int, Query(ge=0)] = 0,
+    limit: Annotated[int, Query(ge=1, le=100)] = 50,
 ):
     """Lấy lịch sử các vòng lặp bóc tách."""
-    iter_stmt = select(AnalysisIteration).where(
-        AnalysisIteration.session_id == session_id
-    ).order_by(AnalysisIteration.iteration_number.asc())
-    iter_res = await db.execute(iter_stmt)
-    iterations = iter_res.scalars().all()
+    from sqlalchemy.orm import load_only
+    from app.services.analysis_reads import require_project
+    project_id = (await db.execute(select(ConversationSession.project_id)
+                  .where(ConversationSession.id == session_id))).scalar_one_or_none()
+    if project_id is None:
+        raise HTTPException(404, 'Session không tồn tại')
+    await require_project(db, project_id, current_user)
+    iter_stmt = (select(AnalysisIteration).where(AnalysisIteration.session_id == session_id)
+                 .options(load_only(AnalysisIteration.iteration_number, AnalysisIteration.trigger_type,
+                                    AnalysisIteration.ai_parsed_devices, AnalysisIteration.status,
+                                    AnalysisIteration.created_at))
+                 .order_by(AnalysisIteration.iteration_number.asc(), AnalysisIteration.id.asc())
+                 .offset(skip).limit(limit))
+    iterations = (await db.execute(iter_stmt)).scalars().all()
     return {
+        "skip": skip, "limit": limit,
         "history": [
             {
                 "iteration_number": it.iteration_number,

@@ -28,6 +28,10 @@ def _catalogtb_asset(relative: str) -> Path | None:
     path=(CATALOG_TB_ROOT/raw).resolve()
     if not path.is_relative_to(CATALOG_TB_ROOT.resolve()):return None
     if path.name not in ('ban_ve.dxf','xem_truoc.svg') or 'CadDon' not in parts:return None
+    profile=path.parents[2]/'thong_tin_thiet_bi.json'
+    if not profile.is_file():return None
+    from .catalog_publication_policy import public_profile_allowed
+    if not public_profile_allowed(json.loads(profile.read_text(encoding='utf-8-sig')),profile,CATALOG_TB_ROOT):return None
     return path if path.is_file() else None
 
 

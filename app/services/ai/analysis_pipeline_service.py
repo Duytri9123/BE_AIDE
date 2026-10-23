@@ -420,11 +420,18 @@ class AnalysisPipelineService:
             await asyncio.sleep(0.35)
 
         log_event(stage="circuit_assessment", title="Đánh giá sơ đồ nguyên lý toàn hồ sơ",
-                  detail="Đọc vai trò các tệp, mạch điện và cụm chức năng trước khi bóc tách thiết bị.", status="info")
+                  detail="Đọc vai trò các tệp, mạch điện và cụm chức năng trước khi bóc tách thiết bị.", status="running")
         try:
-            circuit_assessment = await CircuitPreflightService.assess(
-                [f for f in project_files if not getattr(f, "is_generated", False)],
-                document_contexts, db, all_connections or ([active_ai] if active_ai else []), user_prompt)
+            circuit_assessment = await asyncio.wait_for(
+                CircuitPreflightService.assess(
+                    [f for f in project_files if not getattr(f, "is_generated", False)],
+                    document_contexts, db, all_connections or ([active_ai] if active_ai else []),
+                    user_prompt, progress_callback=progress_callback),
+                timeout=300)
+        except asyncio.TimeoutError:
+            logger.warning("Circuit preflight timed out after 300s")
+            circuit_assessment = {"status": "unavailable", "circuit_summary": "",
+                                  "source_limits": ["Đánh giá sơ đồ hết thời gian chờ (>300s). Có thể tiếp tục bóc tách nhưng bỏ qua bước kiểm tra trước."]}
         except Exception as exc:
             logger.warning("Circuit preflight unavailable: %s", exc)
             circuit_assessment = {"status": "unavailable", "circuit_summary": "",
@@ -1618,8 +1625,8 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         if detected_dimensions:
             log_event(
                 stage="engineering_sizing",
-                title="Phát hiện kích thước vỏ tủ chỉ định trên bản vẽ",
-                detail=f"Bản vẽ quy định vỏ tủ: H{int(detected_dimensions[0])}xW{int(detected_dimensions[1])}xD{int(detected_dimensions[2])}mm",
+                title="Đọc kích thước vỏ tủ tham khảo trên bản vẽ",
+                detail=f"Kích thước nguồn tham khảo: H{int(detected_dimensions[0])}xW{int(detected_dimensions[1])}xD{int(detected_dimensions[2])}mm; kích thước thiết kế được đề xuất theo thiết bị và bố trí.",
                 status="success"
             )
 
@@ -2203,7 +2210,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
 
     @staticmethod
     def _linked_evidence_images(device, page_image):
-        """Keep the verified branch in a slanted strip, with separate detail crops."""
+        """Keep the verified branch in a clean horizontal strip, with separate detail crops."""
         region = getattr(device, 'evidence_region', None) or {}
         if not region.get('load_verified') or not region.get('relationship_evidence'):
             return []
@@ -2217,52 +2224,43 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             ('device', 'Ký hiệu và thông số', device.box_2d),
             ('load', 'Nhãn tải · ' + str(region.get('load_label') or device.connected_load or ''), region.get('load_box_2d')),
         ):
-            pixels = AnalysisPipelineService._evidence_crop_pixels(box, *page_image.size)
-            if not pixels:
-                continue
-            crop = page_image.crop(pixels).convert('RGB')
             if kind == 'branch':
-                # Fit one constant-width strip along the branch, then deskew
-                # it for reading. A convex hull of unequal endpoint boxes
-                # introduces extra corners and looks like a staircase.
-                import math
+                # Sơ đồ một sợi (SLD) luôn chạy ngang từ thiết bị đóng cắt qua dây tới tải.
+                # Cắt thẳng theo dải ngang để đảm bảo toàn bộ lộ (ký hiệu, thông số dây, nhãn tải)
+                # hiển thị rõ ràng, không bị xoay nghiêng (QUAD skew) làm biến dạng chữ và đè sang các lộ khác.
                 endpoints = [AnalysisPipelineService._evidence_crop_pixels(endpoint, *page_image.size)
                              for endpoint in (symbol_box, load_box)]
-                verified_quad = region.get('branch_quad')
-                if verified_quad:
-                    points = [(x * page_image.width / 1000, y * page_image.height / 1000) for x, y in verified_quad]
-                    tl, tr, br, bl = points
-                    out_w = round(max(math.dist(tl, tr), math.dist(bl, br)))
-                    out_h = round(max(math.dist(tl, bl), math.dist(tr, br)))
-                    if out_w > 0 and out_h > 0:
-                        crop = page_image.convert('RGB').transform((out_w, out_h), Image.Transform.QUAD,
-                            tuple(v for pt in (tl, bl, br, tr) for v in pt), resample=Image.Resampling.BICUBIC)
-                        if region.get('branch_header_separate'):
-                            header_pixels = AnalysisPipelineService._evidence_crop_pixels(symbol_box, *page_image.size)
-                            header = page_image.crop(header_pixels).convert('RGB')
-                            combined = Image.new('RGB', (max(header.width,crop.width),header.height+crop.height), 'white')
-                            combined.paste(header, ((combined.width-header.width)//2,0))
-                            combined.paste(crop, ((combined.width-crop.width)//2,header.height))
-                            crop = combined
-                elif all(endpoints):
-                    centers = [((l+r)/2, (t+b)/2) for l,t,r,b in endpoints]
-                    dx, dy = centers[1][0]-centers[0][0], centers[1][1]-centers[0][1]
-                    length = math.hypot(dx, dy)
-                    if length > 0:
-                        ux, uy = dx/length, dy/length
-                        vx, vy = -uy, ux
-                        corners = [(x,y) for l,t,r,b in endpoints for x,y in ((l,t),(r,t),(r,b),(l,b))]
-                        along = [x*ux+y*uy for x,y in corners]
-                        across = [x*vx+y*vy for x,y in corners]
-                        lo, hi = min(along), max(along)
-                        bottom, top = min(across), max(across)
-                        def point(a, c):
-                            return (a*ux+c*vx, a*uy+c*vy)
-                        quad = [point(lo,bottom), point(lo,top), point(hi,top), point(hi,bottom)]
-                        crop = page_image.convert('RGB').transform(
-                            (max(1,round(hi-lo)), max(1,round(top-bottom))),
-                            Image.Transform.QUAD, tuple(value for pt in quad for value in pt),
-                            resample=Image.Resampling.BICUBIC)
+                if all(endpoints):
+                    l0, t0, r0, b0 = endpoints[0]
+                    l1, t1, r1, b1 = endpoints[1]
+                    left = max(0, min(l0, l1) - max(20, round(page_image.width * 0.02)))
+                    right = min(page_image.width, max(r0, r1) + max(20, round(page_image.width * 0.02)))
+                    h0 = max(10, b0 - t0)
+                    h1 = max(10, b1 - t1)
+                    mid_y0 = (t0 + b0) / 2
+                    mid_y1 = (t1 + b1) / 2
+                    if abs(mid_y1 - mid_y0) < page_image.height * 0.07:
+                        top = max(0, min(t0, t1) - max(15, round(max(h0, h1) * 0.4)))
+                        bottom = min(page_image.height, max(b0, b1) + max(15, round(max(h0, h1) * 0.4)))
+                    else:
+                        top = max(0, t0 - max(20, round(h0 * 0.6)))
+                        bottom = min(page_image.height, b0 + max(20, round(h0 * 0.6)))
+                    max_h = round(page_image.height * 0.09)
+                    if (bottom - top) > max_h:
+                        diff = (bottom - top) - max_h
+                        top = max(0, top + diff // 2)
+                        bottom = min(page_image.height, bottom - diff // 2)
+                    crop = page_image.crop((int(left), int(top), int(right), int(bottom))).convert('RGB')
+                else:
+                    pixels = AnalysisPipelineService._evidence_crop_pixels(box, *page_image.size)
+                    if not pixels:
+                        continue
+                    crop = page_image.crop(pixels).convert('RGB')
+            else:
+                pixels = AnalysisPipelineService._evidence_crop_pixels(box, *page_image.size)
+                if not pixels:
+                    continue
+                crop = page_image.crop(pixels).convert('RGB')
             crop.thumbnail((1200, 900), Image.Resampling.LANCZOS)
             buf = io.BytesIO()
             image_format = 'PNG' if crop.mode == 'RGBA' else 'JPEG'
@@ -2286,11 +2284,21 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         right, bottom = int(xmax * width / 1000), int(ymax * height / 1000)
         if right <= left or bottom <= top:
             return None
-        # Preserve the verified symbol and label with a small margin; do not
-        # include adjacent devices through page-wide padding.
-        pad_x = max(2, round((right-left) * .04))
-        pad_y = max(2, round((bottom-top) * .08))
-        return max(0, left-pad_x), max(0, top-pad_y), min(width, right+pad_x), min(height, bottom+pad_y)
+        # Preserve the verified symbol and label with proper margin
+        pad_x = max(20, round((right - left) * 0.15))
+        pad_y = max(16, round((bottom - top) * 0.20))
+        # Đảm bảo kích thước tối thiểu để không bị crop thành dải màu trắng mỏng thiếu ký hiệu/chữ
+        min_w = round(width * 0.07)
+        min_h = round(height * 0.035)
+        if (right - left) < min_w:
+            cx = (left + right) // 2
+            left = max(0, cx - min_w // 2)
+            right = min(width, cx + min_w // 2)
+        if (bottom - top) < min_h:
+            cy = (top + bottom) // 2
+            top = max(0, cy - min_h // 2)
+            bottom = min(height, cy + min_h // 2)
+        return max(0, left - pad_x), max(0, top - pad_y), min(width, right + pad_x), min(height, bottom + pad_y)
 
     @staticmethod
     def _attach_evidence_thumbnails(devices: List[ExtractedDeviceSchema], image_path: str):
@@ -2403,7 +2411,14 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         cad_prompt = append_completeness_review_instruction(cad_prompt)
         cad_prompt = append_canonical_output_contract(cad_prompt)
 
-        if all_connections and db:
+        from app.services.ingestion.cad_visual_source import render_schematic_source
+        source_image = render_schematic_source(file_path)
+        if source_image and all_connections and db:
+            ai_res, _used = await ConnectionPoolService.call_with_fallback(
+                db=db, connections=all_connections, call_fn=VisionAnalyzerService.analyze_image,
+                image_path=source_image, prompt=cad_prompt + '\nĐọc cả hình học và ký hiệu trên ảnh sơ đồ CAD nguồn. '
+                'Không bỏ cụm đo lường, báo pha, cầu chì và chuyển mạch; chỉ lấy số lượng và thông số có bằng chứng.')
+        elif all_connections and db:
             ai_res, _used = await ConnectionPoolService.call_with_fallback(
                 db=db,
                 connections=all_connections,
@@ -2418,12 +2433,28 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 model=active_ai.selected_model
             )
 
+        from app.services.ai.cad_response_repair import ensure_cad_response
+        async def repair_cad_response(prompt):
+            if all_connections and db:
+                repaired, _ = await ConnectionPoolService.call_with_fallback(
+                    db=db,connections=all_connections,call_fn=VisionAnalyzerService.analyze_text,prompt=prompt)
+                return repaired
+            return await VisionAnalyzerService.analyze_text(prompt=prompt,provider=active_ai.provider.lower(),
+                api_key=active_ai.api_key,model=active_ai.selected_model)
+        ai_res = await ensure_cad_response(ai_res, repair_cad_response)
         parsed_devs = ResponseParserService.parse_device_list(ai_res)
         warns.extend(ResponseParserService.extract_completeness_warnings(ai_res))
+        from app.services.ai.cad_inventory_review import review_missing_devices
+        parsed_devs, inventory_warnings = await review_missing_devices(
+            parsed_devs, cad_res, cad_transcript, db, all_connections, active_ai, source_image=source_image)
+        warns.extend(inventory_warnings)
         extracted_panels = ResponseParserService.extract_panels_metadata(ai_res)
         if extracted_panels:
             multi_panels.extend(extracted_panels)
 
+        from app.services.ai.cad_label_integrity import review_measurement_ranges
+        parsed_devs, measurement_warnings = review_measurement_ranges(parsed_devs,cad_res.texts)
+        warns.extend(measurement_warnings)
         from app.services.ai.cad_label_integrity import reconcile_tagged_labels
         parsed_devs, label_warnings = reconcile_tagged_labels(parsed_devs,cad_res.texts,len(extracted_panels))
         warns.extend(label_warnings)
@@ -2462,6 +2493,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 quantity_basis=getattr(d,'quantity_basis',None),
                 source_filename=filename,
                 source_type='dxf' if file_path.lower().endswith('.dxf') else 'dwg',
+                source_observations=getattr(d,'source_observations',None),
                 brand=d.brand or "",
                 part_number=d.part_number or "",
                 section=d.section or "Đầu ra",
@@ -3652,7 +3684,9 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 row['brand'] = resolved_brand_pref
                 row['detected_brand'] = ''
                 row['selection_source'] = 'user_request' if requested_design_brand else 'default_brand'
-        devices = [select_device_geometry(d, allow_unverified_electrical=True) for d in devices]
+        from app.services.cad.catalogtb_assets import selection_snapshot
+        with selection_snapshot():
+            devices = [select_device_geometry(d, allow_unverified_electrical=True) for d in devices]
         from app.services.cad.external_research import research_missing_geometry, needs_external_geometry
         if any(needs_external_geometry(d) for d in devices):
             await emit_progress('external_cad', 10, 'Đang tìm bản vẽ và kích thước từ nhà sản xuất cho thiết bị còn thiếu')
@@ -3848,6 +3882,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 [d.model_dump() for d in extracted_devices],
                 preferred_dimensions=detected_dimensions
             )
+            enclosure_spec['source_reference_dimensions'] = detected_dimensions
+            enclosure_spec['dimension_policy'] = 'reference_only; propose from device geometry and source cabinet fit'
         except ValueError as exc:
             # Retain the extraction, but do not publish a quote from missing geometry.
             enclosure_spec = {'sizing_status': 'needs_review', 'sizing_note': str(exc)}
@@ -3933,11 +3969,37 @@ Chỉ trả một JSON hợp lệ, không markdown:
         ).lower() for token in ('ngoài trời', 'outdoor')) else 'indoor'
         try:
             if enclosure_spec.get('sizing_status') == 'needs_review':
-                from app.services.cad.reference_layout import ReferenceLayoutGenerator
-                source_cad = ReferenceLayoutGenerator.generate(project.id,
-                    getattr(settings, 'PROJECTS_DIR', 'storage/projects'), detected_dimensions,
-                    [d.model_dump() for d in extracted_devices], kind=enclosure_kind,
-                    product_name=detected_panel_name or detected_panel_code)
+                # Bao hình thiếu → thử chọn form thật với allow_partial trước
+                # (đặt các thiết bị đã có CAD, bỏ qua thiết bị chưa ghép được).
+                # Chỉ dùng bản nháp ReferenceLayout khi không có form nào phù hợp.
+                _partial_dims = (
+                    detected_dimensions
+                    if detected_dimensions and len(detected_dimensions) == 3
+                    else (enclosure_height, enclosure_width, enclosure_depth)
+                )
+                try:
+                    source_cad = SourceProjectGenerator.generate(
+                        project_id=project.id,
+                        output_dir=getattr(settings, 'PROJECTS_DIR', 'storage/projects'),
+                        dimensions=_partial_dims,
+                        devices=[d.model_dump() for d in extracted_devices],
+                        kind=enclosure_kind,
+                        product_name=detected_panel_name or detected_panel_code,
+                        allow_partial=True,
+                    )
+                    # Đánh dấu rõ đây là bố trí sơ bộ, chưa duyệt chế tạo
+                    source_cad.setdefault('status', 'reference_layout_needs_review')
+                    source_cad['release_ready'] = False
+                    enclosure_spec['sizing_note'] = (
+                        enclosure_spec.get('sizing_note', '')
+                        + ' Bố trí sơ bộ từ form nguồn; thiết bị chưa có CAD được ghi nhận trong unmatched_devices.'
+                    ).strip()
+                except ValueError:
+                    from app.services.cad.reference_layout import ReferenceLayoutGenerator
+                    source_cad = ReferenceLayoutGenerator.generate(project.id,
+                        getattr(settings, 'PROJECTS_DIR', 'storage/projects'), detected_dimensions,
+                        [d.model_dump() for d in extracted_devices], kind=enclosure_kind,
+                        product_name=detected_panel_name or detected_panel_code)
             else:
                 source_cad = SourceProjectGenerator.generate(
                     project_id=project.id,
@@ -3948,7 +4010,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 )
             cad_file_path = source_cad["path"]
             cad_layout = {key: source_cad[key] for key in ("template_id", "source", "dimensions", "minimum_required", "placements", "unmatched_devices", "status", "release_ready")}
-            cad_layout.update({key:source_cad[key] for key in ('clearance_status','dimension_changes','form_fit_attempts') if key in source_cad})
+            cad_layout.update({key:source_cad[key] for key in ('clearance_status','dimension_changes','form_fit_attempts',
+                              'dimension_basis','source_reference_dimensions','reserve_space') if key in source_cad})
             # The chosen source shell can be larger than the calculated
             # minimum. Materials and the final check must use that real shell.
             actual_dimensions = source_cad['dimensions']
@@ -3993,7 +4056,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
             await emit_progress("cad_review", 75, f"Chưa đủ dữ liệu để bố trí và chọn form tự động: {exc}")
             # Explicitly selected CatalogTB geometry can still produce a review
             # drawing, without presenting it as an approved fabrication layout.
-            if detected_dimensions and extracted_devices:
+            if extracted_devices:
                 from app.services.cad.reference_layout import ReferenceLayoutGenerator
                 try:
                     review = ReferenceLayoutGenerator.generate(project.id,
@@ -4007,6 +4070,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     await emit_progress('cad_review_ready', 75, 'Đã tạo CAD nháp; còn phần cần bổ sung trước khi duyệt chế tạo')
                 except ValueError as review_exc:
                     await emit_progress('cad_review', 75, str(review_exc))
+        if cad_layout and cad_layout.get('reserve_space'):
+            enclosure_spec['reserve_space'] = cad_layout['reserve_space']
         await emit_progress(
             "cad_ready",
             75,

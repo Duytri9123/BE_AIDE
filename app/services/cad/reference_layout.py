@@ -8,9 +8,29 @@ import ezdxf
 class ReferenceLayoutGenerator:
     @staticmethod
     def generate(project_id, output_dir, dimensions, devices, kind='indoor', product_name=''):
-        if not dimensions or len(dimensions) != 3 or any(
+        reference_dimensions = dimensions
+        dimension_basis = 'source_reference'
+        if not dimensions:
+            # Missing source dimensions must not prevent a review drawing when
+            # actual device envelopes provide a basis for a proposed enclosure.
+            from .device_envelope import selected_envelope
+            known = []
+            for row in devices:
+                try:
+                    envelope = selected_envelope(row)
+                    if all(math.isfinite(v) and v > 0 for v in envelope):
+                        known.append(row)
+                except (ValueError, TypeError, KeyError, OSError):
+                    continue
+            if not known:
+                raise ValueError('Chưa có bao hình CAD thiết bị để đề xuất kích thước tủ nháp.')
+            from .enclosure_cad_generator import EnclosureCadGeneratorService
+            proposal = EnclosureCadGeneratorService.calculate_enclosure_specs(known)
+            dimensions = tuple(proposal[axis] for axis in ('height', 'width', 'depth'))
+            dimension_basis = 'proposed_from_available_device_geometry'
+        if len(dimensions) != 3 or any(
                 not math.isfinite(float(v)) or float(v) <= 0 for v in dimensions):
-            raise ValueError('Cần kích thước vỏ tủ từ bản vẽ hoặc người dùng để tạo CAD nháp.')
+            raise ValueError('Kích thước tham khảo phải có đủ H×W×D lớn hơn 0.')
         from .source_project_generator import SourceProjectGenerator
         try:
             result = SourceProjectGenerator.generate(project_id, output_dir, dimensions,
@@ -34,6 +54,9 @@ class ReferenceLayoutGenerator:
             from .catalogtb_assets import resolve, instance_count
             from .device_envelope import selected_envelope
             placements, missing = [], []
+            from .reserved_space import allocate, draw
+            available_region, reservation = allocate((interior_x+40,40,interior_x+w-40,h-40))
+            draw(m, reservation)
             cursors = {'outer_door':[40,h-40,0], 'mounting_plate':[40,h-40,0]}
             for row in devices:
                 tag = row.get('tag') or row.get('name')
@@ -52,7 +75,8 @@ class ReferenceLayoutGenerator:
                     for _ in range(count):
                         xx, yy, row_height = state
                         if xx+ew > w-40: xx, yy, row_height = 40, yy-row_height-40, 0
-                        if yy-eh < 40: raise ValueError('Không đủ chiều cao')
+                        lower_limit = available_region[1] if face=='mounting_plate' else 40
+                        if yy-eh < lower_limit: raise ValueError('Không đủ chiều cao ngoài vùng dự phòng')
                         planned.append((xx,yy-eh))
                         state = [xx+ew+20, yy, max(row_height,eh)]
                     for xx, yy in planned:
@@ -85,7 +109,9 @@ class ReferenceLayoutGenerator:
         note('THIET BI CHUA BO TRI - KHONG SUY DIEN KICH THUOC',y-22)
         note('KHOANG CHUA ME / DAY: DE XUAT, CAN XAC NHAN TRUOC GIA CONG', y+22)
         if result.get('dimension_changes'):
-            note('FORM LON HON KICH THUOC NGUON - CAN XEM LAI: '+str(tuple(dimensions)),y+44)
+            note('KICH THUOC NGUON THAM KHAO - FORM DE XUAT: '+str(tuple(dimensions)),y+44)
+        if dimension_basis == 'proposed_from_available_device_geometry':
+            note('KICH THUOC TU DE XUAT TU BAO HINH HIEN CO - CAN RA SOAT',y+66)
         missing = set(result['unmatched_devices'])
         for index,row in enumerate(r for r in devices if (r.get('tag') or r.get('name')) in missing):
             note(f"{row.get('tag') or ''} | {row.get('name') or ''} | {row.get('spec') or 'Chua ro thong so'} | SL {row.get('quantity') or 1}",y-44-index*20)
@@ -93,7 +119,10 @@ class ReferenceLayoutGenerator:
         if not target.name.startswith('CAD_NHAP_'):
             target = target.with_name('CAD_NHAP_' + target.name)
         result['path'] = str(target)
+        from .reserved_space import from_dxf
+        result['reserve_space'] = from_dxf(doc, result.get('placements') or [])
         doc.saveas(target)
         result.update(status='reference_layout_needs_review',release_ready=False,
-                      incomplete=True,form_review_reason=result.get('form_review_reason'))
+                      incomplete=True,form_review_reason=result.get('form_review_reason'),
+                      dimension_basis=dimension_basis,source_reference_dimensions=reference_dimensions)
         return result

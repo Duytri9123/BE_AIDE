@@ -1,0 +1,208 @@
+{
+  "nhom": "Phụ kiện tủ điện",
+  "ten_kieu": "Bản lề âm chốt nhỏ HL011-2",
+  "ten_san_pham": "Bản lề âm chốt nhỏ HL011-2",
+  "ban_chat": "Bản lề cửa tủ",
+  "cong_dung": "Tạo trục quay cho cánh cửa tủ và giữ cửa trên khung.",
+  "vi_tri_lap_dat": "Giữa cánh cửa và khung tủ; chọn đúng chiều mở, chiều dày tôn và vị trí lỗ bắt.",
+  "hang_xac_nhan": null,
+  "ma_dong_san_pham": null,
+  "thong_so": {
+    "ma_tren_ban_ve": "HL011-2"
+  },
+  "muc_do_xac_nhan": "Kiểu và mã trên bản vẽ; chưa xác định hãng hoặc biến thể đặt hàng.",
+  "nguon_tham_khao": [],
+  "cac_hinh_cad": [
+    "A07_cluster15-V001",
+    "A07_cluster15-V002"
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "A07_cluster15-V001",
+    "huong_nhin": "Mặt bên",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "A07_cluster15-V001",
+      "huong_nhin": "Mặt bên",
+      "nhan_hien_thi": "Chưa xác định hướng nhìn",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt bên",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt bên form tủ khi thiết bị giữ tư thế lắp đứng. Nếu xoay tư thế lắp, cần đối chiếu lại hướng nhìn."
+      },
+      "duong_dan": "CadDon/A07_cluster15-V001/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "canh_ngoai",
+        "vi_tri_phu_hop": [
+          "canh_ngoai",
+          "canh_trong"
+        ],
+        "huong_dan": "Gắn trên cánh và mép khung tương ứng. Phần tay nắm ở mặt thao tác; chốt hoặc bản lề làm việc phía sau/mép cánh.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/ca-en/products/PG20231215ZUB101/PG20240411ZUB101"
+        ]
+      }
+    },
+    {
+      "id_hinh_goc": "A07_cluster15-V002",
+      "huong_nhin": "Mặt trước",
+      "nhan_hien_thi": "Chưa xác định hướng nhìn",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt trước form tủ khi mặt thao tác hoặc mặt chính của thiết bị hướng về người nhìn."
+      },
+      "duong_dan": "CadDon/A07_cluster15-V002/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "canh_ngoai",
+        "vi_tri_phu_hop": [
+          "canh_ngoai",
+          "canh_trong"
+        ],
+        "huong_dan": "Gắn trên cánh và mép khung tương ứng. Phần tay nắm ở mặt thao tác; chốt hoặc bản lề làm việc phía sau/mép cánh.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/ca-en/products/PG20231215ZUB101/PG20240411ZUB101"
+        ]
+      }
+    }
+  ],
+  "bo_tri_lap_dat": {
+    "vi_tri_uu_tien": "canh_ngoai",
+    "vi_tri_phu_hop": [
+      "canh_ngoai",
+      "canh_trong"
+    ],
+    "huong_dan": "Gắn trên cánh và mép khung tương ứng. Phần tay nắm ở mặt thao tác; chốt hoặc bản lề làm việc phía sau/mép cánh.",
+    "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+    "nguon_tham_khao": [
+      "https://www.rittal.com/ca-en/products/PG20231215ZUB101/PG20240411ZUB101"
+    ]
+  },
+  "quy_cach_hien_thi": "",
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Chọn theo từng kết nối, thông số điện và bảo vệ phía trước; không suy từ hình CAD. Vật tư thuần cơ khí không yêu cầu dây.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa có dữ liệu gá/cọc theo mã đầy đủ",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "Phụ kiện tủ điện",
+    "ma_san_pham": "Bản lề âm chốt nhỏ HL011-2",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khảo - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "Bản lề cửa tủ",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "Rittal",
+        "model": "SZ 2449.000",
+        "specifications": {
+          "Tên hàng": "Bản lề mở rộng góc mở cửa",
+          "Góc mở danh nghĩa": "180°",
+          "Dòng tủ tham khảo": "AE; chọn theo cửa và bộ gá"
+        },
+        "source_url": "https://www.rittal.com/uk-en/products/PG20231215ZUB101/PG20240411ZUB101/PG20240327ZUB104/PRO35433?variantId=2449000",
+        "basis": "manufacturer_web_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Gia công / phổ thông",
+        "model": "HL011-1-2",
+        "specifications": {
+          "ma_tren_ban_ve": "HL011-2",
+          "Loại thiết bị": "Bản lề cửa tủ",
+          "Lắp đặt tham khảo": "Giữa cánh cửa và khung tủ; chọn đúng chiều mở, chiều dày tôn và vị trí lỗ bắt.",
+          "Hình chiếu Mặt bên (ngang × cao, mm)": "25.4 × 18.0",
+          "Hình chiếu Mặt trước (ngang × cao, mm)": "25.0 × 87.0"
+        },
+        "source_url": "",
+        "basis": "cad_reference_code",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mã/tên mẫu CAD nguồn để tra cứu và dùng chung; chưa phải mã hàng thương mại."
+      }
+    ],
+    "observed_specifications": {
+      "ma_tren_ban_ve": "HL011-2",
+      "Loại thiết bị": "Bản lề cửa tủ",
+      "Lắp đặt tham khảo": "Giữa cánh cửa và khung tủ; chọn đúng chiều mở, chiều dày tôn và vị trí lỗ bắt.",
+      "Hình chiếu Mặt bên (ngang × cao, mm)": "25.4 × 18.0",
+      "Hình chiếu Mặt trước (ngang × cao, mm)": "25.0 × 87.0"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "generic_mechanical",
+      "source_model": null,
+      "matched_catalog_rows": 0,
+      "model_identity_verified": false,
+      "remaining_tasks": [],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "generic_mechanical",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [],
+      "documented_models": [],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "tu_khoa_tim_kiem": [
+    "Bản lề âm chốt nhỏ HL011-2",
+    "Bản lề cửa tủ",
+    ""
+  ]
+}

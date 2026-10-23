@@ -6,6 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, update
+from sqlalchemy.orm import raiseload
 from pydantic import BaseModel
 from typing import Optional, List
 import httpx
@@ -931,18 +932,20 @@ async def detect_ai_key(req: DetectKeyRequest):
 @router.get("/providers-summary")
 async def get_providers_summary(db: AsyncSession = Depends(get_db)):
     """Lấy danh sách tóm tắt tất cả các provider đang có cùng endpoint mặc định và danh sách model."""
-    stmt = select(AiProvider).where(AiProvider.is_active == True).order_by(AiProvider.sort_order.asc())
+    stmt = select(AiProvider).options(raiseload("*")).where(AiProvider.is_active == True).order_by(AiProvider.sort_order.asc())
     res = await db.execute(stmt)
     providers = res.scalars().all()
 
+    provider_ids = [p.id for p in providers]
+    model_rows = (await db.execute(select(AiProviderModel).where(
+        AiProviderModel.provider_id.in_(provider_ids), AiProviderModel.is_active.is_(True)
+    ).order_by(AiProviderModel.sort_order, AiProviderModel.id))).scalars().all() if provider_ids else []
+    by_provider = {}
+    for model in model_rows:
+        by_provider.setdefault(model.provider_id, []).append(model)
     out = []
     for p in providers:
-        m_stmt = select(AiProviderModel).where(
-            AiProviderModel.provider_id == p.id,
-            AiProviderModel.is_active == True
-        ).order_by(AiProviderModel.sort_order.asc(), AiProviderModel.id.asc())
-        m_res = await db.execute(m_stmt)
-        models = m_res.scalars().all()
+        models = by_provider.get(p.id, [])
 
         out.append({
             "id": p.id,

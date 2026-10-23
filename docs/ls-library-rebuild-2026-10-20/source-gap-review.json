@@ -1,0 +1,81 @@
+{
+  "scope": "LS only",
+  "required_views": [
+    "front",
+    "rear",
+    "left",
+    "right",
+    "top",
+    "bottom"
+  ],
+  "source_findings": [
+    {
+      "category": "MCB",
+      "models": [
+        "LA63N",
+        "LA63H",
+        "LA63L",
+        "LA125H"
+      ],
+      "decision": "Do not substitute LA63Hd/LA63HU or another revision without a manufacturer compatibility statement. Require matching legacy source CAD or verified shared frame."
+    },
+    {
+      "category": "RCBO",
+      "models": [
+        "LB63N"
+      ],
+      "decision": "Legacy source not established; no substitution by LB63HW or LB40NN."
+    },
+    {
+      "category": "SPD",
+      "models": [
+        "BK10",
+        "BK20",
+        "BK30",
+        "BK40"
+      ],
+      "decision": "Advertised secondary BK AC download contained a TS250 circuit-breaker DWG. Quarantined; BK DC / UL and USP sources not substitutes."
+    },
+    {
+      "category": "ACCESSORY",
+      "decision": "Internal coils, contacts, motor operators and mounting parts require their own source model or a verified parent assembly/installation relationship. Parent breaker geometry must not masquerade as a standalone accessory."
+    },
+    {
+      "category": "CONTACTOR",
+      "decision": "Coil AC/DC, 3P/4P and 1a1b/2a2b must match. DC 1a1b STEP50308 hidden rather than linked to 2a2b price rows."
+    },
+    {
+      "category": "ELCB",
+      "models": [
+        "EBS52Fb",
+        "EBE102Fb",
+        "EBN52c",
+        "EBN102c"
+      ],
+      "decision": "Legacy two-pole source not present in manufacturer three-dimensional archive; require exact family documentation."
+    }
+  ],
+  "completion_rule": "A price row with no verified six-view variant remains supplement-required and cannot silently use a generic box or single-angle LS drawing.",
+  "manufacturer_catalogue_search": {
+    "endpoint": "https://www.ls-electric.com/ko/api/download.ashx?t=list",
+    "drawing_category_id": 7,
+    "keywords": [
+      "MT-32",
+      "Thermal",
+      "Overload",
+      "Metasol"
+    ],
+    "metasol_drawing_records_checked": 144,
+    "finding": "Manufacturer Metasol CAD lists separate MC contactor / MC accessory / MCCB-ELCB packages, but no verified standalone six-view MT thermal-relay package was identified. Existing native 2D thermal CAD remains partial."
+  },
+  "reviewed_unpublished_accessory_sources": [
+    {
+      "source": "55731/model-028..031 AR600 3P/4P and V variants",
+      "finding": "Manufacturer model includes two parent contactors and mounting plate. Cannot publish this as standalone AR600 geometry or count two parent bodies again in an accessory layout."
+    },
+    {
+      "source": "55731/model-001 AC50",
+      "finding": "Keep for component/kit and mounting-pose review against capacitor-switching assembly. Named source part alone does not confirm complete supplied kit scope."
+    }
+  ]
+}

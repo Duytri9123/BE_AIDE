@@ -1,0 +1,1437 @@
+{
+  "before": {
+    "assets": 2003,
+    "unclassified_assets": 238,
+    "unknown_faces": 492
+  },
+  "after": {
+    "assets": 2003,
+    "unclassified_assets": 2,
+    "unknown_faces": 492
+  },
+  "classified_profiles": 145,
+  "corrected_view_labels": 58,
+  "types_added": {
+    "ATS": 1,
+    "REACTOR": 1,
+    "TERMINAL_BLOCK": 36,
+    "TERMINAL_END_STOP": 1,
+    "CABINET_LOCK": 26,
+    "CABINET_LATCH": 2,
+    "CABINET_HANDLE": 2,
+    "THERMAL_RELAY": 6,
+    "TRANSFORMER": 1,
+    "INSULATING_SUPPORT": 21,
+    "TERMINAL_BAR": 3,
+    "HINGE": 15,
+    "FASTENER": 4,
+    "CABLE_LUG": 6,
+    "INSPECTION_WINDOW": 1,
+    "BUSBAR_CLAMP": 1,
+    "DOCUMENT_POCKET": 1,
+    "WIRING_DUCT": 1,
+    "LABEL_HOLDER": 1,
+    "SAFETY_LABEL": 1,
+    "LIFTING_ATTACHMENT": 2,
+    "WALL_BRACKET": 1,
+    "FAN": 3,
+    "VENT_FILTER": 5,
+    "FAN_GUARD": 1,
+    "SOCKET": 2
+  },
+  "changes": [
+    {
+      "profile": "Chint/ThietBi/SRC_CHINT_24d4f273feda/thong_tin_thiet_bi.json",
+      "type_added": "ATS",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "SRC_CHINT_24d4f273feda": "5e9bdfdbb1866f9b4d156b2cc527303c7282bc4ff23f941151599cc773eb4d15"
+      }
+    },
+    {
+      "profile": "Chống sét/ThietBi/TH1_123de911b295cf03a99a/thong_tin_thiet_bi.json",
+      "type_added": null,
+      "labels_corrected": [
+        "TH1_123de911b295cf03a99a"
+      ],
+      "cad_hashes": {
+        "TH1_123de911b295cf03a99a": "6efda3d19ce0df0ae1e2ab1c835b2f79ce9ff600dc73298ac79a50fabac734e8"
+      }
+    },
+    {
+      "profile": "Chống sét/ThietBi/TH1_9acc8a0abb4cd0d871cd/thong_tin_thiet_bi.json",
+      "type_added": null,
+      "labels_corrected": [
+        "TH1_9acc8a0abb4cd0d871cd"
+      ],
+      "cad_hashes": {
+        "TH1_9acc8a0abb4cd0d871cd": "e8ac02a0b2e12ef410acd7babcf0bfbe097c0eb7100f1c699b652e1394b391a2"
+      }
+    },
+    {
+      "profile": "Chống sét/ThietBi/TH1_be691755c45258a72ad0/thong_tin_thiet_bi.json",
+      "type_added": null,
+      "labels_corrected": [
+        "TH1_be691755c45258a72ad0"
+      ],
+      "cad_hashes": {
+        "TH1_be691755c45258a72ad0": "ce10c4b3d145c818a49f4c2d90d517e4f72c0ebc2162c72f74267f11363045b2"
+      }
+    },
+    {
+      "profile": "Cuộn kháng/ThietBi/CuonKhang3P_ChuaRoLoai/thong_tin_thiet_bi.json",
+      "type_added": "REACTOR",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C11_cluster6-V001": "239b3ed172e344c3c7533634ef4936a13ada2c557523c767dc230e148b072447",
+        "C11_cluster6-V002": "c2e50869fa6b00086361a23077efbd075a5083142d0b00712bc9becf1b182ecd"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CD_10P_10A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster6-V001": "741735f4a0e01197cda46d105da928062ede0e14ff3cf9e64b438e9fc8a448a0"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CD_10P_30A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster6-V003": "aecdc6e663a713a481c9fb2a674a2a79da751bb46cdc29f83e5747b3efe5df26"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CD_1P_100A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster6-V005": "7bd057c92b46c8a3d29c0e7176d44cedaaa31558c348d75a3d82702fb84cb9ff"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CD_20P_20A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster6-V002": "a7674c5010a7c621c0adfff350763dcb250b3dcc0c27f3eb82beaef42375b4b8"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CD_3P_100A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster5-V003": "83db50b468c35d17f970ac35e0bcfc6d0fe60a81de81d0756bc4d132f22ca205"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CD_3P_150A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster5-V005": "8ae750a472087346b87b162779afd5a18a181125fb45e8290f82f6db326c052d"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CD_3P_200A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster5-V007": "7bc5843883638bad0e43206a2b3c9d184c0c715886ee31bd2834ce73df812244"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CD_3P_300A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster5-V009": "047717e69ae89a3114fc9aa01b023829eac06e103a1c46615a2eb4f7f1fe91a7"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CD_3P_400A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster5-V011": "ec8ecebe892dd64c0c0f19978f43e2a856660794846e1154803ef3eaace491ae"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CD_3P_500A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster5-V013": "9f99b12bdc23fbd17557ccab174e9725489f2cc2ed83e2e7bd0f132202bad07b"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CD_3P_60A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster5-V001": "2cad2db8ed30e9949ed298f2b19352c7a65e8be259aa2bca7f1ca08f07d10c3e"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CD_4P_100A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster5-V004": "dffd57703b87693d50b62e27574adebadbcf0089b3de4af1128c3f9417769f48"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CD_4P_150A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster5-V006": "1c6c0a8fb6f9a82c581d56d41ffca3b76ae6f17cf774fe30b4234260107a148a"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CD_4P_200A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster5-V008": "5da459cafe4368ecee919b9acc74d93df256e466e4ef2fcfa695cf7bb1670c21"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CD_4P_300A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster5-V010": "7e56c4eb85b9fed6522c869088ff0ed74d57b733c0931759560be8af0711d4f9"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CD_4P_400A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster5-V012": "a42054599bb966a49ca77f96462ece0a611d335678eac8c672b68f997f74c9b4"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CD_4P_500A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster5-V014": "b11405c3ad11895761d128756b51ca77fb9783f78e6bad2269f6b400a01eccc4"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CD_4P_60A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster5-V002": "0350b884cb4acf9bb899848dbfabd375119c9f20d7ffd55554937cf418f65b48"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/ChanTer/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_END_STOP",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster2-V002": "6f92361dcccf26043ce388561520d53752fa3ce4bbce783566d6340fafd1e4b0"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CTS25/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster4-V001": "0105c022cbb56592d0699fd352294926d94ec8587b42cd52bc16b43e5c8e6dd8"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CTS4/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster4-V002": "090d664d28e682a57bf6e50d5ed5cec3116363aac1fcda76ce61958dd167db69"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/CTS6/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster4-V003": "476b5ab6036a68d0e7124765a0f4c6887cf2a9e91b535c2b3a142c21e97a154b"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/HYT203/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster5-V015": "407f7952c7e569b7f893326dbc4a0cfea8513e63228a63011f36e6098321e8d9"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/HYT204/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster5-V016": "cf7ae7cd2b9c3d4630d2457e77f1e05720e846cc24ac013de830c80d17112fa9"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/HYT30/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster5-V017": "4a6e9a49bcb14a7c767440a4a3c15b9ce5625bd08953ddb572478cfe92e4eee0"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/HYT304/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster5-V018": "f086c71c442dea3879f84380b8b1bb1b4d96af66272c6ca36b030c5ea4bfe3da"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/TB_12P_15A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster3-V009": "c3feeea13daf45dae7f23b157cb587770737be4d4c4f5341d0e5af091cc5f015"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/TB_12P_20A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster3-V008": "e1a55b9a03187749d747b37fbfa421398df2233abe0905ba03bf3b759cc0f0c0"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/TB_4P_150A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster3-V003": "edd16e672f973c0e618af425cd793ec99540d11d0b5092fc247b3a5c10cc910c"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/TB_4P_15A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster3-V007": "33713d6057213f82479d327e81432f78572475e7f1c0dcf7fbbd693c97fbfdf2"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/TB_4P_200A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster3-V002": "b98b9f33bcec7ce853da8c5f08ef39daf3f84e5bf3de90408b04a90a35d54d10"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/TB_4P_20A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster3-V006": "e54a2ca8bad86a9b62941336d1929dabc97a2cd3360b0cd418a377b69dfe9f23"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/TB_4P_300A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster3-V001": "f545214732204bab28df8bd89b1be45457b805142258614e1739722ad8af2c7e"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/TB_4P_30A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster3-V005": "af3463317ba1cf741bef3414de0749afd35ce480297eea8cbb0115ac1720911f"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/TB_4P_60A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster3-V004": "b8085cabdecc401095d36d17deff7cb0648212b71552f98111dfa935d4e7db44"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/TB_6P_20A/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster3-V010": "87b576113782b93e46a81e9c42df817fb9aceeab4108a0a73817af5e0fde46c4"
+      }
+    },
+    {
+      "profile": "Cầu đấu/ThietBi/UK3N/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BLOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C09_cluster2-V003": "4c0df4bdae0b56a277b695135af40cbc893050ce603f2f07698e7cca6156540a"
+      }
+    },
+    {
+      "profile": "Khóa/ThietBi/A19/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A04_a19-V001": "fb74a19372fc01efb1f05de4c5332ebb5902ed710324fb6d0a5bff6506a39463",
+        "A04_a19-V002": "37bb1ae711a77ef1d0b1810885b3d415d6b915629a5182a2e37e0acb9f99b07c",
+        "A04_a19-V003": "f94d979d28bab79d7f98a6e12ecfd7067ab1a1fc21037f5e946e9895f48f5301"
+      }
+    },
+    {
+      "profile": "Khóa/ThietBi/A480/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A04_a480-V001": "3530631c6a92291b1a2e897ce7fca35e96fab2a298e6c4f18794c6f38d3497ad",
+        "A04_a480-V002": "4267570684917d171c9c23518b0fc2420dcd03767269d2d16ef211706f79941b"
+      }
+    },
+    {
+      "profile": "Khóa/ThietBi/AB301_1_1/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A08_cluster9-V001": "17f02056769d839e99d957344ed5c1fef009a3b7598bd15f1920023f8e1dea24"
+      }
+    },
+    {
+      "profile": "Khóa/ThietBi/AB301_2_1/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A08_cluster10-V001": "73a20d33751fcd8f8856c1a9e396aea82226bec11df395c5ec6ef69939f0cecf"
+      }
+    },
+    {
+      "profile": "Khóa/ThietBi/AB301_3_1/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A08_cluster11-V001": "739c3d3152ad75b51e2929120a38b52705c0cea0ebbcd3a053d8854b0b8802a3"
+      }
+    },
+    {
+      "profile": "Khóa/ThietBi/C45_72/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A04_c4572-V001": "326a48cf29014c7a4e901f42492c6d1b30dbd0fd206aa92dd3d93f65bdae7fc1",
+        "A04_c4572-V002": "2e9e478a484105f36dd8561f085cbb3643fe186c45b8a7890ad76b6c617e5e5a",
+        "A04_c4572-V003": "b3b15bc7926bba2e0bba0bfe86e9d54dae18c8e5044cfa4786116767f5833c3f"
+      }
+    },
+    {
+      "profile": "Khóa/ThietBi/ChotNgang/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LATCH",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A08_cluster8-V001": "5d6982ca56b33727257a72804bed181533f5ca7c1f4816b74455346cd1d2b603",
+        "A08_cluster8-V002": "40cdb01bd5dec6b6fd2fa2fd01c14f05feb3f150920e70bfcd7f62e798fd91cd"
+      }
+    },
+    {
+      "profile": "Khóa/ThietBi/KhoaAm/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A04_unnamed_lock-V001": "48935808e63b74c55ea26eee8f70157e1ec784955b12d1f519fd348abf67d1b7",
+        "A04_unnamed_lock-V002": "c23a0e6a9d38a4ede8407c8542f19d6669e4ba9df8825391bc2e84490d65df9a"
+      }
+    },
+    {
+      "profile": "Khóa/ThietBi/KhoaBat/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A06_cluster14-V001": "0b85715b4dad4dfc83ae5f0381aaf62b887641be555c65e4748845783b9b52f8",
+        "A06_cluster14-V002": "e81c9ee432346109c2e2de39cbfc04cc82964641d8d857629bacca6d2bb99175",
+        "A08_cluster12-V002": "7cafcf0fed98c3878acfa3e0c034fa8ba2bcfa9302e6b29c2186c1081fd22ab2",
+        "A08_cluster12-V003": "0f064e64244b1e2c04b6dd88b70b583c3c3f8c89c307445920d3277796b45717"
+      }
+    },
+    {
+      "profile": "Khóa/ThietBi/KhoaMoc/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A08_cluster13-V001": "ac6ef1cb38c84634795fffb272dd514ff1a90ad3bfa56187eacab24997765946",
+        "A08_cluster13-V002": "0d3b81f6bd9a7c53bebf06929335034a365d9a8819a754af273dd9ea45e61b24"
+      }
+    },
+    {
+      "profile": "Khóa/ThietBi/MS301/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A04_ms301-V001": "7e00e4e928316f49dfa1c04073e3e6ea0fe6e84d0eb2f578f4777580d483e5d5"
+      }
+    },
+    {
+      "profile": "Khóa/ThietBi/MS303/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A04_ms303-V001": "4d560f0bc8dd4192ed801d3abd41b647ff25d30a0014505a4da70f84d1b0c3ff"
+      }
+    },
+    {
+      "profile": "Khóa/ThietBi/MS308/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A08_cluster14-V001": "580c46090182e1dcee094a29d4d039d6a4f5363cc618a9d86addfebce6c006e2",
+        "A08_cluster14-V002": "8f8b0331c8d612b97feef166fcbfb4a5d3a79bea66812cd5abe548f766b57b60"
+      }
+    },
+    {
+      "profile": "Khóa/ThietBi/MS8712/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A06_cluster21-V001": "533647d4f4bf7be5abbe56087e30b5141ec1e0169e816c0c9909b28220f90856",
+        "A06_cluster21-V002": "d52d905e8c93a146e61a597176e2f294879aff84e171aa81aea6d87447bb0c70",
+        "A08_cluster16-V001": "91672dc61ec5afbde35e088878e7e190c5e4a84f80293d61872ca42b061ab397",
+        "A08_cluster16-V002": "42e90b53a809de256071020cb2a1cdc87cb75dcbe95e6ec9888d39345e19fced"
+      }
+    },
+    {
+      "profile": "Khóa/ThietBi/TayNamThang/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_HANDLE",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A08_cluster5-V001": "6739704f1a9050f170546feba0a7de5696b9698f4ad9b61e15b1efc803997733"
+      }
+    },
+    {
+      "profile": "Khóa/ThietBi/TayNamU/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_HANDLE",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A08_cluster4-V001": "81754a46a38ac6a8e33e12c6df03fb9c0f5e36a1a145c1f76d2c95dd473eee97"
+      }
+    },
+    {
+      "profile": "Khóa/ThietBi/TG504/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A04_tg504-V004": "d816377ed311c086cbd6ef610a29205dca6c69ac2454c594ac6e4d7a954c38f7",
+        "A04_tg504-V005": "1b78c5f0c02d900d12eb546d4c8942a3a9d927addd761ec6954386290d1dc61b"
+      }
+    },
+    {
+      "profile": "LS/ThietBi/SRC_LS_118a8e291679/thong_tin_thiet_bi.json",
+      "type_added": "THERMAL_RELAY",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "SRC_LS_118a8e291679": "72953475e7f86d0a4ee39e176c4e965f5e1ea26c183ff1b971646f36b1a8fac7"
+      }
+    },
+    {
+      "profile": "LS/ThietBi/SRC_LS_56b62db7d535/thong_tin_thiet_bi.json",
+      "type_added": "THERMAL_RELAY",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "SRC_LS_56b62db7d535": "4316b0b198707f7aae50cd1be47c3ee351c9e5b9b357dea9de5b4f9be2ca68a2"
+      }
+    },
+    {
+      "profile": "LS/ThietBi/SRC_LS_7b513915a600/thong_tin_thiet_bi.json",
+      "type_added": "THERMAL_RELAY",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "SRC_LS_7b513915a600": "ce3ef47124d797b147cc2f84635062a1614c426376b9a2bfa790b6016074fcbc"
+      }
+    },
+    {
+      "profile": "Nguồn và biến áp/ThietBi/S8FS_C05024J/thong_tin_thiet_bi.json",
+      "type_added": null,
+      "labels_corrected": [
+        "S8FS-C05024J-FRONT"
+      ],
+      "cad_hashes": {
+        "S8FS-C05024J-FRONT": "774cfa02ee795ae0ddafb1c643431fe57ebd1ebc7ce060b687b71bf8382863ee"
+      }
+    },
+    {
+      "profile": "Nguồn và biến áp/ThietBi/TH1_018192cdb06c5a135309/thong_tin_thiet_bi.json",
+      "type_added": "TRANSFORMER",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "TH1_018192cdb06c5a135309": "31017ae37f020bff14c60d3eb45f0b4cbb3b61cae10dbeb8491d741ad4e31552"
+      }
+    },
+    {
+      "profile": "Phíp/ThietBi/SuDo_S25/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "B_35241864a9c5": "e7b27d8eb0b3a09e68ed7b844d681b046b3cbfc2923141b45ddfcb26ca4fe3cf",
+        "B_b3235f85f757": "7eef42c7e728a29ace22082664b5e6b197523b29fed3febb41354aeea4ab2f02"
+      }
+    },
+    {
+      "profile": "Phíp/ThietBi/SuDo_S35/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "B_670364b0c6b7": "0d1ff8fbd91c233b2b2c309e972965b1a7dc14996abce99e2f726e567b2e142c",
+        "B_80897f043c3a": "f2be903cbe2f7c7e838bd05008bfae0e957a604b93feedaa0b4a3bab94cb6b04"
+      }
+    },
+    {
+      "profile": "Phíp/ThietBi/SuDo_S50/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "B_bf0b060e89bb": "a8e34085dbaadca5b294a40c5262bbc5da723620998585e2352b3d01d8452e2b",
+        "B_e8e1e87c60ec": "c95e12e1b0ee34e48a73509b615265923c0ae83745815a1d22da4d9cd0fb44bd"
+      }
+    },
+    {
+      "profile": "Phíp/ThietBi/SuDo_S54/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "B_20a4a359ccb1": "3195cf0e0b7a624db58bb2697d3725c847c5d4d8bc555e797fa035b8d8acf8c3",
+        "B_5ee5724fc101": "b0b2fe2a19221d9cda5386fd2b21c6d7972c31282eec4f4cb6c04aad75ac8cb4"
+      }
+    },
+    {
+      "profile": "Phíp/ThietBi/ThanhE_10x115/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BAR",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "B_a9f51566bd67": "dfb053d4a164c836133327f9291ce6f51eec73f7e9afd5c26952a009f1dfbd78"
+      }
+    },
+    {
+      "profile": "Phíp/ThietBi/ThanhN_10x160/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BAR",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "B_8ce86a6ae65d": "0229c9c579d13953ff0e58c666697e56b5d4fd59d4299c5dcf5b2b26826e0ab6"
+      }
+    },
+    {
+      "profile": "Phíp/ThietBi/ThanhPhyp_EuroklasMH1_180x30/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "B_9d37112ca669": "ffdfe17f95eb7765ddd4d3aa3bdb8bd90738c01babfe335a8e2de091005564dd"
+      }
+    },
+    {
+      "profile": "Phíp/ThietBi/ThanhPhyp_EuroklasMH2_270x40/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "B_eb2cf181996e": "f1ba89baf27457f4ff58d393a5cc3fc44386259aa1b67fd671e77006e91dc421"
+      }
+    },
+    {
+      "profile": "Phíp/ThietBi/ThanhPhyp_HT10D3_220x34_5/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "B_449a900ec53e": "b265d9a396189d5ebeeea91559a52008d0766d4690cfea21fc1f2876664cf662"
+      }
+    },
+    {
+      "profile": "Phíp/ThietBi/ThanhPhyp_HT10D3_500x40/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "B_26ac0f5c3486": "5f8c7faf3032f38d33058845dcd73778ba47ffb9da80553befb923a318312192"
+      }
+    },
+    {
+      "profile": "Phíp/ThietBi/ThanhPhyp_JSJ180_180x28_5/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "B_67629a19d082": "0534594549db7eddd0ffbe3eba9e7497a41695658fe646cc99ead255d1d31b09"
+      }
+    },
+    {
+      "profile": "Phíp/ThietBi/ThanhPhyp_JSJ270_270x35/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "B_2d214ca69b86": "72fb07c5b47a2818b8f0ffa6f40629ff7f6c8006787735d1e7cb07474a564906"
+      }
+    },
+    {
+      "profile": "Phíp/ThietBi/ThanhPhyp_JSJ290_295x35/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "B_0892a10ece1f": "d719ae4dc55624d6b81eda79af41dba927683749f039f8e06b1675f61dc23587"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/BanLeA06_5/thong_tin_thiet_bi.json",
+      "type_added": "HINGE",
+      "labels_corrected": [
+        "A06_cluster5-V001",
+        "A06_cluster5-V002"
+      ],
+      "cad_hashes": {
+        "A06_cluster5-V001": "e16af754149cf54380e5f8bfc833cf4052e55619de2d31cba84c2f39f76ffcf6",
+        "A06_cluster5-V002": "9e821bad47bd5d70d683cd5be784c183a78327c33a3674929f68f806134a427e"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/BanLeA06_6/thong_tin_thiet_bi.json",
+      "type_added": "HINGE",
+      "labels_corrected": [
+        "A06_cluster6-V001",
+        "A06_cluster6-V002"
+      ],
+      "cad_hashes": {
+        "A06_cluster6-V001": "32f7d54c1354adb5189887f60ef3fe2d7673abdbb5eb4cd3b6717de966fd7684",
+        "A06_cluster6-V002": "1133b0aa846ecb534866da990842646ba81452448159cacd40c10e84a91b9c3c"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/BanLeA07_10/thong_tin_thiet_bi.json",
+      "type_added": "HINGE",
+      "labels_corrected": [
+        "A07_cluster10-V004",
+        "A07_cluster10-V005"
+      ],
+      "cad_hashes": {
+        "A07_cluster10-V004": "0b004c7b771ac6aadce76b9efbadfdde6ca3e9b9282802c21bb6aef5ad3dc08f",
+        "A07_cluster10-V005": "dcf95e1ac04780b94027bf31af2f8f78825364ef8146688d11647ff310000c29"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/BanLeA07_11/thong_tin_thiet_bi.json",
+      "type_added": "HINGE",
+      "labels_corrected": [
+        "A07_cluster11-V001",
+        "A07_cluster11-V002",
+        "A07_cluster11-V003",
+        "A07_cluster11-V004"
+      ],
+      "cad_hashes": {
+        "A07_cluster11-V001": "85379321626505facef2c52152d616889769299760ccf5dee556c5080bb66518",
+        "A07_cluster11-V002": "514e1dc52879135bbcd947033dc09fcb650f57a3e488c8e63c4d97664d95c24a",
+        "A07_cluster11-V003": "0b714e147bcf9004e791488520b46662191d8dbc0b4dae20efd5742297d3cbb6",
+        "A07_cluster11-V004": "9ab74aa541c20b08abc2a6bc5d036fa5f0ff80e82512eaa13682d85dbe2f30a4"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/BanLeA07_12/thong_tin_thiet_bi.json",
+      "type_added": "HINGE",
+      "labels_corrected": [
+        "A07_cluster12-V001",
+        "A07_cluster12-V002",
+        "A07_cluster12-V005"
+      ],
+      "cad_hashes": {
+        "A07_cluster12-V001": "85b246dafc682b4405029ffda5cec7bf87286ee03883b44cceda0ae84c963070",
+        "A07_cluster12-V002": "aa8a461452ddaa844e7039af2b565c93ce265a2b3f0e8238f0204d4407570f5d",
+        "A07_cluster12-V003": "f636081fbc7d8e48da98fd07d933b78153711028f0d716ba1d1e5966667017c3",
+        "A07_cluster12-V004": "9b3731dbad9a7961d9867135dcf8b1b366c0c5e5d8f376fc59996a2e4a826f76",
+        "A07_cluster12-V005": "cb08be9c5b7ac18bf9c6b3257d928f03cbd4ac2dce24db7dbbb6f081fe84a515"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/BanLeA07_13/thong_tin_thiet_bi.json",
+      "type_added": "HINGE",
+      "labels_corrected": [
+        "A07_cluster13-V001",
+        "A07_cluster13-V002"
+      ],
+      "cad_hashes": {
+        "A07_cluster13-V001": "26efa7310e44db8c15f0ca7fca67d320aae5aad8a6970560e58e99a37c316568",
+        "A07_cluster13-V002": "4bd86267018b22f95e79b8a80d750ae8581a1b0d4a0e13161af88a0c3bc5a52e"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/BanLeA07_14/thong_tin_thiet_bi.json",
+      "type_added": "HINGE",
+      "labels_corrected": [
+        "A07_cluster14-V003"
+      ],
+      "cad_hashes": {
+        "A07_cluster14-V003": "3cd72f2b377652ce42fa764a5e9c7b13cb477ec682475b25c492a9d89c690c81",
+        "A07_cluster14-V004": "e17ccae5f08f9e032aa2f5dbcd7fc18e7c2a0e3660788533662b3b3c37a0f446",
+        "A07_cluster14-V005": "ecc8700b2fff61204a088e04abe18570e86677d93067bd39c2d176f53532f1b9"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/BanLeA07_15/thong_tin_thiet_bi.json",
+      "type_added": "HINGE",
+      "labels_corrected": [
+        "A07_cluster15-V001",
+        "A07_cluster15-V002"
+      ],
+      "cad_hashes": {
+        "A07_cluster15-V001": "c96e7d1b752c7ee843313fc8273dd453d16cd56da0fa6d021bf376c1df3cc119",
+        "A07_cluster15-V002": "f3af6aed9cedc2bd44186ad8c3dc7f440f3e50b585edcc1b228c90e402034a31"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/BanLeA07_16/thong_tin_thiet_bi.json",
+      "type_added": "HINGE",
+      "labels_corrected": [
+        "A07_cluster16-V001",
+        "A07_cluster16-V002"
+      ],
+      "cad_hashes": {
+        "A07_cluster16-V001": "2cc3795c9b05622f415786c847f98f4e01df0df3f8b5492506e5436b69622249",
+        "A07_cluster16-V002": "396f377f0b096e0ce7235aa5eb19001eb0284b480df1c4cdaf63dcf414891229"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/BanLeA07_17/thong_tin_thiet_bi.json",
+      "type_added": "HINGE",
+      "labels_corrected": [
+        "A07_cluster17-V001",
+        "A07_cluster17-V002"
+      ],
+      "cad_hashes": {
+        "A07_cluster17-V001": "99a10dd061c41d5ed04edba077c30918b586c79e36fa391d082a88cf8d7a4c42",
+        "A07_cluster17-V002": "6badf0607a2992a235153d4b1c676db427bb7a0ce5878b463223ed7bda5fcc25"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/BanLeA07_8/thong_tin_thiet_bi.json",
+      "type_added": "HINGE",
+      "labels_corrected": [
+        "A07_cluster8-V001",
+        "A07_cluster8-V002"
+      ],
+      "cad_hashes": {
+        "A07_cluster8-V001": "377efccd3082aaac6ac768cdadc1d032b14b45eb9663e6362cdce8936878e6f0",
+        "A07_cluster8-V002": "1e1d6e5ad88be8b07e8d2b6c475c69c64cb0da0a03ae3fd2026241a38cd208bd"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/BanLeA07_9/thong_tin_thiet_bi.json",
+      "type_added": "HINGE",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A07_cluster9-V001": "02141abdeaf89697979dd99d170fa8a1d231c1d6de469c4693be00af0081180a",
+        "A07_cluster9-V002": "2abe1f0c6cbbf5e3c06169de791ab2ab4c5182d0741ec5e86c91cd97bbc839a3",
+        "A07_cluster9-V003": "d95a36fb92e5a96c1884a65bf8755f593f44845870e9b887d668b4446773e032",
+        "A07_cluster9-V004": "45428dc956f834db0657b22f8fe416d63a5342af8ed17081fbe27db14c214fa3",
+        "A07_cluster9-V005": "f05a3b201825b23eb9031abab9ac4597c01639a38540400c3d2e561c463a2a0d",
+        "A07_cluster9-V006": "60c8c14a7139c2424bb5e4b951d2dfdc0de4fa6409fd229b33948b86b308b661",
+        "A07_cluster9-V007": "76fae3642bad79588e299b2b4b382fc6ec6ca0cc2b8b025b20bdf10d7b395dfe"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/BanLeLa_30x36/thong_tin_thiet_bi.json",
+      "type_added": "HINGE",
+      "labels_corrected": [
+        "A07_cluster10-V001"
+      ],
+      "cad_hashes": {
+        "A07_cluster10-V001": "bcdb82a097f99c63b2ebd916437614ce98f2a1eee2526f8f0575519c3c58d974"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/BanLeLa_32x45/thong_tin_thiet_bi.json",
+      "type_added": "HINGE",
+      "labels_corrected": [
+        "A07_cluster10-V002"
+      ],
+      "cad_hashes": {
+        "A07_cluster10-V002": "d782357b9d75f9797369684cef6099f95105b7cff83e06df708663a1a0f96a5f"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/BanLeLa_36x56/thong_tin_thiet_bi.json",
+      "type_added": "HINGE",
+      "labels_corrected": [
+        "A07_cluster10-V003"
+      ],
+      "cad_hashes": {
+        "A07_cluster10-V003": "cb0139543a4bf18d08fdc422351bef468a9e4d56caf511350d53d2a2d9380baf"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/BuLongM6/thong_tin_thiet_bi.json",
+      "type_added": "FASTENER",
+      "labels_corrected": [
+        "B02_cluster1-V013"
+      ],
+      "cad_hashes": {
+        "B02_cluster1-V013": "13f89f1494829f90b2ba6c837fa6a54f8b468b666207e23c37d05aee327d2a41"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/BuLongM8/thong_tin_thiet_bi.json",
+      "type_added": "FASTENER",
+      "labels_corrected": [
+        "B02_cluster1-V008"
+      ],
+      "cad_hashes": {
+        "B02_cluster1-V008": "c32dd62e594b047f8d5b627551e6f9719a1114ef242bdbb5613dc3c0b9684bc2",
+        "B02_cluster1-V011": "45c4e755efc05125228efe97d31990c31e4d999df6a36eff8578cc24744b366f"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/CauNPE/thong_tin_thiet_bi.json",
+      "type_added": "TERMINAL_BAR",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C07_cluster5-V001": "7c748d973816ccba27fc4015ee247aec77418f5221d522822fc4208aced53f53",
+        "C07_cluster5-V002": "69471c9bc6538f0efa23aeeea540c73770d1cf9a25b403b5049e1e474607aa5e"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/ChiTietDo_30x35/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "B05_cluster1-V003": "d8a00592e6657eb262500cc85a0a50724ec57a8bd73d07dff81fe2d1022ba007",
+        "B05_cluster1-V004": "37ca6e43b26d5952e2e48ff06376cefd8c9f2dd21881551198d2efe320cff8b9"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/CosDong_120_2/thong_tin_thiet_bi.json",
+      "type_added": "CABLE_LUG",
+      "labels_corrected": [
+        "C07_cluster4-V002"
+      ],
+      "cad_hashes": {
+        "C07_cluster4-V002": "bb6a0ef3e1832659278695eac43159e58d72512c28d8bb2b8eccf69631d28948"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/CosDong_185_2/thong_tin_thiet_bi.json",
+      "type_added": "CABLE_LUG",
+      "labels_corrected": [
+        "C07_cluster4-V003"
+      ],
+      "cad_hashes": {
+        "C07_cluster4-V003": "329e0845935d61635d75c78a0d22937f0d13c52a926a95600394f5dc908d0e5d"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/CosDong_240_2/thong_tin_thiet_bi.json",
+      "type_added": "CABLE_LUG",
+      "labels_corrected": [
+        "C07_cluster4-V004"
+      ],
+      "cad_hashes": {
+        "C07_cluster4-V004": "91e3250322e7b6fb34f61dfe7d53da494c710ce34ae91a144f8baeb20ae48adc"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/CosDong_300_2/thong_tin_thiet_bi.json",
+      "type_added": "CABLE_LUG",
+      "labels_corrected": [
+        "C07_cluster4-V005"
+      ],
+      "cad_hashes": {
+        "C07_cluster4-V005": "58fdb3725b6c03fc20ecc2ade34c4b89dd8cd04ae23965169e925b7335ecfd42"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/CosDong_400_2/thong_tin_thiet_bi.json",
+      "type_added": "CABLE_LUG",
+      "labels_corrected": [
+        "C07_cluster4-V006"
+      ],
+      "cad_hashes": {
+        "C07_cluster4-V006": "e5061f4277ed89873704b136448c9fbe288ab0c81569db8da65afdc20297e4fb"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/CosDong_70_2/thong_tin_thiet_bi.json",
+      "type_added": "CABLE_LUG",
+      "labels_corrected": [
+        "C07_cluster4-V001"
+      ],
+      "cad_hashes": {
+        "C07_cluster4-V001": "b0f297be46d854367bb6d1b8d6c6ad30869cb6d0481fb5f1f7bd3bc2bb54c2e2"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/CuaSoCongTo/thong_tin_thiet_bi.json",
+      "type_added": "INSPECTION_WINDOW",
+      "labels_corrected": [
+        "C02_cluster5-V001"
+      ],
+      "cad_hashes": {
+        "C02_cluster5-V001": "841f2ae894f4abdfa0a5c7e3bdbc721bc45f607137318b99aeb8f06b85660731"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/DaiOcM8/thong_tin_thiet_bi.json",
+      "type_added": "FASTENER",
+      "labels_corrected": [
+        "B02_cluster1-V007",
+        "B02_cluster1-V010"
+      ],
+      "cad_hashes": {
+        "B02_cluster1-V007": "803707a2117dd2296e60e81bd6022ab84c5690b7182c4a7d30ab9a2b732cb431",
+        "B02_cluster1-V010": "3e30a073ef915392c520431279ff2164424f49c1a90b6043e0d4d1e33605f562"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/DaiOcVanM8/thong_tin_thiet_bi.json",
+      "type_added": "FASTENER",
+      "labels_corrected": [
+        "B02_cluster1-V009",
+        "B02_cluster1-V012"
+      ],
+      "cad_hashes": {
+        "B02_cluster1-V009": "aae4e92dd58d5b640597250381aee955528d646c4cd9702de05e2a2cb0451632",
+        "B02_cluster1-V012": "ecb98462df635cad2b4f0ce742327652b42626c446386e1b32ca1cefe75d21eb"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/KepThanhDong/thong_tin_thiet_bi.json",
+      "type_added": "BUSBAR_CLAMP",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "B05_cluster1-V009": "014de9b754daeb1565a72f5e974661bdcaef202b9c46491dfdd083e178407080",
+        "B05_cluster1-V010": "dc4e1f8a80b3db425736aa1a2dc41df2033fe3a59f0dd924f6f8bf8b117b6e6b"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/KhayTaiLieu/thong_tin_thiet_bi.json",
+      "type_added": "DOCUMENT_POCKET",
+      "labels_corrected": [
+        "B06_cluster1-V001"
+      ],
+      "cad_hashes": {
+        "B06_cluster1-V001": "6864960494168e9568ca3a02cd566d54e71dc0e54cf43c50c2aa86f0478685c6"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/KhoaBamRoi/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A06_cluster15-V001": "4315188ac109d66933c5cf3dcff600259c76c624488d2af434829b18f121efb3"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/KhoaTu_08/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A06_cluster8-V001": "362b6e4d14558f1e0726225074d6f4ad065df4c756658b8b96a9a6c9dfc50c3e",
+        "A06_cluster8-V002": "2ecace7d4bae331d22682ffcc1d977449009940068dfef577b68ffda48b8413f"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/KhoaTu_09/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A06_cluster9-V001": "aa509e6c5fc717a151e5427cbe2ae5bbc03e326ec56ddb22830a82007e7dd733",
+        "A06_cluster9-V002": "b15deef1315814c0c1ac28ad0462b68fc8cd470dfbb942f953d77102e31c2c61"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/KhoaTu_10/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A06_cluster10-V001": "1cb65e2ccdc7af6a71338a70b1bc6266c8d1ef3dc655113f45a98bf57b75f728",
+        "A06_cluster10-V002": "a3ac4abdbd399b3ee3b2297c314571e3694a2abad44ce8cf3186fbb4464fe7ac"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/KhoaTu_11/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A06_cluster11-V001": "1ddc97710f5dc90a351cc6eaac011251da947f71f70fda97f6148b58220fc53a",
+        "A06_cluster11-V002": "19fa0038e565f051c1b4f7fd1d11844ba4d84494731d41e13f7533b13bb42675"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/KhoaTu_12/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A06_cluster12-V001": "0c526c41667a3c36892c4615670dfda3cfaf0abbafa7cc9dff93120314ff4707",
+        "A06_cluster12-V002": "bdc0ff3369913a98ef2b5f77171b7457a4fd7d7acdb11b97ac720ca0fed82c5a"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/KhoaTu_13/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A06_cluster13-V001": "59e939fe8efb4c7cfe4c4449a79d933f03f5431d6ff56d8218bb9026f7d2856b",
+        "A06_cluster13-V002": "b367e4b55497360d04d81cb5753a810aac86508de4635f09f39107001901601e"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/KhoaTu_16/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [
+        "A06_cluster16-V001"
+      ],
+      "cad_hashes": {
+        "A06_cluster16-V001": "ebee78dc69372f6e833c8940f2648e80212d34fe40ddcb4460430b44e6e5cca8",
+        "A06_cluster16-V002": "bd31503b71308eb946f55bdc7acb3d7ef65280feea21c6c69d4a95ca2e16d391"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/KhoaTu_17/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A06_cluster17-V001": "fc780c88b75ad39d45736f4fad6a47ed29a6b7c4de31155c14e928638d35235d",
+        "A06_cluster17-V002": "0c14a03c575f8af0cacfc20f9baa79d683a543e9a4597ac154123d16fb7a5b9b"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/KhoaTu_18/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A06_cluster18-V001": "e0eca4d7f96af3e86cc628beb7e24d28b664ef79210e76051f7377341af893fb",
+        "A06_cluster18-V002": "60f1884fcd3bbbeb7129ed11bb3b4b4a37bf7d2f9b239d871de3796508163f07"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/KhoaTu_19/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A06_cluster19-V001": "929880e7a86331bac37f82f9c9debbb5a2943f6aea95dce8a8410c4fcd16b8c2",
+        "A06_cluster19-V002": "171df66096c021d4a8fcb76308c6c2b7ad30ae57a16a4594a5d82a80011c0092"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/KhoaTu_20/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LOCK",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A06_cluster20-V001": "30ecd7f92b1aa31eb7797955c8fe08ff4edbd693aeb129bd351ffe1f99e6702e",
+        "A06_cluster20-V002": "12c202b0500f138f715a747149bc2617d6d56c32e878065eeea62c925520a67b"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/MangDayNhua/thong_tin_thiet_bi.json",
+      "type_added": "WIRING_DUCT",
+      "labels_corrected": [
+        "C02_cluster2-V001"
+      ],
+      "cad_hashes": {
+        "C02_cluster2-V001": "a8da097a088617f0d002332aab9bc2437a955bb118f7306274bd38353b972400"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/NhanCaiTu/thong_tin_thiet_bi.json",
+      "type_added": "LABEL_HOLDER",
+      "labels_corrected": [
+        "C02_cluster6-V001",
+        "C02_cluster6-V002",
+        "C02_cluster6-V003",
+        "C02_cluster6-V004"
+      ],
+      "cad_hashes": {
+        "C02_cluster6-V001": "18beaaecb128bee90ebf160f88739244242e8839cd754d5aaaf07137917de578",
+        "C02_cluster6-V002": "852fec528aaf7ef9b6ad2b98035b7b04255adb86cc58184f05fe4e43f380fd5e",
+        "C02_cluster6-V003": "65d2e74d609adb2cdee09d7bfd169aef7d45bc25e9ab672c7ed8cf2a2487c2e8",
+        "C02_cluster6-V004": "16332d223fe7aacdc71e7337aca0b318b246b0282b235386e8fa90aeb3601faa"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/NhanCanhBao/thong_tin_thiet_bi.json",
+      "type_added": "SAFETY_LABEL",
+      "labels_corrected": [
+        "C02_cluster3-V001",
+        "C02_cluster3-V002",
+        "C02_cluster3-V003"
+      ],
+      "cad_hashes": {
+        "C02_cluster3-V001": "6c5367a28e04ceeb44e7c4a8aa0ca769971b970d504f1d4298fefc4230df975b",
+        "C02_cluster3-V002": "787812bf7ae5ca2eb659eec78585529bb6a45b1f5e428d2c1a7c4877027aa1bb",
+        "C02_cluster3-V003": "6fc39d1cef684145415c1d46401a4e62053810855496ad35597efb8c71ea14ef"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/SuDoThanhCai_40x138/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "B05_cluster1-V007": "cb8671688f1648d8ebe080ce3090d59ce3b8cae32c97ab65b35d3545a50bcb76",
+        "B05_cluster1-V008": "c68af63004694f906b634d812f4b2c401e8ce3f7d3040b15ce74bf33752bd60c"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/SuDoThanhCai_Taiwan/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "B05_cluster1-V001": "f557dc48d7e6060dc05063b52624c2e7c8b116258a8b46b89245f31e89613726"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/SuKepThanhCai_100/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C02_cluster4-V009": "e3ed6c99f1d67e02eff60c3afc123fea5272ce1f767085489a96be9c6ae2357c"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/SuKepThanhCai_300/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C02_cluster4-V010": "a7c1860a5134cbfce14eebf7372670daa64d80ee34af7fbfe988f3b715b83a0b"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/SuKepThanhCai_400/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C02_cluster4-V011": "ece9d5ad85b9bbd5dfa29bc2abea496a755dd21962b6ac02216e0badac9d5601"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/SuKepThanhCai_C100/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C02_cluster4-V002": "5168d82ca3550f205ba35df7a4e4848edc2e9be371048ff5ca852af6028f7b2b",
+        "C02_cluster4-V003": "0d727a48ad17f205dd61d47cf192fff78fd8f0a762942f31dbb935237bba016b",
+        "C02_cluster4-V004": "0932420dfbc4c31aea2d3cf2dc5c9251b7fa7181a81b48d918b78af428756b19",
+        "C02_cluster4-V012": "f63fceb0eb65518b90796dcd49d14ea1a1fc65faef28ebc4d2fae0ec506843e7"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/SuKepThanhCai_EL/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C02_cluster4-V005": "8ffc4114155510aabfc514620e50b861ee11fab67864f4affdc7c2e3a7fa337f",
+        "C02_cluster4-V006": "9c0c207f486aa7b766149f16329718d72c2613e906539b34ad478f88e15d933d",
+        "C02_cluster4-V007": "faf0aad55444cda94200ad5dce3a563a6e1ae2434a4d89be33e7efbb5c209e1c",
+        "C02_cluster4-V008": "f368c3a8ce76111fd5e87e7f03c5adcc6ee57efd4e624e08dccdfafa62fc683c"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/TaiCauM10/thong_tin_thiet_bi.json",
+      "type_added": "LIFTING_ATTACHMENT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "B02_cluster1-V001": "45d05ef9c94141187aa54f17c4313c9c8c65261bd29c999d7de3c7c6c6dfb2ab"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/TaiCauThep/thong_tin_thiet_bi.json",
+      "type_added": "LIFTING_ATTACHMENT",
+      "labels_corrected": [
+        "B02_cluster1-V003",
+        "B02_cluster1-V004",
+        "B02_cluster1-V005"
+      ],
+      "cad_hashes": {
+        "B02_cluster1-V003": "bd422f16a49cd1278b64bc446245607a587c7ec2b87ec204b1988684e41dd928",
+        "B02_cluster1-V004": "6ddc8b3b06010ebcf58f6020e0d39c80efdda00d4559b7c63ba4fb330448d13e",
+        "B02_cluster1-V005": "ab93404219f416ad0dc60abb8f32f55d7414d1536afad83030648e5389a3afe4"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/TaiTreoTu/thong_tin_thiet_bi.json",
+      "type_added": "WALL_BRACKET",
+      "labels_corrected": [
+        "B02_cluster1-V002"
+      ],
+      "cad_hashes": {
+        "B02_cluster1-V002": "8b1b3de7a7ac19d3aacc2e5df61c64a536952b2791d69afbee58ab6303c8cee6",
+        "B02_cluster1-V006": "3852f78bed4b6f5f643e333b2f90bd78b42dc94811ec8697d612ffd412838cca"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/ThanhDoCachDien_130x35/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "B05_cluster1-V005": "73bb5737118a178e7fb019fa65d7ef2b75c36b318bd9a9496bee20e2e018b196",
+        "B05_cluster1-V006": "358b6d915e437d532798313d90ae6e73572e593593b38bd6f56fa71d3d5cf60a"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/ThanhDoCachDien_295x35/thong_tin_thiet_bi.json",
+      "type_added": "INSULATING_SUPPORT",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "B05_cluster1-V002": "34078d29c008f1b8839ed397e0ec416b2a5b3df7d805771dc7b6fab9000ed765"
+      }
+    },
+    {
+      "profile": "Phụ kiện tủ điện/ThietBi/VitVanCuaTu/thong_tin_thiet_bi.json",
+      "type_added": "CABINET_LATCH",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A06_cluster7-V001": "0e968b78e3e53075dc1f32a61e5b516fc9f2ba7c1f1c43bb901fb3af90dce35b"
+      }
+    },
+    {
+      "profile": "Quạt/ThietBi/Leipole_FKL6621_230/thong_tin_thiet_bi.json",
+      "type_added": "FAN",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A16_cluster1-V002": "416953bd6a73ff6f69ed27f31635e2bf3c6e1b19d034382236966f8828485113",
+        "A16_cluster1-V005": "447a2db913e6927e40dc58175768310de5bcd2390d75ebf9ecf0fdbfb2effe29"
+      }
+    },
+    {
+      "profile": "Quạt/ThietBi/Leipole_FKL6621_300/thong_tin_thiet_bi.json",
+      "type_added": "VENT_FILTER",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A16_cluster1-V001": "22c71b97bec5059bb099275b08c28e6ef6b53d7b3904ec046da2e9c434312d3f",
+        "A16_cluster1-V003": "7a0fed9e2fbbfd0033c44024b7a691a0121599c99b4c7f8ea766ab0d59b6000c",
+        "A16_cluster1-V004": "2b914ee95bd132089385b6646ba11b60775e6e1d276b3023b5b48a20292230ba",
+        "C01_cluster6-V001": "b42bf70657aa65daca00ca10a9bd637402e893acfdb5559f231a491a7668bdbf"
+      }
+    },
+    {
+      "profile": "Quạt/ThietBi/Leipole_FKL6622_230/thong_tin_thiet_bi.json",
+      "type_added": "FAN",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A16_cluster1-V007": "1d977adb46526c4fe2026d00b5870bf805c286ee2c80600e47c44c24707c278d",
+        "A16_cluster1-V010": "27c919b6cfc79695b2e522d55cfcccf4cc1fad6d528577b21810c71a5b7af4d0"
+      }
+    },
+    {
+      "profile": "Quạt/ThietBi/Leipole_FKL6622_300/thong_tin_thiet_bi.json",
+      "type_added": "VENT_FILTER",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A16_cluster1-V006": "bd1ffd7cad25cc1fa6fdb9a1753fe9fc5f0cd496f0f9947414d50c6cd8f2cf90",
+        "A16_cluster1-V008": "c0f77424dd43bb9c7ac93089fba8aea1f1f282c6c46680ac6f1753273e1dc26e",
+        "A16_cluster1-V009": "7a91632683faeb9e9881e2b6ce3ad6686a9f3d1224284384f4ccbe138b6bb53d",
+        "A16_cluster1-V011": "56a03535d15846ca44456aa4cda20a0030220a488757364752badb7ce3fabe2f",
+        "C01_cluster6-V002": "33925e0fb803272efe0d32bc546ce50141460f0a855f3043c72c7b42be869386"
+      }
+    },
+    {
+      "profile": "Quạt/ThietBi/Leipole_FKL6623_230/thong_tin_thiet_bi.json",
+      "type_added": "FAN",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A16_cluster1-V013": "4302ac4a74a9cc83524a7392013497091499935c72637db365af938b7ed441a9",
+        "A16_cluster1-V016": "e8aeeeb2fd33bcb014f74c589550ba1039f793e6d8711173a887e14dce923ff8"
+      }
+    },
+    {
+      "profile": "Quạt/ThietBi/Leipole_FKL6623_300/thong_tin_thiet_bi.json",
+      "type_added": "VENT_FILTER",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A16_cluster1-V012": "aff0352740120b3d0e08eb59d7193824beb9b20671732530c32baeef2f2db8d7",
+        "A16_cluster1-V014": "441be0221e9793a73cbf506d2e43f0c885f4a31c0717f7fce8814d2504d68394",
+        "A16_cluster1-V015": "2e42b81861e27b07869e40bd69e19d73c087ef4d470cd3537a15d5b120324abb",
+        "A16_cluster1-V017": "b2f76a564dfb38581370fbadbb88136671f0878edd0b48c519a1b83b8a8d75a5",
+        "C01_cluster6-V003": "de090b00d4c4809799c73b87b0b65459260f1d2b623b293c67c5b906d26ea212"
+      }
+    },
+    {
+      "profile": "Quạt/ThietBi/LuoiGio_6625/thong_tin_thiet_bi.json",
+      "type_added": "VENT_FILTER",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C01_cluster6-V004": "b86982d68cc04fc8bdf5d1f62db5ebf63ac407984b085ee19eb66270df98358c"
+      }
+    },
+    {
+      "profile": "Quạt/ThietBi/LuoiGio_6626/thong_tin_thiet_bi.json",
+      "type_added": "VENT_FILTER",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C01_cluster6-V005": "6ff13b623505988bb4b3faa45cc5eaa79206ca2d8cd2c81fc703c5c480e5cc70"
+      }
+    },
+    {
+      "profile": "Quạt/ThietBi/TamCheQuat120/thong_tin_thiet_bi.json",
+      "type_added": "FAN_GUARD",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "C01_cluster5-V001": "15129c651b0a7802e9117e7d6094a8ee3386dda203af9b43d9070f4be0faedfa"
+      }
+    },
+    {
+      "profile": "Schneider/ThietBi/SRC_SCHNEIDER_149626b3e674/thong_tin_thiet_bi.json",
+      "type_added": "THERMAL_RELAY",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "SRC_SCHNEIDER_149626b3e674": "2b0cfd4d0f8c0351c0a12480c9c035f22847cc51923f452b3711864422b5a841"
+      }
+    },
+    {
+      "profile": "Schneider/ThietBi/SRC_SCHNEIDER_502559e0bfec/thong_tin_thiet_bi.json",
+      "type_added": "THERMAL_RELAY",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "SRC_SCHNEIDER_502559e0bfec": "9a4b696023a4d5e116c23fbe8d584ea22811e663eac64cbecac939962cf9e4dc"
+      }
+    },
+    {
+      "profile": "Schneider/ThietBi/SRC_SCHNEIDER_5889411c1f44/thong_tin_thiet_bi.json",
+      "type_added": "THERMAL_RELAY",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "SRC_SCHNEIDER_5889411c1f44": "5a1f9d0b6950a2baf70fefd297db09b49e5da94765deb466b29aad9f294db028"
+      }
+    },
+    {
+      "profile": "Ổ cắm/ThietBi/CongNghiep3P/thong_tin_thiet_bi.json",
+      "type_added": "SOCKET",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A10_SOCKET_3P_FRONT": "484c60530936aa6c66d1e776f8fce9bea534c4977fb551265834880aa58f4a49",
+        "A10_SOCKET_3P_OPEN": "c71ee7218c174badcd2b124003197fd5defef4b9fcab3a5924ce418d981e0926",
+        "A10_SOCKET_3P_SIDE": "911a5d99a9f55aa011a2f3ee3ccc32c55e10bdf73e761b9ecab6186f7f80b03a"
+      }
+    },
+    {
+      "profile": "Ổ cắm/ThietBi/CongNghiep4P/thong_tin_thiet_bi.json",
+      "type_added": "SOCKET",
+      "labels_corrected": [],
+      "cad_hashes": {
+        "A10_SOCKET_4P_FRONT": "66921277b45eb4025ebe0c7342a19843f66bf48ce4d8512fbc2a248e288e8e01",
+        "A10_SOCKET_4P_OPEN": "c636c5cc129d25fd3a1aeb04cf4f3544135d8720c876a5942165ade2e830ec74",
+        "A10_SOCKET_4P_SIDE": "497836021a100252d42ed25858efdea676ad715c86e3009dd9f41eba4cc96671"
+      }
+    }
+  ],
+  "still_unclassified_profiles": [
+    {
+      "profile": "Nguồn và biến áp/ThietBi/TH1_16b665975dbe03e5f708/thong_tin_thiet_bi.json",
+      "role": "Nguồn và biến áp",
+      "name": "Nguồn · nhãn 24VAC"
+    },
+    {
+      "profile": "Nguồn và biến áp/ThietBi/TH1_a5c1f550c25d068d38a2/thong_tin_thiet_bi.json",
+      "role": "Nguồn và biến áp",
+      "name": "Nguồn · nhãn 24VDC"
+    }
+  ]
+}

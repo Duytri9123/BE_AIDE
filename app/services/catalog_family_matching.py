@@ -21,6 +21,7 @@ def category_key(value):
 
 def poles(value):
     text = str(value or '').upper().strip()
+    text = re.sub(r'(?<![A-Z0-9])([1-4])PN(?![A-Z0-9])',r'\1P+N',text)
     if re.fullmatch('[1-4]', text):
         return text + 'P'
     match = re.search(r'(?<![0-9])[1-4]\s*P(?:\s*\+\s*N)?(?![A-Z])', text)

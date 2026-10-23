@@ -1,0 +1,290 @@
+{
+  "nhom": "Biến dòng điện",
+  "hang_xac_nhan": "ABB",
+  "ten_kieu": "Biến dòng thứ tự không ABB ZCT-300A",
+  "ban_chat": "Biến dòng thứ tự không (ZCT)",
+  "cong_dung": "Đo tổng dòng dư để phát hiện rò điện/chạm đất; tín hiệu đưa tới rơ le bảo vệ, không dùng như CT đo dòng tải từng pha.",
+  "vi_tri_lap_dat": "Bao quanh đồng thời các dây pha và dây trung tính nếu có tại lộ cần bảo vệ; dây PE đi ngoài lõi.",
+  "thong_so": {
+    "dong_so_cap_dinh_muc_A": null,
+    "dong_thu_cap_dinh_muc_A": null,
+    "cap_chinh_xac": null,
+    "cong_suat_VA": null,
+    "ghi_chu": "Tỷ số dòng, cấp chính xác và công suất phụ thuộc biến thể cụ thể."
+  },
+  "cac_hinh_cad": [
+    "A02_abb-V001",
+    "A02_abb-V002",
+    "A02_abb-V003"
+  ],
+  "luu_y_thong_so": "300A trong tên kiểu không đủ để kết luận tỷ số biến dòng là 300/5A.",
+  "dac_diem": [
+    "Ký hiệu 300A chưa đủ để suy ra tỷ số 300/5 A hoặc ngưỡng tác động của bộ bảo vệ."
+  ],
+  "phan_loai_chon": {
+    "muc_dich": "bao_ve_dong_ro",
+    "so_pha": null,
+    "so_CT_trong_cum": 1,
+    "mach_phu_hop": null
+  },
+  "ten_san_pham": "Biến dòng thứ tự không ABB ZCT-300A",
+  "ma_dong_san_pham": null,
+  "lua_chon_ky_thuat": [],
+  "trang_thai_lua_chon": "Chưa đủ thông số chọn thiết bị",
+  "cad_chen_tu": {
+    "id_hinh_goc": "A02_abb-V001",
+    "huong_nhin": "Mặt xuyên dây",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "A02_abb-V001",
+      "huong_nhin": "Mặt xuyên dây",
+      "nhan_hien_thi": "Mặt xuyên dây",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng khi nhìn dọc theo dây hoặc thanh cái xuyên lõi. Khi lắp đứng và nhìn vào lỗ, dùng cho mặt trước tủ; nếu đổi hướng xuyên dây, chọn lại mặt CAD."
+      },
+      "duong_dan": "CadDon/A02_abb-V001/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong"
+        ],
+        "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      }
+    },
+    {
+      "id_hinh_goc": "A02_abb-V002",
+      "huong_nhin": "CAD cần đối chiếu thiết bị",
+      "nhan_hien_thi": "CAD cần đối chiếu thiết bị",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": null,
+        "cho_phep_chen": false,
+        "huong_dan": "Cần hoàn thiện hoặc tách CAD trước khi bố trí vào tủ."
+      },
+      "duong_dan": "CadDon/A02_abb-V002/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong"
+        ],
+        "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      }
+    },
+    {
+      "id_hinh_goc": "A02_abb-V003",
+      "huong_nhin": "CAD cần đối chiếu thiết bị",
+      "nhan_hien_thi": "CAD cần đối chiếu thiết bị",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": null,
+        "cho_phep_chen": false,
+        "huong_dan": "Cần hoàn thiện hoặc tách CAD trước khi bố trí vào tủ."
+      },
+      "duong_dan": "CadDon/A02_abb-V003/ban_ve.dxf",
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong"
+        ],
+        "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      }
+    }
+  ],
+  "bo_tri_lap_dat": {
+    "vi_tri_uu_tien": "ben_trong",
+    "vi_tri_phu_hop": [
+      "ben_trong"
+    ],
+    "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+    "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+    "nguon_tham_khao": [
+      "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+    ]
+  },
+  "quy_cach_hien_thi": "",
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Chọn theo từng kết nối, thông số điện và bảo vệ phía trước; không suy từ hình CAD. Vật tư thuần cơ khí không yêu cầu dây.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa có dữ liệu gá/cọc theo mã đầy đủ",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "cau_truc_cum": {
+    "physical_units_per_cad": 1
+  },
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "CT",
+    "measurement_function": "bao_ve_dong_ro",
+    "recognition_basis": "Vai trò trong hồ sơ hiện có; không suy model hoặc thang đo từ phân loại",
+    "exact_SKU_confirmed": false
+  },
+  "tu_khoa_tim_kiem": [
+    "CT",
+    "biến dòng",
+    "bien dong",
+    "current transformer",
+    "Biến dòng thứ tự không ABB ZCT-300A",
+    "EMIC",
+    "EM4H01 100/5A",
+    "ZCT120S",
+    "Selec",
+    "D15",
+    "Biến dòng thứ tự không (ZCT)",
+    ""
+  ],
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "ABB",
+    "ma_san_pham": "Biến dòng thứ tự không ABB ZCT-300A",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khảo - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "CT",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "Mikro",
+        "model": "ZCT40S",
+        "specifications": {
+          "Loại": "Biến dòng thứ tự không / dòng rò",
+          "Cửa sổ A": "40 mm",
+          "Kích thước B×C×E": "89 × 94 × 37 mm"
+        },
+        "source_url": "https://itmikro.com.my/wp-content/uploads/2020/08/zct40_60_80_120_210s_man-1.pdf",
+        "basis": "manufacturer_web_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Mikro",
+        "model": "ZCT80S",
+        "specifications": {
+          "Loại": "Biến dòng thứ tự không / dòng rò",
+          "Cửa sổ A": "80 mm",
+          "Kích thước B×C×E": "130 × 135 × 37 mm"
+        },
+        "source_url": "https://itmikro.com.my/wp-content/uploads/2020/08/zct40_60_80_120_210s_man-1.pdf",
+        "basis": "manufacturer_web_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Socomec",
+        "model": "TCA21 / 192T2010",
+        "specifications": {
+          "Tỷ số": "100/5 A",
+          "Cấp chính xác": "0.5",
+          "Công suất": "1.5 VA",
+          "Cửa sổ": "Ø21 mm"
+        },
+        "source_url": "https://emea.socomec.com/en/generate-pdf/192T2010",
+        "basis": "manufacturer_web_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Sản phẩm tham khảo cùng chức năng; đối chiếu hãng, mã và kích thước riêng."
+      },
+      {
+        "brand": "ABB",
+        "model": "ABB-ZCT-300A — hình vòng lớn",
+        "specifications": {
+          "ghi_chu": "Tỷ số dòng, cấp chính xác và công suất phụ thuộc biến thể cụ thể.",
+          "Loại thiết bị": "CT",
+          "Lắp đặt tham khảo": "Bao quanh đồng thời các dây pha và dây trung tính nếu có tại lộ cần bảo vệ; dây PE đi ngoài lõi."
+        },
+        "source_url": "",
+        "basis": "cad_reference_code",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      }
+    ],
+    "observed_specifications": {
+      "ghi_chu": "Tỷ số dòng, cấp chính xác và công suất phụ thuộc biến thể cụ thể.",
+      "Loại thiết bị": "CT",
+      "Lắp đặt tham khảo": "Bao quanh đồng thời các dây pha và dây trung tính nếu có tại lộ cần bảo vệ; dây PE đi ngoài lõi."
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "source_geometry_without_model_label",
+      "source_model": null,
+      "matched_catalog_rows": 0,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Xác định hãng/mã từ nhãn hoặc block CAD nguồn",
+        "Đối chiếu và chọn mã đặt hàng đầy đủ",
+        "Tra catalog đúng hãng/dòng; các mã cùng loại hiện có chỉ là tham khảo",
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "source_geometry_without_model_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [],
+      "documented_models": [],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

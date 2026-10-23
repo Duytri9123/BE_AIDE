@@ -1,3 +1,4 @@
+from sqlalchemy import Index
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, ForeignKey, Integer, DateTime, UUID
 from datetime import datetime
@@ -7,6 +8,10 @@ from .base import Base, TimestampMixin
 
 class ConversationSession(Base, TimestampMixin):
     __tablename__ = "conversation_sessions"
+    __table_args__ = (
+        Index('ix_sessions_project_created_id', 'project_id', 'created_at', 'id'),
+    )
+
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     project_id: Mapped[int] = mapped_column(ForeignKey("projects.id", ondelete="CASCADE"), index=True)

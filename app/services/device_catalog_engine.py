@@ -12,11 +12,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Any, Tuple
 from app.services.cache_service import cache_service
 
-def strip_accents(s: str) -> str:
-    if not s:
-        return ""
-    s = str(s).replace("đ", "d").replace("Đ", "D")
-    return "".join(c for c in unicodedata.normalize("NFD", s) if unicodedata.category(c) != "Mn")
+from app.services.catalog_text import strip_accents
 
 def _normalize_device_item(item: Dict[str, Any]) -> Dict[str, Any]:
     """Ensures consistent dictionary structure for AI and CAD consumers."""

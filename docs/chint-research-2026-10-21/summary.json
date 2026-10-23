@@ -1,0 +1,29 @@
+{
+  "links_discovered": 219,
+  "by_line": {
+    "NXM": 78,
+    "NM8N": 141
+  },
+  "by_status": {
+    "discovered_not_downloaded": 203,
+    "downloaded_pending_review": 10,
+    "six_views_imported_reference_only": 6
+  },
+  "reviewed_families": [
+    "NXM-160S-2P",
+    "NXM-160S-3P",
+    "NXM-160S-4P",
+    "NXM-250S-3P",
+    "NXM-250S-4P-v1"
+  ],
+  "reviewed_faces": 30,
+  "linked_price_rows": 11,
+  "not_complete": true,
+  "review_pending": {
+    "NXM-125S-2P/3P/4P": "STEP contains projecting solid components; H=231.2 vs catalogue body H=135 mm. Do not trim unidentified manufacturer parts or assign as an approved body.",
+    "NXM-250S-2P": "Source contains loose components and an inner 320-labelled assembly. Requires manufacturer configuration review.",
+    "NM8N-125-3P/4P, NM8N-250-3P/4P": "Source pose, terminal parts and projection bounds require review before mapping; no family/CSH electrical equivalence inferred.",
+    "NXM-400-630-3P-v1/v2": "Byte-identical official downloads; extra projecting components yield H=465 mm. Kept outside published CAD pending assembly/configuration review."
+  },
+  "sources_are_file_links_not_unique_models": true
+}

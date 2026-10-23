@@ -88,7 +88,7 @@ class SecurityChecks(unittest.TestCase):
         self.assertEqual(browser.json()['view_count'],sum(len(p['single_views']) for p in source['profiles']))
         self.assertNotIn('file://',browser.text)
         self.assertNotIn('CadDon/',browser.text)
-    def test_payment_proof_query(self):
+    def test_library_access_does_not_require_payment(self):
         engine = create_engine('sqlite://')
         # Only the queried tables are needed; no connection to the real user DB.
         for table in (Plan.__table__, Subscription.__table__, Payment.__table__): table.create(engine)
@@ -103,13 +103,13 @@ class SecurityChecks(unittest.TestCase):
         async def check(expected):
             result=await library_entitlement(self.user,DB())
             self.assertEqual(result['full_access'],expected)
-        asyncio.run(check(False))
+        asyncio.run(check(True))
         with engine.begin() as conn: conn.execute(Payment.__table__.update().values(payment_method='SePay',status='pending'))
-        asyncio.run(check(False))
+        asyncio.run(check(True))
         with engine.begin() as conn: conn.execute(Payment.__table__.update().values(status='completed'))
         asyncio.run(check(True))
         with engine.begin() as conn: conn.execute(Subscription.__table__.update().values(ends_at=now-timedelta(seconds=1)))
-        asyncio.run(check(False))
+        asyncio.run(check(True))
     def test_cannot_self_activate_paid(self):
         db=SimpleNamespace(execute=AsyncMock(return_value=SimpleNamespace(scalar_one_or_none=lambda:SimpleNamespace(price=100))))
         with self.assertRaises(HTTPException) as exc: asyncio.run(plans.subscribe_plan(1,self.user,db))

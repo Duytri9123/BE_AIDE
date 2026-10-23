@@ -1,0 +1,1787 @@
+{
+  "nhom": "DenBaoNutNhanCauChiContactor",
+  "ten_kieu": "NBDD",
+  "ten_san_pham": "Nút nhấn · NBDD",
+  "ban_chat": "PUSHBUTTON",
+  "ma_dong_san_pham": "NP2",
+  "hang_xac_nhan": "CHINT",
+  "thong_so": {
+    "Loại thiết bị": "Nút nhấn",
+    "Phạm vi bản vẽ": "Hình chiếu/chi tiết nguồn",
+    "Mã/dòng trên nguồn": "NP2",
+    "Giá": "---",
+    "Nhãn thông số đọc từ nguồn": "220V; 4.5A; 110V; 0.6A; 230V"
+  },
+  "cong_dung": "Nút nhấn dùng để tra cứu thông tin, chọn mã và bố trí theo mẫu CAD tham khảo.",
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "PUSHBUTTON",
+    "source_component_type": "PUSHBUTTON",
+    "cac_ma_dong_san_pham": [
+      "NP2"
+    ],
+    "fabrication_ready": false,
+    "generic_shape": false
+  },
+  "auto_select": false,
+  "needs_review": true,
+  "source_catalog_review": {
+    "source_path": "DenBaoNutNhanCauChiContactor/TuLieuBanVe/C03/ThanhPhanCAD/B_1d686a825497/ban_ve.dxf",
+    "source_sha256": "309d6b29d9dafe162444dc0c4776c9ce6f0e8b712a5fecdd0f4b72111c914433",
+    "texts": [
+      "Chint     NP2",
+      "BE101.1      .2 (NC)\nAC-15:220V/4.5A\nDC-13:110V/0.6A",
+      "Chint             NP2",
+      "AC/DC 230V",
+      "LED",
+      "BA9s",
+      "Ie<20mA"
+    ],
+    "component_type": "PUSHBUTTON",
+    "contains_multiple_components": false,
+    "status": "information_catalogued",
+    "visual_review": "category_contact_sheet_2026_10_16",
+    "brands_read_from_source": [
+      "CHINT"
+    ],
+    "shared_source_variants": [
+      {
+        "name": "NBDD",
+        "models": [
+          "NP2"
+        ],
+        "brand": "CHINT",
+        "source": "DenBaoNutNhanCauChiContactor/TuLieuBanVe/C03/ThanhPhanCAD/B_1d686a825497/ban_ve.dxf"
+      }
+    ]
+  },
+  "nguon_cad": {
+    "file": "DenBaoNutNhanCauChiContactor/TuLieuBanVe/C03/ThanhPhanCAD/B_1d686a825497/ban_ve.dxf",
+    "block": "NBDD",
+    "sha256": "309d6b29d9dafe162444dc0c4776c9ce6f0e8b712a5fecdd0f4b72111c914433"
+  },
+  "tu_khoa_tim_kiem": [
+    "Nút nhấn",
+    "NBDD",
+    "IDEC",
+    "1NC",
+    "Morele",
+    "ML-11",
+    "Nút nhấn · NBDD",
+    "PUSHBUTTON",
+    "NP2",
+    "BA9s"
+  ],
+  "cad_don": [
+    {
+      "id_hinh_goc": "SOURCE-d40f9833bc813ad2",
+      "huong_nhin": "Chưa xác nhận hướng nhìn",
+      "duong_dan": "CadDon/SOURCE-d40f9833bc813ad2/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": false
+      }
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "SOURCE-d40f9833bc813ad2"
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao."
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "PUSHBUTTON",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "CHINT",
+        "model": "NP2",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 1
+        },
+        "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/push-button/np2/catalog/NP2-PUSH-BUTTON-Catalog.pdf",
+        "source_page": 1,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng được ghi trong hồ sơ nguồn. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "CHINT",
+        "model": "BA9s",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 1
+        },
+        "source_url": "https://productinfo.se.com/nadigest/5c51d645347bdf0001f1f280/Master/17719_MAIN%20%28bookmap%29_0000052086.xml/%24/_17719042_51082",
+        "source_page": 1,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng được ghi trong hồ sơ nguồn. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EA31",
+        "specifications": {
+          "Màu sắc": "🟢",
+          "NO": "1",
+          "NC": "-",
+          "Mã hàng": "574816",
+          "Họ thiết bị": "NP2",
+          "Tên hàng": "NP2-EA31"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 60,
+        "source_row_id": "chint-pdf:d422931d49c6932e",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EA32",
+        "specifications": {
+          "Màu sắc": "🟢",
+          "NO": "-",
+          "NC": "1",
+          "Mã hàng": "573860",
+          "Họ thiết bị": "NP2",
+          "Tên hàng": "NP2-EA32"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 60,
+        "source_row_id": "chint-pdf:9bffd898d2a2910d",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EA41",
+        "specifications": {
+          "Màu sắc": "🔴",
+          "NO": "1",
+          "NC": "-",
+          "Mã hàng": "573774",
+          "Họ thiết bị": "NP2",
+          "Tên hàng": "NP2-EA41"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 60,
+        "source_row_id": "chint-pdf:3f06c942ac801f15",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EA42",
+        "specifications": {
+          "Màu sắc": "🔴",
+          "NO": "-",
+          "NC": "1",
+          "Mã hàng": "574817",
+          "Họ thiết bị": "NP2",
+          "Tên hàng": "NP2-EA42"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 60,
+        "source_row_id": "chint-pdf:48d1f0cbe9fe519a",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EA51",
+        "specifications": {
+          "Màu sắc": "🟡",
+          "NO": "1",
+          "NC": "-",
+          "Mã hàng": "574818",
+          "Họ thiết bị": "NP2",
+          "Tên hàng": "NP2-EA51"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 60,
+        "source_row_id": "chint-pdf:c2a73c18dcf90a44",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EA15",
+        "specifications": {
+          "Màu sắc": "⚪",
+          "NO": "1",
+          "NC": "1",
+          "Mã hàng": "574218",
+          "Họ thiết bị": "NP2",
+          "Tên hàng": "NP2-EA15"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 60,
+        "source_row_id": "chint-pdf:d623c1c909796960",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EA33",
+        "specifications": {
+          "Màu sắc": "🟢",
+          "NO": "2",
+          "NC": "-",
+          "Mã hàng": "573850",
+          "Họ thiết bị": "NP2",
+          "Tên hàng": "NP2-EA33"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 60,
+        "source_row_id": "chint-pdf:3bb9b75798ea0011",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EA35",
+        "specifications": {
+          "Màu sắc": "🟢",
+          "NO": "1",
+          "NC": "1",
+          "Mã hàng": "573779",
+          "Họ thiết bị": "NP2",
+          "Tên hàng": "NP2-EA35"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 60,
+        "source_row_id": "chint-pdf:e7c5da7bac49fd35",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EA44",
+        "specifications": {
+          "Màu sắc": "🔴",
+          "NO": "-",
+          "NC": "2",
+          "Mã hàng": "574276",
+          "Họ thiết bị": "NP2",
+          "Tên hàng": "NP2-EA44"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 60,
+        "source_row_id": "chint-pdf:a62fdb272f8beb9d",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EA45",
+        "specifications": {
+          "Màu sắc": "🔴",
+          "NO": "1",
+          "NC": "1",
+          "Mã hàng": "573780",
+          "Họ thiết bị": "NP2",
+          "Tên hàng": "NP2-EA45"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 60,
+        "source_row_id": "chint-pdf:26e657c1538a5b00",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EA65",
+        "specifications": {
+          "Màu sắc": "🔵",
+          "NO": "1",
+          "NC": "1",
+          "Mã hàng": "574279",
+          "Họ thiết bị": "NP2",
+          "Tên hàng": "NP2-EA65"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 60,
+        "source_row_id": "chint-pdf:ab5c163a81fa6225",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EA55",
+        "specifications": {
+          "Màu sắc": "🟡",
+          "NO": "1",
+          "NC": "1",
+          "Mã hàng": "574191",
+          "Họ thiết bị": "NP2",
+          "Tên hàng": "NP2-EA55"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 60,
+        "source_row_id": "chint-pdf:9b73ad91756c36f5",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EW3161 230V LED",
+        "specifications": {
+          "Màu sắc": "⚪",
+          "NO": "1",
+          "NC": "0",
+          "Mã hàng": "574258",
+          "Tên hàng": "NP2-EW3161 230V LED"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:c51163e4cc80d99e",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EW3361 24V LED",
+        "specifications": {
+          "Màu sắc": "🟢",
+          "NO": "1",
+          "NC": "0",
+          "Mã hàng": "574261",
+          "Tên hàng": "NP2-EW3361 24V LED"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:82063b4ad951097e",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EW3362 220V LED",
+        "specifications": {
+          "Màu sắc": "🟢",
+          "NO": "0",
+          "NC": "1",
+          "Mã hàng": "574566",
+          "Tên hàng": "NP2-EW3362 220V LED"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:85f9650f5ec992c3",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EW3363 230V LED",
+        "specifications": {
+          "Màu sắc": "🟢",
+          "NO": "2",
+          "NC": "0",
+          "Mã hàng": "575312",
+          "Tên hàng": "NP2-EW3363 230V LED"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:1403b7ff642b06ce",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EW3365 230V LED",
+        "specifications": {
+          "Màu sắc": "🟢",
+          "NO": "1",
+          "NC": "1",
+          "Mã hàng": "574736",
+          "Tên hàng": "NP2-EW3365 230V LED"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:bb61f197301151af",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EW3461 220V LED",
+        "specifications": {
+          "Màu sắc": "🔴",
+          "NO": "1",
+          "NC": "0",
+          "Mã hàng": "574905",
+          "Tên hàng": "NP2-EW3461 220V LED"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:9ee709970cead113",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EW3461 230V LED",
+        "specifications": {
+          "Màu sắc": "🔴",
+          "NO": "1",
+          "NC": "0",
+          "Mã hàng": "574741",
+          "Tên hàng": "NP2-EW3461 230V LED"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:0b757244e59fb9b1",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EW3462 220V LED",
+        "specifications": {
+          "Màu sắc": "🔴",
+          "NO": "0",
+          "NC": "1",
+          "Mã hàng": "574360",
+          "Tên hàng": "NP2-EW3462 220V LED"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:535c0a3f30bdc821",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EW3462 230V LED",
+        "specifications": {
+          "Màu sắc": "🔴",
+          "NO": "0",
+          "NC": "1",
+          "Mã hàng": "575321",
+          "Tên hàng": "NP2-EW3462 230V LED"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:345007c806c70b05",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EW3462 24V LED",
+        "specifications": {
+          "Màu sắc": "🔴",
+          "NO": "0",
+          "NC": "1",
+          "Mã hàng": "574362",
+          "Tên hàng": "NP2-EW3462 24V LED"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:bfc7aac24c3b93ed",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EW3464 230V LED",
+        "specifications": {
+          "Màu sắc": "🔴",
+          "NO": "0",
+          "NC": "2",
+          "Mã hàng": "575325",
+          "Tên hàng": "NP2-EW3464 230V LED"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:1e5213c7629e4974",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EW3465 230V LED",
+        "specifications": {
+          "Màu sắc": "🔴",
+          "NO": "1",
+          "NC": "1",
+          "Mã hàng": "574737",
+          "Tên hàng": "NP2-EW3465 230V LED"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:59f79cfcd71ca015",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EW3561 230V LED",
+        "specifications": {
+          "Màu sắc": "🟡",
+          "NO": "1",
+          "NC": "0",
+          "Mã hàng": "574742",
+          "Tên hàng": "NP2-EW3561 230V LED"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:db6b7eb8b4524bc3",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EW3561 24V LED",
+        "specifications": {
+          "Màu sắc": "🟡",
+          "NO": "1",
+          "NC": "0",
+          "Mã hàng": "574263",
+          "Tên hàng": "NP2-EW3561 24V LED"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:570c257fe131358b",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EW3663 230V LED",
+        "specifications": {
+          "Màu sắc": "🔵",
+          "NO": "2",
+          "NC": "0",
+          "Mã hàng": "575340",
+          "Tên hàng": "NP2-EW3663 230V LED"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:4a1eb0757d617b9d",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EW3361 230V LED",
+        "specifications": {
+          "Màu sắc": "🟢",
+          "NO": "1",
+          "NC": "0",
+          "Mã hàng": "574740",
+          "Tên hàng": "NP2-EW3361 230V LED"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:d491d8ceac3669db",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EW3362 230V LED",
+        "specifications": {
+          "Màu sắc": "🟢",
+          "NO": "0",
+          "NC": "1",
+          "Mã hàng": "575311",
+          "Tên hàng": "NP2-EW3362 230V LED"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:fd3cebc9a232cf3b",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-ES441",
+        "specifications": {
+          "Màu sắc": "🔴",
+          "NO": "1",
+          "NC": "-",
+          "Mã hàng": "574620",
+          "Tên hàng": "NP2-ES441"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:318eabec89603abf",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-ES442",
+        "specifications": {
+          "Màu sắc": "🔴",
+          "NO": "-",
+          "NC": "1",
+          "Mã hàng": "574831",
+          "Tên hàng": "NP2-ES442"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:14143b940e77a031",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-ES541",
+        "specifications": {
+          "Màu sắc": "🔴",
+          "NO": "1",
+          "NC": "-",
+          "Mã hàng": "573904",
+          "Tên hàng": "NP2-ES541"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:3d4e473ad7da2c12",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-ES542",
+        "specifications": {
+          "Màu sắc": "🔴",
+          "NO": "-",
+          "NC": "1",
+          "Mã hàng": "574833",
+          "Tên hàng": "NP2-ES542"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 61,
+        "source_row_id": "chint-pdf:ee603637fc1f9206",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-ED21",
+        "specifications": {
+          "NO": "1",
+          "NC": "-",
+          "Mã hàng": "574821",
+          "Tên hàng": "NP2-ED21"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:1d9c6fd200c1866f",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-ED22",
+        "specifications": {
+          "NO": "-",
+          "NC": "1",
+          "Mã hàng": "573916",
+          "Tên hàng": "NP2-ED22"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:af7e9c0b1880d6f9",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-ED23",
+        "specifications": {
+          "NO": "2",
+          "NC": "-",
+          "Mã hàng": "574615",
+          "Tên hàng": "NP2-ED23"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:83826081ca678daf",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-ED24",
+        "specifications": {
+          "NO": "-",
+          "NC": "2",
+          "Mã hàng": "575256",
+          "Tên hàng": "NP2-ED24"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:3ae427b660d88fb1",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-ED25",
+        "specifications": {
+          "NO": "1",
+          "NC": "1",
+          "Mã hàng": "573781",
+          "Tên hàng": "NP2-ED25"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:520641e0360bc940",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-ED41",
+        "specifications": {
+          "NO": "1",
+          "NC": "-",
+          "Mã hàng": "573801",
+          "Tên hàng": "NP2-ED41"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:7f3058759ef477e1",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-ED42",
+        "specifications": {
+          "NO": "-",
+          "NC": "1",
+          "Mã hàng": "574560",
+          "Tên hàng": "NP2-ED42"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:2980c4d960a8a57b",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-ED43",
+        "specifications": {
+          "NO": "2",
+          "NC": "-",
+          "Mã hàng": "575259",
+          "Tên hàng": "NP2-ED43"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:31a47780af7aa78c",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-ED44",
+        "specifications": {
+          "NO": "-",
+          "NC": "2",
+          "Mã hàng": "575260",
+          "Tên hàng": "NP2-ED44"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:fd4564714fb8b0ed",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-ED45",
+        "specifications": {
+          "NO": "1",
+          "NC": "1",
+          "Mã hàng": "573843",
+          "Tên hàng": "NP2-ED45"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:cb6dff331136aa21",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EJ21",
+        "specifications": {
+          "NO": "1",
+          "NC": "-",
+          "Mã hàng": "574823",
+          "Tên hàng": "NP2-EJ21"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:44172af4e3684149",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EJ22",
+        "specifications": {
+          "NO": "-",
+          "NC": "1",
+          "Mã hàng": "575273",
+          "Tên hàng": "NP2-EJ22"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:82fb4dda84dc2e2e",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EJ23",
+        "specifications": {
+          "NO": "2",
+          "NC": "-",
+          "Mã hàng": "574255",
+          "Tên hàng": "NP2-EJ23"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:be0f20ec685368fd",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EJ24",
+        "specifications": {
+          "NO": "-",
+          "NC": "2",
+          "Mã hàng": "575274",
+          "Tên hàng": "NP2-EJ24"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:f230264ce7850535",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EJ25",
+        "specifications": {
+          "NO": "1",
+          "NC": "1",
+          "Mã hàng": "574824",
+          "Tên hàng": "NP2-EJ25"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:24acd05c817d4c19",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EJ41",
+        "specifications": {
+          "NO": "1",
+          "NC": "-",
+          "Mã hàng": "574826",
+          "Tên hàng": "NP2-EJ41"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:96b1fbcd2dbaef73",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EJ42",
+        "specifications": {
+          "NO": "-",
+          "NC": "1",
+          "Mã hàng": "575276",
+          "Tên hàng": "NP2-EJ42"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:bb12866fda6aba8e",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EJ43",
+        "specifications": {
+          "NO": "2",
+          "NC": "-",
+          "Mã hàng": "575277",
+          "Tên hàng": "NP2-EJ43"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:9e7ef8a29d966302",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EJ44",
+        "specifications": {
+          "NO": "-",
+          "NC": "2",
+          "Mã hàng": "575278",
+          "Tên hàng": "NP2-EJ44"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:2a19532f1db4acc0",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EJ45",
+        "specifications": {
+          "NO": "1",
+          "NC": "1",
+          "Mã hàng": "574827",
+          "Tên hàng": "NP2-EJ45"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:618085051a9986fe",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-ED33",
+        "specifications": {
+          "NO": "2",
+          "NC": "-",
+          "Mã hàng": "574822",
+          "Tên hàng": "NP2-ED33"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:e7bb78edb90079ef",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-ED34",
+        "specifications": {
+          "NO": "-",
+          "NC": "2",
+          "Mã hàng": "575258",
+          "Tên hàng": "NP2-ED34"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:1b44d63b523c5957",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-ED35",
+        "specifications": {
+          "NO": "1",
+          "NC": "1",
+          "Mã hàng": "574183",
+          "Tên hàng": "NP2-ED35"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:8e1ba4a7124aaee3",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-ED53",
+        "specifications": {
+          "NO": "2",
+          "NC": "-",
+          "Mã hàng": "573775",
+          "Tên hàng": "NP2-ED53"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:8cb9a81b11304870",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-ED54",
+        "specifications": {
+          "NO": "-",
+          "NC": "2",
+          "Mã hàng": "574614",
+          "Tên hàng": "NP2-ED54"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:83f15e1bc39369a6",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-ED55",
+        "specifications": {
+          "NO": "1",
+          "NC": "1",
+          "Mã hàng": "574890",
+          "Tên hàng": "NP2-ED55"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:2f6165bd915a6de2",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EJ33",
+        "specifications": {
+          "NO": "2",
+          "NC": "-",
+          "Mã hàng": "574825",
+          "Tên hàng": "NP2-EJ33"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:5e7e08da5397c45b",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EJ34",
+        "specifications": {
+          "NO": "-",
+          "NC": "2",
+          "Mã hàng": "575275",
+          "Tên hàng": "NP2-EJ34"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:30d551cee33bf525",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EJ35",
+        "specifications": {
+          "NO": "1",
+          "NC": "1",
+          "Mã hàng": "574571",
+          "Tên hàng": "NP2-EJ35"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:fc0652bffd157dd4",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EJ53",
+        "specifications": {
+          "NO": "2",
+          "NC": "-",
+          "Mã hàng": "574828",
+          "Tên hàng": "NP2-EJ53"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:626ea01e2d5ea62e",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EJ54",
+        "specifications": {
+          "NO": "-",
+          "NC": "2",
+          "Mã hàng": "575279",
+          "Tên hàng": "NP2-EJ54"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:69b87bac4dd097f6",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EJ55",
+        "specifications": {
+          "NO": "1",
+          "NC": "1",
+          "Mã hàng": "575280",
+          "Tên hàng": "NP2-EJ55"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 62,
+        "source_row_id": "chint-pdf:6b2ffd4c95d6a54b",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EG21",
+        "specifications": {
+          "NO": "1",
+          "NC": "-",
+          "Mã hàng": "574829",
+          "Tên hàng": "NP2-EG21"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 63,
+        "source_row_id": "chint-pdf:34c06d0cba16bec0",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EG25",
+        "specifications": {
+          "NO": "1",
+          "NC": "1",
+          "Mã hàng": "573458",
+          "Tên hàng": "NP2-EG25"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 63,
+        "source_row_id": "chint-pdf:03a86deafa98124b",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EG41",
+        "specifications": {
+          "NO": "1",
+          "NC": "-",
+          "Mã hàng": "573841",
+          "Tên hàng": "NP2-EG41"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 63,
+        "source_row_id": "chint-pdf:a2262646cf3dffed",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EG45",
+        "specifications": {
+          "NO": "1",
+          "NC": "1",
+          "Mã hàng": "573830",
+          "Tên hàng": "NP2-EG45"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 63,
+        "source_row_id": "chint-pdf:45cfede6d30721b4",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EG33",
+        "specifications": {
+          "NO": "2",
+          "NC": "-",
+          "Mã hàng": "574830",
+          "Tên hàng": "NP2-EG33"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 63,
+        "source_row_id": "chint-pdf:f15627fab4f5f305",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EG34",
+        "specifications": {
+          "NO": "-",
+          "NC": "2",
+          "Mã hàng": "575266",
+          "Tên hàng": "NP2-EG34"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 63,
+        "source_row_id": "chint-pdf:a08d5f788e008855",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EG35",
+        "specifications": {
+          "NO": "1",
+          "NC": "1",
+          "Mã hàng": "575267",
+          "Tên hàng": "NP2-EG35"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 63,
+        "source_row_id": "chint-pdf:ac8595ab76a03356",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EG53",
+        "specifications": {
+          "NO": "2",
+          "NC": "-",
+          "Mã hàng": "573842",
+          "Tên hàng": "NP2-EG53"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 63,
+        "source_row_id": "chint-pdf:10db52aa6363c94e",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EG54",
+        "specifications": {
+          "NO": "-",
+          "NC": "2",
+          "Mã hàng": "575271",
+          "Tên hàng": "NP2-EG54"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 63,
+        "source_row_id": "chint-pdf:63708fe2eddf1a8a",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-EG55",
+        "specifications": {
+          "NO": "1",
+          "NC": "1",
+          "Mã hàng": "575272",
+          "Tên hàng": "NP2-EG55"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 63,
+        "source_row_id": "chint-pdf:df01fefdd86dc318",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-B01",
+        "specifications": {
+          "Lỗ mở": "1",
+          "NC": "-",
+          "Mã hàng": "574887",
+          "Tên hàng": "NP2-B01"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 63,
+        "source_row_id": "chint-pdf:4a7caae48ddf12bd",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-B02",
+        "specifications": {
+          "Lỗ mở": "2",
+          "NC": "-",
+          "Mã hàng": "574885",
+          "Tên hàng": "NP2-B02"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 63,
+        "source_row_id": "chint-pdf:27effadd5bcec23f",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-B03",
+        "specifications": {
+          "Lỗ mở": "3",
+          "NC": "-",
+          "Mã hàng": "574886",
+          "Tên hàng": "NP2-B03"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 63,
+        "source_row_id": "chint-pdf:5d3b02526970772f",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-BE101",
+        "specifications": {
+          "Lỗ mở": "1",
+          "NC": "-",
+          "Mã hàng": "576728",
+          "Tên hàng": "NP2-BE101"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 64,
+        "source_row_id": "chint-pdf:6b931f6d5f57a447",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-BE102",
+        "specifications": {
+          "Lỗ mở": "-",
+          "NC": "1",
+          "Mã hàng": "576726",
+          "Tên hàng": "NP2-BE102"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 64,
+        "source_row_id": "chint-pdf:7ca61fa5d9b1ab89",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-BE103",
+        "specifications": {
+          "Lỗ mở": "2",
+          "NC": "-",
+          "Mã hàng": "683976",
+          "Tên hàng": "NP2-BE103"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 64,
+        "source_row_id": "chint-pdf:5f80aa03306a1199",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-BE104",
+        "specifications": {
+          "Lỗ mở": "-",
+          "NC": "2",
+          "Mã hàng": "683974",
+          "Tên hàng": "NP2-BE104"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 64,
+        "source_row_id": "chint-pdf:16e21790e264dfab",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2-BE105",
+        "specifications": {
+          "Lỗ mở": "1",
+          "NC": "1",
+          "Mã hàng": "683972",
+          "Tên hàng": "NP2-BE105"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_page": 64,
+        "source_row_id": "chint-pdf:2adb966ad5720c74",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "CHINT",
+        "model": "NP2",
+        "specifications": {
+          "Loại thiết bị": "Nút nhấn",
+          "Phạm vi bản vẽ": "Hình chiếu/chi tiết nguồn",
+          "Mã/dòng trên nguồn": "NP2",
+          "Giá": "---",
+          "Nhãn thông số đọc từ nguồn": "220V; 4.5A; 110V; 0.6A; 230V"
+        },
+        "source_url": "",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      }
+    ],
+    "observed_specifications": {
+      "Loại thiết bị": "Nút nhấn",
+      "Phạm vi bản vẽ": "Hình chiếu/chi tiết nguồn",
+      "Mã/dòng trên nguồn": "NP2",
+      "Giá": "---",
+      "Nhãn thông số đọc từ nguồn": "220V; 4.5A; 110V; 0.6A; 230V"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "documented_source_label",
+      "source_model": "NP2",
+      "matched_catalog_rows": 41,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": true,
+      "source_label_models": [
+        "NP2",
+        "BA9s"
+      ],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "documented_source_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [
+        "NP2",
+        "BE101.1",
+        "BA9s"
+      ],
+      "documented_models": [
+        {
+          "model": "NP2",
+          "brand": "CHINT",
+          "manufacturer_confirmed_on_source": true,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/push-button/np2/catalog/NP2-PUSH-BUTTON-Catalog.pdf",
+              "sha256": "a5ce74c8fe29250aeb10d7f42535a3b2de32ed152a2d9301129e9176fbb2e4bf",
+              "page": 1,
+              "format": "pdf",
+              "match": "NP2",
+              "basis": "literal_model_label"
+            }
+          ]
+        },
+        {
+          "model": "BA9s",
+          "brand": "CHINT",
+          "manufacturer_confirmed_on_source": true,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://productinfo.se.com/nadigest/5c51d645347bdf0001f1f280/Master/17719_MAIN%20%28bookmap%29_0000052086.xml/%24/_17719042_51082",
+              "sha256": "9d014923fc0bd7645ab2e196945dc124a7e3bd341d2e0b23e9558b297a2e51a9",
+              "page": 1,
+              "format": "html",
+              "match": "BA9s",
+              "basis": "literal_model_label"
+            },
+            {
+              "url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/push-button/np2/catalog/NP2-PUSH-BUTTON-Catalog.pdf",
+              "sha256": "a5ce74c8fe29250aeb10d7f42535a3b2de32ed152a2d9301129e9176fbb2e4bf",
+              "page": 15,
+              "format": "pdf",
+              "match": "BA9s",
+              "basis": "literal_model_label"
+            }
+          ]
+        }
+      ],
+      "source_text_count": 7,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "nhan_dien_web": {
+    "source_label_review": {
+      "status": "documented_source_label",
+      "models": [
+        "NP2",
+        "BA9s"
+      ],
+      "manufacturer_candidates": [
+        "CHINT"
+      ],
+      "checked_at": "2026-10-17",
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

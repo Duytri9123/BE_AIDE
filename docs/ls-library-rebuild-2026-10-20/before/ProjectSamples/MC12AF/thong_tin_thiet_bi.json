@@ -1,0 +1,253 @@
+{
+  "nhom": "LS",
+  "ten_san_pham": "Khởi động từ LS MC-12a · CAD MC12AF",
+  "ten_kieu": "MC 12AF",
+  "hang_xac_nhan": "LS Electric",
+  "muc_do_xac_nhan": "Hình CAD nguồn và các mặt; chưa xác nhận mã mua hàng/thông số điện",
+  "tu_khoa_tim_kiem": [
+    "MC 12AF",
+    "MC12AF",
+    "ABB",
+    "1SBL281074R8001",
+    "CHINT",
+    "NXC-06 220V 50/60Hz",
+    "Delixi",
+    "CDC19S2511M7",
+    "AU-100 (bên hông)",
+    "Mitsubishi Electric",
+    "1DEL02",
+    "Schneider Electric",
+    "LC1E0601BD",
+    "Khởi động từ LS MC-12a · CAD MC12AF",
+    ""
+  ],
+  "thong_so": {},
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "CONTACTOR",
+    "so_cuc": null,
+    "fabrication_ready": false,
+    "kich_thuoc_cad_la_kich_thuoc_hang": false
+  },
+  "bo_tri_lap_dat": {
+    "source_project_reference": true
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "front",
+      "huong_nhin": "Mặt trước",
+      "nhan_hien_thi": "Mặt trước",
+      "duong_dan": "CadDon/front/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": true,
+        "fabrication_ready": false
+      },
+      "kiem_tra_net_cad": {
+        "status": "source_visible_primitives_preserved"
+      }
+    },
+    {
+      "id_hinh_goc": "side",
+      "huong_nhin": "Mặt bên",
+      "nhan_hien_thi": "Mặt bên",
+      "duong_dan": "CadDon/side/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": true,
+        "fabrication_ready": false
+      },
+      "kiem_tra_net_cad": {
+        "status": "source_visible_primitives_preserved"
+      }
+    }
+  ],
+  "nguon_cad": [
+    {
+      "order": "447",
+      "handle": "8CE1",
+      "source_dwg": "C:\\Users\\admin\\Downloads\\Đơn 447.BVSX - Tủ Điện - Hòa Trung.dwg",
+      "source_sha256": "fab29afb3fc2663d3b05bff45e246967afa449729eb038730417e02ef043a334",
+      "effective_block": "MC 12AF",
+      "dynamic_state": {
+        "Options": "12A: Front View",
+        "Type": "MC-12a",
+        "Rate": "12A"
+      },
+      "owner_face_in_source": "mounting_plate"
+    },
+    {
+      "order": "447",
+      "handle": "9EEF",
+      "source_dwg": "C:\\Users\\admin\\Downloads\\Đơn 447.BVSX - Tủ Điện - Hòa Trung.dwg",
+      "source_sha256": "fab29afb3fc2663d3b05bff45e246967afa449729eb038730417e02ef043a334",
+      "effective_block": "MC 12AF",
+      "dynamic_state": {
+        "Options": "Side View",
+        "Type": "MC-12AF/s",
+        "Rate": "None"
+      },
+      "owner_face_in_source": "side_projection"
+    }
+  ],
+  "quy_tac_ghep_mat": {
+    "basis": "same_effective_source_block_current_state",
+    "exact_order_code_verified": false
+  },
+  "cad_chen_tu": {
+    "id_hinh_goc": "front",
+    "huong_nhin": "Mặt trước",
+    "duong_dan": "CadDon/front/ban_ve.dxf"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "CONTACTOR",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "LS Electric",
+        "model": "MC-12a",
+        "specifications": {
+          "In (A)": "12",
+          "Tên hàng": "Ls MC-12a 12A (1a)"
+        },
+        "source_url": "https://www.ple.vn/role-nhiet/khoi-dong-tu-ls/mc-12a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:fc79ea786f4a5e9f",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MC-12a (1)",
+        "specifications": {
+          "In (A)": "12A (1a)",
+          "Tên hàng": "MC-12a (1)"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 4,
+        "source_row_id": "ls-pdf:446d89c26cf182fc",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MC-12a (VDC)",
+        "specifications": {
+          "In (A)": "12A (1a)",
+          "Tên hàng": "MC-12a (VDC)"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 8,
+        "source_row_id": "ls-pdf:c536e5c4bc5f64a2",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MC-12a/4",
+        "specifications": {
+          "In (A)": "12A",
+          "Số cực": "4P",
+          "Tên hàng": "MC-12a/4"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 8,
+        "source_row_id": "ls-pdf:3ed8007a6b842c61",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "Metasol MS",
+        "specifications": {
+          "Dòng thiết bị": "Metasol MS"
+        },
+        "source_url": "https://www.ls-electric.com/products/view/Smart_Power_Solution/Low_Voltage/Contactor_%26_Overload_Relay/Metasol_MS",
+        "basis": "manufacturer_family_document",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Tài liệu đúng hãng/dòng để tiếp tục đối chiếu mã trong CAD; không xác nhận mã đầy đủ hoặc kích thước."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "---",
+        "specifications": {
+          "Loại thiết bị": "CONTACTOR"
+        },
+        "source_url": "",
+        "basis": "cad_reference_code",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      }
+    ],
+    "observed_specifications": {
+      "Loại thiết bị": "CONTACTOR"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [
+      {
+        "brand": "LS Electric",
+        "family": "Metasol MS",
+        "url": "https://www.ls-electric.com/products/view/Smart_Power_Solution/Low_Voltage/Contactor_%26_Overload_Relay/Metasol_MS",
+        "scope": "manufacturer_family",
+        "checked_at": "2026-10-17"
+      }
+    ],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "source_labels_need_catalog",
+      "source_model": null,
+      "matched_catalog_rows": 3,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Đối chiếu và chọn mã đặt hàng đầy đủ",
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "source_labels_need_catalog",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [
+        "MC-6/22",
+        "MC 12AF/3P"
+      ],
+      "documented_models": [],
+      "source_text_count": 7,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao."
+  },
+  "nhom_thu_vien": "LS",
+  "library_classification_review": {
+    "basis": "User requested manufacturer/family classification instead of ProjectSamples",
+    "source_paths_preserved": true,
+    "manufacturer_unassigned": false
+  }
+}

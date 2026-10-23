@@ -109,7 +109,9 @@ class CircuitPreflightService:
         pages = CircuitPreflightService._visual_pages(files)
         if not context and not pages:
             return {'status': 'unavailable', 'circuit_summary': '',
-                    'source_limits': ['Chưa đọc được nội dung sơ đồ từ tệp nguồn.']}
+                    'source_limits': [str(row.get('filename') or '') + ': ' + str(row['read_error'])
+                                      for row in contexts if row.get('read_error')]
+                                     or ['Chưa đọc được nội dung sơ đồ từ tệp nguồn.']}
         if not db or not connections:
             return {'status': 'unavailable', 'circuit_summary': '',
                     'source_limits': ['Chưa có kết nối AI để đánh giá sơ đồ.']}

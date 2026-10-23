@@ -1,0 +1,208 @@
+{
+  "nhom": "Phíp",
+  "ten_kieu": "Sứ đỡ cách điện S50",
+  "ten_san_pham": "Sứ đỡ cách điện S50",
+  "ban_chat": "Trụ đỡ cách điện",
+  "cong_dung": "Đỡ chi tiết mang điện và cách ly với khung tủ.",
+  "vi_tri_lap_dat": "Trong khoang thanh dẫn, tại điểm bắt với khung đỡ.",
+  "hang_xac_nhan": null,
+  "ma_dong_san_pham": null,
+  "thong_so": {
+    "nhan_tren_ban_ve": "S50"
+  },
+  "muc_do_xac_nhan": "Cùng nhãn có các hình chiếu với bao kích thước khác nhau; chưa xác định điện áp chịu đựng và tải cơ.",
+  "nguon_tham_khao": [],
+  "cac_hinh_cad": [
+    "B_bf0b060e89bb",
+    "B_e8e1e87c60ec"
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "B_e8e1e87c60ec",
+    "huong_nhin": "Mặt trên",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "B_bf0b060e89bb",
+      "huong_nhin": "Mặt bên",
+      "duong_dan": "CadDon/B_bf0b060e89bb/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt bên",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt bên form tủ khi thiết bị giữ tư thế lắp đứng. Nếu xoay tư thế lắp, cần đối chiếu lại hướng nhìn."
+      },
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong"
+        ],
+        "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      }
+    },
+    {
+      "id_hinh_goc": "B_e8e1e87c60ec",
+      "huong_nhin": "Mặt trên",
+      "duong_dan": "CadDon/B_e8e1e87c60ec/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trên",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng cho mặt trên form tủ khi nhìn từ trên xuống thiết bị lắp đứng. Thiết bị nằm ngang có thể cần mặt này cho hướng nhìn khác."
+      },
+      "bo_tri_lap_dat": {
+        "vi_tri_uu_tien": "ben_trong",
+        "vi_tri_phu_hop": [
+          "ben_trong"
+        ],
+        "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+        "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+        "nguon_tham_khao": [
+          "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+        ]
+      }
+    }
+  ],
+  "bo_tri_lap_dat": {
+    "vi_tri_uu_tien": "ben_trong",
+    "vi_tri_phu_hop": [
+      "ben_trong"
+    ],
+    "huong_dan": "Gắn cố định trên tấm lắp, ray, khung đỡ hoặc thanh dẫn bên trong theo cấu tạo; chừa khoảng đấu dây và bảo trì.",
+    "muc_do": "Gợi ý bố trí theo chức năng và kiểu gá; cần đối chiếu biến thể khi lắp thực tế.",
+    "nguon_tham_khao": [
+      "https://www.rittal.com/com-en/products/PG20231215ZUB101/PG20240403ZUB102/PG20240403ZUB107"
+    ]
+  },
+  "quy_cach_hien_thi": "",
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Chọn theo từng kết nối, thông số điện và bảo vệ phía trước; không suy từ hình CAD. Vật tư thuần cơ khí không yêu cầu dây.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa có dữ liệu gá/cọc theo mã đầy đủ",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "Phíp",
+    "ma_san_pham": "Sứ đỡ cách điện S50",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khảo - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "Trụ đỡ cách điện",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "Cnhici / Suntree Insulator",
+        "model": "SM-25 / SM-35 / SM-50",
+        "specifications": {
+          "Tên hàng": "Trụ đỡ cách điện thanh cái dòng SM",
+          "Vật liệu lựa chọn": "BMC / SMC",
+          "Nhiệt độ làm việc dòng": "−40…+140 °C",
+          "Ren và kích thước": "Chọn biến thể theo bản vẽ sản phẩm"
+        },
+        "source_url": "https://www.suntreeinsulator.com/sm-lnsulator-series",
+        "basis": "manufacturer_web_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Gia công / phổ thông",
+        "model": "Sứ đỡ cách điện S50",
+        "specifications": {
+          "nhan_tren_ban_ve": "S50",
+          "Loại thiết bị": "Trụ đỡ cách điện",
+          "Lắp đặt tham khảo": "Trong khoang thanh dẫn, tại điểm bắt với khung đỡ."
+        },
+        "source_url": "",
+        "basis": "cad_reference_code",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mã/tên mẫu CAD nguồn để tra cứu và dùng chung; chưa phải mã hàng thương mại."
+      }
+    ],
+    "observed_specifications": {
+      "nhan_tren_ban_ve": "S50",
+      "Loại thiết bị": "Trụ đỡ cách điện",
+      "Lắp đặt tham khảo": "Trong khoang thanh dẫn, tại điểm bắt với khung đỡ."
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "generic_mechanical",
+      "source_model": null,
+      "matched_catalog_rows": 0,
+      "model_identity_verified": false,
+      "remaining_tasks": [],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "generic_mechanical",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [],
+      "documented_models": [],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [
+        {
+          "basis": "unique_original_insertion_at_recorded_source_anchor",
+          "block": "MCB Shihlin",
+          "handle": "200833",
+          "source_sha256": "cd7c2afc417061349d0f94a95574bf4326df876a4ca60fdaaef0396849dc9bc9",
+          "dynamic_state_verified": false
+        }
+      ],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "tu_khoa_tim_kiem": [
+    "Trụ đỡ cách điện",
+    "Sứ đỡ cách điện S50",
+    ""
+  ]
+}

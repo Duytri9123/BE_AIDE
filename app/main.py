@@ -53,6 +53,11 @@ admin = create_admin(app, engine)
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
+from app.services.request_metrics import RequestMetricsMiddleware, instrument_engine
+instrument_engine(engine.sync_engine)
+app.add_middleware(RequestMetricsMiddleware, slow_ms=1000)
+
+
 @app.middleware('http')
 async def protect_private_library(request, call_next):
     from fastapi.responses import JSONResponse

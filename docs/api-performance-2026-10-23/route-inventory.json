@@ -1,0 +1,1635 @@
+{
+  "routes": [
+    {
+      "method": "POST",
+      "path": "/api/v1/test-connection",
+      "registered": true,
+      "function": "test_ai_connection",
+      "file": "BE_AIDE/app/api/v1/endpoints/admin_helpers.py",
+      "line": 324,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/connections-by-provider/{provider_id}",
+      "registered": true,
+      "function": "get_connections_by_provider",
+      "file": "BE_AIDE/app/api/v1/endpoints/admin_helpers.py",
+      "line": 569,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/provider-models/{provider_id}",
+      "registered": true,
+      "function": "get_provider_models_admin",
+      "file": "BE_AIDE/app/api/v1/endpoints/admin_helpers.py",
+      "line": 596,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/provider-models/{model_id}/priority",
+      "registered": true,
+      "function": "update_model_priority",
+      "file": "BE_AIDE/app/api/v1/endpoints/admin_helpers.py",
+      "line": 612,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/provider-models/reorder",
+      "registered": true,
+      "function": "reorder_provider_models",
+      "file": "BE_AIDE/app/api/v1/endpoints/admin_helpers.py",
+      "line": 640,
+      "pagination": [],
+      "flags": [
+        "await_in_loop_review"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/connections/{connection_id}/toggle-active",
+      "registered": true,
+      "function": "toggle_connection_active",
+      "file": "BE_AIDE/app/api/v1/endpoints/admin_helpers.py",
+      "line": 660,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/test-websearch",
+      "registered": true,
+      "function": "test_web_search",
+      "file": "BE_AIDE/app/api/v1/endpoints/admin_helpers.py",
+      "line": 700,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/detect-key",
+      "registered": true,
+      "function": "detect_ai_key",
+      "file": "BE_AIDE/app/api/v1/endpoints/admin_helpers.py",
+      "line": 771,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/providers-summary",
+      "registered": true,
+      "function": "get_providers_summary",
+      "file": "BE_AIDE/app/api/v1/endpoints/admin_helpers.py",
+      "line": 932,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review",
+        "await_in_loop_review"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/antigravity/auth-url",
+      "registered": true,
+      "function": "get_antigravity_auth_url",
+      "file": "BE_AIDE/app/api/v1/endpoints/admin_helpers.py",
+      "line": 960,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/antigravity/check-status",
+      "registered": true,
+      "function": "check_antigravity_status",
+      "file": "BE_AIDE/app/api/v1/endpoints/admin_helpers.py",
+      "line": 969,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/antigravity/exchange",
+      "registered": true,
+      "function": "exchange_antigravity_code",
+      "file": "BE_AIDE/app/api/v1/endpoints/admin_helpers.py",
+      "line": 1017,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/antigravity/callback",
+      "registered": true,
+      "function": "antigravity_oauth_callback",
+      "file": "BE_AIDE/app/api/v1/endpoints/admin_helpers.py",
+      "line": 1115,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/ads/check",
+      "registered": true,
+      "function": "check_ad_required",
+      "file": "BE_AIDE/app/api/v1/endpoints/ads.py",
+      "line": 56,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/ads/complete",
+      "registered": true,
+      "function": "complete_ad_view",
+      "file": "BE_AIDE/app/api/v1/endpoints/ads.py",
+      "line": 84,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/ads/track-download",
+      "registered": true,
+      "function": "track_download",
+      "file": "BE_AIDE/app/api/v1/endpoints/ads.py",
+      "line": 123,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/ads/config",
+      "registered": true,
+      "function": "get_ad_config",
+      "file": "BE_AIDE/app/api/v1/endpoints/ads.py",
+      "line": 161,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/analyze/start",
+      "registered": true,
+      "function": "start_analysis",
+      "file": "BE_AIDE/app/api/v1/endpoints/analyze.py",
+      "line": 81,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/analyze/stream",
+      "registered": true,
+      "function": "stream_analysis",
+      "file": "BE_AIDE/app/api/v1/endpoints/analyze.py",
+      "line": 259,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/analyze/generate-quotation-cad",
+      "registered": true,
+      "function": "generate_quotation_and_cad",
+      "file": "BE_AIDE/app/api/v1/endpoints/analyze.py",
+      "line": 489,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/analyze/generate-quotation-cad/stream",
+      "registered": true,
+      "function": "stream_generate_quotation_and_cad",
+      "file": "BE_AIDE/app/api/v1/endpoints/analyze.py",
+      "line": 546,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/analyze/project/{project_id}/latest",
+      "registered": true,
+      "function": "get_latest_project_analysis",
+      "file": "BE_AIDE/app/api/v1/endpoints/analyze.py",
+      "line": 619,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/analyze/refine",
+      "registered": true,
+      "function": "refine_analysis",
+      "file": "BE_AIDE/app/api/v1/endpoints/analyze.py",
+      "line": 680,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/analyze/finalize",
+      "registered": true,
+      "function": "finalize_analysis",
+      "file": "BE_AIDE/app/api/v1/endpoints/analyze.py",
+      "line": 717,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/analyze/project/{project_id}/sessions",
+      "registered": true,
+      "function": "get_project_sessions",
+      "file": "BE_AIDE/app/api/v1/endpoints/analyze.py",
+      "line": 727,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review",
+        "await_in_loop_review"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/analyze/iteration/{iteration_id}",
+      "registered": true,
+      "function": "get_iteration_analysis",
+      "file": "BE_AIDE/app/api/v1/endpoints/analyze.py",
+      "line": 810,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/analyze/iteration/{iteration_id}",
+      "registered": true,
+      "function": "delete_iteration",
+      "file": "BE_AIDE/app/api/v1/endpoints/analyze.py",
+      "line": 852,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/analyze/history/{session_id}",
+      "registered": true,
+      "function": "get_analysis_history",
+      "file": "BE_AIDE/app/api/v1/endpoints/analyze.py",
+      "line": 882,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/analyze/project/{project_id}/session",
+      "registered": true,
+      "function": "delete_project_session",
+      "file": "BE_AIDE/app/api/v1/endpoints/analyze.py",
+      "line": 908,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review",
+        "await_in_loop_review"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/analyze/prompt",
+      "registered": true,
+      "function": "analyze_prompt",
+      "file": "BE_AIDE/app/api/v1/endpoints/analyze.py",
+      "line": 954,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/analyze/async-start",
+      "registered": true,
+      "function": "start_analysis_async",
+      "file": "BE_AIDE/app/api/v1/endpoints/analyze.py",
+      "line": 1294,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/analyze/task/{task_id}",
+      "registered": true,
+      "function": "get_analysis_task_status",
+      "file": "BE_AIDE/app/api/v1/endpoints/analyze.py",
+      "line": 1302,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/analyze/task/{task_id}/cancel",
+      "registered": true,
+      "function": "cancel_analysis_task",
+      "file": "BE_AIDE/app/api/v1/endpoints/analyze.py",
+      "line": 1317,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/analyze/start-multi-agent",
+      "registered": true,
+      "function": "start_multi_agent_analysis",
+      "file": "BE_AIDE/app/api/v1/endpoints/analyze_multi_agent.py",
+      "line": 36,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/analyze/test-multi-agent",
+      "registered": true,
+      "function": "test_multi_agent",
+      "file": "BE_AIDE/app/api/v1/endpoints/analyze_multi_agent.py",
+      "line": 203,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/articles",
+      "registered": true,
+      "function": "list_articles",
+      "file": "BE_AIDE/app/api/v1/endpoints/articles.py",
+      "line": 34,
+      "pagination": [
+        "page",
+        "page_size"
+      ],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/articles/{slug}",
+      "registered": true,
+      "function": "get_article",
+      "file": "BE_AIDE/app/api/v1/endpoints/articles.py",
+      "line": 56,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/send-otp",
+      "registered": true,
+      "function": "send_otp",
+      "file": "BE_AIDE/app/api/v1/endpoints/auth.py",
+      "line": 49,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/register",
+      "registered": true,
+      "function": "register",
+      "file": "BE_AIDE/app/api/v1/endpoints/auth.py",
+      "line": 77,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "registered": true,
+      "function": "login",
+      "file": "BE_AIDE/app/api/v1/endpoints/auth.py",
+      "line": 139,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/refresh",
+      "registered": true,
+      "function": "refresh",
+      "file": "BE_AIDE/app/api/v1/endpoints/auth.py",
+      "line": 175,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/logout",
+      "registered": true,
+      "function": "logout",
+      "file": "BE_AIDE/app/api/v1/endpoints/auth.py",
+      "line": 201,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/google",
+      "registered": true,
+      "function": "google_auth",
+      "file": "BE_AIDE/app/api/v1/endpoints/auth.py",
+      "line": 205,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/bom/calculate",
+      "registered": true,
+      "function": "calculate_bom",
+      "file": "BE_AIDE/app/api/v1/endpoints/bom.py",
+      "line": 26,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/bom/topology/{project_id}",
+      "registered": true,
+      "function": "get_topology",
+      "file": "BE_AIDE/app/api/v1/endpoints/bom.py",
+      "line": 122,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/bom/enclosure-preview/{project_id}",
+      "registered": true,
+      "function": "get_enclosure_preview",
+      "file": "BE_AIDE/app/api/v1/endpoints/bom.py",
+      "line": 129,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/cabinet-templates",
+      "registered": true,
+      "function": "list_templates",
+      "file": "BE_AIDE/app/api/v1/endpoints/cabinet_templates.py",
+      "line": 28,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/cabinet-templates/separation-forms",
+      "registered": true,
+      "function": "list_separation_forms",
+      "file": "BE_AIDE/app/api/v1/endpoints/cabinet_templates.py",
+      "line": 39,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/cabinet-templates/catalog",
+      "registered": true,
+      "function": "list_template_catalog",
+      "file": "BE_AIDE/app/api/v1/endpoints/cabinet_templates.py",
+      "line": 47,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/cabinet-templates/generate",
+      "registered": true,
+      "function": "generate_template",
+      "file": "BE_AIDE/app/api/v1/endpoints/cabinet_templates.py",
+      "line": 56,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/cabinet-templates/{template_id}/source",
+      "registered": true,
+      "function": "download_source",
+      "file": "BE_AIDE/app/api/v1/endpoints/cabinet_templates.py",
+      "line": 71,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/cabinet-templates/{template_id}/preview",
+      "registered": true,
+      "function": "template_preview",
+      "file": "BE_AIDE/app/api/v1/endpoints/cabinet_templates.py",
+      "line": 80,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/cad-agent/providers",
+      "registered": true,
+      "function": "providers",
+      "file": "BE_AIDE/app/api/v1/endpoints/cad_agent.py",
+      "line": 16,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review",
+        "await_in_loop_review"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/cad-agent/providers/{provider_id}/models",
+      "registered": true,
+      "function": "models",
+      "file": "BE_AIDE/app/api/v1/endpoints/cad_agent.py",
+      "line": 33,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/cad-agent/providers/{provider_id}/inference",
+      "registered": true,
+      "function": "inference",
+      "file": "BE_AIDE/app/api/v1/endpoints/cad_agent.py",
+      "line": 44,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/cad-library/catalog-tb",
+      "registered": true,
+      "function": "list_catalog_tb",
+      "file": "BE_AIDE/app/api/v1/endpoints/cad_library.py",
+      "line": 78,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/cad-library/catalog-tb/view/{view_id}/preview",
+      "registered": true,
+      "function": "catalog_tb_preview",
+      "file": "BE_AIDE/app/api/v1/endpoints/cad_library.py",
+      "line": 94,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/cad-library/catalog-tb/view/{view_id}/insert-dxf",
+      "registered": true,
+      "function": "catalog_tb_insert_dxf",
+      "file": "BE_AIDE/app/api/v1/endpoints/cad_library.py",
+      "line": 102,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/cad-library",
+      "registered": true,
+      "function": "list_layouts",
+      "file": "BE_AIDE/app/api/v1/endpoints/cad_library.py",
+      "line": 184,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/cad-library/categories",
+      "registered": true,
+      "function": "list_categories",
+      "file": "BE_AIDE/app/api/v1/endpoints/cad_library.py",
+      "line": 193,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/cad-library/{asset_id}/dxf",
+      "registered": true,
+      "function": "download_layout",
+      "file": "BE_AIDE/app/api/v1/endpoints/cad_library.py",
+      "line": 203,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/cad-library/grouped",
+      "registered": true,
+      "function": "list_grouped_layouts",
+      "file": "BE_AIDE/app/api/v1/endpoints/cad_library.py",
+      "line": 233,
+      "pagination": [
+        "skip",
+        "limit"
+      ],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/cad-library/{asset_id}/preview",
+      "registered": true,
+      "function": "preview_layout",
+      "file": "BE_AIDE/app/api/v1/endpoints/cad_library.py",
+      "line": 244,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/cad-library/{asset_id}/insert-dxf",
+      "registered": true,
+      "function": "insertion_dxf",
+      "file": "BE_AIDE/app/api/v1/endpoints/cad_library.py",
+      "line": 251,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/catalog-prices/custom-prices",
+      "registered": true,
+      "function": "list_custom_prices",
+      "file": "BE_AIDE/app/api/v1/endpoints/catalog_prices.py",
+      "line": 82,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/catalog-prices/custom-prices",
+      "registered": true,
+      "function": "create_custom_price",
+      "file": "BE_AIDE/app/api/v1/endpoints/catalog_prices.py",
+      "line": 95,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/catalog-prices/custom-prices/{key:path}",
+      "registered": true,
+      "function": "update_custom_price",
+      "file": "BE_AIDE/app/api/v1/endpoints/catalog_prices.py",
+      "line": 119,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/catalog-prices/custom-prices/{key:path}",
+      "registered": true,
+      "function": "delete_custom_price",
+      "file": "BE_AIDE/app/api/v1/endpoints/catalog_prices.py",
+      "line": 142,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/catalog-prices/custom-prices/web-search",
+      "registered": true,
+      "function": "web_search_price",
+      "file": "BE_AIDE/app/api/v1/endpoints/catalog_prices.py",
+      "line": 158,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/catalog-prices/catalog/resolve-price",
+      "registered": true,
+      "function": "resolve_device_price",
+      "file": "BE_AIDE/app/api/v1/endpoints/catalog_prices.py",
+      "line": 213,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/catalog-prices/cad-registry/groups",
+      "registered": true,
+      "function": "get_cad_groups",
+      "file": "BE_AIDE/app/api/v1/endpoints/catalog_prices.py",
+      "line": 241,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/catalog-prices/cad-registry/search",
+      "registered": true,
+      "function": "search_cad_blocks",
+      "file": "BE_AIDE/app/api/v1/endpoints/catalog_prices.py",
+      "line": 254,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/catalog-prices/catalog/missing-prices",
+      "registered": true,
+      "function": "get_missing_prices",
+      "file": "BE_AIDE/app/api/v1/endpoints/catalog_prices.py",
+      "line": 266,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/chat/",
+      "registered": true,
+      "function": "chat_with_cad_agent",
+      "file": "BE_AIDE/app/api/v1/endpoints/chat.py",
+      "line": 46,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/curated-library",
+      "registered": true,
+      "function": "list_catalog",
+      "file": "BE_AIDE/app/api/v1/endpoints/curated_library.py",
+      "line": 9,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/curated-library/product/dxf",
+      "registered": true,
+      "function": "product_drawing",
+      "file": "BE_AIDE/app/api/v1/endpoints/curated_library.py",
+      "line": 13,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/curated-library/shell/{template_id}/dxf",
+      "registered": true,
+      "function": "shell_drawing",
+      "file": "BE_AIDE/app/api/v1/endpoints/curated_library.py",
+      "line": 20,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/curated-library/asset/{asset_id}/dxf",
+      "registered": true,
+      "function": "asset_drawing",
+      "file": "BE_AIDE/app/api/v1/endpoints/curated_library.py",
+      "line": 27,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/device-catalog",
+      "registered": true,
+      "function": "catalog",
+      "file": "BE_AIDE/app/api/v1/endpoints/device_catalog.py",
+      "line": 13,
+      "pagination": [
+        "skip",
+        "limit"
+      ],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/device-catalog/documents/{document_id}",
+      "registered": true,
+      "function": "source_pricebook",
+      "file": "BE_AIDE/app/api/v1/endpoints/device_catalog.py",
+      "line": 41,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/device-library/brands",
+      "registered": true,
+      "function": "get_brands",
+      "file": "BE_AIDE/app/api/v1/endpoints/devices.py",
+      "line": 101,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/device-library/categories",
+      "registered": true,
+      "function": "get_categories",
+      "file": "BE_AIDE/app/api/v1/endpoints/devices.py",
+      "line": 109,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/device-library/series",
+      "registered": true,
+      "function": "get_series",
+      "file": "BE_AIDE/app/api/v1/endpoints/devices.py",
+      "line": 117,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/device-library/models",
+      "registered": true,
+      "function": "get_models",
+      "file": "BE_AIDE/app/api/v1/endpoints/devices.py",
+      "line": 189,
+      "pagination": [
+        "skip",
+        "limit"
+      ],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/device-library/browse",
+      "registered": true,
+      "function": "browse_library",
+      "file": "BE_AIDE/app/api/v1/endpoints/devices.py",
+      "line": 275,
+      "pagination": [
+        "skip",
+        "limit"
+      ],
+      "flags": [
+        "unbounded_materialization_review"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/device-library/model-details/{model_id}",
+      "registered": true,
+      "function": "update_catalog_model",
+      "file": "BE_AIDE/app/api/v1/endpoints/devices.py",
+      "line": 340,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/device-library/model-details/{model_id}",
+      "registered": true,
+      "function": "model_details",
+      "file": "BE_AIDE/app/api/v1/endpoints/devices.py",
+      "line": 382,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/device-library/models/{sku}",
+      "registered": true,
+      "function": "get_model_by_sku",
+      "file": "BE_AIDE/app/api/v1/endpoints/devices.py",
+      "line": 391,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/device-library/models/{model_id}/views",
+      "registered": true,
+      "function": "get_device_views",
+      "file": "BE_AIDE/app/api/v1/endpoints/devices.py",
+      "line": 408,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/device-library/busbar-calc",
+      "registered": true,
+      "function": "calculate_device_busbar",
+      "file": "BE_AIDE/app/api/v1/endpoints/devices.py",
+      "line": 439,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/device-library/user-items",
+      "registered": true,
+      "function": "get_user_items",
+      "file": "BE_AIDE/app/api/v1/endpoints/devices.py",
+      "line": 512,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/device-library/user-items",
+      "registered": true,
+      "function": "create_user_item",
+      "file": "BE_AIDE/app/api/v1/endpoints/devices.py",
+      "line": 523,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/device-library/user-items/{id}",
+      "registered": true,
+      "function": "delete_user_item",
+      "file": "BE_AIDE/app/api/v1/endpoints/devices.py",
+      "line": 543,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/equipment-library/{equipment_id}/catalog-information",
+      "registered": true,
+      "function": "catalog_information",
+      "file": "BE_AIDE/app/api/v1/endpoints/equipment_library.py",
+      "line": 19,
+      "pagination": [
+        "skip",
+        "limit"
+      ],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/equipment-library/browser-data",
+      "registered": true,
+      "function": "catalogtb_browser_data",
+      "file": "BE_AIDE/app/api/v1/endpoints/equipment_library.py",
+      "line": 51,
+      "pagination": [
+        "skip",
+        "limit"
+      ],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/equipment-library/projection-catalog",
+      "registered": true,
+      "function": "projection_catalog",
+      "file": "BE_AIDE/app/api/v1/endpoints/equipment_library.py",
+      "line": 61,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/equipment-library/browse",
+      "registered": true,
+      "function": "browse",
+      "file": "BE_AIDE/app/api/v1/endpoints/equipment_library.py",
+      "line": 167,
+      "pagination": [
+        "skip",
+        "limit"
+      ],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/equipment-library/{catalog_id}/drawing-source",
+      "registered": true,
+      "function": "drawing_source",
+      "file": "BE_AIDE/app/api/v1/endpoints/equipment_library.py",
+      "line": 269,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/equipment-library/{catalog_id}/preview",
+      "registered": true,
+      "function": "preview",
+      "file": "BE_AIDE/app/api/v1/endpoints/equipment_library.py",
+      "line": 309,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/equipment-library/{catalog_id}/dxf",
+      "registered": true,
+      "function": "download_dxf",
+      "file": "BE_AIDE/app/api/v1/endpoints/equipment_library.py",
+      "line": 336,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/equipment-library/{catalog_id}/dwg",
+      "registered": true,
+      "function": "download_dwg",
+      "file": "BE_AIDE/app/api/v1/endpoints/equipment_library.py",
+      "line": 342,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/equipment-library/{catalog_id}/views/{view_id}/preview",
+      "registered": true,
+      "function": "view_preview",
+      "file": "BE_AIDE/app/api/v1/endpoints/equipment_library.py",
+      "line": 348,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/equipment-library/{catalog_id}/views/{view_id}/dxf",
+      "registered": true,
+      "function": "view_dxf",
+      "file": "BE_AIDE/app/api/v1/endpoints/equipment_library.py",
+      "line": 354,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/equipment-library/{catalog_id}/views/{view_id}/dwg",
+      "registered": true,
+      "function": "view_dwg",
+      "file": "BE_AIDE/app/api/v1/endpoints/equipment_library.py",
+      "line": 362,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/equipment-library/manifest",
+      "registered": true,
+      "function": "manifest",
+      "file": "BE_AIDE/app/api/v1/endpoints/equipment_library.py",
+      "line": 370,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/equipment-library/search",
+      "registered": true,
+      "function": "search",
+      "file": "BE_AIDE/app/api/v1/endpoints/equipment_library.py",
+      "line": 378,
+      "pagination": [
+        "limit"
+      ],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/equipment-library/{catalog_id}",
+      "registered": true,
+      "function": "detail",
+      "file": "BE_AIDE/app/api/v1/endpoints/equipment_library.py",
+      "line": 388,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/export/match-quotation",
+      "registered": true,
+      "function": "match_quotation",
+      "file": "BE_AIDE/app/api/v1/endpoints/export.py",
+      "line": 30,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/export/excel",
+      "registered": true,
+      "function": "export_excel_quotation",
+      "file": "BE_AIDE/app/api/v1/endpoints/export.py",
+      "line": 68,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/export/save-to-project",
+      "registered": true,
+      "function": "save_quotation_to_project",
+      "file": "BE_AIDE/app/api/v1/endpoints/export.py",
+      "line": 141,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/export/quotation",
+      "registered": true,
+      "function": "export_quotation",
+      "file": "BE_AIDE/app/api/v1/endpoints/export.py",
+      "line": 198,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/export/download/{filename}",
+      "registered": true,
+      "function": "download_file",
+      "file": "BE_AIDE/app/api/v1/endpoints/export.py",
+      "line": 243,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/notifications",
+      "registered": true,
+      "function": "inbox",
+      "file": "BE_AIDE/app/api/v1/endpoints/notifications.py",
+      "line": 14,
+      "pagination": [
+        "limit"
+      ],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/notifications/read-all",
+      "registered": true,
+      "function": "read_all",
+      "file": "BE_AIDE/app/api/v1/endpoints/notifications.py",
+      "line": 23,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/notifications/{notification_id}/read",
+      "registered": true,
+      "function": "read_one",
+      "file": "BE_AIDE/app/api/v1/endpoints/notifications.py",
+      "line": 30,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/payments/create",
+      "registered": true,
+      "function": "create_payment_order",
+      "file": "BE_AIDE/app/api/v1/endpoints/payments.py",
+      "line": 131,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/payments/{payment_id}/status",
+      "registered": true,
+      "function": "check_payment_status",
+      "file": "BE_AIDE/app/api/v1/endpoints/payments.py",
+      "line": 248,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/payments/sepay-webhook",
+      "registered": true,
+      "function": "handle_sepay_webhook",
+      "file": "BE_AIDE/app/api/v1/endpoints/payments.py",
+      "line": 287,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/payments/{payment_id}/cancel",
+      "registered": true,
+      "function": "cancel_payment",
+      "file": "BE_AIDE/app/api/v1/endpoints/payments.py",
+      "line": 419,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/payments/history",
+      "registered": true,
+      "function": "get_my_payment_history",
+      "file": "BE_AIDE/app/api/v1/endpoints/payments.py",
+      "line": 440,
+      "pagination": [],
+      "flags": [
+        "await_in_loop_review"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/payments/test-simulate-success/{payment_id}",
+      "registered": true,
+      "function": "simulate_test_payment_success",
+      "file": "BE_AIDE/app/api/v1/endpoints/payments.py",
+      "line": 478,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/plans",
+      "registered": true,
+      "function": "get_active_plans",
+      "file": "BE_AIDE/app/api/v1/endpoints/plans.py",
+      "line": 55,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/plans/{plan_id}",
+      "registered": true,
+      "function": "get_plan_by_id",
+      "file": "BE_AIDE/app/api/v1/endpoints/plans.py",
+      "line": 62,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/plans/subscribe/{plan_id}",
+      "registered": true,
+      "function": "subscribe_plan",
+      "file": "BE_AIDE/app/api/v1/endpoints/plans.py",
+      "line": 72,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/plans/user/my-subscription",
+      "registered": true,
+      "function": "get_my_subscription",
+      "file": "BE_AIDE/app/api/v1/endpoints/plans.py",
+      "line": 142,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/projects",
+      "registered": true,
+      "function": "list_projects",
+      "file": "BE_AIDE/app/api/v1/endpoints/projects.py",
+      "line": 95,
+      "pagination": [
+        "skip",
+        "limit"
+      ],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/projects/stats",
+      "registered": true,
+      "function": "get_project_stats",
+      "file": "BE_AIDE/app/api/v1/endpoints/projects.py",
+      "line": 140,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/projects",
+      "registered": true,
+      "function": "create_project",
+      "file": "BE_AIDE/app/api/v1/endpoints/projects.py",
+      "line": 167,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/projects/{id}",
+      "registered": true,
+      "function": "get_project",
+      "file": "BE_AIDE/app/api/v1/endpoints/projects.py",
+      "line": 220,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/projects/{id}",
+      "registered": true,
+      "function": "update_project",
+      "file": "BE_AIDE/app/api/v1/endpoints/projects.py",
+      "line": 229,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/projects/{id}",
+      "registered": true,
+      "function": "delete_project",
+      "file": "BE_AIDE/app/api/v1/endpoints/projects.py",
+      "line": 269,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/projects/{id}/upload",
+      "registered": true,
+      "function": "upload_project_file",
+      "file": "BE_AIDE/app/api/v1/endpoints/projects.py",
+      "line": 286,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/projects/{id}/cad/blank",
+      "registered": true,
+      "function": "create_blank_cad_file",
+      "file": "BE_AIDE/app/api/v1/endpoints/projects.py",
+      "line": 365,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/projects/{id}/files",
+      "registered": true,
+      "function": "list_project_files",
+      "file": "BE_AIDE/app/api/v1/endpoints/projects.py",
+      "line": 437,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/projects/{id}/files/{file_id}",
+      "registered": true,
+      "function": "delete_project_file",
+      "file": "BE_AIDE/app/api/v1/endpoints/projects.py",
+      "line": 453,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/projects/{id}/files/{file_id}/download",
+      "registered": true,
+      "function": "download_project_file",
+      "file": "BE_AIDE/app/api/v1/endpoints/projects.py",
+      "line": 489,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/providers",
+      "registered": true,
+      "function": "get_providers",
+      "file": "BE_AIDE/app/api/v1/endpoints/providers.py",
+      "line": 47,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/providers/priority-models",
+      "registered": true,
+      "function": "get_priority_models",
+      "file": "BE_AIDE/app/api/v1/endpoints/providers.py",
+      "line": 65,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/providers/{provider_id}/models",
+      "registered": true,
+      "function": "get_provider_models",
+      "file": "BE_AIDE/app/api/v1/endpoints/providers.py",
+      "line": 92,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/user-library/files",
+      "registered": true,
+      "function": "list_files",
+      "file": "BE_AIDE/app/api/v1/endpoints/user_library.py",
+      "line": 30,
+      "pagination": [],
+      "flags": [
+        "unbounded_materialization_review"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/user-library/files",
+      "registered": true,
+      "function": "upload_file",
+      "file": "BE_AIDE/app/api/v1/endpoints/user_library.py",
+      "line": 41,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/user-library/files/{file_id}",
+      "registered": true,
+      "function": "delete_file",
+      "file": "BE_AIDE/app/api/v1/endpoints/user_library.py",
+      "line": 75,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/user-library/files/{file_id}",
+      "registered": true,
+      "function": "get_file",
+      "file": "BE_AIDE/app/api/v1/endpoints/user_library.py",
+      "line": 102,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/users/me",
+      "registered": true,
+      "function": "read_users_me",
+      "file": "BE_AIDE/app/api/v1/endpoints/users.py",
+      "line": 39,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/users/me",
+      "registered": true,
+      "function": "update_user_me",
+      "file": "BE_AIDE/app/api/v1/endpoints/users.py",
+      "line": 61,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/users",
+      "registered": true,
+      "function": "list_users",
+      "file": "BE_AIDE/app/api/v1/endpoints/users.py",
+      "line": 79,
+      "pagination": [
+        "skip",
+        "limit"
+      ],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/users/{user_id}",
+      "registered": true,
+      "function": "get_user",
+      "file": "BE_AIDE/app/api/v1/endpoints/users.py",
+      "line": 92,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/users/{user_id}",
+      "registered": true,
+      "function": "update_user",
+      "file": "BE_AIDE/app/api/v1/endpoints/users.py",
+      "line": 106,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/users/{user_id}",
+      "registered": true,
+      "function": "delete_user",
+      "file": "BE_AIDE/app/api/v1/endpoints/users.py",
+      "line": 131,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/analyze/device-details",
+      "registered": true,
+      "function": "device_details",
+      "file": "BE_AIDE/app/api/v1/endpoints/workspace_library.py",
+      "line": 39,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/analyze/device-recommendations",
+      "registered": true,
+      "function": "device_recommendations",
+      "file": "BE_AIDE/app/api/v1/endpoints/workspace_library.py",
+      "line": 87,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/analyze/manufacturer-information",
+      "registered": true,
+      "function": "manufacturer_information",
+      "file": "BE_AIDE/app/api/v1/endpoints/workspace_library.py",
+      "line": 104,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/analyze/cad-candidates",
+      "registered": true,
+      "function": "cad_candidates",
+      "file": "BE_AIDE/app/api/v1/endpoints/workspace_library.py",
+      "line": 136,
+      "pagination": [],
+      "flags": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/analyze/cabinet-templates/{template_id}/preview-cad",
+      "registered": true,
+      "function": "preview_cad",
+      "file": "BE_AIDE/app/api/v1/endpoints/workspace_library.py",
+      "line": 155,
+      "pagination": [],
+      "flags": []
+    }
+  ],
+  "duplicate_method_paths": []
+}

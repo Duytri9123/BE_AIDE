@@ -65,7 +65,7 @@ async def acquire_supplier_dxf(source, brand):
 
 def needs_external_geometry(row):
     cad = row.get('cad') or {}
-    return not cad.get('asset_id') or cad.get('geometry_dimensions_status') == 'requires_depth_or_mounting_review'
+    return bool(cad.get('supplement_required')) or not cad.get('asset_id') or cad.get('geometry_dimensions_status') == 'requires_depth_or_mounting_review'
 
 
 async def research_missing_geometry(devices, db):
@@ -92,7 +92,9 @@ async def research_missing_geometry(devices, db):
             sites = ' OR '.join('site:' + domain for domain in MANUFACTURER_DOMAINS.get(str(row.get('brand') or '').lower(), ()))
             # Product identifiers only; source files and project documents stay private.
             query = ' '.join(str(row.get(k) or '') for k in ('brand', 'part_number', 'category', 'spec'))
-            query += (' official manufacturer CAD DWG DXF 2D dimensional drawing front side mm '
+            from .ls_view_coverage import is_ls
+            directions='front rear left right top bottom' if is_ls(row.get('brand')) else 'front side'
+            query += (' official manufacturer CAD DWG DXF STEP dimensional drawing '+directions+' mm '
                       + sites + '. Provide source download links and exact dimensions; do not invent a model or dimensions.')
             async with semaphore:
                 try:

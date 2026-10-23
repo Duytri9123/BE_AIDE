@@ -5,6 +5,8 @@ import ezdxf
 from ezdxf import bbox as ezdxf_bbox
 from pathlib import Path
 from typing import List
+from functools import lru_cache
+from copy import deepcopy
 
 from app.core.exceptions import CADParsingError
 from app.core.device_patterns import DevicePatterns, DeviceMatch
@@ -23,6 +25,17 @@ class CadParseResult:
 class CadParserService:
     @staticmethod
     def parse_dxf(file_path: str) -> CadParseResult:
+        source = Path(file_path)
+        if not source.is_file():
+            raise CADParsingError(f'File DXF không tồn tại: {file_path}', {'path': file_path})
+        stamp = source.stat()
+        # Ingestion and AI extraction read the same drawing. Reuse the parsed
+        # geometry, but isolate callers and invalidate when the file changes.
+        return deepcopy(CadParserService._parse_dxf_cached(str(source.resolve()), stamp.st_mtime_ns, stamp.st_size))
+
+    @staticmethod
+    @lru_cache(maxsize=4)
+    def _parse_dxf_cached(file_path: str, modified_ns: int, file_size: int) -> CadParseResult:
         """Đọc file DXF và trích xuất thông tin thiết bị, nhãn text."""
         if not Path(file_path).exists():
             raise CADParsingError(
@@ -98,6 +111,7 @@ class CadParserService:
                     "text": txt_val.strip(),
                     "x": entity.dxf.insert.x if hasattr(entity.dxf, 'insert') else 0,
                     "y": entity.dxf.insert.y if hasattr(entity.dxf, 'insert') else 0,
+                    "height": float(entity.dxf.height if entity.dxftype() == 'TEXT' else entity.dxf.char_height),
                     "layer": getattr(entity.dxf, 'layer', '0')
                 })
                 
@@ -112,6 +126,7 @@ class CadParserService:
                                 "text": val.strip(),
                                 "x": att.dxf.insert.x if hasattr(att.dxf, 'insert') else 0,
                                 "y": att.dxf.insert.y if hasattr(att.dxf, 'insert') else 0,
+                                "height": float(att.dxf.height),
                                 "layer": getattr(att.dxf, 'layer', '0')
                             })
             except Exception:
@@ -206,13 +221,53 @@ class CadParserService:
         folder = source.parent / '.cad-analysis'
         dest = folder / (hashlib.sha256(source.read_bytes()).hexdigest() + '.dxf')
         if not dest.is_file():
-            if not odafc.is_installed():
-                raise CADParsingError('Cần bộ chuyển đổi DWG sang DXF trước khi phân tích. Chưa có ODA File Converter; hãy cài bộ chuyển đổi hoặc tải DXF.', {'path': str(source)})
             folder.mkdir(parents=True, exist_ok=True)
-            odafc.convert(str(source), str(dest), version='R2018', audit=True, replace=False)
+            if odafc.is_installed():
+                odafc.convert(str(source), str(dest), version='R2018', audit=True, replace=False)
+            else:
+                CadParserService._convert_with_autocad(source, dest)
         # A renamed DWG or invalid conversion must never reach analysis.
         ezdxf.readfile(str(dest))
         return str(dest)
+
+    @staticmethod
+    def _convert_with_autocad(source: Path, dest: Path) -> None:
+        """Use the installed headless converter; never scrape binary DWG text."""
+        import os
+        import shutil
+        import subprocess
+        import tempfile
+        configured = os.environ.get('AIDE_ACCORECONSOLE')
+        roots = Path(os.environ.get('ProgramFiles', 'C:/Program Files')) / 'Autodesk'
+        available = [Path(configured)] if configured else sorted(roots.glob('AutoCAD */accoreconsole.exe'), reverse=True)
+        executable = next((p for p in available if p.is_file()), None)
+        if executable is None:
+            raise CADParsingError('Chưa có bộ chuyển đổi DWG: cần ODA File Converter hoặc AutoCAD Core Console.', {'path': str(source)})
+        with tempfile.TemporaryDirectory(prefix='aide-dwg-') as temporary:
+            work = Path(temporary)
+            drawing = work / 'input.dwg'
+            output = work / 'output.dxf'
+            script = work / 'convert.scr'
+            shutil.copy2(source, drawing)
+            script.write_text('FILEDIA\n0\nSECURELOAD\n2\n_.DXFOUT\n"' + output.as_posix()
+                              + '"\n_Version\n2018\n16\n_.QUIT\n_Y\n', encoding='utf-8')
+            try:
+                with (work / 'convert.log').open('wb') as log:
+                    result = subprocess.run([str(executable), '/i', str(drawing), '/s', str(script), '/l', 'en-US'],
+                        stdout=log, stderr=log, timeout=180,
+                        creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
+                if result.returncode or not output.is_file():
+                    raise ValueError('AutoCAD không xuất được DXF hợp lệ.')
+                ezdxf.readfile(output)
+                # Publish only a validated, complete conversion to the cache.
+                staging = dest.with_name(dest.name + '.' + work.name + '.tmp')
+                try:
+                    shutil.copy2(output, staging)
+                    staging.replace(dest)
+                finally:
+                    staging.unlink(missing_ok=True)
+            except (subprocess.TimeoutExpired, OSError, ValueError, ezdxf.DXFError) as exc:
+                raise CADParsingError('Không chuyển được DWG sang DXF: ' + str(exc), {'path': str(source)}) from exc
 
     @staticmethod
     def parse_cad(file_path: str) -> CadParseResult:

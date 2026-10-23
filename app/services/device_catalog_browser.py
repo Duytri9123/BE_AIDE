@@ -4,7 +4,7 @@ import json
 import hashlib
 from pathlib import Path
 from app.services.ai.manufacturer_registry import manufacturer_categories, canonical_brand, CHECKED_DATE
-from app.services.device_catalog_engine import strip_accents
+from app.services.catalog_text import strip_accents
 from app.services.customer_manufacturers import CUSTOMER_MANUFACTURERS
 
 CATEGORY_LABELS = {
@@ -46,7 +46,8 @@ def load_web_offers():
 
 def load_supplier_items():
     path=Path(__file__).resolve().parents[1]/'data/supplier_pricebooks.json'
-    return json.loads(path.read_text(encoding='utf8')).get('items',[]) if path.exists() else []
+    from .reviewed_product_taxonomy import reviewed_price_row
+    return [reviewed_price_row(r) for r in json.loads(path.read_text(encoding='utf8')).get('items',[])] if path.exists() else []
 
 def load_catalog_items():
     path=Path(__file__).resolve().parents[1]/'data/external_product_information.json'

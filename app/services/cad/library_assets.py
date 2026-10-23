@@ -72,13 +72,19 @@ def insert_library_asset(space, asset_id, x, y, rotation=0):
     return bounds.size.x, bounds.size.y
 
 
-def requested_asset(device, side=False):
+def requested_asset(device, side=False, require_all_views=False):
     cad = device.get('cad') or (device.get('parameters') or {}).get('cad') or {}
+    req_face = 'side' if side else 'front'
+    from .ls_view_coverage import is_ls, require_complete_ls_views, require_ls_device_geometry
+    require_ls_device_geometry(device, required_face=None if require_all_views else req_face)
+    if is_ls(device.get('detected_brand') or device.get('brand')) and not cad.get('asset_id'):
+        raise ValueError('Thiết bị LS chưa có CAD đủ mặt; cần bổ sung CAD trước khi bố trí.')
     if cad.get('requires_selection') and not cad.get('asset_id'):
         return False, None
     if str(cad.get('asset_id') or '').startswith('tb:'):
         from app.services.cad.catalogtb_assets import resolve
         item = resolve(cad['asset_id'])
+        require_complete_ls_views(item, required_face=None if require_all_views else req_face)
         allowed = {'side'} if side else ({'front','top','wire_passage'} if item['category']=='CT' else {'front','wiring'} if item['category']=='TERMINAL' else {'front'})
         if item['face'] not in allowed:
             raise ValueError('Mặt CAD đã chọn không đúng hướng nhìn yêu cầu')

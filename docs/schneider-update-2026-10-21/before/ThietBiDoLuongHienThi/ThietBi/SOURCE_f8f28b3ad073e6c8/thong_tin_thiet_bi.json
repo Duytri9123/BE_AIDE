@@ -1,0 +1,232 @@
+{
+  "nhom": "ThietBiDoLuongHienThi",
+  "ten_kieu": "Schneider — Đồng hồ đa năng PM2220",
+  "ten_san_pham": "Đồng hồ đo điện · Schneider — Đồng hồ đa năng PM2220",
+  "ban_chat": "METER",
+  "ma_dong_san_pham": "PM2220",
+  "hang_xac_nhan": "Schneider Electric",
+  "thong_so": {
+    "Loại thiết bị": "Đồng hồ đo điện",
+    "Phạm vi bản vẽ": "Hình chiếu/chi tiết nguồn",
+    "Mã/dòng trên nguồn": "PM2220",
+    "Giá": "---"
+  },
+  "cong_dung": "Đồng hồ đo điện dùng để tra cứu thông tin, chọn mã và bố trí theo mẫu CAD tham khảo.",
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "METER",
+    "source_component_type": "METER",
+    "cac_ma_dong_san_pham": [
+      "PM2220"
+    ],
+    "fabrication_ready": false,
+    "generic_shape": false
+  },
+  "auto_select": false,
+  "needs_review": true,
+  "source_catalog_review": {
+    "source_path": "ThietBiDoLuongHienThi/TuLieuBanVe/C04/ThanhPhanCAD/B_b6602f58690c/ban_ve.dxf",
+    "source_sha256": "7e1a54a0ed0af030a3483e6cb836447a1e24afb496e70fcb346a9134ca42f228",
+    "texts": [
+      "PM2220",
+      "V",
+      "A",
+      "Hz",
+      "Schneider"
+    ],
+    "component_type": "METER",
+    "contains_multiple_components": false,
+    "status": "information_catalogued",
+    "visual_review": "category_contact_sheet_2026_10_16",
+    "brands_read_from_source": [
+      "Schneider Electric"
+    ],
+    "shared_source_variants": [
+      {
+        "name": "Schneider — Đồng hồ đa năng PM2220",
+        "models": [
+          "PM2220"
+        ],
+        "brand": "Schneider Electric",
+        "source": "ThietBiDoLuongHienThi/TuLieuBanVe/C04/ThanhPhanCAD/B_b6602f58690c/ban_ve.dxf"
+      }
+    ]
+  },
+  "nguon_cad": {
+    "file": "ThietBiDoLuongHienThi/TuLieuBanVe/C04/ThanhPhanCAD/B_b6602f58690c/ban_ve.dxf",
+    "block": "Schneider — Đồng hồ đa năng PM2220",
+    "sha256": "7e1a54a0ed0af030a3483e6cb836447a1e24afb496e70fcb346a9134ca42f228"
+  },
+  "tu_khoa_tim_kiem": [
+    "Đồng hồ đo điện",
+    "Schneider — Đồng hồ đa năng PM2220",
+    "Đồng hồ đo điện · Schneider — Đồng hồ đa năng PM2220",
+    "METER",
+    "PM2220"
+  ],
+  "cad_don": [
+    {
+      "id_hinh_goc": "SOURCE-f8f28b3ad073e6c8",
+      "huong_nhin": "Chưa xác nhận hướng nhìn",
+      "duong_dan": "CadDon/SOURCE-f8f28b3ad073e6c8/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": false
+      }
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "SOURCE-f8f28b3ad073e6c8"
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao."
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "METER",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "Schneider Electric",
+        "model": "PM2220",
+        "specifications": {
+          "Loại thiết bị": "Đồng hồ đo điện",
+          "Phạm vi bản vẽ": "Hình chiếu/chi tiết nguồn",
+          "Mã/dòng trên nguồn": "PM2220",
+          "Giá": "---"
+        },
+        "source_url": "",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      },
+      {
+        "brand": "CHINT",
+        "model": "DDSU666 220/330V 5(80)A RS485 2P",
+        "specifications": {
+          "Hệ thống": "1P2W",
+          "Điện áp": "230V",
+          "Dòng điện": "5(80)A",
+          "Mã hàng": "313270"
+        },
+        "source_url": "/device-catalog/documents/chint-2026",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "EMIC",
+        "model": "CV111",
+        "specifications": {},
+        "source_url": "https://www.ple.vn/cong-to-dien/cong-to-dien-emic/cv111-5-6-detail.html",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Hanyoung Nux",
+        "model": "MP3-4-AA-1A",
+        "specifications": {
+          "In (A)": "1"
+        },
+        "source_url": "https://www.ple.vn/dong-ho-tu-dien/ampe/mp3-4-aa-1a-detail.html",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "GIMAC-1000 EX,M485,5A,50Hz,AC/DC100~240V",
+        "specifications": {},
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Mikro",
+        "model": "DM36",
+        "specifications": {
+          "Dòng trong bảng giá": "DM36 thực (TPF).",
+          "Họ thiết bị": "DM36"
+        },
+        "source_url": "https://www.saigonelectric.vn/images/prices/MIKRO_15-01-2026.2.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Mitsubishi Electric",
+        "model": "19D114T000006",
+        "specifications": {
+          "Mã đặt hàng": "19D114T000006",
+          "Miêu tả": "Thiết bị thu thập và phân tích dữ liệu đo lường Measurement Data Collection and Analysis Device"
+        },
+        "source_url": "https://www.saigonelectric.vn/images/prices/Mitsubishi_Summary_LVS_06.2026.2.xlsx",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Selec",
+        "model": "AM-I-3-50/5A",
+        "specifications": {
+          "In (A)": "5"
+        },
+        "source_url": "https://www.ple.vn/phu-kien-tu-dien/dongho-chuyenmach/selec-ami3-detail.html",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      }
+    ],
+    "observed_specifications": {
+      "Loại thiết bị": "Đồng hồ đo điện",
+      "Phạm vi bản vẽ": "Hình chiếu/chi tiết nguồn",
+      "Mã/dòng trên nguồn": "PM2220",
+      "Giá": "---"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "source_labels_need_catalog",
+      "source_model": "PM2220",
+      "matched_catalog_rows": 0,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Tra catalog đúng hãng/dòng; các mã cùng loại hiện có chỉ là tham khảo",
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "source_labels_need_catalog",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [
+        "PM2220"
+      ],
+      "documented_models": [],
+      "source_text_count": 5,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

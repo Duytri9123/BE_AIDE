@@ -1,0 +1,185 @@
+{
+  "nhom": "Nguồn và biến áp",
+  "ten_kieu": "Nguồn Omron S8FS-C05024J",
+  "ten_san_pham": "Nguồn Omron S8FS-C05024J",
+  "hang_xac_nhan": "Omron",
+  "ma_dong_san_pham": "S8FS-C05024J",
+  "ban_chat": "Nguồn DC",
+  "cong_dung": "Nguồn 24 VDC; chọn công suất và tư thế lắp theo tải thực tế.",
+  "thong_so": {
+    "nhan_block_nguon": "S8FS-C05024J",
+    "dien_ap_dau_ra_V": 24,
+    "cong_suat_W": 50,
+    "dong_dau_ra_A": 2.2,
+    "source": "https://www.ia.omron.com/products/family/3460/lineup.html"
+  },
+  "nguon_cad": {
+    "file": "THƯ VIỆN PHỤ KIỆN( Mới nhất).dwg",
+    "sha256": "cd7c2afc417061349d0f94a95574bf4326df876a4ca60fdaaef0396849dc9bc9",
+    "block": "S8FS-C05024J",
+    "method": "Original block export; invisible source entities preserved. Visible front state reviewed."
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "S8FS-C05024J-FRONT",
+      "huong_nhin": "Mặt đấu dây",
+      "nhan_hien_thi": "Mặt cọc đấu · tư thế lắp chưa xác nhận",
+      "duong_dan": "CadDon/S8FS-C05024J-FRONT/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "mat_form_mac_dinh": "Mặt trước",
+        "cho_phep_chen": true,
+        "huong_dan": "Dùng đúng mặt nguồn. Chưa xác nhận mặt bên, tư thế lắp và khoảng đấu dây; không chọn tự động để chốt chế tạo."
+      }
+    }
+  ],
+  "cac_hinh_cad": [
+    "S8FS-C05024J-FRONT"
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "S8FS-C05024J-FRONT",
+    "huong_nhin": "Mặt đấu dây",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "tu_khoa_tim_kiem": [
+    "nguồn 24VDC",
+    "POWER_SUPPLY",
+    "Selec",
+    "120W",
+    "Nguồn Omron S8FS-C05024J",
+    "Nguồn DC",
+    "S8FS-C05024J"
+  ],
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "POWER_SUPPLY",
+    "hang": "Omron",
+    "cac_ma_dong_san_pham": [
+      "S8FS-C05024J"
+    ],
+    "fabrication_ready": false
+  },
+  "muc_do_xac_nhan": "Mã nguồn có trong block thư viện và tài liệu hãng. Đã kiểm tra hình cọc đấu đang hiển thị; chưa xác nhận tư thế lắp, trạng thái Side trong CAD tủ và kích thước CAD trùng hoàn toàn tài liệu hãng.",
+  "needs_review": true,
+  "auto_select": false,
+  "nguon_tham_khao": [
+    "https://www.ia.omron.com/products/family/3460/lineup.html",
+    "https://www.ia.omron.com/products/family/3460/dimension.html"
+  ],
+  "vi_tri_lap_dat": "Lắp trong tủ theo tư thế và khoảng hở của hãng; chưa xác nhận trạng thái CAD bên và kiểu gá của bản nguồn.",
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "Omron",
+    "ma_san_pham": "S8FS-C05024J",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Tham khảo - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "POWER_SUPPLY",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "Omron",
+        "model": "S8FS-C05024J",
+        "specifications": {
+          "Tên hàng": "Bộ nguồn Omron-S8FS-C05024J"
+        },
+        "source_url": "https://www.ple.vn/bo-nguon/bo-nguon-omron/omron-s8fs-c05024j-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:699a71d7a51c4df8",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "Omron",
+        "model": "S8FS-C05024J",
+        "specifications": {
+          "nhan_block_nguon": "S8FS-C05024J",
+          "dien_ap_dau_ra_V": 24,
+          "cong_suat_W": 50,
+          "dong_dau_ra_A": 2.2,
+          "source": "https://www.ia.omron.com/products/family/3460/lineup.html",
+          "Loại thiết bị": "POWER_SUPPLY",
+          "Lắp đặt tham khảo": "Lắp trong tủ theo tư thế và khoảng hở của hãng; chưa xác nhận trạng thái CAD bên và kiểu gá của bản nguồn.",
+          "Hình chiếu Mặt đấu dây (ngang × cao, mm)": "38 × 97"
+        },
+        "source_url": "",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      },
+      {
+        "brand": "MEAN WELL",
+        "model": "LRS-150-24",
+        "specifications": {
+          "Đầu ra DC": "24 V",
+          "Dòng đầu ra": "6.5 A",
+          "Công suất": "156 W"
+        },
+        "source_url": "https://www.meanwell.com/Upload/PDF/LRS-150/LRS-150-SPEC.PDF",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      }
+    ],
+    "observed_specifications": {
+      "nhan_block_nguon": "S8FS-C05024J",
+      "dien_ap_dau_ra_V": 24,
+      "cong_suat_W": 50,
+      "dong_dau_ra_A": 2.2,
+      "source": "https://www.ia.omron.com/products/family/3460/lineup.html",
+      "Loại thiết bị": "POWER_SUPPLY",
+      "Lắp đặt tham khảo": "Lắp trong tủ theo tư thế và khoảng hở của hãng; chưa xác nhận trạng thái CAD bên và kiểu gá của bản nguồn.",
+      "Hình chiếu Mặt đấu dây (ngang × cao, mm)": "38 × 97"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "source_labels_need_catalog",
+      "source_model": "S8FS-C05024J",
+      "matched_catalog_rows": 1,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": false,
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "source_labels_need_catalog",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [
+        "S8FS-C05024J"
+      ],
+      "documented_models": [],
+      "source_text_count": 3,
+      "contains_multiple_components": false,
+      "original_context": [
+        {
+          "basis": "named_block_in_original_library",
+          "block": "S8FS-C05024J",
+          "handle": null,
+          "source_sha256": "cd7c2afc417061349d0f94a95574bf4326df876a4ca60fdaaef0396849dc9bc9",
+          "dynamic_state_verified": false
+        }
+      ],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  }
+}

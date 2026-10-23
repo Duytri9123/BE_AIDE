@@ -1,0 +1,2273 @@
+{
+  "note": "Source folders may be merged into a single browser item; do not add folder counts to displayed item counts. Hidden folders are excluded from the live item table.",
+  "summary": {
+    "LS": {
+      "total_folders": 276,
+      "hidden_folders": 12,
+      "visible_source_folders": 264,
+      "visible_folders_with_one_view": 61
+    },
+    "CHINT": {
+      "total_folders": 46,
+      "hidden_folders": 0,
+      "visible_source_folders": 46,
+      "visible_folders_with_one_view": 35
+    }
+  },
+  "folders": [
+    {
+      "brand": "LS",
+      "profile": "ProjectSamples/BKN_1P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCB · BKN · 1P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "ProjectSamples/BKN_2P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCB · BKN · 2P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "ProjectSamples/BKN_3P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCB · BKN · 3P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "ProjectSamples/MC12AF/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Khởi động từ LS MC-12a · CAD MC12AF",
+      "view_files": 2
+    },
+    {
+      "brand": "CHINT",
+      "profile": "ProjectSamples/Selector/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Công tắc chuyển mạch CHINT",
+      "view_files": 2
+    },
+    {
+      "brand": "CHINT",
+      "profile": "ProjectSamples/Timer24h/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Timer lịch 24H CHINT",
+      "view_files": 2
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/32KGRc/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · RCBO · 32KGRc · 2P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/BKD/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Isolator · BKD · 3P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/BKD_1P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Isolator · BKD · 1P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/BKD_2P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Isolator · BKD · 2P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/BKD_4P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Isolator · BKD · 4P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/BKH/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCB · BKH · 1P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/BKH_2P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCB · BKH · 2P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/BKH_3P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCB · BKH · 3P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/BKH_4P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCB · BKH · 4P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/BKN/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCB · BKN · 1P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/BKN_2P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCB · BKN · 2P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/BKN_3P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCB · BKN · 3P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/BKN_4P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCB · BKN · 4P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/BKP/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCB · BKP · 1P+N",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/BS32c/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · RCBO · BS32c · 2P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/MC_35/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-35 / MC-40 / MC-50 / MC-63 · 3P",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/MC_9/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-9 / MC-12 / MC-18 / MC-25 / MC-32 · 3P",
+      "view_files": 7
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/MC_95/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-95 / MC-65 / MC-75 / MC-85 · 3P",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/MC_9a/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-9a / MC-12a · 3P",
+      "view_files": 4
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/Metasol_29/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABN 100 · 3P · Icu 14/18/22 kA theo bảng giá",
+      "view_files": 4
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/Metasol_29_2P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABN 100 · 2P · Icu 25/30/35 kA theo bảng giá",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/Metasol_29_4P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABN 100 · 4P · Icu 18/22 kA theo bảng giá",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/Metasol_30/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABH 125 · 3P · Icu 42 kA theo bảng giá",
+      "view_files": 4
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/Metasol_30_2P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABH 125 · 2P · Icu 85 kA theo bảng giá",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/Metasol_30_4P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABH 125 · 4P · Icu 42 kA theo bảng giá",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/Metasol_31/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABN / ABH / ABS 250 · 3P · Icu 30/42 kA theo bảng giá",
+      "view_files": 4
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/Metasol_31_2P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABN / ABH / ABS 250 · 2P · Icu 65/85 kA theo bảng giá",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/Metasol_31_4P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABN / ABH / ABS 250 · 4P · Icu 30/42 kA theo bảng giá",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/Metasol_32/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABN 400 · 3P · Icu 42/65 kA theo bảng giá",
+      "view_files": 5
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/Metasol_32_2P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABN 400 · 2P · Icu 50 kA theo bảng giá",
+      "view_files": 4
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/Metasol_32_4P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABN 400 · 4P · Icu 42/65 kA theo bảng giá",
+      "view_files": 4
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/Metasol_33/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABN 800 · 3P · Icu 45/75 kA theo bảng giá",
+      "view_files": 5
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/Metasol_33_2P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABN 800 · 2P",
+      "view_files": 4
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/Metasol_33_4P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABN 800 · 4P · Icu 45/75 kA theo bảng giá",
+      "view_files": 4
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/Metasol_34/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ELCB · EBS 1000 · 3P",
+      "view_files": 4
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/Metasol_35/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABS 1000 · 3P · Icu 65 kA theo bảng giá",
+      "view_files": 4
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/Metasol_35_4P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABS 1000 · 4P · Icu 65 kA theo bảng giá",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/MT_32/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Thermal Relay · MT-32",
+      "view_files": 2
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/MT_63/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Thermal Relay · MT-63",
+      "view_files": 4
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-ACB-06-16D-3P-H-FIXED/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 06~16D · 3P · Cố định · Đầu nối H",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-ACB-06-16D-4P-H-FIXED/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 06~16D · 4P · Cố định · Đầu nối H",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-ACB-20-32E-3P-H-FIXED/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 20~32E · 3P · Cố định · Đầu nối H",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-ACB-20-32E-4P-H-FIXED/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 20~32E · 4P · Cố định · Đầu nối H",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-ACB-40-50F-3P-H-FIXED/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 40~50F · 3P · Cố định · Đầu nối H",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-ACB-40-50F-4P-H-FIXED/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 40~50F · 4P · Cố định · Đầu nối H",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-ACB-40E-3P-V-FIXED/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 40E · 3P · Cố định · Đầu nối V",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-ACB-40E-4P-V-FIXED/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 40E · 4P · Cố định · Đầu nối V",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-ACB-63G-3P-H-FIXED/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 63G · 3P · Cố định · Đầu nối H",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-ACB-63G-4P-H-FIXED/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 63G · 4P · Cố định · Đầu nối H",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-GIMAC1000-NO-M485/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Đồng hồ GIMAC-1000 · NO · M485",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-GMP22-2P-3P-1a1b/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Rơ le bảo vệ động cơ · GMP22 · 2P/3P · 1a1b",
+      "view_files": 2
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-GMP40-2P-3P-1a1b/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Rơ le bảo vệ động cơ · GMP40 · 2P/3P · 1a1b",
+      "view_files": 2
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-GMP60T-DIN/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Rơ le bảo vệ động cơ · GMP60-T · DIN rail",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-MC32-40A-AC-3P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · CONTACTOR · MC-32a / MC-40a · 3P",
+      "view_files": 2
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-MC50-65A-AC-3P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · CONTACTOR · MC-50a / MC-65a · 3P",
+      "view_files": 2
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-MC6-18A-AC-1A1B-3P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · CONTACTOR · MC-6a / MC-9a / MC-12a / MC-18a · 3P",
+      "view_files": 2
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-MC75-100A-AC-3P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · CONTACTOR · MC-75a / MC-85a / MC-100a · 3P",
+      "view_files": 2
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-META100-2P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABN50c / ABN60c / ABN100c / ABS30c / ABS50c / ABS60c · 2P · Icu 25/30/35 kA theo bảng giá",
+      "view_files": 2
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-META100-3P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABN50c / ABN60c / ABN100c / ABS30c / ABS50c / ABS60c · 3P · Icu 14/18/22 kA theo bảng giá",
+      "view_files": 2
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-META100-4P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABN50c / ABN60c / ABN100c / ABS30c / ABS50c / ABS60c · 4P · Icu 18/22 kA theo bảng giá",
+      "view_files": 2
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-META125-2P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABS125c / ABH50c / ABH125c / ABL125c · 2P · Icu 85 kA theo bảng giá",
+      "view_files": 2
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-META125-3P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABS125c / ABH50c / ABH125c / ABL125c · 3P · Icu 42 kA theo bảng giá",
+      "view_files": 2
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-META125-4P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABS125c / ABH50c / ABH125c / ABL125c · 4P · Icu 42 kA theo bảng giá",
+      "view_files": 2
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-META250-3P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABN250c / ABS250c / ABH250c / ABL250c · 3P · Icu 30/42 kA theo bảng giá",
+      "view_files": 2
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-META250-4P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABN250c / ABS250c / ABH250c / ABL250c · 4P · Icu 30/42 kA theo bảng giá",
+      "view_files": 2
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-META400-3P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABN400c / ABS400c / ABH400c / ABL400c · 3P · Icu 42/65 kA theo bảng giá",
+      "view_files": 2
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-META400-4P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · ABN400c / ABS400c / ABH400c / ABL400c · 4P · Icu 42/65 kA theo bảng giá",
+      "view_files": 2
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45204-model-001-handle/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Tay xoay ngoài tủ · EH100 · ABN103c",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45205-model-001-handle/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Tay xoay ngoài tủ · EH125 · ABS125c",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45206-model-001-handle/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Tay xoay ngoài tủ · EH250 · ABN250c",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45207-model-000/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Tay xoay trực tiếp · DH100 · ABN103c",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45207-model-003/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Tay xoay trực tiếp · DH125 · ABS125c",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45207-model-006/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Tay xoay trực tiếp · DH250 · ABH250c",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45208-model-000/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Metasol · 100AF · 2P · Icu 25/30/35 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45208-model-001/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Metasol · 100AF · 3P · Icu 14/18/22 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45208-model-002/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Metasol · 100AF · 4P · Icu 18/22 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45208-model-003/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Metasol · 125AF · 2P · Icu 85 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45208-model-004/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Metasol · 125AF · 3P · Icu 42 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45208-model-005/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Metasol · 125AF · 4P · Icu 42 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45208-model-006/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Metasol · 250AF · 3P · Icu 30/42 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45208-model-007/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Metasol · 250AF · 4P · Icu 30/42 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45208-model-008/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Metasol · 400AF · 2P · Icu 50 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45208-model-010/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Metasol · 400AF · 3P · Icu 42/65 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45208-model-012/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Metasol · 400AF · 4P · Icu 42/65 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45208-model-015/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Metasol · 800AF · 3P · Icu 45/75 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45208-model-017/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Metasol · 800AF · 4P · Icu 45/75 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45208-model-026/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Metasol · 1200AF · 3P · Có thanh đấu nối · Icu 65 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45208-model-027/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Metasol · 1200AF · 4P · Có thanh đấu nối · Icu 65 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45210/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Tay xoay trực tiếp · N-70 · ABN403c",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45211/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Tay xoay trực tiếp · N-80 · ABN803c",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45226-model-001/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ELCB Metasol · EBS204c · 4P · Icu 37 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45226-model-004/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ELCB Metasol · EBN403c · 3P · Có thanh đấu nối · Icu 37 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45226-model-007/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ELCB Metasol · EBN404c · 4P · Có thanh đấu nối · Icu 37 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45226-model-010/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ELCB Metasol · EBN803c · 3P · Có thanh đấu nối · Icu 37 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45226-model-016/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ELCB Metasol · 100AF · 3P · Icu 14/18 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45226-model-019/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ELCB Metasol · 100AF · 4P · Icu 18 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45226-model-025/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ELCB Metasol · EBS104c · 4P · Icu 37 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45226-model-028/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ELCB Metasol · 250AF · 3P · Icu 26 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45871/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Rơ le bảo vệ động cơ DMPi · DMP06i-S / DMP65i-S · Màn hình liền · Đầu nối vít",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-45873/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Rơ le bảo vệ động cơ DMPi · DMP06i-T / DMP65i-T · Màn hình liền · Luồn dây",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-47023-model-001/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Susol · TD100 / TD160 · 3P · Icu 50 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-47023-model-002/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Susol · TD100 / TD160 · 4P · N trái · Icu 50 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-47023-model-003/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Susol · TD100 / TD160 · 4P · N phải · Icu 50 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-47023-model-004/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Susol · TS100 / TS160 / TS250 · 3P · Icu 50 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-47023-model-005/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Susol · TS100 / TS160 / TS250 · 4P · N trái · Icu 50 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-47023-model-006/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Susol · TS100 / TS160 / TS250 · 4P · N phải · Icu 50 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-47023-model-009/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Susol · TS400 / TS630 · 3P · Có thanh đấu nối · Icu 65 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-47023-model-010/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Susol · TS400 / TS630 · 4P · N trái · Có thanh đấu nối · Icu 65 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-47023-model-011/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Susol · TS400 / TS630 · 4P · N phải · Có thanh đấu nối · Icu 65 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-47023-model-012/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Susol · TS800 · 3P · Icu 65 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-47023-model-013/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Susol · TS800 · 4P · N trái · Icu 65 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-47023-model-014/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Susol · TS800 · 4P · N phải · Icu 65 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-47023-model-017/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Susol · TS1000 / TS1250 / TS1600 · 3P · Icu 50/70/150 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-47023-model-018/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB Susol · TS1000 / TS1250 / TS1600 · 4P · Icu 50/70 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-48321/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 40~50F · 3P · Cố định · Đầu nối H · Icu 100 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-48327/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 40~50F · 4P · Cố định · Đầu nối H · Icu 100 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-48375/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 63G · 3P · Cố định · Đầu nối H · Icu 120 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-48387/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 63G · 4P · Cố định · Đầu nối H · Icu 120 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-48529/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 40~50F · 4P · Rút kéo · Đầu nối H · Icu 100 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-48567/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 63G · 4P · Rút kéo · Đầu nối H · Icu 120 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50256/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 40~50F · 3P · Rút kéo · Đầu nối H · Icu 100 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50301/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-6a / MC-9a / MC-12a / MC-18a · 3P · Cuộn AC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50304/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-9b / MC-12b / MC-18b / MC-22b · 3P · Cuộn AC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50307/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · CONTACTOR · MC-32a / MC-40a",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50308/thong_tin_thiet_bi.json",
+      "hidden": true,
+      "name": "LS · Contactor · MC-32a / MC-40a · Cuộn DC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50309/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-32a / MC-40a · 3P · Cuộn DC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50313/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-50a / MC-65a · 3P · Cuộn AC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50315/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-50a / MC-65a · 3P · Cuộn DC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50317/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-75a / MC-85a / MC-100a · 3P · Cuộn AC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50319/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-75a / MC-85a / MC-100a · 3P · Cuộn DC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50321/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-130a / MC-150a · 3P · Cuộn AC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50324/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Rơ le contactor · MR-4 · Cuộn AC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50326/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Rơ le contactor · MR-4 · Cuộn DC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50335/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-185a / MC-225a · 3P · Cuộn AC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50339/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-500a / MC-630a / MC-800a · 3P · Cuộn AC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50349/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-6a / MC-9a / MC-12a / MC-18a · 4P · Cuộn AC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50351/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-22a · 4P · Cuộn AC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50354/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-32a / MC-40a · 4P · Cuộn AC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50357/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-265a / MC-330a / MC-400a · 4P · Cuộn AC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50359/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-500a / MC-630a / MC-800a · 4P · Cuộn AC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50362/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-50a / MC-65a / MC-75a / MC-85a · 4P · Cuộn AC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50364/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-100a / MC-130a / MC-150a / MC-185a / MC-225a · 4P · Cuộn AC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50481-model-017/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Phụ kiện MMS · FX · Gắn phía trước",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50481-model-019/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Phụ kiện MMS · LX / LA / LAM · Gắn bên trái",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50483/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Aptomat bảo vệ động cơ · MMS-32S · 3P",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50486/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Aptomat bảo vệ động cơ · MMS-63S · 3P",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50488/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Aptomat bảo vệ động cơ · MMS-100S · 3P",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-50863/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 63G · 3P · Rút kéo · Đầu nối H · Icu 120 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-51933/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-265a / MC-330a / MC-400a · 3P · Cuộn AC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-53658/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 06~16D · 3P · Cố định · Đầu nối H · Icu 65 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-53670/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 06~16D · 4P · Cố định · Đầu nối H · Icu 65 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-53682/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 20~32E · 3P · Cố định · Đầu nối H · Icu 85 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-53692/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 40E · 3P · Cố định · Đầu nối V · Icu 85 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-53694/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 20~32E · 4P · Cố định · Đầu nối H · Icu 85 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-53704/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 40E · 4P · Cố định · Đầu nối V · Icu 85 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-53706/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 06~16D · 3P · Rút kéo · Đầu nối H · Icu 65 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-53718/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 06~16D · 4P · Rút kéo · Đầu nối H · Icu 65 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-53730/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 20~32E · 3P · Rút kéo · Đầu nối H · Icu 85 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-53740/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 40E · 3P · Rút kéo · Đầu nối V · Icu 85 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-53742/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 20~32E · 4P · Rút kéo · Đầu nối H · Icu 85 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-53752/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ACB · 40E · 4P · Rút kéo · Đầu nối V · Icu 85 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-55490/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · RCBO · LB40NN 1P+N · Icn 6 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-55497/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · RCBO · LB50HW 1P+N · Icn 10 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-55498/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · RCBO · LB63HW 3P+N · Icn 10 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-55499/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · RCCB · LC63N 1P+N · Inc 6 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-55500/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · RCCB · LC63N 3P+N · Inc 6 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-55503/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · RCCB · LC100H 1P+N · Inc 10 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-55504/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · RCCB · LC100H 3P+N · Inc 10 kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-55731-model-027/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Khóa liên động cơ khí · AR-180",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-55731-model-030/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Cụm đảo chiều AR-600 · 3P",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-55731-model-031/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Cụm đảo chiều AR-600 · 4P",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-55731-model-036/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Tiếp điểm phụ · AU-100 · Gắn bên hông",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-55731-model-038/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Tiếp điểm phụ · UA-1 · Gắn bên hông",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-55731-model-039/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Tiếp điểm phụ · UA-2 · Gắn mặt trước",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-55731-model-040/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Tiếp điểm phụ · UA-4 · Gắn mặt trước",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-55731-model-042/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Khóa liên động cơ khí · UR-02 · Bảng giá UR-2",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/OFFICIAL-STEP-55766/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Contactor · MC-9b / MC-12b / MC-18b / MC-22b · 3P · Cuộn DC",
+      "view_files": 6
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/RKN/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · RCCB · RKN · 1P+N",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/RKN_3P_N/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · RCCB · RKN · 3P+N",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/RKP/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · RCBO · RKP · 1P+N",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_011776810efd/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · LS 800AF 2P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_089139cb6de1/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · HCC2 LS 800AF · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_08f05b6a7d61/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · LS ABH52C 2P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_0d354fcfc646/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · LS 1000-1200AF 4P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_0e808d3884f1/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · LS 800AF 3P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_118a8e291679/thong_tin_thiet_bi.json",
+      "hidden": true,
+      "name": "LS · MT-63 · CAD nguồn",
+      "view_files": 0
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_119b9027dcb0/thong_tin_thiet_bi.json",
+      "hidden": true,
+      "name": "LS · GYER HERH  WRE TS1600AF 4P · CAD nguồn",
+      "view_files": 0
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_21ad01aeaca0/thong_tin_thiet_bi.json",
+      "hidden": true,
+      "name": "LS · HCN BKN1P · CAD nguồn",
+      "view_files": 0
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_224df8739763/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · LS 800AF 4P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_2660748595b9/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · mcb3p · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_27e2d6c58155/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · LS 250AF 3P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_2ede54bc7847/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · abs103 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_2f3a4b500b66/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · BKN 3P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_3388287618fe/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · HCC2 LS ABH50AF · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_3408a27260d7/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · HCC1 LS ABH50AF · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_3b7482fcca9f/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MC 185a · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_3c36f48a9dc2/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ABS403c · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_4095316f05fd/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · HCC1 LS 800AF · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_418527c4fc24/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · CC MC 500a · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_430b11b485cd/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MC 75a-100a AC · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_4577a2e4cd0c/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · LS 1000-1200AF 3P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_48980bf7ad40/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · HCC BKN · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_4a8c0a746398/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · CC MC 265a · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_4ba3e95b45a8/thong_tin_thiet_bi.json",
+      "hidden": true,
+      "name": "LS · HCN BKN3P · CAD nguồn",
+      "view_files": 0
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_51978248b4b9/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · LS 125AF 4P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_5251289cd8bf/thong_tin_thiet_bi.json",
+      "hidden": true,
+      "name": "LS · ERYHR REH W4 TS1600AF · CAD nguồn",
+      "view_files": 0
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_543f712d8974/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · LS 30AF 2P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_55dfd3ebcb4d/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · BKN 4P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_5603bdaa8820/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · LS 30AF 3P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_56b62db7d535/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · cc mt12 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_73da73597562/thong_tin_thiet_bi.json",
+      "hidden": true,
+      "name": "LS · ABS(N)803-3 · CAD nguồn",
+      "view_files": 0
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_750968891392/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · HCC2 LS 400AF · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_7b513915a600/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · mt12 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_8272be313121/thong_tin_thiet_bi.json",
+      "hidden": true,
+      "name": "LS · abs103-4 · CAD nguồn",
+      "view_files": 0
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_843592d0d859/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · HCC2 LS 250AF · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_8a940968ef2a/thong_tin_thiet_bi.json",
+      "hidden": true,
+      "name": "LS · HCN BKN4P · CAD nguồn",
+      "view_files": 0
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_8ac6446915e3/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MC 265a · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_944d6b50845a/thong_tin_thiet_bi.json",
+      "hidden": true,
+      "name": "LS · ABN53c-4 · CAD nguồn",
+      "view_files": 0
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_978f1ae5618e/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · CC MC185a · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_9ed1488d5780/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ABN203-2 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_a0e89a56dd19/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · abn203c · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_a1fd90cbceb8/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · LS 30AF 4P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_aa32841393b9/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MC 500a · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_abb69863f686/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ABS(N)803 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_c3db0431a799/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ABN53c · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_caa335934375/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · LS 400AF 4P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_cddcfdbb10b8/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · mcb1p · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_cf7293cb0d5c/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · LS 400AF 2P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_d0388c937bfe/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · HCC1 LS 400AF · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_d039da15da5b/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · BKN 2P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_d4088da2ec6f/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · LS 400AF 3P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_dbb420436983/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · BKN 1P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_e21ab4e13d10/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ABN403-2 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_ef2dc1625b33/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ABN53-2 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_efc91371ed0b/thong_tin_thiet_bi.json",
+      "hidden": true,
+      "name": "LS · abn203c-4 · CAD nguồn",
+      "view_files": 0
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_f06345c6bc7e/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · LS 125AF 2P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_f195975d84dc/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · LS 125AF 3P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_f3b2a0260f8c/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · HCC1 LS 250AF · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_f5efa85d66e2/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ABE203 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_f68d459a2c10/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · LS 250AF 4P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_f695f23e4683/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · HCC1 LS 30AF · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_f7b17b0b78e2/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · HCC2 LS 30AF · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_f7c2245f1c95/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · LS 250AF 2P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_fe378971f89b/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · mcb1p-2 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/SRC_LS_fe6cb49ed8f9/thong_tin_thiet_bi.json",
+      "hidden": true,
+      "name": "LS · HCN BKN2P · CAD nguồn",
+      "view_files": 0
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/TD100_TD160/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · TD100 / TD160 · 3P · Icu 50 kA theo bảng giá",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/TD100_TD160_2P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · TD100 / TD160 · 2P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/TD100_TD160_4P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · TD100 / TD160 · 4P · Icu 50 kA theo bảng giá",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/TD160/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · TD160 · 1P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/TS100_TS160_TS250/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · TS100 / TS160 / TS250 · 3P · Icu 50 kA theo bảng giá",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/TS100_TS160_TS250_2P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · TS100 / TS160 / TS250 · 2P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/TS100_TS160_TS250_4P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · TS100 / TS160 / TS250 · 4P · Icu 50 kA theo bảng giá",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/TS400_TS630/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · TS400 / TS630 · 3P · Icu 65 kA theo bảng giá",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/TS400_TS630_2P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · TS400 / TS630 · 2P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/TS400_TS630_4P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · TS400 / TS630 · 4P · Icu 65 kA theo bảng giá",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/TS800/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · TS800 · 3P · Icu 65 kA theo bảng giá",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/TS800_2P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · TS800 · 2P",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/TS800_4P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · TS800 · 4P · Icu 65 kA theo bảng giá",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/TS_Large_3P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · TS1000 / TS1250 / TS1600 · 3P · Icu 150/50/70 kA theo bảng giá",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/TS_Large_4P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · MCCB · TS1000 / TS1250 / TS1600 · 4P · Icu 50/70 kA theo bảng giá",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "LS/ThietBi/UA_1/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · Aux Contact · UA-1",
+      "view_files": 2
+    },
+    {
+      "brand": "CHINT",
+      "profile": "DenBaoNutNhanCauChiContactor/ThietBi/CHINT_DenBaoPha/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Đèn báo pha CHINT",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "DenBaoNutNhanCauChiContactor/ThietBi/MC_130a-150a_3P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · CONTACTOR · MC-130a / MC-150a · 3P",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "DenBaoNutNhanCauChiContactor/ThietBi/MC_32a-40a_3P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · CONTACTOR · MC-32a / MC-40a · 3P",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "DenBaoNutNhanCauChiContactor/ThietBi/MC_50a-65a_3P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · CONTACTOR · MC-50a / MC-65a · 3P",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "DenBaoNutNhanCauChiContactor/ThietBi/MC_6a-18a_3P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · CONTACTOR · MC-6a / 9a / 12a / 18a · 3P",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "DenBaoNutNhanCauChiContactor/ThietBi/MC_6a-18a_4P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · CONTACTOR · MC-6a/4 / 9a/4 / 12a/4 / 18a/4 · 4P",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "DenBaoNutNhanCauChiContactor/ThietBi/MC_75a-100a_3P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · CONTACTOR · MC-75a / 85a / 100a · 3P",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "DenBaoNutNhanCauChiContactor/ThietBi/SOURCE_0ba9f4b5eac3b2ad/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Nút nhấn CHINT NP2 · NO · đầu tròn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "DenBaoNutNhanCauChiContactor/ThietBi/SOURCE_1fe641d7c068577b/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Nút nhấn CHINT NP2 · NC · đầu tròn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "DenBaoNutNhanCauChiContactor/ThietBi/SOURCE_a37c936f81abba26/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Bộ cầu chì CHINT RT36-00 · 160 A",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "DenBaoNutNhanCauChiContactor/ThietBi/SOURCE_ac081eb996b2eefe/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Nút nhấn CHINT NP2 · NO · đầu nhô",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "DenBaoNutNhanCauChiContactor/ThietBi/SOURCE_d40f9833bc813ad2/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Nút nhấn CHINT NP2 · NC · đầu nhô",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "DenBaoNutNhanCauChiContactor/ThietBi/SOURCE_d99fbb3779c7d135/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Bảng thiết bị điều khiển CHINT NP2 · CAD tham khảo",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/Control_Transformer/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Transformer CHINT · chưa rõ mã",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/KG316T/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Timer CHINT KG316T",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/NCH8_20_25_2P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Contactor CHINT NCH8-20 / NCH8-25 · 2P",
+      "view_files": 2
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/NP2_Indicator/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Indicator CHINT NP2 · FAULT",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/NP2_NC/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Pushbutton CHINT NP2 · NC",
+      "view_files": 3
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/NP2_NO/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Pushbutton CHINT NP2 · NO",
+      "view_files": 3
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/NP2_Selector/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Selector CHINT NP2",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/OFFICIAL-STEP-NXM-160S-2P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "CHINT · MCCB · NXM-160S · 2P · Icu 36kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/OFFICIAL-STEP-NXM-160S-3P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "CHINT · MCCB · NXM-160S · 3P · Icu 36kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/OFFICIAL-STEP-NXM-160S-4P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "CHINT · MCCB · NXM-160S · 4P · Icu 36kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/OFFICIAL-STEP-NXM-250S-3P/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "CHINT · MCCB · NXM-250S · 3P · Icu 36kA theo bảng giá",
+      "view_files": 6
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/OFFICIAL-STEP-NXM-250S-4P-v1/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "MCCB CHINT NXM-250S · 4P · 180–250 A · Icu 36 kA",
+      "view_files": 6
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/RJ25_CL/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Relay CHINT RJ25-CL",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/RT36_00/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Fuse Assembly CHINT RT36-00 · 160A",
+      "view_files": 2
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_05feaa9d93e1/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · nxm-1000-2 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_0c6295b3044d/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · NXM-800S-1 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_238c8f605e12/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · nxb63-2 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_24d4f273feda/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · ats chint NZ7-125 100A 4P · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_2f7527c08497/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · NXM-1600H-1 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_32fc1ea2167e/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · nxb63-2p · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_3551f69f1564/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · nxm-400-630-1 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_3ca2ca3fd1ed/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · nxm-125-2 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_461e4acca29b/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · nxb63-1 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_4e22b9a14def/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · NM1-800S-2 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_54593f3909d0/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · NXM-1600S-3 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_5bc4e6f93a15/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · NXM-1600H-3 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_86e3bb0dcf16/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · nxb63-3p · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_97391d7be517/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · NXM-800S-2 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_9de23ef659bc/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · nxm-250-320-1 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_a5c5ebc505f4/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · nxm-1000-1 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_b0c9d18c4187/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · NXM-1600H-2 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_ba2c255723e7/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · nxm-250-320-2 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_d063d716bbee/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · NM1-800S-1 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_d5a8ac975547/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · nxm-125-1 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/SRC_CHINT_f40672432514/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Chint · nxm-400-630-2 · CAD nguồn",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Chint/ThietBi/XJ3_G/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Phase Relay CHINT XJ3-G",
+      "view_files": 1
+    },
+    {
+      "brand": "CHINT",
+      "profile": "Bộ điều khiển/ThietBi/BaoVePha_MatKim/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Bộ giám sát pha",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "Bộ điều khiển/ThietBi/BienTan_LS/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "Biến tần LS Electric",
+      "view_files": 1
+    },
+    {
+      "brand": "LS",
+      "profile": "BienDong/LS/LZR-030-050-065-V-REFERENCE/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ZCT · LZR-030-050-065-V",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "BienDong/LS/LZR-080-V/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ZCT · LZR-080-V",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "BienDong/LS/LZT-030/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ZCT · LZT-030",
+      "view_files": 3
+    },
+    {
+      "brand": "LS",
+      "profile": "BienDong/LS/LZT-050-065-080-REFERENCE/thong_tin_thiet_bi.json",
+      "hidden": false,
+      "name": "LS · ZCT · LZT-050-065-080",
+      "view_files": 3
+    }
+  ]
+}

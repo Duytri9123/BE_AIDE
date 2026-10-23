@@ -1,0 +1,40 @@
+{
+  "checked_at": "2026-10-21 21:05:23",
+  "brands": {
+    "Schneider Electric": {
+      "visible_items": 240,
+      "visible_views": 304,
+      "one_view_items": 185,
+      "complete_six_items": 0,
+      "incomplete_six_items": 240,
+      "unknown_face_items": 7,
+      "identity_review_items": 87,
+      "no_measurement_items": 240,
+      "snapshot_differences": 0,
+      "not_exact_ordering_code_verified": 240,
+      "price_rows": 4414,
+      "price_no_explicit_cad_link": 4278,
+      "price_linked_incomplete_views": 136
+    }
+  },
+  "source_profiles": 245,
+  "hidden_profiles": 0,
+  "active_profiles_without_cad": [],
+  "unique_dxf_files": 304,
+  "readable_dxf_files": 304,
+  "dxf_files_with_errors": 0,
+  "dxf_files_with_in_memory_fixes": 0,
+  "issue_counts": {
+    "unresolved_face": 7
+  },
+  "active_issue_counts": {
+    "unresolved_face": 7
+  },
+  "snapshot_only_ids": [],
+  "limits": [
+    "Six directions counted per variant; missing optional views is a coverage gap, not evidence of corrupt geometry.",
+    "No explicit source_row_id link is an unverified pricebook linkage, not proof that no related CAD exists.",
+    "Structural parsing and metadata checks do not certify visual direction or exact SKU/coil/terminal/electrical compatibility.",
+    "DXF audit changes are in memory only; no source CAD repaired or deleted."
+  ]
+}

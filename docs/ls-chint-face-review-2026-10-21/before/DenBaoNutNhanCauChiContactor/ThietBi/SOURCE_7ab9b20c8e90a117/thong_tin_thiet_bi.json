@@ -1,0 +1,299 @@
+{
+  "nhom": "DenBaoNutNhanCauChiContactor",
+  "ten_kieu": "Cầu chì · cụm đầy đủ",
+  "ten_san_pham": "Đế cầu chì · Cầu chì · cụm đầy đủ",
+  "ban_chat": "FUSE_HOLDER",
+  "ma_dong_san_pham": "RT18-32 / RT36-00 / RT-32A",
+  "hang_xac_nhan": null,
+  "thong_so": {
+    "Loại thiết bị": "Đế cầu chì",
+    "Phạm vi bản vẽ": "Cụm/bảng nhiều thành phần",
+    "Mã/dòng trên nguồn": "RT18-32 / RT36-00 / RT-32A",
+    "Giá": "---",
+    "Nhãn thông số đọc từ nguồn": "32A; 5A; 690V; 6A; 160A"
+  },
+  "cong_dung": "Đế cầu chì dùng để tra cứu thông tin, chọn mã và bố trí theo mẫu CAD tham khảo.",
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "ASSEMBLY_REFERENCE",
+    "source_component_type": "FUSE_HOLDER",
+    "cac_ma_dong_san_pham": [
+      "RT18-32",
+      "RT36-00",
+      "RT-32A"
+    ],
+    "fabrication_ready": false,
+    "generic_shape": false
+  },
+  "auto_select": false,
+  "needs_review": true,
+  "source_catalog_review": {
+    "source_path": "DenBaoNutNhanCauChiContactor/TuLieuBanVe/C03/BanVeCum/C03_cluster4-COMPLETE/ban_ve.dxf",
+    "source_sha256": "d870ded15c356963dce42ae69cbe170d27f77f2963cb8f8d40dded6bab9893d7",
+    "texts": [
+      "Fuse",
+      "RT-32A",
+      "5A",
+      "Taiwan",
+      "F",
+      "RISESUN",
+      "690V~",
+      "IEC269",
+      "PI",
+      "32A",
+      "RT18-32",
+      "10x38",
+      "Cầu chì",
+      "6A",
+      "OMEGA",
+      "SIEMENS",
+      "CHINT\nRT36-00(NT00)\nAC690V 160A"
+    ],
+    "component_type": "FUSE_HOLDER",
+    "contains_multiple_components": true,
+    "status": "information_catalogued",
+    "visual_review": "category_contact_sheet_2026_10_16",
+    "brands_read_from_source": [
+      "CHINT",
+      "Siemens",
+      "RISESUN",
+      "Omega"
+    ],
+    "shared_source_variants": [
+      {
+        "name": "Cầu chì · cụm đầy đủ",
+        "models": [
+          "RT18-32",
+          "RT36-00",
+          "RT-32A"
+        ],
+        "brand": null,
+        "source": "DenBaoNutNhanCauChiContactor/TuLieuBanVe/C03/BanVeCum/C03_cluster4-COMPLETE/ban_ve.dxf"
+      }
+    ]
+  },
+  "nguon_cad": {
+    "file": "DenBaoNutNhanCauChiContactor/TuLieuBanVe/C03/BanVeCum/C03_cluster4-COMPLETE/ban_ve.dxf",
+    "block": "Cầu chì · cụm đầy đủ",
+    "sha256": "d870ded15c356963dce42ae69cbe170d27f77f2963cb8f8d40dded6bab9893d7"
+  },
+  "tu_khoa_tim_kiem": [
+    "Đế cầu chì",
+    "Cầu chì · cụm đầy đủ",
+    "Đế cầu chì · Cầu chì · cụm đầy đủ",
+    "FUSE_HOLDER",
+    "RT18-32 / RT36-00 / RT-32A",
+    "RT36-00"
+  ],
+  "cad_don": [
+    {
+      "id_hinh_goc": "SOURCE-7ab9b20c8e90a117",
+      "huong_nhin": "Chưa xác nhận hướng nhìn",
+      "duong_dan": "CadDon/SOURCE-7ab9b20c8e90a117/ban_ve.dxf",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": false
+      }
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "SOURCE-7ab9b20c8e90a117"
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao."
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "FUSE_HOLDER",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "CHINT",
+        "model": "RT36-00",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 2
+        },
+        "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/fuse1/rt36/catalog/RT36-Fuse-Catalog.pdf",
+        "source_page": 2,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng được ghi trong hồ sơ nguồn. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "Morele",
+        "model": "RT18-32",
+        "specifications": {
+          "Phạm vi giá": "Vỏ cầu chì RT18 + Dây chì- Có đèn",
+          "Tên hàng": "RT18-32"
+        },
+        "source_url": "https://vanvh.com/upload/files/BG2021morele1.pdf",
+        "source_label": "Bảng giá Morele 2021",
+        "source_page": 2,
+        "source_row_id": "reviewed-pdf:c5eca6f0b5c38fd094f8",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "Chưa xác định",
+        "model": "RT18-32 / RT36-00 / RT-32A",
+        "specifications": {
+          "Loại thiết bị": "Đế cầu chì",
+          "Phạm vi bản vẽ": "Cụm/bảng nhiều thành phần",
+          "Mã/dòng trên nguồn": "RT18-32 / RT36-00 / RT-32A",
+          "Giá": "---",
+          "Nhãn thông số đọc từ nguồn": "32A; 5A; 690V; 6A; 160A"
+        },
+        "source_url": "",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      },
+      {
+        "brand": "Morele",
+        "model": "RT18-32",
+        "specifications": {
+          "Loại": "Đế/vỏ cầu chì; chọn ruột cầu chì riêng"
+        },
+        "source_url": "https://vanvh.com/upload/files/BG2021morele1.pdf",
+        "basis": "catalog_type_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "Andex",
+        "model": "---",
+        "specifications": {
+          "Loại": "Đế cầu chì · Cầu chì · cụm đầy đủ",
+          "Mã và định mức": "Chọn theo sản phẩm thực tế"
+        },
+        "source_url": "",
+        "basis": "user_shared_cad_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng dùng chung mẫu CAD theo yêu cầu người dùng; chưa có mã catalog để xác nhận thông số."
+      },
+      {
+        "brand": "Chưa xác định",
+        "model": "RT18-32",
+        "specifications": {
+          "Nhãn trên CAD nguồn": "Cầu chì · cụm đầy đủ"
+        },
+        "source_url": "",
+        "basis": "shared_source_model",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mã/hãng trong một bản CAD nguồn có cùng hình học; dùng chung mẫu hình, chọn định mức theo catalog."
+      },
+      {
+        "brand": "Chưa xác định",
+        "model": "RT36-00",
+        "specifications": {
+          "Nhãn trên CAD nguồn": "Cầu chì · cụm đầy đủ"
+        },
+        "source_url": "",
+        "basis": "shared_source_model",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mã/hãng trong một bản CAD nguồn có cùng hình học; dùng chung mẫu hình, chọn định mức theo catalog."
+      },
+      {
+        "brand": "Chưa xác định",
+        "model": "RT-32A",
+        "specifications": {
+          "Nhãn trên CAD nguồn": "Cầu chì · cụm đầy đủ"
+        },
+        "source_url": "",
+        "basis": "shared_source_model",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mã/hãng trong một bản CAD nguồn có cùng hình học; dùng chung mẫu hình, chọn định mức theo catalog."
+      }
+    ],
+    "observed_specifications": {
+      "Loại thiết bị": "Đế cầu chì",
+      "Phạm vi bản vẽ": "Cụm/bảng nhiều thành phần",
+      "Mã/dòng trên nguồn": "RT18-32 / RT36-00 / RT-32A",
+      "Giá": "---",
+      "Nhãn thông số đọc từ nguồn": "32A; 5A; 690V; 6A; 160A"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "documented_source_label",
+      "source_model": "RT18-32 / RT36-00 / RT-32A",
+      "matched_catalog_rows": 1,
+      "model_identity_verified": false,
+      "remaining_tasks": [
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": true,
+      "source_label_models": [
+        "RT36-00"
+      ],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "documented_source_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [
+        "RT18-32",
+        "RT36-00",
+        "RT-32A"
+      ],
+      "documented_models": [
+        {
+          "model": "RT36-00",
+          "brand": "CHINT",
+          "manufacturer_confirmed_on_source": true,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/fuse1/rt36/catalog/RT36-Fuse-Catalog.pdf",
+              "sha256": "91d184ade8cb302ec860a51d20b8ef7a3e287cea60ba795986c9ab3a76e26132",
+              "page": 2,
+              "format": "pdf",
+              "match": "RT36-00",
+              "basis": "literal_model_label"
+            }
+          ]
+        }
+      ],
+      "source_text_count": 17,
+      "contains_multiple_components": true,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "nhan_dien_web": {
+    "source_label_review": {
+      "status": "documented_source_label",
+      "models": [
+        "RT36-00"
+      ],
+      "manufacturer_candidates": [
+        "CHINT"
+      ],
+      "checked_at": "2026-10-17",
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "brand_candidate": "CHINT",
+    "status": "candidate_from_documented_source_label"
+  }
+}

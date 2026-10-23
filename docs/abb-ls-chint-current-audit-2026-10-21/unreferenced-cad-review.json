@@ -1,0 +1,1565 @@
+[
+  {
+    "file": "LS/ThietBi/SRC_LS_fe6cb49ed8f9/CadDon/SRC_LS_fe6cb49ed8f9/ban_ve.dxf",
+    "profile_exists": true,
+    "metadata": {
+      "nhom": "LS",
+      "ten_kieu": "LS · HCN BKN2P · CAD nguồn",
+      "ten_san_pham": "LS · HCN BKN2P · CAD nguồn",
+      "ban_chat": "MCB",
+      "cong_dung": "Bảo vệ quá dòng theo mã, số cực và khả năng cắt thực tế.",
+      "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+      "hang_xac_nhan": null,
+      "ma_dong_san_pham": null,
+      "tu_khoa_tim_kiem": [
+        "HCN BKN2P",
+        "LS",
+        "MCB",
+        "ABB",
+        "2CDS212001R0064",
+        "CHINT",
+        "NCH8-20/01 220/230V",
+        "Delixi",
+        "CDB6i1252C100",
+        "HD Hyundai Electric",
+        "HGD100S",
+        "Hager",
+        "HLF280S",
+        "BKN 1P 20A",
+        "Legrand",
+        "419870",
+        "Mitsubishi Electric",
+        "D1P-0.5C6NM",
+        "Schneider Electric",
+        "A9N18360",
+        "Sino - Vanlock",
+        "PS45N/C2006",
+        "Vinakip",
+        "AT 07",
+        "LS · HCN BKN2P · CAD nguồn",
+        "",
+        "BKN"
+      ],
+      "muc_do_xac_nhan": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện.",
+      "nguon_tham_khao": [],
+      "nguon_cad": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "HCN BKN2P",
+        "saved_block": "HCN BKN2P",
+        "handle": "1AAFBC",
+        "geometry_key": "fe6cb49ed8f9fc1000b24682c8e98f8a50ece8fd45820c4467cc4464b58c757b",
+        "units": 4,
+        "instance_transform": {
+          "insert": [
+            11009.08188968611,
+            23132.99889997235,
+            0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "cac_hinh_cad": [],
+      "auto_select": false,
+      "needs_review": true,
+      "yeu_cau_chon_day": {
+        "vai_tro_ket_noi": [
+          "Nguồn vào",
+          "Ra tải",
+          "Phụ kiện điều khiển nếu có"
+        ],
+        "tiet_dien_mac_dinh_mm2": null,
+        "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+        "vat_lieu_va_kieu": [
+          "Cu cách điện",
+          "Al nếu cọc/đầu cốt cho phép",
+          "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+        ],
+        "can_kiem_tra": [
+          "Dòng/điện áp và bảo vệ",
+          "Tiết diện/vật liệu cọc cho phép",
+          "Kiểu đầu cốt",
+          "Điều kiện nhiệt và tuyến",
+          "Độ dài thực tế"
+        ]
+      },
+      "yeu_cau_lap_dat": {
+        "schema": "installation_contract.schema.json",
+        "status": "Chưa xác nhận dữ liệu hãng",
+        "required_manufacturer_data": [
+          "Tư thế lắp được phép",
+          "Chiều sâu thân và khoảng trống",
+          "Vị trí lỗ gá hoặc khoét",
+          "Sơ đồ cọc nguồn/tải/điều khiển",
+          "Giới hạn dây và đầu nối thanh đồng",
+          "Lực siết",
+          "Khoảng cách điện và che chắn"
+        ],
+        "unknown_value": null,
+        "cad_rotation_is_mounting_approval": false
+      },
+      "cad_chen_tu": {},
+      "nhan_dien_ai": {
+        "loai_thiet_bi_code": "MCB",
+        "recognition_basis": "Tên và bản chất trong hồ sơ hiện có; không xác nhận SKU",
+        "exact_SKU_confirmed": false
+      },
+      "gia_ban": {
+        "don_gia": "---",
+        "don_vi_tien_te": "VND",
+        "trang_thai": "Không yêu cầu giá",
+        "hang": "LS Electric",
+        "ma_san_pham": "",
+        "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+        "nguon_tham_khao": [
+          "https://www.ls-electric.com",
+          "https://anhphatelectric.com",
+          "https://etinco.vn"
+        ],
+        "ngay_cap_nhat": "2026-10-16",
+        "muc_do_tin_cay": "Chưa có giá"
+      },
+      "nhan_dien_web": {
+        "source_label_review": {
+          "status": "documented_source_label",
+          "models": [
+            "BKN"
+          ],
+          "manufacturer_candidates": [
+            "LS Electric"
+          ],
+          "checked_at": "2026-10-17",
+          "ordering_code_verified": false,
+          "geometry_verified": false
+        },
+        "brand_candidate": "LS Electric",
+        "status": "candidate_from_documented_source_label"
+      },
+      "browser_hidden": true
+    }
+  },
+  {
+    "file": "LS/ThietBi/SRC_LS_efc91371ed0b/CadDon/SRC_LS_efc91371ed0b/ban_ve.dxf",
+    "profile_exists": true,
+    "metadata": {
+      "nhom": "LS",
+      "ten_kieu": "LS · abn203c-4 · CAD nguồn",
+      "ten_san_pham": "LS · abn203c-4 · CAD nguồn",
+      "ban_chat": "CAD thiết bị theo nhãn nguồn",
+      "cong_dung": "Tham khảo hình học; xác nhận chức năng, mã thiết bị và thông số trước thiết kế.",
+      "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+      "hang_xac_nhan": null,
+      "ma_dong_san_pham": null,
+      "tu_khoa_tim_kiem": [
+        "LS",
+        "CAD thiết bị theo nhãn nguồn",
+        "MCCB",
+        "ABB",
+        "1SDA066485R1",
+        "CHINT",
+        "NM8N-125C TM 100 1P",
+        "Delixi",
+        "CDM3S125C1002300",
+        "Fuji Electric",
+        "BW100EAG-2P",
+        "HD Hyundai Electric",
+        "HGM1000S 3P",
+        "Hager",
+        "HDA014Z",
+        "ABN102c",
+        "Legrand",
+        "027000",
+        "Mitsubishi Electric",
+        "2CB002A000002",
+        "Schneider Electric",
+        "LV510300",
+        "Shihlin",
+        "BM100-HN",
+        "Siemens",
+        "3VJ1002-0DA32-0AA0",
+        "Vinakip",
+        "AT 56",
+        "LS · abn203c-4 · CAD nguồn",
+        ""
+      ],
+      "muc_do_xac_nhan": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp. Hình nhìn theo đầu thiết bị hoặc nắp: chưa phân biệt chắc mặt trên/dưới và thành phần; không tự gán mặt.",
+      "nguon_tham_khao": [],
+      "nguon_cad": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "abn203c-4",
+        "saved_block": "abn203c-4",
+        "handle": "17D445",
+        "geometry_key": "efc91371ed0be1b59e37126bb6696b480861f45473740516cd881ad76486ff61",
+        "units": 4,
+        "instance_transform": {
+          "insert": [
+            -116005.3886274793,
+            -17777.31694107538,
+            0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "cac_hinh_cad": [],
+      "auto_select": false,
+      "needs_review": true,
+      "yeu_cau_chon_day": {
+        "vai_tro_ket_noi": [
+          "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+        ],
+        "tiet_dien_mac_dinh_mm2": null,
+        "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+        "vat_lieu_va_kieu": [
+          "Cu cách điện",
+          "Al nếu cọc/đầu cốt cho phép",
+          "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+        ],
+        "can_kiem_tra": [
+          "Dòng/điện áp và bảo vệ",
+          "Tiết diện/vật liệu cọc cho phép",
+          "Kiểu đầu cốt",
+          "Điều kiện nhiệt và tuyến",
+          "Độ dài thực tế"
+        ]
+      },
+      "yeu_cau_lap_dat": {
+        "schema": "installation_contract.schema.json",
+        "status": "Chưa xác nhận dữ liệu hãng",
+        "required_manufacturer_data": [
+          "Tư thế lắp được phép",
+          "Chiều sâu thân và khoảng trống",
+          "Vị trí lỗ gá hoặc khoét",
+          "Sơ đồ cọc nguồn/tải/điều khiển",
+          "Giới hạn dây và đầu nối thanh đồng",
+          "Lực siết",
+          "Khoảng cách điện và che chắn"
+        ],
+        "unknown_value": null,
+        "cad_rotation_is_mounting_approval": false
+      },
+      "cad_chen_tu": {},
+      "nhan_dien_bo_sung_20261010": {
+        "review_date": "2026-10-10",
+        "category_code": "MCCB",
+        "visual_review": true,
+        "preview": "53-0.png",
+        "source_block": "abn203c-4",
+        "text_entities_found": 0,
+        "text_outline_note": "No extractable TEXT/MTEXT/ATTRIB found; visible lettering may be linework, not searchable text.",
+        "face": null,
+        "face_basis": "Unconfirmed",
+        "official_family_sources": [
+          "https://www.ls-electric.com/upload/customer/download/1213/Metasol_MCCB-ELCB_Technical%20Manual_E.pdf"
+        ],
+        "exact_sku_verified": false,
+        "automatic_insertion_approved": false,
+        "limitation": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp. Hình nhìn theo đầu thiết bị hoặc nắp: chưa phân biệt chắc mặt trên/dưới và thành phần; không tự gán mặt."
+      },
+      "nhan_dien_ai": {
+        "loai_thiet_bi_code": "MCCB",
+        "exact_sku_verified": false
+      },
+      "gia_ban": {
+        "don_gia": "---",
+        "don_vi_tien_te": "VND",
+        "trang_thai": "Không yêu cầu giá",
+        "hang": "LS Electric",
+        "ma_san_pham": "",
+        "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+        "nguon_tham_khao": [
+          "https://www.ls-electric.com",
+          "https://anhphatelectric.com",
+          "https://etinco.vn"
+        ],
+        "ngay_cap_nhat": "2026-10-16",
+        "muc_do_tin_cay": "Chưa có giá"
+      },
+      "browser_hidden": true
+    }
+  },
+  {
+    "file": "LS/ThietBi/SRC_LS_944d6b50845a/CadDon/SRC_LS_944d6b50845a/ban_ve.dxf",
+    "profile_exists": true,
+    "metadata": {
+      "nhom": "LS",
+      "ten_kieu": "LS · ABN53c-4 · CAD nguồn",
+      "ten_san_pham": "LS · ABN53c-4 · CAD nguồn",
+      "ban_chat": "CAD thiết bị theo nhãn nguồn",
+      "cong_dung": "Tham khảo hình học; xác nhận chức năng, mã thiết bị và thông số trước thiết kế.",
+      "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+      "hang_xac_nhan": null,
+      "ma_dong_san_pham": null,
+      "tu_khoa_tim_kiem": [
+        "LS",
+        "CAD thiết bị theo nhãn nguồn",
+        "MCCB",
+        "ABB",
+        "1SDA066485R1",
+        "CHINT",
+        "NM8N-125C TM 100 1P",
+        "Delixi",
+        "CDM3S125C1002300",
+        "Fuji Electric",
+        "BW100EAG-2P",
+        "HD Hyundai Electric",
+        "HGM1000S 3P",
+        "Hager",
+        "HDA014Z",
+        "ABN102c",
+        "Legrand",
+        "027000",
+        "Mitsubishi Electric",
+        "2CB002A000002",
+        "Schneider Electric",
+        "LV510300",
+        "Shihlin",
+        "BM100-HN",
+        "Siemens",
+        "3VJ1002-0DA32-0AA0",
+        "Vinakip",
+        "AT 56",
+        "LS · ABN53c-4 · CAD nguồn",
+        ""
+      ],
+      "muc_do_xac_nhan": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp. Hình nhìn theo đầu thiết bị hoặc nắp: chưa phân biệt chắc mặt trên/dưới và thành phần; không tự gán mặt.",
+      "nguon_tham_khao": [],
+      "nguon_cad": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "ABN53c-4",
+        "saved_block": "ABN53c-4",
+        "handle": "17D444",
+        "geometry_key": "944d6b50845a758db6b16192d842adc4d07642f160698f819a5459850ed74307",
+        "units": 4,
+        "instance_transform": {
+          "insert": [
+            -116005.3886274793,
+            -17777.31694107538,
+            0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "cac_hinh_cad": [],
+      "auto_select": false,
+      "needs_review": true,
+      "yeu_cau_chon_day": {
+        "vai_tro_ket_noi": [
+          "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+        ],
+        "tiet_dien_mac_dinh_mm2": null,
+        "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+        "vat_lieu_va_kieu": [
+          "Cu cách điện",
+          "Al nếu cọc/đầu cốt cho phép",
+          "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+        ],
+        "can_kiem_tra": [
+          "Dòng/điện áp và bảo vệ",
+          "Tiết diện/vật liệu cọc cho phép",
+          "Kiểu đầu cốt",
+          "Điều kiện nhiệt và tuyến",
+          "Độ dài thực tế"
+        ]
+      },
+      "yeu_cau_lap_dat": {
+        "schema": "installation_contract.schema.json",
+        "status": "Chưa xác nhận dữ liệu hãng",
+        "required_manufacturer_data": [
+          "Tư thế lắp được phép",
+          "Chiều sâu thân và khoảng trống",
+          "Vị trí lỗ gá hoặc khoét",
+          "Sơ đồ cọc nguồn/tải/điều khiển",
+          "Giới hạn dây và đầu nối thanh đồng",
+          "Lực siết",
+          "Khoảng cách điện và che chắn"
+        ],
+        "unknown_value": null,
+        "cad_rotation_is_mounting_approval": false
+      },
+      "cad_chen_tu": {},
+      "nhan_dien_bo_sung_20261010": {
+        "review_date": "2026-10-10",
+        "category_code": "MCCB",
+        "visual_review": true,
+        "preview": "40-0.png",
+        "source_block": "ABN53c-4",
+        "text_entities_found": 0,
+        "text_outline_note": "No extractable TEXT/MTEXT/ATTRIB found; visible lettering may be linework, not searchable text.",
+        "face": null,
+        "face_basis": "Unconfirmed",
+        "official_family_sources": [
+          "https://www.ls-electric.com/upload/customer/download/1213/Metasol_MCCB-ELCB_Technical%20Manual_E.pdf"
+        ],
+        "exact_sku_verified": false,
+        "automatic_insertion_approved": false,
+        "limitation": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp. Hình nhìn theo đầu thiết bị hoặc nắp: chưa phân biệt chắc mặt trên/dưới và thành phần; không tự gán mặt."
+      },
+      "nhan_dien_ai": {
+        "loai_thiet_bi_code": "MCCB",
+        "exact_sku_verified": false
+      },
+      "gia_ban": {
+        "don_gia": "---",
+        "don_vi_tien_te": "VND",
+        "trang_thai": "Không yêu cầu giá",
+        "hang": "LS Electric",
+        "ma_san_pham": "",
+        "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+        "nguon_tham_khao": [
+          "https://www.ls-electric.com",
+          "https://anhphatelectric.com",
+          "https://etinco.vn"
+        ],
+        "ngay_cap_nhat": "2026-10-16",
+        "muc_do_tin_cay": "Chưa có giá"
+      },
+      "browser_hidden": true
+    }
+  },
+  {
+    "file": "LS/ThietBi/SRC_LS_8a940968ef2a/CadDon/SRC_LS_8a940968ef2a/ban_ve.dxf",
+    "profile_exists": true,
+    "metadata": {
+      "nhom": "LS",
+      "ten_kieu": "LS · HCN BKN4P · CAD nguồn",
+      "ten_san_pham": "LS · HCN BKN4P · CAD nguồn",
+      "ban_chat": "MCB",
+      "cong_dung": "Bảo vệ quá dòng theo mã, số cực và khả năng cắt thực tế.",
+      "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+      "hang_xac_nhan": null,
+      "ma_dong_san_pham": null,
+      "tu_khoa_tim_kiem": [
+        "HCN BKN4P",
+        "LS",
+        "MCB",
+        "BKN 1P 20A",
+        "Vinakip",
+        "AT 07",
+        "LS · HCN BKN4P · CAD nguồn",
+        "",
+        "BKN"
+      ],
+      "muc_do_xac_nhan": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện.",
+      "nguon_tham_khao": [],
+      "nguon_cad": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "HCN BKN4P",
+        "saved_block": "HCN BKN4P",
+        "handle": "1AB003",
+        "geometry_key": "8a940968ef2ad63b1f17defccaa0bbb4d0e66a30ef103b9a897393f75009d9d4",
+        "units": 4,
+        "instance_transform": {
+          "insert": [
+            11151.68662836766,
+            23132.99889997235,
+            0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "cac_hinh_cad": [],
+      "auto_select": false,
+      "needs_review": true,
+      "yeu_cau_chon_day": {
+        "vai_tro_ket_noi": [
+          "Nguồn vào",
+          "Ra tải",
+          "Phụ kiện điều khiển nếu có"
+        ],
+        "tiet_dien_mac_dinh_mm2": null,
+        "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+        "vat_lieu_va_kieu": [
+          "Cu cách điện",
+          "Al nếu cọc/đầu cốt cho phép",
+          "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+        ],
+        "can_kiem_tra": [
+          "Dòng/điện áp và bảo vệ",
+          "Tiết diện/vật liệu cọc cho phép",
+          "Kiểu đầu cốt",
+          "Điều kiện nhiệt và tuyến",
+          "Độ dài thực tế"
+        ]
+      },
+      "yeu_cau_lap_dat": {
+        "schema": "installation_contract.schema.json",
+        "status": "Chưa xác nhận dữ liệu hãng",
+        "required_manufacturer_data": [
+          "Tư thế lắp được phép",
+          "Chiều sâu thân và khoảng trống",
+          "Vị trí lỗ gá hoặc khoét",
+          "Sơ đồ cọc nguồn/tải/điều khiển",
+          "Giới hạn dây và đầu nối thanh đồng",
+          "Lực siết",
+          "Khoảng cách điện và che chắn"
+        ],
+        "unknown_value": null,
+        "cad_rotation_is_mounting_approval": false
+      },
+      "cad_chen_tu": {},
+      "nhan_dien_ai": {
+        "loai_thiet_bi_code": "MCB",
+        "recognition_basis": "Tên và bản chất trong hồ sơ hiện có; không xác nhận SKU",
+        "exact_SKU_confirmed": false
+      },
+      "gia_ban": {
+        "don_gia": "---",
+        "don_vi_tien_te": "VND",
+        "trang_thai": "Không yêu cầu giá",
+        "hang": "LS Electric",
+        "ma_san_pham": "",
+        "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+        "nguon_tham_khao": [
+          "https://www.ls-electric.com",
+          "https://anhphatelectric.com",
+          "https://etinco.vn"
+        ],
+        "ngay_cap_nhat": "2026-10-16",
+        "muc_do_tin_cay": "Chưa có giá"
+      },
+      "nhan_dien_web": {
+        "source_label_review": {
+          "status": "documented_source_label",
+          "models": [
+            "BKN"
+          ],
+          "manufacturer_candidates": [
+            "LS Electric"
+          ],
+          "checked_at": "2026-10-17",
+          "ordering_code_verified": false,
+          "geometry_verified": false
+        },
+        "brand_candidate": "LS Electric",
+        "status": "candidate_from_documented_source_label"
+      },
+      "browser_hidden": true
+    }
+  },
+  {
+    "file": "LS/ThietBi/SRC_LS_8272be313121/CadDon/SRC_LS_8272be313121/ban_ve.dxf",
+    "profile_exists": true,
+    "metadata": {
+      "nhom": "LS",
+      "ten_kieu": "LS · abs103-4 · CAD nguồn",
+      "ten_san_pham": "LS · abs103-4 · CAD nguồn",
+      "ban_chat": "CAD thiết bị theo nhãn nguồn",
+      "cong_dung": "Tham khảo hình học; xác nhận chức năng, mã thiết bị và thông số trước thiết kế.",
+      "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+      "hang_xac_nhan": null,
+      "ma_dong_san_pham": null,
+      "tu_khoa_tim_kiem": [
+        "LS",
+        "CAD thiết bị theo nhãn nguồn",
+        "MCCB",
+        "ABB",
+        "1SDA066485R1",
+        "CHINT",
+        "NM8N-125C TM 100 1P",
+        "Delixi",
+        "CDM3S125C1002300",
+        "Fuji Electric",
+        "BW100EAG-2P",
+        "HD Hyundai Electric",
+        "HGM1000S 3P",
+        "Hager",
+        "HDA014Z",
+        "ABN102c",
+        "Legrand",
+        "027000",
+        "Mitsubishi Electric",
+        "2CB002A000002",
+        "Schneider Electric",
+        "LV510300",
+        "Shihlin",
+        "BM100-HN",
+        "Siemens",
+        "3VJ1002-0DA32-0AA0",
+        "Vinakip",
+        "AT 56",
+        "LS · abs103-4 · CAD nguồn",
+        ""
+      ],
+      "muc_do_xac_nhan": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp. Hình nhìn theo đầu thiết bị hoặc nắp: chưa phân biệt chắc mặt trên/dưới và thành phần; không tự gán mặt.",
+      "nguon_tham_khao": [],
+      "nguon_cad": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "abs103-4",
+        "saved_block": "abs103-4",
+        "handle": "17D446",
+        "geometry_key": "8272be3131217aa1cf9843f077be84b64049ef12241566c309bc7b92631cdaea",
+        "units": 4,
+        "instance_transform": {
+          "insert": [
+            -116005.3886274793,
+            -17777.31694107538,
+            0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "cac_hinh_cad": [],
+      "auto_select": false,
+      "needs_review": true,
+      "yeu_cau_chon_day": {
+        "vai_tro_ket_noi": [
+          "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+        ],
+        "tiet_dien_mac_dinh_mm2": null,
+        "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+        "vat_lieu_va_kieu": [
+          "Cu cách điện",
+          "Al nếu cọc/đầu cốt cho phép",
+          "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+        ],
+        "can_kiem_tra": [
+          "Dòng/điện áp và bảo vệ",
+          "Tiết diện/vật liệu cọc cho phép",
+          "Kiểu đầu cốt",
+          "Điều kiện nhiệt và tuyến",
+          "Độ dài thực tế"
+        ]
+      },
+      "yeu_cau_lap_dat": {
+        "schema": "installation_contract.schema.json",
+        "status": "Chưa xác nhận dữ liệu hãng",
+        "required_manufacturer_data": [
+          "Tư thế lắp được phép",
+          "Chiều sâu thân và khoảng trống",
+          "Vị trí lỗ gá hoặc khoét",
+          "Sơ đồ cọc nguồn/tải/điều khiển",
+          "Giới hạn dây và đầu nối thanh đồng",
+          "Lực siết",
+          "Khoảng cách điện và che chắn"
+        ],
+        "unknown_value": null,
+        "cad_rotation_is_mounting_approval": false
+      },
+      "cad_chen_tu": {},
+      "nhan_dien_bo_sung_20261010": {
+        "review_date": "2026-10-10",
+        "category_code": "MCCB",
+        "visual_review": true,
+        "preview": "38-0.png",
+        "source_block": "abs103-4",
+        "text_entities_found": 0,
+        "text_outline_note": "No extractable TEXT/MTEXT/ATTRIB found; visible lettering may be linework, not searchable text.",
+        "face": null,
+        "face_basis": "Unconfirmed",
+        "official_family_sources": [
+          "https://www.ls-electric.com/upload/customer/download/1213/Metasol_MCCB-ELCB_Technical%20Manual_E.pdf"
+        ],
+        "exact_sku_verified": false,
+        "automatic_insertion_approved": false,
+        "limitation": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp. Hình nhìn theo đầu thiết bị hoặc nắp: chưa phân biệt chắc mặt trên/dưới và thành phần; không tự gán mặt."
+      },
+      "nhan_dien_ai": {
+        "loai_thiet_bi_code": "MCCB",
+        "exact_sku_verified": false
+      },
+      "gia_ban": {
+        "don_gia": "---",
+        "don_vi_tien_te": "VND",
+        "trang_thai": "Không yêu cầu giá",
+        "hang": "LS Electric",
+        "ma_san_pham": "",
+        "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+        "nguon_tham_khao": [
+          "https://www.ls-electric.com",
+          "https://anhphatelectric.com",
+          "https://etinco.vn"
+        ],
+        "ngay_cap_nhat": "2026-10-16",
+        "muc_do_tin_cay": "Chưa có giá"
+      },
+      "browser_hidden": true
+    }
+  },
+  {
+    "file": "LS/ThietBi/SRC_LS_73da73597562/CadDon/SRC_LS_73da73597562/ban_ve.dxf",
+    "profile_exists": true,
+    "metadata": {
+      "nhom": "LS",
+      "ten_kieu": "LS · ABS(N)803-3 · CAD nguồn",
+      "ten_san_pham": "LS · ABS(N)803-3 · CAD nguồn",
+      "ban_chat": "CAD thiết bị theo nhãn nguồn",
+      "cong_dung": "Tham khảo hình học; xác nhận chức năng, mã thiết bị và thông số trước thiết kế.",
+      "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+      "hang_xac_nhan": null,
+      "ma_dong_san_pham": null,
+      "tu_khoa_tim_kiem": [
+        "LS",
+        "CAD thiết bị theo nhãn nguồn",
+        "MCCB",
+        "ABB",
+        "1SDA066485R1",
+        "CHINT",
+        "NM8N-125C TM 100 1P",
+        "Delixi",
+        "CDM3S125C1002300",
+        "Fuji Electric",
+        "BW100EAG-2P",
+        "HD Hyundai Electric",
+        "HGM1000S 3P",
+        "Hager",
+        "HDA014Z",
+        "ABN102c",
+        "Legrand",
+        "027000",
+        "Mitsubishi Electric",
+        "2CB002A000002",
+        "Schneider Electric",
+        "LV510300",
+        "Shihlin",
+        "BM100-HN",
+        "Siemens",
+        "3VJ1002-0DA32-0AA0",
+        "Vinakip",
+        "AT 56",
+        "LS · ABS(N)803-3 · CAD nguồn",
+        ""
+      ],
+      "muc_do_xac_nhan": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp. Hình nhìn theo đầu thiết bị hoặc nắp: chưa phân biệt chắc mặt trên/dưới và thành phần; không tự gán mặt.",
+      "nguon_tham_khao": [],
+      "nguon_cad": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "ABS(N)803-3",
+        "saved_block": "ABS(N)803-3",
+        "handle": "17D447",
+        "geometry_key": "73da735975627eafbc27d8a784b6f2d575907945c3a7bf61b70920bb190719ed",
+        "units": 4,
+        "instance_transform": {
+          "insert": [
+            -118662.3542155647,
+            -17777.31694107538,
+            0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "cac_hinh_cad": [],
+      "auto_select": false,
+      "needs_review": true,
+      "yeu_cau_chon_day": {
+        "vai_tro_ket_noi": [
+          "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+        ],
+        "tiet_dien_mac_dinh_mm2": null,
+        "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+        "vat_lieu_va_kieu": [
+          "Cu cách điện",
+          "Al nếu cọc/đầu cốt cho phép",
+          "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+        ],
+        "can_kiem_tra": [
+          "Dòng/điện áp và bảo vệ",
+          "Tiết diện/vật liệu cọc cho phép",
+          "Kiểu đầu cốt",
+          "Điều kiện nhiệt và tuyến",
+          "Độ dài thực tế"
+        ]
+      },
+      "yeu_cau_lap_dat": {
+        "schema": "installation_contract.schema.json",
+        "status": "Chưa xác nhận dữ liệu hãng",
+        "required_manufacturer_data": [
+          "Tư thế lắp được phép",
+          "Chiều sâu thân và khoảng trống",
+          "Vị trí lỗ gá hoặc khoét",
+          "Sơ đồ cọc nguồn/tải/điều khiển",
+          "Giới hạn dây và đầu nối thanh đồng",
+          "Lực siết",
+          "Khoảng cách điện và che chắn"
+        ],
+        "unknown_value": null,
+        "cad_rotation_is_mounting_approval": false
+      },
+      "cad_chen_tu": {},
+      "nhan_dien_bo_sung_20261010": {
+        "review_date": "2026-10-10",
+        "category_code": "MCCB",
+        "visual_review": true,
+        "preview": "36-0.png",
+        "source_block": "ABS(N)803-3",
+        "text_entities_found": 0,
+        "text_outline_note": "No extractable TEXT/MTEXT/ATTRIB found; visible lettering may be linework, not searchable text.",
+        "face": null,
+        "face_basis": "Unconfirmed",
+        "official_family_sources": [
+          "https://www.ls-electric.com/upload/customer/download/1213/Metasol_MCCB-ELCB_Technical%20Manual_E.pdf"
+        ],
+        "exact_sku_verified": false,
+        "automatic_insertion_approved": false,
+        "limitation": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp. Hình nhìn theo đầu thiết bị hoặc nắp: chưa phân biệt chắc mặt trên/dưới và thành phần; không tự gán mặt."
+      },
+      "nhan_dien_ai": {
+        "loai_thiet_bi_code": "MCCB",
+        "exact_sku_verified": false
+      },
+      "gia_ban": {
+        "don_gia": "---",
+        "don_vi_tien_te": "VND",
+        "trang_thai": "Không yêu cầu giá",
+        "hang": "LS Electric",
+        "ma_san_pham": "",
+        "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+        "nguon_tham_khao": [
+          "https://www.ls-electric.com",
+          "https://anhphatelectric.com",
+          "https://etinco.vn"
+        ],
+        "ngay_cap_nhat": "2026-10-16",
+        "muc_do_tin_cay": "Chưa có giá"
+      },
+      "browser_hidden": true
+    }
+  },
+  {
+    "file": "LS/ThietBi/SRC_LS_5251289cd8bf/CadDon/SRC_LS_5251289cd8bf/ban_ve.dxf",
+    "profile_exists": true,
+    "metadata": {
+      "nhom": "LS",
+      "ten_kieu": "LS · ERYHR REH W4 TS1600AF · CAD nguồn",
+      "ten_san_pham": "LS · ERYHR REH W4 TS1600AF · CAD nguồn",
+      "ban_chat": "CAD thiết bị theo nhãn nguồn",
+      "cong_dung": "Tham khảo hình học; xác nhận chức năng, mã thiết bị và thông số trước thiết kế.",
+      "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+      "hang_xac_nhan": null,
+      "ma_dong_san_pham": null,
+      "tu_khoa_tim_kiem": [
+        "LS",
+        "CAD thiết bị theo nhãn nguồn",
+        "MCCB",
+        "ABB",
+        "1SDA066485R1",
+        "CHINT",
+        "NM8N-125C TM 100 1P",
+        "Delixi",
+        "CDM3S125C1002300",
+        "Fuji Electric",
+        "BW100EAG-2P",
+        "HD Hyundai Electric",
+        "HGM1000S 3P",
+        "Hager",
+        "HDA014Z",
+        "ABN102c",
+        "Legrand",
+        "027000",
+        "Mitsubishi Electric",
+        "2CB002A000002",
+        "Schneider Electric",
+        "LV510300",
+        "Shihlin",
+        "BM100-HN",
+        "Siemens",
+        "3VJ1002-0DA32-0AA0",
+        "Vinakip",
+        "AT 56",
+        "LS · ERYHR REH W4 TS1600AF · CAD nguồn",
+        ""
+      ],
+      "muc_do_xac_nhan": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp. CAD có nhiều thành phần/trạng thái hoặc hình chồng; chưa đủ để chèn nguyên bản như một thiết bị.",
+      "nguon_tham_khao": [],
+      "nguon_cad": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "ERYHR REH W4 TS1600AF",
+        "saved_block": "ERYHR REH W4 TS1600AF",
+        "handle": "2320FC",
+        "geometry_key": "5251289cd8bf06b0872a92f3d30e1b057c2d22c6c580425e27c895b7e8d6d648",
+        "units": 4,
+        "instance_transform": {
+          "insert": [
+            -55268.94307856631,
+            18905.67539256553,
+            0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "cac_hinh_cad": [],
+      "auto_select": false,
+      "needs_review": true,
+      "yeu_cau_chon_day": {
+        "vai_tro_ket_noi": [
+          "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+        ],
+        "tiet_dien_mac_dinh_mm2": null,
+        "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+        "vat_lieu_va_kieu": [
+          "Cu cách điện",
+          "Al nếu cọc/đầu cốt cho phép",
+          "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+        ],
+        "can_kiem_tra": [
+          "Dòng/điện áp và bảo vệ",
+          "Tiết diện/vật liệu cọc cho phép",
+          "Kiểu đầu cốt",
+          "Điều kiện nhiệt và tuyến",
+          "Độ dài thực tế"
+        ]
+      },
+      "yeu_cau_lap_dat": {
+        "schema": "installation_contract.schema.json",
+        "status": "Chưa xác nhận dữ liệu hãng",
+        "required_manufacturer_data": [
+          "Tư thế lắp được phép",
+          "Chiều sâu thân và khoảng trống",
+          "Vị trí lỗ gá hoặc khoét",
+          "Sơ đồ cọc nguồn/tải/điều khiển",
+          "Giới hạn dây và đầu nối thanh đồng",
+          "Lực siết",
+          "Khoảng cách điện và che chắn"
+        ],
+        "unknown_value": null,
+        "cad_rotation_is_mounting_approval": false
+      },
+      "cad_chen_tu": {},
+      "nhan_dien_bo_sung_20261010": {
+        "review_date": "2026-10-10",
+        "category_code": "MCCB",
+        "visual_review": true,
+        "preview": "33-0.png",
+        "source_block": "ERYHR REH W4 TS1600AF",
+        "text_entities_found": 0,
+        "text_outline_note": "No extractable TEXT/MTEXT/ATTRIB found; visible lettering may be linework, not searchable text.",
+        "face": null,
+        "face_basis": "Unconfirmed",
+        "official_family_sources": [
+          "https://www.ls-electric.com/upload/customer/download/1213/Metasol_MCCB-ELCB_Technical%20Manual_E.pdf"
+        ],
+        "exact_sku_verified": false,
+        "automatic_insertion_approved": false,
+        "limitation": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp. CAD có nhiều thành phần/trạng thái hoặc hình chồng; chưa đủ để chèn nguyên bản như một thiết bị."
+      },
+      "nhan_dien_ai": {
+        "loai_thiet_bi_code": "MCCB",
+        "exact_sku_verified": false
+      },
+      "gia_ban": {
+        "don_gia": "---",
+        "don_vi_tien_te": "VND",
+        "trang_thai": "Không yêu cầu giá",
+        "hang": "LS Electric",
+        "ma_san_pham": "",
+        "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+        "nguon_tham_khao": [
+          "https://www.ls-electric.com",
+          "https://anhphatelectric.com",
+          "https://etinco.vn"
+        ],
+        "ngay_cap_nhat": "2026-10-16",
+        "muc_do_tin_cay": "Chưa có giá"
+      },
+      "browser_hidden": true
+    }
+  },
+  {
+    "file": "LS/ThietBi/SRC_LS_4ba3e95b45a8/CadDon/SRC_LS_4ba3e95b45a8/ban_ve.dxf",
+    "profile_exists": true,
+    "metadata": {
+      "nhom": "LS",
+      "ten_kieu": "LS · HCN BKN3P · CAD nguồn",
+      "ten_san_pham": "LS · HCN BKN3P · CAD nguồn",
+      "ban_chat": "MCB",
+      "cong_dung": "Bảo vệ quá dòng theo mã, số cực và khả năng cắt thực tế.",
+      "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+      "hang_xac_nhan": null,
+      "ma_dong_san_pham": null,
+      "tu_khoa_tim_kiem": [
+        "HCN BKN3P",
+        "LS",
+        "MCB",
+        "ABB",
+        "2CDS213001R0064",
+        "CHINT",
+        "NCH8-20/01 220/230V",
+        "Delixi",
+        "CDB6i1253C100",
+        "HD Hyundai Electric",
+        "HGD100S",
+        "Hager",
+        "HLF380S",
+        "BKN 1P 20A",
+        "Legrand",
+        "419881",
+        "Mitsubishi Electric",
+        "BHW-T10",
+        "Schneider Electric",
+        "A9N18364",
+        "Sino - Vanlock",
+        "PS45N/C3006",
+        "Vinakip",
+        "AT 07",
+        "LS · HCN BKN3P · CAD nguồn",
+        "",
+        "BKN"
+      ],
+      "muc_do_xac_nhan": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện.",
+      "nguon_tham_khao": [],
+      "nguon_cad": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "HCN BKN3P",
+        "saved_block": "HCN BKN3P",
+        "handle": "1AAFDB",
+        "geometry_key": "4ba3e95b45a8a83bcf6709a13ce1f12028c0367e4cb8c9ff9102c781852b26de",
+        "units": 4,
+        "instance_transform": {
+          "insert": [
+            11071.67930428765,
+            23132.99889997235,
+            0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "cac_hinh_cad": [],
+      "auto_select": false,
+      "needs_review": true,
+      "yeu_cau_chon_day": {
+        "vai_tro_ket_noi": [
+          "Nguồn vào",
+          "Ra tải",
+          "Phụ kiện điều khiển nếu có"
+        ],
+        "tiet_dien_mac_dinh_mm2": null,
+        "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+        "vat_lieu_va_kieu": [
+          "Cu cách điện",
+          "Al nếu cọc/đầu cốt cho phép",
+          "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+        ],
+        "can_kiem_tra": [
+          "Dòng/điện áp và bảo vệ",
+          "Tiết diện/vật liệu cọc cho phép",
+          "Kiểu đầu cốt",
+          "Điều kiện nhiệt và tuyến",
+          "Độ dài thực tế"
+        ]
+      },
+      "yeu_cau_lap_dat": {
+        "schema": "installation_contract.schema.json",
+        "status": "Chưa xác nhận dữ liệu hãng",
+        "required_manufacturer_data": [
+          "Tư thế lắp được phép",
+          "Chiều sâu thân và khoảng trống",
+          "Vị trí lỗ gá hoặc khoét",
+          "Sơ đồ cọc nguồn/tải/điều khiển",
+          "Giới hạn dây và đầu nối thanh đồng",
+          "Lực siết",
+          "Khoảng cách điện và che chắn"
+        ],
+        "unknown_value": null,
+        "cad_rotation_is_mounting_approval": false
+      },
+      "cad_chen_tu": {},
+      "nhan_dien_ai": {
+        "loai_thiet_bi_code": "MCB",
+        "recognition_basis": "Tên và bản chất trong hồ sơ hiện có; không xác nhận SKU",
+        "exact_SKU_confirmed": false
+      },
+      "gia_ban": {
+        "don_gia": "---",
+        "don_vi_tien_te": "VND",
+        "trang_thai": "Không yêu cầu giá",
+        "hang": "LS Electric",
+        "ma_san_pham": "",
+        "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+        "nguon_tham_khao": [
+          "https://www.ls-electric.com",
+          "https://anhphatelectric.com",
+          "https://etinco.vn"
+        ],
+        "ngay_cap_nhat": "2026-10-16",
+        "muc_do_tin_cay": "Chưa có giá"
+      },
+      "nhan_dien_web": {
+        "source_label_review": {
+          "status": "documented_source_label",
+          "models": [
+            "BKN"
+          ],
+          "manufacturer_candidates": [
+            "LS Electric"
+          ],
+          "checked_at": "2026-10-17",
+          "ordering_code_verified": false,
+          "geometry_verified": false
+        },
+        "brand_candidate": "LS Electric",
+        "status": "candidate_from_documented_source_label"
+      },
+      "browser_hidden": true
+    }
+  },
+  {
+    "file": "LS/ThietBi/SRC_LS_21ad01aeaca0/CadDon/SRC_LS_21ad01aeaca0/ban_ve.dxf",
+    "profile_exists": true,
+    "metadata": {
+      "nhom": "LS",
+      "ten_kieu": "LS · HCN BKN1P · CAD nguồn",
+      "ten_san_pham": "LS · HCN BKN1P · CAD nguồn",
+      "ban_chat": "MCB",
+      "cong_dung": "Bảo vệ quá dòng theo mã, số cực và khả năng cắt thực tế.",
+      "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+      "hang_xac_nhan": null,
+      "ma_dong_san_pham": null,
+      "tu_khoa_tim_kiem": [
+        "HCN BKN1P",
+        "LS",
+        "MCB",
+        "ABB",
+        "2CDS211001R0064",
+        "CHINT",
+        "NCH8-20/01 220/230V",
+        "Delixi",
+        "CDB6i1251C100",
+        "HD Hyundai Electric",
+        "HGD100S",
+        "Hager",
+        "HLF180S",
+        "Legrand",
+        "419837",
+        "Mitsubishi Electric",
+        "D1P-0.5C10DN",
+        "Schneider Electric",
+        "A9N18357",
+        "Sino - Vanlock",
+        "PS45N/C1006",
+        "Vinakip",
+        "AT 07",
+        "LS · HCN BKN1P · CAD nguồn",
+        "",
+        "BKN"
+      ],
+      "muc_do_xac_nhan": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện.",
+      "nguon_tham_khao": [],
+      "nguon_cad": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "HCN BKN1P",
+        "saved_block": "HCN BKN1P",
+        "handle": "1AAFA6",
+        "geometry_key": "21ad01aeaca0c8d93902b0f3545ee7433d8f55b0a0d17b0356d2c40454e99b11",
+        "units": 4,
+        "instance_transform": {
+          "insert": [
+            10959.7256535096,
+            23132.99889997235,
+            0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "cac_hinh_cad": [],
+      "auto_select": false,
+      "needs_review": true,
+      "yeu_cau_chon_day": {
+        "vai_tro_ket_noi": [
+          "Nguồn vào",
+          "Ra tải",
+          "Phụ kiện điều khiển nếu có"
+        ],
+        "tiet_dien_mac_dinh_mm2": null,
+        "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+        "vat_lieu_va_kieu": [
+          "Cu cách điện",
+          "Al nếu cọc/đầu cốt cho phép",
+          "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+        ],
+        "can_kiem_tra": [
+          "Dòng/điện áp và bảo vệ",
+          "Tiết diện/vật liệu cọc cho phép",
+          "Kiểu đầu cốt",
+          "Điều kiện nhiệt và tuyến",
+          "Độ dài thực tế"
+        ]
+      },
+      "yeu_cau_lap_dat": {
+        "schema": "installation_contract.schema.json",
+        "status": "Chưa xác nhận dữ liệu hãng",
+        "required_manufacturer_data": [
+          "Tư thế lắp được phép",
+          "Chiều sâu thân và khoảng trống",
+          "Vị trí lỗ gá hoặc khoét",
+          "Sơ đồ cọc nguồn/tải/điều khiển",
+          "Giới hạn dây và đầu nối thanh đồng",
+          "Lực siết",
+          "Khoảng cách điện và che chắn"
+        ],
+        "unknown_value": null,
+        "cad_rotation_is_mounting_approval": false
+      },
+      "cad_chen_tu": {},
+      "nhan_dien_ai": {
+        "loai_thiet_bi_code": "MCB",
+        "recognition_basis": "Tên và bản chất trong hồ sơ hiện có; không xác nhận SKU",
+        "exact_SKU_confirmed": false
+      },
+      "gia_ban": {
+        "don_gia": "---",
+        "don_vi_tien_te": "VND",
+        "trang_thai": "Không yêu cầu giá",
+        "hang": "LS Electric",
+        "ma_san_pham": "",
+        "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+        "nguon_tham_khao": [
+          "https://www.ls-electric.com",
+          "https://anhphatelectric.com",
+          "https://etinco.vn"
+        ],
+        "ngay_cap_nhat": "2026-10-16",
+        "muc_do_tin_cay": "Chưa có giá"
+      },
+      "nhan_dien_web": {
+        "source_label_review": {
+          "status": "documented_source_label",
+          "models": [
+            "BKN"
+          ],
+          "manufacturer_candidates": [
+            "LS Electric"
+          ],
+          "checked_at": "2026-10-17",
+          "ordering_code_verified": false,
+          "geometry_verified": false
+        },
+        "brand_candidate": "LS Electric",
+        "status": "candidate_from_documented_source_label"
+      },
+      "browser_hidden": true
+    }
+  },
+  {
+    "file": "LS/ThietBi/SRC_LS_119b9027dcb0/CadDon/SRC_LS_119b9027dcb0/ban_ve.dxf",
+    "profile_exists": true,
+    "metadata": {
+      "nhom": "LS",
+      "ten_kieu": "LS · GYER HERH  WRE TS1600AF 4P · CAD nguồn",
+      "ten_san_pham": "LS · GYER HERH  WRE TS1600AF 4P · CAD nguồn",
+      "ban_chat": "CAD thiết bị theo nhãn nguồn",
+      "cong_dung": "Tham khảo hình học; xác nhận chức năng, mã thiết bị và thông số trước thiết kế.",
+      "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+      "hang_xac_nhan": null,
+      "ma_dong_san_pham": null,
+      "tu_khoa_tim_kiem": [
+        "LS",
+        "CAD thiết bị theo nhãn nguồn",
+        "MCCB",
+        "ABB",
+        "1SDA066485R1",
+        "CHINT",
+        "NM8N-125C TM 100 1P",
+        "Delixi",
+        "CDM3S125C1002300",
+        "Fuji Electric",
+        "BW100EAG-2P",
+        "HD Hyundai Electric",
+        "HGM1000S 3P",
+        "Hager",
+        "HDA014Z",
+        "ABN102c",
+        "Legrand",
+        "027000",
+        "Mitsubishi Electric",
+        "2CB002A000002",
+        "Schneider Electric",
+        "LV510300",
+        "Shihlin",
+        "BM100-HN",
+        "Siemens",
+        "3VJ1002-0DA32-0AA0",
+        "Vinakip",
+        "AT 56",
+        "LS · GYER HERH  WRE TS1600AF 4P · CAD nguồn",
+        ""
+      ],
+      "muc_do_xac_nhan": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp. CAD có nhiều thành phần/trạng thái hoặc hình chồng; chưa đủ để chèn nguyên bản như một thiết bị.",
+      "nguon_tham_khao": [],
+      "nguon_cad": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "GYER HERH  WRE TS1600AF 4P",
+        "saved_block": "GYER HERH  WRE TS1600AF 4P",
+        "handle": "2320FD",
+        "geometry_key": "119b9027dcb0972fbdbb8310c20c816d2908307bb7c59e2064945617333c4440",
+        "units": 4,
+        "instance_transform": {
+          "insert": [
+            -55601.94289763938,
+            18905.67539256553,
+            0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "cac_hinh_cad": [],
+      "auto_select": false,
+      "needs_review": true,
+      "yeu_cau_chon_day": {
+        "vai_tro_ket_noi": [
+          "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+        ],
+        "tiet_dien_mac_dinh_mm2": null,
+        "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+        "vat_lieu_va_kieu": [
+          "Cu cách điện",
+          "Al nếu cọc/đầu cốt cho phép",
+          "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+        ],
+        "can_kiem_tra": [
+          "Dòng/điện áp và bảo vệ",
+          "Tiết diện/vật liệu cọc cho phép",
+          "Kiểu đầu cốt",
+          "Điều kiện nhiệt và tuyến",
+          "Độ dài thực tế"
+        ]
+      },
+      "yeu_cau_lap_dat": {
+        "schema": "installation_contract.schema.json",
+        "status": "Chưa xác nhận dữ liệu hãng",
+        "required_manufacturer_data": [
+          "Tư thế lắp được phép",
+          "Chiều sâu thân và khoảng trống",
+          "Vị trí lỗ gá hoặc khoét",
+          "Sơ đồ cọc nguồn/tải/điều khiển",
+          "Giới hạn dây và đầu nối thanh đồng",
+          "Lực siết",
+          "Khoảng cách điện và che chắn"
+        ],
+        "unknown_value": null,
+        "cad_rotation_is_mounting_approval": false
+      },
+      "cad_chen_tu": {},
+      "nhan_dien_bo_sung_20261010": {
+        "review_date": "2026-10-10",
+        "category_code": "MCCB",
+        "visual_review": true,
+        "preview": "23-0.png",
+        "source_block": "GYER HERH  WRE TS1600AF 4P",
+        "text_entities_found": 0,
+        "text_outline_note": "No extractable TEXT/MTEXT/ATTRIB found; visible lettering may be linework, not searchable text.",
+        "face": null,
+        "face_basis": "Unconfirmed",
+        "official_family_sources": [
+          "https://www.ls-electric.com/upload/customer/download/1213/Metasol_MCCB-ELCB_Technical%20Manual_E.pdf"
+        ],
+        "exact_sku_verified": false,
+        "automatic_insertion_approved": false,
+        "limitation": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp. CAD có nhiều thành phần/trạng thái hoặc hình chồng; chưa đủ để chèn nguyên bản như một thiết bị."
+      },
+      "nhan_dien_ai": {
+        "loai_thiet_bi_code": "MCCB",
+        "exact_sku_verified": false
+      },
+      "gia_ban": {
+        "don_gia": "---",
+        "don_vi_tien_te": "VND",
+        "trang_thai": "Không yêu cầu giá",
+        "hang": "LS Electric",
+        "ma_san_pham": "",
+        "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+        "nguon_tham_khao": [
+          "https://www.ls-electric.com",
+          "https://anhphatelectric.com",
+          "https://etinco.vn"
+        ],
+        "ngay_cap_nhat": "2026-10-16",
+        "muc_do_tin_cay": "Chưa có giá"
+      },
+      "browser_hidden": true
+    }
+  },
+  {
+    "file": "LS/ThietBi/SRC_LS_118a8e291679/CadDon/SRC_LS_118a8e291679/ban_ve.dxf",
+    "profile_exists": true,
+    "metadata": {
+      "nhom": "LS",
+      "ten_kieu": "LS · MT-63 · CAD nguồn",
+      "ten_san_pham": "LS · MT-63 · CAD nguồn",
+      "ban_chat": "Rơ le nhiệt",
+      "cong_dung": "Bảo vệ quá tải động cơ; cần xác nhận dải chỉnh và thiết bị chủ.",
+      "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+      "hang_xac_nhan": null,
+      "ma_dong_san_pham": null,
+      "tu_khoa_tim_kiem": [
+        "LS",
+        "Rơ le nhiệt",
+        "1SAZ211201R2005",
+        "Mitsubishi Electric",
+        "THA00-397",
+        "LS · MT-63 · CAD nguồn",
+        "",
+        "MT-63",
+        "THERMAL_RELAY"
+      ],
+      "muc_do_xac_nhan": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện.",
+      "nguon_tham_khao": [],
+      "nguon_cad": {
+        "file": "D:\\THƯ VIỆN\\@LS.dwg",
+        "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+        "block": "MT-63",
+        "saved_block": "MT-63",
+        "handle": "AC3D",
+        "geometry_key": "118a8e291679fe1418160dcea5a0bef347a5456506d8862f21e6d36253a8b3a9",
+        "units": 4,
+        "instance_transform": {
+          "insert": [
+            11002.39831370887,
+            21236.64723197651,
+            0
+          ],
+          "rotation": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+      },
+      "cac_hinh_cad": [],
+      "auto_select": false,
+      "needs_review": true,
+      "yeu_cau_chon_day": {
+        "vai_tro_ket_noi": [
+          "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+        ],
+        "tiet_dien_mac_dinh_mm2": null,
+        "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+        "vat_lieu_va_kieu": [
+          "Cu cách điện",
+          "Al nếu cọc/đầu cốt cho phép",
+          "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+        ],
+        "can_kiem_tra": [
+          "Dòng/điện áp và bảo vệ",
+          "Tiết diện/vật liệu cọc cho phép",
+          "Kiểu đầu cốt",
+          "Điều kiện nhiệt và tuyến",
+          "Độ dài thực tế"
+        ]
+      },
+      "yeu_cau_lap_dat": {
+        "schema": "installation_contract.schema.json",
+        "status": "Chưa xác nhận dữ liệu hãng",
+        "required_manufacturer_data": [
+          "Tư thế lắp được phép",
+          "Chiều sâu thân và khoảng trống",
+          "Vị trí lỗ gá hoặc khoét",
+          "Sơ đồ cọc nguồn/tải/điều khiển",
+          "Giới hạn dây và đầu nối thanh đồng",
+          "Lực siết",
+          "Khoảng cách điện và che chắn"
+        ],
+        "unknown_value": null,
+        "cad_rotation_is_mounting_approval": false
+      },
+      "cad_chen_tu": {},
+      "gia_ban": {
+        "don_gia": "---",
+        "don_vi_tien_te": "VND",
+        "trang_thai": "Không yêu cầu giá",
+        "hang": "LS Electric",
+        "ma_san_pham": "",
+        "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+        "nguon_tham_khao": [
+          "https://www.ls-electric.com",
+          "https://anhphatelectric.com",
+          "https://etinco.vn"
+        ],
+        "ngay_cap_nhat": "2026-10-16",
+        "muc_do_tin_cay": "Chưa có giá"
+      },
+      "nhan_dien_web": {
+        "source_label_review": {
+          "status": "documented_source_label",
+          "models": [
+            "MT-63"
+          ],
+          "manufacturer_candidates": [
+            "LS Electric"
+          ],
+          "checked_at": "2026-10-17",
+          "ordering_code_verified": false,
+          "geometry_verified": false
+        },
+        "brand_candidate": "LS Electric",
+        "status": "candidate_from_documented_source_label"
+      },
+      "nhan_dien_ai": {
+        "loai_thiet_bi_code": "THERMAL_RELAY",
+        "recognition_basis": "Vai trò ghi rõ trong ban_chat của hồ sơ hiện có; chưa xác nhận mã hàng hoặc thông số điện.",
+        "role_evidence": "Rơ le nhiệt",
+        "exact_SKU_confirmed": false
+      },
+      "browser_hidden": true
+    }
+  }
+]
