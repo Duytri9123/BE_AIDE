@@ -1,4 +1,5 @@
 from sqladmin import ModelView
+from wtforms import SelectField
 from markupsafe import Markup
 from app.models.project import Project
 from app.models.project_version import ProjectVersion
@@ -65,6 +66,34 @@ class ProjectVersionAdmin(ModelView, model=ProjectVersion):
         ProjectVersion.created_at: lambda m, a: m.created_at.strftime("%d/%m/%Y %H:%M") if m.created_at else "",
     }
     
+    form_columns = [
+        ProjectVersion.project_id,
+        ProjectVersion.version_number,
+        ProjectVersion.status
+    ]
+
+    form_overrides = {
+        "status": SelectField
+    }
+
+    form_args = {
+        "project_id": {"label": "ID Dự án"},
+        "version_number": {"label": "Số phiên bản"},
+        "status": {
+            "label": "Trạng thái",
+            "choices": [
+                ("active", "Hoạt động (active)"),
+                ("draft", "Bản nháp (draft)"),
+                ("archived", "Lưu trữ (archived)")
+            ],
+            "default": "active"
+        }
+    }
+
+    form_widget_args = {
+        "status": {"class": "form-select"}
+    }
+
     can_create = True
     can_edit = True
     can_delete = True

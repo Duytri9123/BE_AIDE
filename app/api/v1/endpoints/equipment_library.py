@@ -317,19 +317,28 @@ def _raster_preview(relative: str) -> bytes:
 
 @lru_cache(maxsize=128)
 def _raster_preview_source(source: bytes) -> bytes:
-    import cairosvg
-    from xml.etree import ElementTree
-    svg = ElementTree.fromstring(source)
-    bounds = [float(part) for part in svg.attrib.get('viewBox', '0 0 1000 1000').replace(',', ' ').split()]
-    width, height = max(bounds[2], 1), max(bounds[3], 1)
-    scale = 1400 / max(width, height)
-    return cairosvg.svg2png(bytestring=source, output_width=max(1, round(width*scale)),
-                           output_height=max(1, round(height*scale)))
+    try:
+        import cairosvg
+        from xml.etree import ElementTree
+        svg = ElementTree.fromstring(source)
+        bounds = [float(part) for part in svg.attrib.get('viewBox', '0 0 1000 1000').replace(',', ' ').split()]
+        width, height = max(bounds[2], 1), max(bounds[3], 1)
+        scale = 1400 / max(width, height)
+        return cairosvg.svg2png(bytestring=source, output_width=max(1, round(width*scale)),
+                               output_height=max(1, round(height*scale)))
+    except Exception:
+        return source
+
 
 def _preview_response(relative: str):
+    raw = asset_bytes(relative)
     if relative.lower().endswith('.svg'):
-        return Response(_raster_preview(relative), media_type='image/png')
-    return Response(asset_bytes(relative), media_type=mimetypes.guess_type(relative)[0] or 'image/png')
+        return Response(raw, media_type='image/svg+xml',
+                        headers={'Cache-Control': 'public, max-age=86400',
+                                 'X-Content-Type-Options': 'nosniff'})
+    mime = mimetypes.guess_type(relative)[0] or 'image/png'
+    return Response(raw, media_type=mime,
+                    headers={'Cache-Control': 'public, max-age=86400'})
 
 
 @router.get('/{catalog_id}/dxf')

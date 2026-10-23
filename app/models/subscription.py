@@ -17,4 +17,5 @@ class Subscription(Base, TimestampMixin):
     plan: Mapped["Plan"] = relationship("Plan", back_populates="subscriptions")
 
     def __str__(self) -> str:
-        return f"<Subscription(id={self.id}, user_id={self.user_id}, plan_id={self.plan_id})>"
+        plan_name = self.plan.name if getattr(self, "plan", None) else f"Gói #{self.plan_id}"
+        return f"{plan_name} ({self.status})"

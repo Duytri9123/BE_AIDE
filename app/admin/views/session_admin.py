@@ -1,4 +1,5 @@
 from sqladmin import ModelView
+from wtforms import SelectField
 from markupsafe import Markup
 from app.models.conversation_session import ConversationSession
 from app.models.analysis_iteration import AnalysisIteration
@@ -21,6 +22,32 @@ class ConversationSessionAdmin(ModelView, model=ConversationSession):
         ConversationSession.status: lambda m, a: Markup(f'<span class="badge bg-{"success-soft text-success" if m.status == "active" else "secondary-soft text-muted"} fw-bold">{"Hoạt động" if m.status == "active" else m.status}</span>'),
         ConversationSession.created_at: lambda m, a: m.created_at.strftime("%d/%m/%Y %H:%M") if m.created_at else "",
     }
+
+    form_columns = [
+        ConversationSession.project_id,
+        ConversationSession.status
+    ]
+
+    form_overrides = {
+        "status": SelectField
+    }
+
+    form_args = {
+        "project_id": {"label": "ID Dự án"},
+        "status": {
+            "label": "Trạng thái phiên",
+            "choices": [
+                ("active", "Đang hoạt động (active)"),
+                ("closed", "Đã kết thúc / Đóng (closed)")
+            ],
+            "default": "active"
+        }
+    }
+
+    form_widget_args = {
+        "status": {"class": "form-select"}
+    }
+
     can_create = False
     can_edit = True
     can_delete = True

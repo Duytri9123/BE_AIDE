@@ -1,0 +1,301 @@
+{% extends "sqladmin/layout.html" %}
+{% from 'sqladmin/_macros.html' import render_form_fields %}
+
+{% block content %}
+<div class="container-fluid p-0">
+  <form id="user-edit-form" action="{{ model_view._build_url_for('admin:edit', request, obj) }}{% if request.url.query %}?{{ request.url.query }}{% endif %}" method="POST" enctype="multipart/form-data">
+    
+    <!-- Top Header -->
+    <div class="card modern-admin-card shadow-sm border-0 mb-3">
+      <div class="card-header bg-transparent d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between py-3 px-4 gap-2.5">
+        <div class="d-flex align-items-center gap-3">
+          <div class="rounded-circle d-flex align-items-center justify-content-center bg-primary-soft text-primary" style="width: 40px; height: 40px;">
+            <i class="fa-solid fa-user-pen fs-5"></i>
+          </div>
+          <div>
+            <h4 class="card-title fw-bold m-0 text-dark" style="font-size: 1.15rem;">
+              Chỉnh sửa Người dùng <span class="text-primary">#{{ obj.id }}</span>
+            </h4>
+            <span class="text-muted fs-8">{{ obj.name or obj.email }} · Tham gia {{ obj.created_at.strftime('%d/%m/%Y') if obj.created_at else '' }}</span>
+          </div>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <a href="{{ url_for('admin:list', identity=model_view.identity) }}" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center fw-semibold px-3 py-1.5" style="border-radius: 8px; font-size: 12.5px; gap: 6px;">
+            <i class="fa-solid fa-arrow-left"></i> <span>Quay lại danh sách</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {% if error %}
+      <div class="alert alert-danger rounded-3 mb-3 d-flex align-items-center" role="alert">
+        <i class="fa-solid fa-circle-exclamation fs-5 me-2"></i>
+        <div>{{ error }}</div>
+      </div>
+    {% endif %}
+
+    <div class="row g-3">
+      <!-- Cột 1: Thông tin tài khoản người dùng -->
+      <div class="col-12 col-xl-7">
+        <div class="card modern-admin-card shadow-sm border-0 h-100">
+          <div class="card-header bg-transparent py-3 px-4 border-bottom d-flex align-items-center justify-content-between">
+            <h5 class="fw-bold m-0 text-dark fs-6 d-flex align-items-center gap-2">
+              <i class="fa-solid fa-id-badge text-primary"></i>
+              Thông tin Tài khoản
+            </h5>
+            <span class="badge bg-light text-muted border fs-8">ID #{{ obj.id }}</span>
+          </div>
+
+          <div class="card-body p-3 p-md-4">
+            <fieldset class="form-fieldset border-0 p-0 mb-4">
+              {{ render_form_fields(form, form_opts=form_opts, ajax_lookup_url=url_for('admin:ajax_lookup', identity=model_view.identity)) }}
+            </fieldset>
+
+            <div class="d-flex align-items-center justify-content-between pt-3 border-top gap-3 flex-wrap form-actions-bottom">
+              <a href="{{ url_for('admin:list', identity=model_view.identity) }}" class="btn btn-outline-secondary fw-semibold px-3.5 py-2 d-inline-flex align-items-center" style="border-radius: 8px; font-size: 13px; gap: 6px;">
+                <i class="fa-solid fa-xmark"></i> <span>Hủy bỏ</span>
+              </a>
+
+              <div class="d-flex align-items-center form-actions-buttons-group" style="gap: 8px;">
+                {% block submit_buttons_bottom %}
+                  <button type="submit" name="save" value="Save and continue editing" class="btn btn-outline-primary fw-semibold px-3.5 py-2 d-inline-flex align-items-center" style="border-radius: 8px; font-size: 13px; gap: 6px;">
+                    <i class="fa-solid fa-pen-to-square"></i> <span>Lưu &amp; Tiếp tục sửa</span>
+                  </button>
+                  <button type="submit" name="save" value="Save" class="btn btn-primary fw-bold px-4 py-2 shadow-sm d-inline-flex align-items-center" style="border-radius: 8px; font-size: 13px; gap: 6px;">
+                    <i class="fa-solid fa-check"></i> <span>Lưu thay đổi</span>
+                  </button>
+                {% endblock %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cột 2: Thông tin gói cước & Quản lý đăng ký gói -->
+      <div class="col-12 col-xl-5">
+        <div class="d-flex flex-column gap-3">
+
+          <!-- Card Gói Cước Hiện Tại -->
+          <div class="card modern-admin-card shadow-sm border-0">
+            <div class="card-header bg-transparent py-3 px-4 border-bottom d-flex align-items-center justify-content-between">
+              <h5 class="fw-bold m-0 text-dark fs-6 d-flex align-items-center gap-2">
+                <i class="fa-solid fa-id-card text-success"></i>
+                Gói Dịch Vụ / Gói Cước Hiện Tại
+              </h5>
+              {% if active_sub and active_sub.status == 'active' %}
+                <span class="badge bg-success-soft text-success fw-bold fs-8">
+                  <i class="fa-solid fa-circle-check me-1"></i>Đang sử dụng
+                </span>
+              {% else %}
+                <span class="badge bg-secondary-soft text-muted fw-bold fs-8">Gói Cơ Bản</span>
+              {% endif %}
+            </div>
+
+            <div class="card-body p-3 p-md-4">
+              {% if active_sub and active_sub.status == 'active' %}
+                <div class="p-3 rounded-3 mb-3" style="background: rgba(30, 114, 255, 0.05); border: 1px solid rgba(30, 114, 255, 0.15);">
+                  <div class="d-flex align-items-start justify-content-between">
+                    <div>
+                      <span class="badge bg-primary text-white fw-bold mb-1" style="font-size: 11px;">GÓI ĐANG KÍCH HOẠT</span>
+                      <h4 class="fw-bold text-dark m-0">{{ active_sub.plan.name if active_sub.plan else ('Gói #' ~ active_sub.plan_id) }}</h4>
+                    </div>
+                    <span class="fs-4 text-primary"><i class="fa-solid fa-crown"></i></span>
+                  </div>
+
+                  <hr class="my-2.5 opacity-20">
+
+                  <div class="row g-2 text-dark fs-8">
+                    <div class="col-6">
+                      <span class="text-muted d-block">Bắt đầu:</span>
+                      <strong>{{ active_sub.starts_at.strftime('%d/%m/%Y') if active_sub.starts_at else '-' }}</strong>
+                    </div>
+                    <div class="col-6">
+                      <span class="text-muted d-block">Hết hạn:</span>
+                      <strong>{{ active_sub.ends_at.strftime('%d/%m/%Y') if active_sub.ends_at else 'Vô thời hạn' }}</strong>
+                    </div>
+                    <div class="col-6 mt-2">
+                      <span class="text-muted d-block">Thời hạn còn lại:</span>
+                      <span class="badge {{ 'bg-success-soft text-success' if days_remaining > 7 else 'bg-warning-soft text-warning' }} fw-bold">
+                        {{ days_remaining }} ngày
+                      </span>
+                    </div>
+                    <div class="col-6 mt-2">
+                      <span class="text-muted d-block">Tokens của gói:</span>
+                      <strong class="text-primary">{{ "{:,}".format(active_sub.plan.token_amount or 0) if active_sub.plan else 0 }}</strong>
+                    </div>
+                  </div>
+                </div>
+              {% else %}
+                <div class="p-3 rounded-3 mb-3 bg-light border text-center">
+                  <div class="text-muted fs-4 mb-1"><i class="fa-regular fa-folder-open"></i></div>
+                  <h6 class="fw-bold text-dark mb-1">Chưa có gói dịch vụ trả phí</h6>
+                  <p class="text-muted fs-8 mb-0">Người dùng hiện đang dùng gói miễn phí mặc định của hệ thống.</p>
+                </div>
+              {% endif %}
+
+              <!-- Form cấp / đổi gói cước -->
+              <div class="pt-2">
+                <h6 class="fw-bold text-dark fs-7 mb-2 d-flex align-items-center gap-1.5">
+                  <i class="fa-solid fa-arrows-rotate text-primary"></i>
+                  Cấp / Nâng cấp Gói cước mới cho người dùng
+                </h6>
+                <p class="text-muted fs-8 mb-2.5">
+                  Chọn gói cước bên dưới để cấp ngay lập tức hoặc cập nhật khi lưu thay đổi thông tin.
+                </p>
+
+                <div class="mb-2.5">
+                  <label class="form-label fs-8 fw-semibold text-dark mb-1">Gói cước muốn cấp:</label>
+                  <select name="assign_plan_id" id="assign_plan_id" class="form-select form-select-sm" style="border-radius: 6px;">
+                    <option value="">-- Giữ nguyên gói hiện tại --</option>
+                    {% for p in available_plans %}
+                      <option value="{{ p.id }}">
+                        {{ p.name }} ({{ "{:,.0f}".format(p.price) }} đ - {{ "{:,}".format(p.token_amount) }} tokens)
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <div class="row g-2 mb-2.5">
+                  <div class="col-6">
+                    <label class="form-label fs-8 fw-semibold text-dark mb-1">Thời hạn cấp:</label>
+                    <select name="assign_duration_months" id="assign_duration_months" class="form-select form-select-sm" style="border-radius: 6px;">
+                      <option value="1" selected>1 tháng</option>
+                      <option value="3">3 tháng</option>
+                      <option value="6">6 tháng</option>
+                      <option value="12">12 tháng (1 năm)</option>
+                      <option value="36">36 tháng (3 năm)</option>
+                      <option value="120">Vĩnh viễn (10 năm)</option>
+                    </select>
+                  </div>
+                  <div class="col-6 d-flex align-items-end">
+                    <div class="form-check pb-1">
+                      <input class="form-check-input" type="checkbox" name="assign_add_tokens" id="assign_add_tokens" value="1" checked>
+                      <label class="form-check-label fs-8 text-dark fw-medium" for="assign_add_tokens">
+                        Cộng thêm Tokens
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <button type="button" id="btn-quick-assign" class="btn btn-sm btn-outline-primary w-100 fw-bold py-1.5 d-inline-flex align-items-center justify-content-center gap-1.5" style="border-radius: 6px;" onclick="quickAssignPlan({{ obj.id }})">
+                  <i class="fa-solid fa-bolt"></i> Cấp gói ngay lập tức
+                </button>
+
+                <div id="assign-plan-feedback" class="mt-2.5" style="display: none;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Lối Tắt Tra Cứu -->
+          <div class="card modern-admin-card shadow-sm border-0">
+            <div class="card-header bg-transparent py-2.5 px-4 border-bottom">
+              <h6 class="fw-bold m-0 text-dark fs-7 d-flex align-items-center gap-2">
+                <i class="fa-solid fa-link text-primary"></i>
+                Lối Tắt Dữ Liệu Liên Quan Của Người Dùng
+              </h6>
+            </div>
+            <div class="list-group list-group-flush fs-8">
+              <a href="{{ url_for('admin:list', identity='subscription') }}?search={{ obj.email }}" class="list-group-item list-group-item-action py-2.5 px-4 d-flex align-items-center justify-content-between text-dark fw-medium">
+                <span class="d-flex align-items-center gap-2">
+                  <i class="fa-solid fa-id-card text-primary opacity-80" style="width: 16px;"></i>
+                  Lịch sử Đăng ký Gói (Subscriptions)
+                </span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-muted opacity-50"></i>
+              </a>
+
+              <a href="{{ url_for('admin:list', identity='payment') }}?search={{ obj.email }}" class="list-group-item list-group-item-action py-2.5 px-4 d-flex align-items-center justify-content-between text-dark fw-medium">
+                <span class="d-flex align-items-center gap-2">
+                  <i class="fa-solid fa-money-bill-wave text-success opacity-80" style="width: 16px;"></i>
+                  Lịch sử Giao dịch &amp; Thanh toán
+                </span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-muted opacity-50"></i>
+              </a>
+
+              <a href="{{ url_for('admin:list', identity='token-log') }}?search={{ obj.email }}" class="list-group-item list-group-item-action py-2.5 px-4 d-flex align-items-center justify-content-between text-dark fw-medium">
+                <span class="d-flex align-items-center gap-2">
+                  <i class="fa-solid fa-coins text-warning opacity-80" style="width: 16px;"></i>
+                  Nhật ký Biến động Tokens
+                </span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-muted opacity-50"></i>
+              </a>
+
+              <a href="{{ url_for('admin:list', identity='project') }}?search={{ obj.email }}" class="list-group-item list-group-item-action py-2.5 px-4 d-flex align-items-center justify-content-between text-dark fw-medium">
+                <span class="d-flex align-items-center gap-2">
+                  <i class="fa-solid fa-folder-open text-info opacity-80" style="width: 16px;"></i>
+                  Danh sách Dự án của Người dùng
+                </span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-muted opacity-50"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+async function quickAssignPlan(userId) {
+  const planSelect = document.getElementById('assign_plan_id');
+  const planId = planSelect ? planSelect.value : '';
+  const durationSelect = document.getElementById('assign_duration_months');
+  const durationMonths = durationSelect ? parseInt(durationSelect.value) : 1;
+  const addTokensCheck = document.getElementById('assign_add_tokens');
+  const addTokens = addTokensCheck ? addTokensCheck.checked : true;
+  const feedback = document.getElementById('assign-plan-feedback');
+  const btn = document.getElementById('btn-quick-assign');
+
+  if (!planId) {
+    alert('Vui lòng chọn một Gói cước từ danh sách để cấp.');
+    if (planSelect) planSelect.focus();
+    return;
+  }
+
+  if (!confirm('Bạn có chắc chắn muốn cấp gói cước này cho người dùng #' + userId + ' không?')) {
+    return;
+  }
+
+  const originalBtnText = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang xử lý...';
+  feedback.style.display = 'none';
+
+  try {
+    const res = await fetch('/admin-api/users/' + userId + '/assign-plan', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        plan_id: parseInt(planId),
+        duration_months: durationMonths,
+        add_tokens: addTokens
+      })
+    });
+
+    const data = await res.json();
+    if (res.ok && data.success) {
+      feedback.className = 'alert alert-success py-2 px-3 fs-8 rounded-3';
+      feedback.innerHTML = '<i class="fa-solid fa-circle-check me-1"></i> ' + (data.message || 'Cấp gói thành công! Đang tải lại...');
+      feedback.style.display = 'block';
+      setTimeout(() => {
+        window.location.reload();
+      }, 1200);
+    } else {
+      feedback.className = 'alert alert-danger py-2 px-3 fs-8 rounded-3';
+      feedback.innerHTML = '<i class="fa-solid fa-circle-exclamation me-1"></i> ' + (data.detail || data.message || 'Có lỗi xảy ra.');
+      feedback.style.display = 'block';
+      btn.disabled = false;
+      btn.innerHTML = originalBtnText;
+    }
+  } catch (err) {
+    feedback.className = 'alert alert-danger py-2 px-3 fs-8 rounded-3';
+    feedback.innerHTML = '<i class="fa-solid fa-circle-exclamation me-1"></i> Lỗi kết nối: ' + err.message;
+    feedback.style.display = 'block';
+    btn.disabled = false;
+    btn.innerHTML = originalBtnText;
+  }
+}
+</script>
+{% endblock %}

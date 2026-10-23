@@ -1294,3 +1294,87 @@ async def antigravity_oauth_callback(
         </div>
         """)
 
+
+class AssignPlanPayload(BaseModel):
+    plan_id: int
+    duration_months: Optional[int] = 1
+    add_tokens: bool = True
+    note: Optional[str] = "Admin cấp gói cước"
+
+
+@router.post("/users/{user_id}/assign-plan")
+async def assign_user_plan_endpoint(
+    user_id: int,
+    payload: AssignPlanPayload,
+    db: AsyncSession = Depends(get_db)
+):
+    """Admin cấp hoặc nâng cấp gói cước cho người dùng."""
+    from app.models.user import User
+    from app.models.plan import Plan
+    from app.models.subscription import Subscription
+    from app.models.payment import Payment
+    from app.models.token_log import TokenLog
+    from datetime import datetime, timezone, timedelta
+    from sqlalchemy import update
+
+    user = await db.get(User, user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="Không tìm thấy người dùng")
+
+    plan = await db.get(Plan, payload.plan_id)
+    if not plan:
+        raise HTTPException(status_code=404, detail="Không tìm thấy gói cước được chỉ định")
+
+    now = datetime.now(timezone.utc)
+    months = payload.duration_months if (payload.duration_months and payload.duration_months > 0) else (plan.duration_months or 1)
+    ends_at = now + timedelta(days=months * 30)
+
+    # 1. Đánh dấu các subscription active cũ thành replaced
+    await db.execute(
+        update(Subscription)
+        .where(Subscription.user_id == user_id, Subscription.status == "active")
+        .values(status="replaced")
+    )
+
+    # 2. Tạo subscription mới
+    sub = Subscription(
+        user_id=user_id,
+        plan_id=plan.id,
+        status="active",
+        starts_at=now,
+        ends_at=ends_at
+    )
+    db.add(sub)
+
+    # 3. Cộng token nếu chọn
+    if payload.add_tokens and plan.token_amount:
+        user.tokens = (user.tokens or 0) + plan.token_amount
+        token_log = TokenLog(
+            user_id=user_id,
+            amount_changed=plan.token_amount,
+            type="admin_grant",
+            description=f"Admin cấp gói {plan.name} (+{plan.token_amount:,} tokens)"
+        )
+        db.add(token_log)
+
+    # 4. Ghi nhận Payment log
+    payment = Payment(
+        user_id=user_id,
+        plan_id=plan.id,
+        amount=plan.price,
+        payment_method="manual",
+        status="completed",
+        transaction_reference=f"ADMIN-ASSIGN-{user_id}-{int(now.timestamp())}"
+    )
+    db.add(payment)
+
+    await db.commit()
+
+    return {
+        "success": True,
+        "message": f"Đã cấp thành công gói '{plan.name}' ({months} tháng) cho người dùng {user.name or user.email}!",
+        "plan_name": plan.name,
+        "ends_at": ends_at.strftime("%d/%m/%Y"),
+        "user_tokens": user.tokens
+    }
+

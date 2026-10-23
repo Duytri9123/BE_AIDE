@@ -1,4 +1,5 @@
 from sqladmin import ModelView
+from wtforms import SelectField
 from markupsafe import Markup
 from app.models.plan import Plan
 from app.models.subscription import Subscription
@@ -102,10 +103,43 @@ class SubscriptionAdmin(ModelView, model=Subscription):
     column_formatters = {
         Subscription.user: lambda m, a: Markup(f'<span class="fw-semibold text-dark">{m.user.name or m.user.email}</span><br><small class="text-muted">{m.user.email}</small>') if getattr(m, "user", None) else f"User #{m.user_id}",
         Subscription.plan: lambda m, a: Markup(f'<span class="badge bg-primary-soft text-primary fw-bold">{m.plan.name}</span><br><small class="text-muted">{(m.plan.token_amount or 0):,} tokens</small>') if getattr(m, "plan", None) else f"Plan #{m.plan_id}",
-        Subscription.status: lambda m, a: Markup(f'<span class="badge bg-{"success-soft text-success" if m.status == "active" else "warning-soft text-warning"} fw-bold">{"● Đang dùng" if m.status == "active" else m.status}</span>'),
+        Subscription.status: lambda m, a: Markup(f'<span class="badge bg-{"success-soft text-success" if m.status == "active" else ("warning-soft text-warning" if m.status == "pending" else "danger-soft text-danger")} fw-bold">{"● Đang dùng" if m.status == "active" else m.status}</span>'),
         Subscription.starts_at: lambda m, a: m.starts_at.strftime("%d/%m/%Y") if m.starts_at else "",
         Subscription.ends_at: lambda m, a: m.ends_at.strftime("%d/%m/%Y") if m.ends_at else "",
         Subscription.created_at: lambda m, a: m.created_at.strftime("%d/%m/%Y %H:%M") if m.created_at else "",
+    }
+
+    form_columns = [
+        Subscription.user,
+        Subscription.plan,
+        Subscription.status,
+        Subscription.starts_at,
+        Subscription.ends_at
+    ]
+
+    form_overrides = {
+        "status": SelectField
+    }
+
+    form_args = {
+        "user": {"label": "Người dùng"},
+        "plan": {"label": "Gói cước"},
+        "status": {
+            "label": "Trạng thái gói",
+            "choices": [
+                ("active", "Đang hoạt động (active)"),
+                ("expired", "Đã hết hạn (expired)"),
+                ("cancelled", "Đã hủy (cancelled)"),
+                ("pending", "Chờ kích hoạt (pending)")
+            ],
+            "default": "active"
+        },
+        "starts_at": {"label": "Thời gian bắt đầu"},
+        "ends_at": {"label": "Thời gian hết hạn"}
+    }
+
+    form_widget_args = {
+        "status": {"class": "form-select"}
     }
 
     can_create = True
@@ -151,8 +185,55 @@ class PaymentAdmin(ModelView, model=Payment):
         Payment.plan: lambda m, a: Markup(f'<span class="badge bg-light text-dark border fw-medium">{m.plan.name}</span>') if getattr(m, "plan", None) else (f"Plan #{m.plan_id}" if m.plan_id else "-"),
         Payment.amount: lambda m, a: Markup(f'<span class="fw-bold text-success fs-7">{m.amount:,.0f} đ</span>') if m.amount else "0 đ",
         Payment.payment_method: lambda m, a: Markup(f'<span class="badge bg-secondary-soft text-dark"><i class="fa-regular fa-credit-card me-1"></i>{m.payment_method}</span>'),
-        Payment.status: lambda m, a: Markup(f'<span class="badge bg-{"success-soft text-success" if m.status in ["success", "completed"] else "warning-soft text-warning"} fw-bold">{"● Hoàn thành" if m.status in ["success", "completed"] else m.status}</span>'),
+        Payment.status: lambda m, a: Markup(f'<span class="badge bg-{"success-soft text-success" if m.status in ["success", "completed"] else ("warning-soft text-warning" if m.status == "pending" else "danger-soft text-danger")} fw-bold">{"● Hoàn thành" if m.status in ["success", "completed"] else m.status}</span>'),
         Payment.created_at: lambda m, a: m.created_at.strftime("%d/%m/%Y %H:%M") if m.created_at else "",
+    }
+
+    form_columns = [
+        Payment.user,
+        Payment.plan,
+        Payment.amount,
+        Payment.payment_method,
+        Payment.status,
+        Payment.transaction_reference
+    ]
+
+    form_overrides = {
+        "payment_method": SelectField,
+        "status": SelectField
+    }
+
+    form_args = {
+        "user": {"label": "Khách hàng"},
+        "plan": {"label": "Gói cước"},
+        "amount": {"label": "Số tiền (VND)"},
+        "payment_method": {
+            "label": "Phương thức thanh toán",
+            "choices": [
+                ("sepay", "Chuyển khoản SePay (QR / STK)"),
+                ("manual", "Admin duyệt thủ công"),
+                ("bank_transfer", "Chuyển khoản ngân hàng"),
+                ("momo", "Ví điện tử MoMo"),
+                ("vnpay", "Cổng VNPAY")
+            ],
+            "default": "sepay"
+        },
+        "status": {
+            "label": "Trạng thái giao dịch",
+            "choices": [
+                ("completed", "Hoàn thành / Thành công (completed)"),
+                ("pending", "Chờ thanh toán (pending)"),
+                ("failed", "Thất bại (failed)"),
+                ("cancelled", "Đã hủy (cancelled)")
+            ],
+            "default": "completed"
+        },
+        "transaction_reference": {"label": "Mã tham chiếu / Mã GD"}
+    }
+
+    form_widget_args = {
+        "payment_method": {"class": "form-select"},
+        "status": {"class": "form-select"}
     }
 
     can_create = True

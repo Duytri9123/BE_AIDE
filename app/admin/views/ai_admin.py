@@ -1,4 +1,5 @@
 from sqladmin import ModelView
+from wtforms import SelectField
 from markupsafe import Markup
 from starlette.requests import Request
 from typing import Any, Dict
@@ -72,16 +73,50 @@ class AiConnectionAdmin(ModelView, model=AiConnection):
         AiConnection.tag,
     ]
 
+    form_overrides = {
+        "provider": SelectField,
+        "status": SelectField,
+    }
+
     form_args = {
         "provider": {
-            "description": "Nhập mã provider: 'codex', 'google', 'openai', 'anthropic', 'deepseek', 'openrouter', 'groq', 'mistral', 'ollama', 'xai'"
+            "label": "Nhà cung cấp AI (Provider)",
+            "choices": [
+                ("google", "Google Gemini (Gemini 2.5 / 2.0 / Pro)"),
+                ("openai", "OpenAI (GPT-4o, o3, o1)"),
+                ("anthropic", "Anthropic Claude (Claude 3.7 / 3.5 Sonnet)"),
+                ("deepseek", "DeepSeek (DeepSeek V3 / R1)"),
+                ("openrouter", "OpenRouter"),
+                ("groq", "Groq Cloud (Llama 3 / Mixtral)"),
+                ("mistral", "Mistral AI"),
+                ("ollama", "Ollama (Mô hình Local AI)"),
+                ("xai", "xAI (Grok)"),
+                ("codex", "Codex / Antigravity AI")
+            ],
+            "default": "google"
+        },
+        "status": {
+            "label": "Trạng thái kết nối",
+            "choices": [
+                ("active", "Hoạt động (active)"),
+                ("inactive", "Tạm dừng (inactive)"),
+                ("error", "Báo lỗi kết nối (error)")
+            ],
+            "default": "active"
         },
         "api_key": {
-            "description": "Dán API Key của provider (ví dụ: sk-proj-... cho OpenAI)"
+            "label": "Khóa bí mật (API Key)",
+            "description": "Dán API Key của provider (ví dụ: sk-proj-... cho OpenAI hoặc AIza... cho Google)"
         },
         "selected_model": {
-            "description": "Tên Model chỉ định (vd: ag/gemini-3.7-flash-high, gemini-3.6-flash, gpt-4o)"
+            "label": "Tên Model chỉ định",
+            "description": "Tên Model chỉ định (vd: ag/gemini-3.7-flash-high, gemini-2.5-flash, gpt-4o)"
         }
+    }
+
+    form_widget_args = {
+        "provider": {"class": "form-select"},
+        "status": {"class": "form-select"}
     }
 
     column_formatters = {
