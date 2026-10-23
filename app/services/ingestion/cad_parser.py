@@ -20,6 +20,7 @@ class CadParseResult:
     texts: list[dict] = field(default_factory=list)
     bounds: dict = field(default_factory=dict)
     devices: list[DeviceMatch] = field(default_factory=list)  # Extracted devices from text labels
+    entity_count: int = 0  # Số entity thực tế trong modelspace; dùng để chặn DXF rỗng.
     is_reliable: bool = True  # True nếu đọc được cấu trúc (DXF), False nếu chỉ quét binary thô (DWG)
 
 class CadParserService:
@@ -51,6 +52,7 @@ class CadParserService:
             blocks = CadParserService.extract_device_blocks(doc)
             texts = CadParserService.extract_text_labels(doc)
             bounds = CadParserService.calculate_bounds(doc)
+            entity_count = len(doc.modelspace())
             
             # Extract devices from text labels using advanced patterns
             devices = CadParserService.extract_devices_from_texts(texts)
@@ -65,7 +67,8 @@ class CadParserService:
                 blocks=blocks,
                 texts=texts,
                 bounds=bounds,
-                devices=devices
+                devices=devices,
+                entity_count=entity_count,
             )
         except ezdxf.DXFStructureError as e:
             logger.error(f"DXF structure error: {str(e)}")

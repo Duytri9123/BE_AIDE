@@ -8,9 +8,19 @@ from sqlalchemy.orm import raiseload
 from app.api.deps import get_current_active_user
 from app.db.session import get_db
 from app.models.ai_provider import AiProvider
-from app.services.ai.cad_agent_gateway import SUPPORTED_TYPES, get_models, open_inference, protocol
+from app.services.ai.cad_agent_gateway import get_models, open_inference, protocol
 
 router = APIRouter(dependencies=[Depends(get_current_active_user)])
+
+
+def is_system_gemini(model: str) -> bool:
+    return model.removeprefix('ag/').lower().startswith('gemini-')
+
+
+async def require_antigravity(db, provider_id):
+    provider = await db.get(AiProvider, provider_id)
+    if not provider or not provider.is_active or provider.api_type != 'antigravity_engine':
+        raise HTTPException(404, 'CAD Agent chỉ dùng Gemini từ Antigravity hệ thống.')
 
 
 @router.get('/providers')
@@ -23,7 +33,7 @@ async def providers(db=Depends(get_db)):
         AiConnection.status.notin_(['inactive', 'rate_limited'])
     ).exists()
     rows = (await db.execute(select(AiProvider).options(raiseload("*")).where(
-        AiProvider.is_active.is_(True), AiProvider.api_type.in_(SUPPORTED_TYPES), usable
+        AiProvider.is_active.is_(True), AiProvider.api_type == 'antigravity_engine', usable
     ).order_by(AiProvider.sort_order, AiProvider.id))).scalars().all()
     ids = [p.id for p in rows]
     models = (await db.execute(select(AiProviderModel).where(
@@ -34,13 +44,15 @@ async def providers(db=Depends(get_db)):
         grouped.setdefault(model.provider_id, []).append(model)
     from app.services.ai.cad_agent_gateway import model_option
     return [{'id': p.id, 'name': p.name, 'protocol': protocol(p),
-             'models': [model_option(m.model_key, m.label) for m in grouped.get(p.id, [])]}
+             'models': [model_option(m.model_key, m.label) for m in grouped.get(p.id, []) if is_system_gemini(m.model_key)]}
             for p in rows]
 
 
 @router.get('/providers/{provider_id}/models')
 async def models(provider_id: str, refresh: bool = False, db=Depends(get_db)):
-    return await get_models(db, provider_id, refresh)
+    await require_antigravity(db, provider_id)
+    result = await get_models(db, provider_id, refresh)
+    return {**result, 'models': [m for m in result['models'] if is_system_gemini(m['model_key'])]}
 
 
 class InferenceRequest(BaseModel):
@@ -51,6 +63,9 @@ class InferenceRequest(BaseModel):
 
 @router.post('/providers/{provider_id}/inference')
 async def inference(provider_id: str, request: InferenceRequest, db=Depends(get_db)):
+    await require_antigravity(db, provider_id)
+    if not is_system_gemini(request.model):
+        raise HTTPException(400, 'Provider hệ thống chỉ cho phép model Gemini của Antigravity.')
     client, response = await open_inference(db, provider_id, request.model, request.payload, request.stream)
 
     async def content():

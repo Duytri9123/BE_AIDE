@@ -72,6 +72,13 @@ class CircuitPreflightTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(result['status'], 'unavailable')
         self.assertEqual(CircuitPreflightService.extraction_context(result), '')
 
+    async def test_pipeline_progress_callback_is_accepted(self):
+        events = []
+        result = await CircuitPreflightService.assess(
+            [], [], object(), [object()], progress_callback=events.append
+        )
+        self.assertEqual(result['status'], 'unavailable')
+
 
 if __name__ == '__main__':
     unittest.main()

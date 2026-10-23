@@ -113,7 +113,8 @@ async def discover_models(provider, connection):
 
 async def get_models(db, provider_id, refresh=False):
     provider, connections, rows = await provider_state(db, provider_id)
-    disabled = {row.model_key for row in rows if not row.is_active}
+    canonical = lambda key: key.removeprefix('ag/') if protocol(provider) == 'antigravity' else key
+    disabled = {canonical(row.model_key) for row in rows if not row.is_active}
     cached = MODEL_CACHE.get(provider_id)
     warning = None
     if refresh or not cached or cached[0] < time.monotonic():
@@ -125,7 +126,7 @@ async def get_models(db, provider_id, refresh=False):
         except Exception:
             warning = 'Không tải được model trực tiếp; đang dùng danh mục hệ thống. Có thể thử làm mới lại.'
     if cached:
-        models = [row for row in cached[1] if row['model_key'] not in disabled]
+        models = [row for row in cached[1] if canonical(row['model_key']) not in disabled]
         source = 'provider_api' if not warning else 'cached_provider_api'
     else:
         models = [model_option(row.model_key, row.label) for row in rows if row.is_active]
@@ -169,11 +170,15 @@ async def native_request(provider, connection, model, payload, stream):
 
 async def open_inference(db, provider_id, model, payload, stream):
     provider, connections, rows = await provider_state(db, provider_id)
-    active = {row.model_key for row in rows if row.is_active}
-    disabled = {row.model_key for row in rows if not row.is_active}
-    if model not in active:
+    canonical = lambda key: key.removeprefix('ag/') if protocol(provider) == 'antigravity' else key
+    active = {canonical(row.model_key) for row in rows if row.is_active}
+    disabled = {canonical(row.model_key) for row in rows if not row.is_active}
+    selected = canonical(model)
+    if selected in disabled:
+        raise HTTPException(400, 'Model đã bị tắt trong hệ thống.')
+    if selected not in active:
         live = await get_models(db, provider_id)
-        if model in disabled or model not in {row['model_key'] for row in live['models']}:
+        if selected not in {canonical(row['model_key']) for row in live['models']}:
             raise HTTPException(400, 'Model không thuộc danh sách khả dụng của provider đã chọn.')
     client = httpx.AsyncClient(timeout=httpx.Timeout(120, connect=10), follow_redirects=False)
     try:

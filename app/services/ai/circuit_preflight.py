@@ -104,7 +104,7 @@ class CircuitPreflightService:
         return sheet
 
     @staticmethod
-    async def assess(files, contexts, db, connections, user_prompt='') -> dict[str, Any]:
+    async def assess(files, contexts, db, connections, user_prompt='', progress_callback=None) -> dict[str, Any]:
         context = CircuitPreflightService._context(contexts)
         pages = CircuitPreflightService._visual_pages(files)
         if not context and not pages:

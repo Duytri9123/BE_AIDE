@@ -405,6 +405,32 @@ class AnalysisPipelineService:
         log_event(stage='request_review', title='Đọc yêu cầu và phạm vi hồ sơ', detail='Xác định yêu cầu kỹ thuật và các tệp cần đối chiếu trước khi bóc tách.', status='running')
         document_contexts = [DocumentContextService.extract(file_obj) for file_obj in project_files]
 
+        # Reject broken/empty DXF files before circuit preflight. Otherwise the
+        # preflight only sees a low-level parser error and the user receives an
+        # opaque failure after pressing "Bóc tách".
+        for source_file in project_files:
+            if Path(str(source_file.file_path)).suffix.lower() != '.dxf':
+                continue
+            try:
+                source_cad = CadParserService.parse_cad(str(source_file.file_path))
+            except Exception as cad_parse_err:
+                raise HTTPException(
+                    status_code=422,
+                    detail=(
+                        f"File DXF '{source_file.filename}' bị lỗi cấu trúc hoặc không đọc được. "
+                        "Vui lòng xuất lại DXF từ bản DWG gốc và kiểm tra bản vẽ hiển thị trước khi bóc tách."
+                    ),
+                ) from cad_parse_err
+            if source_cad.entity_count == 0:
+                raise HTTPException(
+                    status_code=422,
+                    detail=(
+                        f"File DXF '{source_file.filename}' không chứa đối tượng bản vẽ trong Model Space. "
+                        "Tệp này đang rỗng nên hệ thống không thể bóc tách thiết bị. "
+                        "Vui lòng xuất lại DXF từ bản DWG gốc và kiểm tra bản vẽ hiển thị trước khi bóc tách."
+                    ),
+                )
+
         # STAGE 1: TIẾP NHẬN VÀ THẨM ĐỊNH TỆP BẢN VẼ
         files_assessment: List[Dict[str, Any]] = []
         source_file_contexts: List[Dict[str, Any]] = []
@@ -819,6 +845,15 @@ class AnalysisPipelineService:
                 try:
                     cad_quick = CadParserService.parse_cad(file_path)
                     cad_evidence_result = cad_quick
+                    if ext == "dxf" and cad_quick.entity_count == 0:
+                        raise HTTPException(
+                            status_code=422,
+                            detail=(
+                                f"File DXF '{pfile.filename}' không chứa đối tượng bản vẽ trong Model Space. "
+                                "Tệp này đang rỗng nên hệ thống không thể bóc tách thiết bị. "
+                                "Vui lòng xuất lại DXF từ bản DWG gốc và kiểm tra bản vẽ hiển thị trước khi bóc tách."
+                            ),
+                        )
                     if cad_quick and cad_quick.texts:
                         for t in cad_quick.texts:
                             txt_val = t.get("text", "") if isinstance(t, dict) else getattr(t, "text", "")
@@ -827,7 +862,17 @@ class AnalysisPipelineService:
                                 safe_text = CadParserService._sanitize_text(txt_val)
                                 if safe_text:
                                     cad_extracted_texts.append(safe_text)
-                except Exception:
+                except HTTPException:
+                    raise
+                except Exception as cad_parse_err:
+                    if ext == "dxf":
+                        raise HTTPException(
+                            status_code=422,
+                            detail=(
+                                f"File DXF '{pfile.filename}' bị lỗi cấu trúc hoặc không đọc được: {cad_parse_err}. "
+                                "Vui lòng xuất lại DXF từ bản DWG gốc và kiểm tra bản vẽ hiển thị trước khi bóc tách."
+                            ),
+                        ) from cad_parse_err
                     pass
 
                 cad_ai_success = False
