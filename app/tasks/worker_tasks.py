@@ -139,6 +139,7 @@ async def run_cad(project_id,user_id,payload,progress):
             raise ValueError('Chưa có thiết bị; hãy phân tích bản vẽ trước.')
         return await AnalysisPipelineService.generate_cad_and_quotation(project=project,db=db,
             devices=devices,brand_preference=payload.get('brand_preference') or settings.DEFAULT_BRAND,
+            multi_panel_list=payload.get('multi_panel_list'),
             user_prompt=payload.get('user_prompt') or (latest.user_message if latest else None),enclosure_dimensions=payload.get('enclosure_dimensions'),
             source_configuration=payload.get('source_configuration') or 'schematic',
             panel_code=payload.get('panel_code'),panel_name=payload.get('panel_name'),

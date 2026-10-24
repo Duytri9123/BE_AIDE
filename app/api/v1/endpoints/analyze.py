@@ -484,6 +484,7 @@ class GenerateQuotationCadRequest(BaseModel):
     panel_code: Optional[str] = None
     panel_name: Optional[str] = None
     per_panel: bool = False
+    multi_panel_list: Optional[List[Dict[str, Any]]] = None
 
 
 @router.post("/generate-quotation-cad")
@@ -538,6 +539,7 @@ async def generate_quotation_and_cad(
         panel_code=payload.panel_code,
         panel_name=payload.panel_name,
         per_panel=payload.per_panel,
+        multi_panel_list=payload.multi_panel_list,
     )
 
     return result
@@ -588,6 +590,7 @@ async def stream_generate_quotation_and_cad(
                 panel_code=payload.panel_code,
                 panel_name=payload.panel_name,
                 per_panel=payload.per_panel,
+                multi_panel_list=payload.multi_panel_list,
                 progress_callback=progress_queue.put,
             )
             await progress_queue.put({"type": "complete", "result": result})
