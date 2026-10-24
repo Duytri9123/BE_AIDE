@@ -217,12 +217,18 @@ class CadParserService:
     def prepare_analysis_path(file_path: str) -> str:
         from pathlib import Path
         import hashlib
+        import re
         from ezdxf.addons import odafc
         source = Path(file_path)
         if source.suffix.lower() != '.dwg':
             return str(source)
         folder = source.parent / '.cad-analysis'
-        dest = folder / (hashlib.sha256(source.read_bytes()).hexdigest() + '.dxf')
+        # Keep the converted drawing recognizable in logs and diagnostics.  A
+        # short content hash still prevents two different revisions with the
+        # same uploaded name from sharing a stale conversion.
+        digest = hashlib.sha256(source.read_bytes()).hexdigest()[:12]
+        safe_stem = re.sub(r'[<>:"/\\|?*\x00-\x1f]+', '_', source.stem).strip(' .') or 'drawing'
+        dest = folder / f'{safe_stem}__converted_{digest}.dxf'
         if not dest.is_file():
             folder.mkdir(parents=True, exist_ok=True)
             if odafc.is_installed():

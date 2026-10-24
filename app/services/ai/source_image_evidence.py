@@ -92,10 +92,19 @@ async def refine_locations(image, call_image, devices, initial):
                  for key in ('symbol_box_2d', 'text_box_2d', 'load_box_2d')
                  if isinstance(row.get(key), list) and len(row[key]) == 4]
         if boxes:
-            left = max(0, round(min(b[1] for b in boxes)*image.width/1000)-60)
-            right = min(image.width, round(max(b[3] for b in boxes)*image.width/1000)+60)
-            top = max(0, round(min(b[0] for b in boxes)*image.height/1000)-60)
-            bottom = min(image.height, round(max(b[2] for b in boxes)*image.height/1000)+60)
+            # Vision providers occasionally return the two corners reversed.
+            # Normalize every candidate before deriving the shared crop so PIL
+            # never receives right < left or bottom < top.
+            normalized = [
+                (min(b[0], b[2]), min(b[1], b[3]), max(b[0], b[2]), max(b[1], b[3]))
+                for b in boxes
+            ]
+            left = max(0, round(min(b[1] for b in normalized)*image.width/1000)-60)
+            right = min(image.width, round(max(b[3] for b in normalized)*image.width/1000)+60)
+            top = max(0, round(min(b[0] for b in normalized)*image.height/1000)-60)
+            bottom = min(image.height, round(max(b[2] for b in normalized)*image.height/1000)+60)
+            if right <= left or bottom <= top:
+                left, top, right, bottom = 0, 0, image.width, image.height
         else:
             left, top, right, bottom = 0,0,image.width,image.height
         crop = image.crop((left,top,right,bottom))
@@ -249,7 +258,7 @@ async def verify_image_inventory(call, prompt, devices, image_size, detail_call=
     if supplement_source:
         devices = await supplement_source(devices, counts)
     try:
-        _, devices = await repair_counted_inventory(call, prompt, devices, counts)
+        _, devices = await repair_counted_inventory(call, prompt, devices, counts, attempts=1)
     except ValueError:
         if detail_call is None:
             raise
@@ -271,7 +280,13 @@ async def verify_image_inventory(call, prompt, devices, image_size, detail_call=
                       and panel_key(r['panel_code']) == panel_key(device.panel_code)]
             if len(same) == 1 and device.quantity == 2 and sum(r['quantity'] for r in source) == 1:
                 device.quantity = 1
-        _, devices = await repair_counted_inventory(detail_call, prompt, devices, counts)
+        try:
+            _, devices = await repair_counted_inventory(detail_call, prompt, devices, counts, attempts=1)
+        except ValueError:
+            # The extraction is still useful when an independent recount cannot
+            # converge. Evidence location below marks rows that need review;
+            # do not discard the complete Gemini inventory after two reads.
+            pass
     devices = [d if isinstance(d, ExtractedDeviceSchema) else ExtractedDeviceSchema(**vars(d)) for d in devices]
     for device in devices:
         device.category = inventory_kind(device.category, device.name, device.spec)

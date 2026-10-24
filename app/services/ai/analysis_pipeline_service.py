@@ -604,7 +604,17 @@ class AnalysisPipelineService:
                         )
                         active_ai = used_conn  # Cập nhật active_ai cho log/warning
                         parsed_devs = ResponseParserService.parse_device_list(ai_response)
-                        from app.services.ai.source_image_evidence import oriented_source, verify_image_inventory, count_source_tiles, refine_locations, audit_crops, retry_unverified_evidence
+                        from collections import Counter
+                        read_groups = Counter(str(d.category or 'Khác').upper() for d in parsed_devs)
+                        group_summary = ', '.join(f'{name}: {count}' for name, count in read_groups.most_common())
+                        log_event(
+                            stage='ai_source_read',
+                            title=f'Gemini đã đọc {len(parsed_devs)} thiết bị từ {pfile.filename}',
+                            detail=group_summary or 'Gemini chưa trả về thiết bị có thể đọc được.',
+                            status='success' if parsed_devs else 'warning',
+                            data={'filename': pfile.filename, 'devices_count': len(parsed_devs), 'categories': dict(read_groups)},
+                        )
+                        from app.services.ai.source_image_evidence import oriented_source, verify_image_inventory, count_source_tiles, refine_locations, audit_crops
                         source_image = oriented_source(file_path)
                         from app.services.ai.ocr_source_evidence import observations, grounded_boxes, supplement_selectors, reread_measurement_cluster
                         ocr_rows, circles, markers = await asyncio.to_thread(observations, source_image)
@@ -653,20 +663,30 @@ class AnalysisPipelineService:
                                 refined = await refine_locations(source_image, call_detail_image, devices, payload)
                                 refined['boxes'] = [row for row in refined['boxes'] if str(row.get('device_id')) not in grounded_ids] + grounded['boxes']
                             audited = await audit_crops(source_image, call_detail_image, devices, refined)
-                            if any(row.get('verified') is not True for row in audited['boxes']) or len(audited['boxes'])<len(devices):
-                                audited = await retry_unverified_evidence(source_image, call_detail_image, devices, audited)
                             failures = [{'tag':devices[int(row['device_id'])].tag,'observed':row.get('audit_observed')}
                                         for row in audited['boxes'] if row.get('verified') is not True]
                             if failures:logger.warning('Source crop audit unresolved: %s', failures)
+                            verified_count = sum(1 for row in audited.get('boxes', []) if row.get('verified') is True)
+                            log_event(
+                                stage='source_evidence',
+                                title=f'Đã xác minh {verified_count}/{len(devices)} vị trí trên ảnh nguồn',
+                                detail=('Các vị trí còn lại được giữ trong kết quả và đánh dấu cần rà soát.'
+                                        if verified_count < len(devices) else 'Ký hiệu và thông số đã khớp với ảnh nguồn.'),
+                                status='success' if verified_count == len(devices) else 'warning',
+                                data={'verified_count': verified_count, 'devices_count': len(devices)},
+                            )
                             return audited
                         parsed_devs, location_payload = await verify_image_inventory(
                             verify_source_image, vision_prompt, parsed_devs, source_image.size, verify_source_detail, tile_count, locate_detail, supplement_source)
                         AnalysisPipelineService._apply_verified_boxes(parsed_devs, location_payload, require_symbols=True)
                         unverified = [d for d in parsed_devs if not d.box_2d]
                         if unverified:
-                            raise HTTPException(status_code=422, detail='Chưa hoàn tất đối chiếu ký hiệu trên ảnh nguồn: '
-                                + ', '.join(str(d.tag or d.name) for d in unverified[:8])
-                                + '. Cần ảnh rõ hơn hoặc mô hình đọc ảnh phù hợp để xác minh; chưa công bố kết quả bóc tách.')
+                            warning_text = ('Cần rà soát lại vị trí trên ảnh nguồn: '
+                                + ', '.join(str(d.tag or d.name) for d in unverified[:8]))
+                            warnings.append(warning_text)
+                            log_event(stage='source_evidence', title=f'Có {len(unverified)} thiết bị cần rà soát vị trí',
+                                detail=warning_text, status='warning',
+                                data={'unverified_count': len(unverified), 'devices_count': len(parsed_devs)})
                         AnalysisPipelineService._attach_evidence_thumbnails(parsed_devs, file_path)
 
                         warnings.extend(ResponseParserService.extract_completeness_warnings(ai_response))
@@ -841,7 +861,16 @@ class AnalysisPipelineService:
 
             # C. File CAD (DXF & DWG)
             elif ext in ["dxf", "dwg"]:
+                source_filename = pfile.filename
                 file_path = CadParserService.prepare_analysis_path(file_path)
+                if ext == 'dwg':
+                    log_event(
+                        stage='cad_conversion',
+                        title=f'Đã chuyển {source_filename} sang DXF',
+                        detail=f'Tệp xử lý: {Path(file_path).name}',
+                        status='success',
+                        data={'source_filename': source_filename, 'analysis_filename': Path(file_path).name},
+                    )
                 try:
                     cad_quick = CadParserService.parse_cad(file_path)
                     cad_evidence_result = cad_quick

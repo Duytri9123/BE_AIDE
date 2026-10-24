@@ -219,8 +219,18 @@ class DeviceCatalogEngine:
         groups_path=root/'ai_device_groups.json'
         groups=json.loads(groups_path.read_text(encoding='utf8')).get('groups',[]) if groups_path.is_file() else []
         self.reviewed_groups={m['profile']:g for g in groups for m in g['profiles']}
-        from app.services.cad.catalogtb_assets import assets
-        discovered = {item['profile_path']: item for item in assets(refresh=True)}
+        # The manifest already contains the classification discovered for every
+        # profile.  Loading ``catalogtb_assets`` here used to re-read and hash
+        # every profile and every CAD view during module import.  With the full
+        # CatalogTB library that can keep both Uvicorn and Celery from becoming
+        # ready for several minutes, leaving the workspace stuck at "Đang tải".
+        # Geometry is still validated lazily by catalogtb_assets when a CAD
+        # asset is actually selected or inserted.
+        discovered = {
+            item.get('profile'): item
+            for item in (manifest.get('items') or [])
+            if item.get('profile')
+        }
         for path in sorted(root.rglob('thong_tin_thiet_bi.json')):
             try:
                 profile = json.loads(path.read_text(encoding='utf-8-sig'))
