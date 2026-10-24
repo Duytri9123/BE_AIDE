@@ -61,7 +61,9 @@ def cancelled(job_id):
 
 
 async def enqueue(kind, project_id, user_id, payload):
-    from app.tasks.worker_tasks import analyze_project_async_task, generate_cad_async_task
+    # Producers must not import the worker pipeline and its CAD/catalog engines.
+    # Send the registered task name; only the worker loads those heavy services.
+    from app.tasks.celery_app import celery_app
     client = async_redis.from_url(settings.REDIS_URL, decode_responses=True,
                                   socket_connect_timeout=10, socket_timeout=10)
     job_id = str(uuid.uuid4())
@@ -75,9 +77,10 @@ async def enqueue(kind, project_id, user_id, payload):
             raise HTTPException(409,'Dự án đang có tác vụ phân tích hoặc tạo CAD. Vui lòng chờ tác vụ đó hoàn tất.')
         if admitted == -2:
             raise HTTPException(429,'Hàng đợi đang đầy. Vui lòng thử lại sau.',headers={'Retry-After':'30'})
-        task = analyze_project_async_task if kind == 'analysis' else generate_cad_async_task
+        task_name = ('app.tasks.worker_tasks.analyze_project_async_task' if kind == 'analysis'
+                     else 'app.tasks.worker_tasks.generate_cad_async_task')
         try:
-            await asyncio.to_thread(task.apply_async,
+            await asyncio.to_thread(celery_app.send_task, task_name,
                 kwargs={'project_id':project_id,'user_id':user_id,'payload':payload},
                 task_id=job_id,queue='aide_'+kind)
         except Exception as exc:
