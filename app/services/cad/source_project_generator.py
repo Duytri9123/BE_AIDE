@@ -307,7 +307,10 @@ class SourceProjectGenerator:
         match = None
         attempted_forms = []
         prepared = None
-        for candidate in eligible:
+        # A review drawing has a dimensioned fallback. Do not flatten every
+        # library cabinet for minutes when the nearest forms cannot fit it.
+        candidates_to_try = eligible[:3] if allow_partial else eligible
+        for candidate in candidates_to_try:
             try:
                 candidate_dimensions = candidate['dimensions'] if candidate in fitting else requested
                 if devices:
