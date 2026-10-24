@@ -125,6 +125,11 @@ class CircuitPreflightService:
             # Review one source page at a time: a small contact sheet obscures
             # wire crossings and ratings, and its coordinates are not page coordinates.
             for label, picture in pages:
+                if progress_callback:
+                    from app.services.ai.progress_delivery import deliver
+                    await deliver(progress_callback, {'type':'log','stage':'source_page_read','status':'running',
+                        'title':f'Gemini đang đọc sơ đồ: {label}',
+                        'detail':f'Ảnh nguồn {picture.width}×{picture.height}; nhận diện mạch điện, nhãn tủ và vùng cần bóc tách.'})
                 sheet = picture.copy()
                 sheet.thumbnail((2400, 2400), Image.Resampling.LANCZOS)
                 with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as temp:
@@ -148,6 +153,9 @@ class CircuitPreflightService:
                     if parsed:
                         CircuitPreflightService._bind_findings(parsed, label)
                         assessments.append(parsed)
+                        if progress_callback:
+                            await deliver(progress_callback, {'type':'log','stage':'source_page_read','status':'success',
+                                'title':f'Gemini đã đọc: {label}', 'detail':str(parsed.get('circuit_summary') or '')})
                     else:
                         source_limits.append('Không nhận được đánh giá hợp lệ cho ' + label)
                 except Exception:

@@ -32,16 +32,27 @@ class DocumentContextService:
 
     @staticmethod
     def _read_pdf(path: Path) -> str:
-        import pdfplumber
+        import pypdfium2 as pdfium
 
         parts: List[str] = []
-        with pdfplumber.open(str(path)) as document:
-            for page_no, page in enumerate(document.pages, 1):
-                text = (page.extract_text() or "").strip()
+        document = pdfium.PdfDocument(str(path))
+        try:
+            for index in range(len(document)):
+                page = document[index]
+                try:
+                    textpage = page.get_textpage()
+                    try:
+                        text = (textpage.get_text_bounded() or '').strip()
+                    finally:
+                        textpage.close()
+                finally:
+                    page.close()
                 if text:
-                    parts.append(f"[Trang {page_no}]\n{text}")
+                    parts.append(f"[Trang {index + 1}]\n{text}")
                 if sum(len(part) for part in parts) >= DocumentContextService.MAX_FILE_CHARS:
                     break
+        finally:
+            document.close()
         return "\n\n".join(parts)
 
     @staticmethod

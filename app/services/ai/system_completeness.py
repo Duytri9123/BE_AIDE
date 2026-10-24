@@ -175,7 +175,7 @@ def review_system(devices):
                 automatically_added_devices=0, release_ready=False)
 
 
-def technical_audit(devices):
+def technical_audit(devices, include_cad_references=True):
     review = review_system(devices)
     from app.services.ai.procurement_review import assembly_requirements
     from app.services.ai.conductor_review import connection_requirements
@@ -195,7 +195,7 @@ def technical_audit(devices):
                            for panel,members in panel_devices.items()],
         distribution_review=[dict(panel_code=panel, **review_distribution(members))
                              for panel,members in panel_devices.items()],
-        assembly_review=[dict(panel_code=panel, items=assembly_requirements(members),
+        assembly_review=[dict(panel_code=panel, items=assembly_requirements(members, include_cad_references=include_cad_references),
                              note='Vật tư lắp tủ cần xác nhận theo layout và bộ thiết bị; chưa tự cộng vào tổng. Trụ sứ chỉ khi dùng thanh cái trần.')
                          for panel,members in panel_devices.items()],
         protection_coordination=[pending("Phối hợp bảo vệ", "Chưa đủ dữ liệu kiểm tra chọn lọc và khả năng cắt.",

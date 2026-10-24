@@ -78,18 +78,15 @@ class AnalysisPipelineService:
             "và tóm tắt thông tin hữu ích vào file_assessment.context_summary.",
             f"TỆP ĐANG XỬ LÝ: {current_filename}",
         ]
-        from app.services.cad.catalogtb_assets import assets as catalogtb_assets
-        from app.services.cad.cabinet_templates import inventory as form_inventory
-        library_views = catalogtb_assets()
-        profile_count = len({v['profile_path'] for v in library_views})
         manifest_path=Path(__file__).resolve().parents[3] / 'data/CatalogTB/ai_library_manifest.json'
         recognition_manifest=json.loads(manifest_path.read_text(encoding='utf-8')) if manifest_path.is_file() else {}
+        profile_count = len(recognition_manifest.get('items') or [])
         source_document_count=len(recognition_manifest.get('source_cad_documents') or [])
         pending_source_count=sum(not str(row.get('status','')).startswith('processed_') for row in recognition_manifest.get('source_cad_documents') or [])
         parts.append(
             f"THƯ VIỆN HỆ THỐNG (không phải tệp người dùng phải đính kèm): "
-            f"BE_AIDE/data/CatalogTB có {profile_count} hồ sơ, {len(library_views)} mặt CAD; "
-            f"CatalogTB/Form tủ có {len(form_inventory())} form nguồn; "
+            f"BE_AIDE/data/CatalogTB có {profile_count} hồ sơ trong manifest; "
+            "thư viện CAD và form tủ được kiểm tra khi chọn thiết kế; "
             f"có {source_document_count} mục CAD nguồn, còn {pending_source_count} mục chưa lập hồ sơ thông tin hoặc phân loại. "
             "Không báo thư viện không có chỉ vì không nằm trong tệp đính kèm. "
             "Thư viện chứng minh có hồ sơ, không chứng minh đã khớp model hoặc mặt CAD. "
@@ -341,7 +338,7 @@ class AnalysisPipelineService:
         # quotation. Keep the brand read from the drawing in `detected_brand`,
         # while `brand`/`part_number` contain the automatically selected
         # supplier and compatible catalog item that the user may override.
-        catalog_engine = DeviceCatalogEngine.get_instance()
+        catalog_engine = None
 
         multi_panel_list: List[Dict[str, Any]] = []
         file_assessment: Optional[Dict[str, Any]] = None
@@ -402,8 +399,16 @@ class AnalysisPipelineService:
 
         # Every attachment remains available as chat context. Generated artifacts
         # are kept for reference but are never re-extracted into a new BOM.
-        log_event(stage='request_review', title='Đọc yêu cầu và phạm vi hồ sơ', detail='Xác định yêu cầu kỹ thuật và các tệp cần đối chiếu trước khi bóc tách.', status='running')
-        document_contexts = [DocumentContextService.extract(file_obj) for file_obj in project_files]
+        document_contexts = []
+        for file_obj in project_files:
+            log_event(stage='source_read', title=f'Đọc nội dung nguồn: {file_obj.filename}',
+                      detail=f'Tệp đã lưu trên hệ thống; đọc lớp văn bản và nhãn bản vẽ ({getattr(file_obj, "file_size", 0):,} byte).', status='running')
+            context = await asyncio.to_thread(DocumentContextService.extract, file_obj)
+            document_contexts.append(context)
+            log_event(stage='source_read', title=f'Đã đọc nguồn: {file_obj.filename}',
+                      detail=(str(context.get('read_error')) if context.get('read_error') else
+                              f'Đọc được {len(context.get("text") or "")} ký tự; tiếp theo Gemini đọc ký hiệu và mạch trên ảnh nguồn.'),
+                      status='warning' if context.get('read_error') else 'success')
 
         # Reject broken/empty DXF files before circuit preflight. Otherwise the
         # preflight only sees a low-level parser error and the user receives an
@@ -1337,6 +1342,9 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             detected_panel_name = detected_panel_name or ""
 
         # Tự động gán đồng bộ mã tủ & hãng phù hợp cho toàn bộ thiết bị
+        log_event(stage='catalog_loading', title=f'Đã đọc {len(extracted_devices)} thiết bị; đang nạp catalog đối chiếu',
+                  detail='Bóc tách nguồn đã xong. Nạp thông tin thư viện để so thông số thiết bị.', status='running')
+        catalog_engine = await asyncio.to_thread(DeviceCatalogEngine.get_instance)
         requested_brand = AnalysisPipelineService._detect_requested_brand(user_prompt, catalog_engine)
         preferred_brand = requested_brand or settings.DEFAULT_BRAND
         if requested_brand:
@@ -1801,7 +1809,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
 
             clean_warnings = [w for w in warnings if not ("chưa khớp catalog" in w.lower() or "chua khop catalog" in w.lower())]
             from app.services.ai.system_completeness import technical_audit
-            completeness_audit = technical_audit(extracted_devices)
+            completeness_audit = technical_audit(extracted_devices, include_cad_references=False)
             # Review gaps are shown in technical_audit, not as repetitive BOM warnings.
             # Preserve the independent whole-document assessment. A BOM cannot
             # retroactively prove that the source circuit was assessed.

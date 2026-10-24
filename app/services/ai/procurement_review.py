@@ -3,7 +3,7 @@ from collections import defaultdict
 from app.services.cad.design_labels import effective_spec
 
 
-def assembly_requirements(devices):
+def assembly_requirements(devices, include_cad_references=True):
     categories = {str(d.get('category') or '').upper() for d in devices}
     rows = [
         ('ENCLOSURE', 'Vỏ tủ và tấm lắp', 1, 'Chốt kích thước, IP; kiểm tra khóa, bản lề, gioăng và tấm đáy đã gồm trong bộ.'),
@@ -30,7 +30,7 @@ def assembly_requirements(devices):
     references = {'PE':'PE','N':'N','FUSE_HOLDER':'FUSE_HOLDER'}
     return [dict(code=code,name=name,quantity=qty,quantity_basis=note,status='needs_confirmation',
                  cad_reference_candidates=[{k:a[k] for k in ('id','name','face','profile_path','status')}
-                    for a in candidates(references[code])] if code in references else [],
+                    for a in candidates(references[code])] if include_cad_references and code in references else [],
                  included=False,unit_price=None,line_total=None) for code,name,qty,note in rows]
 
 
