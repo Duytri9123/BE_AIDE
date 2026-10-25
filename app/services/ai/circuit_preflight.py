@@ -122,12 +122,16 @@ class CircuitPreflightService:
                 document = pdfium.PdfDocument(str(path))
                 try:
                     chosen = requested_pdf_pages(user_prompt or '', len(document), target_page)
+                    if not chosen and len(document) == 1:
+                        # No page-selection model call is needed for a single
+                        # page. The circuit assessment still checks its content.
+                        chosen = [1]
                     if not chosen:
                         if progress_callback:
                             from app.services.ai.progress_delivery import deliver
                             await deliver(progress_callback, {'type':'log','stage':'page_selection','status':'running',
-                                'title':f'Chọn trang phù hợp: {file.filename}',
-                                'detail':f'Xem tổng quan {len(document)} trang theo yêu cầu: {user_prompt or "bóc tách sơ đồ điện"}. Chỉ trang được chọn mới đọc chi tiết.'})
+                                'title':f'Tìm sơ đồ điện trong {file.filename}',
+                                'detail':f'Kiểm tra tổng quan {len(document)} trang để chọn trang có sơ đồ cần đọc.'})
                         chosen = await AnalysisPipelineService._preflight_pdf_with_vision(
                             document, len(document), connections[0], db=db,
                             all_connections=connections, user_requirement=user_prompt or '')
@@ -150,9 +154,9 @@ class CircuitPreflightService:
                     if progress_callback:
                         from app.services.ai.progress_delivery import deliver
                         await deliver(progress_callback, {
-                            'type': 'log', 'stage': 'extraction_scope', 'status': 'success',
-                            'title': f'Đã chọn trang trong {file.filename}',
-                            'detail': 'Trang bóc tách: ' + (', '.join(map(str, chosen)) or 'không có trang phù hợp'),
+                            'type': 'log', 'stage': 'page_selection', 'status': 'success',
+                            'title': f'Trang đã chọn: {", ".join(map(str, chosen)) or "không có"}',
+                            'detail': file.filename,
                             'data': {'selected_pages': chosen, 'total_pages': len(document)}})
                 finally:
                     document.close()

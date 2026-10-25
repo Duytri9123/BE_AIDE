@@ -400,9 +400,6 @@ class AnalysisPipelineService:
         # Every attachment remains available as chat context. Generated artifacts
         # are kept for reference but are never re-extracted into a new BOM.
         document_contexts = []
-        if user_prompt and user_prompt.strip():
-            log_event(stage='user_requirement', title='Yêu cầu áp dụng cho lượt bóc tách này',
-                      detail=user_prompt.strip(), status='success')
         for file_obj in project_files:
             log_event(stage='source_read', title=f'Đọc nội dung nguồn: {file_obj.filename}',
                       detail=f'Tệp đã lưu trên hệ thống; đọc lớp văn bản và nhãn bản vẽ ({getattr(file_obj, "file_size", 0):,} byte).', status='running')
@@ -453,7 +450,7 @@ class AnalysisPipelineService:
         if progress_callback:
             await asyncio.sleep(0.35)
 
-        log_event(stage="circuit_assessment", title="Xác định trang và đánh giá sơ đồ theo yêu cầu",
+        log_event(stage="circuit_assessment", title="Kiểm tra trang và sơ đồ điện",
                   detail="Đọc vai trò các tệp, mạch điện và cụm chức năng trước khi bóc tách thiết bị.", status="running")
         try:
             circuit_assessment = await CircuitPreflightService.assess(
@@ -1617,7 +1614,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 device_price_map[dev.part_number or dev.name] = 0
 
         log_event(stage="web_product_research", title="Đang phân tích và tìm thiết bị phù hợp",
-                  detail="Đối chiếu thông số kỹ thuật, chức năng và hãng sản xuất theo yêu cầu.", status="running")
+                  detail="Tìm sản phẩm khớp loại thiết bị, số cực, dòng định mức và khả năng cắt.", status="running")
         from app.services.ai.takeoff_pricebook import link_devices
         link_devices(extracted_devices)
         from app.services.ai.web_device_recommendations import research_device_products

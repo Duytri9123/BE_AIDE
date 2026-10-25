@@ -11,6 +11,24 @@ from app.services.ai.circuit_preflight import CircuitPreflightService
 
 
 class CircuitPreflightTests(unittest.IsolatedAsyncioTestCase):
+    async def test_single_page_does_not_call_page_selection_model(self):
+        import pypdfium2 as pdfium
+        from app.services.ai.analysis_pipeline_service import AnalysisPipelineService
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / 'single.pdf'
+            document = pdfium.PdfDocument.new()
+            page = document.new_page(300, 300)
+            page.close()
+            document.save(str(path))
+            document.close()
+            file = SimpleNamespace(filename=path.name, file_path=str(path))
+            call = AsyncMock(return_value=('{"circuit_summary":"Nguồn và tải", "has_sld":true}', None))
+            with patch.object(AnalysisPipelineService, '_preflight_pdf_with_vision', new_callable=AsyncMock) as triage, patch('app.services.ai.circuit_preflight.ConnectionPoolService.call_with_fallback', call):
+                result = await CircuitPreflightService.assess([file], [], object(), [object()])
+            triage.assert_not_awaited()
+            self.assertEqual(call.await_count, 1)
+            self.assertEqual(result['selected_pdf_pages'][str(path)], [1])
+
     async def test_visual_malformed_response_retries_with_new_prompt(self):
         response = '{"circuit_summary":"Nguồn và tải", "has_sld":true}'
         call = AsyncMock(side_effect=[('invalid JSON', None), (response, None)])

@@ -3,6 +3,9 @@ import asyncio
 import json
 import math
 import re
+import time
+from copy import deepcopy
+from collections import OrderedDict
 from datetime import datetime, timezone
 from urllib.parse import urlparse, urljoin
 from app.services.device_catalog_engine import strip_accents
@@ -13,6 +16,35 @@ from app.services.ai.inventory_validation import inventory_kind
 from app.services.ai.manufacturer_registry import canonical_brand, portfolio_hint, timer_function, search_portfolios, official_source_owners, known_product_kind
 
 SUPPORTED = {'google', 'gemini', 'openai', 'codex', 'antigravity', 'tavily', 'serper', 'brave', 'brave-search'}
+_RESEARCH_CACHE = OrderedDict()
+_RESEARCH_CACHE_SECONDS = 3600
+
+
+def research_cache_key(device, preferred_brand):
+    return json.dumps([technical_search_key(device), device.spec, preferred_brand,
+                       device.brand, getattr(device, 'parent_compatibility', None)],
+                      ensure_ascii=False, sort_keys=True, default=str)
+
+
+def cached_research(key):
+    entry = _RESEARCH_CACHE.get(key)
+    if not entry:
+        return None
+    expires, choices, status = entry
+    if expires <= time.monotonic():
+        del _RESEARCH_CACHE[key]
+        return None
+    _RESEARCH_CACHE.move_to_end(key)
+    return deepcopy((choices, status))
+
+
+def remember_research(key, choices, status):
+    if status.get('status') != 'products_found' or not choices:
+        return
+    _RESEARCH_CACHE[key] = (time.monotonic() + _RESEARCH_CACHE_SECONDS, deepcopy(choices), deepcopy(status))
+    _RESEARCH_CACHE.move_to_end(key)
+    while len(_RESEARCH_CACHE) > 128:
+        _RESEARCH_CACHE.popitem(last=False)
 
 
 def public_url(value):
@@ -275,6 +307,19 @@ async def research_device_products(devices, connections, db=None, preferred_bran
 
     async def lookup(rows):
         device = rows[0]
+        cache_key = research_cache_key(device, preferred_brand)
+        cached = cached_research(cache_key)
+        if cached:
+            choices, previous_status = cached
+            for target in rows:
+                target.catalog_candidates = deepcopy(choices)
+                target.web_research = {**deepcopy(previous_status), 'cache_hit': True}
+            if progress_callback:
+                from app.services.ai.progress_delivery import deliver
+                await deliver(progress_callback, {'stage':'product_lookup','status':'success',
+                    'title':f'Đã có kết quả đối chiếu: {device.category} · {device.spec}',
+                    'detail':'Dùng lại kết quả tra cứu trong giờ qua, giữ nguyên thông số và nguồn tài liệu.'})
+            return
         function_name = '' if str(device.category).upper() in {'CB','MCB','MCCB','RCBO','RCCB','ACB'} else str(device.name or '')
         if str(device.category).upper() == 'LIGHT':
             function_name = 'Đèn báo pha; tra các biến thể màu, không gán màu của lộ đầu tiên cho các lộ khác'
@@ -407,6 +452,7 @@ async def research_device_products(devices, connections, db=None, preferred_bran
                     status['summary'] = 'Web search chưa trả kết quả khả dụng; cần thử lại kết nối.'
         for target in rows:
             target.web_research = dict(status)
+        remember_research(cache_key, device.catalog_candidates, status)
         if progress_callback:
             from app.services.ai.progress_delivery import deliver
             choices = device.catalog_candidates or {}
