@@ -40,6 +40,7 @@ def publish(job_id, event, status='PROGRESS', result=None):
         pipe = client.pipeline()
         pipe.hset(PREFIX+job_id, mapping={'status':status, 'stage':event.get('stage',''),
                   'progress':str(event.get('progress',0)),
+                  'detail':str(event.get('detail') or ''), 'event_status':str(event.get('status') or 'running'),
                   'message':event.get('message') or event.get('title') or ''})
         if result is not None:
             pipe.hset(PREFIX+job_id, 'result', json.dumps(result, ensure_ascii=False))
@@ -149,19 +150,7 @@ async def events(job_id):
                 yield 'data: '+json.dumps({'type':'error','detail':'Tác vụ đã hết hạn.','message':'Tác vụ đã hết hạn.'},ensure_ascii=False)+'\n\n'
                 return
             idle_ticks += 1
-            # Send a real log event every 30 idle seconds so the browser sidebar
-            # shows the job is still alive (SSE comment lines are ignored by FE).
-            if idle_ticks % 30 == 0:
-                current_msg = await client.hget(PREFIX+job_id,'message') or 'Đang xử lý…'
-                current_stage = await client.hget(PREFIX+job_id,'stage') or 'processing'
-                yield 'data: '+json.dumps({
-                    'type':'log','stage':current_stage,
-                    'title':current_msg,
-                    'detail':f'Đang chờ kết quả từ pipeline AI ({idle_ticks}s)',
-                    'status':'running'
-                },ensure_ascii=False)+'\n\n'
-            else:
-                yield ': heartbeat\n\n'
+            yield ': heartbeat\n\n'
             await asyncio.sleep(1)
 
 

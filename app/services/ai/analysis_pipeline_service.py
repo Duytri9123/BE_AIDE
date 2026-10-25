@@ -400,6 +400,9 @@ class AnalysisPipelineService:
         # Every attachment remains available as chat context. Generated artifacts
         # are kept for reference but are never re-extracted into a new BOM.
         document_contexts = []
+        if user_prompt and user_prompt.strip():
+            log_event(stage='user_requirement', title='Yêu cầu áp dụng cho lượt bóc tách này',
+                      detail=user_prompt.strip(), status='success')
         for file_obj in project_files:
             log_event(stage='source_read', title=f'Đọc nội dung nguồn: {file_obj.filename}',
                       detail=f'Tệp đã lưu trên hệ thống; đọc lớp văn bản và nhãn bản vẽ ({getattr(file_obj, "file_size", 0):,} byte).', status='running')
@@ -1618,8 +1621,11 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         from app.services.ai.takeoff_pricebook import link_devices
         link_devices(extracted_devices)
         from app.services.ai.web_device_recommendations import research_device_products
+        def report_product_lookup(event):
+            log_event(stage=event['stage'], title=event['title'], detail=event.get('detail', ''), status=event['status'])
         await research_device_products(extracted_devices,
-            all_connections or ([active_ai] if active_ai else []), db, requested_brand)
+            all_connections or ([active_ai] if active_ai else []), db, requested_brand,
+            progress_callback=report_product_lookup)
         from app.services.ai.takeoff_scope import complete_accessories
         await complete_accessories(extracted_devices, user_prompt or '', all_connections or ([active_ai] if active_ai else []), db, preferred_brand=requested_brand)
         link_devices(extracted_devices)
@@ -1630,9 +1636,9 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         if unavailable:
             raise HTTPException(status_code=503, detail='Chưa hoàn tất đối chiếu thiết bị: '
                 + ', '.join(unavailable[:8]) + '. Dịch vụ tra cứu tạm thời gián đoạn; vui lòng thử lại.')
-        from app.services.ai.takeoff_device_assessment import assess_takeoff_devices
-        await assess_takeoff_devices(extracted_devices,
-            all_connections or ([active_ai] if active_ai else []), db, user_prompt or '')
+        # Source ratings and product candidates are already available. Detailed
+        # prose is requested by DeviceReview when the user opens that device;
+        # do not block publication by re-analysing the entire BOM in batches.
         log_event(stage="web_product_research", title="Hoàn tất phân tích và tìm thiết bị phù hợp",
                   detail="Kết quả đề xuất đã được cập nhật. Vui lòng kiểm tra thông số và lựa chọn thiết bị phù hợp.", status="success")
 

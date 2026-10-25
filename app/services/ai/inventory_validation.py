@@ -233,10 +233,13 @@ def require_inventory(response: str):
             if len(types) == 1:
                 device.category = next(iter(types))
         # Restore an explicitly written branch label, never assign sequential IDs.
-        if panel_key(device.tag) in {'', 'CB', 'MCB', 'MCCB'}:
-            branch = re.match(r'^\s*(L\d+(?:/[RYB])?)\b', str(device.name or ''), re.I)
-            if branch:
-                device.tag = branch.group(1)
+        branch = re.search(r'\b(L\d+(?:/[RYB])?)\b', str(device.name or ''), re.I)
+        if branch:
+            explicit_tag = branch.group(1)
+            current_tag = panel_key(device.tag)
+            if current_tag in {'', 'CB', 'MCB', 'MCCB'} or (
+                    '/' in explicit_tag and current_tag == panel_key(explicit_tag.split('/')[0])):
+                device.tag = explicit_tag
         if inventory_kind(device.category, device.name, device.spec) in {'CB','MCB','MCCB','RCBO','RCCB'}:
             # Model repairs sometimes retain the written spec but omit numeric
             # fields. Read explicit units; never infer a rating from frame/model.

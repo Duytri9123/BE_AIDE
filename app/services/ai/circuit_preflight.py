@@ -123,6 +123,11 @@ class CircuitPreflightService:
                 try:
                     chosen = requested_pdf_pages(user_prompt or '', len(document), target_page)
                     if not chosen:
+                        if progress_callback:
+                            from app.services.ai.progress_delivery import deliver
+                            await deliver(progress_callback, {'type':'log','stage':'page_selection','status':'running',
+                                'title':f'Chọn trang phù hợp: {file.filename}',
+                                'detail':f'Xem tổng quan {len(document)} trang theo yêu cầu: {user_prompt or "bóc tách sơ đồ điện"}. Chỉ trang được chọn mới đọc chi tiết.'})
                         chosen = await AnalysisPipelineService._preflight_pdf_with_vision(
                             document, len(document), connections[0], db=db,
                             all_connections=connections, user_requirement=user_prompt or '')

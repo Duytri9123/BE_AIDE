@@ -254,7 +254,7 @@ def technical_search_key(device):
     return (kind, name, spec, device.poles, device.in_a, device.icu_ka, device.part_number or '')
 
 
-async def research_device_products(devices, connections, db=None, preferred_brand=None):
+async def research_device_products(devices, connections, db=None, preferred_brand=None, progress_callback=None):
     search_connections = [c for c in connections if str(c.provider).lower() in SUPPORTED and c.api_key]
     base_urls = {}
     if db is not None:
@@ -305,6 +305,11 @@ async def research_device_products(devices, connections, db=None, preferred_bran
         if preferred:
             query += f' Hãng yêu cầu: {preferred}; nếu không phù hợp hãy tìm hãng khác.'
         async with semaphore:
+            if progress_callback:
+                from app.services.ai.progress_delivery import deliver
+                await deliver(progress_callback, {'stage':'product_lookup','status':'running',
+                    'title':f'Đối chiếu sản phẩm: {device.category} · {device.spec}',
+                    'detail':f'Áp dụng cho {len(rows)} dòng cùng thông số; tìm mã có nguồn và đọc thông số sản phẩm.'})
             for connection in search_connections:
                 try:
                     base_url = (getattr(connection, 'quotas', None) or {}).get('base_url')
@@ -402,5 +407,12 @@ async def research_device_products(devices, connections, db=None, preferred_bran
                     status['summary'] = 'Web search chưa trả kết quả khả dụng; cần thử lại kết nối.'
         for target in rows:
             target.web_research = dict(status)
+        if progress_callback:
+            from app.services.ai.progress_delivery import deliver
+            choices = device.catalog_candidates or {}
+            count = sum(len(items) for items in choices.values() if isinstance(items, list))
+            await deliver(progress_callback, {'stage':'product_lookup','status':'success' if count else 'warning',
+                'title':f'{device.category} · {device.spec}: {count} phương án sản phẩm',
+                'detail':str(status.get('summary') or 'Thông số và nguồn được lưu trong từng phương án; mã chưa khớp được giữ trạng thái cần xác minh.')})
     await asyncio.gather(*(lookup(rows) for rows in grouped.values()))
     return devices
