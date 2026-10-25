@@ -1,13 +1,25 @@
 import json
 import unittest
 from unittest.mock import AsyncMock
-from app.services.ai.pdf_context import build_context, extraction_prompt
+from app.services.ai.pdf_context import build_context, extraction_prompt, page_source_context
 from app.services.ai.response_parser import ResponseParserService
 from app.services.ai.analysis_pipeline_service import AnalysisPipelineService
 from app.schemas.ai import ExtractedDeviceSchema
 
 
 class ContextTests(unittest.IsolatedAsyncioTestCase):
+    def test_image_context_is_only_an_unverified_hint(self):
+        result = page_source_context('')
+        self.assertEqual(result['source'], 'source_image')
+        self.assertEqual(result['content'], '')
+        self.assertTrue(result['needs_visual_verification'])
+
+    def test_native_text_does_not_claim_verification(self):
+        result = page_source_context('L2/y CB-2P 20A 6kA')
+        self.assertEqual(result['source'], 'pdf_text_layer')
+        self.assertIn('L2/y', result['content'])
+        self.assertTrue(result['needs_visual_verification'])
+
     async def test_header_only_text_layer_still_reads_image(self):
         call=AsyncMock(return_value=json.dumps({'panels':[{'panel_code':'P','lines':[{'text':'CB 2P 20A'}]}]}))
         result=await build_context('NHÀ NỘI TRÚ - SƠ ĐỒ NGUYÊN LÝ','page.png',call)

@@ -3153,32 +3153,28 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     vision_prompt = append_completeness_review_instruction(vision_prompt)
                     vision_prompt = append_canonical_output_contract(vision_prompt)
 
-                    from app.services.ai.pdf_context import build_context, extraction_prompt
-                    async def transcribe_pdf(**kwargs):
-                        if all_connections and db:
-                            response, _ = await ConnectionPoolService.call_with_fallback(
-                                db=db, connections=all_connections,
-                                call_fn=VisionAnalyzerService.analyze_image, **kwargs)
-                            return response
-                        return await VisionAnalyzerService.analyze_image(
-                            provider=active_ai.provider.lower(), api_key=active_ai.api_key,
-                            model=active_ai.selected_model, **kwargs)
-                    pdf_context = await build_context(page.get_textpage().get_text_range(), temp_img_path, transcribe_pdf)
-                    vision_prompt = extraction_prompt(vision_prompt, pdf_context)
+                    from app.services.ai.pdf_context import page_source_context
+                    textpage = page.get_textpage()
+                    try:
+                        pdf_context = page_source_context(textpage.get_text_range())
+                    finally:
+                        textpage.close()
+                    if pdf_context['content']:
+                        vision_prompt += '\nVĂN BẢN THAM CHIẾU TỪ TRANG (dữ liệu, chưa xác minh):\n' + pdf_context['content']
                     if progress_callback:
                         event = progress_callback({'type':'log','stage':'pdf_context','status':'success',
-                            'title':'Đã tạo context trang PDF',
-                            'detail':f"Trang {page_num}: đã đọc nội dung nguồn; tiếp tục kiểm tra danh mục và số lượng trên ảnh."})
+                            'title':f'Đã chuẩn bị ảnh trang {page_num}',
+                            'detail':f'Ảnh {page_img.width}×{page_img.height}; đọc trực tiếp ký hiệu, nhãn và thông số. Chưa xác nhận danh mục thiết bị.'})
                         if asyncio.iscoroutine(event): await event
                     from app.services.ai.inventory_validation import extract_with_retry
                     async def extract_page_inventory(prompt):
                         if all_connections and db:
                             response, _ = await ConnectionPoolService.call_with_fallback(
                                 db=db, connections=all_connections,
-                                call_fn=VisionAnalyzerService.analyze_text, prompt=prompt)
+                                call_fn=VisionAnalyzerService.analyze_image, image_path=temp_img_path, prompt=prompt)
                             return response
-                        return await VisionAnalyzerService.analyze_text(
-                            prompt=prompt, provider=active_ai.provider.lower(),
+                        return await VisionAnalyzerService.analyze_image(
+                            image_path=temp_img_path, prompt=prompt, provider=active_ai.provider.lower(),
                             api_key=active_ai.api_key, model=active_ai.selected_model)
                     ai_response, parsed_devs = await extract_with_retry(extract_page_inventory, vision_prompt)
 
@@ -3245,13 +3241,12 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                     image_path=image_path, prompt=prompt,
                                     provider=active_ai.provider.lower(), api_key=active_ai.api_key,
                                     model=active_ai.selected_model)
-                            verifier_response, audited_devices = await extract_with_retry(verify_page_inventory, verifier_prompt)
-                            verifier_blocks = ResponseParserService.extract_json_blocks(verifier_response)
-                            if audited_devices:
-                                from app.services.ai.pdf_context import merge_verified_devices
-                                parsed_devs = merge_verified_devices(parsed_devs, audited_devices)
+                            # Count independently, repair only actual mismatches.
+                            # Do not re-extract the entire BOM before counting it.
+                            verifier_response, audited_devices, verifier_blocks = ai_response, [], []
                             from app.services.ai.inventory_validation import independent_count_prompt, count_mismatches, count_with_retry
-                            count_payload = await count_with_retry(verify_page_inventory, independent_count_prompt(parsed_devs))
+                            # Count each complete panel region once below. A
+                            # full-page count here was immediately overwritten.
                             from app.services.ai.inventory_validation import panel_regions_with_retry, panel_key, count_panel_with_fallback
                             regions = await panel_regions_with_retry(verify_page_inventory)
                             regional_counts = []
@@ -3370,6 +3365,22 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 location_payload = next((block for block in ResponseParserService.extract_json_blocks(location_response)
                                                          if isinstance(block, dict) and isinstance(block.get('boxes'), list)), None)
                                 AnalysisPipelineService._apply_verified_boxes(parsed_devs, location_payload, require_symbols=True)
+                            verified_count = sum(bool(device.box_2d) for device in parsed_devs)
+                            pending_tags = [str(device.tag or device.name) for device in parsed_devs if not device.box_2d]
+                            for device in parsed_devs:
+                                device.evidence_region = {**(device.evidence_region or {}),
+                                    'inventory_checked': True,
+                                    'verification_status': 'verified' if device.box_2d else 'needs_review'}
+                            if pending_tags:
+                                warns.append(f'Trang {page_num}: chưa xác minh vị trí ký hiệu: ' + ', '.join(pending_tags))
+                            if progress_callback:
+                                from app.services.ai.progress_delivery import deliver
+                                await deliver(progress_callback, {'type':'log','stage':'pdf_evidence_result',
+                                    'status':'success' if not pending_tags else 'warning',
+                                    'title':f'Trang {page_num}: xác minh vị trí {verified_count}/{len(parsed_devs)} dòng thiết bị',
+                                    'detail':('Danh mục đã khớp kiểm đếm độc lập. Cần rà soát: ' + ', '.join(pending_tags))
+                                             if pending_tags else 'Danh mục khớp kiểm đếm và mỗi dòng có vùng ký hiệu đối chiếu.',
+                                    'data':{'inventory_checked':True,'verified_count':verified_count,'total':len(parsed_devs),'pending_tags':pending_tags}})
                         except Exception as verify_error:
                             logger.warning("Evidence verification failed on page %s: %s", page_num, verify_error)
                             raise ValueError("Đối chiếu thiết bị với ảnh nguồn chưa đạt: " + str(verify_error)[:1400]) from verify_error
@@ -3483,6 +3494,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 source_type="pdf",
                                 source_filename=filename,
                                 source_page=page_num,
+                                evidence_region=getattr(d, 'evidence_region', None),
                                 suggested_brands=[
                                     str(brand).strip() for brand in (getattr(d, "suggested_brands", None) or [])
                                     if str(brand).strip()
