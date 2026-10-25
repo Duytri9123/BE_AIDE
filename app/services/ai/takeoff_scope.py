@@ -46,7 +46,36 @@ def apply_requested_accessories(devices, payload, requirement):
         existing.append({'name':row['name'],'category':category,'spec':row.get('spec') or '', 'quantity':row.get('quantity') if isinstance(row.get('quantity'),int) and row['quantity']>0 else parent.quantity or 1,'brand':brand,'basis':'user_request','request_quote':quote,'evidence':'Theo yêu cầu: '+quote,'not_drawn':True,'requires_same_brand':category in {'SHUNT_TRIP','UNDERVOLTAGE_RELEASE','AUX_CONTACT'},'parent_tag':parent.tag,'parent_candidates':parent.catalog_candidates or {},'technical_reason':row.get('reason') or 'Theo yêu cầu người dùng; cần đối chiếu khả năng lắp với thiết bị chính.','device_assessment':assessment})
         parent.accompanying_accessories=existing
 
-async def complete_accessories(devices, requirement, connections, db):
+def compatible_accessory_candidates(parent, candidates, required_brand=''):
+    """Reject known mechanical conflicts; unknown fits stay review-only."""
+    from app.services.ai.manufacturer_registry import canonical_brand
+    brand = canonical_brand(parent.brand or required_brand) if parent.brand or required_brand else ''
+    parent_rows = [parent.selected_product] if getattr(parent, 'selected_product', None) else [
+        row for maker, rows in (parent.catalog_candidates or {}).items()
+        if not brand or canonical_brand(maker) == brand for row in rows if isinstance(row, dict)]
+    frames = set()
+    parent_codes = set()
+    for row in parent_rows:
+        code = re.match(r'([A-Za-z]{2,})\d', str(row.get('sku') or ''))
+        if code: parent_codes.add(code.group(1).upper())
+        try:
+            value = float((row.get('parameters') or {}).get('frame_a') or row.get('frame_a') or 0)
+            if value > 0: frames.add(value)
+        except (TypeError, ValueError): pass
+    output = {}
+    for maker, rows in (candidates or {}).items():
+        if brand and canonical_brand(maker) != brand: continue
+        for row in rows:
+            try: frame = float((row.get('parameters') or {}).get('frame_a') or row.get('frame_a') or 0)
+            except (TypeError, ValueError): frame = 0
+            if frames and frame and frame not in frames: continue
+            cited_parent_codes = {code.upper() for code in re.findall(r'\b([A-Za-z]{2,})\d+[A-Za-z]*', str(row.get('technical_evidence') or ''))}
+            if parent_codes and cited_parent_codes and not parent_codes.intersection(cited_parent_codes): continue
+            output.setdefault(maker, []).append(row)
+    return output
+
+
+async def complete_accessories(devices, requirement, connections, db, preferred_brand=None):
     requested=bool(re.search(r'shunt|suntrip|cuộn\s*cắt|phụ\s*kiện|undervoltage|tiếp\s*điểm\s*phụ',requirement or '',re.I))
     if not requested and not any(d.accompanying_accessories for d in devices):return
     if requested:
@@ -59,18 +88,24 @@ async def complete_accessories(devices, requirement, connections, db):
     for parent in devices:
         for accessory in parent.accompanying_accessories or []:
             same_brand=accessory.get('requires_same_brand') or str(accessory.get('category') or '').upper() in {'SHUNT_TRIP','UNDERVOLTAGE_RELEASE','AUX_CONTACT'}
-            child=ExtractedDeviceSchema(category=accessory.get('category') or 'ACCESSORY',name=accessory.get('name') or 'Phụ kiện',spec=accessory.get('spec') or '',brand=(parent.brand or accessory.get('brand') or '') if same_brand else accessory.get('brand') or '',upstream_device=parent.tag or parent.name,quantity=accessory.get('quantity') or 1)
+            required_brand = parent.brand or preferred_brand or ''
+            child=ExtractedDeviceSchema(category=accessory.get('category') or 'ACCESSORY',name=accessory.get('name') or 'Phụ kiện',spec=accessory.get('spec') or '',brand=(required_brand or accessory.get('brand') or '') if same_brand else accessory.get('brand') or '',upstream_device=parent.tag or parent.name,quantity=accessory.get('quantity') or 1)
             compatibility=('Phụ kiện cơ khí phải đúng hãng/dòng/cỡ của thiết bị cha; ' if same_brand else 'Thiết bị liên kết điện có thể khác hãng khi đáp ứng chức năng và điện áp; ')+ '  chưa đủ mã cha hoặc điện áp cuộn thì ghi cần xác minh, không tự chốt. Cha và các mã đang xem: '+json.dumps({'tag':parent.tag,'brand':parent.brand,'spec':parent.spec,'candidates':parent.catalog_candidates},ensure_ascii=False)
             child.parent_compatibility={'brand':parent.brand,'sku':parent.part_number,'candidates':parent.catalog_candidates,'requirements':compatibility}
-            await research_device_products([child],connections,db,preferred_brand=(parent.brand or None) if same_brand else None)
-            if same_brand and parent.brand:
-                child.catalog_candidates={b:cs for b,cs in (child.catalog_candidates or {}).items() if re.sub(r'[^a-z0-9]', '', b.casefold()).removesuffix('electric')==re.sub(r'[^a-z0-9]', '', parent.brand.casefold()).removesuffix('electric')}
+            await research_device_products([child],connections,db,preferred_brand=(required_brand or None) if same_brand else None)
+            if same_brand:
+                child.catalog_candidates = compatible_accessory_candidates(parent, child.catalog_candidates, required_brand)
             for cs in (child.catalog_candidates or {}).values():
                 for candidate in cs:
                     candidate['auto_selectable']=False
                     candidate['rating_complete']=False
                     candidate['reason']='Cần xác minh tương thích với mã thiết bị cha và điện áp cuộn. '+str(candidate.get('reason') or '')
-            accessory.update(catalog_candidates=child.catalog_candidates,web_research=child.web_research,brand=(parent.brand or accessory.get('brand') or '') if same_brand else accessory.get('brand') or '')
+            accessory.update(catalog_candidates=child.catalog_candidates,web_research=child.web_research,brand=(required_brand or accessory.get('brand') or '') if same_brand else accessory.get('brand') or '')
+            if same_brand:
+                accessory['compatibility_status'] = 'needs_parent_model_and_coil_voltage_verification'
+                if not child.catalog_candidates:
+                    accessory['technical_reason'] = 'Chưa có mã phụ kiện được nguồn xác nhận phù hợp hãng, dòng và cỡ khung của thiết bị cha; cần xác minh model và điện áp cuộn.'
+
             if not accessory.get('device_assessment'):
                 await assess_takeoff_devices([child],connections,db,requirement+'\n'+compatibility)
                 accessory['device_assessment']=child.device_assessment

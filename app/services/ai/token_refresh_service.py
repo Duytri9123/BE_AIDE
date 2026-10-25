@@ -63,7 +63,7 @@ class TokenRefreshService:
             "grant_type": "authorization_code",
             "redirect_uri": redirect_uri,
         }
-        async with httpx.AsyncClient(timeout=15.0) as client:
+        async with httpx.AsyncClient(timeout=None) as client:
             resp = await client.post("https://oauth2.googleapis.com/token", data=data)
             if resp.status_code != 200:
                 raise Exception(f"Lỗi đổi code lấy token: HTTP {resp.status_code} - {resp.text}")
@@ -86,7 +86,7 @@ class TokenRefreshService:
 
             # Tự động kích hoạt Onboard free-tier cho Google Antigravity
             try:
-                async with httpx.AsyncClient(timeout=10.0) as ob_client:
+                async with httpx.AsyncClient(timeout=None) as ob_client:
                     await ob_client.post(
                         "https://cloudcode-pa.googleapis.com/v1internal:onboardUser",
                         headers={"Authorization": f"Bearer {access_token}", "Content-Type": "application/json", "User-Agent": ANTIGRAVITY_IDE_USER_AGENT},
@@ -139,7 +139,7 @@ class TokenRefreshService:
         }
 
         try:
-            async with httpx.AsyncClient(timeout=15.0) as client:
+            async with httpx.AsyncClient(timeout=None) as client:
                 resp = await client.post("https://oauth2.googleapis.com/token", data=data)
                 if resp.status_code == 200:
                     res_json = resp.json()
@@ -183,7 +183,7 @@ class TokenRefreshService:
         }
 
         try:
-            async with httpx.AsyncClient(timeout=10.0) as client:
+            async with httpx.AsyncClient(timeout=None) as client:
                 resp = await client.post(
                     "https://cloudcode-pa.googleapis.com/v1internal:loadCodeAssist",
                     headers=headers,

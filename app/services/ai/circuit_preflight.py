@@ -14,7 +14,7 @@ from app.services.ai.response_parser import ResponseParserService
 from app.services.ai.vision_analyzer import VisionAnalyzerService
 
 
-PREFLIGHT_INSTRUCTIONS = """Bạn là kỹ sư điện đang đọc TOÀN BỘ hồ sơ trước bước bóc tách.
+PREFLIGHT_INSTRUCTIONS = """Bạn là kỹ sư điện đang đọc phần hồ sơ liên quan đến yêu cầu người dùng trước bước bóc tách.
 Hãy xác định vai trò từng tệp, ranh giới sơ đồ nguyên lý, nguồn cấp, tải, mạch đo lường,
 điều khiển, bảo vệ, liên hệ giữa các trang/tủ và các cụm có nhiều phần tử.
 Đồng hồ chung chung có thể là ampe kế, vôn kế, đồng hồ đa năng hoặc công tơ; khởi động từ
@@ -59,7 +59,7 @@ class CircuitPreflightService:
         return '\n\n'.join(parts)[:24000]
 
     @staticmethod
-    def _visual_pages(files):
+    def _visual_pages(files, selected_pdf_pages=None):
         """Collect every image and each scanned PDF page for whole-file review."""
         import pypdfium2 as pdfium
         pages = []
@@ -75,7 +75,9 @@ class CircuitPreflightService:
                 elif ext == '.pdf':
                     document = pdfium.PdfDocument(str(path))
                     try:
-                        for index in range(len(document)):
+                        indices = selected_pdf_pages.get(str(path), range(1, len(document) + 1)) if selected_pdf_pages is not None else range(1, len(document) + 1)
+                        for page_number in indices:
+                            index = page_number - 1
                             page = document[index]
                             try:
                                 pages.append((f'{file.filename} / trang {index + 1}',
@@ -104,9 +106,55 @@ class CircuitPreflightService:
         return sheet
 
     @staticmethod
-    async def assess(files, contexts, db, connections, user_prompt='', progress_callback=None) -> dict[str, Any]:
+    async def assess(files, contexts, db, connections, user_prompt='', progress_callback=None, target_page=None) -> dict[str, Any]:
         context = CircuitPreflightService._context(contexts)
-        pages = CircuitPreflightService._visual_pages(files)
+        selected_pdf_pages = {}
+        selected_contexts = []
+        scoped_filenames = set()
+        if db and connections:
+            import pypdfium2 as pdfium
+            from app.services.ai.pdf_page_scope import requested_pdf_pages
+            from app.services.ai.analysis_pipeline_service import AnalysisPipelineService
+            for file in files:
+                path = Path(str(file.file_path))
+                if path.suffix.lower() != '.pdf' or not path.is_file():
+                    continue
+                document = pdfium.PdfDocument(str(path))
+                try:
+                    chosen = requested_pdf_pages(user_prompt or '', len(document), target_page)
+                    if not chosen:
+                        chosen = await AnalysisPipelineService._preflight_pdf_with_vision(
+                            document, len(document), connections[0], db=db,
+                            all_connections=connections, user_requirement=user_prompt or '')
+                    if chosen is None:
+                        return {'status': 'unavailable', 'source_limits': [
+                            f'{file.filename}: chưa chọn được trang; hãy chỉ định trang cần bóc tách.']}
+                    selected_pdf_pages[str(path)] = chosen
+                    scoped_filenames.add(file.filename)
+                    for number in chosen:
+                        page = document[number - 1]
+                        try:
+                            textpage = page.get_textpage()
+                            try:
+                                text = textpage.get_text_range() or ''
+                            finally:
+                                textpage.close()
+                            selected_contexts.append({'filename': f'{file.filename} / trang {number}', 'text': text})
+                        finally:
+                            page.close()
+                    if progress_callback:
+                        from app.services.ai.progress_delivery import deliver
+                        await deliver(progress_callback, {
+                            'type': 'log', 'stage': 'extraction_scope', 'status': 'success',
+                            'title': f'Đã chọn trang trong {file.filename}',
+                            'detail': 'Trang bóc tách: ' + (', '.join(map(str, chosen)) or 'không có trang phù hợp'),
+                            'data': {'selected_pages': chosen, 'total_pages': len(document)}})
+                finally:
+                    document.close()
+        if scoped_filenames:
+            context = CircuitPreflightService._context(
+                [row for row in contexts if row.get('filename') not in scoped_filenames] + selected_contexts)
+        pages = CircuitPreflightService._visual_pages(files, selected_pdf_pages) if selected_pdf_pages else CircuitPreflightService._visual_pages(files)
         if not context and not pages:
             return {'status': 'unavailable', 'circuit_summary': '',
                     'source_limits': [str(row.get('filename') or '') + ': ' + str(row['read_error'])
@@ -128,7 +176,7 @@ class CircuitPreflightService:
                 if progress_callback:
                     from app.services.ai.progress_delivery import deliver
                     await deliver(progress_callback, {'type':'log','stage':'source_page_read','status':'running',
-                        'title':f'Gemini đang đọc sơ đồ: {label}',
+                        'title':f'Đang kiểm tra sơ đồ: {label}',
                         'detail':f'Ảnh nguồn {picture.width}×{picture.height}; nhận diện mạch điện, nhãn tủ và vùng cần bóc tách.'})
                 sheet = picture.copy()
                 sheet.thumbnail((2400, 2400), Image.Resampling.LANCZOS)
@@ -155,7 +203,7 @@ class CircuitPreflightService:
                         assessments.append(parsed)
                         if progress_callback:
                             await deliver(progress_callback, {'type':'log','stage':'source_page_read','status':'success',
-                                'title':f'Gemini đã đọc: {label}', 'detail':str(parsed.get('circuit_summary') or '')})
+                                'title':f'Đã kiểm tra sơ đồ: {label}', 'detail':str(parsed.get('circuit_summary') or '')})
                     else:
                         source_limits.append('Không nhận được đánh giá hợp lệ cho ' + label)
                 except Exception:
@@ -189,6 +237,7 @@ class CircuitPreflightService:
         result['has_sld'] = any(part.get('has_sld') is True for part in assessments)
         result['status'] = 'assessed' if result['has_sld'] and (not pages or len(assessments) == len(pages)) else 'unavailable'
         result['source_type'] = 'visual' if pages else 'text'
+        result['selected_pdf_pages'] = selected_pdf_pages
         return result
 
     @staticmethod
@@ -218,7 +267,7 @@ class CircuitPreflightService:
             return ''
         bounded = {key: assessment.get(key) for key in ('circuit_summary','file_roles','circuits',
                     'functional_groups','ambiguous_symbols','findings','installation_considerations','questions')}
-        return ('ĐÁNH GIÁ SƠ ĐỒ TOÀN HỒ SƠ ĐÃ HOÀN THÀNH TRƯỚC BÓC TÁCH:\n'
+        return ('ĐÁNH GIÁ SƠ ĐỒ TRONG PHẠM VI ĐÃ CHỌN:\n'
                 + json.dumps(bounded, ensure_ascii=False)[:12000]
                 + '\nĐây là ngữ cảnh kiểm tra, không phải danh sách thiết bị đã quan sát. '
                   'Chỉ thêm vào BOM thiết bị có căn cứ trong sơ đồ hoặc ghi chú cụ thể; '

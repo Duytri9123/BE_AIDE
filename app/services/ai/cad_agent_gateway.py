@@ -72,7 +72,7 @@ async def discover_models(provider, connection):
     elif kind == 'antigravity':
         key = await TokenRefreshService.get_active_token(key)
         project = await TokenRefreshService.get_project_id(key)
-        async with httpx.AsyncClient(timeout=20) as client:
+        async with httpx.AsyncClient(timeout=None) as client:
             response = await client.post('https://daily-cloudcode-pa.googleapis.com/v1internal:fetchAvailableModels',
                 headers={'Authorization': f'Bearer {key}', 'User-Agent': 'antigravity/ide/2.11.0 darwin/arm64'},
                 json={'project': project})
@@ -87,7 +87,7 @@ async def discover_models(provider, connection):
         url = f'{base}/models'
     items = []
     params = {}
-    async with httpx.AsyncClient(timeout=20, follow_redirects=False) as client:
+    async with httpx.AsyncClient(timeout=None, follow_redirects=False) as client:
         for _ in range(20):
             response = await client.get(url, headers=headers, params=params)
             response.raise_for_status()
@@ -180,7 +180,7 @@ async def open_inference(db, provider_id, model, payload, stream):
         live = await get_models(db, provider_id)
         if selected not in {canonical(row['model_key']) for row in live['models']}:
             raise HTTPException(400, 'Model không thuộc danh sách khả dụng của provider đã chọn.')
-    client = httpx.AsyncClient(timeout=httpx.Timeout(120, connect=10), follow_redirects=False)
+    client = httpx.AsyncClient(timeout=None, follow_redirects=False)
     try:
         for connection in connections:
             try:

@@ -29,7 +29,7 @@ async def resolve_grounded_sources(search):
     """Keep the Google citation and its actual destination as the same source."""
     import httpx, ipaddress
     semaphore = asyncio.Semaphore(4)
-    async with httpx.AsyncClient(timeout=12, follow_redirects=False) as client:
+    async with httpx.AsyncClient(timeout=None, follow_redirects=False) as client:
         async def resolve(row):
             result = dict(row)
             original = str(row.get('url') or '')

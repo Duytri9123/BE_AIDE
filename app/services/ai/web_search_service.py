@@ -218,7 +218,7 @@ class WebSearchService:
             }
         }
 
-        async with httpx.AsyncClient(timeout=httpx.Timeout(SEARCH_TIMEOUT, connect=5.0)) as client:
+        async with httpx.AsyncClient(timeout=None) as client:
             resp = await client.post(url, headers=headers, json=payload)
             if resp.status_code == 401:
                 raise Exception("Antigravity OAuth Bearer token không hợp lệ hoặc đã hết hạn.")
@@ -335,7 +335,7 @@ class WebSearchService:
             }
         }
 
-        async with httpx.AsyncClient(timeout=httpx.Timeout(SEARCH_TIMEOUT, connect=5.0)) as client:
+        async with httpx.AsyncClient(timeout=None) as client:
             resp = await client.post(url, headers=headers, json=payload)
             if resp.status_code == 401:
                 raise Exception("Google API Key không hợp lệ.")
@@ -403,7 +403,7 @@ class WebSearchService:
             "tools": [{"type": "web_search"}]
         }
 
-        async with httpx.AsyncClient(timeout=httpx.Timeout(SEARCH_TIMEOUT, connect=5.0)) as client:
+        async with httpx.AsyncClient(timeout=None) as client:
             resp = await client.post(url, headers=headers, json=payload)
             resp.raise_for_status()
             data = resp.json()
@@ -447,7 +447,7 @@ class WebSearchService:
             "include_answer": True
         }
 
-        async with httpx.AsyncClient(timeout=httpx.Timeout(SEARCH_TIMEOUT, connect=5.0)) as client:
+        async with httpx.AsyncClient(timeout=None) as client:
             resp = await client.post(url, headers=headers, json=payload)
             resp.raise_for_status()
             data = resp.json()
@@ -482,7 +482,7 @@ class WebSearchService:
         }
         payload = {"q": query, "num": max_results}
 
-        async with httpx.AsyncClient(timeout=httpx.Timeout(SEARCH_TIMEOUT, connect=5.0)) as client:
+        async with httpx.AsyncClient(timeout=None) as client:
             resp = await client.post(url, headers=headers, json=payload)
             resp.raise_for_status()
             data = resp.json()
@@ -517,7 +517,7 @@ class WebSearchService:
         }
         params = {"q": query, "count": max_results}
 
-        async with httpx.AsyncClient(timeout=httpx.Timeout(SEARCH_TIMEOUT, connect=5.0)) as client:
+        async with httpx.AsyncClient(timeout=None) as client:
             resp = await client.get(url, headers=headers, params=params)
             resp.raise_for_status()
             data = resp.json()

@@ -169,7 +169,7 @@ async def events(job_id):
 async def wait_result(job_id):
     async with async_redis.from_url(settings.REDIS_URL,decode_responses=True,
                                    socket_connect_timeout=10,socket_timeout=10) as client:
-        for _ in range(1800):
+        while True:
             try:
                 info = await client.hgetall(PREFIX+job_id)
             except (redis.TimeoutError, redis.ConnectionError):
@@ -177,9 +177,10 @@ async def wait_result(job_id):
                 # must not turn it into HTTP 500 or cause duplicate submission.
                 await asyncio.sleep(1)
                 continue
+            if not info:
+                raise HTTPException(404, 'Không tìm thấy tác vụ hoặc kết quả đã hết hạn.')
             if info.get('status') == 'SUCCESS':
                 return json.loads(info['result'])
             if info.get('status') in ('FAILURE','CANCELLED'):
                 raise HTTPException(422,info.get('message') or 'Tác vụ xử lý thất bại.')
             await asyncio.sleep(1)
-    raise HTTPException(504,'Tác vụ chưa hoàn tất; hãy kiểm tra lại tiến độ.')

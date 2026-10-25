@@ -23,8 +23,8 @@ celery_app.conf.update(
     worker_prefetch_multiplier=1,  # Phù hợp cho task xử lý bản vẽ nặng
     task_acks_late=True,
     task_reject_on_worker_lost=True,
-    task_soft_time_limit=25 * 60,
-    task_time_limit=30 * 60,
+    task_soft_time_limit=None,
+    task_time_limit=None,
     worker_max_tasks_per_child=20,
     broker_transport_options={"visibility_timeout": 35 * 60},
     broker_connection_retry_on_startup=True,

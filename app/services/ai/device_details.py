@@ -19,6 +19,8 @@ def details_prompt(device, requirement=''):
         '(chức năng trong mạch), assessment (ý nghĩa thông số và đánh giá phù hợp với tải), '
         'suitable_product (loại/dòng sản phẩm cần đáp ứng, không bịa mã hàng), '
         'missing_information (mảng chuỗi, chỉ dữ liệu còn thiếu thực sự ảnh hưởng lựa chọn; không thiếu dùng []). '
+        'Viết tiếng Việt dễ hiểu, mỗi trường tối đa 2 câu, không lặp thông tin giữa các trường. Không hiển thị tên key nội bộ. '
+        'suitable_product phải nêu dải thông số cần đáp ứng và dòng sản phẩm có nguồn, giải thích thông số của mã đang chọn nếu có dữ liệu; thiếu dữ liệu thì nói rõ chưa xác minh, không bịa. '
         'Tập trung chọn thiết bị: function tối đa một câu ngắn về tải/nhánh; '
         'assessment giải thích vì sao loại thiết bị này cần cho nhánh và dữ liệu còn thiếu để kết luận phù hợp. '
         'suitable_product nêu loại thiết bị, số cực, dòng, mức cắt theo nguồn, '

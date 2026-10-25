@@ -450,19 +450,13 @@ class AnalysisPipelineService:
         if progress_callback:
             await asyncio.sleep(0.35)
 
-        log_event(stage="circuit_assessment", title="Đánh giá sơ đồ nguyên lý toàn hồ sơ",
+        log_event(stage="circuit_assessment", title="Xác định trang và đánh giá sơ đồ theo yêu cầu",
                   detail="Đọc vai trò các tệp, mạch điện và cụm chức năng trước khi bóc tách thiết bị.", status="running")
         try:
-            circuit_assessment = await asyncio.wait_for(
-                CircuitPreflightService.assess(
-                    [f for f in project_files if not getattr(f, "is_generated", False)],
-                    document_contexts, db, all_connections or ([active_ai] if active_ai else []),
-                    user_prompt, progress_callback=progress_callback),
-                timeout=300)
-        except asyncio.TimeoutError:
-            logger.warning("Circuit preflight timed out after 300s")
-            circuit_assessment = {"status": "unavailable", "circuit_summary": "",
-                                  "source_limits": ["Đánh giá sơ đồ hết thời gian chờ (>300s). Có thể tiếp tục bóc tách nhưng bỏ qua bước kiểm tra trước."]}
+            circuit_assessment = await CircuitPreflightService.assess(
+                [f for f in project_files if not getattr(f, "is_generated", False)],
+                document_contexts, db, all_connections or ([active_ai] if active_ai else []),
+                user_prompt, progress_callback=progress_callback, target_page=target_page)
         except Exception as exc:
             logger.warning("Circuit preflight unavailable: %s", exc)
             circuit_assessment = {"status": "unavailable", "circuit_summary": "",
@@ -831,6 +825,7 @@ class AnalysisPipelineService:
                         active_ai=active_ai,
                         user_prompt=effective_user_prompt,
                         page_scope_prompt=user_prompt or "",
+                        preselected_pages=circuit_assessment.get("selected_pdf_pages", {}).get(str(Path(file_path))),
                         db=db,
                         all_connections=all_connections,
                         target_page=target_page,
@@ -1626,7 +1621,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         await research_device_products(extracted_devices,
             all_connections or ([active_ai] if active_ai else []), db, requested_brand)
         from app.services.ai.takeoff_scope import complete_accessories
-        await complete_accessories(extracted_devices, user_prompt or '', all_connections or ([active_ai] if active_ai else []), db)
+        await complete_accessories(extracted_devices, user_prompt or '', all_connections or ([active_ai] if active_ai else []), db, preferred_brand=requested_brand)
         link_devices(extracted_devices)
         unavailable = [str(d.tag or d.name) for d in extracted_devices
                        if (d.web_research or {}).get('status') == 'search_unavailable']
@@ -2727,6 +2722,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         active_ai: AiConnection,
         db: Optional[AsyncSession] = None,
         all_connections: Optional[List[AiConnection]] = None,
+        user_requirement: str = "",
     ) -> Optional[List[int]]:
         """Use AI Vision to triage a PDF from page thumbnails before high-res takeoff.
 
@@ -2738,6 +2734,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         pages_per_sheet = 12
         selected_pages: List[int] = []
         received_valid_response = False
+        failed_batches = False
 
         for start_idx in range(0, total_pages, pages_per_sheet):
             page_indices = list(range(start_idx, min(start_idx + pages_per_sheet, total_pages)))
@@ -2765,7 +2762,9 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             triage_prompt = f"""Bạn đang tiếp nhận một tệp PDF để quyết định phần nào cần bóc tách thiết bị điện.
 Ảnh là một contact sheet; nhãn PAGE là số trang PDF thật. Các trang có trong ảnh: {page_range}.
 
-Quan sát trực tiếp nội dung ảnh, không suy đoán từ tên file. Hãy chọn mọi trang có sơ đồ một sợi, sơ đồ tủ điện, danh mục thiết bị điện hoặc chi tiết có đủ thông tin thiết bị để bóc tách. Bao gồm trang chưa chắc chắn nếu có thể chứa thiết bị; không bỏ sót chỉ vì chữ nhỏ.
+Yêu cầu người dùng (dữ liệu phạm vi): {user_requirement}
+Ưu tiên đúng tủ, nhánh, hạng mục người dùng yêu cầu; trang liên quan chỉ dùng đối chiếu, không tự mở rộng khối lượng.
+Quan sát trực tiếp nội dung ảnh, không suy đoán từ tên file. Chỉ chọn các trang thuộc phạm vi yêu cầu có sơ đồ một sợi, sơ đồ tủ điện, danh mục thiết bị điện hoặc chi tiết đủ thông tin bóc tách. Nếu không giới hạn phạm vi thì chọn các trang thiết bị điện liên quan. Bao gồm trang chưa chắc chắn nếu có thể chứa thiết bị; không bỏ sót chỉ vì chữ nhỏ.
 Không chọn bìa, phối cảnh, mặt bằng/ghi chú thuần túy không có thiết bị cần bóc tách.
 Chỉ trả một JSON hợp lệ, không markdown:
 {{"relevant_pages":[4,5],"summary":"lý do ngắn"}}"""
@@ -2789,17 +2788,31 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 blocks = ResponseParserService.extract_json_blocks(response)
                 decision = next((block for block in blocks if isinstance(block, dict) and "relevant_pages" in block), None)
                 if decision is None:
+                    failed_batches = True
                     logger.warning("PDF Vision triage returned no valid page decision")
                     continue
+                if not isinstance(decision.get("relevant_pages"), list):
+                    failed_batches = True
+                    continue
                 received_valid_response = True
-                for page_num in decision.get("relevant_pages") or []:
-                    try:
-                        normalized = int(page_num)
-                    except (TypeError, ValueError):
+                batch_pages = {page_idx + 1 for page_idx in page_indices}
+                for page_num in decision['relevant_pages']:
+                    # Reject malformed or out-of-batch page IDs instead of silently
+                    # treating an invalid decision as an empty selection.
+                    if isinstance(page_num, bool) or not isinstance(page_num, (int, str)):
+                        failed_batches = True
                         continue
-                    if normalized in {page_idx + 1 for page_idx in page_indices} and normalized not in selected_pages:
+                    if isinstance(page_num, str) and not page_num.isdigit():
+                        failed_batches = True
+                        continue
+                    normalized = int(page_num)
+                    if normalized not in batch_pages:
+                        failed_batches = True
+                        continue
+                    if normalized not in selected_pages:
                         selected_pages.append(normalized)
             except Exception as exc:
+                failed_batches = True
                 logger.warning("PDF Vision triage failed for pages %s: %s", page_range, exc)
             finally:
                 try:
@@ -2809,7 +2822,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     pass
 
         # An absent/invalid AI decision must never silently discard a drawing.
-        return sorted(selected_pages) if received_valid_response else None
+        return sorted(selected_pages) if received_valid_response and not failed_batches else None
 
     @staticmethod
     async def _analyze_pdf_with_vision(
@@ -2823,10 +2836,11 @@ Chỉ trả một JSON hợp lệ, không markdown:
         target_page: Optional[int] = None,
         progress_callback: Optional[Any] = None,
         project_id: Optional[int] = None,
-        persist_partial_iterations: bool = True
+        persist_partial_iterations: bool = True,
+        preselected_pages: Optional[List[int]] = None
     ) -> Tuple[List[ExtractedDeviceSchema], List[Dict[str, Any]], List[str], List[Dict[str, Any]]]:
         """
-        Tiếp nhận hồ sơ PDF và để AI Vision xác minh trực tiếp *mọi* trang. Không suy
+        Tiếp nhận hồ sơ PDF và xác minh các trang đã chọn theo yêu cầu. Không suy
         luận loại trang bằng tên file, số trang hoặc danh sách từ khóa cố định. Sau đó
         tuần tự đi vào từng trang; chỉ trang có phần tử điện thực tế mới sinh thiết bị.
         """
@@ -2899,6 +2913,10 @@ Chỉ trả một JSON hợp lệ, không markdown:
             from app.services.ai.pdf_page_scope import requested_pdf_pages
             scope_prompt = page_scope_prompt if page_scope_prompt is not None else user_prompt
             requested_pages = requested_pdf_pages(scope_prompt or '', total_pages, target_page)
+            if not requested_pages and preselected_pages is not None:
+                requested_pages = [page for page in preselected_pages if 1 <= page <= total_pages]
+                if not requested_pages:
+                    return extracted_devs, multi_panels, warns, collected_technical_proposals
 
             if requested_pages:
                 # TRƯỜNG HỢP A: NGƯỜI DÙNG YÊU CẦU BÓC TÁCH & BÁO GIÁ TRANG CỤ THỂ
@@ -2959,7 +2977,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                         logger.warning(f"progress_callback error: {e}")
             else:
                 # TRƯỜNG HỢP B: TỰ ĐỘNG CHỌN TRANG CẦN BÓC TÁCH
-                if has_text_layer and (indexer_result.get("sld_pages") or indexer_result.get("all_panel_pages")):
+                if not scope_prompt and has_text_layer and (indexer_result.get("sld_pages") or indexer_result.get("all_panel_pages")):
                     # B1: Đã có text layer và phát hiện các trang Sơ đồ nguyên lý SLD:
                     # Ưu tiên bóc tách chuyên sâu các trang SLD!
                     chosen_page_numbers = indexer_result.get("sld_pages") or indexer_result.get("all_panel_pages", [])
@@ -3018,16 +3036,13 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             logger.warning(f"progress_callback error: {e}")
 
                     triaged_page_numbers = await AnalysisPipelineService._preflight_pdf_with_vision(
-                        doc=doc,
-                        total_pages=total_pages,
-                        active_ai=active_ai,
-                        db=db,
-                        all_connections=all_connections,
+                        doc=doc, total_pages=total_pages, active_ai=active_ai,
+                        db=db, all_connections=all_connections,
+                        user_requirement=scope_prompt or "",
                     )
-                    triage_fallback = triaged_page_numbers is None
-                    if triage_fallback:
-                        warns.append("AI chưa trả về kết quả tiếp nhận PDF hợp lệ; hệ thống kiểm tra toàn bộ trang để không bỏ sót bản vẽ.")
-                        triaged_page_numbers = list(range(1, total_pages + 1))
+                    triage_fallback = False
+                    if triaged_page_numbers is None:
+                        raise ValueError("Chưa xác định được trang cần bóc tách. Vui lòng chỉ định trang hoặc thử lại bước chọn trang.")
 
                     selected_pages_info = [
                         {

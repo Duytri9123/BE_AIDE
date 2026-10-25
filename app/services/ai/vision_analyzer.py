@@ -379,7 +379,7 @@ class VisionAnalyzerService:
         timeout = float(settings.AI_VISION_TIMEOUT)
         
         try:
-            async with httpx.AsyncClient(timeout=httpx.Timeout(timeout, connect=5.0)) as client:
+            async with httpx.AsyncClient(timeout=None) as client:
                 resp = await client.post(
                     f"{target_base}/chat/completions",
                     json=payload,
@@ -469,7 +469,7 @@ class VisionAnalyzerService:
 
         timeout = float(settings.AI_VISION_TIMEOUT)
         try:
-            async with httpx.AsyncClient(timeout=httpx.Timeout(timeout, connect=5.0)) as client:
+            async with httpx.AsyncClient(timeout=None) as client:
                 resp = await client.post(
                     f"{target_base}/chat/completions",
                     json=payload,
@@ -583,7 +583,7 @@ class VisionAnalyzerService:
 
         timeout = float(settings.AI_VISION_TIMEOUT)
         try:
-            async with httpx.AsyncClient(timeout=httpx.Timeout(timeout, connect=5.0)) as client:
+            async with httpx.AsyncClient(timeout=None) as client:
                 resp = await client.post(codex_url, headers=headers, json=payload)
                 resp_text = resp.text
 
@@ -684,7 +684,7 @@ class VisionAnalyzerService:
 
         timeout = float(settings.AI_VISION_TIMEOUT)
         try:
-            async with httpx.AsyncClient(timeout=httpx.Timeout(timeout, connect=5.0)) as client:
+            async with httpx.AsyncClient(timeout=None) as client:
                 resp = await client.post(url, headers=headers, json=payload)
                 if resp.status_code == 401:
                     raise AIAuthenticationError(
@@ -801,7 +801,7 @@ class VisionAnalyzerService:
         
         timeout = float(settings.AI_VISION_TIMEOUT)
         try:
-            async with httpx.AsyncClient(timeout=httpx.Timeout(timeout, connect=5.0)) as client:
+            async with httpx.AsyncClient(timeout=None) as client:
                 resp = await client.post(url, headers=headers, json=payload)
                 
                 if resp.status_code == 401:
@@ -914,7 +914,7 @@ class VisionAnalyzerService:
         if enable_web_search:
             payload["tools"] = [{"google_search": {}}]
 
-        async with httpx.AsyncClient(timeout=httpx.Timeout(timeout, connect=5.0)) as client:
+        async with httpx.AsyncClient(timeout=None) as client:
             try:
                 resp = await client.post(url, json=payload)
                 if resp.status_code == 200:

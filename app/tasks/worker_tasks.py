@@ -157,8 +157,8 @@ def _execute(task,kind,project_id,user_id,payload):
                     raise ValueError('Tác vụ đã bị hủy.')
                 job_queue.publish(job_id,event)
             try:
-                return await asyncio.wait_for((run_analysis if kind=='analysis' else run_cad)(
-                    project_id,user_id,payload,progress),timeout=1800)
+                return await (run_analysis if kind=='analysis' else run_cad)(
+                    project_id,user_id,payload,progress)
             finally:
                 # Async pools must not retain connections bound to a previous job's loop.
                 await engine.dispose()
