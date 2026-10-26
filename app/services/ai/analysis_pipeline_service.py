@@ -1618,14 +1618,13 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                   detail="Tìm sản phẩm khớp loại thiết bị, số cực, dòng định mức và khả năng cắt.", status="running")
         from app.services.ai.takeoff_pricebook import link_devices
         link_devices(extracted_devices)
-        from app.services.ai.web_device_recommendations import research_device_products
         def report_product_lookup(event):
             log_event(stage=event['stage'], title=event['title'], detail=event.get('detail', ''), status=event['status'])
-        await research_device_products(extracted_devices,
-            all_connections or ([active_ai] if active_ai else []), db, requested_brand,
-            progress_callback=report_product_lookup)
         from app.services.ai.takeoff_scope import complete_accessories
-        await complete_accessories(extracted_devices, user_prompt or '', all_connections or ([active_ai] if active_ai else []), db, preferred_brand=requested_brand)
+        await complete_accessories(extracted_devices, user_prompt or '',
+            all_connections or ([active_ai] if active_ai else []), db,
+            preferred_brand=requested_brand, include_devices=True,
+            progress_callback=report_product_lookup)
         link_devices(extracted_devices)
         unavailable = [str(d.tag or d.name) for d in extracted_devices
                        if (d.web_research or {}).get('status') == 'search_unavailable']
