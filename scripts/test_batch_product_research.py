@@ -54,6 +54,18 @@ class BatchResearchTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(device.catalog_candidates['LS Electric'][0]['sku'], 'BKN')
         self.assertEqual(device.web_research['status'], 'internal_catalog')
 
+    async def test_internal_lookup_keeps_requested_brand(self):
+        device = self.device(catalog_candidates={'LS Electric': [{'sku': 'BKN', 'auto_selectable': True}]})
+        await research.research_device_products([device], [], preferred_brand='LS Electric')
+        self.assertEqual(device.web_research['requested_brand'], 'LS Electric')
+
+    async def test_internal_placeholder_without_sku_does_not_skip_research(self):
+        device = self.device(catalog_matches={'LS Electric': {'meets_icu': True}})
+        with patch.object(research.WebSearchService, 'search', AsyncMock(return_value=self.response())) as search:
+            await research.research_device_products([device], [self.connection])
+        self.assertEqual(search.await_count, 1)
+        self.assertTrue(device.catalog_candidates)
+
     async def test_failed_search_preserves_internal_references(self):
         choices = {'LS Electric': [{'sku': 'review-only', 'rating_complete': False}]}
         device = self.device(catalog_candidates=choices)

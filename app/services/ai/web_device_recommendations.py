@@ -301,9 +301,9 @@ def _has_internal_products(device):
     match = getattr(device, 'pricebook_match', None) or {}
     if match.get('status') == 'matched' or match.get('candidates'):
         return True
-    if any(row.get('meets_icu') is True for row in (getattr(device, 'catalog_matches', None) or {}).values()):
+    if any(row.get('sku') and row.get('meets_icu') is True for row in (getattr(device, 'catalog_matches', None) or {}).values()):
         return True
-    return any((row.get('rating_complete') is True or row.get('auto_selectable') is True)
+    return any(row.get('sku') and (row.get('rating_complete') is True or row.get('auto_selectable') is True)
                and not row.get('requires_confirmation') and row.get('match_kind') != 'conditional_alternative'
                for rows in (device.catalog_candidates or {}).values() for row in rows)
 
@@ -316,11 +316,12 @@ async def research_device_products(devices, connections, db=None, preferred_bran
     internal_count = cached_count = 0
     for device in devices:
         device.category = inventory_kind(device.category, device.name, device.spec)
+        preferred = preferred_brand_for_device(device, preferred_brand)
         if _has_internal_products(device):
             internal_count += 1
-            device.web_research = {'status': 'internal_catalog', 'summary': 'Có sản phẩm trong thư viện hệ thống; không cần tìm web.'}
+            device.web_research = {'status': 'internal_catalog', 'requested_brand': preferred,
+                                   'summary': 'Có sản phẩm trong thư viện hệ thống; không cần tìm web.'}
             continue
-        preferred = preferred_brand_for_device(device, preferred_brand)
         cache_key = research_cache_key(device, preferred)
         cached = cached_research(cache_key)
         if cached:
