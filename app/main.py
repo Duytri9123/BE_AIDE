@@ -40,6 +40,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["X-Task-ID", "Content-Disposition"],
 )
 
 app.add_middleware(SessionMiddleware, secret_key=settings.SECRET_KEY)
