@@ -482,7 +482,7 @@ class AnalysisPipelineService:
         extraction_ids = {row['file_id'] for row in scope_plan['files'] if row['extract']}
         for row in scope_plan['files']:
             log_event(stage='file_context', title='Thông tin tệp: '+str(row['filename']), detail=str(row.get('summary') or row.get('role') or ''), status='success')
-        log_event(stage='extraction_scope', title='Đã xác định phạm vi bóc tách', detail=scope_plan['scope'], status='success')
+        log_event(stage='extraction_scope', title='Đã chọn các tệp thuộc phạm vi xử lý', detail=scope_plan['scope'], status='success')
         if not extraction_ids:
             raise HTTPException(status_code=422, detail='Chưa có tệp được xác nhận để bóc tách trong phạm vi yêu cầu.')
         preflight_context += '\nPHẠM VI BÓC TÁCH ĐÃ XÁC ĐỊNH: '+json.dumps(scope_plan, ensure_ascii=False)
@@ -2870,7 +2870,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                         "stage": "ingestion",
                         "status": "running",
                         "timestamp": datetime.now().strftime("%H:%M:%S"),
-                        "title": f"Đang tiếp nhận & quét sơ bộ PDF: {filename}",
+                        "title": f"Chuẩn bị PDF theo trang đã chọn: {filename}" if preselected_pages is not None else f"Đang tiếp nhận & quét sơ bộ PDF: {filename}",
                         "detail": f"Hồ sơ có {total_pages} trang ({file_size_mb:.1f} MB); đang lập chỉ mục khung tên và mã hiệu tủ điện."
                     })
                     if asyncio.iscoroutine(coro):
@@ -2964,7 +2964,9 @@ Chỉ trả một JSON hợp lệ, không markdown:
 
                 pages_str = ", ".join(f"Trang {p}" for p in requested_pages)
                 assessments_str = " • ".join(page_assessments)
-                if progress_callback:
+                # Circuit preflight already selected and announced these pages.
+                # Reuse them without emitting another page-selection milestone.
+                if progress_callback and preselected_pages is None:
                     try:
                         coro = progress_callback({
                             "type": "log",

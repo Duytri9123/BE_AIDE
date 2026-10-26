@@ -1,0 +1,38 @@
+import json
+import unittest
+from unittest.mock import AsyncMock
+from app.schemas.ai import ExtractedDeviceSchema
+from app.services.ai.inventory_validation import repair_counted_inventory
+
+
+class FuseCountRepairTests(unittest.IsolatedAsyncioTestCase):
+    async def test_reads_disputed_fuses_without_replacing_other_devices(self):
+        breaker=ExtractedDeviceSchema(category='MCB',name='MCB',spec='2P 20A',panel_code='TDT',quantity=1)
+        fuse=ExtractedDeviceSchema(category='FUSE',name='Fuse',spec='',panel_code='TDT',quantity=3)
+        call=AsyncMock(return_value=json.dumps({'devices':[{'category':'FUSE','name':'Fuse','spec':'',
+            'panel_code':'TDT','quantity':1,'quantity_basis':'Một thân cầu chì có hai đầu nối'}]}))
+        counts={'counts':[{'panel_code':'TDT','category':'MCB','quantity':1},
+                          {'panel_code':'TDT','category':'FUSE','quantity':1}]}
+        _,rows=await repair_counted_inventory(call,'Full inventory',[breaker,fuse],counts)
+        call.assert_awaited_once()
+        self.assertIs(rows[0],breaker)
+        self.assertEqual(rows[1].quantity,1)
+        self.assertIn('CHỈ kiểm tra cầu chì',call.call_args.args[0])
+
+    async def test_explicit_group_of_three_is_not_forced_to_one(self):
+        fuse=ExtractedDeviceSchema(category='FUSE',name='Fuse',spec='3x2A',panel_code='TDT',quantity=1)
+        call=AsyncMock(return_value=json.dumps({'devices':[{'category':'FUSE','name':'Fuse','spec':'3x2A',
+            'panel_code':'TDT','quantity':3,'quantity_basis':'Nhãn nguồn ghi 3x2A'}]}))
+        _,rows=await repair_counted_inventory(call,'Read',[fuse],{'counts':[{'panel_code':'TDT','category':'FUSE','quantity':3}]})
+        self.assertEqual(rows[0].quantity,3)
+
+    async def test_unconfirmed_quantity_still_rejects_result(self):
+        fuse=ExtractedDeviceSchema(category='FUSE',name='Fuse',spec='',panel_code='TDT',quantity=3)
+        call=AsyncMock(return_value=json.dumps({'devices':[{'category':'FUSE','name':'Fuse','spec':'',
+            'panel_code':'TDT','quantity':3,'quantity_basis':'Chưa đọc rõ'}]}))
+        with self.assertRaises(ValueError):
+            await repair_counted_inventory(call,'Read',[fuse],{'counts':[{'panel_code':'TDT','category':'FUSE','quantity':1}]},attempts=1)
+
+
+if __name__ == '__main__':
+    unittest.main()
