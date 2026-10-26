@@ -564,9 +564,9 @@ class AnalysisPipelineService:
 
             log_event(
                 stage="file_extraction",
-                title=f"Đang bóc tách tệp: {pfile.filename}",
-                detail=f"Phân tích sơ đồ 1 sợi SLD & nhận diện thiết bị ({ext.upper()})",
-                status="info",
+                title=f"Đã tiếp nhận tệp: {pfile.filename}",
+                detail=f"Chuẩn bị đọc tài liệu {ext.upper()} và xác định phạm vi xử lý.",
+                status="success",
                 data={"filename": pfile.filename, "file_type": ext, "file_id": getattr(pfile, "id", None)}
             )
 
@@ -2971,7 +2971,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             "stage": "ingestion",
                             "status": "success",
                             "timestamp": datetime.now().strftime("%H:%M:%S"),
-                            "title": f"Tiếp nhận yêu cầu phân tích: {pages_str}",
+                            "title": f"Đã xác định trang xử lý: {pages_str}",
                             "detail": f"Đã ghi nhận phạm vi trong [{filename}] ({total_pages} trang). {assessments_str}. Hệ thống sẽ phân tích chi tiết các trang được chỉ định.",
                             "data": {
                                 "requested_pages": requested_pages,
@@ -3108,21 +3108,6 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 page = doc[page_idx]
                 page_started_at = time.monotonic()
 
-                if progress_callback:
-                    try:
-                        coro = progress_callback({
-                            "type": "log",
-                            "stage": "sld_scan",
-                            "status": "running",
-                            "timestamp": datetime.now().strftime("%H:%M:%S"),
-                            "title": f"Đang đọc {filename} — Trang {page_num}/{total_pages}",
-                            "detail": "Đang ghi nhận thiết bị, thông số và các liên kết thể hiện trên trang này."
-                        })
-                        if asyncio.iscoroutine(coro):
-                            await coro
-                    except Exception as e:
-                        logger.warning(f"progress_callback error: {e}")
-
                 # Render trang thành ảnh với độ phân giải tối ưu bằng pypdfium2 C engine (nhanh & siêu tiết kiệm RAM)
                 page_img = page.render(scale=3).to_pil()
                 if page_img.mode in ("RGBA", "LA", "P"):
@@ -3170,6 +3155,20 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             'title':f'Đã chuẩn bị ảnh trang {page_num}',
                             'detail':f'Ảnh {page_img.width}×{page_img.height}; đọc trực tiếp ký hiệu, nhãn và thông số. Chưa xác nhận danh mục thiết bị.'})
                         if asyncio.iscoroutine(event): await event
+                    if progress_callback:
+                        try:
+                            coro = progress_callback({
+                                "type": "log",
+                                "stage": "sld_scan",
+                                "status": "running",
+                                "timestamp": datetime.now().strftime("%H:%M:%S"),
+                                "title": f"Đang đọc {filename} — Trang {page_num}/{total_pages}",
+                                "detail": "Đang ghi nhận thiết bị, thông số và các liên kết thể hiện trên trang này."
+                            })
+                            if asyncio.iscoroutine(coro):
+                                await coro
+                        except Exception as e:
+                            logger.warning(f"progress_callback error: {e}")
                     from app.services.ai.inventory_validation import extract_with_retry
                     async def extract_page_inventory(prompt):
                         if all_connections and db:
