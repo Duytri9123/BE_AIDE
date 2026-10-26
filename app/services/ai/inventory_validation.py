@@ -282,6 +282,40 @@ async def extract_with_retry(call, prompt: str):
     raise ValueError(f"Chưa xác nhận được danh sách thiết bị sau khi thử lại: {last_error}")
 
 
+def preserve_inventory_context(previous, corrected):
+    """Keep source descriptions/linked parts for a uniquely unchanged device.
+
+    A count repair may replace the inventory, but must not silently drop its
+    descriptive fields. Coordinates/images always come from the new read.
+    """
+    from collections import defaultdict
+    from copy import deepcopy
+    def key(device):
+        tag = str(getattr(device, 'tag', None) or '').strip()
+        if not tag:
+            return None
+        return (getattr(device, 'source_filename', None), getattr(device, 'source_page', None),
+                panel_key(device.panel_code), tag, inventory_kind(device.category, device.name, device.spec),
+                re.sub(r'\s+', '', str(device.spec or '')).casefold())
+    old, new = defaultdict(list), defaultdict(list)
+    for device in previous:
+        if key(device) is not None: old[key(device)].append(device)
+    for device in corrected:
+        if key(device) is not None: new[key(device)].append(device)
+    for identity, matches in new.items():
+        if len(matches) != 1 or len(old[identity]) != 1:
+            continue
+        before, after = old[identity][0], matches[0]
+        for field in ('technical_analysis', 'notes', 'connected_load', 'upstream_device', 'downstream_device'):
+            if not getattr(after, field, None) and getattr(before, field, None):
+                setattr(after, field, deepcopy(getattr(before, field)))
+        if not getattr(after, 'accompanying_accessories', None):
+            evidenced = [item for item in (getattr(before, 'accompanying_accessories', None) or [])
+                         if isinstance(item, dict) and (item.get('evidence') or item.get('sld_evidence') or item.get('source_reference'))]
+            after.accompanying_accessories = deepcopy(evidenced)
+    return corrected
+
+
 async def repair_counted_inventory(call, prompt, devices, count_payload, attempts=3):
     """Re-read the image with current mismatches; never fabricate rows from counts."""
     import json
@@ -296,7 +330,8 @@ async def repair_counted_inventory(call, prompt, devices, count_payload, attempt
                          + '\nDANH SÁCH HIỆN TẠI (không phải nguồn):\n'
                          + json.dumps([{field: getattr(d, field, None) for field in
                              ('panel_code', 'category', 'tag', 'name', 'spec', 'quantity', 'poles',
-                              'in_a', 'icu_ka', 'box_2d', 'section')} for d in devices], ensure_ascii=False)
+                              'in_a', 'icu_ka', 'box_2d', 'section', 'technical_analysis', 'notes',
+                              'connected_load', 'accompanying_accessories')} for d in devices], ensure_ascii=False)
                          + '\nTrả devices đầy đủ thay thế danh sách hiện tại. Kiểm tra lại từng ký hiệu trên ảnh; '
                            'không giữ thiết bị suy diễn khi kiểm đếm xác nhận không có thân. '
                            'MDK là nhãn mạch, không phải relay. Không thêm hàng chỉ để đủ tổng số. '
@@ -305,8 +340,14 @@ async def repair_counted_inventory(call, prompt, devices, count_payload, attempt
                           'spec chỉ ghi phần đọc được, thông số số học chưa ghi trên ảnh để null. '
                           'Quét riêng cụm đo lường bên đầu vào: chuyển mạch chọn điện áp/đồng hồ phải là SELECTOR riêng '
                           'nếu thấy ký hiệu thân; không gộp vào đồng hồ. Với mỗi hàng thiếu được báo ở trên, '
-                          'đọc lại vị trí cụ thể và trả box_2d cùng hàng thiết bị.')
+                          'đọc lại vị trí cụ thể và trả box_2d cùng hàng thiết bị. '
+                          'Giữ technical_analysis là 1–2 câu mô tả chức năng và ý nghĩa thông số; '
+                          'giữ accompanying_accessories có evidence cho đúng thiết bị cha. '
+                          'Đọc cả dây/chú thích tín hiệu báo cháy tới MCCB; không bỏ quan hệ điều khiển khi sửa số lượng. '
+                          'Không tự kết luận đó là shunt trip hay undervoltage nếu nguồn chưa ghi loại cơ cấu và điện áp.')
+        previous = devices
         response, devices = await extract_with_retry(call, repair_prompt)
+        devices = preserve_inventory_context(previous, devices)
     differences = count_mismatches(devices, count_payload)
     if differences:
         raise ValueError('Danh mục chưa khớp kiểm đếm nguồn: ' + '; '.join(differences))
