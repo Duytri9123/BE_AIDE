@@ -81,7 +81,7 @@ Lời chào, câu hỏi, giải thích hoặc yêu cầu liệt kê: operations=
 Nếu chưa có thiết bị, nói rõ chưa có; không tự thêm tủ 630A hoặc thiết bị phụ trợ.
 Chỉ chỉnh danh sách khi người dùng yêu cầu rõ ràng thêm/sửa/đổi/xóa. Dùng lịch sử để hiểu câu nối tiếp.
 Nếu không xác định được thiết bị/tủ cần sửa, hỏi lại và operations=[]; không đoán phạm vi.
-Đổi hãng chung toàn danh sách khi người dùng nói đổi hãng mà không giới hạn thiết bị/tủ.
+Đổi hãng chung khi người dùng nói đổi hãng chỉ áp dụng thiết bị chính MCCB/MCB/ACB/RCBO/RCCB/contactor, không gán hãng cho đèn và vật tư phụ chưa yêu cầu. Yêu cầu tìm/tra cứu hãng là tìm phương án catalog, không tự đổi thông số hoặc thêm thiết bị.
 Chỉ sửa các trường được yêu cầu. Không bịa mã sản phẩm, giá, chứng nhận hoặc khẳng định đã vẽ CAD.
 Thêm 'một' thiết bị nghĩa là quantity=1. Không suy số cực/dòng cắt nếu người dùng chưa cho.
 Thiết bị thêm phải có category và name, spec chỉ gồm thông số được cung cấp, quantity mặc định 1.

@@ -48,6 +48,22 @@ def _build_analysis_result_schema(
 
         cleaned_devices.append(ExtractedDeviceSchema.model_validate(payload))
 
+    from app.services.ai.panel_identity import normalize_panel_identities
+    from copy import deepcopy
+    conf = deepcopy(conf)
+    source_panels = conf.get('panels') or []
+    normalize_panel_identities(cleaned_devices, source_panels)
+    merged_panels = {}
+    for panel in source_panels:
+        code = panel.get('panel_code')
+        if code and code not in merged_panels:
+            merged_panels[code] = {**panel, 'devices': []}
+    for device in cleaned_devices:
+        code = device.panel_code
+        if code:
+            merged_panels.setdefault(code, {'panel_code':code,'panel_name':device.panel_name,'devices':[]})['devices'].append(device.model_dump())
+    conf['panels'] = list(merged_panels.values())
+
     # Capture any existing panel_images map
     if isinstance(conf.get("panel_images"), dict):
         for k, v in conf["panel_images"].items():

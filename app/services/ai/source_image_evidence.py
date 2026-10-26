@@ -81,15 +81,15 @@ async def count_source_tiles(image, call_image, prompt):
     return result
 
 
-async def refine_locations(image, call_image, devices, initial):
+async def refine_locations(image, call_image, devices, initial, *, batch_size=6):
     """Locate small groups in native-aspect detail images, then map to the source."""
     proposals = {str(row.get('device_id')): row for row in initial.get('boxes', []) if isinstance(row, dict)}
     output = []
-    for start in range(0, len(devices), 6):
-        batch = devices[start:start+6]
+    for start in range(0, len(devices), batch_size):
+        batch = devices[start:start+batch_size]
         boxes = [row.get(key) for i in range(start,start+len(batch))
                  for row in [proposals.get(str(i), {})]
-                 for key in ('symbol_box_2d', 'text_box_2d', 'load_box_2d')
+                 for key in ('box_2d', 'symbol_box_2d', 'text_box_2d', 'load_box_2d')
                  if isinstance(row.get(key), list) and len(row[key]) == 4]
         if boxes:
             # Vision providers occasionally return the two corners reversed.
@@ -132,9 +132,11 @@ async def refine_locations(image, call_image, devices, initial):
                 if not isinstance(row,dict) or str(row.get('device_id')) not in {r['device_id'] for r in rows}: continue
                 requested = devices[int(row['device_id'])]
                 import re
-                if re.fullmatch(r'[ML]\d+(?:/[RYB])?',str(requested.tag or ''),re.I) and str(row.get('observed_tag') or '').upper() != str(requested.tag).upper():
+                if re.fullmatch(r'[ML]\d+(?:/[RYB])?',str(requested.tag or ''),re.I) and re.sub(r'/[RYBST]$', '', str(row.get('observed_tag') or '').upper()) != re.sub(r'/[RYBST]$', '', str(requested.tag).upper()):
                     row['verified'] = False
                 for key in ('box_2d','symbol_box_2d','text_box_2d','tag_box_2d','load_box_2d'):
+                    if isinstance(row.get(key),list) and len(row[key]) == 1 and isinstance(row[key][0],list):
+                        row[key] = row[key][0]
                     if isinstance(row.get(key),list) and len(row[key]) == 4 and all(isinstance(v,(int,float)) and not isinstance(v,bool) and 0 <= v <= 1000 for v in row[key]):
                         y1,x1,y2,x2 = row[key]
                         row[key] = [round((top+y1*crop.height/1000)/image.height*1000), round((left+x1*crop.width/1000)/image.width*1000),
@@ -155,16 +157,28 @@ async def refine_locations(image, call_image, devices, initial):
     return {'boxes':output}
 
 
-async def verify_pdf_measurement_crops(image, call_image, devices):
+async def verify_pdf_measurement_crops(image, call_image, devices, *, all_devices=False):
     """Validate the dense measurement cluster from detail crops before export."""
-    selected = [device for device in devices if device.category in
+    selected = [device for device in devices if all_devices or device.category in
                 {'VOLTMETER', 'AMMETER', 'METER', 'MULTIMETER', 'SELECTOR'}]
     if not selected:
         return []
-    proposals = {'boxes': [{'device_id': str(index), 'box_2d': device.box_2d}
+    proposals = {'boxes': [{'device_id': str(index), 'box_2d': device.box_2d, **{key: (device.evidence_region or {}).get(key) for key in ('symbol_box_2d','text_box_2d','load_box_2d')}}
                            for index, device in enumerate(selected)]}
     refined = await refine_locations(image, call_image, selected, proposals)
     audited = await audit_crops(image, call_image, selected, refined)
+    audited = await retry_unverified_evidence(image, call_image, selected, audited)
+    if all_devices:
+        by_id={str(row.get('device_id')):row for row in audited.get('boxes',[])}
+        if any(by_id.get(str(i),{}).get('verified') is not True for i in range(len(selected))):
+            from app.services.ai.row_evidence import measure_horizontal_rows
+            measured=measure_horizontal_rows(image,selected)
+            measured['boxes']=[row for row in measured['boxes'] if by_id.get(str(row['device_id']),{}).get('verified') is not True]
+            if measured['boxes']:
+                checked=await audit_crops(image,call_image,selected,measured)
+                for row in checked['boxes']:
+                    if row.get('verified') is True:by_id[str(row['device_id'])]=row
+                audited={'boxes':list(by_id.values())}
     from app.services.ai.analysis_pipeline_service import AnalysisPipelineService
     AnalysisPipelineService._apply_verified_boxes(selected, audited, require_symbols=True)
     return [device for device in selected if not device.box_2d]
@@ -198,15 +212,30 @@ async def audit_crops(image, call_image, devices, payload):
                 if crop.width<=0 or crop.height<=0: continue
                 crop=ImageOps.contain(crop,(300,185),Image.Resampling.LANCZOS)
                 canvas.paste(crop,(column*330+8,local*220+30));present.append(key)
-            rows.append({'device_id':index,'category':d.category,'tag':d.tag,'available_crops':present})
+            observed_tag=str(row.get('observed_tag') or '')
+            reference_tag=str(d.tag or '')
+            import re
+            same_branch = re.sub(r'/[RYBST]$', '', observed_tag.upper().strip()) == re.sub(r'/[RYBST]$', '', reference_tag.upper().strip())
+            printed_tag = observed_tag if observed_tag and same_branch else reference_tag
+            if (d.category == 'FUSE' and re.fullmatch(r'FU\d*', reference_tag, re.I)
+                    and sum(other.category == 'FUSE' and other.panel_code == d.panel_code for other in devices) == 1):
+                printed_tag = ''
+            if reference_tag in {'LIGHT','SELECTOR'}: printed_tag = ''
+            rows.append({'device_id':index,'category':d.category,'tag':printed_tag,
+                         'reference_tag':reference_tag,'expected_spec':d.spec,'available_crops':present})
         if not rows: continue
         with tempfile.NamedTemporaryFile(suffix='.png',delete=False) as file:path=file.name
         try:
             canvas.save(path)
             answer=await call_image(path,'Kiểm tra CHÍNH ẢNH ĐÃ CẮT, không tin vào tên yêu cầu. Mỗi ID: ảnh trái là ký hiệu, giữa là thông số, phải là tag. '
                 'Chỉ matches=true nếu ảnh có hình ký hiệu đầy đủ của đúng thiết bị/tag, không lẫn lộ. '
+                'expected_spec dùng để phát hiện chữ bị cắt: ảnh phải có trọn các giá trị định mức số/đơn vị đã ghi trên nhãn. Thiếu giá trị vì cắt mép thì matches=false. Tên chức năng hoặc loại suy luận không phải chữ bắt buộc in trên nguồn. '
+                'Không dùng expected_spec để tự điền source_spec hoặc thông số không đọc được; chỉ báo chữ thật thấy. '
                 'R/Y/B phải đọc đúng chữ, AS/VS không được dùng ảnh đồng hồ làm chuyển mạch. '
+                'Tag chung LIGHT, SELECTOR hoặc FU tự đặt không nhất thiết được in trên nguồn: xác minh hình và nhãn thật, không yêu cầu tìm chữ tự đặt. '
                 'Với M/L phải đọc đúng tag phía phải và thông số cùng hàng; thiếu ảnh tag thì false. '
+                'L5 và L5/b (tương tự hậu tố pha /r,/y,/b) là cùng mã lộ nếu số lộ khớp; không bác chỉ vì có hậu tố pha. '
+                'reference_tag là mã tham chiếu nội bộ, chỉ tag là nhãn thật cần kiểm; tag rỗng thì kiểm hình và nhãn loại thực thấy. '
                 'Đọc lại thông số ĐỘC LẬP từ chữ trong ảnh giữa: source_spec, poles, in_a, icu_ka. '
                 'source_category là mã loại đọc thực trên ảnh; category yêu cầu có thể đọc sai trước đó. '
                 'Nếu tag và hình đúng nhưng loại/định mức đọc trước đó sai, vẫn matches=true và trả loại/thông số đúng từ ảnh. '
@@ -251,7 +280,7 @@ async def retry_unverified_evidence(image,call_image,devices,payload):
     if not failed:return payload
     subset=[devices[i] for i in failed]
     proposed={'boxes':[{**by_id.get(str(index),{}),'device_id':str(local)} for local,index in enumerate(failed)]}
-    refined=await refine_locations(image,call_image,subset,proposed)
+    refined=await refine_locations(image,call_image,subset,proposed,batch_size=2)
     audited=await audit_crops(image,call_image,subset,refined)
     for row in audited['boxes']:
         local=int(row['device_id'])

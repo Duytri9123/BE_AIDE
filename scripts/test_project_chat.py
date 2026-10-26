@@ -77,6 +77,22 @@ class ProjectChatTests(unittest.IsolatedAsyncioTestCase):
     async def count(self):
         return (await self.db.execute(select(func.count(AnalysisIteration.id)))).scalar_one()
 
+    async def test_catalog_lookup_reuses_session_and_preserves_design(self):
+        from copy import deepcopy
+        edited=deepcopy(self.devices)
+        edited[0]['catalog_candidates']={'LS Electric':[{'sku':'REF','auto_selectable':False}]}
+        with patch('app.services.ai.session_catalog_chat.lookup_session_catalog',new=AsyncMock(return_value=(edited,'Đã đối chiếu LS'))):
+            response=await self.client.post('/chat/',json=self.payload('tìm kiếm hãng LS nhé'))
+        self.assertEqual(response.status_code,200,response.text)
+        result=response.json()
+        self.assertTrue(result['catalog_only'])
+        self.assertEqual(result['devices'][0]['box_2d'],self.devices[0]['box_2d'])
+        self.assertEqual(result['devices'][0]['brand'],'Schneider')
+        self.ai.assert_not_awaited()
+        saved=await self.db.get(AnalysisIteration,result['iteration_id'])
+        self.assertEqual(saved.confidence_scores['design_result'],self.source.confidence_scores['design_result'])
+        self.assertEqual(saved.confidence_scores['quotation_rows'],self.source.confidence_scores['quotation_rows'])
+
     async def test_brand_change_persists_and_preserves_evidence(self):
         self.plan([{'op':'update','index':0,'changes':{'brand':'LS'}}])
         response = await self.client.post('/chat/', json=self.payload())

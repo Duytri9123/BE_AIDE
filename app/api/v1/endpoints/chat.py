@@ -25,7 +25,7 @@ router = APIRouter()
 
 def saved_response(iteration, project_id):
     meta = iteration.user_corrections or {}
-    return ChatResponse(reply=meta["reply"], action_type="update_devices",
+    return ChatResponse(reply=meta["reply"], action_type="update_devices", catalog_only=bool(meta.get("catalog_only")),
         devices=iteration.ai_parsed_devices or [], project_id=project_id,
         base_iteration_id=meta.get("base_iteration_id"), iteration_id=iteration.id,
         iteration_number=iteration.iteration_number, session_id=iteration.session_id)
@@ -77,19 +77,26 @@ async def chat_with_cad_agent(request: ChatRequest, db: AsyncSession = Depends(g
     connections = await ConnectionPoolService.get_ordered_connections(db)
     if not connections:
         raise HTTPException(503, "Chưa có kết nối AI khả dụng cho chat. Vui lòng thử lại sau.")
-    try:
-        raw, _ = await asyncio.wait_for(ConnectionPoolService.call_with_fallback(
-            db=db, connections=connections, call_fn=VisionAnalyzerService.analyze_text,
-            prompt=prompt), timeout=90)
-    except Exception:
-        logger.exception("Project chat inference failed")
-        raise HTTPException(502, "AI chưa phản hồi thành công. Chưa có thay đổi nào được áp dụng.")
-    try:
-        plan = parse_plan(raw)
-        edited = apply_plan(devices, plan)
-    except Exception:
-        logger.warning("Invalid project chat plan", exc_info=True)
-        raise HTTPException(502, "AI trả về chỉnh sửa chưa hợp lệ. Chưa có thay đổi nào được áp dụng; vui lòng thử lại.")
+    from app.services.ai.session_catalog_chat import catalog_request_brand, lookup_session_catalog
+    catalog_brand = catalog_request_brand(request.message)
+    if catalog_brand and devices:
+        from app.services.ai.project_chat import ChatPlan
+        edited, reply = await lookup_session_catalog(devices, catalog_brand, connections, db)
+        plan = ChatPlan(reply=reply)
+    else:
+        try:
+            raw, _ = await asyncio.wait_for(ConnectionPoolService.call_with_fallback(
+                db=db, connections=connections, call_fn=VisionAnalyzerService.analyze_text,
+                prompt=prompt), timeout=90)
+        except Exception:
+            logger.exception("Project chat inference failed")
+            raise HTTPException(502, "AI chưa phản hồi thành công. Chưa có thay đổi nào được áp dụng.")
+        try:
+            plan = parse_plan(raw)
+            edited = apply_plan(devices, plan)
+        except Exception:
+            logger.warning("Invalid project chat plan", exc_info=True)
+            raise HTTPException(502, "AI trả về chỉnh sửa chưa hợp lệ. Chưa có thay đổi nào được áp dụng; vui lòng thử lại.")
     if edited == devices:
         return ChatResponse(reply=plan.reply, action_type="general_chat", project_id=project.id,
                             base_iteration_id=base_id)
@@ -118,12 +125,12 @@ async def chat_with_cad_agent(request: ChatRequest, db: AsyncSession = Depends(g
         .where(AnalysisIteration.session_id == session.id))).scalar_one() or 0
     reply = plan.reply.strip() + "\n\nĐã lưu danh sách thiết bị cập nhật vào project."
     iteration = AnalysisIteration(session_id=session.id, iteration_number=latest_number + 1,
-        trigger_type="chat_update", user_message=request.message,
+        trigger_type="chat_catalog_lookup" if catalog_brand else "chat_update", user_message=request.message,
         user_corrections={"request_id": str(request.request_id) if request.request_id else None,
-                          "base_iteration_id": base_id, "reply": reply},
+                          "base_iteration_id": base_id, "reply": reply, "catalog_only": bool(catalog_brand)},
         files_analyzed=deepcopy(source.files_analyzed) if source else {},
         ai_parsed_devices=edited, devices_after_validation=edited,
-        confidence_scores=updated_confidence(source.confidence_scores if source else {}, edited),
+        confidence_scores=deepcopy(source.confidence_scores or {}) if catalog_brand and source else updated_confidence(source.confidence_scores if source else {}, edited),
         status="completed")
     db.add(iteration)
     session.total_iterations = latest_number + 1

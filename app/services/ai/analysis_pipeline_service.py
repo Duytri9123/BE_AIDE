@@ -159,6 +159,8 @@ class AnalysisPipelineService:
         devices: List[ExtractedDeviceSchema],
     ) -> List[Dict[str, Any]]:
         """Return the same panel shape regardless of the source file format."""
+        from app.services.ai.panel_identity import normalize_panel_identities
+        normalize_panel_identities(devices, panels)
         by_code: Dict[str, Dict[str, Any]] = {}
         for raw_panel in panels or []:
             if not isinstance(raw_panel, dict):
@@ -2253,7 +2255,9 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             if len(matches) != 1 or matches[0].get("verified") is not True:
                 continue
             box = matches[0].get("box_2d")
-            if require_symbols and (matches[0].get('symbol_verified') is not True or not matches[0].get('symbol_box_2d') or not matches[0].get('text_box_2d')):
+            if require_symbols and (matches[0].get('symbol_verified') is not True or not matches[0].get('symbol_box_2d')):
+                continue
+            if require_symbols and not matches[0].get('text_box_2d') and not matches[0].get('audit_observed'):
                 continue
             if matches[0].get('symbol_verified') is False:
                 continue
@@ -2264,7 +2268,9 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                     for other_index, other in enumerate(devices))
                 if duplicate:
                     continue
-            if matches[0].get('symbol_box_2d') and matches[0].get('text_box_2d'):
+            if matches[0].get('symbol_box_2d'):
+                if not matches[0].get('text_box_2d'):
+                    matches[0]['text_box_2d'] = matches[0]['symbol_box_2d']
                 try:
                     symbol = ExtractedDeviceSchema.normalize_evidence_box(matches[0]['symbol_box_2d'])
                     text = ExtractedDeviceSchema.normalize_evidence_box(matches[0]['text_box_2d'])
@@ -2272,11 +2278,16 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                     continue
                 if not symbol or not text:
                     continue
-                box = [min(symbol[0], text[0]), min(symbol[1], text[1]), max(symbol[2], text[2]), max(symbol[3], text[3])]
+                tag_box = ExtractedDeviceSchema.normalize_evidence_box(matches[0].get('tag_box_2d'))
+                parts = [symbol, text] + ([tag_box] if tag_box else [])
+                box = [min(p[0] for p in parts), min(p[1] for p in parts),
+                       max(p[2] for p in parts), max(p[3] for p in parts)]
 
             try:
                 device.box_2d = ExtractedDeviceSchema.normalize_evidence_box(box)
                 device.evidence_region.update(coordinate_space='normalized_1000', box_2d=list(device.box_2d))
+                for key in ('symbol_box_2d','text_box_2d','tag_box_2d'):
+                    device.evidence_region[key] = ExtractedDeviceSchema.normalize_evidence_box(matches[0].get(key))
                 quad = matches[0].get('branch_quad')
                 if isinstance(quad, list) and len(quad) == 4 and all(
                     isinstance(pt, list) and len(pt) == 2 and all(isinstance(v, (int, float)) and 0 <= v <= 1000 for v in pt)
@@ -2296,6 +2307,16 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
     def _linked_evidence_images(device, page_image):
         """Keep the verified branch in a clean horizontal strip, with separate detail crops."""
         region = getattr(device, 'evidence_region', None) or {}
+        if str(device.category).upper() in {'METER','VOLTMETER','AMMETER','MULTIMETER'} and region.get('symbol_box_2d'):
+            details=[]
+            for kind,label,key in (('device','Ký hiệu đồng hồ','symbol_box_2d'),('label','Nhãn và dải đo','text_box_2d')):
+                pixels=AnalysisPipelineService._evidence_crop_pixels(region.get(key),*page_image.size)
+                if not pixels: continue
+                detail=page_image.crop(pixels).convert('RGB')
+                detail.thumbnail((900,700),Image.Resampling.LANCZOS)
+                output=io.BytesIO();detail.save(output,format='PNG')
+                details.append({'kind':kind,'label':label,'evidence_image':'data:image/png;base64,'+base64.b64encode(output.getvalue()).decode()})
+            if details: return details
         if not region.get('load_verified') or not region.get('relationship_evidence'):
             return []
         images = []
@@ -2317,23 +2338,14 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 if all(endpoints):
                     l0, t0, r0, b0 = endpoints[0]
                     l1, t1, r1, b1 = endpoints[1]
-                    left = max(0, min(l0, l1) - max(20, round(page_image.width * 0.02)))
+                    left = max(0, min(l0, l1) - max(8, round(page_image.width * 0.035)))
                     right = min(page_image.width, max(r0, r1) + max(20, round(page_image.width * 0.02)))
-                    h0 = max(10, b0 - t0)
-                    h1 = max(10, b1 - t1)
-                    mid_y0 = (t0 + b0) / 2
-                    mid_y1 = (t1 + b1) / 2
-                    if abs(mid_y1 - mid_y0) < page_image.height * 0.07:
-                        top = max(0, min(t0, t1) - max(15, round(max(h0, h1) * 0.4)))
-                        bottom = min(page_image.height, max(b0, b1) + max(15, round(max(h0, h1) * 0.4)))
-                    else:
-                        top = max(0, t0 - max(20, round(h0 * 0.6)))
-                        bottom = min(page_image.height, b0 + max(20, round(h0 * 0.6)))
-                    max_h = round(page_image.height * 0.09)
-                    if (bottom - top) > max_h:
-                        diff = (bottom - top) - max_h
-                        top = max(0, top + diff // 2)
-                        bottom = min(page_image.height, bottom - diff // 2)
+                    # Endpoints already contain the verified symbol/text and load.
+                    # Keep their row, with a small margin rather than expanding it
+                    # twice and accidentally including the rows above and below.
+                    margin = max(2, round(page_image.height * 0.001))
+                    top = max(0, min(t0, t1) - margin)
+                    bottom = min(page_image.height, max(b0, b1) + margin)
                     crop = page_image.crop((int(left), int(top), int(right), int(bottom))).convert('RGB')
                 else:
                     pixels = AnalysisPipelineService._evidence_crop_pixels(box, *page_image.size)
@@ -2351,7 +2363,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             crop.save(buf, format=image_format, **({'quality':95} if image_format == 'JPEG' else {}))
             images.append({'kind': kind, 'label': label,
                 'evidence_image': 'data:image/' + image_format.lower() + ';base64,' + base64.b64encode(buf.getvalue()).decode()})
-        return images
+        return sorted(images, key=lambda item: {'device':0,'load':1,'branch':2}.get(item['kind'],3))
 
     @staticmethod
     def _evidence_crop_pixels(box: List[int], width: int, height: int) -> Optional[Tuple[int, int, int, int]]:
@@ -2368,20 +2380,10 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         right, bottom = int(xmax * width / 1000), int(ymax * height / 1000)
         if right <= left or bottom <= top:
             return None
-        # Preserve the verified symbol and label with proper margin
-        pad_x = max(20, round((right - left) * 0.15))
-        pad_y = max(16, round((bottom - top) * 0.20))
-        # Đảm bảo kích thước tối thiểu để không bị crop thành dải màu trắng mỏng thiếu ký hiệu/chữ
-        min_w = round(width * 0.07)
-        min_h = round(height * 0.035)
-        if (right - left) < min_w:
-            cx = (left + right) // 2
-            left = max(0, cx - min_w // 2)
-            right = min(width, cx + min_w // 2)
-        if (bottom - top) < min_h:
-            cy = (top + bottom) // 2
-            top = max(0, cy - min_h // 2)
-            bottom = min(height, cy + min_h // 2)
+        # Verified coordinates already include the relevant mark. Large minimum
+        # sizes pull neighbouring meters and circuit rows into the evidence.
+        pad_x = max(2, round(width * 0.0015), round((right-left)*0.05))
+        pad_y = max(2, round(height * 0.001), round((bottom-top)*0.06))
         return max(0, left - pad_x), max(0, top - pad_y), min(width, right + pad_x), min(height, bottom + pad_y)
 
     @staticmethod
@@ -2448,6 +2450,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                             "page": dev.source_page,
                             "source_width": w,
                             "source_height": h,
+                            "crop_version": 2,
                         }
                         linked = AnalysisPipelineService._linked_evidence_images(dev, im)
                         if linked:
@@ -3374,7 +3377,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             from app.services.ai.source_image_evidence import verify_pdf_measurement_crops
                             async def verify_pdf_detail(image_path, prompt):
                                 return await verify_page_inventory(prompt, image_path=image_path)
-                            await verify_pdf_measurement_crops(page_img, verify_pdf_detail, parsed_devs)
+                            await verify_pdf_measurement_crops(page_img, verify_pdf_detail, parsed_devs, all_devices=True)
                             verified_count = sum(bool(device.box_2d) for device in parsed_devs)
                             pending_tags = [str(device.tag or device.name) for device in parsed_devs if not device.box_2d]
                             for device in parsed_devs:

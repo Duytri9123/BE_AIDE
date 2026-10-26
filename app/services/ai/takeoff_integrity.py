@@ -24,6 +24,8 @@ def _same_source_alias(a, b, devices):
 
 
 def normalize_takeoff(devices):
+    from app.services.ai.panel_identity import normalize_panel_identities
+    normalize_panel_identities(devices)
     warnings, kept = [], []
     for d in devices:
         if d.category == 'TERMINAL' and str(d.tag or '').upper() == 'SPARE' and d.spec.strip().lower() == 'dự phòng':
