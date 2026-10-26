@@ -3368,6 +3368,12 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 location_payload = next((block for block in ResponseParserService.extract_json_blocks(location_response)
                                                          if isinstance(block, dict) and isinstance(block.get('boxes'), list)), None)
                                 AnalysisPipelineService._apply_verified_boxes(parsed_devs, location_payload, require_symbols=True)
+                            # Dense meter/switch clusters need a detail-image check:
+                            # full-page coordinates can include nearby pilot lights.
+                            from app.services.ai.source_image_evidence import verify_pdf_measurement_crops
+                            async def verify_pdf_detail(image_path, prompt):
+                                return await verify_page_inventory(prompt, image_path=image_path)
+                            await verify_pdf_measurement_crops(page_img, verify_pdf_detail, parsed_devs)
                             verified_count = sum(bool(device.box_2d) for device in parsed_devs)
                             pending_tags = [str(device.tag or device.name) for device in parsed_devs if not device.box_2d]
                             for device in parsed_devs:

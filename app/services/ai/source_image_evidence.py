@@ -155,6 +155,21 @@ async def refine_locations(image, call_image, devices, initial):
     return {'boxes':output}
 
 
+async def verify_pdf_measurement_crops(image, call_image, devices):
+    """Validate the dense measurement cluster from detail crops before export."""
+    selected = [device for device in devices if device.category in
+                {'VOLTMETER', 'AMMETER', 'METER', 'MULTIMETER', 'SELECTOR'}]
+    if not selected:
+        return []
+    proposals = {'boxes': [{'device_id': str(index), 'box_2d': device.box_2d}
+                           for index, device in enumerate(selected)]}
+    refined = await refine_locations(image, call_image, selected, proposals)
+    audited = await audit_crops(image, call_image, selected, refined)
+    from app.services.ai.analysis_pipeline_service import AnalysisPipelineService
+    AnalysisPipelineService._apply_verified_boxes(selected, audited, require_symbols=True)
+    return [device for device in selected if not device.box_2d]
+
+
 async def audit_crops(image, call_image, devices, payload):
     from PIL import ImageDraw, ImageOps
     rows_by_id = {str(row.get('device_id')): row for row in payload['boxes']}
