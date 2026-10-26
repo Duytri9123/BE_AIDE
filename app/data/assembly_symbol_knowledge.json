@@ -1,0 +1,263 @@
+{
+  "schema_version": "1.0",
+  "reviewed_on": "2026-10-26",
+  "scope": "Functional assembly reference, not an automatic procurement BOM",
+  "policy": {
+    "source_label_first": true,
+    "dor_is_not_a_global_dol_alias": true,
+    "user_defined_configuration": "Quy ước khách hàng DOR = bộ có Start, Stop, công tắc 3 vị trí được áp dụng khi chính yêu cầu dự án xác nhận, ghi basis=user_request và giữ request_quote; không nói đọc thấy trên bản vẽ. Đèn chỉ thêm khi có yêu cầu/nguồn xác nhận.",
+    "missing_drawing_evidence": "Mô tả cấu tạo chức năng trong technical_analysis/inferred_components với basis=assembly_function, không tự biến thành thiết bị mua rời.",
+    "verified_configuration": "Thành phần có bằng chứng hoặc yêu cầu rõ dùng accompanying_accessories, kiểm tra số lượng và thiết bị cha; không đếm bộ và linh kiện cùng lúc.",
+    "not_assemblies_by_themselves": [
+      "HOA/Hand-Off-Auto là chế độ/công tắc",
+      "Start/Stop là chức năng điều khiển",
+      "Một nhãn FWD/REV có thể là tín hiệu hoặc selector"
+    ],
+    "commercial_scope": "Phân biệt nguyên bộ, linh kiện rời và thành phần đã nằm trong thiết bị; giữ riêng MCB/MCCB upstream được vẽ."
+  },
+  "sources": {
+    "dol": {
+      "publisher": "Schneider Electric",
+      "url": "https://www.se.com/ie/en/faqs/FA139744/",
+      "supports": "Contactor/overload DOL arrangements; stop control varies by assembly."
+    },
+    "operators": {
+      "publisher": "Schneider Electric",
+      "url": "https://productinfo.se.com/8502ct9701fvcs/8502ct9701-fv-contactors-and-starters/8502CT9701%20(bookmap)_0000088590.xml/$/ApplicationData-30CA9D56",
+      "supports": "Form AC combines Start-Stop and HOA; separate Start-Stop, HOA and pilot-light options exist."
+    },
+    "eaton": {
+      "publisher": "Eaton",
+      "url": "https://www.eaton.com/ca/en-gb/products/low-voltage-power-distribution-control-systems/motor-control-centers/aftermarket-mcc-quick-ship-program.html",
+      "supports": "Different configured starters carry Start/Stop or HOA with indicating lights."
+    },
+    "reversing": {
+      "publisher": "Schneider Electric",
+      "url": "https://productinfo.se.com/8502ct9701fvcs/8502ct9701-fv-contactors-and-starters/8502CT9701%20(bookmap)_0000088590.xml/$/ReversingMagneticContactorsAndStart-01A631F0",
+      "supports": "Reversing contactors have two contactors with mechanical/electrical interlocking; starter versions include overload arrangements."
+    },
+    "star_delta": {
+      "publisher": "Schneider Electric",
+      "url": "https://productinfo.se.com/tesysgigainstallationguide/tesys-giga-series-giga-contactors-and-giga-thermal-overload-relays-installation-guide/English/TeSys%E2%84%A2%20Giga%20Series%20Giga%20Contactors%20and%20Giga%20Thermal%20Overload%20Relays%20Installation%20Guide_0000447511.xml/$/PanGu_3ContactorStar-Delta_0000449442",
+      "supports": "Conventional star-delta uses line/star/delta contactors and interlocking; overload rating depends on circuit location."
+    },
+    "ats": {
+      "publisher": "Socomec",
+      "url": "https://apac.socomec.com/en/reference/93544010",
+      "supports": "ATyS g M is an I-0-II transfer product with integrated ATS controller."
+    },
+    "pfc": {
+      "publisher": "Schneider Electric",
+      "url": "https://productinfo.se.com/nadigest/5c51d645347bdf0001f1f280/Master/17704_MAIN%20(bookmap)_0000041932.xml/$/LowVoltageStandardAutomaticCapacitorBanksCPT_0000085054",
+      "supports": "Capacitor bank contains controller, capacitor steps and dedicated switching; protection/reactors/CT supply vary by configuration."
+    },
+    "softstarter": {
+      "publisher": "Schneider Electric",
+      "url": "https://www.se.com/uk/en/faqs/FA272580/",
+      "supports": "ATS22 softstarter includes its end-of-start bypass contactor."
+    },
+    "abb_softstarter": {
+      "publisher": "ABB",
+      "url": "https://electrification.us.abb.com/products/softstarters/psr-open-softstarters",
+      "supports": "PSR built-in bypass, combined with MMS for motor overload/short-circuit protection."
+    }
+  },
+  "profiles": [
+    {
+      "id": "DOL",
+      "labels": [
+        "DOL",
+        "D.O.L.",
+        "Direct On Line",
+        "Khởi động trực tiếp"
+      ],
+      "meaning": "Bộ khởi động trực tiếp động cơ",
+      "functional_core": [
+        "Contactor đóng cắt",
+        "Bảo vệ quá tải động cơ, rời hoặc tích hợp theo bộ"
+      ],
+      "control_variants": [
+        {
+          "name": "Start/Stop",
+          "components": [
+            "1 nút Start",
+            "1 nút Stop"
+          ],
+          "condition": "Sơ đồ, cấu hình bộ hoặc yêu cầu dự án xác nhận điều khiển Start/Stop; nút có thể tích hợp thành cụm."
+        },
+        {
+          "name": "HOA",
+          "components": [
+            "1 công tắc Hand-Off-Auto ba vị trí"
+          ],
+          "condition": "Chỉ khi có điều khiển tay/tắt/tự động; không suy từ DOL hoặc từ mọi công tắc ba vị trí."
+        },
+        {
+          "name": "Start/Stop + HOA",
+          "components": [
+            "1 nút Start",
+            "1 nút Stop",
+            "1 công tắc HOA ba vị trí"
+          ],
+          "condition": "Biến thể có thật (Schneider Form AC); không bắt buộc cho mọi DOL."
+        },
+        {
+          "name": "Đèn báo",
+          "components": [
+            "Đèn chạy/dừng/lỗi theo chỉ định"
+          ],
+          "condition": "Chỉ theo tín hiệu, số lượng, màu và điện áp được xác nhận; đèn trạng thái không mặc định là đèn cảnh báo."
+        }
+      ],
+      "do_not_assume": [
+        "Điện áp cuộn hút",
+        "Dòng contactor/dải overload từ dòng MCB",
+        "MCB phía trước nằm trong bộ",
+        "HOA bắt buộc",
+        "Đèn lỗi bắt buộc"
+      ],
+      "source_ids": [
+        "dol",
+        "operators",
+        "eaton"
+      ]
+    },
+    {
+      "id": "REVERSING_STARTER",
+      "labels": [
+        "Reversing starter",
+        "FWD/REV",
+        "Forward Reverse",
+        "Khởi động đảo chiều"
+      ],
+      "meaning": "Bộ khởi động đảo chiều động cơ",
+      "functional_core": [
+        "Hai contactor thuận/nghịch ở cấu hình contactor thông thường",
+        "Liên động cơ và điện",
+        "Bảo vệ quá tải theo cấu hình starter"
+      ],
+      "conditional_components": [
+        "Điều khiển Forward/Reverse/Stop hoặc công tắc Forward-Off-Reverse khi cấu hình xác nhận"
+      ],
+      "do_not_assume": [
+        "Hai relay nhiệt vì có hai contactor",
+        "FWD/REV trên biến tần đồng nghĩa hai contactor",
+        "Một công tắc F-O-R riêng là một bộ đảo chiều"
+      ],
+      "source_ids": [
+        "reversing",
+        "operators"
+      ]
+    },
+    {
+      "id": "STAR_DELTA",
+      "labels": [
+        "Star-delta",
+        "Wye-delta",
+        "Y-Δ",
+        "Sao tam giác"
+      ],
+      "meaning": "Bộ khởi động sao–tam giác",
+      "functional_core": [
+        "Ba contactor line/star/delta ở cấu hình thông thường",
+        "Liên động star/delta",
+        "Bảo vệ quá tải"
+      ],
+      "conditional_components": [
+        "Timer chuyển mạch hoặc logic điều khiển tích hợp, chỉ chọn dạng đã xác nhận"
+      ],
+      "do_not_assume": [
+        "Định mức overload luôn bằng dòng MCB",
+        "Mọi cuộn motor đều hỗ trợ sao–tam giác",
+        "Timer rời khi controller đã có logic"
+      ],
+      "source_ids": [
+        "star_delta"
+      ]
+    },
+    {
+      "id": "ATS_ASSEMBLY",
+      "labels": [
+        "ATS",
+        "ATSE",
+        "Automatic Transfer Switch",
+        "Bộ chuyển nguồn tự động"
+      ],
+      "meaning": "Bộ chuyển nguồn tự động, có thể tích hợp hoặc lắp từ nhiều phần tử",
+      "functional_core": [
+        "Chuyển mạch giữa các nguồn",
+        "Giám sát nguồn và điều khiển chuyển nguồn",
+        "Liên động ngăn trạng thái đóng không được phép"
+      ],
+      "conditional_components": [
+        "Controller rời khi bộ chưa tích hợp",
+        "Motor operator hoặc contactor/MCCB theo loại công nghệ được chỉ định"
+      ],
+      "do_not_assume": [
+        "Mọi ATS đều là hai MCCB và một controller rời",
+        "ATS22 là bộ chuyển nguồn; ATS22 có thể là mã softstarter",
+        "I-0-II selector riêng là toàn bộ bộ ATS"
+      ],
+      "source_ids": [
+        "ats",
+        "softstarter"
+      ]
+    },
+    {
+      "id": "APFC_BANK",
+      "labels": [
+        "APFC",
+        "Automatic capacitor bank",
+        "Tủ bù tự động",
+        "Bộ bù công suất phản kháng"
+      ],
+      "meaning": "Bộ bù công suất phản kháng tự động",
+      "functional_core": [
+        "Bộ điều khiển hệ số công suất",
+        "Các cấp tụ bù",
+        "Đóng cắt cấp tụ và bảo vệ theo cấu hình"
+      ],
+      "conditional_components": [
+        "Contactor chuyên dụng đóng cắt tụ theo cấu hình tham khảo; công nghệ khác cần tài liệu riêng",
+        "Cuộn kháng khi cấu hình detuned được xác nhận",
+        "CT đo lường theo phạm vi cung cấp; có bộ không bao gồm CT"
+      ],
+      "do_not_assume": [
+        "Cuộn kháng luôn có",
+        "Số cấp điện bằng số tụ vật lý",
+        "CT luôn kèm trong bộ",
+        "Controller là toàn bộ tủ bù"
+      ],
+      "source_ids": [
+        "pfc"
+      ]
+    },
+    {
+      "id": "SOFT_STARTER_ASSEMBLY",
+      "labels": [
+        "Softstarter",
+        "Soft starter",
+        "Khởi động mềm"
+      ],
+      "meaning": "Bộ khởi động mềm và các phần tử phối hợp theo model",
+      "functional_core": [
+        "Khối khởi động mềm",
+        "Phối hợp bảo vệ ngắn mạch và quá tải theo tài liệu model"
+      ],
+      "conditional_components": [
+        "Contactor bypass rời chỉ khi không tích hợp hoặc phương án bypass yêu cầu",
+        "Bảo vệ quá tải rời/tích hợp theo model",
+        "Line contactor và điều khiển theo sơ đồ phối hợp"
+      ],
+      "do_not_assume": [
+        "Luôn thêm bypass ngoài",
+        "Mọi model có bảo vệ quá tải tích hợp",
+        "ATS trong tên model luôn là bộ chuyển nguồn"
+      ],
+      "source_ids": [
+        "softstarter",
+        "abb_softstarter"
+      ]
+    }
+  ]
+}

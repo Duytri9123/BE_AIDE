@@ -430,6 +430,7 @@ def append_user_notes(prompt: str, user_notes: Optional[str], heading: str) -> s
 
 def append_completeness_review_instruction(prompt: str) -> str:
     """Require a complete, evidence-based inventory on every active prompt."""
+    from app.services.ai.assembly_knowledge import assembly_prompt_context
     return (
         f"{prompt}\n\n"
         "TAKEOFF INTEGRITY OVERRIDES: A single 1x6A fuse and one lamp labelled R mean one fuse "
@@ -491,7 +492,9 @@ def append_completeness_review_instruction(prompt: str) -> str:
         "tích hợp thay cho relay nhiệt rời nếu tài liệu của bộ xác nhận; không cộng cả hai. "
         "MCB/MCCB đã vẽ riêng trước DOL là một thiết bị bảo vệ độc lập, không nhân đôi trong bộ. "
         "Không suy dòng động cơ/dải relay/dòng contactor từ định mức MCB; không tự gán điện áp cuộn "
-        "hút, nút Start/Stop, đèn, công tắc HOA, nguồn điều khiển hay liên động khi nguồn chưa thể hiện. "
+        "hút, nút Start/Stop, đèn, công tắc HOA, nguồn điều khiển hay liên động khi nguồn hoặc yêu cầu "
+        "dự án chưa xác nhận. Start/Stop + HOA là biến thể có thật nhưng không phải mặc định mọi DOL; "
+        "quy ước bộ do khách hàng xác nhận phải ghi basis=user_request, không coi là đọc thấy trong nguồn. "
         "Với TỪNG thiết bị nhìn thấy nhưng sơ đồ không ghi hãng: để `brand` là chuỗi rỗng; "
         "không tự gán nhà cung cấp hoặc mô tả một hãng như thể được đọc từ bản vẽ. "
         "Chỉ điền `suggested_brands` hoặc `compatible_proposal` khi người dùng yêu cầu so sánh/thay thế, "
@@ -499,6 +502,7 @@ def append_completeness_review_instruction(prompt: str) -> str:
         "không tự tạo mã hàng và không biến đề xuất thương mại thành dữ liệu đọc từ bản vẽ. "
         "Thêm `completeness_review` vào JSON gồm `is_complete`, `missing_devices` và "
         "`unanalysed_clusters`. Chỉ liệt kê mục có bằng chứng hoặc chưa chắc chắn; không tự bổ sung thiết bị.\n"
+        + assembly_prompt_context()
     )
 
 
