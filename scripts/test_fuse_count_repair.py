@@ -26,6 +26,29 @@ class FuseCountRepairTests(unittest.IsolatedAsyncioTestCase):
         _,rows=await repair_counted_inventory(call,'Read',[fuse],{'counts':[{'panel_code':'TDT','category':'FUSE','quantity':3}]})
         self.assertEqual(rows[0].quantity,3)
 
+    async def test_grouped_symbol_keeps_three_circuit_derived_materials(self):
+        fuse=ExtractedDeviceSchema(category='FUSE',name='Fuse',spec='',panel_code='TDT',quantity=3)
+        call=AsyncMock(return_value=json.dumps({'devices':[{'category':'FUSE','name':'Fuse','spec':'',
+            'panel_code':'TDT','quantity':3,'drawing_quantity':1,'procurement_quantity':3,
+            'quantity_basis':'Một ký hiệu chung cho bộ bảo vệ ba đường áp L1/L2/L3 trước chuyển mạch',
+            'technical_analysis':'Mỗi đường áp pha trước chuyển mạch cần một cầu chì; một bộ gồm ba chiếc.'}]}))
+        counts={'counts':[{'panel_code':'TDT','category':'FUSE','quantity':1}]}
+        _,rows=await repair_counted_inventory(call,'Read circuit',[fuse],counts)
+        self.assertEqual(rows[0].drawing_quantity,1)
+        self.assertEqual(rows[0].quantity,3)
+        self.assertEqual(rows[0].procurement_quantity,3)
+        from app.services.ai.analysis_pipeline_service import AnalysisPipelineService
+        AnalysisPipelineService._infer_practical_quantities(rows)
+        self.assertEqual(rows[0].quantity,3)
+        self.assertIn('ba đường áp',rows[0].quantity_basis)
+        from app.services.ai.inventory_validation import count_mismatches
+        self.assertEqual(count_mismatches(rows,counts),[])
+
+    def test_material_quantity_without_separate_source_count_still_mismatches(self):
+        from app.services.ai.inventory_validation import count_mismatches
+        fuse=ExtractedDeviceSchema(category='FUSE',name='Fuse',spec='3P',panel_code='TDT',quantity=3)
+        self.assertTrue(count_mismatches([fuse],{'counts':[{'panel_code':'TDT','category':'FUSE','quantity':1}]}))
+
     async def test_unconfirmed_quantity_still_rejects_result(self):
         fuse=ExtractedDeviceSchema(category='FUSE',name='Fuse',spec='',panel_code='TDT',quantity=3)
         call=AsyncMock(return_value=json.dumps({'devices':[{'category':'FUSE','name':'Fuse','spec':'',

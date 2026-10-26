@@ -3171,7 +3171,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 await coro
                         except Exception as e:
                             logger.warning(f"progress_callback error: {e}")
-                    from app.services.ai.inventory_validation import extract_with_retry
+                    from app.services.ai.inventory_validation import extract_with_retry, FUSE_CIRCUIT_GUIDANCE
                     async def extract_page_inventory(prompt):
                         if all_connections and db:
                             response, _ = await ConnectionPoolService.call_with_fallback(
@@ -3219,7 +3219,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             "Mỗi lộ một dòng, giữ tag đọc được; CB chung dùng category CB, không tự đổi thành MCCB. "
                             "Trả devices là DANH SÁCH ĐẦY ĐỦ sau đối chiếu, giữ thông số và số lượng có căn cứ. "
                             "Tách drawing_quantity và procurement_quantity, nêu quantity_basis; không nhân Fuse theo số đèn. "
-                            "Một ký hiệu Fuse có hai đầu nối là một thân cầu chì; không đếm hai đầu thành hai thiết bị. Chỉ tăng quantity khi nguồn có thân riêng hoặc nhãn số lượng rõ ràng. "
+                            + FUSE_CIRCUIT_GUIDANCE +
                             "Nếu nguồn ghi rõ MCCB thì giữ category MCCB; chỉ dùng CB khi nguồn chỉ ghi CB. "
                             "Vôn kế và công tắc chọn điện áp là hai phần tử nếu có hai ký hiệu; không bỏ ký hiệu tròn phía dưới vôn kế. "
                             "Giữ metadata panels kích thước, đầu vào/đầu ra, tải và nguồn cấp đã đọc trong context. "
