@@ -2313,6 +2313,19 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 pixels=AnalysisPipelineService._evidence_crop_pixels(region.get(key),*page_image.size)
                 if not pixels: continue
                 detail=page_image.crop(pixels).convert('RGB')
+                circle=region.get('symbol_circle')
+                if kind == 'device' and isinstance(circle,list) and len(circle)==4:
+                    # Keep only original source pixels inside the measured meter
+                    # outline; neighbouring range text can touch its outer box.
+                    from PIL import ImageDraw
+                    cx,cy,rx,ry=circle
+                    cx=cx*page_image.width/1000-pixels[0]
+                    cy=cy*page_image.height/1000-pixels[1]
+                    rx=rx*page_image.width/1000+1
+                    ry=ry*page_image.height/1000+1
+                    mask=Image.new('L',detail.size,0)
+                    ImageDraw.Draw(mask).ellipse((cx-rx,cy-ry,cx+rx,cy+ry),fill=255)
+                    detail=Image.composite(detail,Image.new('RGB',detail.size,'white'),mask)
                 detail.thumbnail((900,700),Image.Resampling.LANCZOS)
                 output=io.BytesIO();detail.save(output,format='PNG')
                 details.append({'kind':kind,'label':label,'evidence_image':'data:image/png;base64,'+base64.b64encode(output.getvalue()).decode()})
@@ -2413,6 +2426,8 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 elif im.mode != 'RGB':
                     im=im.convert('RGB')
                 w, h = im.size
+                from app.services.ai.evidence_geometry import tighten_evidence_geometry
+                tighten_evidence_geometry(im, devices)
                 panel_preview = im.copy()
                 panel_preview.thumbnail((1800, 1400), Image.Resampling.LANCZOS)
                 panel_buf = io.BytesIO()
@@ -2437,6 +2452,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                         if right <= left or bottom <= top:
                             continue
 
+                        dev.evidence_images = []
                         crop_im = im.crop((left, top, right, bottom))
                         if crop_im.mode in ("RGBA", "LA", "P"):
                             crop_im = crop_im.convert("RGB")
@@ -3378,6 +3394,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             async def verify_pdf_detail(image_path, prompt):
                                 return await verify_page_inventory(prompt, image_path=image_path)
                             await verify_pdf_measurement_crops(page_img, verify_pdf_detail, parsed_devs, all_devices=True)
+                            from app.services.ai.evidence_geometry import tighten_evidence_geometry
+                            tighten_evidence_geometry(page_img, parsed_devs)
                             verified_count = sum(bool(device.box_2d) for device in parsed_devs)
                             pending_tags = [str(device.tag or device.name) for device in parsed_devs if not device.box_2d]
                             for device in parsed_devs:
