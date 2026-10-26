@@ -401,14 +401,15 @@ class AnalysisPipelineService:
         # are kept for reference but are never re-extracted into a new BOM.
         document_contexts = []
         for file_obj in project_files:
-            log_event(stage='source_read', title=f'Đọc nội dung nguồn: {file_obj.filename}',
-                      detail=f'Tệp đã lưu trên hệ thống; đọc lớp văn bản và nhãn bản vẽ ({getattr(file_obj, "file_size", 0):,} byte).', status='running')
+            logger.debug('Reading source document: %s', file_obj.filename)
             context = await asyncio.to_thread(DocumentContextService.extract, file_obj)
             document_contexts.append(context)
-            log_event(stage='source_read', title=f'Đã đọc nguồn: {file_obj.filename}',
-                      detail=(str(context.get('read_error')) if context.get('read_error') else
-                              f'Đọc được {len(context.get("text") or "")} ký tự; tiếp theo Gemini đọc ký hiệu và mạch trên ảnh nguồn.'),
-                      status='warning' if context.get('read_error') else 'success')
+            if context.get('read_error'):
+                log_event(stage='source_read', title=f'Không đọc được nội dung nguồn: {file_obj.filename}',
+                          detail=str(context['read_error']), status='warning')
+            else:
+                logger.debug('Source document read: %s (%d characters)',
+                             file_obj.filename, len(context.get('text') or ''))
 
         # Reject broken/empty DXF files before circuit preflight. Otherwise the
         # preflight only sees a low-level parser error and the user receives an
