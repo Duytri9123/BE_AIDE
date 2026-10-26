@@ -320,7 +320,7 @@ async def research_device_products(devices, connections, db=None, preferred_bran
         if _has_internal_products(device):
             internal_count += 1
             device.web_research = {'status': 'internal_catalog', 'requested_brand': preferred,
-                                   'summary': 'Có sản phẩm trong thư viện hệ thống; không cần tìm web.'}
+                                   'summary': 'Đã có sản phẩm phù hợp trong catalog hệ thống.'}
             continue
         cache_key = research_cache_key(device, preferred)
         cached = cached_research(cache_key)
@@ -336,7 +336,7 @@ async def research_device_products(devices, connections, db=None, preferred_bran
 
     if progress_callback:
         await deliver(progress_callback, {'stage': 'product_lookup', 'status': 'running' if grouped else 'success',
-            'title': 'Đối chiếu sản phẩm cho toàn bộ bảng bóc tách',
+            'title': 'Đối chiếu catalog hệ thống cho toàn bộ bảng bóc tách',
             'detail': f'{internal_count} dòng có sản phẩm trong hệ thống; {cached_count} dòng dùng lại kết quả; {len(grouped)} nhóm cần bổ sung nguồn.'})
     if not grouped:
         return devices
@@ -445,6 +445,6 @@ async def research_device_products(devices, connections, db=None, preferred_bran
         found_count += bool(candidates)
     if progress_callback:
         await deliver(progress_callback, {'stage': 'product_lookup', 'status': 'success' if found_count == len(groups) else 'warning',
-            'title': 'Hoàn tất đối chiếu sản phẩm cho bảng bóc tách',
+            'title': 'Hoàn tất đối chiếu catalog hệ thống cho bảng bóc tách',
             'detail': f'{internal_count} dòng dùng thư viện hệ thống; {cached_count} dòng dùng lại kết quả; {found_count}/{len(groups)} nhóm bổ sung được sản phẩm có nguồn.'})
     return devices

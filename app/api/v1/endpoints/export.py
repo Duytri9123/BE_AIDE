@@ -58,6 +58,7 @@ async def match_quotation(
 
 class ExcelExportPayload(BaseModel):
     project_id: int
+    iteration_id: Optional[int] = None
     brand_name: Optional[str] = None
     devices: Optional[List[dict]] = None
     proposals: Optional[List[dict]] = None
@@ -79,31 +80,25 @@ async def export_excel_quotation(
 
     if not project or project.user_id != current_user.id:
         raise HTTPException(status_code=404, detail="Không tìm thấy dự án")
-    latest = (await db.execute(
-        select(AnalysisIteration).join(ConversationSession, AnalysisIteration.session_id == ConversationSession.id)
-        .where(ConversationSession.project_id == payload.project_id)
-        .order_by(ConversationSession.created_at.desc(), AnalysisIteration.iteration_number.desc()).limit(1)
-    )).scalars().first()
+    query = (select(AnalysisIteration).join(ConversationSession,
+        AnalysisIteration.session_id == ConversationSession.id)
+        .where(ConversationSession.project_id == payload.project_id))
+    if payload.iteration_id is not None:
+        query = query.where(AnalysisIteration.id == payload.iteration_id)
+    latest = (await db.execute(query.order_by(AnalysisIteration.created_at.desc(),
+        AnalysisIteration.id.desc()).limit(1))).scalars().first()
+    if payload.iteration_id is not None and latest is None:
+        raise HTTPException(status_code=404, detail="Không tìm thấy phiên bóc tách của dự án")
     confidence = (latest.confidence_scores or {}) if latest else {}
-    if (confidence.get('design_result') or {}).get('cad_status') != 'ready':
-        raise HTTPException(status_code=409, detail="Cần tạo thiết kế thành công trước khi tải báo giá")
-    devices = confidence.get('quotation_rows') or []
-
-    # 2. Nếu không truyền devices từ client, lấy từ phiên bóc tách mới nhất trong DB
-    if not devices:
-        sess_stmt = select(ConversationSession).where(
-            ConversationSession.project_id == payload.project_id
-        ).order_by(ConversationSession.created_at.desc())
-        sess_res = await db.execute(sess_stmt)
-        session = sess_res.scalars().first()
-        if session:
-            iter_stmt = select(AnalysisIteration).where(
-                AnalysisIteration.session_id == session.id
-            ).order_by(AnalysisIteration.iteration_number.desc())
-            iter_res = await db.execute(iter_stmt)
-            latest_iter = iter_res.scalars().first()
-            if latest_iter and latest_iter.ai_parsed_devices:
-                devices = latest_iter.ai_parsed_devices
+    # A source takeoff can be quoted before CAD. Later design runs supply
+    # enclosure, busbar and assembly details through the same quotation rows.
+    devices = payload.devices or confidence.get('quotation_rows') or []
+    if not devices and latest and latest.ai_parsed_devices:
+        from app.services.ai.procurement_review import build_quotation_rows
+        devices = build_quotation_rows(latest.ai_parsed_devices, {}, confidence.get('panels'), refresh_prices=False)
+    elif devices and not any(d.get('row_type') for d in devices):
+        from app.services.ai.procurement_review import build_quotation_rows
+        devices = build_quotation_rows(devices, {}, confidence.get('panels'), refresh_prices=False)
 
     if not devices:
         raise HTTPException(status_code=400, detail="Không có dữ liệu thiết bị để tạo báo giá")

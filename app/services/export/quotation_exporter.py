@@ -21,6 +21,8 @@ class QuotationExporterService:
         manufacturer_discounts: Optional[dict] = None,
     ) -> str:
         """Xuất bảng báo giá thiết bị tủ điện chuẩn kỹ thuật ra file Excel (.xlsx)."""
+        from app.services.export.quotation_names import quotation_display_rows
+        devices = quotation_display_rows(devices)
         wb = Workbook()
         discounts = {}
         import math

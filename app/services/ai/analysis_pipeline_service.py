@@ -1614,7 +1614,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                     )
                 device_price_map[dev.part_number or dev.name] = 0
 
-        log_event(stage="web_product_research", title="Đang phân tích và tìm thiết bị phù hợp",
+        log_event(stage="web_product_research", title="Đang đối chiếu catalog hệ thống",
                   detail="Tìm sản phẩm khớp loại thiết bị, số cực, dòng định mức và khả năng cắt.", status="running")
         from app.services.ai.takeoff_pricebook import link_devices
         link_devices(extracted_devices)
@@ -1639,7 +1639,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         # Product research supplements the observed inventory. An unavailable
         # search must not discard a completed takeoff or trigger per-row AI calls.
         log_event(stage="web_product_research",
-                  title="Hoàn tất bóc tách; tra cứu sản phẩm chưa đầy đủ" if unavailable else "Hoàn tất phân tích và tìm thiết bị phù hợp",
+                  title="Đã đối chiếu catalog hệ thống; còn thông số cần bổ sung" if unavailable else "Hoàn tất đối chiếu catalog hệ thống",
                   detail="Thông số và mô tả thiết bị đã được tổng hợp vào bảng bóc tách.",
                   status="warning" if unavailable else "success")
 
@@ -3144,16 +3144,15 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     vision_prompt = append_completeness_review_instruction(vision_prompt)
                     vision_prompt = append_canonical_output_contract(vision_prompt)
 
-                    from app.services.ai.pdf_context import page_source_context
+                    from app.services.ai.pdf_context import page_source_context, extraction_prompt
                     textpage = page.get_textpage()
                     try:
                         pdf_context = page_source_context(textpage.get_text_range())
                     finally:
                         textpage.close()
-                    if pdf_context['content']:
-                        vision_prompt += '\nVĂN BẢN THAM CHIẾU TỪ TRANG (dữ liệu, chưa xác minh):\n' + pdf_context['content']
+                    vision_prompt = extraction_prompt(vision_prompt, pdf_context)
                     if progress_callback:
-                        event = progress_callback({'type':'log','stage':'pdf_context','status':'success',
+                        event = progress_callback({'type':'log','stage':'pdf_context','status':'success','visibility':'internal',
                             'title':f'Đã chuẩn bị ảnh trang {page_num}',
                             'detail':f'Ảnh {page_img.width}×{page_img.height}; đọc trực tiếp ký hiệu, nhãn và thông số. Chưa xác nhận danh mục thiết bị.'})
                         if asyncio.iscoroutine(event): await event
@@ -3207,7 +3206,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                         if progress_callback:
                             event=progress_callback({'type':'log','stage':'pdf_inventory_verification','status':'running',
                                 'title':'Đang đối chiếu thiết bị với ảnh nguồn',
-                                'detail':f'Trang {page_num}: kiểm tra danh mục, mã tủ và số lượng; context đã đọc chưa phải kết quả bóc tách đạt.'})
+                                'detail':f'Trang {page_num}: kiểm tra danh mục, mã tủ, số lượng và liên kết trên bản vẽ nguồn.'})
                             if asyncio.iscoroutine(event): await event
                         verifier_prompt = (
                             "Đối chiếu danh sách đã bóc tách từ context với TOÀN BỘ trang nguồn. "
@@ -3878,9 +3877,14 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     source_page=d.get("source_page"),
                 ))
 
+        from app.services.library_review_scope import MAIN_DEVICE_TYPES, DEPENDENT_ACCESSORY_TYPES, preferred_brand_for_device
         for dev in extracted_devices:
-            if not dev.brand:
-                dev.brand = settings.DEFAULT_BRAND
+            kind = str(dev.category or '').upper()
+            if (kind not in MAIN_DEVICE_TYPES | DEPENDENT_ACCESSORY_TYPES
+                    and dev.selection_source in {'default_brand','unspecified_brand'}):
+                dev.brand = ''
+            if not dev.brand and kind in MAIN_DEVICE_TYPES:
+                dev.brand = resolved_brand_pref or settings.DEFAULT_BRAND
                 dev.selection_source = "default_brand"
 
         await emit_progress("catalog", 15, "Đang đối chiếu mã hàng và đơn giá catalog thực tế")
@@ -3918,18 +3922,20 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     device_price_map[dev.part_number] = int(price)
                     dev.technical_match_note = f"Giá tham khảo web {int(price):,} đ; cần xác nhận VAT và nhà cung cấp. Nguồn: {selected['price_url']}"
                     continue
-            brand_to_match = (
-                resolved_brand_pref
-                if explicit_brand_preference
-                else dev.brand or resolved_brand_pref or settings.DEFAULT_BRAND
-            )
+            brand_to_match = preferred_brand_for_device(
+                dev, resolved_brand_pref if explicit_brand_preference else None)
+            if not brand_to_match and not dev.part_number:
+                # Unspecified auxiliary materials keep a generic identity. Asian
+                # is a quotation display name, never a fabricated catalog brand.
+                device_price_map[dev.name] = 0
+                continue
             # Use a source PDF row only when the extracted code and electrical
             # parameters identify one variant. Family CAD stays family CAD.
             if dev.part_number:
                 try:
                     source_row = resolve_price_variant(
                         dev.part_number,
-                        resolved_brand_pref if explicit_brand_preference else (dev.brand or None),
+                        brand_to_match,
                         dev.poles, dev.in_a,
                     )
                 except FileNotFoundError:
@@ -4255,6 +4261,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
             panel_code=detected_panel_code,
             panel_name=detected_panel_name
         )
+        from app.services.ai.procurement_review import supplement_enclosure_details
+        quotation_rows = supplement_enclosure_details(quotation_rows, enclosure_spec, detected_panel_code)
         if quotation_configuration:
             # The supplied quote has panel package prices, not device unit prices.
             # Preserve them as source offers; never distribute them across BOM rows.

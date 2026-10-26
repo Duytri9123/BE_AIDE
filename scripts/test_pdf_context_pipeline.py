@@ -14,6 +14,14 @@ class ContextTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(result['content'], '')
         self.assertTrue(result['needs_visual_verification'])
 
+    def test_text_and_scanned_sources_use_different_reading_strategies(self):
+        native=extraction_prompt('contract',page_source_context('L1 CB 3P 20A 6kA'))
+        scanned=extraction_prompt('contract',page_source_context(''))
+        self.assertIn('ưu tiên đọc nhãn',native)
+        self.assertIn('Nguồn là ảnh hoặc PDF scan',scanned)
+        self.assertNotIn('Tệp có lớp văn bản gốc',scanned)
+        self.assertEqual(page_source_context('NHÀ NỘI TRÚ - SƠ ĐỒ NGUYÊN LÝ')['source'],'source_image')
+
     def test_native_text_does_not_claim_verification(self):
         result = page_source_context('L2/y CB-2P 20A 6kA')
         self.assertEqual(result['source'], 'pdf_text_layer')

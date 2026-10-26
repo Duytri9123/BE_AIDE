@@ -13,6 +13,7 @@ def _build_analysis_result_schema(
     quotation_file_info: Optional[dict] = None,
     enclosure_spec: Optional[dict] = None,
 ) -> AnalysisResultSchema:
+    from app.services.export.quotation_names import quotation_display_rows
     conf = conf_scores or {}
     # The extraction table remains the source observation. Approved quotation
     # changes are stored as design_devices, not substituted into source evidence.
@@ -96,7 +97,7 @@ def _build_analysis_result_schema(
         cad_layout=conf.get('cad_layout'),
         panel_designs=[{'panel_code': code, **result} for code, result in (conf.get('panel_designs') or {}).items()],
         quotation_file=quotation_file_info,
-        quotation_rows=conf.get("quotation_rows") or [],
+        quotation_rows=quotation_display_rows(conf.get("quotation_rows") or []),
         technical_proposals=conf.get("technical_proposals") or [],
         conclusion=conf.get("conclusion"),
         panel_info=conf.get("panel_info"),

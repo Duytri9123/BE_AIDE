@@ -34,13 +34,15 @@ def assembly_requirements(devices, include_cad_references=True):
                  included=False,unit_price=None,line_total=None) for code,name,qty,note in rows]
 
 
-def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_name=None):
+def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_name=None, *, refresh_prices=True):
+    from app.services.export.quotation_names import quotation_name
     groups = defaultdict(list)
     raw = [d.model_dump() if hasattr(d,'model_dump') else dict(d) for d in devices]
     if not raw:
         raw = [dict(d) for p in (panels or []) for d in (p.get('devices') or [])]
-    from app.services.ai.takeoff_pricebook import link_devices
-    link_devices(raw)
+    if refresh_prices:
+        from app.services.ai.takeoff_pricebook import link_devices
+        link_devices(raw)
     for d in raw:
         groups[str(d.get('panel_code') or panel_code or 'CHUA_XAC_DINH')].append(d)
     result = []
@@ -63,7 +65,7 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                 price = None
                 match = {**match,'status':'needs_selection','price_row_id':None,'row':None,
                          'note':'Thông số đã thay đổi; cần chọn lại dòng giá.'}
-            result.append(dict(id=identity,row_type='item',tt='+',name=d.get('name'),
+            result.append(dict(id=identity,row_type='item',tt='+',name=quotation_name(d),category=d.get('category'),
                 spec=selected_spec,original_spec=d.get('original_spec') or d.get('spec'),
                 sku=sku,origin=d.get('brand') or '',unit='Cái',quantity=qty,
                 unit_price=price,line_total=qty*price if price else None,
@@ -83,15 +85,41 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                 ap = (accessory_match.get('row') or {}).get('price') if accessory_match.get('status')=='matched' else None
                 aq = a.get('quantity') or 1
                 result.append(dict(id=f'{identity}-accessory-{j}',parent_id=identity,row_type='accessory',
-                    is_accessory=True,tt='↳',name=a.get('name'),spec=a.get('spec') or '',sku=a.get('sku') or '',
+                    is_accessory=True,tt='↳',name=quotation_name(a),category=a.get('category'),spec=a.get('spec') or '',sku=a.get('sku') or '',
                     origin=a.get('origin') or '',unit=a.get('unit') or 'Cái',quantity=aq,
                     unit_price=ap,line_total=aq*ap if ap else None,price_status='confirmed' if ap else 'pending',
                     price_row_id=accessory_match.get('price_row_id') if ap else None,pricebook_match=accessory_match,
                     inclusion_status='observed' if evidence else 'needs_confirmation',notes=a.get('notes') or ('Chưa có bằng chứng phụ kiện; cần xác nhận trước khi mua.' if not evidence else '')))
         result.append(dict(id=f'{code}-assembly',row_type='section_header',name='Vật tư lắp tủ cần xác nhận'))
-        for requirement in assembly_requirements(members):
+        for requirement in assembly_requirements(members, include_cad_references=False):
             result.append(dict(id=f"{code}-assembly-{requirement['code']}",row_type='accessory',tt='?',
                 is_accessory=True,name=requirement['name'],spec='',sku='',origin='',unit='Theo thiết kế',
                 quantity=requirement['quantity'],unit_price=None,line_total=None,price_status='pending',
                 inclusion_status='needs_confirmation',notes=requirement['quantity_basis']))
+    return result
+
+
+def supplement_enclosure_details(rows, enclosure, panel_code=None):
+    """Fill the existing cabinet item after design, keeping unknown prices open."""
+    from copy import deepcopy
+    result = deepcopy(rows)
+    enclosure = enclosure or {}
+    if enclosure.get('sizing_status') == 'needs_review' or enclosure.get('status') == 'needs_dimensions':
+        return result
+    dims = [enclosure.get(axis) for axis in ('height','width','depth')]
+    if not all(isinstance(v,(int,float)) and not isinstance(v,bool) and v > 0 for v in dims):
+        return result
+    codes = [r['name'] for r in result if r.get('row_type') == 'panel_header']
+    code = panel_code or (codes[0] if len(codes) == 1 else None)
+    if code is None:
+        return result
+    description = 'KT: H{} x W{} x D{} mm'.format(*(f'{v:g}' for v in dims))
+    for key,label in (('thickness','Độ dày'),('material','Vật liệu'),('finish','Hoàn thiện'),('color','Màu'),('door_count','Số cửa'),('ip_rating','IP')):
+        if enclosure.get(key) is not None:
+            description += '; ' + label + ': ' + str(enclosure[key])
+    for row in result:
+        if row.get('id') == f'{code}-assembly-ENCLOSURE':
+            row.update(spec=description, original_spec=row.get('original_spec') or '',
+                design_details=deepcopy(enclosure), inclusion_status='designed',
+                notes='Kích thước theo kết quả thiết kế; đơn giá và các đặc điểm chế tạo chưa nêu cần bổ sung.')
     return result
