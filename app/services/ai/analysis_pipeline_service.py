@@ -1631,13 +1631,17 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         unavailable.extend(str(a.get('name') or 'Phụ kiện') for d in extracted_devices for a in (d.accompanying_accessories or [])
                            if (a.get('web_research') or {}).get('status') == 'search_unavailable')
         if unavailable:
-            raise HTTPException(status_code=503, detail='Chưa hoàn tất đối chiếu thiết bị: '
-                + ', '.join(unavailable[:8]) + '. Dịch vụ tra cứu tạm thời gián đoạn; vui lòng thử lại.')
-        # Source ratings and product candidates are already available. Detailed
-        # prose is requested by DeviceReview when the user opens that device;
-        # do not block publication by re-analysing the entire BOM in batches.
-        log_event(stage="web_product_research", title="Hoàn tất phân tích và tìm thiết bị phù hợp",
-                  detail="Kết quả đề xuất đã được cập nhật. Vui lòng kiểm tra thông số và lựa chọn thiết bị phù hợp.", status="success")
+            if catalog_for_quotation:
+                raise HTTPException(status_code=503, detail='Chưa hoàn tất đối chiếu thiết bị: '
+                    + ', '.join(unavailable[:8]) + '. Dịch vụ tra cứu tạm thời gián đoạn; vui lòng thử lại.')
+            warnings.append('Đã lưu danh mục bóc tách; dịch vụ tra cứu sản phẩm tạm gián đoạn cho '
+                            + ', '.join(unavailable[:8]) + '. Các thông số nguồn và sản phẩm trong thư viện được giữ nguyên.')
+        # Product research supplements the observed inventory. An unavailable
+        # search must not discard a completed takeoff or trigger per-row AI calls.
+        log_event(stage="web_product_research",
+                  title="Hoàn tất bóc tách; tra cứu sản phẩm chưa đầy đủ" if unavailable else "Hoàn tất phân tích và tìm thiết bị phù hợp",
+                  detail="Thông số và mô tả thiết bị đã được tổng hợp vào bảng bóc tách.",
+                  status="warning" if unavailable else "success")
 
         log_event(
             stage="catalog_matching",
