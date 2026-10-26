@@ -76,14 +76,23 @@ async def run_analysis(project_id, user_id, payload, progress):
         if not connections:
             raise ValueError('Chưa có kết nối AI đang hoạt động.')
         ai = connections[0]
+        from app.services.ai.processing_history import ProcessingHistory
+        history = ProcessingHistory(progress)
         result = await AnalysisPipelineService.execute_analysis(
             project=project,project_files=files,active_ai=ai,current_user=user,db=db,
             all_connections=connections,user_prompt=payload.get('user_prompt'),
             fallback_to_standard_template=bool(payload.get('fallback_to_standard_template')),
             target_page=payload.get('target_page'),generate_cad_and_quotation=False,
-            progress_callback=progress,persist_partial_iterations=False)
+            progress_callback=history,persist_partial_iterations=False)
+        # The pipeline schedules some callbacks; flush them before snapshotting
+        # so final page-level logs survive reopening the saved iteration.
+        await asyncio.sleep(0)
+        result = dict(result)
         consumed = max(0,int(result.get('tokens_consumed') or 0))
-        progress({'type':'log','stage':'saving','title':'Đang lưu kết quả phân tích'})
+        completed_history = history.snapshot(result.get('execution_logs'))
+        history({'type':'log','stage':'saving','title':'Đang lưu kết quả phân tích','status':'success'})
+        result['execution_logs'] = completed_history + history.snapshot()[-1:]
+        result['log_version'] = 3
         charged = await db.execute(update(User).where(User.id==user_id,User.tokens>=consumed)
                        .values(tokens=User.tokens-consumed).execution_options(synchronize_session=False))
         if charged.rowcount != 1:
@@ -137,13 +146,24 @@ async def run_cad(project_id,user_id,payload,progress):
             devices=latest.ai_parsed_devices if latest else []
         if not devices:
             raise ValueError('Chưa có thiết bị; hãy phân tích bản vẽ trước.')
-        return await AnalysisPipelineService.generate_cad_and_quotation(project=project,db=db,
+        from app.services.ai.processing_history import ProcessingHistory
+        history = ProcessingHistory(progress)
+        result = await AnalysisPipelineService.generate_cad_and_quotation(project=project,db=db,
             devices=devices,brand_preference=payload.get('brand_preference') or settings.DEFAULT_BRAND,
             multi_panel_list=payload.get('multi_panel_list'),
             user_prompt=payload.get('user_prompt') or (latest.user_message if latest else None),enclosure_dimensions=payload.get('enclosure_dimensions'),
             source_configuration=payload.get('source_configuration') or 'schematic',
             panel_code=payload.get('panel_code'),panel_name=payload.get('panel_name'),
-            per_panel=bool(payload.get('per_panel')),progress_callback=progress)
+            per_panel=bool(payload.get('per_panel')),progress_callback=history)
+        await asyncio.sleep(0)
+        if latest and history.events:
+            await db.refresh(latest)
+            conf = dict(latest.confidence_scores or {})
+            conf['execution_logs'] = list(conf.get('execution_logs') or []) + history.snapshot()
+            conf['log_version'] = 3
+            latest.confidence_scores = conf
+            await db.commit()
+        return result
 
 
 def _execute(task,kind,project_id,user_id,payload):

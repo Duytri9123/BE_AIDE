@@ -104,6 +104,29 @@ class Persistence(unittest.IsolatedAsyncioTestCase):
             await worker_tasks.run_analysis(1,1,{'file_id':999},lambda event:None)
         worker_tasks.AnalysisPipelineService.execute_analysis.assert_not_awaited()
 
+    async def test_page_events_are_saved_for_their_own_iteration(self):
+        async def pipeline(**kwargs):
+            callback = kwargs['progress_callback']
+            for stage in ('page_selection', 'pdf_context', 'sld_scan', 'pdf_evidence_result'):
+                callback({'type':'log','stage':stage,'title':stage})
+            return self.result
+        worker_tasks.AnalysisPipelineService.execute_analysis.side_effect = pipeline
+        def result_schema(session_id, number, devices, conf, iteration_id=None):
+            return SimpleNamespace(model_dump=lambda **kwargs: {
+                'iteration_id':iteration_id, 'execution_logs':conf['execution_logs']})
+        # This persistence test does not need CAD/pricebook expansion performed
+        # by the response serializer; inspect the actual stored JSON below.
+        with patch.object(worker_tasks,'_build_analysis_result_schema',side_effect=result_schema):
+            first = await worker_tasks.run_analysis(1,1,{'file_id':1},lambda event:None)
+            worker_tasks.AnalysisPipelineService.execute_analysis.side_effect = None
+            second = await worker_tasks.run_analysis(1,1,{'file_id':1},lambda event:None)
+        self.assertEqual([row['stage'] for row in first['execution_logs']],
+                         ['page_selection','pdf_context','sld_scan','pdf_evidence_result','saving'])
+        self.assertNotIn('pdf_evidence_result', [row['stage'] for row in second['execution_logs']])
+        async with self.sessions() as db:
+            iteration = await db.get(AnalysisIteration,first['iteration_id'])
+            self.assertEqual(iteration.confidence_scores['execution_logs'],first['execution_logs'])
+
 
 class Preflight(unittest.IsolatedAsyncioTestCase):
     async def test_malformed_output_retried_once_without_forcing_sld(self):
