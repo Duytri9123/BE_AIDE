@@ -1,7 +1,6 @@
 from typing import Any, Dict, List, Optional
 from app.core.config import settings
 from app.schemas.ai import AnalysisResultSchema, ExtractedDeviceSchema
-from app.services.cad.enclosure_cad_generator import EnclosureCadGeneratorService
 
 def _build_analysis_result_schema(
     session_id: Any,
@@ -72,14 +71,10 @@ def _build_analysis_result_schema(
 
     enc_spec = enclosure_spec or conf.get("enclosure_spec")
     if not enc_spec:
-        enc_devs = [
-            {k: v for k, v in d.model_dump().items() if k not in ("evidence_image", "panel_evidence_image")}
-            for d in cleaned_devices
-        ]
-        try:
-            enc_spec = EnclosureCadGeneratorService.calculate_enclosure_specs(enc_devs)
-        except ValueError as exc:
-            enc_spec = {"status": "needs_dimensions", "review_note": str(exc)}
+        # Opening a saved takeoff is a read, not a CAD sizing run. Cabinet
+        # dimensions and construction details are produced by the design step.
+        enc_spec = {'status': 'pending_design',
+                    'review_note': 'Thông số vỏ tủ và bố trí được bổ sung khi tạo thiết kế.'}
     elif isinstance(enc_spec, dict) and "branch_rows" in enc_spec:
         clean_rows = []
         for row in enc_spec["branch_rows"]:

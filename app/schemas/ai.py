@@ -220,7 +220,7 @@ class AnalysisResultSchema(BaseModel):
         """Keep historical/text results in the same panel envelope as file inputs."""
         if self.devices and (not self.technical_audit or "cluster_review" not in self.technical_audit):
             from app.services.ai.system_completeness import technical_audit
-            self.technical_audit = technical_audit(self.devices)
+            self.technical_audit = technical_audit(self.devices, include_cad_references=False)
         if self.panels or not self.devices:
             return self
         grouped = {}
