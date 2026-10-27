@@ -189,7 +189,7 @@ class QuotationExporterService:
                     name = str(r.get("name") or "Thiết bị")
                     specification = str(r.get("spec") or "").strip()
                     if specification:
-                        name += "\n" + specification
+                        name += (" " if r.get('commercial_display') and not r.get('commercial_package') else "\n") + specification
                     sku = str(r.get("sku") or "")
                     origin = str(r.get("origin") or "")
                     unit = str(r.get("unit") or "Cái")

@@ -65,12 +65,13 @@ class ReferenceLayoutTests(unittest.TestCase):
 
     def test_compact_export_hides_notes_and_leaves_discount_to_customer(self):
         rows=[dict(row_type='panel_header',name='MDB',quantity=1,notes='Tên thiết kế nội bộ'),
-              dict(row_type='item',commercial_display=True,name='MCCB',origin='CHINT',quantity=2,unit_price=100,notes='')]
+              dict(row_type='item',commercial_display=True,name='MCCB',spec='3P 630A',origin='CHINT',quantity=2,unit_price=100,notes='')]
         with tempfile.TemporaryDirectory() as folder, patch('app.services.export.quotation_exporter.settings.EXPORT_DIR',folder):
             for discounts,expected in (({},0),({'CHINT':51},51)):
                 book=load_workbook(QuotationExporterService.export(rows,manufacturer_discounts=discounts,
                     proposals=[{'recommended_model':'Không đưa phân tích thiết kế vào báo giá'}]))
                 sheet=book.active
+                self.assertEqual(sheet['B3'].value,'MCCB 3P 630A')
                 self.assertTrue(sheet.column_dimensions['I'].hidden)
                 self.assertIn('$A$1:$H$',str(sheet.print_area))
                 self.assertEqual(sheet['K3'].value,expected)
