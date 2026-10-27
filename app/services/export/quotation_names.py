@@ -37,6 +37,8 @@ def quotation_display_rows(rows):
     result = deepcopy(rows)
     for row in result:
         if row.get('row_type') in ('item','accessory'):
+            if row.get('commercial_display'):
+                continue
             row['name'] = quotation_name(row)
             if 'asian' in row['name'].casefold() and str(row.get('origin') or '').casefold() in {'asian','asia','oem'}:
                 row['origin'] = ''

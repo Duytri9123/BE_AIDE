@@ -68,7 +68,7 @@ class TakeoffPricebookTests(unittest.TestCase):
         self.assertEqual(ExtractedDeviceSchema(**d.model_dump()).pricebook_match['status'],'matched')
         with patch('app.services.ai.takeoff_pricebook.published_rows',return_value=[self.row()]), patch('app.services.ai.procurement_review.assembly_requirements',return_value=[]):
             result=build_quotation_rows([d],{'NF125-CV':1})
-        item=next(r for r in result if r['row_type']=='item')
+        item=next(r for r in result if r['row_type']=='item' and not r.get('commercial_package'))
         self.assertEqual(item['unit_price'],1622000)
         self.assertEqual(item['line_total'],3244000)
         self.assertEqual(item['price_row_id'],public_id(self.row()))

@@ -23,7 +23,7 @@ def quotation_section(device):
     if not section and any(term in name for term in ('nhanh', 'du phong', 'lo ra', 'feeder')):
         return 'Đầu ra'
     if not section and str(device.get('category') or '').upper() in {'CT', 'LIGHT', 'INDICATOR', 'FUSE', 'METER', 'VOLTMETER', 'AMMETER', 'SELECTOR'}:
-        return 'Đo lường & giám sát'
+        return 'Đầu vào'
     return section or 'Thiết bị cần phân nhóm'
 
 
@@ -76,12 +76,19 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                            origin='VN',quantity=1,unit='Tủ',notes=panel_name or ''))
         result.append(dict(id=f'{code}-assembly',row_type='section_header',name='Vỏ tủ + phụ kiện'))
         panel_metadata = next((p for p in panels or [] if str(p.get('panel_code') or '') == code), {})
-        for requirement in assembly_requirements(members, include_cad_references=False):
+        # The assembly checklist belongs to design. A commercial quotation has
+        # four package lines, with detail retained in the design BOM.
+        packages = [('ENCLOSURE','Vỏ tủ điện trong nhà, sơn tĩnh điện','Cái'),
+                    ('BUSBAR','Đồng thanh cái mạ thiếc bọc co nhiệt','Tủ'),
+                    ('MATERIALS','Vật tư phụ (đầu cos, dây điều khiển, sứ …)','Tủ'),
+                    ('LABOR','Nhân công lắp ráp tủ','Tủ')]
+        for package_code, package_name, unit in packages:
             source_dimension = panel_metadata.get('dimension') or panel_metadata.get('dimensions')
-            result.append(dict(id=f"{code}-assembly-{requirement['code']}",row_type='accessory',tt='+',
-                is_accessory=True,name=requirement['name'],spec=f'KT theo bản vẽ: {source_dimension}' if requirement['code'] == 'ENCLOSURE' and source_dimension else '',sku='',origin='',unit='Theo thiết kế',
-                quantity=requirement['quantity'],unit_price=None,line_total=None,price_status='pending',
-                inclusion_status='needs_confirmation',notes=requirement['quantity_basis']))
+            result.append(dict(id=f'{code}-assembly-{package_code}',row_type='item',tt='+',
+                commercial_package=True,commercial_display=True,package_code=package_code,name=package_name,
+                spec=f'KT: {source_dimension}' if package_code == 'ENCLOSURE' and source_dimension else '',
+                sku='Sơn tĩnh điện' if package_code == 'ENCLOSURE' else '',origin='VN',unit=unit,
+                quantity=1,unit_price=None,line_total=None,price_status='pending',notes=''))
         sections = defaultdict(list)
         for i, d in enumerate(members):
             sections[quotation_section(d)].append((i, d))
@@ -111,18 +118,13 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                 price = None
                 match = {**match,'status':'needs_selection','price_row_id':None,'row':None,
                          'note':'Thông số đã thay đổi; cần chọn lại dòng giá.'}
-            notes = d.get('notes') or ''
-            if not price and match.get('candidates'):
-                from app.services.ai.manufacturer_registry import canonical_brand
-                options = [candidate for candidate in match['candidates']
-                           if candidate.get('sku') and (not d.get('brand') or
-                              canonical_brand(candidate.get('brand')) == canonical_brand(d['brand']))]
-                if options:
-                    descriptions = [str(candidate['sku']) + (
-                        f" — giá tham khảo {candidate['price']:,.0f} đ" if isinstance(candidate.get('price'), (int,float)) else '')
-                        for candidate in options[:3]]
-                    notes = (notes + '\n' if notes else '') + 'Phương án bảng giá, chưa chọn: ' + '; '.join(descriptions) + '. Cần xác nhận mã và cấu hình trước khi chốt.'
-            result.append(dict(id=identity,row_type='item',tt='+',name=quotation_name(d),category=d.get('category'),
+            short_name = {'MCCB':'MCCB','MCB':'MCB','CB':'CB','RCBO':'RCBO','RCCB':'RCCB',
+                          'CT':'Biến dòng hạ thế','LIGHT':'Đèn báo pha (đỏ-vàng-xanh)',
+                          'INDICATOR':'Đèn báo pha (đỏ-vàng-xanh)','FUSE':'Cầu chì điều khiển',
+                          'METER':'Đồng hồ đo lường','AMMETER':'Ampe kế','VOLTMETER':'Vôn kế'}.get(str(d.get('category') or '').upper(),d.get('name') or 'Thiết bị')
+            if short_name in {'CB','MCCB','MCB','RCBO','RCCB'} and not selected_spec:
+                short_name += ' dự phòng'
+            result.append(dict(id=identity,row_type='item',commercial_display=True,tt='+',name=short_name,category=d.get('category'),
                 spec=selected_spec,original_spec=d.get('original_spec') or d.get('spec'),
                 sku=sku,origin=d.get('brand') or '',unit='Cái',quantity=qty,
                 unit_price=price,line_total=qty*price if price else None,
@@ -132,7 +134,8 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                 equipment_catalog_id=linked_row.get('equipment_catalog_id') if linked_row and price else None,
                 vat_status=linked_row.get('vat_status') if linked_row and price else None,
                 effective_date=linked_row.get('effective_date') if linked_row and price else None,
-                notes=notes,compatible_proposal=d.get('compatible_proposal'),
+                notes='',design_notes=d.get('notes') or '',source_tags=[d.get('tag')] if d.get('tag') else [],
+                compatible_proposal=d.get('compatible_proposal'),
                 is_alternative_recommended=d.get('is_alternative_recommended') or False))
             for j,a in enumerate(d.get('accompanying_accessories') or []):
                 if not isinstance(a,dict):
@@ -146,7 +149,50 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                     origin=a.get('origin') or '',unit=a.get('unit') or 'Cái',quantity=aq,
                     unit_price=ap,line_total=aq*ap if ap else None,price_status='confirmed' if ap else 'pending',
                     price_row_id=accessory_match.get('price_row_id') if ap else None,pricebook_match=accessory_match,
-                    inclusion_status='observed' if evidence else 'needs_confirmation',notes=a.get('notes') or ('Chưa có bằng chứng phụ kiện; cần xác nhận trước khi mua.' if not evidence else '')))
+                    inclusion_status='observed' if evidence else 'needs_confirmation',notes='',
+                    design_notes=a.get('notes') or ('Chưa có bằng chứng phụ kiện; cần xác nhận trước khi mua.' if not evidence else '')))
+    return merge_commercial_rows(result)
+
+
+def merge_commercial_rows(rows):
+    """Merge equal sale items only within the same panel and section."""
+    from copy import deepcopy
+    result=[]; seen={}
+    for source in rows:
+        row=deepcopy(source)
+        if row.get('row_type') in {'panel_header','section_header'}:
+            seen={};result.append(row);continue
+        if row.get('row_type')!='item' or row.get('commercial_package'):
+            result.append(row);continue
+        key=tuple(row.get(field) for field in ('category','name','spec','sku','origin','unit','unit_price','price_row_id'))
+        if key in seen:
+            previous=seen[key]
+            previous['quantity']+=row['quantity']
+            previous['line_total']=previous['quantity']*previous['unit_price'] if previous.get('unit_price') is not None else None
+            previous['source_tags']=list(dict.fromkeys(previous.get('source_tags',[])+row.get('source_tags',[])))
+        else:
+            seen[key]=row;result.append(row)
+    return result
+
+
+def apply_design_costs(rows, costs, panel_code=None):
+    """Use only completed design-calculator results for package prices."""
+    from copy import deepcopy
+    result=deepcopy(rows)
+    if not costs or costs.get('status')!='calculated':return result
+    code=panel_code
+    if code is None:
+        codes=[r.get('panel_code') or r.get('name') for r in rows if r.get('row_type')=='panel_header']
+        if len(codes)!=1:return result
+        code=codes[0]
+    for row in result:
+        for package,field in (('ENCLOSURE','enclosure'),('BUSBAR','busbar')):
+            calculation=costs.get(field)
+            if row.get('id')==f'{code}-assembly-{package}' and calculation is not None:
+                price=calculation.get('unit_price')
+                if isinstance(price,(float,int)) and not isinstance(price,bool) and price>=0:
+                    row.update(unit_price=price,line_total=price*row.get('quantity',1),price_status='calculated',
+                        calculation_source='customer_workbook',cost_calculation=deepcopy(calculation))
     return result
 
 
@@ -172,5 +218,5 @@ def supplement_enclosure_details(rows, enclosure, panel_code=None):
         if row.get('id') == f'{code}-assembly-ENCLOSURE':
             row.update(spec=description, original_spec=row.get('original_spec') or '',
                 design_details=deepcopy(enclosure), inclusion_status='designed',
-                notes='Kích thước theo kết quả thiết kế; đơn giá và các đặc điểm chế tạo chưa nêu cần bổ sung.')
+                notes='',design_notes='Kích thước theo kết quả thiết kế; đơn giá và các đặc điểm chế tạo chưa nêu cần bổ sung.')
     return result

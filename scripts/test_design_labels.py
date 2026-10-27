@@ -19,7 +19,7 @@ class DesignLabelTests(unittest.TestCase):
                       compatible_proposal=dict(proposed_spec='3P 250A 85kA',
                                                applied=True, compatibility_verified=True))
         self.assertEqual(rating_text(device), '250A')
-        row = next(r for r in build_quotation_rows([device], {'OLD200': 100}) if r['row_type'] == 'item')
+        row = next(r for r in build_quotation_rows([device], {'OLD200': 100}) if r['row_type'] == 'item' and not r.get('commercial_package'))
         self.assertEqual(row['spec'], '3P 250A 85kA')
         self.assertEqual(row['original_spec'], '3P 200A 85kA')
         self.assertIsNone(row['unit_price'])

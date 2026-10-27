@@ -11,7 +11,7 @@ class ReferenceLayoutTests(unittest.TestCase):
         self.assertEqual(quotation_section({'name':'MCCB nhánh WP1 đến WP4','in_a':630}), 'Đầu ra')
         self.assertEqual(quotation_section({'name':'MCCB dự phòng đáy'}), 'Đầu ra')
         self.assertEqual(quotation_section({'name':'MCCB nhánh','section':'Đầu vào'}), 'Đầu vào')
-        self.assertEqual(quotation_section({'name':'Đồng hồ','category':'METER'}), 'Đo lường & giám sát')
+        self.assertEqual(quotation_section({'name':'Đồng hồ','category':'METER'}), 'Đầu vào')
     def test_source_dimensions_and_unselected_price_options_are_visible_without_firm_price(self):
         device=dict(category='MCCB',name='Main',spec='3P 630A',poles=3,in_a=630,
                     brand='CHINT',panel_code='MDB101',quantity=1,
@@ -20,9 +20,9 @@ class ReferenceLayoutTests(unittest.TestCase):
         rows=build_quotation_rows([device],{},panels=[{'panel_code':'MDB101','dimension':'1800x800x450 x1.5mm'}],refresh_prices=False)
         enclosure=next(r for r in rows if r['id']=='MDB101-assembly-ENCLOSURE')
         self.assertIn('1800x800x450',enclosure['spec'])
-        item=next(r for r in rows if r['row_type']=='item')
-        self.assertIn('NXM-630S',item['notes'])
-        self.assertIn('7,526,000',item['notes'])
+        item=next(r for r in rows if r['row_type']=='item' and not r.get('commercial_package'))
+        self.assertEqual(item['notes'],'')
+        self.assertEqual(item['pricebook_match']['candidates'][0]['sku'],'NXM-630S')
         self.assertIsNone(item['unit_price'])
         self.assertEqual(item['sku'],'')
     def test_panels_and_sections_keep_every_device_and_accessory(self):
@@ -37,7 +37,8 @@ class ReferenceLayoutTests(unittest.TestCase):
             rows = build_quotation_rows(devices, {}, refresh_prices=False)
         self.assertEqual([r['name'] for r in rows if r['row_type'] == 'section_header'],
                          ['Vỏ tủ + phụ kiện', 'Đầu vào', 'Đầu ra', 'Vỏ tủ + phụ kiện', 'Đầu vào'])
-        self.assertEqual([r['quantity'] for r in rows if r['row_type'] == 'item'], [1, 4, 3])
+        self.assertEqual([r['quantity'] for r in rows if r['row_type'] == 'item' and not r.get('commercial_package')], [1, 4, 3])
+        self.assertEqual(len([r for r in rows if r.get('commercial_package')]),8)
         accessory = next(r for r in rows if r['row_type'] == 'accessory')
         parent = rows[rows.index(accessory) - 1]
         self.assertEqual(accessory['parent_id'], parent['id'])
@@ -61,6 +62,20 @@ class ReferenceLayoutTests(unittest.TestCase):
             self.assertTrue(sheet.column_dimensions['K'].hidden)
             self.assertIn('$A$1:$I$', str(sheet.print_area))
             book.close()
+
+    def test_compact_export_hides_notes_and_leaves_discount_to_customer(self):
+        rows=[dict(row_type='panel_header',name='MDB',quantity=1,notes='Tên thiết kế nội bộ'),
+              dict(row_type='item',commercial_display=True,name='MCCB',origin='CHINT',quantity=2,unit_price=100,notes='')]
+        with tempfile.TemporaryDirectory() as folder, patch('app.services.export.quotation_exporter.settings.EXPORT_DIR',folder):
+            for discounts,expected in (({},0),({'CHINT':51},51)):
+                book=load_workbook(QuotationExporterService.export(rows,manufacturer_discounts=discounts,
+                    proposals=[{'recommended_model':'Không đưa phân tích thiết kế vào báo giá'}]))
+                sheet=book.active
+                self.assertTrue(sheet.column_dimensions['I'].hidden)
+                self.assertIn('$A$1:$H$',str(sheet.print_area))
+                self.assertEqual(sheet['K3'].value,expected)
+                self.assertFalse(any('Không đưa phân tích' in str(cell.value) for row in sheet for cell in row))
+                book.close()
 
 
 if __name__ == '__main__':

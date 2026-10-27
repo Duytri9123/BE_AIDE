@@ -21,6 +21,45 @@ from app.schemas.export import ExportRequest, ExportResponse
 
 router = APIRouter()
 
+
+class DesignCostRequest(BaseModel):
+    project_id: int
+    iteration_id: Optional[int] = None
+    panel_code: str
+    enclosure: Optional[dict] = None
+    busbar_segments: Optional[List[dict]] = None
+    copper_price_per_kg: Optional[float] = Field(default=None, ge=0, allow_inf_nan=False)
+
+
+@router.post('/design-cost')
+async def calculate_design_package_cost(payload: DesignCostRequest,
+    db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_active_user)):
+    project=(await db.execute(select(Project).where(Project.id==payload.project_id,
+        Project.user_id==current_user.id))).scalar_one_or_none()
+    if project is None:raise HTTPException(404,'Không tìm thấy dự án')
+    iteration=None
+    if payload.iteration_id is not None:
+        iteration=(await db.execute(select(AnalysisIteration).join(ConversationSession,
+            AnalysisIteration.session_id==ConversationSession.id).where(
+            ConversationSession.project_id==project.id,AnalysisIteration.id==payload.iteration_id))).scalars().first()
+        if iteration is None:raise HTTPException(404,'Không tìm thấy phiên bóc tách của dự án')
+    from app.services.bom.customer_workbook_cost import calculate_design_cost
+    import asyncio
+    try:
+        result=await asyncio.to_thread(calculate_design_cost,payload.model_dump(exclude={'project_id','iteration_id','panel_code'},exclude_none=True))
+    except ValueError as error:raise HTTPException(422,str(error)) from error
+    except (RuntimeError,TimeoutError) as error:raise HTTPException(503,str(error)) from error
+    if iteration is not None and result.get('status')=='calculated':
+        conf=dict(iteration.confidence_scores or {})
+        calculations=dict(conf.get('design_cost_calculations') or {})
+        calculations[payload.panel_code]=result
+        conf['design_cost_calculations']=calculations
+        from app.services.ai.procurement_review import apply_design_costs
+        conf['quotation_rows']=apply_design_costs(conf.get('quotation_rows') or [],result,payload.panel_code)
+        iteration.confidence_scores=conf
+        await db.commit()
+    return result
+
 class MatchQuotationRequest(BaseModel):
     project_id: int
     default_brand: Optional[str] = None

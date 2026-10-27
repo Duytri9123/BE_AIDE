@@ -19,6 +19,7 @@ class QuotationExporterService:
         vat_percent: Optional[float] = None,
         filename_suffix: Optional[str] = None,
         manufacturer_discounts: Optional[dict] = None,
+        include_technical_proposals: bool = False,
     ) -> str:
         """Xuất bảng báo giá thiết bị tủ điện chuẩn kỹ thuật ra file Excel (.xlsx)."""
         from app.services.export.quotation_names import quotation_display_rows
@@ -390,7 +391,7 @@ class QuotationExporterService:
                         "technical_reason": cp.get("technical_reason") or d.get("compatibility_note") or "Bảo toàn 100% sơ đồ nguyên lý"
                     })
 
-        if proposals:
+        if proposals and include_technical_proposals:
             current_row += 1  # Dòng trống phân cách
 
             # Title banner
@@ -487,8 +488,11 @@ class QuotationExporterService:
         # price/discount inputs used by the unit-price formulas.
         ws.column_dimensions['J'].hidden = True
         ws.column_dimensions['K'].hidden = True
+        has_notes=any(str(d.get('notes') or '').strip() for d in devices
+                      if isinstance(d,dict) and d.get('row_type') not in {'panel_header','section_header'})
+        ws.column_dimensions['I'].hidden = not has_notes
         ws.freeze_panes = 'C2'
-        ws.print_area = f'A1:I{current_row - 1}'
+        ws.print_area = f'A1:{"I" if has_notes else "H"}{current_row - 1}'
         ws.print_title_rows = '1:1'
         ws.sheet_properties.pageSetUpPr.fitToPage = True
         ws.page_setup.orientation = 'landscape'

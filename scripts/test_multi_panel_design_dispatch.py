@@ -35,7 +35,7 @@ class MultiPanelDispatchTests(unittest.IsolatedAsyncioTestCase):
         session = SimpleNamespace(id=1)
         latest = SimpleNamespace(user_message='LS, thao tac qua canh trong', confidence_scores={}, ai_parsed_devices=[])
         results = []
-        for value in (session, latest):
+        for value in (latest, session, latest):
             result = Mock()
             result.scalars.return_value.first.return_value = value
             results.append(result)

@@ -1,4 +1,6 @@
 import unittest
+import tempfile
+from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, Mock, patch
 from fastapi import HTTPException
@@ -30,18 +32,17 @@ class DesignQuoteGateTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(caught.exception.status_code, 409)
             exporter.assert_not_called()
 
-    async def test_client_rows_cannot_bypass_incomplete_design(self):
+    async def test_takeoff_quotation_can_export_before_design(self):
         project = SimpleNamespace(id=16, user_id=1, name='Test')
         first = Mock()
         first.scalar_one_or_none.return_value = project
         latest = Mock()
         latest.scalars.return_value.first.return_value = SimpleNamespace(confidence_scores={'design_result': {'cad_status': 'needs_review'}})
         db = SimpleNamespace(execute=AsyncMock(side_effect=[first, latest]))
-        with patch('app.api.v1.endpoints.export.QuotationExporterService.export') as exporter:
-            with self.assertRaises(HTTPException) as caught:
-                await export_excel_quotation(ExcelExportPayload(project_id=16, devices=[{'name':'Injected row'}]), db, SimpleNamespace(id=1))
-            self.assertEqual(caught.exception.status_code, 409)
-            exporter.assert_not_called()
+        with tempfile.TemporaryDirectory() as folder, patch('app.services.export.quotation_exporter.settings.EXPORT_DIR',folder):
+            response=await export_excel_quotation(ExcelExportPayload(project_id=16,
+                devices=[{'row_type':'item','name':'MCCB','quantity':1,'unit_price':None}]),db,SimpleNamespace(id=1))
+            self.assertTrue(Path(response.path).is_file())
 
     def test_completed_design_does_not_require_an_excel_file(self):
         layout = {'placements':[{'tag':'Q1'}], 'release_ready':True,
