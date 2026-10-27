@@ -7,6 +7,19 @@ from app.services.ai.procurement_review import build_quotation_rows
 
 
 class TakeoffPricebookTests(unittest.TestCase):
+    def test_comma_separated_current_ratings_are_not_decimal_numbers(self):
+        rows=[self.row(brand='CHINT',sku='NXM-630S',item_name='NXM-630S',
+                       specifications={'Số cực':'3P','In (A)':'500,630','Icu (kA)':'50'})]
+        for current in (500,630):
+            result=match_device(self.device(brand='CHINT',part_number='',in_a=current),rows)
+            self.assertEqual(result['candidate_count'],1)
+            self.assertEqual(result['status'],'needs_selection')
+        self.assertEqual(match_device(self.device(brand='CHINT',part_number='',in_a=550),rows)['candidate_count'],0)
+
+    def test_decimal_comma_current_is_preserved(self):
+        row=self.row(specifications={'Số cực':'3P','In (A)':'6,3','Icu (kA)':'30'})
+        self.assertEqual(match_device(self.device(in_a=6.3),[row])['candidate_count'],1)
+        self.assertEqual(match_device(self.device(in_a=6),[row])['candidate_count'],0)
     def row(self, **changes):
         return {**dict(id='row1',brand='Mitsubishi Electric',category='MCCB',
                        item_name='NF125-CV 3P 50A',sku='ORDER-50',price=1622000,

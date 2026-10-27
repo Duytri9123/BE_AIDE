@@ -126,6 +126,7 @@ async def export_excel_quotation(
 
 class SaveQuotationFilePayload(BaseModel):
     project_id: int
+    iteration_id: Optional[int] = None
     brand_name: Optional[str] = None
     devices: List[dict]
     proposals: Optional[List[dict]] = None
@@ -145,6 +146,17 @@ async def save_quotation_to_project(
     proj_res = await db.execute(proj_stmt)
     project = proj_res.scalar_one_or_none()
     project_name = project.name if project else DEFAULT_PROJECT_NAME
+
+    if not project or project.user_id != current_user.id:
+        raise HTTPException(status_code=404, detail="Không tìm thấy dự án")
+    source_iteration = None
+    if payload.iteration_id is not None:
+        source_iteration = (await db.execute(select(AnalysisIteration).join(ConversationSession,
+            AnalysisIteration.session_id == ConversationSession.id).where(
+                ConversationSession.project_id == project.id,
+                AnalysisIteration.id == payload.iteration_id))).scalars().first()
+        if source_iteration is None:
+            raise HTTPException(status_code=404, detail="Không tìm thấy phiên bóc tách của dự án")
 
     # Export to Excel file on server (da bao gom tinh toan thanh cai dong qua BusbarCalculatorService)
     file_path = QuotationExporterService.export(
@@ -169,6 +181,12 @@ async def save_quotation_to_project(
         is_generated=True
     )
     db.add(new_file)
+    if source_iteration is not None:
+        await db.flush()
+        conf = dict(source_iteration.confidence_scores or {})
+        conf['quotation_rows'] = payload.devices
+        conf['quotation_file_id'] = new_file.id
+        source_iteration.confidence_scores = conf
 
     # Saving a quotation must not silently fabricate a CAD sheet. The user
     # chooses source-backed cabinet and device drawings in the CAD workspace.

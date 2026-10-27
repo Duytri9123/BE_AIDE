@@ -2,11 +2,29 @@ import tempfile
 import unittest
 from unittest.mock import patch
 from openpyxl import load_workbook
-from app.services.ai.procurement_review import build_quotation_rows
+from app.services.ai.procurement_review import build_quotation_rows, quotation_section
 from app.services.export.quotation_exporter import QuotationExporterService
 
 
 class ReferenceLayoutTests(unittest.TestCase):
+    def test_explicit_branch_names_group_as_outgoing_without_guessing_current(self):
+        self.assertEqual(quotation_section({'name':'MCCB nhánh WP1 đến WP4','in_a':630}), 'Đầu ra')
+        self.assertEqual(quotation_section({'name':'MCCB dự phòng đáy'}), 'Đầu ra')
+        self.assertEqual(quotation_section({'name':'MCCB nhánh','section':'Đầu vào'}), 'Đầu vào')
+        self.assertEqual(quotation_section({'name':'Đồng hồ','category':'METER'}), 'Đo lường & giám sát')
+    def test_source_dimensions_and_unselected_price_options_are_visible_without_firm_price(self):
+        device=dict(category='MCCB',name='Main',spec='3P 630A',poles=3,in_a=630,
+                    brand='CHINT',panel_code='MDB101',quantity=1,
+                    pricebook_match={'status':'needs_selection','candidates':[
+                        {'sku':'NXM-630S','brand':'CHINT','price':7526000}]})
+        rows=build_quotation_rows([device],{},panels=[{'panel_code':'MDB101','dimension':'1800x800x450 x1.5mm'}],refresh_prices=False)
+        enclosure=next(r for r in rows if r['id']=='MDB101-assembly-ENCLOSURE')
+        self.assertIn('1800x800x450',enclosure['spec'])
+        item=next(r for r in rows if r['row_type']=='item')
+        self.assertIn('NXM-630S',item['notes'])
+        self.assertIn('7,526,000',item['notes'])
+        self.assertIsNone(item['unit_price'])
+        self.assertEqual(item['sku'],'')
     def test_panels_and_sections_keep_every_device_and_accessory(self):
         devices = [dict(category='MCCB', name='Feeder', spec='3P160A', section='Đầu ra',
                         panel_code='MDB101', quantity=4),
@@ -29,7 +47,8 @@ class ReferenceLayoutTests(unittest.TestCase):
     def test_export_nine_visible_columns_and_formula_inputs_preserved(self):
         rows = [dict(row_type='panel_header', name='MDB101', quantity=1),
                 dict(row_type='section_header', name='Đầu vào'),
-                dict(row_type='item', name='MCCB', quantity=1, unit_price=100, origin='CHINT')]
+                dict(row_type='item', name='MCCB', quantity=1, unit_price=100, origin='CHINT',
+                     notes='Thông tin xác minh mã hàng và cấu hình cần được hiển thị đầy đủ trong bảng báo giá. '*3)]
         with tempfile.TemporaryDirectory() as folder, patch('app.services.export.quotation_exporter.settings.EXPORT_DIR', folder):
             book = load_workbook(QuotationExporterService.export(rows, proposals=[]))
             sheet = book.active
@@ -37,6 +56,7 @@ class ReferenceLayoutTests(unittest.TestCase):
             self.assertEqual(sheet['B3'].value, 'Đầu vào')
             self.assertEqual(sheet['G4'].value, '=J4*(1-K4/100)')
             self.assertEqual(sheet['J4'].value, 100)
+            self.assertGreater(sheet.row_dimensions[4].height, 24)
             self.assertTrue(sheet.column_dimensions['J'].hidden)
             self.assertTrue(sheet.column_dimensions['K'].hidden)
             self.assertIn('$A$1:$I$', str(sheet.print_area))

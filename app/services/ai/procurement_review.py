@@ -17,8 +17,13 @@ def quotation_section(device):
         return 'Đầu vào'
     if any(term in text for term in ('dau ra', 'feeder', 'outgoing')):
         return 'Đầu ra'
-    if not section and any(term in plain(device.get('name')) for term in ('mccb tong', 'cb tong', 'aptomat tong')):
+    name = plain(device.get('name'))
+    if not section and any(term in name for term in ('mccb tong', 'cb tong', 'aptomat tong')):
         return 'Đầu vào'
+    if not section and any(term in name for term in ('nhanh', 'du phong', 'lo ra', 'feeder')):
+        return 'Đầu ra'
+    if not section and str(device.get('category') or '').upper() in {'CT', 'LIGHT', 'INDICATOR', 'FUSE', 'METER', 'VOLTMETER', 'AMMETER', 'SELECTOR'}:
+        return 'Đo lường & giám sát'
     return section or 'Thiết bị cần phân nhóm'
 
 
@@ -70,9 +75,11 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                            panel_code=code,tt=str(len([r for r in result if r.get('row_type') == 'panel_header'])+1),
                            origin='VN',quantity=1,unit='Tủ',notes=panel_name or ''))
         result.append(dict(id=f'{code}-assembly',row_type='section_header',name='Vỏ tủ + phụ kiện'))
+        panel_metadata = next((p for p in panels or [] if str(p.get('panel_code') or '') == code), {})
         for requirement in assembly_requirements(members, include_cad_references=False):
+            source_dimension = panel_metadata.get('dimension') or panel_metadata.get('dimensions')
             result.append(dict(id=f"{code}-assembly-{requirement['code']}",row_type='accessory',tt='+',
-                is_accessory=True,name=requirement['name'],spec='',sku='',origin='',unit='Theo thiết kế',
+                is_accessory=True,name=requirement['name'],spec=f'KT theo bản vẽ: {source_dimension}' if requirement['code'] == 'ENCLOSURE' and source_dimension else '',sku='',origin='',unit='Theo thiết kế',
                 quantity=requirement['quantity'],unit_price=None,line_total=None,price_status='pending',
                 inclusion_status='needs_confirmation',notes=requirement['quantity_basis']))
         sections = defaultdict(list)
@@ -104,6 +111,17 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                 price = None
                 match = {**match,'status':'needs_selection','price_row_id':None,'row':None,
                          'note':'Thông số đã thay đổi; cần chọn lại dòng giá.'}
+            notes = d.get('notes') or ''
+            if not price and match.get('candidates'):
+                from app.services.ai.manufacturer_registry import canonical_brand
+                options = [candidate for candidate in match['candidates']
+                           if candidate.get('sku') and (not d.get('brand') or
+                              canonical_brand(candidate.get('brand')) == canonical_brand(d['brand']))]
+                if options:
+                    descriptions = [str(candidate['sku']) + (
+                        f" — giá tham khảo {candidate['price']:,.0f} đ" if isinstance(candidate.get('price'), (int,float)) else '')
+                        for candidate in options[:3]]
+                    notes = (notes + '\n' if notes else '') + 'Phương án bảng giá, chưa chọn: ' + '; '.join(descriptions) + '. Cần xác nhận mã và cấu hình trước khi chốt.'
             result.append(dict(id=identity,row_type='item',tt='+',name=quotation_name(d),category=d.get('category'),
                 spec=selected_spec,original_spec=d.get('original_spec') or d.get('spec'),
                 sku=sku,origin=d.get('brand') or '',unit='Cái',quantity=qty,
@@ -114,7 +132,7 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                 equipment_catalog_id=linked_row.get('equipment_catalog_id') if linked_row and price else None,
                 vat_status=linked_row.get('vat_status') if linked_row and price else None,
                 effective_date=linked_row.get('effective_date') if linked_row and price else None,
-                notes=d.get('notes') or '',compatible_proposal=d.get('compatible_proposal'),
+                notes=notes,compatible_proposal=d.get('compatible_proposal'),
                 is_alternative_recommended=d.get('is_alternative_recommended') or False))
             for j,a in enumerate(d.get('accompanying_accessories') or []):
                 if not isinstance(a,dict):

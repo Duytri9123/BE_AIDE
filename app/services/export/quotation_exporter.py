@@ -132,7 +132,12 @@ class QuotationExporterService:
                     cell.number_format = '#,##0'
                 if col_idx == 6:
                     cell.number_format = '#,##0.00'
-            ws.row_dimensions[current_row].height = 24
+            # Wrapped descriptions and pending-selection notes must remain
+            # readable in Excel, not only in the web preview.
+            wrapped_lines = max(
+                sum(max(1, math.ceil(len(line) / width)) for line in str(value or '').split('\n'))
+                for value, width in ((name, 42), (sku, 20), (notes, 25)))
+            ws.row_dimensions[current_row].height = max(24, wrapped_lines * 13 + 5)
             item_rows_indices.append(current_row)
             panel_item_rows.setdefault(panel_row_idx, []).append(current_row)
             current_row += 1

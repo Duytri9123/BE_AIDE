@@ -41,6 +41,14 @@ def _values(row, field):
         return [float(v) for v in re.findall(r'(?<!\w)(\d+)\s*(?:P|POLES?)\b', text, re.I)]
     if field == 'current':
         text = re.sub(r'\([^)]*\)', '', text)
+        # Published frame rows list discrete ratings as "160,200,250" or
+        # "500,630". Keep true decimal-comma ratings such as 0,5 and 6,3.
+        def rating_list(match):
+            tokens = match.group(0).split(',')
+            if len(tokens) > 2 or all(float(token) >= 10 for token in tokens):
+                return ' '.join(tokens)
+            return match.group(0)
+        text = re.sub(r'\d+(?:,\d+)+', rating_list, text)
     if field == 'current' and not text.strip():
         # A suffix such as DIN310-230A is an ordering/voltage variant, not In.
         return [float(v.replace(',', '.')) for v in re.findall(r'(?<![\w-])(\d+(?:[.,]\d+)?)\s*A\b',str(row.get('item_name') or ''),re.I)]
