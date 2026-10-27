@@ -10,6 +10,13 @@ def devices(kind, quantity, panel='TĐT'):
 
 
 class InventoryCountGroups(unittest.IsolatedAsyncioTestCase):
+    def test_generic_meter_count_checks_bodies_without_claiming_function(self):
+        payload={'counts':[{'panel_code':'TDT','category':'METER','quantity':1}]}
+        self.assertEqual(count_mismatches([devices('AMMETER',1)],payload), [])
+        self.assertTrue(count_mismatches([devices('AMMETER',2)],payload))
+        self.assertTrue(count_mismatches([devices('AMMETER',1,'OTHER')],payload))
+        self.assertTrue(count_mismatches([devices('VOLTMETER',1)],
+            {'counts':[{'panel_code':'TDT','category':'AMMETER','quantity':1}]}))
     def test_generic_cb_counts_include_specific_breakers(self):
         self.assertEqual(count_mismatches([devices('MCB',19),devices('CB',1)],
             {'counts':[{'panel_code':'TDT','category':'CB','quantity':20}]}), [])

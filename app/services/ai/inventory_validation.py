@@ -296,17 +296,18 @@ def count_mismatches(devices, payload):
     # CB is a generic physical breaker count, not a subtype competing with
     # MCB/MCCB. Match only the residual subtype counts to that generic bucket;
     # retain every explicit source subtype constraint and each panel boundary.
-    breaker_types = ('MCB', 'MCCB', 'RCBO', 'RCCB')
+    generic_types = {'CB': ('MCB', 'MCCB', 'RCBO', 'RCCB'),
+                     'METER': ('AMMETER', 'VOLTMETER', 'ENERGY_METER')}
     for panel, kind in list(source):
-        if kind != 'CB' or source[(panel, kind)] <= 0 or (panel, kind) in ambiguous_generic_counts:
+        if kind not in generic_types or source[(panel, kind)] <= 0 or (panel, kind) in ambiguous_generic_counts:
             continue
-        residual = actual[(panel, 'CB')]
-        for subtype in breaker_types:
+        residual = actual[(panel, kind)]
+        for subtype in generic_types[kind]:
             key = (panel, subtype)
             excess = max(0, actual[key] - source[key])
             residual += excess
             actual[key] -= excess
-        actual[(panel, 'CB')] = residual
+        actual[(panel, kind)] = residual
     for key in sorted(source.keys() | actual.keys()):
         expected = source[key]
         if actual[key] != expected:
