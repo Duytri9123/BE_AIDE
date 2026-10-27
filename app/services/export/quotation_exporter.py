@@ -44,8 +44,8 @@ class QuotationExporterService:
         font_grand_total = Font(name="Times New Roman", size=11, bold=True, color="000000")
 
         fill_header = PatternFill(start_color="FFC000", end_color="FFC000", fill_type="solid") # Gold Yellow
-        fill_panel = PatternFill(start_color="A9D08E", end_color="A9D08E", fill_type="solid")   # Light Green
-        fill_section = PatternFill(start_color="F2F2F2", end_color="F2F2F2", fill_type="solid") # Light Gray
+        fill_panel = PatternFill(start_color="92D050", end_color="92D050", fill_type="solid")
+        fill_section = PatternFill(start_color="FFFFFF", end_color="FFFFFF", fill_type="solid")
         fill_total = PatternFill(start_color="FFC000", end_color="FFC000", fill_type="solid")   # Gold Yellow
 
         align_center = Alignment(horizontal="center", vertical="center", wrap_text=True)
@@ -148,6 +148,8 @@ class QuotationExporterService:
                 r_type = r.get("row_type")
                 if r_type == "panel_header":
                     p_name = str(r.get("name") or f"TỦ ĐIỆN {clean_p_name}")
+                    if not p_name.upper().startswith('TỦ'):
+                        p_name = 'TỦ ĐIỆN ' + p_name
                     p_origin = str(r.get("origin") or "")
                     p_unit = str(r.get("unit") or "Tủ")
                     p_qty = float(r.get("quantity") or 1.0)
@@ -475,6 +477,19 @@ class QuotationExporterService:
         for col_idx, width in col_widths.items():
             col_letter = get_column_letter(col_idx)
             ws.column_dimensions[col_letter].width = width
+
+        # Match the customer-facing nine-column quotation while retaining the
+        # price/discount inputs used by the unit-price formulas.
+        ws.column_dimensions['J'].hidden = True
+        ws.column_dimensions['K'].hidden = True
+        ws.freeze_panes = 'C2'
+        ws.print_area = f'A1:I{current_row - 1}'
+        ws.print_title_rows = '1:1'
+        ws.sheet_properties.pageSetUpPr.fitToPage = True
+        ws.page_setup.orientation = 'landscape'
+        ws.page_setup.paperSize = ws.PAPERSIZE_A4
+        ws.page_setup.fitToWidth = 1
+        ws.page_setup.fitToHeight = 0
 
         # 7. Save file to exports directory
         out_dir = Path(settings.EXPORT_DIR)

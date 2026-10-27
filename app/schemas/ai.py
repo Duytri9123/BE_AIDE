@@ -163,6 +163,7 @@ class ExtractedDeviceSchema(BaseModel):
 
 
 class AnalysisResultSchema(BaseModel):
+    user_prompt: Optional[str] = None
     source_configuration: str = 'schematic'
     session_id: UUID
     iteration_id: Optional[int] = None

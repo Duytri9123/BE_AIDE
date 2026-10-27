@@ -208,6 +208,7 @@ async def start_analysis(
         session_id=active_session.id,
         iteration_number=active_session.total_iterations,
         trigger_type="pipeline_scan",
+        user_message=request.user_prompt,
         files_analyzed={
             "file_ids": [f.id for f in project_files],
             "file_names": [f.filename for f in project_files],
@@ -215,6 +216,7 @@ async def start_analysis(
         },
         ai_parsed_devices=[d.model_dump() for d in extracted_devices],
         confidence_scores={
+            "user_prompt": request.user_prompt,
             "warnings": warnings,
             "quotation_rows": quotation_rows,
             "conclusion": pipeline_result.get("conclusion"),
@@ -370,6 +372,7 @@ async def stream_analysis(
                     session_id=active_session.id,
                     iteration_number=active_session.total_iterations,
                     trigger_type="pipeline_scan_stream",
+                    user_message=request.user_prompt,
                     files_analyzed={
                         "file_ids": [f.id for f in project_files],
                         "file_names": [f.filename for f in project_files],
@@ -377,6 +380,7 @@ async def stream_analysis(
                     },
                     ai_parsed_devices=[d.model_dump() for d in extracted_devices],
                     confidence_scores={
+                        "user_prompt": request.user_prompt,
                         "warnings": warnings,
                         "quotation_rows": quotation_rows,
                         "technical_proposals": pipeline_result.get("technical_proposals", []),
@@ -409,6 +413,7 @@ async def stream_analysis(
                 await db.commit()
 
                 complete_payload = {
+                    "user_prompt": request.user_prompt,
                     "session_id": str(active_session.id),
                     "iteration_number": active_session.total_iterations,
                     "devices": [d.model_dump() for d in extracted_devices],
@@ -1210,8 +1215,10 @@ async def analyze_prompt(
         iteration_number=active_session.total_iterations,
         trigger_type="prompt_input",
         files_analyzed={"prompt": prompt_text, "source": "user_text_input", "ai_model": prompt_ai.selected_model if ai_used else "catalog_engine"},
+        user_message=prompt_text,
         ai_parsed_devices=[d.model_dump() for d in devices],
         confidence_scores={
+            "user_prompt": prompt_text,
             "warnings": [success_msg],
             "quotation_rows": quotation_rows,
             "conclusion": conclusion,
@@ -1235,6 +1242,7 @@ async def analyze_prompt(
     await db.refresh(iteration)
 
     return AnalysisResultSchema(
+        user_prompt=prompt_text,
         session_id=active_session.id,
         iteration_id=iteration.id,
         iteration_number=active_session.total_iterations,

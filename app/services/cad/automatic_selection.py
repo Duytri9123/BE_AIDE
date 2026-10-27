@@ -81,6 +81,9 @@ def select_device_geometry(device, *, allow_preference_fallback=True, allow_unve
             row.setdefault('source_brand_label', row[field])
             row[field] = 'Asian'
     brand = row.get('detected_brand') or row.get('brand')
+    if row.get('selection_source') == 'user_request':
+        from app.services.library_review_scope import preferred_brand_for_device
+        brand = preferred_brand_for_device(row, row.get('brand'))
     if str(brand or '').strip().casefold() == 'asian':
         brand = None  # User's unspecified-brand label, not a verified manufacturer.
     poles = row.get('poles')

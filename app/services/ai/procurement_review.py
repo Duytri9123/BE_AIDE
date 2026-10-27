@@ -1,6 +1,25 @@
 """Explicit assembly scope; unknown quantities and prices are never fabricated."""
 from collections import defaultdict
 from app.services.cad.design_labels import effective_spec
+import unicodedata
+
+
+def quotation_section(device):
+    """Use the observed function, never the current rating, to group devices."""
+    def plain(value):
+        return ''.join(c for c in unicodedata.normalize('NFD', str(value or '').lower().replace('đ', 'd'))
+                       if not unicodedata.combining(c))
+    section = str(device.get('section') or '').strip()
+    text = plain(section)
+    if device.get('is_enclosure') or text in {'vo tu', 'vo tu + phu kien', 'vo tu & phu kien'}:
+        return 'Vỏ tủ + phụ kiện'
+    if device.get('is_incomer') or any(term in text for term in ('dau vao', 'incomer', 'nguon tong')):
+        return 'Đầu vào'
+    if any(term in text for term in ('dau ra', 'feeder', 'outgoing')):
+        return 'Đầu ra'
+    if not section and any(term in plain(device.get('name')) for term in ('mccb tong', 'cb tong', 'aptomat tong')):
+        return 'Đầu vào'
+    return section or 'Thiết bị cần phân nhóm'
 
 
 def assembly_requirements(devices, include_cad_references=True):
@@ -48,8 +67,28 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
     result = []
     for code, members in groups.items():
         result.append(dict(id=f'panel-{code}',row_type='panel_header',name=code,
-                           quantity=1,unit='Tủ',notes=panel_name or ''))
-        for i,d in enumerate(members):
+                           panel_code=code,tt=str(len([r for r in result if r.get('row_type') == 'panel_header'])+1),
+                           origin='VN',quantity=1,unit='Tủ',notes=panel_name or ''))
+        result.append(dict(id=f'{code}-assembly',row_type='section_header',name='Vỏ tủ + phụ kiện'))
+        for requirement in assembly_requirements(members, include_cad_references=False):
+            result.append(dict(id=f"{code}-assembly-{requirement['code']}",row_type='accessory',tt='+',
+                is_accessory=True,name=requirement['name'],spec='',sku='',origin='',unit='Theo thiết kế',
+                quantity=requirement['quantity'],unit_price=None,line_total=None,price_status='pending',
+                inclusion_status='needs_confirmation',notes=requirement['quantity_basis']))
+        sections = defaultdict(list)
+        for i, d in enumerate(members):
+            sections[quotation_section(d)].append((i, d))
+        ordered_sections = sorted(sections, key=lambda s: (
+            {'Vỏ tủ + phụ kiện': 0, 'Đầu vào': 1, 'Đầu ra': 2}.get(s, 3),
+            list(sections).index(s)))
+        ordered_members = []
+        for section in ordered_sections:
+            ordered_members.extend((section, i, d) for i, d in sections[section])
+        previous_section = 'Vỏ tủ + phụ kiện'
+        for section, i, d in ordered_members:
+            if section != previous_section:
+                result.append(dict(id=f'{code}-section-{i}',row_type='section_header',name=section))
+                previous_section = section
             sku = d.get('part_number') or ''
             match = d.get('pricebook_match') or {}
             linked_row = match.get('row') if match.get('status') == 'matched' else None
@@ -90,12 +129,6 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                     unit_price=ap,line_total=aq*ap if ap else None,price_status='confirmed' if ap else 'pending',
                     price_row_id=accessory_match.get('price_row_id') if ap else None,pricebook_match=accessory_match,
                     inclusion_status='observed' if evidence else 'needs_confirmation',notes=a.get('notes') or ('Chưa có bằng chứng phụ kiện; cần xác nhận trước khi mua.' if not evidence else '')))
-        result.append(dict(id=f'{code}-assembly',row_type='section_header',name='Vật tư lắp tủ cần xác nhận'))
-        for requirement in assembly_requirements(members, include_cad_references=False):
-            result.append(dict(id=f"{code}-assembly-{requirement['code']}",row_type='accessory',tt='?',
-                is_accessory=True,name=requirement['name'],spec='',sku='',origin='',unit='Theo thiết kế',
-                quantity=requirement['quantity'],unit_price=None,line_total=None,price_status='pending',
-                inclusion_status='needs_confirmation',notes=requirement['quantity_basis']))
     return result
 
 

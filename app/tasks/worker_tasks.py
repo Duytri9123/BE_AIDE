@@ -118,6 +118,7 @@ async def run_analysis(project_id, user_id, payload, progress):
               'evidence_overviews','file_assessment','files_assessment','circuit_assessment',
               'overall_assessment','execution_logs','process_steps','physical_layout',
               'layout_conflicts','analysis_mode','log_version') if result.get(key) is not None}
+        conf['user_prompt'] = payload.get('user_prompt')
         iteration=AnalysisIteration(session_id=session.id,iteration_number=session.total_iterations,
             trigger_type='async_celery_task',user_message=payload.get('user_prompt'),
             files_analyzed={'file_ids':[f.id for f in files],'file_names':[f.filename for f in files],

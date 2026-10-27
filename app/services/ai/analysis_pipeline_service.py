@@ -588,6 +588,7 @@ class AnalysisPipelineService:
                         vision_prompt = append_completeness_review_instruction(vision_prompt)
                         vision_prompt = append_canonical_output_contract(vision_prompt)
                         vision_prompt += ('\nGIAI ĐOẠN ĐỌC NGUỒN ẢNH: chỉ trả JSON hợp lệ, gọn, đầy đủ devices và thông tin tủ thực sự ghi trên ảnh; '
+                            'brand và part_number chỉ ghi hãng/mã nhìn thấy trên ảnh, không thay bằng hãng khách yêu cầu; hệ thống đối chiếu hãng yêu cầu ngay sau khi xác minh danh mục. '
                             'chưa tìm mã sản phẩm hoặc viết phân tích lựa chọn ở bước này. '
                             'Mỗi devices có category,name,spec,tag,panel_code,panel_name,section,quantity,poles,in_a,icu_ka,connected_load. '
                             'Spec phải giữ đủ thông số nguồn bằng chuỗi ngắn, không để rỗng nếu đọc được số cực/dòng/kA. '
@@ -1348,15 +1349,14 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         if requested_brand:
             warnings.append(f"Áp dụng yêu cầu kỹ thuật: {requested_brand}")
 
-        # Catalog comparison is also shown in the takeoff table.  Only the
-        # quotation workflow is allowed to select a SKU/price or alter the
-        # commercial brand; plain takeoff remains faithful to the SLD.
+        # Explicit commercial requirements also apply during takeoff. Source
+        # identities stay separate from the requested manufacturer.
         catalog_for_quotation = generate_cad_and_quotation
         if progress_callback:
             await asyncio.sleep(0.35)
         log_event(
             stage="catalog_matching",
-            title="Tra cứu Catalog để lập báo giá" if catalog_for_quotation else "Ghi nhận dữ liệu thiết bị",
+            title="Tra cứu Catalog để lập báo giá" if catalog_for_quotation else f"Đang đối chiếu thiết bị theo yêu cầu {requested_brand}" if requested_brand else "Ghi nhận dữ liệu thiết bị",
             detail=(f"Đang đối chiếu thông số với {len(catalog_engine.items)} sản phẩm để lập báo giá..."
                     if catalog_for_quotation else
                     f"Đang hoàn thiện danh mục {len(extracted_devices)} thiết bị và đánh giá theo yêu cầu."),
@@ -1390,13 +1390,18 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 dev.location = detected_location
 
             if not catalog_for_quotation:
-                # Preserve source observations; choose compatible products during design.
                 raw_brand = str(dev.brand or '').strip()
                 dev.brand = '' if raw_brand.casefold() in {'asian', 'asia', 'oem', '-', '---'} else raw_brand
-                dev.detected_brand = dev.brand
+                if dev.selection_source != 'user_request':
+                    dev.detected_brand = dev.brand
+                from app.services.ai.takeoff_brand_request import apply_takeoff_brand, requested_brand_candidates
+                applied_brand = apply_takeoff_brand(dev, requested_brand)
                 from app.services.ai.device_recommendations import recommendations
                 dev.catalog_candidates = recommendations(catalog_engine, dev, requested_brand)
-                dev.technical_match_note = 'Gợi ý catalog theo thông số; chọn mã trong bảng thiết bị trước khi lập báo giá.'
+                if applied_brand:
+                    dev.catalog_candidates = requested_brand_candidates(dev.catalog_candidates, requested_brand)
+                else:
+                    dev.technical_match_note = 'Gợi ý catalog theo thông số; chọn mã trong bảng thiết bị trước khi lập báo giá.'
                 continue
 
             cat_upper = (dev.category or "").upper()
@@ -1628,6 +1633,19 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             preferred_brand=requested_brand, include_devices=True,
             progress_callback=report_product_lookup)
         link_devices(extracted_devices)
+        if requested_brand and not catalog_for_quotation:
+            from app.services.ai.takeoff_brand_request import apply_takeoff_brand, requested_brand_candidates
+            requested_count = 0
+            for device in extracted_devices:
+                if apply_takeoff_brand(device, requested_brand):
+                    device.catalog_candidates = requested_brand_candidates(device.catalog_candidates, requested_brand)
+                    for accessory in device.accompanying_accessories or []:
+                        if accessory.get('selection_source') == 'user_request':
+                            accessory['catalog_candidates'] = requested_brand_candidates(accessory.get('catalog_candidates'), requested_brand)
+                    requested_count += 1
+            log_event(stage='takeoff_brand_request', title=f'Đã áp dụng yêu cầu {requested_brand} trong bóc tách',
+                      detail=f'{requested_count} dòng thiết bị chính/phụ kiện đồng bộ hãng đã được đối chiếu {requested_brand}; giữ thông số và nhận diện nguồn riêng. Mã chưa đủ căn cứ vẫn cần xác minh.',
+                      status='success')
         unavailable = [str(d.tag or d.name) for d in extracted_devices
                        if (d.web_research or {}).get('status') == 'search_unavailable']
         unavailable.extend(str(a.get('name') or 'Phụ kiện') for d in extracted_devices for a in (d.accompanying_accessories or [])
@@ -1650,6 +1668,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             title="Định giá & chọn mã SKU catalog hoàn tất" if catalog_for_quotation else "Hoàn tất dữ liệu thiết bị bóc tách",
             detail=(f"Đã hoàn tất đối chiếu giá cho {len(extracted_devices)} thiết bị (Thương hiệu: {preferred_brand or settings.DEFAULT_BRAND})"
                     if catalog_for_quotation else
+                    f"Đã ghi nhận {len(extracted_devices)} thiết bị và đối chiếu phương án {requested_brand} ngay trong bóc tách." if requested_brand else
                     f"Đã ghi nhận {len(extracted_devices)} thiết bị theo nguồn và yêu cầu đi kèm; chọn sản phẩm phù hợp khi tạo thiết kế."),
             status="success"
         )
@@ -2197,7 +2216,8 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 continue
 
             if re.search(r"\b3\s*x?\s*ct\b|\b3xct\b", identity_text, re.I):
-                device.drawing_quantity = 1
+                # Preserve the observed count (including a written multiplier)
+                # rather than overwriting a verified 3xCT source count with 1.
                 device.quantity = device.procurement_quantity = 3
                 device.quantity_basis = (
                     "Ký hiệu 3XCT/3CT đại diện ba biến dòng vật lý, mỗi pha R-S-T dùng một chiếc."
@@ -3189,7 +3209,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 await coro
                         except Exception as e:
                             logger.warning(f"progress_callback error: {e}")
-                    from app.services.ai.inventory_validation import extract_with_retry, FUSE_CIRCUIT_GUIDANCE
+                    from app.services.ai.inventory_validation import extract_with_retry, FUSE_CIRCUIT_GUIDANCE, CT_CIRCUIT_GUIDANCE
                     async def extract_page_inventory(prompt):
                         if all_connections and db:
                             response, _ = await ConnectionPoolService.call_with_fallback(
@@ -3237,7 +3257,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             "Mỗi lộ một dòng, giữ tag đọc được; CB chung dùng category CB, không tự đổi thành MCCB. "
                             "Trả devices là DANH SÁCH ĐẦY ĐỦ sau đối chiếu, giữ thông số và số lượng có căn cứ. "
                             "Tách drawing_quantity và procurement_quantity, nêu quantity_basis; không nhân Fuse theo số đèn. "
-                            + FUSE_CIRCUIT_GUIDANCE +
+                            + FUSE_CIRCUIT_GUIDANCE + CT_CIRCUIT_GUIDANCE +
                             "Nếu nguồn ghi rõ MCCB thì giữ category MCCB; chỉ dùng CB khi nguồn chỉ ghi CB. "
                             "Vôn kế và công tắc chọn điện áp là hai phần tử nếu có hai ký hiệu; không bỏ ký hiệu tròn phía dưới vôn kế. "
                             "Giữ metadata panels kích thước, đầu vào/đầu ra, tải và nguồn cấp đã đọc trong context. "
@@ -3328,6 +3348,21 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                         repair_image.save(repair_path, 'JPEG', quality=95)
                                         async def repair_panel(prompt):
                                             return await verify_page_inventory(prompt, image_path=repair_path)
+                                        if any('/ CT:' in diff for diff in count_mismatches(regional_devices, regional_payload)):
+                                            from app.services.ai.inventory_validation import recount_ct_symbols
+                                            regional_payload = await recount_ct_symbols(repair_panel, regional_payload)
+                                            regional_counts[:] = [c for c in regional_counts
+                                                if panel_key(c['panel_code']) != code] + regional_payload['counts']
+                                            count_payload.setdefault('ct_recounts', {})[code] = regional_payload.get('ct_recount')
+                                        if any(any(f'/ {kind}:' in diff for kind in ('METER', 'AMMETER', 'VOLTMETER', 'ENERGY_METER'))
+                                               for diff in count_mismatches(regional_devices, regional_payload)):
+                                            from app.services.ai.inventory_validation import recount_meter_symbols
+                                            regional_payload = await recount_meter_symbols(repair_panel, regional_payload)
+                                            regional_counts[:] = [c for c in regional_counts
+                                                if panel_key(c['panel_code']) != code] + regional_payload['counts']
+                                            count_payload.setdefault('meter_recounts', {})[code] = regional_payload.get('meter_recount')
+                                        if not count_mismatches(regional_devices, regional_payload):
+                                            continue
                                         verifier_response, repaired = await repair_counted_inventory(
                                             repair_panel, verifier_prompt + '\nẢnh là khung tủ ' + region['panel_code']
                                             + '. Chỉ trả thiết bị thuộc tủ này, không lấy bảng BOM hoặc tủ khác; tọa độ theo toàn bộ ảnh được gửi.',
@@ -3721,6 +3756,16 @@ Chỉ trả một JSON hợp lệ, không markdown:
             await asyncio.sleep(0)
 
         await emit_progress("normalize", 5, f"Đang chuẩn hóa {len(devices)} thiết bị đầu vào")
+
+        # Direct and queued quotation requests must retain the original takeoff
+        # requirements, including for a single panel and after a page reload.
+        if not user_prompt and db is not None and project is not None:
+            source_iteration = (await db.execute(select(AnalysisIteration)
+                .join(ConversationSession)
+                .where(ConversationSession.project_id == project.id)
+                .order_by(AnalysisIteration.created_at.desc(), AnalysisIteration.id.desc()))).scalars().first()
+            if source_iteration:
+                user_prompt = source_iteration.user_message
 
         quotation_configuration = None
         quotation_panel = None
