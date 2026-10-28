@@ -69,6 +69,7 @@ class ExtractedDeviceSchema(BaseModel):
     procurement_quantity: Optional[int] = None
     quantity_basis: Optional[str] = None
     quantity_confidence: Optional[float] = None
+    quantity_review: Optional[dict] = None
     brand: Optional[str] = None
     detected_brand: Optional[str] = None
     selection_source: Optional[str] = None

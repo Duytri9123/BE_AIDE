@@ -49,12 +49,14 @@ class FuseCountRepairTests(unittest.IsolatedAsyncioTestCase):
         fuse=ExtractedDeviceSchema(category='FUSE',name='Fuse',spec='3P',panel_code='TDT',quantity=3)
         self.assertTrue(count_mismatches([fuse],{'counts':[{'panel_code':'TDT','category':'FUSE','quantity':1}]}))
 
-    async def test_unconfirmed_quantity_still_rejects_result(self):
+    async def test_unconfirmed_quantity_keeps_result_and_marks_review(self):
         fuse=ExtractedDeviceSchema(category='FUSE',name='Fuse',spec='',panel_code='TDT',quantity=3)
         call=AsyncMock(return_value=json.dumps({'devices':[{'category':'FUSE','name':'Fuse','spec':'',
             'panel_code':'TDT','quantity':3,'quantity_basis':'Chưa đọc rõ'}]}))
-        with self.assertRaises(ValueError):
-            await repair_counted_inventory(call,'Read',[fuse],{'counts':[{'panel_code':'TDT','category':'FUSE','quantity':1}]},attempts=1)
+        _,rows=await repair_counted_inventory(call,'Read',[fuse],{'counts':[{'panel_code':'TDT','category':'FUSE','quantity':1}]},attempts=1)
+        self.assertEqual(rows[0].quantity,3)
+        self.assertEqual(rows[0].quantity_review['independent_group_count'],1)
+        self.assertEqual(rows[0].quantity_review['status'],'needs_review')
 
 
 if __name__ == '__main__':

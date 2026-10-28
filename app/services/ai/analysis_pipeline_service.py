@@ -2183,9 +2183,10 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             preserved_basis = device.quantity_basis
             device.drawing_quantity = drawn_qty
             has_quantity_evidence = bool(preserved_basis and preserved_quantity and preserved_quantity > 0)
-            device.quantity = int(preserved_quantity) if has_quantity_evidence else drawn_qty
+            needs_quantity_review = (getattr(device,'quantity_review',None) or {}).get('status') == 'needs_review'
+            device.quantity = int(preserved_quantity) if has_quantity_evidence else (device.quantity if needs_quantity_review else drawn_qty)
             device.procurement_quantity = device.quantity
-            device.quantity_basis = preserved_basis if has_quantity_evidence else "Theo số ký hiệu hoặc số lượng ghi trực tiếp trên sơ đồ."
+            device.quantity_basis = preserved_basis if has_quantity_evidence else ("Số vật tư đề xuất cần rà soát theo mạch; chưa xác nhận từ kiểm đếm ký hiệu." if needs_quantity_review else "Theo số ký hiệu hoặc số lượng ghi trực tiếp trên sơ đồ.")
             device.quantity_confidence = float(device.confidence or 0.0)
 
             searchable = " ".join(str(value or "") for value in (
@@ -2614,6 +2615,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 drawing_quantity=getattr(d,'drawing_quantity',None),
                 procurement_quantity=getattr(d,'procurement_quantity',None),
                 quantity_basis=getattr(d,'quantity_basis',None),
+                quantity_review=getattr(d,'quantity_review',None),
                 source_filename=filename,
                 source_type='dxf' if file_path.lower().endswith('.dxf') else 'dwg',
                 source_observations=getattr(d,'source_observations',None),
@@ -3209,7 +3211,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 await coro
                         except Exception as e:
                             logger.warning(f"progress_callback error: {e}")
-                    from app.services.ai.inventory_validation import extract_with_retry, FUSE_CIRCUIT_GUIDANCE, CT_CIRCUIT_GUIDANCE
+                    from app.services.ai.inventory_validation import extract_with_retry, FUSE_CIRCUIT_GUIDANCE, CT_CIRCUIT_GUIDANCE, QUANTITY_REASONING_GUIDANCE
                     async def extract_page_inventory(prompt):
                         if all_connections and db:
                             response, _ = await ConnectionPoolService.call_with_fallback(
@@ -3219,7 +3221,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                         return await VisionAnalyzerService.analyze_image(
                             image_path=temp_img_path, prompt=prompt, provider=active_ai.provider.lower(),
                             api_key=active_ai.api_key, model=active_ai.selected_model)
-                    ai_response, parsed_devs = await extract_with_retry(extract_page_inventory, vision_prompt)
+                    ai_response, parsed_devs = await extract_with_retry(extract_page_inventory, vision_prompt + '\n' + QUANTITY_REASONING_GUIDANCE)
 
                     # Verify spatial evidence independently. The extraction pass
                     # may identify a device correctly but borrow coordinates from
@@ -3257,7 +3259,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             "Mỗi lộ một dòng, giữ tag đọc được; CB chung dùng category CB, không tự đổi thành MCCB. "
                             "Trả devices là DANH SÁCH ĐẦY ĐỦ sau đối chiếu, giữ thông số và số lượng có căn cứ. "
                             "Tách drawing_quantity và procurement_quantity, nêu quantity_basis; không nhân Fuse theo số đèn. "
-                            + FUSE_CIRCUIT_GUIDANCE + CT_CIRCUIT_GUIDANCE +
+                            + FUSE_CIRCUIT_GUIDANCE + CT_CIRCUIT_GUIDANCE + QUANTITY_REASONING_GUIDANCE +
                             "Nếu nguồn ghi rõ MCCB thì giữ category MCCB; chỉ dùng CB khi nguồn chỉ ghi CB. "
                             "Vôn kế và công tắc chọn điện áp là hai phần tử nếu có hai ký hiệu; không bỏ ký hiệu tròn phía dưới vôn kế. "
                             "Giữ metadata panels kích thước, đầu vào/đầu ra, tải và nguồn cấp đã đọc trong context. "
@@ -3295,6 +3297,11 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             regional_counts = []
                             regional_panels = []
                             for region_index, region in enumerate(regions):
+                                if progress_callback:
+                                    from app.services.ai.progress_delivery import deliver
+                                    await deliver(progress_callback,{'type':'log','stage':'quantity_reasoning','status':'running',
+                                        'title':'Đang phân tích ký hiệu và số lượng · ' + region['panel_code'],
+                                        'detail':'Đọc nhãn, đường đấu và các lộ lặp; phân biệt số biểu diễn trên sơ đồ với số vật tư cần dùng.'})
                                 image_width, image_height = page_img.size
                                 x0, y0, x1, y1 = region['box_2d']
                                 panel_path = temp_img_path + f'.panel{region_index}.jpg'
@@ -3320,6 +3327,10 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                         if counted['quantity'] > 0 and panel_key(counted['panel_code']) != panel_key(region['panel_code']):
                                             raise ValueError('Kiểm đếm gán sai tủ: ' + str(counted['panel_code']))
                                     regional_counts.extend(panel_payload['counts'])
+                                    if progress_callback:
+                                        await deliver(progress_callback,{'type':'log','stage':'quantity_reasoning','status':'success',
+                                            'title':'Đã đọc cấu trúc sơ đồ · ' + region['panel_code'],
+                                            'detail':'Tiếp tục đối chiếu cách nhận diện thiết bị và giải thích số lượng theo mạch.'})
                                     for metadata in ResponseParserService.extract_panels_metadata(json.dumps(panel_payload, ensure_ascii=False)):
                                         if panel_key(metadata['panel_code']) == panel_key(region['panel_code']):
                                             regional_panels.append(metadata)
@@ -3340,6 +3351,11 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                         if panel_key(c['panel_code']) == code]}
                                     if not regional_payload['counts'] or not count_mismatches(regional_devices, regional_payload):
                                         continue
+                                    if progress_callback:
+                                        from app.services.ai.progress_delivery import deliver
+                                        await deliver(progress_callback,{'type':'log','stage':'quantity_reasoning','status':'running',
+                                            'title':'Đang làm rõ cách tính số lượng · ' + region['panel_code'],
+                                            'detail':'Hai cách đọc còn khác nhau; phân tích lại cụm thiết bị và đường đấu, giữ kết quả để rà soát nếu chưa đủ căn cứ.'})
                                     x0, y0, x1, y1 = region['box_2d']
                                     repair_path = temp_img_path + f'.repair{region_index}.jpg'
                                     try:
@@ -3382,12 +3398,14 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 # The repair is a complete inventory, rather than an append-only
                                 # merge that could preserve an invented module or duplicate CB.
                                 differences = count_mismatches(parsed_devs, count_payload)
-                                if differences:
-                                    raise ValueError("Danh mục chưa khớp kiểm đếm nguồn: " + "; ".join(differences))
+                            from app.services.ai.inventory_validation import annotate_quantity_review
+                            differences = annotate_quantity_review(parsed_devs,count_payload)
+                            if differences:
+                                warns.append('Cần rà soát cách biểu diễn và số lượng; vẫn giữ kết quả phân tích: ' + '; '.join(differences))
                             if progress_callback:
-                                event=progress_callback({'type':'log','stage':'pdf_inventory_verification','status':'success',
-                                    'title':'Đã đối chiếu danh mục và số lượng trên ảnh',
-                                    'detail':f'Trang {page_num}: danh mục khớp kiểm đếm độc lập; tiếp tục phân tích thông số và đối soát thiết bị.'})
+                                event=progress_callback({'type':'log','stage':'pdf_inventory_verification','status':'warning' if differences else 'success',
+                                    'title':'Đang giữ kết quả có phần số lượng cần rà soát' if differences else 'Đã đối chiếu ký hiệu và phân tích số vật tư theo mạch',
+                                    'detail':'; '.join(differences) if differences else f'Trang {page_num}: đã tách số biểu diễn trên nguồn và số lượng vật tư; tiếp tục phân tích thông số và đối soát thiết bị.'})
                                 if asyncio.iscoroutine(event): await event
                             warns.extend(ResponseParserService.extract_completeness_warnings(verifier_response))
                             payload = next(
@@ -3435,21 +3453,39 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             pending_tags = [str(device.tag or device.name) for device in parsed_devs if not device.box_2d]
                             for device in parsed_devs:
                                 device.evidence_region = {**(device.evidence_region or {}),
-                                    'inventory_checked': True,
+                                    'inventory_checked': not bool(differences),
                                     'verification_status': 'verified' if device.box_2d else 'needs_review'}
                             if pending_tags:
                                 warns.append(f'Trang {page_num}: chưa xác minh vị trí ký hiệu: ' + ', '.join(pending_tags))
                             if progress_callback:
                                 from app.services.ai.progress_delivery import deliver
                                 await deliver(progress_callback, {'type':'log','stage':'pdf_evidence_result',
-                                    'status':'success' if not pending_tags else 'warning',
+                                    'status':'success' if not pending_tags and not differences else 'warning',
                                     'title':f'Trang {page_num}: xác minh vị trí {verified_count}/{len(parsed_devs)} dòng thiết bị',
-                                    'detail':('Danh mục đã khớp kiểm đếm độc lập. Cần rà soát: ' + ', '.join(pending_tags))
-                                             if pending_tags else 'Danh mục khớp kiểm đếm và mỗi dòng có vùng ký hiệu đối chiếu.',
-                                    'data':{'inventory_checked':True,'verified_count':verified_count,'total':len(parsed_devs),'pending_tags':pending_tags}})
+                                    'detail': ('Số lượng còn cần phân tích: ' + '; '.join(differences) + '. ') if differences else
+                                              ('Cần rà soát vị trí: ' + ', '.join(pending_tags) if pending_tags else 'Các dòng có vùng ký hiệu đối chiếu.'),
+                                    'data':{'inventory_checked':not bool(differences),'verified_count':verified_count,'total':len(parsed_devs),'pending_tags':pending_tags}})
                         except Exception as verify_error:
                             logger.warning("Evidence verification failed on page %s: %s", page_num, verify_error)
-                            raise ValueError("Đối chiếu thiết bị với ảnh nguồn chưa đạt: " + str(verify_error)[:1400]) from verify_error
+                            # A readable takeoff remains usable when a second
+                            # interpretation is inconclusive. Surface the gap
+                            # without claiming verified positions or quantities.
+                            review_note='Chưa hoàn tất phân tích đối chiếu: ' + str(verify_error)[:1400]
+                            warns.append(review_note)
+                            for device in parsed_devs:
+                                device.box_2d=None
+                                device.quantity_review={**(getattr(device,'quantity_review',None) or {}),
+                                    'status':'needs_review','proposed_quantity':device.quantity,
+                                    'drawing_quantity':device.drawing_quantity,
+                                    'basis':device.quantity_basis or device.technical_analysis or '',
+                                    'verification_note':review_note}
+                                device.evidence_region={**(getattr(device,'evidence_region',None) or {}),
+                                    'inventory_checked':False,'verification_status':'needs_review'}
+                            if progress_callback:
+                                from app.services.ai.progress_delivery import deliver
+                                await deliver(progress_callback,{'type':'log','stage':'pdf_inventory_verification',
+                                    'status':'warning','title':'Đã giữ kết quả bóc tách để tiếp tục rà soát',
+                                    'detail':review_note})
                     # Keep all PDF-page warnings in the accumulator returned by this
                     # method.  Using an undefined `warnings` variable previously
                     # interrupted the AI pipeline after a successful model response.
@@ -3539,6 +3575,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 procurement_quantity=getattr(d,'procurement_quantity',None),
                                 quantity_basis=getattr(d,'quantity_basis',None),
                                 quantity_confidence=getattr(d,'quantity_confidence',None),
+                                quantity_review=getattr(d,'quantity_review',None),
                                 brand=d.brand or "",
                                 part_number=d.part_number or "",
                                 section=d.section,
@@ -3904,6 +3941,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     procurement_quantity=d.get("procurement_quantity"),
                     quantity_basis=d.get("quantity_basis"),
                     quantity_confidence=d.get("quantity_confidence"),
+                    quantity_review=d.get('quantity_review'),
                     brand=(
                         resolved_brand_pref
                         if explicit_brand_preference

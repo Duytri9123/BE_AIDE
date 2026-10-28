@@ -66,10 +66,11 @@ class CTCountRepairTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(count_mismatches([ct], self.counts(quantity=3)), [])
             self.assertEqual((ct.drawing_quantity, ct.quantity), (3, 3))
 
-    async def test_unresolved_ct_still_rejects_after_bounded_repair(self):
+    async def test_unresolved_ct_remains_visible_for_review_after_bounded_repair(self):
         call = AsyncMock(return_value=json.dumps({'devices': [self.ct().model_dump()]}))
-        with self.assertRaises(ValueError):
-            await repair_counted_inventory(call, 'Read', [self.ct()], self.counts(), attempts=1)
+        _,rows=await repair_counted_inventory(call, 'Read', [self.ct()], self.counts(), attempts=1)
+        self.assertEqual(rows[0].quantity,3)
+        self.assertEqual(rows[0].quantity_review['status'],'needs_review')
 
     async def test_independent_recount_corrects_inferred_three_without_borrowing_bom(self):
         old = self.counts(quantity=3)
