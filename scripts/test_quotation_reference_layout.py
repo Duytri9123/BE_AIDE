@@ -7,6 +7,21 @@ from app.services.export.quotation_exporter import QuotationExporterService
 
 
 class ReferenceLayoutTests(unittest.TestCase):
+    def test_equivalent_breaker_labels_merge_without_losing_source_tags(self):
+        from app.services.export.quotation_names import quotation_display_rows
+        def breaker(spec,quantity,tag,**extra):
+            return dict(row_type='item',commercial_display=True,category='MCCB',name='MCCB',
+                        spec=spec,quantity=quantity,source_tags=[tag],origin='CHINT',unit='Cái',**extra)
+        rows=[dict(id='AP2',row_type='panel_header',name='AP2'),
+              dict(row_type='section_header',name='Đầu ra'),
+              breaker('32A/3P',17,'Q1-Q17'),breaker('MCCB - 32A/3P',1,'Q18'),
+              breaker('32A/3P 25kA',1,'Q19'),breaker('32A/3P',1,'Q20',sku='OTHER')]
+        items=[r for r in quotation_display_rows(rows) if r['row_type']=='item']
+        self.assertEqual([r['quantity'] for r in items],[18,1,1])
+        self.assertEqual(items[0]['spec'],'32A3P')
+        self.assertEqual(items[0]['source_tags'],['Q1-Q17','Q18'])
+        self.assertEqual(rows[3]['spec'],'MCCB - 32A/3P')
+
     def test_saved_commercial_draft_has_three_sections_and_no_design_cable_line(self):
         from app.services.export.quotation_names import quotation_display_rows
         rows=[dict(id='P',row_type='panel_header',name='P'),

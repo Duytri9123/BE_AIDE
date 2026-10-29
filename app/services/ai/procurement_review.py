@@ -2,6 +2,7 @@
 from collections import defaultdict
 from app.services.cad.design_labels import effective_spec
 import unicodedata
+import re
 
 
 def quotation_section(device):
@@ -185,6 +186,20 @@ def compact_commercial_sections(rows):
     return result
 
 
+def commercial_breaker_spec(row):
+    """Normalize notation only; retain every rating and unrecognized qualifier."""
+    spec=str(row.get('spec') or '').strip()
+    category=str(row.get('category') or '').upper()
+    if category not in {'CB','MCCB','MCB','RCBO','RCCB','ACB'}:
+        return spec
+    # A source label may repeat the category already shown in the name column.
+    spec=re.sub(rf'^(?:{re.escape(category)}\b[\s:–—-]*)+', '', spec, flags=re.I)
+    spec=re.sub(r'\s+', '', spec).upper()
+    # 32A3P, 32A/3P and 32A-3P describe the same written rating.
+    spec=re.sub(r'(?<=A)[/–—-](?=\d+P\b)', '', spec)
+    return spec
+
+
 def merge_commercial_rows(rows):
     """Merge equal sale items only within the same panel and section."""
     from copy import deepcopy
@@ -195,6 +210,8 @@ def merge_commercial_rows(rows):
             seen={};result.append(row);continue
         if row.get('row_type')!='item' or row.get('commercial_package'):
             result.append(row);continue
+        if row.get('commercial_display'):
+            row['spec']=commercial_breaker_spec(row)
         key=tuple(row.get(field) for field in ('category','name','spec','sku','origin','unit','unit_price','price_row_id'))
         if key in seen:
             previous=seen[key]
