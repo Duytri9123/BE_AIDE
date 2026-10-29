@@ -13,16 +13,16 @@ def quotation_section(device):
     text = plain(section)
     if device.get('is_enclosure') or text in {'vo tu', 'vo tu + phu kien', 'vo tu & phu kien'}:
         return 'Vỏ tủ + phụ kiện'
-    if device.get('is_incomer') or any(term in text for term in ('dau vao', 'incomer', 'nguon tong')):
+    if device.get('is_incomer') or text in {'main','incoming','input','main circuit','incoming devices'} or any(term in text for term in ('dau vao', 'incomer', 'nguon tong')):
         return 'Đầu vào'
-    if any(term in text for term in ('dau ra', 'feeder', 'outgoing')):
+    if text in {'output','out','branch'} or any(term in text for term in ('dau ra', 'feeder', 'outgoing')):
         return 'Đầu ra'
     name = plain(device.get('name'))
     if not section and any(term in name for term in ('mccb tong', 'cb tong', 'aptomat tong')):
         return 'Đầu vào'
     if not section and any(term in name for term in ('nhanh', 'du phong', 'lo ra', 'feeder')):
         return 'Đầu ra'
-    if not section and str(device.get('category') or '').upper() in {'CT', 'LIGHT', 'INDICATOR', 'FUSE', 'METER', 'VOLTMETER', 'AMMETER', 'SELECTOR'}:
+    if str(device.get('category') or '').upper() in {'CT', 'LIGHT', 'INDICATOR', 'PILOTLIGHT', 'PILOT_LIGHT', 'FUSE', 'METER', 'VOLTMETER', 'AMMETER', 'SELECTOR'}:
         return 'Đầu vào'
     return section or 'Thiết bị cần phân nhóm'
 
@@ -91,7 +91,7 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                 quantity=1,unit_price=None,line_total=None,price_status='pending',notes=''))
         sections = defaultdict(list)
         for i, d in enumerate(members):
-            if str(d.get('category') or '').upper() in {'ENCLOSURE','DIN_RAIL','DUCT','WIRE','LUGS','FIXINGS','TERMINAL_BLOCK','PE_BAR','N_BAR'}:
+            if str(d.get('category') or '').upper() in {'ENCLOSURE','DIN_RAIL','DUCT','WIRE','CABLE','LUGS','FIXINGS','TERMINAL_BLOCK','PE_BAR','N_BAR'}:
                 continue  # These source parts remain in the design BOM and package scope.
             sections[quotation_section(d)].append((i, d))
         ordered_sections = sorted(sections, key=lambda s: (
@@ -154,6 +154,35 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                     inclusion_status='observed' if evidence else 'needs_confirmation',notes='',
                     design_notes=a.get('notes') or ('Chưa có bằng chứng phụ kiện; cần xác nhận trước khi mua.' if not evidence else '')))
     return merge_commercial_rows(result)
+
+
+def compact_commercial_sections(rows):
+    """Normalize generated quotation drafts, including already saved drafts."""
+    if not any(row.get('commercial_display') for row in rows) or not any(row.get('row_type')=='panel_header' for row in rows) or not any(row.get('row_type')=='section_header' for row in rows):
+        return rows
+    result=[];panel=None;groups={};headers={};active='Vỏ tủ + phụ kiện'
+    def flush():
+        if panel is None:return
+        result.append(panel)
+        order=[name for name in ('Vỏ tủ + phụ kiện','Đầu vào','Đầu ra') if name in groups]
+        order.extend(name for name in groups if name not in order)
+        for index,name in enumerate(order):
+            panel_id=panel.get('id') or panel.get('panel_code') or panel.get('name') or 'panel'
+            header={**headers.get(name,{}),'id':f"{panel_id}-commercial-section-{index}",'row_type':'section_header','name':name}
+            result.extend(merge_commercial_rows([header,*groups[name]]))
+    for row in rows:
+        kind=row.get('row_type')
+        if kind=='panel_header':
+            flush();panel=row;groups={};headers={};active='Vỏ tủ + phụ kiện'
+        elif kind=='section_header':
+            active=row.get('name') or ''
+            headers.setdefault(quotation_section({'section':active}),row)
+        else:
+            if row.get('commercial_display') and str(row.get('category') or '').upper() in {'ENCLOSURE','DIN_RAIL','DUCT','WIRE','CABLE','LUGS','FIXINGS','TERMINAL_BLOCK','PE_BAR','N_BAR'}:continue
+            section='Vỏ tủ + phụ kiện' if row.get('commercial_package') else quotation_section({**row,'section':active})
+            groups.setdefault(section,[]).append(row)
+    flush()
+    return result
 
 
 def merge_commercial_rows(rows):

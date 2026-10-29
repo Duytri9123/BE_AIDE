@@ -7,6 +7,21 @@ from app.services.export.quotation_exporter import QuotationExporterService
 
 
 class ReferenceLayoutTests(unittest.TestCase):
+    def test_saved_commercial_draft_has_three_sections_and_no_design_cable_line(self):
+        from app.services.export.quotation_names import quotation_display_rows
+        rows=[dict(id='P',row_type='panel_header',name='P'),
+            dict(row_type='section_header',name='Main'),
+            dict(id='main',row_type='item',commercial_display=True,category='MCCB',name='MCCB',quantity=1),
+            dict(row_type='section_header',name='Metering'),
+            dict(id='ct',row_type='item',commercial_display=True,category='CT',name='CT',quantity=3),
+            dict(id='cable',row_type='item',commercial_display=True,category='CABLE',name='Cáp nguồn',quantity=1),
+            dict(row_type='section_header',name='Outgoing'),
+            dict(id='branch',row_type='item',commercial_display=True,category='MCB',name='MCB',quantity=4)]
+        displayed=quotation_display_rows(rows)
+        self.assertEqual([r['name'] for r in displayed if r['row_type']=='section_header'],['Đầu vào','Đầu ra'])
+        self.assertEqual([r['id'] for r in displayed if r['row_type']=='item'],['main','ct','branch'])
+        self.assertEqual(rows[1]['name'],'Main')
+
     def test_explicit_branch_names_group_as_outgoing_without_guessing_current(self):
         self.assertEqual(quotation_section({'name':'MCCB nhánh WP1 đến WP4','in_a':630}), 'Đầu ra')
         self.assertEqual(quotation_section({'name':'MCCB dự phòng đáy'}), 'Đầu ra')

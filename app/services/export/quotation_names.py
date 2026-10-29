@@ -35,6 +35,8 @@ def quotation_name(item):
 
 def quotation_display_rows(rows):
     result = deepcopy(rows)
+    from app.services.ai.procurement_review import compact_commercial_sections
+    result = compact_commercial_sections(result)
     for row in result:
         if row.get('row_type') in ('item','accessory'):
             if row.get('commercial_display'):
