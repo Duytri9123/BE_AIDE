@@ -1834,6 +1834,8 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             clean_warnings = [w for w in warnings if not ("chưa khớp catalog" in w.lower() or "chua khop catalog" in w.lower())]
             from app.services.ai.system_completeness import technical_audit
             completeness_audit = technical_audit(extracted_devices, include_cad_references=False)
+            from app.services.ai.procurement_review import build_quotation_rows
+            quotation_draft = build_quotation_rows(extracted_devices,{},multi_panel_list,refresh_prices=False)
             # Review gaps are shown in technical_audit, not as repetitive BOM warnings.
             # Preserve the independent whole-document assessment. A BOM cannot
             # retroactively prove that the source circuit was assessed.
@@ -1842,7 +1844,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 "devices": extracted_devices,
                 "warnings": clean_warnings,
                 "enclosure_spec": None,
-                "quotation_rows": [],
+                "quotation_rows": quotation_draft,
                 "cad_file_path": None,
                 "quotation_file_path": None,
                 "tokens_consumed": tokens_consumed,
