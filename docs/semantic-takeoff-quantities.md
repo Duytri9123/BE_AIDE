@@ -25,3 +25,13 @@ review note. Matching counts alone do not certify recognition or fabrication.
 The workspace shows both quantities and their basis in device details. Completed
 results with pending interpretation use an amber review state. Progress events
 describe the panel currently being read or reasoned about.
+
+Each PDF panel also receives an independent identity/label read after counting.
+It reads each breaker branch separately and retains literal source labels in
+`source_observations`. Previous extracted ratings are not included in that
+prompt. Parallel outgoing lines can be isolated into row strips; a separate
+reading transcribes each strip, so a blank spare cannot inherit a neighboring
+rating. Missing row tags or incomplete strip reads remain reviewable. A
+separately counted component omitted from the new read is retained with a
+review flag rather than silently removed. Source labels and material reasoning
+remain separate from manufacturer/SKU selection.

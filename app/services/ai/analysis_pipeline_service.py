@@ -46,6 +46,7 @@ from app.services.bom.busbar_calculator import BusbarCalculatorService
 from app.services.ai.cluster_equipment_service import AccompanyingEquipmentService, CompatibleAlternativeService
 from app.core.device_patterns import DevicePatterns
 from app.core.config import settings
+from app.core.exceptions import AIVisionError,ResponseParsingError,ImageParsingError
 from app.core.constants import (
     PRICE_ROUNDING_STEP_VND,
     BUSBAR_REQUIRED_MIN_CURRENT_A,
@@ -3398,6 +3399,40 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 # The repair is a complete inventory, rather than an append-only
                                 # merge that could preserve an invented module or duplicate CB.
                                 differences = count_mismatches(parsed_devs, count_payload)
+                            # Equal totals do not validate identity or ratings.
+                            # Read each panel's labels after count repair, so a
+                            # repaired total cannot overwrite this source read.
+                            from app.services.ai.source_semantic_review import review_panel_inventory
+                            for region_index,region in enumerate(regions):
+                                if progress_callback:
+                                    from app.services.ai.progress_delivery import deliver
+                                    await deliver(progress_callback,{'type':'log','stage':'recognition_review','status':'running',
+                                        'title':'Đang đọc lại nhãn và từng lộ · '+region['panel_code'],
+                                        'detail':'Kiểm tra loại thiết bị, tỷ số CT, thông số từng lộ và phần dự phòng chưa ghi nhãn.'})
+                                label_path=temp_img_path+f'.labels{region_index}.jpg'
+                                x0,y0,x1,y1=region['box_2d']
+                                full=region.get('use_full_page')
+                                try:
+                                    label_image=page_img if full else page_img.crop((int(x0*image_width/1000),int(y0*image_height/1000),
+                                        int(x1*image_width/1000),int(y1*image_height/1000)))
+                                    label_image.save(label_path,'JPEG',quality=95)
+                                    async def read_panel_labels(prompt):
+                                        return await verify_page_inventory(prompt,image_path=label_path)
+                                    async def read_label_strip(image_path,prompt):
+                                        return await verify_page_inventory(prompt,image_path=image_path)
+                                    current=[d for d in parsed_devs if panel_key(d.panel_code)==panel_key(region['panel_code'])]
+                                    verifier_response,reviewed=await review_panel_inventory(read_panel_labels,current,region['panel_code'],
+                                        image=label_image,call_image=read_label_strip,
+                                        source_counts=[row for row in regional_counts if panel_key(row['panel_code'])==panel_key(region['panel_code'])])
+                                    for device in reviewed:
+                                        if device.box_2d and len(device.box_2d)==4 and not full:
+                                            a,b,c,e=device.box_2d
+                                            device.box_2d=[y0+a*(y1-y0)/1000,x0+b*(x1-x0)/1000,y0+c*(y1-y0)/1000,x0+e*(x1-x0)/1000]
+                                        device.evidence_region=getattr(device,'evidence_region',None) or {}
+                                    parsed_devs=[d for d in parsed_devs if panel_key(d.panel_code)!=panel_key(region['panel_code'])]+reviewed
+                                finally:
+                                    if os.path.exists(label_path):os.remove(label_path)
+                            audited_devices=parsed_devs
                             from app.services.ai.inventory_validation import annotate_quantity_review
                             differences = annotate_quantity_review(parsed_devs,count_payload)
                             if differences:
@@ -3446,7 +3481,13 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             from app.services.ai.source_image_evidence import verify_pdf_measurement_crops
                             async def verify_pdf_detail(image_path, prompt):
                                 return await verify_page_inventory(prompt, image_path=image_path)
-                            await verify_pdf_measurement_crops(page_img, verify_pdf_detail, parsed_devs, all_devices=True)
+                            async def show_evidence_progress(title,total):
+                                if progress_callback:
+                                    from app.services.ai.progress_delivery import deliver
+                                    await deliver(progress_callback,{'type':'log','stage':'evidence_review','status':'running',
+                                        'title':title,'detail':f'Đang kiểm tra vùng ảnh cho {total} dòng thiết bị; phần chưa rõ sẽ giữ trạng thái cần rà soát.'})
+                            await verify_pdf_measurement_crops(page_img, verify_pdf_detail, parsed_devs, all_devices=True,
+                                on_progress=show_evidence_progress)
                             from app.services.ai.evidence_geometry import tighten_evidence_geometry
                             tighten_evidence_geometry(page_img, parsed_devs)
                             verified_count = sum(bool(device.box_2d) for device in parsed_devs)
@@ -3465,7 +3506,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                     'detail': ('Số lượng còn cần phân tích: ' + '; '.join(differences) + '. ') if differences else
                                               ('Cần rà soát vị trí: ' + ', '.join(pending_tags) if pending_tags else 'Các dòng có vùng ký hiệu đối chiếu.'),
                                     'data':{'inventory_checked':not bool(differences),'verified_count':verified_count,'total':len(parsed_devs),'pending_tags':pending_tags}})
-                        except Exception as verify_error:
+                        except (ValueError,AIVisionError,ResponseParsingError,ImageParsingError) as verify_error:
                             logger.warning("Evidence verification failed on page %s: %s", page_num, verify_error)
                             # A readable takeoff remains usable when a second
                             # interpretation is inconclusive. Surface the gap
@@ -3576,6 +3617,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 quantity_basis=getattr(d,'quantity_basis',None),
                                 quantity_confidence=getattr(d,'quantity_confidence',None),
                                 quantity_review=getattr(d,'quantity_review',None),
+                                source_observations=getattr(d,'source_observations',None),
                                 brand=d.brand or "",
                                 part_number=d.part_number or "",
                                 section=d.section,

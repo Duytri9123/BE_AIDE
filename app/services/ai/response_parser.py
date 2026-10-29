@@ -62,6 +62,7 @@ class ExtractedDevice:
     quantity_basis: Optional[str] = None
     quantity_confidence: Optional[float] = None
     quantity_review: Optional[dict] = None
+    source_observations: Optional[dict] = None
 class ResponseParserService:
     @staticmethod
     def extract_completeness_warnings(ai_response: str) -> List[str]:
@@ -160,6 +161,7 @@ class ResponseParserService:
                         quantity_basis=str(item.get("quantity_basis") or '').strip() or None,
                         quantity_confidence=_safe_float(item.get("quantity_confidence")),
                         quantity_review=item.get('quantity_review') if isinstance(item.get('quantity_review'),dict) else None,
+                        source_observations=item.get('source_observations') if isinstance(item.get('source_observations'),dict) else None,
                         brand=str(item.get("brand") or ""),
                         part_number=str(item.get("part_number") or ""),
                         confidence=_safe_float(item.get("confidence"), settings.DEFAULT_CONFIDENCE) or settings.DEFAULT_CONFIDENCE,

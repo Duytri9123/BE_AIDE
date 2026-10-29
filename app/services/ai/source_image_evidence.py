@@ -157,16 +157,19 @@ async def refine_locations(image, call_image, devices, initial, *, batch_size=6)
     return {'boxes':output}
 
 
-async def verify_pdf_measurement_crops(image, call_image, devices, *, all_devices=False):
+async def verify_pdf_measurement_crops(image, call_image, devices, *, all_devices=False, on_progress=None):
     """Validate the dense measurement cluster from detail crops before export."""
     selected = [device for device in devices if all_devices or device.category in
                 {'VOLTMETER', 'AMMETER', 'METER', 'MULTIMETER', 'SELECTOR'}]
     if not selected:
         return []
+    if on_progress:await on_progress('Định vị ký hiệu và nhãn',len(selected))
     proposals = {'boxes': [{'device_id': str(index), 'box_2d': device.box_2d, **{key: (device.evidence_region or {}).get(key) for key in ('symbol_box_2d','text_box_2d','load_box_2d')}}
                            for index, device in enumerate(selected)]}
     refined = await refine_locations(image, call_image, selected, proposals)
+    if on_progress:await on_progress('Đối chiếu ảnh chi tiết thiết bị',len(selected))
     audited = await audit_crops(image, call_image, selected, refined)
+    if on_progress:await on_progress('Rà soát các vị trí chưa rõ',len(selected))
     audited = await retry_unverified_evidence(image, call_image, selected, audited)
     if all_devices:
         by_id={str(row.get('device_id')):row for row in audited.get('boxes',[])}
@@ -257,6 +260,11 @@ async def audit_crops(image, call_image, devices, payload):
                     reading=matches[0]
                     device=devices[int(request['device_id'])]
                     rows_by_id[request['device_id']]['audit_observed']=str(reading['observed'])
+                    from app.services.ai.source_semantic_review import preserve_transcribed_label
+                    protected=preserve_transcribed_label(device,reading)
+                    if protected is not None:
+                        if protected:rows_by_id[request['device_id']]['verified']=False
+                        continue
                     if reading.get('source_spec'):
                         device.spec=str(reading['source_spec'])
                     source_category=inventory_kind(reading.get('source_category'))
