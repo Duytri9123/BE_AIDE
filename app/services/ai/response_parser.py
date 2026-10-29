@@ -69,10 +69,29 @@ class ResponseParserService:
         """Return AI-reported devices/clusters needing user review."""
         warnings: List[str] = []
         raw_count = len(re.findall(r'"category"\s*:', ai_response or ''))
+        blocks=ResponseParserService.extract_json_blocks(ai_response)
+        def categories(value):
+            if isinstance(value,dict):
+                return int('category' in value)+sum(categories(v) for v in value.values())
+            if isinstance(value,list):return sum(categories(v) for v in value)
+            return 0
+        for block in blocks:
+            items=[]
+            if isinstance(block,list):items=block
+            elif isinstance(block,dict):
+                if isinstance(block.get('panels'),list):
+                    items=[item for panel in block['panels'] if isinstance(panel,dict)
+                           for item in (panel.get('devices') or panel.get('items') or [])]
+                elif isinstance(block.get('devices'),list):items=block['devices']
+                elif isinstance(block.get('items'),list):items=block['items']
+            # Nested accessories and engineering proposals are not missing
+            # top-level devices. Retain the raw-text check for truncated tails.
+            expected=sum(isinstance(item,dict) and 'category' in item for item in items)
+            raw_count-=max(0,categories(block)-expected)
         parsed_count = len(ResponseParserService.parse_device_list(ai_response))
         if raw_count > parsed_count:
             warnings.append(f"Phản hồi AI chưa đọc đủ: {parsed_count}/{raw_count} dòng có loại thiết bị. Cần kiểm tra định dạng hoặc phân tích lại; chưa chốt BOM.")
-        for block in ResponseParserService.extract_json_blocks(ai_response):
+        for block in blocks:
             if not isinstance(block, dict):
                 continue
             review = block.get("completeness_review")
