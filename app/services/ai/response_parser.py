@@ -184,7 +184,9 @@ class ResponseParserService:
                         connected_load=str(item.get("connected_load") or "").strip() or None,
                         accompanying_accessories=item.get("accompanying_accessories") if isinstance(item.get("accompanying_accessories"), list) else None,
                         inferred_components=(item.get("inferred_components") if isinstance(item.get("inferred_components"), list) else []) + [
-                            dict(acc, reason="Chưa có bằng chứng nguồn cho thành phần cụm")
+                            dict(acc, basis=acc.get('basis') or 'engineering_inference',
+                                 status='needs_confirmation',
+                                 reason=acc.get('reason') or acc.get('technical_reason') or "Chưa có bằng chứng nguồn cho thành phần cụm")
                             for acc in (item.get("accompanying_accessories") or [])
                             if isinstance(acc, dict) and not (acc.get("evidence") or acc.get("sld_evidence") or acc.get("source_reference"))
                         ],

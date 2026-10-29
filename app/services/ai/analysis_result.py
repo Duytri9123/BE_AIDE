@@ -31,6 +31,7 @@ def _build_analysis_result_schema(
         payload.setdefault("spec", "")
         payload.setdefault("quantity", 1)
         payload.setdefault("confidence", 0.95)
+        if payload.get('category')=='METER':payload['name']='Đồng hồ đa năng'
 
         # Deduplicate massive base64 panel_evidence_image to keep payload light
         p_img = payload.get("panel_evidence_image")

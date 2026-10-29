@@ -174,8 +174,7 @@ def _execute(task,kind,project_id,user_id,payload):
             raise ValueError('Tác vụ đã bị hủy.')
         async def execute():
             def progress(event):
-                if job_queue.cancelled(job_id):
-                    raise ValueError('Tác vụ đã bị hủy.')
+                job_queue.control_point(job_id)
                 job_queue.publish(job_id,event)
             try:
                 return await (run_analysis if kind=='analysis' else run_cad)(
@@ -186,7 +185,7 @@ def _execute(task,kind,project_id,user_id,payload):
         result=asyncio.run(execute())
         job_queue.publish(job_id,{'type':'complete','result':result,'progress':100},'SUCCESS',result)
         return result
-    except Exception as exc:
+    except (Exception, job_queue.JobCancelled) as exc:
         logger.exception('Background %s job failed',kind)
         # Let Celery serialize failures itself; malformed FAILURE metadata breaks AsyncResult.
         try:
@@ -195,6 +194,8 @@ def _execute(task,kind,project_id,user_id,payload):
                               'detail':str(exc),'message':str(exc)},status)
         except Exception:
             logger.warning('Unable to deliver terminal job event; API can recover Celery terminal state.')
+        if isinstance(exc,job_queue.JobCancelled):
+            raise RuntimeError(str(exc)) from None
         raise
     finally:
         try:

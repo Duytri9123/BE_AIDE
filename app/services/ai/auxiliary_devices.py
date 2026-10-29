@@ -31,7 +31,7 @@ def expand_devices(devices):
                 continue
             name = str(accessory.get('name') or '')
             key = _normal(name)
-            category = ('METER' if 'von' in key else 'LIGHT' if 'den bao' in key
+            category = ('VOLTMETER' if 'von' in key else 'LIGHT' if 'den bao' in key
                         else 'FUSE' if 'cau chi' in key else None)
             evidence = (accessory.get('evidence') or accessory.get('sld_evidence')
                         or accessory.get('source_reference'))
@@ -53,14 +53,14 @@ def expand_devices(devices):
                 category=category, name=name, spec=accessory.get('spec') or '',
                 quantity=qty, procurement_quantity=qty,
                 panel_code=device.get('panel_code'), panel_name=device.get('panel_name'),
-                tag={'METER': 'V', 'LIGHT': 'R-Y-B', 'FUSE': 'FU'}[category],
+                tag={'VOLTMETER': 'V', 'LIGHT': 'R-Y-B', 'FUSE': 'FU'}[category],
                 section='Đo lường & Giám sát', quantity_basis=str(evidence),
                 source_filename=device.get('source_filename'), source_page=device.get('source_page'),
                 accompanying_accessories=[],
                 notes='Thiết bị độc lập tách từ cụm phụ kiện; mã mua hàng cần đối chiếu.',
                 cad={'reference_candidates': [{k: r[k] for k in ('id', 'name', 'face', 'profile_path', 'status')}
                                               for r in refs], 'requires_selection': True}))
-            if category == 'METER' and 'chuyen mach' in _normal(evidence):
+            if category == 'VOLTMETER' and 'chuyen mach' in _normal(evidence):
                 if not any(r.get('category') == 'SELECTOR' and r.get('panel_code') == device.get('panel_code')
                            for r in rows + result + extras):
                     selector_refs = candidates('SELECTOR')

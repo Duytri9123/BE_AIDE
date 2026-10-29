@@ -4,6 +4,8 @@ from .endpoints import analyze, analyze_multi_agent, bom, export, chat, user_lib
 from .endpoints import articles
 
 api_router = APIRouter()
+from app.api.v1.endpoints import task_control
+api_router.include_router(task_control.router,prefix='/analyze',tags=['Analyze'])
 from .endpoints import cad_agent
 api_router.include_router(cad_agent.router, prefix='/cad-agent', tags=['CAD Agent'])
 from .endpoints import notifications

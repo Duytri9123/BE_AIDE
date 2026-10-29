@@ -1647,6 +1647,8 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             log_event(stage='takeoff_brand_request', title=f'Đã áp dụng yêu cầu {requested_brand} trong bóc tách',
                       detail=f'{requested_count} dòng thiết bị chính/phụ kiện đồng bộ hãng đã được đối chiếu {requested_brand}; giữ thông số và nhận diện nguồn riêng. Mã chưa đủ căn cứ vẫn cần xác minh.',
                       status='success')
+        from app.services.ai.takeoff_product_policy import apply_product_policy
+        apply_product_policy(extracted_devices)
         unavailable = [str(d.tag or d.name) for d in extracted_devices
                        if (d.web_research or {}).get('status') == 'search_unavailable']
         unavailable.extend(str(a.get('name') or 'Phụ kiện') for d in extracted_devices for a in (d.accompanying_accessories or [])
@@ -2273,8 +2275,8 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             device.box_2d = None
             device.evidence_image = None
             device.evidence_images = []
-            device.evidence_region = {key: value for key, value in (getattr(device, 'evidence_region', None) or {}).items()
-                                      if key not in ('load_box_2d', 'load_verified', 'load_label', 'relationship_evidence', 'branch_quad', 'branch_header_separate')}
+            device.evidence_region = {'status':'unverified',
+                'reason':'Đọc danh mục từ ảnh tủ; chưa xác minh được vùng ký hiệu và nhãn của riêng thiết bị.'}
             matches = by_id.get(str(index), [])
             if len(matches) != 1 or matches[0].get("verified") is not True:
                 continue
@@ -2309,6 +2311,8 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
 
             try:
                 device.box_2d = ExtractedDeviceSchema.normalize_evidence_box(box)
+                if not device.box_2d:continue
+                device.evidence_region.update(status='verified',reason='Đã đối chiếu ký hiệu và nhãn trên vùng ảnh nguồn.')
                 device.evidence_region.update(coordinate_space='normalized_1000', box_2d=list(device.box_2d))
                 for key in ('symbol_box_2d','text_box_2d','tag_box_2d'):
                     device.evidence_region[key] = ExtractedDeviceSchema.normalize_evidence_box(matches[0].get(key))

@@ -61,6 +61,34 @@ def cancelled(job_id):
                 or client.hget(PREFIX+job_id,'status') == 'CANCELLED')
 
 
+class JobCancelled(BaseException):
+    """Must propagate through optional progress callbacks that catch Exception."""
+
+
+def control_point(job_id):
+    """Pause between stages without discarding the running analysis or billing twice."""
+    paused=False
+    while True:
+        with sync_client() as client:
+            info=client.hgetall(PREFIX+job_id)
+            if info.get('cancel_requested')=='1' or info.get('status')=='CANCELLED':
+                raise JobCancelled('Tác vụ đã bị hủy.')
+            requested=info.get('pause_requested')=='1'
+            if requested:
+                client.expire(PREFIX+job_id,settings.ANALYSIS_JOB_TTL_SECONDS)
+                client.expire(PREFIX+f"project:{info['project_id']}",settings.ANALYSIS_JOB_TTL_SECONDS)
+                client.zadd(PREFIX+'slots',{job_id:time.time()+settings.ANALYSIS_JOB_TTL_SECONDS})
+        if not requested:
+            if paused:
+                publish(job_id,{'type':'log','stage':'control','title':'Tiếp tục xử lý từ bước đã dừng','status':'running'})
+            return
+        if not paused:
+            publish(job_id,{'type':'log','stage':'control','title':'Đã tạm dừng · Giữ tiến trình hiện tại','status':'paused',
+                            'progress':int(info.get('progress') or 0)},'PAUSED')
+            paused=True
+        time.sleep(0.5)
+
+
 async def enqueue(kind, project_id, user_id, payload):
     # Producers must not import the worker pipeline and its CAD/catalog engines.
     # Send the registered task name; only the worker loads those heavy services.
@@ -102,6 +130,10 @@ async def owned_job(job_id, user_id):
     if not info or info.get('user_id') != str(user_id):
         raise HTTPException(404,'Không tìm thấy tác vụ của bạn.')
     info = await refresh_terminal_job(job_id, info)
+    if info.get('pause_requested')=='1' and info.get('status') not in ('SUCCESS','FAILURE','CANCELLED','PAUSED'):
+        info={**info,'status':'PAUSING','message':'Chờ bước AI hiện tại hoàn tất để tạm dừng.'}
+    elif info.get('pause_requested')=='0' and info.get('status')=='PAUSED':
+        info={**info,'status':'RESUMING','message':'Đang tiếp tục tác vụ hiện tại.'}
     return info
 
 

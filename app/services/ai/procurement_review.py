@@ -124,7 +124,7 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
             short_name = {'MCCB':'MCCB','MCB':'MCB','CB':'CB','RCBO':'RCBO','RCCB':'RCCB',
                           'CT':'Biến dòng hạ thế','LIGHT':'Đèn báo pha (đỏ-vàng-xanh)',
                           'INDICATOR':'Đèn báo pha (đỏ-vàng-xanh)','FUSE':'Cầu chì điều khiển',
-                          'METER':'Đồng hồ đo lường','AMMETER':'Ampe kế','VOLTMETER':'Vôn kế'}.get(str(d.get('category') or '').upper(),d.get('name') or 'Thiết bị')
+                          'METER':'Đồng hồ đa năng','AMMETER':'Ampe kế','VOLTMETER':'Vôn kế'}.get(str(d.get('category') or '').upper(),d.get('name') or 'Thiết bị')
             if short_name in {'CB','MCCB','MCB','RCBO','RCCB'} and not selected_spec:
                 short_name += ' dự phòng'
             result.append(dict(id=identity,row_type='item',commercial_display=True,tt='+',name=short_name,category=d.get('category'),
