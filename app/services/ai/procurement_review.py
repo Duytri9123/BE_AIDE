@@ -91,6 +91,8 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                 quantity=1,unit_price=None,line_total=None,price_status='pending',notes=''))
         sections = defaultdict(list)
         for i, d in enumerate(members):
+            if str(d.get('category') or '').upper() in {'ENCLOSURE','DIN_RAIL','DUCT','WIRE','LUGS','FIXINGS','TERMINAL_BLOCK','PE_BAR','N_BAR'}:
+                continue  # These source parts remain in the design BOM and package scope.
             sections[quotation_section(d)].append((i, d))
         ordered_sections = sorted(sections, key=lambda s: (
             {'Vỏ tủ + phụ kiện': 0, 'Đầu vào': 1, 'Đầu ra': 2}.get(s, 3),

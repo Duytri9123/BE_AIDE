@@ -2206,7 +2206,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             # dedicated semantic handling below.
             explicit_qty_matches = [
                 int(value)
-                for value in re.findall(r"(?:\bx\s*(\d+)\b|\b(\d+)\s*[x×]\s*(?:cái|chiếc|bộ|pcs?|nos?\.?)(?:\b|$))", identity_text, re.I)
+                for value in re.findall(r"(?:\bx\s*(\d+)\b(?![.,/]\d)(?!\s*(?:mm|cm|m|a|ka|v|kv|w|kw|p|pha)\b)|\b(\d+)\s*[x×]\s*(?:cái|chiếc|bộ|pcs?|nos?\.?)(?:\b|$))", identity_text, re.I)
                 for value in value if value
             ]
             if explicit_qty_matches:

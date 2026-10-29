@@ -36,5 +36,13 @@ class CustomerWorkbookCosts(unittest.TestCase):
         self.assertIsNone(next(r for r in rows if r.get('package_code')=='ENCLOSURE')['unit_price'])
         self.assertTrue(all(r.get('unit_price') is None for r in apply_design_costs(rows,{'status':'needs_design'},'P') if r.get('commercial_package')))
 
+    def test_source_fabrication_parts_do_not_duplicate_commercial_packages(self):
+        devices=[dict(category='ENCLOSURE',name='Vỏ tủ',spec='700x500x250 X1.5mm',quantity=2,panel_code='P'),
+                 dict(category='DIN_RAIL',name='Rail DIN',quantity=4,panel_code='P')]
+        rows=build_quotation_rows(devices,{},refresh_prices=False)
+        self.assertEqual(len([r for r in rows if r.get('row_type')=='item']),4)
+        self.assertFalse(any(r.get('category') in {'ENCLOSURE','DIN_RAIL'} for r in rows))
+        self.assertEqual(devices[0]['quantity'],2)
+
 
 if __name__=='__main__':unittest.main()

@@ -48,4 +48,15 @@ class SemanticQuantityTests(unittest.IsolatedAsyncioTestCase):
         self.assertIs(rows[0],row)
         self.assertEqual(row.quantity_review['status'],'needs_review')
 
+    def test_thickness_is_not_an_explicit_material_multiplier(self):
+        from app.services.ai.analysis_pipeline_service import AnalysisPipelineService
+        for thickness in ('X1.5mm','X1,5mm','x 15 mm'):
+            row=Device(category='ENCLOSURE',name='Vỏ tủ',spec='700x500x250 '+thickness,
+                quantity=2,drawing_quantity=2,procurement_quantity=2,quantity_basis='Nhãn nguồn ghi 2 cái')
+            AnalysisPipelineService._infer_practical_quantities([row])
+            self.assertEqual(row.quantity,2)
+        row=Device(category='MCB',name='MCB x4',spec='1P 10A',quantity=1)
+        AnalysisPipelineService._infer_practical_quantities([row])
+        self.assertEqual(row.quantity,4)
+
 if __name__=='__main__':unittest.main()
