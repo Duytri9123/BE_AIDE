@@ -1,0 +1,120 @@
+[
+  {
+    "id": "TB-74854c116c868bc4",
+    "models": [
+      "MC-35",
+      "MC-40",
+      "MC-50",
+      "MC-63"
+    ],
+    "views": {
+      "MC-50": [
+        "LS-D02-C2-I04-VIEW-50A-FRONT-VIEW",
+        "LS-D02-C2-I04-VIEW-BACK-VIEW",
+        "LS-D02-C2-I04-VIEW-SIDE-VIEW"
+      ],
+      "MC-40": [
+        "LS-D02-C2-I04-VIEW-40A-FRONT-VIEW",
+        "LS-D02-C2-I04-VIEW-BACK-VIEW",
+        "LS-D02-C2-I04-VIEW-SIDE-VIEW"
+      ],
+      "MC-35": [
+        "D02_cluster2-V004",
+        "LS-D02-C2-I04-VIEW-BACK-VIEW",
+        "LS-D02-C2-I04-VIEW-SIDE-VIEW"
+      ],
+      "MC-63": [
+        "LS-D02-C2-I04-VIEW-63A-FRONT-VIEW",
+        "LS-D02-C2-I04-VIEW-BACK-VIEW",
+        "LS-D02-C2-I04-VIEW-SIDE-VIEW"
+      ]
+    }
+  },
+  {
+    "id": "TB-2a19dfb6388b96e1",
+    "models": [
+      "MC-12",
+      "MC-18",
+      "MC-25",
+      "MC-32",
+      "MC-9"
+    ],
+    "views": {
+      "MC-9": [
+        "D02_cluster2-V003",
+        "LS-D02-C2-I03-VIEW-BACK-VIEW",
+        "LS-D02-C2-I03-VIEW-SIDE-VIEW"
+      ],
+      "MC-18": [
+        "LS-D02-C2-I03-VIEW-18A-FRONT-VIEW",
+        "LS-D02-C2-I03-VIEW-BACK-VIEW",
+        "LS-D02-C2-I03-VIEW-SIDE-VIEW"
+      ],
+      "MC-12": [
+        "LS-D02-C2-I03-VIEW-12A-FRONT-VIEW",
+        "LS-D02-C2-I03-VIEW-BACK-VIEW",
+        "LS-D02-C2-I03-VIEW-SIDE-VIEW"
+      ],
+      "MC-32": [
+        "LS-D02-C2-I03-VIEW-32A-FRONT-VIEW",
+        "LS-D02-C2-I03-VIEW-BACK-VIEW",
+        "LS-D02-C2-I03-VIEW-SIDE-VIEW"
+      ],
+      "MC-25": [
+        "LS-D02-C2-I03-VIEW-25A-FRONT-VIEW",
+        "LS-D02-C2-I03-VIEW-BACK-VIEW",
+        "LS-D02-C2-I03-VIEW-SIDE-VIEW"
+      ]
+    }
+  },
+  {
+    "id": "TB-5ec2026af3f0e376",
+    "models": [
+      "MC-65",
+      "MC-75",
+      "MC-85",
+      "MC-95"
+    ],
+    "views": {
+      "MC-85": [
+        "LS-D02-C2-I05-VIEW-85A-FRONT-VIEW",
+        "LS-D02-C2-I05-VIEW-BACK-VIEW",
+        "LS-D02-C2-I05-VIEW-SIDE-VIEW"
+      ],
+      "MC-95": [
+        "D02_cluster2-V005",
+        "LS-D02-C2-I05-VIEW-BACK-VIEW",
+        "LS-D02-C2-I05-VIEW-SIDE-VIEW"
+      ],
+      "MC-65": [
+        "LS-D02-C2-I05-VIEW-65A-FRONT-VIEW",
+        "LS-D02-C2-I05-VIEW-BACK-VIEW",
+        "LS-D02-C2-I05-VIEW-SIDE-VIEW"
+      ],
+      "MC-75": [
+        "LS-D02-C2-I05-VIEW-75A-FRONT-VIEW",
+        "LS-D02-C2-I05-VIEW-BACK-VIEW",
+        "LS-D02-C2-I05-VIEW-SIDE-VIEW"
+      ]
+    }
+  },
+  {
+    "id": "TB-0dd61db11f752c07",
+    "models": [
+      "MC-12a",
+      "MC-9a"
+    ],
+    "views": {
+      "MC-9a": [
+        "D02_cluster2-V002",
+        "LS-D02-C2-I02-VIEW-BACK-VIEW",
+        "LS-D02-C2-I02-VIEW-SIDE-VIEW"
+      ],
+      "MC-12a": [
+        "LS-D02-C2-I02-VIEW-12A-FRONT-VIEW",
+        "LS-D02-C2-I02-VIEW-BACK-VIEW",
+        "LS-D02-C2-I02-VIEW-SIDE-VIEW"
+      ]
+    }
+  }
+]

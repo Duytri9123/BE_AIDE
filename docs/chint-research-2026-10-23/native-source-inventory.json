@@ -1,0 +1,568 @@
+{
+  "acquired_native_files": 35,
+  "acquired_bytes": 656973220,
+  "scope": "Acquisition is not publication. Only individually verified native geometry and exact price configurations are public. NXR-100 uses an installed-axis projection from the identical source STEP hash.",
+  "items": [
+    {
+      "model_source_name": "NM8N-AX21 AL21-MCCB-Drawing-M8.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/secondary-power-distribution/nm8n.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nm8n/drawing/NM8N-AX21%20AL21-MCCB-Drawing-M8.stp",
+      "folder": "NM8N-AX21-AL21-MCCB-Drawing-M8",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "3d3cfbd6d58f337288a78a500386e71ca4308d766f6453cc527e752dd1eddd4c",
+      "bytes": 2484119,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 6,
+      "reason": "Native six-view geometry acquired. Manufacturer functions and mounting table identified on NM8N catalog pages 49-52,71,86-87; installed face axes still need confirmation. UVT26 has no exact supplier price row in the current pricebook.",
+      "review_status": null,
+      "published_profiles": []
+    },
+    {
+      "model_source_name": "NM8N-MCCB-Drawing-125,1P.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/secondary-power-distribution/nm8n.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nm8n/drawing/NM8N-MCCB-Drawing-125,1P.stp",
+      "folder": "NM8N-MCCB-Drawing-125-1P",
+      "status": "published_six_views_verified",
+      "step_sha256": "66866348d73a9a977caaa39c61b487a2b4b459b2e8046fd3ee7bcbdae376d251",
+      "bytes": 5142891,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 0,
+      "review_status": "six_views_axes_and_dimensions_visually_verified",
+      "published_profiles": [
+        "Chint/ThietBi/OFFICIAL-NM8N-125-1P-125A/thong_tin_thiet_bi.json"
+      ]
+    },
+    {
+      "model_source_name": "NM8N-MCCB-Drawing-125,2P.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/secondary-power-distribution/nm8n.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nm8n/drawing/NM8N-MCCB-Drawing-125,2P.stp",
+      "folder": "NM8N-MCCB-Drawing-125-2P",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "d01cbdd0059e397e5de7ca83464ed510fddb099443336d6433ba05b81688c069",
+      "bytes": 8942926,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 0,
+      "review_status": "held_printed_current_conflict",
+      "published_profiles": [],
+      "reason": "Original side embossing reads 160A; source filename NM8N125 does not establish compatible 125A order code."
+    },
+    {
+      "model_source_name": "NM8N-MCCB-Drawing-125,4P,asm.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/secondary-power-distribution/nm8n.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nm8n/drawing/NM8N-MCCB-Drawing-125,4P,asm.stp",
+      "folder": "NM8N-MCCB-Drawing-125-4P-asm",
+      "status": "published_six_views_verified",
+      "step_sha256": "d873debec083d9f96935b21ed3e7bba3bbb17050e496e40d04a5769059c54b2f",
+      "bytes": 15984868,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 0,
+      "review_status": "reviewed_via_same_source_mixed_projection",
+      "published_profiles": [
+        "Chint/ThietBi/OFFICIAL-NM8N-125-4P-TM/thong_tin_thiet_bi.json"
+      ],
+      "reason": "Exact SIDE-L output is empty and polygonal FRONT envelope contains an isolated excess. Reviewed derivative uses exact BRep for five directions and complete same-source polygonal SIDE-L; all six opposed extents consistent."
+    },
+    {
+      "model_source_name": "NM8N-MCCB-Drawing-125-3P,asm.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/secondary-power-distribution/nm8n.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nm8n/drawing/NM8N-MCCB-Drawing-125-3P,asm.stp",
+      "folder": "NM8N-MCCB-Drawing-125-3P-asm",
+      "status": "published_six_views_verified",
+      "step_sha256": "58868a8d800378e9c308fc8b6923d0d4211f9473dc2d4e334cbe8af5c78b614e",
+      "bytes": 12176372,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 0,
+      "review_status": "six_views_axes_and_dimensions_visually_verified",
+      "published_profiles": [
+        "Chint/ThietBi/OFFICIAL-NM8N-125-3P-TM/thong_tin_thiet_bi.json"
+      ]
+    },
+    {
+      "model_source_name": "NM8N-MCCB-Drawing-1600,3P.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/secondary-power-distribution/nm8n.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nm8n/drawing/NM8N-MCCB-Drawing-1600,3P.stp",
+      "folder": "NM8N-MCCB-Drawing-1600-3P",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "3b83dd5329bf2c7de8afd674bc3fbc3e350fe64a4bf71a5694b5ba4c8c335af2",
+      "bytes": 19559229,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 0,
+      "review_status": null,
+      "published_profiles": []
+    },
+    {
+      "model_source_name": "NM8N-MCCB-Drawing-1600,4P.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/secondary-power-distribution/nm8n.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nm8n/drawing/NM8N-MCCB-Drawing-1600,4P.stp",
+      "folder": "NM8N-MCCB-Drawing-1600-4P",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "75b820bdd7ba34290a7c43189c1e24fbd8f2c240d20ab3ca5b4b4c93b4538f63",
+      "bytes": 21963243,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 0,
+      "review_status": null,
+      "published_profiles": []
+    },
+    {
+      "model_source_name": "NM8N-MCCB-Drawing-250 4P.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/secondary-power-distribution/nm8n.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nm8n/drawing/NM8N-MCCB-Drawing-250%204P.stp",
+      "folder": "NM8N-MCCB-Drawing-250-4P",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "4639d98c3e5c517410cd9f9f0ec0be3c17791f348990c7a6a082b6fd0783a8d7",
+      "bytes": 28073912,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 0,
+      "review_status": null,
+      "published_profiles": []
+    },
+    {
+      "model_source_name": "NM8N-MCCB-Drawing-250,1P.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/secondary-power-distribution/nm8n.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nm8n/drawing/NM8N-MCCB-Drawing-250,1P.stp",
+      "folder": "NM8N-MCCB-Drawing-250-1P",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "2bcb14feaeb90f57727787f4e93e1ae06c3af3eb5b4d10a39384e46fb124957b",
+      "bytes": 8125654,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 0,
+      "review_status": null,
+      "published_profiles": []
+    },
+    {
+      "model_source_name": "NM8N-MCCB-Drawing-250,2P.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/secondary-power-distribution/nm8n.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nm8n/drawing/NM8N-MCCB-Drawing-250,2P.stp",
+      "folder": "NM8N-MCCB-Drawing-250-2P",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "902b5b4926150272eef35432623767053cd80eb01b99c674131c8d501873a04a",
+      "bytes": 11595628,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 0,
+      "review_status": null,
+      "published_profiles": []
+    },
+    {
+      "model_source_name": "NM8N-MCCB-Drawing-250,3P.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/secondary-power-distribution/nm8n.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nm8n/drawing/NM8N-MCCB-Drawing-250,3P.stp",
+      "folder": "NM8N-MCCB-Drawing-250-3P",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "f98c0e4a7f0977985ae93514484008beb48831feaa28857fe56aac9ca58bbb9b",
+      "bytes": 24245074,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 0,
+      "review_status": null,
+      "published_profiles": []
+    },
+    {
+      "model_source_name": "NM8N-MCCB-Drawing-400,630,3P.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/secondary-power-distribution/nm8n.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nm8n/drawing/NM8N-MCCB-Drawing-400,630,3P.stp",
+      "folder": "NM8N-MCCB-Drawing-400-630-3P",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "06c6763926e0a2e1f1ca3fef103876b49e43a2febfa418f080a6a2eaf195ce2e",
+      "bytes": 12511285,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 0,
+      "review_status": null,
+      "published_profiles": []
+    },
+    {
+      "model_source_name": "NM8N-MCCB-Drawing-400,630,4P.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/secondary-power-distribution/nm8n.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nm8n/drawing/NM8N-MCCB-Drawing-400,630,4P.stp",
+      "folder": "NM8N-MCCB-Drawing-400-630-4P",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "ce2bf4d605dd1451b50c5c65d79e3a9545f9b6e80c05add737b4c64eac6bded8",
+      "bytes": 15640355,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 0,
+      "review_status": null,
+      "published_profiles": []
+    },
+    {
+      "model_source_name": "NM8N-MCCB-Drawing-800,3P.STP",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/secondary-power-distribution/nm8n.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nm8n/drawing/NM8N-MCCB-Drawing-800,3P.STP",
+      "folder": "NM8N-MCCB-Drawing-800-3P",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "81ecec2db4c9e42e2b501fb074d6525534e289e865b978fd64ae1108fc1a25d5",
+      "bytes": 13469618,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 0,
+      "review_status": null,
+      "published_profiles": []
+    },
+    {
+      "model_source_name": "NM8N-MCCB-Drawing-800,4P.STP",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/secondary-power-distribution/nm8n.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nm8n/drawing/NM8N-MCCB-Drawing-800,4P.STP",
+      "folder": "NM8N-MCCB-Drawing-800-4P",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "88c8edae39ffbdac324441d9f904a9b4b5915d4dbbb60a36adb4012f6d09d6c9",
+      "bytes": 16887307,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 0,
+      "review_status": null,
+      "published_profiles": []
+    },
+    {
+      "model_source_name": "NM8N-SHT21,UVT21-MCCB-Drawing-M8.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/secondary-power-distribution/nm8n.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nm8n/drawing/NM8N-SHT21,UVT21-MCCB-Drawing-M8.stp",
+      "folder": "NM8N-SHT21-UVT21-MCCB-Drawing-M8",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "cd2d07469e99277c4fa26575ef63e8ab62b65422f89d601e2706ac24347f4d9e",
+      "bytes": 3040839,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 6,
+      "reason": "Native six-view geometry acquired. Manufacturer functions and mounting table identified on NM8N catalog pages 49-52,71,86-87; installed face axes still need confirmation. UVT26 has no exact supplier price row in the current pricebook.",
+      "review_status": null,
+      "published_profiles": []
+    },
+    {
+      "model_source_name": "NM8N-SHT22 UVT22-MCCB-Drawing-M8.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/secondary-power-distribution/nm8n.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nm8n/drawing/NM8N-SHT22%20UVT22-MCCB-Drawing-M8.stp",
+      "folder": "NM8N-SHT22-UVT22-MCCB-Drawing-M8",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "62376e0680b5668d38d0d0e523c1a2ce9acad35f123fcd7256486a9893d4dda9",
+      "bytes": 4039497,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 6,
+      "reason": "Native six-view geometry acquired. Manufacturer functions and mounting table identified on NM8N catalog pages 49-52,71,86-87; installed face axes still need confirmation. UVT26 has no exact supplier price row in the current pricebook.",
+      "review_status": null,
+      "published_profiles": []
+    },
+    {
+      "model_source_name": "NM8N-UVT26-MCCB-Drawing-M8.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/secondary-power-distribution/nm8n.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nm8n/drawing/NM8N-UVT26-MCCB-Drawing-M8.stp",
+      "folder": "NM8N-UVT26-MCCB-Drawing-M8",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "5e5c61b5dcce8cc9f94693ab7d3fe030e09c8c27b34385adf23b0f4c47b65a81",
+      "bytes": 1960043,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 6,
+      "reason": "Native six-view geometry acquired. Manufacturer functions and mounting table identified on NM8N catalog pages 49-52,71,86-87; installed face axes still need confirmation. UVT26 has no exact supplier price row in the current pricebook.",
+      "review_status": null,
+      "published_profiles": []
+    },
+    {
+      "model_source_name": "NXC-06-16-AC Contactor-Drawing.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/nxc.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/ac-contactor/nxc/drawing/NXC-06-16-AC%20Contactor-Drawing.stp",
+      "folder": "NXC-06-16-AC-Contactor-Drawing",
+      "status": "published_six_views_verified",
+      "step_sha256": "fa713c20e335718ece7c0fbf64ee4eafaaab439ca50f84cc692d19221034e30d",
+      "bytes": 17381071,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 6,
+      "review_status": "six_views_axes_and_dimensions_visually_verified",
+      "published_profiles": [
+        "Chint/ThietBi/OFFICIAL-NXC-06-16-3P/thong_tin_thiet_bi.json"
+      ]
+    },
+    {
+      "model_source_name": "NXC-40-65-AC Contactor-Drawing.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/nxc.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/ac-contactor/nxc/drawing/NXC-40-65-AC%20Contactor-Drawing.stp",
+      "folder": "NXC-40-65-AC-Contactor-Drawing",
+      "status": "published_six_views_verified",
+      "step_sha256": "882fef56cc531f0f6d8b432f466e9c0192bb1345ffec3e7fad27c3b503ba128a",
+      "bytes": 2300348,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 6,
+      "restricted_to_printed_model": "NXC-40",
+      "review_status": "six_views_axes_and_dimensions_visually_verified",
+      "published_profiles": [
+        "Chint/ThietBi/OFFICIAL-NXC-40-3P/thong_tin_thiet_bi.json"
+      ]
+    },
+    {
+      "model_source_name": "NXC-185-AC Contactor-Drawing.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/nxc.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/ac-contactor/nxc/drawing/NXC-185-AC%20Contactor-Drawing.stp",
+      "folder": "NXC-185-AC-Contactor-Drawing",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "04db5a28384917086bc5b3840c21c202aeefd4a624b7e4acabc871ff678dae2b",
+      "bytes": 32377391,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 0,
+      "projection_error": {
+        "status": "held_not_published",
+        "error": "Standard_OutOfRange('NCollection_Array1::ChangeValue')",
+        "native_source_preserved": true
+      },
+      "review_status": null,
+      "published_profiles": [],
+      "projection_review": {
+        "status": "held_not_published",
+        "error": "Standard_OutOfRange('NCollection_Array1::ChangeValue')",
+        "native_source_preserved": true
+      }
+    },
+    {
+      "model_source_name": "NXC-75-100-AC Contactor-Drawing.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/nxc.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/ac-contactor/nxc/drawing/NXC-75-100-AC%20Contactor-Drawing.stp",
+      "folder": "NXC-75-100-AC-Contactor-Drawing",
+      "status": "published_six_views_verified",
+      "step_sha256": "88eaba56e3d9fed2e47b1a58195ec691adfe0286cc76f6b111f6946ae274ce73",
+      "bytes": 34054299,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 6,
+      "review_status": "six_views_axes_and_dimensions_visually_verified",
+      "published_profiles": [
+        "Chint/ThietBi/OFFICIAL-NXC-75-100-3P/thong_tin_thiet_bi.json"
+      ]
+    },
+    {
+      "model_source_name": "NC1-32Z-AC Contactor-Drawing.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/nxc.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/ac-contactor/nxc/drawing/NC1-32Z-AC%20Contactor-Drawing.stp",
+      "folder": "NC1-32Z-AC-Contactor-Drawing",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "7727f04373700a71185b89385040766b84579a4afef01a6d3cbca0e7cd7a2f0c",
+      "bytes": 896392,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 0,
+      "review_status": null,
+      "published_profiles": []
+    },
+    {
+      "model_source_name": "NXC-120-AC Contactor-Drawing.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/nxc.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/ac-contactor/nxc/drawing/NXC-120-AC%20Contactor-Drawing.stp",
+      "folder": "NXC-120-AC-Contactor-Drawing",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "af13cdc669e494d79343b715600078c1fe28ba1a51104144f20c17b5e7ed0d72",
+      "bytes": 32377170,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 0,
+      "projection_error": {
+        "status": "held_not_published",
+        "error": "Standard_OutOfRange('NCollection_Array1::ChangeValue')",
+        "native_source_preserved": true
+      },
+      "review_status": "held_inconsistent_projection_bounds",
+      "published_profiles": [],
+      "projection_review": {
+        "status": "held_not_published",
+        "error": "Standard_OutOfRange('NCollection_Array1::ChangeValue')",
+        "native_source_preserved": true,
+        "resolution": "Unresolved; preserve source and require a clean manufacturer model or justified projection correction. No fake/mirrored/reused replacement.",
+        "exact_projection_result": "inconsistent_opposed_envelope_and_side_spikes",
+        "front_height_mm": 179.6,
+        "side_height_mm": 234.35597366054543
+      }
+    },
+    {
+      "model_source_name": "NXC-265-400-AC Contactor-Drawing.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/nxc.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/ac-contactor/nxc/drawing/NXC-265-400-AC%20Contactor-Drawing.stp",
+      "folder": "NXC-265-400-AC-Contactor-Drawing",
+      "status": "published_six_views_verified",
+      "step_sha256": "c8f8033de1730df44540e2266b438c713f30f8623d604487d6d78f6b39200941",
+      "bytes": 53728331,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 6,
+      "restricted_to_printed_model": "NXC-400",
+      "review_status": "six_views_axes_and_dimensions_visually_verified",
+      "published_profiles": [
+        "Chint/ThietBi/OFFICIAL-NXC-400-3P/thong_tin_thiet_bi.json"
+      ]
+    },
+    {
+      "model_source_name": "NXC-25-38-AC Contactor-Drawing.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/nxc.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/ac-contactor/nxc/drawing/NXC-25-38-AC%20Contactor-Drawing.stp",
+      "folder": "NXC-25-38-AC-Contactor-Drawing",
+      "status": "published_six_views_verified",
+      "step_sha256": "5d840b1039899ed6d91b7ad0a9975cea2937e32d8e7ce55959cf7da4b6a88edf",
+      "bytes": 7877392,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 6,
+      "review_status": "six_views_axes_and_dimensions_visually_verified",
+      "published_profiles": [
+        "Chint/ThietBi/OFFICIAL-NXC-25-38-3P/thong_tin_thiet_bi.json"
+      ]
+    },
+    {
+      "model_source_name": "NXC-500-630-AC Contactor-Drawing.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/nxc.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/ac-contactor/nxc/drawing/NXC-500-630-AC%20Contactor-Drawing.stp",
+      "folder": "NXC-500-630-AC-Contactor-Drawing",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "0ecc445b91bdcbf9e58216654bd0731096c9b0a740234b455f02cd40b9ff65c5",
+      "bytes": 66497164,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 6,
+      "reason": "Full projected height 227.8 mm vs 248 mm catalog maximum; terminal/casing configuration requires reconciliation before price mapping.",
+      "review_status": null,
+      "published_profiles": []
+    },
+    {
+      "model_source_name": "NXC-18-22-AC Contactor-Drawing.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/nxc.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/ac-contactor/nxc/drawing/NXC-18-22-AC%20Contactor-Drawing.stp",
+      "folder": "NXC-18-22-AC-Contactor-Drawing",
+      "status": "published_six_views_verified",
+      "step_sha256": "263eed4eab4939dd7e21faa9358bf203afa67aef16be876363686ed8e45fe483",
+      "bytes": 17763912,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 6,
+      "review_status": "six_views_axes_and_dimensions_visually_verified",
+      "published_profiles": [
+        "Chint/ThietBi/OFFICIAL-NXC-18-22-3P/thong_tin_thiet_bi.json"
+      ]
+    },
+    {
+      "model_source_name": "NXC-225-AC Contactor-Drawing.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/nxc.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/ac-contactor/nxc/drawing/NXC-225-AC%20Contactor-Drawing.stp",
+      "folder": "NXC-225-AC-Contactor-Drawing",
+      "status": "published_six_views_verified",
+      "step_sha256": "207124f38031e95d67d81ca3fd3db1a7fc803d160b0f885ca0d029c7d15f609d",
+      "bytes": 41795128,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 6,
+      "review_status": "six_views_axes_and_dimensions_visually_verified",
+      "published_profiles": [
+        "Chint/ThietBi/OFFICIAL-NXC-225-3P/thong_tin_thiet_bi.json"
+      ]
+    },
+    {
+      "model_source_name": "NXC-160-AC Contactor-Drawing.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/nxc.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/ac-contactor/nxc/drawing/NXC-160-AC%20Contactor-Drawing.stp",
+      "folder": "NXC-160-AC-Contactor-Drawing",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "52281ac2497075ab096e997dda48f1cc4ec90913e3063118d4acbba30118cf2d",
+      "bytes": 39000685,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 0,
+      "projection_error": {
+        "status": "held_not_published",
+        "error": "Standard_OutOfRange('NCollection_Array1::ChangeValue')",
+        "native_source_preserved": true
+      },
+      "review_status": null,
+      "published_profiles": [],
+      "projection_review": {
+        "status": "held_not_published",
+        "error": "Standard_OutOfRange('NCollection_Array1::ChangeValue')",
+        "native_source_preserved": true
+      }
+    },
+    {
+      "model_source_name": "NXR-12-Thermal Over-load Relay-Drawing.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/nxr.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/thermal-over-load-relay/nxr/drawing/NXR-12-Thermal%20Over-load%20Relay-Drawing.stp",
+      "folder": "NXR-12-Thermal-Over-load-Relay-Drawing",
+      "status": "published_six_views_verified",
+      "step_sha256": "15876bdac3e0103debb36456ae06b49cdc912b01c7fb78ba95b7fdcf36abf9be",
+      "bytes": 7527437,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 6,
+      "review_status": "six_views_axes_and_dimensions_visually_verified",
+      "published_profiles": [
+        "Chint/ThietBi/OFFICIAL-NXR-12-3P/thong_tin_thiet_bi.json"
+      ]
+    },
+    {
+      "model_source_name": "NXR-200-Thermal Over-load Relay-Drawing.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/nxr.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/thermal-over-load-relay/nxr/drawing/NXR-200-Thermal%20Over-load%20Relay-Drawing.stp",
+      "folder": "NXR-200-Thermal-Over-load-Relay-Drawing",
+      "status": "held_or_pending_not_published",
+      "step_sha256": "faa204435db61c0d82a07cff29dea5fac7d77aff68f0e00f81acbabf0902d5a4",
+      "bytes": 11451611,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 6,
+      "review_status": "native_six_views_pending_axis_and_dimension_review",
+      "published_profiles": []
+    },
+    {
+      "model_source_name": "NXR-100-Thermal Over-load Relay-Drawing.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/nxr.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/thermal-over-load-relay/nxr/drawing/NXR-100-Thermal%20Over-load%20Relay-Drawing.stp",
+      "folder": "NXR-100-Thermal-Over-load-Relay-Drawing",
+      "status": "published_six_views_verified",
+      "step_sha256": "923e51318655814d7ce93c525ef2c95316ffc52a49743385721250373e2cd2ed",
+      "bytes": 12187486,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 6,
+      "review_status": "native_six_views_pending_axis_and_dimension_review",
+      "published_profiles": [
+        "Chint/ThietBi/OFFICIAL-NXR-100-3P/thong_tin_thiet_bi.json"
+      ]
+    },
+    {
+      "model_source_name": "NXR-38-Thermal Over-load Relay-Drawing.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/nxr.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/thermal-over-load-relay/nxr/drawing/NXR-38-Thermal%20Over-load%20Relay-Drawing.stp",
+      "folder": "NXR-38-Thermal-Over-load-Relay-Drawing",
+      "status": "published_six_views_verified",
+      "step_sha256": "a0ef9d7214f73fd17fa419841ed2b778c81d6b363adf263c49743e8e042cf4c1",
+      "bytes": 38702271,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 6,
+      "review_status": "six_views_axes_and_dimensions_visually_verified",
+      "published_profiles": [
+        "Chint/ThietBi/OFFICIAL-NXR-38-3P/thong_tin_thiet_bi.json"
+      ]
+    },
+    {
+      "model_source_name": "NXR-630-Thermal Over-load Relay-Drawing.stp",
+      "source_page": "https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/nxr.html",
+      "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/industrial-control/thermal-over-load-relay/nxr/drawing/NXR-630-Thermal%20Over-load%20Relay-Drawing.stp",
+      "folder": "NXR-630-Thermal-Over-load-Relay-Drawing",
+      "status": "published_six_views_verified",
+      "step_sha256": "296d354b7e405e9480dba29d331505451754a84b8c7616a00fe46c76df642c81",
+      "bytes": 15212272,
+      "checked_at": "2026-10-23",
+      "source_files_present": true,
+      "projection_count": 6,
+      "review_status": "six_views_axes_and_dimensions_visually_verified",
+      "published_profiles": [
+        "Chint/ThietBi/OFFICIAL-NXR-630-125-400A-3P/thong_tin_thiet_bi.json"
+      ]
+    }
+  ]
+}

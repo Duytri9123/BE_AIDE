@@ -27,6 +27,8 @@ def aux_contacts_compatible(device,row):
 
 def device_poles(device):
     spec=device.get('spec') or {}
+    # GMP -2P/-3P denotes CT/protection configuration, not main power poles.
+    if canonical_brand(device.get('brand'))=='LS Electric' and re.match(r'^GMP(?:22|40)(?:-|\b)',str(device.get('product_code') or ''),re.I) and not any(spec.get(k) for k in ('so_cuc','so_cuc_chinh','so_cuc_theo_nhan_hinh','Số cực')):return None
     text=str(spec.get('so_cuc') or spec.get('so_cuc_chinh') or spec.get('so_cuc_theo_nhan_hinh') or spec.get('Số cực') or device.get('display') or '').strip().upper()
     text=re.sub(r'(?<![A-Z0-9])([1-4])PN(?![A-Z0-9])',r'\1P+N',text)
     if re.fullmatch(r'[1-9]\d?',text):return text+'P'

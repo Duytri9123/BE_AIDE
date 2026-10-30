@@ -7,7 +7,7 @@ from app.services.library_reference_prices import priced_references,reference_ro
 class LibraryReferencePricesTests(unittest.TestCase):
     def row(self,**changes):
         return {'id':'price-25','sku':'NDK-25VA IEC','item_name':'NDK-25VA IEC','brand':'CHINT',
-                'category':'TRANSFORMER','price':541200,'currency':'VND','checked_at':'2026-10-16',
+                'category':'TRANSFORMER','price':541200,'vat_status':'excluded','currency':'VND','checked_at':'2026-10-16',
                 'source_url':'https://example.invalid/book.pdf','source_kind':'supplier_pricebook',
                 'specifications':{'Công suất':'25VA'},**changes}
 

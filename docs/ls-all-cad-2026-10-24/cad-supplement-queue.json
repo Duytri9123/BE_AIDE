@@ -1,0 +1,4022 @@
+{
+  "summary": {
+    "total": 517,
+    "linked": 373,
+    "missing": 144,
+    "six_views": 348,
+    "partial": 25,
+    "public_profiles": 242,
+    "public_faces": 1128,
+    "method": "Exact public row-detail API linkage including poles, coil, contacts, selected model and same CAD variant"
+  },
+  "items": [
+    {
+      "id": "ls-pdf:99b7455b91a80ee1",
+      "sku": "ABN202c",
+      "category": "MCCB",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-8dad1c013a3a2c21",
+          "variant_id": "TB-8dad1c013a3a2c21:bf45c96375a8",
+          "faces": 3,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front"
+          ],
+          "missing_faces": [
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt sau",
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required."
+    },
+    {
+      "id": "ls-pdf:29d5fc53ec581446",
+      "sku": "ABS202c",
+      "category": "MCCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:d01c1776a5165d5b",
+      "sku": "BS32c (không vỏ)",
+      "category": "MCCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:44d8fe90568fa589",
+      "sku": "BS32c w/c (có vỏ)",
+      "category": "MCCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:48afaf56e331dfd4",
+      "sku": "ABS1003b",
+      "category": "MCCB",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-d118216ad9c7523b",
+          "variant_id": "TB-d118216ad9c7523b:a0468a2739ef",
+          "faces": 2,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front"
+          ],
+          "missing_faces": [
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt sau",
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required."
+    },
+    {
+      "id": "ls-pdf:144aa6881632fb26",
+      "sku": "ABS1004b",
+      "category": "MCCB",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-8387139303296949",
+          "variant_id": "TB-8387139303296949:6212b29c8fd9",
+          "faces": 2,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front"
+          ],
+          "missing_faces": [
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt sau",
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required."
+    },
+    {
+      "id": "ls-pdf:1bcf32aa7b8b9fd1",
+      "sku": "32GRc",
+      "category": "ELCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:b178239a449b9e85",
+      "sku": "32GRhS",
+      "category": "ELCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:5bb21a693ed894fa",
+      "sku": "32KGRd",
+      "category": "ELCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:f6266a1fd9335ba4",
+      "sku": "EBS52Fb",
+      "category": "ELCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:ea4fbebec9936e27",
+      "sku": "EBE102Fb",
+      "category": "ELCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:0b45e06a828670af",
+      "sku": "EBN52c",
+      "category": "ELCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:8bde23b928ee4e51",
+      "sku": "EBN102c",
+      "category": "ELCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:44c89842a4f6a8d5",
+      "sku": "ABS103c FMU",
+      "category": "MCCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:5ce5ce7b888649f4",
+      "sku": "ABS203c FMU",
+      "category": "MCCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:74f7a7ef5d30a0d4",
+      "sku": "ABS104c FMU",
+      "category": "MCCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:8e79e00d5b8af20e",
+      "sku": "ABS204c FMU",
+      "category": "MCCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:76ee621779561088",
+      "sku": "SHT for ABN100c~ABH250c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:201eaa0fd290bbde",
+      "sku": "SHT for ABN403c~803c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:6cf8a7ef393e86c2",
+      "sku": "SHT for ABS1003b~1204b",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:fc8b21f3ffde3042",
+      "sku": "SHT for TS1000~1600",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:99c228b8de8a6e42",
+      "sku": "UVT for ABN100c~ABH250c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:a5869d759b9c540c",
+      "sku": "UVT for ABN403c~803c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:b989f29f38df2d77",
+      "sku": "UVT for ABS1003b~1204b",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:11de35ea817d8138",
+      "sku": "UVT for TS1000~1600",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:4ed2aba53c6e8bb1",
+      "sku": "AX for ABN100c~ABH250c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:afe6bf6647a5121d",
+      "sku": "AX for ABN403c~803c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:ad3c95d294b32bb3",
+      "sku": "AX for ABS1003b~1204b",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:71018fb7ad300c23",
+      "sku": "AX for TS1000~1600",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:598aa27f9edab385",
+      "sku": "AL for ABN100c~ABH250c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:ea60a2516a1b655f",
+      "sku": "AL for ABN403c~803c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:9d2188fa8f6349f5",
+      "sku": "AL for ABS1003b~1204b",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:34b43dd191e80492",
+      "sku": "AL for TS1000~1600",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:93f67fee47562a1f",
+      "sku": "AL/AX for ABN100c~ABH250c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:d777e9ac732f7231",
+      "sku": "IB-13 for ABN52~103c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:3bf40ad00718c016",
+      "sku": "IB-23 for ABS103c~ABN/S203c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:754b1ffa32748bca",
+      "sku": "B-43B for ABN/S403c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:7798860487d0e77d",
+      "sku": "Barrier insulation for ABS803c/TS630",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:195a28a577ea2ce8",
+      "sku": "Barrier insulation for ABS1200b",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:41ad2886d7bd7f9c",
+      "sku": "E-70U for ABN403c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:21e948f4fa8569d2",
+      "sku": "E-80U for ABN803c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:1124673532e5effa",
+      "sku": "MOP M1 for ABN52c~104c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:09e1dad734fb602a",
+      "sku": "MOP M2 for ABS/H103c~104c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:5e0fba9d4bdb85e0",
+      "sku": "MOP M3 for ABN/S/H202c~204c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:3f33981b0443e6c4",
+      "sku": "MOP M4 for ABN/S/H402c~404c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:f6dc51e2fae2173e",
+      "sku": "MOP M5 for ABN/S/H802c~804c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:2fabc2104d46f02c",
+      "sku": "MOP M6 for ABS1003b~1204b",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:d6172dbc09bd4c58",
+      "sku": "MI-13S for ABN53~103c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:fd7a86e863a7e8d8",
+      "sku": "MI-23S for ABS103c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:e4bec862a611ad52",
+      "sku": "MI-33S for ABN/S203c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:dc88e58e8bdd2752",
+      "sku": "MI-43S for ABN/S403c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:1194851c887165c2",
+      "sku": "MI-83S for ABN/S803c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:20e56f10ff7c893f",
+      "sku": "Busbar for ABN/S803c",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:b71ead47a49ef55e",
+      "sku": "LA63N 1P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:86c208fe6606a589",
+      "sku": "LA63N 1P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:f0953695f51467cf",
+      "sku": "LA63N 2P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:f0b9208c2b2b3190",
+      "sku": "LA63N 2P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:51aa18fabdc62fe9",
+      "sku": "LA63N 3P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:7309e168ea16b1cf",
+      "sku": "LA63N 3P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:28082763898ce650",
+      "sku": "LA63N 4P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:ff5e014f69861098",
+      "sku": "LA63N 4P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:524cf1975d029b45",
+      "sku": "LA63H 1P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:c5f823a3e00a4d01",
+      "sku": "LA63H 1P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:ee8254e7fe0338ad",
+      "sku": "LA63H 2P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:1990e6067880558d",
+      "sku": "LA63H 2P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:90516515aa82d06f",
+      "sku": "LA63H 3P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:b073e50900ddfade",
+      "sku": "LA63H 3P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:01a0ec0698cbbb00",
+      "sku": "LA63H 4P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:b386a255f661f6fe",
+      "sku": "LA63H 4P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:ef68ed3a9dade048",
+      "sku": "LA63L 1P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:feb38d428af0ed79",
+      "sku": "LA63L 1P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:31f17dbe71a5262a",
+      "sku": "LA63L 2P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:92d0b8703e16b3d8",
+      "sku": "LA63L 2P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:d3c30c51af818930",
+      "sku": "LA63L 3P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:b6eb489f8796f861",
+      "sku": "LA63L 3P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:993009d0bede31a4",
+      "sku": "LA63L 4P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:39c73efe8cfb3f9f",
+      "sku": "LA63L 4P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:bd520b621cd2e7b2",
+      "sku": "LA125H 1P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:0391e2c943fe1c91",
+      "sku": "LA125H 1P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:1101626318537e27",
+      "sku": "LA125H 2P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:028a843cff26f871",
+      "sku": "LA125H 2P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:a8df43c773c9241a",
+      "sku": "LA125H 3P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:d825a5feafd59404",
+      "sku": "LA125H 3P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:25ada2b1905b5f4e",
+      "sku": "LA125H 4P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:af91fd842f03ccbd",
+      "sku": "LA125H 4P",
+      "category": "MCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:889a0ea75afa9006",
+      "sku": "Auxiliary switch: AX for LA/LC",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:a78da9545045aabe",
+      "sku": "Alarm switch: AL for LA/LC",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:1ac2cc5afe7c08e0",
+      "sku": "Shunt for LA/LC",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:03b57deb104dcf8e",
+      "sku": "Auxiliary switch: AX for LB",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:0859bda8c37eb110",
+      "sku": "Alarm switch: AL for LB",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:90feeeb869245040",
+      "sku": "Shunt for LB",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:2993a832b35e88c3",
+      "sku": "LB63N 1P+N",
+      "category": "RCBO",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:fea3a3b720de6942",
+      "sku": "LB63N 1P+N",
+      "category": "RCBO",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:00f3f34bd7659a25",
+      "sku": "BK05S-T3 2P",
+      "category": "SPD",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-e07fa8f47a5f1bd2",
+          "variant_id": "TB-e07fa8f47a5f1bd2:cbc45ead7dce",
+          "faces": 2,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front"
+          ],
+          "missing_faces": [
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt sau",
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required."
+    },
+    {
+      "id": "ls-pdf:08de100d37bafab8",
+      "sku": "BK05S-T3 4P",
+      "category": "SPD",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-a506398ce311dd72",
+          "variant_id": "TB-a506398ce311dd72:01168ea051bb",
+          "faces": 2,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front"
+          ],
+          "missing_faces": [
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt sau",
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required."
+    },
+    {
+      "id": "ls-pdf:ee9b7ebc07256040",
+      "sku": "BK10S-T2 2P",
+      "category": "SPD",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:6460b8b039b2d0aa",
+      "sku": "BK10S-T2 3P",
+      "category": "SPD",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:cab76daf1b665581",
+      "sku": "BK10S-T2 4P",
+      "category": "SPD",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:7d1ad615f402b0d7",
+      "sku": "BK20S-T2 2P",
+      "category": "SPD",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:a1877ee773e4e16a",
+      "sku": "BK20S-T2 3P",
+      "category": "SPD",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:0ab5d496eedb869f",
+      "sku": "BK20S-T2 4P",
+      "category": "SPD",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:19a795aa8fce56a1",
+      "sku": "BK30S-T2 2P",
+      "category": "SPD",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:cce42d2f1f708cf6",
+      "sku": "BK30S-T2 3P",
+      "category": "SPD",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:10fa12784d1ecb75",
+      "sku": "BK30S-T2 4P",
+      "category": "SPD",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:97fa58e5a852a7f5",
+      "sku": "BK40S-T2 1P",
+      "category": "SPD",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:bb25514047b99e92",
+      "sku": "BK40S-T2 2P",
+      "category": "SPD",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:e5a385424f71d5ed",
+      "sku": "BK40S-T2 3P",
+      "category": "SPD",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:67d273f37946cc15",
+      "sku": "BK40S-T2 4P",
+      "category": "SPD",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:996cd016ef4e5d93",
+      "sku": "MR-6 (3NO+3NC)",
+      "category": "CONTACTOR",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-158fd68e200b95fb",
+          "variant_id": "TB-158fd68e200b95fb:2f9212272754",
+          "faces": 3,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front",
+            "rear"
+          ],
+          "missing_faces": [
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required."
+    },
+    {
+      "id": "ls-pdf:4d5574b5cf1974b2",
+      "sku": "MR-8 (4NO+4NC)",
+      "category": "CONTACTOR",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-606919a695534f6e",
+          "variant_id": "TB-606919a695534f6e:c880b0201510",
+          "faces": 3,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front",
+            "rear"
+          ],
+          "missing_faces": [
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required."
+    },
+    {
+      "id": "ls-pdf:dc6ad500599fc54c",
+      "sku": "MR-6 (3NO+3NC)",
+      "category": "CONTACTOR",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-e5ea19b9b5f68ea6",
+          "variant_id": "TB-e5ea19b9b5f68ea6:95755a3f396f",
+          "faces": 3,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front",
+            "rear"
+          ],
+          "missing_faces": [
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required."
+    },
+    {
+      "id": "ls-pdf:e10cb606f46de136",
+      "sku": "MR-8 (4NO+4NC)",
+      "category": "CONTACTOR",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-e7c5aa87213c88e6",
+          "variant_id": "TB-e7c5aa87213c88e6:9fbbb2dae0ff",
+          "faces": 3,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front",
+            "rear"
+          ],
+          "missing_faces": [
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required."
+    },
+    {
+      "id": "ls-pdf:006947a216f3cd18",
+      "sku": "AR-600",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:51d44bb9ddf662de",
+      "sku": "GMP22-2P (1a1b)",
+      "category": "RELAY",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-1c7655a2928ba799",
+          "variant_id": "TB-1c7655a2928ba799:449e602c4a07",
+          "faces": 2,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front"
+          ],
+          "missing_faces": [
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt sau",
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required. See gmp-price-links-20261025.json for independently reviewed 1a1b model links; missing views remain unresolved and source sets must not be merged."
+    },
+    {
+      "id": "ls-pdf:d795532b8284e5e1",
+      "sku": "GMP22-3P (1a1b)",
+      "category": "RELAY",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-5323b78122e5a3bd",
+          "variant_id": "TB-5323b78122e5a3bd:5016025269fd",
+          "faces": 3,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front",
+            "rear"
+          ],
+          "missing_faces": [
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        },
+        {
+          "catalog_id": "TB-1c7655a2928ba799",
+          "variant_id": "TB-1c7655a2928ba799:449e602c4a07",
+          "faces": 2,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front"
+          ],
+          "missing_faces": [
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt sau",
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required. See gmp-price-links-20261025.json for independently reviewed 1a1b model links; missing views remain unresolved and source sets must not be merged."
+    },
+    {
+      "id": "ls-pdf:5088dc419ac73b5e",
+      "sku": "GMP40-2P (1a1b)",
+      "category": "RELAY",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-c7e9306af1d2d527",
+          "variant_id": "TB-c7e9306af1d2d527:5611e3e4d11e",
+          "faces": 3,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front",
+            "rear"
+          ],
+          "missing_faces": [
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        },
+        {
+          "catalog_id": "TB-fff7ea80fc8601f5",
+          "variant_id": "TB-fff7ea80fc8601f5:5be89d72febb",
+          "faces": 2,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front"
+          ],
+          "missing_faces": [
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt sau",
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required. See gmp-price-links-20261025.json for independently reviewed 1a1b model links; missing views remain unresolved and source sets must not be merged."
+    },
+    {
+      "id": "ls-pdf:c9b3f22027de96c8",
+      "sku": "GMP40-3P (1a1b)",
+      "category": "RELAY",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-c7e9306af1d2d527",
+          "variant_id": "TB-c7e9306af1d2d527:5611e3e4d11e",
+          "faces": 3,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front",
+            "rear"
+          ],
+          "missing_faces": [
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        },
+        {
+          "catalog_id": "TB-fff7ea80fc8601f5",
+          "variant_id": "TB-fff7ea80fc8601f5:5be89d72febb",
+          "faces": 2,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front"
+          ],
+          "missing_faces": [
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt sau",
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required. See gmp-price-links-20261025.json for independently reviewed 1a1b model links; missing views remain unresolved and source sets must not be merged."
+    },
+    {
+      "id": "ls-pdf:8a90b90f0927d237",
+      "sku": "Coil for MC-630a, 800a",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:e4bde3252c0d172e",
+      "sku": "AC-9",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:63e0a191a92deb5b",
+      "sku": "AC-50",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:d1f1756b88ca0d06",
+      "sku": "AC-75",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:1a5efa6e24be39b8",
+      "sku": "MW-9bB~22bB",
+      "category": "CONTACTOR",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:54fe5b4f104363ed",
+      "sku": "Bộ bảo vệ thấp áp",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:8c6ff18c126e7a7d",
+      "sku": "(UVT+UDC)",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:21c8d4f6a39acd6a",
+      "sku": "SHT for ACB",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:8449e1daf1a992c6",
+      "sku": "Closing coil for ACB",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:da49e95072f11538",
+      "sku": "Khóa liên động (Mechanical Interlock)",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:30fcc00bdb416a8c",
+      "sku": "Khóa liên động (Mechanical Interlock)",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:0ade3b13b010596a",
+      "sku": "IB for ACB 630A~6300A",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:ba85094753dab2db",
+      "sku": "Mô tơ nạp",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:e9801cdc112ca046",
+      "sku": "Shunt release: SHT for TD/TS100->800",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:9f8edf49d823f126",
+      "sku": "Undervoltage release: UVT for TD/TS100->800",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:2b64178f6c005cc7",
+      "sku": "Auxiliary switch: AX for TD/TS100->800",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:f56fdea7ede72133",
+      "sku": "Alarm switch: AL for TD/TS100->800",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:82337fa843d73e97",
+      "sku": "Fault alarm switch: FAL for TD/TS100->800",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:a09f022f5087601f",
+      "sku": "Auxiliary switch: AX for TS1000~1600",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:1399dbc931b78bd9",
+      "sku": "Alarm switch: AL for TS1000~1600",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:02d9350d21a4097b",
+      "sku": "DH1 for TD100, 160",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:7805052cd6a58e29",
+      "sku": "DH2 for TS250",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:11b0d50bca664ced",
+      "sku": "DH3 for TS400, 630",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:f298e48cdf396618",
+      "sku": "DH4 for TS800",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:9a502ee6555946b9",
+      "sku": "DH5-S TS1000~1600",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:f6e948f5adc43550",
+      "sku": "Spreader SP33a for TS400-TS630",
+      "category": "MCCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:f6e84377ee0f67ed",
+      "sku": "Spreader SP43 for TS800",
+      "category": "MCCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:f892d16e49004143",
+      "sku": "Busbar for 3P TS1000/1250/1600N",
+      "category": "MCCB",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-0c8e2670d0feaf67",
+          "variant_id": "TB-0c8e2670d0feaf67:e3d6d68a62cb",
+          "faces": 3,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "bottom",
+            "front"
+          ],
+          "missing_faces": [
+            "rear",
+            "left",
+            "right",
+            "top"
+          ],
+          "missing_labels": [
+            "Mặt sau",
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "rear",
+        "left",
+        "right",
+        "top"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required."
+    },
+    {
+      "id": "ls-pdf:9f6c655c4461e981",
+      "sku": "MOP1 for TD100, 160",
+      "category": "MCCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:209db0dd48c8506a",
+      "sku": "MOP2 for TS100, 160, 250",
+      "category": "MCCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:c83b8126dcf3d0fd",
+      "sku": "MOP3 for TS400, 630",
+      "category": "MCCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:14dca72f61398808",
+      "sku": "MOP4 for TS800",
+      "category": "MCCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:2fd63c543900c416",
+      "sku": "EH1 for TD100, 160",
+      "category": "MCCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:3db9199b4643a970",
+      "sku": "EH2 for TS250",
+      "category": "MCCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:75526a99e4057135",
+      "sku": "EH3 for TS400, 630",
+      "category": "MCCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:08f283b71f1ddd8e",
+      "sku": "EH4 for TS800",
+      "category": "MCCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:5c17aa6c01de83f7",
+      "sku": "EH5-S TS1000~1600",
+      "category": "MCCB",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:fd287f918146bcce",
+      "sku": "Any Trip Alarm Switch: LA 1NO+1NC",
+      "category": "ACCESSORY",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:3c7aa893adfba58e",
+      "sku": "MC-6a (VDC)",
+      "category": "CONTACTOR",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:df21c46af5b7d0bd",
+      "sku": "MC-9a (VDC)",
+      "category": "CONTACTOR",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-0dd61db11f752c07",
+          "variant_id": "TB-0dd61db11f752c07:fd1e824a897f",
+          "faces": 3,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front",
+            "rear"
+          ],
+          "missing_faces": [
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required."
+    },
+    {
+      "id": "ls-pdf:c536e5c4bc5f64a2",
+      "sku": "MC-12a (VDC)",
+      "category": "CONTACTOR",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-0dd61db11f752c07",
+          "variant_id": "TB-0dd61db11f752c07:fd1e824a897f",
+          "faces": 3,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front",
+            "rear"
+          ],
+          "missing_faces": [
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required."
+    },
+    {
+      "id": "ls-pdf:8fe71643ebe05a10",
+      "sku": "MC-50a (VDC)",
+      "category": "CONTACTOR",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-41e6a04f2e4737a3",
+          "variant_id": "TB-41e6a04f2e4737a3:cf2f1fb176e5",
+          "faces": 2,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front"
+          ],
+          "missing_faces": [
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt sau",
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required."
+    },
+    {
+      "id": "ls-pdf:9cb35bf427aa51d2",
+      "sku": "MC-65a (VDC)",
+      "category": "CONTACTOR",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-41e6a04f2e4737a3",
+          "variant_id": "TB-41e6a04f2e4737a3:cf2f1fb176e5",
+          "faces": 2,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front"
+          ],
+          "missing_faces": [
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt sau",
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required."
+    },
+    {
+      "id": "ls-pdf:06e4a0c8981d80f4",
+      "sku": "MC-75a (VDC)",
+      "category": "CONTACTOR",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-e115f9daddc88565",
+          "variant_id": "TB-e115f9daddc88565:97de10f85e3f",
+          "faces": 2,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front"
+          ],
+          "missing_faces": [
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt sau",
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required."
+    },
+    {
+      "id": "ls-pdf:4ab21fdb0ec598df",
+      "sku": "MC-85a (VDC)",
+      "category": "CONTACTOR",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-e115f9daddc88565",
+          "variant_id": "TB-e115f9daddc88565:97de10f85e3f",
+          "faces": 2,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front"
+          ],
+          "missing_faces": [
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt sau",
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required."
+    },
+    {
+      "id": "ls-pdf:28b48437fae9ff4f",
+      "sku": "MC-100a (VDC)",
+      "category": "CONTACTOR",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-e115f9daddc88565",
+          "variant_id": "TB-e115f9daddc88565:97de10f85e3f",
+          "faces": 2,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front"
+          ],
+          "missing_faces": [
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt sau",
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required."
+    },
+    {
+      "id": "ls-pdf:c462450cfe7e8b47",
+      "sku": "MC-150a (VDC)",
+      "category": "CONTACTOR",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:e709a3ce852b0043",
+      "sku": "GIMAC-115P NO,RS,M,5A,50Hz,AC/DC110V",
+      "category": "METER",
+      "linked": false,
+      "six_views": false,
+      "cad_families": [],
+      "status": "missing_verified_pricebook_cad",
+      "missing_faces": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "No reviewed CAD source establishes this model and configuration."
+    },
+    {
+      "id": "ls-pdf:1037d7285b4aee70",
+      "sku": "GMP22-2P (1a1b)",
+      "category": "RELAY",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-1c7655a2928ba799",
+          "variant_id": "TB-1c7655a2928ba799:449e602c4a07",
+          "faces": 2,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front"
+          ],
+          "missing_faces": [
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt sau",
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required. See gmp-price-links-20261025.json for independently reviewed 1a1b model links; missing views remain unresolved and source sets must not be merged."
+    },
+    {
+      "id": "ls-pdf:9c8a4d45443988b2",
+      "sku": "GMP22-3P (1a1b)",
+      "category": "RELAY",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-5323b78122e5a3bd",
+          "variant_id": "TB-5323b78122e5a3bd:5016025269fd",
+          "faces": 3,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front",
+            "rear"
+          ],
+          "missing_faces": [
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        },
+        {
+          "catalog_id": "TB-1c7655a2928ba799",
+          "variant_id": "TB-1c7655a2928ba799:449e602c4a07",
+          "faces": 2,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front"
+          ],
+          "missing_faces": [
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt sau",
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required. See gmp-price-links-20261025.json for independently reviewed 1a1b model links; missing views remain unresolved and source sets must not be merged."
+    },
+    {
+      "id": "ls-pdf:d10ec65c0393eb59",
+      "sku": "GMP40-2P (1a1b)",
+      "category": "RELAY",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-c7e9306af1d2d527",
+          "variant_id": "TB-c7e9306af1d2d527:5611e3e4d11e",
+          "faces": 3,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front",
+            "rear"
+          ],
+          "missing_faces": [
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        },
+        {
+          "catalog_id": "TB-fff7ea80fc8601f5",
+          "variant_id": "TB-fff7ea80fc8601f5:5be89d72febb",
+          "faces": 2,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front"
+          ],
+          "missing_faces": [
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt sau",
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required. See gmp-price-links-20261025.json for independently reviewed 1a1b model links; missing views remain unresolved and source sets must not be merged."
+    },
+    {
+      "id": "ls-pdf:111ce25712b64b36",
+      "sku": "GMP40-3P (1a1b)",
+      "category": "RELAY",
+      "linked": true,
+      "six_views": false,
+      "cad_families": [
+        {
+          "catalog_id": "TB-c7e9306af1d2d527",
+          "variant_id": "TB-c7e9306af1d2d527:5611e3e4d11e",
+          "faces": 3,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front",
+            "rear"
+          ],
+          "missing_faces": [
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        },
+        {
+          "catalog_id": "TB-fff7ea80fc8601f5",
+          "variant_id": "TB-fff7ea80fc8601f5:5be89d72febb",
+          "faces": 2,
+          "status": "needs_cad_supplement",
+          "required_faces": [
+            "front",
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "available_faces": [
+            "front"
+          ],
+          "missing_faces": [
+            "rear",
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "missing_labels": [
+            "Mặt sau",
+            "Mặt bên trái",
+            "Mặt bên phải",
+            "Mặt trên",
+            "Mặt dưới"
+          ],
+          "complete": false
+        }
+      ],
+      "status": "missing_faces",
+      "missing_faces": [
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "gap_reason": "Source-backed CAD is partial; six orthographic views of one configuration are still required. See gmp-price-links-20261025.json for independently reviewed 1a1b model links; missing views remain unresolved and source sets must not be merged."
+    }
+  ]
+}

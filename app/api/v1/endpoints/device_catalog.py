@@ -9,6 +9,17 @@ from app.services.pricebook_library_links import load_links, load_price_options
 
 router = APIRouter()
 
+@router.get('/rows/{price_row_id}/detail')
+async def row_detail(price_row_id:str,current_user=Depends(get_current_active_user)):
+    def read():
+        from app.services.library_catalog_information import source_rows
+        from app.services.catalogtb_browser import browser_data
+        from app.services.price_row_cad_detail import price_row_detail
+        result=price_row_detail(price_row_id,source_rows(),browser_data()['items'])
+        if result is None:raise HTTPException(404,'Không tìm thấy dòng giá.')
+        return result
+    return await run_in_threadpool(read)
+
 @router.get('')
 async def catalog(q: str='', brand: str='', category: str='', product_line: str='', equipment_catalog_id: str='', price_row_id: str='', skip: int=Query(0,ge=0),
                   limit: int=Query(30,ge=1,le=100), current_user=Depends(get_current_active_user)):
@@ -39,7 +50,7 @@ async def catalog(q: str='', brand: str='', category: str='', product_line: str=
 
 @router.get('/documents/{document_id}')
 async def source_pricebook(document_id:str,current_user=Depends(get_current_admin_user)):
-    if document_id not in {'ls-2026-10-01','chint-2026'}:raise HTTPException(404,'Không tìm thấy tài liệu.')
+    if document_id not in {'ls-2026-10-01','chint-2026','chint-dika-2026-06'}:raise HTTPException(404,'Không tìm thấy tài liệu.')
     path=Path(__file__).resolve().parents[4]/'storage/catalog-pricebooks'/f'{document_id}.pdf'
     if not path.is_file():raise HTTPException(404,'Chưa có tài liệu nguồn trên máy chủ này.')
     return FileResponse(path,media_type='application/pdf',filename=f'Bang-gia-{document_id}.pdf')

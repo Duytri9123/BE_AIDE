@@ -1,0 +1,40 @@
+[
+  {
+    "profile": "LS/ThietBi/OFFICIAL-GIMAC1000-EX-M485/thong_tin_thiet_bi.json",
+    "models": [
+      "GIMAC-1000 EX,M485,5A,50Hz,AC/DC100~240V"
+    ],
+    "price_ids": [
+      "ls-pdf:66b778922b3d3c74"
+    ],
+    "faces": 6,
+    "source": {
+      "document_id": 421281,
+      "file": {
+        "rownum": 1,
+        "df_name": "GIMAC1000_2D CAD_KR_Feb_2020.dwg",
+        "df_id": 55455,
+        "df_path": "/ko/cat/HPDT/GIMAC1000_2D CAD_KR_Feb_2020.dwg",
+        "df_size": 3658,
+        "df_order": 1,
+        "df_download_count": 857,
+        "df_regdate": "2026/07/03 10:00:13"
+      },
+      "source_url": "https://www.ls-electric.com/ko/cat/HPDT/GIMAC1000_2D%20CAD_KR_Feb_2020.dwg",
+      "source_page": "https://www.ls-electric.com/ko/download/",
+      "sha256": "5dcbda4e7284bb09ad9e0ea267c3c332b9938346a757f996bca28d0af38a04c5",
+      "checked_at": "2026-10-20",
+      "source_dxf_sha256": "70df576bd36d5afbc3fa5c2931c1800f2878e07b45e7397392b7f9786887205a",
+      "configuration_catalog_url": "https://www.ls-electric.com/ko/cat/HOMEPAGE/SUMMARY/%EC%A0%84%EB%A0%A5%EA%B8%B0%EA%B8%B0%20%EC%A0%9C%ED%92%88%EC%B4%9D%EB%9E%8C/C.%20%EA%B3%84%EC%A0%84%20%C2%B7%20%EA%B3%84%EC%B8%A1%20%C2%B7%20%EA%B3%84%EB%9F%89%EA%B8%B0%EA%B8%B0/C2.%20%EB%94%94%EC%A7%80%ED%84%B8%20%EB%B3%B4%ED%98%B8%EA%B3%84%EC%B8%A1%EA%B8%B0%20(Measurement)/C2-5.%20%EB%94%94%EC%A7%80%ED%84%B8%20%EC%A0%84%EB%A0%A5%20%EA%B3%84%EC%B8%A1%EC%9E%A5%EC%B9%98%20(GIMAC1000)/C2-5.%20%EB%94%94%EC%A7%80%ED%84%B8%20%EC%A0%84%EB%A0%A5%20%EA%B3%84%EC%B8%A1%EC%9E%A5%EC%B9%98%20(GIMAC1000).pdf",
+      "configuration_catalog_sha256": "668a0f483db6448b1724d846182a902762b18fae87ed5e0256b14f584cefd99f",
+      "configuration_catalog_pages": [
+        4,
+        5,
+        14
+      ],
+      "configuration_evidence": "Manufacturer page 14 separates function NO/EX from NOCOMM/M485/ETH and gives one NOCOMM/M485 outline; page 5 supports 5A,50Hz,AC/DC100-240V. EX/M485 uses upper M485 native outline, not Ethernet.",
+      "unit_evidence": "Original DWG/DXF INSUNITS=4; front 110 x 110 mm; catalog p14 M485 body depth 84.6 mm plus front projections.",
+      "projection_method": "Original six native upper NOCOMM/M485 projections; manufacturer common mechanical outline, not confirmation of electrical performance from CAD."
+    }
+  }
+]

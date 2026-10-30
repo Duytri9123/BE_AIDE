@@ -1,0 +1,78 @@
+{
+  "summary": {
+    "total_price_rows": 517,
+    "linked_price_rows": 372,
+    "missing_price_rows": 145,
+    "six_view_price_rows": 347,
+    "incomplete_view_price_rows": 25,
+    "visible_ls_profiles": 241,
+    "visible_ls_views": 1122,
+    "validation_errors": [],
+    "categories": {
+      "ACB": {
+        "total": 100,
+        "linked": 100
+      },
+      "ACCESSORY": {
+        "total": 88,
+        "linked": 20
+      },
+      "AUX_CONTACT": {
+        "total": 4,
+        "linked": 4
+      },
+      "CONTACTOR": {
+        "total": 69,
+        "linked": 66
+      },
+      "ELCB": {
+        "total": 17,
+        "linked": 10
+      },
+      "MCB": {
+        "total": 32,
+        "linked": 0
+      },
+      "MCCB": {
+        "total": 127,
+        "linked": 109
+      },
+      "METER": {
+        "total": 3,
+        "linked": 1
+      },
+      "MOTOR_PROTECTION": {
+        "total": 18,
+        "linked": 18
+      },
+      "RCBO": {
+        "total": 8,
+        "linked": 6
+      },
+      "RCCB": {
+        "total": 10,
+        "linked": 10
+      },
+      "RELAY": {
+        "total": 17,
+        "linked": 17
+      },
+      "SPD": {
+        "total": 15,
+        "linked": 2
+      },
+      "THERMAL_RELAY": {
+        "total": 9,
+        "linked": 9
+      }
+    },
+    "note": "A family CAD link does not prove exact SKU, terminal, coil or electrical compatibility. Missing verified CAD remains explicitly uncovered."
+  },
+  "focus_notes": [
+    "MCCB category includes 12 accessory price rows; do not describe all 22 previously pending rows as breaker bodies.",
+    "Official 45195 DWG title explicitly includes ABS1003b/1004b; native front/side exists but six orthographic faces are not established.",
+    "Official MR8 50373 DWG has separate AC/DC panels and three source views; no six-face completion inferred.",
+    "GMP22/40 native title and catalog establish models/contact variants; missing orientations remain gaps.",
+    "Series-only price fallback was incorrectly promoted to source-family scope. Corrected without promoting arbitrary same-prefix frames; exact ACB model alternatives remain supported."
+  ]
+}

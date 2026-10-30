@@ -1,0 +1,5127 @@
+{
+  "corrected_rows": 40,
+  "prices_and_source_ids_unchanged": true,
+  "scope": "Explicit model column from original supplier PDF page 52; compatible contactor column preserved separately. Regional manufacturer material-code differences are not expanded as global aliases.",
+  "items": [
+    {
+      "before": {
+        "id": "chint-pdf:fd8bb64997173957",
+        "sku": "NXC-06M~12M",
+        "item_name": "NXC-06M~12M",
+        "name": "NXC-06M~12M",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "In": "0.1-0.16A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837092"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06M~12M",
+          "0.1-0.16A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837092",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:fd8bb64997173957",
+        "sku": "NXR-12 0.1-0.16A",
+        "item_name": "NXR-12 0.1-0.16A",
+        "name": "NXR-12 0.1-0.16A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837092",
+          "Họ thiết bị": "NXR-12",
+          "Dải chỉnh định Ir (A)": "0.1-0.16"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-12 0.1-0.16A",
+          "0.1-0.16A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837092",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06M~12M",
+          "name": "NXC-06M~12M",
+          "item_name": "NXC-06M~12M",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "0.1-0.16A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06M~12M",
+            "Mã hàng": "837092"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06M~12M",
+            "0.1-0.16A",
+            "1NO+1NC",
+            "NXC-06M~12M",
+            "837092",
+            "VND 431,200"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837092",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:584b8605a0c1f45c",
+        "sku": "NXC-06M~12M",
+        "item_name": "NXC-06M~12M",
+        "name": "NXC-06M~12M",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "In": "0.16-0.25A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837093"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06M~12M",
+          "0.16-0.25A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837093",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:584b8605a0c1f45c",
+        "sku": "NXR-12 0.16-0.25A",
+        "item_name": "NXR-12 0.16-0.25A",
+        "name": "NXR-12 0.16-0.25A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837093",
+          "Họ thiết bị": "NXR-12",
+          "Dải chỉnh định Ir (A)": "0.16-0.25"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-12 0.16-0.25A",
+          "0.16-0.25A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837093",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06M~12M",
+          "name": "NXC-06M~12M",
+          "item_name": "NXC-06M~12M",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "0.16-0.25A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06M~12M",
+            "Mã hàng": "837093"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06M~12M",
+            "0.16-0.25A",
+            "1NO+1NC",
+            "NXC-06M~12M",
+            "837093",
+            "VND 431,200"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837093",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:77aa2ebe0847fa78",
+        "sku": "NXC-06M~12M",
+        "item_name": "NXC-06M~12M",
+        "name": "NXC-06M~12M",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "In": "0.25-0.4A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837094"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06M~12M",
+          "0.25-0.4A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837094",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:77aa2ebe0847fa78",
+        "sku": "NXR-12 0.25-0.4A",
+        "item_name": "NXR-12 0.25-0.4A",
+        "name": "NXR-12 0.25-0.4A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837094",
+          "Họ thiết bị": "NXR-12",
+          "Dải chỉnh định Ir (A)": "0.25-0.4"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-12 0.25-0.4A",
+          "0.25-0.4A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837094",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06M~12M",
+          "name": "NXC-06M~12M",
+          "item_name": "NXC-06M~12M",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "0.25-0.4A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06M~12M",
+            "Mã hàng": "837094"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06M~12M",
+            "0.25-0.4A",
+            "1NO+1NC",
+            "NXC-06M~12M",
+            "837094",
+            "VND 431,200"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837094",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:b3a58131b0cc7d87",
+        "sku": "NXC-06M~12M",
+        "item_name": "NXC-06M~12M",
+        "name": "NXC-06M~12M",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "In": "0.4-0.63A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837095"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06M~12M",
+          "0.4-0.63A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837095",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:b3a58131b0cc7d87",
+        "sku": "NXR-12 0.4-0.63A",
+        "item_name": "NXR-12 0.4-0.63A",
+        "name": "NXR-12 0.4-0.63A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837095",
+          "Họ thiết bị": "NXR-12",
+          "Dải chỉnh định Ir (A)": "0.4-0.63"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-12 0.4-0.63A",
+          "0.4-0.63A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837095",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06M~12M",
+          "name": "NXC-06M~12M",
+          "item_name": "NXC-06M~12M",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "0.4-0.63A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06M~12M",
+            "Mã hàng": "837095"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06M~12M",
+            "0.4-0.63A",
+            "1NO+1NC",
+            "NXC-06M~12M",
+            "837095",
+            "VND 431,200"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837095",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:f6603c8cee1dbb9a",
+        "sku": "NXC-06M~12M",
+        "item_name": "NXC-06M~12M",
+        "name": "NXC-06M~12M",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "In": "0.63-1A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837096"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06M~12M",
+          "0.63-1A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837096",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:f6603c8cee1dbb9a",
+        "sku": "NXR-12 0.63-1A",
+        "item_name": "NXR-12 0.63-1A",
+        "name": "NXR-12 0.63-1A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837096",
+          "Họ thiết bị": "NXR-12",
+          "Dải chỉnh định Ir (A)": "0.63-1"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-12 0.63-1A",
+          "0.63-1A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837096",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06M~12M",
+          "name": "NXC-06M~12M",
+          "item_name": "NXC-06M~12M",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "0.63-1A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06M~12M",
+            "Mã hàng": "837096"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06M~12M",
+            "0.63-1A",
+            "1NO+1NC",
+            "NXC-06M~12M",
+            "837096",
+            "VND 431,200"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837096",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:d9c0be4165e903d2",
+        "sku": "NXC-06M~12M",
+        "item_name": "NXC-06M~12M",
+        "name": "NXC-06M~12M",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "In": "1-1.6A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837097"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06M~12M",
+          "1-1.6A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837097",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:d9c0be4165e903d2",
+        "sku": "NXR-12 1-1.6A",
+        "item_name": "NXR-12 1-1.6A",
+        "name": "NXR-12 1-1.6A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837097",
+          "Họ thiết bị": "NXR-12",
+          "Dải chỉnh định Ir (A)": "1-1.6"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-12 1-1.6A",
+          "1-1.6A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837097",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06M~12M",
+          "name": "NXC-06M~12M",
+          "item_name": "NXC-06M~12M",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "1-1.6A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06M~12M",
+            "Mã hàng": "837097"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06M~12M",
+            "1-1.6A",
+            "1NO+1NC",
+            "NXC-06M~12M",
+            "837097",
+            "VND 431,200"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837097",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:ae0901816ef6256b",
+        "sku": "NXC-06M~12M",
+        "item_name": "NXC-06M~12M",
+        "name": "NXC-06M~12M",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "In": "1.25-2A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837098"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06M~12M",
+          "1.25-2A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837098",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:ae0901816ef6256b",
+        "sku": "NXR-12 1.25-2A",
+        "item_name": "NXR-12 1.25-2A",
+        "name": "NXR-12 1.25-2A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837098",
+          "Họ thiết bị": "NXR-12",
+          "Dải chỉnh định Ir (A)": "1.25-2"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-12 1.25-2A",
+          "1.25-2A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837098",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06M~12M",
+          "name": "NXC-06M~12M",
+          "item_name": "NXC-06M~12M",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "1.25-2A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06M~12M",
+            "Mã hàng": "837098"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06M~12M",
+            "1.25-2A",
+            "1NO+1NC",
+            "NXC-06M~12M",
+            "837098",
+            "VND 431,200"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837098",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:de3a618f968160c5",
+        "sku": "NXC-06M~12M",
+        "item_name": "NXC-06M~12M",
+        "name": "NXC-06M~12M",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "In": "1.6-2.5A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837099"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06M~12M",
+          "1.6-2.5A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837099",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:de3a618f968160c5",
+        "sku": "NXR-12 1.6-2.5A",
+        "item_name": "NXR-12 1.6-2.5A",
+        "name": "NXR-12 1.6-2.5A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837099",
+          "Họ thiết bị": "NXR-12",
+          "Dải chỉnh định Ir (A)": "1.6-2.5"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-12 1.6-2.5A",
+          "1.6-2.5A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837099",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06M~12M",
+          "name": "NXC-06M~12M",
+          "item_name": "NXC-06M~12M",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "1.6-2.5A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06M~12M",
+            "Mã hàng": "837099"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06M~12M",
+            "1.6-2.5A",
+            "1NO+1NC",
+            "NXC-06M~12M",
+            "837099",
+            "VND 431,200"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837099",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:b3d94fb36150840d",
+        "sku": "NXC-06M~12M",
+        "item_name": "NXC-06M~12M",
+        "name": "NXC-06M~12M",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "In": "2.5-4A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837100"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06M~12M",
+          "2.5-4A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837100",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:b3d94fb36150840d",
+        "sku": "NXR-12 2.5-4A",
+        "item_name": "NXR-12 2.5-4A",
+        "name": "NXR-12 2.5-4A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837100",
+          "Họ thiết bị": "NXR-12",
+          "Dải chỉnh định Ir (A)": "2.5-4"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-12 2.5-4A",
+          "2.5-4A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837100",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06M~12M",
+          "name": "NXC-06M~12M",
+          "item_name": "NXC-06M~12M",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "2.5-4A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06M~12M",
+            "Mã hàng": "837100"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06M~12M",
+            "2.5-4A",
+            "1NO+1NC",
+            "NXC-06M~12M",
+            "837100",
+            "VND 431,200"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837100",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:47da12f75f2faa3f",
+        "sku": "NXC-06M~12M",
+        "item_name": "NXC-06M~12M",
+        "name": "NXC-06M~12M",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "In": "4-6A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837101"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06M~12M",
+          "4-6A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837101",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:47da12f75f2faa3f",
+        "sku": "NXR-12 4-6A",
+        "item_name": "NXR-12 4-6A",
+        "name": "NXR-12 4-6A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837101",
+          "Họ thiết bị": "NXR-12",
+          "Dải chỉnh định Ir (A)": "4-6"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-12 4-6A",
+          "4-6A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837101",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06M~12M",
+          "name": "NXC-06M~12M",
+          "item_name": "NXC-06M~12M",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "4-6A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06M~12M",
+            "Mã hàng": "837101"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06M~12M",
+            "4-6A",
+            "1NO+1NC",
+            "NXC-06M~12M",
+            "837101",
+            "VND 431,200"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837101",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:0a0296e815a8856d",
+        "sku": "NXC-06M~12M",
+        "item_name": "NXC-06M~12M",
+        "name": "NXC-06M~12M",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "In": "5.5-8A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837102"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06M~12M",
+          "5.5-8A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837102",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:0a0296e815a8856d",
+        "sku": "NXR-12 5.5-8A",
+        "item_name": "NXR-12 5.5-8A",
+        "name": "NXR-12 5.5-8A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837102",
+          "Họ thiết bị": "NXR-12",
+          "Dải chỉnh định Ir (A)": "5.5-8"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-12 5.5-8A",
+          "5.5-8A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837102",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06M~12M",
+          "name": "NXC-06M~12M",
+          "item_name": "NXC-06M~12M",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "5.5-8A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06M~12M",
+            "Mã hàng": "837102"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06M~12M",
+            "5.5-8A",
+            "1NO+1NC",
+            "NXC-06M~12M",
+            "837102",
+            "VND 431,200"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837102",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:2479a9d4b7e98030",
+        "sku": "NXC-06M~12M",
+        "item_name": "NXC-06M~12M",
+        "name": "NXC-06M~12M",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "In": "7-10A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837103"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06M~12M",
+          "7-10A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837103",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:2479a9d4b7e98030",
+        "sku": "NXR-12 7-10A",
+        "item_name": "NXR-12 7-10A",
+        "name": "NXR-12 7-10A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 431200,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06M~12M",
+          "Mã hàng": "837103",
+          "Họ thiết bị": "NXR-12",
+          "Dải chỉnh định Ir (A)": "7-10"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-12 7-10A",
+          "7-10A",
+          "1NO+1NC",
+          "NXC-06M~12M",
+          "837103",
+          "VND 431,200"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06M~12M",
+          "name": "NXC-06M~12M",
+          "item_name": "NXC-06M~12M",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "7-10A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06M~12M",
+            "Mã hàng": "837103"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06M~12M",
+            "7-10A",
+            "1NO+1NC",
+            "NXC-06M~12M",
+            "837103",
+            "VND 431,200"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837103",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:230b9d7019f86e4f",
+        "sku": "NXC-06~38",
+        "item_name": "NXC-06~38",
+        "name": "NXC-06~38",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "In": "0.1-0.16A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837105"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06~38",
+          "0.1-0.16A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837105",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:230b9d7019f86e4f",
+        "sku": "NXR-25 0.1-0.16A",
+        "item_name": "NXR-25 0.1-0.16A",
+        "name": "NXR-25 0.1-0.16A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837105",
+          "Họ thiết bị": "NXR-25",
+          "Dải chỉnh định Ir (A)": "0.1-0.16"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-25 0.1-0.16A",
+          "0.1-0.16A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837105",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06~38",
+          "name": "NXC-06~38",
+          "item_name": "NXC-06~38",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "0.1-0.16A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06~38",
+            "Mã hàng": "837105"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06~38",
+            "0.1-0.16A",
+            "1NO+1NC",
+            "NXC-06~38",
+            "837105",
+            "VND 327,800"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837105",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:0f88b9cbce64485f",
+        "sku": "NXC-06~38",
+        "item_name": "NXC-06~38",
+        "name": "NXC-06~38",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "In": "0.16-0.25A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837106"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06~38",
+          "0.16-0.25A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837106",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:0f88b9cbce64485f",
+        "sku": "NXR-25 0.16-0.25A",
+        "item_name": "NXR-25 0.16-0.25A",
+        "name": "NXR-25 0.16-0.25A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837106",
+          "Họ thiết bị": "NXR-25",
+          "Dải chỉnh định Ir (A)": "0.16-0.25"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-25 0.16-0.25A",
+          "0.16-0.25A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837106",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06~38",
+          "name": "NXC-06~38",
+          "item_name": "NXC-06~38",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "0.16-0.25A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06~38",
+            "Mã hàng": "837106"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06~38",
+            "0.16-0.25A",
+            "1NO+1NC",
+            "NXC-06~38",
+            "837106",
+            "VND 327,800"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837106",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:64238e4fad7980b4",
+        "sku": "NXC-06~38",
+        "item_name": "NXC-06~38",
+        "name": "NXC-06~38",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "In": "0.25-0.4A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837107"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06~38",
+          "0.25-0.4A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837107",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:64238e4fad7980b4",
+        "sku": "NXR-25 0.25-0.4A",
+        "item_name": "NXR-25 0.25-0.4A",
+        "name": "NXR-25 0.25-0.4A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837107",
+          "Họ thiết bị": "NXR-25",
+          "Dải chỉnh định Ir (A)": "0.25-0.4"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-25 0.25-0.4A",
+          "0.25-0.4A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837107",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06~38",
+          "name": "NXC-06~38",
+          "item_name": "NXC-06~38",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "0.25-0.4A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06~38",
+            "Mã hàng": "837107"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06~38",
+            "0.25-0.4A",
+            "1NO+1NC",
+            "NXC-06~38",
+            "837107",
+            "VND 327,800"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837107",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:aea1e13af4499c87",
+        "sku": "NXC-06~38",
+        "item_name": "NXC-06~38",
+        "name": "NXC-06~38",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "In": "0.4-0.63A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837108"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06~38",
+          "0.4-0.63A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837108",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:aea1e13af4499c87",
+        "sku": "NXR-25 0.4-0.63A",
+        "item_name": "NXR-25 0.4-0.63A",
+        "name": "NXR-25 0.4-0.63A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837108",
+          "Họ thiết bị": "NXR-25",
+          "Dải chỉnh định Ir (A)": "0.4-0.63"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-25 0.4-0.63A",
+          "0.4-0.63A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837108",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06~38",
+          "name": "NXC-06~38",
+          "item_name": "NXC-06~38",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "0.4-0.63A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06~38",
+            "Mã hàng": "837108"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06~38",
+            "0.4-0.63A",
+            "1NO+1NC",
+            "NXC-06~38",
+            "837108",
+            "VND 327,800"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837108",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:da9f03029b5d3e14",
+        "sku": "NXC-06~38",
+        "item_name": "NXC-06~38",
+        "name": "NXC-06~38",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "In": "0.63-1A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837109"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06~38",
+          "0.63-1A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837109",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:da9f03029b5d3e14",
+        "sku": "NXR-25 0.63-1A",
+        "item_name": "NXR-25 0.63-1A",
+        "name": "NXR-25 0.63-1A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837109",
+          "Họ thiết bị": "NXR-25",
+          "Dải chỉnh định Ir (A)": "0.63-1"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-25 0.63-1A",
+          "0.63-1A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837109",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06~38",
+          "name": "NXC-06~38",
+          "item_name": "NXC-06~38",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "0.63-1A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06~38",
+            "Mã hàng": "837109"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06~38",
+            "0.63-1A",
+            "1NO+1NC",
+            "NXC-06~38",
+            "837109",
+            "VND 327,800"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837109",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:4ab0ce99b29b871c",
+        "sku": "NXC-06~38",
+        "item_name": "NXC-06~38",
+        "name": "NXC-06~38",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "In": "1-1.6A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837110"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06~38",
+          "1-1.6A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837110",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:4ab0ce99b29b871c",
+        "sku": "NXR-25 1-1.6A",
+        "item_name": "NXR-25 1-1.6A",
+        "name": "NXR-25 1-1.6A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837110",
+          "Họ thiết bị": "NXR-25",
+          "Dải chỉnh định Ir (A)": "1-1.6"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-25 1-1.6A",
+          "1-1.6A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837110",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06~38",
+          "name": "NXC-06~38",
+          "item_name": "NXC-06~38",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "1-1.6A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06~38",
+            "Mã hàng": "837110"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06~38",
+            "1-1.6A",
+            "1NO+1NC",
+            "NXC-06~38",
+            "837110",
+            "VND 327,800"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837110",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:8cdb9918acd2d0da",
+        "sku": "NXC-06~38",
+        "item_name": "NXC-06~38",
+        "name": "NXC-06~38",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "In": "1.25-2A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837111"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06~38",
+          "1.25-2A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837111",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:8cdb9918acd2d0da",
+        "sku": "NXR-25 1.25-2A",
+        "item_name": "NXR-25 1.25-2A",
+        "name": "NXR-25 1.25-2A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837111",
+          "Họ thiết bị": "NXR-25",
+          "Dải chỉnh định Ir (A)": "1.25-2"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-25 1.25-2A",
+          "1.25-2A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837111",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06~38",
+          "name": "NXC-06~38",
+          "item_name": "NXC-06~38",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "1.25-2A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06~38",
+            "Mã hàng": "837111"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06~38",
+            "1.25-2A",
+            "1NO+1NC",
+            "NXC-06~38",
+            "837111",
+            "VND 327,800"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837111",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:825b918b9fdde8f7",
+        "sku": "NXC-06~38",
+        "item_name": "NXC-06~38",
+        "name": "NXC-06~38",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "In": "1.6-2.5A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837112"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06~38",
+          "1.6-2.5A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837112",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:825b918b9fdde8f7",
+        "sku": "NXR-25 1.6-2.5A",
+        "item_name": "NXR-25 1.6-2.5A",
+        "name": "NXR-25 1.6-2.5A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837112",
+          "Họ thiết bị": "NXR-25",
+          "Dải chỉnh định Ir (A)": "1.6-2.5"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-25 1.6-2.5A",
+          "1.6-2.5A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837112",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06~38",
+          "name": "NXC-06~38",
+          "item_name": "NXC-06~38",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "1.6-2.5A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06~38",
+            "Mã hàng": "837112"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06~38",
+            "1.6-2.5A",
+            "1NO+1NC",
+            "NXC-06~38",
+            "837112",
+            "VND 327,800"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837112",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:4d953545f99b3669",
+        "sku": "NXC-06~38",
+        "item_name": "NXC-06~38",
+        "name": "NXC-06~38",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "In": "2.5-4A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837113"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06~38",
+          "2.5-4A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837113",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:4d953545f99b3669",
+        "sku": "NXR-25 2.5-4A",
+        "item_name": "NXR-25 2.5-4A",
+        "name": "NXR-25 2.5-4A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837113",
+          "Họ thiết bị": "NXR-25",
+          "Dải chỉnh định Ir (A)": "2.5-4"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-25 2.5-4A",
+          "2.5-4A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837113",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06~38",
+          "name": "NXC-06~38",
+          "item_name": "NXC-06~38",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "2.5-4A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06~38",
+            "Mã hàng": "837113"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06~38",
+            "2.5-4A",
+            "1NO+1NC",
+            "NXC-06~38",
+            "837113",
+            "VND 327,800"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837113",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:0424dd3b06083bd5",
+        "sku": "NXC-06~38",
+        "item_name": "NXC-06~38",
+        "name": "NXC-06~38",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "In": "4-6A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837114"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06~38",
+          "4-6A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837114",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:0424dd3b06083bd5",
+        "sku": "NXR-25 4-6A",
+        "item_name": "NXR-25 4-6A",
+        "name": "NXR-25 4-6A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837114",
+          "Họ thiết bị": "NXR-25",
+          "Dải chỉnh định Ir (A)": "4-6"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-25 4-6A",
+          "4-6A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837114",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06~38",
+          "name": "NXC-06~38",
+          "item_name": "NXC-06~38",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "4-6A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06~38",
+            "Mã hàng": "837114"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06~38",
+            "4-6A",
+            "1NO+1NC",
+            "NXC-06~38",
+            "837114",
+            "VND 327,800"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837114",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:b4a91abf27c5163b",
+        "sku": "NXC-06~38",
+        "item_name": "NXC-06~38",
+        "name": "NXC-06~38",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "In": "5.5-8A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837115"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06~38",
+          "5.5-8A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837115",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:b4a91abf27c5163b",
+        "sku": "NXR-25 5.5-8A",
+        "item_name": "NXR-25 5.5-8A",
+        "name": "NXR-25 5.5-8A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837115",
+          "Họ thiết bị": "NXR-25",
+          "Dải chỉnh định Ir (A)": "5.5-8"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-25 5.5-8A",
+          "5.5-8A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837115",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06~38",
+          "name": "NXC-06~38",
+          "item_name": "NXC-06~38",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "5.5-8A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06~38",
+            "Mã hàng": "837115"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06~38",
+            "5.5-8A",
+            "1NO+1NC",
+            "NXC-06~38",
+            "837115",
+            "VND 327,800"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837115",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:a8645552bfea34d6",
+        "sku": "NXC-06~38",
+        "item_name": "NXC-06~38",
+        "name": "NXC-06~38",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "In": "7-10A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837116"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06~38",
+          "7-10A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837116",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:a8645552bfea34d6",
+        "sku": "NXR-25 7-10A",
+        "item_name": "NXR-25 7-10A",
+        "name": "NXR-25 7-10A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837116",
+          "Họ thiết bị": "NXR-25",
+          "Dải chỉnh định Ir (A)": "7-10"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-25 7-10A",
+          "7-10A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837116",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06~38",
+          "name": "NXC-06~38",
+          "item_name": "NXC-06~38",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "7-10A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06~38",
+            "Mã hàng": "837116"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06~38",
+            "7-10A",
+            "1NO+1NC",
+            "NXC-06~38",
+            "837116",
+            "VND 327,800"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837116",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:89412863548b2979",
+        "sku": "NXC-06~38",
+        "item_name": "NXC-06~38",
+        "name": "NXC-06~38",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "In": "9-13A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837117"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06~38",
+          "9-13A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837117",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:89412863548b2979",
+        "sku": "NXR-25 9-13A",
+        "item_name": "NXR-25 9-13A",
+        "name": "NXR-25 9-13A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837117",
+          "Họ thiết bị": "NXR-25",
+          "Dải chỉnh định Ir (A)": "9-13"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-25 9-13A",
+          "9-13A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837117",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06~38",
+          "name": "NXC-06~38",
+          "item_name": "NXC-06~38",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "9-13A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06~38",
+            "Mã hàng": "837117"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06~38",
+            "9-13A",
+            "1NO+1NC",
+            "NXC-06~38",
+            "837117",
+            "VND 327,800"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837117",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:35744a6d5047c073",
+        "sku": "NXC-06~38",
+        "item_name": "NXC-06~38",
+        "name": "NXC-06~38",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "In": "12-18A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837118"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06~38",
+          "12-18A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837118",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:35744a6d5047c073",
+        "sku": "NXR-25 12-18A",
+        "item_name": "NXR-25 12-18A",
+        "name": "NXR-25 12-18A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837118",
+          "Họ thiết bị": "NXR-25",
+          "Dải chỉnh định Ir (A)": "12-18"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-25 12-18A",
+          "12-18A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837118",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06~38",
+          "name": "NXC-06~38",
+          "item_name": "NXC-06~38",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "12-18A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06~38",
+            "Mã hàng": "837118"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06~38",
+            "12-18A",
+            "1NO+1NC",
+            "NXC-06~38",
+            "837118",
+            "VND 327,800"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837118",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:c78d0c02c390a425",
+        "sku": "NXC-06~38",
+        "item_name": "NXC-06~38",
+        "name": "NXC-06~38",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "In": "17-25A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837119"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-06~38",
+          "17-25A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837119",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:c78d0c02c390a425",
+        "sku": "NXR-25 17-25A",
+        "item_name": "NXR-25 17-25A",
+        "name": "NXR-25 17-25A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 327800,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-06~38",
+          "Mã hàng": "837119",
+          "Họ thiết bị": "NXR-25",
+          "Dải chỉnh định Ir (A)": "17-25"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-25 17-25A",
+          "17-25A",
+          "1NO+1NC",
+          "NXC-06~38",
+          "837119",
+          "VND 327,800"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-06~38",
+          "name": "NXC-06~38",
+          "item_name": "NXC-06~38",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "17-25A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-06~38",
+            "Mã hàng": "837119"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-06~38",
+            "17-25A",
+            "1NO+1NC",
+            "NXC-06~38",
+            "837119",
+            "VND 327,800"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837119",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:b7554b68bdaca616",
+        "sku": "NXC-25~38",
+        "item_name": "NXC-25~38",
+        "name": "NXC-25~38",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 410300,
+        "currency": "VND",
+        "specifications": {
+          "In": "23A-32A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-25~38",
+          "Mã hàng": "837120"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-25~38",
+          "23A-32A",
+          "1NO+1NC",
+          "NXC-25~38",
+          "837120",
+          "VND 410,300"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:b7554b68bdaca616",
+        "sku": "NXR-38 23A-32A",
+        "item_name": "NXR-38 23A-32A",
+        "name": "NXR-38 23A-32A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 410300,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-25~38",
+          "Mã hàng": "837120",
+          "Họ thiết bị": "NXR-38",
+          "Dải chỉnh định Ir (A)": "23-32"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-38 23A-32A",
+          "23A-32A",
+          "1NO+1NC",
+          "NXC-25~38",
+          "837120",
+          "VND 410,300"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-25~38",
+          "name": "NXC-25~38",
+          "item_name": "NXC-25~38",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "23A-32A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-25~38",
+            "Mã hàng": "837120"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-25~38",
+            "23A-32A",
+            "1NO+1NC",
+            "NXC-25~38",
+            "837120",
+            "VND 410,300"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837120",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:60444fe605baf415",
+        "sku": "NXC-25~38",
+        "item_name": "NXC-25~38",
+        "name": "NXC-25~38",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 410300,
+        "currency": "VND",
+        "specifications": {
+          "In": "30A-38A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-25~38",
+          "Mã hàng": "837121"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-25~38",
+          "30A-38A",
+          "1NO+1NC",
+          "NXC-25~38",
+          "837121",
+          "VND 410,300"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:60444fe605baf415",
+        "sku": "NXR-38 30A-38A",
+        "item_name": "NXR-38 30A-38A",
+        "name": "NXR-38 30A-38A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 410300,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-25~38",
+          "Mã hàng": "837121",
+          "Họ thiết bị": "NXR-38",
+          "Dải chỉnh định Ir (A)": "30-38"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-38 30A-38A",
+          "30A-38A",
+          "1NO+1NC",
+          "NXC-25~38",
+          "837121",
+          "VND 410,300"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-25~38",
+          "name": "NXC-25~38",
+          "item_name": "NXC-25~38",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "30A-38A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-25~38",
+            "Mã hàng": "837121"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-25~38",
+            "30A-38A",
+            "1NO+1NC",
+            "NXC-25~38",
+            "837121",
+            "VND 410,300"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837121",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:ce1c0583cda4927d",
+        "sku": "NXC-40~100",
+        "item_name": "NXC-40~100",
+        "name": "NXC-40~100",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 652300,
+        "currency": "VND",
+        "specifications": {
+          "In": "23A-32A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-40~100",
+          "Mã hàng": "837122"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-40~100",
+          "23A-32A",
+          "1NO+1NC",
+          "NXC-40~100",
+          "837122",
+          "VND 652,300"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:ce1c0583cda4927d",
+        "sku": "NXR-100 23A-32A",
+        "item_name": "NXR-100 23A-32A",
+        "name": "NXR-100 23A-32A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 652300,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-40~100",
+          "Mã hàng": "837122",
+          "Họ thiết bị": "NXR-100",
+          "Dải chỉnh định Ir (A)": "23-32"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-100 23A-32A",
+          "23A-32A",
+          "1NO+1NC",
+          "NXC-40~100",
+          "837122",
+          "VND 652,300"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-40~100",
+          "name": "NXC-40~100",
+          "item_name": "NXC-40~100",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "23A-32A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-40~100",
+            "Mã hàng": "837122"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-40~100",
+            "23A-32A",
+            "1NO+1NC",
+            "NXC-40~100",
+            "837122",
+            "VND 652,300"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837122",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:cc615eaba90406d6",
+        "sku": "NXC-40~100",
+        "item_name": "NXC-40~100",
+        "name": "NXC-40~100",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 652300,
+        "currency": "VND",
+        "specifications": {
+          "In": "30A-40A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-40~100",
+          "Mã hàng": "837123"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-40~100",
+          "30A-40A",
+          "1NO+1NC",
+          "NXC-40~100",
+          "837123",
+          "VND 652,300"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:cc615eaba90406d6",
+        "sku": "NXR-100 30A-40A",
+        "item_name": "NXR-100 30A-40A",
+        "name": "NXR-100 30A-40A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 652300,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-40~100",
+          "Mã hàng": "837123",
+          "Họ thiết bị": "NXR-100",
+          "Dải chỉnh định Ir (A)": "30-40"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-100 30A-40A",
+          "30A-40A",
+          "1NO+1NC",
+          "NXC-40~100",
+          "837123",
+          "VND 652,300"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-40~100",
+          "name": "NXC-40~100",
+          "item_name": "NXC-40~100",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "30A-40A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-40~100",
+            "Mã hàng": "837123"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-40~100",
+            "30A-40A",
+            "1NO+1NC",
+            "NXC-40~100",
+            "837123",
+            "VND 652,300"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837123",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:551d8e32eb89a93a",
+        "sku": "NXC-40~100",
+        "item_name": "NXC-40~100",
+        "name": "NXC-40~100",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 652300,
+        "currency": "VND",
+        "specifications": {
+          "In": "37A-50A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-40~100",
+          "Mã hàng": "837124"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-40~100",
+          "37A-50A",
+          "1NO+1NC",
+          "NXC-40~100",
+          "837124",
+          "VND 652,300"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:551d8e32eb89a93a",
+        "sku": "NXR-100 37A-50A",
+        "item_name": "NXR-100 37A-50A",
+        "name": "NXR-100 37A-50A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 652300,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-40~100",
+          "Mã hàng": "837124",
+          "Họ thiết bị": "NXR-100",
+          "Dải chỉnh định Ir (A)": "37-50"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-100 37A-50A",
+          "37A-50A",
+          "1NO+1NC",
+          "NXC-40~100",
+          "837124",
+          "VND 652,300"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-40~100",
+          "name": "NXC-40~100",
+          "item_name": "NXC-40~100",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "37A-50A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-40~100",
+            "Mã hàng": "837124"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-40~100",
+            "37A-50A",
+            "1NO+1NC",
+            "NXC-40~100",
+            "837124",
+            "VND 652,300"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837124",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:a8d9e6e6ae29cb11",
+        "sku": "NXC-40~100",
+        "item_name": "NXC-40~100",
+        "name": "NXC-40~100",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 652300,
+        "currency": "VND",
+        "specifications": {
+          "In": "48A-65A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-40~100",
+          "Mã hàng": "837125"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-40~100",
+          "48A-65A",
+          "1NO+1NC",
+          "NXC-40~100",
+          "837125",
+          "VND 652,300"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:a8d9e6e6ae29cb11",
+        "sku": "NXR-100 48A-65A",
+        "item_name": "NXR-100 48A-65A",
+        "name": "NXR-100 48A-65A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 652300,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-40~100",
+          "Mã hàng": "837125",
+          "Họ thiết bị": "NXR-100",
+          "Dải chỉnh định Ir (A)": "48-65"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-100 48A-65A",
+          "48A-65A",
+          "1NO+1NC",
+          "NXC-40~100",
+          "837125",
+          "VND 652,300"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-40~100",
+          "name": "NXC-40~100",
+          "item_name": "NXC-40~100",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "48A-65A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-40~100",
+            "Mã hàng": "837125"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-40~100",
+            "48A-65A",
+            "1NO+1NC",
+            "NXC-40~100",
+            "837125",
+            "VND 652,300"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837125",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:6025fbfe96a3f661",
+        "sku": "NXC-40~100",
+        "item_name": "NXC-40~100",
+        "name": "NXC-40~100",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 652300,
+        "currency": "VND",
+        "specifications": {
+          "In": "55A-70A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-40~100",
+          "Mã hàng": "837126"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-40~100",
+          "55A-70A",
+          "1NO+1NC",
+          "NXC-40~100",
+          "837126",
+          "VND 652,300"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:6025fbfe96a3f661",
+        "sku": "NXR-100 55A-70A",
+        "item_name": "NXR-100 55A-70A",
+        "name": "NXR-100 55A-70A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 652300,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-40~100",
+          "Mã hàng": "837126",
+          "Họ thiết bị": "NXR-100",
+          "Dải chỉnh định Ir (A)": "55-70"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-100 55A-70A",
+          "55A-70A",
+          "1NO+1NC",
+          "NXC-40~100",
+          "837126",
+          "VND 652,300"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-40~100",
+          "name": "NXC-40~100",
+          "item_name": "NXC-40~100",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "55A-70A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-40~100",
+            "Mã hàng": "837126"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-40~100",
+            "55A-70A",
+            "1NO+1NC",
+            "NXC-40~100",
+            "837126",
+            "VND 652,300"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837126",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:26f55d50ec05d761",
+        "sku": "NXC-40~100",
+        "item_name": "NXC-40~100",
+        "name": "NXC-40~100",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 720500,
+        "currency": "VND",
+        "specifications": {
+          "In": "63A-80A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-40~100",
+          "Mã hàng": "837127"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-40~100",
+          "63A-80A",
+          "1NO+1NC",
+          "NXC-40~100",
+          "837127",
+          "VND 720,500"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:26f55d50ec05d761",
+        "sku": "NXR-100 63A-80A",
+        "item_name": "NXR-100 63A-80A",
+        "name": "NXR-100 63A-80A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 720500,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-40~100",
+          "Mã hàng": "837127",
+          "Họ thiết bị": "NXR-100",
+          "Dải chỉnh định Ir (A)": "63-80"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-100 63A-80A",
+          "63A-80A",
+          "1NO+1NC",
+          "NXC-40~100",
+          "837127",
+          "VND 720,500"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-40~100",
+          "name": "NXC-40~100",
+          "item_name": "NXC-40~100",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "63A-80A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-40~100",
+            "Mã hàng": "837127"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-40~100",
+            "63A-80A",
+            "1NO+1NC",
+            "NXC-40~100",
+            "837127",
+            "VND 720,500"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837127",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:67f6fc99ee275d30",
+        "sku": "NXC-40~100",
+        "item_name": "NXC-40~100",
+        "name": "NXC-40~100",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 720500,
+        "currency": "VND",
+        "specifications": {
+          "In": "80A-93A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-40~100",
+          "Mã hàng": "837128"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-40~100",
+          "80A-93A",
+          "1NO+1NC",
+          "NXC-40~100",
+          "837128",
+          "VND 720,500"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:67f6fc99ee275d30",
+        "sku": "NXR-100 80A-93A",
+        "item_name": "NXR-100 80A-93A",
+        "name": "NXR-100 80A-93A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 720500,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-40~100",
+          "Mã hàng": "837128",
+          "Họ thiết bị": "NXR-100",
+          "Dải chỉnh định Ir (A)": "80-93"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-100 80A-93A",
+          "80A-93A",
+          "1NO+1NC",
+          "NXC-40~100",
+          "837128",
+          "VND 720,500"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-40~100",
+          "name": "NXC-40~100",
+          "item_name": "NXC-40~100",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "80A-93A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-40~100",
+            "Mã hàng": "837128"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-40~100",
+            "80A-93A",
+            "1NO+1NC",
+            "NXC-40~100",
+            "837128",
+            "VND 720,500"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837128",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:d6cbab701a68e5f5",
+        "sku": "NXC-40~100",
+        "item_name": "NXC-40~100",
+        "name": "NXC-40~100",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 757900,
+        "currency": "VND",
+        "specifications": {
+          "In": "80A-100A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-40~100",
+          "Mã hàng": "837129"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-40~100",
+          "80A-100A",
+          "1NO+1NC",
+          "NXC-40~100",
+          "837129",
+          "VND 757,900"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:d6cbab701a68e5f5",
+        "sku": "NXR-100 80A-100A",
+        "item_name": "NXR-100 80A-100A",
+        "name": "NXR-100 80A-100A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 757900,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-40~100",
+          "Mã hàng": "837129",
+          "Họ thiết bị": "NXR-100",
+          "Dải chỉnh định Ir (A)": "80-100"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-100 80A-100A",
+          "80A-100A",
+          "1NO+1NC",
+          "NXC-40~100",
+          "837129",
+          "VND 757,900"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-40~100",
+          "name": "NXC-40~100",
+          "item_name": "NXC-40~100",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "80A-100A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-40~100",
+            "Mã hàng": "837129"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-40~100",
+            "80A-100A",
+            "1NO+1NC",
+            "NXC-40~100",
+            "837129",
+            "VND 757,900"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837129",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:0c425f8d5df4354b",
+        "sku": "NXC-120~225",
+        "item_name": "NXC-120~225",
+        "name": "NXC-120~225",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 3831300,
+        "currency": "VND",
+        "specifications": {
+          "In": "75A-225A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-120~225",
+          "Mã hàng": "837131"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-120~225",
+          "75A-225A",
+          "1NO+1NC",
+          "NXC-120~225",
+          "837131",
+          "VND 3,831,300"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:0c425f8d5df4354b",
+        "sku": "NXR-200 75A-225A",
+        "item_name": "NXR-200 75A-225A",
+        "name": "NXR-200 75A-225A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 3831300,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-120~225",
+          "Mã hàng": "837131",
+          "Họ thiết bị": "NXR-200",
+          "Dải chỉnh định Ir (A)": "75-225"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-200 75A-225A",
+          "75A-225A",
+          "1NO+1NC",
+          "NXC-120~225",
+          "837131",
+          "VND 3,831,300"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-120~225",
+          "name": "NXC-120~225",
+          "item_name": "NXC-120~225",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "75A-225A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-120~225",
+            "Mã hàng": "837131"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-120~225",
+            "75A-225A",
+            "1NO+1NC",
+            "NXC-120~225",
+            "837131",
+            "VND 3,831,300"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837131",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:4f68936608edbda6",
+        "sku": "NXC-225~630",
+        "item_name": "NXC-225~630",
+        "name": "NXC-225~630",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 5955400,
+        "currency": "VND",
+        "specifications": {
+          "In": "125A-400A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-225~630",
+          "Mã hàng": "837133"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-225~630",
+          "125A-400A",
+          "1NO+1NC",
+          "NXC-225~630",
+          "837133",
+          "VND 5,955,400"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:4f68936608edbda6",
+        "sku": "NXR-630 125A-400A",
+        "item_name": "NXR-630 125A-400A",
+        "name": "NXR-630 125A-400A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 5955400,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-225~630",
+          "Mã hàng": "837133",
+          "Họ thiết bị": "NXR-630",
+          "Dải chỉnh định Ir (A)": "125-400"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-630 125A-400A",
+          "125A-400A",
+          "1NO+1NC",
+          "NXC-225~630",
+          "837133",
+          "VND 5,955,400"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-225~630",
+          "name": "NXC-225~630",
+          "item_name": "NXC-225~630",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "125A-400A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-225~630",
+            "Mã hàng": "837133"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-225~630",
+            "125A-400A",
+            "1NO+1NC",
+            "NXC-225~630",
+            "837133",
+            "VND 5,955,400"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837133",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    },
+    {
+      "before": {
+        "id": "chint-pdf:8f52e048aa599454",
+        "sku": "NXC-225~630",
+        "item_name": "NXC-225~630",
+        "name": "NXC-225~630",
+        "brand": "CHINT",
+        "category": "CONTACTOR",
+        "group": "NXC · CONTACTOR",
+        "price": 6699000,
+        "currency": "VND",
+        "specifications": {
+          "In": "200A-630A",
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-225~630",
+          "Mã hàng": "837134"
+        },
+        "columns": [
+          "Tên hàng",
+          "In",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXC-225~630",
+          "200A-630A",
+          "1NO+1NC",
+          "NXC-225~630",
+          "837134",
+          "VND 6,699,000"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched"
+      },
+      "after": {
+        "id": "chint-pdf:8f52e048aa599454",
+        "sku": "NXR-630 200A-630A",
+        "item_name": "NXR-630 200A-630A",
+        "name": "NXR-630 200A-630A",
+        "brand": "CHINT",
+        "category": "THERMAL_RELAY",
+        "group": "NXR · THERMAL_RELAY",
+        "price": 6699000,
+        "currency": "VND",
+        "specifications": {
+          "Tiếp điểm": "1NO+1NC",
+          "Phù hợp": "NXC-225~630",
+          "Mã hàng": "837134",
+          "Họ thiết bị": "NXR-630",
+          "Dải chỉnh định Ir (A)": "200-630"
+        },
+        "columns": [
+          "Tên hàng",
+          "Dải chỉnh định Ir (A)",
+          "Tiếp điểm",
+          "Phù hợp",
+          "Mã hàng",
+          "Đơn giá"
+        ],
+        "cells": [
+          "NXR-630 200A-630A",
+          "200A-630A",
+          "1NO+1NC",
+          "NXC-225~630",
+          "837134",
+          "VND 6,699,000"
+        ],
+        "source_kind": "supplier_pricebook",
+        "source_label": "Bảng giá CHINT 2026 · DGP",
+        "source_url": "/device-catalog/documents/chint-2026",
+        "source_page": 52,
+        "source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+        "edition": "2026",
+        "effective_date": null,
+        "checked_at": "2026-10-13T11:47:00.729261+00:00",
+        "vat_status": "included",
+        "price_note": "Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.",
+        "column_evidence": "PDF header and row geometry; material code matched",
+        "source_extraction_original": {
+          "sku": "NXC-225~630",
+          "name": "NXC-225~630",
+          "item_name": "NXC-225~630",
+          "category": "CONTACTOR",
+          "group": "NXC · CONTACTOR",
+          "specifications": {
+            "In": "200A-630A",
+            "Tiếp điểm": "1NO+1NC",
+            "Phù hợp": "NXC-225~630",
+            "Mã hàng": "837134"
+          },
+          "columns": [
+            "Tên hàng",
+            "In",
+            "Tiếp điểm",
+            "Phù hợp",
+            "Mã hàng",
+            "Đơn giá"
+          ],
+          "cells": [
+            "NXC-225~630",
+            "200A-630A",
+            "1NO+1NC",
+            "NXC-225~630",
+            "837134",
+            "VND 6,699,000"
+          ]
+        },
+        "source_identity_review": {
+          "source_material_code": "837134",
+          "identity_source_url": "/device-catalog/documents/chint-2026",
+          "identity_source_sha256": "4ec55dc44fca2bb595b77feec6b2ca313893f04ee11916e566f8d68ef376ee46",
+          "identity_source_page": 52,
+          "reviewed_on": "2026-10-23",
+          "reason": "Explicit NXR model column in the original supplier PDF identifies the thermal relay and setting range. Compatible NXC contactor is a separate fitment field. Manufacturer NXR catalog corroborates the product family; regional material codes are not treated as global aliases."
+        }
+      }
+    }
+  ]
+}

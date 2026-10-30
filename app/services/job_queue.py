@@ -34,6 +34,36 @@ def sync_client():
                                socket_connect_timeout=10, socket_timeout=10)
 
 
+async def project_activity(project_ids):
+    """Read only small job fields for already-authorized project IDs in bulk."""
+    if not project_ids:
+        return {}
+    fields = ('status','kind','message','progress','pause_requested','project_id')
+    try:
+        async with async_redis.from_url(settings.REDIS_URL, decode_responses=True,
+                                       socket_connect_timeout=2, socket_timeout=2) as client:
+            jobs = await client.mget([PREFIX+f'project:{project_id}' for project_id in project_ids])
+            async with client.pipeline() as pipe:
+                for job in jobs:
+                    if job:
+                        pipe.hmget(PREFIX+job, fields)
+                values = iter(await pipe.execute())
+            result = {}
+            for project_id, job in zip(project_ids, jobs):
+                if not job:
+                    continue
+                info = dict(zip(fields, next(values)))
+                if (info['project_id'] != str(project_id) or
+                        info['status'] not in {'PENDING','STARTED','PROGRESS','PAUSED','RETRY'}):
+                    continue
+                result[project_id] = {'task_id':job, 'status':info['status'], 'kind':info['kind'],
+                    'message':info['message'] or 'Đang chờ xử lý',
+                    'paused':info['status']=='PAUSED' or info['pause_requested']=='1'}
+            return result
+    except redis.RedisError:
+        return {}
+
+
 def publish(job_id, event, status='PROGRESS', result=None):
     """Worker callback. Progress never exposes provider credentials."""
     with sync_client() as client:

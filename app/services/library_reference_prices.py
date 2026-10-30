@@ -65,7 +65,8 @@ def priced_references(device, rows):
         unique.setdefault((canonical_brand(original.get('brand')),original.get('model')),original)
     for original in unique.values():
         option=dict(original)
-        matches=reference_matches(option,kind,rows)
+        from .net_catalog_prices import net_price_row
+        matches=[net_price_row(r) for r in reference_matches(option,kind,rows)]
         option['price_choices']=[{'price_row_id':r['id'],'model':r['sku'],'price':r['price'],
                                   'vat_status':r.get('vat_status'),'checked_at':r.get('checked_at')}
                                  for r in matches]

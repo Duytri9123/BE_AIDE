@@ -1,0 +1,494 @@
+{
+  "nhom": "LS",
+  "ten_kieu": "LS · cc mt12 · CAD nguồn",
+  "ten_san_pham": "LS · cc mt12 · CAD nguồn",
+  "ban_chat": "Rơ le nhiệt",
+  "cong_dung": "Bảo vệ quá tải động cơ; cần xác nhận dải chỉnh và thiết bị chủ.",
+  "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+  "hang_xac_nhan": null,
+  "ma_dong_san_pham": null,
+  "thong_so": {
+    "nhan_block_nguon": "cc mt12"
+  },
+  "tu_khoa_tim_kiem": [
+    "cc mt12",
+    "LS",
+    "Rơ le nhiệt",
+    "1SAZ211201R2005",
+    "Mitsubishi Electric",
+    "THA00-397",
+    "LS · cc mt12 · CAD nguồn",
+    "",
+    "MT-12",
+    "mt12",
+    "THERMAL_RELAY"
+  ],
+  "muc_do_xac_nhan": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện.",
+  "nguon_tham_khao": [],
+  "nguon_cad": {
+    "file": "D:\\THƯ VIỆN\\@LS.dwg",
+    "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+    "block": "cc mt12",
+    "saved_block": "cc mt12",
+    "handle": "D5B4",
+    "geometry_key": "56b62db7d53510d186be8e3b2d8eb03e0dfb228acdcfaf34c1a7c693a24d3eb4",
+    "units": 4,
+    "instance_transform": {
+      "insert": [
+        10603.7193868709,
+        20353.34754732793,
+        0
+      ],
+      "rotation": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+  },
+  "cac_hinh_cad": [
+    "SRC_LS_56b62db7d535"
+  ],
+  "auto_select": false,
+  "needs_review": true,
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa xác nhận dữ liệu hãng",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "SRC_LS_56b62db7d535",
+      "huong_nhin": "Mặt bên",
+      "nhan_hien_thi": "cc mt12",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": false,
+        "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+      },
+      "duong_dan": "CadDon/SRC_LS_56b62db7d535/ban_ve.dxf",
+      "nhan_dien_mat": {
+        "review_date": "2026-10-11",
+        "method": "individual_visual_review",
+        "evidence_card": 75,
+        "evidence_image": "outputs\\catalogtb-projection-review\\075.png",
+        "previous_label": "Chưa xác nhận hướng nhìn",
+        "projection": "Mặt bên",
+        "basis": "Device controls/terminals and relative projection geometry; source block label used only when consistent with the inspected image.",
+        "mounting_orientation_verified": false,
+        "exact_sku_verified": false
+      }
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "SRC_LS_56b62db7d535",
+    "huong_nhin": "Mặt bên",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "LS Electric",
+    "ma_san_pham": "",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [
+      "https://www.ls-electric.com",
+      "https://anhphatelectric.com",
+      "https://etinco.vn"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Chưa có giá"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "THERMAL_RELAY",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "LS Electric",
+        "model": "MT-12",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": null
+        },
+        "source_url": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+        "source_page": null,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng là ứng viên theo mã trong tài liệu; chưa xác nhận logo trên CAD. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "mt12",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 6
+        },
+        "source_url": "https://www.ls-electric.com/upload/customer/download/280b6197-f4bb-4f86-a60d-917b7b8bf890/Metasol_MC_E_170915.pdf",
+        "source_page": 6,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng là ứng viên theo mã trong tài liệu; chưa xác nhận logo trên CAD. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "Metasol MT",
+        "specifications": {
+          "Dòng thiết bị": "Metasol MT"
+        },
+        "source_url": "https://www.ls-electric.com/products/view/Smart_Power_Solution/Low_Voltage/Contactor_%26_Overload_Relay/Metasol_MS",
+        "basis": "manufacturer_family_document",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Tài liệu đúng hãng/dòng để tiếp tục đối chiếu mã trong CAD; không xác nhận mã đầy đủ hoặc kích thước."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MT-12",
+        "specifications": {
+          "nhan_block_nguon": "cc mt12",
+          "Loại thiết bị": "THERMAL_RELAY",
+          "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp.",
+          "Hình chiếu Mặt bên (ngang × cao, mm)": "63.957 × 72.669"
+        },
+        "source_url": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      },
+      {
+        "brand": "ABB",
+        "model": "TF42-3.1 / 1SAZ721201R1033",
+        "specifications": {
+          "Tên hàng": "Rơ le nhiệt bảo vệ quá tải động cơ",
+          "Dải chỉnh mẫu": "2.30–3.10 A",
+          "Dòng sản phẩm": "TF42; chọn dải theo dòng động cơ"
+        },
+        "source_url": "https://empower.abb.com/ecatalog/ec/EN_CA/p/1SAZ721201R1033",
+        "basis": "manufacturer_web_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MT-12",
+        "specifications": {
+          "In (A)": "18",
+          "Tên hàng": "Ls MT-12 :0.63~18A"
+        },
+        "source_url": "https://www.ple.vn/role-nhiet/khoi-dong-tu-ls/mt-12-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:4251ee61a1e5137c",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MT-12 (1)",
+        "specifications": {
+          "In (A)": "0.63~18A",
+          "Tên hàng": "MT-12 (1)"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 4,
+        "source_row_id": "ls-pdf:5d3f906954c2a829",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MT-32 (2)",
+        "specifications": {
+          "In (A)": "0.63~19A",
+          "Tên hàng": "MT-32 (2)"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 4,
+        "source_row_id": "ls-pdf:93466dc8fea6362f",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MT-32 (2)",
+        "specifications": {
+          "In (A)": "21.5~40A",
+          "Tên hàng": "MT-32 (2)"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 4,
+        "source_row_id": "ls-pdf:2af6bc7d8fb60967",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MT-63 (3)",
+        "specifications": {
+          "In (A)": "34-50, 45-65A",
+          "Tên hàng": "MT-63 (3)"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 4,
+        "source_row_id": "ls-pdf:c126ff26954b0b48",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MT-95 (4)",
+        "specifications": {
+          "In (A)": "54-75, 63-85, 70-95, 80-100A",
+          "Tên hàng": "MT-95 (4)"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 4,
+        "source_row_id": "ls-pdf:9ae2d6681103ed24",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MT-150 (5)",
+        "specifications": {
+          "In (A)": "80-105A, 95-130A,110-150A",
+          "Tên hàng": "MT-150 (5)"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 4,
+        "source_row_id": "ls-pdf:ded71d41d5de6286",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MT-225 (6)",
+        "specifications": {
+          "In (A)": "85-125,100-160,120-185,160-240A",
+          "Tên hàng": "MT-225 (6)"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 4,
+        "source_row_id": "ls-pdf:4fef7fec8ea58427",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MT-400 (7)",
+        "specifications": {
+          "In (A)": "200-330A và 260-400A",
+          "Tên hàng": "MT-400 (7)"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 4,
+        "source_row_id": "ls-pdf:146c1755c2834542",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MT-800 (8)",
+        "specifications": {
+          "In (A)": "400-630A và 520-800A",
+          "Tên hàng": "MT-800 (8)"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 4,
+        "source_row_id": "ls-pdf:3c137d8d918c53e5",
+        "basis": "catalog_series_reference",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Dòng liên quan cùng hãng và loại; khác mã/khung có thể khác kích thước. Chọn cấu hình theo bảng thông tin."
+      }
+    ],
+    "observed_specifications": {
+      "nhan_block_nguon": "cc mt12",
+      "Loại thiết bị": "THERMAL_RELAY",
+      "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp.",
+      "Hình chiếu Mặt bên (ngang × cao, mm)": "63.957 × 72.669"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [
+      {
+        "brand": "LS Electric",
+        "family": "Metasol MT",
+        "url": "https://www.ls-electric.com/products/view/Smart_Power_Solution/Low_Voltage/Contactor_%26_Overload_Relay/Metasol_MS",
+        "scope": "manufacturer_family",
+        "checked_at": "2026-10-17"
+      }
+    ],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "documented_source_label",
+      "source_model": "MT-12",
+      "matched_catalog_rows": 9,
+      "model_identity_verified": true,
+      "remaining_tasks": [
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": true,
+      "source_label_models": [
+        "MT-12",
+        "mt12"
+      ],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "documented_source_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [
+        "mt12"
+      ],
+      "documented_models": [
+        {
+          "model": "MT-12",
+          "brand": "LS Electric",
+          "manufacturer_confirmed_on_source": false,
+          "scope": "previously_reviewed_source_model_or_family",
+          "documents": [
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+              "sha256": null,
+              "page": null,
+              "format": "previous_checksum_bound_manufacturer_review",
+              "match": "MT-12",
+              "basis": "existing_manufacturer_evidence_validated_against_source_dxf_hash"
+            }
+          ]
+        },
+        {
+          "model": "mt12",
+          "brand": "LS Electric",
+          "manufacturer_confirmed_on_source": false,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/280b6197-f4bb-4f86-a60d-917b7b8bf890/Metasol_MC_E_170915.pdf",
+              "sha256": "46d017e9c1c7e498670c8aa51ba4cb5ab3445b40d19b81ced563e1b5bf4e3bc0",
+              "page": 6,
+              "format": "pdf",
+              "match": "MT-12",
+              "basis": "literal_model_label"
+            },
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/1627/Electric%20Products_E_1703.pdf",
+              "sha256": "c3939090de81ca1dd1927bf03f64af3d6acf0a4301ec687a1964ade42c0f85aa",
+              "page": 14,
+              "format": "pdf",
+              "match": "MT-12",
+              "basis": "literal_model_label"
+            },
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+              "sha256": "0e7eec7924fe497009656a8e9c86371c8e9bedef842bc6c99572deac272ce5f4",
+              "page": 6,
+              "format": "pdf",
+              "match": "MT-12",
+              "basis": "literal_model_label"
+            }
+          ]
+        }
+      ],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "nhan_dien_web": {
+    "source_label_review": {
+      "status": "documented_source_label",
+      "models": [
+        "MT-12",
+        "mt12"
+      ],
+      "manufacturer_candidates": [
+        "LS Electric"
+      ],
+      "checked_at": "2026-10-17",
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "brand_candidate": "LS Electric",
+    "status": "candidate_from_documented_source_label"
+  },
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "THERMAL_RELAY",
+    "recognition_basis": "Vai trò ghi rõ trong ban_chat của hồ sơ hiện có; chưa xác nhận mã hàng hoặc thông số điện.",
+    "role_evidence": "Rơ le nhiệt",
+    "exact_SKU_confirmed": false
+  }
+}

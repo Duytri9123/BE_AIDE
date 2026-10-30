@@ -60,6 +60,31 @@ class AnalysisReadTests(unittest.IsolatedAsyncioTestCase):
             self.assertIn('ai_raw_response',inspect(iteration).unloaded)
             self.assertTrue(all('LIMIT' in q for q in self.queries[1:]))
 
+    async def test_session_history_excludes_images_and_preserves_panel_counts(self):
+        from sqlalchemy import update
+        async with self.factory() as db:
+            await db.execute(update(AnalysisIteration).values(
+                ai_parsed_devices=[{'quantity':3,'panel_code':'AP1','panel_name':'Panel',
+                                    'evidence_image':'data:image/png;base64,'+'A'*1000000}],
+                confidence_scores={'panel_info':{'panel_code':'AP1'},'panel_images':{'default':'large-image'}}))
+            await db.commit()
+        async with self.factory() as db:
+            rows, total = await session_page(db,1,self.user,0,5)
+            self.assertEqual(total,36)
+            for iteration, session in rows:
+                self.assertEqual(iteration.ai_parsed_devices,[{'panel_code':'AP1','panel_name':'Panel','quantity':3}])
+                self.assertEqual(iteration.confidence_scores['panel_info'],{'panel_code':'AP1'})
+                self.assertNotIn('panel_images',iteration.confidence_scores)
+
+    async def test_null_device_payload_is_an_empty_history_entry(self):
+        from sqlalchemy import update
+        async with self.factory() as db:
+            await db.execute(update(AnalysisIteration).values(ai_parsed_devices=None))
+            await db.commit()
+        async with self.factory() as db:
+            rows, _ = await session_page(db,1,self.user,0,5)
+            self.assertTrue(all(it.ai_parsed_devices == [] for it, session in rows))
+
     async def test_other_user_cannot_read_project(self):
         async with self.factory() as db:
             with self.assertRaises(HTTPException) as error:

@@ -1,0 +1,1137 @@
+{
+  "total": 517,
+  "invalid_prices": [],
+  "duplicate_ids": [],
+  "vat_status": {
+    "excluded": 517
+  },
+  "missing_source": [],
+  "effective_dates": {
+    "2026-10-01": 517
+  },
+  "repeated_skus": [
+    {
+      "category": "MCCB",
+      "sku": "ABN803c",
+      "count": 2,
+      "pages": [
+        1,
+        1
+      ],
+      "prices": [
+        15000000,
+        17000000
+      ]
+    },
+    {
+      "category": "MCCB",
+      "sku": "ABS803c",
+      "count": 2,
+      "pages": [
+        1,
+        1
+      ],
+      "prices": [
+        17800000,
+        19000000
+      ]
+    },
+    {
+      "category": "MCCB",
+      "sku": "ABN804c",
+      "count": 2,
+      "pages": [
+        1,
+        1
+      ],
+      "prices": [
+        17000000,
+        20000000
+      ]
+    },
+    {
+      "category": "MCCB",
+      "sku": "ABS804c",
+      "count": 2,
+      "pages": [
+        1,
+        1
+      ],
+      "prices": [
+        21800000,
+        24800000
+      ]
+    },
+    {
+      "category": "ELCB",
+      "sku": "EBN803c",
+      "count": 2,
+      "pages": [
+        1,
+        1
+      ],
+      "prices": [
+        24800000,
+        31500000
+      ]
+    },
+    {
+      "category": "MCB",
+      "sku": "LA63N 1P",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        122000,
+        127000
+      ]
+    },
+    {
+      "category": "MCB",
+      "sku": "LA63N 2P",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        268000,
+        274000
+      ]
+    },
+    {
+      "category": "MCB",
+      "sku": "LA63N 3P",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        428000,
+        440000
+      ]
+    },
+    {
+      "category": "MCB",
+      "sku": "LA63N 4P",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        620000,
+        710000
+      ]
+    },
+    {
+      "category": "MCB",
+      "sku": "LA63H 1P",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        175000,
+        202000
+      ]
+    },
+    {
+      "category": "MCB",
+      "sku": "LA63H 2P",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        380000,
+        428000
+      ]
+    },
+    {
+      "category": "MCB",
+      "sku": "LA63H 3P",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        606000,
+        732000
+      ]
+    },
+    {
+      "category": "MCB",
+      "sku": "LA63H 4P",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        894000,
+        1040000
+      ]
+    },
+    {
+      "category": "MCB",
+      "sku": "LA63L 1P",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        222000,
+        260000
+      ]
+    },
+    {
+      "category": "MCB",
+      "sku": "LA63L 2P",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        530000,
+        580000
+      ]
+    },
+    {
+      "category": "MCB",
+      "sku": "LA63L 3P",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        768000,
+        868000
+      ]
+    },
+    {
+      "category": "MCB",
+      "sku": "LA63L 4P",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        1220000,
+        1340000
+      ]
+    },
+    {
+      "category": "MCB",
+      "sku": "LA125H 1P",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        336000,
+        630000
+      ]
+    },
+    {
+      "category": "MCB",
+      "sku": "LA125H 2P",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        720000,
+        810000
+      ]
+    },
+    {
+      "category": "MCB",
+      "sku": "LA125H 3P",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        1150000,
+        1260000
+      ]
+    },
+    {
+      "category": "MCB",
+      "sku": "LA125H 4P",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        1480000,
+        1950000
+      ]
+    },
+    {
+      "category": "RCBO",
+      "sku": "LB63N 1P+N",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        626000,
+        670000
+      ]
+    },
+    {
+      "category": "RCBO",
+      "sku": "LB40NN 1P+N",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        1140000,
+        1220000
+      ]
+    },
+    {
+      "category": "RCBO",
+      "sku": "LB50HW 1P+N",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        1330000,
+        1330000
+      ]
+    },
+    {
+      "category": "RCBO",
+      "sku": "LB63HW 3P+N",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        5800000,
+        5800000
+      ]
+    },
+    {
+      "category": "RCCB",
+      "sku": "LC63N 1P+N",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        924000,
+        960000
+      ]
+    },
+    {
+      "category": "RCCB",
+      "sku": "LC63N 3P+N",
+      "count": 2,
+      "pages": [
+        3,
+        3
+      ],
+      "prices": [
+        1330000,
+        1450000
+      ]
+    },
+    {
+      "category": "RCCB",
+      "sku": "LC100H 1P+N",
+      "count": 3,
+      "pages": [
+        3,
+        3,
+        3
+      ],
+      "prices": [
+        1150000,
+        1240000,
+        1450000
+      ]
+    },
+    {
+      "category": "RCCB",
+      "sku": "LC100H 3P+N",
+      "count": 3,
+      "pages": [
+        3,
+        3,
+        3
+      ],
+      "prices": [
+        1640000,
+        1860000,
+        2200000
+      ]
+    },
+    {
+      "category": "CONTACTOR",
+      "sku": "MR-4 (2NO+2NC)",
+      "count": 2,
+      "pages": [
+        4,
+        4
+      ],
+      "prices": [
+        700000,
+        780000
+      ]
+    },
+    {
+      "category": "CONTACTOR",
+      "sku": "MR-6 (3NO+3NC)",
+      "count": 2,
+      "pages": [
+        4,
+        4
+      ],
+      "prices": [
+        860000,
+        950000
+      ]
+    },
+    {
+      "category": "CONTACTOR",
+      "sku": "MR-8 (4NO+4NC)",
+      "count": 2,
+      "pages": [
+        4,
+        4
+      ],
+      "prices": [
+        940000,
+        1080000
+      ]
+    },
+    {
+      "category": "THERMAL_RELAY",
+      "sku": "MT-32 (2)",
+      "count": 2,
+      "pages": [
+        4,
+        4
+      ],
+      "prices": [
+        580000,
+        580000
+      ]
+    },
+    {
+      "category": "RELAY",
+      "sku": "GMP22-2P (1a1b)",
+      "count": 2,
+      "pages": [
+        4,
+        8
+      ],
+      "prices": [
+        1160000,
+        1160000
+      ]
+    },
+    {
+      "category": "RELAY",
+      "sku": "GMP22-3P (1a1b)",
+      "count": 2,
+      "pages": [
+        4,
+        8
+      ],
+      "prices": [
+        1740000,
+        1740000
+      ]
+    },
+    {
+      "category": "RELAY",
+      "sku": "GMP40-2P (1a1b)",
+      "count": 2,
+      "pages": [
+        4,
+        8
+      ],
+      "prices": [
+        1260000,
+        1260000
+      ]
+    },
+    {
+      "category": "RELAY",
+      "sku": "GMP40-3P (1a1b)",
+      "count": 2,
+      "pages": [
+        4,
+        8
+      ],
+      "prices": [
+        1740000,
+        1740000
+      ]
+    },
+    {
+      "category": "RELAY",
+      "sku": "GMP60-T (1c)",
+      "count": 2,
+      "pages": [
+        4,
+        8
+      ],
+      "prices": [
+        1080000,
+        1080000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AN-06D3-06H AH6",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        61500000,
+        59500000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AN-08D3-08H AH6",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        66000000,
+        63500000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AN-10D3-10H AH6",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        67800000,
+        65000000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AN-13D3-13H AH6",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        71000000,
+        69000000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AN-16D3-16H AH6",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        75500000,
+        72500000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AS-20E3-20H AH6",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        102000000,
+        98000000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AS-25E3-25H AH6",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        142000000,
+        137000000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AN-06D4-06H AH6",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        68000000,
+        65500000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AN-08D4-08H AH6",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        74000000,
+        71500000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AN-10D4-10H AH6",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        76600000,
+        74000000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AN-13D4-13H AH6",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        80600000,
+        77500000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AN-16D4-16H AH6",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        88000000,
+        85000000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AS-20E4-20H AH6",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        124000000,
+        120000000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AS-25E4-25H AH6",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        166000000,
+        160000000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AN-06D3-06H NH5 without ACC",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        42000000,
+        41000000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AN-08D3-08H NH5 without ACC",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        49000000,
+        47500000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AN-10D3-10H NH5 without ACC",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        51000000,
+        49000000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AN-13D3-13H NH5 without ACC",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        56000000,
+        52500000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AN-16D3-16H NH5 without ACC",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        62000000,
+        60000000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AS-20E3-20H NH5 without ACC",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        85000000,
+        81500000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AS-25E3-25H NH5 without ACC",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        124000000,
+        120000000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AN-06D4-06H NH5 without ACC",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        53000000,
+        50000000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AN-08D4-08H NH5 without ACC",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        59000000,
+        57000000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AN-10D4-10H NH5 without ACC",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        61000000,
+        59000000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AN-13D4-13H NH5 without ACC",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        65000000,
+        61500000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AN-16D4-16H NH5 without ACC",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        71000000,
+        68000000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AS-20E4-20H NH5 without ACC",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        110000000,
+        103000000
+      ]
+    },
+    {
+      "category": "ACB",
+      "sku": "AS-25E4-25H NH5 without ACC",
+      "count": 2,
+      "pages": [
+        5,
+        6
+      ],
+      "prices": [
+        150000000,
+        143000000
+      ]
+    },
+    {
+      "category": "ACCESSORY",
+      "sku": "Khóa liên động (Mechanical Interlock)",
+      "count": 2,
+      "pages": [
+        5,
+        5
+      ],
+      "prices": [
+        12600000,
+        23200000
+      ]
+    },
+    {
+      "category": "MCCB",
+      "sku": "TD160N FTU160 3P",
+      "count": 2,
+      "pages": [
+        7,
+        7
+      ],
+      "prices": [
+        3760000,
+        4540000
+      ]
+    },
+    {
+      "category": "MCCB",
+      "sku": "TS160N FTU160 3P",
+      "count": 2,
+      "pages": [
+        7,
+        7
+      ],
+      "prices": [
+        4360000,
+        4860000
+      ]
+    },
+    {
+      "category": "MCCB",
+      "sku": "TS250N FTU250 3P",
+      "count": 2,
+      "pages": [
+        7,
+        7
+      ],
+      "prices": [
+        6300000,
+        7500000
+      ]
+    },
+    {
+      "category": "MCCB",
+      "sku": "TD160N FMU160 3P",
+      "count": 2,
+      "pages": [
+        7,
+        7
+      ],
+      "prices": [
+        4180000,
+        4700000
+      ]
+    },
+    {
+      "category": "MCCB",
+      "sku": "TS160N FMU160 3P",
+      "count": 2,
+      "pages": [
+        7,
+        7
+      ],
+      "prices": [
+        4600000,
+        5140000
+      ]
+    },
+    {
+      "category": "MCCB",
+      "sku": "TS250N FMU250 3P",
+      "count": 2,
+      "pages": [
+        7,
+        7
+      ],
+      "prices": [
+        6300000,
+        7900000
+      ]
+    },
+    {
+      "category": "MCCB",
+      "sku": "TS160N ATU160 3P",
+      "count": 2,
+      "pages": [
+        7,
+        7
+      ],
+      "prices": [
+        5000000,
+        5400000
+      ]
+    },
+    {
+      "category": "MCCB",
+      "sku": "TS250N ATU250 3P",
+      "count": 2,
+      "pages": [
+        7,
+        7
+      ],
+      "prices": [
+        6900000,
+        8500000
+      ]
+    },
+    {
+      "category": "MCCB",
+      "sku": "TD160N FTU160 4P",
+      "count": 2,
+      "pages": [
+        7,
+        7
+      ],
+      "prices": [
+        4660000,
+        6100000
+      ]
+    },
+    {
+      "category": "MCCB",
+      "sku": "TS160N FTU160 4P",
+      "count": 2,
+      "pages": [
+        7,
+        7
+      ],
+      "prices": [
+        6100000,
+        6900000
+      ]
+    },
+    {
+      "category": "MCCB",
+      "sku": "TS250N FTU250 4P",
+      "count": 2,
+      "pages": [
+        7,
+        7
+      ],
+      "prices": [
+        8500000,
+        10000000
+      ]
+    },
+    {
+      "category": "MCCB",
+      "sku": "TD160N FMU160 4P",
+      "count": 2,
+      "pages": [
+        7,
+        7
+      ],
+      "prices": [
+        6000000,
+        7000000
+      ]
+    },
+    {
+      "category": "MCCB",
+      "sku": "TS160N FMU160 4P",
+      "count": 2,
+      "pages": [
+        7,
+        7
+      ],
+      "prices": [
+        6200000,
+        7200000
+      ]
+    },
+    {
+      "category": "MCCB",
+      "sku": "TS250N FMU250 4P",
+      "count": 2,
+      "pages": [
+        7,
+        7
+      ],
+      "prices": [
+        9000000,
+        10600000
+      ]
+    },
+    {
+      "category": "MOTOR_PROTECTION",
+      "sku": "MMS-32S",
+      "count": 13,
+      "pages": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "prices": [
+        920000,
+        920000,
+        920000,
+        920000,
+        920000,
+        920000,
+        920000,
+        920000,
+        960000,
+        960000,
+        960000,
+        960000,
+        960000
+      ]
+    },
+    {
+      "category": "MOTOR_PROTECTION",
+      "sku": "MMS-63S",
+      "count": 3,
+      "pages": [
+        8,
+        8,
+        8
+      ],
+      "prices": [
+        2600000,
+        2600000,
+        2600000
+      ]
+    },
+    {
+      "category": "MOTOR_PROTECTION",
+      "sku": "MMS-100S",
+      "count": 2,
+      "pages": [
+        8,
+        8
+      ],
+      "prices": [
+        4400000,
+        4900000
+      ]
+    }
+  ],
+  "source_pdf_exists": true,
+  "source_pdf_sha256": "e9dd7a85f3a37aa09f2ad77588b00a9c736392b178f22eac33698f59dfdfe5c1",
+  "source_hash_matches_all_ls_rows": true
+}

@@ -30,7 +30,7 @@ class User(Base, TimestampMixin, SoftDeleteMixin):
     projects: Mapped[List["Project"]] = relationship("Project", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
     device_libraries: Mapped[List["UserDeviceLibrary"]] = relationship("UserDeviceLibrary", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
     library_files: Mapped[List["UserLibraryFile"]] = relationship("UserLibraryFile", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
-    subscriptions: Mapped[List["Subscription"]] = relationship("Subscription", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
+    subscriptions: Mapped[List["Subscription"]] = relationship("Subscription", back_populates="user", lazy="selectin", cascade="all, delete-orphan", passive_deletes=True)
     payments: Mapped[List["Payment"]] = relationship("Payment", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
     token_logs: Mapped[List["TokenLog"]] = relationship("TokenLog", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
     notifications: Mapped[List["Notification"]] = relationship("Notification", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)

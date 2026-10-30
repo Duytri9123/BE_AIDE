@@ -1,0 +1,67 @@
+[
+  {
+    "profile": "LS/ThietBi/OFFICIAL-PLAIN-DC-MC50-65/thong_tin_thiet_bi.json",
+    "models": [
+      "MC-50a",
+      "MC-65a"
+    ],
+    "price_ids": [
+      "ls-pdf:8fe71643ebe05a10",
+      "ls-pdf:9cb35bf427aa51d2"
+    ],
+    "views": 2,
+    "evidence": {
+      "name": "Dimensions_Metasol+(MC-6a-150a).dwg",
+      "url": "https://lselectric-ru.com/upload/iblock/660/660d12651a0f0c1859412bf8f10d85f4.dwg",
+      "source_url": "https://lselectric-ru.com/upload/iblock/660/660d12651a0f0c1859412bf8f10d85f4.dwg",
+      "source_page": "https://lselectric-ru.com/equipment/oborudovanie-nizkogo-napryazheniya/",
+      "sha256": "40244f3b3c8b104316f46ba799e7bf1c9b7073662abe1b5bf17a864c2774856e",
+      "review_status": "not_published",
+      "source_dxf_sha256": "0dc8b5ca6c7aff84d98fe6bc4ae300b9bc3f05f2226a9e39ace7d6032f6d4074",
+      "native_style_preserved": true,
+      "reviewed_column": "CONTACTOR DC; distinct from CONTACTOR 2a2b DC",
+      "reviewed_row": [
+        "MC-50a",
+        "MC-65a"
+      ],
+      "configuration_evidence": "Manufacturer dimensional matrix separates plain DC from 2a2b DC. Plain DC front width 55 or 70 mm versus wider side auxiliary 2a2b frames; original complete front and side only, no assembly subtraction.",
+      "unit_evidence": "Original INSUNITS=4; geometry preserved at native mm scale",
+      "six_views_verified": false,
+      "excluded_geometry": "Third projection contains mounting holes and centerlines only; not published as a complete rear face."
+    }
+  },
+  {
+    "profile": "LS/ThietBi/OFFICIAL-PLAIN-DC-MC75-100/thong_tin_thiet_bi.json",
+    "models": [
+      "MC-75a",
+      "MC-85a",
+      "MC-100a"
+    ],
+    "price_ids": [
+      "ls-pdf:06e4a0c8981d80f4",
+      "ls-pdf:4ab21fdb0ec598df",
+      "ls-pdf:28b48437fae9ff4f"
+    ],
+    "views": 2,
+    "evidence": {
+      "name": "Dimensions_Metasol+(MC-6a-150a).dwg",
+      "url": "https://lselectric-ru.com/upload/iblock/660/660d12651a0f0c1859412bf8f10d85f4.dwg",
+      "source_url": "https://lselectric-ru.com/upload/iblock/660/660d12651a0f0c1859412bf8f10d85f4.dwg",
+      "source_page": "https://lselectric-ru.com/equipment/oborudovanie-nizkogo-napryazheniya/",
+      "sha256": "40244f3b3c8b104316f46ba799e7bf1c9b7073662abe1b5bf17a864c2774856e",
+      "review_status": "not_published",
+      "source_dxf_sha256": "0dc8b5ca6c7aff84d98fe6bc4ae300b9bc3f05f2226a9e39ace7d6032f6d4074",
+      "native_style_preserved": true,
+      "reviewed_column": "CONTACTOR DC; distinct from CONTACTOR 2a2b DC",
+      "reviewed_row": [
+        "MC-75a",
+        "MC-85a",
+        "MC-100a"
+      ],
+      "configuration_evidence": "Manufacturer dimensional matrix separates plain DC from 2a2b DC. Plain DC front width 55 or 70 mm versus wider side auxiliary 2a2b frames; original complete front and side only, no assembly subtraction.",
+      "unit_evidence": "Original INSUNITS=4; geometry preserved at native mm scale",
+      "six_views_verified": false,
+      "excluded_geometry": "Third projection contains mounting holes and centerlines only; not published as a complete rear face."
+    }
+  }
+]

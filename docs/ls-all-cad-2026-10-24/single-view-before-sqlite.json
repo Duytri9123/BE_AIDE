@@ -1,0 +1,1319 @@
+[
+  {
+    "catalog_id": "TB-e59254bbdb7e0b3f",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · LS ABH52C 2P · CAD nguồn",
+    "model": "LS · LS ABH52C 2P · CAD nguồn",
+    "brand": "LS",
+    "brand_verified": false,
+    "category": "CAD thiết bị theo nhãn nguồn",
+    "description": "Tham khảo hình học; xác nhận chức năng, mã thiết bị và thông số trước thiết kế.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "SRC_LS_08f05b6a7d61",
+          "name": "LS ABH52C 2P",
+          "state": "Mặt trước",
+          "preview": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_08f05b6a7d61/CadDon/SRC_LS_08f05b6a7d61/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_08f05b6a7d61/CadDon/SRC_LS_08f05b6a7d61/ban_ve.dxf"
+          },
+          "placement": {
+            "cho_phep_chen": false,
+            "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+          }
+        }
+      ],
+      "default_view_id": "SRC_LS_08f05b6a7d61",
+      "preview": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_08f05b6a7d61/CadDon/SRC_LS_08f05b6a7d61/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_08f05b6a7d61/CadDon/SRC_LS_08f05b6a7d61/ban_ve.dxf"
+      },
+      "match_basis": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-e59254bbdb7e0b3f"
+    },
+    "evidence": {
+      "profile_id": "TB-e59254bbdb7e0b3f",
+      "review_required": true
+    },
+    "warnings": [
+      "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-03adf5a8e67ae581",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · BKN 3P · CAD nguồn",
+    "model": "LS · BKN 3P · CAD nguồn",
+    "brand": "LS",
+    "brand_verified": false,
+    "category": "MCB",
+    "description": "Bảo vệ quá dòng theo mã, số cực và khả năng cắt thực tế.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "SRC_LS_2f3a4b500b66",
+          "name": "BKN 3P",
+          "state": "Mặt trước",
+          "preview": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_2f3a4b500b66/CadDon/SRC_LS_2f3a4b500b66/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_2f3a4b500b66/CadDon/SRC_LS_2f3a4b500b66/ban_ve.dxf"
+          },
+          "placement": {
+            "cho_phep_chen": false,
+            "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+          }
+        }
+      ],
+      "default_view_id": "SRC_LS_2f3a4b500b66",
+      "preview": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_2f3a4b500b66/CadDon/SRC_LS_2f3a4b500b66/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_2f3a4b500b66/CadDon/SRC_LS_2f3a4b500b66/ban_ve.dxf"
+      },
+      "match_basis": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-03adf5a8e67ae581"
+    },
+    "evidence": {
+      "profile_id": "TB-03adf5a8e67ae581",
+      "review_required": true
+    },
+    "warnings": [
+      "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-7dd2ecb5a38cc051",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · MC 185a · CAD nguồn",
+    "model": "LS · MC 185a · CAD nguồn",
+    "brand": "LS",
+    "brand_verified": false,
+    "category": "Khởi động từ",
+    "description": "Đóng cắt tải qua cuộn điều khiển; cần xác nhận điện áp cuộn hút.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "SRC_LS_3b7482fcca9f",
+          "name": "MC 185a",
+          "state": "Mặt trước",
+          "preview": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_3b7482fcca9f/CadDon/SRC_LS_3b7482fcca9f/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_3b7482fcca9f/CadDon/SRC_LS_3b7482fcca9f/ban_ve.dxf"
+          },
+          "placement": {
+            "cho_phep_chen": false,
+            "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+          }
+        }
+      ],
+      "default_view_id": "SRC_LS_3b7482fcca9f",
+      "preview": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_3b7482fcca9f/CadDon/SRC_LS_3b7482fcca9f/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_3b7482fcca9f/CadDon/SRC_LS_3b7482fcca9f/ban_ve.dxf"
+      },
+      "match_basis": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-7dd2ecb5a38cc051"
+    },
+    "evidence": {
+      "profile_id": "TB-7dd2ecb5a38cc051",
+      "review_required": true
+    },
+    "warnings": [
+      "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-a2e5e1b1200b4783",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · ABS403c · CAD nguồn",
+    "model": "LS · ABS403c · CAD nguồn",
+    "brand": "LS",
+    "brand_verified": false,
+    "category": "CAD thiết bị theo nhãn nguồn",
+    "description": "Tham khảo hình học; xác nhận chức năng, mã thiết bị và thông số trước thiết kế.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "SRC_LS_3c36f48a9dc2",
+          "name": "ABS403c",
+          "state": "Mặt trước",
+          "preview": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_3c36f48a9dc2/CadDon/SRC_LS_3c36f48a9dc2/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_3c36f48a9dc2/CadDon/SRC_LS_3c36f48a9dc2/ban_ve.dxf"
+          },
+          "placement": {
+            "cho_phep_chen": false,
+            "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+          }
+        }
+      ],
+      "default_view_id": "SRC_LS_3c36f48a9dc2",
+      "preview": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_3c36f48a9dc2/CadDon/SRC_LS_3c36f48a9dc2/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_3c36f48a9dc2/CadDon/SRC_LS_3c36f48a9dc2/ban_ve.dxf"
+      },
+      "match_basis": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-a2e5e1b1200b4783"
+    },
+    "evidence": {
+      "profile_id": "TB-a2e5e1b1200b4783",
+      "review_required": true
+    },
+    "warnings": [
+      "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-7f55a2533f55451e",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · CC MC 500a · CAD nguồn",
+    "model": "LS · CC MC 500a · CAD nguồn",
+    "brand": "LS",
+    "brand_verified": false,
+    "category": "Khởi động từ",
+    "description": "Đóng cắt tải qua cuộn điều khiển; cần xác nhận điện áp cuộn hút.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "SRC_LS_418527c4fc24",
+          "name": "CC MC 500a",
+          "state": "Mặt bên",
+          "preview": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_418527c4fc24/CadDon/SRC_LS_418527c4fc24/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_418527c4fc24/CadDon/SRC_LS_418527c4fc24/ban_ve.dxf"
+          },
+          "placement": {
+            "cho_phep_chen": false,
+            "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+          }
+        }
+      ],
+      "default_view_id": "SRC_LS_418527c4fc24",
+      "preview": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_418527c4fc24/CadDon/SRC_LS_418527c4fc24/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_418527c4fc24/CadDon/SRC_LS_418527c4fc24/ban_ve.dxf"
+      },
+      "match_basis": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-7f55a2533f55451e"
+    },
+    "evidence": {
+      "profile_id": "TB-7f55a2533f55451e",
+      "review_required": true
+    },
+    "warnings": [
+      "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-cbd0ce36cee43ca9",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · MC 75a-100a AC · CAD nguồn",
+    "model": "LS · MC 75a-100a AC · CAD nguồn",
+    "brand": "LS",
+    "brand_verified": false,
+    "category": "Khởi động từ",
+    "description": "Đóng cắt tải qua cuộn điều khiển; cần xác nhận điện áp cuộn hút.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "SRC_LS_430b11b485cd",
+          "name": "MC 75a-100a AC",
+          "state": "Mặt trước",
+          "preview": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_430b11b485cd/CadDon/SRC_LS_430b11b485cd/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_430b11b485cd/CadDon/SRC_LS_430b11b485cd/ban_ve.dxf"
+          },
+          "placement": {
+            "cho_phep_chen": false,
+            "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+          }
+        }
+      ],
+      "default_view_id": "SRC_LS_430b11b485cd",
+      "preview": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_430b11b485cd/CadDon/SRC_LS_430b11b485cd/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_430b11b485cd/CadDon/SRC_LS_430b11b485cd/ban_ve.dxf"
+      },
+      "match_basis": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-cbd0ce36cee43ca9"
+    },
+    "evidence": {
+      "profile_id": "TB-cbd0ce36cee43ca9",
+      "review_required": true
+    },
+    "warnings": [
+      "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-bea54fdef5b2acda",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · CC MC 265a · CAD nguồn",
+    "model": "LS · CC MC 265a · CAD nguồn",
+    "brand": "LS",
+    "brand_verified": false,
+    "category": "Khởi động từ",
+    "description": "Đóng cắt tải qua cuộn điều khiển; cần xác nhận điện áp cuộn hút.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "SRC_LS_4a8c0a746398",
+          "name": "CC MC 265a",
+          "state": "Mặt bên",
+          "preview": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_4a8c0a746398/CadDon/SRC_LS_4a8c0a746398/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_4a8c0a746398/CadDon/SRC_LS_4a8c0a746398/ban_ve.dxf"
+          },
+          "placement": {
+            "cho_phep_chen": false,
+            "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+          }
+        }
+      ],
+      "default_view_id": "SRC_LS_4a8c0a746398",
+      "preview": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_4a8c0a746398/CadDon/SRC_LS_4a8c0a746398/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_4a8c0a746398/CadDon/SRC_LS_4a8c0a746398/ban_ve.dxf"
+      },
+      "match_basis": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-bea54fdef5b2acda"
+    },
+    "evidence": {
+      "profile_id": "TB-bea54fdef5b2acda",
+      "review_required": true
+    },
+    "warnings": [
+      "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-ca53bae6a5bfdab3",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · BKN 4P · CAD nguồn",
+    "model": "LS · BKN 4P · CAD nguồn",
+    "brand": "LS",
+    "brand_verified": false,
+    "category": "MCB",
+    "description": "Bảo vệ quá dòng theo mã, số cực và khả năng cắt thực tế.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "SRC_LS_55dfd3ebcb4d",
+          "name": "BKN 4P",
+          "state": "Mặt trước",
+          "preview": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_55dfd3ebcb4d/CadDon/SRC_LS_55dfd3ebcb4d/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_55dfd3ebcb4d/CadDon/SRC_LS_55dfd3ebcb4d/ban_ve.dxf"
+          },
+          "placement": {
+            "cho_phep_chen": false,
+            "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+          }
+        }
+      ],
+      "default_view_id": "SRC_LS_55dfd3ebcb4d",
+      "preview": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_55dfd3ebcb4d/CadDon/SRC_LS_55dfd3ebcb4d/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_55dfd3ebcb4d/CadDon/SRC_LS_55dfd3ebcb4d/ban_ve.dxf"
+      },
+      "match_basis": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-ca53bae6a5bfdab3"
+    },
+    "evidence": {
+      "profile_id": "TB-ca53bae6a5bfdab3",
+      "review_required": true
+    },
+    "warnings": [
+      "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-cacdfd7844526f12",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · cc mt12 · CAD nguồn",
+    "model": "LS · cc mt12 · CAD nguồn",
+    "brand": "LS",
+    "brand_verified": false,
+    "category": "THERMAL_RELAY",
+    "description": "Bảo vệ quá tải động cơ; cần xác nhận dải chỉnh và thiết bị chủ.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "SRC_LS_56b62db7d535",
+          "name": "cc mt12",
+          "state": "Mặt bên",
+          "preview": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_56b62db7d535/CadDon/SRC_LS_56b62db7d535/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_56b62db7d535/CadDon/SRC_LS_56b62db7d535/ban_ve.dxf"
+          },
+          "placement": {
+            "cho_phep_chen": false,
+            "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+          }
+        }
+      ],
+      "default_view_id": "SRC_LS_56b62db7d535",
+      "preview": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_56b62db7d535/CadDon/SRC_LS_56b62db7d535/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_56b62db7d535/CadDon/SRC_LS_56b62db7d535/ban_ve.dxf"
+      },
+      "match_basis": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-cacdfd7844526f12"
+    },
+    "evidence": {
+      "profile_id": "TB-cacdfd7844526f12",
+      "review_required": true
+    },
+    "warnings": [
+      "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-51f4558cd68dbb11",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · mt12 · CAD nguồn",
+    "model": "LS · mt12 · CAD nguồn",
+    "brand": "LS",
+    "brand_verified": false,
+    "category": "THERMAL_RELAY",
+    "description": "Bảo vệ quá tải động cơ; cần xác nhận dải chỉnh và thiết bị chủ.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "SRC_LS_7b513915a600",
+          "name": "mt12",
+          "state": "Mặt trước",
+          "preview": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_7b513915a600/CadDon/SRC_LS_7b513915a600/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_7b513915a600/CadDon/SRC_LS_7b513915a600/ban_ve.dxf"
+          },
+          "placement": {
+            "cho_phep_chen": false,
+            "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+          }
+        }
+      ],
+      "default_view_id": "SRC_LS_7b513915a600",
+      "preview": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_7b513915a600/CadDon/SRC_LS_7b513915a600/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_7b513915a600/CadDon/SRC_LS_7b513915a600/ban_ve.dxf"
+      },
+      "match_basis": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-51f4558cd68dbb11"
+    },
+    "evidence": {
+      "profile_id": "TB-51f4558cd68dbb11",
+      "review_required": true
+    },
+    "warnings": [
+      "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-7ec687e49e297901",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · MC 265a · CAD nguồn",
+    "model": "LS · MC 265a · CAD nguồn",
+    "brand": "LS",
+    "brand_verified": false,
+    "category": "Khởi động từ",
+    "description": "Đóng cắt tải qua cuộn điều khiển; cần xác nhận điện áp cuộn hút.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "SRC_LS_8ac6446915e3",
+          "name": "MC 265a",
+          "state": "Mặt trước",
+          "preview": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_8ac6446915e3/CadDon/SRC_LS_8ac6446915e3/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_8ac6446915e3/CadDon/SRC_LS_8ac6446915e3/ban_ve.dxf"
+          },
+          "placement": {
+            "cho_phep_chen": false,
+            "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+          }
+        }
+      ],
+      "default_view_id": "SRC_LS_8ac6446915e3",
+      "preview": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_8ac6446915e3/CadDon/SRC_LS_8ac6446915e3/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_8ac6446915e3/CadDon/SRC_LS_8ac6446915e3/ban_ve.dxf"
+      },
+      "match_basis": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-7ec687e49e297901"
+    },
+    "evidence": {
+      "profile_id": "TB-7ec687e49e297901",
+      "review_required": true
+    },
+    "warnings": [
+      "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-967962b721f7375f",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · CC MC185a · CAD nguồn",
+    "model": "LS · CC MC185a · CAD nguồn",
+    "brand": "LS",
+    "brand_verified": false,
+    "category": "CAD thiết bị theo nhãn nguồn",
+    "description": "Tham khảo hình học; xác nhận chức năng, mã thiết bị và thông số trước thiết kế.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "SRC_LS_978f1ae5618e",
+          "name": "CC MC185a",
+          "state": "Mặt bên",
+          "preview": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_978f1ae5618e/CadDon/SRC_LS_978f1ae5618e/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_978f1ae5618e/CadDon/SRC_LS_978f1ae5618e/ban_ve.dxf"
+          },
+          "placement": {
+            "cho_phep_chen": false,
+            "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+          }
+        }
+      ],
+      "default_view_id": "SRC_LS_978f1ae5618e",
+      "preview": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_978f1ae5618e/CadDon/SRC_LS_978f1ae5618e/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_978f1ae5618e/CadDon/SRC_LS_978f1ae5618e/ban_ve.dxf"
+      },
+      "match_basis": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-967962b721f7375f"
+    },
+    "evidence": {
+      "profile_id": "TB-967962b721f7375f",
+      "review_required": true
+    },
+    "warnings": [
+      "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-d69f76621bed31d5",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · abn203c · CAD nguồn",
+    "model": "LS · abn203c · CAD nguồn",
+    "brand": "LS",
+    "brand_verified": false,
+    "category": "CAD thiết bị theo nhãn nguồn",
+    "description": "Tham khảo hình học; xác nhận chức năng, mã thiết bị và thông số trước thiết kế.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "SRC_LS_a0e89a56dd19",
+          "name": "abn203c",
+          "state": "Mặt trước",
+          "preview": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_a0e89a56dd19/CadDon/SRC_LS_a0e89a56dd19/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_a0e89a56dd19/CadDon/SRC_LS_a0e89a56dd19/ban_ve.dxf"
+          },
+          "placement": {
+            "cho_phep_chen": false,
+            "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+          }
+        }
+      ],
+      "default_view_id": "SRC_LS_a0e89a56dd19",
+      "preview": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_a0e89a56dd19/CadDon/SRC_LS_a0e89a56dd19/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_a0e89a56dd19/CadDon/SRC_LS_a0e89a56dd19/ban_ve.dxf"
+      },
+      "match_basis": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-d69f76621bed31d5"
+    },
+    "evidence": {
+      "profile_id": "TB-d69f76621bed31d5",
+      "review_required": true
+    },
+    "warnings": [
+      "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-4cca6dc255bc2167",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · MC 500a · CAD nguồn",
+    "model": "LS · MC 500a · CAD nguồn",
+    "brand": "LS",
+    "brand_verified": false,
+    "category": "Khởi động từ",
+    "description": "Đóng cắt tải qua cuộn điều khiển; cần xác nhận điện áp cuộn hút.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "SRC_LS_aa32841393b9",
+          "name": "MC 500a",
+          "state": "Mặt trước",
+          "preview": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_aa32841393b9/CadDon/SRC_LS_aa32841393b9/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_aa32841393b9/CadDon/SRC_LS_aa32841393b9/ban_ve.dxf"
+          },
+          "placement": {
+            "cho_phep_chen": false,
+            "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+          }
+        }
+      ],
+      "default_view_id": "SRC_LS_aa32841393b9",
+      "preview": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_aa32841393b9/CadDon/SRC_LS_aa32841393b9/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_aa32841393b9/CadDon/SRC_LS_aa32841393b9/ban_ve.dxf"
+      },
+      "match_basis": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-4cca6dc255bc2167"
+    },
+    "evidence": {
+      "profile_id": "TB-4cca6dc255bc2167",
+      "review_required": true
+    },
+    "warnings": [
+      "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-dbfa3fc69f482c5e",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · ABN53c · CAD nguồn",
+    "model": "LS · ABN53c · CAD nguồn",
+    "brand": "LS",
+    "brand_verified": false,
+    "category": "CAD thiết bị theo nhãn nguồn",
+    "description": "Tham khảo hình học; xác nhận chức năng, mã thiết bị và thông số trước thiết kế.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "SRC_LS_c3db0431a799",
+          "name": "ABN53c",
+          "state": "Mặt trước",
+          "preview": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_c3db0431a799/CadDon/SRC_LS_c3db0431a799/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_c3db0431a799/CadDon/SRC_LS_c3db0431a799/ban_ve.dxf"
+          },
+          "placement": {
+            "cho_phep_chen": false,
+            "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+          }
+        }
+      ],
+      "default_view_id": "SRC_LS_c3db0431a799",
+      "preview": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_c3db0431a799/CadDon/SRC_LS_c3db0431a799/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_c3db0431a799/CadDon/SRC_LS_c3db0431a799/ban_ve.dxf"
+      },
+      "match_basis": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-dbfa3fc69f482c5e"
+    },
+    "evidence": {
+      "profile_id": "TB-dbfa3fc69f482c5e",
+      "review_required": true
+    },
+    "warnings": [
+      "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-32144d13a2436f0b",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · BKN 2P · CAD nguồn",
+    "model": "LS · BKN 2P · CAD nguồn",
+    "brand": "LS",
+    "brand_verified": false,
+    "category": "MCB",
+    "description": "Bảo vệ quá dòng theo mã, số cực và khả năng cắt thực tế.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "SRC_LS_d039da15da5b",
+          "name": "BKN 2P",
+          "state": "Mặt trước",
+          "preview": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_d039da15da5b/CadDon/SRC_LS_d039da15da5b/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_d039da15da5b/CadDon/SRC_LS_d039da15da5b/ban_ve.dxf"
+          },
+          "placement": {
+            "cho_phep_chen": false,
+            "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+          }
+        }
+      ],
+      "default_view_id": "SRC_LS_d039da15da5b",
+      "preview": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_d039da15da5b/CadDon/SRC_LS_d039da15da5b/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_d039da15da5b/CadDon/SRC_LS_d039da15da5b/ban_ve.dxf"
+      },
+      "match_basis": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-32144d13a2436f0b"
+    },
+    "evidence": {
+      "profile_id": "TB-32144d13a2436f0b",
+      "review_required": true
+    },
+    "warnings": [
+      "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-2d95b404b4b14f47",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · BKN 1P · CAD nguồn",
+    "model": "LS · BKN 1P · CAD nguồn",
+    "brand": "LS",
+    "brand_verified": false,
+    "category": "MCB",
+    "description": "Bảo vệ quá dòng theo mã, số cực và khả năng cắt thực tế.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "SRC_LS_dbb420436983",
+          "name": "BKN 1P",
+          "state": "Mặt trước",
+          "preview": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_dbb420436983/CadDon/SRC_LS_dbb420436983/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/LS/ThietBi/SRC_LS_dbb420436983/CadDon/SRC_LS_dbb420436983/ban_ve.dxf"
+          },
+          "placement": {
+            "cho_phep_chen": false,
+            "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+          }
+        }
+      ],
+      "default_view_id": "SRC_LS_dbb420436983",
+      "preview": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_dbb420436983/CadDon/SRC_LS_dbb420436983/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/LS/ThietBi/SRC_LS_dbb420436983/CadDon/SRC_LS_dbb420436983/ban_ve.dxf"
+      },
+      "match_basis": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-2d95b404b4b14f47"
+    },
+    "evidence": {
+      "profile_id": "TB-2d95b404b4b14f47",
+      "review_required": true
+    },
+    "warnings": [
+      "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-7d42ad303e185254",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · CONTACTOR · MC-130a / MC-150a · 3P",
+    "model": "MC-130a / MC-150a",
+    "brand": "LS Electric",
+    "brand_verified": true,
+    "category": "Khởi động từ 3 cực",
+    "description": "Đóng cắt từ xa mạch động lực bằng cuộn hút điều khiển.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "C03_cluster3-V006",
+          "name": "LS · CONTACTOR · MC-130a / MC-150a · 3P · Mặt trước",
+          "state": "Mặt trước",
+          "preview": {
+            "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_130a-150a_3P/CadDon/C03_cluster3-V006/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_130a-150a_3P/CadDon/C03_cluster3-V006/ban_ve.dxf"
+          },
+          "placement": {
+            "mat_form_mac_dinh": "Mặt trước",
+            "cho_phep_chen": true,
+            "huong_dan": "Dùng cho mặt trước form tủ khi mặt thao tác hoặc mặt chính của thiết bị hướng về người nhìn."
+          }
+        }
+      ],
+      "default_view_id": "C03_cluster3-V006",
+      "preview": {
+        "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_130a-150a_3P/CadDon/C03_cluster3-V006/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_130a-150a_3P/CadDon/C03_cluster3-V006/ban_ve.dxf"
+      },
+      "match_basis": "Nhóm mã ứng viên theo hình dạng và tỷ lệ; dòng AC-3 là dải các biến thể trong nhóm."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-7d42ad303e185254"
+    },
+    "evidence": {
+      "profile_id": "TB-7d42ad303e185254",
+      "review_required": true
+    },
+    "warnings": [
+      "Nhóm mã ứng viên theo hình dạng và tỷ lệ; dòng AC-3 là dải các biến thể trong nhóm."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-a730ab797f9b1aa0",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · CONTACTOR · MC-32a / MC-40a · 3P",
+    "model": "MC-32a / MC-40a",
+    "brand": "LS Electric",
+    "brand_verified": true,
+    "category": "Khởi động từ 3 cực",
+    "description": "Đóng cắt từ xa mạch động lực bằng cuộn hút điều khiển.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "C03_cluster3-V003",
+          "name": "LS · CONTACTOR · MC-32a / MC-40a · 3P · Mặt trước",
+          "state": "Mặt trước",
+          "preview": {
+            "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_32a-40a_3P/CadDon/C03_cluster3-V003/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_32a-40a_3P/CadDon/C03_cluster3-V003/ban_ve.dxf"
+          },
+          "placement": {
+            "mat_form_mac_dinh": "Mặt trước",
+            "cho_phep_chen": true,
+            "huong_dan": "Dùng cho mặt trước form tủ khi mặt thao tác hoặc mặt chính của thiết bị hướng về người nhìn."
+          }
+        }
+      ],
+      "default_view_id": "C03_cluster3-V003",
+      "preview": {
+        "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_32a-40a_3P/CadDon/C03_cluster3-V003/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_32a-40a_3P/CadDon/C03_cluster3-V003/ban_ve.dxf"
+      },
+      "match_basis": "Nhóm mã ứng viên theo hình dạng và tỷ lệ; dòng AC-3 là dải các biến thể trong nhóm."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-a730ab797f9b1aa0"
+    },
+    "evidence": {
+      "profile_id": "TB-a730ab797f9b1aa0",
+      "review_required": true
+    },
+    "warnings": [
+      "Nhóm mã ứng viên theo hình dạng và tỷ lệ; dòng AC-3 là dải các biến thể trong nhóm."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-b9bdf0f7f424f0ac",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · CONTACTOR · MC-50a / MC-65a · 3P",
+    "model": "MC-50a / MC-65a",
+    "brand": "LS Electric",
+    "brand_verified": true,
+    "category": "Khởi động từ 3 cực",
+    "description": "Đóng cắt từ xa mạch động lực bằng cuộn hút điều khiển.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "C03_cluster3-V004",
+          "name": "LS · CONTACTOR · MC-50a / MC-65a · 3P · Mặt trước",
+          "state": "Mặt trước",
+          "preview": {
+            "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_50a-65a_3P/CadDon/C03_cluster3-V004/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_50a-65a_3P/CadDon/C03_cluster3-V004/ban_ve.dxf"
+          },
+          "placement": {
+            "mat_form_mac_dinh": "Mặt trước",
+            "cho_phep_chen": true,
+            "huong_dan": "Dùng cho mặt trước form tủ khi mặt thao tác hoặc mặt chính của thiết bị hướng về người nhìn."
+          }
+        }
+      ],
+      "default_view_id": "C03_cluster3-V004",
+      "preview": {
+        "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_50a-65a_3P/CadDon/C03_cluster3-V004/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_50a-65a_3P/CadDon/C03_cluster3-V004/ban_ve.dxf"
+      },
+      "match_basis": "Nhóm mã ứng viên theo hình dạng và tỷ lệ; dòng AC-3 là dải các biến thể trong nhóm."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-b9bdf0f7f424f0ac"
+    },
+    "evidence": {
+      "profile_id": "TB-b9bdf0f7f424f0ac",
+      "review_required": true
+    },
+    "warnings": [
+      "Nhóm mã ứng viên theo hình dạng và tỷ lệ; dòng AC-3 là dải các biến thể trong nhóm."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-9800a5c06c6da4ed",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · CONTACTOR · MC-6a / 9a / 12a / 18a · 3P",
+    "model": "MC-6a / 9a / 12a / 18a",
+    "brand": "LS Electric",
+    "brand_verified": true,
+    "category": "Khởi động từ 3 cực",
+    "description": "Đóng cắt từ xa mạch động lực bằng cuộn hút điều khiển.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "C03_cluster3-V001",
+          "name": "LS · CONTACTOR · MC-6a / 9a / 12a / 18a · 3P · Mặt trước",
+          "state": "Mặt trước",
+          "preview": {
+            "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_6a-18a_3P/CadDon/C03_cluster3-V001/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_6a-18a_3P/CadDon/C03_cluster3-V001/ban_ve.dxf"
+          },
+          "placement": {
+            "mat_form_mac_dinh": "Mặt trước",
+            "cho_phep_chen": true,
+            "huong_dan": "Dùng cho mặt trước form tủ khi mặt thao tác hoặc mặt chính của thiết bị hướng về người nhìn."
+          }
+        }
+      ],
+      "default_view_id": "C03_cluster3-V001",
+      "preview": {
+        "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_6a-18a_3P/CadDon/C03_cluster3-V001/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_6a-18a_3P/CadDon/C03_cluster3-V001/ban_ve.dxf"
+      },
+      "match_basis": "Nhóm mã ứng viên theo hình dạng và tỷ lệ; dòng AC-3 là dải các biến thể trong nhóm."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-9800a5c06c6da4ed"
+    },
+    "evidence": {
+      "profile_id": "TB-9800a5c06c6da4ed",
+      "review_required": true
+    },
+    "warnings": [
+      "Nhóm mã ứng viên theo hình dạng và tỷ lệ; dòng AC-3 là dải các biến thể trong nhóm."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-b002664c5f729526",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · CONTACTOR · MC-6a/4 / 9a/4 / 12a/4 / 18a/4 · 4P",
+    "model": "MC-6a/4 / 9a/4 / 12a/4 / 18a/4",
+    "brand": "LS Electric",
+    "brand_verified": true,
+    "category": "Khởi động từ 4 cực",
+    "description": "Đóng cắt từ xa mạch động lực bằng cuộn hút điều khiển.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "C03_cluster3-V002",
+          "name": "LS · CONTACTOR · MC-6a/4 / 9a/4 / 12a/4 / 18a/4 · 4P · Mặt trước",
+          "state": "Mặt trước",
+          "preview": {
+            "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_6a-18a_4P/CadDon/C03_cluster3-V002/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_6a-18a_4P/CadDon/C03_cluster3-V002/ban_ve.dxf"
+          },
+          "placement": {
+            "mat_form_mac_dinh": "Mặt trước",
+            "cho_phep_chen": true,
+            "huong_dan": "Dùng cho mặt trước form tủ khi mặt thao tác hoặc mặt chính của thiết bị hướng về người nhìn."
+          }
+        }
+      ],
+      "default_view_id": "C03_cluster3-V002",
+      "preview": {
+        "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_6a-18a_4P/CadDon/C03_cluster3-V002/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_6a-18a_4P/CadDon/C03_cluster3-V002/ban_ve.dxf"
+      },
+      "match_basis": "Nhóm mã ứng viên theo hình dạng và tỷ lệ; dòng AC-3 là dải các biến thể trong nhóm."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-b002664c5f729526"
+    },
+    "evidence": {
+      "profile_id": "TB-b002664c5f729526",
+      "review_required": true
+    },
+    "warnings": [
+      "Nhóm mã ứng viên theo hình dạng và tỷ lệ; dòng AC-3 là dải các biến thể trong nhóm."
+    ],
+    "auto_select": false
+  },
+  {
+    "catalog_id": "TB-4d77898229d54451",
+    "record_type": "source_cad_device_or_assembly",
+    "display_name": "LS · CONTACTOR · MC-75a / 85a / 100a · 3P",
+    "model": "MC-75a / 85a / 100a",
+    "brand": "LS Electric",
+    "brand_verified": true,
+    "category": "Khởi động từ 3 cực",
+    "description": "Đóng cắt từ xa mạch động lực bằng cuộn hút điều khiển.",
+    "specifications": {
+      "poles": null,
+      "current_a": null,
+      "current_display": null,
+      "breaking_capacity_ka": null
+    },
+    "price": null,
+    "cad": {
+      "status": "source_cad_unverified_sku",
+      "views": [
+        {
+          "id": "C03_cluster3-V005",
+          "name": "LS · CONTACTOR · MC-75a / 85a / 100a · 3P · Mặt trước",
+          "state": "Mặt trước",
+          "preview": {
+            "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_75a-100a_3P/CadDon/C03_cluster3-V005/xem_truoc.svg"
+          },
+          "dxf": {
+            "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_75a-100a_3P/CadDon/C03_cluster3-V005/ban_ve.dxf"
+          },
+          "placement": {
+            "mat_form_mac_dinh": "Mặt trước",
+            "cho_phep_chen": true,
+            "huong_dan": "Dùng cho mặt trước form tủ khi mặt thao tác hoặc mặt chính của thiết bị hướng về người nhìn."
+          }
+        }
+      ],
+      "default_view_id": "C03_cluster3-V005",
+      "preview": {
+        "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_75a-100a_3P/CadDon/C03_cluster3-V005/xem_truoc.svg"
+      },
+      "dxf": {
+        "path": "catalogtb/DenBaoNutNhanCauChiContactor/ThietBi/MC_75a-100a_3P/CadDon/C03_cluster3-V005/ban_ve.dxf"
+      },
+      "match_basis": "Nhóm mã ứng viên theo hình dạng và tỷ lệ; dòng AC-3 là dải các biến thể trong nhóm."
+    },
+    "source_record": {
+      "dataset": "CatalogTB",
+      "row_id": "TB-4d77898229d54451"
+    },
+    "evidence": {
+      "profile_id": "TB-4d77898229d54451",
+      "review_required": true
+    },
+    "warnings": [
+      "Nhóm mã ứng viên theo hình dạng và tỷ lệ; dòng AC-3 là dải các biến thể trong nhóm."
+    ],
+    "auto_select": false
+  }
+]

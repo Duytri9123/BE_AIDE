@@ -31,6 +31,7 @@ class ProjectResponse(BaseModel):
     file_count: int = 0
     device_count: int = 0
     total_value: float = 0
+    processing_task: Optional[dict] = None
     
     @field_serializer('created_at', 'updated_at', mode='plain')
     def serialize_dt(self, v: Optional[datetime]) -> Optional[str]:
@@ -114,6 +115,8 @@ async def list_projects(
     counts = (await db.execute(select(ProjectFile.project_id,func.count(ProjectFile.id))
               .where(ProjectFile.project_id.in_(project_ids)).group_by(ProjectFile.project_id))).all() if project_ids else []
     file_counts = dict(counts)
+    from app.services.job_queue import project_activity
+    activity = await project_activity(project_ids)
     
     # Enrich with counts
     enriched_projects = []
@@ -131,6 +134,7 @@ async def list_projects(
             "file_count": file_count,
             "device_count": 0,
             "total_value": 0.0,
+            "processing_task": activity.get(project.id),
         }
         enriched_projects.append(ProjectResponse(**project_dict))
     

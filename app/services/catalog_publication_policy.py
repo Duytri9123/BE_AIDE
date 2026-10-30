@@ -32,7 +32,8 @@ def public_profile_allowed(profile,path,root):
 
 def selected_model_rows(device,rows,model):
  if not model:return rows
- if model not in {m for v in device.get('views',[]) for m in v.get('model_codes',[])}:
+ from .catalog_view_models import view_models
+ if model not in {m for v in device.get('views',[]) for m in view_models(device,v)}:
   raise ValueError('Mã thiết bị không thuộc bộ CAD đã chọn.')
  pattern=re.compile(re.escape(model)+r'(?=$|[\s/,(])',re.I)
  return [r for r in rows if any(pattern.match(str(r.get(key) or '')) for key in ('sku','item_name','name'))]

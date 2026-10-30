@@ -293,6 +293,19 @@ def _cad_view_file(catalog_id: str, view_id: str, field: str):
             if member_record:views.extend(_record_views(member_record))
     from app.services.customer_equipment_information import public_view_id
     view = next((view for view in views if view.get('id') == view_id or public_view_id(view.get('id') or '') == view_id), None)
+    if not view:
+        # Display families can retain a face owned by a reviewed member record.
+        # Resolve only a member explicitly listed on this current public family.
+        device=_styled_device(catalog_id,view_id)
+        if device and device['id']==catalog_id:
+            member=next((v for v in device['views'] if view_id in (v['id'],public_view_id(v['id']))),None)
+            owner=re.search(r'/equipment-library/([^/]+)/views/',str((member or {}).get('download') or ''))
+            if owner and owner.group(1)!=catalog_id:
+                candidate=get_equipment(owner.group(1))
+                from app.services.ai.manufacturer_registry import canonical_brand
+                if candidate and canonical_brand(candidate.get('brand'))==canonical_brand(device.get('brand')) and not quarantined(owner.group(1),view_id):
+                    view=next((v for v in _record_views(candidate) if view_id in (v.get('id'),public_view_id(v.get('id') or ''))),None)
+                    if view:record=candidate
     if not view or not view.get(field):
         raise HTTPException(404, 'Góc nhìn CAD này chưa có file.')
     if record and targeted(record.get('brand')) and not displayable(view):
@@ -354,17 +367,61 @@ def download_dwg(catalog_id: str):
 
 
 @router.get('/{catalog_id}/views/{view_id}/preview')
-def view_preview(catalog_id: str, view_id: str):
+def view_preview(catalog_id: str, view_id: str, colored:bool=True, clear:bool=True):
+    if colored and _styled_public_device(catalog_id):
+        from app.services.cad.ls_colored_views import colored_svg
+        source=_cad_view_file(catalog_id,view_id,'dxf')
+        return Response(colored_svg(asset_bytes(source)),media_type='image/svg+xml')
     relative = _cad_view_file(catalog_id, view_id, 'preview')
+    if clear and relative.lower().endswith('.svg'):
+        from app.services.cad.ls_colored_views import clear_svg_preview
+        return Response(clear_svg_preview(asset_bytes(relative)),media_type='image/svg+xml')
     return _preview_response(relative)
 
 
 @router.get('/{catalog_id}/views/{view_id}/dxf')
-def view_dxf(catalog_id: str, view_id: str):
+def view_dxf(catalog_id: str, view_id: str, colored:bool=True, grouped:bool=True):
     relative = _cad_view_file(catalog_id, view_id, 'dxf')
     filename = re.sub(r'[^A-Za-z0-9._-]', '_', f'{catalog_id}-{view_id}.dxf')
-    return Response(asset_bytes(relative), media_type='application/dxf',
+    content=asset_bytes(relative)
+    if grouped and _styled_public_device(catalog_id) and b'BLOCKVISIBILITYPARAMETER' not in content:
+        from app.services.catalogtb_browser import browser_data
+        from app.services.cad.ls_native_visibility import device_visibility_dxf
+        device=_styled_device(catalog_id,view_id)
+        if device:
+            combined=device_visibility_dxf(device,view_id,lambda key:asset_bytes(_cad_view_file(device['id'],key,'dxf')))
+            if combined:content=combined
+    if grouped:
+        from app.services.cad.device_block_export import prepared_device_block
+        content=prepared_device_block(content,catalog_id+'-'+view_id)
+    if colored and _styled_public_device(catalog_id):
+        from app.services.cad.ls_colored_views import colored_dxf
+        content=colored_dxf(content)
+    return Response(content, media_type='application/dxf',
                     headers={'Content-Disposition': f'attachment; filename="{filename}"'})
+
+def _ls_public_device(catalog_id):
+    from app.services.catalogtb_browser import browser_data
+    from app.services.ai.manufacturer_registry import canonical_brand
+    return any(d['id']==catalog_id and canonical_brand(d.get('brand'))=='LS Electric' for d in browser_data()['items'])
+
+
+def _styled_public_device(catalog_id):
+    return _styled_device(catalog_id) is not None
+
+
+def _styled_device(catalog_id,view_id=None):
+    from app.services.catalogtb_browser import browser_data
+    from app.services.ai.manufacturer_registry import canonical_brand
+    from app.services.catalog_publication_policy import public_device_allowed
+    from app.services.customer_equipment_information import public_view_id
+    for d in browser_data()['items']:
+        if canonical_brand(d.get('brand')) not in {'LS Electric','CHINT'} or not public_device_allowed(d):continue
+        if d['id']==catalog_id:return d
+        for view in d.get('views',[]):
+            if view_id and view_id not in (view['id'],public_view_id(view['id'])):continue
+            if str(view.get('download') or '').startswith('/equipment-library/'+catalog_id+'/views/'):return d
+    return None
 
 
 @router.get('/{catalog_id}/views/{view_id}/dwg')

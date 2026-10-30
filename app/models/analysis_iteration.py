@@ -1,12 +1,16 @@
 from sqlalchemy import Index
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import String, ForeignKey, Integer, JSON, Text, UUID
+from sqlalchemy import String, ForeignKey, Integer, JSON, Text, UUID, DateTime, func
+from datetime import datetime, timezone
 from typing import Any, Dict, Optional
 import uuid
 from .base import Base, TimestampMixin
 
 class AnalysisIteration(Base, TimestampMixin):
     __tablename__ = "analysis_iterations"
+    # Distinguish revisions saved within the same second for history summaries.
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(),
+                                               onupdate=lambda: datetime.now(timezone.utc))
     __table_args__ = (
         Index('ix_iterations_session_status_created_id', 'session_id', 'status', 'created_at', 'id'),
         Index('ix_iterations_session_number_id', 'session_id', 'iteration_number', 'id'),

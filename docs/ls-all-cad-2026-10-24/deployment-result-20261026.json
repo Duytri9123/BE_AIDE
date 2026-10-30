@@ -1,0 +1,43 @@
+{
+  "scope": "Current managed local API installation; external public domain was not separately verified",
+  "indexed_views": 72,
+  "live_report": "live-api-targeted-final-20261026.json",
+  "verified_source_downloads": 72,
+  "target": "http://127.0.0.1:8000",
+  "workers": [
+    {
+      "supervisor_id": 15656,
+      "process_id": 15440
+    },
+    {
+      "supervisor_id": 19716,
+      "process_id": 18440
+    },
+    {
+      "supervisor_id": 19716,
+      "process_id": 25928
+    },
+    {
+      "supervisor_id": 15656,
+      "process_id": 14324
+    },
+    {
+      "supervisor_id": 18552,
+      "process_id": 19208
+    },
+    {
+      "supervisor_id": 18552,
+      "process_id": 23028
+    }
+  ],
+  "regression_tests_passed": 60,
+  "remaining_gaps": 169,
+  "health_status": 200,
+  "complete_six_view_price_rows": 348,
+  "status": "deployed_gimac_increment_verified",
+  "verified_grouped_downloads": 3,
+  "indexed_profiles": 17,
+  "autocad_note": "Grouped downloads checked for mm units, visibility parameter and zero DXF audit errors; native AutoCAD state switching was not reverified for new sets",
+  "date": "2026-10-26",
+  "note": "Added six native GIMAC EX/M485 views backed by manufacturer common mechanical outline and independent ordering fields. 60 regression checks passed. Authenticated HTTP verified 26 price rows, 72 source DXF hashes, two previews and three grouped downloads. Full rerun passed with OPENBLAS_NUM_THREADS=1 and OMP_NUM_THREADS=1 after transient connection reset and memory failure."
+}

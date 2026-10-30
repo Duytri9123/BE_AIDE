@@ -26,6 +26,16 @@ class CatalogViewHealthTests(unittest.TestCase):
    with patch.object(health,'QUARANTINE',p):
     health._quarantined.cache_clear()
     self.assertTrue(health.quarantined('old','bad'));self.assertTrue(health.quarantined('old',public_view_id('bad')));self.assertFalse(health.quarantined('other','bad'))
+ def test_hidden_profile_blocks_previously_saved_asset_url(self):
+  with tempfile.TemporaryDirectory() as folder:
+   root=Path(folder);profile=root/'LS'/'ThietBi'/'MODEL';source=profile/'CadDon'/'front'/'ban_ve.dxf';source.parent.mkdir(parents=True);source.write_bytes(b'valid-source')
+   (profile/'thong_tin_thiet_bi.json').write_text(json.dumps({'browser_hidden':True}))
+   with patch.object(health,'CATALOG',root),patch('app.services.equipment_library._catalogtb_asset',return_value=source),patch.object(health,'_valid',return_value=True):
+    self.assertFalse(health.asset_displayable('old/url'))
+    (profile/'thong_tin_thiet_bi.json').write_text(json.dumps({'browser_hidden':False}))
+    with patch('app.services.cad.catalogtb_assets.normalized_source',side_effect=lambda p:p):
+     source.with_name('xem_truoc.svg').write_text('<svg/>')
+     self.assertTrue(health.asset_displayable('old/url'))
  def test_invalid_source_hidden_until_repaired(self):
   with tempfile.TemporaryDirectory() as folder:
    p=Path(folder);drawing=p/'ban_ve.dxf';preview=p/'xem_truoc.svg';preview.write_text('<svg xmlns="http://www.w3.org/2000/svg"/>')

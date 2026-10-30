@@ -44,6 +44,8 @@ app.add_middleware(
 )
 
 app.add_middleware(SessionMiddleware, secret_key=settings.SECRET_KEY)
+from app.services.saved_analysis_compression import SavedAnalysisCompression
+app.add_middleware(SavedAnalysisCompression, prefix=settings.API_V1_STR + '/analyze/iteration/')
 
 import os
 _admin_static = os.path.join(os.path.dirname(__file__), "admin", "static")

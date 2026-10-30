@@ -192,7 +192,9 @@
                       {% for name in model_view._list_prop_names %}
                         {% set value, formatted_value = model_view.get_list_value(row, name, request) %}
                         {% set render_as_link = name not in model_view._non_link_related_fields %}
-                        {% if name in model_view._relation_names %}
+                        {% if name in model_view._list_formatters %}
+                          <td class="px-3 align-middle">{{ formatted_value }}</td>
+                        {% elif name in model_view._relation_names %}
                           {% if is_list( value ) %}
                             <td class="px-3">
                               {% for elem, formatted_elem in zip(value, formatted_value) %}

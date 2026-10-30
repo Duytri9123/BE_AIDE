@@ -15,6 +15,7 @@ import json
 import os
 import uuid
 import re
+from html import escape
 
 from app.db.session import get_db
 from app.api.deps import get_current_admin_session_or_token
@@ -25,8 +26,12 @@ from app.core.config import settings
 from app.services.ai.vision_analyzer import antigravity_thinking_config, normalize_antigravity_model
 from app.services.ai.web_search_service import WebSearchService
 from app.services.ai.token_refresh_service import TokenRefreshService
+from app.services.ai.oauth_state import create_state, consume_state
+from app.models.user import User
 
 router = APIRouter(prefix="/admin-api", tags=["Admin Helpers"], dependencies=[Depends(get_current_admin_session_or_token)])
+oauth_callback_router = APIRouter(prefix="/admin-api", tags=["Admin Helpers"])
+ANTIGRAVITY_REDIRECT_URI = "http://localhost:8000/api/v1/admin-api/antigravity/callback"
 
 
 class TestConnectionRequest(BaseModel):
@@ -960,11 +965,12 @@ async def get_providers_summary(db: AsyncSession = Depends(get_db)):
 
 
 @router.get("/antigravity/auth-url")
-async def get_antigravity_auth_url(request: Request):
+async def get_antigravity_auth_url(request: Request, admin=Depends(get_current_admin_session_or_token)):
     """Tạo URL đăng nhập Google OAuth 2.0 Antigravity trực tiếp tương tự 9router."""
     # Chuẩn Desktop OAuth Client ID yêu cầu redirect_uri là localhost
-    redirect_uri = "http://localhost:8000/api/v1/admin-api/antigravity/callback"
-    auth_url = TokenRefreshService.build_auth_url(redirect_uri=redirect_uri)
+    redirect_uri = ANTIGRAVITY_REDIRECT_URI
+    state = await create_state(admin.id)
+    auth_url = TokenRefreshService.build_auth_url(redirect_uri=redirect_uri, state=state)
     return {"auth_url": auth_url, "redirect_uri": redirect_uri}
 
 
@@ -1114,20 +1120,30 @@ async def exchange_antigravity_code(
     }
 
 
-@router.get("/antigravity/callback")
+@oauth_callback_router.get("/antigravity/callback")
 async def antigravity_oauth_callback(
     code: Optional[str] = None,
     error: Optional[str] = None,
+    state: Optional[str] = None,
     request: Request = None,
     db: AsyncSession = Depends(get_db)
 ):
     """Nhận code từ Google, tự đổi lấy Refresh Token và lấy Project ID thực tế qua loadCodeAssist."""
+    # The admin cookie belongs to the initiating host, which can differ from localhost.
+    # Only a grant issued to an authenticated admin may authorize this callback.
+    try:
+        admin_id = await consume_state(state)
+    except HTTPException as ex:
+        return HTMLResponse(f"<h3>{escape(str(ex.detail))}</h3><p><button onclick='window.close()'>Đóng</button></p>", status_code=ex.status_code)
+    admin = await db.get(User, admin_id)
+    if not admin or not admin.is_active or not (admin.is_superuser or admin.role == "admin"):
+        return HTMLResponse("<h3>Không có quyền truy cập quản trị.</h3>", status_code=403)
     if error:
-        return HTMLResponse(f"<h3>Đăng nhập Google thất bại: {error}</h3><p><button onclick='window.close()'>Đóng</button></p>")
+        return HTMLResponse(f"<h3>Đăng nhập Google thất bại: {escape(error)}</h3><p><button onclick='window.close()'>Đóng</button></p>")
     if not code:
         return HTMLResponse("<h3>Không nhận được mã ủy quyền từ Google.</h3><p><button onclick='window.close()'>Đóng</button></p>")
 
-    redirect_uri = "http://localhost:8000/api/v1/admin-api/antigravity/callback"
+    redirect_uri = ANTIGRAVITY_REDIRECT_URI
 
     try:
         token_data = await TokenRefreshService.exchange_code_for_tokens(code, redirect_uri)

@@ -1,0 +1,66 @@
+{
+  "base": "http://127.0.0.1:8000",
+  "stage": "after",
+  "health": [
+    200,
+    200,
+    200,
+    200
+  ],
+  "rows": [
+    {
+      "model": "LX",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        6
+      ]
+    },
+    {
+      "model": "LAM",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        6
+      ]
+    },
+    {
+      "model": "LA",
+      "status": 200,
+      "cad_families": 0,
+      "views": []
+    },
+    {
+      "model": "BK05S-T3 2P",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        2
+      ]
+    },
+    {
+      "model": "BK05S-T3 4P",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        2
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "model": "BK05S-T3 2P",
+      "kind": "preview",
+      "status": 200,
+      "bytes": 15650,
+      "sha256": "4491824ba6a295158ba9eea6ccd7a3a2816056f7828cddc764f12905a53e8feb"
+    },
+    {
+      "model": "BK05S-T3 4P",
+      "kind": "preview",
+      "status": 200,
+      "bytes": 27964,
+      "sha256": "d3e4b135156be09f1a16e6bf9f15154079914b23733b441de15f7aac5d3312d0"
+    }
+  ]
+}

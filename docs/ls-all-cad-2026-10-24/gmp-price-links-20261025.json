@@ -1,0 +1,32 @@
+[
+  {
+    "profile": "LS/ThietBi/OFFICIAL-RU-GMP22-3P/thong_tin_thiet_bi.json",
+    "price_ids": [
+      "ls-pdf:d795532b8284e5e1",
+      "ls-pdf:9c8a4d45443988b2"
+    ],
+    "evidence": {
+      "source_url": "https://www.ls-electric.com/upload/customer/download/1556/G_EMPR-DMPR.pdf",
+      "pdf_page": 10,
+      "sha256": "db9a5689efe14eeb2b66768dc43c648357474100a81645164a0e41533751daf4",
+      "finding": "Specification table establishes 2SPST (1a1b), terminals 95/96 and 97/98; pin-type model matches source title. Family reference, not exact ordering SKU approval.",
+      "geometry_scope": "Use complete source set only; no mixing with earlier 2-view GMP source. Older native source dimensions are retained, not rescaled to newer catalog outlines."
+    }
+  },
+  {
+    "profile": "LS/ThietBi/OFFICIAL-RU-GMP40-P/thong_tin_thiet_bi.json",
+    "price_ids": [
+      "ls-pdf:5088dc419ac73b5e",
+      "ls-pdf:c9b3f22027de96c8",
+      "ls-pdf:d10ec65c0393eb59",
+      "ls-pdf:111ce25712b64b36"
+    ],
+    "evidence": {
+      "source_url": "https://www.ls-electric.com/upload/customer/download/1556/G_EMPR-DMPR.pdf",
+      "pdf_page": 11,
+      "sha256": "db9a5689efe14eeb2b66768dc43c648357474100a81645164a0e41533751daf4",
+      "finding": "Specification table establishes 2SPST (1a1b), terminals 95/96 and 97/98; pin-type model matches source title. Family reference, not exact ordering SKU approval.",
+      "geometry_scope": "Use complete source set only; no mixing with earlier 2-view GMP source. Older native source dimensions are retained, not rescaled to newer catalog outlines."
+    }
+  }
+]

@@ -73,7 +73,7 @@ def customer_catalog_page(payload):
         kind=row.get('information_kind') or ('pricebook' if row.get('source_kind')=='supplier_pricebook' else 'price_reference')
         clean=customer_information_rows([{**row,'information_kind':kind}],{'brand':row['brand']})[0]
         item = {key:row[key] for key in fields if key in row}
-        for key in ('columns','cells','specifications','item_name','name'):
+        for key in ('columns','cells','specifications','item_name','name','price','vat_status'):
             if key in clean:item[key]=clean[key]
         item['id'] = hashlib.sha256(row['id'].encode()).hexdigest()[:24]
         item['information_kind']=row.get('information_kind') or ('pricebook' if row.get('source_kind')=='supplier_pricebook' else 'price_reference')
@@ -122,7 +122,7 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
         rows[('web',offer['id'])]['updated_at']=offer['checked_at']
     for item in supplier_items:
         if item.get('currency')!='VND' or not item.get('item_name') or not item.get('checked_at'):continue
-        rows[('supplier',item['id'])]={k:item.get(k) for k in ('id','sku','item_name','name','brand','category','price','source_label','source_url','checked_at','source_kind','price_note','effective_date','edition','vat_status','source_page','specifications','columns','cells','group','product_line','line_label')}
+        rows[('supplier',item['id'])]={k:item.get(k) for k in ('id','sku','item_name','name','brand','category','price','source_label','source_url','checked_at','source_kind','price_note','effective_date','edition','vat_status','vat_rate_percent','vat_rate_evidence','source_page','specifications','columns','cells','group','product_line','line_label')}
         rows[('supplier',item['id'])]['updated_at']=item['checked_at']
     for item in catalog_items:
         if not item.get('sku') or not item.get('brand'):continue
@@ -132,6 +132,8 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
     items = [row for row in rows.values() if canonical_brand(row['brand']) in CUSTOMER_MANUFACTURERS
              and (row.get('sku') or row.get('item_name') or row.get('name'))]
     for row in items:
+        from .net_catalog_prices import net_price_row
+        row.update(net_price_row(row))
         price=row.get('price')
         if not isinstance(price,(int,float)) or isinstance(price,bool) or not math.isfinite(price) or price<=0:row['price']=None
         row['brand']=canonical_brand(row['brand'])

@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-26",
+  "mms": {
+    "source_url": "https://www.ls-electric.com/ko/cat/%5BMetasol_MMS%5D_KO_C01821-06-202609.pdf",
+    "sha256": "5cb2609ae758b1965dafa1459584036e8b13069b829fb1f8b0ba37f649082332",
+    "pdf_pages": [
+      16,
+      24
+    ],
+    "reviewed_models": [
+      "LX",
+      "LAM"
+    ],
+    "contact_configuration": "1NO+1NC",
+    "source_step": "LS/NguonBenNgoai/50481/model-019/source.step",
+    "geometry_scope": "Shared manufacturer LX,LA,LAM body; left-mounted MMS accessory. No exact ordering SKU or parent mating approval.",
+    "withheld": "LA has separate MMS-32 and MMS-63/100 mating variants. The price row does not identify one; no supported parent variant established."
+  },
+  "validation": [
+    {
+      "path": "LS/ThietBi/OFFICIAL-STEP-50481-model-019/CadDon/LS-OFFICIAL-STEP-50481-model-019-FRONT/ban_ve.dxf",
+      "sha256": "1c7fee3ac43c7345aff5f677f39e62e3795dc99a45169e9382dce766d5de6cf7",
+      "audit_errors": 0,
+      "audit_fixes": 0
+    },
+    {
+      "path": "LS/ThietBi/OFFICIAL-STEP-50481-model-019/CadDon/LS-OFFICIAL-STEP-50481-model-019-REAR/ban_ve.dxf",
+      "sha256": "86a8b2b5d93b82b58d2b81b7c03ab85cf44802bdd2acd5a2b880a335b67d6cfe",
+      "audit_errors": 0,
+      "audit_fixes": 0
+    },
+    {
+      "path": "LS/ThietBi/OFFICIAL-STEP-50481-model-019/CadDon/LS-OFFICIAL-STEP-50481-model-019-SIDE-L/ban_ve.dxf",
+      "sha256": "381e87d5507a41150334b53727f8ec9653dfa3298ac1c558e149c5b4e07ace40",
+      "audit_errors": 0,
+      "audit_fixes": 0
+    },
+    {
+      "path": "LS/ThietBi/OFFICIAL-STEP-50481-model-019/CadDon/LS-OFFICIAL-STEP-50481-model-019-SIDE/ban_ve.dxf",
+      "sha256": "523c2420863d2a3dbc8a273800011f71c3c3062d0715f011377b84ca3a7b6e54",
+      "audit_errors": 0,
+      "audit_fixes": 0
+    },
+    {
+      "path": "LS/ThietBi/OFFICIAL-STEP-50481-model-019/CadDon/LS-OFFICIAL-STEP-50481-model-019-TOP/ban_ve.dxf",
+      "sha256": "d9ff0a4a7484fc546aaf000fde6d433759cec3242bb51213e2ad7f61afb99e82",
+      "audit_errors": 0,
+      "audit_fixes": 0
+    },
+    {
+      "path": "LS/ThietBi/OFFICIAL-STEP-50481-model-019/CadDon/LS-OFFICIAL-STEP-50481-model-019-BOTTOM/ban_ve.dxf",
+      "sha256": "a9f3988bac109395dbb4ad3b33c39fff0ec50c92d7697bae56d20790fee9a6f9",
+      "audit_errors": 0,
+      "audit_fixes": 0
+    }
+  ],
+  "new_cad_faces": 0,
+  "restored_supported_price_rows": [
+    "ls-pdf:46324bfb04bb21ee",
+    "ls-pdf:d8b8b1b0b925c8fa"
+  ],
+  "source_rejections": [
+    {
+      "source": "55731/model-001",
+      "model": "AC-9 / AC-50",
+      "decision": "gap",
+      "reason": "STEP product AC9_50 is a contact mechanism without the external capacitor preloading resistor leads shown in catalog page 91. Not approved as the complete priced capacitor unit."
+    },
+    {
+      "source": "AMERICA-23721 / AMERICA-26774",
+      "model": "MC-50a/65a/75a/85a/100a DC",
+      "decision": "gap",
+      "reason": "Source names explicitly identify 2A2B while price rows require 1A1B. Components are unnamed COMPOUND bodies; no supported named 1A1B assembly can be isolated."
+    },
+    {
+      "source": "LS America Susol MCCB download listing",
+      "model": "DH1..DH5 / EH1..EH5",
+      "decision": "gap",
+      "reason": "Available sources identify UTE/UTS UL parent frames; price rows specify TD/TS IEC. No manufacturer compatibility evidence equates those accessory configurations."
+    },
+    {
+      "source": "LS America LA63 / BK listings",
+      "model": "LA63N/H/L / BKxxS SPD",
+      "decision": "gap",
+      "reason": "Returned CAD covers BK63H/HU MCB or unrelated UL frames; not evidence for the priced LA63 or BKxxS SPD variants."
+    },
+    {
+      "source": "45351/model-000",
+      "model": "MC-150a DC 1A1B",
+      "decision": "gap",
+      "reason": "Assembly contains repeated auxiliary assemblies and an AC-named PCB. Source AC_DC filename alone does not establish which parts form the priced DC 1A1B variant; no components removed or electrical configuration approved."
+    }
+  ]
+}

@@ -1,0 +1,1914 @@
+[
+  {
+    "source": "AMERICA-23721",
+    "components": [
+      {
+        "name": "MC65AF_DC_SCREW_2A2B_SW0001",
+        "path": "/MC65AF_DC_SCREW_2A2B_SW0001",
+        "depth": 0,
+        "bounds": [
+          -39.50460188288704,
+          -90.40459383785704,
+          -54.00459383785704,
+          39.50460188288704,
+          56.00459383785704,
+          53.16937823844182
+        ]
+      },
+      {
+        "name": "COMPOUND",
+        "path": "/MC65AF_DC_SCREW_2A2B_SW0001/=>[0:1:1:2]/COMPOUND",
+        "depth": 1,
+        "bounds": [
+          -39.50460188288704,
+          -90.40459383785704,
+          -54.00459383785704,
+          39.50460188288704,
+          56.00459383785704,
+          53.16937823844182
+        ]
+      },
+      {
+        "name": "COMPOUND",
+        "path": "/MC65AF_DC_SCREW_2A2B_SW0001/=>[0:1:1:3]/COMPOUND",
+        "depth": 1,
+        "bounds": [
+          -38.00223605805062,
+          -39.00223605805064,
+          -48.30223605805062,
+          38.00223605805062,
+          48.82867972257062,
+          48.30223605805062
+        ]
+      }
+    ]
+  },
+  {
+    "source": "AMERICA-26774",
+    "components": [
+      {
+        "name": "MC100AF_DC_SCREW_2A2B_SW0001",
+        "path": "/MC100AF_DC_SCREW_2A2B_SW0001",
+        "depth": 0,
+        "bounds": [
+          -47.002127579882334,
+          -111.00211953485234,
+          -71.00211953485234,
+          47.002127579882334,
+          61.30211953485233,
+          70.33168833602193
+        ]
+      },
+      {
+        "name": "COMPOUND",
+        "path": "/MC100AF_DC_SCREW_2A2B_SW0001/=>[0:1:1:2]/COMPOUND",
+        "depth": 1,
+        "bounds": [
+          -47.002127579882334,
+          -111.00211953485234,
+          -71.00211953485234,
+          47.002127579882334,
+          61.30211953485233,
+          70.33168833602193
+        ]
+      },
+      {
+        "name": "COMPOUND",
+        "path": "/MC100AF_DC_SCREW_2A2B_SW0001/=>[0:1:1:3]/COMPOUND",
+        "depth": 1,
+        "bounds": [
+          -45.5000001,
+          -38.00000010000002,
+          -30.0000001,
+          45.5000001,
+          -35.9999999,
+          30.0000001
+        ]
+      }
+    ]
+  },
+  {
+    "source": "45351/model-000",
+    "components": [
+      {
+        "name": "TOTAL_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM",
+        "depth": 0,
+        "bounds": [
+          -59.5117669211376,
+          -47.51176692113722,
+          -79.3413357223068,
+          62.51176692113722,
+          86.31176692113722,
+          79.3413357223068
+        ]
+      },
+      {
+        "name": "TOTAL_MC150_SKEL",
+        "path": "/TOTAL_MC150_ASM/TOTAL_MC150_SKEL/TOTAL_MC150_SKEL",
+        "depth": 1,
+        "bounds": null
+      },
+      {
+        "name": "ARCBOX_TOTAL_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/ARCBOX_TOTAL_MC150/ARCBOX_TOTAL_MC150_ASM",
+        "depth": 1,
+        "bounds": [
+          -47.51040283913711,
+          26.489597160862893,
+          -49.01040283913711,
+          47.51040283913711,
+          84.3104028391371,
+          49.01040283913711
+        ]
+      },
+      {
+        "name": "ARCBOX_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/ARCBOX_TOTAL_MC150/ARCBOX_TOTAL_MC150_ASM/ARCBOX_MC150/ARCBOX_MC150_ASM",
+        "depth": 2,
+        "bounds": [
+          -47.51040283913711,
+          26.489597160862893,
+          -49.01040283913711,
+          47.51040283913711,
+          72.51040283913903,
+          49.01040283913711
+        ]
+      },
+      {
+        "name": "TOPCOVER_MC150",
+        "path": "/TOTAL_MC150_ASM/ARCBOX_TOTAL_MC150/ARCBOX_TOTAL_MC150_ASM/TOPCOVER_MC150/TOPCOVER_MC150",
+        "depth": 2,
+        "bounds": [
+          -47.50047443309061,
+          53.099525566909385,
+          -46.00047443309061,
+          47.50047443309061,
+          84.30047443309061,
+          46.00047443309061
+        ]
+      },
+      {
+        "name": "1253003_ASM",
+        "path": "/TOTAL_MC150_ASM/ARCBOX_TOTAL_MC150/ARCBOX_TOTAL_MC150_ASM/1253003/1253003_ASM",
+        "depth": 2,
+        "bounds": [
+          -4.250774391382846,
+          -1.7726686523477453,
+          -4.250774391382846,
+          5.500774391382846,
+          28.200774391382843,
+          4.250774391382846
+        ]
+      },
+      {
+        "name": "1253003_ASM",
+        "path": "/TOTAL_MC150_ASM/ARCBOX_TOTAL_MC150/ARCBOX_TOTAL_MC150_ASM/1253003/1253003_ASM",
+        "depth": 2,
+        "bounds": [
+          -4.250774391382846,
+          -1.7726686523477453,
+          -4.250774391382846,
+          5.500774391382846,
+          28.200774391382843,
+          4.250774391382846
+        ]
+      },
+      {
+        "name": "UP_FRAME_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/UP_FRAME_MC150/UP_FRAME_MC150_ASM",
+        "depth": 1,
+        "bounds": [
+          -47.50507264264189,
+          -12.505072642641892,
+          -79.0050726426419,
+          47.50507264264189,
+          44.822163109102895,
+          79.00507264264189
+        ]
+      },
+      {
+        "name": "UP_FRAME_MC150",
+        "path": "/TOTAL_MC150_ASM/UP_FRAME_MC150/UP_FRAME_MC150_ASM/UP_FRAME_MC150/UP_FRAME_MC150",
+        "depth": 2,
+        "bounds": [
+          -47.50507264264189,
+          -12.505072642641892,
+          -79.0050726426419,
+          47.50507264264189,
+          44.10507264264189,
+          79.00507264264189
+        ]
+      },
+      {
+        "name": "TERMINAL_TASSY_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/UP_FRAME_MC150/UP_FRAME_MC150_ASM/TERMINAL_TASSY_MC150/TERMINAL_TASSY_MC150_ASM",
+        "depth": 2,
+        "bounds": [
+          -10.003900645902979,
+          22.996099354097023,
+          9.573640413307556,
+          10.003900645902979,
+          44.820991112363984,
+          67.00390064590297
+        ]
+      },
+      {
+        "name": "TERMINAL_TASSY_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/UP_FRAME_MC150/UP_FRAME_MC150_ASM/TERMINAL_TASSY_MC150/TERMINAL_TASSY_MC150_ASM",
+        "depth": 2,
+        "bounds": [
+          -10.003900645902979,
+          22.996099354097023,
+          9.573640413307556,
+          10.003900645902979,
+          44.820991112363984,
+          67.00390064590297
+        ]
+      },
+      {
+        "name": "TERMINAL_TASSY_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/UP_FRAME_MC150/UP_FRAME_MC150_ASM/TERMINAL_TASSY_MC150/TERMINAL_TASSY_MC150_ASM",
+        "depth": 2,
+        "bounds": [
+          -10.003900645902979,
+          22.996099354097023,
+          9.573640413307556,
+          10.003900645902979,
+          44.820991112363984,
+          67.00390064590297
+        ]
+      },
+      {
+        "name": "TERMINAL_TASSY_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/UP_FRAME_MC150/UP_FRAME_MC150_ASM/TERMINAL_TASSY_MC150/TERMINAL_TASSY_MC150_ASM",
+        "depth": 2,
+        "bounds": [
+          -10.003900645902979,
+          22.996099354097023,
+          9.573640413307556,
+          10.003900645902979,
+          44.820991112363984,
+          67.00390064590297
+        ]
+      },
+      {
+        "name": "TERMINAL_TASSY_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/UP_FRAME_MC150/UP_FRAME_MC150_ASM/TERMINAL_TASSY_MC150/TERMINAL_TASSY_MC150_ASM",
+        "depth": 2,
+        "bounds": [
+          -10.003900645902979,
+          22.996099354097023,
+          9.573640413307556,
+          10.003900645902979,
+          44.820991112363984,
+          67.00390064590297
+        ]
+      },
+      {
+        "name": "TERMINAL_TASSY_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/UP_FRAME_MC150/UP_FRAME_MC150_ASM/TERMINAL_TASSY_MC150/TERMINAL_TASSY_MC150_ASM",
+        "depth": 2,
+        "bounds": [
+          -10.003900645902979,
+          22.996099354097023,
+          9.573640413307556,
+          10.003900645902979,
+          44.820991112363984,
+          67.00390064590297
+        ]
+      },
+      {
+        "name": "M4_SCREW",
+        "path": "/TOTAL_MC150_ASM/UP_FRAME_MC150/UP_FRAME_MC150_ASM/M4_SCREW/M4_SCREW",
+        "depth": 2,
+        "bounds": [
+          -3.8000000999999997,
+          -8.00000010000002,
+          -3.8000000999999997,
+          3.8000000999999997,
+          2.617090566461,
+          3.8000000999999997
+        ]
+      },
+      {
+        "name": "M4_SCREW",
+        "path": "/TOTAL_MC150_ASM/UP_FRAME_MC150/UP_FRAME_MC150_ASM/M4_SCREW/M4_SCREW",
+        "depth": 2,
+        "bounds": [
+          -3.8000000999999997,
+          -8.00000010000002,
+          -3.8000000999999997,
+          3.8000000999999997,
+          2.617090566461,
+          3.8000000999999997
+        ]
+      },
+      {
+        "name": "M4_SCREW",
+        "path": "/TOTAL_MC150_ASM/UP_FRAME_MC150/UP_FRAME_MC150_ASM/M4_SCREW/M4_SCREW",
+        "depth": 2,
+        "bounds": [
+          -3.8000000999999997,
+          -8.00000010000002,
+          -3.8000000999999997,
+          3.8000000999999997,
+          2.617090566461,
+          3.8000000999999997
+        ]
+      },
+      {
+        "name": "M4_SCREW",
+        "path": "/TOTAL_MC150_ASM/UP_FRAME_MC150/UP_FRAME_MC150_ASM/M4_SCREW/M4_SCREW",
+        "depth": 2,
+        "bounds": [
+          -3.8000000999999997,
+          -8.00000010000002,
+          -3.8000000999999997,
+          3.8000000999999997,
+          2.617090566461,
+          3.8000000999999997
+        ]
+      },
+      {
+        "name": "M4_SCREW",
+        "path": "/TOTAL_MC150_ASM/UP_FRAME_MC150/UP_FRAME_MC150_ASM/M4_SCREW/M4_SCREW",
+        "depth": 2,
+        "bounds": [
+          -3.8000000999999997,
+          -8.00000010000002,
+          -3.8000000999999997,
+          3.8000000999999997,
+          2.617090566461,
+          3.8000000999999997
+        ]
+      },
+      {
+        "name": "M4_SCREW",
+        "path": "/TOTAL_MC150_ASM/UP_FRAME_MC150/UP_FRAME_MC150_ASM/M4_SCREW/M4_SCREW",
+        "depth": 2,
+        "bounds": [
+          -3.8000000999999997,
+          -8.00000010000002,
+          -3.8000000999999997,
+          3.8000000999999997,
+          2.617090566461,
+          3.8000000999999997
+        ]
+      },
+      {
+        "name": "CROSSBAR_T_ASSY_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/CROSSBAR_T_ASSY_MC150/CROSSBAR_T_ASSY_MC150_ASM",
+        "depth": 1,
+        "bounds": [
+          -44.509258637813346,
+          -1.0092586378133495,
+          -33.009258637813346,
+          45.009258637813346,
+          84.30925863781334,
+          33.009258637813346
+        ]
+      },
+      {
+        "name": "CROSSBAR_ASSY_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/CROSSBAR_T_ASSY_MC150/CROSSBAR_T_ASSY_MC150_ASM/CROSSBAR_ASSY_MC150/CROSSBAR_ASSY_MC150_ASM",
+        "depth": 2,
+        "bounds": [
+          -44.509258637813346,
+          12.790741362186651,
+          -30.00925863781335,
+          45.009258637813346,
+          84.30925863781334,
+          30.00925863781335
+        ]
+      },
+      {
+        "name": "M_CONTACT_ASSY_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/CROSSBAR_T_ASSY_MC150/CROSSBAR_T_ASSY_MC150_ASM/M_CONTACT_ASSY_MC150/M_CONTACT_ASSY_MC150_ASM",
+        "depth": 2,
+        "bounds": [
+          -6.2381025257608504,
+          47.599999411183106,
+          -21.538102525760852,
+          6.2381025257608504,
+          54.00000058881689,
+          21.538102525760703
+        ]
+      },
+      {
+        "name": "M_CONTACT_ASSY_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/CROSSBAR_T_ASSY_MC150/CROSSBAR_T_ASSY_MC150_ASM/M_CONTACT_ASSY_MC150/M_CONTACT_ASSY_MC150_ASM",
+        "depth": 2,
+        "bounds": [
+          -6.2381025257608504,
+          47.599999411183106,
+          -21.538102525760852,
+          6.2381025257608504,
+          54.00000058881689,
+          21.538102525760703
+        ]
+      },
+      {
+        "name": "M_CONTACT_ASSY_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/CROSSBAR_T_ASSY_MC150/CROSSBAR_T_ASSY_MC150_ASM/M_CONTACT_ASSY_MC150/M_CONTACT_ASSY_MC150_ASM",
+        "depth": 2,
+        "bounds": [
+          -6.2381025257608504,
+          47.599999411183106,
+          -21.538102525760852,
+          6.2381025257608504,
+          54.00000058881689,
+          21.538102525760703
+        ]
+      },
+      {
+        "name": "M_CORE_SUPPORTER",
+        "path": "/TOTAL_MC150_ASM/CROSSBAR_T_ASSY_MC150/CROSSBAR_T_ASSY_MC150_ASM/M_CORE_SUPPORTER/M_CORE_SUPPORTER",
+        "depth": 2,
+        "bounds": [
+          -14.250000100002435,
+          0.045355206309999396,
+          -1e-07,
+          14.250000100002435,
+          2.000000100000007,
+          6.000000100060974
+        ]
+      },
+      {
+        "name": "CORE_MOVE_95_ASM",
+        "path": "/TOTAL_MC150_ASM/CROSSBAR_T_ASSY_MC150/CROSSBAR_T_ASSY_MC150_ASM/CORE_MOVE_95/CORE_MOVE_95_ASM",
+        "depth": 2,
+        "bounds": [
+          -11.2000001,
+          -29.0000001,
+          -33.0000001,
+          11.2000001,
+          -3.8999998999999725,
+          33.0000001
+        ]
+      },
+      {
+        "name": "SPRING_BACK_95_COMPRESSED",
+        "path": "/TOTAL_MC150_ASM/SPRING_BACK_95_COMPRESSED/SPRING_BACK_95_COMPRESSED",
+        "depth": 1,
+        "bounds": [
+          -19.095045404155822,
+          -0.9159895420737224,
+          -18.523544463865825,
+          18.734093652735822,
+          10.916975436855822,
+          18.852355911505825
+        ]
+      },
+      {
+        "name": "COIL_T_ASSY_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/COIL_T_ASSY_MC150/COIL_T_ASSY_MC150_ASM",
+        "depth": 1,
+        "bounds": [
+          -43.51176692113722,
+          -42.211766921137226,
+          -79.01176692113724,
+          43.51176692113722,
+          13.511766921137351,
+          79.01176692113722
+        ]
+      },
+      {
+        "name": "COILCASE_MC150",
+        "path": "/TOTAL_MC150_ASM/COIL_T_ASSY_MC150/COIL_T_ASSY_MC150_ASM/COILCASE_MC150/COILCASE_MC150",
+        "depth": 2,
+        "bounds": [
+          -43.503457556806424,
+          -42.20345755680643,
+          -79.00345755680644,
+          43.503457556806424,
+          11.30345755680643,
+          79.00345755680642
+        ]
+      },
+      {
+        "name": "COIL_ASSY_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/COIL_T_ASSY_MC150/COIL_T_ASSY_MC150_ASM/COIL_ASSY_MC150/COIL_ASSY_MC150_ASM",
+        "depth": 2,
+        "bounds": [
+          -29.68872927001132,
+          -27.711766921137222,
+          -44.01176692113722,
+          29.68872927001101,
+          12.311766921137226,
+          25.866327917891923
+        ]
+      },
+      {
+        "name": "TERMINAL_BOBBIN_A1_MC150",
+        "path": "/TOTAL_MC150_ASM/COIL_T_ASSY_MC150/COIL_T_ASSY_MC150_ASM/TERMINAL_BOBBIN_A1_MC150/TERMINAL_BOBBIN_A1_MC150",
+        "depth": 2,
+        "bounds": [
+          -26.450000100000132,
+          -13.800000100000018,
+          -77.2000001,
+          -8.4999999,
+          -12.299999899999982,
+          -54.1999999
+        ]
+      },
+      {
+        "name": "TERMINAL_BOBBIN_A2_MC150",
+        "path": "/TOTAL_MC150_ASM/COIL_T_ASSY_MC150/COIL_T_ASSY_MC150_ASM/TERMINAL_BOBBIN_A2_MC150/TERMINAL_BOBBIN_A2_MC150",
+        "depth": 2,
+        "bounds": [
+          8.4999999,
+          -13.800000100000018,
+          -77.2000001,
+          26.450000100000132,
+          -12.299999899999982,
+          -54.1999999
+        ]
+      },
+      {
+        "name": "AUX_TOTAL_ASSY_125_ASM",
+        "path": "/TOTAL_MC150_ASM/COIL_T_ASSY_MC150/COIL_T_ASSY_MC150_ASM/AUX_TOTAL_ASSY_125/AUX_TOTAL_ASSY_125_ASM",
+        "depth": 2,
+        "bounds": [
+          -28.10225586536098,
+          -11.375279485975007,
+          -2.002255865360979,
+          28.10225586536098,
+          43.30225586536111,
+          12.202255865360979
+        ]
+      },
+      {
+        "name": "TERMINAL_BOBBIN_A1_MC150",
+        "path": "/TOTAL_MC150_ASM/COIL_T_ASSY_MC150/COIL_T_ASSY_MC150_ASM/TERMINAL_BOBBIN_A1_MC150/TERMINAL_BOBBIN_A1_MC150",
+        "depth": 2,
+        "bounds": [
+          -26.450000100000132,
+          -13.800000100000018,
+          -77.2000001,
+          -8.4999999,
+          -12.299999899999982,
+          -54.1999999
+        ]
+      },
+      {
+        "name": "TERMINAL_BOBBIN_A2_MC150",
+        "path": "/TOTAL_MC150_ASM/COIL_T_ASSY_MC150/COIL_T_ASSY_MC150_ASM/TERMINAL_BOBBIN_A2_MC150/TERMINAL_BOBBIN_A2_MC150",
+        "depth": 2,
+        "bounds": [
+          8.4999999,
+          -13.800000100000018,
+          -77.2000001,
+          26.450000100000132,
+          -12.299999899999982,
+          -54.1999999
+        ]
+      },
+      {
+        "name": "M35_SCREW_LUG_ASM",
+        "path": "/TOTAL_MC150_ASM/COIL_T_ASSY_MC150/COIL_T_ASSY_MC150_ASM/M35_SCREW_LUG/M35_SCREW_LUG_ASM",
+        "depth": 2,
+        "bounds": [
+          6.190034001713452,
+          -21.90996599828655,
+          31.99003400171345,
+          15.809965998286549,
+          -7.939398737179682,
+          40.009965998286546
+        ]
+      },
+      {
+        "name": "M35_SCREW_LUG_ASM",
+        "path": "/TOTAL_MC150_ASM/COIL_T_ASSY_MC150/COIL_T_ASSY_MC150_ASM/M35_SCREW_LUG/M35_SCREW_LUG_ASM",
+        "depth": 2,
+        "bounds": [
+          6.190034001713452,
+          -21.90996599828655,
+          31.99003400171345,
+          15.809965998286549,
+          -7.939398737179682,
+          40.009965998286546
+        ]
+      },
+      {
+        "name": "M35_SCREW_LUG_ASM",
+        "path": "/TOTAL_MC150_ASM/COIL_T_ASSY_MC150/COIL_T_ASSY_MC150_ASM/M35_SCREW_LUG/M35_SCREW_LUG_ASM",
+        "depth": 2,
+        "bounds": [
+          6.190034001713452,
+          -21.90996599828655,
+          31.99003400171345,
+          15.809965998286549,
+          -7.939398737179682,
+          40.009965998286546
+        ]
+      },
+      {
+        "name": "M35_SCREW_LUG_ASM",
+        "path": "/TOTAL_MC150_ASM/COIL_T_ASSY_MC150/COIL_T_ASSY_MC150_ASM/M35_SCREW_LUG/M35_SCREW_LUG_ASM",
+        "depth": 2,
+        "bounds": [
+          6.190034001713452,
+          -21.90996599828655,
+          31.99003400171345,
+          15.809965998286549,
+          -7.939398737179682,
+          40.009965998286546
+        ]
+      },
+      {
+        "name": "SCREW_TAPPING_M3",
+        "path": "/TOTAL_MC150_ASM/COIL_T_ASSY_MC150/COIL_T_ASSY_MC150_ASM/SCREW_TAPPING_M3/SCREW_TAPPING_M3",
+        "depth": 2,
+        "bounds": [
+          -3.0000018211782113,
+          -12.70000000001821,
+          -3.0000018211782113,
+          3.0000018211782113,
+          2.300001821178211,
+          3.0000018211782113
+        ]
+      },
+      {
+        "name": "SCREW_TAPPING_M3",
+        "path": "/TOTAL_MC150_ASM/COIL_T_ASSY_MC150/COIL_T_ASSY_MC150_ASM/SCREW_TAPPING_M3/SCREW_TAPPING_M3",
+        "depth": 2,
+        "bounds": [
+          -3.0000018211782113,
+          -12.70000000001821,
+          -3.0000018211782113,
+          3.0000018211782113,
+          2.300001821178211,
+          3.0000018211782113
+        ]
+      },
+      {
+        "name": "PCB_ASSY_AC_MC150",
+        "path": "/TOTAL_MC150_ASM/COIL_T_ASSY_MC150/COIL_T_ASSY_MC150_ASM/PCB_ASSY_AC_MC150/PCB_ASSY_AC_MC150",
+        "depth": 2,
+        "bounds": [
+          -42.2500001,
+          -14.7500001,
+          -1e-07,
+          42.2500001,
+          14.7500001,
+          17.3600001
+        ]
+      },
+      {
+        "name": "AUX_CASE_125",
+        "path": "/TOTAL_MC150_ASM/COIL_T_ASSY_MC150/COIL_T_ASSY_MC150_ASM/AUX_CASE_125/AUX_CASE_125",
+        "depth": 2,
+        "bounds": [
+          -28.10225586536098,
+          -11.375279485975007,
+          -2.002255865360979,
+          28.10225586536098,
+          33.30225586541005,
+          10.60225586536098
+        ]
+      },
+      {
+        "name": "AUX_COVER_125",
+        "path": "/TOTAL_MC150_ASM/COIL_T_ASSY_MC150/COIL_T_ASSY_MC150_ASM/AUX_COVER_125/AUX_COVER_125",
+        "depth": 2,
+        "bounds": [
+          -22.600119155256635,
+          -11.373142775870662,
+          -0.00011915525663449942,
+          22.600119155256635,
+          33.3001191553602,
+          10.600119155256664
+        ]
+      },
+      {
+        "name": "SCREW_TAPPING_M3",
+        "path": "/TOTAL_MC150_ASM/COIL_T_ASSY_MC150/COIL_T_ASSY_MC150_ASM/SCREW_TAPPING_M3/SCREW_TAPPING_M3",
+        "depth": 2,
+        "bounds": [
+          -3.0000018211782113,
+          -12.70000000001821,
+          -3.0000018211782113,
+          3.0000018211782113,
+          2.300001821178211,
+          3.0000018211782113
+        ]
+      },
+      {
+        "name": "SCREW_TAPPING_M3",
+        "path": "/TOTAL_MC150_ASM/COIL_T_ASSY_MC150/COIL_T_ASSY_MC150_ASM/SCREW_TAPPING_M3/SCREW_TAPPING_M3",
+        "depth": 2,
+        "bounds": [
+          -3.0000018211782113,
+          -12.70000000001821,
+          -3.0000018211782113,
+          3.0000018211782113,
+          2.300001821178211,
+          3.0000018211782113
+        ]
+      },
+      {
+        "name": "LOWER_FRAME_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/LOWER_FRAME_MC150/LOWER_FRAME_MC150_ASM",
+        "depth": 1,
+        "bounds": [
+          -47.83752383200745,
+          -47.50795503083787,
+          -79.33752383200743,
+          62.50795503083787,
+          -5.992044969162133,
+          79.33752383200743
+        ]
+      },
+      {
+        "name": "LOW_FRAME_MC150",
+        "path": "/TOTAL_MC150_ASM/LOWER_FRAME_MC150/LOWER_FRAME_MC150_ASM/LOW_FRAME_MC150/LOW_FRAME_MC150",
+        "depth": 2,
+        "bounds": [
+          -47.83752383200745,
+          -46.00795503083787,
+          -79.33752383200743,
+          47.83752383200745,
+          -5.992044969162133,
+          79.33752383200743
+        ]
+      },
+      {
+        "name": "LATCH_MC150",
+        "path": "/TOTAL_MC150_ASM/LOWER_FRAME_MC150/LOWER_FRAME_MC150_ASM/LATCH_MC150/LATCH_MC150",
+        "depth": 2,
+        "bounds": [
+          -11.8000001,
+          -0.8000001,
+          -38.8000001,
+          11.8000001,
+          6.900000100000001,
+          25.100000100000003
+        ]
+      },
+      {
+        "name": "SPRING_RAIL_SUPPORTER_MC150",
+        "path": "/TOTAL_MC150_ASM/LOWER_FRAME_MC150/LOWER_FRAME_MC150_ASM/SPRING_RAIL_SUPPORTER_MC150/SPRING_RAIL_SUPPORTER_MC150",
+        "depth": 2,
+        "bounds": [
+          -27.727486926220003,
+          -0.8500048440901999,
+          -4.895749888288,
+          27.727982529440002,
+          0.8500048440901999,
+          0.9855565167652
+        ]
+      },
+      {
+        "name": "DIN_RAIL",
+        "path": "/TOTAL_MC150_ASM/LOWER_FRAME_MC150/LOWER_FRAME_MC150_ASM/DIN_RAIL/DIN_RAIL",
+        "depth": 2,
+        "bounds": [
+          -17.5000001,
+          -6.5000001,
+          -55.0000001,
+          17.5000001,
+          1e-07,
+          55.0000001
+        ]
+      },
+      {
+        "name": "CORE_FIXED_TOTAL_95_ASM",
+        "path": "/TOTAL_MC150_ASM/CORE_FIXED_TOTAL_95/CORE_FIXED_TOTAL_95_ASM",
+        "depth": 1,
+        "bounds": [
+          -19.403232410255555,
+          -62.603232410255586,
+          -35.003232410255556,
+          19.403232410255555,
+          -37.496767589744444,
+          35.003232410255556
+        ]
+      },
+      {
+        "name": "CORE_FIXED_TOTAL_95_SKEL",
+        "path": "/TOTAL_MC150_ASM/CORE_FIXED_TOTAL_95/CORE_FIXED_TOTAL_95_ASM/CORE_FIXED_TOTAL_95_SKEL/CORE_FIXED_TOTAL_95_SKEL",
+        "depth": 2,
+        "bounds": null
+      },
+      {
+        "name": "CORE_FIXED_95_AF0_ASM",
+        "path": "/TOTAL_MC150_ASM/CORE_FIXED_TOTAL_95/CORE_FIXED_TOTAL_95_ASM/CORE_FIXED_95/CORE_FIXED_95_AF0_ASM",
+        "depth": 2,
+        "bounds": [
+          -12.718581490664908,
+          -62.603232410255586,
+          -35.003232410255556,
+          12.718581490664908,
+          -37.496767589744444,
+          35.003232410255556
+        ]
+      },
+      {
+        "name": "CORE_FIXED_SUPPORTOR_95_AF0",
+        "path": "/TOTAL_MC150_ASM/CORE_FIXED_TOTAL_95/CORE_FIXED_TOTAL_95_ASM/CORE_FIXED_SUPPORTOR_95/CORE_FIXED_SUPPORTOR_95_AF0",
+        "depth": 2,
+        "bounds": [
+          -19.0000001,
+          -0.6000001000000001,
+          -3.0000001,
+          19.0000001,
+          0.6000001000000001,
+          3.0000001
+        ]
+      },
+      {
+        "name": "CORE_FIXED_SUPPORTOR_95_AF1",
+        "path": "/TOTAL_MC150_ASM/CORE_FIXED_TOTAL_95/CORE_FIXED_TOTAL_95_ASM/CORE_FIXED_SUPPORTOR_95/CORE_FIXED_SUPPORTOR_95_AF1",
+        "depth": 2,
+        "bounds": [
+          -19.0000001,
+          -0.6000001000000001,
+          -3.0000001,
+          19.0000001,
+          0.6000001000000001,
+          3.0000001
+        ]
+      },
+      {
+        "name": "BOBBIN_RUBER",
+        "path": "/TOTAL_MC150_ASM/CORE_FIXED_TOTAL_95/CORE_FIXED_TOTAL_95_ASM/BOBBIN_RUBER/BOBBIN_RUBER",
+        "depth": 2,
+        "bounds": [
+          -5.250293444221095,
+          -3.000293444221095,
+          -0.00029344422109508415,
+          5.250293444221095,
+          3.000293444221095,
+          9.000293444221095
+        ]
+      },
+      {
+        "name": "BOBBIN_RUBER",
+        "path": "/TOTAL_MC150_ASM/CORE_FIXED_TOTAL_95/CORE_FIXED_TOTAL_95_ASM/BOBBIN_RUBER/BOBBIN_RUBER",
+        "depth": 2,
+        "bounds": [
+          -5.250293444221095,
+          -3.000293444221095,
+          -0.00029344422109508415,
+          5.250293444221095,
+          3.000293444221095,
+          9.000293444221095
+        ]
+      },
+      {
+        "name": "BOBBIN_RUBER_AF0",
+        "path": "/TOTAL_MC150_ASM/CORE_FIXED_TOTAL_95/CORE_FIXED_TOTAL_95_ASM/BOBBIN_RUBER/BOBBIN_RUBER_AF0",
+        "depth": 2,
+        "bounds": [
+          -5.250293444221095,
+          -3.000293444221095,
+          -0.00029344422109508415,
+          5.250293444221095,
+          3.000293444221095,
+          9.000293444221095
+        ]
+      },
+      {
+        "name": "BOBBIN_RUBER_AF1",
+        "path": "/TOTAL_MC150_ASM/CORE_FIXED_TOTAL_95/CORE_FIXED_TOTAL_95_ASM/BOBBIN_RUBER/BOBBIN_RUBER_AF1",
+        "depth": 2,
+        "bounds": [
+          -5.250293444221095,
+          -3.000293444221095,
+          -0.00029344422109508415,
+          5.250293444221095,
+          3.000293444221095,
+          9.000293444221095
+        ]
+      },
+      {
+        "name": "CASE_SCREW_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/CASE_SCREW_MC150/CASE_SCREW_MC150_ASM",
+        "depth": 1,
+        "bounds": [
+          -47.50569007025771,
+          -0.005690070257707053,
+          45.99430992974226,
+          47.50569007025771,
+          78.00569007025771,
+          69.00569007025823
+        ]
+      },
+      {
+        "name": "CASE_SCREW_MC150",
+        "path": "/TOTAL_MC150_ASM/CASE_SCREW_MC150/CASE_SCREW_MC150_ASM/CASE_SCREW_MC150/CASE_SCREW_MC150",
+        "depth": 2,
+        "bounds": [
+          -47.5000001,
+          -1e-07,
+          45.99999989999996,
+          47.5000001,
+          72.0000001000035,
+          69.0000001
+        ]
+      },
+      {
+        "name": "NUT_M8_95",
+        "path": "/TOTAL_MC150_ASM/CASE_SCREW_MC150/CASE_SCREW_MC150_ASM/NUT_M8_95/NUT_M8_95",
+        "depth": 2,
+        "bounds": [
+          -7.4003518091057385,
+          -7.4003518091057385,
+          -3.200487820483431,
+          7.4003518091057385,
+          7.4003518091057385,
+          3.200487820483431
+        ]
+      },
+      {
+        "name": "NUT_M8_95",
+        "path": "/TOTAL_MC150_ASM/CASE_SCREW_MC150/CASE_SCREW_MC150_ASM/NUT_M8_95/NUT_M8_95",
+        "depth": 2,
+        "bounds": [
+          -7.4003518091057385,
+          -7.4003518091057385,
+          -3.200487820483431,
+          7.4003518091057385,
+          7.4003518091057385,
+          3.200487820483431
+        ]
+      },
+      {
+        "name": "NUT_M8_95",
+        "path": "/TOTAL_MC150_ASM/CASE_SCREW_MC150/CASE_SCREW_MC150_ASM/NUT_M8_95/NUT_M8_95",
+        "depth": 2,
+        "bounds": [
+          -7.4003518091057385,
+          -7.4003518091057385,
+          -3.200487820483431,
+          7.4003518091057385,
+          7.4003518091057385,
+          3.200487820483431
+        ]
+      },
+      {
+        "name": "COVER_CASE_SCREW_MC150",
+        "path": "/TOTAL_MC150_ASM/CASE_SCREW_MC150/CASE_SCREW_MC150_ASM/COVER_CASE_SCREW_MC150/COVER_CASE_SCREW_MC150",
+        "depth": 2,
+        "bounds": [
+          -47.50569007025771,
+          60.49430992974229,
+          45.99430992974229,
+          47.50569007025771,
+          78.00569007025771,
+          69.00569007025823
+        ]
+      },
+      {
+        "name": "CASE_SCREW_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/CASE_SCREW_MC150/CASE_SCREW_MC150_ASM",
+        "depth": 1,
+        "bounds": [
+          -47.50569007025771,
+          -0.005690070257707053,
+          45.99430992974226,
+          47.50569007025771,
+          78.00569007025771,
+          69.00569007025823
+        ]
+      },
+      {
+        "name": "CASE_SCREW_MC150",
+        "path": "/TOTAL_MC150_ASM/CASE_SCREW_MC150/CASE_SCREW_MC150_ASM/CASE_SCREW_MC150/CASE_SCREW_MC150",
+        "depth": 2,
+        "bounds": [
+          -47.5000001,
+          -1e-07,
+          45.99999989999996,
+          47.5000001,
+          72.0000001000035,
+          69.0000001
+        ]
+      },
+      {
+        "name": "NUT_M8_95",
+        "path": "/TOTAL_MC150_ASM/CASE_SCREW_MC150/CASE_SCREW_MC150_ASM/NUT_M8_95/NUT_M8_95",
+        "depth": 2,
+        "bounds": [
+          -7.4003518091057385,
+          -7.4003518091057385,
+          -3.200487820483431,
+          7.4003518091057385,
+          7.4003518091057385,
+          3.200487820483431
+        ]
+      },
+      {
+        "name": "NUT_M8_95",
+        "path": "/TOTAL_MC150_ASM/CASE_SCREW_MC150/CASE_SCREW_MC150_ASM/NUT_M8_95/NUT_M8_95",
+        "depth": 2,
+        "bounds": [
+          -7.4003518091057385,
+          -7.4003518091057385,
+          -3.200487820483431,
+          7.4003518091057385,
+          7.4003518091057385,
+          3.200487820483431
+        ]
+      },
+      {
+        "name": "NUT_M8_95",
+        "path": "/TOTAL_MC150_ASM/CASE_SCREW_MC150/CASE_SCREW_MC150_ASM/NUT_M8_95/NUT_M8_95",
+        "depth": 2,
+        "bounds": [
+          -7.4003518091057385,
+          -7.4003518091057385,
+          -3.200487820483431,
+          7.4003518091057385,
+          7.4003518091057385,
+          3.200487820483431
+        ]
+      },
+      {
+        "name": "COVER_CASE_SCREW_MC150",
+        "path": "/TOTAL_MC150_ASM/CASE_SCREW_MC150/CASE_SCREW_MC150_ASM/COVER_CASE_SCREW_MC150/COVER_CASE_SCREW_MC150",
+        "depth": 2,
+        "bounds": [
+          -47.50569007025771,
+          60.49430992974229,
+          45.99430992974229,
+          47.50569007025771,
+          78.00569007025771,
+          69.00569007025823
+        ]
+      },
+      {
+        "name": "COVER_CASE_SCREW_MC150",
+        "path": "/TOTAL_MC150_ASM/COVER_CASE_SCREW_MC150/COVER_CASE_SCREW_MC150",
+        "depth": 1,
+        "bounds": [
+          -47.50569007025771,
+          60.49430992974229,
+          45.99430992974229,
+          47.50569007025771,
+          78.00569007025771,
+          69.00569007025823
+        ]
+      },
+      {
+        "name": "COVER_CASE_SCREW_MC150",
+        "path": "/TOTAL_MC150_ASM/COVER_CASE_SCREW_MC150/COVER_CASE_SCREW_MC150",
+        "depth": 1,
+        "bounds": [
+          -47.50569007025771,
+          60.49430992974229,
+          45.99430992974229,
+          47.50569007025771,
+          78.00569007025771,
+          69.00569007025823
+        ]
+      },
+      {
+        "name": "CASE_LUG_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/CASE_LUG_MC150/CASE_LUG_MC150_ASM",
+        "depth": 1,
+        "bounds": [
+          -47.50178762299163,
+          -0.0017876229916262694,
+          -71.00178762299164,
+          47.50178762299163,
+          78.00178762299163,
+          -45.99821237700837
+        ]
+      },
+      {
+        "name": "CASE_LUG_MC150",
+        "path": "/TOTAL_MC150_ASM/CASE_LUG_MC150/CASE_LUG_MC150_ASM/CASE_LUG_MC150/CASE_LUG_MC150",
+        "depth": 2,
+        "bounds": [
+          -47.500083412433284,
+          -8.341243328713846e-05,
+          -71.0000834124333,
+          47.500083412433284,
+          78.00008341243328,
+          -45.999916587566716
+        ]
+      },
+      {
+        "name": "LUG_SCREW_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/CASE_LUG_MC150/CASE_LUG_MC150_ASM/LUG_SCREW_MC150/LUG_SCREW_MC150_ASM",
+        "depth": 2,
+        "bounds": [
+          -12.057768123722612,
+          3.0982123770083736,
+          -66.50178762299163,
+          12.057768123722612,
+          71.51306776365594,
+          -48.49821237700837
+        ]
+      },
+      {
+        "name": "LUG_SCREW_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/CASE_LUG_MC150/CASE_LUG_MC150_ASM/LUG_SCREW_MC150/LUG_SCREW_MC150_ASM",
+        "depth": 2,
+        "bounds": [
+          -12.057768123722612,
+          3.0982123770083736,
+          -66.50178762299163,
+          12.057768123722612,
+          71.51306776365594,
+          -48.49821237700837
+        ]
+      },
+      {
+        "name": "LUG_SCREW_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/CASE_LUG_MC150/CASE_LUG_MC150_ASM/LUG_SCREW_MC150/LUG_SCREW_MC150_ASM",
+        "depth": 2,
+        "bounds": [
+          -12.057768123722612,
+          3.0982123770083736,
+          -66.50178762299163,
+          12.057768123722612,
+          71.51306776365594,
+          -48.49821237700837
+        ]
+      },
+      {
+        "name": "CASE_LUG_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/CASE_LUG_MC150/CASE_LUG_MC150_ASM",
+        "depth": 1,
+        "bounds": [
+          -47.50178762299163,
+          -0.0017876229916262694,
+          -71.00178762299164,
+          47.50178762299163,
+          78.00178762299163,
+          -45.99821237700837
+        ]
+      },
+      {
+        "name": "CASE_LUG_MC150",
+        "path": "/TOTAL_MC150_ASM/CASE_LUG_MC150/CASE_LUG_MC150_ASM/CASE_LUG_MC150/CASE_LUG_MC150",
+        "depth": 2,
+        "bounds": [
+          -47.500083412433284,
+          -8.341243328713846e-05,
+          -71.0000834124333,
+          47.500083412433284,
+          78.00008341243328,
+          -45.999916587566716
+        ]
+      },
+      {
+        "name": "LUG_SCREW_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/CASE_LUG_MC150/CASE_LUG_MC150_ASM/LUG_SCREW_MC150/LUG_SCREW_MC150_ASM",
+        "depth": 2,
+        "bounds": [
+          -12.057768123722612,
+          3.0982123770083736,
+          -66.50178762299163,
+          12.057768123722612,
+          71.51306776365594,
+          -48.49821237700837
+        ]
+      },
+      {
+        "name": "LUG_SCREW_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/CASE_LUG_MC150/CASE_LUG_MC150_ASM/LUG_SCREW_MC150/LUG_SCREW_MC150_ASM",
+        "depth": 2,
+        "bounds": [
+          -12.057768123722612,
+          3.0982123770083736,
+          -66.50178762299163,
+          12.057768123722612,
+          71.51306776365594,
+          -48.49821237700837
+        ]
+      },
+      {
+        "name": "LUG_SCREW_MC150_ASM",
+        "path": "/TOTAL_MC150_ASM/CASE_LUG_MC150/CASE_LUG_MC150_ASM/LUG_SCREW_MC150/LUG_SCREW_MC150_ASM",
+        "depth": 2,
+        "bounds": [
+          -12.057768123722612,
+          3.0982123770083736,
+          -66.50178762299163,
+          12.057768123722612,
+          71.51306776365594,
+          -48.49821237700837
+        ]
+      },
+      {
+        "name": "SCREW_TAPPING_M4_25AF",
+        "path": "/TOTAL_MC150_ASM/SCREW_TAPPING_M4_25AF/SCREW_TAPPING_M4_25AF",
+        "depth": 1,
+        "bounds": [
+          -3.759395609911646,
+          13.795726794968354,
+          -29.262996423241294,
+          3.759395609911646,
+          30.198880742540126,
+          -21.737003576758706
+        ]
+      },
+      {
+        "name": "SCREW_TAPPING_M4_25AF",
+        "path": "/TOTAL_MC150_ASM/SCREW_TAPPING_M4_25AF/SCREW_TAPPING_M4_25AF",
+        "depth": 1,
+        "bounds": [
+          -3.759395609911646,
+          13.795726794968354,
+          -29.262996423241294,
+          3.759395609911646,
+          30.198880742540126,
+          -21.737003576758706
+        ]
+      },
+      {
+        "name": "SCREW_TAPPING_M4_25AF",
+        "path": "/TOTAL_MC150_ASM/SCREW_TAPPING_M4_25AF/SCREW_TAPPING_M4_25AF",
+        "depth": 1,
+        "bounds": [
+          -3.759395609911646,
+          13.795726794968354,
+          -29.262996423241294,
+          3.759395609911646,
+          30.198880742540126,
+          -21.737003576758706
+        ]
+      },
+      {
+        "name": "SCREW_TAPPING_M4_25AF",
+        "path": "/TOTAL_MC150_ASM/SCREW_TAPPING_M4_25AF/SCREW_TAPPING_M4_25AF",
+        "depth": 1,
+        "bounds": [
+          -3.759395609911646,
+          13.795726794968354,
+          -29.262996423241294,
+          3.759395609911646,
+          30.198880742540126,
+          -21.737003576758706
+        ]
+      },
+      {
+        "name": "COVER_SAFETY_25AF",
+        "path": "/TOTAL_MC150_ASM/COVER_SAFETY_25AF/COVER_SAFETY_25AF",
+        "depth": 1,
+        "bounds": [
+          -20.5000001,
+          32.9999999,
+          -14.0000001,
+          20.5000001,
+          41.3000001,
+          14.0000001
+        ]
+      },
+      {
+        "name": "BOLT_ASSY_ASM",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM",
+        "depth": 1,
+        "bounds": [
+          -9.745606282935386,
+          -16.004168926492323,
+          -9.745698729123871,
+          9.745606282935386,
+          6.004168926492325,
+          9.745698729123871
+        ]
+      },
+      {
+        "name": "WASHER",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM/WASHER/WASHER",
+        "depth": 2,
+        "bounds": [
+          -7.56922796817443,
+          -0.9364002694254309,
+          -7.69659423730143,
+          7.711809514233431,
+          2.736400269425431,
+          7.69659423730343
+        ]
+      },
+      {
+        "name": "RING_WASHER",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM/RING_WASHER/RING_WASHER",
+        "depth": 2,
+        "bounds": [
+          -9.74143745644306,
+          -1e-07,
+          -9.741529902631546,
+          9.74143745644306,
+          1.5000001,
+          9.741529902631546
+        ]
+      },
+      {
+        "name": "BOLT_M8_95",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM/BOLT_M8_95/BOLT_M8_95",
+        "depth": 2,
+        "bounds": [
+          -8.128121493190523,
+          -16.004168926492323,
+          -8.128121493190523,
+          8.128121493190523,
+          6.004168926492325,
+          8.128121493190523
+        ]
+      },
+      {
+        "name": "BOLT_ASSY_ASM",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM",
+        "depth": 1,
+        "bounds": [
+          -9.745606282935386,
+          -16.004168926492323,
+          -9.745698729123871,
+          9.745606282935386,
+          6.004168926492325,
+          9.745698729123871
+        ]
+      },
+      {
+        "name": "WASHER",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM/WASHER/WASHER",
+        "depth": 2,
+        "bounds": [
+          -7.56922796817443,
+          -0.9364002694254309,
+          -7.69659423730143,
+          7.711809514233431,
+          2.736400269425431,
+          7.69659423730343
+        ]
+      },
+      {
+        "name": "RING_WASHER",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM/RING_WASHER/RING_WASHER",
+        "depth": 2,
+        "bounds": [
+          -9.74143745644306,
+          -1e-07,
+          -9.741529902631546,
+          9.74143745644306,
+          1.5000001,
+          9.741529902631546
+        ]
+      },
+      {
+        "name": "BOLT_M8_95",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM/BOLT_M8_95/BOLT_M8_95",
+        "depth": 2,
+        "bounds": [
+          -8.128121493190523,
+          -16.004168926492323,
+          -8.128121493190523,
+          8.128121493190523,
+          6.004168926492325,
+          8.128121493190523
+        ]
+      },
+      {
+        "name": "BOLT_ASSY_ASM",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM",
+        "depth": 1,
+        "bounds": [
+          -9.745606282935386,
+          -16.004168926492323,
+          -9.745698729123871,
+          9.745606282935386,
+          6.004168926492325,
+          9.745698729123871
+        ]
+      },
+      {
+        "name": "WASHER",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM/WASHER/WASHER",
+        "depth": 2,
+        "bounds": [
+          -7.56922796817443,
+          -0.9364002694254309,
+          -7.69659423730143,
+          7.711809514233431,
+          2.736400269425431,
+          7.69659423730343
+        ]
+      },
+      {
+        "name": "RING_WASHER",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM/RING_WASHER/RING_WASHER",
+        "depth": 2,
+        "bounds": [
+          -9.74143745644306,
+          -1e-07,
+          -9.741529902631546,
+          9.74143745644306,
+          1.5000001,
+          9.741529902631546
+        ]
+      },
+      {
+        "name": "BOLT_M8_95",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM/BOLT_M8_95/BOLT_M8_95",
+        "depth": 2,
+        "bounds": [
+          -8.128121493190523,
+          -16.004168926492323,
+          -8.128121493190523,
+          8.128121493190523,
+          6.004168926492325,
+          8.128121493190523
+        ]
+      },
+      {
+        "name": "BOLT_ASSY_ASM",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM",
+        "depth": 1,
+        "bounds": [
+          -9.745606282935386,
+          -16.004168926492323,
+          -9.745698729123871,
+          9.745606282935386,
+          6.004168926492325,
+          9.745698729123871
+        ]
+      },
+      {
+        "name": "WASHER",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM/WASHER/WASHER",
+        "depth": 2,
+        "bounds": [
+          -7.56922796817443,
+          -0.9364002694254309,
+          -7.69659423730143,
+          7.711809514233431,
+          2.736400269425431,
+          7.69659423730343
+        ]
+      },
+      {
+        "name": "RING_WASHER",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM/RING_WASHER/RING_WASHER",
+        "depth": 2,
+        "bounds": [
+          -9.74143745644306,
+          -1e-07,
+          -9.741529902631546,
+          9.74143745644306,
+          1.5000001,
+          9.741529902631546
+        ]
+      },
+      {
+        "name": "BOLT_M8_95",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM/BOLT_M8_95/BOLT_M8_95",
+        "depth": 2,
+        "bounds": [
+          -8.128121493190523,
+          -16.004168926492323,
+          -8.128121493190523,
+          8.128121493190523,
+          6.004168926492325,
+          8.128121493190523
+        ]
+      },
+      {
+        "name": "BOLT_ASSY_ASM",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM",
+        "depth": 1,
+        "bounds": [
+          -9.745606282935386,
+          -16.004168926492323,
+          -9.745698729123871,
+          9.745606282935386,
+          6.004168926492325,
+          9.745698729123871
+        ]
+      },
+      {
+        "name": "WASHER",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM/WASHER/WASHER",
+        "depth": 2,
+        "bounds": [
+          -7.56922796817443,
+          -0.9364002694254309,
+          -7.69659423730143,
+          7.711809514233431,
+          2.736400269425431,
+          7.69659423730343
+        ]
+      },
+      {
+        "name": "RING_WASHER",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM/RING_WASHER/RING_WASHER",
+        "depth": 2,
+        "bounds": [
+          -9.74143745644306,
+          -1e-07,
+          -9.741529902631546,
+          9.74143745644306,
+          1.5000001,
+          9.741529902631546
+        ]
+      },
+      {
+        "name": "BOLT_M8_95",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM/BOLT_M8_95/BOLT_M8_95",
+        "depth": 2,
+        "bounds": [
+          -8.128121493190523,
+          -16.004168926492323,
+          -8.128121493190523,
+          8.128121493190523,
+          6.004168926492325,
+          8.128121493190523
+        ]
+      },
+      {
+        "name": "BOLT_ASSY_ASM",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM",
+        "depth": 1,
+        "bounds": [
+          -9.745606282935386,
+          -16.004168926492323,
+          -9.745698729123871,
+          9.745606282935386,
+          6.004168926492325,
+          9.745698729123871
+        ]
+      },
+      {
+        "name": "WASHER",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM/WASHER/WASHER",
+        "depth": 2,
+        "bounds": [
+          -7.56922796817443,
+          -0.9364002694254309,
+          -7.69659423730143,
+          7.711809514233431,
+          2.736400269425431,
+          7.69659423730343
+        ]
+      },
+      {
+        "name": "RING_WASHER",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM/RING_WASHER/RING_WASHER",
+        "depth": 2,
+        "bounds": [
+          -9.74143745644306,
+          -1e-07,
+          -9.741529902631546,
+          9.74143745644306,
+          1.5000001,
+          9.741529902631546
+        ]
+      },
+      {
+        "name": "BOLT_M8_95",
+        "path": "/TOTAL_MC150_ASM/BOLT_ASSY/BOLT_ASSY_ASM/BOLT_M8_95/BOLT_M8_95",
+        "depth": 2,
+        "bounds": [
+          -8.128121493190523,
+          -16.004168926492323,
+          -8.128121493190523,
+          8.128121493190523,
+          6.004168926492325,
+          8.128121493190523
+        ]
+      },
+      {
+        "name": "TOTAL_ASSY_AUX_ASM",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM",
+        "depth": 1,
+        "bounds": [
+          -35.509965998286546,
+          -40.009965998286546,
+          -11.209965998290874,
+          35.509965998286546,
+          28.00996599828655,
+          6.009965998286924
+        ]
+      },
+      {
+        "name": "CASE_AUX",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/CASE_AUX/CASE_AUX",
+        "depth": 2,
+        "bounds": [
+          -31.504038475216927,
+          -40.00403847521692,
+          -8.804038475216968,
+          31.504038475216927,
+          28.004038475216927,
+          4.504038475217275
+        ]
+      },
+      {
+        "name": "COVER_AUX",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/COVER_AUX/COVER_AUX",
+        "depth": 2,
+        "bounds": [
+          -35.50406634625725,
+          -40.00406634625725,
+          -4.504066346257247,
+          35.50406634625725,
+          28.004066346257247,
+          6.0040663462576225
+        ]
+      },
+      {
+        "name": "CROSSBAR_ASSY_AUX_ASM",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/CROSSBAR_ASSY_AUX/CROSSBAR_ASSY_AUX_ASM",
+        "depth": 2,
+        "bounds": [
+          -8.409114265870091,
+          -15.309114265870091,
+          -11.209114265874417,
+          8.409114265870091,
+          26.687024596207632,
+          4.409114265870092
+        ]
+      },
+      {
+        "name": "HOLDER_AUX",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/HOLDER_AUX/HOLDER_AUX",
+        "depth": 2,
+        "bounds": [
+          -19.128390935796247,
+          -3.004802635357657,
+          -9.004802635357656,
+          19.128390935796247,
+          2.1225442137806567,
+          4.528390935796248
+        ]
+      },
+      {
+        "name": "CONTACT_ASSY_FIXED_A_AUX_ASM",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/CONTACT_ASSY_FIXED_A_AUX/CONTACT_ASSY_FIXED_A_AUX_ASM",
+        "depth": 2,
+        "bounds": [
+          -30.00871399601012,
+          -21.408713996010118,
+          -4.508713996010117,
+          -3.4912860039898828,
+          -18.99128600398988,
+          4.508713996010117
+        ]
+      },
+      {
+        "name": "CONTACT_ASSY_FIXED_A_AUX_ASM",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/CONTACT_ASSY_FIXED_A_AUX/CONTACT_ASSY_FIXED_A_AUX_ASM",
+        "depth": 2,
+        "bounds": [
+          -30.00871399601012,
+          -21.408713996010118,
+          -4.508713996010117,
+          -3.4912860039898828,
+          -18.99128600398988,
+          4.508713996010117
+        ]
+      },
+      {
+        "name": "CONTACT_ASSY_FIXED_B_AUX_ASM",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/CONTACT_ASSY_FIXED_B_AUX/CONTACT_ASSY_FIXED_B_AUX_ASM",
+        "depth": 2,
+        "bounds": [
+          -19.50871399601012,
+          5.991286003989883,
+          -4.508713996010117,
+          -3.4912860039898828,
+          8.408713996010118,
+          4.508713996010117
+        ]
+      },
+      {
+        "name": "CONTACT_ASSY_FIXED_B_AUX_ASM",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/CONTACT_ASSY_FIXED_B_AUX/CONTACT_ASSY_FIXED_B_AUX_ASM",
+        "depth": 2,
+        "bounds": [
+          -19.50871399601012,
+          5.991286003989883,
+          -4.508713996010117,
+          -3.4912860039898828,
+          8.408713996010118,
+          4.508713996010117
+        ]
+      },
+      {
+        "name": "M35_LUG_SCREW_ASM",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/M35_LUG_SCREW/M35_LUG_SCREW_ASM",
+        "depth": 2,
+        "bounds": [
+          6.190034001713452,
+          -22.609972429494416,
+          31.99003400171345,
+          15.809965998286549,
+          -9.839398737179685,
+          40.009965998286546
+        ]
+      },
+      {
+        "name": "M35_LUG_SCREW_ASM",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/M35_LUG_SCREW/M35_LUG_SCREW_ASM",
+        "depth": 2,
+        "bounds": [
+          6.190034001713452,
+          -22.609972429494416,
+          31.99003400171345,
+          15.809965998286549,
+          -9.839398737179685,
+          40.009965998286546
+        ]
+      },
+      {
+        "name": "M35_LUG_SCREW_ASM",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/M35_LUG_SCREW/M35_LUG_SCREW_ASM",
+        "depth": 2,
+        "bounds": [
+          6.190034001713452,
+          -22.609972429494416,
+          31.99003400171345,
+          15.809965998286549,
+          -9.839398737179685,
+          40.009965998286546
+        ]
+      },
+      {
+        "name": "M35_LUG_SCREW_ASM",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/M35_LUG_SCREW/M35_LUG_SCREW_ASM",
+        "depth": 2,
+        "bounds": [
+          6.190034001713452,
+          -22.609972429494416,
+          31.99003400171345,
+          15.809965998286549,
+          -9.839398737179685,
+          40.009965998286546
+        ]
+      },
+      {
+        "name": "TOTAL_ASSY_AUX_ASM",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM",
+        "depth": 1,
+        "bounds": [
+          -35.509965998286546,
+          -40.009965998286546,
+          -11.209965998290874,
+          35.509965998286546,
+          28.00996599828655,
+          6.009965998286924
+        ]
+      },
+      {
+        "name": "CASE_AUX",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/CASE_AUX/CASE_AUX",
+        "depth": 2,
+        "bounds": [
+          -31.504038475216927,
+          -40.00403847521692,
+          -8.804038475216968,
+          31.504038475216927,
+          28.004038475216927,
+          4.504038475217275
+        ]
+      },
+      {
+        "name": "COVER_AUX",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/COVER_AUX/COVER_AUX",
+        "depth": 2,
+        "bounds": [
+          -35.50406634625725,
+          -40.00406634625725,
+          -4.504066346257247,
+          35.50406634625725,
+          28.004066346257247,
+          6.0040663462576225
+        ]
+      },
+      {
+        "name": "CROSSBAR_ASSY_AUX_ASM",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/CROSSBAR_ASSY_AUX/CROSSBAR_ASSY_AUX_ASM",
+        "depth": 2,
+        "bounds": [
+          -8.409114265870091,
+          -15.309114265870091,
+          -11.209114265874417,
+          8.409114265870091,
+          26.687024596207632,
+          4.409114265870092
+        ]
+      },
+      {
+        "name": "HOLDER_AUX",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/HOLDER_AUX/HOLDER_AUX",
+        "depth": 2,
+        "bounds": [
+          -19.128390935796247,
+          -3.004802635357657,
+          -9.004802635357656,
+          19.128390935796247,
+          2.1225442137806567,
+          4.528390935796248
+        ]
+      },
+      {
+        "name": "CONTACT_ASSY_FIXED_A_AUX_ASM",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/CONTACT_ASSY_FIXED_A_AUX/CONTACT_ASSY_FIXED_A_AUX_ASM",
+        "depth": 2,
+        "bounds": [
+          -30.00871399601012,
+          -21.408713996010118,
+          -4.508713996010117,
+          -3.4912860039898828,
+          -18.99128600398988,
+          4.508713996010117
+        ]
+      },
+      {
+        "name": "CONTACT_ASSY_FIXED_A_AUX_ASM",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/CONTACT_ASSY_FIXED_A_AUX/CONTACT_ASSY_FIXED_A_AUX_ASM",
+        "depth": 2,
+        "bounds": [
+          -30.00871399601012,
+          -21.408713996010118,
+          -4.508713996010117,
+          -3.4912860039898828,
+          -18.99128600398988,
+          4.508713996010117
+        ]
+      },
+      {
+        "name": "CONTACT_ASSY_FIXED_B_AUX_ASM",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/CONTACT_ASSY_FIXED_B_AUX/CONTACT_ASSY_FIXED_B_AUX_ASM",
+        "depth": 2,
+        "bounds": [
+          -19.50871399601012,
+          5.991286003989883,
+          -4.508713996010117,
+          -3.4912860039898828,
+          8.408713996010118,
+          4.508713996010117
+        ]
+      },
+      {
+        "name": "CONTACT_ASSY_FIXED_B_AUX_ASM",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/CONTACT_ASSY_FIXED_B_AUX/CONTACT_ASSY_FIXED_B_AUX_ASM",
+        "depth": 2,
+        "bounds": [
+          -19.50871399601012,
+          5.991286003989883,
+          -4.508713996010117,
+          -3.4912860039898828,
+          8.408713996010118,
+          4.508713996010117
+        ]
+      },
+      {
+        "name": "M35_LUG_SCREW_ASM",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/M35_LUG_SCREW/M35_LUG_SCREW_ASM",
+        "depth": 2,
+        "bounds": [
+          6.190034001713452,
+          -22.609972429494416,
+          31.99003400171345,
+          15.809965998286549,
+          -9.839398737179685,
+          40.009965998286546
+        ]
+      },
+      {
+        "name": "M35_LUG_SCREW_ASM",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/M35_LUG_SCREW/M35_LUG_SCREW_ASM",
+        "depth": 2,
+        "bounds": [
+          6.190034001713452,
+          -22.609972429494416,
+          31.99003400171345,
+          15.809965998286549,
+          -9.839398737179685,
+          40.009965998286546
+        ]
+      },
+      {
+        "name": "M35_LUG_SCREW_ASM",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/M35_LUG_SCREW/M35_LUG_SCREW_ASM",
+        "depth": 2,
+        "bounds": [
+          6.190034001713452,
+          -22.609972429494416,
+          31.99003400171345,
+          15.809965998286549,
+          -9.839398737179685,
+          40.009965998286546
+        ]
+      },
+      {
+        "name": "M35_LUG_SCREW_ASM",
+        "path": "/TOTAL_MC150_ASM/TOTAL_ASSY_AUX/TOTAL_ASSY_AUX_ASM/M35_LUG_SCREW/M35_LUG_SCREW_ASM",
+        "depth": 2,
+        "bounds": [
+          6.190034001713452,
+          -22.609972429494416,
+          31.99003400171345,
+          15.809965998286549,
+          -9.839398737179685,
+          40.009965998286546
+        ]
+      }
+    ]
+  }
+]

@@ -108,11 +108,15 @@ def customer_device(device):
         from .catalog_view_health import targeted, displayable, quarantined, current_view_displayable
         if quarantined(device.get('id'),view['id']) or (targeted(device.get('brand')) and (not displayable(view) or not current_view_displayable(device.get('id'),view['id']))):continue
         item={k:view[k] for k in ('label','face','preview','download','model_codes') if k in view}
+        from .catalog_view_models import view_models
+        models=view_models(device,view)
+        if models:item['model_codes']=models
         item['id']=public_view_id(view['id'])
         from .customer_technical_specs import view_technical_specs
         view_specs=view_technical_specs(device,view['id'])
         if view_specs:item['spec']=view_specs
         if ls_groups:
+            item['variant_id']='variant-'+hashlib.sha256(str(view.get('cad_variant_id') or device['id']).encode()).hexdigest()[:16]
             item['cad_coverage']=view_coverage(ls_groups[view.get('cad_variant_id') or device['id']])
         for key in ('label','face'):
             if INTERNAL.search(str(item.get(key) or '')):item[key]='Bản vẽ'
@@ -149,6 +153,8 @@ def customer_browser(payload):
 def customer_information_rows(rows,device):
     maker=canonical_brand(device.get('brand'));out=[]
     for row in rows:
+        from .net_catalog_prices import net_price_row
+        row=net_price_row(row)
         if str(row.get('sku') or '').startswith('*'):continue
         if maker and canonical_brand(row.get('brand'))!=maker:continue
         item={k:row[k] for k in ('id','book_key','sku','item_name','name','brand','category','group','price','columns','cells','edition','vat_status','information_kind','compatibility_note') if k in row}

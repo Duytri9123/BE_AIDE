@@ -26,9 +26,22 @@ def main():
   best=min(sets,key=lambda v:len(v['missing_faces']))
   for o in (d.get('catalog_tham_khao') or {}).get('options',[]):
    if o.get('source_row_id'):links[o['source_row_id']].append({'profile':p.relative_to(CAT).as_posix(),'name':d.get('ten_san_pham'),'views':valid,'view_sets':sets,'six_views_complete':best['complete'],'missing_faces':best['missing_faces'],'missing_labels':best['missing_labels'],'exact_sku_verified':o.get('exact_cad_match') is True,'source_urls':d.get('nguon_tham_khao') or []})
+ # A raw reference row is only a candidate. Use the exact public detail API's
+ # model/poles/coil/contact checks before calling a price row covered.
+ from app.services.catalogtb_browser import browser_data
+ from app.services.catalog_publication_policy import public_device_allowed
+ from app.services.price_row_cad_detail import linked_cad_for_row
+ from app.services.cad.ls_view_coverage import is_ls
+ public=[d for d in browser_data()['items'] if is_ls(d.get('brand')) and public_device_allowed(d)]
+ profiles=len(public);faces=sum(len(d['views']) for d in public)
+ profile_paths={('TB-'+hashlib.sha1(p.relative_to(CAT).as_posix().encode()).hexdigest()[:16]):p.relative_to(CAT).as_posix() for p in (CAT/'LS').rglob('thong_tin_thiet_bi.json')}
  results=[]
  for r in prices:
-  matches=links[r['id']];results.append({'price_row_id':r['id'],'sku':r['sku'],'category':r['category'],'group':r.get('group'),'price_vnd':r.get('price'),'specifications':r.get('specifications'),'status':('six_view_family_reference_requires_configuration_check' if any(p['six_views_complete'] for p in matches) else 'linked_cad_missing_views') if matches else 'missing_verified_pricebook_cad','profiles':matches})
+  matches=[]
+  for device in linked_cad_for_row(r,public):
+   coverage=view_coverage(device['views'])
+   matches.append({'profile':profile_paths.get(device['id'],device['id']),'catalog_id':device['id'],'name':device.get('display') or device.get('name'),'views':[v.get('label') or v.get('face') for v in device['views']],'view_sets':[{'variant':device['selection_id'],**coverage}],'six_views_complete':coverage['complete'],'missing_faces':coverage['missing_faces'],'missing_labels':coverage['missing_labels'],'exact_sku_verified':False})
+  results.append({'price_row_id':r['id'],'sku':r['sku'],'category':r['category'],'group':r.get('group'),'price_vnd':r.get('price'),'specifications':r.get('specifications'),'status':('six_view_family_reference_requires_configuration_check' if any(p['six_views_complete'] for p in matches) else 'linked_cad_missing_views') if matches else 'missing_verified_pricebook_cad','profiles':matches})
  categories={c:{'total':sum(r['category']==c for r in results),'linked':sum(r['category']==c and bool(r['profiles']) for r in results)} for c in sorted({r['category'] for r in results})}
  summary={'total_price_rows':len(prices),'linked_price_rows':sum(bool(r['profiles']) for r in results),'missing_price_rows':sum(not r['profiles'] for r in results),'six_view_price_rows':sum(any(p['six_views_complete'] for p in r['profiles']) for r in results),'incomplete_view_price_rows':sum(bool(r['profiles']) and not any(p['six_views_complete'] for p in r['profiles']) for r in results),'visible_ls_profiles':profiles,'visible_ls_views':faces,'validation_errors':errors,'categories':categories,'note':'A family CAD link does not prove exact SKU, terminal, coil or electrical compatibility. Missing verified CAD remains explicitly uncovered.'}
  pending=[]

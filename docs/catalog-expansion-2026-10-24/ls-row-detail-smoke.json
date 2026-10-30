@@ -1,0 +1,1372 @@
+{
+  "product": {
+    "id": "b9362c1575ec59061f325b9a",
+    "sku": "ABN52c",
+    "item_name": "ABN52c",
+    "name": "ABN52c",
+    "brand": "LS Electric",
+    "category": "MCCB",
+    "group": "Cầu dao điện MCCB (APTOMAT) loại khối 2 Pha",
+    "price": 1100000.0,
+    "columns": [
+      "Tên hàng",
+      "In (A)",
+      "Icu(KA)",
+      "Kích thước bao W×H×D (mm)",
+      "Đơn giá gốc chưa VAT",
+      "Icu tại 415/460 V AC (kA)",
+      "Icu tại 380 V AC (kA)",
+      "Icu tại 220/250 V AC (kA)"
+    ],
+    "cells": [
+      "ABN52c",
+      "15-20-30-40-50A",
+      "30",
+      "50 × 130 × 82",
+      "1,100,000",
+      "14",
+      "18",
+      "30"
+    ],
+    "vat_status": "excluded",
+    "information_kind": "pricebook",
+    "specifications": {
+      "In (A)": "15-20-30-40-50A",
+      "Icu(KA)": "30",
+      "Kích thước bao W×H×D (mm)": "50 × 130 × 82",
+      "Độ sâu thân c1 (mm)": "60",
+      "Độ sâu vỏ c2 (mm)": "64",
+      "Ui": "750V",
+      "Uimp": "8kV",
+      "Lắp đặt": "Bắt vít",
+      "Số cực": "2P",
+      "Icu tại 415/460 V AC (kA)": "14",
+      "Icu tại 380 V AC (kA)": "18",
+      "Icu tại 220/250 V AC (kA)": "30"
+    },
+    "source_url": "",
+    "book_key": "a8fa522526b68991d87c72d5"
+  },
+  "cad_devices": [
+    {
+      "id": "TB-ea077ad7daffe190",
+      "display": "LS · MCCB Metasol · 100AF · 2P · Icu 25/30/35 kA theo bảng giá",
+      "brand": "LS Electric",
+      "type": "MCCB",
+      "category": "LS",
+      "product_code": "ABN102c / ABN52c / ABN62c / ABS32c / ABS52c",
+      "primary_view": "v-ccd08a64fcb61854fe1d",
+      "brand_label": "LS Electric",
+      "brand_kind": "manufacturer",
+      "brand_identification_status": "verified",
+      "spec": {
+        "Khung (AF)": "100",
+        "Dải dòng định mức In (A)": "5–100",
+        "Kích thước bao W×H×D (mm)": "50 × 130 × 82",
+        "Ui": "750V",
+        "Uimp": "8kV",
+        "Lắp đặt": "Bắt vít",
+        "Số cực": "2P",
+        "Vị trí thường lắp": "Ngăn đóng cắt nguồn hoặc xuất tuyến",
+        "Kích thước CAD W×H×D (mm)": "50 × 130 × 78.91"
+      },
+      "views": [
+        {
+          "label": "Mặt trước",
+          "face": "Mặt trước",
+          "preview": "/equipment-library/TB-ea077ad7daffe190/views/v-ccd08a64fcb61854fe1d/preview?revision=67263fe542a05cb8",
+          "download": "/equipment-library/TB-ea077ad7daffe190/views/v-ccd08a64fcb61854fe1d/dxf",
+          "id": "v-ccd08a64fcb61854fe1d",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "50 × 130"
+          },
+          "cad_coverage": {
+            "status": "complete",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "bottom",
+              "front",
+              "left",
+              "rear",
+              "right",
+              "top"
+            ],
+            "missing_faces": [],
+            "missing_labels": [],
+            "complete": true
+          }
+        },
+        {
+          "label": "Mặt sau",
+          "face": "Mặt sau",
+          "preview": "/equipment-library/TB-ea077ad7daffe190/views/v-7125ac3d3e2dcb2428c2/preview?revision=ca41f28c9e6e4a63",
+          "download": "/equipment-library/TB-ea077ad7daffe190/views/v-7125ac3d3e2dcb2428c2/dxf",
+          "id": "v-7125ac3d3e2dcb2428c2",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "50 × 130"
+          },
+          "cad_coverage": {
+            "status": "complete",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "bottom",
+              "front",
+              "left",
+              "rear",
+              "right",
+              "top"
+            ],
+            "missing_faces": [],
+            "missing_labels": [],
+            "complete": true
+          }
+        },
+        {
+          "label": "Mặt bên trái",
+          "face": "Mặt bên trái",
+          "preview": "/equipment-library/TB-ea077ad7daffe190/views/v-d71b773382ee4753499d/preview?revision=72093962ef71b166",
+          "download": "/equipment-library/TB-ea077ad7daffe190/views/v-d71b773382ee4753499d/dxf",
+          "id": "v-d71b773382ee4753499d",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "78.91 × 130"
+          },
+          "cad_coverage": {
+            "status": "complete",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "bottom",
+              "front",
+              "left",
+              "rear",
+              "right",
+              "top"
+            ],
+            "missing_faces": [],
+            "missing_labels": [],
+            "complete": true
+          }
+        },
+        {
+          "label": "Mặt bên phải",
+          "face": "Mặt bên phải",
+          "preview": "/equipment-library/TB-ea077ad7daffe190/views/v-7a7119edb47abd6c2e4a/preview?revision=f545ca0b78005ed6",
+          "download": "/equipment-library/TB-ea077ad7daffe190/views/v-7a7119edb47abd6c2e4a/dxf",
+          "id": "v-7a7119edb47abd6c2e4a",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "78.91 × 130"
+          },
+          "cad_coverage": {
+            "status": "complete",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "bottom",
+              "front",
+              "left",
+              "rear",
+              "right",
+              "top"
+            ],
+            "missing_faces": [],
+            "missing_labels": [],
+            "complete": true
+          }
+        },
+        {
+          "label": "Mặt trên",
+          "face": "Mặt trên",
+          "preview": "/equipment-library/TB-ea077ad7daffe190/views/v-d4ccc559a825655c5452/preview?revision=67d2c5c342907619",
+          "download": "/equipment-library/TB-ea077ad7daffe190/views/v-d4ccc559a825655c5452/dxf",
+          "id": "v-d4ccc559a825655c5452",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "50 × 78.91"
+          },
+          "cad_coverage": {
+            "status": "complete",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "bottom",
+              "front",
+              "left",
+              "rear",
+              "right",
+              "top"
+            ],
+            "missing_faces": [],
+            "missing_labels": [],
+            "complete": true
+          }
+        },
+        {
+          "label": "Mặt dưới",
+          "face": "Mặt dưới",
+          "preview": "/equipment-library/TB-ea077ad7daffe190/views/v-7b8046317ae52ff6ce52/preview?revision=6b532c51908106a8",
+          "download": "/equipment-library/TB-ea077ad7daffe190/views/v-7b8046317ae52ff6ce52/dxf",
+          "id": "v-7b8046317ae52ff6ce52",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "50 × 78.91"
+          },
+          "cad_coverage": {
+            "status": "complete",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "bottom",
+              "front",
+              "left",
+              "rear",
+              "right",
+              "top"
+            ],
+            "missing_faces": [],
+            "missing_labels": [],
+            "complete": true
+          }
+        }
+      ],
+      "catalog_references": {
+        "options": [
+          {
+            "brand": "LS Electric",
+            "model": "ABN52c",
+            "specifications": {
+              "In (A)": "15-20-30-40-50A",
+              "Icu(KA)": "30",
+              "Kích thước bao W×H×D (mm)": "50 × 130 × 82",
+              "Độ sâu thân c1 (mm)": "60",
+              "Độ sâu vỏ c2 (mm)": "64",
+              "Ui": "750V",
+              "Uimp": "8kV",
+              "Lắp đặt": "Bắt vít",
+              "Số cực": "2P",
+              "Tên hàng": "ABN52c",
+              "Icu tại 415/460 V AC (kA)": "14",
+              "Icu tại 380 V AC (kA)": "18",
+              "Icu tại 220/250 V AC (kA)": "30"
+            },
+            "source_url": "",
+            "basis": "product_reference",
+            "price": null
+          },
+          {
+            "brand": "LS Electric",
+            "model": "ABN62c",
+            "specifications": {
+              "In (A)": "60A",
+              "Icu(KA)": "30",
+              "Kích thước bao W×H×D (mm)": "50 × 130 × 82",
+              "Độ sâu thân c1 (mm)": "60",
+              "Độ sâu vỏ c2 (mm)": "64",
+              "Ui": "750V",
+              "Uimp": "8kV",
+              "Lắp đặt": "Bắt vít",
+              "Số cực": "2P",
+              "Tên hàng": "ABN62c"
+            },
+            "source_url": "",
+            "basis": "product_reference",
+            "price": null
+          },
+          {
+            "brand": "LS Electric",
+            "model": "ABN102c",
+            "specifications": {
+              "In (A)": "15-20-30-40-50-60-75-100A",
+              "Icu(KA)": "35",
+              "Kích thước bao W×H×D (mm)": "50 × 130 × 82",
+              "Độ sâu thân c1 (mm)": "60",
+              "Độ sâu vỏ c2 (mm)": "64",
+              "Ui": "750V",
+              "Uimp": "8kV",
+              "Lắp đặt": "Bắt vít",
+              "Số cực": "2P",
+              "Tên hàng": "ABN102c",
+              "Icu tại 415/460 V AC (kA)": "18",
+              "Icu tại 380 V AC (kA)": "22",
+              "Icu tại 220/250 V AC (kA)": "35"
+            },
+            "source_url": "",
+            "basis": "product_reference",
+            "price": null
+          },
+          {
+            "brand": "LS Electric",
+            "model": "ABS32c",
+            "specifications": {
+              "In (A)": "5-10-15-20-30A",
+              "Icu(KA)": "25",
+              "Kích thước bao W×H×D (mm)": "50 × 130 × 82",
+              "Độ sâu thân c1 (mm)": "60",
+              "Độ sâu vỏ c2 (mm)": "64",
+              "Ui": "750V",
+              "Uimp": "8kV",
+              "Lắp đặt": "Bắt vít",
+              "Số cực": "2P",
+              "Tên hàng": "ABS32c"
+            },
+            "source_url": "",
+            "basis": "product_reference",
+            "price": null
+          },
+          {
+            "brand": "LS Electric",
+            "model": "ABS52c",
+            "specifications": {
+              "In (A)": "15-20-30-40-50A",
+              "Icu(KA)": "35",
+              "Kích thước bao W×H×D (mm)": "50 × 130 × 82",
+              "Độ sâu thân c1 (mm)": "60",
+              "Độ sâu vỏ c2 (mm)": "64",
+              "Ui": "750V",
+              "Uimp": "8kV",
+              "Lắp đặt": "Bắt vít",
+              "Số cực": "2P",
+              "Tên hàng": "ABS52c"
+            },
+            "source_url": "",
+            "basis": "product_reference",
+            "price": null
+          }
+        ]
+      },
+      "other_brand_references": [],
+      "reference_product_codes": [
+        "ABN52c",
+        "ABN62c",
+        "ABN102c",
+        "ABS32c",
+        "ABS52c"
+      ],
+      "selected_model": "ABN52c",
+      "link_scope": "reviewed_family_configuration"
+    },
+    {
+      "id": "TB-ab2f8bcbddd51207",
+      "display": "LS · MCCB · ABN 800 · 2P",
+      "brand": "LS Electric",
+      "type": "MCCB",
+      "category": "LS",
+      "product_code": "ABN 800",
+      "spec_hint": "2P",
+      "primary_view": "v-a3bf36c6d30ef5970929",
+      "brand_label": "LS Electric",
+      "brand_kind": "manufacturer",
+      "brand_identification_status": "verified",
+      "use": "Bảo vệ mạch động lực trước quá tải và ngắn mạch.",
+      "placement": "Trên ray DIN hoặc tấm lắp trong ngăn điều khiển/động lực, theo kiểu gá của thiết bị.",
+      "spec": {
+        "Lắp đặt tham khảo": "Trên ray DIN hoặc tấm lắp trong ngăn điều khiển/động lực, theo kiểu gá của thiết bị.",
+        "Số cực": "2P",
+        "Vị trí thường lắp": "Ngăn đóng cắt nguồn hoặc xuất tuyến"
+      },
+      "views": [
+        {
+          "label": "LS · MCCB · ABN 800 · 2P · Mặt trước",
+          "face": "Mặt trước",
+          "preview": "/equipment-library/TB-ab2f8bcbddd51207/views/v-a3bf36c6d30ef5970929/preview?revision=d047a54b8f459952",
+          "download": "/equipment-library/TB-ab2f8bcbddd51207/views/v-a3bf36c6d30ef5970929/dxf",
+          "id": "v-a3bf36c6d30ef5970929",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "280 × 430"
+          },
+          "cad_coverage": {
+            "status": "needs_cad_supplement",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "front"
+            ],
+            "missing_faces": [
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "missing_labels": [
+              "Mặt sau",
+              "Mặt bên trái",
+              "Mặt bên phải",
+              "Mặt trên",
+              "Mặt dưới"
+            ],
+            "complete": false
+          }
+        },
+        {
+          "label": "Nắp che mặt trước",
+          "face": "Mặt trước",
+          "preview": "/equipment-library/TB-ab2f8bcbddd51207/views/v-5c993dfed2c87d73ebd0/preview?revision=340caf89b7fcf606",
+          "download": "/equipment-library/TB-ab2f8bcbddd51207/views/v-5c993dfed2c87d73ebd0/dxf",
+          "id": "v-5c993dfed2c87d73ebd0",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "280 × 430"
+          },
+          "cad_coverage": {
+            "status": "needs_cad_supplement",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "front"
+            ],
+            "missing_faces": [
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "missing_labels": [
+              "Mặt sau",
+              "Mặt bên trái",
+              "Mặt bên phải",
+              "Mặt trên",
+              "Mặt dưới"
+            ],
+            "complete": false
+          }
+        },
+        {
+          "label": "LS · MCCB · ABN 800 · 2P · Mặt bên",
+          "face": "Mặt bên",
+          "preview": "/equipment-library/TB-ab2f8bcbddd51207/views/v-63e50a055e4e72881ad2/preview?revision=5169916e1142a98b",
+          "download": "/equipment-library/TB-ab2f8bcbddd51207/views/v-63e50a055e4e72881ad2/dxf",
+          "id": "v-63e50a055e4e72881ad2",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "280 × 430"
+          },
+          "cad_coverage": {
+            "status": "needs_cad_supplement",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "front"
+            ],
+            "missing_faces": [
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "missing_labels": [
+              "Mặt sau",
+              "Mặt bên trái",
+              "Mặt bên phải",
+              "Mặt trên",
+              "Mặt dưới"
+            ],
+            "complete": false
+          }
+        },
+        {
+          "label": "LS · MCCB · ABN 800 · 2P · Mặt bên · kèm đầu nối",
+          "face": "Mặt bên · kèm đầu nối",
+          "preview": "/equipment-library/TB-ab2f8bcbddd51207/views/v-3ca28b288a8089ca4b7f/preview?revision=610885a1ed87af9d",
+          "download": "/equipment-library/TB-ab2f8bcbddd51207/views/v-3ca28b288a8089ca4b7f/dxf",
+          "id": "v-3ca28b288a8089ca4b7f",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "280 × 430"
+          },
+          "cad_coverage": {
+            "status": "needs_cad_supplement",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "front"
+            ],
+            "missing_faces": [
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "missing_labels": [
+              "Mặt sau",
+              "Mặt bên trái",
+              "Mặt bên phải",
+              "Mặt trên",
+              "Mặt dưới"
+            ],
+            "complete": false
+          }
+        }
+      ],
+      "catalog_references": {
+        "options": [
+          {
+            "brand": "LS Electric",
+            "model": "ABN 800",
+            "specifications": {
+              "so_cuc": "2P",
+              "Loại thiết bị": "MCCB"
+            },
+            "source_url": "https://pfinder.ls-electric.com/IEC/product/mccb_metasol.do",
+            "basis": "product_reference",
+            "price": null
+          }
+        ]
+      },
+      "other_brand_references": [],
+      "reference_product_codes": [
+        "ABN 800"
+      ],
+      "manufacturer_document": "https://pfinder.ls-electric.com/IEC/product/mccb_metasol.do",
+      "selected_model": "ABN52c",
+      "link_scope": "reviewed_family_configuration"
+    },
+    {
+      "id": "TB-cd24b29934ac7384",
+      "display": "LS · MCCB · ABN 400 · 2P · Icu 50 kA theo bảng giá",
+      "brand": "LS Electric",
+      "type": "MCCB",
+      "category": "LS",
+      "product_code": "ABN 400",
+      "spec_hint": "2P",
+      "primary_view": "v-634b982ec8467bed7045",
+      "brand_label": "LS Electric",
+      "brand_kind": "manufacturer",
+      "brand_identification_status": "verified",
+      "use": "Bảo vệ mạch động lực trước quá tải và ngắn mạch.",
+      "placement": "Trên ray DIN hoặc tấm lắp trong ngăn điều khiển/động lực, theo kiểu gá của thiết bị.",
+      "spec": {
+        "Lắp đặt tham khảo": "Trên ray DIN hoặc tấm lắp trong ngăn điều khiển/động lực, theo kiểu gá của thiết bị.",
+        "Số cực": "2P",
+        "Vị trí thường lắp": "Ngăn đóng cắt nguồn hoặc xuất tuyến"
+      },
+      "views": [
+        {
+          "label": "LS · MCCB · ABN 400 · 2P · Icu 50 kA theo bảng giá · Mặt trước",
+          "face": "Mặt trước",
+          "preview": "/equipment-library/TB-cd24b29934ac7384/views/v-634b982ec8467bed7045/preview?revision=8f9fda44e5647037",
+          "download": "/equipment-library/TB-cd24b29934ac7384/views/v-634b982ec8467bed7045/dxf",
+          "id": "v-634b982ec8467bed7045",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "184 × 340"
+          },
+          "cad_coverage": {
+            "status": "needs_cad_supplement",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "front"
+            ],
+            "missing_faces": [
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "missing_labels": [
+              "Mặt sau",
+              "Mặt bên trái",
+              "Mặt bên phải",
+              "Mặt trên",
+              "Mặt dưới"
+            ],
+            "complete": false
+          }
+        },
+        {
+          "label": "Nắp che mặt trước",
+          "face": "Mặt trước",
+          "preview": "/equipment-library/TB-cd24b29934ac7384/views/v-fe6d5bd79f352c3e5431/preview?revision=844c79c27446cd42",
+          "download": "/equipment-library/TB-cd24b29934ac7384/views/v-fe6d5bd79f352c3e5431/dxf",
+          "id": "v-fe6d5bd79f352c3e5431",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "184 × 340"
+          },
+          "cad_coverage": {
+            "status": "needs_cad_supplement",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "front"
+            ],
+            "missing_faces": [
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "missing_labels": [
+              "Mặt sau",
+              "Mặt bên trái",
+              "Mặt bên phải",
+              "Mặt trên",
+              "Mặt dưới"
+            ],
+            "complete": false
+          }
+        },
+        {
+          "label": "LS · MCCB · ABN 400 · 2P · Icu 50 kA theo bảng giá · Mặt bên",
+          "face": "Mặt bên",
+          "preview": "/equipment-library/TB-cd24b29934ac7384/views/v-01ca580eecb4900d20e9/preview?revision=3a8d47f0dd4c612b",
+          "download": "/equipment-library/TB-cd24b29934ac7384/views/v-01ca580eecb4900d20e9/dxf",
+          "id": "v-01ca580eecb4900d20e9",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "184 × 340"
+          },
+          "cad_coverage": {
+            "status": "needs_cad_supplement",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "front"
+            ],
+            "missing_faces": [
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "missing_labels": [
+              "Mặt sau",
+              "Mặt bên trái",
+              "Mặt bên phải",
+              "Mặt trên",
+              "Mặt dưới"
+            ],
+            "complete": false
+          }
+        },
+        {
+          "label": "LS · MCCB · ABN 400 · 2P · Icu 50 kA theo bảng giá · Mặt bên · kèm đầu nối",
+          "face": "Mặt bên · kèm đầu nối",
+          "preview": "/equipment-library/TB-cd24b29934ac7384/views/v-c3f5878fa4a0ed62a8c6/preview?revision=c2751853d5a39bcb",
+          "download": "/equipment-library/TB-cd24b29934ac7384/views/v-c3f5878fa4a0ed62a8c6/dxf",
+          "id": "v-c3f5878fa4a0ed62a8c6",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "184 × 340"
+          },
+          "cad_coverage": {
+            "status": "needs_cad_supplement",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "front"
+            ],
+            "missing_faces": [
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "missing_labels": [
+              "Mặt sau",
+              "Mặt bên trái",
+              "Mặt bên phải",
+              "Mặt trên",
+              "Mặt dưới"
+            ],
+            "complete": false
+          }
+        }
+      ],
+      "catalog_references": {
+        "options": [
+          {
+            "brand": "LS Electric",
+            "model": "ABN 400",
+            "specifications": {
+              "so_cuc": "2P",
+              "Loại thiết bị": "MCCB"
+            },
+            "source_url": "https://pfinder.ls-electric.com/IEC/product/mccb_metasol.do",
+            "basis": "product_reference",
+            "price": null
+          },
+          {
+            "brand": "LS Electric",
+            "model": "ABN402c",
+            "specifications": {
+              "In (A)": "250-300-350-400A",
+              "Icu(KA)": "50",
+              "Số cực": "2P",
+              "Tên hàng": "ABN402c"
+            },
+            "source_url": "",
+            "basis": "product_reference",
+            "price": null
+          }
+        ]
+      },
+      "other_brand_references": [],
+      "reference_product_codes": [
+        "ABN 400",
+        "ABN402c"
+      ],
+      "manufacturer_document": "https://pfinder.ls-electric.com/IEC/product/mccb_metasol.do",
+      "selected_model": "ABN52c",
+      "link_scope": "reviewed_family_configuration"
+    },
+    {
+      "id": "TB-8dad1c013a3a2c21",
+      "display": "LS · MCCB · ABN / ABH / ABS 250 · 2P · Icu 65/85 kA theo bảng giá",
+      "brand": "LS Electric",
+      "type": "MCCB",
+      "category": "LS",
+      "product_code": "ABN / ABH / ABS 250",
+      "spec_hint": "2P",
+      "primary_view": "v-2f35ff78e879414d06b5",
+      "brand_label": "LS Electric",
+      "brand_kind": "manufacturer",
+      "brand_identification_status": "verified",
+      "use": "Bảo vệ mạch động lực trước quá tải và ngắn mạch.",
+      "placement": "Trên ray DIN hoặc tấm lắp trong ngăn điều khiển/động lực, theo kiểu gá của thiết bị.",
+      "spec": {
+        "Lắp đặt tham khảo": "Trên ray DIN hoặc tấm lắp trong ngăn điều khiển/động lực, theo kiểu gá của thiết bị.",
+        "Số cực": "2P",
+        "Vị trí thường lắp": "Ngăn đóng cắt nguồn hoặc xuất tuyến"
+      },
+      "views": [
+        {
+          "label": "LS · MCCB · ABN / ABH / ABS 250 · 2P · Icu 65/85 kA theo bảng giá · Mặt trước",
+          "face": "Mặt trước",
+          "preview": "/equipment-library/TB-8dad1c013a3a2c21/views/v-2f35ff78e879414d06b5/preview?revision=0747600c58b8df49",
+          "download": "/equipment-library/TB-8dad1c013a3a2c21/views/v-2f35ff78e879414d06b5/dxf",
+          "id": "v-2f35ff78e879414d06b5",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "145 × 167.3"
+          },
+          "cad_coverage": {
+            "status": "needs_cad_supplement",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "front"
+            ],
+            "missing_faces": [
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "missing_labels": [
+              "Mặt sau",
+              "Mặt bên trái",
+              "Mặt bên phải",
+              "Mặt trên",
+              "Mặt dưới"
+            ],
+            "complete": false
+          }
+        },
+        {
+          "label": "Nắp che mặt trước",
+          "face": "Mặt trước",
+          "preview": "/equipment-library/TB-8dad1c013a3a2c21/views/v-30b8885ce9a4fffae4e7/preview?revision=d6d2c47e0f800fb8",
+          "download": "/equipment-library/TB-8dad1c013a3a2c21/views/v-30b8885ce9a4fffae4e7/dxf",
+          "id": "v-30b8885ce9a4fffae4e7",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "145 × 167.3"
+          },
+          "cad_coverage": {
+            "status": "needs_cad_supplement",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "front"
+            ],
+            "missing_faces": [
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "missing_labels": [
+              "Mặt sau",
+              "Mặt bên trái",
+              "Mặt bên phải",
+              "Mặt trên",
+              "Mặt dưới"
+            ],
+            "complete": false
+          }
+        },
+        {
+          "label": "LS · MCCB · ABN / ABH / ABS 250 · 2P · Icu 65/85 kA theo bảng giá · Mặt bên",
+          "face": "Mặt bên",
+          "preview": "/equipment-library/TB-8dad1c013a3a2c21/views/v-74de13d8655b9bca63c5/preview?revision=30b13f86da32d482",
+          "download": "/equipment-library/TB-8dad1c013a3a2c21/views/v-74de13d8655b9bca63c5/dxf",
+          "id": "v-74de13d8655b9bca63c5",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "145 × 167.3"
+          },
+          "cad_coverage": {
+            "status": "needs_cad_supplement",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "front"
+            ],
+            "missing_faces": [
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "missing_labels": [
+              "Mặt sau",
+              "Mặt bên trái",
+              "Mặt bên phải",
+              "Mặt trên",
+              "Mặt dưới"
+            ],
+            "complete": false
+          }
+        }
+      ],
+      "catalog_references": {
+        "options": [
+          {
+            "brand": "LS Electric",
+            "model": "ABN / ABH / ABS 250",
+            "specifications": {
+              "so_cuc": "2P",
+              "Loại thiết bị": "MCCB"
+            },
+            "source_url": "https://pfinder.ls-electric.com/IEC/product/mccb_metasol.do",
+            "basis": "product_reference",
+            "price": null
+          },
+          {
+            "brand": "LS Electric",
+            "model": "ABN202c",
+            "specifications": {
+              "In (A)": "125-150-175-200-225-250A",
+              "Icu(KA)": "65",
+              "Kích thước bao W×H×D (mm)": "105 × 165 × 87",
+              "Độ sâu thân c1 (mm)": "60",
+              "Độ sâu vỏ c2 (mm)": "64",
+              "Ui": "750V",
+              "Uimp": "8kV",
+              "Lắp đặt": "Bắt vít",
+              "Số cực": "2P",
+              "Tên hàng": "ABN202c"
+            },
+            "source_url": "",
+            "basis": "product_reference",
+            "price": null
+          },
+          {
+            "brand": "LS Electric",
+            "model": "ABS202c",
+            "specifications": {
+              "In (A)": "125-150-175-200-225-250A",
+              "Icu(KA)": "85",
+              "Kích thước bao W×H×D (mm)": "105 × 165 × 87",
+              "Độ sâu thân c1 (mm)": "60",
+              "Độ sâu vỏ c2 (mm)": "64",
+              "Ui": "750V",
+              "Uimp": "8kV",
+              "Lắp đặt": "Bắt vít",
+              "Số cực": "2P",
+              "Tên hàng": "ABS202c"
+            },
+            "source_url": "",
+            "basis": "product_reference",
+            "price": null
+          }
+        ]
+      },
+      "other_brand_references": [],
+      "reference_product_codes": [
+        "ABN / ABH / ABS 250",
+        "ABN202c",
+        "ABS202c"
+      ],
+      "manufacturer_document": "https://pfinder.ls-electric.com/IEC/product/mccb_metasol.do",
+      "selected_model": "ABN52c",
+      "link_scope": "reviewed_family_configuration"
+    },
+    {
+      "id": "TB-c86024fa6a4b9444",
+      "display": "LS · MCCB · ABN 100 · 2P · Icu 25/30/35 kA theo bảng giá",
+      "brand": "LS Electric",
+      "type": "MCCB",
+      "category": "LS",
+      "product_code": "ABN 100",
+      "spec_hint": "2P",
+      "primary_view": "v-1f2b58379c4207e7af4a",
+      "brand_label": "LS Electric",
+      "brand_kind": "manufacturer",
+      "brand_identification_status": "verified",
+      "use": "Bảo vệ mạch động lực trước quá tải và ngắn mạch.",
+      "placement": "Trên ray DIN hoặc tấm lắp trong ngăn điều khiển/động lực, theo kiểu gá của thiết bị.",
+      "spec": {
+        "Lắp đặt tham khảo": "Trên ray DIN hoặc tấm lắp trong ngăn điều khiển/động lực, theo kiểu gá của thiết bị.",
+        "Số cực": "2P",
+        "Vị trí thường lắp": "Ngăn đóng cắt nguồn hoặc xuất tuyến"
+      },
+      "views": [
+        {
+          "label": "LS · MCCB · ABN 100 · 2P · Icu 25/30/35 kA theo bảng giá · Mặt trước",
+          "face": "Mặt trước",
+          "preview": "/equipment-library/TB-c86024fa6a4b9444/views/v-1f2b58379c4207e7af4a/preview?revision=b04914c8ac54cb80",
+          "download": "/equipment-library/TB-c86024fa6a4b9444/views/v-1f2b58379c4207e7af4a/dxf",
+          "id": "v-1f2b58379c4207e7af4a",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "105 × 152.8"
+          },
+          "cad_coverage": {
+            "status": "needs_cad_supplement",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "front"
+            ],
+            "missing_faces": [
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "missing_labels": [
+              "Mặt sau",
+              "Mặt bên trái",
+              "Mặt bên phải",
+              "Mặt trên",
+              "Mặt dưới"
+            ],
+            "complete": false
+          }
+        },
+        {
+          "label": "Nắp che mặt trước",
+          "face": "Mặt trước",
+          "preview": "/equipment-library/TB-c86024fa6a4b9444/views/v-9bc04aafcfcdb9d166db/preview?revision=d9ea47ffcb7e2be9",
+          "download": "/equipment-library/TB-c86024fa6a4b9444/views/v-9bc04aafcfcdb9d166db/dxf",
+          "id": "v-9bc04aafcfcdb9d166db",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "105 × 152.8"
+          },
+          "cad_coverage": {
+            "status": "needs_cad_supplement",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "front"
+            ],
+            "missing_faces": [
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "missing_labels": [
+              "Mặt sau",
+              "Mặt bên trái",
+              "Mặt bên phải",
+              "Mặt trên",
+              "Mặt dưới"
+            ],
+            "complete": false
+          }
+        },
+        {
+          "label": "LS · MCCB · ABN 100 · 2P · Icu 25/30/35 kA theo bảng giá · Mặt bên",
+          "face": "Mặt bên",
+          "preview": "/equipment-library/TB-c86024fa6a4b9444/views/v-c295b39bda16a4f15745/preview?revision=13811ca1539c2dbc",
+          "download": "/equipment-library/TB-c86024fa6a4b9444/views/v-c295b39bda16a4f15745/dxf",
+          "id": "v-c295b39bda16a4f15745",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "105 × 152.8"
+          },
+          "cad_coverage": {
+            "status": "needs_cad_supplement",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "front"
+            ],
+            "missing_faces": [
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "missing_labels": [
+              "Mặt sau",
+              "Mặt bên trái",
+              "Mặt bên phải",
+              "Mặt trên",
+              "Mặt dưới"
+            ],
+            "complete": false
+          }
+        }
+      ],
+      "catalog_references": {
+        "options": [
+          {
+            "brand": "LS Electric",
+            "model": "ABN 100",
+            "specifications": {
+              "so_cuc": "2P",
+              "Loại thiết bị": "MCCB"
+            },
+            "source_url": "https://pfinder.ls-electric.com/IEC/product/mccb_metasol.do",
+            "basis": "product_reference",
+            "price": null
+          },
+          {
+            "brand": "LS Electric",
+            "model": "ABN52c",
+            "specifications": {
+              "In (A)": "15-20-30-40-50A",
+              "Icu(KA)": "30",
+              "Kích thước bao W×H×D (mm)": "50 × 130 × 82",
+              "Độ sâu thân c1 (mm)": "60",
+              "Độ sâu vỏ c2 (mm)": "64",
+              "Ui": "750V",
+              "Uimp": "8kV",
+              "Lắp đặt": "Bắt vít",
+              "Số cực": "2P",
+              "Tên hàng": "ABN52c",
+              "Icu tại 415/460 V AC (kA)": "14",
+              "Icu tại 380 V AC (kA)": "18",
+              "Icu tại 220/250 V AC (kA)": "30"
+            },
+            "source_url": "",
+            "basis": "product_reference",
+            "price": null
+          },
+          {
+            "brand": "LS Electric",
+            "model": "ABN62c",
+            "specifications": {
+              "In (A)": "60A",
+              "Icu(KA)": "30",
+              "Kích thước bao W×H×D (mm)": "50 × 130 × 82",
+              "Độ sâu thân c1 (mm)": "60",
+              "Độ sâu vỏ c2 (mm)": "64",
+              "Ui": "750V",
+              "Uimp": "8kV",
+              "Lắp đặt": "Bắt vít",
+              "Số cực": "2P",
+              "Tên hàng": "ABN62c"
+            },
+            "source_url": "",
+            "basis": "product_reference",
+            "price": null
+          },
+          {
+            "brand": "LS Electric",
+            "model": "ABN102c",
+            "specifications": {
+              "In (A)": "15-20-30-40-50-60-75-100A",
+              "Icu(KA)": "35",
+              "Kích thước bao W×H×D (mm)": "50 × 130 × 82",
+              "Độ sâu thân c1 (mm)": "60",
+              "Độ sâu vỏ c2 (mm)": "64",
+              "Ui": "750V",
+              "Uimp": "8kV",
+              "Lắp đặt": "Bắt vít",
+              "Số cực": "2P",
+              "Tên hàng": "ABN102c",
+              "Icu tại 415/460 V AC (kA)": "18",
+              "Icu tại 380 V AC (kA)": "22",
+              "Icu tại 220/250 V AC (kA)": "35"
+            },
+            "source_url": "",
+            "basis": "product_reference",
+            "price": null
+          },
+          {
+            "brand": "LS Electric",
+            "model": "ABS32c",
+            "specifications": {
+              "In (A)": "5-10-15-20-30A",
+              "Icu(KA)": "25",
+              "Kích thước bao W×H×D (mm)": "50 × 130 × 82",
+              "Độ sâu thân c1 (mm)": "60",
+              "Độ sâu vỏ c2 (mm)": "64",
+              "Ui": "750V",
+              "Uimp": "8kV",
+              "Lắp đặt": "Bắt vít",
+              "Số cực": "2P",
+              "Tên hàng": "ABS32c"
+            },
+            "source_url": "",
+            "basis": "product_reference",
+            "price": null
+          },
+          {
+            "brand": "LS Electric",
+            "model": "ABS52c",
+            "specifications": {
+              "In (A)": "15-20-30-40-50A",
+              "Icu(KA)": "35",
+              "Kích thước bao W×H×D (mm)": "50 × 130 × 82",
+              "Độ sâu thân c1 (mm)": "60",
+              "Độ sâu vỏ c2 (mm)": "64",
+              "Ui": "750V",
+              "Uimp": "8kV",
+              "Lắp đặt": "Bắt vít",
+              "Số cực": "2P",
+              "Tên hàng": "ABS52c"
+            },
+            "source_url": "",
+            "basis": "product_reference",
+            "price": null
+          }
+        ]
+      },
+      "other_brand_references": [],
+      "reference_product_codes": [
+        "ABN 100",
+        "ABN52c",
+        "ABN62c",
+        "ABN102c",
+        "ABS32c",
+        "ABS52c"
+      ],
+      "manufacturer_document": "https://pfinder.ls-electric.com/IEC/product/mccb_metasol.do",
+      "selected_model": "ABN52c",
+      "link_scope": "reviewed_family_configuration"
+    },
+    {
+      "id": "TB-f6c5cb9a27956ee7",
+      "display": "LS · MCCB · ABN50c / ABN60c / ABN100c / ABS30c / ABS50c / ABS60c · 2P · Icu 25/30/35 kA theo bảng giá",
+      "brand": "LS Electric",
+      "type": "MCCB",
+      "category": "LS",
+      "product_code": "ABN50c / ABN60c / ABN100c / ABS30c / ABS50c / ABS60c",
+      "spec_hint": "2P",
+      "primary_view": "v-0deba33ccbdd1b5317fc",
+      "brand_label": "LS Electric",
+      "brand_kind": "manufacturer",
+      "brand_identification_status": "verified",
+      "spec": {
+        "Kích thước mặt trước (mm)": "50 × 130",
+        "Số cực": "2P",
+        "Vị trí thường lắp": "Ngăn đóng cắt nguồn hoặc xuất tuyến",
+        "Kích thước CAD W×H×D (mm)": "50 × 130 × 80.14"
+      },
+      "views": [
+        {
+          "label": "LS · MCCB · ABN50c / ABN60c / ABN100c / ABS30c / ABS50c / ABS60c · 2P · Icu 25/30/35 kA theo bảng giá · Mặt trước",
+          "face": "Mặt trước",
+          "preview": "/equipment-library/TB-f6c5cb9a27956ee7/views/v-0deba33ccbdd1b5317fc/preview?revision=814fb02813b22855",
+          "download": "/equipment-library/TB-f6c5cb9a27956ee7/views/v-0deba33ccbdd1b5317fc/dxf",
+          "id": "v-0deba33ccbdd1b5317fc",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "50 × 130"
+          },
+          "cad_coverage": {
+            "status": "needs_cad_supplement",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "front"
+            ],
+            "missing_faces": [
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "missing_labels": [
+              "Mặt sau",
+              "Mặt bên trái",
+              "Mặt bên phải",
+              "Mặt trên",
+              "Mặt dưới"
+            ],
+            "complete": false
+          }
+        },
+        {
+          "label": "LS · MCCB · ABN50c / ABN60c / ABN100c / ABS30c / ABS50c / ABS60c · 2P · Icu 25/30/35 kA theo bảng giá · Mặt bên",
+          "face": "Mặt bên",
+          "preview": "/equipment-library/TB-f6c5cb9a27956ee7/views/v-ae1a19a8cc4ecd2546c7/preview?revision=4d0c48bc8500383d",
+          "download": "/equipment-library/TB-f6c5cb9a27956ee7/views/v-ae1a19a8cc4ecd2546c7/dxf",
+          "id": "v-ae1a19a8cc4ecd2546c7",
+          "spec": {
+            "Kích thước mặt CAD ngang×cao (mm)": "80.14 × 130"
+          },
+          "cad_coverage": {
+            "status": "needs_cad_supplement",
+            "required_faces": [
+              "front",
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "available_faces": [
+              "front"
+            ],
+            "missing_faces": [
+              "rear",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "missing_labels": [
+              "Mặt sau",
+              "Mặt bên trái",
+              "Mặt bên phải",
+              "Mặt trên",
+              "Mặt dưới"
+            ],
+            "complete": false
+          }
+        }
+      ],
+      "catalog_references": {
+        "options": []
+      },
+      "other_brand_references": [],
+      "reference_product_codes": [],
+      "selected_model": "ABN52c",
+      "link_scope": "reviewed_family_configuration"
+    }
+  ]
+}

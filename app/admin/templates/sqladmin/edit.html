@@ -27,7 +27,7 @@
           {{ render_form_fields(form, form_opts=form_opts, ajax_lookup_url=url_for('admin:ajax_lookup', identity=model_view.identity)) }}
         </fieldset>
 
-        <div class="d-flex align-items-center justify-content-between pt-3 border-top gap-3 flex-wrap form-actions-bottom">
+        <div class="d-flex align-items-center justify-content-between pt-4 mt-3 border-top gap-3 flex-wrap form-actions-bottom">
           <a href="{{ url_for('admin:list', identity=model_view.identity) }}" class="btn btn-outline-secondary fw-semibold px-3.5 py-2 d-inline-flex align-items-center" style="border-radius: 8px; font-size: 13px; gap: 6px;">
             <i class="fa-solid fa-xmark"></i> <span>Hủy bỏ</span>
           </a>

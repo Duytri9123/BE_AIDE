@@ -7,7 +7,7 @@ from ezdxf import bbox
 from ezdxf.math import Matrix44
 from ezdxf.addons.drawing import Frontend,RenderContext,svg,layout,matplotlib
 ROOT=Path(__file__).resolve().parents[1];CAT=ROOT/'data/CatalogTB';REPORT=ROOT/'docs/ls-full-faces-2026-10-20.json'
-def write_profile(family,name,kind,models,poles,options,views,source,extra_spec=None, *, brand="LS"):
+def write_profile(family,name,kind,models,poles,options,views,source,extra_spec=None, *, brand="LS", native_document=None):
  assert brand in {"LS","CHINT","Schneider Electric","ABB","INVT","Mitsubishi Electric","Shihlin"}
  brand_folder={"LS":"LS","CHINT":"Chint","Schneider Electric":"Schneider","ABB":"ABB","INVT":"INVT","Mitsubishi Electric":"Mitsubishi","Shihlin":"Shihlin"}[brand]
  report_path=ROOT/'docs/abb-s200-faces-2026-10-22.json' if brand=='ABB' else REPORT if brand=="LS" else ROOT/("docs/chint-full-faces-2026-10-21.json" if brand=="CHINT" else "docs/schneider-full-faces-2026-10-21.json")
@@ -17,7 +17,7 @@ def write_profile(family,name,kind,models,poles,options,views,source,extra_spec=
  path=CAT/brand_folder/'ThietBi'/('OFFICIAL-'+family)/'thong_tin_thiet_bi.json';path.parent.mkdir(parents=True,exist_ok=True)
  note=f'CAD gốc {brand} theo họ và kiểu lắp ghi trong nguồn; chưa xác nhận SKU. Chọn riêng cấu hình điện, cơ cấu bảo vệ, phụ kiện và đối chiếu đầu nối trước gia công.'
  spec={**({'so_cuc':poles} if poles else {}),**(extra_spec or {})}
- profile={'nhom':brand,'ten_kieu':name,'ten_san_pham':name,'hang_xac_nhan':brand,'ma_dong_san_pham':' / '.join(models),'ban_chat':kind,'cong_dung':note,'thong_so':spec,'nhan_dien_ai':{'loai_thiet_bi_code':kind,'cac_ma_dong_san_pham':models,'exact_SKU_confirmed':False},'tu_khoa_tim_kiem':[brand,{'LS':'LS ELECTRIC','CHINT':'CHINT','Schneider Electric':'Schneider','ABB':'ABB','INVT':'INVT','Mitsubishi Electric':'Mitsubishi','Shihlin':'Shihlin'}[brand],kind,*models,*[o['model'] for o in options]],'nguon_tham_khao':[source['source_url']],'cad_don':[],'cac_hinh_cad':[],'auto_select':False,'needs_review':True,'muc_do_xac_nhan':note,'catalog_tham_khao':{'category':kind,'options':options},'quy_tac_dung_chung_cad':{'relationship':'one_geometry_many_configuration_options','electrical_rating_from_geometry':False,'requirements':['Đúng họ, số cực, kiểu lắp, đầu nối và phụ kiện','Xác nhận In/Icu/Ics tại điện áp làm việc theo mã đã chọn','CAD họ thiết bị không xác nhận cuộn hút, relay hoặc phụ kiện bên trong']}}
+ profile={'nhom':brand,'ten_kieu':name,'ten_san_pham':name,'hang_xac_nhan':brand,'ma_dong_san_pham':' / '.join(models),'ban_chat':kind,'cong_dung':note,'thong_so':spec,'nhan_dien_ai':{'loai_thiet_bi_code':kind,'cac_ma_dong_san_pham':models,'exact_SKU_confirmed':False},'tu_khoa_tim_kiem':[brand,{'LS':'LS ELECTRIC','CHINT':'CHINT','Schneider Electric':'Schneider','ABB':'ABB','INVT':'INVT','Mitsubishi Electric':'Mitsubishi','Shihlin':'Shihlin'}[brand],kind,*models,*[o['model'] for o in options]],'nguon_tham_khao':[source['source_url']],'cad_don':[],'cac_hinh_cad':[],'auto_select':False,'needs_review':True,'muc_do_xac_nhan':note,'catalog_tham_khao':{'category':kind,'options':options,**({'source_row_scope':'explicit_only','row_links_reviewed':True} if brand=='LS' else {})},'quy_tac_dung_chung_cad':{'relationship':'one_geometry_many_configuration_options','electrical_rating_from_geometry':False,'requirements':['Đúng họ, số cực, kiểu lắp, đầu nối và phụ kiện','Xác nhận In/Icu/Ics tại điện áp làm việc theo mã đã chọn','CAD họ thiết bị không xác nhận cuộn hút, relay hoặc phụ kiện bên trong']}}
  if poles and poles.rstrip('P').isdigit():profile['nhan_dien_ai']['so_cuc']=int(poles.rstrip('P'))
  if poles and re.fullmatch(r'[1-3]P\+N',poles):profile['nhan_dien_ai']['so_cuc']=int(poles[0])+1
  report=json.loads(report_path.read_text()) if report_path.exists() else []
@@ -30,8 +30,17 @@ def write_profile(family,name,kind,models,poles,options,views,source,extra_spec=
   bounds=bbox.extents(entities)
   assert bounds.has_data and bounds.size.x>0 and bounds.size.y>0,(family,code,'empty extent')
   target=ezdxf.new('R2010');target.units=4
-  for e in entities:
-   ent=e.copy();ent.dxf.layer='0';ent.dxf.color=7;ent.dxf.linetype='CONTINUOUS';ent.transform(Matrix44.translate(-bounds.extmin.x,-bounds.extmin.y,0));target.modelspace().add_entity(ent)
+  if native_document is not None:
+   from ezdxf.addons import Importer
+   importer=Importer(native_document,target);importer.import_entities(entities);importer.finalize()
+   import sys
+   if str(ROOT) not in sys.path:sys.path.insert(0,str(ROOT))
+   from app.services.cad.layer_resource_links import repair_invalid_layer_resources
+   repair_invalid_layer_resources(target)
+   for ent in target.modelspace():ent.transform(Matrix44.translate(-bounds.extmin.x,-bounds.extmin.y,0))
+  else:
+   for e in entities:
+    ent=e.copy();ent.dxf.layer='0';ent.dxf.color=7;ent.dxf.linetype='CONTINUOUS';ent.transform(Matrix44.translate(-bounds.extmin.x,-bounds.extmin.y,0));target.modelspace().add_entity(ent)
   assert not target.audit().errors
   ident=({'Schneider Electric':'SCHNEIDER','Mitsubishi Electric':'MITSUBISHI'}.get(brand,brand))+'-OFFICIAL-'+family+'-'+code;dest=path.parent/'CadDon'/ident;dest.mkdir(parents=True,exist_ok=True);drawing=dest/'ban_ve.dxf';target.saveas(drawing)
   backend=svg.SVGBackend();Frontend(RenderContext(target),backend).draw_layout(target.modelspace(),finalize=True);(dest/'xem_truoc.svg').write_text(backend.get_string(layout.Page(0,0,layout.Units.mm)),encoding='utf8');matplotlib.qsave(target.modelspace(),dest/'preview.png',dpi=80)

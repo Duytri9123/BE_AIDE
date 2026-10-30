@@ -1,0 +1,389 @@
+{
+  "nhom": "LS",
+  "ten_kieu": "LS · CC MC 500a · CAD nguồn",
+  "ten_san_pham": "LS · CC MC 500a · CAD nguồn",
+  "ban_chat": "Khởi động từ",
+  "cong_dung": "Đóng cắt tải qua cuộn điều khiển; cần xác nhận điện áp cuộn hút.",
+  "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+  "hang_xac_nhan": null,
+  "ma_dong_san_pham": null,
+  "thong_so": {
+    "nhan_block_nguon": "CC MC 500a"
+  },
+  "tu_khoa_tim_kiem": [
+    "CC MC 500a",
+    "LS",
+    "Khởi động từ",
+    "ABB",
+    "1SBL281074R8001",
+    "CHINT",
+    "NXC-06 220V 50/60Hz",
+    "Delixi",
+    "CDC19S2511M7",
+    "Mitsubishi Electric",
+    "1DEL02",
+    "Schneider Electric",
+    "LC1E0601BD",
+    "LS · CC MC 500a · CAD nguồn",
+    "",
+    "MC-500a",
+    "MC 500a"
+  ],
+  "muc_do_xac_nhan": "CAD tham khảo từ file thư viện hãng; nhãn nguồn chưa xác nhận mã đặt hàng, hãng của từng block, hướng nhìn và thông số điện.",
+  "nguon_tham_khao": [],
+  "nguon_cad": {
+    "file": "D:\\THƯ VIỆN\\@LS.dwg",
+    "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+    "block": "CC MC 500a",
+    "saved_block": "CC MC 500a",
+    "handle": "228008",
+    "geometry_key": "418527c4fc245482be725d6f885014e38536a24a0638b608468b14a856cfb7f3",
+    "units": 4,
+    "instance_transform": {
+      "insert": [
+        21195.62996572055,
+        22820.43192620724,
+        0
+      ],
+      "rotation": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+  },
+  "cac_hinh_cad": [
+    "SRC_LS_418527c4fc24"
+  ],
+  "auto_select": false,
+  "needs_review": true,
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Nguồn vào",
+      "Ra tải",
+      "Phụ kiện điều khiển nếu có"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa xác nhận dữ liệu hãng",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "SRC_LS_418527c4fc24",
+      "huong_nhin": "Mặt bên",
+      "nhan_hien_thi": "CC MC 500a",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": false,
+        "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+      },
+      "duong_dan": "CadDon/SRC_LS_418527c4fc24/ban_ve.dxf",
+      "nhan_dien_mat": {
+        "review_date": "2026-10-11",
+        "method": "individual_visual_review",
+        "evidence_card": 68,
+        "evidence_image": "outputs\\catalogtb-projection-review\\068.png",
+        "previous_label": "Chưa xác nhận hướng nhìn",
+        "projection": "Mặt bên",
+        "basis": "Device controls/terminals and relative projection geometry; source block label used only when consistent with the inspected image.",
+        "mounting_orientation_verified": false,
+        "exact_sku_verified": false
+      }
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "SRC_LS_418527c4fc24",
+    "huong_nhin": "Mặt bên",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "CONTACTOR",
+    "recognition_basis": "Tên và bản chất trong hồ sơ hiện có; không xác nhận SKU",
+    "exact_SKU_confirmed": false
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "LS Electric",
+    "ma_san_pham": "",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [
+      "https://anhphatelectric.com",
+      "https://etinco.vn/san-pham-ls-electric"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Ước tính - cần xác nhận với nhà cung cấp"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "CONTACTOR",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "LS Electric",
+        "model": "MC-500a",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": null
+        },
+        "source_url": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+        "source_page": null,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng là ứng viên theo mã trong tài liệu; chưa xác nhận logo trên CAD. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MC 500a",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 7
+        },
+        "source_url": "https://www.ls-electric.com/upload/customer/download/280b6197-f4bb-4f86-a60d-917b7b8bf890/Metasol_MC_E_170915.pdf",
+        "source_page": 7,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng là ứng viên theo mã trong tài liệu; chưa xác nhận logo trên CAD. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "Metasol MS",
+        "specifications": {
+          "Dòng thiết bị": "Metasol MS"
+        },
+        "source_url": "https://www.ls-electric.com/products/view/Smart_Power_Solution/Low_Voltage/Contactor_%26_Overload_Relay/Metasol_MS",
+        "basis": "manufacturer_family_document",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Tài liệu đúng hãng/dòng để tiếp tục đối chiếu mã trong CAD; không xác nhận mã đầy đủ hoặc kích thước."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MC-500a",
+        "specifications": {
+          "nhan_block_nguon": "CC MC 500a",
+          "Loại thiết bị": "CONTACTOR",
+          "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp.",
+          "Hình chiếu Mặt bên (ngang × cao, mm)": "245.477 × 311.636"
+        },
+        "source_url": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MC-500a",
+        "specifications": {
+          "In (A)": "500",
+          "Tên hàng": "Ls MC-500a 500A (2a2b)"
+        },
+        "source_url": "https://www.ple.vn/role-nhiet/khoi-dong-tu-ls/mc-500a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:ec0a8bdafdd4068e",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MC-500a (8)",
+        "specifications": {
+          "In (A)": "500A (2a2b)",
+          "Tên hàng": "MC-500a (8)"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 4,
+        "source_row_id": "ls-pdf:660b4b6336d4eae0",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MC-500a/4",
+        "specifications": {
+          "Tiếp điểm phụ": "(2a2b)",
+          "In (A)": "500A",
+          "Tên hàng": "MC-500a/4"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 8,
+        "source_row_id": "ls-pdf:05131ada0a8a0ccd",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      }
+    ],
+    "observed_specifications": {
+      "nhan_block_nguon": "CC MC 500a",
+      "Loại thiết bị": "CONTACTOR",
+      "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp.",
+      "Hình chiếu Mặt bên (ngang × cao, mm)": "245.477 × 311.636"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [
+      {
+        "brand": "LS Electric",
+        "family": "Metasol MS",
+        "url": "https://www.ls-electric.com/products/view/Smart_Power_Solution/Low_Voltage/Contactor_%26_Overload_Relay/Metasol_MS",
+        "scope": "manufacturer_family",
+        "checked_at": "2026-10-17"
+      }
+    ],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "documented_source_label",
+      "source_model": "MC-500a",
+      "matched_catalog_rows": 2,
+      "model_identity_verified": true,
+      "remaining_tasks": [
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": true,
+      "source_label_models": [
+        "MC-500a",
+        "MC 500a"
+      ],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "documented_source_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [
+        "MC 500a"
+      ],
+      "documented_models": [
+        {
+          "model": "MC-500a",
+          "brand": "LS Electric",
+          "manufacturer_confirmed_on_source": false,
+          "scope": "previously_reviewed_source_model_or_family",
+          "documents": [
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+              "sha256": null,
+              "page": null,
+              "format": "previous_checksum_bound_manufacturer_review",
+              "match": "MC-500a",
+              "basis": "existing_manufacturer_evidence_validated_against_source_dxf_hash"
+            }
+          ]
+        },
+        {
+          "model": "MC 500a",
+          "brand": "LS Electric",
+          "manufacturer_confirmed_on_source": false,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/280b6197-f4bb-4f86-a60d-917b7b8bf890/Metasol_MC_E_170915.pdf",
+              "sha256": "46d017e9c1c7e498670c8aa51ba4cb5ab3445b40d19b81ced563e1b5bf4e3bc0",
+              "page": 7,
+              "format": "pdf",
+              "match": "MC-500a",
+              "basis": "literal_model_label"
+            },
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/1627/Electric%20Products_E_1703.pdf",
+              "sha256": "c3939090de81ca1dd1927bf03f64af3d6acf0a4301ec687a1964ade42c0f85aa",
+              "page": 17,
+              "format": "pdf",
+              "match": "MC-500a",
+              "basis": "literal_model_label"
+            },
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+              "sha256": "0e7eec7924fe497009656a8e9c86371c8e9bedef842bc6c99572deac272ce5f4",
+              "page": 7,
+              "format": "pdf",
+              "match": "MC-500a",
+              "basis": "literal_model_label"
+            }
+          ]
+        }
+      ],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "gia_ban_tham_khao_cu": {
+    "don_gia": "250000-800000",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Có giá (phạm vi ước tính)",
+    "hang": "LS Electric",
+    "ma_san_pham": "",
+    "ghi_chu": "LS · CC MC 500a · CAD nguồn. Contactor - giá ước tính. Liên hệ đại lý để có giá chính xác",
+    "nguon_tham_khao": [
+      "https://anhphatelectric.com",
+      "https://etinco.vn/san-pham-ls-electric"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Ước tính - cần xác nhận với nhà cung cấp"
+  },
+  "nhan_dien_web": {
+    "source_label_review": {
+      "status": "documented_source_label",
+      "models": [
+        "MC-500a",
+        "MC 500a"
+      ],
+      "manufacturer_candidates": [
+        "LS Electric"
+      ],
+      "checked_at": "2026-10-17",
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "brand_candidate": "LS Electric",
+    "status": "candidate_from_documented_source_label"
+  }
+}

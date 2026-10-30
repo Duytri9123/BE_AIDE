@@ -98,7 +98,19 @@ def information_rows(device,rows=None):
             selected[row['id']]=(row,'catalog_family_match',0)
         for row in reference_matches({'brand':device['brand'],'model':device['product_code']},kind,index):
             selected[row['id']]=(row,'catalog_family_match',0)
-        for row,basis in matching_rows(identity,device,rows,kind):selected[row['id']]=(row,basis,0)
+        for row,basis in matching_rows(identity,device,rows,kind):
+            # A series-only fallback is useful catalog information, but never
+            # establishes that this particular frame is the priced CAD body.
+            selected[row['id']]=(row,basis,1 if basis=='catalog_series_reference' else 0)
+        # Compare complete, explicit hyphenated model alternatives (MR-4,
+        # MC-50a, AN-06D3), never series prefixes. Configuration suffixes
+        # may continue after a hyphen or parenthesis.
+        codes=re.split(r'\s+/\s+',str(device['product_code']))
+        for row in rows:
+            if category_key(row.get('category'))!=category_key(kind):continue
+            if any(re.match(re.escape(code)+r'(?=$|[\s(/-])',str(row.get('sku') or ''),re.I)
+                   for code in codes if re.fullmatch(r'[A-Z]+-\d+[A-Z0-9]*',code,re.I)):
+                selected[row['id']]=(row,'catalog_family_match',0)
     # Resolve explicit row IDs first, retaining unpriced rows and their original cells.
     by_id={r['id']:r for r in rows}
     pools={}
@@ -109,7 +121,14 @@ def information_rows(device,rows=None):
             selected.setdefault(row['id'],(row,option.get('basis') or 'catalog_reference',1))
         source=by_id.get(option.get('source_row_id'))
         if source:
-            selected.setdefault(source['id'],(source,option.get('basis') or 'catalog_reference',1))
+            reviewed=(references.get('source_row_scope')=='explicit_only' and references.get('row_links_reviewed') is True)
+            if reviewed:
+                # A broad option lookup may already have found this row as a
+                # candidate. The reviewed, exact row ID takes precedence after
+                # brand/pole/coil/contact and explicit scope filters above.
+                selected[source['id']]=(source,option.get('basis') or 'catalog_reference',0)
+            else:
+                selected.setdefault(source['id'],(source,option.get('basis') or 'catalog_reference',1))
         brand=canonical_brand(option.get('brand'))
         if brand and option.get('model'):by_brand.setdefault(brand,[]).append(option['model'])
     for brand,models in by_brand.items():
@@ -124,7 +143,7 @@ def information_rows(device,rows=None):
     for row,basis,priority in sorted(selected.values(),key=lambda r:(r[2],canonical_brand(r[0].get('brand')),r[0].get('source_page') or 0,str(r[0].get('sku')))):
         if not row.get('sku') and not row.get('item_name'):continue
         item={k:row.get(k) for k in ('sku','item_name','name','brand','category','group','columns','cells',
-             'specifications','source_url','source_label','source_page','edition','effective_date','vat_status','information_kind')}
+             'specifications','source_url','source_label','source_page','edition','effective_date','vat_status','vat_rate_percent','vat_rate_evidence','information_kind')}
         item['information_kind']=item.get('information_kind') or ('pricebook' if row.get('source_kind')=='supplier_pricebook' else 'manufacturer_catalog')
         item.update(id=hashlib.sha256(row['id'].encode()).hexdigest()[:24],price=optional_price(row.get('price')),
             basis=basis,identity_verified=False,match_scope='source_family' if priority==0 else 'catalog_reference')

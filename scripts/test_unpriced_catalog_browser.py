@@ -4,7 +4,7 @@ from app.services.device_catalog_browser import build_catalog_page, customer_cat
 
 class UnpricedCatalogTests(unittest.TestCase):
     def rows(self):
-        return [dict(id='priced',brand='ABB',sku='A1',name='A1',category='MCCB',price=100),
+        return [dict(id='priced',brand='ABB',sku='A1',name='A1',category='MCCB',price=100,vat_status='excluded'),
                 dict(id='unpriced',brand='ABB',sku='A2',name='A2',category='ACCESSORY',price=None)]
 
     def test_all_products_without_cad_are_retained(self):

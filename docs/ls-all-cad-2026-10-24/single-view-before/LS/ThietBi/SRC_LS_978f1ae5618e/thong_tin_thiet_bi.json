@@ -1,0 +1,392 @@
+{
+  "nhom": "LS",
+  "ten_kieu": "LS · CC MC185a · CAD nguồn",
+  "ten_san_pham": "LS · CC MC185a · CAD nguồn",
+  "ban_chat": "CAD thiết bị theo nhãn nguồn",
+  "cong_dung": "Tham khảo hình học; xác nhận chức năng, mã thiết bị và thông số trước thiết kế.",
+  "vi_tri_lap_dat": "Chưa xác nhận kiểu gá và tư thế lắp.",
+  "hang_xac_nhan": null,
+  "ma_dong_san_pham": null,
+  "thong_so": {
+    "nhan_block_nguon": "CC MC185a"
+  },
+  "tu_khoa_tim_kiem": [
+    "CC MC185a",
+    "LS",
+    "CAD thiết bị theo nhãn nguồn",
+    "CONTACTOR",
+    "ABB",
+    "1SBL281074R8001",
+    "CHINT",
+    "NXC-06 220V 50/60Hz",
+    "Delixi",
+    "CDC19S2511M7",
+    "Mitsubishi Electric",
+    "1DEL02",
+    "Schneider Electric",
+    "LC1E0601BD",
+    "LS · CC MC185a · CAD nguồn",
+    "",
+    "MC-185a",
+    "MC185a"
+  ],
+  "muc_do_xac_nhan": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp.",
+  "nguon_tham_khao": [],
+  "nguon_cad": {
+    "file": "D:\\THƯ VIỆN\\@LS.dwg",
+    "sha256": "93a03b9c5defe8030cedb83c40703daa37c013d76f4db0fad5588cad7a8f08b1",
+    "block": "CC MC185a",
+    "saved_block": "CC MC185a",
+    "handle": "228004",
+    "geometry_key": "978f1ae5618e9f49b4a72928d667ac431c7b0466cb3533ffb61a6a074bf46665",
+    "units": 4,
+    "instance_transform": {
+      "insert": [
+        21195.62996572055,
+        22820.43192620724,
+        0
+      ],
+      "rotation": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "state_basis": "Saved block state in native coordinates; project insertion position/rotation/scale omitted, invisible entities and off/frozen layers omitted; dynamic state not independently confirmed"
+  },
+  "cac_hinh_cad": [
+    "SRC_LS_978f1ae5618e"
+  ],
+  "auto_select": false,
+  "needs_review": true,
+  "yeu_cau_chon_day": {
+    "vai_tro_ket_noi": [
+      "Xác định thiết bị có phần điện hay chỉ cơ khí trước khi chọn dây"
+    ],
+    "tiet_dien_mac_dinh_mm2": null,
+    "quy_tac": "Xác định từng cọc, dòng, điện áp và giới hạn dây theo mã thực tế.",
+    "vat_lieu_va_kieu": [
+      "Cu cách điện",
+      "Al nếu cọc/đầu cốt cho phép",
+      "Đồng thanh/đồng mềm/thanh lược/xương cá nếu đúng chức năng và cọc đấu"
+    ],
+    "can_kiem_tra": [
+      "Dòng/điện áp và bảo vệ",
+      "Tiết diện/vật liệu cọc cho phép",
+      "Kiểu đầu cốt",
+      "Điều kiện nhiệt và tuyến",
+      "Độ dài thực tế"
+    ]
+  },
+  "yeu_cau_lap_dat": {
+    "schema": "installation_contract.schema.json",
+    "status": "Chưa xác nhận dữ liệu hãng",
+    "required_manufacturer_data": [
+      "Tư thế lắp được phép",
+      "Chiều sâu thân và khoảng trống",
+      "Vị trí lỗ gá hoặc khoét",
+      "Sơ đồ cọc nguồn/tải/điều khiển",
+      "Giới hạn dây và đầu nối thanh đồng",
+      "Lực siết",
+      "Khoảng cách điện và che chắn"
+    ],
+    "unknown_value": null,
+    "cad_rotation_is_mounting_approval": false
+  },
+  "cad_don": [
+    {
+      "id_hinh_goc": "SRC_LS_978f1ae5618e",
+      "huong_nhin": "Mặt bên",
+      "nhan_hien_thi": "CC MC185a",
+      "bo_tri_trong_tu": {
+        "cho_phep_chen": false,
+        "huong_dan": "Xác nhận mã, mặt, trạng thái CAD và đơn vị trước khi chèn."
+      },
+      "duong_dan": "CadDon/SRC_LS_978f1ae5618e/ban_ve.dxf",
+      "recognition_evidence": "nhan_dien_bo_sung_20261010",
+      "nhan_dien_mat": {
+        "review_date": "2026-10-11",
+        "method": "individual_visual_review",
+        "evidence_card": 82,
+        "evidence_image": "outputs\\catalogtb-projection-review\\082.png",
+        "previous_label": "Chưa xác nhận hướng nhìn",
+        "projection": "Mặt bên",
+        "basis": "Device controls/terminals and relative projection geometry; source block label used only when consistent with the inspected image.",
+        "mounting_orientation_verified": false,
+        "exact_sku_verified": false
+      }
+    }
+  ],
+  "cad_chen_tu": {
+    "id_hinh_goc": "SRC_LS_978f1ae5618e",
+    "huong_nhin": "Mặt bên",
+    "duong_dan": "CadChenTu/ban_ve.dxf"
+  },
+  "nhan_dien_bo_sung_20261010": {
+    "review_date": "2026-10-10",
+    "category_code": "CONTACTOR",
+    "visual_review": true,
+    "preview": "41-0.png",
+    "source_block": "CC MC185a",
+    "text_entities_found": 0,
+    "text_outline_note": "No extractable TEXT/MTEXT/ATTRIB found; visible lettering may be linework, not searchable text.",
+    "face": null,
+    "face_basis": "Unconfirmed",
+    "official_family_sources": [
+      "https://www.ls-electric.com/upload/customer/download/1416/Metasol_MC_E_1310.pdf"
+    ],
+    "exact_sku_verified": false,
+    "automatic_insertion_approved": false,
+    "limitation": "Đã xác định loại/họ bằng nhãn nguồn, hình CAD và tài liệu hãng; chưa xác nhận mã đặt hàng, điện áp, dòng hoặc tư thế lắp."
+  },
+  "nhan_dien_ai": {
+    "loai_thiet_bi_code": "CONTACTOR",
+    "exact_sku_verified": false
+  },
+  "gia_ban": {
+    "don_gia": "---",
+    "don_vi_tien_te": "VND",
+    "trang_thai": "Không yêu cầu giá",
+    "hang": "LS Electric",
+    "ma_san_pham": "",
+    "ghi_chu": "Giá để --- theo yêu cầu; tra cứu hãng, mã và thông số trong catalog_tham_khao.",
+    "nguon_tham_khao": [
+      "https://www.ls-electric.com",
+      "https://anhphatelectric.com",
+      "https://etinco.vn"
+    ],
+    "ngay_cap_nhat": "2026-10-16",
+    "muc_do_tin_cay": "Chưa có giá"
+  },
+  "catalog_tham_khao": {
+    "schema_version": 1,
+    "category": "CONTACTOR",
+    "price": "---",
+    "shared_cad": true,
+    "exact_cad_match": false,
+    "options": [
+      {
+        "brand": "LS Electric",
+        "model": "MC-185a",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": null
+        },
+        "source_url": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+        "source_page": null,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng là ứng viên theo mã trong tài liệu; chưa xác nhận logo trên CAD. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MC185a",
+        "specifications": {
+          "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+          "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+          "Trang tài liệu": 7
+        },
+        "source_url": "https://www.ls-electric.com/upload/customer/download/280b6197-f4bb-4f86-a60d-917b7b8bf890/Metasol_MC_E_170915.pdf",
+        "source_page": 7,
+        "basis": "verified_cad_label",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng là ứng viên theo mã trong tài liệu; chưa xác nhận logo trên CAD. Chưa xác nhận kích thước lắp."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "Metasol MS",
+        "specifications": {
+          "Dòng thiết bị": "Metasol MS"
+        },
+        "source_url": "https://www.ls-electric.com/products/view/Smart_Power_Solution/Low_Voltage/Contactor_%26_Overload_Relay/Metasol_MS",
+        "basis": "manufacturer_family_document",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Tài liệu đúng hãng/dòng để tiếp tục đối chiếu mã trong CAD; không xác nhận mã đầy đủ hoặc kích thước."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MC-185a",
+        "specifications": {
+          "nhan_block_nguon": "CC MC185a",
+          "Loại thiết bị": "CONTACTOR",
+          "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp.",
+          "Hình chiếu Mặt bên (ngang × cao, mm)": "185.89 × 202.895"
+        },
+        "source_url": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+        "basis": "source_profile",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MC-185a",
+        "specifications": {
+          "In (A)": "185",
+          "Tên hàng": "Ls MC-185a 185A (2a2b)"
+        },
+        "source_url": "https://www.ple.vn/role-nhiet/khoi-dong-tu-ls/mc-185a-detail.html",
+        "source_label": "PLE",
+        "source_page": null,
+        "source_row_id": "web:74db9c48e5ab640f",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MC-185a (6)",
+        "specifications": {
+          "In (A)": "185A (2a2b)",
+          "Tên hàng": "MC-185a (6)"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 4,
+        "source_row_id": "ls-pdf:d8dc7713a53aaf8c",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      },
+      {
+        "brand": "LS Electric",
+        "model": "MC-185a/4",
+        "specifications": {
+          "Tiếp điểm phụ": "(2a2b)",
+          "In (A)": "185A",
+          "Tên hàng": "MC-185a/4"
+        },
+        "source_url": "/device-catalog/documents/ls-2026-10-01",
+        "source_label": "Bảng giá LS 01/10/2026",
+        "source_page": 8,
+        "source_row_id": "ls-pdf:65ffe27cd68b87f1",
+        "basis": "catalog_family_match",
+        "price": "---",
+        "exact_cad_match": false,
+        "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
+      }
+    ],
+    "observed_specifications": {
+      "nhan_block_nguon": "CC MC185a",
+      "Loại thiết bị": "CONTACTOR",
+      "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp.",
+      "Hình chiếu Mặt bên (ngang × cao, mm)": "185.89 × 202.895"
+    },
+    "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+    "updated_at": "2026-10-17",
+    "manufacturer_family_documents": [
+      {
+        "brand": "LS Electric",
+        "family": "Metasol MS",
+        "url": "https://www.ls-electric.com/products/view/Smart_Power_Solution/Low_Voltage/Contactor_%26_Overload_Relay/Metasol_MS",
+        "scope": "manufacturer_family",
+        "checked_at": "2026-10-17"
+      }
+    ],
+    "research": {
+      "checked_at": "2026-10-17",
+      "status": "documented_source_label",
+      "source_model": "MC-185a",
+      "matched_catalog_rows": 2,
+      "model_identity_verified": true,
+      "remaining_tasks": [
+        "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+      ],
+      "exact_cad_match": false,
+      "source_label_documented": true,
+      "source_label_models": [
+        "MC-185a",
+        "MC185a"
+      ],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "source_identification": {
+      "status": "documented_source_label",
+      "checked_at": "2026-10-17",
+      "reviewed_outline_label": null,
+      "source_models_read": [
+        "MC185a"
+      ],
+      "documented_models": [
+        {
+          "model": "MC-185a",
+          "brand": "LS Electric",
+          "manufacturer_confirmed_on_source": false,
+          "scope": "previously_reviewed_source_model_or_family",
+          "documents": [
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+              "sha256": null,
+              "page": null,
+              "format": "previous_checksum_bound_manufacturer_review",
+              "match": "MC-185a",
+              "basis": "existing_manufacturer_evidence_validated_against_source_dxf_hash"
+            }
+          ]
+        },
+        {
+          "model": "MC185a",
+          "brand": "LS Electric",
+          "manufacturer_confirmed_on_source": false,
+          "scope": "source_model_label",
+          "documents": [
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/280b6197-f4bb-4f86-a60d-917b7b8bf890/Metasol_MC_E_170915.pdf",
+              "sha256": "46d017e9c1c7e498670c8aa51ba4cb5ab3445b40d19b81ced563e1b5bf4e3bc0",
+              "page": 7,
+              "format": "pdf",
+              "match": "MC-185a",
+              "basis": "literal_model_label"
+            },
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/1627/Electric%20Products_E_1703.pdf",
+              "sha256": "c3939090de81ca1dd1927bf03f64af3d6acf0a4301ec687a1964ade42c0f85aa",
+              "page": 16,
+              "format": "pdf",
+              "match": "MC-185a",
+              "basis": "literal_model_label"
+            },
+            {
+              "url": "https://www.ls-electric.com/upload/customer/download/4d8b99a1-c93d-4cd3-807b-1382f0c39384/Metasol_MS_E_180903.pdf",
+              "sha256": "0e7eec7924fe497009656a8e9c86371c8e9bedef842bc6c99572deac272ce5f4",
+              "page": 7,
+              "format": "pdf",
+              "match": "MC-185a",
+              "basis": "literal_model_label"
+            }
+          ]
+        }
+      ],
+      "source_text_count": 0,
+      "contains_multiple_components": false,
+      "original_context": [],
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    }
+  },
+  "nhan_dien_web": {
+    "source_label_review": {
+      "status": "documented_source_label",
+      "models": [
+        "MC-185a",
+        "MC185a"
+      ],
+      "manufacturer_candidates": [
+        "LS Electric"
+      ],
+      "checked_at": "2026-10-17",
+      "ordering_code_verified": false,
+      "geometry_verified": false
+    },
+    "brand_candidate": "LS Electric",
+    "status": "candidate_from_documented_source_label"
+  }
+}

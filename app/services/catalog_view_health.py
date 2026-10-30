@@ -89,6 +89,13 @@ def asset_displayable(relative):
     try:
         source=_catalogtb_asset(relative)
         if source is None:return False
+        # A hidden source must also disappear from previously saved asset URLs.
+        for parent in source.resolve().parents:
+            if not parent.is_relative_to(CATALOG.resolve()):break
+            profile=parent/'thong_tin_thiet_bi.json'
+            if profile.is_file():
+                if json.loads(profile.read_text(encoding='utf-8-sig')).get('browser_hidden'):return False
+                break
         drawing=normalized_source(source.with_name('ban_ve.dxf'));preview=source.with_name('xem_truoc.svg')
         stat=drawing.stat();ps=preview.stat()
         return _valid(str(drawing),(stat.st_mtime_ns,stat.st_size),str(preview),(ps.st_mtime_ns,ps.st_size))

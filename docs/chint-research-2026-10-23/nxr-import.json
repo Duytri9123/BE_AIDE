@@ -1,0 +1,106 @@
+{
+  "items": [
+    {
+      "profile": "Chint/ThietBi/OFFICIAL-NXR-12-3P/thong_tin_thiet_bi.json",
+      "model": "NXR-12",
+      "price_row_ids": [
+        "chint-pdf:fd8bb64997173957",
+        "chint-pdf:584b8605a0c1f45c",
+        "chint-pdf:77aa2ebe0847fa78",
+        "chint-pdf:b3a58131b0cc7d87",
+        "chint-pdf:f6603c8cee1dbb9a",
+        "chint-pdf:d9c0be4165e903d2",
+        "chint-pdf:ae0901816ef6256b",
+        "chint-pdf:de3a618f968160c5",
+        "chint-pdf:b3d94fb36150840d",
+        "chint-pdf:47da12f75f2faa3f",
+        "chint-pdf:0a0296e815a8856d",
+        "chint-pdf:2479a9d4b7e98030"
+      ],
+      "skus": [
+        "NXR-12 0.1-0.16A",
+        "NXR-12 0.16-0.25A",
+        "NXR-12 0.25-0.4A",
+        "NXR-12 0.4-0.63A",
+        "NXR-12 0.63-1A",
+        "NXR-12 1-1.6A",
+        "NXR-12 1.25-2A",
+        "NXR-12 1.6-2.5A",
+        "NXR-12 2.5-4A",
+        "NXR-12 4-6A",
+        "NXR-12 5.5-8A",
+        "NXR-12 7-10A"
+      ],
+      "dimensions_mm": "44.1 × 72.7 × 67.5",
+      "setting_a": "0.1–10",
+      "views": 6,
+      "terminal_pitch_mm": null
+    },
+    {
+      "profile": "Chint/ThietBi/OFFICIAL-NXR-38-3P/thong_tin_thiet_bi.json",
+      "model": "NXR-38",
+      "price_row_ids": [
+        "chint-pdf:b7554b68bdaca616",
+        "chint-pdf:60444fe605baf415"
+      ],
+      "skus": [
+        "NXR-38 23A-32A",
+        "NXR-38 30A-38A"
+      ],
+      "dimensions_mm": "56.5 × 81 × 93.54",
+      "setting_a": "23–38",
+      "views": 6,
+      "terminal_pitch_mm": null
+    },
+    {
+      "profile": "Chint/ThietBi/OFFICIAL-NXR-100-3P/thong_tin_thiet_bi.json",
+      "model": "NXR-100",
+      "price_row_ids": [
+        "chint-pdf:ce1c0583cda4927d",
+        "chint-pdf:cc615eaba90406d6",
+        "chint-pdf:551d8e32eb89a93a",
+        "chint-pdf:a8d9e6e6ae29cb11",
+        "chint-pdf:6025fbfe96a3f661",
+        "chint-pdf:26f55d50ec05d761",
+        "chint-pdf:67f6fc99ee275d30",
+        "chint-pdf:d6cbab701a68e5f5"
+      ],
+      "skus": [
+        "NXR-100 23A-32A",
+        "NXR-100 30A-40A",
+        "NXR-100 37A-50A",
+        "NXR-100 48A-65A",
+        "NXR-100 55A-70A",
+        "NXR-100 63A-80A",
+        "NXR-100 80A-93A",
+        "NXR-100 80A-100A"
+      ],
+      "dimensions_mm": "70 × 83.8 × 117.1",
+      "setting_a": "23–100",
+      "views": 6,
+      "terminal_pitch_mm": null
+    },
+    {
+      "profile": "Chint/ThietBi/OFFICIAL-NXR-630-125-400A-3P/thong_tin_thiet_bi.json",
+      "model": "NXR-630",
+      "price_row_ids": [
+        "chint-pdf:4f68936608edbda6"
+      ],
+      "skus": [
+        "NXR-630 125A-400A"
+      ],
+      "dimensions_mm": "156 × 155 × 161",
+      "setting_a": "125–400",
+      "views": 6,
+      "terminal_pitch_mm": 48
+    }
+  ],
+  "families": 4,
+  "views": 24,
+  "price_rows": 23,
+  "held": {
+    "NXR-25": "Original global native DWG has only three views. CHINT Russia NXR 3D archive acquired and listed: contains NXR-12/38/100/200/630, no NXR-25. Official Korea lists a NXR-25 3D model but endpoint fails TLS certificate validation; chint.net access returns HTTP 403. No substituted NXR-38 body published.",
+    "NXR-200": "Native assembly 128 x 134 x 141.2 mm vs manufacturer catalog 128 x 142 x 148 mm; terminal/assembly configuration unresolved.",
+    "NXR-630 200–630 A": "Terminal pitch differs from the 48 mm original CAD; do not reuse the 125–400 A body."
+  }
+}

@@ -13,6 +13,20 @@ class ProductSectionTests(unittest.TestCase):
         result=information_rows(device,rows)
         self.assertEqual([r['sku'] for r in result],['MC-32a AC'])
 
+    def test_gmp_ct_suffix_is_not_a_main_pole_restriction(self):
+        device={'brand':'LS','type':'RELAY','product_code':'GMP22-2P / GMP22-3P','display':'LS GMP22-2P / GMP22-3P','spec':{}}
+        row={'sku':'GMP22-3P (1a1b)','specifications':{}}
+        self.assertTrue(pole_compatible(device,row))
+    def test_reviewed_explicit_accessory_rows_are_available_for_exact_cad_linking(self):
+        device={'brand':'LS','type':'ACCESSORY','product_code':'COIL_12_ASM','spec':{},'catalog_references':{'source_row_scope':'explicit_only','row_links_reviewed':True,'options':[{'brand':'LS','model':'Coil for MC6a, 9a','source_row_id':'coil'}]}}
+        row={'id':'coil','sku':'Coil for MC6a, 9a','brand':'LS','category':'ACCESSORY','specifications':{}}
+        result=information_rows(device,[row,{**row,'id':'other'}])
+        self.assertEqual([r['match_scope'] for r in result],['source_family'])
+    def test_reviewed_row_list_still_cannot_override_wrong_poles(self):
+        device={'brand':'LS','type':'MCCB','product_code':'FAMILY','spec':{'so_cuc':'3P'},'catalog_references':{'source_row_scope':'explicit_only','row_links_reviewed':True,'options':[{'brand':'LS','model':'OTHER','source_row_id':'wrong'}]}}
+        row={'id':'wrong','sku':'OTHER','brand':'LS','category':'MCCB','specifications':{'Số cực':'4P'}}
+        self.assertFalse(any(r['match_scope']=='source_family' for r in information_rows(device,[row])))
+
     def device(self):return {'brand':'LS Electric','type':'MCB','product_code':'BKN','spec':{'so_cuc':'4P'}}
     def row(self,brand='LS Electric',pole='4P',sku='BKN-C20'):
         return {'id':brand+sku+pole,'brand':brand,'category':'MCB','sku':sku,'specifications':{'Số cực':pole,'In (A)':'20'},'price':None}

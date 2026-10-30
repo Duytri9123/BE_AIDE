@@ -61,7 +61,11 @@ def _build_analysis_result_schema(
     for device in cleaned_devices:
         code = device.panel_code
         if code:
-            merged_panels.setdefault(code, {'panel_code':code,'panel_name':device.panel_name,'devices':[]})['devices'].append(device.model_dump())
+            # Device images are already present in the top-level device list.
+            # A second copy in each panel makes saved revisions very expensive
+            # to download, parse, cache and render.
+            merged_panels.setdefault(code, {'panel_code':code,'panel_name':device.panel_name,'devices':[]})['devices'].append(
+                device.model_dump(exclude={'evidence_image','evidence_images','panel_evidence_image'}))
     conf['panels'] = list(merged_panels.values())
 
     # Capture any existing panel_images map

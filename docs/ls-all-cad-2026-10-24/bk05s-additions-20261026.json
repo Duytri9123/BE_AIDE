@@ -1,0 +1,90 @@
+[
+  {
+    "model": "BK05S-T3",
+    "poles": "2P",
+    "profile": "LS/ThietBi/OFFICIAL-BK05S-T3-2P/thong_tin_thiet_bi.json",
+    "price_ids": [
+      "ls-pdf:00f3f34bd7659a25"
+    ],
+    "views": 2,
+    "source": {
+      "source_url": "https://2sk.co.kr/download.cm?tk=YToyOntpOjA7czoxMzoiZGQwZGRjNzEwN2ZhNCI7aToxO3M6MjI6ImYyMDIyMDYwMzQzODYwZjNhYTczMWMiO30=",
+      "source_page": "https://2sk.co.kr/bkac/?gal_idx=540075&gmode=view",
+      "source_filename": "BK05S-T3.dwg",
+      "source_host_type": "distributor",
+      "checked_at": "2026-10-26",
+      "sha256": "b1cba87a6af4337dcba5378fda2d8c2615b348f11883d35d4a776774216c34c5",
+      "review_status": "native_model_and_pole_labels_verified_partial_views",
+      "source_dxf_sha256": "0d7fa91cf9216e6a792e85819bb82c776e975c36677d6d9136fe3c2ca5caca07",
+      "native_style_preserved": true,
+      "six_views_verified": false,
+      "unit_evidence": "Native INSUNITS=4, title block mm and 1:1. Geometry retained at source scale.",
+      "dimension_review": "Some native dimensions have nominal text overrides (90 vs measured 90.517; 69.5 vs 70.377). No stretch or rescale applied; confirm installation dimensions before fabrication.",
+      "model_evidence": "Title BK05S-T3 2P,4P plus separately labeled 2P and 4P front outlines; one common side outline on the same sheet.",
+      "reviewed_windows": [
+        {
+          "face": "FRONT",
+          "window": [
+            3285,
+            1310,
+            3306,
+            1405
+          ]
+        },
+        {
+          "face": "SIDE",
+          "window": [
+            3137,
+            1310,
+            3212,
+            1405
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "model": "BK05S-T3",
+    "poles": "4P",
+    "profile": "LS/ThietBi/OFFICIAL-BK05S-T3-4P/thong_tin_thiet_bi.json",
+    "price_ids": [
+      "ls-pdf:08de100d37bafab8"
+    ],
+    "views": 2,
+    "source": {
+      "source_url": "https://2sk.co.kr/download.cm?tk=YToyOntpOjA7czoxMzoiZGQwZGRjNzEwN2ZhNCI7aToxO3M6MjI6ImYyMDIyMDYwMzQzODYwZjNhYTczMWMiO30=",
+      "source_page": "https://2sk.co.kr/bkac/?gal_idx=540075&gmode=view",
+      "source_filename": "BK05S-T3.dwg",
+      "source_host_type": "distributor",
+      "checked_at": "2026-10-26",
+      "sha256": "b1cba87a6af4337dcba5378fda2d8c2615b348f11883d35d4a776774216c34c5",
+      "review_status": "native_model_and_pole_labels_verified_partial_views",
+      "source_dxf_sha256": "0d7fa91cf9216e6a792e85819bb82c776e975c36677d6d9136fe3c2ca5caca07",
+      "native_style_preserved": true,
+      "six_views_verified": false,
+      "unit_evidence": "Native INSUNITS=4, title block mm and 1:1. Geometry retained at source scale.",
+      "dimension_review": "Some native dimensions have nominal text overrides (90 vs measured 90.517; 69.5 vs 70.377). No stretch or rescale applied; confirm installation dimensions before fabrication.",
+      "model_evidence": "Title BK05S-T3 2P,4P plus separately labeled 2P and 4P front outlines; one common side outline on the same sheet.",
+      "reviewed_windows": [
+        {
+          "face": "FRONT",
+          "window": [
+            3379,
+            1310,
+            3420,
+            1405
+          ]
+        },
+        {
+          "face": "SIDE",
+          "window": [
+            3137,
+            1310,
+            3212,
+            1405
+          ]
+        }
+      ]
+    }
+  }
+]

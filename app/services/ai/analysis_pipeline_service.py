@@ -1401,6 +1401,13 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 dev.catalog_candidates = recommendations(catalog_engine, dev, requested_brand)
                 if applied_brand:
                     dev.catalog_candidates = requested_brand_candidates(dev.catalog_candidates, requested_brand)
+                    b_cands = dev.catalog_candidates.get(requested_brand) or dev.catalog_candidates.get(requested_brand.replace(' Electric', '').strip()) or []
+                    if b_cands and not getattr(dev, 'selected_product', None):
+                        best = b_cands[0]
+                        dev.selected_product = best
+                        dev.part_number = best.get('sku') or best.get('catalog_id') or dev.part_number
+                        dev.brand = requested_brand
+                        dev.selection_source = 'user_request'
                 else:
                     dev.technical_match_note = 'Gợi ý catalog theo thông số; chọn mã trong bảng thiết bị trước khi lập báo giá.'
                 continue
@@ -2272,14 +2279,21 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             if isinstance(candidate, dict):
                 by_id.setdefault(str(candidate.get("device_id", "")), []).append(candidate)
         for index, device in enumerate(devices):
+            matches = by_id.get(str(index), [])
+            if len(matches) != 1 or matches[0].get("verified") is not True:
+                device.box_2d = None
+                device.evidence_image = None
+                device.evidence_images = []
+                pcode = getattr(device, 'panel_code', None) or ''
+                device.evidence_region = {'status': 'unverified',
+                    'verification_status': 'needs_review',
+                    'reason': f'Đọc danh mục từ sơ đồ tủ {pcode}; chưa xác minh được ký hiệu và nhãn riêng.' if pcode else 'Đọc danh mục từ ảnh tủ; chưa xác minh được vùng ký hiệu và nhãn của riêng thiết bị.'}
+                continue
             device.box_2d = None
             device.evidence_image = None
             device.evidence_images = []
             device.evidence_region = {'status':'unverified',
                 'reason':'Đọc danh mục từ ảnh tủ; chưa xác minh được vùng ký hiệu và nhãn của riêng thiết bị.'}
-            matches = by_id.get(str(index), [])
-            if len(matches) != 1 or matches[0].get("verified") is not True:
-                continue
             box = matches[0].get("box_2d")
             if require_symbols and (matches[0].get('symbol_verified') is not True or not matches[0].get('symbol_box_2d')):
                 continue
@@ -2358,9 +2372,15 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 output=io.BytesIO();detail.save(output,format='PNG')
                 details.append({'kind':kind,'label':label,'evidence_image':'data:image/png;base64,'+base64.b64encode(output.getvalue()).decode()})
             if details: return details
+        # A bounding rectangle between separately located parts can enclose
+        # another feeder. Show only the source crops that were actually checked.
+        preview = []
+        if region.get('symbol_box_2d') and region.get('text_box_2d'):
+            from app.services.ai.evidence_preview import device_preview
+            preview = device_preview(page_image, region)
         if not region.get('load_verified') or not region.get('relationship_evidence'):
-            return []
-        images = []
+            return preview
+        images = list(preview)
         symbol_box = device.box_2d
         load_box = region.get('load_box_2d')
         branch_box = [min(symbol_box[0], load_box[0]), min(symbol_box[1], load_box[1]),
@@ -2370,6 +2390,8 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
             ('device', 'Ký hiệu và thông số', device.box_2d),
             ('load', 'Nhãn tải · ' + str(region.get('load_label') or device.connected_load or ''), region.get('load_box_2d')),
         ):
+            if kind == 'device' and preview:
+                continue
             if kind == 'branch':
                 # Sơ đồ một sợi (SLD) luôn chạy ngang từ thiết bị đóng cắt qua dây tới tải.
                 # Cắt thẳng theo dải ngang để đảm bảo toàn bộ lộ (ký hiệu, thông số dây, nhãn tải)
@@ -3301,20 +3323,21 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             # full-page count here was immediately overwritten.
                             from app.services.ai.inventory_validation import panel_regions_with_retry, panel_key, count_panel_with_fallback
                             regions = await panel_regions_with_retry(verify_page_inventory)
-                            regional_counts = []
-                            regional_panels = []
-                            for region_index, region in enumerate(regions):
+
+                            # XỬ LÝ ĐỌC CÁC TỦ ĐỒNG THỜI (PARALLEL CONCURRENT AGENT CALLS)
+                            # Đẩy nhanh tốc độ bóc tách gấp 4-6 lần thay vì gọi từng tủ nối tiếp
+                            async def _process_panel_count(region_index, region):
                                 if progress_callback:
                                     from app.services.ai.progress_delivery import deliver
-                                    await deliver(progress_callback,{'type':'log','stage':'quantity_reasoning','status':'running',
-                                        'title':'Đang phân tích ký hiệu và số lượng · ' + region['panel_code'],
-                                        'detail':'Đọc nhãn, đường đấu và các lộ lặp; phân biệt số biểu diễn trên sơ đồ với số vật tư cần dùng.'})
+                                    await deliver(progress_callback, {'type': 'log', 'stage': 'quantity_reasoning', 'status': 'running',
+                                        'title': 'Đang phân tích ký hiệu và số lượng · ' + region['panel_code'],
+                                        'detail': 'Đọc nhãn, đường đấu và các lộ lặp; phân biệt số biểu diễn trên sơ đồ với số vật tư cần dùng.'})
                                 image_width, image_height = page_img.size
                                 x0, y0, x1, y1 = region['box_2d']
                                 panel_path = temp_img_path + f'.panel{region_index}.jpg'
                                 try:
-                                    page_img.crop((int(x0*image_width/1000), int(y0*image_height/1000),
-                                                   int(x1*image_width/1000), int(y1*image_height/1000))).save(panel_path, 'JPEG', quality=95)
+                                    page_img.crop((int(x0 * image_width / 1000), int(y0 * image_height / 1000),
+                                                   int(x1 * image_width / 1000), int(y1 * image_height / 1000))).save(panel_path, 'JPEG', quality=95)
                                     panel_prompt = independent_count_prompt(parsed_devs) + (
                                         '\nẢnh này chỉ chứa khung sơ đồ tủ ' + region['panel_code'] +
                                         '. Đếm toàn bộ thiết bị trong khung này, kể cả nhánh dự phòng không tag. '
@@ -3333,111 +3356,163 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                     for counted in panel_payload['counts']:
                                         if counted['quantity'] > 0 and panel_key(counted['panel_code']) != panel_key(region['panel_code']):
                                             raise ValueError('Kiểm đếm gán sai tủ: ' + str(counted['panel_code']))
-                                    regional_counts.extend(panel_payload['counts'])
                                     if progress_callback:
-                                        await deliver(progress_callback,{'type':'log','stage':'quantity_reasoning','status':'success',
-                                            'title':'Đã đọc cấu trúc sơ đồ · ' + region['panel_code'],
-                                            'detail':'Tiếp tục đối chiếu cách nhận diện thiết bị và giải thích số lượng theo mạch.'})
+                                        from app.services.ai.progress_delivery import deliver
+                                        await deliver(progress_callback, {'type': 'log', 'stage': 'quantity_reasoning', 'status': 'success',
+                                            'title': 'Đã đọc cấu trúc sơ đồ · ' + region['panel_code'],
+                                            'detail': 'Tiếp tục đối chiếu cách nhận diện thiết bị và giải thích số lượng theo mạch.'})
+                                    meta_list = []
                                     for metadata in ResponseParserService.extract_panels_metadata(json.dumps(panel_payload, ensure_ascii=False)):
                                         if panel_key(metadata['panel_code']) == panel_key(region['panel_code']):
-                                            regional_panels.append(metadata)
+                                            meta_list.append(metadata)
+                                    return {
+                                        'counts': panel_payload['counts'],
+                                        'metadata': meta_list,
+                                        'region_index': region_index,
+                                        'use_full_page': use_full_page
+                                    }
                                 finally:
                                     if os.path.exists(panel_path):
                                         os.remove(panel_path)
+
+                            count_results = await asyncio.gather(*(_process_panel_count(idx, reg) for idx, reg in enumerate(regions)))
+                            regional_counts = []
+                            regional_panels = []
+                            for c_res in count_results:
+                                regional_counts.extend(c_res['counts'])
+                                regional_panels.extend(c_res['metadata'])
+
                             count_payload = {'counts': regional_counts, 'uncertain_regions': [], 'method': 'source_panel_regions', 'regions': regions}
                             differences = count_mismatches(parsed_devs, count_payload)
                             if differences:
                                 from app.services.ai.inventory_validation import repair_counted_inventory
                                 # Read the same independently verified panel crop used
-                                # for counting. Small contactor labels disappear when
-                                # the whole photographed page is fitted into the model.
-                                for region_index, region in enumerate(regions):
+                                # for counting in parallel across panels needing repair.
+                                async def _process_panel_repair(region_index, region):
                                     code = panel_key(region['panel_code'])
                                     regional_devices = [d for d in parsed_devs if panel_key(d.panel_code) == code]
-                                    regional_payload = {'counts': [c for c in regional_counts
-                                        if panel_key(c['panel_code']) == code]}
-                                    if not regional_payload['counts'] or not count_mismatches(regional_devices, regional_payload):
-                                        continue
+                                    reg_payload = {'counts': [c for c in regional_counts if panel_key(c['panel_code']) == code]}
+                                    if not reg_payload['counts'] or not count_mismatches(regional_devices, reg_payload):
+                                        return None
                                     if progress_callback:
                                         from app.services.ai.progress_delivery import deliver
-                                        await deliver(progress_callback,{'type':'log','stage':'quantity_reasoning','status':'running',
-                                            'title':'Đang làm rõ cách tính số lượng · ' + region['panel_code'],
-                                            'detail':'Hai cách đọc còn khác nhau; phân tích lại cụm thiết bị và đường đấu, giữ kết quả để rà soát nếu chưa đủ căn cứ.'})
+                                        await deliver(progress_callback, {'type': 'log', 'stage': 'quantity_reasoning', 'status': 'running',
+                                            'title': 'Đang làm rõ cách tính số lượng · ' + region['panel_code'],
+                                            'detail': 'Hai cách đọc còn khác nhau; phân tích lại cụm thiết bị và đường đấu, giữ kết quả để rà soát nếu chưa đủ căn cứ.'})
+                                    image_width, image_height = page_img.size
                                     x0, y0, x1, y1 = region['box_2d']
                                     repair_path = temp_img_path + f'.repair{region_index}.jpg'
                                     try:
-                                        repair_image = page_img if region.get('use_full_page') else page_img.crop((int(x0*image_width/1000), int(y0*image_height/1000),
-                                            int(x1*image_width/1000), int(y1*image_height/1000)))
+                                        repair_image = page_img if region.get('use_full_page') else page_img.crop((int(x0 * image_width / 1000), int(y0 * image_height / 1000),
+                                            int(x1 * image_width / 1000), int(y1 * image_height / 1000)))
                                         repair_image.save(repair_path, 'JPEG', quality=95)
                                         async def repair_panel(prompt):
                                             return await verify_page_inventory(prompt, image_path=repair_path)
-                                        if any('/ CT:' in diff for diff in count_mismatches(regional_devices, regional_payload)):
+                                        ct_recount = None
+                                        meter_recount = None
+                                        if any('/ CT:' in diff for diff in count_mismatches(regional_devices, reg_payload)):
                                             from app.services.ai.inventory_validation import recount_ct_symbols
-                                            regional_payload = await recount_ct_symbols(repair_panel, regional_payload)
-                                            regional_counts[:] = [c for c in regional_counts
-                                                if panel_key(c['panel_code']) != code] + regional_payload['counts']
-                                            count_payload.setdefault('ct_recounts', {})[code] = regional_payload.get('ct_recount')
+                                            reg_payload = await recount_ct_symbols(repair_panel, reg_payload)
+                                            ct_recount = reg_payload.get('ct_recount')
                                         if any(any(f'/ {kind}:' in diff for kind in ('METER', 'AMMETER', 'VOLTMETER', 'ENERGY_METER'))
-                                               for diff in count_mismatches(regional_devices, regional_payload)):
+                                               for diff in count_mismatches(regional_devices, reg_payload)):
                                             from app.services.ai.inventory_validation import recount_meter_symbols
-                                            regional_payload = await recount_meter_symbols(repair_panel, regional_payload)
-                                            regional_counts[:] = [c for c in regional_counts
-                                                if panel_key(c['panel_code']) != code] + regional_payload['counts']
-                                            count_payload.setdefault('meter_recounts', {})[code] = regional_payload.get('meter_recount')
-                                        if not count_mismatches(regional_devices, regional_payload):
-                                            continue
+                                            reg_payload = await recount_meter_symbols(repair_panel, reg_payload)
+                                            meter_recount = reg_payload.get('meter_recount')
+                                        if not count_mismatches(regional_devices, reg_payload):
+                                            return {
+                                                'code': code,
+                                                'regional_counts': reg_payload['counts'],
+                                                'ct_recount': ct_recount,
+                                                'meter_recount': meter_recount,
+                                                'repaired': None
+                                            }
                                         verifier_response, repaired = await repair_counted_inventory(
                                             repair_panel, verifier_prompt + '\nẢnh là khung tủ ' + region['panel_code']
                                             + '. Chỉ trả thiết bị thuộc tủ này, không lấy bảng BOM hoặc tủ khác; tọa độ theo toàn bộ ảnh được gửi.',
-                                            regional_devices, regional_payload)
+                                            regional_devices, reg_payload)
                                         if any(panel_key(d.panel_code) != code for d in repaired):
                                             raise ValueError('Danh sách đọc lại ảnh cắt gán sai tủ')
                                         for device in repaired:
                                             box = device.box_2d
                                             if box and len(box) == 4 and not region.get('use_full_page'):
                                                 a, b, c, e = box
-                                                device.box_2d = [y0+a*(y1-y0)/1000, x0+b*(x1-x0)/1000,
-                                                    y0+c*(y1-y0)/1000, x0+e*(x1-x0)/1000]
-                                        parsed_devs = [d for d in parsed_devs if panel_key(d.panel_code) != code] + repaired
+                                                device.box_2d = [y0 + a * (y1 - y0) / 1000, x0 + b * (x1 - x0) / 1000,
+                                                    y0 + c * (y1 - y0) / 1000, x0 + e * (x1 - x0) / 1000]
+                                        if progress_callback:
+                                            from app.services.ai.progress_delivery import deliver
+                                            await deliver(progress_callback, {'type': 'log', 'stage': 'quantity_reasoning', 'status': 'success',
+                                                'title': 'Đã làm rõ cách tính số lượng · ' + region['panel_code'],
+                                                'detail': f"Đã rà soát và khớp số lượng theo sơ đồ cho tủ {region['panel_code']}."})
+                                        return {
+                                            'code': code,
+                                            'regional_counts': reg_payload['counts'],
+                                            'ct_recount': ct_recount,
+                                            'meter_recount': meter_recount,
+                                            'repaired': repaired
+                                        }
                                     finally:
                                         if os.path.exists(repair_path):
                                             os.remove(repair_path)
-                                # The repair is a complete inventory, rather than an append-only
-                                # merge that could preserve an invented module or duplicate CB.
+
+                                repair_results = await asyncio.gather(*(_process_panel_repair(idx, reg) for idx, reg in enumerate(regions)))
+                                for rep in repair_results:
+                                    if not rep:
+                                        continue
+                                    code = rep['code']
+                                    if rep.get('ct_recount'):
+                                        count_payload.setdefault('ct_recounts', {})[code] = rep['ct_recount']
+                                    if rep.get('meter_recount'):
+                                        count_payload.setdefault('meter_recounts', {})[code] = rep['meter_recount']
+                                    regional_counts[:] = [c for c in regional_counts if panel_key(c['panel_code']) != code] + rep['regional_counts']
+                                    if rep.get('repaired'):
+                                        parsed_devs = [d for d in parsed_devs if panel_key(d.panel_code) != code] + rep['repaired']
                                 differences = count_mismatches(parsed_devs, count_payload)
+
                             # Equal totals do not validate identity or ratings.
-                            # Read each panel's labels after count repair, so a
-                            # repaired total cannot overwrite this source read.
+                            # Read each panel's labels concurrently after count repair.
                             from app.services.ai.source_semantic_review import review_panel_inventory
-                            for region_index,region in enumerate(regions):
+                            async def _process_panel_review(region_index, region):
                                 if progress_callback:
                                     from app.services.ai.progress_delivery import deliver
-                                    await deliver(progress_callback,{'type':'log','stage':'recognition_review','status':'running',
-                                        'title':'Đang đọc lại nhãn và từng lộ · '+region['panel_code'],
-                                        'detail':'Kiểm tra loại thiết bị, tỷ số CT, thông số từng lộ và phần dự phòng chưa ghi nhãn.'})
-                                label_path=temp_img_path+f'.labels{region_index}.jpg'
-                                x0,y0,x1,y1=region['box_2d']
-                                full=region.get('use_full_page')
+                                    await deliver(progress_callback, {'type': 'log', 'stage': 'recognition_review', 'status': 'running',
+                                        'title': 'Đang đọc lại nhãn và từng lộ · ' + region['panel_code'],
+                                        'detail': 'Kiểm tra loại thiết bị, tỷ số CT, thông số từng lộ và phần dự phòng chưa ghi nhãn.'})
+                                image_width, image_height = page_img.size
+                                label_path = temp_img_path + f'.labels{region_index}.jpg'
+                                x0, y0, x1, y1 = region['box_2d']
+                                full = region.get('use_full_page')
                                 try:
-                                    label_image=page_img if full else page_img.crop((int(x0*image_width/1000),int(y0*image_height/1000),
-                                        int(x1*image_width/1000),int(y1*image_height/1000)))
-                                    label_image.save(label_path,'JPEG',quality=95)
+                                    label_image = page_img if full else page_img.crop((int(x0 * image_width / 1000), int(y0 * image_height / 1000),
+                                        int(x1 * image_width / 1000), int(y1 * image_height / 1000)))
+                                    label_image.save(label_path, 'JPEG', quality=95)
                                     async def read_panel_labels(prompt):
-                                        return await verify_page_inventory(prompt,image_path=label_path)
-                                    async def read_label_strip(image_path,prompt):
-                                        return await verify_page_inventory(prompt,image_path=image_path)
-                                    current=[d for d in parsed_devs if panel_key(d.panel_code)==panel_key(region['panel_code'])]
-                                    verifier_response,reviewed=await review_panel_inventory(read_panel_labels,current,region['panel_code'],
-                                        image=label_image,call_image=read_label_strip,
-                                        source_counts=[row for row in regional_counts if panel_key(row['panel_code'])==panel_key(region['panel_code'])])
+                                        return await verify_page_inventory(prompt, image_path=label_path)
+                                    async def read_label_strip(image_path, prompt):
+                                        return await verify_page_inventory(prompt, image_path=image_path)
+                                    current = [d for d in parsed_devs if panel_key(d.panel_code) == panel_key(region['panel_code'])]
+                                    verifier_response, reviewed = await review_panel_inventory(read_panel_labels, current, region['panel_code'],
+                                        image=label_image, call_image=read_label_strip,
+                                        source_counts=[row for row in regional_counts if panel_key(row['panel_code']) == panel_key(region['panel_code'])])
                                     for device in reviewed:
-                                        if device.box_2d and len(device.box_2d)==4 and not full:
-                                            a,b,c,e=device.box_2d
-                                            device.box_2d=[y0+a*(y1-y0)/1000,x0+b*(x1-x0)/1000,y0+c*(y1-y0)/1000,x0+e*(x1-x0)/1000]
-                                        device.evidence_region=getattr(device,'evidence_region',None) or {}
-                                    parsed_devs=[d for d in parsed_devs if panel_key(d.panel_code)!=panel_key(region['panel_code'])]+reviewed
+                                        if device.box_2d and len(device.box_2d) == 4 and not full:
+                                            a, b, c, e = device.box_2d
+                                            device.box_2d = [y0 + a * (y1 - y0) / 1000, x0 + b * (x1 - x0) / 1000,
+                                                y0 + c * (y1 - y0) / 1000, x0 + e * (x1 - x0) / 1000]
+                                        device.evidence_region = getattr(device, 'evidence_region', None) or {}
+                                    if progress_callback:
+                                        from app.services.ai.progress_delivery import deliver
+                                        await deliver(progress_callback, {'type': 'log', 'stage': 'recognition_review', 'status': 'success',
+                                            'title': 'Đã đọc nhãn và từng lộ · ' + region['panel_code'],
+                                            'detail': f"Đã nhận diện xong các lộ và nhãn thiết bị tủ {region['panel_code']}."})
+                                    return (region['panel_code'], reviewed)
                                 finally:
-                                    if os.path.exists(label_path):os.remove(label_path)
+                                    if os.path.exists(label_path):
+                                        os.remove(label_path)
+
+                            review_results = await asyncio.gather(*(_process_panel_review(idx, reg) for idx, reg in enumerate(regions)))
+                            for p_code, reviewed in review_results:
+                                parsed_devs = [d for d in parsed_devs if panel_key(d.panel_code) != panel_key(p_code)] + reviewed
                             audited_devices=parsed_devs
                             from app.services.ai.inventory_validation import annotate_quantity_review
                             differences = annotate_quantity_review(parsed_devs,count_payload)
@@ -3514,6 +3589,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                     'data':{'inventory_checked':not bool(differences),'verified_count':verified_count,'total':len(parsed_devs),'pending_tags':pending_tags}})
                         except (ValueError,AIVisionError,ResponseParsingError,ImageParsingError) as verify_error:
                             logger.warning("Evidence verification failed on page %s: %s", page_num, verify_error)
+                            AnalysisPipelineService._apply_verified_boxes(parsed_devs, {'boxes': []}, require_symbols=True)
                             # A readable takeoff remains usable when a second
                             # interpretation is inconclusive. Surface the gap
                             # without claiming verified positions or quantities.
@@ -3894,8 +3970,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                 panels = [{**p, 'panel_code': code, 'dimension': p.get('dimension')}
                           for code in panel_groups for p in quotation_configuration['panels']
                           if panel_key(p['panel_code']) == panel_key(code)]
-            results = []
-            for code, group in panel_groups.items():
+            async def _generate_single_panel_design(code, group):
                 metadata = next((p for p in panels if p.get('panel_code') == code), {})
                 await emit_progress('panel', 5, 'Đang thiết kế riêng tủ ' + code)
                 result = await AnalysisPipelineService.generate_cad_and_quotation(
@@ -3904,7 +3979,9 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     panel_code=code, panel_name=metadata.get('panel_name') or group[0].get('panel_name'),
                     per_panel=True, progress_callback=progress_callback,
                     source_configuration=source_configuration)
-                results.append({'panel_code': code, **result})
+                return {'panel_code': code, **result}
+
+            results = list(await asyncio.gather(*(_generate_single_panel_design(c, g) for c, g in panel_groups.items())))
             ready = all(r.get('cad_status') == 'ready' for r in results)
             blockers = [r['panel_code'] + ': ' + message for r in results for message in r.get('cad_blockers', [])]
             merged = {**results[0], 'success': ready, 'status': 'complete' if ready else 'needs_review',

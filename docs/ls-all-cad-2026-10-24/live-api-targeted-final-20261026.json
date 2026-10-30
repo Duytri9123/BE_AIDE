@@ -1,0 +1,772 @@
+{
+  "base": "http://127.0.0.1:8000",
+  "stage": "targeted-final",
+  "health": [
+    200,
+    200,
+    200,
+    200
+  ],
+  "rows": [
+    {
+      "model": "LX",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        6
+      ]
+    },
+    {
+      "model": "LAM",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        6
+      ]
+    },
+    {
+      "model": "LA",
+      "status": 200,
+      "cad_families": 0,
+      "views": []
+    },
+    {
+      "model": "BK05S-T3 2P",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        2
+      ]
+    },
+    {
+      "model": "BK05S-T3 4P",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        2
+      ]
+    },
+    {
+      "model": "MT-12",
+      "status": 200,
+      "cad_families": 2,
+      "views": [
+        6,
+        2
+      ]
+    },
+    {
+      "model": "MT-32",
+      "status": 200,
+      "cad_families": 3,
+      "views": [
+        6,
+        2,
+        2
+      ]
+    },
+    {
+      "model": "MT-63",
+      "status": 200,
+      "cad_families": 3,
+      "views": [
+        6,
+        4,
+        2
+      ]
+    },
+    {
+      "model": "MT-95",
+      "status": 200,
+      "cad_families": 2,
+      "views": [
+        6,
+        2
+      ]
+    },
+    {
+      "model": "MT-150",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        6
+      ]
+    },
+    {
+      "model": "MT-225",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        6
+      ]
+    },
+    {
+      "model": "MT-400",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        6
+      ]
+    },
+    {
+      "model": "MT-800",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        6
+      ]
+    },
+    {
+      "model": "MC-50a",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        2
+      ]
+    },
+    {
+      "model": "MC-65a",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        2
+      ]
+    },
+    {
+      "model": "MC-75a",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        2
+      ]
+    },
+    {
+      "model": "MC-85a",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        2
+      ]
+    },
+    {
+      "model": "MC-100a",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        2
+      ]
+    },
+    {
+      "model": "ABS1003b",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        2
+      ]
+    },
+    {
+      "model": "ABS1004b",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        2
+      ]
+    },
+    {
+      "model": "ABS202c",
+      "status": 200,
+      "cad_families": 0,
+      "views": []
+    },
+    {
+      "model": "MR-4 (2NO+2NC)",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        6
+      ]
+    },
+    {
+      "model": "MR-4 (2NO+2NC)",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        6
+      ]
+    },
+    {
+      "model": "AN-06D3-06H AH6",
+      "status": 200,
+      "cad_families": 2,
+      "views": [
+        6,
+        3
+      ]
+    },
+    {
+      "model": "AN-06D3-06H AH6",
+      "status": 200,
+      "cad_families": 2,
+      "views": [
+        6,
+        3
+      ]
+    },
+    {
+      "model": "GIMAC-1000 EX,M485,5A,50Hz,AC/DC100~240V",
+      "status": 200,
+      "cad_families": 1,
+      "views": [
+        6
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "model": "BK05S-T3 2P",
+      "kind": "preview",
+      "status": 200,
+      "bytes": 15650,
+      "sha256": "4491824ba6a295158ba9eea6ccd7a3a2816056f7828cddc764f12905a53e8feb"
+    },
+    {
+      "model": "BK05S-T3 4P",
+      "kind": "preview",
+      "status": 200,
+      "bytes": 27964,
+      "sha256": "d3e4b135156be09f1a16e6bf9f15154079914b23733b441de15f7aac5d3312d0"
+    }
+  ],
+  "source_downloads": [
+    {
+      "catalog_id": "TB-1e52e07ae9e73a41",
+      "view_id": "v-176c9357c6c88476cb81",
+      "status": 200,
+      "bytes": 351299,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-1e52e07ae9e73a41",
+      "view_id": "v-0fec5abc3e0b4cae7982",
+      "status": 200,
+      "bytes": 101745,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-1e52e07ae9e73a41",
+      "view_id": "v-323453314914a234aeaa",
+      "status": 200,
+      "bytes": 148716,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-1e52e07ae9e73a41",
+      "view_id": "v-b890c995797b397a0302",
+      "status": 200,
+      "bytes": 157761,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-1e52e07ae9e73a41",
+      "view_id": "v-1ee24d35405cc151b5e0",
+      "status": 200,
+      "bytes": 178486,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-1e52e07ae9e73a41",
+      "view_id": "v-a35c41066b0271aa9773",
+      "status": 200,
+      "bytes": 551353,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-ff3f913feeaa0902",
+      "view_id": "v-48fd32ca9530803eb610",
+      "status": 200,
+      "bytes": 467182,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-ff3f913feeaa0902",
+      "view_id": "v-754b3ce728c2ed16e4a1",
+      "status": 200,
+      "bytes": 60774,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-ff3f913feeaa0902",
+      "view_id": "v-7e6cb02b78dcb845106e",
+      "status": 200,
+      "bytes": 82308,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-ff3f913feeaa0902",
+      "view_id": "v-5dfd385f128e50e067cd",
+      "status": 200,
+      "bytes": 93786,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-ff3f913feeaa0902",
+      "view_id": "v-a76d6be178c8eb745ae0",
+      "status": 200,
+      "bytes": 196505,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-ff3f913feeaa0902",
+      "view_id": "v-0582397c84abf6ffb32f",
+      "status": 200,
+      "bytes": 578724,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-f045839f8cd59323",
+      "view_id": "v-6fb27f917e6bd7efe80c",
+      "status": 200,
+      "bytes": 408189,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-f045839f8cd59323",
+      "view_id": "v-ac79d0e6c0ed78a781f4",
+      "status": 200,
+      "bytes": 51569,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-f045839f8cd59323",
+      "view_id": "v-ace21a22c5e5a6ea7770",
+      "status": 200,
+      "bytes": 74823,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-f045839f8cd59323",
+      "view_id": "v-b252018f3fe673f211ce",
+      "status": 200,
+      "bytes": 78462,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-f045839f8cd59323",
+      "view_id": "v-215655efcc6bcf892f93",
+      "status": 200,
+      "bytes": 107047,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-f045839f8cd59323",
+      "view_id": "v-0e3455c363f37ef8e1a2",
+      "status": 200,
+      "bytes": 419922,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-5f9460f39fa73659",
+      "view_id": "v-c246728b0bd4ecda93fa",
+      "status": 200,
+      "bytes": 421118,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-5f9460f39fa73659",
+      "view_id": "v-4344c1d6bb877637b6ce",
+      "status": 200,
+      "bytes": 87487,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-5f9460f39fa73659",
+      "view_id": "v-5b81a2c8c4aec73536cd",
+      "status": 200,
+      "bytes": 79676,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-5f9460f39fa73659",
+      "view_id": "v-12f49d4c86b09205e533",
+      "status": 200,
+      "bytes": 79556,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-5f9460f39fa73659",
+      "view_id": "v-00ff88819ce7877583fa",
+      "status": 200,
+      "bytes": 121641,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-5f9460f39fa73659",
+      "view_id": "v-72f091a46aca03d52bf6",
+      "status": 200,
+      "bytes": 504447,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-9bb8621695b9ffd8",
+      "view_id": "v-650e1585dc57a8c6f423",
+      "status": 200,
+      "bytes": 462093,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-9bb8621695b9ffd8",
+      "view_id": "v-79135797dbf0a335c0b7",
+      "status": 200,
+      "bytes": 123035,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-9bb8621695b9ffd8",
+      "view_id": "v-bfba5a5bbbe11aef75c5",
+      "status": 200,
+      "bytes": 75923,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-9bb8621695b9ffd8",
+      "view_id": "v-9533da3e1649b609fbcc",
+      "status": 200,
+      "bytes": 88293,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-9bb8621695b9ffd8",
+      "view_id": "v-6cc8f305b4117e97f1ca",
+      "status": 200,
+      "bytes": 111243,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-9bb8621695b9ffd8",
+      "view_id": "v-ec4eaa1387b6a6ab78aa",
+      "status": 200,
+      "bytes": 427250,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-1c2df1d3eb325450",
+      "view_id": "v-8a4df357792b22a1fb4a",
+      "status": 200,
+      "bytes": 741687,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-1c2df1d3eb325450",
+      "view_id": "v-e280cf818de10a5fd594",
+      "status": 200,
+      "bytes": 86368,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-1c2df1d3eb325450",
+      "view_id": "v-1560dc1b474d8d16b496",
+      "status": 200,
+      "bytes": 125842,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-1c2df1d3eb325450",
+      "view_id": "v-6f86bfd1a1d7dd40ce4f",
+      "status": 200,
+      "bytes": 127783,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-1c2df1d3eb325450",
+      "view_id": "v-ca24e6c9ed11f3c04bf9",
+      "status": 200,
+      "bytes": 715096,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-1c2df1d3eb325450",
+      "view_id": "v-7dd5a27f875227247040",
+      "status": 200,
+      "bytes": 263278,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-adc03c87f9c7903d",
+      "view_id": "v-f8c59101fd6e25c8d05c",
+      "status": 200,
+      "bytes": 789441,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-adc03c87f9c7903d",
+      "view_id": "v-89d004acced2bc1234c6",
+      "status": 200,
+      "bytes": 104849,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-adc03c87f9c7903d",
+      "view_id": "v-aa1fbd2d7bbbae777cce",
+      "status": 200,
+      "bytes": 114370,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-adc03c87f9c7903d",
+      "view_id": "v-d55286bf2d62c7bd8db1",
+      "status": 200,
+      "bytes": 121266,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-adc03c87f9c7903d",
+      "view_id": "v-aaedbe92a044492bed3c",
+      "status": 200,
+      "bytes": 271381,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-adc03c87f9c7903d",
+      "view_id": "v-1fad431ba637fb3de5f5",
+      "status": 200,
+      "bytes": 718588,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-2ef7746b5d4a6e0f",
+      "view_id": "v-4f6f4fbd99b72d0163a2",
+      "status": 200,
+      "bytes": 676346,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-2ef7746b5d4a6e0f",
+      "view_id": "v-85be91d94fdd7edd965e",
+      "status": 200,
+      "bytes": 47047,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-2ef7746b5d4a6e0f",
+      "view_id": "v-b0445f0246cbafe12830",
+      "status": 200,
+      "bytes": 176735,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-2ef7746b5d4a6e0f",
+      "view_id": "v-48b9da4fbe5f78838e2a",
+      "status": 200,
+      "bytes": 189469,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-2ef7746b5d4a6e0f",
+      "view_id": "v-4be8d07890e2675a0294",
+      "status": 200,
+      "bytes": 334388,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-2ef7746b5d4a6e0f",
+      "view_id": "v-ba9ab6e48c54a5921cc1",
+      "status": 200,
+      "bytes": 783458,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-5323b78122e5a3bd",
+      "view_id": "v-b6c52572cd5a07d86d8b",
+      "status": 200,
+      "bytes": 276972,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-5323b78122e5a3bd",
+      "view_id": "v-d8e1f57b2a8047750036",
+      "status": 200,
+      "bytes": 37386,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-5323b78122e5a3bd",
+      "view_id": "v-2767ca5c4ec7444ffa92",
+      "status": 200,
+      "bytes": 55599,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-c7e9306af1d2d527",
+      "view_id": "v-76da1fca0da8eb3e015f",
+      "status": 200,
+      "bytes": 275499,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-c7e9306af1d2d527",
+      "view_id": "v-e8dfc1b40a3abe021028",
+      "status": 200,
+      "bytes": 35248,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-c7e9306af1d2d527",
+      "view_id": "v-12693e26748fd83123a1",
+      "status": 200,
+      "bytes": 57433,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-e07fa8f47a5f1bd2",
+      "view_id": "v-ee5da1c0c4aa9efac460",
+      "status": 200,
+      "bytes": 78285,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-e07fa8f47a5f1bd2",
+      "view_id": "v-4b8084c4b61cffb53653",
+      "status": 200,
+      "bytes": 132194,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-a506398ce311dd72",
+      "view_id": "v-a81b942891d32faa095e",
+      "status": 200,
+      "bytes": 125991,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-a506398ce311dd72",
+      "view_id": "v-0f98049d98dd6d24641b",
+      "status": 200,
+      "bytes": 132194,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-41e6a04f2e4737a3",
+      "view_id": "v-d16577acce01e5adae20",
+      "status": 200,
+      "bytes": 380751,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-41e6a04f2e4737a3",
+      "view_id": "v-51c357e72404779930af",
+      "status": 200,
+      "bytes": 127150,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-e115f9daddc88565",
+      "view_id": "v-4a10d1ee9716502ac6a4",
+      "status": 200,
+      "bytes": 816364,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-e115f9daddc88565",
+      "view_id": "v-12c3c017a63100b6f893",
+      "status": 200,
+      "bytes": 321352,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-d118216ad9c7523b",
+      "view_id": "v-7f84f7b27dad365b319c",
+      "status": 200,
+      "bytes": 89944,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-d118216ad9c7523b",
+      "view_id": "v-a6cb0e38d309d2912678",
+      "status": 200,
+      "bytes": 28852,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-8387139303296949",
+      "view_id": "v-0088f1925a478cbab2b0",
+      "status": 200,
+      "bytes": 100030,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-8387139303296949",
+      "view_id": "v-66e3aee50643bb037cac",
+      "status": 200,
+      "bytes": 28852,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-7eb76eb99b1c4a44",
+      "view_id": "v-a7dcee9a1531f3d4921a",
+      "status": 200,
+      "bytes": 728738,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-7eb76eb99b1c4a44",
+      "view_id": "v-0309b865c9bef03e5fc3",
+      "status": 200,
+      "bytes": 2726679,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-7eb76eb99b1c4a44",
+      "view_id": "v-4b9a05e75f51412bbc7c",
+      "status": 200,
+      "bytes": 108835,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-7eb76eb99b1c4a44",
+      "view_id": "v-5d292c0ab1212a695809",
+      "status": 200,
+      "bytes": 1970443,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-7eb76eb99b1c4a44",
+      "view_id": "v-980cdf716afda359314c",
+      "status": 200,
+      "bytes": 67881,
+      "source_hash_matches": true
+    },
+    {
+      "catalog_id": "TB-7eb76eb99b1c4a44",
+      "view_id": "v-823c005db1d8e30a671c",
+      "status": 200,
+      "bytes": 108125,
+      "source_hash_matches": true
+    }
+  ],
+  "grouped_downloads": [
+    {
+      "catalog_id": "TB-9bb8621695b9ffd8",
+      "status": 200,
+      "bytes": 1202749,
+      "units_mm": true,
+      "visibility_parameter": true,
+      "audit_errors": 0
+    },
+    {
+      "catalog_id": "TB-e07fa8f47a5f1bd2",
+      "status": 200,
+      "bytes": 269813,
+      "units_mm": true,
+      "visibility_parameter": true,
+      "audit_errors": 0
+    },
+    {
+      "catalog_id": "TB-a506398ce311dd72",
+      "status": 200,
+      "bytes": 313765,
+      "units_mm": true,
+      "visibility_parameter": true,
+      "audit_errors": 0
+    }
+  ]
+}

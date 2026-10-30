@@ -1,0 +1,37 @@
+{
+  "source_sha256": "d40237b3c908363ec273e91849b59f3b069ea644f3c79214cf6091773fd07def",
+  "numeric_price_rows": 160,
+  "per_page": {
+    "1": 0,
+    "2": 24,
+    "3": 9,
+    "4": 44,
+    "5": 14,
+    "6": 8,
+    "7": 11,
+    "8": 22,
+    "9": 14,
+    "10": 10,
+    "11": 4
+  },
+  "vat_status": "excluded",
+  "discount_applied_percent": 0,
+  "policy": "Replace all CHINT pricebook feed sources with the supplied PDF; preserve other brands and equipment/CAD library.",
+  "applied": true,
+  "removed_supplier_rows": 1665,
+  "removed_other_feed_rows": {
+    "web_catalog_offers.json": 226,
+    "external_product_information.json": 525,
+    "catalog_documents.json": 2
+  },
+  "backup_directory": "E:\\duytristool\\AIDE_website\\BE_AIDE\\docs\\chint-dika-update-2026-10-26\\reset-20261026T092338482446Z",
+  "preserved_existing_rows": 13308,
+  "total_chint_rows": 160,
+  "verification": {
+    "tests_passed": 13,
+    "customer_api_total": 160,
+    "all_rows_priced": true,
+    "vat_status": "excluded",
+    "old_chint_feed_rows_removed": true
+  }
+}

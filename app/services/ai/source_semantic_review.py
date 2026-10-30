@@ -162,7 +162,9 @@ def preserve_transcribed_label(device,reading):
     conflicting=bool(reading.get('source_spec') and numbers(source['spec_label'])!=numbers(reading['source_spec']))
     for field in ('poles','in_a','icu_ka'):
         expected=getattr(device,field,None);value=reading.get(field)
-        if isinstance(value,(float,int)) and not isinstance(value,bool) and value>0 and expected!=value:
+        if (isinstance(value,(float,int)) and not isinstance(value,bool) and value>0
+                and isinstance(expected,(float,int)) and not isinstance(expected,bool)
+                and expected>0 and expected!=value):
             conflicting=True
     if conflicting:
         device.quantity_review={**(device.quantity_review or {}),'status':'needs_review',

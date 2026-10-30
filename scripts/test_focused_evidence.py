@@ -19,6 +19,12 @@ class FocusedEvidenceTests(unittest.TestCase):
         self.assertLess(crop[2]-crop[0], 1684)
         self.assertLess(crop[3]-crop[1], 2382)
 
+    def test_small_lamp_group_has_no_minimum_height_expansion(self):
+        left, top, right, bottom = Pipeline._evidence_crop_pixels([346,134,363,203], 2526, 3573)
+        self.assertLess(bottom - top, 75)
+        self.assertGreater(top, 1220)
+        self.assertLess(bottom, 1310)
+
     def test_crop_is_clamped_to_page_edges(self):
         self.assertEqual(Pipeline._evidence_crop_pixels([0, 0, 1000, 1000], 100, 100), (0, 0, 100, 100))
 

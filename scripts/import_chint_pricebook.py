@@ -45,6 +45,8 @@ def import_book(source):
                 'checked_at':checked,'vat_status':'included' if 'Giá trên đã bao gồm VAT' in page.get_text() else 'unknown',
                 'price_note':'Giá niêm yết CHINT 2026; ngày áp dụng cần đối chiếu nguồn.'})
         enriched+=page_price_columns(page,items[page_start:])
+    from app.services.chint_price_identity import normalize_nxr_row,normalize_nm8n125_row
+    items=[normalize_nm8n125_row(normalize_nxr_row(item)) for item in items]
     target=root/'app/data/supplier_pricebooks.json';payload=json.loads(target.read_text(encoding='utf8'))
     payload['items']=[i for i in payload['items'] if i['brand']!='CHINT']+items
     models={}

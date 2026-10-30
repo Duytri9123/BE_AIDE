@@ -14,7 +14,7 @@ class Subscription(Base, TimestampMixin):
     ends_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
     user: Mapped["User"] = relationship("User", back_populates="subscriptions")
-    plan: Mapped["Plan"] = relationship("Plan", back_populates="subscriptions")
+    plan: Mapped["Plan"] = relationship("Plan", back_populates="subscriptions", lazy="selectin")
 
     def __str__(self) -> str:
         plan_name = self.plan.name if getattr(self, "plan", None) else f"Gói #{self.plan_id}"

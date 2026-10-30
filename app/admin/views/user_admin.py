@@ -29,15 +29,28 @@ def format_user_subscription(m: User, a: Any) -> Markup:
         pname = active_sub.plan.name if getattr(active_sub, "plan", None) else f"Gói #{active_sub.plan_id}"
         if active_sub.status == "active":
             ends_str = active_sub.ends_at.strftime("%d/%m/%Y") if active_sub.ends_at else "Vô thời hạn"
+            if any(k in pname.lower() for k in ["vip", "doanh nghiệp"]):
+                badge_cls = "bg-purple-soft text-purple"
+                icon = '<i class="fa-solid fa-crown text-warning me-1"></i>'
+            elif any(k in pname.lower() for k in ["chuyên nghiệp", "kỹ sư", "pro"]):
+                badge_cls = "bg-primary-soft text-primary"
+                icon = '<i class="fa-solid fa-bolt text-primary me-1"></i>'
+            elif any(k in pname.lower() for k in ["khởi đầu", "starter"]):
+                badge_cls = "bg-success-soft text-success"
+                icon = '<i class="fa-solid fa-seedling text-success me-1"></i>'
+            else:
+                badge_cls = "bg-primary-soft text-primary"
+                icon = '<i class="fa-solid fa-cube text-primary me-1"></i>'
+
             return Markup(
-                f'<div class="d-inline-flex flex-column">'
-                f'<span class="badge bg-primary-soft text-primary fw-bold" style="font-size:11.5px;">{pname}</span>'
-                f'<small class="text-muted mt-1" style="font-size:10.5px;"><i class="fa-regular fa-clock me-1"></i>HSD: {ends_str}</small>'
+                f'<div class="d-inline-flex flex-column align-items-start">'
+                f'<span class="badge {badge_cls} fw-bold d-inline-flex align-items-center" style="font-size:11.5px; padding: 4px 8px; border-radius: 6px;">{icon}{pname}</span>'
+                f'<small class="text-muted mt-1" style="font-size:10.5px;"><i class="fa-regular fa-clock me-1 text-muted"></i>HSD: {ends_str}</small>'
                 f'</div>'
             )
         else:
             return Markup(f'<span class="badge bg-secondary-soft text-muted fw-bold" style="font-size:11px;">{pname} ({active_sub.status})</span>')
-    return Markup('<span class="badge bg-light text-muted border fw-medium" style="font-size:11px;">Gói Cơ Bản (Free)</span>')
+    return Markup('<span class="badge bg-light text-muted border fw-semibold d-inline-flex align-items-center" style="font-size:11px; padding: 3px 8px;"><i class="fa-solid fa-leaf text-success me-1"></i>Gói Cơ Bản (Free)</span>')
 
 
 class UserAdmin(ModelView, model=User):
@@ -148,6 +161,17 @@ class UserAdmin(ModelView, model=User):
     
     page_size = 20
     page_size_options = [10, 20, 50, 100]
+
+    async def scaffold_form(self) -> type:
+        form_class = await super().scaffold_form()
+        if hasattr(form_class, "hashed_password"):
+            unbound = getattr(form_class, "hashed_password")
+            from wtforms.validators import InputRequired, DataRequired, Optional
+            vals = [v for v in unbound.kwargs.get("validators", []) if not isinstance(v, (InputRequired, DataRequired))]
+            if not any(isinstance(v, Optional) for v in vals):
+                vals.insert(0, Optional())
+            unbound.kwargs["validators"] = vals
+        return form_class
 
     def list_query(self, request: Request):
         from sqlalchemy import select

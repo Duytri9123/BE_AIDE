@@ -1,0 +1,114 @@
+{
+  "date": "2026-10-25",
+  "additions": [
+    {
+      "family": "GMP22-3P",
+      "profile": "LS/ThietBi/OFFICIAL-RU-GMP22-3P/thong_tin_thiet_bi.json",
+      "views": 3,
+      "price_links_added": 0,
+      "evidence": {
+        "name": "GMP22-2P(1a1b)%2cGMP22-3P%2cGMP22-3PR.dwg",
+        "url": "https://lselectric-ru.com/upload/iblock/b6e/b6e905b2712b79d2ff7e5895bd79a71d.dwg",
+        "source_url": "https://lselectric-ru.com/upload/iblock/b6e/b6e905b2712b79d2ff7e5895bd79a71d.dwg",
+        "source_page": "https://lselectric-ru.com/equipment/oborudovanie-nizkogo-napryazheniya/",
+        "sha256": "25f0c85eca2ec6420bb48bbc6d50c136709bb7ec66ea52e212579fc07f6ef407",
+        "review_status": "mechanical_model_reference_only",
+        "source_dxf_sha256": "72fd097c392c0380f9cb0f6801b351b0dc0c9abcf38e6e7289ebe5c824d31535",
+        "reviewed_models": [
+          "GMP22-3P",
+          "GMP22-3PR"
+        ],
+        "native_style_preserved": true,
+        "unit_evidence": "INSUNITS=4; title block mm; dimensioned 44 mm rear and 87.5 mm side",
+        "reviewed_windows": [
+          {
+            "face": "FRONT",
+            "window": [
+              130,
+              190,
+              205,
+              283
+            ]
+          },
+          {
+            "face": "SIDE",
+            "window": [
+              255,
+              190,
+              345,
+              283
+            ]
+          },
+          {
+            "face": "REAR",
+            "window": [
+              375,
+              190,
+              432,
+              283
+            ]
+          }
+        ],
+        "six_views_verified": false,
+        "price_link_gap": "Queued 1a1b contact configuration is not established by this mechanical sheet; no price options approved."
+      }
+    },
+    {
+      "family": "GMP40-P",
+      "profile": "LS/ThietBi/OFFICIAL-RU-GMP40-P/thong_tin_thiet_bi.json",
+      "views": 3,
+      "price_links_added": 0,
+      "evidence": {
+        "name": "GMP40-2P%2cGMP40-3P%2cGMP40-3PR.dwg",
+        "url": "https://lselectric-ru.com/upload/iblock/885/8850b23a90cefe6d34241dd612bcdaee.dwg",
+        "source_url": "https://lselectric-ru.com/upload/iblock/885/8850b23a90cefe6d34241dd612bcdaee.dwg",
+        "source_page": "https://lselectric-ru.com/equipment/oborudovanie-nizkogo-napryazheniya/",
+        "sha256": "fe61ea986784541d70744e14a3144c6ee8372afcbea360e6ef9248f0d5af706b",
+        "review_status": "mechanical_model_reference_only",
+        "source_dxf_sha256": "015704a352990eb617d01930d19bdb7e51c3f74faa7aaf9135c992e857bc5057",
+        "reviewed_models": [
+          "GMP40-2P",
+          "GMP40-3P",
+          "GMP40-3PR"
+        ],
+        "native_style_preserved": true,
+        "unit_evidence": "INSUNITS=4; title block mm; dimensioned 44 mm rear and 87.5 mm side",
+        "reviewed_windows": [
+          {
+            "face": "FRONT",
+            "window": [
+              123.989849606,
+              183.989849606,
+              198.989849606,
+              276.989849606
+            ]
+          },
+          {
+            "face": "SIDE",
+            "window": [
+              248.989849606,
+              183.989849606,
+              338.989849606,
+              276.989849606
+            ]
+          },
+          {
+            "face": "REAR",
+            "window": [
+              368.989849606,
+              183.989849606,
+              425.989849606,
+              276.989849606
+            ]
+          }
+        ],
+        "six_views_verified": false,
+        "price_link_gap": "Queued 1a1b contact configuration is not established by this mechanical sheet; no price options approved."
+      }
+    }
+  ],
+  "rejected_source": {
+    "path": "LS/NguonBenNgoai/RU-0039d43c4bc97078/source.dxf",
+    "reason": "INSUNITS=0; multiple dimension overrides disagree with geometry (e.g. 100 drawn / 200 labelled). No uniform mm scale established; MT-150/225/400/800 remain gaps."
+  }
+}

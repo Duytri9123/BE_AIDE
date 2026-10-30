@@ -5,7 +5,7 @@ import json
 import asyncio
 from typing import List, Optional, Dict, Any, Literal
 from pydantic import BaseModel
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query
 from fastapi.responses import StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
@@ -780,24 +780,8 @@ async def get_iteration_analysis(
     current_user: User = Depends(get_current_active_user),
 ):
     """Lấy chi tiết toàn bộ kết quả bóc tách của một phiên/iteration cụ thể để phục hồi lên giao diện."""
-    iter_stmt = select(AnalysisIteration).where(AnalysisIteration.id == iteration_id)
-    iter_res = await db.execute(iter_stmt)
-    it = iter_res.scalar_one_or_none()
-    if not it:
-        raise HTTPException(status_code=404, detail="Không tìm thấy phiên bóc tách")
-
-    sess_stmt = select(ConversationSession).where(ConversationSession.id == it.session_id)
-    sess_res = await db.execute(sess_stmt)
-    session = sess_res.scalar_one_or_none()
-    if not session:
-        raise HTTPException(status_code=404, detail="Session không tồn tại")
-
-    existing_cad_stmt = select(ProjectFile).where(
-        ProjectFile.project_id == session.project_id,
-        (ProjectFile.filename.like("BanVe_%") | ProjectFile.filename.like("PhacThao_%"))
-    )
-    cad_res = await db.execute(existing_cad_stmt)
-    cad_file = cad_res.scalars().first()
+    from app.services.analysis_sessions import iteration_detail
+    it, cad_file = await iteration_detail(db, iteration_id, current_user)
     cad_file_info = {
         "id": cad_file.id,
         "filename": cad_file.filename,
@@ -806,7 +790,7 @@ async def get_iteration_analysis(
     } if cad_file else None
 
     return _build_analysis_result_schema(
-        session_id=session.id,
+        session_id=it.session_id,
         iteration_number=it.iteration_number,
         raw_devices=it.ai_parsed_devices or [],
         conf_scores=it.confidence_scores or {},
@@ -822,26 +806,8 @@ async def delete_iteration(
     current_user: User = Depends(get_current_active_user),
 ):
     """Xóa một phiên bóc tách (iteration) cụ thể."""
-    iter_stmt = select(AnalysisIteration).where(AnalysisIteration.id == iteration_id)
-    iter_res = await db.execute(iter_stmt)
-    it = iter_res.scalar_one_or_none()
-    if not it:
-        raise HTTPException(status_code=404, detail="Phiên bóc tách không tồn tại")
-
-    session_id = it.session_id
-    await db.delete(it)
-
-    # Nếu session không còn iteration nào, xóa luôn session
-    remain_stmt = select(AnalysisIteration).where(AnalysisIteration.session_id == session_id)
-    remain_res = await db.execute(remain_stmt)
-    if not remain_res.scalars().first():
-        sess_stmt = select(ConversationSession).where(ConversationSession.id == session_id)
-        sess_res = await db.execute(sess_stmt)
-        s = sess_res.scalar_one_or_none()
-        if s:
-            await db.delete(s)
-
-    await db.commit()
+    from app.services.analysis_sessions import remove_iteration
+    await remove_iteration(db, iteration_id, current_user)
     return {"status": "success", "message": "Đã xóa phiên bóc tách thành công"}
 
 
@@ -886,46 +852,14 @@ async def get_analysis_history(
 @router.delete("/project/{project_id}/session")
 async def delete_project_session(
     project_id: int,
+    background_tasks: BackgroundTasks,
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_active_user),
 ):
     """Xóa toàn bộ phiên bóc tách của dự án, dọn dẹp các file CAD phát sinh và làm mới giao diện."""
-    sess_stmt = select(ConversationSession).where(ConversationSession.project_id == project_id)
-    sess_res = await db.execute(sess_stmt)
-    sessions = sess_res.scalars().all()
-
-    for s in sessions:
-        iter_stmt = select(AnalysisIteration).where(AnalysisIteration.session_id == s.id)
-        iter_res = await db.execute(iter_stmt)
-        for it in iter_res.scalars().all():
-            await db.delete(it)
-        await db.delete(s)
-
-    # Xóa file CAD sinh tự động nếu có trong project_files
-    cad_stmt = select(ProjectFile).where(
-        ProjectFile.project_id == project_id,
-        (ProjectFile.filename.like("BanVe_%") | ProjectFile.filename.like("PhacThao_%"))
-    )
-    cad_res = await db.execute(cad_stmt)
-    cad_files = cad_res.scalars().all()
-    for cf in cad_files:
-        if cf.file_path and os.path.exists(cf.file_path):
-            try:
-                os.remove(cf.file_path)
-            except Exception:
-                pass
-        await db.delete(cf)
-
-    # Đồng thời dọn dẹp mọi bản ghi file BaoGia_*.xlsx nếu còn sót
-    q_stmt = select(ProjectFile).where(
-        ProjectFile.project_id == project_id,
-        ProjectFile.filename.like("BaoGia_%")
-    )
-    q_res = await db.execute(q_stmt)
-    for qf in q_res.scalars().all():
-        await db.delete(qf)
-
-    await db.commit()
+    from app.services.analysis_sessions import cleanup_session_files, remove_project_sessions
+    paths = await remove_project_sessions(db, project_id, current_user)
+    background_tasks.add_task(cleanup_session_files, paths)
     return {"status": "success", "message": "Đã xóa phiên bóc tách thành công"}
 
 
@@ -1286,7 +1220,8 @@ async def get_analysis_task_status(task_id: str,current_user: User = Depends(get
     info = await owned_job(task_id,current_user.id)
     result = {'task_id':task_id,'status':info['status'],
               'progress':int(info.get('progress') or 0),'stage':info.get('stage'),
-              'message':info.get('message') or 'Đang chờ xử lý'}
+              'message':info.get('message') or 'Đang chờ xử lý',
+              'detail':info.get('detail') or '', 'event_status':info.get('event_status') or 'running'}
     if info['status']=='SUCCESS':
         result['progress']=100
         result['result']=json.loads(info['result'])

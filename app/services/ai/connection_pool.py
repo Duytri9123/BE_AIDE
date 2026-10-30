@@ -38,6 +38,14 @@ NON_RETRYABLE_EXCEPTIONS = (
 )
 
 
+
+def _get_db_lock(db: AsyncSession) -> asyncio.Lock:
+    lock = getattr(db, "_aide_db_lock", None)
+    if lock is None:
+        lock = asyncio.Lock()
+        setattr(db, "_aide_db_lock", lock)
+    return lock
+
 class ConnectionPoolService:
     """Service quản lý connection pool với round-robin fallback."""
 
@@ -56,7 +64,8 @@ class ConnectionPoolService:
                 .order_by(AiProviderModel.sort_order.asc(), AiProviderModel.id.asc())
                 .limit(1)
             )
-            res = await db.execute(stmt)
+            async with _get_db_lock(db):
+                res = await db.execute(stmt)
             return res.scalar_one_or_none()
         except Exception as ex:
             logger.warning(f"Không thể lấy model ưu tiên cho provider {provider}: {ex}")
@@ -76,7 +85,8 @@ class ConnectionPoolService:
                 )
                 .order_by(AiProviderModel.sort_order.asc(), AiProviderModel.id.asc())
             )
-            res = await db.execute(stmt)
+            async with _get_db_lock(db):
+                res = await db.execute(stmt)
             return list(res.scalars().all())
         except Exception as ex:
             logger.warning(f"Không thể lấy danh mục model cho provider {provider}: {ex}")
@@ -104,7 +114,8 @@ class ConnectionPoolService:
             )
             .order_by(AiConnection.priority.asc(), AiConnection.created_at.desc())
         )
-        result = await db.execute(stmt)
+        async with _get_db_lock(db):
+            result = await db.execute(stmt)
         connections = result.scalars().all()
         return list(connections)
 
@@ -114,15 +125,16 @@ class ConnectionPoolService:
     ):
         """Ghi nhận lỗi vào connection để admin theo dõi sức khoẻ pool."""
         try:
-            await db.execute(
-                update(AiConnection)
-                .where(AiConnection.id == connection.id)
-                .values(
-                    last_error_at=datetime.now(timezone.utc),
-                    last_error_message=str(error_msg)[:1000],
+            async with _get_db_lock(db):
+                await db.execute(
+                    update(AiConnection)
+                    .where(AiConnection.id == connection.id)
+                    .values(
+                        last_error_at=datetime.now(timezone.utc),
+                        last_error_message=str(error_msg)[:1000],
+                    )
                 )
-            )
-            await db.commit()
+                await db.commit()
         except Exception as e:
             logger.warning(f"Không thể cập nhật lỗi cho connection {connection.name}: {e}")
 
@@ -170,7 +182,8 @@ class ConnectionPoolService:
         prov_map: dict[str, AiProvider] = {}
         try:
             p_stmt = select(AiProvider).where(AiProvider.id.in_(provider_order))
-            p_res = await db.execute(p_stmt)
+            async with _get_db_lock(db):
+                p_res = await db.execute(p_stmt)
             prov_map = {p.id.lower(): p for p in p_res.scalars().all()}
         except Exception as pe:
             logger.warning("ConnectionPool: Không thể load metadata provider: %s", pe)

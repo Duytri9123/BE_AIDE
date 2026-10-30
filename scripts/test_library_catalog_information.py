@@ -53,6 +53,43 @@ class CatalogInformationTests(unittest.TestCase):
         self.assertIsNone(result[0]['price'])
         self.assertEqual(result[0]['cells'],['A1 example','A1','Số cực: 1P'])
 
+    def test_reviewed_exact_row_overrides_broad_option_candidate(self):
+        from unittest.mock import patch
+        device=self.device()
+        row=self.row('other-sku',1200)
+        device['catalog_references'].update(source_row_scope='explicit_only',row_links_reviewed=True,
+            options=[{'brand':'ABB','model':'A2','source_row_id':row['id']}])
+        # The broad option resolver sees the row before the reviewed ID branch.
+        with patch('app.services.library_catalog_information.reference_matches',return_value=[row]):
+            result=information_rows(device,[row])
+        self.assertEqual(result[0]['match_scope'],'source_family')
+        self.assertEqual(result[0]['cells'],row['cells'])
+
+    def test_reviewed_row_does_not_bypass_pole_filter(self):
+        device=self.device();device['spec']={'so_cuc':'1P'}
+        row=self.row('A2',1200);row['specifications']['Số cực']='3P'
+        device['catalog_references'].update(source_row_scope='explicit_only',row_links_reviewed=True,
+            options=[{'brand':'ABB','source_row_id':row['id']}])
+        self.assertEqual(information_rows(device,[row]),[])
+
+    def test_ls_same_series_different_frame_stays_candidate(self):
+        device={'brand':'LS Electric','product_code':'ABN 100','display':'LS MCCB ABN 100',
+                'type':'MCCB','spec':{'so_cuc':'2P'},'catalog_references':{'category':'MCCB','options':[]}}
+        row={'id':'wrong-frame','sku':'ABN202c','brand':'LS Electric','category':'MCCB',
+             'specifications':{'Số cực':'2P'},'price':10}
+        result=information_rows(device,[row])
+        self.assertEqual(result[0]['match_scope'],'catalog_reference')
+        self.assertEqual(result[0]['basis'],'catalog_series_reference')
+
+    def test_acb_complete_model_alternative_matches_configuration_suffix(self):
+        device={'brand':'LS Electric','product_code':'AN-06D3 / AN-08D3',
+                'type':'ACB','spec':{'so_cuc':'3P'},'catalog_references':{'category':'ACB','options':[]}}
+        rows=[{'id':s,'sku':s,'brand':'LS Electric','category':'ACB',
+               'specifications':{'Số cực':'3P'},'price':10} for s in ['AN-06D3-06H AH6','AN-10D3-10H AH6']]
+        result=information_rows(device,rows)
+        self.assertEqual(next(r for r in result if r['sku']==rows[0]['sku'])['match_scope'],'source_family')
+        self.assertTrue(all(r['match_scope']=='catalog_reference' for r in result if r['sku']==rows[1]['sku']))
+
     def test_manufacturer_table_excludes_other_makers_even_with_explicit_references(self):
         device=self.device()
         device['catalog_references']['options'].append({'brand':'CHINT','model':'NM8',
