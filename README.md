@@ -9,6 +9,7 @@ Backend FastAPI mạnh mẽ cho hệ thống Elquote (Tự động bóc tách b�
 - **Database ORM:** [SQLAlchemy 2.0](https://www.sqlalchemy.org/) (Async) + [Alembic](https://alembic.sqlalchemy.org/)
 - **Database:** SQLite (Mặc định: `webbaogia.db`) / PostgreSQL (Sẵn sàng)
 - **Xử lý CAD:** ezdxf, PyMuPDF, OpenCV
+- **OCR ảnh/PDF scan:** PaddleOCR trong môi trường Python 3.13 riêng; xem [cài đặt và tích hợp agent](docs/drawing-reader.md).
 - **Bảo mật:** JWT (JSON Web Tokens), Google OAuth 2.0, Passlib (Bcrypt)
 - **Tích hợp AI:** OpenAI / Gemini / Custom LLM API
 

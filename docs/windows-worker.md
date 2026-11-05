@@ -17,16 +17,15 @@ Từ workspace gốc chạy `& .\BE_AIDE\start_worker.ps1`. Worker chạy ẩn, 
 - Cache thư viện CAD ngắn 5 giây; danh sách thiết bị dùng chung manifest trong một request. Thay đổi profile có thể chậm tối đa khoảng 5 giây để xuất hiện.
 - Nếu không có CAD, response trả `success=false`, `cad_status=needs_review`, `cad_blockers`; Excel vẫn trả riêng nếu tạo thành công. Không tự điền kích thước hoặc duyệt form thiếu căn cứ.
 
-## Kiểm thử
+## Kiểm tra worker khi vận hành
 
 Chạy từ thư mục BE_AIDE:
 
 ```powershell
-& .\venv\Scripts\python.exe scripts/test_queue_regressions.py
-& .\venv\Scripts\python.exe scripts/test_queue_admission.py
+& .\venv\Scripts\python.exe scripts/check_worker_ready.py
 ```
 
-Test admission dùng namespace Redis riêng và mock dispatch, không gửi AI thật. `verify_windows_queue.py` chạy worker/API thật với SQLite bản sao và Redis DB trống 14 hoặc 15, có gọi AI thật; kết quả trong `tmp/queue_fix_verification`.
+Các bộ test và kết quả chạy thử đã được lưu trữ bên ngoài dự án trong đợt dọn ngày 05/11/2026. Xem `WORKSPACE_CORE.md` ở thư mục gốc để tìm manifest và hướng dẫn khôi phục. Không dùng dữ liệu dự án thật làm fixture kiểm tra.
 
 ## Giới hạn
 

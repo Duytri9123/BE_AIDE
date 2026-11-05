@@ -40,6 +40,8 @@ api_router.include_router(analyze_multi_agent.router, prefix="/analyze", tags=["
 api_router.include_router(bom.router, prefix="/bom", tags=["BOM"])
 api_router.include_router(export.router, prefix="/export", tags=["Export"])
 api_router.include_router(chat.router, prefix="/chat", tags=["Chat"])
+from .endpoints import el_agent
+api_router.include_router(el_agent.router, prefix='/chat/el', tags=['EL Agent'])
 api_router.include_router(providers.router, prefix="/providers", tags=["Providers"])
 api_router.include_router(user_library.router, prefix="/user-library", tags=["User Library"])
 api_router.include_router(admin_helpers.router, tags=["Admin Helpers"])

@@ -97,18 +97,8 @@ async def run_analysis(project_id, user_id, payload, progress):
                        .values(tokens=User.tokens-consumed).execution_options(synchronize_session=False))
         if charged.rowcount != 1:
             raise ValueError('Không đủ token để lưu kết quả phân tích.')
-        session = (await db.execute(select(ConversationSession).where(
-            ConversationSession.project_id==project_id,ConversationSession.status=='active')
-            .order_by(ConversationSession.created_at.desc()))).scalars().first()
-        if session and payload.get('is_new_session'):
-            session.status='archived'
-            session=None
-        if session is None:
-            session=ConversationSession(project_id=project_id,user_id=user_id,
-                provider=ai.provider,model_key=ai.selected_model,status='active',
-                total_iterations=0,total_tokens_used=0)
-            db.add(session)
-            await db.flush()
+        from app.services.project_conversation import project_session
+        session = await project_session(db, project_id, user_id, ai.provider, ai.selected_model)
         session.total_iterations += 1
         session.total_tokens_used += consumed
         devices=[d.model_dump(mode='json') if hasattr(d,'model_dump') else dict(d)

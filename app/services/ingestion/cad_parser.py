@@ -22,6 +22,7 @@ class CadParseResult:
     devices: list[DeviceMatch] = field(default_factory=list)  # Extracted devices from text labels
     entity_count: int = 0  # Số entity thực tế trong modelspace; dùng để chặn DXF rỗng.
     is_reliable: bool = True  # True nếu đọc được cấu trúc (DXF), False nếu chỉ quét binary thô (DWG)
+    warnings: list[str] = field(default_factory=list)
 
 class CadParserService:
     @staticmethod
@@ -50,7 +51,8 @@ class CadParserService:
             
             layers = CadParserService.get_layer_info(doc)
             blocks = CadParserService.extract_device_blocks(doc)
-            texts = CadParserService.extract_text_labels(doc)
+            read_warnings = []
+            texts = CadParserService.extract_text_labels(doc, read_warnings)
             bounds = CadParserService.calculate_bounds(doc)
             entity_count = len(doc.modelspace())
             
@@ -69,6 +71,7 @@ class CadParserService:
                 bounds=bounds,
                 devices=devices,
                 entity_count=entity_count,
+                warnings=read_warnings,
             )
         except ezdxf.DXFStructureError as e:
             logger.error(f"DXF structure error: {str(e)}")
@@ -102,39 +105,74 @@ class CadParserService:
         return blocks
 
     @staticmethod
-    def extract_text_labels(doc) -> list[dict]:
-        texts = []
-        msp = doc.modelspace()
-        
-        # 1. Extract regular TEXT and MTEXT entities
-        for entity in msp.query('TEXT MTEXT'):
-            txt_val = entity.plain_text() if entity.dxftype() == 'MTEXT' else entity.dxf.text
-            if txt_val and txt_val.strip():
-                texts.append({
-                    "text": txt_val.strip(),
-                    "x": entity.dxf.insert.x if hasattr(entity.dxf, 'insert') else 0,
-                    "y": entity.dxf.insert.y if hasattr(entity.dxf, 'insert') else 0,
-                    "height": float(entity.dxf.height if entity.dxftype() == 'TEXT' else entity.dxf.char_height),
-                    "layer": getattr(entity.dxf, 'layer', '0')
-                })
-                
-        # 2. Extract Block Attributes (ATTRIB) attached to block insertions (INSERT)
-        for insert in msp.query('INSERT'):
-            try:
-                if hasattr(insert, 'attribs'):
-                    for att in insert.attribs:
-                        val = getattr(att.dxf, 'text', '') or ''
-                        if val and val.strip():
-                            texts.append({
-                                "text": val.strip(),
-                                "x": att.dxf.insert.x if hasattr(att.dxf, 'insert') else 0,
-                                "y": att.dxf.insert.y if hasattr(att.dxf, 'insert') else 0,
-                                "height": float(att.dxf.height),
-                                "layer": getattr(att.dxf, 'layer', '0')
-                            })
-            except Exception:
-                continue
+    def extract_text_labels(doc, warnings=None) -> list[dict]:
+        """Read each inserted occurrence, with nested coordinates transformed to WCS.
 
+        Walk definitions rather than exploding virtual TEXT: non-uniform INSERT
+        scales can prevent ezdxf from producing those virtual entities. Attached
+        ATTRIB coordinates already belong to the INSERT's owning space, so only
+        ancestor matrices apply to them.
+        """
+        from ezdxf.math import Vec3
+
+        texts = []
+        warnings = warnings if warnings is not None else []
+
+        def world(point, matrices):
+            point = Vec3(point)
+            for matrix in matrices:
+                point = matrix.transform(point)
+            return point
+
+        def label(entity, matrices, inherited_layer, path):
+            if getattr(entity.dxf, 'invisible', 0) or getattr(entity.dxf, 'flags', 0) & 1:
+                return
+            kind = entity.dxftype()
+            value = entity.plain_text() if kind == 'MTEXT' else entity.dxf.text
+            if not value or not value.strip():
+                return
+            point = entity.dxf.insert
+            if kind != 'MTEXT':
+                point = entity.ocs().to_wcs(point)
+            position = world(point, matrices)
+            height = float(entity.dxf.char_height if kind == 'MTEXT' else entity.dxf.height)
+            up = entity.ocs().uy * height
+            height = (world(Vec3(point) + up, matrices) - position).magnitude
+            layer = entity.dxf.get('layer', '0')
+            texts.append({
+                'text': value.strip(), 'x': position.x, 'y': position.y,
+                'height': height, 'layer': inherited_layer if layer == '0' else layer,
+                'block_path': list(path),
+            })
+
+        def walk(entities, matrices=(), inherited_layer='0', path=(), attached_tags=frozenset()):
+            for entity in entities:
+                kind = entity.dxftype()
+                if kind in {'TEXT', 'MTEXT', 'ATTRIB'}:
+                    label(entity, matrices, inherited_layer, path)
+                elif kind == 'ATTDEF':
+                    # Variable defaults are placeholders, not a second label.
+                    if entity.dxf.flags & 2 and entity.dxf.tag.casefold() not in attached_tags:
+                        label(entity, matrices, inherited_layer, path)
+                elif kind == 'INSERT':
+                    name = entity.dxf.name
+                    if name in path or len(path) >= 64:
+                        warnings.append('Bỏ qua block CAD tham chiếu vòng hoặc quá sâu: ' + '/'.join((*path, name)))
+                        continue
+                    block = doc.blocks.get(name)
+                    if block is None:
+                        warnings.append('Không tìm thấy định nghĩa block CAD: ' + name)
+                        continue
+                    layer = entity.dxf.get('layer', '0')
+                    layer = inherited_layer if layer == '0' else layer
+                    instances = entity.multi_insert() if entity.mcount > 1 else [entity]
+                    for insert in instances:
+                        tags = frozenset(att.dxf.tag.casefold() for att in insert.attribs)
+                        for att in insert.attribs:
+                            label(att, matrices, layer, (*path, name))
+                        walk(block, (insert.matrix44(), *matrices), layer, (*path, name), tags)
+
+        walk(doc.modelspace())
         return texts
 
     # Các chuỗi metadata nội bộ DWG thường gây false-positive khi quét binary
@@ -432,7 +470,7 @@ class CadParserService:
         cur_col = None
         for t in sorted_texts:
             txt = t.get("text", "").strip()
-            if not txt or len(txt) > 200:
+            if not txt:
                 continue
             x = round(t.get("x", 0), 1)
             y = round(t.get("y", 0), 1)
@@ -445,7 +483,7 @@ class CadParserService:
         if cad_res.blocks:
             lines.append("\n=== CÁC KHỐI THIẾT BỊ ĐIỆN (BLOCKS INSERTION) ===")
             seen_blocks = set()
-            for b in cad_res.blocks[:50]:
+            for b in cad_res.blocks:
                 bname = b.get("name", "")
                 if bname and bname not in seen_blocks:
                     seen_blocks.add(bname)

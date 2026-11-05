@@ -14,6 +14,10 @@ def literal_values(response):
 
 async def ensure_cad_response(response,repair):
     if ResponseParserService.parse_device_list(response):return response
+    if any(isinstance(block, dict) and block.get('devices') == []
+           for block in ResponseParserService.extract_json_blocks(response)):
+        # A source chunk can contain only annotations or empty geometry.
+        return response
     if not re.search(r'"category"\s*:',response or ''):
         raise ValueError('Phản hồi CAD chưa có danh sách thiết bị đọc được; chưa chốt BOM.')
     corrected=await repair('Chỉ sửa CÚ PHÁP JSON của phản hồi CAD dưới đây. Không đọc lại hay thay đổi thiết kế. '

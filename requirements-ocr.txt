@@ -1,0 +1,5 @@
+# Isolated CPU runtime; the web backend may run a newer Python.
+# Install with Python 3.13 on Windows.
+paddlepaddle==3.3.1
+paddleocr==3.7.0
+# PyMuPDF is already in the main backend requirements; the worker uses images.

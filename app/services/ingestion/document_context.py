@@ -32,27 +32,29 @@ class DocumentContextService:
 
     @staticmethod
     def _read_pdf(path: Path) -> str:
-        import pypdfium2 as pdfium
+        import pymupdf
+        from app.services.ingestion.drawing_reader import read_pdf_page, evidence_context
 
         parts: List[str] = []
-        document = pdfium.PdfDocument(str(path))
-        try:
-            for index in range(len(document)):
-                page = document[index]
-                try:
-                    textpage = page.get_textpage()
-                    try:
-                        text = (textpage.get_text_bounded() or '').strip()
-                    finally:
-                        textpage.close()
-                finally:
-                    page.close()
+        scanned_pages = 0
+        with pymupdf.open(str(path)) as document:
+            for index, page in enumerate(document):
+                text = page.get_text(sort=True).strip()
                 if text:
-                    parts.append(f"[Trang {index + 1}]\n{text}")
-                if sum(len(part) for part in parts) >= DocumentContextService.MAX_FILE_CHARS:
+                    parts.append(f"[Trang {index + 1}; PyMuPDF text layer; chưa xác minh hình ảnh]\n{text}")
+                elif scanned_pages < 3:
+                    scanned_pages += 1
+                    try:
+                        evidence = read_pdf_page(path, index + 1, include_ocr=True)
+                        parts.append(f"[Trang {index + 1}; OCR chưa xác minh hình ảnh]\n" + evidence_context(evidence['ocr'], 3500))
+                    except Exception as exc:
+                        parts.append(f"[Trang {index + 1}: OCR unavailable; cần đọc ảnh trực tiếp. {str(exc)[:250]}]")
+                else:
+                    parts.append(f"[Trang {index + 1} trở đi chưa OCR trong context tham chiếu; cần đọc từng trang theo phạm vi yêu cầu.]")
                     break
-        finally:
-            document.close()
+                if sum(len(part) for part in parts) >= DocumentContextService.MAX_FILE_CHARS:
+                    parts.append('[Context bị giới hạn độ dài; chưa đọc hết tài liệu.]')
+                    break
         return "\n\n".join(parts)
 
     @staticmethod
@@ -107,28 +109,10 @@ class DocumentContextService:
     @staticmethod
     def _read_dxf_labels(path: Path) -> str:
         """Read spatial circuit context without inferring or counting devices."""
-        import ezdxf
-        drawing = ezdxf.readfile(str(path))
-        rows = []
-        for entity in drawing.modelspace():
-            kind = entity.dxftype()
-            if kind in {"TEXT", "ATTRIB"}:
-                value = entity.dxf.text
-                point = entity.dxf.insert
-            elif kind == "MTEXT":
-                value = entity.plain_text()
-                point = entity.dxf.insert
-            elif kind == "INSERT":
-                value = f"BLOCK {entity.dxf.name}"
-                point = entity.dxf.insert
-            else:
-                continue
-            value = str(value or "").strip()
-            if value:
-                rows.append((float(point.x), float(point.y), value,
-                             str(entity.dxf.get('layer', '0'))))
-            if len(rows) >= 1200:
-                break
+        from app.services.ingestion.cad_parser import CadParserService
+        parsed = CadParserService.parse_dxf(str(path))
+        rows = [(row['x'], row['y'], row['text'], row['layer']) for row in parsed.texts]
+        rows.extend((row['x'], row['y'], 'BLOCK ' + row['name'], row['layer']) for row in parsed.blocks)
         rows.sort(key=lambda row: (round(row[0] / 60), -row[1]))
         return "\n".join(f"X={x:g} Y={y:g} [{layer}] {value}" for x, y, value, layer in rows)
 
@@ -153,6 +137,9 @@ class DocumentContextService:
         try:
             if ext == "pdf":
                 text = DocumentContextService._read_pdf(path)
+            elif ext in {"png", "jpg", "jpeg", "webp", "bmp", "tif", "tiff"}:
+                from app.services.ingestion.drawing_reader import read_image, evidence_context
+                text = 'PaddleOCR — dữ liệu nguồn chưa xác minh hình ảnh:\n' + evidence_context(read_image(path), 11000)
             elif ext in {"dxf", "dwg"}:
                 from app.services.ingestion.cad_parser import CadParserService
                 analysis_path = Path(CadParserService.prepare_analysis_path(str(path)))

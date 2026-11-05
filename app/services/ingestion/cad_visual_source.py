@@ -10,7 +10,7 @@ def render_schematic_source(file_path):
     from ezdxf.addons.drawing.matplotlib import qsave
     from ezdxf.addons.drawing.config import Configuration, ColorPolicy, BackgroundPolicy
     source=Path(file_path)
-    output=source.parent/'.cad-analysis'/(source.stem+'-sld-v2.png')
+    output=source.parent/'.cad-analysis'/(source.stem+'-sld-v3.png')
     if output.is_file() and output.stat().st_mtime_ns>=source.stat().st_mtime_ns:
         return str(output)
     drawing=ezdxf.readfile(source)
@@ -18,16 +18,19 @@ def render_schematic_source(file_path):
         return ''.join(c for c in unicodedata.normalize('NFD',value.upper().replace('Đ','D')) if not unicodedata.combining(c))
     layers={str(layer.dxf.name) for layer in drawing.layers
             if re.search(r'NGUYEN\s*L[IY]|SINGLE[ _-]*LINE|SCHEMATIC|\bSLD\b',plain(str(layer.dxf.name)))}
-    if not layers:
-        return None
     schematic=[e for e in drawing.modelspace() if e.dxf.layer in layers]
     bounds=bbox.extents(schematic,fast=True)
+    focused = bounds.has_data
+    if not focused:
+        # Unnamed layers and geometry-only drawings still need visual reading.
+        bounds=bbox.extents(drawing.modelspace(),fast=True)
     if not bounds.has_data:return None
     left,bottom= bounds.extmin.x,bounds.extmin.y
     right,top= bounds.extmax.x,bounds.extmax.y
     pad=max(right-left,top-bottom)*.02
     left-=pad;bottom-=pad;right+=pad;top+=pad
     def in_region(entity):
+        if not focused:return True
         if entity.dxf.layer in layers:return True
         kind=entity.dxftype()
         if kind in {'TEXT','MTEXT','INSERT','ATTRIB'}:

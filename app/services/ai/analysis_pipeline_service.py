@@ -934,37 +934,24 @@ class AnalysisPipelineService:
                         logger.warning(f"AI CAD analysis failed for {pfile.filename}: {ai_cad_err}")
 
                 if not cad_ai_success:
-                    # FILE DWG: Bộ đọc dự phòng (quét binary regex) KHÔNG đáng tin cậy
-                    # → Báo lỗi rõ ràng thay vì trả kết quả sai
-                    if ext == "dwg":
-                        error_detail = str(cad_ai_error) if cad_ai_error else "Không có kết nối AI"
-                        logger.error(f"DWG file {pfile.filename} cannot be reliably parsed: {error_detail}")
-                        raise HTTPException(
-                            status_code=400,
-                            detail=(
-                                f"Không thể đọc chính xác file DWG '{pfile.filename}'. "
-                                f"Định dạng DWG là nhị phân độc quyền, hệ thống chỉ hỗ trợ phân tích DWG qua AI. "
-                                f"Lỗi AI: {error_detail}. "
-                                f"Vui lòng chuyển file DWG sang định dạng DXF (bằng AutoCAD: File → Save As → DXF) rồi upload lại, "
-                                f"hoặc kiểm tra lại kết nối AI trong trang Quản lý AI."
-                            )
-                        )
-
-                    # FILE DXF: Bộ đọc ezdxf cấu trúc đáng tin cậy → cho phép fallback
+                    # DWG has already been converted to a validated DXF. Both
+                    # formats can use the same structural reader without guesses.
                     try:
                         cad_res = CadParserService.parse_cad(file_path)
+                        warnings.extend(cad_res.warnings)
+                        warnings.append('Đọc CAD dự phòng từ nhãn nguồn; chưa xác minh đầy đủ ký hiệu, số lượng và quan hệ mạch bằng AI.')
                         if cad_ai_error:
                             warnings.append(f"AI phân tích CAD gặp sự cố ({cad_ai_error}), chuyển sang bộ đọc CAD dự phòng.")
                         detected_cad_panels = CadParserService.extract_panels_from_texts(cad_res.texts)
-                        default_pcode = detected_cad_panels[0]["panel_code"] if detected_cad_panels else ""
-                        default_pname = detected_cad_panels[0]["panel_name"] if detected_cad_panels else ""
+                        default_pcode = detected_cad_panels[0]["panel_code"] if len(detected_cad_panels) == 1 else ""
+                        default_pname = detected_cad_panels[0]["panel_name"] if len(detected_cad_panels) == 1 else ""
                         if detected_cad_panels:
                             multi_panel_list.extend(detected_cad_panels)
 
                         for dev_match in cad_res.devices:
-                            is_incomer = "incomer" in dev_match.raw_text.lower() or "tong" in dev_match.raw_text.lower() or (dev_match.in_a and dev_match.in_a >= 400)
-                            p_val = dev_match.poles or (1 if "MCB" in dev_match.category else 3)
-                            p_str = f"{p_val}P"
+                            is_incomer = "incomer" in dev_match.raw_text.lower() or "tong" in dev_match.raw_text.lower()
+                            p_val = dev_match.poles
+                            p_str = f"{p_val}P" if p_val else ""
                             a_str = f" {int(dev_match.in_a)}A" if dev_match.in_a else ""
                             spec_str = f"{p_str}{' - ' + str(int(dev_match.in_a)) + 'A' if dev_match.in_a else ''}" + (f" - {int(dev_match.icu_ka)}kA" if dev_match.icu_ka else "")
                             extracted_devices.append(ExtractedDeviceSchema(
@@ -977,9 +964,12 @@ class AnalysisPipelineService:
                                 quantity=1,
                                 brand=dev_match.brand or "",
                                 part_number=dev_match.model or "",
-                                section="Đầu vào" if is_incomer else "Đầu ra",
+                                section="Đầu vào" if is_incomer else "Chưa xác định",
                                 panel_code=default_pcode,
                                 panel_name=default_pname,
+                                source_filename=pfile.filename,
+                                source_type=ext,
+                                quantity_basis='Một nhãn nguồn; chưa xác minh số lượng ký hiệu trên sơ đồ.',
                                 confidence=dev_match.confidence
                             ))
 
@@ -2548,44 +2538,22 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         cad_res = CadParserService.parse_cad(file_path)
         cad_transcript = CadParserService.format_cad_for_ai(cad_res)
         # Lọc surrogate characters trong transcript trước khi gửi lên AI API
-        cad_transcript = CadParserService._sanitize_text(cad_transcript)
+        cad_transcript = '\n'.join(CadParserService._sanitize_text(line) for line in cad_transcript.splitlines())
+        warns.extend(cad_res.warnings)
 
+        from app.services.ingestion.cad_visual_source import render_schematic_source
+        try:
+            source_image = await asyncio.to_thread(render_schematic_source, file_path)
+        except Exception as render_error:
+            source_image = None
+            warns.append('Không render được ảnh CAD; tiếp tục đọc nhãn cấu trúc, chưa xác minh ký hiệu: ' + str(render_error)[:200])
         if not cad_res.texts:
-            warns.append(f"File CAD {filename} không chứa nhãn văn bản TEXT/MTEXT.")
-            return extracted_devs, multi_panels, warns
+            warns.append(f"File CAD {filename} không có nhãn chữ đọc được; phân tích ký hiệu từ ảnh, thông số không thấy phải để trống.")
+            if not source_image:
+                raise ValueError(f'Không đọc được nhãn hoặc ảnh hình học của CAD {filename}.')
 
         from app.core.prompts import CAD_ANALYSIS_PROMPT_TEMPLATE, PROMPT_TYPES, append_canonical_output_contract, append_completeness_review_instruction, append_user_notes
         from app.services.ai.prompt_template_service import PromptTemplateService
-        cad_prompt = await PromptTemplateService.render(
-            db, PROMPT_TYPES["CAD_ANALYSIS"], CAD_ANALYSIS_PROMPT_TEMPLATE,
-            {"cad_transcript": cad_transcript[:12000]},
-        )
-        cad_prompt = append_user_notes(cad_prompt, user_prompt, "LƯU Ý YÊU CẦU TỪ NGƯỜI DÙNG:")
-        cad_prompt = append_completeness_review_instruction(cad_prompt)
-        cad_prompt = append_canonical_output_contract(cad_prompt)
-
-        from app.services.ingestion.cad_visual_source import render_schematic_source
-        source_image = render_schematic_source(file_path)
-        if source_image and all_connections and db:
-            ai_res, _used = await ConnectionPoolService.call_with_fallback(
-                db=db, connections=all_connections, call_fn=VisionAnalyzerService.analyze_image,
-                image_path=source_image, prompt=cad_prompt + '\nĐọc cả hình học và ký hiệu trên ảnh sơ đồ CAD nguồn. '
-                'Không bỏ cụm đo lường, báo pha, cầu chì và chuyển mạch; chỉ lấy số lượng và thông số có bằng chứng.')
-        elif all_connections and db:
-            ai_res, _used = await ConnectionPoolService.call_with_fallback(
-                db=db,
-                connections=all_connections,
-                call_fn=VisionAnalyzerService.analyze_text,
-                prompt=cad_prompt,
-            )
-        else:
-            ai_res = await VisionAnalyzerService.analyze_text(
-                prompt=cad_prompt,
-                provider=active_ai.provider.lower(),
-                api_key=active_ai.api_key,
-                model=active_ai.selected_model
-            )
-
         from app.services.ai.cad_response_repair import ensure_cad_response
         async def repair_cad_response(prompt):
             if all_connections and db:
@@ -2594,14 +2562,48 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 return repaired
             return await VisionAnalyzerService.analyze_text(prompt=prompt,provider=active_ai.provider.lower(),
                 api_key=active_ai.api_key,model=active_ai.selected_model)
-        ai_res = await ensure_cad_response(ai_res, repair_cad_response)
-        parsed_devs = ResponseParserService.parse_device_list(ai_res)
-        warns.extend(ResponseParserService.extract_completeness_warnings(ai_res))
+        from app.services.ai.cad_context import transcript_chunks, merge_chunk_devices
+        chunks = transcript_chunks(cad_transcript)
+        panel_anchors = CadParserService.extract_panels_from_texts(cad_res.texts)
+        parsed_devs = []
+        extracted_panels = []
+        for index, chunk in enumerate(chunks, 1):
+            cad_prompt = await PromptTemplateService.render(
+                db, PROMPT_TYPES["CAD_ANALYSIS"], CAD_ANALYSIS_PROMPT_TEMPLATE,
+                {"cad_transcript": chunk},
+            )
+            cad_prompt = append_user_notes(cad_prompt, user_prompt, "LƯU Ý YÊU CẦU TỪ NGƯỜI DÙNG:")
+            cad_prompt = append_completeness_review_instruction(cad_prompt)
+            cad_prompt = append_canonical_output_contract(cad_prompt)
+            if len(chunks) > 1:
+                cad_prompt += (f'\nPhần nguồn {index}/{len(chunks)}. Chỉ bóc tách các thiết bị có nhãn trong phần nguồn này; '
+                               'ảnh toàn cảnh chỉ dùng đối chiếu vị trí/ký hiệu. Không lặp thiết bị ngoài phần nhãn đang đọc. '
+                               'Giữ đúng mã tủ nguồn; không xác định được thì để trống và nêu cảnh báo.')
+                cad_prompt += '\nCác tiêu đề tủ nguồn và tọa độ để đối chiếu (không tự gán tủ nếu chưa đủ căn cứ): ' + json.dumps(panel_anchors, ensure_ascii=False)
+            if source_image:
+                cad_prompt += ('\nĐọc cả hình học và ký hiệu trên ảnh CAD nguồn. Không bỏ cụm đo lường, báo pha, '
+                               'cầu chì và chuyển mạch; chỉ lấy số lượng và thông số có bằng chứng.')
+            call_fn = VisionAnalyzerService.analyze_image if source_image else VisionAnalyzerService.analyze_text
+            call_args = {'prompt': cad_prompt}
+            if source_image:
+                call_args['image_path'] = source_image
+            if all_connections and db:
+                ai_res, _used = await ConnectionPoolService.call_with_fallback(
+                    db=db, connections=all_connections, call_fn=call_fn, **call_args)
+            else:
+                ai_res = await call_fn(provider=active_ai.provider.lower(), api_key=active_ai.api_key,
+                                       model=active_ai.selected_model, **call_args)
+            ai_res = await ensure_cad_response(ai_res, repair_cad_response)
+            parsed_devs, merge_warnings = merge_chunk_devices(parsed_devs, ResponseParserService.parse_device_list(ai_res))
+            warns.extend(merge_warnings)
+            warns.extend(ResponseParserService.extract_completeness_warnings(ai_res))
+            for panel in ResponseParserService.extract_panels_metadata(ai_res) or []:
+                if panel not in extracted_panels:
+                    extracted_panels.append(panel)
         from app.services.ai.cad_inventory_review import review_missing_devices
         parsed_devs, inventory_warnings = await review_missing_devices(
             parsed_devs, cad_res, cad_transcript, db, all_connections, active_ai, source_image=source_image)
         warns.extend(inventory_warnings)
-        extracted_panels = ResponseParserService.extract_panels_metadata(ai_res)
         if extracted_panels:
             multi_panels.extend(extracted_panels)
 
@@ -3220,6 +3222,17 @@ Chỉ trả một JSON hợp lệ, không markdown:
                         pdf_context = page_source_context(textpage.get_text_range())
                     finally:
                         textpage.close()
+                    from app.services.ingestion.drawing_reader import read_pdf_page, evidence_context
+                    try:
+                        source_evidence = await asyncio.to_thread(
+                            read_pdf_page, file_path, page_num,
+                            include_ocr=pdf_context['source'] != 'pdf_text_layer')
+                        pdf_context['content'] += '\nPYMUPDF SOURCE DATA:\n' + evidence_context(source_evidence, 7000)
+                        if source_evidence.get('ocr'):
+                            pdf_context['content'] += '\nPADDLEOCR SOURCE DATA (unverified):\n' + evidence_context(source_evidence['ocr'], 10000)
+                    except Exception as source_error:
+                        logger.warning('Drawing reader failed on PDF page %s: %s', page_num, source_error)
+                        pdf_context['content'] += '\nText/OCR reader unavailable; verify labels directly on source image.'
                     vision_prompt = extraction_prompt(vision_prompt, pdf_context)
                     if progress_callback:
                         event = progress_callback({'type':'log','stage':'pdf_context','status':'success','visibility':'internal',

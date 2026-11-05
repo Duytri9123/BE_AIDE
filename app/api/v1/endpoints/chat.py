@@ -72,6 +72,7 @@ async def chat_with_cad_agent(request: ChatRequest, db: AsyncSession = Depends(g
     if len(devices) > 5000:
         raise HTTPException(413, "Danh sách thiết bị quá lớn cho một lượt chat.")
     prompt = conversation_prompt(request.message, devices, request.context)
+    requirements_only = (request.context or {}).get('mode') == 'requirements'
     if len(prompt) > 600000:
         raise HTTPException(413, "Ngữ cảnh hội thoại quá dài. Vui lòng rút gọn yêu cầu.")
     connections = await ConnectionPoolService.get_ordered_connections(db)
@@ -79,10 +80,21 @@ async def chat_with_cad_agent(request: ChatRequest, db: AsyncSession = Depends(g
         raise HTTPException(503, "Chưa có kết nối AI khả dụng cho chat. Vui lòng thử lại sau.")
     from app.services.ai.session_catalog_chat import catalog_request_brand, lookup_session_catalog
     catalog_brand = catalog_request_brand(request.message)
-    if catalog_brand and devices:
+    if catalog_brand and devices and not requirements_only:
         from app.services.ai.project_chat import ChatPlan
         edited, reply = await lookup_session_catalog(devices, catalog_brand, connections, db)
         plan = ChatPlan(reply=reply)
+    elif requirements_only:
+        from app.services.ai.requirement_analysis import analyze_requirements
+        try:
+            plan = await asyncio.wait_for(analyze_requirements(
+                db, connections, project.id, request.message, request.context), timeout=240)
+        except HTTPException:
+            raise
+        except Exception:
+            logger.exception('Requirement source analysis failed')
+            raise HTTPException(502, 'Chưa hoàn tất phân tích yêu cầu. Vui lòng thử lại hoặc chọn phạm vi trang nhỏ hơn.')
+        edited = devices
     else:
         try:
             raw, _ = await asyncio.wait_for(ConnectionPoolService.call_with_fallback(
@@ -93,7 +105,7 @@ async def chat_with_cad_agent(request: ChatRequest, db: AsyncSession = Depends(g
             raise HTTPException(502, "AI chưa phản hồi thành công. Chưa có thay đổi nào được áp dụng.")
         try:
             plan = parse_plan(raw)
-            edited = apply_plan(devices, plan)
+            edited = devices if requirements_only else apply_plan(devices, plan)
         except Exception:
             logger.warning("Invalid project chat plan", exc_info=True)
             raise HTTPException(502, "AI trả về chỉnh sửa chưa hợp lệ. Chưa có thay đổi nào được áp dụng; vui lòng thử lại.")
@@ -113,14 +125,8 @@ async def chat_with_cad_agent(request: ChatRequest, db: AsyncSession = Depends(g
     previous = await replay(db, project.id, request.request_id)
     if previous:
         return saved_response(previous, project.id)
-    if source:
-        session = (await db.execute(select(ConversationSession)
-            .where(ConversationSession.id == source.session_id))).scalar_one()
-    else:
-        session = ConversationSession(id=uuid.uuid4(), project_id=project.id,
-                                      user_id=current_user.id, total_iterations=0)
-        db.add(session)
-        await db.flush()
+    from app.services.project_conversation import project_session
+    session = await project_session(db, project.id, current_user.id)
     latest_number = (await db.execute(select(func.max(AnalysisIteration.iteration_number))
         .where(AnalysisIteration.session_id == session.id))).scalar_one() or 0
     reply = plan.reply.strip() + "\n\nĐã lưu danh sách thiết bị cập nhật vào project."

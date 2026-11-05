@@ -70,8 +70,15 @@ class CircuitPreflightService:
             ext = path.suffix.lower()
             try:
                 if ext in {'.png', '.jpg', '.jpeg', '.webp', '.bmp'}:
-                    with Image.open(path) as opened:
-                        pages.append((file.filename, opened.convert('RGB').copy()))
+                    from app.services.ai.source_image_evidence import oriented_source
+                    pages.append((file.filename, oriented_source(str(path))))
+                elif ext in {'.dxf', '.dwg'}:
+                    from app.services.ingestion.cad_parser import CadParserService
+                    from app.services.ingestion.cad_visual_source import render_schematic_source
+                    rendered = render_schematic_source(CadParserService.prepare_analysis_path(str(path)))
+                    if rendered:
+                        with Image.open(rendered) as opened:
+                            pages.append((file.filename, opened.convert('RGB').copy()))
                 elif ext == '.pdf':
                     document = pdfium.PdfDocument(str(path))
                     try:

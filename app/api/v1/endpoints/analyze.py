@@ -175,31 +175,9 @@ async def start_analysis(
         current_user.tokens -= tokens_consumed
 
     # 5. Lưu phiên ConversationSession & AnalysisIteration vào cơ sở dữ liệu
-    sess_stmt = select(ConversationSession).where(
-        ConversationSession.project_id == request.project_id,
-        ConversationSession.status == "active"
-    ).order_by(ConversationSession.created_at.desc())
-    sess_res = await db.execute(sess_stmt)
-    active_session = sess_res.scalars().first()
-
-    if request.is_new_session and active_session:
-        active_session.status = "archived"
-        db.add(active_session)
-        await db.flush()
-        active_session = None
-
-    if not active_session:
-        active_session = ConversationSession(
-            project_id=request.project_id,
-            user_id=current_user.id,
-            provider=active_ai.provider,
-            model_key=active_ai.selected_model,
-            status="active",
-            total_iterations=0,
-            total_tokens_used=0
-        )
-        db.add(active_session)
-        await db.flush()
+    from app.services.project_conversation import project_session
+    active_session = await project_session(db, request.project_id, current_user.id,
+                                           active_ai.provider, active_ai.selected_model)
 
     active_session.total_iterations += 1
     active_session.total_tokens_used += tokens_consumed
@@ -339,31 +317,9 @@ async def stream_analysis(
                 if current_user.tokens >= tokens_consumed:
                     current_user.tokens -= tokens_consumed
 
-                sess_stmt = select(ConversationSession).where(
-                    ConversationSession.project_id == request.project_id,
-                    ConversationSession.status == "active"
-                ).order_by(ConversationSession.created_at.desc())
-                sess_res = await db.execute(sess_stmt)
-                active_session = sess_res.scalars().first()
-
-                if request.is_new_session and active_session:
-                    active_session.status = "archived"
-                    db.add(active_session)
-                    await db.flush()
-                    active_session = None
-
-                if not active_session:
-                    active_session = ConversationSession(
-                        project_id=request.project_id,
-                        user_id=current_user.id,
-                        provider=active_ai.provider,
-                        model_key=active_ai.selected_model,
-                        status="active",
-                        total_iterations=0,
-                        total_tokens_used=0
-                    )
-                    db.add(active_session)
-                    await db.flush()
+                from app.services.project_conversation import project_session
+                active_session = await project_session(db, request.project_id, current_user.id,
+                                                       active_ai.provider, active_ai.selected_model)
 
                 active_session.total_iterations += 1
                 active_session.total_tokens_used += tokens_consumed
@@ -763,7 +719,7 @@ async def get_project_sessions(
             "panel_code": panel_code or "",
             "panel_name": panel_name or "",
             "panels": list(panels_by_key.values()),
-            "filename": file_display or "Bản vẽ dự án",
+            "filename": file_display or ("Yêu cầu không có file" if it.trigger_type == 'prompt_input' else "Chưa xác định file nguồn"),
             "files_analyzed": filenames,
             "created_at": it.created_at.isoformat() if it.created_at else None,
             "is_active_session": s.status == "active"
@@ -1120,25 +1076,9 @@ async def analyze_prompt(
     ]
 
     # 8. Lưu Session & Iteration
-    sess_stmt = select(ConversationSession).where(
-        ConversationSession.project_id == request.project_id,
-        ConversationSession.status == "active"
-    ).order_by(ConversationSession.created_at.desc())
-    sess_res = await db.execute(sess_stmt)
-    active_session = sess_res.scalars().first()
-
-    if not active_session:
-        active_session = ConversationSession(
-            project_id=request.project_id,
-            user_id=current_user.id,
-            provider=prompt_ai.provider,
-            model_key=prompt_ai.selected_model,
-            status="active",
-            total_iterations=0,
-            total_tokens_used=0
-        )
-        db.add(active_session)
-        await db.flush()
+    from app.services.project_conversation import project_session
+    active_session = await project_session(db, request.project_id, current_user.id,
+                                           prompt_ai.provider, prompt_ai.selected_model)
 
     active_session.total_iterations += 1
     active_session.total_tokens_used += tokens_consumed

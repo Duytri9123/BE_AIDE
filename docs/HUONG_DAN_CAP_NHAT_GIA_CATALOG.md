@@ -193,7 +193,7 @@ Xem thêm:
 
 Nếu cần hỗ trợ:
 1. Kiểm tra logs trong `tmp/*.log`
-2. Xem test cases trong `scripts/test_*.py`
+2. Xem hướng dẫn vận hành trong `docs/windows-worker.md`; bộ test cũ đã được lưu trữ bên ngoài dự án.
 3. Review code trong `app/services/library_price_matching.py`
 
 ---

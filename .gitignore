@@ -6,6 +6,7 @@ __pycache__/
 # Virtual Environments
 venv/
 .venv/
+.venv-ocr/
 ENV/
 env/
 env.bak/
@@ -38,6 +39,8 @@ htmlcov/
 
 # Temporary / Scratch files
 tmp/
+scratch/
+*.log
 tmp-*
 scratch/
 scratch_list_files.py
