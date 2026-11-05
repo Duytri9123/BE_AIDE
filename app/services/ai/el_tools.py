@@ -21,22 +21,22 @@ def permits_write(message, label=''):
     text = re.sub(r'\bban ve\b', 'drawing', plain(message))
     if re.search(r'\b(?:chi phan tich|chi doc|(?:chua|khong|dung)\s+(?:(?:can|tu dong|tu)\s+)?(?:ve|tao|doi|sua|cap nhat))\b', text):
         return False
-    return bool(re.search(r'(?:^|\b(?:hay|vui long|giup toi|toi muon|toi can|can|va|roi|sau do|ban|el)\s+)(?:ve|tao|xuat|luu|boc tach|cap nhat|chinh sua|sua lai|doi ten|tinh|lap bao gia|chen|di chuyen|xoay|sao chep|them)\b', text))
+    return bool(re.search(r'\b(?:ve|tao|xuat|luu|boc tach|boc|tach|cap nhat|chinh sua|sua lai|sua|doi ten|tinh|lap bao gia|bao gia|chen|di chuyen|xoay|sao chep|them)\b', text))
 
 
 def permits_tool(tool, message):
     text = plain(message)
     path = tool.get('path', '')
     if any('/' + prefix in path for prefix in READ_PREFIXES) or 'search_aide_device_catalog' in tool.get('name', ''):
-        if re.search(r'\b(?:khong|chua)\s+(?:can\s+)?(?:doi chieu|tra cuu|so sanh|tim|dung thu vien)', text):
+        if re.search(r'\b(?:khong|chua|dung)\s+(?:can\s+)?(?:doi chieu|tra cuu|so sanh|tim|dung\s+thu\s+vien|xem\s+catalog)', text):
             return False
-        return bool(re.search(r'catalog|thu vien|tra cuu|doi chieu|so sanh|tim.*(?:hang|ma|thiet bi)|hang|san pham', text))
+        return True
     if not tool.get('writes'):
         return True
     if not permits_write(message):
         return False
     if path.endswith(('/analyze/start', '/analyze/async-start')):
-        return 'boc tach' in text
+        return any(k in text for k in ('boc tach', 'boc', 'tach', 'analyze', 'sld', 'so do', 'thiet bi'))
     if 'generate-quotation-cad' in path:
         edit_text = re.sub(r'\bban ve\b', 'drawing', text)
         return bool(re.search(r'\bve\b|tao.*\b(?:cad|dxf|drawing)\b', edit_text))

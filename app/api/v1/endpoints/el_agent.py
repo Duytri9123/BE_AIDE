@@ -25,6 +25,47 @@ async def owned_project(db, user, project_id):
         raise HTTPException(404, 'Dự án không tồn tại.')
 
 
+def resolve_tool_match(chosen_name: str, candidate_tools: list) -> dict | None:
+    if not chosen_name or not isinstance(chosen_name, str):
+        return None
+    name_clean = chosen_name.strip()
+    name_lower = name_clean.lower()
+    for t in candidate_tools:
+        if t.get('name') == name_clean:
+            return t
+    for t in candidate_tools:
+        if t.get('name', '').lower() == name_lower:
+            return t
+    cad_variant = f"cad_{name_clean}" if not name_clean.startswith("cad_") else name_clean[4:]
+    for t in candidate_tools:
+        if t.get('name') == cad_variant or t.get('name', '').lower() == cad_variant.lower():
+            return t
+    if name_lower.endswith('s'):
+        singular = name_lower[:-1]
+        for t in candidate_tools:
+            if t.get('name', '').lower() == singular:
+                return t
+    else:
+        plural = name_lower + 's'
+        for t in candidate_tools:
+            if t.get('name', '').lower() == plural:
+                return t
+    for t in candidate_tools:
+        if t.get('label', '').lower() == name_lower:
+            return t
+    normalized_query = name_lower.removeprefix('api_').strip('_')
+    for t in candidate_tools:
+        cand_name = t.get('name', '').lower()
+        cand_norm = cand_name.removeprefix('api_').strip('_')
+        if cand_norm.startswith(normalized_query) or normalized_query in cand_norm.split('_'):
+            return t
+    for t in candidate_tools:
+        cand_name = t.get('name', '').lower()
+        if name_lower in cand_name or cand_name in name_lower:
+            return t
+    return None
+
+
 @router.get('/tools')
 async def tools(project_id: int, request: Request, db=Depends(get_db), user=Depends(get_current_active_user)):
     await owned_project(db, user, project_id)
@@ -40,6 +81,7 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
     if not isinstance(tool_list, list) or len(tool_list) > 250 or not isinstance(observations, list) or len(observations) > 18:
         raise HTTPException(422, 'Ngữ cảnh tool vượt giới hạn của một lượt EL.')
     registered = api_tools(request.app)
+    all_candidate_tools = []
     normalized = []
     for tool in tool_list:
         if not isinstance(tool, dict) or not isinstance(tool.get('name'), str):
@@ -48,6 +90,7 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
             tool = registered[tool['name']]
         elif tool['name'] != 'read_project_sources' and not tool['name'].startswith('cad_'):
             continue
+        all_candidate_tools.append(tool)
         if permits_tool(tool, payload.message):
             normalized.append(tool)
     tool_list = normalized
@@ -86,15 +129,40 @@ DỮ LIỆU:
     decision = next((item for item in ResponseParserService.extract_json_blocks(response)
                      if isinstance(item, dict) and (item.get('reply') or item.get('tool'))), None)
     if not decision:
-        raise HTTPException(502, 'EL chưa trả về lựa chọn tool hoặc câu trả lời hợp lệ.')
+        import re
+        cleaned = re.sub(r'<(?:thinking|thought|think)>[\s\S]*?</(?:thinking|thought|think)>', '', response or '', flags=re.IGNORECASE).strip()
+        if cleaned:
+            # Thử bóc tách JSON con nếu có
+            for block in ResponseParserService.extract_json_blocks(cleaned):
+                if isinstance(block, dict) and (block.get('reply') or block.get('tool')):
+                    decision = block
+                    break
+        if not decision and cleaned:
+            # Fallback an toàn: Dùng nội dung phản hồi của AI làm câu trả lời reply
+            return {'reply': cleaned[:20000]}
+        if not decision:
+            raise HTTPException(502, 'EL chưa trả về lựa chọn tool hoặc câu trả lời hợp lệ.')
     if decision.get('tool'):
-        tool = next((item for item in tool_list if item.get('name') == decision['tool']), None)
+        chosen_tool_name = str(decision['tool']).strip()
+        tool = resolve_tool_match(chosen_tool_name, tool_list)
         if not tool:
-            raise HTTPException(502, 'EL chọn tool chưa đăng ký.')
-        if not permits_tool(tool, payload.message):
-            raise HTTPException(409, 'Yêu cầu hiện tại chỉ cho phép đọc và phân tích.')
-        return {'tool': decision['tool'], 'arguments': decision.get('arguments') or {},
-                'activity': str(decision.get('activity') or tool.get('label') or decision['tool'])[:300]}
+            candidate = resolve_tool_match(chosen_tool_name, all_candidate_tools)
+            if candidate:
+                if permits_tool(candidate, payload.message):
+                    tool = candidate
+                else:
+                    return {
+                        'reply': f"Thao tác '{candidate.get('label') or candidate['name']}' cần quyền thay đổi dữ liệu hoặc bản vẽ. Vui lòng nêu rõ yêu cầu thực hiện (ví dụ: 'Hãy thực hiện {candidate.get('label') or candidate['name']}')."
+                    }
+        if not tool:
+            if decision.get('reply'):
+                return {'reply': str(decision['reply'])[:20000]}
+            return {
+                'reply': f"EL chưa tìm thấy công cụ '{chosen_tool_name}' trong hệ thống để thực hiện yêu cầu này. Bạn có thể nêu rõ hành động cụ thể hơn (ví dụ: bóc tách bản vẽ, tra cứu thiết bị, hoặc vẽ CAD) để EL hỗ trợ."
+            }
+        canonical_name = tool['name']
+        return {'tool': canonical_name, 'arguments': decision.get('arguments') or {},
+                'activity': str(decision.get('activity') or tool.get('label') or canonical_name)[:300]}
     return {'reply': str(decision['reply'])[:20000]}
 
 
@@ -109,7 +177,8 @@ class ToolRequest(BaseModel):
 @router.post('/tool')
 async def execute(payload: ToolRequest, request: Request, db=Depends(get_db), user=Depends(get_current_active_user)):
     await owned_project(db, user, payload.project_id)
-    tool = api_tools(request.app).get(payload.tool)
+    reg = api_tools(request.app)
+    tool = reg.get(payload.tool) or resolve_tool_match(payload.tool, list(reg.values()))
     if not tool:
         raise HTTPException(404, 'Tool nghiệp vụ chưa được đăng ký.')
     if not permits_tool(tool, payload.user_message):

@@ -1,19 +1,36 @@
 """Return explicitly linked public CAD for one commercial row, never a guessed brand."""
-import hashlib,re,copy
+import hashlib,re,copy,json
 from .ai.manufacturer_registry import canonical_brand
 from .customer_equipment_information import customer_device,customer_information_rows
 from .catalog_publication_policy import public_device_allowed
 from .library_catalog_information import information_rows
 from .cad.ls_view_coverage import view_coverage
 
+def row_configuration_digest(row):
+ return hashlib.sha256(json.dumps({k:row.get(k) for k in ('id','brand','sku','category','specifications','source_sha256')},ensure_ascii=False,sort_keys=True).encode()).hexdigest()
+
+def reviewed_row_link(device,row):
+ references=device.get('catalog_references') or {}
+ if references.get('row_links_reviewed') is not True:return False
+ from .catalog_product_sections import device_poles
+ return any(o.get('source_row_id')==row['id']
+  and o.get('source_row_configuration_sha256')==row_configuration_digest(row)
+  and o.get('reviewed_device_model')==device.get('product_code')
+  and o.get('reviewed_device_poles')==device_poles(device)
+  for o in references.get('options',[]))
+
 def linked_cad_for_row(row,devices):
  result=[]
  for device in devices:
   if not public_device_allowed(device) or canonical_brand(device.get('brand'))!=canonical_brand(row.get('brand')):continue
   options=(device.get('catalog_references') or {}).get('options',[])
-  if not any(o.get('source_row_id')==row['id'] for o in options):continue
-  matches=information_rows(device,[row])
-  if not any(r.get('match_scope')=='source_family' for r in matches):continue
+  linked_options=[o for o in options if o.get('source_row_id')==row['id']]
+  if not linked_options:continue
+  if any(o.get('source_row_configuration_sha256') for o in linked_options):
+   if not reviewed_row_link(device,row):continue
+  else:
+   matches=information_rows(device,[row])
+   if not any(r.get('match_scope')=='source_family' for r in matches):continue
   public=customer_device(device)
   # A source family may contain differently engraved model states.
   from .catalog_view_models import view_models
@@ -26,7 +43,7 @@ def linked_cad_for_row(row,devices):
    public['views']=[v for v in public['views'] if v['id'] in {public_view_id(x) for x in allowed}]
   if not public['views']:continue
   public['selected_model']=max(selected,key=len) if selected else row.get('sku')
-  public['link_scope']='reviewed_family_configuration'
+  public['link_scope']='reviewed_compatible_geometry' if any(o.get('geometry_compatibility_review') for o in linked_options) else 'reviewed_family_configuration'
   from .customer_equipment_information import public_view_id
   groups={}
   for view in device.get('views',[]):

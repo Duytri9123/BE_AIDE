@@ -223,6 +223,13 @@ class PdfExtractorService:
                             return None, None
 
                         try:
+                            from app.services.ai.evidence_geometry import expand_to_whitespace
+                            import numpy as np
+                            px0, py0, px1, py1 = expand_to_whitespace(np.asarray(img), px0, py0, px1, py1, max_pad=35, min_pad=6)
+                        except Exception:
+                            pass
+
+                        try:
                             crop = img.crop((px0, py0, px1, py1))
                             if crop.mode in ("RGBA", "LA", "P"):
                                 crop = crop.convert("RGB")
@@ -231,10 +238,10 @@ class PdfExtractorService:
                             crop.save(buf, format="JPEG", quality=95)
                             b64 = f"data:image/jpeg;base64,{base64.b64encode(buf.getvalue()).decode()}"
                             box_2d = [
-                                int(ry0 / float(page.height) * 1000),
-                                int(rx0 / float(page.width) * 1000),
-                                int(ry1 / float(page.height) * 1000),
-                                int(rx1 / float(page.width) * 1000)
+                                int(py0 / float(img.height) * 1000),
+                                int(px0 / float(img.width) * 1000),
+                                int(py1 / float(img.height) * 1000),
+                                int(px1 / float(img.width) * 1000)
                             ]
                             return b64, box_2d
                         except Exception as crop_err:
@@ -496,11 +503,13 @@ class PdfExtractorService:
                         if "R Y B" in c_text or "CHỈ THỊ" in c_text:
                             light_words = [w for w in c_words if any(k in w['text'].upper() for k in ['R', 'S', 'T', 'CHỈ THỊ', 'ĐÈN', 'FUSE', '2A']) and w['top'] < 160]
                             if light_words:
-                                lcx = sum((w['x0'] + w['x1']) / 2.0 for w in light_words) / len(light_words)
-                                lcy = sum((w['top'] + w['bottom']) / 2.0 for w in light_words) / len(light_words)
-                                l_img, l_box = make_thumbnail(lcx - 60, lcy - 40, lcx + 60, lcy + 50, min_w=120.0, min_h=90.0)
+                                min_x = min(w['x0'] for w in light_words)
+                                max_x = max(w['x1'] for w in light_words)
+                                min_y = min(w['top'] for w in light_words)
+                                max_y = max(w['bottom'] for w in light_words)
+                                l_img, l_box = make_thumbnail(min_x - 35.0, min_y - 45.0, max_x + 35.0, max_y + 40.0, min_w=160.0, min_h=110.0)
                             else:
-                                l_img, l_box = make_thumbnail(x0 + 10, 30.0, min(x1 - 10, x0 + 130), 160.0, min_w=120.0, min_h=90.0)
+                                l_img, l_box = make_thumbnail(x0 + 10, 30.0, min(x1 - 10, x0 + 130), 160.0, min_w=140.0, min_h=100.0)
                             if not l_img:
                                 l_img, l_box = panel_img, panel_box
 

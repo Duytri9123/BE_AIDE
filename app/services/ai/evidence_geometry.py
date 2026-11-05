@@ -17,7 +17,122 @@ def _normal(box,w,h):
 
 def _same_page(a,b):
     from app.services.ai.panel_identity import panel_identity
-    return (panel_identity(a.panel_code),a.source_filename,a.source_page)==(panel_identity(b.panel_code),b.source_filename,b.source_page)
+    return (panel_identity(getattr(a, 'panel_code', None)), getattr(a, 'source_filename', None), getattr(a, 'source_page', None)) == (panel_identity(getattr(b, 'panel_code', None)), getattr(b, 'source_filename', None), getattr(b, 'source_page', None))
+
+def expand_to_whitespace(image_np, left, top, right, bottom, max_pad=45, min_pad=12):
+    """
+    Tự động mở rộng viền crop (pixel) ra ngoài cho đến khi 4 cạnh tiếp giáp vùng giấy trắng,
+    tránh hoàn toàn việc cắt đứt nét chữ, cắt ngang ký hiệu thiết bị hoặc đường dây dẫn.
+    """
+    if image_np is None:
+        return left, top, right, bottom
+    
+    if len(image_np.shape) == 3:
+        gray = cv2.cvtColor(image_np, cv2.COLOR_RGB2GRAY)
+    else:
+        gray = image_np
+
+    h, w = gray.shape[:2]
+    left = max(0, int(left - min_pad))
+    top = max(0, int(top - min_pad))
+    right = min(w, int(right + min_pad))
+    bottom = min(h, int(bottom + min_pad))
+
+    ink_thresh = 230  # Mọi pixel tối hơn 230 được coi là nét vẽ / chữ số
+
+    # 1. Đẩy cạnh trên (top) lên trên đến khi gặp khoảng trắng
+    steps = 0
+    while top > 0 and steps < max_pad:
+        row = gray[top, max(0, left):min(w, right)]
+        if len(row) > 0 and np.min(row) < ink_thresh:
+            top -= 1
+            steps += 1
+        else:
+            break
+    top = max(0, top - 3)
+
+    # 2. Đẩy cạnh dưới (bottom) xuống dưới đến khi gặp khoảng trắng
+    steps = 0
+    while bottom < h - 1 and steps < max_pad:
+        row = gray[bottom, max(0, left):min(w, right)]
+        if len(row) > 0 and np.min(row) < ink_thresh:
+            bottom += 1
+            steps += 1
+        else:
+            break
+    bottom = min(h, bottom + 3)
+
+    # 3. Đẩy cạnh trái (left) sang trái đến khi gặp khoảng trắng
+    steps = 0
+    while left > 0 and steps < max_pad:
+        col = gray[max(0, top):min(h, bottom), left]
+        if len(col) > 0 and np.min(col) < ink_thresh:
+            left -= 1
+            steps += 1
+        else:
+            break
+    left = max(0, left - 3)
+
+    # 4. Đẩy cạnh phải (right) sang phải đến khi gặp khoảng trắng
+    steps = 0
+    while right < w - 1 and steps < max_pad:
+        col = gray[max(0, top):min(h, bottom), right]
+        if len(col) > 0 and np.min(col) < ink_thresh:
+            right += 1
+            steps += 1
+        else:
+            break
+    right = min(w, right + 3)
+
+    return left, top, right, bottom
+
+def refine_phase_indicator_groups(image, devices):
+    """
+    Đảm bảo các cụm đèn báo pha 3 pha (R-Y-B hoặc R-S-T) hoặc cầu chì bảo vệ tín hiệu
+    được gom đủ độ rộng ngang, bao trọn vẹn cả 3 pha và ký hiệu đèn thay vì chỉ cắt 1 chữ hẹp.
+    """
+    w, h = image.size
+    for dev in devices:
+        name_or_cat = (str(getattr(dev, 'name', '')) + ' ' + str(getattr(dev, 'category', '')) + ' ' +
+                       str(getattr(dev, 'tag', '')) + ' ' + str(getattr(dev, 'spec', ''))).upper()
+        is_lamp = getattr(dev, 'category', '') in {'LIGHT', 'INDICATOR'} or 'ĐÈN' in name_or_cat or 'PHASE' in name_or_cat or 'CHỈ THỊ' in name_or_cat
+        if not is_lamp or not getattr(dev, 'box_2d', None):
+            continue
+
+        box = list(dev.box_2d)
+        is_multiphase = any(k in name_or_cat for k in ['R, Y, B', 'R,Y,B', 'R - Y - B', 'R-S-T', 'R, S, T', 'R,S,T', '3 PHA', 'BA PHA'])
+        bw = box[3] - box[1]
+
+        # Tìm các thiết bị đèn / nhãn pha đồng cấp cùng trang/tủ
+        peers = [p for p in devices if p is not dev and _same_page(p, dev) and getattr(p, 'box_2d', None)
+                 and (getattr(p, 'category', '') in {'LIGHT', 'INDICATOR', 'FUSE'} or any(c in str(getattr(p, 'tag', '')).upper() for c in ['R', 'S', 'T', 'Y', 'B']))]
+        aligned_peers = [p for p in peers if abs(p.box_2d[0] - box[0]) < 60 and abs(p.box_2d[1] - box[1]) < 250]
+
+        if aligned_peers:
+            all_boxes = [box] + [p.box_2d for p in aligned_peers]
+            ymin = max(0, min(b[0] for b in all_boxes) - 10)
+            xmin = max(0, min(b[1] for b in all_boxes) - 10)
+            ymax = min(1000, max(b[2] for b in all_boxes) + 10)
+            xmax = min(1000, max(b[3] for b in all_boxes) + 10)
+            dev.box_2d = [ymin, xmin, ymax, xmax]
+            reg = dev.evidence_region or {}
+            dev.evidence_region = {**reg, 'box_2d': dev.box_2d,
+                                   'symbol_box_2d': [ymin, xmin, min(ymax, ymin + int((ymax-ymin)*0.6)), xmax],
+                                   'text_box_2d': [max(ymin, ymax - int((ymax-ymin)*0.5)), xmin, ymax, xmax],
+                                   'multiphase_unified': True}
+        elif (is_multiphase or getattr(dev, 'quantity', 1) >= 3) and bw < 75:
+            # Hộp bị bó quá hẹp (chỉ bao quanh 1 pha như chữ 'R')
+            extra_w = max(45, int(bw * 1.8))
+            new_xmin = max(0, box[1] - int(extra_w * 0.15))
+            new_xmax = min(1000, box[3] + int(extra_w * 1.6))
+            new_ymin = max(0, box[0] - 15)
+            new_ymax = min(1000, box[2] + 15)
+            dev.box_2d = [new_ymin, new_xmin, new_ymax, new_xmax]
+            reg = dev.evidence_region or {}
+            dev.evidence_region = {**reg, 'box_2d': dev.box_2d,
+                                   'symbol_box_2d': [new_ymin, new_xmin, min(new_ymax, new_ymin + int((new_ymax-new_ymin)*0.6)), new_xmax],
+                                   'text_box_2d': [max(new_ymin, new_ymax - int((new_ymax-new_ymin)*0.5)), new_xmin, new_ymax, new_xmax],
+                                   'multiphase_expanded': True}
 
 def refine_dense_measurement(image,devices):
     w,h=image.size
@@ -58,10 +173,12 @@ def refine_dense_measurement(image,devices):
             box=lamp.box_2d
             if lamp.category not in {'LIGHT','INDICATOR'} or not box:continue
             if box[0]<meter.box_2d[0]<box[2] and min(box[3],meter.box_2d[3])>max(box[1],meter.box_2d[1]):
-                lamp.box_2d=[box[0],box[1],meter.box_2d[0]-1,box[3]]
-                lamp.evidence_region={**(lamp.evidence_region or {}),'box_2d':lamp.box_2d,
-                    'symbol_box_2d':lamp.box_2d,'text_box_2d':None,
-                    'coordinate_basis':'separated_from_meter_range','verification_status':'verified'}
+                new_bottom = meter.box_2d[0] - 1
+                if new_bottom - box[0] >= 25:
+                    lamp.box_2d=[box[0],box[1],new_bottom,box[3]]
+                    lamp.evidence_region={**(lamp.evidence_region or {}),'box_2d':lamp.box_2d,
+                        'symbol_box_2d':lamp.box_2d,'text_box_2d':None,
+                        'coordinate_basis':'separated_from_meter_range','verification_status':'verified'}
                 if re.fullmatch(r'\s*0\s*[-–]\s*\d+\s*V\s*',str(lamp.spec or ''),re.I) and lamp.spec==meter.spec:
                     lamp.spec=''
                     lamp.notes='Chưa có điện áp định mức đèn trên nguồn; dải đo thuộc vôn kế bên dưới.'
@@ -99,4 +216,6 @@ def refine_spare_symbol(image,devices):
 
 def tighten_evidence_geometry(image,devices):
     refine_dense_measurement(image,devices)
+    refine_phase_indicator_groups(image,devices)
     refine_spare_symbol(image,devices)
+

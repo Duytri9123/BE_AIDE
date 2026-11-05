@@ -180,3 +180,34 @@ to the effective specification invalidate the original price association.
 Commercial association does not approve CAD geometry. `equipment_catalog_id`
 remains an explicitly verified CAD link; `cad_price_option_id` is only a model/pole
 browsing association and must not authorize insertion.
+
+The initial 2026-11-05 update in `scripts/link_chint_dika_cad.py` reviewed 36 DIKA June-2026
+rows against 15 existing identified CHINT CAD profiles: NXB-63 1/2/3P, NXC with
+220VAC coils, NXR-38/100 and NXR-630 up to 400A, NXM-250S/1600S 3P and XJ3-G.
+Old DGP source-row IDs are retained as historical references. New browsing links
+bind the current source configuration digest, device model and pole count;
+changed specifications fail closed. No price or exact-SKU insertion approval is
+changed. Unidentified poles, NXC 380VAC, NXR-630 315–630A and NP2 head variants
+are excluded. The script updates both the published information overlay and the
+existing browser snapshot without rescanning unchanged CAD geometry.
+
+The same day's subsequent user instruction accepts GPT-reviewed compatible
+geometry rather than literal equality of every nameplate character. Review now
+compares product family, pole count, actual envelope, mounting and terminal
+layout. A suffix or coil-voltage difference alone does not exclude the drawing;
+electrical equivalence and exact SKU insertion approval are still not asserted.
+`scripts/supplement_chint_native2d.py` adds 12 profiles and 23 reviewed projections
+from manufacturer DWGs and existing source-backed NXM front outlines. NXB-63H
+2/3/4P geometry is accepted for NXB-63 browsing after mechanical review, keeping
+the actual source envelope and the original 6kA price-row ratings. The 4P CAD
+has extra depth relative to the nominal table; its actual outline is retained.
+NXC coil variants use the manufacturer's common dimensional families, including
+40–65, 120–225, 265–400 and 500–630. The 120–225 sheet has no front view, so only
+its existing rear, side and top views are published. NXM front outlines have
+three visually confirmed terminal positions and frame dimensions corroborated
+by manufacturer catalog pages 27–28; no missing depth or other view is invented.
+
+`scripts/audit_chint_cad_coverage.py` checks all 160 current CHINT rows: 76 have
+usable linked CAD and 84 remain pending. The internal per-row reasons are in
+`app/data/chint_cad_coverage_review.json`, and projection provenance is retained
+in `app/data/chint_native2d_review.json` and each managed view's evidence file.

@@ -2342,7 +2342,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         if str(device.category).upper() in {'METER','VOLTMETER','AMMETER','MULTIMETER'} and region.get('symbol_box_2d'):
             details=[]
             for kind,label,key in (('device','Ký hiệu đồng hồ','symbol_box_2d'),('label','Nhãn và dải đo','text_box_2d')):
-                pixels=AnalysisPipelineService._evidence_crop_pixels(region.get(key),*page_image.size)
+                pixels=AnalysisPipelineService._evidence_crop_pixels(region.get(key),*page_image.size, image=page_image)
                 if not pixels: continue
                 detail=page_image.crop(pixels).convert('RGB')
                 circle=region.get('symbol_circle')
@@ -2386,7 +2386,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 # Sơ đồ một sợi (SLD) luôn chạy ngang từ thiết bị đóng cắt qua dây tới tải.
                 # Cắt thẳng theo dải ngang để đảm bảo toàn bộ lộ (ký hiệu, thông số dây, nhãn tải)
                 # hiển thị rõ ràng, không bị xoay nghiêng (QUAD skew) làm biến dạng chữ và đè sang các lộ khác.
-                endpoints = [AnalysisPipelineService._evidence_crop_pixels(endpoint, *page_image.size)
+                endpoints = [AnalysisPipelineService._evidence_crop_pixels(endpoint, *page_image.size, image=page_image)
                              for endpoint in (symbol_box, load_box)]
                 if all(endpoints):
                     l0, t0, r0, b0 = endpoints[0]
@@ -2401,12 +2401,12 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                     bottom = min(page_image.height, max(b0, b1) + margin)
                     crop = page_image.crop((int(left), int(top), int(right), int(bottom))).convert('RGB')
                 else:
-                    pixels = AnalysisPipelineService._evidence_crop_pixels(box, *page_image.size)
+                    pixels = AnalysisPipelineService._evidence_crop_pixels(box, *page_image.size, image=page_image)
                     if not pixels:
                         continue
                     crop = page_image.crop(pixels).convert('RGB')
             else:
-                pixels = AnalysisPipelineService._evidence_crop_pixels(box, *page_image.size)
+                pixels = AnalysisPipelineService._evidence_crop_pixels(box, *page_image.size, image=page_image)
                 if not pixels:
                     continue
                 crop = page_image.crop(pixels).convert('RGB')
@@ -2419,8 +2419,8 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         return sorted(images, key=lambda item: {'device':0,'load':1,'branch':2}.get(item['kind'],3))
 
     @staticmethod
-    def _evidence_crop_pixels(box: List[int], width: int, height: int) -> Optional[Tuple[int, int, int, int]]:
-        """Crop around the verified symbol and label, without neighbouring circuits."""
+    def _evidence_crop_pixels(box: List[int], width: int, height: int, image: Any = None) -> Optional[Tuple[int, int, int, int]]:
+        """Crop around the verified symbol and label, with safe context margin and whitespace snapping."""
         if not box or len(box) != 4 or width <= 0 or height <= 0:
             return None
         try:
@@ -2433,11 +2433,40 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
         right, bottom = int(xmax * width / 1000), int(ymax * height / 1000)
         if right <= left or bottom <= top:
             return None
-        # Verified coordinates already include the relevant mark. Large minimum
-        # sizes pull neighbouring meters and circuit rows into the evidence.
-        pad_x = max(2, round(width * 0.0015), round((right-left)*0.05))
-        pad_y = max(2, round(height * 0.001), round((bottom-top)*0.06))
-        return max(0, left - pad_x), max(0, top - pad_y), min(width, right + pad_x), min(height, bottom + pad_y)
+
+        # Adequate context margin for electrical symbols, wire leads, and complete character bounds
+        bw = right - left
+        bh = bottom - top
+        pad_x = max(14, round(width * 0.006), round(bw * 0.16))
+        pad_y = max(12, round(height * 0.005), round(bh * 0.16))
+
+        left = max(0, left - pad_x)
+        top = max(0, top - pad_y)
+        right = min(width, right + pad_x)
+        bottom = min(height, bottom + pad_y)
+
+        # Enforce minimum dimension so crops are not narrow slivers
+        min_dim = max(48, round(min(width, height) * 0.025))
+        if (right - left) < min_dim:
+            diff = min_dim - (right - left)
+            left = max(0, left - diff // 2)
+            right = min(width, right + (diff - diff // 2))
+        if (bottom - top) < min_dim:
+            diff = min_dim - (bottom - top)
+            top = max(0, top - diff // 2)
+            bottom = min(height, bottom + (diff - diff // 2))
+
+        # Whitespace / Ink Snapping
+        if image is not None:
+            try:
+                import numpy as np
+                from app.services.ai.evidence_geometry import expand_to_whitespace
+                img_np = np.asarray(image)
+                left, top, right, bottom = expand_to_whitespace(img_np, left, top, right, bottom, max_pad=40, min_pad=4)
+            except Exception as snap_err:
+                logger.debug(f"Whitespace snap error: {snap_err}")
+
+        return left, top, right, bottom
 
     @staticmethod
     def _attach_evidence_thumbnails(devices: List[ExtractedDeviceSchema], image_path: str):
@@ -2479,7 +2508,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                         box = getattr(dev, "box_2d", None)
                         # Nếu có box_2d [ymin, xmin, ymax, xmax] (chuẩn hóa 0-1000)
                         if box and len(box) == 4:
-                            crop_pixels = AnalysisPipelineService._evidence_crop_pixels(box, w, h)
+                            crop_pixels = AnalysisPipelineService._evidence_crop_pixels(box, w, h, image=im)
                             if not crop_pixels:
                                 continue
                             left, top, right, bottom = crop_pixels
@@ -3662,7 +3691,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                             box = d.box_2d
                             if box and len(box) == 4:
                                 try:
-                                    crop_pixels = AnalysisPipelineService._evidence_crop_pixels(box, iw, ih)
+                                    crop_pixels = AnalysisPipelineService._evidence_crop_pixels(box, iw, ih, image=page_img)
                                     if not crop_pixels:
                                         raise ValueError("Invalid evidence box")
                                     c_left, c_top, c_right, c_bottom = crop_pixels

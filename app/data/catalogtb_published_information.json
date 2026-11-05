@@ -40812,12 +40812,30 @@
     "TB-e1b1231f6ae8fd19": {
       "ten_san_pham": "MCB CHINT NXB-63",
       "catalog_tham_khao": {
+        "schema_version": 1,
         "category": "MCB",
+        "price": "---",
+        "shared_cad": true,
+        "exact_cad_match": false,
         "options": [
           {
             "brand": "CHINT",
-            "model": "NXB-63 2P C6 6kA",
+            "model": "NXB-63",
+            "specifications": {
+              "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+              "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+              "Trang tài liệu": null
+            },
+            "source_url": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
+            "source_page": null,
+            "basis": "verified_cad_label",
             "price": "---",
+            "exact_cad_match": false,
+            "note": "Hãng là ứng viên theo mã trong tài liệu; chưa xác nhận logo trên CAD. Chưa xác nhận kích thước lắp."
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63 2P C6 6kA",
             "specifications": {
               "Số cực": "2P",
               "In": "6A",
@@ -40831,13 +40849,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 2P C6 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:baf2b0234ec7ff5c",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 2P C10 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "2P",
               "In": "10A",
@@ -40851,13 +40874,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 2P C10 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:b31e0126a36ad06a",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 2P C16 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "2P",
               "In": "16A",
@@ -40871,13 +40899,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 2P C16 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:ccf2d56959739acc",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 2P C20 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "2P",
               "In": "20A",
@@ -40891,13 +40924,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 2P C20 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:038c099f6f970535",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 2P C25 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "2P",
               "In": "25A",
@@ -40911,13 +40949,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 2P C25 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:5f4ce9508ffa1d63",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 2P C32 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "2P",
               "In": "32A",
@@ -40931,13 +40974,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 2P C32 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:ea81e0afd1bfd16a",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 2P C40 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "2P",
               "In": "40A",
@@ -40951,13 +40999,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 2P C40 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:d851103410641440",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 2P C50 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "2P",
               "In": "50A",
@@ -40971,13 +41024,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 2P C50 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:2eb4c27391dd450b",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 2P C63 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "2P",
               "In": "63A",
@@ -40991,23 +41049,208 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 2P C63 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:d365d060e07fd154",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63",
-            "price": "---",
             "specifications": {
               "Dòng thiết bị": "NXB-63",
               "so_cuc": "2P",
+              "nhan_block_nguon": "nxb63-2p",
               "Loại thiết bị": "MCB",
               "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp."
             },
             "source_url": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
-            "basis": "product_reference"
+            "basis": "source_profile",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:3:5",
+            "specifications": {
+              "In (A)": "6,10 16",
+              "Số cực": "2P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "2c5e2f9536ab28c155d560a2648fc54e5bcdf7fb674babe8c46ba63907e9d2e7",
+            "reviewed_device_model": "NXB-63",
+            "reviewed_device_poles": "2P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:4:5",
+            "specifications": {
+              "In (A)": "20,25",
+              "Số cực": "2P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "4e13bd9d63c83a468805b5f22912251c63f0684b8408d8eb392c80b617f2f7dc",
+            "reviewed_device_model": "NXB-63",
+            "reviewed_device_poles": "2P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:5:5",
+            "specifications": {
+              "In (A)": "32,40",
+              "Số cực": "2P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "8290676f216b398d8337516872c316f0fcac18fb8ebbf7bc386e8b6f11d567ea",
+            "reviewed_device_model": "NXB-63",
+            "reviewed_device_poles": "2P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:6:5",
+            "specifications": {
+              "In (A)": "50",
+              "Số cực": "2P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "33635daf0379e604941e3337a259a12896d3f830d43d6897eabb7d82a118ef4c",
+            "reviewed_device_model": "NXB-63",
+            "reviewed_device_poles": "2P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:7:5",
+            "specifications": {
+              "In (A)": "63",
+              "Số cực": "2P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "735d45ef7a8b36917ab4975c4b4abe62671e9c58e28e4e47a5b72e40cb02412d",
+            "reviewed_device_model": "NXB-63",
+            "reviewed_device_poles": "2P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
           }
-        ]
+        ],
+        "observed_specifications": {
+          "nhan_block_nguon": "nxb63-2p",
+          "so_cuc": "2P",
+          "Loại thiết bị": "MCB",
+          "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp."
+        },
+        "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+        "updated_at": "2026-10-17",
+        "manufacturer_family_documents": [
+          {
+            "brand": "CHINT",
+            "family": "NXB-63",
+            "url": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
+            "scope": "manufacturer_family",
+            "checked_at": "2026-10-17"
+          }
+        ],
+        "research": {
+          "checked_at": "2026-10-17",
+          "status": "documented_source_label",
+          "source_model": "NXB-63",
+          "matched_catalog_rows": 9,
+          "model_identity_verified": true,
+          "remaining_tasks": [
+            "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+          ],
+          "exact_cad_match": false,
+          "source_label_documented": true,
+          "source_label_models": [
+            "NXB-63"
+          ],
+          "ordering_code_verified": false,
+          "geometry_verified": false
+        },
+        "source_identification": {
+          "status": "documented_source_label",
+          "checked_at": "2026-10-17",
+          "reviewed_outline_label": null,
+          "source_models_read": [
+            "nxb63-2p"
+          ],
+          "documented_models": [
+            {
+              "model": "NXB-63",
+              "brand": "CHINT",
+              "manufacturer_confirmed_on_source": false,
+              "scope": "previously_reviewed_source_model_or_family",
+              "documents": [
+                {
+                  "url": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
+                  "sha256": null,
+                  "page": null,
+                  "format": "previous_checksum_bound_manufacturer_review",
+                  "match": "NXB-63",
+                  "basis": "existing_manufacturer_evidence_validated_against_source_dxf_hash"
+                }
+              ]
+            }
+          ],
+          "source_text_count": 0,
+          "contains_multiple_components": false,
+          "original_context": [],
+          "ordering_code_verified": false,
+          "geometry_verified": false
+        },
+        "row_links_reviewed": true
       },
       "catalog_information_type": "MCB"
     },
@@ -42203,12 +42446,30 @@
     "TB-1300f9bd47ebfd6f": {
       "ten_san_pham": "MCB CHINT NXB-63",
       "catalog_tham_khao": {
+        "schema_version": 1,
         "category": "MCB",
+        "price": "---",
+        "shared_cad": true,
+        "exact_cad_match": false,
         "options": [
           {
             "brand": "CHINT",
-            "model": "NXB-63 1P C6 6kA",
+            "model": "NXB-63",
+            "specifications": {
+              "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+              "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+              "Trang tài liệu": null
+            },
+            "source_url": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
+            "source_page": null,
+            "basis": "verified_cad_label",
             "price": "---",
+            "exact_cad_match": false,
+            "note": "Hãng là ứng viên theo mã trong tài liệu; chưa xác nhận logo trên CAD. Chưa xác nhận kích thước lắp."
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63 1P C6 6kA",
             "specifications": {
               "Số cực": "1P",
               "In": "6A",
@@ -42222,13 +42483,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 1P C6 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:a24e20267f95622b",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 1P C10 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "1P",
               "In": "10A",
@@ -42242,13 +42508,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 1P C10 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:279be6f96d4a8fad",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 1P C16 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "1P",
               "In": "16A",
@@ -42262,13 +42533,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 1P C16 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:a2d63e8ea97b60db",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 1P C20 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "1P",
               "In": "20A",
@@ -42282,13 +42558,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 1P C20 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:5cccf91ad4fcddc3",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 1P C25 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "1P",
               "In": "25A",
@@ -42302,13 +42583,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 1P C25 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:3af13838126d7882",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 1P C32 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "1P",
               "In": "32A",
@@ -42322,13 +42608,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 1P C32 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:8e8c0fcfb42ef2fd",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 1P C40 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "1P",
               "In": "40A",
@@ -42342,13 +42633,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 1P C40 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:bc462fafb99b1931",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 1P C50 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "1P",
               "In": "50A",
@@ -42362,13 +42658,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 1P C50 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:2695e61d3c03874a",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 1P C63 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "1P",
               "In": "63A",
@@ -42382,23 +42683,208 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 1P C63 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:18ebd17202c5fc79",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63",
-            "price": "---",
             "specifications": {
               "Dòng thiết bị": "NXB-63",
               "so_cuc": "1P",
+              "nhan_block_nguon": "nxb63-1",
               "Loại thiết bị": "MCB",
               "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp."
             },
             "source_url": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
-            "basis": "product_reference"
+            "basis": "source_profile",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:3:4",
+            "specifications": {
+              "In (A)": "6,10 16",
+              "Số cực": "1P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "975fcb04d0e7407d983eea5c754521924e67286d4053f65a9307a2c6fa14a572",
+            "reviewed_device_model": "NXB-63",
+            "reviewed_device_poles": "1P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:4:4",
+            "specifications": {
+              "In (A)": "20,25",
+              "Số cực": "1P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "fad56292ce6efc5c059abd4e3973a5cda42bf39c3afc5a3ba01a3db4551f4216",
+            "reviewed_device_model": "NXB-63",
+            "reviewed_device_poles": "1P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:5:4",
+            "specifications": {
+              "In (A)": "32,40",
+              "Số cực": "1P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "2c0ba119fc023bec8502207bdcfcf4b2ab9e7fd9cda8076f77f0fc43eb656d83",
+            "reviewed_device_model": "NXB-63",
+            "reviewed_device_poles": "1P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:6:4",
+            "specifications": {
+              "In (A)": "50",
+              "Số cực": "1P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "b8b7f325e0e5900b89275b3851250bb1118940701f487c19734d35f512b23461",
+            "reviewed_device_model": "NXB-63",
+            "reviewed_device_poles": "1P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:7:4",
+            "specifications": {
+              "In (A)": "63",
+              "Số cực": "1P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "d86383f38e9387863f61ceccc9a067a2d2bfdb2b9a603870c869cf757e17633a",
+            "reviewed_device_model": "NXB-63",
+            "reviewed_device_poles": "1P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
           }
-        ]
+        ],
+        "observed_specifications": {
+          "nhan_block_nguon": "nxb63-1",
+          "so_cuc": "1P",
+          "Loại thiết bị": "MCB",
+          "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp."
+        },
+        "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+        "updated_at": "2026-10-17",
+        "manufacturer_family_documents": [
+          {
+            "brand": "CHINT",
+            "family": "NXB-63",
+            "url": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
+            "scope": "manufacturer_family",
+            "checked_at": "2026-10-17"
+          }
+        ],
+        "research": {
+          "checked_at": "2026-10-17",
+          "status": "documented_source_label",
+          "source_model": "NXB-63",
+          "matched_catalog_rows": 9,
+          "model_identity_verified": true,
+          "remaining_tasks": [
+            "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+          ],
+          "exact_cad_match": false,
+          "source_label_documented": true,
+          "source_label_models": [
+            "NXB-63"
+          ],
+          "ordering_code_verified": false,
+          "geometry_verified": false
+        },
+        "source_identification": {
+          "status": "documented_source_label",
+          "checked_at": "2026-10-17",
+          "reviewed_outline_label": null,
+          "source_models_read": [
+            "nxb63-1"
+          ],
+          "documented_models": [
+            {
+              "model": "NXB-63",
+              "brand": "CHINT",
+              "manufacturer_confirmed_on_source": false,
+              "scope": "previously_reviewed_source_model_or_family",
+              "documents": [
+                {
+                  "url": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
+                  "sha256": null,
+                  "page": null,
+                  "format": "previous_checksum_bound_manufacturer_review",
+                  "match": "NXB-63",
+                  "basis": "existing_manufacturer_evidence_validated_against_source_dxf_hash"
+                }
+              ]
+            }
+          ],
+          "source_text_count": 0,
+          "contains_multiple_components": false,
+          "original_context": [],
+          "ordering_code_verified": false,
+          "geometry_verified": false
+        },
+        "row_links_reviewed": true
       },
       "catalog_information_type": "MCB"
     },
@@ -45086,70 +45572,198 @@
     "TB-997f2440e6109dc2": {
       "ten_san_pham": "Áptômát khối CHINT NXM-1600S",
       "catalog_tham_khao": {
+        "schema_version": 1,
         "category": "MCCB",
+        "price": "---",
+        "shared_cad": true,
+        "exact_cad_match": false,
         "options": [
           {
             "brand": "CHINT",
-            "model": "NXM-1600S/3300T 1600A",
+            "model": "NXM-1600S",
+            "specifications": {
+              "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+              "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+              "Trang tài liệu": 20
+            },
+            "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nxm/catalog/NXM-MCCB-Catalog.pdf",
+            "source_page": 20,
+            "basis": "verified_cad_label",
             "price": "---",
+            "exact_cad_match": false,
+            "note": "Hãng là ứng viên theo mã trong tài liệu; chưa xác nhận logo trên CAD. Chưa xác nhận kích thước lắp."
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXM-1600S/3300T 1600A",
             "specifications": {
               "In": "1600A",
               "Icu": "50kA",
               "Mã hàng": "131378",
               "Tên hàng": "NXM-1600S/3300T 1600A"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 35,
+            "source_row_id": "chint-pdf:8d59a98663da477d",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXM-1600S/4300TB 1250A",
-            "price": "---",
             "specifications": {
               "In": "1250A",
               "Icu": "50kA",
               "Mã hàng": "844320",
               "Tên hàng": "NXM-1600S/4300TB 1250A"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 36,
+            "source_row_id": "chint-pdf:c036745a6e48181b",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXM-1600S/4300TB 1600A",
-            "price": "---",
             "specifications": {
               "In": "1600A",
               "Icu": "50kA",
               "Mã hàng": "844321",
               "Tên hàng": "NXM-1600S/4300TB 1600A"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 36,
+            "source_row_id": "chint-pdf:12bd3dbed5328391",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXM",
-            "price": "---",
             "specifications": {
               "Dòng thiết bị": "NXM"
             },
             "source_url": "https://www.chintglobal.com/sg/en/products/low-voltage/iec/secondary-power-distribution/nxm.html",
-            "basis": "product_reference"
+            "basis": "manufacturer_family_document",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Tài liệu đúng hãng/dòng để tiếp tục đối chiếu mã trong CAD; không xác nhận mã đầy đủ hoặc kích thước."
           },
           {
             "brand": "CHINT",
             "model": "NXM-1600S",
-            "price": "---",
             "specifications": {
               "so_cuc": "3P",
+              "nhan_block_nguon": "NXM-1600S-3",
               "Loại thiết bị": "MCCB",
               "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp."
             },
             "source_url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nxm/certificate/2406-NXM-1600-MCCB-CB%20Certificate.pdf",
-            "basis": "product_reference"
+            "basis": "source_profile",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXM-1600S",
+            "source_row_id": "chint-dika-2026-06:3:0:11:5",
+            "specifications": {
+              "In (A)": "1250",
+              "Icu (kA)": "50",
+              "Số cực": "3P"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 3,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "bc3ec12da50e1bd8aa0474457c4ece787c1d1cf37b48cd28390ab23367968280",
+            "reviewed_device_model": "NXM-1600S",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
           }
-        ]
+        ],
+        "observed_specifications": {
+          "nhan_block_nguon": "NXM-1600S-3",
+          "so_cuc": "3P",
+          "Loại thiết bị": "MCCB",
+          "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp."
+        },
+        "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+        "updated_at": "2026-10-17",
+        "manufacturer_family_documents": [
+          {
+            "brand": "CHINT",
+            "family": "NXM",
+            "url": "https://www.chintglobal.com/sg/en/products/low-voltage/iec/secondary-power-distribution/nxm.html",
+            "scope": "manufacturer_family",
+            "checked_at": "2026-10-17"
+          }
+        ],
+        "research": {
+          "checked_at": "2026-10-17",
+          "status": "documented_source_label",
+          "source_model": "NXM-1600S",
+          "matched_catalog_rows": 3,
+          "model_identity_verified": true,
+          "remaining_tasks": [
+            "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+          ],
+          "exact_cad_match": false,
+          "source_label_documented": true,
+          "source_label_models": [
+            "NXM-1600S"
+          ],
+          "ordering_code_verified": false,
+          "geometry_verified": false
+        },
+        "source_identification": {
+          "status": "documented_source_label",
+          "checked_at": "2026-10-17",
+          "reviewed_outline_label": null,
+          "source_models_read": [
+            "NXM-1600S-3",
+            "NXM-1600S"
+          ],
+          "documented_models": [
+            {
+              "model": "NXM-1600S",
+              "brand": "CHINT",
+              "manufacturer_confirmed_on_source": false,
+              "scope": "source_model_label",
+              "documents": [
+                {
+                  "url": "https://www.chintglobal.com/content/dam/chint/global/product-center/low-voltage/iec/secondary-power-distribution/mccb/nxm/catalog/NXM-MCCB-Catalog.pdf",
+                  "sha256": "9130e6347eeb0c7bdf665afb22b9d3f6ff23ccf58605ca63763b63e58b42224f",
+                  "page": 20,
+                  "format": "pdf",
+                  "match": "NXM-1600S",
+                  "basis": "literal_model_label"
+                }
+              ]
+            }
+          ],
+          "source_text_count": 0,
+          "contains_multiple_components": false,
+          "original_context": [],
+          "ordering_code_verified": false,
+          "geometry_verified": false
+        },
+        "row_links_reviewed": true
       },
       "catalog_information_type": "MCCB"
     },
@@ -46003,12 +46617,30 @@
     "TB-d1bbcfffa8445d84": {
       "ten_san_pham": "MCB CHINT NXB-63",
       "catalog_tham_khao": {
+        "schema_version": 1,
         "category": "MCB",
+        "price": "---",
+        "shared_cad": true,
+        "exact_cad_match": false,
         "options": [
           {
             "brand": "CHINT",
-            "model": "NXB-63 3P C6 6kA",
+            "model": "NXB-63",
+            "specifications": {
+              "Căn cứ": "Nhãn đọc trực tiếp từ CAD nguồn, đối chiếu tài liệu sản phẩm",
+              "Phạm vi": "Mã/dòng trên bản vẽ; chưa xác nhận mã đặt hàng hoặc cấu hình điện",
+              "Trang tài liệu": null
+            },
+            "source_url": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
+            "source_page": null,
+            "basis": "verified_cad_label",
             "price": "---",
+            "exact_cad_match": false,
+            "note": "Hãng là ứng viên theo mã trong tài liệu; chưa xác nhận logo trên CAD. Chưa xác nhận kích thước lắp."
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63 3P C6 6kA",
             "specifications": {
               "Số cực": "3P",
               "In": "6A",
@@ -46022,13 +46654,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 3P C6 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:676bf10730fbc02e",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 3P C10 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "3P",
               "In": "10A",
@@ -46042,13 +46679,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 3P C10 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:053b9da153b9c25b",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 3P C16 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "3P",
               "In": "16A",
@@ -46062,13 +46704,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 3P C16 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:ac9dbc2580902ad0",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 3P C20 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "3P",
               "In": "20A",
@@ -46082,13 +46729,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 3P C20 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:10ea41a4f09c8774",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 3P C25 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "3P",
               "In": "25A",
@@ -46102,13 +46754,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 3P C25 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:9b189281794894bf",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 3P C32 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "3P",
               "In": "32A",
@@ -46122,13 +46779,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 3P C32 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:aaea8241ac114d5f",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 3P C40 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "3P",
               "In": "40A",
@@ -46142,13 +46804,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 3P C40 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:408697f5f96cc2f1",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 3P C50 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "3P",
               "In": "50A",
@@ -46162,13 +46829,18 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 3P C50 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:1f7e45afa374ac23",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63 3P C63 6kA",
-            "price": "---",
             "specifications": {
               "Số cực": "3P",
               "In": "63A",
@@ -46182,23 +46854,208 @@
               "Tiêu chuẩn": "IEC 60898-1",
               "Tên hàng": "NXB-63 3P C63 6kA"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 17,
+            "source_row_id": "chint-pdf:8f02593b7f9daa23",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "NXB-63",
-            "price": "---",
             "specifications": {
               "Dòng thiết bị": "NXB-63",
               "so_cuc": "3P",
+              "nhan_block_nguon": "nxb63-3p",
               "Loại thiết bị": "MCB",
               "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp."
             },
             "source_url": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
-            "basis": "product_reference"
+            "basis": "source_profile",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:3:6",
+            "specifications": {
+              "In (A)": "6,10 16",
+              "Số cực": "3P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "4af1b979f7627aa98134b69cf623f64cfa1c23cfe0f992736bf1e82fb3793b6d",
+            "reviewed_device_model": "NXB-63",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:4:6",
+            "specifications": {
+              "In (A)": "20,25",
+              "Số cực": "3P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "05c56290a4c46bea774305be289f46874ca92360060fc7dcf68d8b573f8207f4",
+            "reviewed_device_model": "NXB-63",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:5:6",
+            "specifications": {
+              "In (A)": "32,40",
+              "Số cực": "3P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "14fb51c0207589cd724c1f72e5853ce753566f758a42085de782640c3b9dffee",
+            "reviewed_device_model": "NXB-63",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:6:6",
+            "specifications": {
+              "In (A)": "50",
+              "Số cực": "3P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "d3daf0d18b1d4c3a8192958fd9a4c01308d8f15409727629b25b4182a2e0b418",
+            "reviewed_device_model": "NXB-63",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:7:6",
+            "specifications": {
+              "In (A)": "63",
+              "Số cực": "3P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "0e7ecb1c7539a389a28380e2f1b2c9c8b6a3e0c2b1c293ca836140567842e5b8",
+            "reviewed_device_model": "NXB-63",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
           }
-        ]
+        ],
+        "observed_specifications": {
+          "nhan_block_nguon": "nxb63-3p",
+          "so_cuc": "3P",
+          "Loại thiết bị": "MCB",
+          "Lắp đặt tham khảo": "Chưa xác nhận kiểu gá và tư thế lắp."
+        },
+        "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+        "updated_at": "2026-10-17",
+        "manufacturer_family_documents": [
+          {
+            "brand": "CHINT",
+            "family": "NXB-63",
+            "url": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
+            "scope": "manufacturer_family",
+            "checked_at": "2026-10-17"
+          }
+        ],
+        "research": {
+          "checked_at": "2026-10-17",
+          "status": "documented_source_label",
+          "source_model": "NXB-63",
+          "matched_catalog_rows": 9,
+          "model_identity_verified": true,
+          "remaining_tasks": [
+            "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+          ],
+          "exact_cad_match": false,
+          "source_label_documented": true,
+          "source_label_models": [
+            "NXB-63"
+          ],
+          "ordering_code_verified": false,
+          "geometry_verified": false
+        },
+        "source_identification": {
+          "status": "documented_source_label",
+          "checked_at": "2026-10-17",
+          "reviewed_outline_label": null,
+          "source_models_read": [
+            "nxb63-3p"
+          ],
+          "documented_models": [
+            {
+              "model": "NXB-63",
+              "brand": "CHINT",
+              "manufacturer_confirmed_on_source": false,
+              "scope": "previously_reviewed_source_model_or_family",
+              "documents": [
+                {
+                  "url": "https://www.chintglobal.com/global/en/products/low-voltage/iec/final-power-distribution/nxb-63.html",
+                  "sha256": null,
+                  "page": null,
+                  "format": "previous_checksum_bound_manufacturer_review",
+                  "match": "NXB-63",
+                  "basis": "existing_manufacturer_evidence_validated_against_source_dxf_hash"
+                }
+              ]
+            }
+          ],
+          "source_text_count": 0,
+          "contains_multiple_components": false,
+          "original_context": [],
+          "ordering_code_verified": false,
+          "geometry_verified": false
+        },
+        "row_links_reviewed": true
       },
       "catalog_information_type": "MCB"
     },
@@ -52728,12 +53585,15 @@
     "TB-ca3b557c85ccd8c2": {
       "ten_san_pham": "Phase Relay CHINT XJ3-G",
       "catalog_tham_khao": {
+        "schema_version": 1,
         "category": "PhaseRelay",
+        "price": "---",
+        "shared_cad": true,
+        "exact_cad_match": false,
         "options": [
           {
             "brand": "CHINT",
             "model": "XJ3-G AC380V",
-            "price": "---",
             "specifications": {
               "Chức năng": "G",
               "Điện áp": "AC380V",
@@ -52741,25 +53601,111 @@
               "Mã hàng": "284004",
               "Tên hàng": "XJ3-G AC380V"
             },
-            "source_url": "",
-            "basis": "product_reference"
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_label": "Bảng giá CHINT 2026 · DGP",
+            "source_page": 70,
+            "source_row_id": "chint-pdf:3b1f4533ff534a82",
+            "basis": "catalog_family_match",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Ghép theo hãng/dòng hoặc chức năng ghi trên CAD; chọn biến thể điện theo bảng thông tin."
           },
           {
             "brand": "CHINT",
             "model": "XJ3-G",
-            "price": "---",
             "specifications": {
+              "tom_tat": "380 VAC · 1NO+1NC",
               "dien_ap_tham_khao": "380 VAC",
               "tan_so_Hz": "50/60",
               "tiep_diem_tham_khao": "1NO+1NC",
+              "luu_y": "Không gán chức năng quá/thấp áp của XJ3-D cho XJ3-G.",
               "Loại thiết bị": "PhaseRelay",
               "Lắp đặt tham khảo": "Gắn trên tấm lắp hoặc ray theo tài liệu đúng biến thể; chừa khoảng đấu dây và bảo trì.",
               "Hình chiếu Mặt trước (ngang × cao, mm)": "45.5 × 80.0"
             },
             "source_url": "https://www.chintglobal.com/global/en/products/low-voltage/iec/industrial-control/xj3.html",
-            "basis": "product_reference"
+            "basis": "source_profile",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Hãng/mã và thông số theo hồ sơ nguồn. Các mã tham khảo khác dùng chung hình CAD theo loại thiết bị."
+          },
+          {
+            "brand": "Selec",
+            "model": "600PSR-CE",
+            "specifications": {
+              "Tên hàng": "Rơ le giám sát thứ tự pha 600PSR",
+              "Chức năng": "Thứ tự pha, mất pha và mất cân bằng pha",
+              "Nguồn đo": "3 pha 3 dây, 154–500 VAC (L-L)",
+              "Tiếp điểm": "1 C/O SPDT",
+              "Lắp đặt": "Ray DIN"
+            },
+            "source_url": "https://www.selecuk.com/600psr-series-phase-sequence-relay-3-phase-3-wire.html",
+            "basis": "manufacturer_web_reference",
+            "price": "---",
+            "exact_cad_match": false,
+            "note": "Mẫu tham khảo cùng loại; có thể dùng chung hình CAD để bố trí. Thông số dưới đây thuộc mã tham khảo."
+          },
+          {
+            "brand": "CHINT",
+            "model": "XJ3-G",
+            "source_row_id": "chint-dika-2026-06:7:1:2:6",
+            "specifications": {
+              "Chức năng": "Bảo vệ pha 3P/380V"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 7,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "2cda6f7f2e22d3d9fbb9afab9b6b00a71a3a08fd2772b95893030af7ad504d3c",
+            "reviewed_device_model": "XJ3-G",
+            "reviewed_device_poles": null,
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
           }
-        ]
+        ],
+        "observed_specifications": {
+          "tom_tat": "380 VAC · 1NO+1NC",
+          "dien_ap_tham_khao": "380 VAC",
+          "tan_so_Hz": "50/60",
+          "tiep_diem_tham_khao": "1NO+1NC",
+          "luu_y": "Không gán chức năng quá/thấp áp của XJ3-D cho XJ3-G.",
+          "Loại thiết bị": "PhaseRelay",
+          "Lắp đặt tham khảo": "Gắn trên tấm lắp hoặc ray theo tài liệu đúng biến thể; chừa khoảng đấu dây và bảo trì.",
+          "Hình chiếu Mặt trước (ngang × cao, mm)": "45.5 × 80.0"
+        },
+        "note": "CAD có thể dùng chung cho các hãng/dòng cùng kiểu. Thông số mã tham khảo được ghi riêng với thông số đọc từ CAD.",
+        "updated_at": "2026-10-17",
+        "manufacturer_family_documents": [],
+        "research": {
+          "checked_at": "2026-10-17",
+          "status": "source_geometry_without_model_label",
+          "source_model": "XJ3-G",
+          "matched_catalog_rows": 1,
+          "model_identity_verified": false,
+          "remaining_tasks": [
+            "Đối chiếu thông số điện và kích thước gá của biến thể đã chọn"
+          ],
+          "exact_cad_match": false,
+          "source_label_documented": false,
+          "ordering_code_verified": false,
+          "geometry_verified": false
+        },
+        "source_identification": {
+          "status": "source_geometry_without_model_label",
+          "checked_at": "2026-10-17",
+          "reviewed_outline_label": null,
+          "source_models_read": [],
+          "documented_models": [],
+          "source_text_count": 0,
+          "contains_multiple_components": false,
+          "original_context": [],
+          "ordering_code_verified": false,
+          "geometry_verified": false
+        },
+        "row_links_reviewed": true
       },
       "catalog_information_type": "PhaseRelay"
     },
@@ -190227,6 +191173,2323 @@
       "catalog_tham_khao": {
         "category": "ZCT",
         "options": []
+      }
+    },
+    "TB-25e4ed888e08ff01": {
+      "catalog_tham_khao": {
+        "category": "CONTACTOR",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXC-06 220V 50/60Hz",
+            "source_row_id": "chint-pdf:e925c6d8e1bd51cc",
+            "specifications": {
+              "Khung Ampe": "6A",
+              "Số cực": "3P",
+              "Tiếp điểm": "1NO+1NC",
+              "Mã hàng": "925289",
+              "Tên hàng": "NXC-06 220V 50/60Hz"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 50,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-09 220V 50/60Hz",
+            "source_row_id": "chint-pdf:9797be59c39d994d",
+            "specifications": {
+              "Khung Ampe": "9A",
+              "Số cực": "3P",
+              "Tiếp điểm": "1NO+1NC",
+              "Mã hàng": "925353",
+              "Tên hàng": "NXC-09 220V 50/60Hz"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 50,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-12 220V 50/60Hz",
+            "source_row_id": "chint-pdf:109aae6a8e999ccc",
+            "specifications": {
+              "Khung Ampe": "12A",
+              "Số cực": "3P",
+              "Tiếp điểm": "1NO+1NC",
+              "Mã hàng": "925479",
+              "Tên hàng": "NXC-12 220V 50/60Hz"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 50,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-16 220V 50/60Hz",
+            "source_row_id": "chint-pdf:eb70ef51310526c6",
+            "specifications": {
+              "Khung Ampe": "16A",
+              "Số cực": "3P",
+              "Tiếp điểm": "1NO+1NC",
+              "Mã hàng": "925543",
+              "Tên hàng": "NXC-16 220V 50/60Hz"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 50,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-09",
+            "source_row_id": "chint-dika-2026-06:4:0:5:15",
+            "specifications": {
+              "In": "9A",
+              "Công suất tại 380/415/440V": "4KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "0afb0b72ceb4d79a7279ca0d6e7865e929fdae645fd0fbbc8333b4c720918c21",
+            "reviewed_device_model": "NXC-06 / NXC-09 / NXC-12 / NXC-16",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-12",
+            "source_row_id": "chint-dika-2026-06:4:0:6:15",
+            "specifications": {
+              "In": "12A",
+              "Công suất tại 380/415/440V": "5,5KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "d878a95def5bca11ba70c5862a761dca09e11ffa26f96d43329530d8c48a54fa",
+            "reviewed_device_model": "NXC-06 / NXC-09 / NXC-12 / NXC-16",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-16",
+            "source_row_id": "chint-dika-2026-06:4:0:7:15",
+            "specifications": {
+              "In": "16A",
+              "Công suất tại 380/415/440V": "7,5KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "dd89595c01c0e3f72112a5e1b35bd460e07de61dc6400b6bc6f606864e3466af",
+            "reviewed_device_model": "NXC-06 / NXC-09 / NXC-12 / NXC-16",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-09",
+            "source_row_id": "chint-dika-2026-06:4:0:5:18",
+            "specifications": {
+              "In": "9A",
+              "Công suất tại 380/415/440V": "4KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "ca85a871f346911db3555f054522d00fc0ad4aec55d426a4b9928dab81347477",
+            "reviewed_device_model": "NXC-06 / NXC-09 / NXC-12 / NXC-16",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-12",
+            "source_row_id": "chint-dika-2026-06:4:0:6:18",
+            "specifications": {
+              "In": "12A",
+              "Công suất tại 380/415/440V": "5,5KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "b7c9b7fa9fa448192dc35f2aac77261296146eafecca4e2e1741d31e191c5674",
+            "reviewed_device_model": "NXC-06 / NXC-09 / NXC-12 / NXC-16",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-16",
+            "source_row_id": "chint-dika-2026-06:4:0:7:18",
+            "specifications": {
+              "In": "16A",
+              "Công suất tại 380/415/440V": "7,5KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "3e5128f3d78e62730bfd3814c6e3494f617969dbaf8110948d47a69ff79a7d25",
+            "reviewed_device_model": "NXC-06 / NXC-09 / NXC-12 / NXC-16",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
+      }
+    },
+    "TB-aeefb7d887f9ae7d": {
+      "catalog_tham_khao": {
+        "category": "CONTACTOR",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXC-18 220V 50/60Hz",
+            "source_row_id": "chint-pdf:e469a27f80e61cae",
+            "specifications": {
+              "Khung Ampe": "18A",
+              "Số cực": "3P",
+              "Tiếp điểm": "1NO+1NC",
+              "Mã hàng": "925607",
+              "Tên hàng": "NXC-18 220V 50/60Hz"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 50,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-22 220V 50/60Hz",
+            "source_row_id": "chint-pdf:d0238a8344b1239b",
+            "specifications": {
+              "Khung Ampe": "22A",
+              "Số cực": "3P",
+              "Tiếp điểm": "1NO+1NC",
+              "Mã hàng": "925671",
+              "Tên hàng": "NXC-22 220V 50/60Hz"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 50,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-18",
+            "source_row_id": "chint-dika-2026-06:4:0:8:15",
+            "specifications": {
+              "In": "18A",
+              "Công suất tại 380/415/440V": "7,5KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "3b150187c5a92fe2e2419f5f43f7eb7418d412c725d64b4a66e4fdeade013cee",
+            "reviewed_device_model": "NXC-18 / NXC-22",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-22",
+            "source_row_id": "chint-dika-2026-06:4:0:9:15",
+            "specifications": {
+              "In": "22A",
+              "Công suất tại 380/415/440V": "11KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "66952949fe0283c4dea76af3c2edacf9609fdfe48a7619c064a6bf21373e5ab4",
+            "reviewed_device_model": "NXC-18 / NXC-22",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-18",
+            "source_row_id": "chint-dika-2026-06:4:0:8:18",
+            "specifications": {
+              "In": "18A",
+              "Công suất tại 380/415/440V": "7,5KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "f105acd372119a85dc8d84873ee8d526e739f3e61b5fbd5dcc376cad7f2bd424",
+            "reviewed_device_model": "NXC-18 / NXC-22",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-22",
+            "source_row_id": "chint-dika-2026-06:4:0:9:18",
+            "specifications": {
+              "In": "22A",
+              "Công suất tại 380/415/440V": "11KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "9a6e071c36f40e5456c24163663544246c98ddb126c6fbda48edbe451f650930",
+            "reviewed_device_model": "NXC-18 / NXC-22",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
+      }
+    },
+    "TB-9313ecd4267f2abf": {
+      "catalog_tham_khao": {
+        "category": "CONTACTOR",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXC-25 220V 50/60Hz",
+            "source_row_id": "chint-pdf:c523f2c587964794",
+            "specifications": {
+              "Khung Ampe": "25A",
+              "Số cực": "3P",
+              "Tiếp điểm": "1NO+1NC",
+              "Mã hàng": "925735",
+              "Tên hàng": "NXC-25 220V 50/60Hz"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 50,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-32 220V 50/60Hz",
+            "source_row_id": "chint-pdf:daf9d86dd67f1ba0",
+            "specifications": {
+              "Khung Ampe": "32A",
+              "Số cực": "3P",
+              "Tiếp điểm": "1NO+1NC",
+              "Mã hàng": "925213",
+              "Tên hàng": "NXC-32 220V 50/60Hz"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 50,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-38 220V 50/60Hz",
+            "source_row_id": "chint-pdf:eec399d2ef6d56d4",
+            "specifications": {
+              "Khung Ampe": "38A",
+              "Số cực": "3P",
+              "Tiếp điểm": "1NO+1NC",
+              "Mã hàng": "925859",
+              "Tên hàng": "NXC-38 220V 50/60Hz"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 50,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-25",
+            "source_row_id": "chint-dika-2026-06:4:0:10:15",
+            "specifications": {
+              "In": "25A",
+              "Công suất tại 380/415/440V": "11KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "85a0785e549bdad1c4f9ac29033ac4ebefa1a073ff996d16eaeca3d91f320c65",
+            "reviewed_device_model": "NXC-25 / NXC-32 / NXC-38",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-32",
+            "source_row_id": "chint-dika-2026-06:4:0:11:15",
+            "specifications": {
+              "In": "32A",
+              "Công suất tại 380/415/440V": "15KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "63af381c77a440d67760eea1b24073c438805ecdacf6efab5d1f5fa37334a566",
+            "reviewed_device_model": "NXC-25 / NXC-32 / NXC-38",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-38",
+            "source_row_id": "chint-dika-2026-06:4:0:12:15",
+            "specifications": {
+              "In": "38A",
+              "Công suất tại 380/415/440V": "18,5KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "60ec4f8d319a38c09cadb9fde05de0c9667d00cfbcb51fa91db08152711c971d",
+            "reviewed_device_model": "NXC-25 / NXC-32 / NXC-38",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-25",
+            "source_row_id": "chint-dika-2026-06:4:0:10:18",
+            "specifications": {
+              "In": "25A",
+              "Công suất tại 380/415/440V": "11KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "ac7f873334b9ab758d2035d4b2a5ee72249ee1b2c746ab2901f4db29cd7f08bc",
+            "reviewed_device_model": "NXC-25 / NXC-32 / NXC-38",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-32",
+            "source_row_id": "chint-dika-2026-06:4:0:11:18",
+            "specifications": {
+              "In": "32A",
+              "Công suất tại 380/415/440V": "15KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "04e31429880aa961eb007537dc17b6f5a611f76aedfc612fe28ed1dc3e3b0305",
+            "reviewed_device_model": "NXC-25 / NXC-32 / NXC-38",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-38",
+            "source_row_id": "chint-dika-2026-06:4:0:12:18",
+            "specifications": {
+              "In": "38A",
+              "Công suất tại 380/415/440V": "18,5KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "c94bd297369922bf926cc074295d5546c090ae3cadac6c41f3d290cfd544f904",
+            "reviewed_device_model": "NXC-25 / NXC-32 / NXC-38",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
+      }
+    },
+    "TB-2b13370c59b7f4c5": {
+      "catalog_tham_khao": {
+        "category": "CONTACTOR",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXC-40 220V 50/60Hz",
+            "source_row_id": "chint-pdf:60c14ffe7efa83ef",
+            "specifications": {
+              "Khung Ampe": "40A",
+              "Số cực": "3P",
+              "Tiếp điểm": "1NO+1NC",
+              "Mã hàng": "925923",
+              "Tên hàng": "NXC-40 220V 50/60Hz"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 50,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-40",
+            "source_row_id": "chint-dika-2026-06:4:0:13:15",
+            "specifications": {
+              "In": "40A",
+              "Công suất tại 380/415/440V": "18,5KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "f9458b686c807fc2941662d042c554f56f957b524596930c0a9d895c03ed346c",
+            "reviewed_device_model": "NXC-40",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-40",
+            "source_row_id": "chint-dika-2026-06:4:0:13:18",
+            "specifications": {
+              "In": "40A",
+              "Công suất tại 380/415/440V": "18,5KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "55c72e6ff2a15a5431973cb379e134751e2a5f44219d51f7fcef1b5b1fa369ba",
+            "reviewed_device_model": "NXC-40",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
+      }
+    },
+    "TB-ee6c9d91ded9adc3": {
+      "catalog_tham_khao": {
+        "category": "CONTACTOR",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXC-75 220V 50/60Hz",
+            "source_row_id": "chint-pdf:1ac09e2bee4a30b2",
+            "specifications": {
+              "Khung Ampe": "75A",
+              "Số cực": "3P",
+              "Tiếp điểm": "1NO+1NC",
+              "Mã hàng": "938113",
+              "Tên hàng": "NXC-75 220V 50/60Hz"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 50,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-85 220V 50/60Hz",
+            "source_row_id": "chint-pdf:de5731788bce937a",
+            "specifications": {
+              "Khung Ampe": "85A",
+              "Số cực": "3P",
+              "Tiếp điểm": "1NO+1NC",
+              "Mã hàng": "938177",
+              "Tên hàng": "NXC-85 220V 50/60Hz"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 50,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-100 220V 50/60Hz",
+            "source_row_id": "chint-pdf:dec3751797ceec0c",
+            "specifications": {
+              "Khung Ampe": "100A",
+              "Số cực": "3P",
+              "Tiếp điểm": "1NO+1NC",
+              "Mã hàng": "925416",
+              "Tên hàng": "NXC-100 220V 50/60Hz"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 50,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-75",
+            "source_row_id": "chint-dika-2026-06:4:0:16:15",
+            "specifications": {
+              "In": "75A",
+              "Công suất tại 380/415/440V": "37KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "470be3e689318343e9f7a93768f500fa6363d685aedb1d30c6a5fbbf0b45861c",
+            "reviewed_device_model": "NXC-75 / NXC-85 / NXC-100",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-85",
+            "source_row_id": "chint-dika-2026-06:4:0:17:15",
+            "specifications": {
+              "In": "85A",
+              "Công suất tại 380/415/440V": "37KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "0c9e9314f739f2e4e737a7f3422ab28a149e6c8d2b636e19351fe94be25e7bc1",
+            "reviewed_device_model": "NXC-75 / NXC-85 / NXC-100",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-100",
+            "source_row_id": "chint-dika-2026-06:4:0:18:15",
+            "specifications": {
+              "In": "100A",
+              "Công suất tại 380/415/440V": "45KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "2613f1d669d4904ea0db6f172eb01054ecd6c1bc5afcc419bd0b353f81c7aef8",
+            "reviewed_device_model": "NXC-75 / NXC-85 / NXC-100",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-75",
+            "source_row_id": "chint-dika-2026-06:4:0:16:18",
+            "specifications": {
+              "In": "75A",
+              "Công suất tại 380/415/440V": "37KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "c715683e74cf2fed63f949ec466278353bf3c3fc1a814ff7d7e4e9217a1e1811",
+            "reviewed_device_model": "NXC-75 / NXC-85 / NXC-100",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-85",
+            "source_row_id": "chint-dika-2026-06:4:0:17:18",
+            "specifications": {
+              "In": "85A",
+              "Công suất tại 380/415/440V": "37KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "9cb651434c9d5dd3c61b06bb9b60c5d145ed50769587e58e8a16f22c074a3b41",
+            "reviewed_device_model": "NXC-75 / NXC-85 / NXC-100",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-100",
+            "source_row_id": "chint-dika-2026-06:4:0:18:18",
+            "specifications": {
+              "In": "100A",
+              "Công suất tại 380/415/440V": "45KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "b6576c20aeee95bcdf0cf504e27f6087c9bdbd88cdf901526e9bc82bfdcbb963",
+            "reviewed_device_model": "NXC-75 / NXC-85 / NXC-100",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
+      }
+    },
+    "TB-1664556ec0341406": {
+      "catalog_tham_khao": {
+        "category": "CONTACTOR",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXC-225 220V 50/60Hz",
+            "source_row_id": "chint-pdf:58a9c8fe9d697ad7",
+            "specifications": {
+              "Khung Ampe": "225A",
+              "Số cực": "3P",
+              "Tiếp điểm": "2NO+2NC",
+              "Mã hàng": "925262",
+              "Tên hàng": "NXC-225 220V 50/60Hz"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 50,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-225",
+            "source_row_id": "chint-dika-2026-06:4:0:22:15",
+            "specifications": {
+              "In": "225A",
+              "Công suất tại 380/415/440V": "110KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "d96b55891d62ff95449cc19620bbd5a4be5470a60cc4c3e5ac5fedfc335caacb",
+            "reviewed_device_model": "NXC-225",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-225",
+            "source_row_id": "chint-dika-2026-06:4:0:22:18",
+            "specifications": {
+              "In": "225A",
+              "Công suất tại 380/415/440V": "110KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "17efc5258ed10aa18af1df78a390a84b4319a16cd4ebb4aa91d71a46d0b4d856",
+            "reviewed_device_model": "NXC-225",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Named NXC frame and pole count share manufacturer dimensional drawings across coil ratings",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
+      }
+    },
+    "TB-6f48da174576942f": {
+      "catalog_tham_khao": {
+        "category": "THERMAL_RELAY",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXR-38 23A-32A",
+            "source_row_id": "chint-pdf:b7554b68bdaca616",
+            "specifications": {
+              "Tiếp điểm": "1NO+1NC",
+              "Phù hợp": "NXC-25~38",
+              "Mã hàng": "837120",
+              "Họ thiết bị": "NXR-38",
+              "Dải chỉnh định Ir (A)": "23-32",
+              "Tên hàng": "NXR-38 23A-32A"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 52,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXR-38 30A-38A",
+            "source_row_id": "chint-pdf:60444fe605baf415",
+            "specifications": {
+              "Tiếp điểm": "1NO+1NC",
+              "Phù hợp": "NXC-25~38",
+              "Mã hàng": "837121",
+              "Họ thiết bị": "NXR-38",
+              "Dải chỉnh định Ir (A)": "30-38",
+              "Tên hàng": "NXR-38 30A-38A"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 52,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXR-38",
+            "source_row_id": "chint-dika-2026-06:5:0:3:6",
+            "specifications": {
+              "Dải chỉnh định Ir (A)": "23-32, 30-38",
+              "Phù hợp": "NXC-25/38"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 5,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "215046968d7bc7010ea8a8b1ed290433de621311cd7eb66d7d36031e31beb780",
+            "reviewed_device_model": "NXR-38",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
+      }
+    },
+    "TB-ebad64ef03e74778": {
+      "catalog_tham_khao": {
+        "category": "THERMAL_RELAY",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXR-100 23A-32A",
+            "source_row_id": "chint-pdf:ce1c0583cda4927d",
+            "specifications": {
+              "Tiếp điểm": "1NO+1NC",
+              "Phù hợp": "NXC-40~100",
+              "Mã hàng": "837122",
+              "Họ thiết bị": "NXR-100",
+              "Dải chỉnh định Ir (A)": "23-32",
+              "Tên hàng": "NXR-100 23A-32A"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 52,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXR-100 30A-40A",
+            "source_row_id": "chint-pdf:cc615eaba90406d6",
+            "specifications": {
+              "Tiếp điểm": "1NO+1NC",
+              "Phù hợp": "NXC-40~100",
+              "Mã hàng": "837123",
+              "Họ thiết bị": "NXR-100",
+              "Dải chỉnh định Ir (A)": "30-40",
+              "Tên hàng": "NXR-100 30A-40A"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 52,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXR-100 37A-50A",
+            "source_row_id": "chint-pdf:551d8e32eb89a93a",
+            "specifications": {
+              "Tiếp điểm": "1NO+1NC",
+              "Phù hợp": "NXC-40~100",
+              "Mã hàng": "837124",
+              "Họ thiết bị": "NXR-100",
+              "Dải chỉnh định Ir (A)": "37-50",
+              "Tên hàng": "NXR-100 37A-50A"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 52,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXR-100 48A-65A",
+            "source_row_id": "chint-pdf:a8d9e6e6ae29cb11",
+            "specifications": {
+              "Tiếp điểm": "1NO+1NC",
+              "Phù hợp": "NXC-40~100",
+              "Mã hàng": "837125",
+              "Họ thiết bị": "NXR-100",
+              "Dải chỉnh định Ir (A)": "48-65",
+              "Tên hàng": "NXR-100 48A-65A"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 52,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXR-100 55A-70A",
+            "source_row_id": "chint-pdf:6025fbfe96a3f661",
+            "specifications": {
+              "Tiếp điểm": "1NO+1NC",
+              "Phù hợp": "NXC-40~100",
+              "Mã hàng": "837126",
+              "Họ thiết bị": "NXR-100",
+              "Dải chỉnh định Ir (A)": "55-70",
+              "Tên hàng": "NXR-100 55A-70A"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 52,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXR-100 63A-80A",
+            "source_row_id": "chint-pdf:26f55d50ec05d761",
+            "specifications": {
+              "Tiếp điểm": "1NO+1NC",
+              "Phù hợp": "NXC-40~100",
+              "Mã hàng": "837127",
+              "Họ thiết bị": "NXR-100",
+              "Dải chỉnh định Ir (A)": "63-80",
+              "Tên hàng": "NXR-100 63A-80A"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 52,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXR-100 80A-93A",
+            "source_row_id": "chint-pdf:67f6fc99ee275d30",
+            "specifications": {
+              "Tiếp điểm": "1NO+1NC",
+              "Phù hợp": "NXC-40~100",
+              "Mã hàng": "837128",
+              "Họ thiết bị": "NXR-100",
+              "Dải chỉnh định Ir (A)": "80-93",
+              "Tên hàng": "NXR-100 80A-93A"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 52,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXR-100 80A-100A",
+            "source_row_id": "chint-pdf:d6cbab701a68e5f5",
+            "specifications": {
+              "Tiếp điểm": "1NO+1NC",
+              "Phù hợp": "NXC-40~100",
+              "Mã hàng": "837129",
+              "Họ thiết bị": "NXR-100",
+              "Dải chỉnh định Ir (A)": "80-100",
+              "Tên hàng": "NXR-100 80A-100A"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 52,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXR-100",
+            "source_row_id": "chint-dika-2026-06:5:0:4:6",
+            "specifications": {
+              "Dải chỉnh định Ir (A)": "23-32, 30-40, 37-50, 48-65, 55-70",
+              "Phù hợp": "NXC-40/100"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 5,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "8c94ef69430ae1cfe608d63dfdd2b6695e320bcc56b6a03bd94235a14ac2b633",
+            "reviewed_device_model": "NXR-100",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXR-100",
+            "source_row_id": "chint-dika-2026-06:5:0:5:6",
+            "specifications": {
+              "Dải chỉnh định Ir (A)": "63-80, 80-93",
+              "Phù hợp": "NXC-40/100"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 5,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "8c3efb567eb287b7a554727379a092762d97805b2c4d642868345ac5250a4c44",
+            "reviewed_device_model": "NXR-100",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXR-100",
+            "source_row_id": "chint-dika-2026-06:5:0:6:6",
+            "specifications": {
+              "Dải chỉnh định Ir (A)": "80-100",
+              "Phù hợp": "NXC-40/100"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 5,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "82e9f21fa6beb01011f42f81697f795ef90400ae303e661d777c0af1b9b89223",
+            "reviewed_device_model": "NXR-100",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
+      }
+    },
+    "TB-8503058ec9fc78d2": {
+      "catalog_tham_khao": {
+        "category": "THERMAL_RELAY",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXR-630 125A-400A",
+            "source_row_id": "chint-pdf:4f68936608edbda6",
+            "specifications": {
+              "Tiếp điểm": "1NO+1NC",
+              "Phù hợp": "NXC-225~630",
+              "Mã hàng": "837133",
+              "Họ thiết bị": "NXR-630",
+              "Dải chỉnh định Ir (A)": "125-400",
+              "Tên hàng": "NXR-630 125A-400A"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 52,
+            "basis": "exact_named_manufacturer_step_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXR-630",
+            "source_row_id": "chint-dika-2026-06:5:0:8:6",
+            "specifications": {
+              "Dải chỉnh định Ir (A)": "125-250, 200-400",
+              "Phù hợp": "NXC-225/630"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 5,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "a75a601484caab68d07c33847c7b9d865c46fefa02fd023141e897bccc4ec47d",
+            "reviewed_device_model": "NXR-630",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
+      }
+    },
+    "TB-0bc6a3c11d52941c": {
+      "catalog_tham_khao": {
+        "category": "MCCB",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXM-250S/3300 180A",
+            "source_row_id": "chint-pdf:3850f614d8a2231b",
+            "specifications": {
+              "In": "180A",
+              "Icu": "36kA",
+              "Mã hàng": "131366",
+              "Tên hàng": "NXM-250S/3300 180A"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 35,
+            "basis": "chint_full_pricebook_native_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXM-250S/3300 200A",
+            "source_row_id": "chint-pdf:cab9c79b18e33e01",
+            "specifications": {
+              "In": "200A",
+              "Icu": "36kA",
+              "Mã hàng": "131367",
+              "Tên hàng": "NXM-250S/3300 200A"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 35,
+            "basis": "chint_full_pricebook_native_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXM-250S/3300 225A",
+            "source_row_id": "chint-pdf:7a6f86b283978b5c",
+            "specifications": {
+              "In": "225A",
+              "Icu": "36kA",
+              "Mã hàng": "131368",
+              "Tên hàng": "NXM-250S/3300 225A"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 35,
+            "basis": "chint_full_pricebook_native_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXM-250S/3300 250A",
+            "source_row_id": "chint-pdf:8c1850ba5243ae82",
+            "specifications": {
+              "In": "250A",
+              "Icu": "36kA",
+              "Mã hàng": "131369",
+              "Tên hàng": "NXM-250S/3300 250A"
+            },
+            "source_url": "/device-catalog/documents/chint-2026",
+            "source_page": 35,
+            "basis": "chint_full_pricebook_native_family",
+            "exact_cad_match": false
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXM-250S",
+            "source_row_id": "chint-dika-2026-06:3:0:5:5",
+            "specifications": {
+              "In (A)": "160,200,250",
+              "Icu (kA)": "36",
+              "Số cực": "3P"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 3,
+            "basis": "reviewed_chint_dika_cad",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "510c8bdfa6c81aba9bfca2b985f87e4fced0a31553d62b69ebc592ec0b2068f5",
+            "reviewed_device_model": "NXM-250S",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "basis": "Reviewed model and pole configuration",
+              "electrical_equivalence": false,
+              "user_accepts_compatible_geometry": true
+            }
+          }
+        ],
+        "row_links_reviewed": true
+      }
+    },
+    "TB-c88ccafd42a37342": {
+      "catalog_tham_khao": {
+        "category": "CONTACTOR",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXC-40",
+            "source_row_id": "chint-dika-2026-06:4:0:13:15",
+            "specifications": {
+              "In": "40A",
+              "Công suất tại 380/415/440V": "18,5KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "f9458b686c807fc2941662d042c554f56f957b524596930c0a9d895c03ed346c",
+            "reviewed_device_model": "NXC-40 / NXC-50 / NXC-65",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Nameplate reads NXC-65; manufacturer explicitly groups NXC-40/50/65 under the same mechanical drawing. User accepts geometry compatibility; electrical nameplate is not transferred.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-40",
+            "source_row_id": "chint-dika-2026-06:4:0:13:18",
+            "specifications": {
+              "In": "40A",
+              "Công suất tại 380/415/440V": "18,5KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "55c72e6ff2a15a5431973cb379e134751e2a5f44219d51f7fcef1b5b1fa369ba",
+            "reviewed_device_model": "NXC-40 / NXC-50 / NXC-65",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Nameplate reads NXC-65; manufacturer explicitly groups NXC-40/50/65 under the same mechanical drawing. User accepts geometry compatibility; electrical nameplate is not transferred.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-50",
+            "source_row_id": "chint-dika-2026-06:4:0:14:15",
+            "specifications": {
+              "In": "50A",
+              "Công suất tại 380/415/440V": "22KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "ad6ab71ddfa5ebef77d105504610d8083e259237824170c5fb99418d47440c7c",
+            "reviewed_device_model": "NXC-40 / NXC-50 / NXC-65",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Nameplate reads NXC-65; manufacturer explicitly groups NXC-40/50/65 under the same mechanical drawing. User accepts geometry compatibility; electrical nameplate is not transferred.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-50",
+            "source_row_id": "chint-dika-2026-06:4:0:14:18",
+            "specifications": {
+              "In": "50A",
+              "Công suất tại 380/415/440V": "22KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "cee8f17c010c89d41cc318c9956f9cd2a0af575cdfb35877aa9b020a503739e6",
+            "reviewed_device_model": "NXC-40 / NXC-50 / NXC-65",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Nameplate reads NXC-65; manufacturer explicitly groups NXC-40/50/65 under the same mechanical drawing. User accepts geometry compatibility; electrical nameplate is not transferred.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-65",
+            "source_row_id": "chint-dika-2026-06:4:0:15:15",
+            "specifications": {
+              "In": "65A",
+              "Công suất tại 380/415/440V": "30KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "6fafc5a0a59e92bf0d8dcf4187c1ba4c46f8eb5d7a47449800be35ebcc846184",
+            "reviewed_device_model": "NXC-40 / NXC-50 / NXC-65",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Nameplate reads NXC-65; manufacturer explicitly groups NXC-40/50/65 under the same mechanical drawing. User accepts geometry compatibility; electrical nameplate is not transferred.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-65",
+            "source_row_id": "chint-dika-2026-06:4:0:15:18",
+            "specifications": {
+              "In": "65A",
+              "Công suất tại 380/415/440V": "30KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "bef53850c92c065a98e47c714dde5f19a0888d6872bc135afbdf6de83531cf0c",
+            "reviewed_device_model": "NXC-40 / NXC-50 / NXC-65",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Nameplate reads NXC-65; manufacturer explicitly groups NXC-40/50/65 under the same mechanical drawing. User accepts geometry compatibility; electrical nameplate is not transferred.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
+      }
+    },
+    "TB-74591af07f20e565": {
+      "catalog_tham_khao": {
+        "category": "CONTACTOR",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXC-120",
+            "source_row_id": "chint-dika-2026-06:4:0:19:15",
+            "specifications": {
+              "In": "120A",
+              "Công suất tại 380/415/440V": "55KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "e263dc8171dc08a44911dc9ed64f972fd501a152fe239bcce489784891d7658c",
+            "reviewed_device_model": "NXC-120 / NXC-160 / NXC-185 / NXC-225",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Common named 120–225 manufacturer drawing; no front projection in this sheet.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-120",
+            "source_row_id": "chint-dika-2026-06:4:0:19:18",
+            "specifications": {
+              "In": "120A",
+              "Công suất tại 380/415/440V": "55KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "ea499f7cf09df51519050468a2399fd367b91c18a68042e5fbcbd694d528abdb",
+            "reviewed_device_model": "NXC-120 / NXC-160 / NXC-185 / NXC-225",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Common named 120–225 manufacturer drawing; no front projection in this sheet.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-160",
+            "source_row_id": "chint-dika-2026-06:4:0:20:15",
+            "specifications": {
+              "In": "160A",
+              "Công suất tại 380/415/440V": "75KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "54cd94b15dffc3ffb5af3126fac237d5ac079209bf0f5a250f2a0bc3f5da2602",
+            "reviewed_device_model": "NXC-120 / NXC-160 / NXC-185 / NXC-225",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Common named 120–225 manufacturer drawing; no front projection in this sheet.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-160",
+            "source_row_id": "chint-dika-2026-06:4:0:20:18",
+            "specifications": {
+              "In": "160A",
+              "Công suất tại 380/415/440V": "75KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "18d8e26529fbc35712a3dd2474a80d0dece5d631ec3820c6b8530ab8cae8d4e5",
+            "reviewed_device_model": "NXC-120 / NXC-160 / NXC-185 / NXC-225",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Common named 120–225 manufacturer drawing; no front projection in this sheet.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-185",
+            "source_row_id": "chint-dika-2026-06:4:0:21:15",
+            "specifications": {
+              "In": "185A",
+              "Công suất tại 380/415/440V": "90KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "8aecfe23af3ff18d56f821c767c62d6d2813e4bb982576341f9b44080d681dcf",
+            "reviewed_device_model": "NXC-120 / NXC-160 / NXC-185 / NXC-225",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Common named 120–225 manufacturer drawing; no front projection in this sheet.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-185",
+            "source_row_id": "chint-dika-2026-06:4:0:21:18",
+            "specifications": {
+              "In": "185A",
+              "Công suất tại 380/415/440V": "90KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "4d79da2fc640268cd9a8066ce1daeaff212174980d184c8414930641a0429d2d",
+            "reviewed_device_model": "NXC-120 / NXC-160 / NXC-185 / NXC-225",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Common named 120–225 manufacturer drawing; no front projection in this sheet.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-225",
+            "source_row_id": "chint-dika-2026-06:4:0:22:15",
+            "specifications": {
+              "In": "225A",
+              "Công suất tại 380/415/440V": "110KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "d96b55891d62ff95449cc19620bbd5a4be5470a60cc4c3e5ac5fedfc335caacb",
+            "reviewed_device_model": "NXC-120 / NXC-160 / NXC-185 / NXC-225",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Common named 120–225 manufacturer drawing; no front projection in this sheet.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-225",
+            "source_row_id": "chint-dika-2026-06:4:0:22:18",
+            "specifications": {
+              "In": "225A",
+              "Công suất tại 380/415/440V": "110KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "17efc5258ed10aa18af1df78a390a84b4319a16cd4ebb4aa91d71a46d0b4d856",
+            "reviewed_device_model": "NXC-120 / NXC-160 / NXC-185 / NXC-225",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Common named 120–225 manufacturer drawing; no front projection in this sheet.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
+      }
+    },
+    "TB-c6ee721fe30f90f1": {
+      "catalog_tham_khao": {
+        "category": "CONTACTOR",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXC-265",
+            "source_row_id": "chint-dika-2026-06:4:0:23:15",
+            "specifications": {
+              "In": "265A",
+              "Công suất tại 380/415/440V": "132KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "7e51d1dcad4a566439e648aeb5f283c1c84cdc22840f93df0cb2a51eb9cc71f5",
+            "reviewed_device_model": "NXC-265 / NXC-400",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Named 265–400 family; electrical coil variant is selected independently.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-265",
+            "source_row_id": "chint-dika-2026-06:4:0:23:18",
+            "specifications": {
+              "In": "265A",
+              "Công suất tại 380/415/440V": "132KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "3226c6b042a0e5f65a4055dd24438545f228b37859e5e68594409f7325f8a288",
+            "reviewed_device_model": "NXC-265 / NXC-400",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Named 265–400 family; electrical coil variant is selected independently.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-400",
+            "source_row_id": "chint-dika-2026-06:4:0:25:15",
+            "specifications": {
+              "In": "400A",
+              "Công suất tại 380/415/440V": "200KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "64ae6383d83242aa390dcdde8858578cf0d31bf50ed12ffbe69116224f7b5c7c",
+            "reviewed_device_model": "NXC-265 / NXC-400",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Named 265–400 family; electrical coil variant is selected independently.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-400",
+            "source_row_id": "chint-dika-2026-06:4:0:25:18",
+            "specifications": {
+              "In": "400A",
+              "Công suất tại 380/415/440V": "200KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "8ac456439af32cff76d3bf40f40fc6b49e473a838c14322006ca6d317ea6616d",
+            "reviewed_device_model": "NXC-265 / NXC-400",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Named 265–400 family; electrical coil variant is selected independently.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
+      }
+    },
+    "TB-f8d298c449477bc7": {
+      "catalog_tham_khao": {
+        "category": "CONTACTOR",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXC-500",
+            "source_row_id": "chint-dika-2026-06:4:0:26:15",
+            "specifications": {
+              "In": "500A",
+              "Công suất tại 380/415/440V": "250KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "547d16b6fbcadb5f241d302a92c72c17e68ab924848074fe8f26fa8330c010d2",
+            "reviewed_device_model": "NXC-500 / NXC-630",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Native 2D drawing resolves the short height of the held STEP source.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-500",
+            "source_row_id": "chint-dika-2026-06:4:0:26:18",
+            "specifications": {
+              "In": "500A",
+              "Công suất tại 380/415/440V": "250KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "46906bf8f45c9311129b26fef86a08fed2c906e671d7af8ace7c4bd72da8b7b1",
+            "reviewed_device_model": "NXC-500 / NXC-630",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Native 2D drawing resolves the short height of the held STEP source.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-630",
+            "source_row_id": "chint-dika-2026-06:4:0:27:15",
+            "specifications": {
+              "In": "630A",
+              "Công suất tại 380/415/440V": "335KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "220VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "a8cf8a3195e2c542f0d42af92eb071d4b2d6e94b0f9ad2f9abbd7169e5fa1840",
+            "reviewed_device_model": "NXC-500 / NXC-630",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Native 2D drawing resolves the short height of the held STEP source.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXC-630",
+            "source_row_id": "chint-dika-2026-06:4:0:27:18",
+            "specifications": {
+              "In": "630A",
+              "Công suất tại 380/415/440V": "335KW",
+              "Số cực": "3P",
+              "Điện áp cuộn hút": "380VAC"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 4,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "e6f9f8a5c79343537f5b0cc0a5f7c71c2495a8c1a92b754c053c8acce549659a",
+            "reviewed_device_model": "NXC-500 / NXC-630",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "Native 2D drawing resolves the short height of the held STEP source.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
+      }
+    },
+    "TB-8e37326da36112b6": {
+      "catalog_tham_khao": {
+        "category": "MCB",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:3:5",
+            "specifications": {
+              "In (A)": "6,10 16",
+              "Số cực": "2P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "2c5e2f9536ab28c155d560a2648fc54e5bcdf7fb674babe8c46ba63907e9d2e7",
+            "reviewed_device_model": "NXB-63 / NXB-63H",
+            "reviewed_device_poles": "2P",
+            "geometry_compatibility_review": {
+              "assessment": "NXB-63H accepted as NXB-63 cabinet geometry after review of poles, TH35 rail, 45 mm front opening, body envelope and terminal layout. Actual CAD envelope is retained, including the roughly 2 mm extra depth on 4P. No 10kA rating or exact mechanical interchangeability is asserted.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:4:5",
+            "specifications": {
+              "In (A)": "20,25",
+              "Số cực": "2P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "4e13bd9d63c83a468805b5f22912251c63f0684b8408d8eb392c80b617f2f7dc",
+            "reviewed_device_model": "NXB-63 / NXB-63H",
+            "reviewed_device_poles": "2P",
+            "geometry_compatibility_review": {
+              "assessment": "NXB-63H accepted as NXB-63 cabinet geometry after review of poles, TH35 rail, 45 mm front opening, body envelope and terminal layout. Actual CAD envelope is retained, including the roughly 2 mm extra depth on 4P. No 10kA rating or exact mechanical interchangeability is asserted.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:5:5",
+            "specifications": {
+              "In (A)": "32,40",
+              "Số cực": "2P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "8290676f216b398d8337516872c316f0fcac18fb8ebbf7bc386e8b6f11d567ea",
+            "reviewed_device_model": "NXB-63 / NXB-63H",
+            "reviewed_device_poles": "2P",
+            "geometry_compatibility_review": {
+              "assessment": "NXB-63H accepted as NXB-63 cabinet geometry after review of poles, TH35 rail, 45 mm front opening, body envelope and terminal layout. Actual CAD envelope is retained, including the roughly 2 mm extra depth on 4P. No 10kA rating or exact mechanical interchangeability is asserted.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:6:5",
+            "specifications": {
+              "In (A)": "50",
+              "Số cực": "2P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "33635daf0379e604941e3337a259a12896d3f830d43d6897eabb7d82a118ef4c",
+            "reviewed_device_model": "NXB-63 / NXB-63H",
+            "reviewed_device_poles": "2P",
+            "geometry_compatibility_review": {
+              "assessment": "NXB-63H accepted as NXB-63 cabinet geometry after review of poles, TH35 rail, 45 mm front opening, body envelope and terminal layout. Actual CAD envelope is retained, including the roughly 2 mm extra depth on 4P. No 10kA rating or exact mechanical interchangeability is asserted.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:7:5",
+            "specifications": {
+              "In (A)": "63",
+              "Số cực": "2P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "735d45ef7a8b36917ab4975c4b4abe62671e9c58e28e4e47a5b72e40cb02412d",
+            "reviewed_device_model": "NXB-63 / NXB-63H",
+            "reviewed_device_poles": "2P",
+            "geometry_compatibility_review": {
+              "assessment": "NXB-63H accepted as NXB-63 cabinet geometry after review of poles, TH35 rail, 45 mm front opening, body envelope and terminal layout. Actual CAD envelope is retained, including the roughly 2 mm extra depth on 4P. No 10kA rating or exact mechanical interchangeability is asserted.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
+      }
+    },
+    "TB-cbb7ec0fa7b09a0c": {
+      "catalog_tham_khao": {
+        "category": "MCB",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:3:6",
+            "specifications": {
+              "In (A)": "6,10 16",
+              "Số cực": "3P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "4af1b979f7627aa98134b69cf623f64cfa1c23cfe0f992736bf1e82fb3793b6d",
+            "reviewed_device_model": "NXB-63 / NXB-63H",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "NXB-63H accepted as NXB-63 cabinet geometry after review of poles, TH35 rail, 45 mm front opening, body envelope and terminal layout. Actual CAD envelope is retained, including the roughly 2 mm extra depth on 4P. No 10kA rating or exact mechanical interchangeability is asserted.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:4:6",
+            "specifications": {
+              "In (A)": "20,25",
+              "Số cực": "3P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "05c56290a4c46bea774305be289f46874ca92360060fc7dcf68d8b573f8207f4",
+            "reviewed_device_model": "NXB-63 / NXB-63H",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "NXB-63H accepted as NXB-63 cabinet geometry after review of poles, TH35 rail, 45 mm front opening, body envelope and terminal layout. Actual CAD envelope is retained, including the roughly 2 mm extra depth on 4P. No 10kA rating or exact mechanical interchangeability is asserted.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:5:6",
+            "specifications": {
+              "In (A)": "32,40",
+              "Số cực": "3P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "14fb51c0207589cd724c1f72e5853ce753566f758a42085de782640c3b9dffee",
+            "reviewed_device_model": "NXB-63 / NXB-63H",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "NXB-63H accepted as NXB-63 cabinet geometry after review of poles, TH35 rail, 45 mm front opening, body envelope and terminal layout. Actual CAD envelope is retained, including the roughly 2 mm extra depth on 4P. No 10kA rating or exact mechanical interchangeability is asserted.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:6:6",
+            "specifications": {
+              "In (A)": "50",
+              "Số cực": "3P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "d3daf0d18b1d4c3a8192958fd9a4c01308d8f15409727629b25b4182a2e0b418",
+            "reviewed_device_model": "NXB-63 / NXB-63H",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "NXB-63H accepted as NXB-63 cabinet geometry after review of poles, TH35 rail, 45 mm front opening, body envelope and terminal layout. Actual CAD envelope is retained, including the roughly 2 mm extra depth on 4P. No 10kA rating or exact mechanical interchangeability is asserted.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:7:6",
+            "specifications": {
+              "In (A)": "63",
+              "Số cực": "3P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "0e7ecb1c7539a389a28380e2f1b2c9c8b6a3e0c2b1c293ca836140567842e5b8",
+            "reviewed_device_model": "NXB-63 / NXB-63H",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "NXB-63H accepted as NXB-63 cabinet geometry after review of poles, TH35 rail, 45 mm front opening, body envelope and terminal layout. Actual CAD envelope is retained, including the roughly 2 mm extra depth on 4P. No 10kA rating or exact mechanical interchangeability is asserted.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
+      }
+    },
+    "TB-48a92f7984593a4c": {
+      "catalog_tham_khao": {
+        "category": "MCB",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:5:8",
+            "specifications": {
+              "In (A)": "32,40",
+              "Số cực": "4P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "91be92c9819485cc6a4fde5d86150d67774bb2a11bf9f5c77e11c6f0e6f3955c",
+            "reviewed_device_model": "NXB-63 / NXB-63H",
+            "reviewed_device_poles": "4P",
+            "geometry_compatibility_review": {
+              "assessment": "NXB-63H accepted as NXB-63 cabinet geometry after review of poles, TH35 rail, 45 mm front opening, body envelope and terminal layout. Actual CAD envelope is retained, including the roughly 2 mm extra depth on 4P. No 10kA rating or exact mechanical interchangeability is asserted.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:6:8",
+            "specifications": {
+              "In (A)": "50",
+              "Số cực": "4P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "73dce214505b0d4ce9478aaeedfd21325cadba381d2180ca8a5bd5161dea0baf",
+            "reviewed_device_model": "NXB-63 / NXB-63H",
+            "reviewed_device_poles": "4P",
+            "geometry_compatibility_review": {
+              "assessment": "NXB-63H accepted as NXB-63 cabinet geometry after review of poles, TH35 rail, 45 mm front opening, body envelope and terminal layout. Actual CAD envelope is retained, including the roughly 2 mm extra depth on 4P. No 10kA rating or exact mechanical interchangeability is asserted.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXB-63",
+            "source_row_id": "chint-dika-2026-06:2:0:7:8",
+            "specifications": {
+              "In (A)": "63",
+              "Số cực": "4P",
+              "Icu (A)": "6000"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 2,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "6491ea00255d1be2eb20060e5b8d57d314f769b6cd7ba950e95d20410261709a",
+            "reviewed_device_model": "NXB-63 / NXB-63H",
+            "reviewed_device_poles": "4P",
+            "geometry_compatibility_review": {
+              "assessment": "NXB-63H accepted as NXB-63 cabinet geometry after review of poles, TH35 rail, 45 mm front opening, body envelope and terminal layout. Actual CAD envelope is retained, including the roughly 2 mm extra depth on 4P. No 10kA rating or exact mechanical interchangeability is asserted.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
+      }
+    },
+    "TB-9f12e2217a35e11e": {
+      "catalog_tham_khao": {
+        "category": "MCCB",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXM-125S",
+            "source_row_id": "chint-dika-2026-06:3:0:3:5",
+            "specifications": {
+              "In (A)": "25 ÷ 125",
+              "Icu (kA)": "25",
+              "Số cực": "3P"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 3,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "ef0d8aa5cce344ff3360ee9e417c498a986474881bc3ffdaca485e47c5fd1bc7",
+            "reviewed_device_model": "NXM-125S",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "GPT visual review confirms three separate terminal positions at each end and the frame-specific front width/height in CHINT NXM catalog pages 27–28. Source block identifies the NXM frame; abbreviated or omitted S suffix is accepted for front geometry. This is an existing source-backed 2D cabinet outline, not a six-view manufacturer model or electrical approval.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
+      }
+    },
+    "TB-299b42ef54f6201a": {
+      "catalog_tham_khao": {
+        "category": "MCCB",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXM-400S",
+            "source_row_id": "chint-dika-2026-06:3:0:6:5",
+            "specifications": {
+              "In (A)": "315,350,400",
+              "Icu (kA)": "50",
+              "Số cực": "3P"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 3,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "a4525faf46f209154188602b4d0f9976c488c195c49f681c38214939f7edad98",
+            "reviewed_device_model": "NXM-400S / NXM-630S",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "GPT visual review confirms three separate terminal positions at each end and the frame-specific front width/height in CHINT NXM catalog pages 27–28. Source block identifies the NXM frame; abbreviated or omitted S suffix is accepted for front geometry. This is an existing source-backed 2D cabinet outline, not a six-view manufacturer model or electrical approval.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          },
+          {
+            "brand": "CHINT",
+            "model": "NXM-630S",
+            "source_row_id": "chint-dika-2026-06:3:0:7:5",
+            "specifications": {
+              "In (A)": "500,630",
+              "Icu (kA)": "50",
+              "Số cực": "3P"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 3,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "7be5eb0875effdbb058236b6390480e25434e68712c134b39954969461bc5b63",
+            "reviewed_device_model": "NXM-400S / NXM-630S",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "GPT visual review confirms three separate terminal positions at each end and the frame-specific front width/height in CHINT NXM catalog pages 27–28. Source block identifies the NXM frame; abbreviated or omitted S suffix is accepted for front geometry. This is an existing source-backed 2D cabinet outline, not a six-view manufacturer model or electrical approval.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
+      }
+    },
+    "TB-ba14f36807955080": {
+      "catalog_tham_khao": {
+        "category": "MCCB",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXM-800S",
+            "source_row_id": "chint-dika-2026-06:3:0:8:5",
+            "specifications": {
+              "In (A)": "700,800",
+              "Icu (kA)": "50",
+              "Số cực": "3P"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 3,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "e4011636a91a87eea5a8d33d5858b84e2a70c11b3f110e28f58a9554f16425cf",
+            "reviewed_device_model": "NXM-800S",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "GPT visual review confirms three separate terminal positions at each end and the frame-specific front width/height in CHINT NXM catalog pages 27–28. Source block identifies the NXM frame; abbreviated or omitted S suffix is accepted for front geometry. This is an existing source-backed 2D cabinet outline, not a six-view manufacturer model or electrical approval.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
+      }
+    },
+    "TB-bb508f8a9b298ed2": {
+      "catalog_tham_khao": {
+        "category": "MCCB",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXM-1000S",
+            "source_row_id": "chint-dika-2026-06:3:0:9:5",
+            "specifications": {
+              "In (A)": "1000",
+              "Icu (kA)": "50",
+              "Số cực": "3P"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 3,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "f8b39d9edc4e3015fa8b411796109793b2e6c8cd21cbdfb0ae1dc3757a2c19fe",
+            "reviewed_device_model": "NXM-1000S",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "GPT visual review confirms three separate terminal positions at each end and the frame-specific front width/height in CHINT NXM catalog pages 27–28. Source block identifies the NXM frame; abbreviated or omitted S suffix is accepted for front geometry. This is an existing source-backed 2D cabinet outline, not a six-view manufacturer model or electrical approval.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
+      }
+    },
+    "TB-beb4cfd6baa406c9": {
+      "catalog_tham_khao": {
+        "category": "MCCB",
+        "options": [
+          {
+            "brand": "CHINT",
+            "model": "NXM-1600H",
+            "source_row_id": "chint-dika-2026-06:3:0:12:5",
+            "specifications": {
+              "In (A)": "1600",
+              "Icu (kA)": "70",
+              "Số cực": "3P"
+            },
+            "source_url": "/device-catalog/documents/chint-dika-2026-06",
+            "source_page": 3,
+            "basis": "reviewed_chint_native2d",
+            "exact_cad_match": false,
+            "source_row_configuration_sha256": "d3063e4d579dba0e25bb67fc6a0711096d839d409a7498435e93c98cc9d657fb",
+            "reviewed_device_model": "NXM-1600H",
+            "reviewed_device_poles": "3P",
+            "geometry_compatibility_review": {
+              "assessment": "GPT visual review confirms three separate terminal positions at each end and the frame-specific front width/height in CHINT NXM catalog pages 27–28. Source block identifies the NXM frame; abbreviated or omitted S suffix is accepted for front geometry. This is an existing source-backed 2D cabinet outline, not a six-view manufacturer model or electrical approval.",
+              "user_accepts_compatible_geometry": true,
+              "electrical_equivalence": false
+            }
+          }
+        ],
+        "source_row_scope": "explicit_only",
+        "row_links_reviewed": true
       }
     }
   }
