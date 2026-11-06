@@ -280,12 +280,23 @@ class ResponseParserService:
         except Exception:
             pass
 
+        # 1b. Khắc phục invalid escape sequences (ví dụ \u không đủ 4 hex digits như \u011đi, hoặc đường dẫn Windows C:\...)
+        try:
+            sanitized = re.sub(r'\\(?![/"\\bfnrt]|u[0-9a-fA-F]{4})', r'\\\\', cleaned)
+            return json.loads(sanitized, strict=False)
+        except Exception:
+            pass
+
         # 2. Sửa trailing commas: {"a": 1,} -> {"a": 1} hoặc [1, 2,] -> [1, 2]
         try:
             fixed = re.sub(r',\s*([}\]])', r'\1', cleaned)
             return json.loads(fixed, strict=False)
         except Exception:
-            pass
+            try:
+                sanitized = re.sub(r'\\(?![/"\\bfnrt]|u[0-9a-fA-F]{4})', r'\\\\', fixed)
+                return json.loads(sanitized, strict=False)
+            except Exception:
+                pass
 
         # 3. Thay thế Python booleans/None: True -> true, False -> false, None -> null
         try:

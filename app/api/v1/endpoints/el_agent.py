@@ -138,10 +138,32 @@ DỮ LIỆU:
                     decision = block
                     break
         if not decision and cleaned:
-            # Fallback an toàn: Dùng nội dung phản hồi của AI làm câu trả lời reply
-            return {'reply': cleaned[:20000]}
+            if '"tool"' in cleaned:
+                try:
+                    sanitized = re.sub(r'\\(?![/"\\bfnrt]|u[0-9a-fA-F]{4})', r'\\\\', cleaned)
+                    start = sanitized.find('{')
+                    end = sanitized.rfind('}')
+                    if start != -1 and end > start:
+                        candidate_obj = json.loads(sanitized[start:end+1], strict=False)
+                        if isinstance(candidate_obj, dict) and (candidate_obj.get('tool') or candidate_obj.get('reply')):
+                            decision = candidate_obj
+                except Exception:
+                    pass
+            if not decision:
+                # Fallback an toàn: Dùng nội dung phản hồi của AI làm câu trả lời reply
+                return {'reply': cleaned[:20000]}
         if not decision:
             raise HTTPException(502, 'EL chưa trả về lựa chọn tool hoặc câu trả lời hợp lệ.')
+    if decision and not decision.get('tool') and isinstance(decision.get('reply'), str):
+        reply_str = decision['reply'].strip()
+        if reply_str.startswith('{') and '"tool"' in reply_str and reply_str.endswith('}'):
+            try:
+                sanitized = re.sub(r'\\(?![/"\\bfnrt]|u[0-9a-fA-F]{4})', r'\\\\', reply_str)
+                inner = json.loads(sanitized, strict=False)
+                if isinstance(inner, dict) and inner.get('tool'):
+                    decision = inner
+            except Exception:
+                pass
     if decision.get('tool'):
         chosen_tool_name = str(decision['tool']).strip()
         tool = resolve_tool_match(chosen_tool_name, tool_list)
