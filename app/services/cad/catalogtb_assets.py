@@ -29,6 +29,7 @@ def face_code(label):
     aliases={'Mặt dưới':'bottom','Mặt trước mở nắp':'front_open',
              'Mặt bên trái':'side','Mặt bên phải':'side',
              'Hình trục đo':'isometric','Mặt đế gá theo bản vẽ':'mounting',
+             'Bao hình bố trí tham chiếu':'envelope',
              'Mặt đấu nối phía sau':'rear_wiring','Mặt nhìn dọc thân khóa':'axial',
              'Lỗ khoét cánh':'cutout'}
     return FACES.get(base,aliases.get(base,'unknown'))

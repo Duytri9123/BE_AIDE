@@ -23,6 +23,7 @@ from ezdxf.math import Matrix44
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 from app.services.price_row_cad_detail import row_configuration_digest
+from app.services.catalog_product_sections import pole_compatible
 
 CAT=ROOT/'data/CatalogTB'
 BASE=CAT/'Chint/NguonBenNgoai/NXC-NATIVE2D-20261105'
@@ -132,7 +133,7 @@ def main(jobs=None, report_name='chint_native2d_review.json', reviewed_on='2026-
   row_ids=job.get('row_ids') or [f'chint-dika-2026-06:4:0:{line}:{column}' for line in job['lines'] for column in (15,18)]
   for row_id in row_ids:
     row=rows[row_id]
-    assert row['sku'] in models and row['brand']=='CHINT' and (not poles or row['specifications'].get('Số cực')==poles)
+    assert row['sku'] in models and row['brand']=='CHINT' and (not poles or pole_compatible({'spec':{'so_cuc':poles}},row))
     options.append({'brand':'CHINT','model':row['sku'],'source_row_id':row['id'],
      'specifications':row['specifications'],'source_url':row['source_url'],'source_page':row['source_page'],
      'basis':'reviewed_chint_native2d','exact_cad_match':False,
@@ -145,7 +146,7 @@ def main(jobs=None, report_name='chint_native2d_review.json', reviewed_on='2026-
    ('Kích thước CAD W×H×D (mm)' if len(job['size'])==3 else 'Kích thước hình chiếu trước W×H (mm)'):' × '.join(map(str,job['size']))}
   spec.update(job.get('spec') or {})
   profile={'nhom':'CHINT','hang_xac_nhan':'CHINT','ma_dong_san_pham':model,'ten_san_pham':name,
-   'ten_kieu':name,'ban_chat':kind,'cong_dung':'Đóng cắt và bảo vệ mạch điện.' if kind in ('MCB','MCCB') else 'Đóng cắt và điều khiển tải động cơ.',
+   'ten_kieu':name,'ban_chat':kind,'cong_dung':job.get('use') or ('Đóng cắt và bảo vệ mạch điện.' if kind in ('MCB','MCCB') else 'Đóng cắt và điều khiển tải động cơ.'),
    'thong_so':spec,'catalog_tham_khao':refs,'auto_select':False,'needs_review':True,
    'nhan_dien_ai':{'loai_thiet_bi_code':kind,'cac_ma_dong_san_pham':models,'so_cuc':int(poles[0]) if poles else None,'exact_SKU_confirmed':False},
    'nguon_tham_khao':[source['source_page'],source['source_url']],'tu_khoa_tim_kiem':['CHINT',*models],

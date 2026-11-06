@@ -29,7 +29,11 @@ def merge_complementary_views(profiles):
         options={}
         for p in members:
             for o in (p.get('catalog_references') or {}).get('options',[]):
-                options.setdefault((o.get('brand'),o.get('model')),o)
+                # One model can have several reviewed price rows (current,
+                # coil or source edition). Keep each row/configuration link
+                # when complementary geometry is combined.
+                configuration=o.get('source_row_configuration_sha256') or json.dumps(o.get('specifications') or {},sort_keys=True,ensure_ascii=False)
+                options.setdefault((o.get('brand'),o.get('model'),o.get('source_row_id'),configuration),o)
         target['catalog_references']={**(target.get('catalog_references') or {}),'options':list(options.values())}
         removed.update(p['id'] for p in members if p is not target)
     result=[p for p in profiles if p['id'] not in removed]

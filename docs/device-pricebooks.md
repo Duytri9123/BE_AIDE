@@ -207,7 +207,75 @@ its existing rear, side and top views are published. NXM front outlines have
 three visually confirmed terminal positions and frame dimensions corroborated
 by manufacturer catalog pages 27–28; no missing depth or other view is invented.
 
-`scripts/audit_chint_cad_coverage.py` checks all 160 current CHINT rows: 76 have
-usable linked CAD and 84 remain pending. The internal per-row reasons are in
+The 2026-11-05 audit checked all 160 current CHINT rows: 76 had
+usable linked CAD and 84 remained pending. The internal per-row reasons are in
 `app/data/chint_cad_coverage_review.json`, and projection provenance is retained
 in `app/data/chint_native2d_review.json` and each managed view's evidence file.
+
+The 2026-11-06 continuation adds 77 of those 84 pending rows through 56 profiles
+and 92 views. Coverage is now 153/160 rows. Native NDK/control-device projections,
+manufacturer catalogue vectors, and explicitly labelled dimension-based
+mounting/envelope outlines are kept distinct in each view's evidence. Catalogue
+artwork is calibrated to printed dimensions and remains a schematic cabinet
+reference. An available link does not imply a full manufacturer CAD model.
+NXZM has mounting-envelope/centre references; AC30-103 has its documented front
+envelope without aperture details. NXB-125 1P/3P and the high-current NXR-630
+configuration expose only the verified side view, avoiding copied terminals
+from a different pole count or terminal pitch. NXM-1250H uses a front envelope
+corroborated by the manufacturer's shared 1250/1600 dimensional table.
+
+Before the final accessory continuation, seven rows remained pending: AX-3X/11, AX-3X/22, AX-3C/11, MI-5, MI-6, MI-7 and
+AC30-124. The reviewed accessory tables establish compatible contactor families
+but do not establish the standalone AX/MI mounting/linkage geometry. The
+reviewed AC30 sheet does not establish the 124 universal-aperture variant.
+These are missing mechanical evidence, not exclusions based on nameplate text.
+The four continuation scripts are `supplement_chint_control.py`,
+`supplement_chint_catalog_views.py`, `supplement_chint_protection.py` and
+`supplement_chint_sockets.py`. Their corresponding `app/data/chint_*_cad_review.json`
+reports retain exact row associations. `app/data/chint_remaining_validation.json`
+records production-builder, public-preview/download and changed-configuration
+checks. Prices and electrical specifications are preserved.
+
+The subsequent `supplement_chint_accessories.py` continuation adds six profiles
+and 22 views for these seven rows. CHINT Korea supplies native AX DWGs: /11 uses
+the documented two-contact-group housing, /22 the four-group housing, and
+AX-3C/11 its own side-mounted housing. Actual native dimensions are retained,
+including small differences from printed maximum dimensions and older manuals.
+CHINT Kazakhstan supplies simplified NC1 interlock STEP bodies under the MI-5/6/7
+download entry. The manufacturer's regional fit tables map those NC1 families
+to MI-5, MI-6 and MI-7; six orthographic visible-edge projections are retained
+per body. The large source is 89 mm deep and is not stretched to the 90 mm
+nominal value. These simplified models do not certify moving linkage details.
+
+AC30-124 receives only a labelled **planning envelope**, 36×80 mm, inferred from
+the manufacturer's documented AC30 three-pin DIN-rail family. It reserves
+space; it is not a manufacturer-confirmed exact AC30-124 body, aperture, latch
+or terminal drawing. Its source evidence and coverage report preserve that
+limitation. This is the user-authorized compatible-family geometry judgement,
+not an exact-SKU CAD approval. The new envelope view label is explicitly
+recognized by the public view-health checks.
+
+All 160 rows now have a CAD or geometry-reference link: 159 have reviewed
+device-geometry references and AC30-124 has the conservative family planning
+envelope only. The complete 84-row continuation comprises 62 profiles and 114
+views. `chint_accessory_cad_review.json` records the final seven links, and the
+coverage audit identifies the AC30-124 limitation separately. Exact detailed
+AC30-124 geometry remains unconfirmed.
+
+The full recheck covers all 160 rows, 89 linked profiles and 203 linked views,
+including the CAD that preceded the 84-row continuation. It verifies every
+DXF's millimetre units and structure, every preview/download route, and all
+price-row detail responses. By strongest available evidence per row, 101 rows
+use source CAD/projections, 41 calibrated catalogue drawings, 3 simplified
+native bodies, 14 documented dimension outlines and 1 inferred family planning
+envelope. Only 64 rows currently expose front, side and top together; 30 have
+no front projection. Link coverage must not be described as complete detailed
+CAD coverage. Results are in `app/data/chint_full_completeness_recheck.json`.
+
+This recheck also found and fixed loss of reviewed row associations during
+complementary-view merging. Deduplicating by brand/model alone discarded
+different NXB-63 price configurations and historical/current source rows.
+Merging now preserves source-row identity and configuration digest. The
+production rebuild retains all current links, and a regression check confirms
+that five reviewed configurations and an older same-model reference survive
+front/side merging while a changed pole configuration is rejected.
