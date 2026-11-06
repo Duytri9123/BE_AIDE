@@ -14,10 +14,20 @@ PREFIX = 'aide:jobs:'
 READY_KEY = PREFIX + 'worker-ready'
 ADMIT = """
 redis.call('ZREMRANGEBYSCORE', KEYS[1], '-inf', ARGV[1])
-if redis.call('EXISTS', KEYS[2]) == 1 then return -1 end
+local current = redis.call('GET', KEYS[2])
+if current then
+    local status = redis.call('HGET', 'aide:jobs:' .. current, 'status')
+    if status == 'SUCCESS' or status == 'FAILURE' or status == 'CANCELLED' or status == false or status == nil then
+        redis.call('DEL', KEYS[2])
+        redis.call('ZREM', KEYS[1], current)
+    else
+        return -1
+    end
+end
 if redis.call('ZCARD', KEYS[1]) >= tonumber(ARGV[2]) then return -2 end
-redis.call('SET', KEYS[2], ARGV[3], 'EX', ARGV[4])
-redis.call('ZADD', KEYS[1], tonumber(ARGV[1])+tonumber(ARGV[4]), ARGV[3])
+local lock_ttl = math.min(tonumber(ARGV[4]), 1800)
+redis.call('SET', KEYS[2], ARGV[3], 'EX', lock_ttl)
+redis.call('ZADD', KEYS[1], tonumber(ARGV[1])+lock_ttl, ARGV[3])
 redis.call('HSET', KEYS[3], 'user_id', ARGV[5], 'project_id', ARGV[6],
  'status', 'PENDING', 'kind', ARGV[7])
 redis.call('EXPIRE', KEYS[3], ARGV[4])
@@ -49,16 +59,25 @@ async def project_activity(project_ids):
                         pipe.hmget(PREFIX+job, fields)
                 values = iter(await pipe.execute())
             result = {}
+            stale_cleanup = []
             for project_id, job in zip(project_ids, jobs):
                 if not job:
                     continue
                 info = dict(zip(fields, next(values)))
+                if not info.get('project_id') or info.get('status') in {'SUCCESS', 'FAILURE', 'CANCELLED'}:
+                    stale_cleanup.append(PREFIX+f'project:{project_id}')
+                    continue
                 if (info['project_id'] != str(project_id) or
                         info['status'] not in {'PENDING','STARTED','PROGRESS','PAUSED','RETRY'}):
                     continue
                 result[project_id] = {'task_id':job, 'status':info['status'], 'kind':info['kind'],
                     'message':info['message'] or 'Đang chờ xử lý',
                     'paused':info['status']=='PAUSED' or info['pause_requested']=='1'}
+            if stale_cleanup:
+                try:
+                    await client.delete(*stale_cleanup)
+                except Exception:
+                    pass
             return result
     except redis.RedisError:
         return {}

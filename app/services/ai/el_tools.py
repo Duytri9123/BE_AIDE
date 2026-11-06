@@ -80,7 +80,7 @@ def api_tools(app):
             analysis_read = (bool(re.fullmatch(r'analyze/project/\{project_id\}/(?:latest|sessions)', path))
                              or bool(re.fullmatch(r'analyze/(?:iteration|task)/\{\w+\}', path))) and method == 'get'
             computed = path.startswith('bom/') or path in {'analyze/' + name for name in ANALYSIS_READS}
-            action = path in {'analyze/start', 'analyze/async-start', 'analyze/generate-quotation-cad',
+            action = path in {'analyze/generate-quotation-cad',
                               'analyze/refine', 'analyze/finalize', 'export/design-cost'}
             action = action or (path.startswith('export/') and method == 'post')
             action = action or (bool(re.fullmatch(r'projects/\{id\}', path)) and method in {'put', 'patch'})
