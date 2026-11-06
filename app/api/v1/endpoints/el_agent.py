@@ -1,3 +1,4 @@
+
 """EL chooses actual registered tools; the browser renders their real activity."""
 import asyncio
 import json
@@ -71,6 +72,10 @@ def sanitize_user_reply(text: str) -> str:
         return ""
     import re
     cleaned = text.strip()
+    # Gỡ bỏ markdown code block json nếu có
+    if cleaned.startswith("```json"):
+        cleaned = re.sub(r"^```(?:json)?\s*", "", cleaned)
+        cleaned = re.sub(r"\s*```$", "", cleaned).strip()
     # Gỡ bỏ lớp bọc JSON nếu AI trả về chuỗi JSON thô
     if cleaned.startswith('{') and cleaned.endswith('}'):
         try:
@@ -88,15 +93,159 @@ def sanitize_user_reply(text: str) -> str:
     cleaned = re.sub(r'\bread_project_sources\b', 'công cụ đọc bản vẽ', cleaned)
     cleaned = re.sub(r'\bcad_[a-zA-Z0-9_]+\b', 'công cụ CAD', cleaned)
     # Loại bỏ suy nghĩ nội bộ CoT tiếng Anh nếu bị lọt ra
-    if "The user wants to" in cleaned or "Looking at the history and observations:" in cleaned or "status code 409" in cleaned:
-        vn_lines = [line for line in cleaned.splitlines() if not any(eng in line for eng in [
-            "The user wants", "Looking at the history", "was called", "status code", "So there is an ongoing task",
-            "What tool can check", "Let's look at", "Let's try checking", "Wait, the prompt says:"
-        ])]
+    english_cot_markers = [
+        "the user wants", "looking at the history", "was called", "status code",
+        "so there is an ongoing task", "what tool can check", "let's look at",
+        "let's try checking", "wait, the prompt says:", "looking at the observations",
+        "we can call", "i should check"
+    ]
+    if any(m in cleaned.lower() for m in english_cot_markers):
+        vn_lines = [line for line in cleaned.splitlines() if not any(eng in line.lower() for eng in english_cot_markers)]
         cleaned = "\n".join(vn_lines).strip()
         if not cleaned:
             cleaned = "Đã hoàn thành phân tích bản vẽ. Dữ liệu thiết bị đã được trích xuất thành công."
     return cleaned
+
+
+def extract_devices_from_text(text: str, default_panel: str = "Tủ điện") -> list:
+    devices = []
+    if not text or not isinstance(text, str):
+        return devices
+    import re
+    current_panel = default_panel
+    panel_match = re.search(r'(?:Tên tủ|Mã tủ|Tủ điện)[:\s]+([^\s,;()]+)', text, re.IGNORECASE)
+    if panel_match:
+        current_panel = panel_match.group(1).strip()
+
+    # 1. Kiểm tra bảng markdown
+    table_lines = [l.strip() for l in text.splitlines() if l.strip().startswith('|') and not l.strip().startswith('|--')]
+    if len(table_lines) > 1:
+        for row in table_lines[1:]:
+            cols = [c.strip() for c in row.split('|')[1:-1]]
+            if len(cols) >= 3 and not any('stt' in c.lower() for c in cols):
+                name = cols[1] if len(cols) > 1 else cols[0]
+                tag = cols[2] if len(cols) > 2 else ''
+                spec = cols[3] if len(cols) > 3 else ''
+                qty = 1
+                for c in cols:
+                    if c.isdigit() and 0 < int(c) < 1000:
+                        qty = int(c)
+                        break
+                devices.append({
+                    'name': name,
+                    'tag': tag or None,
+                    'spec': spec or None,
+                    'quantity': qty,
+                    'panel_code': current_panel,
+                    'category': 'Thiết bị điện'
+                })
+
+    # 2. Nếu không có bảng markdown, kiểm tra dạng bullet list (- MCB 1P...)
+    if not devices:
+        for line in text.splitlines():
+            line_trim = line.strip()
+            line_s = line_trim.lstrip('-*•0123456789.').strip()
+            match = re.search(r'\b(MCB|MCCB|ACB|RCBO|RCCB|ELCB|SPD|Contactor|Relay|Biến dòng|Đồng hồ|Đèn báo|Nút nhấn|Cầu chì|Aptomat)\b[^\n\r(]*', line_s, re.IGNORECASE)
+            if match:
+                dev_name = match.group(0).strip()
+                tag = None
+                tag_m = re.search(r'\b(L\d+|P\d+|DP\d*)\b', line_s)
+                if tag_m:
+                    tag = tag_m.group(1)
+                panel = current_panel
+                panel_m = re.search(r'Tủ\s+([^\s,;()]+)', line_s)
+                if panel_m:
+                    panel = panel_m.group(1)
+                devices.append({
+                    'name': dev_name,
+                    'tag': tag,
+                    'spec': line_s,
+                    'quantity': 1,
+                    'panel_code': panel,
+                    'category': 'Thiết bị đóng cắt'
+                })
+    return devices
+
+
+async def save_takeoff_iteration(db, project_id: int, user_id: int, message: str, reply: str, devices: list, file_ids: list) -> int:
+    from app.services.project_conversation import project_session
+    from app.models.analysis_iteration import AnalysisIteration
+    from sqlalchemy import func
+    import logging
+    logger = logging.getLogger(__name__)
+
+    session = await project_session(db, project_id, user_id)
+    latest_number = (await db.execute(
+        select(func.max(AnalysisIteration.iteration_number))
+        .where(AnalysisIteration.session_id == session.id)
+    )).scalar_one() or 0
+
+    clean_devices = []
+    for d in devices:
+        if isinstance(d, dict):
+            clean_devices.append({
+                'name': str(d.get('name') or d.get('device_type') or 'Thiết bị'),
+                'tag': str(d['tag']) if d.get('tag') else None,
+                'spec': str(d.get('spec') or d.get('part_number') or ''),
+                'quantity': int(d.get('quantity') or 1),
+                'panel_code': str(d.get('panel_code') or d.get('panel') or 'Tủ điện'),
+                'category': str(d.get('category') or 'Thiết bị điện')
+            })
+
+    iteration = AnalysisIteration(
+        session_id=session.id,
+        iteration_number=latest_number + 1,
+        trigger_type="el_takeoff",
+        user_message=message,
+        user_corrections={
+            "reply": reply,
+            "file_ids": file_ids
+        },
+        files_analyzed={"file_ids": file_ids},
+        ai_parsed_devices=clean_devices,
+        devices_after_validation=clean_devices,
+        status="completed"
+    )
+    db.add(iteration)
+    session.total_iterations = latest_number + 1
+    await db.commit()
+    await db.refresh(iteration)
+    logger.info("Created takeoff AnalysisIteration #%d with %d devices for project %d", iteration.id, len(clean_devices), project_id)
+    return iteration.id
+
+
+async def format_reply_response(db, payload, user, context, reply_raw: str, decision: dict) -> dict:
+    import logging
+    logger = logging.getLogger(__name__)
+    reply_text = sanitize_user_reply(reply_raw)
+    devices_data = decision.get('devices')
+    if not isinstance(devices_data, list) or len(devices_data) == 0:
+        devices_data = extract_devices_from_text(reply_text)
+
+    iteration_id = None
+    if devices_data and isinstance(devices_data, list) and len(devices_data) > 0:
+        try:
+            iteration_id = await save_takeoff_iteration(
+                db=db,
+                project_id=payload.project_id,
+                user_id=user.id,
+                message=payload.message,
+                reply=reply_text,
+                devices=devices_data,
+                file_ids=context.get('file_ids', [])
+            )
+        except Exception as e:
+            logger.warning("Could not save takeoff iteration: %s", e)
+
+    result_payload = {'reply': reply_text}
+    if iteration_id:
+        result_payload['iteration_id'] = iteration_id
+        result_payload['devices'] = devices_data
+        result_payload['action_type'] = 'update_devices'
+    elif devices_data:
+        result_payload['devices'] = devices_data
+        result_payload['action_type'] = 'update_devices'
+    return result_payload
 
 
 @router.get('/tools')
@@ -136,17 +285,26 @@ QUY TẮC BẮT BUỘC:
 2. BẢO MẬT TUYỆT ĐỐI: Tuyệt đối KHÔNG hiển thị tên API nội bộ (như api_*, /api/v1/..., endpoint, mã token hay tên tool hệ thống) cho người dùng.
 3. KHI NGƯỜI DÙNG YÊU CẦU BÓC TÁCH BẢN VẼ (ví dụ: bóc tách thiết bị điện, phân nhóm theo tủ từ bản vẽ DWG, DXF, PDF):
    - Nếu chưa đọc file nguồn bản vẽ: chọn tool `read_project_sources` với `file_ids` của file được chọn.
-   - Khi `read_project_sources` ĐÃ CÓ DỮ LIỆU trong observations: BẠN PHẢI TỔNG HỢP VÀ TRẢ LỜI NGAY BẰNG JSON `{"reply": "..."}`.
-     Không gọi thêm bất kỳ tool bóc tách nào khác.
-     Trình bày kết quả bóc tách chi tiết dưới dạng BẢNG MARKDOWN phân nhóm rõ ràng theo từng tủ điện:
-     Ví dụ:
-     ### Tủ điện: [Tên tủ / Mã tủ]
-     | STT | Tên thiết bị | Ký hiệu / Mã | Thông số kỹ thuật | Số lượng | Đơn vị | Ghi chú |
-     |---|---|---|---|---|---|---|
+   - Khi `read_project_sources` ĐÃ CÓ DỮ LIỆU trong observations:
+     BẠN PHẢI TỔNG HỢP VÀ TRẢ LỜI NGAY BẰNG JSON CÓ CẢ `reply` VÀ `devices`:
+     {
+       "reply": "Kết quả bóc tách thiết bị điện từ bản vẽ... (trình bày chi tiết phân nhóm theo từng tủ bằng bảng Markdown)",
+       "devices": [
+         {
+           "name": "Tên thiết bị (ví dụ: MCB 1P, MCB 3P, RCBO, MCCB...)",
+           "tag": "Ký hiệu trên sơ đồ (L1, P6, DP...)",
+           "spec": "Thông số kỹ thuật (10A - 6kA, 40A - 10kA...)",
+           "quantity": 1,
+           "panel_code": "Mã tủ điện (ví dụ: TĐ-HL.T30)",
+           "category": "Thiết bị đóng cắt"
+         }
+       ]
+     }
+     Không gọi thêm bất kỳ tool nào khác sau khi đã có dữ liệu từ read_project_sources.
 4. Trả đúng một JSON duy nhất theo một trong hai mẫu:
 {"tool":"tên tool","arguments":{},"activity":"mô tả ngắn hành động bằng tiếng Việt"}
 hoặc
-{"reply":"nội dung trả lời hoàn chỉnh bằng tiếng Việt"}
+{"reply":"nội dung trả lời hoàn chỉnh bằng tiếng Việt", "devices": [...]}
 DỮ LIỆU:
 ''' + json.dumps({'project_id': payload.project_id, 'request': payload.message,
         'selected_file_ids': context.get('file_ids', []), 'history': history,
@@ -186,7 +344,7 @@ DỮ LIỆU:
                     pass
             if not decision:
                 # Fallback an toàn: Dùng nội dung phản hồi của AI làm câu trả lời reply đã làm sạch
-                return {'reply': sanitize_user_reply(cleaned[:20000])}
+                return await format_reply_response(db, payload, user, context, cleaned[:20000], {})
         if not decision:
             raise HTTPException(502, 'EL chưa trả về lựa chọn tool hoặc câu trả lời hợp lệ.')
     if decision and not decision.get('tool') and isinstance(decision.get('reply'), str):
@@ -213,14 +371,14 @@ DỮ LIỆU:
                     }
         if not tool:
             if decision.get('reply'):
-                return {'reply': sanitize_user_reply(str(decision['reply'])[:20000])}
+                return await format_reply_response(db, payload, user, context, str(decision['reply'])[:20000], decision)
             return {
                 'reply': f"EL chưa tìm thấy công cụ phù hợp trong hệ thống để thực hiện thao tác '{chosen_tool_name}'. Bạn có thể nêu rõ hành động cụ thể hơn (ví dụ: bóc tách bản vẽ, tra cứu thiết bị, hoặc vẽ CAD) để EL hỗ trợ."
             }
         canonical_name = tool['name']
         return {'tool': canonical_name, 'arguments': decision.get('arguments') or {},
                 'activity': str(decision.get('activity') or tool.get('label') or canonical_name)[:300]}
-    return {'reply': sanitize_user_reply(str(decision['reply'])[:20000])}
+    return await format_reply_response(db, payload, user, context, str(decision['reply'])[:20000], decision)
 
 
 class ToolRequest(BaseModel):
