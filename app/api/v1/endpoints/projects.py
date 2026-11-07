@@ -500,8 +500,22 @@ async def download_project_file(
     )
     result = await db.execute(stmt)
     project_file = result.scalar_one_or_none()
-    if not project_file or not os.path.exists(project_file.file_path):
+    if not project_file:
         raise HTTPException(status_code=404, detail="File not found")
+        
+    resolved_path = project_file.file_path
+    if not os.path.exists(resolved_path):
+        candidates = [
+            os.path.join("BE_AIDE", resolved_path),
+            os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))), resolved_path),
+            os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))), "BE_AIDE", resolved_path)
+        ]
+        for c in candidates:
+            if os.path.exists(c):
+                resolved_path = c
+                break
+        else:
+            raise HTTPException(status_code=404, detail="File not found")
         
     from fastapi.responses import FileResponse
     media_type = project_file.file_type
@@ -514,7 +528,7 @@ async def download_project_file(
         media_type = "application/octet-stream"
 
     return FileResponse(
-        path=project_file.file_path,
+        path=resolved_path,
         filename=project_file.filename,
         media_type=media_type or "application/octet-stream",
         content_disposition_type="inline"

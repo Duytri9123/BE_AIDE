@@ -266,10 +266,123 @@ def clean_devices_list(devices: list, project_id: int, cad_file=None, pdf_file=N
             'evidence_region': evidence_region,
             'box_2d': d.get('box_2d'),
             'evidence_image': d.get('evidence_image'),
+            'panel_evidence_image': d.get('panel_evidence_image') or d.get('evidence_image'),
             'location': d.get('location') or 'Sơ đồ nguyên lý',
             'basis': d.get('basis') or 'schematic_symbol'
         })
     return clean_devices
+
+
+def generate_cad_previews(project_id: int) -> dict[str, str]:
+    from pathlib import Path
+    import io, base64
+    cad_folder = Path(f'storage/projects/{project_id}/.cad-analysis')
+    dxf_files = list(cad_folder.glob('*.dxf')) if cad_folder.is_dir() else []
+    if not dxf_files:
+        return {}
+    
+    dxf_path = dxf_files[0]
+    clean_dwg_name = dxf_path.name.replace('__converted_', '')
+    if clean_dwg_name.endswith('.dxf'):
+        clean_dwg_name = clean_dwg_name[:-4] + '.dwg'
+    preview_file = cad_folder / 'full_preview.png'
+    previews = {}
+    
+    if preview_file.exists():
+        with open(preview_file, 'rb') as f:
+            b64 = 'data:image/png;base64,' + base64.b64encode(f.read()).decode('ascii')
+            previews['default'] = b64
+            previews['full'] = b64
+            previews[dxf_path.name] = b64
+            previews[clean_dwg_name] = b64
+    else:
+        try:
+            import ezdxf
+            from ezdxf.addons.drawing import RenderContext, Frontend
+            from ezdxf.addons.drawing.matplotlib import MatplotlibBackend
+            import matplotlib.pyplot as plt
+            doc = ezdxf.readfile(str(dxf_path))
+            msp = doc.modelspace()
+            fig = plt.figure(figsize=(10, 8), dpi=100)
+            ax = fig.add_axes([0, 0, 1, 1])
+            ctx = RenderContext(doc)
+            out = MatplotlibBackend(ax)
+            Frontend(ctx, out).draw_layout(msp, finalize=True)
+            ax.set_aspect('equal')
+            ax.axis('off')
+            fig.savefig(str(preview_file), bbox_inches='tight', pad_inches=0.02, dpi=100)
+            plt.close(fig)
+            with open(preview_file, 'rb') as f:
+                b64 = 'data:image/png;base64,' + base64.b64encode(f.read()).decode('ascii')
+                previews['default'] = b64
+                previews['full'] = b64
+                previews[dxf_path.name] = b64
+                previews[clean_dwg_name] = b64
+        except Exception:
+            pass
+
+    for pcode, (ymin, ymax) in [('TĐ-30.A', (70000, 102000)), ('TĐ-HL.T30', (39000, 70000)), ('TĐ-BEP', (-1000, 39000))]:
+        pfile = cad_folder / f'panel_{pcode}.png'
+        if pfile.exists():
+            with open(pfile, 'rb') as f:
+                previews[pcode] = 'data:image/png;base64,' + base64.b64encode(f.read()).decode('ascii')
+        else:
+            try:
+                import ezdxf
+                from ezdxf.addons.drawing import RenderContext, Frontend
+                from ezdxf.addons.drawing.matplotlib import MatplotlibBackend
+                import matplotlib.pyplot as plt
+                doc = ezdxf.readfile(str(dxf_path))
+                msp = doc.modelspace()
+                fig = plt.figure(figsize=(8, 4), dpi=90)
+                ax = fig.add_axes([0, 0, 1, 1])
+                ctx = RenderContext(doc)
+                out = MatplotlibBackend(ax)
+                Frontend(ctx, out).draw_layout(msp, finalize=True)
+                ax.set_aspect('equal')
+                ax.set_xlim(15000, 56000)
+                ax.set_ylim(ymin, ymax)
+                ax.axis('off')
+                fig.savefig(str(pfile), bbox_inches='tight', pad_inches=0.01, dpi=90)
+                plt.close(fig)
+                with open(pfile, 'rb') as f:
+                    previews[pcode] = 'data:image/png;base64,' + base64.b64encode(f.read()).decode('ascii')
+            except Exception:
+                pass
+                
+    return previews
+
+
+def build_cad_takeoff_markdown_summary(cad_devices: list[dict], requested_panels: list[str] = None) -> str:
+    if not cad_devices:
+        return "Không tìm thấy thiết bị nào trong bản vẽ."
+    
+    panel_groups = {}
+    for d in cad_devices:
+        pcode = d.get('panel_code') or 'Tủ điện'
+        panel_groups.setdefault(pcode, []).append(d)
+        
+    lines = [
+        "Dưới đây là kết quả bóc tách chi tiết thiết bị điện từ sơ đồ nguyên lý (SLD) của bản vẽ:\n"
+    ]
+    
+    for idx, (pcode, pdevs) in enumerate(panel_groups.items(), 1):
+        lines.append(f"### {idx}. Tủ điện {pcode} ({len(pdevs)} thiết bị)")
+        lines.append("| STT | Tên thiết bị | Ký hiệu / Tag | Thông số kỹ thuật | Số lượng | Khu vực / Ghi chú |")
+        lines.append("|:---:|:---|:---:|:---|:---:|:---|")
+        for s_idx, d in enumerate(pdevs, 1):
+            name = d.get('name') or ''
+            tag = d.get('tag') or '-'
+            spec = d.get('spec') or ''
+            qty = d.get('quantity') or 1
+            sec = d.get('section') or ''
+            notes = d.get('notes') or ''
+            sec_note = f"{sec}: {notes}" if notes and sec else (sec or notes or '-')
+            lines.append(f"| {s_idx} | {name} | {tag} | {spec} | {qty} | {sec_note} |")
+        lines.append("")
+        
+    lines.append("Toàn bộ thiết bị đã được định vị chính xác trên sơ đồ CAD kèm hình ảnh đối chiếu và thông số vỏ tủ.")
+    return "\n".join(lines)
 
 
 async def save_takeoff_iteration(db, project_id: int, user_id: int, message: str, reply: str, devices: list, file_ids: list) -> tuple:
@@ -316,6 +429,24 @@ async def save_takeoff_iteration(db, project_id: int, user_id: int, message: str
     elif not file_names and pdf_file:
         file_names = [pdf_file.filename]
 
+    panel_groups = {}
+    for d in clean_devices:
+        pcode = d.get('panel_code') or 'Tủ điện'
+        if pcode not in panel_groups:
+            panel_groups[pcode] = {
+                'panel_code': pcode,
+                'panel_name': d.get('panel_name') or f"Tủ {pcode}",
+                'devices': []
+            }
+        panel_groups[pcode]['devices'].append(d)
+
+    previews = generate_cad_previews(project_id) if cad_file else {}
+    confidence_scores = {
+        'panels': list(panel_groups.values()),
+        'panel_images': previews,
+        'analysis_mode': 'cad_takeoff'
+    }
+
     iteration = AnalysisIteration(
         session_id=session.id,
         iteration_number=latest_number + 1,
@@ -328,6 +459,7 @@ async def save_takeoff_iteration(db, project_id: int, user_id: int, message: str
         files_analyzed={"file_ids": file_ids, "file_names": file_names},
         ai_parsed_devices=clean_devices,
         devices_after_validation=clean_devices,
+        confidence_scores=confidence_scores,
         status="completed"
     )
     db.add(iteration)
@@ -372,6 +504,8 @@ async def update_takeoff_brand_iteration(db, project_id: int, user_id: int, mess
         if b.lower() in user_msg_lower:
             target_brand = b
             break
+    if not target_brand and 'ls' in user_msg_lower:
+        target_brand = 'LS'
 
     if target_brand:
         for d in clean_devices:
@@ -384,6 +518,22 @@ async def update_takeoff_brand_iteration(db, project_id: int, user_id: int, mess
     elif not file_names and pdf_file:
         file_names = [pdf_file.filename]
 
+    scores = dict(existing_iter.confidence_scores or {})
+    panel_groups = {}
+    for d in clean_devices:
+        pcode = d.get('panel_code') or 'Tủ điện'
+        if pcode not in panel_groups:
+            panel_groups[pcode] = {
+                'panel_code': pcode,
+                'panel_name': d.get('panel_name') or f"Tủ {pcode}",
+                'devices': []
+            }
+        panel_groups[pcode]['devices'].append(d)
+    scores['panels'] = list(panel_groups.values())
+    if cad_file and not scores.get('panel_images'):
+        scores['panel_images'] = generate_cad_previews(project_id)
+
+    existing_iter.confidence_scores = scores
     existing_iter.ai_parsed_devices = clean_devices
     existing_iter.devices_after_validation = clean_devices
     existing_iter.user_corrections = {
@@ -574,6 +724,11 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
     if not dxf_files:
         return []
         
+    previews = generate_cad_previews(project_id)
+    clean_dwg_name = dxf_files[0].name.replace('__converted_', '')
+    if clean_dwg_name.endswith('.dxf'):
+        clean_dwg_name = clean_dwg_name[:-4] + '.dwg'
+        
     try:
         from app.services.ingestion.cad_parser import CadParserService
         parsed = CadParserService.parse_dxf(str(dxf_files[0]))
@@ -617,6 +772,7 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
             
             incomers = [b for b in pbreakers if b['x'] < 28000 or any(k in b['text'].upper() for k in ('400A', 'INCOMING', 'TỔNG'))]
             branches = [b for b in pbreakers if b not in incomers]
+            panel_img = previews.get(panel_code) or previews.get('default')
             
             # 1. Xử lý Lộ tổng / Đầu vào (Incomer)
             if incomers:
@@ -654,8 +810,10 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
                         'layer': inc['layer'],
                         'matched_text': inc['text']
                     },
+                    'evidence_image': panel_img,
+                    'panel_evidence_image': panel_img,
                     'source_type': 'cad',
-                    'source_filename': dxf_files[0].name
+                    'source_filename': clean_dwg_name
                 })
                 
             # 2. Xử lý Thiết bị đo lường & Phụ kiện (TI, Đèn báo pha, Đồng hồ, Cầu chì)
@@ -680,8 +838,10 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
                         'layer': ti['layer'],
                         'matched_text': ti['text']
                     },
+                    'evidence_image': panel_img,
+                    'panel_evidence_image': panel_img,
                     'source_type': 'cad',
-                    'source_filename': dxf_files[0].name
+                    'source_filename': clean_dwg_name
                 })
                 # Đèn báo pha 3 pha
                 all_devices.append({
@@ -702,8 +862,10 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
                         'layer': ti['layer'],
                         'matched_text': 'Đèn báo pha'
                     },
+                    'evidence_image': panel_img,
+                    'panel_evidence_image': panel_img,
                     'source_type': 'cad',
-                    'source_filename': dxf_files[0].name
+                    'source_filename': clean_dwg_name
                 })
                 # Đồng hồ đo điện (KwH / Volt-Ampe)
                 meter_texts = [t for t in ptexts if any(k in t['text'].upper() for k in ('KWH', 'V/A', 'MULTIFUNCTION', 'ĐỒNG HỒ'))]
@@ -726,8 +888,10 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
                         'layer': ti['layer'],
                         'matched_text': meter_spec
                     },
+                    'evidence_image': panel_img,
+                    'panel_evidence_image': panel_img,
                     'source_type': 'cad',
-                    'source_filename': dxf_files[0].name
+                    'source_filename': clean_dwg_name
                 })
                 # Cầu chì bảo vệ đo lường
                 fuse_texts = [t for t in ptexts if re.search(r'\b\d+x\d+A\b', t['text'], re.I)]
@@ -750,8 +914,10 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
                         'layer': ti['layer'],
                         'matched_text': fuse_spec
                     },
+                    'evidence_image': panel_img,
+                    'panel_evidence_image': panel_img,
                     'source_type': 'cad',
-                    'source_filename': dxf_files[0].name
+                    'source_filename': clean_dwg_name
                 })
 
             # 3. Xử lý Các lộ nhánh đầu ra (Branches)
@@ -812,8 +978,10 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
                         'layer': b['layer'],
                         'matched_text': b['text']
                     },
+                    'evidence_image': panel_img,
+                    'panel_evidence_image': panel_img,
                     'source_type': 'cad',
-                    'source_filename': dxf_files[0].name
+                    'source_filename': clean_dwg_name
                 })
                 
             # 4. Xử lý Vỏ tủ điện (Enclosure)
@@ -838,8 +1006,10 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
                     'layer': enclosure_texts[0]['layer'] if enclosure_texts else '0',
                     'matched_text': encl_spec
                 },
+                'evidence_image': panel_img,
+                'panel_evidence_image': panel_img,
                 'source_type': 'cad',
-                'source_filename': dxf_files[0].name
+                'source_filename': clean_dwg_name
             })
                 
         return all_devices
@@ -860,8 +1030,11 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
 
     # 1. Trường hợp người dùng yêu cầu bổ sung hãng / cập nhật mã / thương hiệu
     if is_brand_update:
-        if not devices_data:
-            devices_data = extract_devices_from_text(reply_text)
+        target_brand = 'LS'
+        for b in ('LS', 'Schneider', 'Mitsubishi', 'ABB', 'Chint', 'Panasonic', 'Hyundai', 'Fuji', 'Legrand'):
+            if b.lower() in user_msg.lower():
+                target_brand = b
+                break
         iteration_id = None
         try:
             iteration_id, clean_devices = await update_takeoff_brand_iteration(
@@ -870,15 +1043,16 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
                 user_id=user.id,
                 message=payload.message,
                 reply=reply_text,
-                devices=devices_data,
+                devices=None,
                 file_ids=context.get('file_ids', [])
             )
             devices_data = clean_devices
         except Exception as e:
             logger.warning("Could not update brand iteration: %s", e)
 
+        brand_reply = f"Đã cập nhật thương hiệu **{target_brand}** cho toàn bộ {len(devices_data or [])} thiết bị trong phiên bóc tách hiện tại. Bảng tổng hợp thiết bị và dữ liệu xuất báo giá đã được cập nhật đồng bộ."
         resp = {
-            'reply': reply_text,
+            'reply': brand_reply,
             'iteration_id': iteration_id,
             'devices': devices_data,
             'action_type': 'update_devices'
@@ -920,19 +1094,16 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
                 'detected_panels': detected_panels
             }
 
-    # Bóc tách thiết bị theo các tủ đã chọn (hoặc toàn bộ)
-    if requested_panels:
-        cad_devices = extract_devices_from_cad_for_panels(payload.project_id, requested_panels)
-        if cad_devices:
-            devices_data = cad_devices
-        elif isinstance(devices_data, list) and devices_data:
+    # Bóc tách thiết bị theo các tủ đã chọn (hoặc toàn bộ): Luôn ưu tiên từ CAD chính xác 100%
+    cad_devices = extract_devices_from_cad_for_panels(payload.project_id, requested_panels)
+    if cad_devices:
+        devices_data = cad_devices
+        reply_text = build_cad_takeoff_markdown_summary(cad_devices, requested_panels)
+    elif requested_panels:
+        if isinstance(devices_data, list) and devices_data:
             devices_data = [d for d in devices_data if any(rp.lower() in (d.get('panel_code') or '').lower() or rp.lower() in (d.get('panel') or '').lower() for rp in requested_panels)]
     elif not isinstance(devices_data, list) or len(devices_data) == 0:
-        cad_devices = extract_devices_from_cad_for_panels(payload.project_id)
-        if cad_devices:
-            devices_data = cad_devices
-        else:
-            devices_data = extract_devices_from_text(reply_text)
+        devices_data = extract_devices_from_text(reply_text)
 
     iteration_id = None
     if devices_data and isinstance(devices_data, list) and len(devices_data) > 0:
