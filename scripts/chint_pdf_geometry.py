@@ -21,9 +21,10 @@ def _bezier(points,tolerance):
  return _bezier((a,ab,abc,m),tolerance)[:-1]+_bezier((m,bcd,cd,d),tolerance)
 
 
-def vector_view(pdf,page_number,window,anchor_mm,target,angle=0,anchor_axis='x',physical_height_mm=None):
+def vector_view(pdf,page_number,window,anchor_mm,target,angle=0,anchor_axis='x',physical_height_mm=None,require_whole_paths=False):
  doc=pymupdf.open(pdf);page=doc[page_number-1];box=pymupdf.Rect(window);paths=[]
  for drawing in page.get_drawings():
+  if require_whole_paths and not box.contains(drawing['rect']):continue
   # Ignore transparent clipping paths; only source-visible paths are drawings.
   if drawing.get('stroke_opacity',1)==0 and drawing.get('fill_opacity',1)==0:continue
   for item in drawing['items']:
@@ -52,5 +53,6 @@ def vector_view(pdf,page_number,window,anchor_mm,target,angle=0,anchor_axis='x',
  return {'pdf_page':page_number,'source_window_pdf_points':list(window),'pdf_point_to_mm_scale_x':scale,'pdf_point_to_mm_scale_y':scale_y,
   'calibration':'Catalogue vector illustration calibrated to independently printed width and height; schematic details are references, not manufacturing coordinates.' if physical_height_mm is not None else 'Uniform dimension-anchor calibration',
   'anchor_dimension_mm':anchor_mm,'anchor_axis':anchor_axis,'rotation_degrees':angle,
+  'whole_source_paths_only':require_whole_paths,
   'curve_chord_tolerance_mm':.005,'source_path_primitives':len(paths),
   'recovered_extent_mm':[(hi[0]-lo[0])*scale,(hi[1]-lo[1])*scale_y]}

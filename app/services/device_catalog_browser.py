@@ -122,14 +122,15 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
         rows[('web',offer['id'])]['updated_at']=offer['checked_at']
     for item in supplier_items:
         if item.get('currency')!='VND' or not item.get('item_name') or not item.get('checked_at'):continue
-        rows[('supplier',item['id'])]={k:item.get(k) for k in ('id','sku','item_name','name','brand','category','price','source_label','source_url','checked_at','source_kind','price_note','effective_date','edition','vat_status','vat_rate_percent','vat_rate_evidence','source_page','specifications','columns','cells','group','product_line','line_label')}
+        rows[('supplier',item['id'])]={k:item.get(k) for k in ('id','sku','item_name','name','brand','category','price','source_label','source_url','source_sha256','checked_at','source_kind','price_note','effective_date','edition','vat_status','vat_rate_percent','vat_rate_evidence','source_page','specifications','columns','cells','group','product_line','line_label')}
         rows[('supplier',item['id'])]['updated_at']=item['checked_at']
     for item in catalog_items:
         if not item.get('sku') or not item.get('brand'):continue
         rows[('catalog',item['id'])]={**item,'information_kind':'manufacturer_catalog',
             'source_kind':'manufacturer_catalog','price':item.get('price'),
             'updated_at':item.get('checked_at')}
-    items = [row for row in rows.values() if canonical_brand(row['brand']) in CUSTOMER_MANUFACTURERS
+    from .pricebook_authority import filter_published_rows
+    items = [row for row in filter_published_rows(rows.values()) if canonical_brand(row['brand']) in CUSTOMER_MANUFACTURERS
              and (row.get('sku') or row.get('item_name') or row.get('name'))]
     for row in items:
         from .net_catalog_prices import net_price_row

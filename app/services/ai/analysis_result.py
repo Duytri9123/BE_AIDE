@@ -24,7 +24,8 @@ def _build_analysis_result_schema(
     cleaned_devices = []
 
     from app.services.ai.auxiliary_devices import expand_devices
-    for d in expand_devices(raw_devices):
+    from app.services.ai.metering_selection import enrich_metering_selection
+    for d in enrich_metering_selection(expand_devices(raw_devices)):
         payload = dict(d) if isinstance(d, dict) else (d.model_dump() if hasattr(d, "model_dump") else dict(d))
         payload.setdefault("category", "Thiết bị")
         payload.setdefault("name", "Thiết bị")

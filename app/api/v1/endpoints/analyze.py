@@ -680,6 +680,8 @@ async def get_project_sessions(
         filenames = files_meta.get("file_names") or []
         if not filenames and files_meta.get("file_name"):
             filenames = [files_meta.get("file_name")]
+        if not filenames and raw_devs:
+            filenames = [f for f in dict.fromkeys(str(d.get("source_filename") or '').strip() for d in raw_devs) if f]
         file_display = ", ".join(filenames) if filenames else None
 
         conf = it.confidence_scores or {}

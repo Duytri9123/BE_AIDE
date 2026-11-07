@@ -49,7 +49,8 @@ def _rows(revision):
 
 def source_rows():
     files=[ROOT/name for name in ('supplier_pricebooks.json','web_catalog_offers.json','external_product_information.json')]
-    return _rows(tuple((str(p),p.stat().st_mtime_ns,p.stat().st_size) for p in files if p.is_file()))
+    from .pricebook_authority import filter_published_rows
+    return filter_published_rows(_rows(tuple((str(p),p.stat().st_mtime_ns,p.stat().st_size) for p in files if p.is_file())))
 
 
 def named_family_rows(model,brand,kind,spec,rows):

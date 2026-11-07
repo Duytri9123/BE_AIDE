@@ -72,7 +72,7 @@ Quy tắc bóc tách bắt buộc:
    - Cầu chì (FUSE / ký hiệu hình chữ nhật có đường gạch hoặc chữ FUSE, FU, 1x6A) và Đèn báo pha (LIGHT / ký hiệu tròn dấu chéo ⊗ hoặc chữ R, S, T, Đèn báo) là HAI THIẾT BỊ VẬT LÝ HOÀN TOÀN ĐỘC LẬP.
    - TUYỆT ĐỐI KHÔNG GỘP thành một dòng như "Cầu chì & Đèn báo pha". BẮT BUỘC TÁCH THÀNH 2 DÒNG THIẾT BỊ RIÊNG BIỆT:
      + Dòng 1: tag 'FU1' (hoặc 'FU'), category: 'FUSE', name: 'Cầu chì bảo vệ tín hiệu' (hoặc 'Cầu chì 1x6A'), spec: '1x6A', quantity theo vật tư thực tế: 3 nếu bảo vệ mạch đo/báo điện áp ba pha R-S-T, ngược lại 1; section: 'Đo lường & Giám sát', box_2d: bao quanh đúng ký hiệu cầu chì và chữ FUSE/1x6A.
-     + Dòng 2: tag 'HL1' (hoặc 'R'), category: 'LIGHT', name: 'Đèn báo pha R', spec: 'Đèn báo pha 220V', quantity: 1, section: 'Đo lường & Giám sát', box_2d: bao quanh đúng ký hiệu hình tròn ⊗ và nhãn R.
+     + Dòng 2: tag 'HL1' (hoặc 'R'), category: 'LIGHT', name: 'Đèn báo pha', spec: 'Đèn báo pha', quantity: 3, section: 'Đo lường & Giám sát', box_2d: bao quanh đúng ký hiệu hình tròn ⊗ và nhãn R. QUY TẮC: Đèn báo pha thì chỉ cần biết là đèn báo pha thôi, không cần ghi thông tin nhiều hay thông số rườm rà.
    - TUYỆT ĐỐI KHÔNG lấy vùng dẫn chứng box_2d của Cầu chì hoặc Đèn báo pha đặt lên đoạn cáp nguồn cấp (Cu/PVC...) ở phía trên!
 12. SUY LUẬN NỘI BỘ: Dùng reasoning/thinking nội bộ để kiểm tra tính đầy đủ, số lượng vật tư, quan hệ và bằng chứng trước khi trả lời. Không xuất chuỗi suy nghĩ hoặc thẻ <thinking>/<thought>/<think>; chỉ trả JSON kết quả cuối.
 
@@ -194,7 +194,7 @@ Quy tắc bóc tách bắt buộc:
    - TUYỆT ĐỐI KHÔNG gộp các thiết bị cùng loại (như Contactor, MCB, Nút ấn) thành một dòng quantity > 1. Mỗi thiết bị ứng với một nhánh/mã lộ trên sơ đồ SLD phải là một dòng riêng biệt với quantity = 1.
 10. TÁCH BIỆT HOÀN TOÀN CẦU CHÌ VÀ ĐÈN BÁO PHA (FUSE & PILOT LIGHT):
    - Cầu chì (FUSE) và Đèn báo pha (LIGHT / R, S, T) là HAI THIẾT BỊ VẬT LÝ HOÀN TOÀN ĐỘC LẬP.
-   - TUYỆT ĐỐI KHÔNG GỘP thành một dòng như "Cầu chì & Đèn báo pha". BẮT BUỘC TÁCH THÀNH 2 DÒNG THIẾT BỊ: một dòng cho Cầu chì (category: FUSE, tag FU) và một dòng cho Đèn báo pha (category: LIGHT, tag HL).
+   - TUYỆT ĐỐI KHÔNG GỘP thành một dòng như "Cầu chì & Đèn báo pha". BẮT BUỘC TÁCH THÀNH 2 DÒNG THIẾT BỊ: một dòng cho Cầu chì (category: FUSE, tag FU) và một dòng cho Đèn báo pha (category: LIGHT, tag HL, name: 'Đèn báo pha', spec: 'Đèn báo pha' - đèn báo pha chỉ cần biết là đèn báo pha thôi, không cần ghi nhiều thông tin rườm rà).
    - TUYỆT ĐỐI KHÔNG đóng khung box_2d lệch lên đường cáp nguồn (Cu/PVC) phía trên.
 11. XÁC MINH TRANG PDF: Chỉ trả thiết bị nếu trang đang xem thật sự có sơ đồ điện hoặc phần tử điện có thể đọc được. Với trang mặt bằng, bìa, ghi chú chung hoặc bản vẽ không có thiết bị điện, trả `devices: []` và ghi rõ trong `file_assessment`; tuyệt đối không suy đoán hoặc tạo thiết bị mẫu.
 12. SUY LUẬN NỘI BỘ: Dùng reasoning/thinking nội bộ để kiểm tra tính đầy đủ, số lượng vật tư, quan hệ và bằng chứng trước khi trả lời. Không xuất chuỗi suy nghĩ hoặc thẻ <thinking>/<thought>/<think>; chỉ trả JSON kết quả cuối.
@@ -439,7 +439,7 @@ def append_completeness_review_instruction(prompt: str) -> str:
         "Do not emit both an invented HL1 and the printed R for the same lamp. Each physical symbol "
         "appears once. Attributes belong to their own symbol: the adjacent fuse's 6A is not the lamp "
         "current. Do not infer 220V for a lamp or coil without an explicit voltage label; keep missing "
-        "values null. External BMS is an interface, not another internal controller to procure. "
+        "values null in source spec; derive a separate technical_analysis proposal from supply and topology, with assumptions. External BMS is an interface, not another internal controller to procure. "
         "A one-line bus does not establish bare copper or a need for insulator standoffs. "
         "Keep observed equipment separate from necessary assembly proposals. For assembly proposals "
         "list enclosure, mounting, terminals/distribution, PE, wiring, ferrules/lugs, cable entries, "
@@ -451,6 +451,16 @@ def append_completeness_review_instruction(prompt: str) -> str:
         "and coordination; do not automatically increase breaker amperage to fit stock. Every "
         "replacement must state original_spec, proposed_spec, reason and approval conditions. "
         "A cropped drawing requires specific missing-information questions, never a claim of approval.\n\n"
+        "PHÂN TÍCH LỰA CHỌN THIẾT BỊ BẮT BUỘC: Không dừng ở liệt kê thiếu thông số. "
+        "Với thiết bị đã nhận diện, dùng quan hệ điện trong đúng mạch/tủ để đề xuất cấu hình trong technical_analysis, "
+        "ghi rõ căn cứ và giả định. TI 400/5A dẫn đến ampe kế ngõ vào 5A, mặt thang 0–400A hoặc đồng hồ số cài 400/5; "
+        "TI 40/5 và 80/5 dùng ngõ vào 5A, hiển thị lần lượt 0–40A và 0–80A. Không lấy tỷ số tủ khác. "
+        "Đèn pha có thể đề xuất LED 220–230VAC Ø22 khi đấu pha–N hệ 380/220 hoặc 400/230V; "
+        "nếu đấu pha–pha hoặc dùng nguồn điều khiển thì điện áp phải tương ứng. "
+        "Vôn kế có thể đề xuất 0–500VAC cho lưới hạ áp 380–400V đo trực tiếp; nếu qua VT/PT phải xét tỷ số. "
+        "Công tơ có TI đề xuất ngõ dòng theo thứ cấp TI và cài tỷ số; xác định 3/4 dây, điện áp, chức năng theo mạch. "
+        "Kích thước phổ biến 72×72/96×96 chỉ là phương án theo layout. Thông số nhãn trong spec/source_observations "
+        "vẫn giữ nguyên; các đề xuất có điều kiện phải được trình bày rõ, không giả thành chữ trên sơ đồ hay SKU đã xác minh. "
         "RANH GIỚI NGUỒN BẮT BUỘC: Trước khi bóc tách, xác định chính xác khung/vùng SLD mục tiêu và "
         "chỉ lấy phần tử nằm trong hoặc nối điện trực tiếp với vùng đó. Bỏ qua khung tên, bảng chú giải, "
         "bảng vật tư tham khảo, hình minh họa, sơ đồ khác trên cùng trang và mọi thiết bị không có bằng chứng "

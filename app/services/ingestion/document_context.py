@@ -109,10 +109,86 @@ class DocumentContextService:
     @staticmethod
     def _read_dxf_labels(path: Path) -> str:
         """Read spatial circuit context without inferring or counting devices."""
+        import re
         from app.services.ingestion.cad_parser import CadParserService
         parsed = CadParserService.parse_dxf(str(path))
-        rows = [(row['x'], row['y'], row['text'], row['layer']) for row in parsed.texts]
-        rows.extend((row['x'], row['y'], 'BLOCK ' + row['name'], row['layer']) for row in parsed.blocks)
+        texts = parsed.texts
+        blocks = parsed.blocks
+
+        # Kiểm tra xem file CAD có chứa sơ đồ nguyên lý mạch điện (Aptomat/Cầu dao) không
+        breakers = [t for t in texts if any(k in t['text'].upper() for k in ('MCB', 'MCCB', 'RCBO', 'RCCB'))]
+        if breakers:
+            # Sơ đồ nguyên lý điện: nhóm và tổng hợp theo từng tủ điện một cách trực quan, đầy đủ
+            titles = [t for t in texts if 'SƠ ĐỒ NGUYÊN LÝ' in t['text'].upper() and t['x'] < 25000]
+            titles.sort(key=lambda t: -t['y'])
+            sections = []
+            if titles:
+                sections.append((titles[0], 1e9, titles[1]['y'] if len(titles) > 1 else -1e9))
+                for i in range(1, len(titles)):
+                    ymax = titles[i]['y']
+                    ymin = titles[i+1]['y'] if i + 1 < len(titles) else -1e9
+                    sections.append((titles[i], ymax, ymin))
+            else:
+                sections.append((None, 1e9, -1e9))
+
+            out = [f"=== DỮ LIỆU SƠ ĐỒ NGUYÊN LÝ CAD ({len(sections)} TỦ ĐIỆN, TỔNG {len(breakers)} THIẾT BỊ ĐÓNG CẮT) ==="]
+            for idx, (title_obj, ymax, ymin) in enumerate(sections, 1):
+                ptexts = [t for t in texts if ymin <= t['y'] < ymax]
+                pbreakers = [t for t in breakers if ymin <= t['y'] < ymax]
+                raw_title = title_obj['text'] if title_obj else f'Tủ điện số {idx}'
+                panel_title = re.sub(r'%%[uU]', '', raw_title).strip()
+
+                enclosure = [t['text'] for t in ptexts if any(k in t['text'].upper() for k in ('KT:', 'TÔN', '2 LỚP CÁNH', 'SƠN TĨNH ĐIỆN'))]
+                enclosure_str = ', '.join(dict.fromkeys(enclosure)) if enclosure else 'Theo tiêu chuẩn'
+
+                metering = [t['text'] for t in ptexts if any(k in t['text'].upper() for k in ('ĐỒNG HỒ', 'ĐÈN BÁO', 'TI ', '/5A', 'CẦU CHÌ', '3X2A'))]
+                metering_str = ', '.join(dict.fromkeys(metering)) if metering else ''
+
+                incomers = [b for b in pbreakers if b['x'] < 28000 or any(k in b['text'].upper() for k in ('400A', 'INCOMING', 'TỔNG', 'CẤP ĐẾN'))]
+                branches = [b for b in pbreakers if b not in incomers]
+
+                out.append(f"\n[TỦ {idx}] {panel_title}:")
+                out.append(f"  - Kích thước & thông số vỏ tủ: {enclosure_str}")
+                if metering_str:
+                    out.append(f"  - Đo lường & phụ kiện: {metering_str}")
+
+                inc_cables = [t['text'] for t in ptexts if any(k in t['text'].upper() for k in ('CẤP ĐẾN', 'CÔNG SUẤT TÍNH TOÁN', 'PTT:'))]
+                if incomers:
+                    inc_spec = incomers[0]['text'].strip()
+                    inc_cable_str = ' | '.join(inc_cables[:2]) if inc_cables else ''
+                    out.append(f"  - Thiết bị bảo vệ đầu vào (Incomer): {inc_spec}" + (f" ({inc_cable_str})" if inc_cable_str else ""))
+
+                out.append(f"  - Danh sách {len(branches)} lộ xuất tuyến / thiết bị nhánh:")
+                branches.sort(key=lambda b: -b['y'])
+                for b in branches:
+                    row_items = [t for t in ptexts if abs(t['y'] - b['y']) <= 500 and t['x'] > b['x'] and t['x'] < 52000]
+                    row_items.sort(key=lambda t: t['x'])
+                    load_items = [t for t in ptexts if abs(t['y'] - b['y']) <= 600 and t['x'] >= 52000]
+                    load_str = ' '.join(dict.fromkeys(t['text'].strip() for t in load_items)) or 'Phụ tải nhánh'
+
+                    tag = next((re.match(r'^(?:[A-Z]{1,3}\d+|DP)$', it['text'].strip(), re.I).group(0).upper()
+                                for it in row_items if re.match(r'^(?:[A-Z]{1,3}\d+|DP)$', it['text'].strip(), re.I)), '')
+                    cable = next((it['text'].strip() for it in row_items if 'CU/' in it['text'].upper() or 'MM2' in it['text'].upper()), '')
+                    power = next((it['text'].strip() + ' kW' for it in row_items if re.match(r'^\d+(?:\.\d+)?$', it['text'].strip())), '')
+
+                    parts = []
+                    if tag: parts.append(f"Tag: {tag}")
+                    parts.append(b['text'].strip())
+                    if power: parts.append(power)
+                    if cable: parts.append(cable)
+                    parts.append(f"Phụ tải: {load_str}")
+                    out.append("    + " + " | ".join(parts))
+
+            # Kèm tọa độ gốc để đối chiếu khi cần
+            rows = [(row['x'], row['y'], row['text'], row['layer']) for row in texts]
+            rows.extend((row['x'], row['y'], 'BLOCK ' + row['name'], row['layer']) for row in blocks)
+            rows.sort(key=lambda row: (round(row[0] / 60), -row[1]))
+            out.append("\n=== TOẠ ĐỘ CHI TIẾT CÁC ĐỐI TƯỢNG CAD ===")
+            out.append("\n".join(f"X={x:g} Y={y:g} [{layer}] {value}" for x, y, value, layer in rows))
+            return "\n".join(out)
+
+        rows = [(row['x'], row['y'], row['text'], row['layer']) for row in texts]
+        rows.extend((row['x'], row['y'], 'BLOCK ' + row['name'], row['layer']) for row in blocks)
         rows.sort(key=lambda row: (round(row[0] / 60), -row[1]))
         return "\n".join(f"X={x:g} Y={y:g} [{layer}] {value}" for x, y, value, layer in rows)
 

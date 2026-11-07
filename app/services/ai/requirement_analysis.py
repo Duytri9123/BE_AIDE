@@ -23,6 +23,10 @@ Chỉ phân tích nguồn: chưa đối chiếu thư viện CAD/catalog, chưa c
 chưa tính giá, chưa thiết kế, chưa tạo CAD/báo giá và chưa cập nhật danh mục thiết bị.
 Không bắt buộc nguồn phải là sơ đồ một sợi mới được phân tích.
 Trả lời tiếng Việt, theo nội dung người dùng yêu cầu, không trả quy trình bóc tách mặc định.
+QUY TẮC NHẬN DIỆN VÙNG SƠ ĐỒ & THIẾT BỊ:
+- Quét và liệt kê đầy đủ các vùng sơ đồ nguyên lý / tủ điện phát hiện được trong file (ví dụ: Tủ điện Tầng 30 - TĐ-30.A; Tủ điện Chiếu sáng hành lang - TĐ-HL.T30; Tủ điện Bếp - TĐ-BEP).
+- Phân biệt rõ ràng từng vùng / từng tủ theo vị trí toạ độ hoặc trang, không trộn lẫn thiết bị giữa các tủ với nhau.
+- Đèn báo pha chỉ cần xác định là đèn báo pha, không cần ghi dài dòng hay thông tin rườm rà.
 '''
 
 
@@ -95,10 +99,10 @@ async def analyze_requirements(db, connections, project_id, message, context):
                     except Exception:
                         image = None
                     if image:
-                        observations.append(await call_image(image, file.filename, text[:16000]))
+                        observations.append(await call_image(image, file.filename, text[:60000]))
                         limits.append(f'{file.filename}: ảnh CAD được render theo vùng sơ đồ tìm thấy; chưa xác nhận bao phủ mọi layout của file.')
                     else:
-                        observations.append({'source': file.filename, 'native_text': text[:16000]})
+                        observations.append({'source': file.filename, 'native_text': text[:60000]})
                         limits.append(f'{file.filename}: chỉ đọc được nhãn và tọa độ CAD, chưa kiểm tra liên kết trên ảnh.')
                 else:
                     from app.services.ingestion.document_context import DocumentContextService

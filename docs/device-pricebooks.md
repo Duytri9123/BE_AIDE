@@ -130,6 +130,42 @@ older April price is not allowed to replace a newer October price.
 
 ## Refresh and import
 
+The user-selected LS PDF was rechecked on 2026-11-06. Its SHA-256 is
+`e9dd7a85f3a37aa09f2ad77588b00a9c736392b178f22eac33698f59dfdfe5c1`, matching
+the stored October book. All 517 prices match the eight source-page price
+multisets (67, 52, 71, 64, 56, 52, 81, 74 rows), effective 2026-10-01 and
+excluding VAT. Printed table columns/cells are retained. Reviewed technical
+metadata remains separate from the printed price columns. Accessory sub-blocks
+embedded in breaker/contactor grids are classified as accessories rather than
+whole breakers/contactors.
+
+`app/data/pricebook_authorities.json` makes this the exclusive public LS book.
+The catalog browser, price-row detail and automatic takeoff pricing exclude LS
+seller offers, older references and custom rows outside its reviewed row IDs
+and source hash. Historical technical/source data is retained internally;
+other manufacturers' prices and CAD metadata are preserved. The LS importer
+now replaces only LS rows, preserving other manufacturers and same-source
+reviewed configuration metadata when importing the identical PDF again.
+
+`reconcile_ls_selected_pricebook.py` removes superseded LS row options from
+managed CAD profiles and their published overlay, then rebuilds the LS display.
+The initial reconciliation removed 565 obsolete reference options across 124
+profiles. `supplement_ls_pricebook_20261106.py` adds 27 catalogue-derived DXF
+views across 12 profiles for 40 previously uncovered LA63N/H/L, LA125H, LB63N
+and AX/AL/SHT price rows. Complete, independently illustrated pole fronts are
+selected; single-pole end views are not copied into multi-pole bodies. These
+dimension-calibrated catalogue drawings remain partial references, with
+automatic insertion disabled.
+
+Current LS coverage is 413/517 rows linked: 348 have a complete six-view
+reference and 65 have partial CAD/reference views. The other 104 rows retain
+their correct prices but have no reviewed compatible CAD link (74 accessories,
+13 SPD, 7 MCCB, 7 ELCB, 2 contactors, 1 meter). A whole breaker/assembly is not
+substituted for an accessory. `app/data/ls_selected_pricebook_validation.json`
+lists every row and records the PDF parity, publication-scope and 903 linked
+view-asset checks. All 27 new preview/download routes passed. This is not full
+CAD coverage of the 517-row book.
+
 Run `scripts/refresh_web_catalog.py` to update the bounded seller source set.
 Failed sources keep their previous offers and original check dates. The script
 atomically replaces `app/data/web_catalog_offers.json` only after successful
@@ -279,3 +315,45 @@ Merging now preserves source-row identity and configuration digest. The
 production rebuild retains all current links, and a regression check confirms
 that five reviewed configurations and an older same-model reference survive
 front/side merging while a changed pole configuration is rejected.
+
+## LS October book: continued geometry review, 2026-11-06
+
+The selected `ls-2026-10-01.pdf` remains the sole published LS price source:
+517 rows across eight pages, SHA256
+`e9dd7a85f3a37aa09f2ad77588b00a9c736392b178f22eac33698f59dfdfe5c1`.
+The continuation preserves every price configuration digest, all non-LS prices,
+and all 810 non-LS CAD display profiles and their published metadata.
+
+The additional review links 46 of the previously unlinked 104 rows, bringing
+reference coverage from 413 to 459/517. Manufacturer drawings support the
+BK10S–40S-T2 pole variants, GIMAC-115P, ABS-FMU, ABS202c common case,
+EBN two-pole mounting bodies, branch breakers, DC contactor bodies, MW steel
+enclosure, and the LA MMS accessory family. DH/EH front-plate envelopes and
+MOP-M1–M6 front envelopes are explicitly dimension-based references. The
+covered BS32c option supplies its shared base-body envelope only, excluding
+unverified cover clearance. MC150a DC retains the documented common body
+and rear mount, without substituting the standard auxiliary-terminal front
+for the quote's 1a1b configuration. LA family mating variants still require
+host selection. These references do not authorize automatic placement or
+manufacture.
+
+All main-device rows now have some CAD/geometry reference, but 58 accessory
+rows remain without independently supported geometry. Installation pictures
+and whole-breaker/contactor assemblies are not published as standalone
+accessory CAD. In particular, internal releases/switches, insulation barriers,
+some interlocks, ACB accessories, spreaders, and remaining rotary/motor
+operators need separate dimensioned drawings or native CAD. A misleading
+BK10–40S download containing a TS250 breaker was rejected. Conflicting older
+32KGR dimensions were superseded by the manufacturer's dedicated branch
+catalogue. PDF extraction settings were visually checked to retain complete
+body paths, rather than publishing views with missing internal lines.
+
+`app/data/ls_complete_search_validation.json` records the complete recheck:
+517 exact prices, 459 linked rows, 348 rows with complete six-view coverage,
+111 partial references, 974 healthy linked view assets, and 98 tested
+preview/DXF route pairs. `ls_remaining_source_review.json` records downloaded
+source hashes, limitations, the 46 additions and all 58 pending accessories.
+Do not describe link coverage as complete detailed CAD coverage. The
+`complete_ls_remaining_geometry.py`, `complete_ls_family_geometry.py`, and
+`complete_ls_branch_geometry.py` publishers must run sequentially because
+they update shared display and health indexes.

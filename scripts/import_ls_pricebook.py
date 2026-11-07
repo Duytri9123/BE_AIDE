@@ -3,6 +3,7 @@ import hashlib,json,re,shutil,sys
 from pathlib import Path
 from datetime import datetime,timezone
 import pymupdf
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 
 def split_position(page):
     edges={}
@@ -29,7 +30,13 @@ def category_for(group):
     if 'ĐỒNG HỒ' in text:return 'METER'
     return 'RELAY' if 'RƠ LE' in text else 'ACCESSORY'
 
-def import_book(source):
+def item_category(sku,default):
+    # These accessory blocks sit below MCCB/contactor rows in the same PDF
+    # grid; their inherited table heading must not turn them into breakers.
+    if re.match(r'^(?:UA-[124]|AU-100)\b',sku,re.I):return 'AUX_CONTACT'
+    return 'ACCESSORY' if re.match(r'^(?:Spreader\b|MOP\d?\b|[ED]H\d|MW-)',sku,re.I) else default
+
+def parse_book(source):
     root=Path(__file__).resolve().parents[1];source=Path(source)
     checksum=hashlib.sha256(source.read_bytes()).hexdigest();doc=pymupdf.open(source)
     date=re.search(r'Áp dụng từ ngày\s+(\d{2})-(\d{2})-(\d{4})',doc[0].get_text())
@@ -63,7 +70,7 @@ def import_book(source):
                     params={h:v for h,v in zip(headers[1:-1],cells[1:-1]) if v and h}
                     fingerprint=hashlib.sha1((str(number)+group+json.dumps(cells,ensure_ascii=False)).encode()).hexdigest()[:16]
                     items.append({'id':'ls-pdf:'+fingerprint,'sku':sku,'item_name':sku,'name':sku,'brand':'LS Electric',
-                        'category':current_category if current_category!='ACCESSORY' else category_for(group),'group':group,'price':int(cells[-1].replace(',','')),
+                        'category':item_category(sku,current_category if current_category!='ACCESSORY' else category_for(group)),'group':group,'price':int(cells[-1].replace(',','')),
                         'currency':'VND','specifications':params,'columns':headers,'cells':cells,
                         'source_kind':'supplier_pricebook','source_label':'Bảng giá LS 01/10/2026',
                         'source_url':'/device-catalog/documents/ls-2026-10-01','source_page':number,
@@ -72,8 +79,35 @@ def import_book(source):
     # Primary identity is the item name inside each manufacturer; ratings remain variants.
     models={}
     for item in items:models.setdefault(item['item_name'],[]).append(item['id'])
-    dest=root/'app/data/supplier_pricebooks.json';dest.write_text(json.dumps({'primary_key':'item_name','manufacturers':{'LS Electric':{'models':models}},'items':items},ensure_ascii=False,indent=2),encoding='utf8')
-    pdf=root/'storage/catalog-pricebooks/ls-2026-10-01.pdf';pdf.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,pdf)
-    print(json.dumps({'rows':len(items),'item_names':len(models),'pages':len(doc),'groups':sorted({i['group'] for i in items})},ensure_ascii=False))
+    return {'primary_key':'item_name','manufacturers':{'LS Electric':{'models':models}},'items':items},len(doc)
+
+
+def import_book(source):
+    root=Path(__file__).resolve().parents[1];source=Path(source)
+    parsed,pages=parse_book(source);items=parsed['items']
+    if not items:raise ValueError('No LS source rows extracted; existing data was not changed')
+    from app.services.ai.manufacturer_registry import canonical_brand
+    dest=root/'app/data/supplier_pricebooks.json'
+    payload=json.loads(dest.read_text(encoding='utf8')) if dest.exists() else {'primary_key':'item_name','manufacturers':{},'items':[]}
+    previous={r['id']:r for r in payload['items'] if canonical_brand(r.get('brand'))=='LS Electric'}
+    merged=[]
+    for row in items:
+        old=previous.get(row['id']) or {}
+        if old.get('source_sha256')==row['source_sha256']:
+            row={**old,**row,'category':item_category(row['sku'],old.get('category',row['category'])),
+                 # Identical PDF/row: retain reviewed semantic fields instead
+                 # of reintroducing inherited headings such as "In (A)" for
+                 # contact counts, coil types and accessory descriptions.
+                 'specifications':old.get('specifications',row['specifications'])}
+        merged.append(row)
+    items=merged
+    payload['items']=[r for r in payload['items'] if canonical_brand(r.get('brand'))!='LS Electric']+items
+    payload.setdefault('manufacturers',{})['LS Electric']=parsed['manufacturers']['LS Electric']
+    pending=dest.with_suffix('.json.tmp');pending.write_text(json.dumps(payload,ensure_ascii=False,indent=2),encoding='utf8');pending.replace(dest)
+    from app.services.pricebook_authority import publish_authority
+    publish_authority('LS Electric',items,items[0]['source_sha256'],items[0]['effective_date'])
+    pdf=root/'storage/catalog-pricebooks/ls-2026-10-01.pdf';pdf.parent.mkdir(parents=True,exist_ok=True)
+    if source.resolve()!=pdf.resolve():shutil.copy2(source,pdf)
+    print(json.dumps({'rows':len(items),'item_names':len(parsed['manufacturers']['LS Electric']['models']),'pages':pages,'groups':sorted({i['group'] for i in items})},ensure_ascii=False))
 
 if __name__=='__main__':import_book(sys.argv[1])

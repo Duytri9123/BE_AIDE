@@ -84,6 +84,7 @@ class ExtractedDeviceSchema(BaseModel):
     mounting_face: Optional[str] = None
     source_observations: Optional[dict] = None
     technical_analysis: Optional[str] = None
+    selection_analysis: Optional[dict] = None
     electrical_function: Optional[str] = None
     upstream_device: Optional[str] = None
     downstream_device: Optional[str] = None
