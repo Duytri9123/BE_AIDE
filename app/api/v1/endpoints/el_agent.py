@@ -167,6 +167,85 @@ def extract_devices_from_text(text: str, default_panel: str = "Tủ điện") ->
     return devices
 
 
+def infer_brand_device_sku(name: str, spec: str, brand: str = 'LS') -> str:
+    brand_upper = (brand or 'LS').upper()
+    name_upper = (name or '').upper()
+    spec_upper = (spec or '').upper()
+
+    if 'LS' in brand_upper:
+        if 'MCCB' in name_upper or 'APTOMAT KHỐI' in name_upper:
+            if '400A' in spec_upper:
+                return 'EBN403c 400A'
+            elif '250A' in spec_upper:
+                return 'ABN203c 250A'
+            elif '100A' in spec_upper:
+                return 'ABN103c 100A'
+            elif '63A' in spec_upper:
+                return 'ABN103c 63A'
+            elif '40A' in spec_upper:
+                return 'ABN53c 40A'
+            return 'ABN-c'
+        elif 'RCBO' in name_upper or 'CHỐNG GIẬT' in name_upper or 'CHỐNG RÒ' in name_upper:
+            if '25A' in spec_upper:
+                return 'RKN 1P+N 25A 30mA'
+            elif '20A' in spec_upper:
+                return 'RKN 1P+N 20A 30mA'
+            elif '16A' in spec_upper:
+                return 'RKN 1P+N 16A 30mA'
+            return 'RKN 1P+N 30mA'
+        elif 'MCB' in name_upper or 'APTOMAT TÉP' in name_upper or 'CB TÉP' in name_upper:
+            if '3P' in name_upper or '3P' in spec_upper:
+                if '63A' in spec_upper:
+                    return 'BKD 3P 63A 10kA'
+                elif '40A' in spec_upper:
+                    return 'BKD 3P 40A 10kA'
+                elif '32A' in spec_upper:
+                    return 'BKD 3P 32A 10kA'
+                elif '25A' in spec_upper:
+                    return 'BKD 3P 25A 10kA'
+                elif '16A' in spec_upper:
+                    return 'BKD 3P 16A 10kA'
+                return 'BKD 3P 10kA'
+            else:
+                if '25A' in spec_upper:
+                    return 'BKN 1P 25A 6kA'
+                elif '20A' in spec_upper:
+                    return 'BKN 1P 20A 6kA'
+                elif '16A' in spec_upper:
+                    return 'BKN 1P 16A 6kA'
+                elif '10A' in spec_upper:
+                    return 'BKN 1P 10A 6kA'
+                return 'BKN 1P 6kA'
+        elif 'BIẾN DÒNG' in name_upper or 'TI' in name_upper:
+            return 'RCT-400/5A'
+        elif 'ĐÈN BÁO' in name_upper or 'BÁO PHA' in name_upper:
+            return 'AP22-D 220VAC'
+        elif 'ĐỒNG HỒ' in name_upper or 'ĐO ĐIỆN' in name_upper:
+            return 'GIMAC-i'
+        elif 'CẦU CHÌ' in name_upper:
+            return 'CF-32 5A'
+        elif 'VỎ TỦ' in name_upper:
+            return 'LS-ENC'
+    elif 'SCHNEIDER' in brand_upper:
+        if 'MCCB' in name_upper:
+            if '400A' in spec_upper:
+                return 'LV432676 (C40F3TM400)'
+            return 'Easypact EZC'
+        elif 'RCBO' in name_upper:
+            return 'A9D31620 (iDPN Vigi 20A)'
+        elif 'MCB' in name_upper:
+            if '3P' in name_upper or '3P' in spec_upper:
+                return 'A9N18369 (C120N 3P)'
+            return 'A9K24116 (iK60N 1P)'
+        elif 'BIẾN DÒNG' in name_upper or 'TI' in name_upper:
+            return 'METSECT5CC040'
+        elif 'ĐÈN BÁO' in name_upper:
+            return 'XB7EV08MP'
+        elif 'ĐỒNG HỒ' in name_upper:
+            return 'METSEPM2220'
+    return ''
+
+
 def clean_devices_list(devices: list, project_id: int, cad_file=None, pdf_file=None, cad_texts=None) -> list:
     import re
     clean_devices = []
@@ -248,6 +327,9 @@ def clean_devices_list(devices: list, project_id: int, cad_file=None, pdf_file=N
                 section = 'Điều khiển & Chiếu sáng'
             else:
                 section = 'Đầu ra'
+
+        if not part_number:
+            part_number = infer_brand_device_sku(name, spec, brand or 'LS')
 
         clean_devices.append({
             'name': name,
@@ -511,6 +593,9 @@ async def update_takeoff_brand_iteration(db, project_id: int, user_id: int, mess
         for d in clean_devices:
             if not d.get('brand') or d.get('brand') in ('Thiết bị điện', 'Chưa chọn', '-', 'Thiết bị') or 'ls' in user_msg_lower:
                 d['brand'] = target_brand
+            sku = infer_brand_device_sku(d.get('name', ''), d.get('spec', ''), d.get('brand') or target_brand)
+            if sku:
+                d['part_number'] = sku
 
     file_names = [f.filename for f in project_files if f.id in file_ids] if file_ids else []
     if not file_names and cad_file:
