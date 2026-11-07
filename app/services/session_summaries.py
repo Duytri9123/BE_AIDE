@@ -6,7 +6,7 @@ import os
 import tempfile
 from pathlib import Path
 
-from sqlalchemy import select, cast, String
+from sqlalchemy import select, cast, String, func
 from app.models.analysis_iteration import AnalysisIteration
 
 
@@ -52,9 +52,11 @@ async def get_summary(db, row):
     if cached is not None:
         return cached
     # Decode only one missing revision at a time, off the HTTP event loop.
-    raw = (await db.execute(select(cast(AnalysisIteration.ai_parsed_devices, String),
-                                   cast(AnalysisIteration.confidence_scores, String))
-                            .where(AnalysisIteration.id == row.id))).one()
+    raw = (await db.execute(select(
+        func.coalesce(cast(AnalysisIteration.devices_after_validation, String),
+                      cast(AnalysisIteration.ai_parsed_devices, String)),
+        cast(AnalysisIteration.confidence_scores, String))
+        .where(AnalysisIteration.id == row.id))).one()
     def decode():
         return summarize(json.loads(raw[0] or 'null'), json.loads(raw[1] or 'null'))
     summary = await asyncio.to_thread(decode)

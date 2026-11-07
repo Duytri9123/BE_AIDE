@@ -20,6 +20,7 @@ async def iteration_detail(db, iteration_id, user):
         .options(load_only(
             AnalysisIteration.id, AnalysisIteration.session_id,
             AnalysisIteration.iteration_number, AnalysisIteration.ai_parsed_devices,
+            AnalysisIteration.devices_after_validation,
             AnalysisIteration.confidence_scores,
         ))
     )).first()

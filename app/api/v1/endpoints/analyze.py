@@ -669,7 +669,7 @@ async def get_project_sessions(
     rows, total = await session_page(db, project_id, current_user, skip, limit)
     items = []
     for it, s in rows:
-        raw_devs = it.ai_parsed_devices or []
+        raw_devs = it.devices_after_validation or it.ai_parsed_devices or []
         total_device_count = 0
         for device in raw_devs:
             try:
@@ -750,7 +750,7 @@ async def get_iteration_analysis(
     return _build_analysis_result_schema(
         session_id=it.session_id,
         iteration_number=it.iteration_number,
-        raw_devices=it.ai_parsed_devices or [],
+        raw_devices=it.devices_after_validation or it.ai_parsed_devices or [],
         conf_scores=it.confidence_scores or {},
         iteration_id=it.id,
         cad_file_info=cad_file_info,

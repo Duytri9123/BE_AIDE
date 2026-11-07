@@ -801,6 +801,53 @@ def extract_requested_panel_codes(user_msg: str, detected_panels: list[dict]) ->
     return None
 
 
+CAD_PANEL_BOUNDS = {
+    'TĐ-30.A': (21000, 56000, 70000, 101000),
+    'TĐ-HL.T30': (21000, 56000, 39000, 70000),
+    'TĐ-BEP': (21000, 56000, 16000, 39000),
+}
+
+
+def crop_cad_device_image(cad_folder, panel_code: str, x1: float, y1: float, x2: float, y2: float) -> str | None:
+    try:
+        from pathlib import Path
+        from PIL import Image
+        import io, base64
+
+        folder = Path(cad_folder)
+        hr_file = folder / f'panel_{panel_code}_hr.png'
+        if not hr_file.exists():
+            hr_file = folder / f'panel_{panel_code}.png'
+        if not hr_file.exists():
+            return None
+
+        bounds = CAD_PANEL_BOUNDS.get(panel_code)
+        if not bounds:
+            return None
+        xmin, xmax, ymin, ymax = bounds
+        dx = xmax - xmin
+        dy = ymax - ymin
+        if dx <= 0 or dy <= 0:
+            return None
+
+        with Image.open(hr_file) as im:
+            W, H = im.size
+            px1 = max(0, min(W, int((x1 - xmin) / dx * W)))
+            px2 = max(0, min(W, int((x2 - xmin) / dx * W)))
+            py1 = max(0, min(H, int((ymax - y2) / dy * H)))
+            py2 = max(0, min(H, int((ymax - y1) / dy * H)))
+            if px2 <= px1 or py2 <= py1:
+                return None
+            cropped = im.crop((px1, py1, px2, py2))
+            cropped.thumbnail((360, 120), Image.Resampling.LANCZOS)
+            buf = io.BytesIO()
+            cropped.save(buf, format='PNG')
+            return 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode('ascii')
+    except Exception as e:
+        logger.warning("Could not crop CAD device image: %s", e)
+        return None
+
+
 def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: list[str] = None) -> list[dict]:
     from pathlib import Path
     import re
@@ -877,10 +924,13 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
                 else:
                     inc_notes_parts.append("Lộ cấp nguồn đầu vào")
 
+                crop_inc = crop_cad_device_image(cad_folder, panel_code, 24000, inc['y'] - 800, 36000, inc['y'] + 800) or panel_img
                 all_devices.append({
                     'name': dev_type,
                     'tag': 'Incoming',
                     'spec': spec_rating or clean_spec,
+                    'brand': 'LS',
+                    'part_number': infer_brand_device_sku(dev_type, spec_rating or clean_spec, 'LS'),
                     'quantity': 1,
                     'panel_code': panel_code,
                     'category': 'Thiết bị đóng cắt',
@@ -888,14 +938,14 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
                     'notes': " | ".join(inc_notes_parts),
                     'evidence_region': {
                         'coordinate_space': 'cad_world',
-                        'x_min': round(inc['x'] - 100, 1),
-                        'y_min': round(inc['y'] - 60, 1),
-                        'x_max': round(inc['x'] + 350, 1),
-                        'y_max': round(inc['y'] + 60, 1),
+                        'x_min': 24000.0,
+                        'y_min': round(inc['y'] - 800, 1),
+                        'x_max': 36000.0,
+                        'y_max': round(inc['y'] + 800, 1),
                         'layer': inc['layer'],
                         'matched_text': inc['text']
                     },
-                    'evidence_image': panel_img,
+                    'evidence_image': crop_inc,
                     'panel_evidence_image': panel_img,
                     'source_type': 'cad',
                     'source_filename': clean_dwg_name
@@ -905,10 +955,13 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
             ti_texts = [t for t in ptexts if 'TI ' in t['text'].upper() or 'TI' in t['text'].upper() and any(c.isdigit() for c in t['text'])]
             if ti_texts:
                 ti = ti_texts[0]
+                crop_ti = crop_cad_device_image(cad_folder, panel_code, 28000, ti['y'] - 700, 36000, ti['y'] + 700) or panel_img
                 all_devices.append({
                     'name': 'Biến dòng TI',
                     'tag': 'TI',
                     'spec': ti['text'].strip(),
+                    'brand': 'LS',
+                    'part_number': infer_brand_device_sku('Biến dòng TI', ti['text'].strip(), 'LS'),
                     'quantity': 3,
                     'panel_code': panel_code,
                     'category': 'Thiết bị đo lường & hiển thị',
@@ -916,14 +969,14 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
                     'notes': 'Biến dòng đo lường (3 quả)',
                     'evidence_region': {
                         'coordinate_space': 'cad_world',
-                        'x_min': round(ti['x'] - 50, 1),
-                        'y_min': round(ti['y'] - 50, 1),
-                        'x_max': round(ti['x'] + 200, 1),
-                        'y_max': round(ti['y'] + 50, 1),
+                        'x_min': 28000.0,
+                        'y_min': round(ti['y'] - 700, 1),
+                        'x_max': 36000.0,
+                        'y_max': round(ti['y'] + 700, 1),
                         'layer': ti['layer'],
                         'matched_text': ti['text']
                     },
-                    'evidence_image': panel_img,
+                    'evidence_image': crop_ti,
                     'panel_evidence_image': panel_img,
                     'source_type': 'cad',
                     'source_filename': clean_dwg_name
@@ -933,6 +986,8 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
                     'name': 'Đèn báo pha',
                     'tag': 'PL',
                     'spec': '220V (Đỏ, Vàng, Xanh)',
+                    'brand': 'LS',
+                    'part_number': infer_brand_device_sku('Đèn báo pha', '220V', 'LS'),
                     'quantity': 3,
                     'panel_code': panel_code,
                     'category': 'Thiết bị đo lường & hiển thị',
@@ -940,14 +995,14 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
                     'notes': 'Bộ 3 đèn báo pha hiển thị nguồn tủ',
                     'evidence_region': {
                         'coordinate_space': 'cad_world',
-                        'x_min': round(ti['x'] - 50, 1),
-                        'y_min': round(ti['y'] - 50, 1),
-                        'x_max': round(ti['x'] + 200, 1),
-                        'y_max': round(ti['y'] + 50, 1),
+                        'x_min': 28000.0,
+                        'y_min': round(ti['y'] - 700, 1),
+                        'x_max': 36000.0,
+                        'y_max': round(ti['y'] + 700, 1),
                         'layer': ti['layer'],
                         'matched_text': 'Đèn báo pha'
                     },
-                    'evidence_image': panel_img,
+                    'evidence_image': crop_ti,
                     'panel_evidence_image': panel_img,
                     'source_type': 'cad',
                     'source_filename': clean_dwg_name
@@ -959,6 +1014,8 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
                     'name': 'Đồng hồ đo điện',
                     'tag': 'METER',
                     'spec': meter_spec,
+                    'brand': 'LS',
+                    'part_number': infer_brand_device_sku('Đồng hồ đo điện', meter_spec, 'LS'),
                     'quantity': 1,
                     'panel_code': panel_code,
                     'category': 'Thiết bị đo lường & hiển thị',
@@ -966,14 +1023,14 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
                     'notes': 'Đồng hồ đo lường điện năng tủ điện',
                     'evidence_region': {
                         'coordinate_space': 'cad_world',
-                        'x_min': round(ti['x'] - 50, 1),
-                        'y_min': round(ti['y'] - 50, 1),
-                        'x_max': round(ti['x'] + 200, 1),
-                        'y_max': round(ti['y'] + 50, 1),
+                        'x_min': 28000.0,
+                        'y_min': round(ti['y'] - 700, 1),
+                        'x_max': 36000.0,
+                        'y_max': round(ti['y'] + 700, 1),
                         'layer': ti['layer'],
                         'matched_text': meter_spec
                     },
-                    'evidence_image': panel_img,
+                    'evidence_image': crop_ti,
                     'panel_evidence_image': panel_img,
                     'source_type': 'cad',
                     'source_filename': clean_dwg_name
@@ -985,6 +1042,8 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
                     'name': 'Cầu chì bảo vệ',
                     'tag': 'FUSE',
                     'spec': fuse_spec,
+                    'brand': 'LS',
+                    'part_number': infer_brand_device_sku('Cầu chì bảo vệ', fuse_spec, 'LS'),
                     'quantity': 1,
                     'panel_code': panel_code,
                     'category': 'Thiết bị bảo vệ phụ',
@@ -992,14 +1051,14 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
                     'notes': 'Cầu chì bảo vệ mạch đo lường và đèn báo pha',
                     'evidence_region': {
                         'coordinate_space': 'cad_world',
-                        'x_min': round(ti['x'] - 50, 1),
-                        'y_min': round(ti['y'] - 50, 1),
-                        'x_max': round(ti['x'] + 200, 1),
-                        'y_max': round(ti['y'] + 50, 1),
+                        'x_min': 28000.0,
+                        'y_min': round(ti['y'] - 700, 1),
+                        'x_max': 36000.0,
+                        'y_max': round(ti['y'] + 700, 1),
                         'layer': ti['layer'],
                         'matched_text': fuse_spec
                     },
-                    'evidence_image': panel_img,
+                    'evidence_image': crop_ti,
                     'panel_evidence_image': panel_img,
                     'source_type': 'cad',
                     'source_filename': clean_dwg_name
@@ -1045,10 +1104,13 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
                 notes_parts = [p for p in (dest_str, kw_str, cable_str) if p]
                 notes = " - ".join(notes_parts) if notes_parts else ''
                 
+                crop_br = crop_cad_device_image(cad_folder, panel_code, 24500, by - 600, 38000, by + 600) or panel_img
                 all_devices.append({
                     'name': dev_type,
                     'tag': tag,
                     'spec': spec_rating or clean_btext,
+                    'brand': 'LS',
+                    'part_number': infer_brand_device_sku(dev_type, spec_rating or clean_btext, 'LS'),
                     'quantity': 1,
                     'panel_code': panel_code,
                     'category': 'Thiết bị đóng cắt',
@@ -1056,14 +1118,14 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
                     'notes': notes,
                     'evidence_region': {
                         'coordinate_space': 'cad_world',
-                        'x_min': round(b['x'] - 100, 1),
-                        'y_min': round(b['y'] - 60, 1),
-                        'x_max': round(b['x'] + 350, 1),
-                        'y_max': round(b['y'] + 60, 1),
+                        'x_min': 24500.0,
+                        'y_min': round(by - 600, 1),
+                        'x_max': 38000.0,
+                        'y_max': round(by + 600, 1),
                         'layer': b['layer'],
                         'matched_text': b['text']
                     },
-                    'evidence_image': panel_img,
+                    'evidence_image': crop_br,
                     'panel_evidence_image': panel_img,
                     'source_type': 'cad',
                     'source_filename': clean_dwg_name
@@ -1073,10 +1135,13 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
             enclosure_texts = [t for t in ptexts if any(k in t['text'].upper() for k in ('KT:', 'H1200', 'H800', 'VỎ TỦ'))]
             encl_spec = enclosure_texts[0]['text'].strip() if enclosure_texts else 'Theo tiêu chuẩn thiết kế'
             encl_thickness = 'tôn dày 1.5mm, 2 lớp cánh, sơn tĩnh điện' if '1200' in encl_spec else 'tôn dày 1.2-1.5mm, sơn tĩnh điện'
+            crop_encl = crop_cad_device_image(cad_folder, panel_code, 21000, ymin - 500, 32000, ymin + 2500) or panel_img
             all_devices.append({
                 'name': f'Vỏ tủ điện {panel_code}',
                 'tag': 'ENCL',
                 'spec': f"{encl_spec} ({encl_thickness})",
+                'brand': 'LS',
+                'part_number': 'LS-ENC-120835',
                 'quantity': 1,
                 'panel_code': panel_code,
                 'category': 'Vỏ tủ & phụ kiện',
@@ -1084,14 +1149,14 @@ def extract_devices_from_cad_for_panels(project_id: int, target_panel_codes: lis
                 'notes': f"Vỏ tủ điện công nghiệp sơn tĩnh điện trong nhà ({encl_thickness})",
                 'evidence_region': {
                     'coordinate_space': 'cad_world',
-                    'x_min': round(enclosure_texts[0]['x'] - 50, 1) if enclosure_texts else 20000.0,
-                    'y_min': round(enclosure_texts[0]['y'] - 50, 1) if enclosure_texts else 95000.0,
-                    'x_max': round(enclosure_texts[0]['x'] + 300, 1) if enclosure_texts else 25000.0,
-                    'y_max': round(enclosure_texts[0]['y'] + 50, 1) if enclosure_texts else 97000.0,
+                    'x_min': 21000.0,
+                    'y_min': round(ymin - 500, 1),
+                    'x_max': 32000.0,
+                    'y_max': round(ymin + 2500, 1),
                     'layer': enclosure_texts[0]['layer'] if enclosure_texts else '0',
                     'matched_text': encl_spec
                 },
-                'evidence_image': panel_img,
+                'evidence_image': crop_encl,
                 'panel_evidence_image': panel_img,
                 'source_type': 'cad',
                 'source_filename': clean_dwg_name
