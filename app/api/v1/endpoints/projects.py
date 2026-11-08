@@ -503,19 +503,35 @@ async def download_project_file(
     if not project_file:
         raise HTTPException(status_code=404, detail="File not found")
         
-    resolved_path = project_file.file_path
-    if not os.path.exists(resolved_path):
-        candidates = [
-            os.path.join("BE_AIDE", resolved_path),
-            os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))), resolved_path),
-            os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))), "BE_AIDE", resolved_path)
-        ]
-        for c in candidates:
-            if os.path.exists(c):
-                resolved_path = c
-                break
-        else:
-            raise HTTPException(status_code=404, detail="File not found")
+    raw_path = project_file.file_path
+    clean_path = raw_path.replace("\\", "/")
+    if clean_path.startswith("BE_AIDE/"):
+        clean_path = clean_path[8:]
+
+    app_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+    be_dir = os.path.dirname(app_dir)
+    repo_dir = os.path.dirname(be_dir)
+
+    resolved_path = None
+    search_candidates = [
+        raw_path,
+        clean_path,
+        os.path.join(be_dir, clean_path),
+        os.path.join(be_dir, raw_path),
+        os.path.join(repo_dir, raw_path),
+        os.path.join(repo_dir, "BE_AIDE", clean_path),
+        os.path.join("BE_AIDE", raw_path),
+        os.path.join("BE_AIDE", clean_path),
+        os.path.join(be_dir, "storage", "projects", str(id), os.path.basename(raw_path)),
+        os.path.join(repo_dir, "BE_AIDE", "storage", "projects", str(id), os.path.basename(raw_path)),
+    ]
+    for c in search_candidates:
+        if c and os.path.exists(c) and os.path.isfile(c):
+            resolved_path = c
+            break
+
+    if not resolved_path:
+        raise HTTPException(status_code=404, detail="File not found")
         
     from fastapi.responses import FileResponse
     media_type = project_file.file_type

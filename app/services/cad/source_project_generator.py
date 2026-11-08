@@ -339,12 +339,15 @@ class SourceProjectGenerator:
         selected = match["dimensions"] if match in fitting else requested
         dxf, placements, missing = prepared
         from .reserved_space import from_dxf
-        reserve_space = from_dxf(ezdxf.read(io.StringIO(dxf)), placements)
+        final_doc = ezdxf.read(io.StringIO(dxf))
+        from app.services.cad.cabinet_sheet_processor import clean_equipment_blocks
+        clean_equipment_blocks(final_doc)
+        reserve_space = from_dxf(final_doc, placements)
         folder = Path(output_dir) / str(project_id) / "cad" / "cabinet_forms"
         folder.mkdir(parents=True, exist_ok=True)
         filename = f"FormTu_{match['id']}_H{selected['height']:g}W{selected['width']:g}D{selected['depth']:g}_{uuid4().hex[:10]}.dxf"
         path = folder / filename
-        path.write_text(dxf, encoding="utf-8")
+        final_doc.saveas(str(path))
         return {"path": str(path), "template_id": match["id"], "source": match["filename"],
                 "dimensions": selected, "minimum_required": requested,
                 "placements": placements, "unmatched_devices": missing,

@@ -52,7 +52,7 @@ def insert_library_asset(space, asset_id, x, y, rotation=0):
             source = ezdxf.readfile(download_layout(asset_id).path)
         block = doc.blocks.new(name)
         from app.services.cad.source_import import import_source_entities
-        import_source_entities(source, doc, source.modelspace(), block, asset_id)
+        import_source_entities(source, doc, source.modelspace(), block, asset_id, strip_texts=True)
     block = doc.blocks[name]
     bounds = bbox.extents(block)
     if not bounds.has_data:
