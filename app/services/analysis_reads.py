@@ -25,7 +25,7 @@ async def session_page(db, project_id, user, skip=0, limit=50):
     if db.bind.dialect.name == 'sqlite' and db.bind.url.database not in (None, '', ':memory:'):
         from app.services.session_summaries import get_summary
         query = (select(AnalysisIteration.id, AnalysisIteration.session_id,
-                        AnalysisIteration.iteration_number, AnalysisIteration.trigger_type,
+                        AnalysisIteration.iteration_number, AnalysisIteration.trigger_type, AnalysisIteration.user_message,
                         AnalysisIteration.files_analyzed, AnalysisIteration.created_at, AnalysisIteration.updated_at,
                         ConversationSession.status.label('session_status'))
                  .join(ConversationSession, relation).where(*filters)
@@ -36,7 +36,7 @@ async def session_page(db, project_id, user, skip=0, limit=50):
         for row in rows:
             summary = await get_summary(db, row)
             result.append((AnalysisIteration(id=row.id, session_id=row.session_id,
-                iteration_number=row.iteration_number, trigger_type=row.trigger_type,
+                iteration_number=row.iteration_number, trigger_type=row.trigger_type, user_message=row.user_message,
                 files_analyzed=row.files_analyzed, created_at=row.created_at,
                 ai_parsed_devices=summary['devices'], confidence_scores=summary['conf']),
                 ConversationSession(id=row.session_id, status=row.session_status)))
@@ -54,7 +54,7 @@ async def session_page(db, project_id, user, skip=0, limit=50):
         conf = func.json_object(*[part for key in ('panel_code','panel_name','panel_info')
                                  for part in (key, func.json_extract(AnalysisIteration.confidence_scores, '$.'+key))])
         query = (select(AnalysisIteration.id, AnalysisIteration.session_id,
-                        AnalysisIteration.iteration_number, AnalysisIteration.trigger_type,
+                        AnalysisIteration.iteration_number, AnalysisIteration.trigger_type, AnalysisIteration.user_message,
                         AnalysisIteration.files_analyzed, AnalysisIteration.created_at,
                         type_coerce(summary, JSON).label('devices'), type_coerce(conf, JSON).label('conf'),
                         ConversationSession.status.label('session_status'))
@@ -63,14 +63,14 @@ async def session_page(db, project_id, user, skip=0, limit=50):
                  .offset(skip).limit(limit))
         rows = (await db.execute(query)).all()
         return [(AnalysisIteration(id=r.id, session_id=r.session_id, iteration_number=r.iteration_number,
-                                   trigger_type=r.trigger_type, files_analyzed=r.files_analyzed,
+                                   trigger_type=r.trigger_type, user_message=r.user_message, files_analyzed=r.files_analyzed,
                                    created_at=r.created_at, ai_parsed_devices=r.devices or [],
                                    confidence_scores=r.conf or {}),
                  ConversationSession(id=r.session_id, status=r.session_status)) for r in rows], total
     query = (select(AnalysisIteration, ConversationSession).join(ConversationSession, relation)
              .where(*filters).options(
                  load_only(AnalysisIteration.id, AnalysisIteration.session_id,
-                           AnalysisIteration.iteration_number, AnalysisIteration.trigger_type,
+                           AnalysisIteration.iteration_number, AnalysisIteration.trigger_type, AnalysisIteration.user_message,
                            AnalysisIteration.ai_parsed_devices, AnalysisIteration.confidence_scores,
                            AnalysisIteration.files_analyzed, AnalysisIteration.created_at),
                  load_only(ConversationSession.id, ConversationSession.status))

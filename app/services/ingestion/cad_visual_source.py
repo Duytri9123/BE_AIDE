@@ -1,53 +1,42 @@
-"""Render actual schematic geometry for CAD takeoff, including non-text symbols."""
-import re
-import unicodedata
+"""Render a CAD overview or true zoom using relative source viewports."""
+import hashlib
+import json
+import threading
 from pathlib import Path
+from app.services.ingestion.cad_source_evidence import cad_evidence
+
+_RENDER_LOCK=threading.RLock()
 
 
-def render_schematic_source(file_path):
+def render_schematic_source(file_path, region=None):
     import ezdxf
-    from ezdxf import bbox
-    from ezdxf.addons.drawing.matplotlib import qsave
+    from ezdxf import bbox, select
+    from ezdxf.addons.drawing import RenderContext, Frontend
+    from ezdxf.addons.drawing.matplotlib import MatplotlibBackend
     from ezdxf.addons.drawing.config import Configuration, ColorPolicy, BackgroundPolicy
+    from matplotlib.figure import Figure
+    from matplotlib.backends.backend_agg import FigureCanvasAgg
     source=Path(file_path)
-    output=source.parent/'.cad-analysis'/(source.stem+'-sld-v3.png')
-    if output.is_file() and output.stat().st_mtime_ns>=source.stat().st_mtime_ns:
-        return str(output)
-    drawing=ezdxf.readfile(source)
-    def plain(value):
-        return ''.join(c for c in unicodedata.normalize('NFD',value.upper().replace('Đ','D')) if not unicodedata.combining(c))
-    layers={str(layer.dxf.name) for layer in drawing.layers
-            if re.search(r'NGUYEN\s*L[IY]|SINGLE[ _-]*LINE|SCHEMATIC|\bSLD\b',plain(str(layer.dxf.name)))}
-    schematic=[e for e in drawing.modelspace() if e.dxf.layer in layers]
-    bounds=bbox.extents(schematic,fast=True)
-    focused = bounds.has_data
-    if not focused:
-        # Unnamed layers and geometry-only drawings still need visual reading.
-        bounds=bbox.extents(drawing.modelspace(),fast=True)
-    if not bounds.has_data:return None
-    left,bottom= bounds.extmin.x,bounds.extmin.y
-    right,top= bounds.extmax.x,bounds.extmax.y
-    pad=max(right-left,top-bottom)*.02
-    left-=pad;bottom-=pad;right+=pad;top+=pad
-    def in_region(entity):
-        if not focused:return True
-        if entity.dxf.layer in layers:return True
-        kind=entity.dxftype()
-        if kind in {'TEXT','MTEXT','INSERT','ATTRIB'}:
-            p=entity.dxf.insert
-            return left<=p.x<=right and bottom<=p.y<=top
-        if kind in {'CIRCLE','ARC','ELLIPSE'}:
-            p=entity.dxf.center
-            return left<=p.x<=right and bottom<=p.y<=top
-        if kind=='LINE':
-            a,b=entity.dxf.start,entity.dxf.end
-            return max(a.x,b.x)>=left and min(a.x,b.x)<=right and max(a.y,b.y)>=bottom and min(a.y,b.y)<=top
-        if kind=='LWPOLYLINE':
-            points=list(entity.get_points('xy'))
-            return bool(points) and any(left<=p[0]<=right and bottom<=p[1]<=top for p in points)
-        return False
-    output.parent.mkdir(parents=True,exist_ok=True)
-    qsave(drawing.modelspace(),output,bg='#FFFFFF',fg='#000000',dpi=220,
-          config=Configuration(color_policy=ColorPolicy.BLACK,background_policy=BackgroundPolicy.WHITE),
-          size_inches=(18,13),filter_func=in_region)
+    evidence=cad_evidence(source,region)
+    bounds=evidence.get('view_bounds')
+    if not bounds:return None
+    key=hashlib.sha256(json.dumps(region).encode()).hexdigest()[:12]
+    output=source.parent/'.cad-analysis'/(source.stem+'-sld-v6-'+key+'.png')
+    if output.is_file() and output.stat().st_mtime_ns>=source.stat().st_mtime_ns:return str(output)
+    left,bottom,right,top=bounds
+    width=max(right-left,1);height=max(top-bottom,1)
+    with _RENDER_LOCK:
+        doc=ezdxf.readfile(source)
+        fig=Figure(figsize=(20*width/max(width,height),20*height/max(width,height)),dpi=180)
+        FigureCanvasAgg(fig);ax=fig.add_axes([0,0,1,1])
+        config=Configuration(color_policy=ColorPolicy.BLACK,background_policy=BackgroundPolicy.WHITE)
+        layout=doc.modelspace()
+        selected=select.bbox_overlap(select.Window((left,bottom),(right,top)),layout,cache=bbox.Cache())
+        handles={entity.dxf.handle for entity in selected}
+        Frontend(RenderContext(doc),MatplotlibBackend(ax,adjust_figure=False),config=config).draw_layout(
+            layout,finalize=True,filter_func=lambda entity: entity.dxf.handle in handles)
+        ax.set_xlim(left,right);ax.set_ylim(bottom,top);ax.set_aspect('equal',adjustable='box');ax.axis('off')
+        output.parent.mkdir(parents=True,exist_ok=True)
+        temp=output.with_name(output.stem+'.tmp.png')
+        fig.savefig(temp,dpi=180,facecolor='white');fig.clear();temp.replace(output)
     return str(output)

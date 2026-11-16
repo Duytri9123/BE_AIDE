@@ -88,7 +88,7 @@ async def chat_with_cad_agent(request: ChatRequest, db: AsyncSession = Depends(g
         from app.services.ai.requirement_analysis import analyze_requirements
         try:
             plan = await asyncio.wait_for(analyze_requirements(
-                db, connections, project.id, request.message, request.context), timeout=240)
+                db, connections, project.id, request.message, request.context), timeout=420)
         except HTTPException:
             raise
         except Exception:
@@ -110,7 +110,7 @@ async def chat_with_cad_agent(request: ChatRequest, db: AsyncSession = Depends(g
             logger.warning("Invalid project chat plan", exc_info=True)
             raise HTTPException(502, "AI trả về chỉnh sửa chưa hợp lệ. Chưa có thay đổi nào được áp dụng; vui lòng thử lại.")
     if edited == devices:
-        return ChatResponse(reply=plan.reply, action_type="general_chat", project_id=project.id,
+        return ChatResponse(reply=plan.reply, source_reading=plan.source_reading, action_type="general_chat", project_id=project.id,
                             base_iteration_id=base_id)
 
     # Serialize saves for this project, then recheck retry idempotency. Provider

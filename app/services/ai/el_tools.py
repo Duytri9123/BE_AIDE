@@ -143,6 +143,15 @@ async def check_resource_scope(db, project_id, parameters):
 async def execute_api_tool(app, db, user_id, project_id, tool, arguments, headers):
     import httpx
     arguments = arguments or {}
+    properties = tool['input_schema'].get('properties', {})
+    for location in ('path', 'query'):
+        supplied = arguments.get(location) or {}
+        schema = properties.get(location, {})
+        if not isinstance(supplied, dict):
+            raise HTTPException(422, f'Tham số {location} phải là object.')
+        unknown = set(supplied) - set(schema.get('properties', {}))
+        if unknown:
+            raise HTTPException(422, f'Tham số {location} không được hỗ trợ: {sorted(unknown)}. Chỉ dùng {sorted(schema.get("properties", {}))}.')
     path_args = dict(arguments.get('path') or {})
     query = dict(arguments.get('query') or {})
     body = dict(arguments.get('body') or {})
@@ -202,7 +211,8 @@ async def execute_api_tool(app, db, user_id, project_id, tool, arguments, header
         payload = response.json()
         def bounded(value):
             if isinstance(value, dict):
-                return {key: bounded(item) for key, item in value.items()
+                priority = {'items': 0, 'rows': 0, 'models': 0, 'results': 0, 'devices': 0, 'data': 0, 'total': 1, 'skip': 1, 'limit': 1}
+                return {key: bounded(item) for key, item in sorted(value.items(), key=lambda pair: priority.get(pair[0], 2))
                         if key not in {'evidence_image', 'panel_images', 'evidence_overviews', 'api_key', 'access_token'}}
             if isinstance(value, list):
                 return [bounded(item) for item in value[:50]]

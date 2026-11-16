@@ -29,10 +29,9 @@ def _build_analysis_result_schema(
         payload = dict(d) if isinstance(d, dict) else (d.model_dump() if hasattr(d, "model_dump") else dict(d))
         payload.setdefault("category", "Thiết bị")
         payload.setdefault("name", "Thiết bị")
-        payload.setdefault("spec", "")
+        payload['spec'] = str(payload.get('spec') or '')
         payload.setdefault("quantity", 1)
         payload.setdefault("confidence", 0.95)
-        if payload.get('category')=='METER':payload['name']='Đồng hồ đa năng'
 
         # Deduplicate massive base64 panel_evidence_image to keep payload light
         p_img = payload.get("panel_evidence_image")

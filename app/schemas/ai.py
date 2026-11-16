@@ -65,6 +65,12 @@ class ExtractedDeviceSchema(BaseModel):
     icu_ka: Optional[float] = None
     poles: Optional[int] = None
     quantity: int = 1
+    unit: str = "Cái"
+    source_file_id: Optional[int] = None
+    source_evidence_ids: Optional[List[str]] = None
+    evidence: Optional[str] = None
+    observed_text: Optional[str] = None
+    catalog_source: Optional[dict | str] = None
     drawing_quantity: Optional[int] = None
     procurement_quantity: Optional[int] = None
     quantity_basis: Optional[str] = None
@@ -286,6 +292,7 @@ class ChatResponse(BaseModel):
     iteration_id: Optional[int] = None
     iteration_number: Optional[int] = None
     session_id: Optional[UUID] = None
+    source_reading: Optional[dict] = None
     reply: str
     action_type: str = "general_chat"  # 'macro_draft', 'update_devices', 'resize_panel', 'general_chat'
     macro_blocks: Optional[List[CadMacroBlockSchema]] = None

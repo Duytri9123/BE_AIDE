@@ -51,6 +51,7 @@ class ChatPlan(BaseModel):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
     reply: str = Field(min_length=1, max_length=12000)
     operations: list[DeviceOperation] = Field(default_factory=list, max_length=500)
+    source_reading: dict | None = None
 
 
 # Supplier selections and generated geometry cannot survive a product/spec change.
