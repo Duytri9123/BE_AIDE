@@ -320,6 +320,9 @@ def clean_devices_list(devices: list, project_id: int, cad_file=None, pdf_file=N
             'brand': brand,
             'part_number': part_number,
             'quantity': qty,
+            'drawing_quantity': d.get('drawing_quantity'),
+            'procurement_quantity': d.get('procurement_quantity'),
+            'quantity_basis': d.get('quantity_basis'),
             'unit': d.get('unit') or 'Cái',
             'panel_code': panel,
             'category': category,
@@ -338,7 +341,8 @@ def clean_devices_list(devices: list, project_id: int, cad_file=None, pdf_file=N
             'evidence_region': evidence_region,
             'box_2d': d.get('box_2d'),
             'evidence_image': d.get('evidence_image'),
-            'panel_evidence_image': d.get('panel_evidence_image') or d.get('evidence_image'),
+            'evidence_images': d.get('evidence_images'),
+            'panel_evidence_image': d.get('panel_evidence_image'),
             'location': loc_text,
             'basis': d.get('basis') or 'schematic_symbol',
             'accompanying_accessories': clean_accs
@@ -475,7 +479,8 @@ async def save_takeoff_iteration(db, project_id: int, user_id: int, message: str
     pdf_file = next((f for f in project_files if f.filename and f.filename.lower().endswith('.pdf')), None)
 
     cad_texts = []
-    if cad_file:
+    scoped = bool(devices) and all((d.get('evidence_region') or {}).get('frame') == 'selected_panel' for d in devices)
+    if cad_file and not scoped:
         try:
             cad_folder = Path(f'storage/projects/{project_id}/.cad-analysis')
             dxf_files = list(cad_folder.glob('*.dxf')) if cad_folder.is_dir() else []
@@ -512,7 +517,7 @@ async def save_takeoff_iteration(db, project_id: int, user_id: int, message: str
             }
         panel_groups[pcode]['devices'].append(d)
 
-    previews = generate_cad_previews(project_id, cad_file, pdf_file)
+    previews = {} if scoped else await asyncio.to_thread(generate_cad_previews, project_id, cad_file, pdf_file)
     confidence_scores = {
         'panels': list(panel_groups.values()),
         'panel_images': previews,
@@ -1025,6 +1030,10 @@ def is_explicit_takeoff_request(message: str) -> bool:
     norm = norm.replace('đ', 'd')
 
     # Nếu là yêu cầu bổ sung/đổi hãng hoặc tìm kiếm mã -> Đây là cập nhật thương hiệu, không phải tạo bóc tách mới
+    # An explicit new extraction may also specify a preferred brand.
+    import re
+    if re.match(r'^(?:(?:hay|vui long|giup toi)\s+)*(?:boc tach|boc thiet bi|boc tu|xuat bom|lap bom)\b', norm):
+        return True
     if is_brand_or_catalog_update_request(message):
         return False
 
@@ -1476,15 +1485,15 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
     devices_data = [d for d in devices_data if isinstance(d, dict)]
     confirmed = context.get('confirmed_panels') or []
     if confirmed:
-        allowed = {(p['source_file_id'], p['panel_code'].casefold()): p for p in confirmed}
+        allowed = {(p['source_file_id'], p.get('source_page'), p['panel_code'].casefold()): p for p in confirmed}
         for device in devices_data:
-            key = (device.get('source_file_id'), str(device.get('panel_code') or '').casefold())
+            key = (device.get('source_file_id'), device.get('source_page'), str(device.get('panel_code') or '').casefold())
             panel = allowed.get(key)
             if panel is None or (panel.get('source_page') and device.get('source_page') != panel['source_page']):
                 return {'verification_feedback': 'Thiết bị nằm ngoài tủ/file/trang đã được xác nhận. Chỉ trả thiết bị thuộc confirmed_panels.', 'candidate': devices_data}
             device.setdefault('location', device.get('tag') or 'Chưa ghi vị trí/lộ')
             if not device.get('evidence_region'):
-                device['evidence_region'] = {'coordinate_space': 'normalized_1000', 'box_2d': [round(panel['source_region'][i] * 1000) for i in (1, 0, 3, 2)], 'scope': 'panel'}
+                device['evidence_region'] = {'status': 'unverified', 'scope': 'panel'}
                 device['notes'] = (str(device.get('notes') or '') + ' Chỉ xác định vùng tủ; chưa có vùng riêng cho thiết bị.').strip()
     if requested_panels:
         devices_data = [d for d in devices_data
@@ -1544,7 +1553,7 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
                         'source_page': panel.get('source_page'), 'source_region': panel['source_region']}, 'result': {'ok': True}}
                     reviews.append(await asyncio.wait_for(verify_takeoff(db,
                         [f for f in selected_files if f.id == panel['source_file_id']], rows,
-                        user_msg + ' Chỉ kiểm chứng tủ ' + panel['panel_code'], [observation]), timeout=180))
+                        user_msg + ' Chỉ kiểm chứng tủ ' + panel['panel_code'], [observation], engineering_quantities=True), timeout=180))
                 review = {'passed': all(r['passed'] for r in reviews), 'feedback': '\n'.join(r['feedback'] for r in reviews)}
             else:
                 review = await asyncio.wait_for(verify_takeoff(
@@ -1614,6 +1623,18 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
         return await discover_panels(db, payload.project_id, context['file_ids'])
     if scope:
         context = {**context, 'confirmed_panels': scope}
+        if is_explicit_takeoff_request(payload.message) and not context.get('observations'):
+            from app.services.ai.scoped_takeoff import extract_confirmed_panels
+            devices = await extract_confirmed_panels(db, payload.project_id, scope, payload.message)
+            # These exact regions were rendered and read by the bounded extractor.
+            context['observations'] = [dict(tool='read_project_sources', arguments={
+                'file_ids': [p['source_file_id']], 'source_page': p.get('source_page'),
+                'source_region': p['source_region']}, result={'ok': True}) for p in scope]
+            response = await format_reply_response(db, payload, user, context,
+                'Đã đọc các vùng tủ đã xác nhận.', {'devices': devices})
+            if response.get('verification_feedback'):
+                return {'reply': 'Chưa lưu kết quả vì kiểm chứng nguồn chưa đạt: ' + response['verification_feedback']}
+            return response
     tool_list = context.get('tools', [])
     observations = context.get('observations', [])
     if not isinstance(tool_list, list) or len(tool_list) > 250 or not isinstance(observations, list) or len(observations) > 18:
@@ -1640,6 +1661,15 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
         return {'tool': 'read_project_sources',
                 'arguments': {'file_ids': context['file_ids']},
                 'activity': 'Đọc bản vẽ đã chọn để bóc tách thiết bị'}
+    if scope and is_explicit_takeoff_request(payload.message):
+        # A continuation must read each selected region, never the entire drawing.
+        for panel in scope:
+            arguments = {'file_ids': [panel['source_file_id']],
+                         'source_page': panel.get('source_page'), 'source_region': panel['source_region']}
+            if not any(o.get('tool') == 'read_project_sources' and o.get('arguments') == arguments
+                       for o in observations):
+                return {'tool': 'read_project_sources', 'arguments': arguments,
+                        'activity': 'Đọc vùng tủ ' + panel['panel_code']}
     history = context.get('messages', [])
     history = [{'role': item.get('role'), 'content': str(item.get('content', ''))[:4000]}
                for item in (history[-12:] if isinstance(history, list) else []) if isinstance(item, dict)]

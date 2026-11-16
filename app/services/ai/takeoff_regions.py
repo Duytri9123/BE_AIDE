@@ -17,6 +17,16 @@ from app.services.ai.response_parser import ResponseParserService
 from app.services.ai.vision_analyzer import VisionAnalyzerService
 from app.services.ingestion.cad_source_evidence import validate_region
 
+_DISCOVERY_CACHE = {}
+
+
+def discovery_response(panels, project_id):
+    # Refresh signatures on every response; a cached preview is never approval.
+    result = [{**p, 'scope_token': sign_scope(p, project_id)} for p in panels]
+    return {'reply': ('Đã xác định vùng bản vẽ. Kiểm tra ảnh khoanh đỏ và xác nhận các tủ cần bóc tách.' if result
+                     else 'Chưa nhận diện rõ vùng tủ. Hãy chọn trang hoặc cung cấp ảnh phóng to vùng cần bóc; chưa có thiết bị nào được lưu.'),
+            'requires_confirmation': True, 'detected_panels': result}
+
 
 def sign_scope(panel, project_id):
     data = {k: panel.get(k) for k in ('panel_code', 'source_file_id', 'source_page', 'source_region')}
@@ -69,6 +79,17 @@ async def discover_panels(db, project_id, file_ids):
                           ProjectFile.id.in_(file_ids)))).scalars().all()
     if {f.id for f in files} != set(file_ids):
         raise HTTPException(404, 'File nguồn không thuộc dự án này.')
+    fingerprints = []
+    for file in files:
+        path = Path(file.file_path)
+        if not path.is_file():
+            raise HTTPException(404, 'Không tìm thấy file nguồn: ' + file.filename)
+        stat = path.stat()
+        fingerprints.append((file.id, str(path.resolve()), stat.st_size, stat.st_mtime_ns))
+    cache_key = (project_id, tuple(sorted(fingerprints)))
+    cached = _DISCOVERY_CACHE.get(cache_key)
+    if cached and time.monotonic() - cached[0] < 600:
+        return discovery_response(cached[1], project_id)
     connections = await ConnectionPoolService.get_ordered_connections(db)
     if not connections:
         raise HTTPException(503, 'Chưa có kết nối AI để xác định vùng tủ.')
@@ -132,6 +153,8 @@ async def discover_panels(db, project_id, file_ids):
                         panel['preview_image']='data:image/jpeg;base64,'+base64.b64encode(buf.getvalue()).decode()
                     panel['scope_token']=sign_scope(panel, project_id)
                     panels.append(panel)
-    return {'reply': ('Đã xác định vùng bản vẽ. Kiểm tra ảnh khoanh đỏ và xác nhận các tủ cần bóc tách.' if panels
-                     else 'Chưa nhận diện rõ vùng tủ. Hãy chọn trang hoặc cung cấp ảnh phóng to vùng cần bóc; chưa có thiết bị nào được lưu.'),
-            'requires_confirmation': True, 'detected_panels': panels}
+    if panels:
+        if len(_DISCOVERY_CACHE) >= 8:
+            _DISCOVERY_CACHE.pop(next(iter(_DISCOVERY_CACHE)))
+        _DISCOVERY_CACHE[cache_key] = (time.monotonic(), panels)
+    return discovery_response(panels, project_id)

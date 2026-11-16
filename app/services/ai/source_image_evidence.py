@@ -214,8 +214,8 @@ async def audit_crops(image, call_image, devices, payload):
             for column,key in enumerate(('symbol_box_2d','text_box_2d','tag_box_2d')):
                 box = row.get(key)
                 if not box or len(box)!=4: continue
-                from app.services.ai.analysis_pipeline_service import AnalysisPipelineService
-                pixels = AnalysisPipelineService._evidence_crop_pixels(box, *image.size)
+                from app.services.ai.evidence_crops import evidence_crop_pixels
+                pixels = evidence_crop_pixels(box, *image.size)
                 if not pixels: continue
                 crop = image.crop(pixels)
                 if crop.width<=0 or crop.height<=0: continue

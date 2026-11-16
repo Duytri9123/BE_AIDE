@@ -4,8 +4,22 @@ import io
 from PIL import Image
 
 
-def device_preview(image, region):
-    from app.services.ai.analysis_pipeline_service import AnalysisPipelineService as Pipeline
+def device_preview(image, region, *, tight=False):
+    from app.services.ai.evidence_crops import evidence_crop_pixels
+
+    def crop_pixels(box):
+        if not tight:
+            return evidence_crop_pixels(box, *image.size, image=image)
+        from app.schemas.ai import ExtractedDeviceSchema
+        box = ExtractedDeviceSchema.normalize_evidence_box(box)
+        if not box:
+            return None
+        y1, x1, y2, x2 = box
+        # Dense CAD circuits have neighbouring symbols only a few pixels away.
+        # Following wire ink into whitespace or enforcing a minimum crop size
+        # can pull an entire measurement cluster into one device's thumbnail.
+        return (max(0, int(x1*image.width/1000)-2), max(0, int(y1*image.height/1000)-2),
+                min(image.width, int(x2*image.width/1000)+3), min(image.height, int(y2*image.height/1000)+3))
 
     valid_boxes = []
     seen = set()
@@ -29,7 +43,7 @@ def device_preview(image, region):
     span_x = xmax - xmin
 
     if span_y <= 240 and span_x <= 220:
-        pixels = Pipeline._evidence_crop_pixels([ymin, xmin, ymax, xmax], *image.size, image=image)
+        pixels = crop_pixels([ymin, xmin, ymax, xmax])
         if pixels:
             crop = image.crop(pixels).convert('RGB')
             crop.thumbnail((1200, 900), Image.Resampling.LANCZOS)
@@ -42,7 +56,7 @@ def device_preview(image, region):
     # crop từng phần có bảo vệ bắt dính khoảng trắng rồi ghép nối.
     parts = []
     for box in valid_boxes:
-        pixels = Pipeline._evidence_crop_pixels(box, *image.size, image=image)
+        pixels = crop_pixels(box)
         if pixels:
             parts.append(image.crop(pixels).convert('RGB'))
 
