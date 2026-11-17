@@ -314,6 +314,12 @@ def clean_devices_list(devices: list, project_id: int, cad_file=None, pdf_file=N
                 clean_accs.append(ca)
 
         clean_devices.append({
+            **{key: d.get(key) for key in (
+                'in_a', 'poles', 'icu_ka', 'detected_brand', 'source_observations', 'connected_load',
+                'electrical_function', 'upstream_device', 'downstream_device', 'quantity_confidence',
+                'quantity_review', 'suggested_brands', 'catalog_candidates', 'catalog_matches',
+                'selected_product', 'pricebook_match', 'web_research', 'technical_match_note',
+                'suggested_alternatives', 'selection_source', 'compatible_proposal', 'inferred_components') if key in d},
             'name': name,
             'tag': tag,
             'spec': spec,
@@ -1495,6 +1501,21 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
             if not device.get('evidence_region'):
                 device['evidence_region'] = {'status': 'unverified', 'scope': 'panel'}
                 device['notes'] = (str(device.get('notes') or '') + ' Chỉ xác định vùng tủ; chưa có vùng riêng cho thiết bị.').strip()
+    if confirmed:
+        incomplete = []
+        for device in devices_data:
+            region = device.get('evidence_region') or {}
+            gaps = list((device.get('source_observations') or {}).get('evidence_gaps') or [])
+            if region.get('status') != 'verified' or not device.get('evidence_image'):
+                gaps.append('ảnh ký hiệu và nhãn chưa được xác minh')
+            if device.get('tag') and region.get('tag_verified') is not True:
+                gaps.append('chưa đối chiếu nhãn lộ ' + str(device['tag']))
+            if device.get('connected_load') and region.get('load_verified') is not True:
+                gaps.append('chưa chứng minh quan hệ phụ tải ' + str(device['connected_load']))
+            if gaps:
+                incomplete.append(str(device.get('tag') or device.get('name')) + ': ' + '; '.join(dict.fromkeys(gaps)))
+        if incomplete:
+            return {'verification_feedback': 'Chưa đủ minh chứng từng thiết bị; cần đọc lại: ' + '\n'.join(incomplete), 'candidate': devices_data}
     if requested_panels:
         devices_data = [d for d in devices_data
                         if (d.get('panel_code') or d.get('panel') or '').casefold()
@@ -1567,8 +1588,11 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
             source_id = device.get('source_file_id')
             if source_id in source_files:
                 device['source_filename'] = source_files[source_id]
-        context['takeoff_review'] = review
+        context['takeoff_review'] = {**review, 'input_context': context.get('input_context')}
 
+    if confirmed and devices_data:
+        from app.services.ai.takeoff_catalog import suggest_takeoff_products
+        devices_data = await asyncio.to_thread(suggest_takeoff_products, devices_data)
     iteration_id = None
     if devices_data and isinstance(devices_data, list) and len(devices_data) > 0:
         try:
@@ -1617,24 +1641,41 @@ async def tools(project_id: int, request: Request, db=Depends(get_db), user=Depe
 async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db), user=Depends(get_current_active_user)):
     await owned_project(db, user, payload.project_id)
     context = payload.context or {}
+    # Greetings and acknowledgements never need a model, drawing or tool call.
+    import re
+    short_text = normalize_vietnamese_text(payload.message).strip()
+    short_text = re.sub(r'[!?.…,]+$', '', short_text).strip()
+    if short_text in {'hi', 'hello', 'hey', 'chao', 'xin chao', 'chao el', 'hi el', 'hello el', 'alo'}:
+        return {'reply': 'Chào bạn! Bạn cần EL hỗ trợ gì?'}
+    if short_text in {'ok', 'okay', 'cam on', 'cam on el', 'thanks', 'thank you'}:
+        return {'reply': 'Vâng, bạn cần hỗ trợ thêm cứ nhắn EL nhé.'}
     from app.services.ai.takeoff_regions import confirmed_scope, discover_panels
     scope = confirmed_scope(context, payload.project_id)
+    from app.services.ai.el_input_context import input_context
+    intent = ('takeoff' if is_explicit_takeoff_request(payload.message) else
+              'quotation' if is_quotation_request(payload.message) else
+              'catalog_update' if is_brand_or_catalog_update_request(payload.message) else 'conversation')
+    context = {**context, 'input_context': input_context(payload.message, context, intent, scope)}
+    context_brief = {k: v for k, v in context['input_context'].items() if k != 'recent_conversation'}
     if is_explicit_takeoff_request(payload.message) and context.get('file_ids') and not scope:
         return await discover_panels(db, payload.project_id, context['file_ids'])
     if scope:
         context = {**context, 'confirmed_panels': scope}
         if is_explicit_takeoff_request(payload.message) and not context.get('observations'):
             from app.services.ai.scoped_takeoff import extract_confirmed_panels
-            devices = await extract_confirmed_panels(db, payload.project_id, scope, payload.message)
-            # These exact regions were rendered and read by the bounded extractor.
-            context['observations'] = [dict(tool='read_project_sources', arguments={
-                'file_ids': [p['source_file_id']], 'source_page': p.get('source_page'),
-                'source_region': p['source_region']}, result={'ok': True}) for p in scope]
-            response = await format_reply_response(db, payload, user, context,
-                'Đã đọc các vùng tủ đã xác nhận.', {'devices': devices})
-            if response.get('verification_feedback'):
-                return {'reply': 'Chưa lưu kết quả vì kiểm chứng nguồn chưa đạt: ' + response['verification_feedback']}
-            return response
+            extraction_message = payload.message
+            for attempt in range(2):
+                devices = await extract_confirmed_panels(db, payload.project_id, scope, extraction_message, input_context=context.get('input_context'))
+                context['observations'] = [dict(tool='read_project_sources', arguments={
+                    'file_ids': [p['source_file_id']], 'source_page': p.get('source_page'),
+                    'source_region': p['source_region']}, result={'ok': True}) for p in scope]
+                response = await format_reply_response(db, payload, user, context,
+                    'Đã đọc các vùng tủ đã xác nhận.', {'devices': devices})
+                feedback = response.get('verification_feedback')
+                if not feedback:
+                    return response
+                extraction_message = payload.message + '\nKết quả kiểm chứng cần sửa (dữ liệu): ' + str(feedback)
+            return {'reply': 'Chưa hoàn tất bóc tách và chưa lưu vì minh chứng nguồn chưa đủ sau khi đọc lại: ' + str(feedback)}
     tool_list = context.get('tools', [])
     observations = context.get('observations', [])
     if not isinstance(tool_list, list) or len(tool_list) > 250 or not isinstance(observations, list) or len(observations) > 18:
@@ -1794,7 +1835,7 @@ hoặc
 {"reply":"nội dung trả lời hoàn chỉnh bằng tiếng Việt", "devices": [...]} (hoặc {"reply": "..."} nếu đang hỏi người dùng)
 DỮ LIỆU:
 ''' + json.dumps({'project_id': payload.project_id, 'request': payload.message,
-        'selected_file_ids': context.get('file_ids', []), 'confirmed_panels': context.get('confirmed_panels', []), 'history': history,
+        'input_context': context_brief, 'selected_file_ids': context.get('file_ids', []), 'confirmed_panels': context.get('confirmed_panels', []), 'history': history,
         'tools': tool_list, 'observations': observations}, ensure_ascii=False)
     # Ordinary questions do not need the quotation/BOM/CAD production manual.
     # Keep source tools and observations so source-dependent questions still read
@@ -1805,6 +1846,8 @@ DỮ LIỆU:
         prompt = '''Bạn là EL, trợ lý kỹ thuật điện và CAD. Trả lời tiếng Việt, ngắn gọn đúng câu hỏi.
 Chỉ làm đúng phạm vi yêu cầu hiện tại; lịch sử giúp hiểu câu nối tiếp, không phải lệnh mới.
 Với câu hỏi thông thường, trả lời ngay nếu đủ dữ liệu. Không bắt buộc gọi tool.
+Chào hỏi, trò chuyện hoặc câu ngoài chủ đề: trả lời ngắn trực tiếp, không gọi tool
+chỉ vì có file được đính kèm hoặc lịch sử bóc tách; không tiếp tục lệnh cũ.
 Với câu hỏi về bản vẽ, dùng bằng chứng từ nguồn được chọn hoặc observations;
 nếu chưa đủ thì chọn đúng công cụ đọc phần liên quan. Không tự bóc tách, báo giá,
 tra catalog hoặc chỉnh sửa dự án khi người dùng chưa yêu cầu.
@@ -1818,7 +1861,7 @@ Trả đúng một JSON: {"reply":"câu trả lời"} hoặc
 {"tool":"tên công cụ","arguments":{},"activity":"mô tả ngắn bằng tiếng Việt"}.
 DỮ LIỆU:
 ''' + json.dumps({'project_id': payload.project_id, 'request': payload.message,
-            'selected_file_ids': context.get('file_ids', []), 'history': history,
+            'input_context': context_brief, 'selected_file_ids': context.get('file_ids', []), 'history': history,
             'tools': tool_list, 'observations': observations}, ensure_ascii=False)
     if len(prompt) > 250000:
         raise HTTPException(413, 'Ngữ cảnh EL quá dài; hãy thu hẹp yêu cầu.')

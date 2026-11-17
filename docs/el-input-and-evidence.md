@@ -1,0 +1,15 @@
+# ElQuote: input context and source evidence
+
+Each turn separates the current request, selected project file IDs, signed panel regions, active iteration and recent conversation. Precedence is current request → selected scope → conversation reference. File text/history are reference data, not executable instructions. Greetings return directly; ordinary chat does not load CAD tools. Confirmed extraction also receives the explicit conversation context, rather than only the generated confirmation message.
+
+Source extraction requires readable evidence for every device, its tag (when claimed), and its connected load (when claimed). The extractor supplies symbol/text/tag/load boxes and the observed wire relationship. An independent image audit checks the exported device crop and source context. Missing/rejected evidence is located again at most twice, then audited again. A rejected tag cannot be confirmed by reading the candidate text. If proof remains missing, source takeoff is not saved as completed. The scoped request can re-extract once using the concrete verification feedback; it then reports the unresolved items instead of claiming completion.
+
+Verified evidence exports separate readable symbol/tag and load-label crops plus a continuous source strip showing their connection. A panel overview is never substituted for individual device evidence. Source labels, connected_load, source_observations, electrical analysis, quantity basis and catalog metadata survive normalization and persistence.
+
+The final inventory audit now first reads an independent inventory without the candidate list, including measurement devices and each outgoing circuit, then compares it against the extraction. This detects omissions that can be hidden by a candidate-led comparison.
+
+Catalog proposals use published catalog rows as well as verified priced variants. A missing price is not a missing catalog identity. Proposals require a cited SKU and compatible recorded type/poles/current/breaking rating, remain explicitly unselected, and do not populate the source brand/SKU. Insufficient specs or unavailable matches have an explicit explanation. Family rows still require confirming an exact orderable variant, voltage and function.
+
+UI tooltips show original labels, location, load connection, analysis, quantity basis and catalog proposals/source. Historical rows without verified crops remain marked as unverified; old saved iterations are not rewritten automatically. The processing label is “ElQuote đang xử lý”.
+
+Validation on 2026-11-17: 19 EL tests, 4 scoped-extraction tests, 9 visual verification tests, and 5 scope-token tests passed; frontend continuation/routing/evidence checks and browser tooltip checks passed. Real DWG read-only validation for L4 in source file 105 recovered the MCB/tag and CHIẾU SÁNG label with an independently checked wire relationship in two model calls (31.14 seconds). This was a targeted source check, not a full rerun of every cabinet or a production deployment.

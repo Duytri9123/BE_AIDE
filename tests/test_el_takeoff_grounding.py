@@ -58,6 +58,14 @@ class TakeoffGroundingTests(unittest.TestCase):
         self.assertEqual(result["evidence"], "Motor starter Q2")
         self.assertEqual(result["quantity"], 2)
 
+    def test_normalizer_retains_load_reasoning_and_catalog_proposals(self):
+        fields = {'source_observations': {'relationship_evidence': 'L4 nối tải Chiếu sáng'},
+                  'connected_load': 'Chiếu sáng', 'catalog_candidates': {'ABB': [{'sku': 'ACTUAL'}]},
+                  'suggested_brands': ['ABB'], 'selection_analysis': {'reason': 'Catalog source'}}
+        result = NAMESPACE['clean_devices_list']([self.device(**fields)], 1)[0]
+        for key, value in fields.items():
+            self.assertEqual(result[key], value)
+
     def test_normalizer_preserves_group_unit(self):
         row = self.device(unit='Cụm')
         self.assertEqual(NAMESPACE['clean_devices_list']([row], 1)[0]['unit'], 'Cụm')

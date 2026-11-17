@@ -20,7 +20,7 @@ def apply_verified_boxes(devices: List[ExtractedDeviceSchema], payload: Any, req
             pcode = getattr(device, 'panel_code', None) or ''
             device.evidence_region = {'status': 'unverified',
                 'verification_status': 'needs_review',
-                'reason': f'Đọc danh mục từ sơ đồ tủ {pcode}; chưa xác minh được ký hiệu và nhãn riêng.' if pcode else 'Đọc danh mục từ ảnh tủ; chưa xác minh được vùng ký hiệu và nhãn của riêng thiết bị.'}
+                'reason': (matches[0].get('audit_reason') if len(matches) == 1 else None) or f'Đọc danh mục từ sơ đồ tủ {pcode}; chưa xác minh được ký hiệu và nhãn riêng.' if pcode else 'Đọc danh mục từ ảnh tủ; chưa xác minh được vùng ký hiệu và nhãn của riêng thiết bị.'}
             continue
         device.box_2d = None
         device.evidence_image = None
@@ -59,6 +59,7 @@ def apply_verified_boxes(devices: List[ExtractedDeviceSchema], payload: Any, req
         try:
             device.box_2d = ExtractedDeviceSchema.normalize_evidence_box(box)
             if not device.box_2d:continue
+            device.evidence_region.update(tag_verified=matches[0].get('tag_matches') is True)
             device.evidence_region.update(status='verified',reason='Đã đối chiếu ký hiệu và nhãn trên vùng ảnh nguồn.')
             device.evidence_region.update(coordinate_space='normalized_1000', box_2d=list(device.box_2d))
             for key in ('symbol_box_2d','text_box_2d','tag_box_2d'):

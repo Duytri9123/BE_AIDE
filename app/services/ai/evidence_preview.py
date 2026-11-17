@@ -4,7 +4,7 @@ import io
 from PIL import Image
 
 
-def device_preview(image, region, *, tight=False):
+def _device_preview(image, region, *, tight=False):
     from app.services.ai.evidence_crops import evidence_crop_pixels
 
     def crop_pixels(box):
@@ -75,3 +75,25 @@ def device_preview(image, region, *, tight=False):
     return [{'kind': 'device', 'label': 'Ký hiệu và nhãn đối chiếu',
              'evidence_image': 'data:image/png;base64,' + base64.b64encode(output.getvalue()).decode()}]
 
+
+
+def device_preview(image, region, *, tight=False):
+    images = _device_preview(image, region, tight=tight)
+    if region.get('load_verified') is True and region.get('load_box_2d') and region.get('relationship_evidence'):
+        load = _device_preview(image, {'text_box_2d': region['load_box_2d']}, tight=tight)
+        images.extend({**item, 'kind': 'load', 'label': 'Nhãn phụ tải: ' + str(region.get('load_label') or ''),
+                       'relationship_evidence': region['relationship_evidence']} for item in load)
+        # Keep a continuous source strip so the user can inspect the actual wire,
+        # in addition to the readable close-ups of symbol/tag and load label.
+        boxes = [region[k] for k in ('symbol_box_2d', 'text_box_2d', 'tag_box_2d', 'load_box_2d') if region.get(k)]
+        strip = [min(b[0] for b in boxes), min(b[1] for b in boxes), max(b[2] for b in boxes), max(b[3] for b in boxes)]
+        from app.services.ai.evidence_crops import evidence_crop_pixels
+        pixels = evidence_crop_pixels(strip, *image.size)
+        if pixels:
+            crop = image.crop(pixels).convert('RGB')
+            crop.thumbnail((1800, 1000), Image.Resampling.LANCZOS)
+            output = io.BytesIO(); crop.save(output, format='PNG')
+            images.append({'kind': 'relationship', 'label': 'Đường nối thiết bị · lộ · phụ tải',
+                'relationship_evidence': region['relationship_evidence'],
+                'evidence_image': 'data:image/png;base64,' + base64.b64encode(output.getvalue()).decode()})
+    return images

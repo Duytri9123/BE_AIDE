@@ -70,18 +70,19 @@ class ScopedTakeoffTests(unittest.IsolatedAsyncioTestCase):
                      'observed_text': 'Q1 20A', 'tag': 'Q1'},
                     {'name': 'Meter', 'category': 'METER', 'spec': '', 'quantity': 1}]
             boxes = [{'device_id': str(i), 'verified': True, 'symbol_verified': True,
-                      'symbol_box_2d': [100, 100, 200, 200], 'text_box_2d': [200, 100, 300, 200]}
+                      'symbol_box_2d': [100, 100, 200, 200], 'text_box_2d': [200, 100, 300, 200], 'tag_box_2d': [200, 100, 300, 200]}
                      for i in range(2)]
             checks = [{'device_id': str(i), 'matches': i == 0, 'symbol_complete': True,
-                       'label_complete': True, 'isolated': True, 'observed': 'Q1 20A'} for i in range(2)]
+                       'label_complete': True, 'isolated': True, 'tag_matches': True, 'observed': 'Q1 20A'} for i in range(2)]
             calls = AsyncMock(side_effect=[(json.dumps({'devices': rows, 'boxes': boxes}), None),
-                                          (json.dumps({'checks': checks}), None)])
+                                          (json.dumps({'checks': checks}), None),
+                                          (json.dumps({'boxes': []}), None), (json.dumps({'boxes': []}), None)])
             with patch('app.services.ai.scoped_takeoff.render_panel', AsyncMock(return_value=(str(image_path), 'Q1 20A'))), \
                  patch('app.services.ai.scoped_takeoff.ConnectionPoolService.get_ordered_connections', AsyncMock(return_value=[object()])), \
                  patch('app.services.ai.scoped_takeoff.ConnectionPoolService.call_with_fallback', calls):
                 result = await extract_confirmed_panels(db, 1, [{'source_file_id': 7,
                     'source_page': None, 'panel_code': 'P1', 'source_region': [.1, .1, .5, .5]}], 'Extract P1')
-            self.assertEqual(calls.await_count, 2)  # Extraction + independent crop audit, no planner.
+            self.assertEqual(calls.await_count, 4)  # Extraction + audit + two bounded recovery reads.
             self.assertTrue(result[0]['evidence_image'])
             self.assertFalse(result[1]['evidence_image'])
             self.assertIsNone(result[0]['panel_evidence_image'])

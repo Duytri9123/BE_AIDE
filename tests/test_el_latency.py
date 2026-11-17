@@ -1,5 +1,7 @@
 """Check reduced model round trips without bypassing source verification."""
 import tempfile
+import time
+import statistics
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
@@ -10,6 +12,21 @@ from app.services.ai import requirement_analysis
 
 
 class RoutingTests(unittest.IsolatedAsyncioTestCase):
+    async def test_greetings_do_not_invoke_model_or_discover_sources(self):
+        durations = []
+        with patch.object(el_agent, 'owned_project', AsyncMock()), patch.object(el_agent.ConnectionPoolService, 'call_with_fallback', AsyncMock()) as model, patch('app.services.ai.takeoff_regions.discover_panels', AsyncMock()) as discovery:
+            for message in ['hi', 'Hi!', 'hello', 'xin chào', 'chào EL', 'cảm ơn', 'ok'] * 10:
+                payload = SimpleNamespace(project_id=1, message=message,
+                    context={'file_ids': [7], 'takeoff_scope': [{'scope_token': 'expired'}]})
+                started = time.perf_counter()
+                result = await el_agent.next_action(payload, SimpleNamespace(app=None), None, None)
+                durations.append((time.perf_counter() - started) * 1000)
+                self.assertTrue(result['reply'])
+                self.assertNotIn('devices', result)
+            model.assert_not_awaited()
+            discovery.assert_not_awaited()
+        print(f'Greeting routing (70 mocked-auth calls): median={statistics.median(durations):.3f} ms max={max(durations):.3f} ms')
+
     async def test_unconfirmed_takeoff_only_discovers_panels(self):
         payload = SimpleNamespace(project_id=1, message='Bóc tách thiết bị trong bản vẽ',
             context={'file_ids': [7], 'tools': [{'name': 'read_project_sources'}]})
@@ -31,6 +48,18 @@ class RoutingTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(extractor.await_args.args[2][0]['source_region'], panel['source_region'])
         self.assertEqual(formatter.await_args.args[3]['observations'][0]['arguments']['source_region'], panel['source_region'])
         planner.assert_not_awaited()
+
+    async def test_scope_retries_once_after_missing_evidence_and_does_not_claim_success(self):
+        from app.services.ai.takeoff_regions import sign_scope
+        panel = {'source_file_id': 7, 'source_page': 1, 'panel_code': 'P1', 'source_region': [.1, .2, .4, .6]}
+        payload = SimpleNamespace(project_id=1, message='Bóc tách P1', context={
+            'file_ids': [7], 'takeoff_scope': [{'scope_token': sign_scope(panel, 1)}]})
+        with patch.object(el_agent, 'owned_project', AsyncMock()), patch('app.services.ai.scoped_takeoff.extract_confirmed_panels', AsyncMock(return_value=[])) as extractor, patch.object(el_agent, 'format_reply_response', AsyncMock(return_value={'verification_feedback': 'Thiếu ảnh tag L4'})):
+            result = await el_agent.next_action(payload, SimpleNamespace(app=None), None, None)
+        self.assertEqual(extractor.await_count, 2)
+        self.assertIn('Thiếu ảnh tag L4', extractor.await_args.args[3])
+        self.assertIn('chưa lưu', result['reply'])
+        self.assertNotIn('iteration_id', result)
 
     async def test_simple_question_uses_short_prompt_and_retains_context(self):
         payload = SimpleNamespace(project_id=1, message='Nó là gì?', context={

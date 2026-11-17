@@ -23,7 +23,7 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
             continue
         row = dict(row)
         try:
-            for key in ('symbol_box_2d', 'text_box_2d', 'tag_box_2d'):
+            for key in ('symbol_box_2d', 'text_box_2d', 'tag_box_2d', 'load_box_2d'):
                 row[key] = ExtractedDeviceSchema.normalize_evidence_box(row.get(key))
         except (ValueError, TypeError, OverflowError):
             continue
@@ -51,7 +51,7 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                 preview = ImageOps.contain(preview, (570, 235), Image.Resampling.LANCZOS)
                 sheet.paste(preview, (10, local*270+25))
                 draw.text((10, local*270+5), 'ID '+identity+' - EXPORTED CROP', fill='black')
-                parts = [row[k] for k in ('symbol_box_2d', 'text_box_2d', 'tag_box_2d') if row.get(k)]
+                parts = [row[k] for k in ('symbol_box_2d', 'text_box_2d', 'tag_box_2d', 'load_box_2d') if row.get(k)]
                 box = [min(b[0] for b in parts), min(b[1] for b in parts),
                        max(b[2] for b in parts), max(b[3] for b in parts)]
                 context = [max(0, box[0]-25), max(0, box[1]-25), min(1000, box[2]+25), min(1000, box[3]+25)]
@@ -60,7 +60,7 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                     detail = ImageOps.contain(image.crop(pixels), (570, 235), Image.Resampling.LANCZOS)
                     sheet.paste(detail, (610, local*270+25))
                 device = devices[int(identity)]
-                requests.append({'device_id': identity, 'name': device.name, 'tag': device.tag, 'spec': device.spec})
+                requests.append({'device_id': identity, 'name': device.name, 'tag': device.tag, 'spec': device.spec, 'connected_load': device.connected_load, 'load_label': row.get('load_label'), 'relationship_evidence': row.get('relationship_evidence')})
                 row['verified'] = False
             if not requests:
                 return
@@ -75,9 +75,12 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                     'của CHÍNH thiết bị cùng nằm trong ảnh; isolated=false chỉ khi lẫn thiết bị/nhãn khác '
                     'gây nhầm nhận diện. Dây nối đi qua không phải thiết bị khác. Kiểm tra mất nét/tiếp điểm '
                     'hoặc chữ số do cắt mép. Không lấy chữ từ ngữ cảnh để bù phần thiếu của ảnh xuất ra. '
+                    'Nếu có tag, kiểm tra ảnh xuất có đúng NHÃN TAG; không lấy tag từ danh mục để xác nhận. '
+                    'Nếu có tải, kiểm tra nhãn tải và quan hệ dây nối trong ảnh ngữ cảnh bên phải; '
+                    'load_matches và relationship_verified chỉ true khi thấy đúng nhãn và lần được dây. '
                     'Không sửa danh mục, không tự điền thông số không thấy. Trả JSON '
                     '{"checks":[{"device_id":"0","matches":true,"symbol_complete":true,'
-                    '"label_complete":true,"isolated":true,"observed":"chữ/hình thực thấy",'
+                    '"label_complete":true,"isolated":true,"tag_matches":true,"load_matches":true,"relationship_verified":true,"observed":"chữ/hình thực thấy",'
                     '"reason":"lỗi cụ thể nếu có"}]}.\n' + json.dumps(requests, ensure_ascii=False))
                 blocks = ResponseParserService.extract_json_blocks(raw)
                 checks = next((b['checks'] for b in blocks if isinstance(b, dict) and isinstance(b.get('checks'), list)), [])
@@ -88,6 +91,13 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                     check = matches[0]
                     rows[identity]['verified'] = all(check.get(k) is True
                         for k in ('matches', 'symbol_complete', 'label_complete', 'isolated'))
+                    device = devices[int(identity)]
+                    rows[identity]['tag_matches'] = check.get('tag_matches') is True
+                    if device.tag and (not rows[identity].get('tag_box_2d') or check.get('tag_matches') is not True):
+                        rows[identity]['verified'] = False
+                    rows[identity]['load_verified'] = bool(rows[identity].get('load_box_2d') and
+                        rows[identity].get('relationship_evidence') and check.get('load_matches') is True and
+                        check.get('relationship_verified') is True)
                     rows[identity]['audit_observed'] = str(check.get('observed') or '')
                     rows[identity]['audit_reason'] = str(check.get('reason') or '')
             finally:
