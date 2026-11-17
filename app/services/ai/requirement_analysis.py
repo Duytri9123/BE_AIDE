@@ -1,4 +1,5 @@
 """Read requested source information without catalog lookup or CAD generation."""
+from app.services.ai.el_progress import run_step
 import asyncio
 import json
 from pathlib import Path
@@ -93,7 +94,7 @@ async def analyze_requirements(db, connections, project_id, message, context):
     remaining_pages = 8
 
     async def call_image(path, label, native='', check_numbers=True):
-        result = await read_image_checked(db, connections, path, label, message, instruction, native, check_numbers)
+        result = await run_step("Đang đọc và đối chiếu " + label, read_image_checked(db, connections, path, label, message, instruction, native, check_numbers))
         return {'source': label, **result}
 
     with tempfile.TemporaryDirectory(prefix='aide_requirements_') as temporary:

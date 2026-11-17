@@ -11,6 +11,7 @@ from app.schemas.ai import ExtractedDeviceSchema
 from app.services.ai.evidence_crops import evidence_crop_pixels
 from app.services.ai.evidence_preview import device_preview
 from app.services.ai.response_parser import ResponseParserService
+from app.services.ai.el_progress import run_step
 
 
 async def audit_device_previews(image, call_image, devices, payload, *, concurrency=1):
@@ -71,7 +72,7 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                 path = handle.name
             try:
                 sheet.save(path)
-                raw = await call_image(path,
+                raw = await run_step('Đang đối chiếu ảnh và dây nối: ' + ', '.join(str(r['tag'] or r['name']) for r in requests), call_image(path,
                     'Kiểm tra ĐỘC LẬP ảnh cắt sẽ hiển thị cho người dùng. Cột trái là CHÍNH ẢNH XUẤT RA, '
                     'cột phải là ngữ cảnh nguồn. Nếu cột trái có nhiều ảnh, đó là các ảnh riêng của cùng ID; kiểm đủ tất cả ảnh.  Không tin danh mục ứng viên. Mỗi ID: ảnh trái phải có '
                     'đủ ký hiệu điện thực và nhãn của đúng thiết bị, đúng nhánh. Cho phép nhãn và ký hiệu '
@@ -88,7 +89,7 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                     'Không sửa danh mục, không tự điền thông số không thấy. Trả JSON '
                     '{"checks":[{"device_id":"0","matches":true,"symbol_complete":true,'
                     '"label_complete":true,"isolated":true,"tag_matches":true,"load_matches":true,"relationship_verified":true,"observed":"chữ/hình thực thấy",'
-                    '"reason":"lỗi cụ thể nếu có"}]}.\n' + json.dumps(requests, ensure_ascii=False))
+                    '"reason":"lỗi cụ thể nếu có"}]}.\n' + json.dumps(requests, ensure_ascii=False)))
                 blocks = ResponseParserService.extract_json_blocks(raw)
                 checks = next((b['checks'] for b in blocks if isinstance(b, dict) and isinstance(b.get('checks'), list)), [])
                 for identity in batch:

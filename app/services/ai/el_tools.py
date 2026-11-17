@@ -174,7 +174,7 @@ async def execute_api_tool(app, db, user_id, project_id, tool, arguments, header
         path = path.replace('{' + name + '}', quote(str(path_args[name]), safe=''))
     # Only known local endpoints; the model cannot supply a host or raw URL.
     async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url='http://127.0.0.1',
-                                 timeout=180, follow_redirects=False) as client:
+                                 timeout=None, follow_redirects=False) as client:
         response = await client.request(tool['method'], path, params=query,
             json=body if tool['method'] != 'GET' else None, headers=headers)
         if not response.is_success:

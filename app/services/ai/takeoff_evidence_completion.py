@@ -1,6 +1,7 @@
 """Bounded recovery of missing device, branch tag and connected-load evidence."""
 import json
 from app.services.ai.response_parser import ResponseParserService
+from app.services.ai.el_progress import run_step
 
 
 def evidence_gaps(device, box):
@@ -24,7 +25,7 @@ async def complete_evidence(image, image_path, devices, audited, call_image, *, 
                    for i, d in enumerate(devices) if evidence_gaps(d, boxes.get(str(i)))]
         if not missing:
             break
-        raw = await call_image(image_path,
+        raw = await run_step('Đang bổ sung minh chứng: ' + ', '.join(str(r['tag'] or r['name']) for r in missing), call_image(image_path,
             'Đọc LẠI ảnh nguồn để hoàn thiện minh chứng bị thiếu. Không sửa danh mục, không tự '
             'suy tag hoặc công năng từ tên lộ. Tìm đủ ký hiệu, nhãn thông số, nhãn tag riêng; '
             'với connected_load phải đọc nhãn tải và lần đúng dây nối từ thiết bị đến tải. '
@@ -33,7 +34,7 @@ async def complete_evidence(image, image_path, devices, audited, call_image, *, 
             '{"boxes":[{"device_id":"0","verified":true,"symbol_verified":true,'
             '"symbol_box_2d":[],"text_box_2d":[],"tag_box_2d":[],"load_box_2d":[], '
             '"load_label":"nhãn tải nguyên văn","relationship_evidence":"dây nối quan sát được"}]}.'
-            '\nCác dòng cần đọc lại: ' + json.dumps(missing, ensure_ascii=False))
+            '\nCác dòng cần đọc lại: ' + json.dumps(missing, ensure_ascii=False)), detail=f"{len(missing)} dòng còn thiếu · Lần đọc lại {attempt+1}")
         payload = next((b for b in ResponseParserService.extract_json_blocks(raw)
                         if isinstance(b, dict) and isinstance(b.get('boxes'), list)), {})
         allowed = {row['device_id'] for row in missing}

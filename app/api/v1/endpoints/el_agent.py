@@ -17,6 +17,7 @@ from app.schemas.ai import ChatRequest
 from app.services.ai.connection_pool import ConnectionPoolService
 from app.services.ai.vision_analyzer import VisionAnalyzerService
 from app.services.ai.response_parser import ResponseParserService
+from app.services.ai.el_progress import run_step, progress_events, progress_step
 from app.services.ai.el_tools import api_tools, execute_api_tool, permits_tool
 
 router = APIRouter()
@@ -315,7 +316,7 @@ def clean_devices_list(devices: list, project_id: int, cad_file=None, pdf_file=N
 
         clean_devices.append({
             **{key: d.get(key) for key in (
-                'in_a', 'poles', 'icu_ka', 'detected_brand', 'source_observations', 'connected_load', 'circuit_context',
+                'in_a', 'poles', 'icu_ka', 'detected_brand', 'source_observations', 'connected_load', 'circuit_context', 'information_fields', 'additional_information',
                 'electrical_function', 'upstream_device', 'downstream_device', 'quantity_confidence',
                 'quantity_review', 'suggested_brands', 'catalog_candidates', 'catalog_matches',
                 'selected_product', 'pricebook_match', 'web_research', 'technical_match_note',
@@ -465,6 +466,7 @@ def build_cad_takeoff_markdown_summary(cad_devices: list[dict], requested_panels
     return "\n".join(lines)
 
 
+@progress_step("Đang lưu phiên bóc tách và các ảnh minh chứng")
 async def save_takeoff_iteration(db, project_id: int, user_id: int, message: str, reply: str, devices: list, file_ids: list, visual_review=None, proposal=False) -> tuple:
     from app.services.project_conversation import project_session
     from app.models.analysis_iteration import AnalysisIteration
@@ -1572,13 +1574,13 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
                         return {'verification_feedback': 'Chưa có thiết bị cho tủ đã chọn: ' + panel['panel_code'], 'candidate': devices_data}
                     observation = {'tool': 'read_project_sources', 'arguments': {'file_ids': [panel['source_file_id']],
                         'source_page': panel.get('source_page'), 'source_region': panel['source_region']}, 'result': {'ok': True}}
-                    reviews.append(await asyncio.wait_for(verify_takeoff(db,
+                    reviews.append(await run_step("Đang kiểm chứng danh mục tủ " + panel["panel_code"], verify_takeoff(db,
                         [f for f in selected_files if f.id == panel['source_file_id']], rows,
-                        user_msg + ' Chỉ kiểm chứng tủ ' + panel['panel_code'], [observation], engineering_quantities=True), timeout=180))
+                        user_msg + ' Chỉ kiểm chứng tủ ' + panel['panel_code'], [observation], engineering_quantities=True)))
                 review = {'passed': all(r['passed'] for r in reviews), 'feedback': '\n'.join(r['feedback'] for r in reviews)}
             else:
-                review = await asyncio.wait_for(verify_takeoff(
-                    db, selected_files, devices_data, user_msg, context.get('observations') or []), timeout=180)
+                review = await run_step("Đang kiểm chứng danh mục và căn cứ nguồn", verify_takeoff(
+                    db, selected_files, devices_data, user_msg, context.get('observations') or []))
         except Exception:
             logger.exception('EL visual takeoff verification failed')
             review = {'passed': False, 'feedback': 'Chưa hoàn tất kiểm chứng ảnh nguồn; chưa lưu danh mục.'}
@@ -1658,7 +1660,7 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
     context = {**context, 'input_context': input_context(payload.message, context, intent, scope)}
     context_brief = {k: v for k, v in context['input_context'].items() if k != 'recent_conversation'}
     if is_explicit_takeoff_request(payload.message) and context.get('file_ids') and not scope:
-        return await discover_panels(db, payload.project_id, context['file_ids'])
+        return await run_step("Đang đọc nguồn để xác định các vùng tủ", discover_panels(db, payload.project_id, context['file_ids']))
     if scope:
         context = {**context, 'confirmed_panels': scope}
         if is_explicit_takeoff_request(payload.message) and not context.get('observations'):
@@ -1669,8 +1671,8 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
                 context['observations'] = [dict(tool='read_project_sources', arguments={
                     'file_ids': [p['source_file_id']], 'source_page': p.get('source_page'),
                     'source_region': p['source_region']}, result={'ok': True}) for p in scope]
-                response = await format_reply_response(db, payload, user, context,
-                    'Đã đọc các vùng tủ đã xác nhận.', {'devices': devices})
+                response = await run_step("Đang đối chiếu và hoàn tất kết quả bóc tách", format_reply_response(db, payload, user, context,
+                    'Đã đọc các vùng tủ đã xác nhận.', {'devices': devices}))
                 feedback = response.get('verification_feedback')
                 if not feedback:
                     return response
@@ -1870,8 +1872,8 @@ DỮ LIỆU:
         raise HTTPException(503, 'Chưa có kết nối AI khả dụng cho EL.')
     started = time.perf_counter()
     try:
-        response, _ = await asyncio.wait_for(ConnectionPoolService.call_with_fallback(
-            db=db, connections=connections, call_fn=VisionAnalyzerService.analyze_text, prompt=prompt), timeout=120)
+        response, _ = await run_step("ElQuote đang đánh giá yêu cầu và chọn thao tác", ConnectionPoolService.call_with_fallback(
+            db=db, connections=connections, call_fn=VisionAnalyzerService.analyze_text, prompt=prompt))
     except Exception as exc:
         raise HTTPException(502, 'EL chưa nhận được phản hồi AI để quyết định hành động tiếp theo.') from exc
     finally:
@@ -1975,8 +1977,46 @@ async def execute(payload: ToolRequest, request: Request, db=Depends(get_db), us
             raise
         except Exception as exc:
             raise HTTPException(503, 'Chưa thể ghi nhận thao tác EL; chưa gửi tool thay đổi dữ liệu.') from exc
-    result = await asyncio.wait_for(execute_api_tool(request.app, db, user.id, payload.project_id, tool, payload.arguments, headers), timeout=180)
+    result = await run_step(tool.get("label") or payload.tool, execute_api_tool(request.app, db, user.id, payload.project_id, tool, payload.arguments, headers))
     if receipt_key:
         with job_queue.sync_client() as cache:
             cache.set(receipt_key, json.dumps({'state': 'done', 'result': result}, default=str), ex=7200)
     return result
+
+
+def el_stream_response(operation):
+    from fastapi.responses import StreamingResponse
+    return StreamingResponse(progress_events(operation), media_type='text/event-stream',
+        headers={'Cache-Control':'no-cache, no-transform', 'X-Accel-Buffering':'no'})
+
+@router.post('/next/stream')
+async def next_action_stream(payload: ChatRequest, request: Request, db=Depends(get_db), user=Depends(get_current_active_user)):
+    await owned_project(db, user, payload.project_id)
+    async def operation():
+        from app.db.session import AsyncSessionLocal
+        async with AsyncSessionLocal() as session:
+            return await next_action(payload, request, session, user)
+    return el_stream_response(operation)
+
+@router.post('/tool/stream')
+async def execute_stream(payload: ToolRequest, request: Request, db=Depends(get_db), user=Depends(get_current_active_user)):
+    await owned_project(db, user, payload.project_id)
+    async def operation():
+        from app.db.session import AsyncSessionLocal
+        async with AsyncSessionLocal() as session:
+            return await execute(payload, request, session, user)
+    return el_stream_response(operation)
+
+
+@router.post('/sources/stream')
+async def source_stream(payload: ChatRequest, request: Request, db=Depends(get_db), user=Depends(get_current_active_user)):
+    await owned_project(db, user, payload.project_id)
+    async def operation():
+        from app.db.session import AsyncSessionLocal
+        from app.services.ai.requirement_analysis import analyze_requirements
+        async with AsyncSessionLocal() as session:
+            connections = await ConnectionPoolService.get_ordered_connections(session)
+            plan = await run_step('Đang đọc nguồn tham chiếu theo yêu cầu', analyze_requirements(
+                session, connections, payload.project_id, payload.message, payload.context or {}))
+            return {'reply':plan.reply, 'source_reading':plan.source_reading}
+    return el_stream_response(operation)

@@ -22,6 +22,7 @@ from app.core.exceptions import (
     ImageParsingError,
 )
 from app.services.ai.token_refresh_service import TokenRefreshService
+from app.services.ai.el_progress import run_step
 
 logger = logging.getLogger(__name__)
 
@@ -235,12 +236,12 @@ class ConnectionPoolService:
                                 call_args["base_url"] = eff_base_url
                             
                             active_api_key = await TokenRefreshService.get_active_token(conn.api_key)
-                            result = await call_fn(
+                            result = await run_step("Đang chờ phản hồi model", call_fn(
                                 provider=provider,
                                 api_key=active_api_key,
                                 model=model_to_use,
                                 **call_args,
-                            )
+                            ), detail=f"{model_to_use} · Lần gọi {attempt}")
                             logger.info("ConnectionPool: Thành công với %s", conn_label)
                             setattr(conn, "actual_model", model_to_use)
                             return result, conn

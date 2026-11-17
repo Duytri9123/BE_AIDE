@@ -1,4 +1,5 @@
 """Drawing-region discovery and explicit, source-bound panel confirmation."""
+from app.services.ai.el_progress import run_step
 import asyncio
 import base64
 import hashlib
@@ -120,12 +121,12 @@ async def discover_panels(db, project_id, file_ids):
             elif path.suffix.lower() in ('.png', '.jpg', '.jpeg', '.webp'):
                 pages.append((path, 1))
             for image, number in pages:
-                raw, _ = await ConnectionPoolService.call_with_fallback(
+                raw, _ = await run_step(f'Đang nhận diện vùng tủ: {file.filename}' + (f' · Trang {number}' if number else ''), ConnectionPoolService.call_with_fallback(
                     db=db, connections=connections, call_fn=VisionAnalyzerService.analyze_image,
                     image_path=str(image), prompt='Chỉ xác định CÁC VÙNG SƠ ĐỒ TỦ ĐIỆN trong ảnh. Chưa bóc thiết bị, chưa tra bảng giá. '
                     'Mỗi tủ: mã đọc được, tên và source_region=[trái,trên,phải,dưới] chuẩn hóa 0..1 bao trọn sơ đồ tủ, gồm đầu vào/đo lường/mọi lộ ra. '
                     'Không dùng khung tên, bảng tải, mặt bằng làm tủ. Nếu tên không đọc rõ dùng VUNG-1... và ghi chưa rõ. '
-                    'Không gộp các sơ đồ tầng khác nhau. Trả JSON {"panels":[{"panel_code":"...","panel_name":"...","source_region":[0,0,1,1],"position":"vị trí trên trang"}]}.')
+                    'Không gộp các sơ đồ tầng khác nhau. Trả JSON {"panels":[{"panel_code":"...","panel_name":"...","source_region":[0,0,1,1],"position":"vị trí trên trang"}]}.'))
                 obj = next((v for v in ResponseParserService.extract_json_blocks(raw) if isinstance(v, dict) and isinstance(v.get('panels'), list)), {})
                 for item in obj.get('panels', [])[:64]:
                     try:
