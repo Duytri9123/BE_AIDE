@@ -101,4 +101,20 @@ class ElProgressRouteTests(unittest.IsolatedAsyncioTestCase):
                 denied=await client.post('/el/next/stream',json={'project_id':99,'message':'hi'})
             self.assertEqual(denied.status_code,404);action.assert_not_awaited()
 
+class ElEvidenceRetryTests(unittest.IsolatedAsyncioTestCase):
+    async def test_missing_pixel_evidence_does_not_repeat_whole_panel_extraction(self):
+        from types import SimpleNamespace
+        from unittest.mock import AsyncMock
+        from app.api.v1.endpoints import el_agent
+        from app.schemas.ai import ChatRequest
+        panel={'panel_code':'MDB','source_file_id':126,'source_page':None,'source_region':[0,0,1,1]}
+        with patch.object(el_agent,'owned_project',new=AsyncMock()), \
+             patch('app.services.ai.takeoff_regions.confirmed_scope',return_value=[panel]), \
+             patch('app.services.ai.scoped_takeoff.extract_confirmed_panels',new=AsyncMock(return_value=[])) as extraction, \
+             patch.object(el_agent,'format_reply_response',new=AsyncMock(return_value={'verification_kind':'device_evidence','verification_feedback':'Thiếu ảnh L4'})):
+            response=await el_agent.next_action(ChatRequest(project_id=42,message='bóc tách MDB',context={'file_ids':[126]}),SimpleNamespace(),SimpleNamespace(),SimpleNamespace(id=23))
+        self.assertEqual(extraction.await_count,1)
+        self.assertEqual(response['processing_status'],'needs_review')
+        self.assertIn('L4',response['reply'])
+
 if __name__=='__main__':unittest.main()

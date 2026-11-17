@@ -62,6 +62,43 @@ def normalize_scoped_row(row):
     return result
 
 
+def ground_scoped_identity(row, source_labels):
+    """A type label is not a branch tag; an equipment function is not a named load."""
+    import re
+    from app.services.ingestion.cad_source_evidence import plain
+    row=dict(row)
+    tag=str(row.get('tag') or '').strip()
+    generic={'MCB','MCCB','RCBO','RCCB','ACB','CB','CT','FUSE','PL','LIGHT','METER','V','A'}
+    labels=source_labels or []
+    load=str(row.get('connected_load') or '').strip()
+    matches=[r for r in labels if load and plain(r['text']).strip()==plain(load).strip()]
+    if tag.upper() in generic:
+        row['tag']=None
+        if len(matches)==1:
+            branch=re.match(r'^((?:P|L|QF|F|S|ST)\d+[A-Z]?)\s*[.: -]',plain(matches[0]['text']))
+            if branch:row['tag']=branch[1]
+    if labels and load and not matches and str(row.get('category') or '').upper() in {'CT','FUSE','LIGHT','PILOT_LIGHT','METER','AMMETER','VOLTMETER','SELECTOR_SWITCH'}:
+        row['electrical_function']=row.get('electrical_function') or load
+        row['connected_load']=None
+    return row
+
+
+def scoped_candidate_key(project_id,file,panel,message,model):
+    import hashlib
+    revision=hashlib.sha256(Path(file.file_path).read_bytes()).hexdigest()
+    identity=[project_id,file.id,panel['source_region'],panel.get('source_page'),message,model,revision]
+    return 'elquote:scoped-candidate:v1:'+hashlib.sha256(json.dumps(identity,sort_keys=True).encode()).hexdigest()
+
+
+def trace_scoped(stage, project_id, panel, payload):
+    import os,time,re
+    folder=os.environ.get('ELQUOTE_TRACE_DIR')
+    if folder:
+        path=Path(folder);path.mkdir(parents=True,exist_ok=True)
+        code=re.sub(r'[^\w.-]+','_',panel['panel_code'])
+        (path/f'{project_id}-{code}-{time.time_ns()}-{stage}.json').write_text(json.dumps(payload,ensure_ascii=False,default=str),encoding='utf8')
+
+
 async def extract_confirmed_panels(db, project_id, panels, message, *, input_context=None):
     from app.services.ai.evidence_crops import apply_verified_boxes
     from app.services.ai.evidence_preview import device_preview
@@ -114,7 +151,10 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                     'ghi ngắn căn cứ phân tích khi cần, không cảnh báo lệch số cụm. Chưa đủ căn cứ số vật '
                     'lý thì dùng unit="Cụm". Mỗi thiết bị có nhãn trích nguyên văn observed_text, '
                     'vị trí location, category, name, tag, spec, quantity, unit, section, in_a, poles, icu_ka, brand, part_number. '
+                    'tag chỉ là nhãn lộ/định danh nguyên văn như P1, L4, QF1; không lấy tên loại MCB, RCBO, '
+                    'FUSE, CT, PL làm tag. Các chữ A/V trong đồng hồ là loại đo, không phải tag. Thiếu tag thì null. '
                     'Ghi connected_load chỉ khi đọc được tên tải và lần đúng dây nối; không suy tên tải từ mã lộ. '
+                    'Chức năng như Hiển thị điện áp, Đo dòng tổng, Báo pha là electrical_function, không phải connected_load. '
                     'source_observations ghi nhãn gốc, tag, công năng và căn cứ nối mạch; technical_analysis giải thích ngắn. '
                     'Trong source_observations.circuit ghi công suất kèm đơn vị gốc, power_w chỉ khi đổi đơn vị rõ, '
                     'cable_spec, installation_method, supply_location và phase nếu nguồn có; thiếu thì để trống. '
@@ -125,7 +165,9 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                     'Trả JSON {"devices":[...],"boxes":[{"device_id":"0","verified":true,'
                     '"symbol_verified":true,"symbol_box_2d":[ymin,xmin,ymax,xmax],'
                     '"text_box_2d":[ymin,xmin,ymax,xmax],"box_2d":[ymin,xmin,ymax,xmax]}]}. '
-                    'Mỗi tag phải có tag_box_2d. Nếu có connected_load, thêm load_box_2d, load_label nguyên văn '
+                    'Thiết bị không có nhãn/thông số riêng trên nguồn (ví dụ CT chỉ có ký hiệu) vẫn ghi nhận '
+                    'nhưng để spec chưa xác định; text_box_2d trùng symbol_box_2d và observed_text nói rõ nguồn không ghi. '
+                    'Không tự thêm tỷ số CT. Mỗi tag phải có tag_box_2d. Nếu có connected_load, thêm load_box_2d, load_label nguyên văn '
                     'và relationship_evidence mô tả dây nối; không chỉ chụp aptomat rồi coi đã chứng minh phụ tải. '
                     'device_id là chỉ số dòng devices từ 0. Box 0..1000 theo CHÍNH ẢNH VÙNG TỦ này, '
                     'Ký hiệu aptomat có thể nằm ngang trên dây: bao đủ hai đầu tiếp điểm và nét chéo, '
@@ -134,12 +176,34 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                     'verified=false; không đoán tọa độ. Không tự thêm dòng không có trên ảnh.\n'
                     + json.dumps({'panel_code': panel['panel_code'], 'request': message,
                                   'source_labels': labels, 'conversation_reference': input_context}, ensure_ascii=False))
-                raw = await run_step('Đang đọc ký hiệu, thông số và các nhánh', call_image(image_path, prompt))
-                payload = next((b for b in ResponseParserService.extract_json_blocks(raw)
+                from app.services.cache_service import cache_service
+                candidate_key=scoped_candidate_key(project_id,file,panel,message,connections[0].selected_model) if session_factory else None
+                payload=await cache_service.get(candidate_key) if candidate_key and 'Kết quả kiểm chứng cần sửa' not in message else None
+                if isinstance(payload,str):
+                    try:payload=json.loads(payload)
+                    except (ValueError,TypeError):payload=None
+                if not payload:
+                    raw = await run_step('Đang đọc ký hiệu, thông số và các nhánh', call_image(image_path, prompt))
+                    payload = next((b for b in ResponseParserService.extract_json_blocks(raw)
                                 if isinstance(b, dict) and isinstance(b.get('devices'), list)), None)
+                    if candidate_key and payload and payload.get('devices'):
+                        await cache_service.set(candidate_key,json.dumps(payload,ensure_ascii=False),expire=3600)
+                else:
+                    await run_step('Đang dùng lại danh mục nguồn đã đọc, kiểm chứng lại vùng ảnh',asyncio.sleep(0))
                 if not payload or not payload['devices']:
                     raise HTTPException(422, 'Chưa đọc được danh mục tủ ' + panel['panel_code'])
-                original = [normalize_scoped_row(row) for row in payload['devices']]
+                trace_scoped('extraction',project_id,panel,payload)
+                native_labels=[]
+                if Path(file.file_path).suffix.lower() in ('.dwg','.dxf'):
+                    from app.services.ingestion.cad_parser import CadParserService
+                    from app.services.ingestion.cad_source_evidence import cad_evidence
+                    native_path=await asyncio.to_thread(CadParserService.prepare_analysis_path,file.file_path)
+                    native_labels=(await asyncio.to_thread(cad_evidence,native_path,panel['source_region'])).get('labels',[])
+                original = [ground_scoped_identity(normalize_scoped_row(row),native_labels) for row in payload['devices']]
+                if native_labels:
+                    from app.services.ai.cad_branch_evidence import seed_vertical_branch_boxes
+                    payload['boxes']=await run_step('Đang đối chiếu vùng cắt với nhãn và block CAD gốc',
+                        asyncio.to_thread(seed_vertical_branch_boxes,native_path,panel['source_region'],original,payload.get('boxes') or []))
                 devices = [ExtractedDeviceSchema.model_validate({**row, 'spec': str(row.get('spec') or '')})
                            for row in original]
                 with Image.open(image_path) as source:
@@ -150,6 +214,7 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                 from app.services.ai.takeoff_evidence_completion import complete_evidence, evidence_gaps
                 audited = await complete_evidence(image, image_path, devices, audited, call_image,
                     concurrency=2 if session_factory else 1)
+                trace_scoped('audit',project_id,panel,{'devices':original,'boxes':audited.get('boxes')})
                 apply_verified_boxes(devices, audited, require_symbols=True)
                 for device in devices:
                     if (device.evidence_region or {}).get("status") == "verified":

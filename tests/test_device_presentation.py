@@ -31,6 +31,19 @@ class DevicePresentationTests(unittest.TestCase):
         self.assertLess(first.width,100);self.assertLess(first.height,40)
         self.assertEqual(previews[1]['label'],'Ký hiệu lộ')
 
+    def test_branch_identity_is_not_device_type_or_meter_function(self):
+        from app.services.ai.scoped_takeoff import ground_scoped_identity
+        source=[{'text':'P4. BẾP HỒNG NGOẠI'}]
+        device=ground_scoped_identity({'category':'RCBO','tag':'RCBO','connected_load':'P4. BẾP HỒNG NGOẠI'},source)
+        self.assertEqual(device['tag'],'P4')
+        self.assertEqual(device['connected_load'],'P4. BẾP HỒNG NGOẠI')
+        meter=ground_scoped_identity({'category':'METER','tag':'V','connected_load':'Hiển thị điện áp'},source)
+        self.assertIsNone(meter['tag']);self.assertIsNone(meter['connected_load'])
+        self.assertEqual(meter['electrical_function'],'Hiển thị điện áp')
+        # No CAD transcript is not proof that a load label is absent on an image/PDF.
+        image=ground_scoped_identity({'category':'METER','tag':'M1','connected_load':'Machine A'},[])
+        self.assertEqual(image['connected_load'],'Machine A')
+
     def test_context_uses_the_exact_row_and_explicit_power_unit(self):
         labels=[{'id':'tag','text':'L4','x':30,'y':100,'height':10},
                 {'id':'rating','text':'MCB-1P-10A-6kA','x':10,'y':100,'height':10},
@@ -59,5 +72,30 @@ class DevicePresentationTests(unittest.TestCase):
             self.assertEqual(len(DynamicGroupingEngine.merge_duplicates([first,{**second,**change}])),2)
         self.assertEqual(len(DynamicGroupingEngine.merge_duplicates([{**first,'unit_price':None},{**second,'unit_price':0}])),2)
         self.assertEqual(DynamicGroupingEngine.merge_duplicates([{**first,'quantity':0},{**second,'quantity':0}])[0]['quantity'],0)
+
+class CropAuditReadabilityTests(unittest.IsolatedAsyncioTestCase):
+    async def test_audit_keeps_source_parts_readable(self):
+        from types import SimpleNamespace
+        from app.services.ai.device_crop_audit import audit_device_previews
+        source=Image.new('RGB',(1000,1000),'white')
+        source.paste('red',(100,100,200,200))
+        row={'device_id':'0','verified':True,'symbol_verified':True,
+             'symbol_box_2d':[100,100,200,200],'text_box_2d':[300,400,400,500],
+             'tag_box_2d':[700,800,800,900],'load_box_2d':[850,100,900,200],
+             'load_verified':True,'relationship_evidence':'source wire','load_label':'LOAD'}
+        device=SimpleNamespace(name='MCB',tag='P1',spec='20A',quantity=1,unit='Cái',connected_load='LOAD')
+        async def call(path,prompt):
+            import json
+            with Image.open(path) as sheet:
+                red_y=[]
+                for y in range(sheet.height):
+                    if any(sheet.getpixel((x,y))[:3]==(255,0,0) for x in range(0,500,4)):red_y.append(y)
+                from itertools import groupby
+                longest=max(len(list(g)) for _,g in groupby(enumerate(red_y),key=lambda item:item[0]-item[1]))
+                self.assertGreater(longest,100)
+            return json.dumps({'checks':[{'device_id':'0','matches':True,'symbol_complete':True,
+                'label_complete':True,'isolated':True,'tag_matches':True,'load_matches':True,'relationship_verified':True}]})
+        result=await audit_device_previews(source,call,[device],{'boxes':[row]})
+        self.assertTrue(result['boxes'][0]['verified'])
 
 if __name__=='__main__':unittest.main()

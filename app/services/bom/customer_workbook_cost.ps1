@@ -19,8 +19,11 @@ try {
         foreach ($entry in @{M9='location';M10='construction';M11='compartments';M12='side_panels';M13='compartmented';M14='door_layers';M15='accessories';M16='plinth_height_mm';D9='price_per_kg'}.GetEnumerator()) {
             $value = $request.enclosure.($entry.Value)
             if ($null -ne $value) {
-                if ($value -is [ValueType]) { $value = [double]$value }
-                $vt.Range($entry.Key).Value2 = $value
+                if ($entry.Key -in @('D9','H9','H10','H11','H12')) {
+                    $vt.Range($entry.Key).Value2 = [double]$value
+                } else {
+                    $vt.Range($entry.Key).Value2 = [string]$value
+                }
             }
         }
     }

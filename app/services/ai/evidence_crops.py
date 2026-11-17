@@ -64,6 +64,8 @@ def apply_verified_boxes(devices: List[ExtractedDeviceSchema], payload: Any, req
             device.evidence_region.update(coordinate_space='normalized_1000', box_2d=list(device.box_2d))
             for key in ('symbol_box_2d','text_box_2d','tag_box_2d'):
                 device.evidence_region[key] = ExtractedDeviceSchema.normalize_evidence_box(matches[0].get(key))
+            if matches[0].get('neighbor_symbol_boxes_2d'):
+                device.evidence_region['neighbor_symbol_boxes_2d'] = matches[0]['neighbor_symbol_boxes_2d']
             quad = matches[0].get('branch_quad')
             if isinstance(quad, list) and len(quad) == 4 and all(
                 isinstance(pt, list) and len(pt) == 2 and all(isinstance(v, (int, float)) and 0 <= v <= 1000 for v in pt)

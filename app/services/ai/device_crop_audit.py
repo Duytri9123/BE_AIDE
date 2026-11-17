@@ -38,33 +38,35 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
 
     async def audit_batch(batch):
         async with semaphore:
-            sheet = Image.new('RGB', (1200, 270*len(batch)), 'white')
+            sheet = Image.new('RGB', (2400, 900*len(batch)), 'white')
             draw = ImageDraw.Draw(sheet)
             requests = []
             for local, identity in enumerate(batch):
                 row = rows[identity]
-                previews = device_preview(image, row, tight=True)
+                device = devices[int(identity)]
+                proposed_preview={**row,'load_verified':bool(device.connected_load and row.get('load_box_2d') and row.get('relationship_evidence'))}
+                previews = device_preview(image, proposed_preview, tight=True)
                 if not previews:
                     row['verified'] = False
                     continue
                 # Audit every exported part for this device, including distant tag/text crops.
-                tile_height = max(1, 225 // len(previews))
+                tile_height = max(1, 825 // ((len(previews)+1)//2))
                 for part_index, part in enumerate(previews):
                     data = base64.b64decode(part['evidence_image'].split(',')[1])
                     preview = Image.open(io.BytesIO(data)).convert('RGB')
-                    preview = ImageOps.contain(preview, (570, tile_height), Image.Resampling.LANCZOS)
-                    sheet.paste(preview, (10, local*270+25+part_index*tile_height))
-                draw.text((10, local*270+5), 'ID '+identity+' - EXPORTED CROP', fill='black')
+                    preview = ImageOps.contain(preview, (740, tile_height), Image.Resampling.LANCZOS)
+                    sheet.paste(preview, (10+(part_index%2)*760, local*900+35+(part_index//2)*tile_height))
+                draw.text((10, local*900+5), 'ID '+identity+' - EXPORTED CROP', fill='black')
                 parts = [row[k] for k in ('symbol_box_2d', 'text_box_2d', 'tag_box_2d', 'load_box_2d') if row.get(k)]
                 box = [min(b[0] for b in parts), min(b[1] for b in parts),
                        max(b[2] for b in parts), max(b[3] for b in parts)]
                 context = [max(0, box[0]-25), max(0, box[1]-25), min(1000, box[2]+25), min(1000, box[3]+25)]
                 pixels = evidence_crop_pixels(context, *image.size)
                 if pixels:
-                    detail = ImageOps.contain(image.crop(pixels), (570, 235), Image.Resampling.LANCZOS)
-                    sheet.paste(detail, (610, local*270+25))
+                    detail = ImageOps.contain(image.crop(pixels), (820, 825), Image.Resampling.LANCZOS)
+                    sheet.paste(detail, (1570, local*900+35))
                 device = devices[int(identity)]
-                requests.append({'device_id': identity, 'name': device.name, 'tag': device.tag, 'spec': device.spec, 'quantity': device.quantity, 'unit': device.unit, 'connected_load': device.connected_load, 'load_label': row.get('load_label'), 'relationship_evidence': row.get('relationship_evidence')})
+                requests.append({'device_id': identity, 'name': device.name, 'tag': device.tag, 'spec': device.spec, 'quantity': device.quantity, 'unit': device.unit, 'drawing_quantity': getattr(device,'drawing_quantity',None), 'quantity_basis': getattr(device,'quantity_basis',None), 'connected_load': device.connected_load, 'load_label': row.get('load_label'), 'relationship_evidence': row.get('relationship_evidence')})
                 row['verified'] = False
             if not requests:
                 return
@@ -74,13 +76,21 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                 sheet.save(path)
                 raw = await run_step('Đang đối chiếu ảnh và dây nối: ' + ', '.join(str(r['tag'] or r['name']) for r in requests), call_image(path,
                     'Kiểm tra ĐỘC LẬP ảnh cắt sẽ hiển thị cho người dùng. Cột trái là CHÍNH ẢNH XUẤT RA, '
-                    'cột phải là ngữ cảnh nguồn. Nếu cột trái có nhiều ảnh, đó là các ảnh riêng của cùng ID; kiểm đủ tất cả ảnh.  Không tin danh mục ứng viên. Mỗi ID: ảnh trái phải có '
+                    'cột phải là ngữ cảnh nguồn. Vùng trái mỗi ID là các ảnh xuất riêng trong lưới hai cột; vùng phải là ngữ cảnh nguồn. Kiểm đủ tất cả ảnh.  Không tin danh mục ứng viên. Mỗi ID: ảnh trái phải có '
                     'đủ ký hiệu điện thực và nhãn của đúng thiết bị, đúng nhánh. Cho phép nhãn và ký hiệu '
                     'của CHÍNH thiết bị cùng nằm trong ảnh; isolated=false chỉ khi lẫn thiết bị/nhãn khác '
-                    'gây nhầm nhận diện. Với dòng có quantity>1, ảnh có thể bao đúng nhóm thiết bị cùng loại '
+                    'gây nhầm nhận diện. Nếu nguồn thực sự không có nhãn/thông số riêng và dòng không khẳng định '
+                    'thông số ấy (ví dụ CT chưa ghi tỷ số), text_box có thể trùng symbol_box; label_complete '
+                    'chỉ kiểm phần nguồn/danh mục thực sự khẳng định, không bắt có chữ nguồn vốn không ghi. '
+                    'Trong sơ đồ một sợi, một ký hiệu CB có thể đại diện thiết bị nhiều cực (2P/3P/4P); '
+                    'kiểm nét ký hiệu so với NGUỒN, không yêu cầu sơ đồ phải vẽ riêng từng cực của thiết bị. '
+                    'Vẫn bác bỏ ký hiệu bị cắt so với nguồn hoặc thông số tự thêm. Với dòng có quantity>1, ảnh có thể bao đúng nhóm thiết bị cùng loại '
                     'theo số lượng đã khai báo (ví dụ ba ampe kế); không bác bỏ chỉ vì có nhiều phần tử '
                     'của CHÍNH dòng đó. Phải kiểm tra nhóm khớp số lượng/nhãn, không chấp nhận ảnh một '
-                    'phần tử để chứng minh cả nhóm nếu nguồn không ghi hệ số. Dây nối đi qua không phải thiết bị khác. Kiểm tra mất nét/tiếp điểm '
+                    'phần tử để chứng minh cả nhóm nếu nguồn không ghi hệ số và cũng không có căn cứ logic mạch. '
+                    'Nếu quantity_basis nêu suy luận số vật tư (ví dụ CT đo ba pha qua AS), kiểm độc lập logic '
+                    'đó bằng ngữ cảnh nguồn; giữ drawing_quantity là số ký hiệu, không máy móc coi một ký hiệu '
+                    'luôn bằng một vật tư. Không đủ căn cứ thì bác bỏ. Dây nối đi qua không phải thiết bị khác. Kiểm tra mất nét/tiếp điểm '
                     'hoặc chữ số do cắt mép. Aptomat nằm ngang có nhãn phía trên và tiếp điểm trên dây '
                     'vẫn hợp lệ nếu đầy đủ nét; không ép thành ký hiệu dọc hay chỉ lấy nhãn.  Không lấy chữ từ ngữ cảnh để bù phần thiếu của ảnh xuất ra. '
                     'Nếu có tag, kiểm tra ảnh xuất có đúng NHÃN TAG; không lấy tag từ danh mục để xác nhận. '
@@ -111,6 +121,6 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
             finally:
                 os.remove(path)
 
-    await asyncio.gather(*(audit_batch(identities[start:start+6])
-                           for start in range(0, len(identities), 6)))
+    await asyncio.gather(*(audit_batch(identities[start:start+2])
+                           for start in range(0, len(identities), 2)))
     return {'boxes': list(rows.values())}

@@ -1517,7 +1517,7 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
             if gaps:
                 incomplete.append(str(device.get('tag') or device.get('name')) + ': ' + '; '.join(dict.fromkeys(gaps)))
         if incomplete:
-            return {'verification_feedback': 'Chưa đủ minh chứng từng thiết bị; cần đọc lại: ' + '\n'.join(incomplete), 'candidate': devices_data}
+            return {'verification_feedback': 'Chưa đủ minh chứng từng thiết bị; cần đọc lại: ' + '\n'.join(incomplete), 'verification_kind':'device_evidence', 'candidate': devices_data}
     if requested_panels:
         devices_data = [d for d in devices_data
                         if (d.get('panel_code') or d.get('panel') or '').casefold()
@@ -1676,8 +1676,10 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
                 feedback = response.get('verification_feedback')
                 if not feedback:
                     return response
+                if response.get('verification_kind') == 'device_evidence':
+                    return {'reply':'Còn thiết bị chưa đủ minh chứng; chưa lưu kết quả.\n'+str(feedback), 'processing_status':'needs_review'}
                 extraction_message = payload.message + '\nKết quả kiểm chứng cần sửa (dữ liệu): ' + str(feedback)
-            return {'reply': 'Chưa hoàn tất bóc tách và chưa lưu vì minh chứng nguồn chưa đủ sau khi đọc lại: ' + str(feedback)}
+            return {'reply': 'Chưa hoàn tất bóc tách và chưa lưu vì minh chứng nguồn chưa đủ sau khi đọc lại: ' + str(feedback), 'processing_status':'needs_review'}
     tool_list = context.get('tools', [])
     observations = context.get('observations', [])
     if not isinstance(tool_list, list) or len(tool_list) > 250 or not isinstance(observations, list) or len(observations) > 18:

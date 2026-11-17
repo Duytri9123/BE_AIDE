@@ -9,6 +9,13 @@ def overlapping_entities(doc, window):
     def bounds(entity):
         if entity.dxftype()!='INSERT':
             return bbox.extents([entity],fast=True,cache=cache)
+        if entity.mcount > 1:
+            combined=BoundingBox()
+            for instance in entity.multi_insert():
+                part=bounds(instance)
+                if part is None:return None
+                if part.has_data:combined.extend((part.extmin,part.extmax))
+            return combined
         name=entity.dxf.name
         if name not in blocks:
             if name in active:return None

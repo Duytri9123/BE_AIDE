@@ -4454,7 +4454,23 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     'busbar_segments': (cad_layout or {}).get('busbar_segments'),
                 })
             except (ValueError, RuntimeError, TimeoutError) as cost_error:
-                enclosure_spec['pricing_calculation']={'status':'calculator_unavailable','reason':str(cost_error)}
+                from app.services.bom.enclosure_fabrication_service import EnclosureFabricationService
+                fab_fallback = EnclosureFabricationService.calculate(
+                    height_mm=enclosure_height,
+                    width_mm=enclosure_width,
+                    depth_mm=enclosure_depth,
+                    thickness_mm=float(enclosure_spec.get('thickness') or settings.ENCLOSURE_DEFAULT_THICKNESS),
+                    location='Ngoài trời' if enclosure_kind=='outdoor' else 'Trong nhà',
+                    door_layers=f"{enclosure_spec.get('door_layers',1)} lớp cánh",
+                    plinth_height_mm=enclosure_spec.get('plinth_height', 100)
+                )
+                enclosure_spec['pricing_calculation'] = {
+                    'status': 'calculated',
+                    'engine': 'EnclosureFabricationService',
+                    'enclosure': {'mass_kg': fab_fallback.mass_kg, 'unit_price': fab_fallback.unit_price, 'price_per_kg': fab_fallback.price_per_kg},
+                    'busbar': None,
+                    'note': f'Fallback to standard fabrication formula: {cost_error}'
+                }
         quotation_rows = AnalysisPipelineService._build_quotation_rows(
             project_name=project.name,
             extracted_devices=extracted_devices,

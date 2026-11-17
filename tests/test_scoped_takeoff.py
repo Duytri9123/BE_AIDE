@@ -106,5 +106,19 @@ class ScopedTakeoffTests(unittest.IsolatedAsyncioTestCase):
             self.assertNotIn((255, 0, 0), crop.convert('RGB').getdata())
 
 
+class ScopedCandidateCacheTests(unittest.TestCase):
+    def test_candidate_cache_is_bound_to_source_request_scope_and_model(self):
+        from app.services.ai.scoped_takeoff import scoped_candidate_key
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'drawing.dwg';path.write_bytes(b'source revision 1')
+            file=SimpleNamespace(id=7,file_path=str(path));panel={'source_region':[0,0,1,1]}
+            key=scoped_candidate_key(1,file,panel,'bóc toàn bộ','model-a')
+            self.assertNotEqual(key,scoped_candidate_key(2,file,panel,'bóc toàn bộ','model-a'))
+            self.assertNotEqual(key,scoped_candidate_key(1,file,panel,'bóc MCB','model-a'))
+            self.assertNotEqual(key,scoped_candidate_key(1,file,panel,'bóc toàn bộ','model-b'))
+            self.assertNotEqual(key,scoped_candidate_key(1,file,{'source_region':[0,0,.5,1]},'bóc toàn bộ','model-a'))
+            path.write_bytes(b'source revision 2')
+            self.assertNotEqual(key,scoped_candidate_key(1,file,panel,'bóc toàn bộ','model-a'))
+
 if __name__ == '__main__':
     unittest.main()

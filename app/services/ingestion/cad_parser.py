@@ -139,11 +139,21 @@ class CadParserService:
             up = entity.ocs().uy * height
             height = (world(Vec3(point) + up, matrices) - position).magnitude
             layer = entity.dxf.get('layer', '0')
-            texts.append({
+            record = {
                 'text': value.strip(), 'x': position.x, 'y': position.y,
                 'height': height, 'layer': inherited_layer if layer == '0' else layer,
                 'block_path': list(path),
-            })
+            }
+            try:
+                from ezdxf import bbox
+                from ezdxf.math import BoundingBox
+                local_box=bbox.extents([entity],fast=True)
+                if local_box.has_data:
+                    box=BoundingBox(world(vertex,matrices) for vertex in local_box.cube_vertices())
+                    record['bounds']=[box.extmin.x,box.extmin.y,box.extmax.x,box.extmax.y]
+            except Exception:
+                pass  # Missing font/proxy bounds must not hide readable source text.
+            texts.append(record)
 
         def walk(entities, matrices=(), inherited_layer='0', path=(), attached_tags=frozenset()):
             for entity in entities:

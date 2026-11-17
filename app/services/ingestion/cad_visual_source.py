@@ -21,7 +21,7 @@ def render_schematic_source(file_path, region=None):
     bounds=evidence.get('view_bounds')
     if not bounds:return None
     key=hashlib.sha256(json.dumps(region).encode()).hexdigest()[:12]
-    output=source.parent/'.cad-analysis'/(source.stem+'-sld-v7-'+key+'.png')
+    output=source.parent/'.cad-analysis'/(source.stem+'-sld-v8-'+key+'.png')
     if output.is_file() and output.stat().st_mtime_ns>=source.stat().st_mtime_ns:return str(output)
     left,bottom,right,top=bounds
     width=max(right-left,1);height=max(top-bottom,1)
@@ -29,7 +29,7 @@ def render_schematic_source(file_path, region=None):
         doc=ezdxf.readfile(source)
         fig=Figure(figsize=(20*width/max(width,height),20*height/max(width,height)),dpi=180)
         FigureCanvasAgg(fig);ax=fig.add_axes([0,0,1,1])
-        config=Configuration(color_policy=ColorPolicy.BLACK,background_policy=BackgroundPolicy.WHITE)
+        config=Configuration(color_policy=ColorPolicy.BLACK,background_policy=BackgroundPolicy.WHITE,min_lineweight=1.0)
         layout=doc.modelspace()
         from app.services.ingestion.cad_viewports import overlapping_entities
         selected=overlapping_entities(doc,(left,bottom,right,top))

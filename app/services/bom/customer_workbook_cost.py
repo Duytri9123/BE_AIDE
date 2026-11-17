@@ -8,7 +8,24 @@ import subprocess
 import tempfile
 from threading import Lock
 
-WORKBOOK = Path('storage/cost_templates/Bao gia v6.0 - 2021.xlsm')
+def _resolve_workbook(custom_path=None):
+    if custom_path:
+        p = Path(custom_path).resolve()
+        if p.is_file():
+            return p
+    candidates = [
+        Path('storage/cost_templates/Bao gia v6.0 - 2021.xlsm'),
+        Path('BE_AIDE/storage/cost_templates/Bao gia v6.0 - 2021.xlsm'),
+        Path(__file__).resolve().parent.parent.parent.parent / 'storage' / 'cost_templates' / 'Bao gia v6.0 - 2021.xlsm',
+    ]
+    for c in candidates:
+        p = c.resolve()
+        if p.is_file():
+            return p
+    return Path('storage/cost_templates/Bao gia v6.0 - 2021.xlsm').resolve()
+
+
+WORKBOOK = _resolve_workbook()
 _LOCK = Lock()
 
 

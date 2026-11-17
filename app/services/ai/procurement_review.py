@@ -272,5 +272,24 @@ def supplement_enclosure_details(rows, enclosure, panel_code=None):
         if row.get('id') == f'{code}-assembly-ENCLOSURE':
             row.update(spec=description, original_spec=row.get('original_spec') or '',
                 design_details=deepcopy(enclosure), inclusion_status='designed',
-                notes='',design_notes='Kích thước theo kết quả thiết kế; đơn giá và các đặc điểm chế tạo chưa nêu cần bổ sung.')
+                notes='',design_notes='Kích thước theo kết quả thiết kế chuẩn Cơ Điện Asean.')
+            if row.get('unit_price') is None or row.get('unit_price') == 0:
+                from app.services.bom.enclosure_fabrication_service import EnclosureFabricationService
+                h, w, d = dims[0], dims[1], dims[2]
+                th = float(enclosure.get('thickness') or 1.2)
+                loc = 'Ngoài trời' if enclosure.get('outdoor') else 'Trong nhà'
+                door = f"{enclosure.get('door_layers', 1)} lớp cánh" if enclosure.get('door_layers') else '1 lớp cánh'
+                fab_res = EnclosureFabricationService.calculate(
+                    height_mm=h, width_mm=w, depth_mm=d, thickness_mm=th,
+                    location=loc, door_layers=door,
+                    plinth_height_mm=enclosure.get('plinth_height', 100)
+                )
+                if fab_res.unit_price > 0:
+                    row.update(
+                        unit_price=fab_res.unit_price,
+                        line_total=fab_res.unit_price * row.get('quantity', 1),
+                        price_status='calculated',
+                        calculation_source='enclosure_fabrication_service',
+                        cost_calculation={'mass_kg': fab_res.mass_kg, 'unit_price': fab_res.unit_price, 'price_per_kg': fab_res.price_per_kg}
+                    )
     return result
