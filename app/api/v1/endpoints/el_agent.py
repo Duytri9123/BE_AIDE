@@ -1415,9 +1415,10 @@ def detect_simple_conversational_response(message: str) -> Optional[str]:
     # 4. Cảm ơn, xác nhận, khen ngợi
     ack_words = {
         'ok', 'okay', 'okie', 'oki', 'oke', 'cam on', 'cam on ban', 'cam on el', 'thanks', 'thank you',
-        'tks', 'thank', 'duoc roi', 'tot qua', 'tuyet voi', 'hay qua', 'da hieu', 'da ro', 'chuan roi', 'chuan', 'good job'
+        'tks', 'thank', 'duoc roi', 'tot qua', 'tuyet voi', 'hay qua', 'da hieu', 'da ro', 'chuan roi', 'chuan', 'good job',
+        'da vang', 'vang', 'vang a', 'da', 'ok ban', 'ok nhe', 'ok cam on', 'ok thanks'
     }
-    if clean in ack_words or core in ack_words:
+    if clean in ack_words or core in ack_words or (re.search(r'^(?:ok|okay|da|vang)\b', core) and any(w in core for w in ['cam on', 'thanks', 'thank', 'ban', 'nhe', 'roi'])):
         return "Rất vui được hỗ trợ bạn! Nếu cần bóc tách thêm bản vẽ, kiểm tra thiết bị hay tính toán báo giá, bạn cứ gửi yêu cầu cho EL nhé."
 
     # 5. Tạm biệt
