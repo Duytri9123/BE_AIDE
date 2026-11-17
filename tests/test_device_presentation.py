@@ -16,6 +16,21 @@ class DevicePresentationTests(unittest.TestCase):
         self.assertEqual(crops[0].getpixel((10,10)),(0,0,0))
         self.assertEqual(crops[1].getpixel((10,10)),(0,0,255))
 
+    def test_horizontal_symbol_keeps_nearby_rating_with_distant_tag_separate(self):
+        image=Image.new('RGB',(1000,1000),'white')
+        image.paste('red',(190,415,265,425))  # rating above the horizontal contact
+        image.paste('black',(202,425,212,439))
+        image.paste('blue',(394,419,406,429))  # distant tag
+        previews=device_preview(image,{'symbol_box_2d':[425,202,439,212],
+            'text_box_2d':[415,184,425,265],'tag_box_2d':[419,394,429,406]},tight=True)
+        self.assertEqual(len(previews),2)
+        first=Image.open(io.BytesIO(base64.b64decode(previews[0]['evidence_image'].split(',')[1]))).convert('RGB')
+        colors={color for _,color in first.getcolors(first.width*first.height)}
+        self.assertIn((255,0,0),colors);self.assertIn((0,0,0),colors)
+        self.assertNotIn((0,0,255),colors)
+        self.assertLess(first.width,100);self.assertLess(first.height,40)
+        self.assertEqual(previews[1]['label'],'Ký hiệu lộ')
+
     def test_context_uses_the_exact_row_and_explicit_power_unit(self):
         labels=[{'id':'tag','text':'L4','x':30,'y':100,'height':10},
                 {'id':'rating','text':'MCB-1P-10A-6kA','x':10,'y':100,'height':10},

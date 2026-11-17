@@ -123,6 +123,8 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                 'Mỗi tag phải có tag_box_2d. Nếu có connected_load, thêm load_box_2d, load_label nguyên văn '
                 'và relationship_evidence mô tả dây nối; không chỉ chụp aptomat rồi coi đã chứng minh phụ tải. '
                 'device_id là chỉ số dòng devices từ 0. Box 0..1000 theo CHÍNH ẢNH VÙNG TỦ này, '
+                'Ký hiệu aptomat có thể nằm ngang trên dây: bao đủ hai đầu tiếp điểm và nét chéo, '
+                'giữ nhãn thông số ngay phía trên cùng ảnh cắt nếu gần; tag ở xa có ảnh riêng. '
                 'bao ký hiệu thực và nhãn riêng, không bao toàn tủ/nhánh kế bên. Không thấy thì '
                 'verified=false; không đoán tọa độ. Không tự thêm dòng không có trên ảnh.\n'
                 + json.dumps({'panel_code': panel['panel_code'], 'request': message,

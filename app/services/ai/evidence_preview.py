@@ -36,37 +36,33 @@ def _device_preview(image, region, *, tight=False):
     if not valid_boxes:
         return []
 
-    # 1. Nếu các phần (ký hiệu, nhãn, tag) nằm trong cùng một vùng mạch lân cận,
-    # giữ ảnh liền mạch nguyên bản thay vì cắt xẻ làm đứt nét và chèn dải trắng giả lập.
-    ymin = min(b[0] for b in valid_boxes)
-    xmin = min(b[1] for b in valid_boxes)
-    ymax = max(b[2] for b in valid_boxes)
-    xmax = max(b[3] for b in valid_boxes)
-    span_y = ymax - ymin
-    span_x = xmax - xmin
+    # Group nearby source parts even when another part (e.g. the tag) is distant.
+    # A horizontal breaker and its adjacent rating stay one continuous source crop.
+    groups = []
+    for box, label in zip(valid_boxes, box_labels):
+        for group in groups:
+            merged = [min(group['box'][0], box[0]), min(group['box'][1], box[1]),
+                      max(group['box'][2], box[2]), max(group['box'][3], box[3])]
+            if merged[2]-merged[0] <= 240 and merged[3]-merged[1] <= 220:
+                group['box'] = merged
+                group['labels'].append(label)
+                break
+        else:
+            groups.append({'box': list(box), 'labels': [label]})
 
-    if span_y <= 240 and span_x <= 220:
-        pixels = crop_pixels([ymin, xmin, ymax, xmax])
-        if pixels:
-            crop = image.crop(pixels).convert('RGB')
-            crop.thumbnail((1200, 900), Image.Resampling.LANCZOS)
-            output = io.BytesIO()
-            crop.save(output, format='PNG')
-            return [{'kind': 'device', 'label': 'Ký hiệu và thông số trên sơ đồ gốc',
-                     'evidence_image': 'data:image/png;base64,' + base64.b64encode(output.getvalue()).decode()}]
-
-    # Distant parts stay separate source crops. Never stack them into a synthetic image.
     images = []
-    for index, box in enumerate(valid_boxes):
-        pixels = crop_pixels(box)
+    for group in groups:
+        pixels = crop_pixels(group['box'])
         if not pixels:
             continue
         crop = image.crop(pixels).convert('RGB')
         crop.thumbnail((1200, 900), Image.Resampling.LANCZOS)
         output = io.BytesIO()
         crop.save(output, format='PNG')
-        images.append({'kind': 'device', 'label': box_labels[index],
+        label = 'Ký hiệu và thông số trên sơ đồ gốc' if len(group['labels']) > 1 else group['labels'][0]
+        images.append({'kind': 'device', 'label': label,
             'evidence_image': 'data:image/png;base64,' + base64.b64encode(output.getvalue()).decode()})
+
     return images
 
 
