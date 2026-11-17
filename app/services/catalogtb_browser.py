@@ -38,7 +38,7 @@ def catalog_query_matches(query, text):
 
 
 def _snapshot_path():
-    return CATALOG_TB_ROOT / '_agent_index' / 'browser_display_v5.json'
+    return CATALOG_TB_ROOT / '_agent_index' / 'browser_display_v6.json'
 
 
 def _refresh_browser_data(root):
@@ -225,6 +225,8 @@ def _build_browser_data(information_override=None):
         profile['recognition_review']=current.get('nhan_dien_bo_sung_20261010') or {}
         profile['auto_select']=bool(current.get('auto_select',False))
         profile['needs_review']=current.get('needs_review',True)
+        from .cad.device_installation import installation_review
+        profile['installation_review']=installation_review(current,path)
         kind=current.get('catalog_information_type') or ai.get('loai_thiet_bi_code') or profile['recognition_review'].get('category_code')
         if kind:profile['type']={'PHASE_RELAY':'Rơ le bảo vệ pha'}.get(kind,kind)
         profile['views']=[{'id':v['source_id'],'label':v.get('label') or v['face'],'face':v['face'],

@@ -597,7 +597,8 @@ class AnalysisPipelineService:
                         vision_prompt += ('\nGIAI ĐOẠN ĐỌC NGUỒN ẢNH: chỉ trả JSON hợp lệ, gọn, đầy đủ devices và thông tin tủ thực sự ghi trên ảnh; '
                             'brand và part_number chỉ ghi hãng/mã nhìn thấy trên ảnh, không thay bằng hãng khách yêu cầu; hệ thống đối chiếu hãng yêu cầu ngay sau khi xác minh danh mục. '
                             'chưa tìm mã sản phẩm hoặc viết phân tích lựa chọn ở bước này. '
-                            'Mỗi devices có category,name,spec,tag,panel_code,panel_name,section,quantity,poles,in_a,icu_ka,connected_load. '
+                            'Mỗi devices có category,name,spec,tag,panel_code,panel_name,section,quantity,poles,in_a,icu_ka,connected_load,brand,part_number. '
+                            'Nếu thấy thông tin gá/lỗ khoét, giữ installation_observation: body_mount_face, operating_face, cutout_required (true/false/null), cutout_mm, source_reference; không suy kích thước từ bao hình. '
                             'Spec phải giữ đủ thông số nguồn bằng chuỗi ngắn, không để rỗng nếu đọc được số cực/dòng/kA. '
                             'Category dùng mã loại ghi trên nguồn, không đổi MCCB thành MCB vì dòng nhỏ. '
                             'Không lấy số 2 trong 2A làm số lượng cầu chì; 3XCT là một dòng CT quantity=3. '
@@ -772,6 +773,7 @@ class AnalysisPipelineService:
                                     quantity=int(d.quantity or 1),
                                     brand=d.brand or "",
                                     part_number=d.part_number or "",
+                                    installation_observation=getattr(d, 'installation_observation', None),
                                     section=d.section,
                                     location=d.location,
                                     panel_code=d.panel_code,
@@ -2572,6 +2574,7 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 source_observations=getattr(d,'source_observations',None),
                 brand=d.brand or "",
                 part_number=d.part_number or "",
+                installation_observation=getattr(d, 'installation_observation', None),
                 section=d.section or "Đầu ra",
                 location=d.location or filename,
                 panel_code=d.panel_code or (extracted_panels[0]["panel_code"] if extracted_panels else ""),
@@ -3657,6 +3660,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                                 source_observations=getattr(d,'source_observations',None),
                                 brand=d.brand or "",
                                 part_number=d.part_number or "",
+                                installation_observation=getattr(d, 'installation_observation', None),
                                 section=d.section,
                                 location=d.location or f"Trang {page_num}",
                                 panel_code=d.panel_code or page_panel_code,
@@ -4037,6 +4041,9 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     pricebook_match=d.get("pricebook_match"),
                     catalog_references=d.get("catalog_references"),
                     part_number=d.get("part_number", ""),
+                    installation_observation=d.get('installation_observation'),
+                    installation_review=d.get('installation_review'),
+                    identity_review=d.get('identity_review'),
                     section=d.get("section"),
                     location=d.get("location"),
                     panel_code=d.get("panel_code") or panel_code or "",

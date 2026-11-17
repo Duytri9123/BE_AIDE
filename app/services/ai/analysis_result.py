@@ -46,7 +46,8 @@ def _build_analysis_result_schema(
                 panel_images["default"] = p_img
             payload["panel_evidence_image"] = None
 
-        cleaned_devices.append(ExtractedDeviceSchema.model_validate(payload))
+        from app.services.ai.device_facts import enrich_device_facts
+        cleaned_devices.append(ExtractedDeviceSchema.model_validate(enrich_device_facts(payload)))
 
     from app.services.ai.panel_identity import normalize_panel_identities
     from copy import deepcopy
@@ -113,7 +114,8 @@ def _build_analysis_result_schema(
         cad_layout=conf.get('cad_layout'),
         panel_designs=[{'panel_code': code, **result} for code, result in (conf.get('panel_designs') or {}).items()],
         quotation_file=quotation_file_info,
-        quotation_rows=quotation_display_rows(conf.get("quotation_rows") or []),
+        quotation_rows=quotation_display_rows(conf.get("quotation_rows") or [],
+            devices=conf.get('design_devices') or [d.model_dump() for d in cleaned_devices]),
         user_prompt=conf.get('user_prompt'),
         technical_proposals=conf.get("technical_proposals") or [],
         conclusion=conf.get("conclusion"),

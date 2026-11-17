@@ -79,6 +79,22 @@ def _with_availability(item: dict[str, Any]) -> dict[str, Any]:
         for ref in (view.get('dxf'), view.get('preview')):
             if ref:
                 ref['available_now'] = asset_available(ref['path'])
+    from .cad.device_installation import installation_review
+    profile, profile_path = {}, None
+    for view in cad['views']:
+        relative = (view.get('dxf') or {}).get('path', '')
+        if not relative.startswith('catalogtb/'):
+            continue
+        drawing = (CATALOG_TB_ROOT / relative.removeprefix('catalogtb/')).resolve()
+        if not drawing.is_relative_to(CATALOG_TB_ROOT.resolve()) or len(drawing.parents) < 3:
+            continue
+        candidate = drawing.parents[2] / 'thong_tin_thiet_bi.json'
+        if candidate.is_relative_to(CATALOG_TB_ROOT.resolve()) and candidate.is_file():
+            profile_path = candidate
+            profile = json.loads(candidate.read_text(encoding='utf-8-sig'))
+            break
+    item['installation_review'] = installation_review(profile, profile_path,
+        category=None if profile else item.get('category'))
     return item
 
 

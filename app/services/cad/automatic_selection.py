@@ -7,6 +7,8 @@ from .device_envelope import selected_envelope
 
 def select_device_geometry(device, *, allow_preference_fallback=True, allow_unverified_electrical=False):
     row = dict(device)
+    from .device_installation import installation_review
+    row['installation_review'] = installation_review({}, category=row.get('category'))
     cad = dict(row.get('cad') or {})
     # Typed fields may be omitted by extraction even when the source's literal
     # specification is retained. Never treat that omission as unrestricted poles.
@@ -220,4 +222,9 @@ def select_device_geometry(device, *, allow_preference_fallback=True, allow_unve
         cad['supplement_required'] = True
         cad['supplement_reason'] = 'LS cần CAD đúng mã/họ và đủ mặt trước, sau, trái, phải, trên, dưới cùng biến thể trước khi bố trí.'
     row['cad'] = cad
+    if cad.get('asset_id'):
+        row['installation_review'] = resolve(cad['asset_id']).get('installation_review') or {}
+    else:
+        from .device_installation import installation_review
+        row['installation_review'] = installation_review({}, category=row.get('category'))
     return row

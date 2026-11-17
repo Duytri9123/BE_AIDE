@@ -60,7 +60,7 @@ async def _review_source_chunk(devices, cad_result, transcript, db, connections,
         answer,_=await ConnectionPoolService.call_with_fallback(db=db,connections=connections,
             call_fn=VisionAnalyzerService.analyze_image,image_path=source_image,
             prompt=prompt+'\nĐối chiếu ký hiệu thực trên ảnh. Không phân loại thiết bị từ một nhãn thời gian đơn lẻ như 24H; phải kiểm tra ký hiệu tương ứng. '
-            'DOL là cụm khởi động; không tự tách thành contactor/relay khi chưa thấy mạch điều khiển chi tiết.')
+            'Khi gặp cụm DOR/DOL: phân tích đầy đủ contactor, rơ le nhiệt và các nút nhấn điều khiển; xác định vị trí bằng text hoặc ảnh minh chứng hoặc cả hai.')
     elif source_image:
         answer=await VisionAnalyzerService.analyze_image(image_path=source_image,prompt=prompt,
             provider=active_ai.provider.lower(),api_key=active_ai.api_key,model=active_ai.selected_model)

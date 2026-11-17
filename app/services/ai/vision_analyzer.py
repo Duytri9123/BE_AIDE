@@ -53,47 +53,52 @@ def normalize_vision_image_bytes(img_bytes):
         return result.getvalue()
 
 
+def extract_antigravity_output(data: dict) -> str:
+    """Normalize provider text/native calls without exposing reasoning/signatures."""
+    import json
+    response = data.get('response', data)
+    candidates = response.get('candidates') or []
+    parts = (candidates[0].get('content') or {}).get('parts', []) if candidates else []
+    calls = [p.get('functionCall') or p.get('function_call') for p in parts if isinstance(p, dict)]
+    calls = [c for c in calls if isinstance(c, dict) and isinstance(c.get('name'), str)]
+    if calls:
+        def clean(value):
+            if isinstance(value, dict):
+                result = {}
+                for key, item in value.items():
+                    canonical = str(key).strip().strip('"')
+                    if canonical in result:
+                        raise AIVisionError('Tham số functionCall bị trùng.', {'code': 'invalid_tool_arguments'})
+                    result[canonical] = clean(item)
+                return result
+            if isinstance(value, list):
+                return [clean(v) for v in value]
+            return value
+        args = calls[0].get('args', {})
+        if isinstance(args, str):
+            try:
+                args = json.loads(args)
+            except ValueError as exc:
+                raise AIVisionError('functionCall không có arguments JSON hợp lệ.', {'code': 'invalid_tool_arguments'}) from exc
+        if not isinstance(args, dict):
+            raise AIVisionError('arguments phải là object.', {'code': 'invalid_tool_arguments'})
+        # The EL loop executes exactly one registered call, then replans.
+        logger.info('ai_native_call name=%s suggested_count=%d', calls[0]['name'], len(calls))
+        return json.dumps({'tool': calls[0]['name'], 'arguments': clean(args)}, ensure_ascii=False)
+    text = ''.join(p.get('text', '') for p in parts if isinstance(p, dict) and not p.get('thought')).strip()
+    if text:
+        return text
+    reason = candidates[0].get('finishReason') if candidates else None
+    raise AIVisionError('Nhà cung cấp không trả nội dung hoặc lời gọi công cụ hợp lệ.',
+                        {'code': 'empty_model_response', 'finish_reason': reason})
+
+
 def normalize_antigravity_model(model: str) -> str:
-    """Chuẩn hóa tên model cho Google Antigravity (daily-cloudcode-pa.googleapis.com).
-
-    Endpoint Google Cloud Code v1internal chỉ chấp nhận chính xác các model sau:
-    - 'gemini-2.5-flash' cho các model Gemini Flash (mọi biến thể 3.x/2.x flash, tiered)
-    - 'gemini-2.5-pro' cho Gemini Pro
-    - 'claude-sonnet-4-6' cho Claude Sonnet / Opus
-    - 'gpt-oss-120b-medium' cho GPT-OSS
-    Lưu ý: Google API sẽ trả về HTTP 404 nếu gắn hậu tố -tiered(...) hoặc -high/-medium/-low.
-    """
-    clean_model = (model or "").lower().strip()
-    if clean_model.startswith("ag/"):
-        clean_model = clean_model[3:]
-    if clean_model.startswith("models/"):
-        clean_model = clean_model[7:]
-
-    # Loại bỏ các hậu tố tiered và priority
-    clean_model = re.sub(r"-tiered\([a-z]+\)", "", clean_model)
-    clean_model = re.sub(r"-(high|medium|low)$", "", clean_model)
-    clean_model = clean_model.strip()
-
-    if not clean_model:
-        return "gemini-2.5-flash"
-
-    # Claude models
-    if any(k in clean_model for k in ("claude", "sonnet", "opus")):
-        return "claude-sonnet-4-6"
-
-    # GPT / OSS models
-    if any(k in clean_model for k in ("gpt", "oss")):
-        return "gpt-oss-120b-medium"
-
-    # Gemini Pro
-    if "pro" in clean_model:
-        return "gemini-2.5-pro"
-
-    # Tất cả các biến thể Gemini Flash (3.8, 3.7, 3.6, 3.5, 2.5, 2.0, 1.5, flash)
-    if "flash" in clean_model or "gemini" in clean_model:
-        return "gemini-2.5-flash"
-
-    return clean_model
+    """Remove local catalog namespaces; preserve the configured native model ID."""
+    native = (model or '').strip().removeprefix('ag/').removeprefix('models/')
+    if not native:
+        raise AIVisionError('Chưa chọn model cho kết nối AI.', {'hint': 'missing_selected_model'})
+    return native
 
 
 def antigravity_thinking_config(model: str) -> Dict[str, Any]:
@@ -147,7 +152,7 @@ class VisionAnalyzerService:
             prov = (provider or "").lower().strip()
             img_hash = hashlib.sha256(img_bytes).hexdigest()
             prompt_hash = hashlib.sha256(prompt.encode("utf-8")).hexdigest()[:16]
-            cache_key = f"ai_vision:{img_hash}:{prov}:{model.lower()}:{prompt_hash}:{enable_web_search}"
+            cache_key = f"ai_vision_source_v3:{img_hash}:{prov}:{model.lower()}:{prompt_hash}:{enable_web_search}"
 
             # Kiểm tra cache trước khi gọi API
             try:
@@ -238,7 +243,7 @@ class VisionAnalyzerService:
         """Gọi API AI LLM để phân tích dữ liệu văn bản/sơ đồ kỹ thuật."""
         prov = (provider or "").lower().strip()
         prompt_hash = hashlib.sha256(prompt.encode("utf-8")).hexdigest()
-        cache_key = f"ai_text:{prov}:{model.lower()}:{prompt_hash}:{enable_web_search}"
+        cache_key = f"ai_text_source_v3:{prov}:{model.lower()}:{prompt_hash}:{enable_web_search}"
 
         try:
             cached_res = await cache_service.get(cache_key)
@@ -749,6 +754,7 @@ class VisionAnalyzerService:
             active_token = clean_token
         auth_header = active_token if active_token.lower().startswith("bearer ") else f"Bearer {active_token}"
         mapped_model = normalize_antigravity_model(model)
+        logger.info("Antigravity request configured_model=%s native_model=%s", model, mapped_model)
         thinking_config = antigravity_thinking_config(model)
 
         # 2. Lấy project ID thực tế hoặc dùng default 'aicode-consumers'
@@ -827,23 +833,8 @@ class VisionAnalyzerService:
                 
                 resp.raise_for_status()
                 data = resp.json()
-                resp_obj = data.get("response", data)
-                candidates = resp_obj.get("candidates", [])
-                
-                if candidates and "content" in candidates[0]:
-                    parts = candidates[0]["content"].get("parts", [])
-                    text_parts = [p.get("text", "") for p in parts if isinstance(p, dict) and p.get("text") and not p.get("thought")]
-                    if not text_parts:
-                        text_parts = [p.get("text", "") for p in parts if isinstance(p, dict) and p.get("text")]
-                    result = "".join(text_parts).strip()
-                    if result:
-                        return result
-                
-                logger.warning(f"Antigravity response không có text: {data}")
-                raise AIVisionError(
-                    "Antigravity response không chứa text",
-                    {"response": data}
-                )
+                logger.info('ai_response native_model=%s status=%s model_version=%s', mapped_model, resp.status_code, data.get('response', data).get('modelVersion'))
+                return extract_antigravity_output(data)
                 
         except httpx.TimeoutException as e:
             logger.error(f"Antigravity timeout sau {int(timeout)}s: {str(e)}")

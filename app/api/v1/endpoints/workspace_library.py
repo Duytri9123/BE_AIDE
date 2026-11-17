@@ -1,5 +1,5 @@
 """Authenticated design access, separate from Library download entitlement."""
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.responses import FileResponse, Response
 from app.api.deps import get_current_active_user
 from app.api.v1.endpoints import cabinet_templates
@@ -163,3 +163,11 @@ def preview_cad(template_id:str):
                             headers={'Cache-Control':'private, no-store'})
     except ValueError as exc:
         raise HTTPException(404,str(exc)) from exc
+
+
+@router.get('/cabinet-templates/{template_id}/preview-3d')
+def preview_cabinet_3d(template_id: str,
+        height: float | None = Query(default=None, gt=100, le=10000, allow_inf_nan=False),
+        width: float | None = Query(default=None, gt=100, le=10000, allow_inf_nan=False),
+        depth: float | None = Query(default=None, gt=100, le=10000, allow_inf_nan=False)):
+    return cabinet_templates.preview_3d(template_id, height, width, depth)

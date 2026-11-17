@@ -76,6 +76,22 @@ def download_source(template_id: str):
         raise HTTPException(404, str(exc)) from exc
 
 
+@router.get('/{template_id}/preview-3d')
+def preview_3d(template_id: str,
+               height: float | None = Query(default=None, gt=100, le=10000, allow_inf_nan=False),
+               width: float | None = Query(default=None, gt=100, le=10000, allow_inf_nan=False),
+               depth: float | None = Query(default=None, gt=100, le=10000, allow_inf_nan=False)):
+    from app.services.cad.cabinet_preview_3d import preview
+    try:
+        values = (height, width, depth)
+        if any(v is not None for v in values) and not all(v is not None for v in values):
+            raise ValueError('Nhập đủ H × W × D để cập nhật mô hình 3D.')
+        dimensions = dict(height=height, width=width, depth=depth) if height is not None else None
+        return preview(template_id, dimensions)
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
+
+
 @router.get('/{template_id}/preview')
 def template_preview(template_id: str):
     try:

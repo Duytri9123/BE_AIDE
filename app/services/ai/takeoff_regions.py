@@ -110,17 +110,21 @@ async def discover_panels(db, project_id, file_ids):
                 for n in range(1, count + 1):
                     image = Path(tmp) / f'{file.id}-{n}.png'
                     await asyncio.to_thread(render_pdf_page, path, n, image)
-                    pages.append((image, n))
+                    pages.append((image, n, None))
             elif path.suffix.lower() in ('.dwg', '.dxf'):
                 from app.services.ingestion.cad_source_evidence import cad_evidence
                 analysis = await asyncio.to_thread(CadParserService.prepare_analysis_path, str(path))
-                cad_bounds = (await asyncio.to_thread(cad_evidence, analysis)).get('bounds')
-                image = await asyncio.to_thread(render_schematic_source, analysis)
-                if image:
-                    pages.append((Path(image), None))
+                native = await asyncio.to_thread(cad_evidence, analysis)
+                cad_bounds = native.get('bounds')
+                # Native drawing frames keep a small SLD readable beside large MEP layouts.
+                for viewport in native.get('discovery_regions') or [None]:
+                    image = await run_step('Đang dựng vùng sơ đồ trong ' + file.filename,
+                        asyncio.to_thread(render_schematic_source, analysis, viewport))
+                    if image:
+                        pages.append((Path(image), None, viewport))
             elif path.suffix.lower() in ('.png', '.jpg', '.jpeg', '.webp'):
-                pages.append((path, 1))
-            for image, number in pages:
+                pages.append((path, 1, None))
+            for image, number, viewport in pages:
                 raw, _ = await run_step(f'Đang nhận diện vùng tủ: {file.filename}' + (f' · Trang {number}' if number else ''), ConnectionPoolService.call_with_fallback(
                     db=db, connections=connections, call_fn=VisionAnalyzerService.analyze_image,
                     image_path=str(image), prompt='Chỉ xác định CÁC VÙNG SƠ ĐỒ TỦ ĐIỆN trong ảnh. Chưa bóc thiết bị, chưa tra bảng giá. '
@@ -130,9 +134,12 @@ async def discover_panels(db, project_id, file_ids):
                 obj = next((v for v in ResponseParserService.extract_json_blocks(raw) if isinstance(v, dict) and isinstance(v.get('panels'), list)), {})
                 for item in obj.get('panels', [])[:64]:
                     try:
-                        region = validate_region(item.get('source_region'))
-                        if region is None:
+                        local_region = validate_region(item.get('source_region'))
+                        if local_region is None:
                             continue
+                        parent = viewport or [0,0,1,1]
+                        region = [parent[0]+local_region[0]*(parent[2]-parent[0]), parent[1]+local_region[1]*(parent[3]-parent[1]),
+                                  parent[0]+local_region[2]*(parent[2]-parent[0]), parent[1]+local_region[3]*(parent[3]-parent[1])]
                         code = str(item['panel_code']).strip()[:100]
                         if not code:
                             continue
@@ -148,7 +155,7 @@ async def discover_panels(db, project_id, file_ids):
                     with Image.open(image) as original:
                         preview = original.convert('RGB'); preview.thumbnail((1400, 1400))
                         w, h = preview.size
-                        ImageDraw.Draw(preview).rectangle((region[0]*w,region[1]*h,region[2]*w,region[3]*h), outline='red', width=4)
+                        ImageDraw.Draw(preview).rectangle((local_region[0]*w,local_region[1]*h,local_region[2]*w,local_region[3]*h), outline='red', width=4)
                         import io
                         buf=io.BytesIO();preview.save(buf,format='JPEG',quality=82)
                         panel['preview_image']='data:image/jpeg;base64,'+base64.b64encode(buf.getvalue()).decode()

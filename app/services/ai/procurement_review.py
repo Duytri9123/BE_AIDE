@@ -65,6 +65,8 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
     raw = [d.model_dump() if hasattr(d,'model_dump') else dict(d) for d in devices]
     if not raw:
         raw = [dict(d) for p in (panels or []) for d in (p.get('devices') or [])]
+    from app.services.ai.device_facts import enrich_device_facts
+    raw = [enrich_device_facts(d) for d in raw]
     if refresh_prices:
         from app.services.ai.takeoff_pricebook import link_devices
         link_devices(raw)
@@ -154,7 +156,8 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                     price_row_id=accessory_match.get('price_row_id') if ap else None,pricebook_match=accessory_match,
                     inclusion_status='observed' if evidence else 'needs_confirmation',notes='',
                     design_notes=a.get('notes') or ('Chưa có bằng chứng phụ kiện; cần xác nhận trước khi mua.' if not evidence else '')))
-    return merge_commercial_rows(result)
+    from app.services.ai.device_facts import enrich_quotation_facts
+    return merge_commercial_rows(enrich_quotation_facts(result, raw))
 
 
 def compact_commercial_sections(rows):
@@ -218,6 +221,9 @@ def merge_commercial_rows(rows):
             previous['quantity']+=row['quantity']
             previous['line_total']=previous['quantity']*previous['unit_price'] if previous.get('unit_price') is not None else None
             previous['source_tags']=list(dict.fromkeys(previous.get('source_tags',[])+row.get('source_tags',[])))
+            combined=previous.get('installation_instances',[])+row.get('installation_instances',[])
+            if combined:
+                previous['installation_instances']=list({(d.get('panel_code'),d.get('tag')):d for d in combined}.values())
         else:
             seen[key]=row;result.append(row)
     return result

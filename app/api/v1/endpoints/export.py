@@ -141,6 +141,9 @@ async def export_excel_quotation(
 
     if not devices:
         raise HTTPException(status_code=400, detail="Không có dữ liệu thiết bị để tạo báo giá")
+    from app.services.ai.device_facts import enrich_quotation_facts
+    devices = enrich_quotation_facts(devices,
+        confidence.get('design_devices') or (latest.ai_parsed_devices if latest else []) or [])
 
     # 3. Tạo file Excel
     file_path = QuotationExporterService.export(

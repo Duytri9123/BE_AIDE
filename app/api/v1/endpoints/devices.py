@@ -26,14 +26,14 @@ router = APIRouter()
 class BrandResponse(BaseModel):
     id: int
     name: str
-    
+
     class Config:
         from_attributes = True
 
 class CategoryResponse(BaseModel):
     id: int
     name: str
-    
+
     class Config:
         from_attributes = True
 
@@ -43,7 +43,7 @@ class DeviceSeriesResponse(BaseModel):
     device_category_id: int
     name: str
     description: Optional[str] = None
-    
+
     class Config:
         from_attributes = True
 
@@ -57,7 +57,7 @@ class DeviceModelResponse(BaseModel):
     dimensions: Optional[Dict[str, Any]] = None
     parameters: Optional[Dict[str, Any]] = None
     catalog_revision: int = 0
-    
+
     # Backward & Frontend-friendly direct attributes
     model_code: Optional[str] = None
     rated_current_a: Optional[float] = None
@@ -68,7 +68,7 @@ class DeviceModelResponse(BaseModel):
     category_id: Optional[int] = None
     category_name: Optional[str] = None
     series_name: Optional[str] = None
-    
+
     class Config:
         from_attributes = True
 
@@ -79,7 +79,7 @@ class UserDeviceResponse(BaseModel):
     name: str
     spec: Optional[str]
     unit_price: Optional[float]
-    
+
     class Config:
         from_attributes = True
 
@@ -209,7 +209,7 @@ async def get_models(
             selectinload(DeviceModel.series).selectinload(DeviceSeries.category)
         )
     )
-    
+
     joined_series = False
     if brand_ids:
         b_list = [int(x.strip()) for x in brand_ids.split(",") if x.strip().isdigit()]
@@ -237,7 +237,7 @@ async def get_models(
                 DeviceModel.name.ilike(search_pattern)
             )
         )
-    
+
     # Apply JSON parameter predicates before SQL pagination, otherwise a page
     # can be empty even when matching devices exist beyond the first page.
     if poles is not None:
@@ -252,35 +252,39 @@ async def get_models(
     result = await db.execute(stmt)
     models = result.scalars().all()
 
-    # Filter by JSON parameters if specified (poles, in, icu)
-    from app.api.v1.endpoints.cad_library import manifest, resolve_model_asset
-    assets = manifest()["items"]
-    filtered = []
-    for m in models:
-        params = m.parameters or {}
-        m_p = params.get("p")
-        m_in = params.get("in")
-        m_icu = params.get("icu")
-        
-        if poles is not None and m_p != poles:
-            continue
-        if min_in is not None and (m_in is None or m_in < min_in):
-            continue
-        if max_in is not None and (m_in is None or m_in > max_in):
-            continue
-        if min_icu is not None and (m_icu is None or m_icu < min_icu):
-            continue
-        response = _build_model_response(m, assets)
-        asset = resolve_model_asset(m.sku, m.parameters, assets)
-        from app.services.cad.library_taxonomy import classify
-        classification = classify(m.name, response.category_name or '')
-        response.parameters = {**(response.parameters or {}),
-                               "library_kind": classification['kind'] if classification['kind'] != 'unclassified' or not asset else asset['kind'],
-                               "library_group": classification['group'] if classification['kind'] != 'unclassified' or not asset else asset['group'],
-                               "cad": {**(params.get('cad') or {}), "asset_id": asset["id"], "is_collection": asset.get('is_collection', False)} if asset else None}
-        filtered.append(response)
+    def build_responses():
+        # Filter by JSON parameters if specified (poles, in, icu)
+        from app.api.v1.endpoints.cad_library import manifest, resolve_model_asset
+        assets = manifest()["items"]
+        filtered = []
+        for m in models:
+            params = m.parameters or {}
+            m_p = params.get("p")
+            m_in = params.get("in")
+            m_icu = params.get("icu")
 
-    return filtered
+            if poles is not None and m_p != poles:
+                continue
+            if min_in is not None and (m_in is None or m_in < min_in):
+                continue
+            if max_in is not None and (m_in is None or m_in > max_in):
+                continue
+            if min_icu is not None and (m_icu is None or m_icu < min_icu):
+                continue
+            response = _build_model_response(m, assets)
+            asset = resolve_model_asset(m.sku, m.parameters, assets)
+            from app.services.cad.library_taxonomy import classify
+            classification = classify(m.name, response.category_name or '')
+            response.parameters = {**(response.parameters or {}),
+                                   "library_kind": classification['kind'] if classification['kind'] != 'unclassified' or not asset else asset['kind'],
+                                   "library_group": classification['group'] if classification['kind'] != 'unclassified' or not asset else asset['group'],
+                                   "cad": {**(params.get('cad') or {}), "asset_id": asset["id"], "is_collection": asset.get('is_collection', False)} if asset else None}
+            filtered.append(response)
+
+        return filtered
+
+    from starlette.concurrency import run_in_threadpool
+    return await run_in_threadpool(build_responses)
 
 @router.get('/browse')
 async def browse_library(q: str = '', kind: str = '', group: str = '', cad: str = 'all', face: str = '', review: str = 'all',
@@ -552,7 +556,7 @@ async def create_user_item(
 
 @router.delete("/user-items/{id}")
 async def delete_user_item(
-    id: int, 
+    id: int,
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_active_user)
 ):
@@ -563,11 +567,11 @@ async def delete_user_item(
     )
     result = await db.execute(stmt)
     device = result.scalar_one_or_none()
-    
+
     if not device:
         raise HTTPException(status_code=404, detail="Device not found")
-    
+
     await db.delete(device)
     await db.commit()
-    
+
     return {"message": "Device deleted successfully"}

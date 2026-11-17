@@ -5,7 +5,7 @@
   "policy": {
     "source_label_first": true,
     "dor_is_not_a_global_dol_alias": true,
-    "user_defined_configuration": "Quy ước khách hàng DOR = bộ có Start, Stop, công tắc 3 vị trí được áp dụng khi chính yêu cầu dự án xác nhận, ghi basis=user_request và giữ request_quote; không nói đọc thấy trên bản vẽ. Đèn chỉ thêm khi có yêu cầu/nguồn xác nhận.",
+    "user_defined_configuration": "Cụm DOR/DOL được phân tích chi tiết gồm Contactor, Rơ le nhiệt và các nút nhấn (Start/Stop). Vị trí xác định bằng text hoặc ảnh minh chứng hoặc cả hai.",
     "missing_drawing_evidence": "Mô tả cấu tạo chức năng trong technical_analysis/inferred_components với basis=assembly_function, không tự biến thành thiết bị mua rời.",
     "verified_configuration": "Thành phần có bằng chứng hoặc yêu cầu rõ dùng accompanying_accessories, kiểm tra số lượng và thiết bị cha; không đếm bộ và linh kiện cùng lúc.",
     "not_assemblies_by_themselves": [
@@ -13,7 +13,8 @@
       "Start/Stop là chức năng điều khiển",
       "Một nhãn FWD/REV có thể là tín hiệu hoặc selector"
     ],
-    "commercial_scope": "Phân biệt nguyên bộ, linh kiện rời và thành phần đã nằm trong thiết bị; giữ riêng MCB/MCCB upstream được vẽ."
+    "commercial_scope": "Phân biệt nguyên bộ, linh kiện rời và thành phần đã nằm trong thiết bị; giữ riêng MCB/MCCB upstream được vẽ.",
+    "dor_analysis": "Cụm DOR/DOL được phân tích thành Contactor, Rơ le nhiệt và các nút nhấn điều khiển (Start/Stop); vị trí được xác định bằng text (mô tả lộ/mặt cánh/khoang tủ) hoặc ảnh minh chứng hoặc cả hai."
   },
   "sources": {
     "dol": {
@@ -66,15 +67,18 @@
     {
       "id": "DOL",
       "labels": [
+        "DOR",
+        "D.O.R.",
         "DOL",
         "D.O.L.",
         "Direct On Line",
         "Khởi động trực tiếp"
       ],
-      "meaning": "Bộ khởi động trực tiếp động cơ",
+      "meaning": "Cụm khởi động trực tiếp động cơ (DOR/DOL) bao gồm Contactor, Rơ le nhiệt và các nút nhấn điều khiển",
       "functional_core": [
-        "Contactor đóng cắt",
-        "Bảo vệ quá tải động cơ, rời hoặc tích hợp theo bộ"
+        "Contactor đóng cắt mạch động lực",
+        "Rơ le nhiệt (Thermal Overload Relay) bảo vệ quá tải động cơ",
+        "Nút nhấn điều khiển gắn mặt cánh tủ (Nút Start / On, Nút Stop / Off)"
       ],
       "control_variants": [
         {

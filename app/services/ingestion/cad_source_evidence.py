@@ -90,7 +90,9 @@ def _metadata(path, mtime, size):
         panel = min(candidates, key=lambda p:p['y_top']-label['y']) if candidates else None
         rows.append({'id':label['id'],'tag':'','panel':panel['title'] if panel else '',
                      'rating':label['text'],'rating_id':label['id'],'x':label['x'],'y':label['y']})
-    return {'bounds': bounds, 'labels': labels, 'rows': rows, 'panels': panels}
+    from app.services.ingestion.cad_viewports import schematic_sheet_windows
+    return {'bounds': bounds, 'labels': labels, 'rows': rows, 'panels': panels,
+            'discovery_regions': schematic_sheet_windows(doc, labels, bounds)}
 
 
 def cad_evidence(path, region=None):

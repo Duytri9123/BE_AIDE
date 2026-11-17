@@ -146,30 +146,23 @@ class ConnectionPoolService:
         call_fn: Callable,
         **call_kwargs: Any,
     ) -> Tuple[str, AiConnection]:
-        """
-        Thực thi gọi AI với cơ chế xoay vòng đa tầng (Connection Pool & Model Fallback Cascade):
-        1. Xoay vòng theo thứ tự ưu tiên của Tài khoản (AiConnection: Priority 1 -> 2 -> ...).
-        2. Với mỗi tài khoản, gọi theo danh sách model ưu tiên đang hoạt động
-           của chính provider đó.
-        3. Nếu model gặp lỗi retryable (HTTP 503 Quá tải, HTTP 429 Quota, 404 Model), tự động fallback
-           sang các Model ưu tiên tiếp theo trong bảng AiProviderModel (#2, #3, ...) của chính tài khoản đó.
-        4. Nếu toàn bộ model của tài khoản đó đều thất bại, tự động chuyển sang Tài khoản tiếp theo theo Priority.
-        5. Ghi nhận nhật ký xoay vòng minh bạch và chi tiết.
-        """
+        """Retry accounts using the configured model; never downgrade to another model."""
         if not connections:
             raise AIVisionError(
                 "Không có kết nối AI nào khả dụng. Vui lòng cấu hình ít nhất 1 kết nối AI trong Admin.",
                 {"hint": "no_active_connections"}
             )
 
+        configured_model = (connections[0].selected_model or '').strip()
+        if not configured_model:
+            raise AIVisionError('Chưa chọn model cho kết nối AI.', {'hint': 'missing_selected_model'})
+        # Connection failover is allowed only when it retains this exact model.
+        connections = [c for c in connections if (c.selected_model or '').strip() == configured_model]
         # The caller must not override the model selected for a BE connection.
         call_kwargs.pop("model", None)
         last_error: Optional[Exception] = None
         errors_log: List[str] = []
 
-        # Account-first fallback: try every account of one provider with the
-        # same highest-priority model before lowering that model.  This avoids
-        # downgrading a request merely because one account is temporarily busy.
         provider_connections: dict[str, List[AiConnection]] = {}
         provider_order: List[str] = []
         for conn in connections:
@@ -194,10 +187,7 @@ class ConnectionPoolService:
             prov_obj = prov_map.get(provider)
             provider_base_url = prov_obj.base_url if prov_obj else None
 
-            candidate_models = await ConnectionPoolService.get_ordered_models_for_provider(db, provider)
-            if not candidate_models:
-                logger.warning("ConnectionPool: bỏ qua provider %s vì không có model đang hoạt động.", provider)
-                continue
+            candidate_models = [configured_model]
 
             disabled_account_ids: set[int] = set()
             failed_base_models: set[str] = set()

@@ -55,6 +55,10 @@ class TechnicalProposalSchema(BaseModel):
 
 
 class ExtractedDeviceSchema(BaseModel):
+    installation_review: Optional[dict] = None
+    identity_review: Optional[dict] = None
+    identity_required: Optional[bool] = None
+    installation_observation: Optional[dict] = None
     cad: Optional[dict] = None
     dimensions: Optional[dict] = None
     verified_placement_clearance: Optional[dict] = None

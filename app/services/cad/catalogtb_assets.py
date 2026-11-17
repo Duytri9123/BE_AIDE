@@ -6,6 +6,7 @@ from pathlib import Path
 from functools import lru_cache
 from contextlib import contextmanager
 from contextvars import ContextVar
+from .device_installation import installation_review
 
 _selection_assets = ContextVar('cad_selection_assets', default=None)
 
@@ -167,6 +168,8 @@ def _read(signature):
                 placement=entry.get('bo_tri_trong_tu') or {},
                 linework_review=entry.get('kiem_tra_net_cad') or {},
                 mounting=profile.get('bo_tri_lap_dat') or {},
+                installation_review=installation_review(
+                    profile, p, category=kind, variant_id=entry.get('bien_the_cad') or entry.get('bien_the') or ''),
                 confirmation=profile.get('muc_do_xac_nhan') or '',
                 label_config=profile.get('nhan_bo_tri_cad') or {},
                 replacement_options=profile.get('phuong_an_thay_the_agent') or {},

@@ -54,17 +54,30 @@ class PhysicalLayoutEngine:
         """
         BƯỚC 2 — PHÂN LOẠI THIẾT BỊ THEO VỊ TRÍ LẮP ĐẶT (7 nhóm chuẩn kỹ thuật)
         """
-        cat = str(device.get("category") or "").upper()
+        from .device_installation import BODY_INTERNAL, PANEL_CANDIDATES, category_code, validate_body_face
+        cat = category_code(device.get("category"))
         name = str(device.get("name") or "").upper()
-        in_a = float(device.get("in_a") or 0)
         section = str(device.get("section") or "").upper()
 
         # Project face evidence overrides general device mounting defaults.
         face = device.get('mounting_face') or device.get('owner_face')
+        validate_body_face(cat, face, device.get('component_role') or 'body')
         if face == 'inner_door':
             return MountingType.INNER_COVER_MOUNTED
         if face == 'outer_door':
             return MountingType.DOOR_MOUNTED
+        if face == 'mounting_plate':
+            return MountingType.MOUNTING_PLATE_MOUNTED
+        # Family current does not establish a DIN adapter. MCCB bodies stay on
+        # the internal plate unless the selected support has its own evidence.
+        if cat in {'MCCB', 'ACB'}:
+            return MountingType.MOUNTING_PLATE_MOUNTED
+        if cat in BODY_INTERNAL:
+            rail_candidates = {'MCB','RCBO','RCCB','CONTACTOR','TIMER','RELAY','PHASE_RELAY',
+                'TERMINAL_BLOCK','TERMINAL_STOP','TERMINAL_END_STOP','POWER_SUPPLY'}
+            return MountingType.DIN_RAIL_MOUNTED if cat in rail_candidates else MountingType.MOUNTING_PLATE_MOUNTED
+        if cat in PANEL_CANDIDATES:
+            raise ValueError('Thiết bị mặt thao tác cần chọn đúng mặt lắp theo model/dự án; không mặc định cánh ngoài.')
 
         # 1. DOOR_MOUNTED: Thiết bị gắn trên cánh tủ ngoài
         if any(k in cat for k in ["METER", "LIGHT", "PILOT", "HMI", "BUTTON", "SWITCH", "SELECTOR"]) or \
@@ -83,21 +96,17 @@ class PhysicalLayoutEngine:
             return MountingType.CABINET_MOUNTED
 
         # 4. MOUNTING_PLATE_MOUNTED: Gắn trực tiếp lên tấm panel lưng (Mounting plate)
-        # Các thiết bị lớn, tải trọng nặng: ACB, MCCB lớn (>= 160A), biến tần VFD, khởi động mềm, biến áp
-        if "ACB" in cat or (cat == "MCCB" and in_a >= 160) or \
+        # Phân loại sơ bộ cấu kiện nặng; không xác nhận bộ gá hoặc lỗ khoét.
+        if "ACB" in cat or \
            any(k in cat for k in ["VFD", "SOFT_STARTER", "TRANSFORMER", "INVERTER"]) or \
            any(k in name for k in ["BIẾN TẦN", "KHỞI ĐỘNG MỀM", "BIẾN ÁP"]):
             return MountingType.MOUNTING_PLATE_MOUNTED
 
         # 5. DIN_RAIL_MOUNTED: Gắn trên ray nhôm DIN 35mm (IEC 60715)
-        # MCB, RCBO, MCCB nhỏ (<160A có đế ray hoặc plate), contactor, relay, timer, fuse tép, domino terminal
+        # Các ứng viên gá ray; vẫn cần đối chiếu đúng bộ gá theo model.
         if any(k in cat for k in ["MCB", "RCBO", "RCCB", "FUSE", "CONTACTOR", "TIMER", "RELAY", "TERMINAL", "POWER_SUPPLY"]) or \
            any(k in name for k in ["APTOMAT NHÁNH", "CẦU CHÌ", "KHỞI ĐỘNG TỪ", "RƠ LE", "HẸN GIỜ", "CẦU ĐẤU", "DOMINO", "BỘ NGUỒN"]):
             return MountingType.DIN_RAIL_MOUNTED
-
-        # Mặc định với MCCB công suất nhỏ: gắn trên ray hoặc plate
-        if cat == "MCCB":
-            return MountingType.MOUNTING_PLATE_MOUNTED if in_a >= 100 else MountingType.DIN_RAIL_MOUNTED
 
         # 6. NOT_PHYSICALLY_MOUNTED: Các đối tượng thuộc sơ đồ logic
         if any(k in name for k in ["TBA", "NGUỒN NGOÀI", "LƯỚI ĐIỆN", "TẢI NGOÀI", "ĐỘNG CƠ NGOÀI"]):

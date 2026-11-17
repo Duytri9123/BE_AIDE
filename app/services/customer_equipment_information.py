@@ -80,6 +80,13 @@ def customer_device(device):
     fields=('id','display','brand','type','category','product_code','spec_hint','primary_view',
             'brand_label','brand_kind','brand_identification_status','use','placement')
     out={k:device[k] for k in fields if k in device}
+    mounting = device.get('installation_review') or {}
+    if mounting:
+        out['installation_review'] = {key: mounting[key] for key in (
+            'category', 'body_ownership', 'body_mount_verified', 'proposed_body_mounts',
+            'project_owner_face', 'body_on_door_allowed', 'operator_is_separate_from_body',
+            'auto_cutout_allowed', 'cutout_status', 'cutout_requirement',
+            'front_bbox_is_cutout', 'automatic_standoff_allowed', 'release_ready') if key in mounting}
     for key in ('brand','brand_label'):
         if out.get(key):out[key]=canonical_brand(out[key])
     from .catalog_device_names import apply_device_name

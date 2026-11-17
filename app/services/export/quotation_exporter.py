@@ -37,11 +37,11 @@ class QuotationExporterService:
         ws.views.sheetView[0].showGridLines = True
 
         # Styles definition (Times New Roman)
-        font_header = Font(name="Times New Roman", size=10, bold=True, color="000000")
-        font_data = Font(name="Times New Roman", size=10, color="000000")
-        font_data_bold = Font(name="Times New Roman", size=10, bold=True, color="000000")
-        font_panel = Font(name="Times New Roman", size=10, bold=True, color="000000")
-        font_section = Font(name="Times New Roman", size=10, bold=True, color="000000")
+        font_header = Font(name="Times New Roman", size=13, bold=True, color="000000")
+        font_data = Font(name="Times New Roman", size=12, color="000000")
+        font_data_bold = Font(name="Times New Roman", size=12, bold=True, color="000000")
+        font_panel = Font(name="Times New Roman", size=12, bold=True, color="000000")
+        font_section = Font(name="Times New Roman", size=12, bold=True, color="000000")
         font_grand_total = Font(name="Times New Roman", size=11, bold=True, color="000000")
 
         fill_header = PatternFill(start_color="FFC000", end_color="FFC000", fill_type="solid") # Gold Yellow
@@ -78,7 +78,7 @@ class QuotationExporterService:
             cell.fill = fill_header
             cell.alignment = align_center
             cell.border = border_all
-            ws.row_dimensions[header_row].height = 28
+            ws.row_dimensions[header_row].height = 42
 
         current_row = 2
         item_rows_indices = []
@@ -103,7 +103,7 @@ class QuotationExporterService:
                 empty_c = ws.cell(row=current_row, column=c, value="")
                 empty_c.fill = fill_section
                 empty_c.border = border_all
-            ws.row_dimensions[current_row].height = 22
+            ws.row_dimensions[current_row].height = 16
             current_row += 1
 
         def write_item(name: str, sku: str, origin: str, unit: str, qty: float, price: int, notes: str = "", tt: str = "+"):
@@ -138,7 +138,7 @@ class QuotationExporterService:
             wrapped_lines = max(
                 sum(max(1, math.ceil(len(line) / width)) for line in str(value or '').split('\n'))
                 for value, width in ((name, 42), (sku, 20), (notes, 25)))
-            ws.row_dimensions[current_row].height = max(24, wrapped_lines * 13 + 5)
+            ws.row_dimensions[current_row].height = max(16, wrapped_lines * 15.75)
             item_rows_indices.append(current_row)
             panel_item_rows.setdefault(panel_row_idx, []).append(current_row)
             current_row += 1
@@ -179,7 +179,8 @@ class QuotationExporterService:
                         cell.border = border_all
                         if col_idx in (7, 8):
                             cell.number_format = '#,##0'
-                    ws.row_dimensions[current_row].height = 24
+                    ws.cell(row=current_row, column=6).number_format = '0.00'
+                    ws.row_dimensions[current_row].height = 16
                     current_row += 1
 
                 elif r_type == "section_header":
@@ -188,7 +189,7 @@ class QuotationExporterService:
                 elif r_type in ["item", "accessory"]:
                     name = str(r.get("name") or "Thiết bị")
                     specification = str(r.get("spec") or "").strip()
-                    if specification:
+                    if specification and specification not in name:
                         name += (" " if r.get('commercial_display') and not r.get('commercial_package') else "\n") + specification
                     sku = str(r.get("sku") or "")
                     origin = str(r.get("origin") or "")
@@ -222,7 +223,8 @@ class QuotationExporterService:
                 cell.border = border_all
                 if col_idx in (7, 8):
                     cell.number_format = '#,##0'
-            ws.row_dimensions[current_row].height = 24
+            ws.cell(row=current_row, column=6).number_format = '0.00'
+            ws.row_dimensions[current_row].height = 16
             current_row += 1
 
             # Group raw devices dynamically
@@ -469,15 +471,15 @@ class QuotationExporterService:
 
         # Column widths auto-adjustment
         col_widths = {
-            1: 6,   # TT
-            2: 45,  # MÔ TẢ CHI TIẾT
-            3: 22,  # MÃ HÀNG
-            4: 14,  # XUẤT XỨ
-            5: 10,  # ĐƠN VỊ
-            6: 12,  # SỐ LƯỢNG
-            7: 16,  # ĐƠN GIÁ
-            8: 18,  # THÀNH TIỀN
-            9: 25   # GHI CHÚ
+            1: 5.285,
+            2: 47.426,
+            3: 20.57,
+            4: 13.57,
+            5: 8.71,
+            6: 10.285,
+            7: 16.14,
+            8: 14.71,
+            9: 17.855,
         }
         col_widths.update({10: 18, 11: 20})
         for col_idx, width in col_widths.items():
@@ -488,11 +490,9 @@ class QuotationExporterService:
         # price/discount inputs used by the unit-price formulas.
         ws.column_dimensions['J'].hidden = True
         ws.column_dimensions['K'].hidden = True
-        has_notes=any(str(d.get('notes') or '').strip() for d in devices
-                      if isinstance(d,dict) and d.get('row_type') not in {'panel_header','section_header'})
-        ws.column_dimensions['I'].hidden = not has_notes
+        ws.column_dimensions['I'].hidden = False
         ws.freeze_panes = 'C2'
-        ws.print_area = f'A1:{"I" if has_notes else "H"}{current_row - 1}'
+        ws.print_area = f'A1:I{current_row - 1}'
         ws.print_title_rows = '1:1'
         ws.sheet_properties.pageSetUpPr.fitToPage = True
         ws.page_setup.orientation = 'landscape'

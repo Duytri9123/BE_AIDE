@@ -21,7 +21,7 @@ def render_schematic_source(file_path, region=None):
     bounds=evidence.get('view_bounds')
     if not bounds:return None
     key=hashlib.sha256(json.dumps(region).encode()).hexdigest()[:12]
-    output=source.parent/'.cad-analysis'/(source.stem+'-sld-v6-'+key+'.png')
+    output=source.parent/'.cad-analysis'/(source.stem+'-sld-v7-'+key+'.png')
     if output.is_file() and output.stat().st_mtime_ns>=source.stat().st_mtime_ns:return str(output)
     left,bottom,right,top=bounds
     width=max(right-left,1);height=max(top-bottom,1)
@@ -31,7 +31,8 @@ def render_schematic_source(file_path, region=None):
         FigureCanvasAgg(fig);ax=fig.add_axes([0,0,1,1])
         config=Configuration(color_policy=ColorPolicy.BLACK,background_policy=BackgroundPolicy.WHITE)
         layout=doc.modelspace()
-        selected=select.bbox_overlap(select.Window((left,bottom),(right,top)),layout,cache=bbox.Cache())
+        from app.services.ingestion.cad_viewports import overlapping_entities
+        selected=overlapping_entities(doc,(left,bottom,right,top))
         handles={entity.dxf.handle for entity in selected}
         Frontend(RenderContext(doc),MatplotlibBackend(ax,adjust_figure=False),config=config).draw_layout(
             layout,finalize=True,filter_func=lambda entity: entity.dxf.handle in handles)

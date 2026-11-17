@@ -43,7 +43,8 @@ def enrich_metering_selection(devices):
                 members.append({**accessory, 'panel_code': row.get('panel_code'), '_target': accessory})
     for row in members:
         kind = _kind(row)
-        if kind not in {'AMMETER', 'VOLTMETER', 'ENERGY_METER', 'LIGHT'}:
+        # Người dùng yêu cầu: Không phân tích rườm rà cho đèn báo pha (LIGHT), chỉ ghi mỗi tên loại đèn báo pha
+        if kind not in {'AMMETER', 'VOLTMETER', 'ENERGY_METER'}:
             continue
         panel = row.get('panel_code')
         related = [item for item in members if panel and item.get('panel_code') == panel]
@@ -67,16 +68,6 @@ def enrich_metering_selection(devices):
             else:
                 proposal.update(status='needs_context', proposed_spec='Ampe kế qua TI; chọn ngõ vào và thang hiển thị theo TI của đúng mạch',
                     reasoning='Có nhiều tỷ số TI khác nhau trong tủ.' if len(ratios) > 1 else 'Chưa xác định được tỷ số TI thuộc đúng mạch đo; không lấy tỷ số từ tủ khác.')
-        elif kind == 'LIGHT':
-            voltage = re.search(r'(?<!\d)(24|48|110|220|230|380|400)\s*V(?:AC|DC)?\b', str(row.get('spec') or ''), re.I)
-            if voltage:
-                proposal.update(proposed_spec=f'Đèn báo pha LED {voltage[0].strip()}, màu theo ký hiệu nguồn; kiểu gắn cửa Ø22 mm đề xuất',
-                    reasoning=f'Giữ điện áp {voltage[1]}V đã ghi; LED và Ø22 mm là lựa chọn thông dụng để triển khai, chưa phải kích thước đọc từ sơ đồ.')
-            else:
-                proposal.update(status='conditional', proposed_spec='Đèn báo pha LED 220–230VAC, gắn cửa Ø22 mm, màu theo ký hiệu B/Y/R — đề xuất khi đấu pha–N',
-                    reasoning='Chọn loại đèn báo pha phổ biến cho mạch pha–trung tính; không lấy dòng bảo vệ 2A làm thông số đèn.')
-                proposal['assumptions'].append('Nguồn pha–N 220–230VAC; nếu đấu pha–pha phải chọn đúng điện áp 380–400VAC, nếu dùng nguồn điều khiển phải theo nguồn đó.')
-            proposal['checks'].append('Đối chiếu điện áp, AC/DC, đường kính lỗ trên layout và màu ký hiệu; không tự tăng số lượng lên 3.')
         elif kind == 'VOLTMETER':
             explicit = re.search(r'(?<!\d)(?:0\s*[-–/]\s*)?(\d+(?:\.\d+)?)\s*V(?:AC|DC)?\b', str(row.get('spec') or ''), re.I)
             if explicit:

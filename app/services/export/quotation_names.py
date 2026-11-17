@@ -10,6 +10,9 @@ AUXILIARY_TYPES = {'LIGHT','INDICATOR','PILOT_LIGHT','VOLTMETER','AMMETER','METE
 
 def quotation_name(item):
     name = str(item.get('name') or '')
+    maker = str(item.get('brand') or item.get('origin') or '').strip().casefold()
+    if maker and maker not in {'asian','asia','oem','vn','-','—','theo thiết kế','chưa chọn'}:
+        return name
     kind = str(item.get('category') or item.get('type') or '').upper().replace(' ', '_')
     if kind in MAIN_DEVICE_TYPES | DEPENDENT_ACCESSORY_TYPES or item.get('requires_same_brand'):
         return name
@@ -33,10 +36,12 @@ def quotation_name(item):
         auxiliary = kind in AUXILIARY_TYPES
     return name + ' Asian' if auxiliary else name
 
-def quotation_display_rows(rows):
-    result = deepcopy(rows)
+def quotation_display_rows(rows, devices=()):
+    from app.services.export.quotation_layout import normalize_quotation_layout
+    from app.services.ai.device_facts import enrich_quotation_facts
+    result = enrich_quotation_facts(rows, devices)
     from app.services.ai.procurement_review import compact_commercial_sections
-    result = compact_commercial_sections(result)
+    result = normalize_quotation_layout(compact_commercial_sections(result))
     for row in result:
         if row.get('row_type') in ('item','accessory'):
             if row.get('category')=='METER':row['name']='Đồng hồ đa năng'
