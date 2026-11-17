@@ -35,7 +35,26 @@ async def iteration_detail(db, iteration_id, user):
         .options(load_only(ProjectFile.id, ProjectFile.filename, ProjectFile.file_path, ProjectFile.file_size))
         .order_by(ProjectFile.created_at.desc(), ProjectFile.id.desc()).limit(1)
     )).scalar_one_or_none()
-    return iteration, cad
+
+    quotation_file = None
+    conf = iteration.confidence_scores or {}
+    qf_id = conf.get('quotation_file_id')
+    if qf_id:
+        quotation_file = (await db.execute(
+            select(ProjectFile)
+            .where(ProjectFile.id == qf_id, ProjectFile.project_id == project_id)
+            .options(load_only(ProjectFile.id, ProjectFile.filename, ProjectFile.file_path, ProjectFile.file_size))
+        )).scalar_one_or_none()
+    if not quotation_file:
+        quotation_file = (await db.execute(
+            select(ProjectFile)
+            .where(ProjectFile.project_id == project_id,
+                   ProjectFile.filename.like('BaoGia_%') | ProjectFile.filename.like('%.xlsx'))
+            .options(load_only(ProjectFile.id, ProjectFile.filename, ProjectFile.file_path, ProjectFile.file_size))
+            .order_by(ProjectFile.created_at.desc(), ProjectFile.id.desc()).limit(1)
+        )).scalar_one_or_none()
+
+    return iteration, cad, quotation_file
 
 
 async def remove_iteration(db, iteration_id, user):

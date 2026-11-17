@@ -18,6 +18,7 @@ from app.schemas.ai import ChatRequest, ChatResponse
 from app.services.ai.connection_pool import ConnectionPoolService
 from app.services.ai.vision_analyzer import VisionAnalyzerService
 from app.services.ai.project_chat import conversation_prompt, parse_plan, apply_plan, updated_confidence
+from app.api.v1.endpoints.el_agent import detect_simple_conversational_response
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -49,6 +50,10 @@ async def chat_with_cad_agent(request: ChatRequest, db: AsyncSession = Depends(g
         Project.user_id == current_user.id, Project.deleted_at.is_(None)))).scalar_one_or_none()
     if project is None:
         raise HTTPException(404, "Dự án không tồn tại")
+    fast_reply = detect_simple_conversational_response(request.message)
+    if fast_reply:
+        return ChatResponse(reply=fast_reply, action_type="general_chat", project_id=project.id,
+                            base_iteration_id=(request.context or {}).get("iteration_id"))
     previous = await replay(db, project.id, request.request_id)
     if previous:
         return saved_response(previous, project.id)

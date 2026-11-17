@@ -4,6 +4,7 @@ import asyncio
 import json
 import hashlib
 import logging
+import re
 import time
 
 from fastapi import APIRouter, Depends, HTTPException, Request
@@ -775,6 +776,127 @@ def format_vnd_currency(amount):
     return f"{int(amount):,}".replace(',', '.')
 
 
+def clean_device_name(raw_name: str, raw_spec: str = "") -> str:
+    import re
+    name = (raw_name or "").strip()
+    spec = (raw_spec or "").strip()
+    combined = f"{name} {spec}".strip()
+    norm = normalize_vietnamese_text(combined)
+
+    if any(k in norm for k in ('vo tu dien', 'vo tu', 'enclosure')):
+        dims_match = re.search(r'([hH]\s*\d+\s*[xX*]\s*[wW]\s*\d+\s*[xX*]\s*[dD]\s*\d+(?:\s*[xX*]\s*[tT]\s*\d+(?:\.\d+)?)?(?:\s*mm)?)', combined)
+        dims = dims_match.group(1).upper().replace(' ', '') if dims_match else "H2300xW1000xD250xT2.0mm"
+        if 'T' not in dims:
+            dims += "xT2.0mm"
+        if not dims.endswith('mm'):
+            dims += "mm"
+        return f"Vỏ tủ điện trong nhà 2 lớp cánh, sơn tĩnh điện.<br>+ KT : {dims}<br>+ Có chân đế cao 100mm"
+
+    if any(k in norm for k in ('thanh cai', 'busbar', 'dong do', 'dong thanh cai')):
+        return "Đồng thanh cái mạ thiếc bọc co nhiệt"
+
+    if any(k in norm for k in ('vat tu phu', 'phu kien', 'dau cos')):
+        return "Vật tư phụ ( đầu cos, dây điều khiển, sứ ...)"
+
+    if any(k in norm for k in ('nhan cong', 'lap rap', 'hoan thien tu')):
+        return "Nhân công lắp ráp tủ"
+
+    if 'shunt trip' in norm or 'sht' in norm:
+        return "Cuộn cắt Shunt trip (SHT)"
+
+    if any(k in norm for k in ('den bao pha', 'bao pha', '3 den', 'den led phi 22', 'den bao')):
+        return "Đèn báo pha (đỏ-vàng-xanh)"
+
+    if any(k in norm for k in ('cau chi', 'fuse', 'rt18')):
+        return "Cầu chì điều khiển 2A"
+
+    if any(k in norm for k in ('bien dong', 'bien dong do luong', 'ct', 'ti')):
+        r_match = re.search(r'(\d+\s*(?:a|A)?\s*/\s*5\s*[aA]?)', combined)
+        ratio = r_match.group(1).replace(' ', '').upper() if r_match else "400A/5A"
+        return f"Biến dòng ({ratio})"
+
+    if 'dong ho ampe' in norm or 'dong ho do ampe' in norm or ('ampe' in norm and 'dong ho' in norm):
+        r_match = re.search(r'(\d+\s*(?:a|A)?\s*/\s*5\s*[aA]?)', combined)
+        ratio = r_match.group(1).replace(' ', '').upper() if r_match else "400/5A"
+        return f"Đồng hồ Ampe ( 5A thang đo {ratio})"
+
+    if 'chuyen mach ampe' in norm or 'chuyen mach a' in norm:
+        return "Công tắc chuyển mạch Ampe"
+
+    if 'dong ho volt' in norm or 'dong ho do dien ap' in norm or 'von ke' in norm or ('volt' in norm and 'dong ho' in norm):
+        return "Đồng hồ Volt"
+
+    if 'chuyen mach volt' in norm or 'chuyen mach v' in norm or 'chuyen mach von' in norm:
+        return "Công tắc chuyển mạch Volt"
+
+    if any(k in norm for k in ('cong to', 'dien nang ke', 'kwh')):
+        return "Công tơ"
+
+    poles_m = re.search(r'\b([1-4])\s*[pP]\b', combined)
+    curr_m = re.search(r'\b(\d+)\s*[aA]\b', combined)
+    ka_m = re.search(r'\b(\d+(?:\.\d+)?)\s*[kK][aA]\b', combined)
+
+    if 'mccb' in norm:
+        p = f"{poles_m.group(1)}P" if poles_m else "3P"
+        a = f"{curr_m.group(1)}A" if curr_m else ""
+        ka = f"{ka_m.group(1)}kA" if ka_m else ""
+        return " ".join([x for x in ["MCCB", p, a, ka] if x])
+
+    if 'rcbo' in norm:
+        p = f"{poles_m.group(1)}P" if poles_m else "2P"
+        a = f"{curr_m.group(1)}A" if curr_m else ""
+        ka = f"{ka_m.group(1)}kA" if ka_m else ""
+        return " ".join([x for x in ["RCBO", p, a, ka] if x])
+
+    if 'mcb' in norm or 'aptomat nhanh' in norm:
+        p = f"{poles_m.group(1)}P" if poles_m else ""
+        a = f"{curr_m.group(1)}A" if curr_m else ""
+        ka = f"{ka_m.group(1)}kA" if ka_m else ""
+        return " ".join([x for x in ["MCB", p, a, ka] if x])
+
+    if 'acb' in norm:
+        p = f"{poles_m.group(1)}P" if poles_m else "3P"
+        a = f"{curr_m.group(1)}A" if curr_m else ""
+        ka = f"{ka_m.group(1)}kA" if ka_m else ""
+        return " ".join([x for x in ["ACB", p, a, ka] if x])
+
+    cleaned = re.sub(r'\(hoặc.*?\)', '', name, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\(dưới.*?\)', '', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\(kích thước.*?\)', '', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\*\*.*?\*\*', '', cleaned).strip()
+    return cleaned or name
+
+
+def extract_clean_sku(raw_sku: str, raw_name: str = "", raw_spec: str = "", raw_notes: str = "") -> tuple[str, str]:
+    import re
+    sku = (raw_sku or "").strip()
+    notes = (raw_notes or "").strip()
+    norm_sku = normalize_vietnamese_text(sku)
+
+    if any(k in norm_sku for k in ('lo l', 'lo ', 'vi tri', 'tang', 'hanh lang', 'wifi', 'phong', 'du phong', 'chieu sang', 'o cam', 'kw', 'tum', 'bom')):
+        if not notes:
+            notes = sku
+        elif sku not in notes:
+            notes = f"{notes} · {sku}"
+        sku = ""
+
+    norm_name = normalize_vietnamese_text(raw_name)
+    if any(k in norm_name for k in ('vo tu', 'enclosure')):
+        return "Sơn tĩnh điện", notes
+    if any(k in norm_name for k in ('thanh cai', 'busbar', 'dong thanh cai')):
+        return "1mm=2A, N=50%, E=25%", notes
+    if any(k in norm_name for k in ('vat tu phu', 'nhan cong')):
+        return "", notes
+
+    if not sku:
+        text_search = f"{raw_name} {raw_spec}"
+        m = re.search(r'\b(EZC\w+|A9[FDK]\w+|ABN\w+|ABS\w+|BKN\w*|BKH\w*|LA63[NH]\w*|ND16\w*|RT18\w*|LW26\w*|A9[A-Z0-9]+)\b', text_search, re.IGNORECASE)
+        if m:
+            sku = m.group(1).upper()
+
+    return sku, notes
+
+
 def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: str = "TỦ ĐIỆN TỔNG (TĐ-T)") -> tuple[str, list[dict]]:
     import re
     lines = raw_markdown.strip().splitlines()
@@ -785,9 +907,39 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
 
     headers = [c.strip() for c in table_lines[0].split('|')[1:-1]]
     norm_headers = [normalize_vietnamese_text(h) for h in headers]
-    has_dvt = any('dvt' in h or 'don vi' in h for h in norm_headers)
+
+    col_name_idx = 1
+    col_sku_idx = 2
+    col_origin_idx = 3
+    col_unit_idx = 4
+    col_qty_idx = 5
+    col_price_idx = 6
+    col_total_idx = 7
+    col_notes_idx = 8 if len(headers) >= 9 else -1
+
+    for idx, nh in enumerate(norm_headers):
+        if any(k in nh for k in ('mo ta chi tiet', 'danh muc', 'ten vat tu', 'ten thiet bi', 'noi dung')):
+            col_name_idx = idx
+        elif any(k in nh for k in ('ma hang', 'quy cach', 'ma hieu', 'model', 'part number')):
+            col_sku_idx = idx
+        elif any(k in nh for k in ('xuat xu', 'hang sx', 'hang', 'nsx', 'brand')):
+            col_origin_idx = idx
+        elif any(k in nh for k in ('don vi', 'dvt', 'unit')):
+            col_unit_idx = idx
+        elif any(k in nh for k in ('so luong', 'sl', 'qty')):
+            col_qty_idx = idx
+        elif 'don gia' in nh:
+            col_price_idx = idx
+        elif 'thanh tien' in nh:
+            col_total_idx = idx
+        elif any(k in nh for k in ('ghi chu', 'note', 'vi tri')):
+            col_notes_idx = idx
 
     parsed_items = []
+
+    def parse_col_num(s):
+        cleaned = re.sub(r'[^\d]', '', str(s))
+        return int(cleaned) if cleaned else 0
 
     for line in table_lines[1:]:
         if re.match(r'^\|[\s\-:|]+\|$', line):
@@ -798,64 +950,134 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
             continue
 
         first_col = cols[0]
-        joined_text = " ".join(cols).lower()
+        joined_text = " ".join(cols)
+        norm_joined = normalize_vietnamese_text(joined_text)
 
         # Check summary lines
-        if any(k in normalize_vietnamese_text(joined_text) for k in ('cong (chua bao gom vat', 'tong cong chua vat', 'thue vat', 'vat (10%)', 'tong cong thanh toan', 'cong tien hang')):
+        if any(k in norm_joined for k in (
+            'cong (chua bao gom vat', 'tong cong chua vat', 'thue vat', 'vat (10%)',
+            'tong cong', 'thanh toan', 'cong tien hang', 'chua bao gom vat', 'da bao gom vat'
+        )):
             continue
 
-        # Check Roman numeral section headers
+        # Check section headers
+        if any(k == norm_joined or f"* {k}" in norm_joined or f"**{k}**" in norm_joined for k in (
+            'dau vao', 'dau ra', 'vo tu + phu kien', 'vo tu va phu kien', 'do luong & giam sat', 'dieu khien & chieu sang'
+        )):
+            continue
+
+        # Check panel title lines
+        if 'tu dien' in norm_joined and any(k in norm_joined for k in ('tong', 'td', 'vi tri')) and not any(k in norm_joined for k in ('vo tu', 'tole', 'son tinh dien', 'canh')):
+            continue
+
         if re.match(r'^(?:[IVXLCDM]+|\d+\.)$', first_col, re.IGNORECASE) and not any(cols[3:]):
             continue
 
-        name = ""
-        spec = ""
-        brand = ""
-        unit = "Cái"
-        qty = 1
-        unit_price = 0
-        line_total = 0
+        raw_name = cols[col_name_idx] if col_name_idx < len(cols) else ""
+        raw_sku = cols[col_sku_idx] if col_sku_idx < len(cols) else ""
+        raw_brand = cols[col_origin_idx] if col_origin_idx < len(cols) else ""
+        raw_unit = cols[col_unit_idx] if col_unit_idx < len(cols) else "Cái"
+        raw_qty = cols[col_qty_idx] if col_qty_idx < len(cols) else "1"
+        raw_price = cols[col_price_idx] if col_price_idx < len(cols) else "0"
+        raw_total = cols[col_total_idx] if col_total_idx < len(cols) else "0"
+        raw_notes = cols[col_notes_idx] if 0 <= col_notes_idx < len(cols) else ""
 
-        def parse_col_num(s):
-            cleaned = re.sub(r'[^\d]', '', str(s))
-            return int(cleaned) if cleaned else 0
+        if not raw_name or raw_name in ('—', '-', ''):
+            continue
 
-        if has_dvt and len(cols) >= 8:
-            name = cols[1]
-            spec = cols[2]
-            brand = cols[3]
-            unit = cols[4] or 'Cái'
-            qty, _ = extract_qty_unit(cols[5], name)
-            unit_price = parse_col_num(cols[6])
-            line_total = parse_col_num(cols[7]) or (qty * unit_price)
-        elif not has_dvt and len(cols) >= 7:
-            name = cols[1]
-            spec = cols[2]
-            brand = cols[3]
-            qty, unit = extract_qty_unit(cols[4], name)
-            unit_price = parse_col_num(cols[5])
-            line_total = parse_col_num(cols[6]) or (qty * unit_price)
-        elif len(cols) >= 5:
-            name = cols[1]
-            spec = cols[2]
-            qty, unit = extract_qty_unit(cols[3], name)
-            unit_price = parse_col_num(cols[4])
-            line_total = (qty * unit_price) if len(cols) < 6 else (parse_col_num(cols[5]) or qty * unit_price)
+        name = clean_device_name(raw_name, raw_sku)
+        sku, notes = extract_clean_sku(raw_sku, name, raw_sku, raw_notes)
+        cat = categorize_quotation_item(name, sku)
+
+        # Origin / Brand
+        if cat == 'enclosure_accessories':
+            brand = 'VN'
         else:
-            continue
+            b_clean = raw_brand.strip()
+            brand = b_clean.upper() if b_clean.upper() in ('SCHNEIDER', 'LS', 'CHINT', 'MITSUBISHI', 'VN', 'ABB', 'HAGER') else (b_clean or 'VN')
 
-        if not name or name in ('—', '-'):
-            continue
+        # Unit
+        if any(k in normalize_vietnamese_text(name) for k in ('vo tu', 'enclosure')):
+            unit = 'Cái'
+        elif cat == 'enclosure_accessories':
+            unit = 'Tủ'
+        else:
+            unit = raw_unit or 'Cái'
+
+        qty, _ = extract_qty_unit(raw_qty, name)
+        unit_price = parse_col_num(raw_price)
+        line_total = parse_col_num(raw_total) or (qty * unit_price)
 
         parsed_items.append({
             'name': name,
-            'spec': spec,
-            'brand': brand or 'Việt Nam',
+            'spec': raw_sku,
+            'sku': sku,
+            'brand': brand,
             'unit': unit,
             'quantity': qty,
             'unit_price': unit_price,
             'line_total': line_total if line_total else (qty * unit_price),
-            'category': categorize_quotation_item(name, spec)
+            'notes': notes,
+            'category': cat
+        })
+
+    # Ensure all 4 enclosure & accessories rows exist
+    has_vo_tu = any('vo tu' in normalize_vietnamese_text(it['name']) for it in parsed_items)
+    has_busbar = any(any(k in normalize_vietnamese_text(it['name']) for k in ('thanh cai', 'dong do', 'busbar')) for it in parsed_items)
+    has_acc = any(any(k in normalize_vietnamese_text(it['name']) for k in ('vat tu phu', 'phu kien')) for it in parsed_items)
+    has_labor = any(any(k in normalize_vietnamese_text(it['name']) for k in ('nhan cong', 'lap rap')) for it in parsed_items)
+
+    if not has_vo_tu:
+        parsed_items.insert(0, {
+            'name': 'Vỏ tủ điện trong nhà 2 lớp cánh, sơn tĩnh điện.<br>+ KT : H2300xW1000xD250xT2.0mm<br>+ Có chân đế cao 100mm',
+            'spec': 'H2300xW1000xD250xT2.0mm',
+            'sku': 'Sơn tĩnh điện',
+            'brand': 'VN',
+            'unit': 'Cái',
+            'quantity': 1.0,
+            'unit_price': 3500000,
+            'line_total': 3500000,
+            'notes': '',
+            'category': 'enclosure_accessories'
+        })
+    if not has_busbar:
+        parsed_items.insert(1, {
+            'name': 'Đồng thanh cái mạ thiếc bọc co nhiệt',
+            'spec': '1mm=2A, N=50%, E=25%',
+            'sku': '1mm=2A, N=50%, E=25%',
+            'brand': 'VN',
+            'unit': 'Tủ',
+            'quantity': 1.0,
+            'unit_price': 1800000,
+            'line_total': 1800000,
+            'notes': '',
+            'category': 'enclosure_accessories'
+        })
+    if not has_acc:
+        parsed_items.insert(2, {
+            'name': 'Vật tư phụ ( đầu cos, dây điều khiển, sứ ...)',
+            'spec': '',
+            'sku': '',
+            'brand': 'VN',
+            'unit': 'Tủ',
+            'quantity': 1.0,
+            'unit_price': 850000,
+            'line_total': 850000,
+            'notes': '',
+            'category': 'enclosure_accessories'
+        })
+    if not has_labor:
+        parsed_items.insert(3, {
+            'name': 'Nhân công lắp ráp tủ',
+            'spec': '',
+            'sku': '',
+            'brand': 'VN',
+            'unit': 'Tủ',
+            'quantity': 1.0,
+            'unit_price': 1500000,
+            'line_total': 1500000,
+            'notes': '',
+            'category': 'enclosure_accessories'
         })
 
     sections = [
@@ -873,12 +1095,13 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
 
     intro_text = "\n".join(intro).strip()
     if not intro_text:
-        intro_text = f"Dưới đây là bảng báo giá dự toán chi tiết cho {panel_info_default} dựa trên danh mục vật tư đã bóc tách:"
+        intro_text = f"Dưới đây là bảng báo giá dự toán chi tiết cho {panel_info_default} theo tiêu chuẩn ngành tủ điện Việt Nam:"
     out_md.append(intro_text)
     out_md.append("")
 
-    out_md.append("| STT | Danh mục vật tư / Thiết bị | Quy cách / Mã hiệu | Hãng SX | ĐVT | SL | Đơn giá (VNĐ) | Thành tiền (VNĐ) |")
-    out_md.append("| :---: | :--- | :--- | :---: | :---: | :---: | ---: | ---: |")
+    # Standard 9-column headers matching user's exact spreadsheet
+    out_md.append("| TT | MÔ TẢ CHI TIẾT | MÃ HÀNG | XUẤT XỨ | ĐƠN VỊ | SỐ LƯỢNG | ĐƠN GIÁ | THÀNH TIỀN | GHI CHÚ |")
+    out_md.append("|:---:|:---|:---:|:---:|:---:|:---:|---:|---:|:---|")
 
     stt_item = 1
     total_material = 0
@@ -893,7 +1116,7 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
         if m_p2:
             panel_code = m_p2.group(1).strip()
 
-    out_md.append(f"| **1** | **TỦ ĐIỆN {panel_code}** | | **VN** | **Tủ** | **1** | | |")
+    out_md.append(f"| **1** | **TỦ ĐIỆN {panel_code}** | | **VN** | **Tủ** | **1.00** | | | |")
     structured_rows.append({
         'id': f'panel-{panel_code}',
         'row_type': 'panel_header',
@@ -902,9 +1125,10 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
         'sku': '',
         'origin': 'VN',
         'unit': 'Tủ',
-        'quantity': 1,
+        'quantity': 1.0,
         'unit_price': 0,
-        'line_total': 0
+        'line_total': 0,
+        'notes': ''
     })
 
     for cat_key, sec_num, sec_title in sections:
@@ -913,40 +1137,52 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
             continue
 
         items_in_sec.sort(key=quotation_item_sort_key)
-        out_md.append(f"| **\\*** | **{sec_title}** | | | | | | |")
+        out_md.append(f"| **\\*** | **{sec_title}** | | | | | | | |")
         structured_rows.append({
             'id': f'sec-{cat_key}',
             'row_type': 'section_header',
             'tt': '*',
-            'name': sec_title
+            'name': sec_title,
+            'sku': '',
+            'origin': '',
+            'unit': '',
+            'quantity': 0,
+            'unit_price': 0,
+            'line_total': 0,
+            'notes': ''
         })
 
         for item in items_in_sec:
             total_material += item['line_total']
+            notes_str = item.get('notes', '')
             out_md.append(
-                f"| + | {item['name']} | {item['spec']} | {item['brand']} | {item['unit']} | {item['quantity']} | {format_vnd_currency(item['unit_price'])} | {format_vnd_currency(item['line_total'])} |"
+                f"| + | {item['name']} | {item['sku']} | {item['brand']} | {item['unit']} | {item['quantity']:.2f} | {format_vnd_currency(item['unit_price'])} | {format_vnd_currency(item['line_total'])} | {notes_str} |"
             )
             structured_rows.append({
                 'id': f'item-{stt_item}',
                 'row_type': 'item',
                 'tt': '+',
                 'name': item['name'],
-                'spec': item['spec'],
-                'sku': item['spec'] if item['spec'] and len(item['spec']) < 40 else '',
+                'spec': item.get('spec', ''),
+                'sku': item['sku'],
                 'origin': item['brand'],
                 'unit': item['unit'],
                 'quantity': item['quantity'],
                 'unit_price': item['unit_price'],
-                'line_total': item['line_total']
+                'line_total': item['line_total'],
+                'notes': notes_str,
+                'category': cat_key,
+                'section': sec_title,
+                'panel_id': panel_code
             })
             stt_item += 1
 
     vat_amount = int(round(total_material * 0.10))
     grand_total = total_material + vat_amount
 
-    out_md.append(f"| | **CỘNG (Chưa bao gồm VAT 10%)** | | | | | | **{format_vnd_currency(total_material)}** |")
-    out_md.append(f"| | **THUẾ GIÁ TRỊ GIA TĂNG (VAT 10%)** | | | | | | **{format_vnd_currency(vat_amount)}** |")
-    out_md.append(f"| | **TỔNG CỘNG THANH TOÁN (ĐÃ BAO GỒM VAT)** | | | | | | **{format_vnd_currency(grand_total)}** |")
+    out_md.append(f"| | **CỘNG (Chưa bao gồm VAT 10%)** | | | | | | **{format_vnd_currency(total_material)}** | |")
+    out_md.append(f"| | **THUẾ GIÁ TRỊ GIA TĂNG (VAT 10%)** | | | | | | **{format_vnd_currency(vat_amount)}** | |")
+    out_md.append(f"| | **TỔNG CỘNG TIỀN THANH TOÁN (ĐÃ BAO GỒM VAT)** | | | | | | **{format_vnd_currency(grand_total)}** | |")
 
     structured_rows[0]['unit_price'] = total_material
     structured_rows[0]['line_total'] = total_material
@@ -1080,6 +1316,124 @@ def normalize_vietnamese_text(text: str) -> str:
     norm = ''.join(c for c in norm if unicodedata.category(c) != 'Mn')
     norm = norm.replace('đ', 'd')
     return norm
+
+
+def detect_simple_conversational_response(message: str) -> Optional[str]:
+    """Phân biệt tức thì các câu hỏi chào hỏi, danh tính (bạn là ai), tính năng, cảm ơn...
+    để phản hồi dưới 1 giây mà không phải chờ mô hình AI suy luận lâu.
+    """
+    if not message:
+        return None
+    raw = message.strip()
+    norm = normalize_vietnamese_text(raw).strip()
+    clean = re.sub(r'^[^\w\s]+|[^\w\s]+$', '', norm).strip()
+    clean = re.sub(r'\s+', ' ', clean)
+    if not clean:
+        return None
+
+    # Các từ khóa kỹ thuật, điện, bản vẽ, thiết bị, báo giá, bóc tách:
+    # Tuyệt đối không chặn nhanh nếu câu hỏi có chứa các từ khóa chuyên ngành
+    technical_keywords = [
+        'ban ve', 'drawing', 'so do', 'sld', 'tu dien', 'tu ', 'khoang tu',
+        'nguon cap', 'tram bien ap', 'may bien ap', 'cong suat', 'dien ap',
+        'dong cat', 'dong dinh muc', 'ngan mach', 'dong ro', 'tiet dien',
+        'day cap', 'busbar', 'thanh cai', 'incomer', 'xuat tuyen',
+        'mcb', 'mccb', 'acb', 'rcbo', 'rccb', 'spd', 'contactor', 'relay',
+        'ro le', 'bien dong', 'ct', 'ti', 'dong ho', 'ampe', 'volt',
+        'boc tach', 'takeoff', 'bom', 'bao gia', 'quotation', 'du toan',
+        'don gia', 'thanh tien', 'vat tu', 'hang ls', 'schneider',
+        'mitsubishi', 'abb', 'chint', 'panasonic', 'hyundai', 'fuji',
+        'cad', 'dwg', 'dxf', 'pdf', 'file'
+    ]
+    has_tech = any(k in clean for k in technical_keywords)
+    if has_tech:
+        # Ngoại lệ: người dùng hỏi trực tiếp về danh tính EL hoặc AIDE
+        # ví dụ: 'el trong du an nay la gi', 'ban la ai trong he thong cad'
+        if not re.search(r'\b(?:ban\s+la\s+ai|el\s+la\s+(?:ai|gi)|aide\s+la\s+gi|elquote\s+la\s+gi|ten\s+ban\s+la\s+gi)\b', clean):
+            return None
+
+    # Bỏ các từ đệm, từ xưng hô, kính ngữ ở đầu câu và cuối câu
+    core = clean
+    core = re.sub(
+        r'^(?:cho\s+(?:minh|toi|em|anh)\s+hoi|lam\s+on\s+cho\s+biet|vui\s+long\s+cho\s+biet|'
+        r'xin\s+hoi|ban\s+cho\s+minh\s+hoi|ban\s+oi|ad\s+oi|el\s+oi|admin\s+oi|alo\s+el\s+oi)\s+',
+        '', core
+    ).strip()
+    core = re.sub(
+        r'\b(?:a|ạ|nhe|nhé|nhi|nhỉ|vay|vậy|the|thế|ha|hả|ko|khong|không|do|đó|voi|với|di|đi|nao|nào|roi|rồi)\b$',
+        '', core
+    ).strip()
+    core = re.sub(r'\s+', ' ', core)
+
+    # 1. Hỏi danh tính, vai trò, tên gọi, giới thiệu bản thân
+    identity_patterns = [
+        r'^(?:ban|em|may|cau)\s+(?:la\s+ai|la\s+gi|ten\s+(?:la\s+)?(?:gi|j)|la\s+tro\s+ly\s+gi)$',
+        r'^(?:ten\s+(?:ban|cua\s+ban)\s+la\s+(?:gi|j)|ban\s+ten\s+(?:gi|j))$',
+        r'^(?:ai\s+(?:day|the|vay|do)|ban\s+la\s+ai\s+(?:the|vay|do))$',
+        r'^(?:el|elquote|aide)\s+la\s+(?:ai|gi)$',
+        r'^(?:gioi\s+thieu(?:\s+ve)?\s+(?:ban|ban\s+than|el|minh)|tu\s+gioi\s+thieu)$',
+        r'^(?:ban\s+la\s+(?:bot|ai|robot|nguoi|ai\s+vay|con\s+nguoi|may))\b'
+    ]
+    if any(re.search(p, core) for p in identity_patterns) or clean in {'ban la ai', 'ban la gi', 'ai day', 'ai the', 'ban ten gi', 'el la ai', 'el la gi'}:
+        return (
+            "Tôi là EL, trợ lý kỹ thuật điện và CAD trong hệ thống AIDE.\n\n"
+            "Tôi có thể hỗ trợ bạn:\n"
+            "• **Đọc hiểu & phân tích bản vẽ**: Sơ đồ nguyên lý một sợi (SLD), đường cấp nguồn, hệ thống bảo vệ (ACB, MCCB, MCB, RCBO, SPD...).\n"
+            "• **Bóc tách thiết bị (Takeoff / BOM)**: Tự động trích xuất danh mục thiết bị đóng cắt, đo lường và phụ kiện theo từng tủ kèm vị trí và bằng chứng trực quan.\n"
+            "• **Tra cứu & chuẩn hóa thiết bị**: Gán mã sản phẩm, hãng sản xuất (LS, Schneider, Mitsubishi, ABB, v.v.) theo yêu cầu.\n"
+            "• **Lập bảng báo giá dự toán**: Xuất bảng báo giá chuẩn 8 cột (vỏ tủ, thanh cái busbar, phụ kiện, nhân công và thiết bị).\n"
+            "• **Thiết kế CAD & tính busbar**: Bố trí thiết bị tủ điện và tính toán khối lượng, dòng định mức thanh cái đồng.\n\n"
+            "Bạn có thể tải bản vẽ lên hoặc gửi yêu cầu để bắt đầu nhé!"
+        )
+
+    # 2. Hỏi tính năng, khả năng, hướng dẫn sử dụng, trợ giúp
+    capability_patterns = [
+        r'^(?:ban\s+)?(?:co\s+the\s+lam\s+gi|lam\s+duoc\s+gi|giup\s+duoc\s+gi|biet\s+lam\s+gi|ho\s+tro\s+(?:duoc\s+)?(?:gi|nhung\s+gi)|co\s+chuc\s+nang\s+gi)$',
+        r'^(?:chuc\s+nang|tinh\s+nang|nang\s+luc)\s+(?:cua\s+)?(?:ban|el)$',
+        r'^(?:huong\s+dan(?:\s+su\s+dung|\s+dung)?|cach\s+(?:su\s+)?dung(?:\s+el)?|tro\s+giup|help|menu)$'
+    ]
+    if any(re.search(p, core) for p in capability_patterns) or clean in {'help', 'tro giup', 'huong dan', 'menu'}:
+        return (
+            "Dưới đây là các tính năng chính tôi có thể hỗ trợ bạn:\n\n"
+            "1. 🔍 **Đọc & Phân tích bản vẽ**: Phân tích sơ đồ một sợi SLD, nguồn vào, thanh cái và các cấp bảo vệ đóng cắt.\n"
+            "2. 📋 **Bóc tách thiết bị (Takeoff)**: Tự động nhận diện các tủ điện, lập danh mục thiết bị chi tiết theo từng lộ xuất tuyến và liên kết vị trí bản vẽ.\n"
+            "3. 🏷️ **Cập nhật thương hiệu / Catalog**: Gán mã hàng, hãng sản xuất theo yêu cầu của dự án.\n"
+            "4. 💰 **Lập bảng báo giá**: Tạo bảng báo giá hoàn chỉnh 8 cột gồm vỏ tủ, thanh cái đồng, phụ kiện tủ điện và thiết bị theo chuẩn dự toán thực tế.\n"
+            "5. 📐 **Thiết kế CAD & Tính Busbar**: Bố trí thiết bị tủ điện và tính toán khối lượng, dòng định mức thanh cái đồng.\n\n"
+            "Bạn muốn thực hiện công việc nào? Hãy gửi yêu cầu hoặc tải bản vẽ lên nhé!"
+        )
+
+    # 3. Lời chào, mở đầu
+    greeting_words = {
+        'hi', 'hello', 'hey', 'alo', 'helo', 'he lo', 'chao', 'xin chao', 'chao ban', 'xin chao ban',
+        'chao el', 'hi el', 'hello el', 'alo el', 'chao ad', 'chao admin',
+        'good morning', 'good afternoon', 'good evening', 'chao buoi sang', 'chao buoi chieu', 'chao buoi toi'
+    }
+    if clean in greeting_words or core in greeting_words or (re.match(r'^(?:chao|xin chao|hi|hello|hey|alo)\b', core) and len(core.split()) <= 4):
+        return "Chào bạn! Tôi là EL, trợ lý kỹ thuật điện và CAD. Bạn cần tôi hỗ trợ phân tích bản vẽ, bóc tách thiết bị hay lập bảng báo giá cho dự án nào hôm nay?"
+
+    # 4. Cảm ơn, xác nhận, khen ngợi
+    ack_words = {
+        'ok', 'okay', 'okie', 'oki', 'oke', 'cam on', 'cam on ban', 'cam on el', 'thanks', 'thank you',
+        'tks', 'thank', 'duoc roi', 'tot qua', 'tuyet voi', 'hay qua', 'da hieu', 'da ro', 'chuan roi', 'chuan', 'good job'
+    }
+    if clean in ack_words or core in ack_words:
+        return "Rất vui được hỗ trợ bạn! Nếu cần bóc tách thêm bản vẽ, kiểm tra thiết bị hay tính toán báo giá, bạn cứ gửi yêu cầu cho EL nhé."
+
+    # 5. Tạm biệt
+    farewell_words = {'tam biet', 'bye', 'bye bye', 'goodbye', 'chuc ngu ngon', 'gap lai sau', 'hen gap lai'}
+    if clean in farewell_words or core in farewell_words:
+        return "Chào tạm biệt bạn! Chúc bạn một ngày làm việc hiệu quả. Khi nào cần hỗ trợ dự án kỹ thuật điện hay bản vẽ CAD, bạn cứ quay lại nhắn EL nhé!"
+
+    # 6. Trạng thái, ping, sẵn sàng
+    status_words = {
+        'ban co do khong', 'con do khong', 'co do khong', 'san sang chua', 'bat dau duoc chua',
+        'ban khoe khong', 'co khoe khong', 'test', 'testing', 'ping'
+    }
+    if clean in status_words or core in status_words:
+        return "EL luôn sẵn sàng! Bạn có thể tải bản vẽ hoặc gửi yêu cầu phân tích, bóc tách thiết bị hay lập bảng báo giá bất cứ lúc nào."
+
+    return None
 
 
 def extract_detected_panels_from_text(text: str, project_id: int = None) -> list[dict]:
@@ -1343,70 +1697,59 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
                 if row and row[0]:
                     exist_devs = json.loads(row[0])
                     if isinstance(exist_devs, list) and exist_devs:
-                        # Build standard markdown table and rows
-                        q_lines = [
-                            "Dưới đây là bảng báo giá dự toán chi tiết thiết bị và vỏ tủ điện theo đúng tiêu chuẩn thực tế:",
-                            "",
-                            "| STT | Danh mục vật tư / Thiết bị | Quy cách / Mã hiệu | Hãng SX | ĐVT | SL | Đơn giá (VNĐ) | Thành tiền (VNĐ) |",
-                            "|:---:|:---|:---|:---:|:---:|:---:|:---:|:---:|"
-                        ]
-                        gen_rows = []
-                        stt = 1
-
-                        # Nhóm 1: Vỏ tủ & phụ kiện
-                        enclosure_items = [
-                            ("Vỏ tủ điện trong nhà sơn tĩnh điện RAL 7035", "KT: H1200xW800xD325 dày 1.5mm, 2 lớp cánh", "Tuấn Anh", "Bộ", 1, 3500000),
-                            ("Đồng thanh cái mạ thiếc uốn 3D, bọc co nhiệt", "Thanh cái đồng đỏ mạ thiếc, co nhiệt R-S-T-N", "Tuấn Anh", "Bộ", 1, 1800000),
-                            ("Vật tư phụ kết nối tủ điện", "Khóa AB301, bản lề, máng dây, đầu cos, thanh DIN", "Tuấn Anh", "Bộ", 1, 850000),
-                            ("Nhân công lắp ráp, đấu nối hoàn thiện tủ", "Nhân công đấu nối và kiểm tra xuất xưởng", "Tuấn Anh", "Bộ", 1, 1500000),
-                        ]
-                        for name, spec, brand, unit, qty, price in enclosure_items:
-                            total = qty * price
-                            q_lines.append(f"| {stt} | {name} | {spec} | {brand} | {unit} | {qty} | {price:,} | {total:,} |")
-                            gen_rows.append({
-                                'item_order': stt,
-                                'description': name,
-                                'spec': spec,
-                                'selected_brand': brand,
-                                'unit': unit,
-                                'quantity': qty,
-                                'unit_price': price,
-                                'total_price': total
-                            })
-                            stt += 1
-
-                        # Nhóm 2: Thiết bị từ bản vẽ
+                        # Build standard 9-column markdown table from devices
+                        panel_code = "TĐ-T"
                         for d in exist_devs:
-                            name = str(d.get('name') or d.get('device_type') or d.get('category') or 'Thiết bị')
-                            spec = str(d.get('spec') or d.get('part_number') or '')
-                            brand = str(d.get('brand') or 'Chint')
-                            qty = d.get('quantity')  # Unknown quantities must remain unknown.
-                            # Ước tính đơn giá theo dòng thiết bị
-                            price = 450000 if 'MCCB' in name.upper() else (120000 if 'MCB' in name.upper() else 180000)
-                            total = qty * price
-                            q_lines.append(f"| {stt} | {name} | {spec} | {brand} | Cái | {qty} | {price:,} | {total:,} |")
-                            gen_rows.append({
-                                'item_order': stt,
-                                'description': name,
-                                'spec': spec,
-                                'selected_brand': brand,
-                                'unit': 'Cái',
-                                'quantity': qty,
-                                'unit_price': price,
-                                'total_price': total
-                            })
-                            stt += 1
+                            if d.get('panel_code'):
+                                panel_code = str(d.get('panel_code')).strip()
+                                break
 
-                        subtotal = sum(r['total_price'] for r in gen_rows)
-                        vat = int(subtotal * 0.1)
-                        total_with_vat = subtotal + vat
-                        q_lines.extend([
-                            f"| | CỘNG (Chưa bao gồm VAT 10%) | | | | | | {subtotal:,} |",
-                            f"| | THUẾ GIÁ TRỊ GIA TĂNG (VAT 10%) | | | | | | {vat:,} |",
-                            f"| | TỔNG CỘNG TIỀN THANH TOÁN (ĐÃ BAO GỒM VAT) | | | | | | {total_with_vat:,} |"
-                        ])
-                        clean_reply = "\n".join(q_lines)
-                        quotation_rows = gen_rows
+                        raw_table_lines = [
+                            f"Dưới đây là bảng báo giá dự toán chi tiết cho TỦ ĐIỆN {panel_code} theo tiêu chuẩn ngành tủ điện Việt Nam:",
+                            "",
+                            "| TT | MÔ TẢ CHI TIẾT | MÃ HÀNG | XUẤT XỨ | ĐƠN VỊ | SỐ LƯỢNG | ĐƠN GIÁ | THÀNH TIỀN | GHI CHÚ |",
+                            "|:---:|:---|:---:|:---:|:---:|:---:|---:|---:|:---|",
+                            f"| **1** | **TỦ ĐIỆN {panel_code}** | | **VN** | **Tủ** | **1.00** | | | |",
+                            "| **\\*** | **Vỏ tủ + phụ kiện** | | | | | | | |",
+                            "| + | Vỏ tủ điện trong nhà 2 lớp cánh, sơn tĩnh điện.<br>+ KT : H2300xW1000xD250xT2.0mm<br>+ Có chân đế cao 100mm | Sơn tĩnh điện | VN | Cái | 1.00 | 3,500,000 | 3,500,000 | |",
+                            "| + | Đồng thanh cái mạ thiếc bọc co nhiệt | 1mm=2A, N=50%, E=25% | VN | Tủ | 1.00 | 1,800,000 | 1,800,000 | |",
+                            "| + | Vật tư phụ ( đầu cos, dây điều khiển, sứ ...) | | VN | Tủ | 1.00 | 850,000 | 850,000 | |",
+                            "| + | Nhân công lắp ráp tủ | | VN | Tủ | 1.00 | 1,500,000 | 1,500,000 | |"
+                        ]
+
+                        incomer_devs = []
+                        outgoing_devs = []
+                        for d in exist_devs:
+                            d_name = str(d.get('name') or d.get('device_type') or d.get('category') or '')
+                            d_sec = str(d.get('section') or '').lower()
+                            if any(k in d_sec for k in ('dau vao', 'incom', 'main', 'tong')) or any(k in d_name.upper() for k in ('MCCB', 'ACB', 'DEN BAO', 'CAU CHI', 'BIEN DONG', 'DONG HO', 'CHUYEN MACH', 'CONG TO')):
+                                incomer_devs.append(d)
+                            else:
+                                outgoing_devs.append(d)
+
+                        if incomer_devs:
+                            raw_table_lines.append("| **\\*** | **Đầu vào** | | | | | | | |")
+                            for d in incomer_devs:
+                                d_name = clean_device_name(str(d.get('name') or ''), str(d.get('spec') or ''))
+                                d_sku, d_notes = extract_clean_sku(str(d.get('part_number') or d.get('sku') or ''), d_name, str(d.get('spec') or ''))
+                                d_brand = str(d.get('brand') or 'SCHNEIDER').upper()
+                                d_qty = float(d.get('quantity') or 1.0)
+                                d_price = 5030800 if 'MCCB' in d_name else (38200 if 'Đèn báo' in d_name else 150000)
+                                d_total = int(d_qty * d_price)
+                                raw_table_lines.append(f"| + | {d_name} | {d_sku} | {d_brand} | Cái | {d_qty:.2f} | {d_price:,} | {d_total:,} | {d_notes} |")
+
+                        if outgoing_devs:
+                            raw_table_lines.append("| **\\*** | **Đầu ra** | | | | | | | |")
+                            for d in outgoing_devs:
+                                d_name = clean_device_name(str(d.get('name') or ''), str(d.get('spec') or ''))
+                                d_sku, d_notes = extract_clean_sku(str(d.get('part_number') or d.get('sku') or ''), d_name, str(d.get('spec') or ''))
+                                d_brand = str(d.get('brand') or 'SCHNEIDER').upper()
+                                d_qty = float(d.get('quantity') or 1.0)
+                                d_price = 1261000 if 'RCBO' in d_name else (87300 if '1P' in d_name else 1482800)
+                                d_total = int(d_qty * d_price)
+                                raw_table_lines.append(f"| + | {d_name} | {d_sku} | {d_brand} | Cái | {d_qty:.2f} | {d_price:,} | {d_total:,} | {d_notes} |")
+
+                        clean_reply, quotation_rows = standardize_quotation_table_and_rows("\n".join(raw_table_lines), panel_info_default=f"TỦ ĐIỆN {panel_code}")
                 conn.close()
             except Exception as ex:
                 logger.warning("Could not auto-generate quotation: %s", ex)
@@ -1643,14 +1986,11 @@ async def tools(project_id: int, request: Request, db=Depends(get_db), user=Depe
 async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db), user=Depends(get_current_active_user)):
     await owned_project(db, user, payload.project_id)
     context = payload.context or {}
-    # Greetings and acknowledgements never need a model, drawing or tool call.
-    import re
-    short_text = normalize_vietnamese_text(payload.message).strip()
-    short_text = re.sub(r'[!?.…,]+$', '', short_text).strip()
-    if short_text in {'hi', 'hello', 'hey', 'chao', 'xin chao', 'chao el', 'hi el', 'hello el', 'alo'}:
-        return {'reply': 'Chào bạn! Bạn cần EL hỗ trợ gì?'}
-    if short_text in {'ok', 'okay', 'cam on', 'cam on el', 'thanks', 'thank you'}:
-        return {'reply': 'Vâng, bạn cần hỗ trợ thêm cứ nhắn EL nhé.'}
+    # Xử lý tức thì các câu chào hỏi, hỏi danh tính ("bạn là ai"), tính năng, cảm ơn, v.v.
+    # Phản hồi dưới 1 giây mà không phải gọi mô hình AI hay chạy worker cồng kềnh.
+    fast_reply = detect_simple_conversational_response(payload.message)
+    if fast_reply:
+        return {'reply': fast_reply}
     from app.services.ai.takeoff_regions import confirmed_scope, discover_panels
     scope = confirmed_scope(context, payload.project_id)
     from app.services.ai.el_input_context import input_context
@@ -1751,31 +2091,39 @@ QUY TẮC BẮT BUỘC:
 
    - KHI NGƯỜI DÙNG YÊU CẦU TẠO BẢNG BÁO GIÁ / LẬP DỰ TOÁN BÁO GIÁ TỦ ĐIỆN (ví dụ: "tạo bảng báo giá", "lập báo giá", "báo giá cho tủ...", "dự toán tủ điện", "tính giá"...):
      + BẠN PHẢI LẬP BẢNG BÁO GIÁ DỰ TOÁN CHI TIẾT THEO ĐÚNG TIÊU CHUẨN THỰC TẾ NGÀNH TỦ ĐIỆN VIỆT NAM (1 file báo giá chuẩn, trên cùng là Vỏ tủ + phụ kiện):
-     + BẮT BUỘC ĐẦY ĐỦ 8 CỘT CHUẨN TRONG BẢNG:
-       | STT | Danh mục vật tư / Thiết bị | Quy cách / Mã hiệu | Hãng SX | ĐVT | SL | Đơn giá (VNĐ) | Thành tiền (VNĐ) |
-       * BẮT BUỘC PHẢI CÓ CỘT ĐVT (Đơn vị tính: Cái, Tủ, Bộ, Chiếc, Mét...).
-       * Cột SL (Số lượng) CHỈ CHỨA SỐ THUẦN TÚY (ví dụ: 1, 2, 3...), TUYỆT ĐỐI KHÔNG ghi chữ như "1 bộ" vào cột SL.
-       * Dòng đầu tiên của mỗi tủ là dòng tiêu đề tủ: | **1** | **TỦ ĐIỆN [Mã tủ]** | | **VN** | **Tủ** | **1** | | |
+     + BẮT BUỘC ĐẦY ĐỦ 9 CỘT CHUẨN TRONG BẢNG:
+       | TT | MÔ TẢ CHI TIẾT | MÃ HÀNG | XUẤT XỨ | ĐƠN VỊ | SỐ LƯỢNG | ĐƠN GIÁ | THÀNH TIỀN | GHI CHÚ |
+       * BẮT BUỘC ĐÚNG THỨ TỰ VÀ TÊN 9 CỘT NÀY.
+       * Dòng tiêu đề tủ (TT: 1): | **1** | **TỦ ĐIỆN [Mã tủ]** | | **VN** | **Tủ** | **1.00** | | | [Ghi chú vị trí nếu có] |
+       * Cột MÔ TẢ CHI TIẾT: Tên thiết bị ngắn gọn, chuẩn xác kỹ thuật (ví dụ: "MCCB 3P 400A 36kA", "MCB 1P 16A 6kA", "Đèn báo pha (đỏ-vàng-xanh)", "Cầu chì điều khiển 2A", "Biến dòng (400A/5A)", "Đồng hồ Ampe ( 5A thang đo 400/5A)", "Công tắc chuyển mạch Ampe", "Đồng hồ Volt", "Công tắc chuyển mạch Volt", "Công tơ"...). TUYỆT ĐỐI KHÔNG nối thêm spec dài dòng rườm rà.
+       * Cột MÃ HÀNG: Chỉ điền mã catalog chính hãng tra được từ phân tích (ví dụ: EZC400N3400N, A9D31620, A9K27116, A9F84363, ABN203c...).
+         - Với Vỏ tủ: Mã hàng là "Sơn tĩnh điện".
+         - Với Đồng thanh cái: Mã hàng là "1mm=2A, N=50%, E=25%".
+         - Với Vật tư phụ và Nhân công: để trống mã hàng.
+         - TUYỆT ĐỐI KHÔNG điền tên lộ, công suất tải hay vị trí (như "Lộ L2...", "Tầng tum...") vào cột MÃ HÀNG.
+       * Cột XUẤT XỨ: Vỏ tủ, Đồng, Phụ kiện, Nhân công ghi "VN". Thiết bị ghi Hãng SX (ví dụ: SCHNEIDER, LS, CHINT...).
+       * Cột ĐƠN VỊ: Vỏ tủ ghi "Cái", Đồng ghi "Tủ", Vật tư phụ ghi "Tủ", Nhân công ghi "Tủ", Thiết bị ghi "Cái".
+       * Cột GHI CHÚ: Điền thông tin lộ dây, phụ tải (ví dụ: "Lộ L2: Ổ cắm hành lang, wifi (3.0 kW)"), vị trí lắp đặt ("Vị trí: Tầng tum"), hoặc khối lượng ước tính khi tính được ("Vỏ: 65 kg, Đồng: 18 kg").
      + THỨ TỰ PHÂN NHÓM CHUẨN KỸ THUẬT CHO MỖI TỦ (TRÊN CÙNG BẮT BUỘC LÀ VỎ TỦ + PHỤ KIỆN):
-       * TRÊN CÙNG BẮT BUỘC LÀ: Nhóm "* Vỏ tủ + phụ kiện", bao gồm:
-         1. Vỏ tủ điện trong nhà/ngoài trời (KT: H...xW...xD...xT...mm, 2 lớp cánh, sơn tĩnh điện RAL 7035, chân đế nếu có) - ĐVT: Cái
-         2. Đồng thanh cái mạ thiếc bọc co nhiệt (Busbar) - ĐVT: Tủ hoặc Bộ
-         3. Vật tư phụ (đầu cos, dây điều khiển, sứ cách điện, máng dây, thanh DIN...) - ĐVT: Tủ hoặc Bộ
-         4. Nhân công lắp ráp tủ (hoàn thiện cơ khí, đấu nối, kiểm tra) - ĐVT: Tủ hoặc Bộ
-       * TIẾP THEO LÀ: Nhóm "* Đầu vào", bao gồm:
+       * Dòng nhóm: | **\\*** | **Vỏ tủ + phụ kiện** | | | | | | | |
+         1. Vỏ tủ điện trong nhà 2 lớp cánh, sơn tĩnh điện.<br>+ KT : H...xW...xD...xT...mm<br>+ Có chân đế cao 100mm (Mã hàng: Sơn tĩnh điện, Xuất xứ: VN, ĐVT: Cái, SL: 1.00)
+         2. Đồng thanh cái mạ thiếc bọc co nhiệt (Mã hàng: 1mm=2A, N=50%, E=25%, Xuất xứ: VN, ĐVT: Tủ, SL: 1.00)
+         3. Vật tư phụ ( đầu cos, dây điều khiển, sứ ...) (Xuất xứ: VN, ĐVT: Tủ, SL: 1.00)
+         4. Nhân công lắp ráp tủ (Xuất xứ: VN, ĐVT: Tủ, SL: 1.00)
+       * Dòng nhóm: | **\\*** | **Đầu vào** | | | | | | | |
          - Aptomat tổng (MCCB/MCB tổng), cuộn cắt Shunt trip (nếu có, đặt ngay dưới MCCB)
-         - Đèn báo pha (đỏ, vàng, xanh)
-         - Cầu chì điều khiển (2A)
+         - Đèn báo pha (đỏ-vàng-xanh)
+         - Cầu chì điều khiển 2A
          - Biến dòng đo lường CT
          - Đồng hồ Ampe, Đồng hồ Volt, Công tắc chuyển mạch Ampe/Volt
          - Nguồn 24VDC, Rơ le trung gian (nếu có)
-       * TIẾP THEO LÀ: Nhóm "* Đầu ra", bao gồm:
+       * Dòng nhóm: | **\\*** | **Đầu ra** | | | | | | | |
          - Các Aptomat phân phối nhánh (MCB 1P, MCB 2P, MCB 3P, RCBO, MCCB nhánh...) cấp ra phụ tải
-         - Ghi chú lộ xuất tuyến và số lượng dự phòng (ví dụ: "4 dự phòng", "1 dự phòng").
-     + PHẦN TỔNG KẾT TÀI CHÍNH CUỐI BẢNG BẮT BUỘC ĐẦY ĐỦ 3 DÒNG:
-       | | CỘNG (Chưa bao gồm VAT 10%) | | | | | | [Tổng tiền] |
-       | | THUẾ GIÁ TRỊ GIA TĂNG (VAT 10%) | | | | | | [Tiền thuế 10%] |
-       | | TỔNG CỘNG TIỀN THANH TOÁN (ĐÃ BAO GỒM VAT) | | | | | | [Tổng cộng thanh toán] |
+         - Ghi chú lộ xuất tuyến và phụ tải ghi ở cột GHI CHÚ.
+     + PHẦN TỔNG KẾT TÀI CHÍNH CUỐI BẢNG BẮT BUỘC ĐẦY ĐỦ 3 DÒNG (9 CỘT):
+       | | **CỘNG (Chưa bao gồm VAT 10%)** | | | | | | **[Tổng tiền]** | |
+       | | **THUẾ GIÁ TRỊ GIA TĂNG (VAT 10%)** | | | | | | **[Tiền thuế 10%]** | |
+       | | **TỔNG CỘNG TIỀN THANH TOÁN (ĐÃ BAO GỒM VAT)** | | | | | | **[Tổng cộng thanh toán]** | |
      + Bảng báo giá này sẽ tự động được hệ thống bóc tách thành dữ liệu cấu trúc và hiển thị trực tiếp ra phần Workspace bên dưới cho người dùng.
 
    - KHI NGƯỜI DÙNG YÊU CẦU BÓC TÁCH THIẾT BỊ (ví dụ: "bóc tách", "bóc khối lượng", "xuất BOM", "bóc tủ được chọn", "bóc tách toàn bộ"...):

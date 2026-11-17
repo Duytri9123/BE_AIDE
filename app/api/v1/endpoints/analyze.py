@@ -666,6 +666,18 @@ async def get_project_sessions(
 ):
     """Lấy danh sách tất cả các phiên và lần bóc tách của dự án để chọn xem lại."""
     from app.services.analysis_reads import session_page
+    from app.models.project_file import ProjectFile
+    import re
+
+    gen_files_res = await db.execute(
+        select(ProjectFile).where(
+            ProjectFile.project_id == project_id,
+            ProjectFile.is_generated == True
+        ).order_by(ProjectFile.created_at.desc(), ProjectFile.id.desc())
+    )
+    generated_files = gen_files_res.scalars().all()
+    file_by_id = {f.id: f for f in generated_files}
+
     rows, total = await session_page(db, project_id, current_user, skip, limit)
     items = []
     for it, s in rows:
@@ -709,16 +721,57 @@ async def get_project_sessions(
             except (TypeError, ValueError):
                 panel["total_device_count"] += 1
 
+        quotation_rows = conf.get("quotation_rows") or []
+        quotation_file_id = conf.get("quotation_file_id")
+        quotation_file = None
+        if quotation_file_id and quotation_file_id in file_by_id:
+            qf = file_by_id[quotation_file_id]
+            quotation_file = {
+                "id": qf.id,
+                "filename": qf.filename,
+                "file_size": qf.file_size,
+                "created_at": qf.created_at.isoformat() if qf.created_at else None,
+            }
+
+        report_file_id = conf.get("report_file_id")
+        report_file = None
+        if report_file_id and report_file_id in file_by_id:
+            rf = file_by_id[report_file_id]
+            report_file = {
+                "id": rf.id,
+                "filename": rf.filename,
+                "file_size": rf.file_size,
+                "created_at": rf.created_at.isoformat() if rf.created_at else None,
+            }
+
+        user_msg = (it.user_message or "").lower()
+        if it.trigger_type == "quotation" or (len(quotation_rows) > 0 and len(raw_devs) == 0) or bool(re.search(r'báo\s*giá|quotation', user_msg)):
+            run_type = "quotation"
+        elif it.trigger_type == "report" or bool(re.search(r'báo\s*cáo|report', user_msg)):
+            run_type = "report"
+        elif it.trigger_type == "el_proposal":
+            run_type = "proposal"
+        elif it.trigger_type in ("cad_generation", "design") or bool(conf.get("design_result")):
+            run_type = "cad"
+        elif str(it.trigger_type or "").startswith("chat_"):
+            run_type = "chat"
+        else:
+            run_type = "takeoff"
+
         items.append({
             "id": it.id,
             "iteration_id": it.id,
             "session_id": str(s.id),
             "iteration_number": it.iteration_number,
             "trigger_type": it.trigger_type,
+            "run_type": run_type,
             "user_message": it.user_message,
             "devices_count": len(raw_devs),
             "device_count": len(raw_devs),
             "total_device_count": total_device_count,
+            "quotation_count": len(quotation_rows),
+            "quotation_file": quotation_file,
+            "report_file": report_file,
             "panel_code": panel_code or "",
             "panel_name": panel_name or "",
             "panels": list(panels_by_key.values()),
@@ -740,13 +793,20 @@ async def get_iteration_analysis(
 ):
     """Lấy chi tiết toàn bộ kết quả bóc tách của một phiên/iteration cụ thể để phục hồi lên giao diện."""
     from app.services.analysis_sessions import iteration_detail
-    it, cad_file = await iteration_detail(db, iteration_id, current_user)
+    it, cad_file, quotation_file = await iteration_detail(db, iteration_id, current_user)
     cad_file_info = {
         "id": cad_file.id,
         "filename": cad_file.filename,
         "file_path": cad_file.file_path,
         "file_size": cad_file.file_size
     } if cad_file else None
+
+    quotation_file_info = {
+        "id": quotation_file.id,
+        "filename": quotation_file.filename,
+        "file_path": quotation_file.file_path,
+        "file_size": quotation_file.file_size
+    } if quotation_file else None
 
     return _build_analysis_result_schema(
         session_id=it.session_id,
@@ -755,6 +815,7 @@ async def get_iteration_analysis(
         conf_scores=it.confidence_scores or {},
         iteration_id=it.id,
         cad_file_info=cad_file_info,
+        quotation_file_info=quotation_file_info,
     )
 
 
