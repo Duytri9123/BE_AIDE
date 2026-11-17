@@ -50,8 +50,20 @@ async def progress_events(operation, *, heartbeat=15):
             queue.put_nowait(dict(type='error', message='ElQuote đã dừng yêu cầu.', status=499))
             raise
         except Exception as exc:
-            queue.put_nowait(dict(type='error', message=str(getattr(exc,'detail',None) or exc),
-                                 status=getattr(exc,'status_code',500)))
+            raw_msg = str(getattr(exc, 'detail', None) or exc or '')
+            msg_upper = raw_msg.upper()
+            if '503' in raw_msg or 'MODEL_CAPACITY_EXHAUSTED' in msg_upper or 'CAPACITY' in msg_upper or 'UNAVAILABLE' in msg_upper:
+                clean_msg = 'Máy chủ AI hiện đang quá tải hoặc tạm thời hết công suất. Bạn vui lòng bấm "Thử lại" sau giây lát.'
+            elif '429' in raw_msg or 'RESOURCE_EXHAUSTED' in msg_upper or 'RATE' in msg_upper:
+                clean_msg = 'Hệ thống AI đang tiếp nhận nhiều yêu cầu cùng lúc. Bạn vui lòng đợi ít giây rồi thử lại.'
+            elif '@' in raw_msg or 'AIVISIONERROR' in msg_upper or 'CONNECTIONPOOL' in msg_upper or '{"ERROR"' in msg_upper or 'API KEY' in msg_upper:
+                clean_msg = 'Hệ thống máy chủ AI tạm thời gián đoạn kết nối. Bạn vui lòng thử lại sau giây lát.'
+            elif len(raw_msg) > 300:
+                clean_msg = 'Hệ thống AI tạm thời gặp sự cố khi xử lý yêu cầu. Bạn vui lòng thử lại.'
+            else:
+                clean_msg = raw_msg
+            queue.put_nowait(dict(type='error', message=clean_msg,
+                                 status=getattr(exc, 'status_code', 500)))
         finally:
             _sink.reset(token)
     task = asyncio.create_task(run())

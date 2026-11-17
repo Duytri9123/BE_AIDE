@@ -5,6 +5,7 @@ Khi connection chính bị lỗi (429, 401, timeout, 503), tự động chuyển
 """
 import logging
 import asyncio
+import re
 from typing import List, Tuple, Callable, Any, Optional
 from datetime import datetime, timezone
 
@@ -188,6 +189,9 @@ class ConnectionPoolService:
             provider_base_url = prov_obj.base_url if prov_obj else None
 
             candidate_models = [configured_model]
+            base_model = re.sub(r"-(?:high|medium|low)$|-tiered\([a-z]+\)$", "", configured_model)
+            if base_model and base_model != configured_model and base_model not in candidate_models:
+                candidate_models.append(base_model)
 
             disabled_account_ids: set[int] = set()
             failed_base_models: set[str] = set()
@@ -279,7 +283,9 @@ class ConnectionPoolService:
                             break
 
                 if attempted_accounts:
-                    failed_base_models.add(raw_base)
+                    is_tier_capacity = "CAPACITY" in str(last_error or "").upper() or "503" in str(last_error or "")
+                    if not is_tier_capacity:
+                        failed_base_models.add(raw_base)
                     if model_idx + 1 < len(candidate_models):
                         next_model = candidate_models[model_idx + 1]
                         logger.warning(
@@ -291,10 +297,21 @@ class ConnectionPoolService:
         formatted_chain = "\n".join(f"  • {err}" for err in errors_log)
         logger.error(f"ConnectionPool: Tất cả {len(connections)} connections đều thất bại:\n{formatted_chain}")
 
+        last_err_str = str(last_error or "")
+        last_err_upper = last_err_str.upper()
+        if "503" in last_err_str or "MODEL_CAPACITY_EXHAUSTED" in last_err_upper or "CAPACITY" in last_err_upper or "UNAVAILABLE" in last_err_upper:
+            user_msg = "Máy chủ AI hiện đang quá tải hoặc tạm thời hết công suất phục vụ. Bạn vui lòng thử lại sau giây lát."
+        elif "429" in last_err_str or "RESOURCE_EXHAUSTED" in last_err_upper or "RATE" in last_err_upper:
+            user_msg = "Hệ thống AI đang tiếp nhận nhiều yêu cầu cùng lúc. Bạn vui lòng đợi ít giây rồi thử lại."
+        elif "401" in last_err_str or "AUTH" in last_err_upper:
+            user_msg = "Kết nối máy chủ AI tạm thời bị gián đoạn xác thực. Vui lòng thử lại sau."
+        elif "timeout" in last_err_str.lower():
+            user_msg = "Thời gian phản hồi từ máy chủ AI bị quá hạn. Bạn vui lòng thử lại."
+        else:
+            user_msg = "Hệ thống máy chủ AI tạm thời gián đoạn kết nối. Bạn vui lòng thử lại sau giây lát."
+
         raise AIVisionError(
-            f"Tất cả {len(connections)} kết nối AI đều thất bại sau các lượt thử xoay vòng.\n"
-            f"Chi tiết lịch sử thử nghiệm:\n{formatted_chain}\n\n"
-            f"Lỗi cuối cùng: {str(last_error)}. Vui lòng kiểm tra lại trạng thái API Key hoặc cấu hình Model trong Admin.",
+            user_msg,
             {
                 "total_connections": len(connections),
                 "errors": errors_log,
