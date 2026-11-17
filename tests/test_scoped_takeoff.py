@@ -15,6 +15,14 @@ from app.services.ai.takeoff_verifier import engineering_review
 
 
 class ScopedTakeoffTests(unittest.IsolatedAsyncioTestCase):
+    def test_text_source_observations_preserve_the_model_evidence(self):
+        from app.services.ai.scoped_takeoff import normalize_scoped_row
+        from app.schemas.ai import ExtractedDeviceSchema
+        row = normalize_scoped_row({'category': 'MCB', 'name': 'MCB', 'spec': '10A',
+            'source_observations': 'Nhãn L4 và đường nối đến tải chiếu sáng'})
+        device = ExtractedDeviceSchema.model_validate(row)
+        self.assertEqual(device.source_observations['description'], 'Nhãn L4 và đường nối đến tải chiếu sáng')
+
     def test_dense_crop_keeps_symbol_and_label_without_following_neighbour_wires(self):
         from app.services.ai.evidence_preview import device_preview
         image = Image.new('RGB', (1000, 1000), 'white')

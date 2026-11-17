@@ -30,6 +30,17 @@ class EvidenceCompletionTests(unittest.IsolatedAsyncioTestCase):
   self.assertEqual([i['kind'] for i in images],['device','load','relationship'])
   self.assertIn('CHIẾU SÁNG',images[1]['label'])
 
+ async def test_group_audit_receives_the_declared_material_quantity(self):
+  from app.services.ai.device_crop_audit import audit_device_previews
+  d=ExtractedDeviceSchema(category='METER',name='Ampe kế',spec='A',quantity=3)
+  box={'device_id':'0','verified':True,'symbol_verified':True,
+       'symbol_box_2d':[100,100,200,300],'text_box_2d':[200,100,220,300]}
+  call=AsyncMock(return_value=json.dumps({'checks':[{'device_id':'0','matches':True,
+       'symbol_complete':True,'label_complete':True,'isolated':True}]}))
+  result=await audit_device_previews(Image.new('RGB',(1000,1000),'white'),call,[d],{'boxes':[box]})
+  self.assertEqual(json.loads(call.await_args.args[1].rsplit('\n',1)[-1])[0]['quantity'],3)
+  self.assertTrue(result['boxes'][0]['verified'])
+
  async def test_false_load_relationship_remains_unproven(self):
   d=ExtractedDeviceSchema(category='MCB',name='MCB',spec='',tag='L4',connected_load='Chiếu sáng')
   call=AsyncMock(return_value=json.dumps({'boxes':[]}))

@@ -44,6 +44,15 @@ async def render_panel(file, panel, output):
     return str(output), ''
 
 
+def normalize_scoped_row(row):
+    """Keep a provider's textual observations instead of rejecting a whole panel."""
+    result = dict(row)
+    observations = result.get('source_observations')
+    if isinstance(observations, str):
+        result['source_observations'] = {'description': observations} if observations.strip() else None
+    return result
+
+
 async def extract_confirmed_panels(db, project_id, panels, message, *, input_context=None):
     from app.services.ai.evidence_crops import apply_verified_boxes
     from app.services.ai.evidence_preview import device_preview
@@ -111,7 +120,7 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                             if isinstance(b, dict) and isinstance(b.get('devices'), list)), None)
             if not payload or not payload['devices']:
                 raise HTTPException(422, 'Chưa đọc được danh mục tủ ' + panel['panel_code'])
-            original = payload['devices']
+            original = [normalize_scoped_row(row) for row in payload['devices']]
             devices = [ExtractedDeviceSchema.model_validate({**row, 'spec': str(row.get('spec') or '')})
                        for row in original]
             with Image.open(image_path) as source:

@@ -60,7 +60,7 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                     detail = ImageOps.contain(image.crop(pixels), (570, 235), Image.Resampling.LANCZOS)
                     sheet.paste(detail, (610, local*270+25))
                 device = devices[int(identity)]
-                requests.append({'device_id': identity, 'name': device.name, 'tag': device.tag, 'spec': device.spec, 'connected_load': device.connected_load, 'load_label': row.get('load_label'), 'relationship_evidence': row.get('relationship_evidence')})
+                requests.append({'device_id': identity, 'name': device.name, 'tag': device.tag, 'spec': device.spec, 'quantity': device.quantity, 'unit': device.unit, 'connected_load': device.connected_load, 'load_label': row.get('load_label'), 'relationship_evidence': row.get('relationship_evidence')})
                 row['verified'] = False
             if not requests:
                 return
@@ -73,7 +73,10 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                     'cột phải là ngữ cảnh nguồn. Không tin danh mục ứng viên. Mỗi ID: ảnh trái phải có '
                     'đủ ký hiệu điện thực và nhãn của đúng thiết bị, đúng nhánh. Cho phép nhãn và ký hiệu '
                     'của CHÍNH thiết bị cùng nằm trong ảnh; isolated=false chỉ khi lẫn thiết bị/nhãn khác '
-                    'gây nhầm nhận diện. Dây nối đi qua không phải thiết bị khác. Kiểm tra mất nét/tiếp điểm '
+                    'gây nhầm nhận diện. Với dòng có quantity>1, ảnh có thể bao đúng nhóm thiết bị cùng loại '
+                    'theo số lượng đã khai báo (ví dụ ba ampe kế); không bác bỏ chỉ vì có nhiều phần tử '
+                    'của CHÍNH dòng đó. Phải kiểm tra nhóm khớp số lượng/nhãn, không chấp nhận ảnh một '
+                    'phần tử để chứng minh cả nhóm nếu nguồn không ghi hệ số. Dây nối đi qua không phải thiết bị khác. Kiểm tra mất nét/tiếp điểm '
                     'hoặc chữ số do cắt mép. Không lấy chữ từ ngữ cảnh để bù phần thiếu của ảnh xuất ra. '
                     'Nếu có tag, kiểm tra ảnh xuất có đúng NHÃN TAG; không lấy tag từ danh mục để xác nhận. '
                     'Nếu có tải, kiểm tra nhãn tải và quan hệ dây nối trong ảnh ngữ cảnh bên phải; '
