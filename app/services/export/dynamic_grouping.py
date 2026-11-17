@@ -101,7 +101,7 @@ class DynamicGroupingEngine:
         from pydantic import BaseModel
 
         merged = OrderedDict()
-        for dev in devices:
+        for entry_index, dev in enumerate(devices):
             raw_name = str(DynamicGroupingEngine._get_val(dev, "name") or "").strip()
             clean_name, branch_tag = DynamicGroupingEngine.clean_device_name(raw_name)
             name_for_grouping = clean_name or raw_name
@@ -112,20 +112,33 @@ class DynamicGroupingEngine:
             brand = str(DynamicGroupingEngine._get_val(dev, "brand") or DynamicGroupingEngine._get_val(dev, "xuat_xu") or DynamicGroupingEngine._get_val(dev, "origin") or "").strip()
             in_a = str(DynamicGroupingEngine._get_val(dev, "in_a") or "")
             poles = str(DynamicGroupingEngine._get_val(dev, "poles") or "")
-            unit_price = DynamicGroupingEngine._get_val(dev, "unit_price") or DynamicGroupingEngine._get_val(dev, "don_gia") or DynamicGroupingEngine._get_val(dev, "price") or 0
+            unit_price = next((v for v in [DynamicGroupingEngine._get_val(dev, "unit_price"), DynamicGroupingEngine._get_val(dev, "don_gia"), DynamicGroupingEngine._get_val(dev, "price")] if v is not None), None)
 
             norm_name = name_for_grouping.lower()
-            norm_cat = cat.lower()
-            norm_spec = spec.lower()
+            import re
+            explicit_type = re.search(r'\b(MCCB|MCB|RCBO|RCCB|ACB)\b', cat+' '+spec, re.I)
+            has_model_name = re.search(r'\b(?!MCB|MCCB|RCBO|RCCB|ACB)[A-Z]{2,}[- ]?\d+[A-Z0-9-]*\b', name_for_grouping)
+            if explicit_type and not has_model_name:
+                norm_name = explicit_type[1].lower()
+            norm_cat = explicit_type[1].lower() if explicit_type else cat.lower()
+            norm_spec = re.sub(r'([a-z])-(?=\d)',r'\1',re.sub(r'\s+','',spec.lower()))
             norm_sku = sku.lower()
             norm_brand = brand.lower().replace(" electric", "")
 
             panel = str(DynamicGroupingEngine._get_val(dev, "panel_code") or "").strip().casefold()
             icu = DynamicGroupingEngine._get_val(dev, "icu_ka")
-            key = (panel, norm_cat, norm_name, norm_spec, norm_sku, norm_brand, in_a, poles, icu, unit_price)
+            unit = str(DynamicGroupingEngine._get_val(dev, 'unit') or '').strip().casefold()
+            parent = DynamicGroupingEngine._get_val(dev, 'parent_id')
+            inclusion = (DynamicGroupingEngine._get_val(dev, 'inclusion_status'), DynamicGroupingEngine._get_val(dev, 'price_status'))
+            raw_qty = DynamicGroupingEngine._get_val(dev, 'quantity')
+            if raw_qty is None: raw_qty = DynamicGroupingEngine._get_val(dev, 'so_luong')
+            key = (panel, norm_cat, norm_name, norm_spec, norm_sku, norm_brand, in_a, poles, icu, unit_price, unit, parent, inclusion, str(DynamicGroupingEngine._get_val(dev, "section") or ""),
+                   entry_index if raw_qty is None else None)
 
             is_pydantic = isinstance(dev, BaseModel)
-            qty = float(DynamicGroupingEngine._get_val(dev, "quantity") or DynamicGroupingEngine._get_val(dev, "so_luong") or 1)
+            qty = float(raw_qty) if raw_qty is not None else None
+            source_tags = list(DynamicGroupingEngine._get_val(dev, 'source_tags') or [])
+            if DynamicGroupingEngine._get_val(dev, 'tag'): source_tags.append(DynamicGroupingEngine._get_val(dev, 'tag'))
             raw_note = str(DynamicGroupingEngine._get_val(dev, "notes") or DynamicGroupingEngine._get_val(dev, "ghi_chu") or "").strip()
             
             # Gộp nhãn nhánh vào note nếu có
@@ -133,9 +146,12 @@ class DynamicGroupingEngine:
             if branch_tag and branch_tag not in note:
                 note = f"{note} ({branch_tag})" if note else branch_tag
 
+            for source_tag in source_tags:
+                if not re.search(r'(?<![\w.])'+re.escape(str(source_tag))+r'(?![\w.])', note):
+                    note = '; '.join(v for v in (note,str(source_tag)) if v)
             if key in merged:
                 existing = merged[key]
-                old_qty = float(DynamicGroupingEngine._get_val(existing, "quantity") or DynamicGroupingEngine._get_val(existing, "so_luong") or 1)
+                old_qty = float(DynamicGroupingEngine._get_val(existing, "quantity") if DynamicGroupingEngine._get_val(existing, "quantity") is not None else DynamicGroupingEngine._get_val(existing, "so_luong"))
                 new_qty = old_qty + qty
 
                 old_note = str(DynamicGroupingEngine._get_val(existing, "notes") or DynamicGroupingEngine._get_val(existing, "ghi_chu") or "").strip()
@@ -143,6 +159,7 @@ class DynamicGroupingEngine:
                 if note and note not in old_note:
                     combined_note = f"{old_note}; {note}" if old_note else note
 
+                combined_tags = list(dict.fromkeys([*(DynamicGroupingEngine._get_val(existing, 'source_tags') or []), *source_tags]))
                 combined_accessories = DynamicGroupingEngine._merge_accessories(
                     DynamicGroupingEngine._get_val(existing, "accompanying_accessories") or [],
                     DynamicGroupingEngine._get_val(dev, "accompanying_accessories") or [],
@@ -151,6 +168,7 @@ class DynamicGroupingEngine:
                 if is_pydantic:
                     updates = {
                         "name": name_for_grouping,
+                        "source_tags": combined_tags,
                         "quantity": int(new_qty) if new_qty.is_integer() else new_qty
                     }
                     if combined_note:
@@ -159,14 +177,15 @@ class DynamicGroupingEngine:
                         updates["accompanying_accessories"] = combined_accessories
                     merged[key] = existing.model_copy(update=updates)
                 else:
+                    existing["source_tags"] = combined_tags
                     existing["name"] = name_for_grouping
                     existing["quantity"] = int(new_qty) if new_qty.is_integer() else new_qty
                     if "so_luong" in existing:
                         existing["so_luong"] = new_qty
                     if "line_total" in existing:
-                        existing["line_total"] = new_qty * float(unit_price)
+                        existing["line_total"] = new_qty * float(unit_price) if unit_price is not None else None
                     if "thanh_tien" in existing:
-                        existing["thanh_tien"] = new_qty * float(unit_price)
+                        existing["thanh_tien"] = new_qty * float(unit_price) if unit_price is not None else None
                     if "notes" in existing:
                         existing["notes"] = combined_note
                     if "ghi_chu" in existing:
@@ -175,11 +194,12 @@ class DynamicGroupingEngine:
                         existing["accompanying_accessories"] = combined_accessories
             else:
                 if is_pydantic:
-                    merged[key] = dev.model_copy(update={"name": name_for_grouping, "notes": note} if note else {"name": name_for_grouping})
+                    merged[key] = dev.model_copy(update={"name": name_for_grouping, "source_tags": list(dict.fromkeys(source_tags)), **({"notes": note} if note else {})})
                 else:
                     item_copy = dict(dev)
+                    item_copy["source_tags"] = list(dict.fromkeys(source_tags))
                     item_copy["name"] = name_for_grouping
-                    if unit_price:
+                    if unit_price is not None and qty is not None:
                         item_copy["line_total"] = qty * float(unit_price)
                         item_copy["thanh_tien"] = qty * float(unit_price)
                     if note:

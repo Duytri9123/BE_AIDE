@@ -77,7 +77,7 @@ class ScopedTakeoffTests(unittest.IsolatedAsyncioTestCase):
             image.paste('black', (110, 110, 190, 290))
             image.paste('red', (700, 100, 900, 900))
             image.save(image_path)
-            file = SimpleNamespace(id=7, filename='drawing.dxf', file_path='drawing.dxf')
+            file = SimpleNamespace(id=7, filename='drawing.png', file_path=str(image_path))
             query = SimpleNamespace(scalars=lambda: SimpleNamespace(all=lambda: [file]))
             db = SimpleNamespace(execute=AsyncMock(return_value=query))
             rows = [{'name': 'MCB', 'category': 'MCB', 'spec': '20A', 'quantity': 1,

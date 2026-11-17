@@ -315,7 +315,7 @@ def clean_devices_list(devices: list, project_id: int, cad_file=None, pdf_file=N
 
         clean_devices.append({
             **{key: d.get(key) for key in (
-                'in_a', 'poles', 'icu_ka', 'detected_brand', 'source_observations', 'connected_load',
+                'in_a', 'poles', 'icu_ka', 'detected_brand', 'source_observations', 'connected_load', 'circuit_context',
                 'electrical_function', 'upstream_device', 'downstream_device', 'quantity_confidence',
                 'quantity_review', 'suggested_brands', 'catalog_candidates', 'catalog_matches',
                 'selected_product', 'pricebook_match', 'web_research', 'technical_match_note',

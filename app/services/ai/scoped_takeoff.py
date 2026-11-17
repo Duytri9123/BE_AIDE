@@ -114,6 +114,9 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                 'vị trí location, category, name, tag, spec, quantity, unit, section, in_a, poles, icu_ka, brand, part_number. '
                 'Ghi connected_load chỉ khi đọc được tên tải và lần đúng dây nối; không suy tên tải từ mã lộ. '
                 'source_observations ghi nhãn gốc, tag, công năng và căn cứ nối mạch; technical_analysis giải thích ngắn. '
+                'Trong source_observations.circuit ghi công suất kèm đơn vị gốc, power_w chỉ khi đổi đơn vị rõ, '
+                'cable_spec, installation_method, supply_location và phase nếu nguồn có; thiếu thì để trống. '
+                'Không lặp tên thiết bị thành đoạn mô tả và không dùng LaTeX trong chuỗi văn bản. '
                 'Trả JSON {"devices":[...],"boxes":[{"device_id":"0","verified":true,'
                 '"symbol_verified":true,"symbol_box_2d":[ymin,xmin,ymax,xmax],'
                 '"text_box_2d":[ymin,xmin,ymax,xmax],"box_2d":[ymin,xmin,ymax,xmax]}]}. '
@@ -165,4 +168,13 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                     'evidence_region': region, 'box_2d': device.box_2d,
                     'evidence_image': device.evidence_image, 'evidence_images': device.evidence_images,
                     'panel_evidence_image': None})
+    for panel in panels:
+        file = by_id[panel['source_file_id']]
+        if Path(file.file_path).suffix.lower() in ('.dwg', '.dxf'):
+            from app.services.ingestion.cad_parser import CadParserService
+            from app.services.ingestion.cad_source_evidence import cad_evidence
+            from app.services.ai.circuit_context import enrich_circuit_context
+            analysis = await asyncio.to_thread(CadParserService.prepare_analysis_path, file.file_path)
+            evidence = await asyncio.to_thread(cad_evidence, analysis, panel['source_region'])
+            enrich_circuit_context([d for d in result if d['source_file_id']==file.id and d['panel_code']==panel['panel_code']], evidence)
     return result

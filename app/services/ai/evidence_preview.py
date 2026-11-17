@@ -22,6 +22,8 @@ def _device_preview(image, region, *, tight=False):
                 min(image.width, int(x2*image.width/1000)+3), min(image.height, int(y2*image.height/1000)+3))
 
     valid_boxes = []
+    box_labels = []
+    labels_by_key = {'symbol_box_2d': 'Ký hiệu thiết bị', 'text_box_2d': 'Nhãn và thông số', 'tag_box_2d': 'Ký hiệu lộ'}
     seen = set()
     for key in ('symbol_box_2d', 'text_box_2d', 'tag_box_2d'):
         box = region.get(key)
@@ -29,6 +31,7 @@ def _device_preview(image, region, *, tight=False):
             continue
         seen.add(tuple(box))
         valid_boxes.append(box)
+        box_labels.append(labels_by_key[key])
 
     if not valid_boxes:
         return []
@@ -52,28 +55,19 @@ def _device_preview(image, region, *, tight=False):
             return [{'kind': 'device', 'label': 'Ký hiệu và thông số trên sơ đồ gốc',
                      'evidence_image': 'data:image/png;base64,' + base64.b64encode(output.getvalue()).decode()}]
 
-    # 2. Trường hợp nhãn và ký hiệu nằm quá xa nhau (ví dụ nhãn nằm ở bảng thông số đáy bản vẽ),
-    # crop từng phần có bảo vệ bắt dính khoảng trắng rồi ghép nối.
-    parts = []
-    for box in valid_boxes:
+    # Distant parts stay separate source crops. Never stack them into a synthetic image.
+    images = []
+    for index, box in enumerate(valid_boxes):
         pixels = crop_pixels(box)
-        if pixels:
-            parts.append(image.crop(pixels).convert('RGB'))
-
-    if not parts:
-        return []
-
-    gap = max(8, round(image.height * .003))
-    canvas = Image.new('RGB', (max(p.width for p in parts), sum(p.height for p in parts) + gap * (len(parts) - 1)), 'white')
-    y = 0
-    for part in parts:
-        canvas.paste(part, ((canvas.width - part.width) // 2, y))
-        y += part.height + gap
-    canvas.thumbnail((1200, 900), Image.Resampling.LANCZOS)
-    output = io.BytesIO()
-    canvas.save(output, format='PNG')
-    return [{'kind': 'device', 'label': 'Ký hiệu và nhãn đối chiếu',
-             'evidence_image': 'data:image/png;base64,' + base64.b64encode(output.getvalue()).decode()}]
+        if not pixels:
+            continue
+        crop = image.crop(pixels).convert('RGB')
+        crop.thumbnail((1200, 900), Image.Resampling.LANCZOS)
+        output = io.BytesIO()
+        crop.save(output, format='PNG')
+        images.append({'kind': 'device', 'label': box_labels[index],
+            'evidence_image': 'data:image/png;base64,' + base64.b64encode(output.getvalue()).decode()})
+    return images
 
 
 

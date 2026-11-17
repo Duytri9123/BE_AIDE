@@ -46,10 +46,13 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                 if not previews:
                     row['verified'] = False
                     continue
-                data = base64.b64decode(previews[0]['evidence_image'].split(',')[1])
-                preview = Image.open(io.BytesIO(data)).convert('RGB')
-                preview = ImageOps.contain(preview, (570, 235), Image.Resampling.LANCZOS)
-                sheet.paste(preview, (10, local*270+25))
+                # Audit every exported part for this device, including distant tag/text crops.
+                tile_height = max(1, 225 // len(previews))
+                for part_index, part in enumerate(previews):
+                    data = base64.b64decode(part['evidence_image'].split(',')[1])
+                    preview = Image.open(io.BytesIO(data)).convert('RGB')
+                    preview = ImageOps.contain(preview, (570, tile_height), Image.Resampling.LANCZOS)
+                    sheet.paste(preview, (10, local*270+25+part_index*tile_height))
                 draw.text((10, local*270+5), 'ID '+identity+' - EXPORTED CROP', fill='black')
                 parts = [row[k] for k in ('symbol_box_2d', 'text_box_2d', 'tag_box_2d', 'load_box_2d') if row.get(k)]
                 box = [min(b[0] for b in parts), min(b[1] for b in parts),
@@ -70,7 +73,7 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                 sheet.save(path)
                 raw = await call_image(path,
                     'Kiểm tra ĐỘC LẬP ảnh cắt sẽ hiển thị cho người dùng. Cột trái là CHÍNH ẢNH XUẤT RA, '
-                    'cột phải là ngữ cảnh nguồn. Không tin danh mục ứng viên. Mỗi ID: ảnh trái phải có '
+                    'cột phải là ngữ cảnh nguồn. Nếu cột trái có nhiều ảnh, đó là các ảnh riêng của cùng ID; kiểm đủ tất cả ảnh.  Không tin danh mục ứng viên. Mỗi ID: ảnh trái phải có '
                     'đủ ký hiệu điện thực và nhãn của đúng thiết bị, đúng nhánh. Cho phép nhãn và ký hiệu '
                     'của CHÍNH thiết bị cùng nằm trong ảnh; isolated=false chỉ khi lẫn thiết bị/nhãn khác '
                     'gây nhầm nhận diện. Với dòng có quantity>1, ảnh có thể bao đúng nhóm thiết bị cùng loại '
