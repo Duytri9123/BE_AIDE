@@ -23,6 +23,12 @@ class ScopedTakeoffTests(unittest.IsolatedAsyncioTestCase):
         device = ExtractedDeviceSchema.model_validate(row)
         self.assertEqual(device.source_observations['description'], 'Nhãn L4 và đường nối đến tải chiếu sáng')
 
+    def test_source_type_is_canonical_without_inventing_a_generic_breaker_type(self):
+        from app.services.ai.scoped_takeoff import normalize_scoped_row
+        self.assertEqual(normalize_scoped_row({'category': 'Aptomat', 'spec': 'MCB-1P-10A-6kA'})['category'], 'MCB')
+        self.assertEqual(normalize_scoped_row({'category': 'Đồng hồ', 'spec': None})['category'], 'METER')
+        self.assertEqual(normalize_scoped_row({'category': 'Aptomat', 'spec': ''})['category'], 'APTOMAT')
+
     def test_dense_crop_keeps_symbol_and_label_without_following_neighbour_wires(self):
         from app.services.ai.evidence_preview import device_preview
         image = Image.new('RGB', (1000, 1000), 'white')
@@ -75,7 +81,7 @@ class ScopedTakeoffTests(unittest.IsolatedAsyncioTestCase):
             query = SimpleNamespace(scalars=lambda: SimpleNamespace(all=lambda: [file]))
             db = SimpleNamespace(execute=AsyncMock(return_value=query))
             rows = [{'name': 'MCB', 'category': 'MCB', 'spec': '20A', 'quantity': 1,
-                     'observed_text': 'Q1 20A', 'tag': 'Q1'},
+                     'tag': 'Q1'},
                     {'name': 'Meter', 'category': 'METER', 'spec': '', 'quantity': 1}]
             boxes = [{'device_id': str(i), 'verified': True, 'symbol_verified': True,
                       'symbol_box_2d': [100, 100, 200, 200], 'text_box_2d': [200, 100, 300, 200], 'tag_box_2d': [200, 100, 300, 200]}
@@ -92,6 +98,7 @@ class ScopedTakeoffTests(unittest.IsolatedAsyncioTestCase):
                     'source_page': None, 'panel_code': 'P1', 'source_region': [.1, .1, .5, .5]}], 'Extract P1')
             self.assertEqual(calls.await_count, 4)  # Extraction + audit + two bounded recovery reads.
             self.assertTrue(result[0]['evidence_image'])
+            self.assertEqual(result[0]['evidence'], 'Q1 20A')
             self.assertFalse(result[1]['evidence_image'])
             self.assertIsNone(result[0]['panel_evidence_image'])
             self.assertEqual({r['panel_code'] for r in result}, {'P1'})

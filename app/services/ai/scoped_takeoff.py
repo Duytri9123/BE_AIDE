@@ -46,7 +46,16 @@ async def render_panel(file, panel, output):
 
 def normalize_scoped_row(row):
     """Keep a provider's textual observations instead of rejecting a whole panel."""
+    import re
     result = dict(row)
+    result['spec'] = str(result.get('spec') or '')
+    # Canonicalize type from an explicit source label, not a generic breaker name.
+    source_text = ' '.join(str(result.get(k) or '') for k in ('observed_text', 'evidence', 'spec'))
+    breaker = re.search(r'\b(MCCB|MCB|RCBO|RCCB|ACB)\b', source_text, re.I)
+    aliases = {'BIẾN DÒNG': 'CT', 'CẦU CHÌ': 'FUSE', 'ĐỒNG HỒ': 'METER',
+               'CHUYỂN MẠCH': 'SELECTOR_SWITCH', 'ĐÈN BÁO': 'LIGHT'}
+    category = str(result.get('category') or '').upper()
+    result['category'] = breaker[1].upper() if breaker else aliases.get(category, category)
     observations = result.get('source_observations')
     if isinstance(observations, str):
         result['source_observations'] = {'description': observations} if observations.strip() else None
@@ -147,7 +156,7 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                     'source_file_id': file.id, 'source_filename': file.filename,
                     'source_page': panel.get('source_page'), 'source_type': Path(file.filename).suffix.lstrip('.'),
                     'panel_code': panel['panel_code'], 'panel_name': panel.get('panel_name'),
-                    'evidence': row.get('observed_text') or row.get('evidence'),
+                    'evidence': row.get('observed_text') or row.get('evidence') or (checked.get('audit_observed') if region.get('status') == 'verified' else None),
                     'source_observations': {**(row.get('source_observations') or {}),
                         'observed_text': row.get('observed_text'), 'audit_observed': checked.get('audit_observed'),
                         'evidence_gaps': evidence_gaps(device, checked)},
