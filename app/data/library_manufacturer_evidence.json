@@ -7312,6 +7312,1898 @@
         },
         "use": "Đo đếm điện năng; chọn cấu hình đấu dây và định mức theo nhãn thiết bị."
       }
+    },
+    "TB-65646aa6cd28dea1": {
+      "brand": "EMIC",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-310E7",
+          "sha256": "1c5f53845ecc2d116730b318b45a0a6aed0edacef67d0450fa61897d88e01363"
+        }
+      ],
+      "library_description": {
+        "display": "Công tơ EMIC ME-41",
+        "type": "METER",
+        "product_code": "ME-41",
+        "use": "Công tơ EMIC ME-41. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-34714e8a11fd336c": {
+      "brand": "IDEC",
+      "status": "manufacturer_label_reviewed",
+      "note": "Giữ hãng IDEC của hồ sơ cũ; AUTO/A-O-M là nhãn chức năng, không phải mã đặt hàng.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-42EC9",
+          "sha256": "c2b770a26bc769836d962389fedd6ca40d9379a5b95749b0e9c958664531f5ba"
+        }
+      ],
+      "library_description": {
+        "display": "Công tắc chọn IDEC · AUTO",
+        "type": "SELECTOR_SWITCH",
+        "product_code": "AUTO",
+        "use": "Công tắc chọn IDEC · AUTO. Giữ hãng IDEC của hồ sơ cũ; AUTO/A-O-M là nhãn chức năng, không phải mã đặt hàng."
+      }
+    },
+    "TB-4b0f2d6720161ea2": {
+      "brand": "LS Electric",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-43081",
+          "sha256": "24acad039c11538ddee3a11727b516f8eec6e645972f8626f2159e6a16e3a534"
+        }
+      ],
+      "library_description": {
+        "display": "Biến tần LS Electric M100",
+        "type": "VFD",
+        "product_code": "M100",
+        "use": "Biến tần LS Electric M100. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-8e44417b06565776": {
+      "brand": "EMIC",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-430CC",
+          "sha256": "f96053c71d529752224c6e40a3191f911aa0807a1c3e19f2d7e493674103af6a"
+        }
+      ],
+      "library_description": {
+        "display": "Công tơ EMIC CE-18G",
+        "type": "METER",
+        "product_code": "CE-18G",
+        "use": "Công tơ EMIC CE-18G. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-2e1e984cfccd8e20": {
+      "brand": "Schneider Electric",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-A82D4",
+          "sha256": "7caa0f3e9edc6720d9af697a9f62be7832b68cadc308482db4f06cdda388d2cf"
+        }
+      ],
+      "library_description": {
+        "display": "Đồng hồ đa năng Schneider PM2220",
+        "type": "METER",
+        "product_code": "PM2220",
+        "use": "Đồng hồ đa năng Schneider PM2220. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-1cdeacd7a6829663": {
+      "brand": "Selec",
+      "status": "manufacturer_label_reviewed",
+      "note": "CAD chứa cả 600PSR và 600ST-240; chưa chọn một cấu hình điện duy nhất.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-AD379",
+          "sha256": "ad0bdec03ecfa5bd575663ee725fbbd5298c1007143a3867e480b4be25ce07bb"
+        }
+      ],
+      "library_description": {
+        "display": "Rơ-le Selec · nhãn 600PSR/600ST",
+        "type": "PHASE_RELAY",
+        "product_code": "600PSR / 600ST-240",
+        "use": "Rơ-le Selec · nhãn 600PSR/600ST. CAD chứa cả 600PSR và 600ST-240; chưa chọn một cấu hình điện duy nhất."
+      }
+    },
+    "TB-0607e02393b47346": {
+      "brand": "Himel",
+      "status": "manufacturer_label_reviewed",
+      "note": "Nhãn ba mô-đun HDY3-80 và một HDY3-120G; không gán 80kA chung cho mọi cực.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-AD3A6",
+          "sha256": "591f93976234cc2cf5b1d5ec0f0838271f58c942fd6810e381bb1f99d18e6934"
+        }
+      ],
+      "library_description": {
+        "display": "Cụm chống sét Himel HDY3 · nguồn 80/120G",
+        "type": "SPD",
+        "product_code": "HDY3-80 / HDY3-120G",
+        "use": "Cụm chống sét Himel HDY3 · nguồn 80/120G. Nhãn ba mô-đun HDY3-80 và một HDY3-120G; không gán 80kA chung cho mọi cực."
+      }
+    },
+    "TB-0107552716b455d3": {
+      "brand": "EMIC",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Chú thích đúng ô nguồn ghi Công tơ cơ 1 pha kiểu CV, 3 pha kiểu MV Emic; chưa xác nhận biến thể.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-AD3B5",
+          "sha256": "3d2c1be431860a02eb7202991a872eab0fa6f0199038b72722cc9dd7f90136bc"
+        }
+      ],
+      "library_description": {
+        "display": "Công tơ cơ EMIC · họ CV/MV",
+        "type": "METER",
+        "product_code": "CV / MV",
+        "use": "Công tơ cơ EMIC · họ CV/MV. Chú thích đúng ô nguồn ghi Công tơ cơ 1 pha kiểu CV, 3 pha kiểu MV Emic; chưa xác nhận biến thể."
+      }
+    },
+    "TB-b3debc32d59dcd71": {
+      "brand": "OSEMCO",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-AD6C7",
+          "sha256": "eea7de7c7dcc8cba0bfeb1b4e0b869a6542287db5c43e431cfcc2f749a0eedc9"
+        }
+      ],
+      "library_description": {
+        "display": "Bộ điều khiển ATS OSEMCO ACD-III",
+        "type": "ATS_CONTROLLER",
+        "product_code": "ACD-III",
+        "use": "Bộ điều khiển ATS OSEMCO ACD-III. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-fa4dd109dfb49518": {
+      "brand": "Nuintek",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-AD9D1",
+          "sha256": "cc4de9257be311b9ba278bda7348a3117c88054bfdb89d996c87e1e9a55726cd"
+        }
+      ],
+      "library_description": {
+        "display": "Tụ bù Nuintek PowerSH · TỤ NUINTEK 10KVA",
+        "type": "CAPACITOR",
+        "product_code": "PowerSH",
+        "use": "Tụ bù Nuintek PowerSH · TỤ NUINTEK 10KVA. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn."
+      }
+    },
+    "TB-5a9fb71b19e62cd1": {
+      "brand": "Nuintek",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-AD9D8",
+          "sha256": "38427fcacd3799654126ad0463204acd9aadc4715fa57a62cfbde4c8ed15ada3"
+        }
+      ],
+      "library_description": {
+        "display": "Tụ bù Nuintek PowerSH · TỤ KHÔ 15KVA",
+        "type": "CAPACITOR",
+        "product_code": "PowerSH",
+        "use": "Tụ bù Nuintek PowerSH · TỤ KHÔ 15KVA. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn."
+      }
+    },
+    "TB-79770b0f5de42c3d": {
+      "brand": "Nuintek",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-AD9DF",
+          "sha256": "02a2da7c6137db2dd4e6f9f29862c4b0c49949b58b7a0bf2a74063e67618e906"
+        }
+      ],
+      "library_description": {
+        "display": "Tụ bù Nuintek PowerSH · TỤ KHÔ 20KVA",
+        "type": "CAPACITOR",
+        "product_code": "PowerSH",
+        "use": "Tụ bù Nuintek PowerSH · TỤ KHÔ 20KVA. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn."
+      }
+    },
+    "TB-db6480a37875e201": {
+      "brand": "Nuintek",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-AD9E6",
+          "sha256": "19db89ed9d47af06c87ae47332e39a61fb421623a1cb1062ce02a524ff0ae07b"
+        }
+      ],
+      "library_description": {
+        "display": "Tụ bù Nuintek PowerSH · TỤ KHÔ 25KVA",
+        "type": "CAPACITOR",
+        "product_code": "PowerSH",
+        "use": "Tụ bù Nuintek PowerSH · TỤ KHÔ 25KVA. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn."
+      }
+    },
+    "TB-ce6d4960bade28f2": {
+      "brand": "Nuintek",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-AD9ED",
+          "sha256": "d1020fedcab226b10b802e598f80eb1210f1754de9a5662b3e651a2c9f619aaf"
+        }
+      ],
+      "library_description": {
+        "display": "Tụ bù Nuintek PowerSH · TỤ KHÔ 30KVA",
+        "type": "CAPACITOR",
+        "product_code": "PowerSH",
+        "use": "Tụ bù Nuintek PowerSH · TỤ KHÔ 30KVA. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn."
+      }
+    },
+    "TB-96a82eefbd10713b": {
+      "brand": "Nuintek",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-AD9F4",
+          "sha256": "76060d9aea939d1fd27059dbe664ea51eb7f9e0fdf0f77f98b5e5871f67331a4"
+        }
+      ],
+      "library_description": {
+        "display": "Tụ bù Nuintek PowerSH · TỤ KHÔ 40KVA",
+        "type": "CAPACITOR",
+        "product_code": "PowerSH",
+        "use": "Tụ bù Nuintek PowerSH · TỤ KHÔ 40KVA. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn."
+      }
+    },
+    "TB-6b1dd36ec98ed306": {
+      "brand": "Nuintek",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-ADA24",
+          "sha256": "f5868190908a61f04327112fffc5441e29ea1a5df4adbeb8acead7eb39839135"
+        }
+      ],
+      "library_description": {
+        "display": "Tụ bù Nuintek PowerSH · TỤ DẦU 415V-25KVA",
+        "type": "CAPACITOR",
+        "product_code": "PowerSH",
+        "use": "Tụ bù Nuintek PowerSH · TỤ DẦU 415V-25KVA. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn."
+      }
+    },
+    "TB-d5b15814cf509132": {
+      "brand": "Nuintek",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-ADA25",
+          "sha256": "b2c5d79af9b5781e3eea94608fcd9f122efb31e0294f1ba2723c735b837eacb3"
+        }
+      ],
+      "library_description": {
+        "display": "Tụ bù Nuintek PowerSH · TỤ DAAUFV-30KVA",
+        "type": "CAPACITOR",
+        "product_code": "PowerSH",
+        "use": "Tụ bù Nuintek PowerSH · TỤ DAAUFV-30KVA. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn."
+      }
+    },
+    "TB-b5992a24f1559e9c": {
+      "brand": "Nuintek",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-ADA26",
+          "sha256": "96b7eef533166be2293ac585aba6dfc8b9e2b246e235c6666b34f8e873295e57"
+        }
+      ],
+      "library_description": {
+        "display": "Tụ bù Nuintek · mặt đầu TỤ DẦU 415V-40KVA",
+        "type": "CAPACITOR",
+        "product_code": "PowerSH",
+        "use": "Tụ bù Nuintek · mặt đầu TỤ DẦU 415V-40KVA. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn."
+      }
+    },
+    "TB-fdf7864432d3b2a8": {
+      "brand": "Nuintek",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-ADA27",
+          "sha256": "b773586aa02918270eac77a5e2d3ce2841110e6c7530ff689bb75eb1bd7c0381"
+        }
+      ],
+      "library_description": {
+        "display": "Tụ bù Nuintek · mặt đầu TỤ DẦU 415V-50KVA",
+        "type": "CAPACITOR",
+        "product_code": "PowerSH",
+        "use": "Tụ bù Nuintek · mặt đầu TỤ DẦU 415V-50KVA. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn."
+      }
+    },
+    "TB-cce144575ee29a93": {
+      "brand": "Nuintek",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-ADA41",
+          "sha256": "de53479e615ba1b11d4fd464a76f5bf8133acd4586ef01c9e4d625c7b0078938"
+        }
+      ],
+      "library_description": {
+        "display": "Tụ bù Nuintek · mặt đầu TỤ DẦU 440V-50KVA",
+        "type": "CAPACITOR",
+        "product_code": "PowerSH",
+        "use": "Tụ bù Nuintek · mặt đầu TỤ DẦU 440V-50KVA. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. Tên block dùng KVA; không tự đổi thành kvar đã chọn."
+      }
+    },
+    "TB-74274d9e2a2505b0": {
+      "brand": "ROBOT",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-ADF45",
+          "sha256": "4a06aad6ed190a36cc7fc954ab9b440e8952830363c41226e8e1add7240d1ac0"
+        }
+      ],
+      "library_description": {
+        "display": "Ổn áp ROBOT AP15 · nhãn 350VA",
+        "type": "VOLTAGE_STABILIZER",
+        "product_code": "AP15 · 350VA",
+        "use": "Ổn áp ROBOT AP15 · nhãn 350VA. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-f6d25f64c8d95806": {
+      "brand": "Mikro",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-AE16E",
+          "sha256": "bdd793d0467b396ca9cae0462c92c7869d3c6971b2c3e057058a299c82e045a3"
+        }
+      ],
+      "library_description": {
+        "display": "Rơ-le điện áp Mikro MX200A",
+        "type": "VOLTAGE_RELAY",
+        "product_code": "MX200A",
+        "use": "Rơ-le điện áp Mikro MX200A. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-d4ae810db5c601e3": {
+      "brand": "Selec",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-AEC51",
+          "sha256": "31ca62d8b37171d332adb28b130813b01b1f9c8a137a5c8da0bd6a5bb0f70197"
+        }
+      ],
+      "library_description": {
+        "display": "Timer sao–tam giác Selec 800SD",
+        "type": "TIMER",
+        "product_code": "800SD",
+        "use": "Timer sao–tam giác Selec 800SD. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-79253a925e6d96e7": {
+      "brand": "CHINT",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Hãng theo tên block; chưa đọc được model. Chỉ nhận dạng họ bộ điều khiển.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-F880E",
+          "sha256": "346c4e3f5f6635927517d82687ae64e380dd1ba575f36cfdf5ee898168ec5b8e"
+        }
+      ],
+      "library_description": {
+        "display": "Bộ điều khiển ATS CHINT · hình nguồn",
+        "type": "ATS_CONTROLLER",
+        "product_code": "Bộ điều khiển ATS Chint",
+        "use": "Bộ điều khiển ATS CHINT · hình nguồn. Hãng theo tên block; chưa đọc được model. Chỉ nhận dạng họ bộ điều khiển."
+      }
+    },
+    "TB-5b4646cca67f3c85": {
+      "brand": "Omega",
+      "status": "manufacturer_label_reviewed",
+      "note": "Chỉ xác nhận nhãn Omega trên CAD, không khẳng định là Omega Engineering hoặc pháp nhân cụ thể.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-FE305",
+          "sha256": "db082ddaa2a9281f4a9eca76934023c277f5ac91fbbaf55ad55e8d910495cb0d"
+        }
+      ],
+      "library_description": {
+        "display": "Vôn kế kim · nhãn Omega BE-96",
+        "type": "METER",
+        "product_code": "BE-96",
+        "use": "Vôn kế kim · nhãn Omega BE-96. Chỉ xác nhận nhãn Omega trên CAD, không khẳng định là Omega Engineering hoặc pháp nhân cụ thể."
+      }
+    },
+    "TB-27a8db403a4d8d67": {
+      "brand": "Honeywell",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-1061A1",
+          "sha256": "ed24f9afc838359385197cc49057f1da75f4599cae160ac494e39345f84f87bb"
+        }
+      ],
+      "library_description": {
+        "display": "Công tơ A1700 · họ Elster/Honeywell",
+        "type": "METER",
+        "product_code": "A1700",
+        "use": "Công tơ A1700 · họ Elster/Honeywell. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-c99e4c4e66e78a8b": {
+      "brand": "Vinakip",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-10BB39",
+          "sha256": "a6d94f474e9f91270a759d380ebed885171b5e7b4bccb60ff4e774840129705f"
+        }
+      ],
+      "library_description": {
+        "display": "Công tắc Vinakip · ON/OFF",
+        "type": "SWITCH",
+        "product_code": "Công tắc Vinakip",
+        "use": "Công tắc Vinakip · ON/OFF. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-be259f09a5ad6d6c": {
+      "brand": "ROBOT",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-127B96",
+          "sha256": "15c516625e061d0ec7c28dc8f4f29463c8ad9fa2ebc1b753e46620a582cf99ba"
+        }
+      ],
+      "library_description": {
+        "display": "Ổn áp ROBOT AP15 · nhãn 600VA",
+        "type": "VOLTAGE_STABILIZER",
+        "product_code": "AP15 · 600VA",
+        "use": "Ổn áp ROBOT AP15 · nhãn 600VA. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-93b11fc3fde3a0f4": {
+      "brand": "Schneider Electric",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-1DF068",
+          "sha256": "196d9b742d57cd06f7b024ad33d8eea9a4f05836c93c2c3ee4ca5b270c8ad47d"
+        }
+      ],
+      "library_description": {
+        "display": "Biến tần Schneider ATV320D11N4B",
+        "type": "VFD",
+        "product_code": "ATV320D11N4B",
+        "use": "Biến tần Schneider ATV320D11N4B. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-48b1d889818efbf3": {
+      "brand": "Mikro",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-320AFA",
+          "sha256": "4f19359bd857a034c8b3097e1550fb1017683b179a94b9608b1ac26aaa1ba2b3"
+        }
+      ],
+      "library_description": {
+        "display": "Rơ-le rò đất Mikro DIN310",
+        "type": "EARTH_LEAKAGE_RELAY",
+        "product_code": "DIN310",
+        "use": "Rơ-le rò đất Mikro DIN310. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-a18766d6e1a5d43c": {
+      "brand": "CKC",
+      "status": "manufacturer_label_reviewed",
+      "note": "Mặt ghi CKC; không gán Omron từ tiêu đề TIMER OMRON bên cạnh. Chưa có model đọc được.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-358553",
+          "sha256": "bc39302c726983597d32abb11fe8de2fdbb852ea3d354dc60a7cb07e66643770"
+        }
+      ],
+      "library_description": {
+        "display": "Rơ-le thời gian · nhãn CKC",
+        "type": "TIMER",
+        "product_code": "CKC S M H",
+        "use": "Rơ-le thời gian · nhãn CKC. Mặt ghi CKC; không gán Omron từ tiêu đề TIMER OMRON bên cạnh. Chưa có model đọc được."
+      }
+    },
+    "TB-e1315cb501eeb518": {
+      "brand": "SUMO",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-359405",
+          "sha256": "faf769a3ef58b953d9268d76b84b61a42ebc0a06b73f9f3c5f81c0c804a79705"
+        }
+      ],
+      "library_description": {
+        "display": "Biến tần SUMO SU200 · nhãn 1R5G-1",
+        "type": "VFD",
+        "product_code": "SU200-1R5G-1",
+        "use": "Biến tần SUMO SU200 · nhãn 1R5G-1. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-7c5a2d2ff5ddee72": {
+      "brand": "Leipole",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đối chiếu đúng mã Leipole; hình là mặt lưới, không chứng minh đã đủ thân quạt/động cơ.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-39420C",
+          "sha256": "c5f18f0dfe47fb7604f55ca04fc22b85a9b1c0d0865d3d6399e1f7a265c787a2"
+        }
+      ],
+      "library_description": {
+        "display": "Quạt/lọc gió Leipole FKL6621.230 · mặt lưới",
+        "type": "FAN",
+        "product_code": "FKL6621.230",
+        "use": "Quạt/lọc gió Leipole FKL6621.230 · mặt lưới. Đối chiếu đúng mã Leipole; hình là mặt lưới, không chứng minh đã đủ thân quạt/động cơ."
+      }
+    },
+    "TB-497adac5ddd555c9": {
+      "brand": "Leipole",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-394275",
+          "sha256": "7863da05ab6f77b7d648f32b2713bb24c44a6fd6ef02a268c76aa776c4a01a12"
+        }
+      ],
+      "library_description": {
+        "display": "Lưới lọc gió Leipole FKL6622.300",
+        "type": "FILTER",
+        "product_code": "FKL6622.300",
+        "use": "Lưới lọc gió Leipole FKL6622.300. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-c87dfa4db11b300a": {
+      "brand": "Leipole",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-394298",
+          "sha256": "da39ed8229b6656d69a7f8812dba5317e9d6f3dd3da2d6973225961d16aff766"
+        }
+      ],
+      "library_description": {
+        "display": "Lưới lọc gió Leipole FKL6623.300",
+        "type": "FILTER",
+        "product_code": "FKL6623.300",
+        "use": "Lưới lọc gió Leipole FKL6623.300. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-b65556202ef6be3e": {
+      "brand": "Morele",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3A82AF",
+          "sha256": "44754f452ff45a09774998e4576c45d74961be2684656382a3ed3c656f5338e9"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng Morele MSQ-30",
+        "type": "CT",
+        "product_code": "MSQ-30",
+        "use": "Biến dòng Morele MSQ-30. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-312a278dcdf1365e": {
+      "brand": "Morele",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3A844B",
+          "sha256": "3633099a7b6369807d65c7a5160c3c87207f2515f16b5c6c34e975de3776008f"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng Morele MSQ-125",
+        "type": "CT",
+        "product_code": "MSQ-125",
+        "use": "Biến dòng Morele MSQ-125. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-5adb1451f23f58b9": {
+      "brand": "Mikro",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3A9821",
+          "sha256": "cc14cb22c1d17839cca16d2704c2d9a4d97963be89548b0c4f6c3f6c306a4475"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng thứ tự không Mikro ZCT40S",
+        "type": "ZCT",
+        "product_code": "ZCT40S",
+        "use": "Biến dòng thứ tự không Mikro ZCT40S. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-e503f05412ff07ad": {
+      "brand": "Mikro",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3A983C",
+          "sha256": "a895b4ef3cc449656f36e8be4286bb43b8cf6c044ece194cd59ebb25562da655"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng thứ tự không Mikro ZCT60S",
+        "type": "ZCT",
+        "product_code": "ZCT60S",
+        "use": "Biến dòng thứ tự không Mikro ZCT60S. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-4ceb113ee084be35": {
+      "brand": "Mikro",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3A9855",
+          "sha256": "ee32b8f1e810261c9df77dd602b4953dfaa692b645b798e7a8ed7b550058ab6a"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng thứ tự không Mikro ZCT80S",
+        "type": "ZCT",
+        "product_code": "ZCT80S",
+        "use": "Biến dòng thứ tự không Mikro ZCT80S. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-101a33d41154be2e": {
+      "brand": "Mikro",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3A986E",
+          "sha256": "b29fbb38f43654d4c88e511fbcaa35738b5d22ab9d7de1e1bc99296724b4092b"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng thứ tự không Mikro ZCT120S",
+        "type": "ZCT",
+        "product_code": "ZCT120S",
+        "use": "Biến dòng thứ tự không Mikro ZCT120S. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-68e16fe9d7ac9aa5": {
+      "brand": "Omron",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3D2D7B",
+          "sha256": "9f59d09354dd658efee58e01c489c4c4dde9a61182bf6df1b24fe1cbfd68552e"
+        }
+      ],
+      "library_description": {
+        "display": "Bộ điều khiển mức Omron 61F-G",
+        "type": "LEVEL_CONTROLLER",
+        "product_code": "61F-G",
+        "use": "Bộ điều khiển mức Omron 61F-G. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-79ad8dd2dd63f978": {
+      "brand": "Omron",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3D2DAC",
+          "sha256": "e7986cff4c80b34b32428ff09d58975985bdacf23c3d694d3af862652855727a"
+        }
+      ],
+      "library_description": {
+        "display": "Bộ điều khiển mức Omron 61F-G2",
+        "type": "LEVEL_CONTROLLER",
+        "product_code": "61F-G2",
+        "use": "Bộ điều khiển mức Omron 61F-G2. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-609f0cfff1048a30": {
+      "brand": "Omron",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3D2DC3",
+          "sha256": "6bc27944ac04c3ac183cc55c7fc5db20018eaf6f2217d1f886c854962aecc346"
+        }
+      ],
+      "library_description": {
+        "display": "Bộ điều khiển mức Omron 61F-G3",
+        "type": "LEVEL_CONTROLLER",
+        "product_code": "61F-G3",
+        "use": "Bộ điều khiển mức Omron 61F-G3. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-e334b8a73248cdca": {
+      "brand": "Omron",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3D2DDA",
+          "sha256": "b11ab33ea39a8a81a12dfaa49d42ecd928288cdd96b52c2f51a3c96a6084e378"
+        }
+      ],
+      "library_description": {
+        "display": "Bộ điều khiển mức Omron 61F-G4",
+        "type": "LEVEL_CONTROLLER",
+        "product_code": "61F-G4",
+        "use": "Bộ điều khiển mức Omron 61F-G4. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-43bc48410d1b1dd1": {
+      "brand": "Omron",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3D5589",
+          "sha256": "6844027b1c1933784fc5054c151bd12360d8d90b32c4a5dfb3fbb15f7fd6deb0"
+        }
+      ],
+      "library_description": {
+        "display": "Bộ điều khiển mức Omron 61F-GP-N",
+        "type": "LEVEL_CONTROLLER",
+        "product_code": "61F-GP-N",
+        "use": "Bộ điều khiển mức Omron 61F-GP-N. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-89a011395c02dfc6": {
+      "brand": "Omron",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3D6179",
+          "sha256": "5b468d00602bba714aeab83e76e2612ea2cd8a246d6c29384000c66a3ad14dfd"
+        }
+      ],
+      "library_description": {
+        "display": "Bộ điều khiển mức Omron 61F-GP-N8",
+        "type": "LEVEL_CONTROLLER",
+        "product_code": "61F-GP-N8",
+        "use": "Bộ điều khiển mức Omron 61F-GP-N8. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-25057d0f9ec83b9f": {
+      "brand": "EMIC",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Giữ hậu tố 4RT như tên nguồn, chưa xác nhận là hậu tố mã thương mại.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3D6701",
+          "sha256": "72ff6da92f608ea7c28859ea86a6000e25e1e973beef54ca271718346aa2f8e9"
+        }
+      ],
+      "library_description": {
+        "display": "Công tơ EMIC ME-41mG · mặt bên",
+        "type": "METER",
+        "product_code": "ME-41mG",
+        "use": "Công tơ EMIC ME-41mG · mặt bên. Giữ hậu tố 4RT như tên nguồn, chưa xác nhận là hậu tố mã thương mại."
+      }
+    },
+    "TB-18be5c59ace6af2a": {
+      "brand": "EMIC",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3D6702",
+          "sha256": "c72326ae8356665964f56e5edd1345c0b2152982e093ac2df5027fee854e22d2"
+        }
+      ],
+      "library_description": {
+        "display": "Công tơ EMIC ME-40mG",
+        "type": "METER",
+        "product_code": "ME-40mG",
+        "use": "Công tơ EMIC ME-40mG. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-c91afef71d4d5e40": {
+      "brand": "HD Hyundai Electric",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Tên Huyndai là nhãn nguồn. Đây là phụ kiện/bộ gá, không phải thân MCCB.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3D9FC8",
+          "sha256": "ee435fe61391a6069a5069ed1750bef75d797bbb6fe5467bf99c73b479edb368"
+        }
+      ],
+      "library_description": {
+        "display": "Phụ kiện cơ khí MCCB Hyundai · nguồn 630S",
+        "type": "MCCB_OPERATING_ACCESSORY",
+        "product_code": "630S · phụ kiện",
+        "use": "Phụ kiện cơ khí MCCB Hyundai · nguồn 630S. Tên Huyndai là nhãn nguồn. Đây là phụ kiện/bộ gá, không phải thân MCCB."
+      }
+    },
+    "TB-7d1a1981e288cff3": {
+      "brand": "HD Hyundai Electric",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Tên Huyndai là nhãn nguồn. Chưa xác nhận bộ ghép tương thích với MCCB cụ thể.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3DA93D",
+          "sha256": "73c7e55cda1c76ffa4c57e9f64bf7707cef2a834385a852392559cb84d48639c"
+        }
+      ],
+      "library_description": {
+        "display": "Phụ kiện cơ khí MCCB Hyundai · nguồn 1000S",
+        "type": "MCCB_OPERATING_ACCESSORY",
+        "product_code": "1000S · phụ kiện",
+        "use": "Phụ kiện cơ khí MCCB Hyundai · nguồn 1000S. Tên Huyndai là nhãn nguồn. Chưa xác nhận bộ ghép tương thích với MCCB cụ thể."
+      }
+    },
+    "TB-90d1ef517772cd77": {
+      "brand": "Omron",
+      "status": "manufacturer_label_reviewed",
+      "note": "CAD giữ cả đế cắm. Không coi kích thước toàn cụm là kích thước thân rơ-le.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3E2A19",
+          "sha256": "30c73aeec17b81711fa0fb202288a99c41f6aa4ef79217fc9c67cd740c440dd2"
+        }
+      ],
+      "library_description": {
+        "display": "Cụm rơ-le/đế Omron MY4N-GS · nhãn AC",
+        "type": "RELAY_ASSEMBLY",
+        "product_code": "MY4N-GS",
+        "use": "Cụm rơ-le/đế Omron MY4N-GS · nhãn AC. CAD giữ cả đế cắm. Không coi kích thước toàn cụm là kích thước thân rơ-le."
+      }
+    },
+    "TB-e111558e7dc4b562": {
+      "brand": "Omron",
+      "status": "manufacturer_label_reviewed",
+      "note": "Tên block RELAY PXC 2PDT mâu thuẫn nhãn OMRON MY4N-GS 24VDC. Không gán PXC hoặc 2PDT.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3E2A3C",
+          "sha256": "076dc67a3ce1ae867148fe470cf2bdf0779eeff0ec65350a7ca9b736680f5587"
+        }
+      ],
+      "library_description": {
+        "display": "Cụm rơ-le/đế · nhãn Omron MY4N-GS DC",
+        "type": "RELAY_ASSEMBLY",
+        "product_code": "MY4N-GS",
+        "use": "Cụm rơ-le/đế · nhãn Omron MY4N-GS DC. Tên block RELAY PXC 2PDT mâu thuẫn nhãn OMRON MY4N-GS 24VDC. Không gán PXC hoặc 2PDT."
+      }
+    },
+    "TB-caaf71e22a359499": {
+      "brand": "Morele",
+      "status": "manufacturer_label_reviewed",
+      "note": "Ba đế trong một hình; chưa xác nhận ruột cầu chì bên trong.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3E7964",
+          "sha256": "2c449edc8eb01a2bed7f0cbb327e7eb6e963bf777d114f42998a66319407c59e"
+        }
+      ],
+      "library_description": {
+        "display": "Cụm ba đế cầu chì Morele RT18-32X",
+        "type": "FUSE_HOLDER",
+        "product_code": "RT18-32X",
+        "use": "Cụm ba đế cầu chì Morele RT18-32X. Ba đế trong một hình; chưa xác nhận ruột cầu chì bên trong."
+      }
+    },
+    "TB-57fc3feb56d4e9c2": {
+      "brand": "IDEC",
+      "status": "manufacturer_label_reviewed",
+      "note": "Giữ đế cắm và các phụ kiện nguồn; không lấy toàn cụm làm thân rơ-le riêng.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3EB593",
+          "sha256": "051a68ff5be43a43ff701818f1e40b65cf6b5fe6d74a9242e53487f6548d09d0"
+        }
+      ],
+      "library_description": {
+        "display": "Cụm rơ-le/đế IDEC RU4S-A220",
+        "type": "RELAY_ASSEMBLY",
+        "product_code": "RU4S-A220",
+        "use": "Cụm rơ-le/đế IDEC RU4S-A220. Giữ đế cắm và các phụ kiện nguồn; không lấy toàn cụm làm thân rơ-le riêng."
+      }
+    },
+    "TB-88e5d498e35aaf98": {
+      "brand": "LightStar",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3FCAB1",
+          "sha256": "a7d092b53f9d75a08cffe4415f25fdbc94c951dd653d9b5f92e7f3d0396046cc"
+        }
+      ],
+      "library_description": {
+        "display": "Cụm biến dòng ba cửa sổ LightStar KBF-42/43",
+        "type": "CT_ASSEMBLY",
+        "product_code": "KBF-42/43",
+        "use": "Cụm biến dòng ba cửa sổ LightStar KBF-42/43. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-7d3299444def9c16": {
+      "brand": "LightStar",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3FCCF1",
+          "sha256": "cf3bd30300b948d1f66050f4a414f9f513b36de5783a83fded799e9c0db0623b"
+        }
+      ],
+      "library_description": {
+        "display": "Cụm biến dòng ba cửa sổ LightStar KBF-62/63",
+        "type": "CT_ASSEMBLY",
+        "product_code": "KBF-62/63",
+        "use": "Cụm biến dòng ba cửa sổ LightStar KBF-62/63. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-a75ce301795a12f4": {
+      "brand": "LightStar",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3FCD03",
+          "sha256": "b923480cf35dcf3731b26bef4b751af83d11b819a58ac5901f219a92f0a8ac89"
+        }
+      ],
+      "library_description": {
+        "display": "Cụm biến dòng ba cửa sổ LightStar KBF-22/23",
+        "type": "CT_ASSEMBLY",
+        "product_code": "KBF-22/23",
+        "use": "Cụm biến dòng ba cửa sổ LightStar KBF-22/23. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-b77c5afe17e81579": {
+      "brand": "EMIC",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-40F3EE",
+          "sha256": "bfc3085d295916b8c274f7b908e4daf5e15db30e22f88d040a7754f926dd0248"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng EMIC EM4H14",
+        "type": "CT",
+        "product_code": "EM4H14",
+        "use": "Biến dòng EMIC EM4H14. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-bd319f74151419fd": {
+      "brand": "EMIC",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-40F762",
+          "sha256": "207589cb4f71d2716ca74fe9a34db84576e7a7d19f3d1de8d0ca463b77a6454a"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng EMIC EM4H15",
+        "type": "CT",
+        "product_code": "EM4H15",
+        "use": "Biến dòng EMIC EM4H15. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-956916f6fa684608": {
+      "brand": "EMIC",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-40FAD5",
+          "sha256": "d4902afc581126ef8b1770c7360c516c543266e08a5d73f9482bcbcaea88b3c2"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng EMIC EM4H16",
+        "type": "CT",
+        "product_code": "EM4H16",
+        "use": "Biến dòng EMIC EM4H16. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-5535797495be728a": {
+      "brand": "EMIC",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-40FE75",
+          "sha256": "77472c77964a18f67349480897a16acbc29921e57a19c337d244f3cd455976fb"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng EMIC EM4H17",
+        "type": "CT",
+        "product_code": "EM4H17",
+        "use": "Biến dòng EMIC EM4H17. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-290b8c4945c834ba": {
+      "brand": "EMIC",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-410243",
+          "sha256": "7f2360e2d086930922ace3e24b8e8c8a7e18d9931c58b1fe313d1133beb03696"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng EMIC EM4H18",
+        "type": "CT",
+        "product_code": "EM4H18",
+        "use": "Biến dòng EMIC EM4H18. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-95c3c6f39622a5b1": {
+      "brand": "EMIC",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-415F35",
+          "sha256": "67c4d77418b6273a0b783c13355b7eaf54fcf9a05cee17979843b4b93bcf17b9"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng EMIC EM4H02",
+        "type": "CT",
+        "product_code": "EM4H02",
+        "use": "Biến dòng EMIC EM4H02. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-28e156d0551407ab": {
+      "brand": "EMIC",
+      "status": "manufacturer_label_reviewed",
+      "note": "Nhãn 250/5A lệch dải 50–125A trong tên nguồn. Không nhập thành tỷ số đã xác minh.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-4165C2",
+          "sha256": "0f9bb6dc40739783c924346d5b4cf61956e7264ebb955c90dcaa820a5a6645cc"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng EMIC EM4H01",
+        "type": "CT",
+        "product_code": "EM4H01",
+        "use": "Biến dòng EMIC EM4H01. Nhãn 250/5A lệch dải 50–125A trong tên nguồn. Không nhập thành tỷ số đã xác minh."
+      }
+    },
+    "TB-b6bb3b5e552f5579": {
+      "brand": "EMIC",
+      "status": "manufacturer_label_reviewed",
+      "note": "CAD ghi cả CE-18 và CE-14; chưa xác nhận ghép mã thành một cấu hình mua hàng.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-422EEE",
+          "sha256": "a5439bee8fc5ebf2353c970bb8a3ab40e0cf8a38c4e3bc39c82670ad2e7b3399"
+        }
+      ],
+      "library_description": {
+        "display": "Công tơ EMIC · nguồn CE-18/CE-14",
+        "type": "METER",
+        "product_code": "CE-18 / CE-14",
+        "use": "Công tơ EMIC · nguồn CE-18/CE-14. CAD ghi cả CE-18 và CE-14; chưa xác nhận ghép mã thành một cấu hình mua hàng."
+      }
+    },
+    "TB-c9c37fbfb296016c": {
+      "brand": "EMIC",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Hình và chú thích EM4H05 tại ô nguồn chỉ cho ứng viên; chưa xác nhận tỷ số/mã đầy đủ.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-427832",
+          "sha256": "b6c5ca45ed9bd9622daa0f885947b53047441686d80a68ef75aa9cf527f3e3ed"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng · ứng viên EMIC EM4H05",
+        "type": "CT",
+        "product_code": "EM4H05 · ứng viên",
+        "use": "Biến dòng · ứng viên EMIC EM4H05. Hình và chú thích EM4H05 tại ô nguồn chỉ cho ứng viên; chưa xác nhận tỷ số/mã đầy đủ."
+      }
+    },
+    "TB-cfb572dcb2e9e43f": {
+      "brand": "IDEC",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Năm màu là các trạng thái lựa chọn, không mặc định năm đèn trong BOM.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-428491",
+          "sha256": "324e090f75000a2f3fc786ccd0cdf703e7a962d5d09a225433da066184692bba"
+        },
+        {
+          "view_id": "REV20261118-428498",
+          "sha256": "72fcec7a3e435321a836751877b7e54d64721d6b9b36376b1dd604763be879d0"
+        },
+        {
+          "view_id": "REV20261118-42849F",
+          "sha256": "fe74e2a5673d67cdfdb67ee1e1a06eb20a4e0c5ca3455d67bdf89acb74da3d0f"
+        },
+        {
+          "view_id": "REV20261118-4284FC",
+          "sha256": "e2660e32c9edf154004fcaa44d6b4225f5187463e07b8eb0efe95dc70f5a68f0"
+        },
+        {
+          "view_id": "REV20261118-428532",
+          "sha256": "6dc39b7d6cbd83716c8d66a72510367b92ded673cc55c9a4640a965fd7bea084"
+        }
+      ],
+      "library_description": {
+        "display": "Đèn báo IDEC · các trạng thái màu nguồn",
+        "type": "LIGHT",
+        "product_code": "IDEC Light",
+        "use": "Đèn báo IDEC · các trạng thái màu nguồn. Năm màu là các trạng thái lựa chọn, không mặc định năm đèn trong BOM."
+      }
+    },
+    "TB-2b71076e852ad919": {
+      "brand": "Deep Sea Electronics",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-4284C8",
+          "sha256": "9c23b074d4c08560a0a95cb683c8f40ea6507e11c8c80e825050b15b7cefcaf7"
+        }
+      ],
+      "library_description": {
+        "display": "Bộ điều khiển máy phát DSE8610",
+        "type": "GENERATOR_CONTROLLER",
+        "product_code": "DSE8610",
+        "use": "Bộ điều khiển máy phát DSE8610. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-116dcbc6c8b2a599": {
+      "brand": "CHINT",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Tên nguồn xác định họ CHINT; không đọc được mã AC30 nên không tự gán mã.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-428800",
+          "sha256": "26414a1449cb3ac7e64d3316054ccc3c3774f290d9ac538e1d7cb705ee9abb13"
+        }
+      ],
+      "library_description": {
+        "display": "Ổ cắm DIN ba chấu CHINT · nguồn",
+        "type": "SOCKET",
+        "product_code": "Ổ cắm ba chấu CHINT",
+        "use": "Ổ cắm DIN ba chấu CHINT · nguồn. Tên nguồn xác định họ CHINT; không đọc được mã AC30 nên không tự gán mã."
+      }
+    },
+    "TB-1c87110aeeeebd43": {
+      "brand": "Morele",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-42F062",
+          "sha256": "c7bab5047d2bdbc768c1073b98b1740237a1e813df957e2d6988004b739652b3"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng Morele MSQ-60",
+        "type": "CT",
+        "product_code": "MSQ-60",
+        "use": "Biến dòng Morele MSQ-60. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-1d1bbb4a2a2dc7e2": {
+      "brand": "Omron",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Tên C5024 khác nhãn thân S8FS-C050□□. Chưa xác nhận đầu ra 24V hoặc biến thể J/D.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-4352AE",
+          "sha256": "85853d3b34a871f7754a2a840873c0e0261d20d308f3977a1567bb581041442d"
+        }
+      ],
+      "library_description": {
+        "display": "Nguồn Omron S8FS-C050 · họ 50W",
+        "type": "POWER_SUPPLY",
+        "product_code": "S8FS-C050 · nguồn C5024",
+        "use": "Nguồn Omron S8FS-C050 · họ 50W. Tên C5024 khác nhãn thân S8FS-C050□□. Chưa xác nhận đầu ra 24V hoặc biến thể J/D."
+      }
+    },
+    "TB-3a756d630a0f6aae": {
+      "brand": "INVT",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Mã GD20 và mặt bàn phím khớp họ INVT; không chọn công suất chỉ từ chú thích 1.5kW.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-449E1A",
+          "sha256": "24babfe9e307bce8ce2bb713d8cc51a485fda00335beaf1a9e5dbb768a951587"
+        }
+      ],
+      "library_description": {
+        "display": "Biến tần INVT GD20",
+        "type": "VFD",
+        "product_code": "GD20",
+        "use": "Biến tần INVT GD20. Mã GD20 và mặt bàn phím khớp họ INVT; không chọn công suất chỉ từ chú thích 1.5kW."
+      }
+    },
+    "TB-1a8daff4c106c081": {
+      "brand": "VITZRO",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-49E7AC",
+          "sha256": "499aaf8ad6fbfd5abcef48b7c76def5038e7bd37f386698ccaa1eae7a14d38ea"
+        }
+      ],
+      "library_description": {
+        "display": "Cụm chống sét VITZRO · hình nguồn",
+        "type": "SPD",
+        "product_code": "CHONG SET VITZRO",
+        "use": "Cụm chống sét VITZRO · hình nguồn. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-510c1d1ef6c61e73": {
+      "brand": "Delta",
+      "status": "manufacturer_label_reviewed",
+      "note": "Dùng mã sau MODEL; chuỗi chứng nhận chứa 12V giữ riêng, không dùng làm điện áp đầu ra.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-49F918",
+          "sha256": "1784ec5a68cba3a9fcd55e1423847b51034a736678aaa31d4f57646de1cb3d8e"
+        }
+      ],
+      "library_description": {
+        "display": "Nguồn Delta PMT-24V100W2BA",
+        "type": "POWER_SUPPLY",
+        "product_code": "PMT-24V100W2BA",
+        "use": "Nguồn Delta PMT-24V100W2BA. Dùng mã sau MODEL; chuỗi chứng nhận chứa 12V giữ riêng, không dùng làm điện áp đầu ra."
+      }
+    },
+    "TB-7bc8762216c36055": {
+      "brand": "CHINT",
+      "status": "manufacturer_label_reviewed",
+      "note": "Nhiều mã NJR2-D dùng một nhóm hình khung; chưa chọn công suất/model cụ thể.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-4A2913",
+          "sha256": "96f508ec19481ae28ff428b7dab82e3d8f3cdb86221f63dfd60fb6a2beebddff"
+        }
+      ],
+      "library_description": {
+        "display": "Khởi động mềm CHINT NJR2-D · khung 90–185",
+        "type": "SOFT_STARTER",
+        "product_code": "NJR2-90D~185D",
+        "use": "Khởi động mềm CHINT NJR2-D · khung 90–185. Nhiều mã NJR2-D dùng một nhóm hình khung; chưa chọn công suất/model cụ thể."
+      }
+    },
+    "TB-3f8b3f885ffe35e4": {
+      "brand": "Delta",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-4B00EF",
+          "sha256": "7b89b93ba1ae8ddd9fc392e1bc4c3bc1dac215c0666020172fdb44c4e3fa726e"
+        }
+      ],
+      "library_description": {
+        "display": "Nguồn Delta PMT-24V50W2BA",
+        "type": "POWER_SUPPLY",
+        "product_code": "PMT-24V50W2BA",
+        "use": "Nguồn Delta PMT-24V50W2BA. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-8b6d26342161f75f": {
+      "brand": "LightStar",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-4B149D",
+          "sha256": "50fde3b20809002cb442876696b2f276d4687399655b9de8e3e6952c47e3f0b1"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng LightStar KBM-12",
+        "type": "CT",
+        "product_code": "KBM-12",
+        "use": "Biến dòng LightStar KBM-12. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-8eacb99f11eb296a": {
+      "brand": "Mun Hean",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. MT5/1/5 là biến dòng, không phải rơ-le. Chưa gán hướng nhìn của hình hiện tại.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-51D5AC",
+          "sha256": "bb91f133e0fa3fa2c5f302470b949be390a36ebe2d33be8065091a3d81171234"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng Mun Hean · MT5 1 5 0200~0400 Munhean",
+        "type": "CT",
+        "product_code": "MT5 1 5 0200~0400 Munhean",
+        "use": "Biến dòng Mun Hean · MT5 1 5 0200~0400 Munhean. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. MT5/1/5 là biến dòng, không phải rơ-le. Chưa gán hướng nhìn của hình hiện tại."
+      }
+    },
+    "TB-0dc6753047feda2b": {
+      "brand": "Mun Hean",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. MT5/1/5 là biến dòng, không phải rơ-le. Chưa gán hướng nhìn của hình hiện tại.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-51D62B",
+          "sha256": "2720c0ef360e32dff4c8a54102f6dd6cbae20d1f8782d67bafb5689a6937ecbb"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng Mun Hean · MT5 1 5 0060~0100 Munhean",
+        "type": "CT",
+        "product_code": "MT5 1 5 0060~0100 Munhean",
+        "use": "Biến dòng Mun Hean · MT5 1 5 0060~0100 Munhean. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. MT5/1/5 là biến dòng, không phải rơ-le. Chưa gán hướng nhìn của hình hiện tại."
+      }
+    },
+    "TB-f6543f9d702a837a": {
+      "brand": "Mun Hean",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. MT5/1/5 là biến dòng, không phải rơ-le. Chưa gán hướng nhìn của hình hiện tại.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-51D689",
+          "sha256": "f11a5f2844b688ccb3bab7afd8591eb2eff693d73c8a6486c1816e05b551daab"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng Mun Hean · MT5 1 5 0150 Munhean",
+        "type": "CT",
+        "product_code": "MT5 1 5 0150 Munhean",
+        "use": "Biến dòng Mun Hean · MT5 1 5 0150 Munhean. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công. MT5/1/5 là biến dòng, không phải rơ-le. Chưa gán hướng nhìn của hình hiện tại."
+      }
+    },
+    "TB-e24d29690428606b": {
+      "brand": "VITZRO",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-575F59",
+          "sha256": "328749e23cd179be8ec00f6daafc750f4e51ae10bcdc74640a415e679f346d5f"
+        }
+      ],
+      "library_description": {
+        "display": "Bộ điều khiển ATS VITZRO VITAC 200",
+        "type": "ATS_CONTROLLER",
+        "product_code": "VITAC 200",
+        "use": "Bộ điều khiển ATS VITZRO VITAC 200. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-ce8d9de9db9a41e3": {
+      "brand": "EMIC",
+      "status": "manufacturer_label_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-5A1493",
+          "sha256": "3f8a1a148fe2154168e3f3b0cb57f44c9e0beba2cdf2ddfed643393b4f67c512"
+        }
+      ],
+      "library_description": {
+        "display": "Công tơ EMIC CE-38",
+        "type": "METER",
+        "product_code": "CE-38",
+        "use": "Công tơ EMIC CE-38. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-0aae1a4a8dd4f94a": {
+      "brand": "SUNGHO",
+      "status": "manufacturer_label_reviewed",
+      "note": "Nhãn SUNGHO ON/OFF; sửa khỏi chuyển mạch vôn kế.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-617CB1",
+          "sha256": "f5635bba86391fa88b6ed53427dffda90ff8b2d8cebb5b1bc0cf309d8484f442"
+        }
+      ],
+      "library_description": {
+        "display": "Công tắc xoay SUNGHO · ON/OFF",
+        "type": "SELECTOR_SWITCH",
+        "product_code": "CM ON-OFF",
+        "use": "Công tắc xoay SUNGHO · ON/OFF. Nhãn SUNGHO ON/OFF; sửa khỏi chuyển mạch vôn kế."
+      }
+    },
+    "TB-36d1d33a931835ad": {
+      "brand": "Linkwell",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Có nhiều phần tử trong một CAD; cần chọn số lượng thật riêng.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-7ADBED",
+          "sha256": "1802e59df5de23514399d0196364a42bf58da64f844cd3425e95294b2cd27856"
+        }
+      ],
+      "library_description": {
+        "display": "Cụm cầu đấu Linkwell J-LUK2.5B",
+        "type": "TERMINAL",
+        "product_code": "J-LUK2.5B",
+        "use": "Cụm cầu đấu Linkwell J-LUK2.5B. Có nhiều phần tử trong một CAD; cần chọn số lượng thật riêng."
+      }
+    },
+    "TB-66c893515c98d557": {
+      "brand": "LightStar",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-7B586C",
+          "sha256": "31475b0a060efc9f0d3d099cbf8cc2185bc5d696e7744db99c6e53fe7d48ac1c"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng LightStar KBM-36",
+        "type": "CT",
+        "product_code": "KBM-36",
+        "use": "Biến dòng LightStar KBM-36. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-5efc4634f3aea30d": {
+      "brand": "LightStar",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-7C7331",
+          "sha256": "00175925a133cf28943ce72ccf05b2e29f28c30740b28e57ea6273b5fda63854"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng LightStar KBM-34",
+        "type": "CT",
+        "product_code": "KBM-34",
+        "use": "Biến dòng LightStar KBM-34. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-eea5a43707168c38": {
+      "brand": "LightStar",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-7C9295",
+          "sha256": "6a07e512a2c03894b8c5a507a1530bc9503e5b5d9e72772179034995e81f6c25"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng LightStar KBM-05",
+        "type": "CT",
+        "product_code": "KBM-05",
+        "use": "Biến dòng LightStar KBM-05. Đã đối chiếu hình nguồn, nhãn CAD và loại thiết bị; không xác nhận mã đặt hàng, điện hoặc điều kiện gia công."
+      }
+    },
+    "TB-ed1529932a660b5c": {
+      "brand": "IDEC",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Hai trạng thái dừng khẩn và nút xanh; không coi là cùng một cấu hình tiếp điểm.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-7D5148",
+          "sha256": "4655136dea6f8f253a65c62a6a13d65d5eb9e0088985a568eb9d2b3f1751705b"
+        },
+        {
+          "view_id": "REV20261118-7D5151",
+          "sha256": "fdbcfe270b6c3d65a108773e866d3e3f5934b40b22df032e56fa5fbdec6426c7"
+        }
+      ],
+      "library_description": {
+        "display": "Nút nhấn IDEC · các trạng thái mặt nguồn",
+        "type": "PUSHBUTTON",
+        "product_code": "02_IDEC Push Button",
+        "use": "Nút nhấn IDEC · các trạng thái mặt nguồn. Hai trạng thái dừng khẩn và nút xanh; không coi là cùng một cấu hình tiếp điểm."
+      }
+    },
+    "TB-e502ae5cdf9b8a38": {
+      "brand": "Mikro",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Ảnh nguồn ghi Mikro MK231A / Earth Fault Relay; tên 01_DONGHO-SELEC sai hãng và chức năng.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-7D5996",
+          "sha256": "430903c4d0963d23031553166ead18b247250ccac8df754e60a865f96a78bb69"
+        }
+      ],
+      "library_description": {
+        "display": "Rơ-le chạm đất Mikro MK231A",
+        "type": "EARTH_FAULT_RELAY",
+        "product_code": "MK231A",
+        "use": "Rơ-le chạm đất Mikro MK231A. Ảnh nguồn ghi Mikro MK231A / Earth Fault Relay; tên 01_DONGHO-SELEC sai hãng và chức năng."
+      }
+    },
+    "TB-602875c67ddcdfec": {
+      "brand": "STEGO",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Họ KTS011/NO và kiểu dáng đối chiếu STEGO; chưa xác nhận nhà sản xuất của riêng mẫu CAD.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-7E96D3",
+          "sha256": "0d2894e9afbb93abd9cc1256f0cfe5fa5ea71a3c3312371126b4a9184e86ad0d"
+        }
+      ],
+      "library_description": {
+        "display": "Thermostat · họ STEGO KTS 011 NO",
+        "type": "THERMOSTAT",
+        "product_code": "KTS 011 (NO)",
+        "use": "Thermostat · họ STEGO KTS 011 NO. Họ KTS011/NO và kiểu dáng đối chiếu STEGO; chưa xác nhận nhà sản xuất của riêng mẫu CAD."
+      }
+    },
+    "TB-5d209abf1cacc192": {
+      "brand": "Himel",
+      "status": "manufacturer_label_reviewed",
+      "note": "Mã block HDY3406 khác chuỗi họ HDY3-20/40/65 trên nhãn. Không tự chuyển catalog thành thông số đã chọn.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-7E9EF2",
+          "sha256": "ccf8a9f6915528b7da8f9fd3ebd67c74fce59fa76fbff091d67f8a8075bd950b"
+        }
+      ],
+      "library_description": {
+        "display": "Chống sét Himel HDY3406 · hình nguồn",
+        "type": "SPD",
+        "product_code": "HDY3406",
+        "use": "Chống sét Himel HDY3406 · hình nguồn. Mã block HDY3406 khác chuỗi họ HDY3-20/40/65 trên nhãn. Không tự chuyển catalog thành thông số đã chọn."
+      }
+    },
+    "TB-e805c6a5f4efe37d": {
+      "brand": "ESYS",
+      "status": "manufacturer_label_reviewed",
+      "note": "Nhãn ESYS EF-ST-32 và ba đế; chưa xác nhận ruột cầu chì.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-7EE58C",
+          "sha256": "ba488c8dc5b8da5841ae85bf254905dc9321fd9c332ac2e615dd9d610764d809"
+        }
+      ],
+      "library_description": {
+        "display": "Cụm ba đế cầu chì ESYS EF-ST-32",
+        "type": "FUSE_HOLDER",
+        "product_code": "EF-ST-32",
+        "use": "Cụm ba đế cầu chì ESYS EF-ST-32. Nhãn ESYS EF-ST-32 và ba đế; chưa xác nhận ruột cầu chì."
+      }
+    },
+    "TB-734106302ca488a8": {
+      "brand": "BEW / Bau San",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đã tìm được tài liệu chính hãng BEW/Bau San cho họ BE-96. Nhãn BEW96 và hình chỉ hỗ trợ ứng viên; không chọn thang đo, và mặt sau không thay thế mặt trước.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-4B4F3D",
+          "sha256": "be3661e1987e75148356f3a001541770b292b85bdd3d541f89a55a27ca0a444c"
+        }
+      ],
+      "library_description": {
+        "display": "Đồng hồ BEW/Bau San · nguồn BEW96, mặt sau",
+        "type": "METER",
+        "product_code": "BEW96 · ứng viên BE-96",
+        "use": "Đồng hồ BEW/Bau San · nguồn BEW96, mặt sau. Đã tìm được tài liệu chính hãng BEW/Bau San cho họ BE-96. Nhãn BEW96 và hình chỉ hỗ trợ ứng viên; không chọn thang đo, và mặt sau không thay thế mặt trước."
+      }
+    },
+    "TB-5cf2adeec3a130b8": {
+      "brand": "MDCE",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Mã MD1132 tại ô nguồn khớp danh mục MDCE. Chỉ nhận dạng ứng viên; không chốt 3P/16A thành cấu hình mua hàng.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-7CAA4F",
+          "sha256": "f37c69a3b7b89e06376efb686e894e56430fc62e2e88d4936f7c437250969bc6"
+        }
+      ],
+      "library_description": {
+        "display": "Ổ cắm MDCE MD1132 · ứng viên theo nguồn",
+        "type": "SOCKET",
+        "product_code": "MD1132",
+        "use": "Ổ cắm MDCE MD1132 · ứng viên theo nguồn. Mã MD1132 tại ô nguồn khớp danh mục MDCE. Chỉ nhận dạng ứng viên; không chốt 3P/16A thành cấu hình mua hàng."
+      }
+    },
+    "TB-58becb7fe4d3b002": {
+      "brand": "Trend",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Nhãn 8AO, cọc 1–16, bốn biểu tượng nguồn/watchdog/I-O bus/service và bao CAD khoảng 70,22 × 116 khớp họ nhỏ IQ4/IO trong tài liệu Trend TG201342 trang 1, 10. Nhận diện tương đối IQ4/IO/8AO; chưa có nhãn hãng/mã đầy đủ trên CAD, chưa chốt phiên bản, phụ kiện hoặc cấu hình điện.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-42F2E",
+          "sha256": "c188b54fa557e61d6d4fc4662c38ebf272d73b700459afa756d738e02c810bec"
+        }
+      ],
+      "library_description": {
+        "display": "Mô-đun Trend IQ4/IO/8AO · ứng viên từ CAD",
+        "type": "IO_MODULE",
+        "product_code": "IQ4/IO/8AO · họ ứng viên",
+        "use": "Mô-đun Trend IQ4/IO/8AO · ứng viên từ CAD. Nhãn 8AO, cọc 1–16, bốn biểu tượng nguồn/watchdog/I-O bus/service và bao CAD khoảng 70,22 × 116 khớp họ nhỏ IQ4/IO trong tài liệu Trend TG201342 trang 1, 10. Nhận diện tương đối IQ4/IO/8AO; chưa có nhãn hãng/mã đầy đủ trên CAD, chưa chốt phiên bản, phụ kiện hoặc cấu hình điện."
+      }
+    },
+    "TB-21b8f4642d14bc97": {
+      "brand": "Clipsal",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đối chiếu tọa độ DWG: mẫu A$Cf470d8ba nằm trực tiếp phía trên chữ CLIPSAL, tách khỏi cột CHENG LI. Trang chính chủ Schneider xác nhận họ ổ cắm đôi universal E426UEST2/T; mặt nguồn phù hợp dạng này nhưng chưa đủ chốt mã đặt hàng hoặc dòng định mức. Lưu hãng/họ ứng viên, không xác nhận biến thể.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-32CB40",
+          "sha256": "63e0cb46a06f3d72f4e071c469d664bec1e6dceda897179e4cd216510e095e05"
+        }
+      ],
+      "library_description": {
+        "display": "Ổ cắm đôi Clipsal · ứng viên họ S-Classic",
+        "type": "SOCKET",
+        "product_code": "Ổ cắm đôi · ứng viên họ E426UEST2/T",
+        "use": "Ổ cắm đôi Clipsal · ứng viên họ S-Classic. Đối chiếu tọa độ DWG: mẫu A$Cf470d8ba nằm trực tiếp phía trên chữ CLIPSAL, tách khỏi cột CHENG LI. Trang chính chủ Schneider xác nhận họ ổ cắm đôi universal E426UEST2/T; mặt nguồn phù hợp dạng này nhưng chưa đủ chốt mã đặt hàng hoặc dòng định mức. Lưu hãng/họ ứng viên, không xác nhận biến thể."
+      }
+    },
+    "TB-fc91d165f4b7b6d9": {
+      "brand": "CHENG LI",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đối chiếu tọa độ và hai cột trong DWG: A$Cb343c03b nằm phía trên chữ CHENG LI, còn mẫu bên trái thuộc CLIPSAL. Xác định nhãn hãng ứng viên từ chính nguồn CAD; chưa có catalogue chính chủ khớp mặt 76 × 118 hoặc mã sản phẩm. Không gán pháp nhân hay mã Clipsal cho mẫu này.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-32CB5A",
+          "sha256": "043609cf89e2330fc6b9c62eab5659d21f0ec8ac7ab804f71913be3d16645632"
+        }
+      ],
+      "library_description": {
+        "display": "Ổ cắm đôi CHENG LI · nhãn nguồn",
+        "type": "SOCKET",
+        "product_code": "Ổ cắm đôi · nhãn CHENG LI nguồn",
+        "use": "Ổ cắm đôi CHENG LI · nhãn nguồn. Đối chiếu tọa độ và hai cột trong DWG: A$Cb343c03b nằm phía trên chữ CHENG LI, còn mẫu bên trái thuộc CLIPSAL. Xác định nhãn hãng ứng viên từ chính nguồn CAD; chưa có catalogue chính chủ khớp mặt 76 × 118 hoặc mã sản phẩm. Không gán pháp nhân hay mã Clipsal cho mẫu này."
+      }
+    },
+    "TB-59ab9c2a9adb46c8": {
+      "brand": "CML",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đọc trực tiếp nhãn CML 250/5A trên CAD và phân biệt với hàng EMIC phía trên. CML được lưu như nhãn/ứng viên thương hiệu, chưa xác định pháp nhân nhà sản xuất. Catalogue mang tiêu đề CML trên Scribd thực tế là iLEC: đã loại làm bằng chứng hãng, không đổi mẫu thành iLEC/EMIC hoặc tự chọn mã RCT. Tỷ số trong nhãn nguồn chưa phải cấu hình điện được duyệt.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-39C7D8",
+          "sha256": "9d12fc37149cadeb54eec244f19d9721d3a00e4a0739daebafa90fe3108eafa9"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng nhãn CML · 250/5A",
+        "type": "CT",
+        "product_code": "CML · nhãn 250/5A",
+        "use": "Biến dòng nhãn CML · 250/5A. Đọc trực tiếp nhãn CML 250/5A trên CAD và phân biệt với hàng EMIC phía trên. CML được lưu như nhãn/ứng viên thương hiệu, chưa xác định pháp nhân nhà sản xuất. Catalogue mang tiêu đề CML trên Scribd thực tế là iLEC: đã loại làm bằng chứng hãng, không đổi mẫu thành iLEC/EMIC hoặc tự chọn mã RCT. Tỷ số trong nhãn nguồn chưa phải cấu hình điện được duyệt."
+      }
+    },
+    "TB-ef5fd67ef512368c": {
+      "brand": "CML",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đọc trực tiếp nhãn CML 400/5A · chú thích 400/600 trên CAD và phân biệt với hàng EMIC phía trên. CML được lưu như nhãn/ứng viên thương hiệu, chưa xác định pháp nhân nhà sản xuất. Catalogue mang tiêu đề CML trên Scribd thực tế là iLEC: đã loại làm bằng chứng hãng, không đổi mẫu thành iLEC/EMIC hoặc tự chọn mã RCT. Tỷ số trong nhãn nguồn chưa phải cấu hình điện được duyệt.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-39C814",
+          "sha256": "59156e83dc8379791d5683de562448e15ca3ef33a6596dfb516fe4fcf069d664"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng nhãn CML · 400/5A · chú thích 400/600",
+        "type": "CT",
+        "product_code": "CML · nhãn 400/5A · chú thích 400/600",
+        "use": "Biến dòng nhãn CML · 400/5A · chú thích 400/600. Đọc trực tiếp nhãn CML 400/5A · chú thích 400/600 trên CAD và phân biệt với hàng EMIC phía trên. CML được lưu như nhãn/ứng viên thương hiệu, chưa xác định pháp nhân nhà sản xuất. Catalogue mang tiêu đề CML trên Scribd thực tế là iLEC: đã loại làm bằng chứng hãng, không đổi mẫu thành iLEC/EMIC hoặc tự chọn mã RCT. Tỷ số trong nhãn nguồn chưa phải cấu hình điện được duyệt."
+      }
+    },
+    "TB-96012f4d2d74053d": {
+      "brand": "CML",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đọc trực tiếp nhãn CML 500/5A trên CAD và phân biệt với hàng EMIC phía trên. CML được lưu như nhãn/ứng viên thương hiệu, chưa xác định pháp nhân nhà sản xuất. Catalogue mang tiêu đề CML trên Scribd thực tế là iLEC: đã loại làm bằng chứng hãng, không đổi mẫu thành iLEC/EMIC hoặc tự chọn mã RCT. Tỷ số trong nhãn nguồn chưa phải cấu hình điện được duyệt.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3A3682",
+          "sha256": "784027693b7605923743aa251a220e332be053f6a09ab8418022374fa71e87a5"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng nhãn CML · 500/5A",
+        "type": "CT",
+        "product_code": "CML · nhãn 500/5A",
+        "use": "Biến dòng nhãn CML · 500/5A. Đọc trực tiếp nhãn CML 500/5A trên CAD và phân biệt với hàng EMIC phía trên. CML được lưu như nhãn/ứng viên thương hiệu, chưa xác định pháp nhân nhà sản xuất. Catalogue mang tiêu đề CML trên Scribd thực tế là iLEC: đã loại làm bằng chứng hãng, không đổi mẫu thành iLEC/EMIC hoặc tự chọn mã RCT. Tỷ số trong nhãn nguồn chưa phải cấu hình điện được duyệt."
+      }
+    },
+    "TB-1aa58c887bf572c7": {
+      "brand": "CML",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đọc trực tiếp nhãn CML 800/5A · chú thích 800/2000 trên CAD và phân biệt với hàng EMIC phía trên. CML được lưu như nhãn/ứng viên thương hiệu, chưa xác định pháp nhân nhà sản xuất. Catalogue mang tiêu đề CML trên Scribd thực tế là iLEC: đã loại làm bằng chứng hãng, không đổi mẫu thành iLEC/EMIC hoặc tự chọn mã RCT. Tỷ số trong nhãn nguồn chưa phải cấu hình điện được duyệt.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3A36BA",
+          "sha256": "28fb0c9ee89cb0bf2fd7a0e1e0659cb855f8da8802aa677826dcd41262822ea8"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng nhãn CML · 800/5A · chú thích 800/2000",
+        "type": "CT",
+        "product_code": "CML · nhãn 800/5A · chú thích 800/2000",
+        "use": "Biến dòng nhãn CML · 800/5A · chú thích 800/2000. Đọc trực tiếp nhãn CML 800/5A · chú thích 800/2000 trên CAD và phân biệt với hàng EMIC phía trên. CML được lưu như nhãn/ứng viên thương hiệu, chưa xác định pháp nhân nhà sản xuất. Catalogue mang tiêu đề CML trên Scribd thực tế là iLEC: đã loại làm bằng chứng hãng, không đổi mẫu thành iLEC/EMIC hoặc tự chọn mã RCT. Tỷ số trong nhãn nguồn chưa phải cấu hình điện được duyệt."
+      }
+    },
+    "TB-3d3944b58798ae7c": {
+      "brand": "CML",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Đọc trực tiếp nhãn CML 3200/5A trên CAD và phân biệt với hàng EMIC phía trên. CML được lưu như nhãn/ứng viên thương hiệu, chưa xác định pháp nhân nhà sản xuất. Catalogue mang tiêu đề CML trên Scribd thực tế là iLEC: đã loại làm bằng chứng hãng, không đổi mẫu thành iLEC/EMIC hoặc tự chọn mã RCT. Tỷ số trong nhãn nguồn chưa phải cấu hình điện được duyệt.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3A379C",
+          "sha256": "0805a727c9aa62b69ce4ae7ffadf88536adb6f44b7d3985e5b318db883f12310"
+        }
+      ],
+      "library_description": {
+        "display": "Biến dòng nhãn CML · 3200/5A",
+        "type": "CT",
+        "product_code": "CML · nhãn 3200/5A",
+        "use": "Biến dòng nhãn CML · 3200/5A. Đọc trực tiếp nhãn CML 3200/5A trên CAD và phân biệt với hàng EMIC phía trên. CML được lưu như nhãn/ứng viên thương hiệu, chưa xác định pháp nhân nhà sản xuất. Catalogue mang tiêu đề CML trên Scribd thực tế là iLEC: đã loại làm bằng chứng hãng, không đổi mẫu thành iLEC/EMIC hoặc tự chọn mã RCT. Tỷ số trong nhãn nguồn chưa phải cấu hình điện được duyệt."
+      }
+    },
+    "TB-1992d1ef242fdde0": {
+      "brand": "GTpro",
+      "status": "manufacturer_candidate_reviewed",
+      "note": "Trang chính chủ GTpro nêu V1.1 phát triển từ Auto Start V1.0. Sơ đồ mang nhãn GTPRO/AUTO START V1.0 đối chiếu đủ 11 cọc: 1 B+, 2 B−, 3 Heater, 4 Crank, 5 Fuel, 6 Stop, 7 Remote, 8 Water, 9 Oil, 10 Gens(N), 11 Gens(L), phù hợp CAD. Nhận diện tương đối GTpro V1.0, không đổi thành V1.1 hoặc chốt điện áp/firmware.",
+      "reviewed_on": "2026-11-18",
+      "views": [
+        {
+          "view_id": "REV20261118-3AA541",
+          "sha256": "8cbdf654a2831ae560a5a7dc66d93affc6a29f835b46281bd071f8967c6ab11a"
+        }
+      ],
+      "library_description": {
+        "display": "Bo điều khiển GTpro Auto Start V1.0 · ứng viên",
+        "type": "GENERATOR_CONTROLLER",
+        "product_code": "Auto Start V1.0 · ứng viên GTpro",
+        "use": "Bo điều khiển GTpro Auto Start V1.0 · ứng viên. Trang chính chủ GTpro nêu V1.1 phát triển từ Auto Start V1.0. Sơ đồ mang nhãn GTPRO/AUTO START V1.0 đối chiếu đủ 11 cọc: 1 B+, 2 B−, 3 Heater, 4 Crank, 5 Fuel, 6 Stop, 7 Remote, 8 Water, 9 Oil, 10 Gens(N), 11 Gens(L), phù hợp CAD. Nhận diện tương đối GTpro V1.0, không đổi thành V1.1 hoặc chốt điện áp/firmware."
+      }
     }
   }
 }

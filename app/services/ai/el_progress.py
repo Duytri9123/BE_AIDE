@@ -2,12 +2,25 @@
 import asyncio
 import json
 import time
+import re
 from contextlib import contextmanager
 from contextvars import ContextVar
 from uuid import uuid4
 
 _sink = ContextVar('el_progress_sink', default=None)
 _scope = ContextVar('el_progress_scope', default='')
+
+_PRIVATE = re.compile(r'\bag/|\bgemini[\w.-]*|\bgpt-[\w.-]*|\bclaude[\w.-]*|\b(?:openai|antigravity|anthropic|openrouter)\b|lần (?:gọi|đọc lại|thử)\s*\d+|\battempt\s*\d+|api[_ -]?key|bearer\s|[\w.+-]+@[\w.-]+',re.I)
+
+def public_activity(activity):
+    """Do not transmit provider diagnostics to customer event streams."""
+    if activity.get('tool')=='model_request' or re.search(r'(?:chờ|nhận) phản hồi model',activity.get('label',''),re.I):return None
+    event={k:v for k,v in activity.items() if k in {'id','tool','label','state','detail','progress','changesProject'}}
+    event['label']='ElQuote đang xử lý yêu cầu' if _PRIVATE.search(event.get('label','')) else event.get('label','')
+    event['tool']='elquote' if _PRIVATE.search(event.get('tool','')) else event.get('tool','elquote')
+    parts=[p for p in event.get('detail','').split(' · ') if not _PRIVATE.search(p) and not p.startswith(('Đang ','Đã ','ElQuote đang '))]
+    event['detail']=' · '.join(dict.fromkeys(parts))
+    return event
 
 @contextmanager
 def progress_scope(label):
@@ -58,7 +71,7 @@ async def progress_events(operation, *, heartbeat=15):
                 clean_msg = 'Hệ thống AI đang tiếp nhận nhiều yêu cầu cùng lúc. Bạn vui lòng đợi ít giây rồi thử lại.'
             elif '@' in raw_msg or 'AIVISIONERROR' in msg_upper or 'CONNECTIONPOOL' in msg_upper or '{"ERROR"' in msg_upper or 'API KEY' in msg_upper:
                 clean_msg = 'Hệ thống máy chủ AI tạm thời gián đoạn kết nối. Bạn vui lòng thử lại sau giây lát.'
-            elif len(raw_msg) > 300:
+            elif _PRIVATE.search(raw_msg) or len(raw_msg) > 300:
                 clean_msg = 'Hệ thống AI tạm thời gặp sự cố khi xử lý yêu cầu. Bạn vui lòng thử lại.'
             else:
                 clean_msg = raw_msg
@@ -74,6 +87,10 @@ async def progress_events(operation, *, heartbeat=15):
             except asyncio.TimeoutError:
                 yield ': keepalive\n\n'
                 continue
+            if event['type']=='activity':
+                activity=public_activity(event['activity'])
+                if activity is None:continue
+                event={**event,'activity':activity}
             yield 'data: '+json.dumps(event, ensure_ascii=False, default=str)+'\n\n'
             if event['type'] in ('complete','error'):
                 break

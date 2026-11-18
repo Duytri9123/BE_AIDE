@@ -85,6 +85,10 @@ def category_matches(requested, actual):
     requested=str(requested).upper().replace(' ','_')
     actual=str(actual).upper().replace(' ','_')
     aliases={'FUSE':{'FUSE','FUSE_HOLDER','FUSEASSEMBLY','FUSE_ASSEMBLY'},
+             'CT':{'CT','CT_ASSEMBLY'},
+             'RELAY':{'RELAY','RELAY_ASSEMBLY'},
+             'BUSBAR':{'BUSBAR','COPPERBUSBAR'},
+             'COPPERBUSBAR':{'BUSBAR','COPPERBUSBAR'},
              'SELECTOR_3_POSITION':{'SELECTOR','SELECTOR_3_POSITION'},
              'LIGHT':{'LIGHT','INDICATOR','PILOT'},'INDICATOR':{'LIGHT','INDICATOR','PILOT'},
              'BUTTON':{'BUTTON','PUSHBUTTON'},'PUSHBUTTON':{'BUTTON','PUSHBUTTON'},

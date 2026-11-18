@@ -20,11 +20,7 @@ def _device_preview(image, region, *, tight=False):
         # can pull an entire measurement cluster into one device's thumbnail.
         left, top = max(0, int(x1*image.width/1000)-2), max(0, int(y1*image.height/1000)-2)
         right, bottom = min(image.width, int(x2*image.width/1000)+3), min(image.height, int(y2*image.height/1000)+3)
-        for peer in region.get('neighbor_symbol_boxes_2d',[]):
-            py1,px1,py2,px2=peer
-            if py2<y1 or py1>y2:continue
-            if px1>=x2-1:right=min(right,int(px1*image.width/1000)-1)
-            elif px2<=x1+1:left=max(left,int(px2*image.width/1000)+1)
+        # Source symbols/text may overlap. A neighbour is not a clipping boundary.
         return (left,top,right,bottom) if right>left and bottom>top else None
 
     valid_boxes = []
@@ -49,9 +45,7 @@ def _device_preview(image, region, *, tight=False):
         for group in groups:
             merged = [min(group['box'][0], box[0]), min(group['box'][1], box[1]),
                       max(group['box'][2], box[2]), max(group['box'][3], box[3])]
-            crosses_peer = any(merged[0] <= (b[0]+b[2])/2 <= merged[2] and merged[1] <= (b[1]+b[3])/2 <= merged[3]
-                               for b in region.get('neighbor_symbol_boxes_2d',[]) if isinstance(b,list) and len(b)==4)
-            if not crosses_peer and merged[2]-merged[0] <= 240 and merged[3]-merged[1] <= 220:
+            if merged[2]-merged[0] <= 240 and merged[3]-merged[1] <= 220:
                 group['box'] = merged
                 group['labels'].append(label)
                 break

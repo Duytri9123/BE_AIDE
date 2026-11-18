@@ -15,7 +15,7 @@ GENERIC_TYPES = ('bản lề','khóa cửa','khóa tay','khóa xoay','khóa cam'
                  'chi tiết liên kết cơ khí','lưới lọc thông gió','lưới thông gió','tấm che bảo vệ quạt',
                  'giá đỡ cách điện','bộ đỡ cách điện','trụ đỡ cách điện','thanh đỡ cách điện',
                  'kẹp giữ thanh dẫn','mountingsupport','copperbusbar','đầu cốt cáp',
-                 'thanh phân phối n và pe','thanh đấu nối')
+                 'thanh phân phối n và pe','thanh đấu nối','khuôn uốn đồng')
 PLACEHOLDERS = {'','asian','asia','oem','unknown','chưa xác định','chưa rõ'}
 
 @lru_cache(maxsize=2)

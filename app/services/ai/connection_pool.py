@@ -234,7 +234,7 @@ class ConnectionPoolService:
                                 api_key=active_api_key,
                                 model=model_to_use,
                                 **call_args,
-                            ), detail=f"{model_to_use} · Lần gọi {attempt}")
+                            ), detail=f"{model_to_use} · Lần gọi {attempt}", tool='model_request')
                             logger.info("ConnectionPool: Thành công với %s", conn_label)
                             setattr(conn, "actual_model", model_to_use)
                             return result, conn

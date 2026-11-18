@@ -1,0 +1,926 @@
+{
+  "reviewed_on": "2026-11-18",
+  "scope": "25 unresolved profiles after the individual 157-profile review",
+  "source_sha256": "a72a95b79f48dd933587fe4e911f4d232d76c91853f3939d71ef0ce227742761",
+  "summary": {
+    "researched": 25,
+    "additional_reference_candidates": 9,
+    "remaining_identity_unresolved": 16,
+    "new_exact_ordering_codes_verified": 0,
+    "new_manufacturers_confirmed": 0,
+    "geometry_modified": false
+  },
+  "documents": {
+    "trend": "https://prod-edam.honeywell.com/content/dam/honeywell-edam/hbt/en-us/documents/manuals-and-guides/installation-guides/trends-110725/hon-ba-bms-en-tg201342-uk8pr0923k.pdf",
+    "honeywell_io": "https://prod-edam.honeywell.com/content/dam/honeywell-edam/hbt/en-us/documents/literature-and-specs/datasheets/IO-Modules-Product-Datasheet-31-00588-03.pdf?download=false",
+    "schneider_meter": "https://iportal.se.com/Contents/docs/ELECTRICAL%20NETWORK%20MANAGEMENT_CATALOG.PDF",
+    "dh_any": "https://www.timer-switch.com/twin-time-dh48s-s.html",
+    "dh_lorentzzi": "https://lorentzzi.com/products/timer-switch-and-counter/time-delay-relay/dh48s-s-programmable-repeating-cycle-time-delay-relay/",
+    "selector_kn": "https://flippingbook.krausnaimer.com/Control_Load_Switch_Catalogue/",
+    "selector_sigma": "https://sigmaelektrik.com/img/Order_Catalogue_02_06_2025_web.pdf",
+    "lamp": "https://sieuthi.rangdong.com.vn/dui-den-chong-tham-nuoc-e27-ip65",
+    "fire_dongan": "https://www.donganfirefighting.com/product/automatic-fire-extinguisher/6kg-automatic-hanging-abc-dry-powder-fire-extinguisher.html",
+    "fire_xingli": "https://www.xlfireextinguisher.com/fire-extinguisher-cylinder/automatic-fire-extinguisher-cylinder/6kg-auto-fire-extinguisher-cylinder.html",
+    "nkg_weilan": "https://wzazure.en.made-in-china.com/product/TOytALrEJIkb/China-Nkg-5-Dual-Circuit-Time-Controller-Microcomputer-Time-Controlled-Switch-Street-Lamp-Controller.html",
+    "nkg_senyi": "https://senyiele.en.made-in-china.com/product-group/GbzAoqclYDkf/NKG5-1.html",
+    "clipsal": "https://www.se.com/th/en/product/E426UEST2%252FT/s-classic-16a-250v-3pin-duplex-universal-socket-outlet/",
+    "ilec": "https://ilec.vn/wp-content/uploads/2025/08/rct-catalogue-ilec.pdf",
+    "ilec_mirror": "https://www.ple.vn/images/virtuemart/datasheet-2/ilec-rct-cate.pdf",
+    "cml_listing": "https://vanvh.com/upload/files/BG2021morele1.pdf",
+    "cml_misnamed": "https://www.scribd.com/document/771968153/rct-catalogue-CML",
+    "gtpro": "https://dientugtpro.com/bo-dieu-khien-auto-star-v1-1/",
+    "gtpro_diagram": "https://www.scribd.com/document/462297413/s%C6%A1-%C4%91%E1%BB%93-%C4%91%E1%BA%A5u-n%E1%BB%91i-auto-start",
+    "deree": "https://www.deree.com.tw/de-80.html",
+    "dixsen": "https://www.mph-elec.co.il/GenericHendler/GetFile.ashx?DG=3635",
+    "transformer_zx": "https://www.zx-ele.com/power-supply-transformer/",
+    "transformer_cnc": "https://www.cncele.com/uploads/JBK-%E6%A0%B7%E6%9C%AC-23.11.181.pdf",
+    "terminal_kasuga": "https://www.otax-en.com/wp-content/uploads/2026/02/20260213-KASUGA-Terminal-Block-aggregated-brochure-R01.pdf",
+    "terminal_idec": "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/7466/EP1147-0Terminalblock_070308.pdf",
+    "phase_anly": "https://anly.com.tw/downloadfile.php?file=APR_WA.pdf",
+    "phase_multispan": "https://multispanindia.com/varient.php/voltage-protection-relay-3-knob",
+    "sunon": "https://www.sunon.com.cn/MANAGE/Docs/PRODUCT/313/359/SUNON%20AC%20Fan_%28257-C%29.pdf",
+    "fan_wolun": "https://wolunele.en.made-in-china.com/product/SKgEVrflgHUj/China-200-200-61-Mini-AC-Axial-Cooling-Fan-Exhaust-Fan.html"
+  },
+  "items": [
+    {
+      "n": 4,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_7a7546618cd4aaf2/thong_tin_thiet_bi.json",
+      "source_name": "TEMINAL-BLOCK",
+      "views": [
+        {
+          "id": "REV20261118-41C91",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_7a7546618cd4aaf2/CadDon/REV20261118-41C91/ban_ve.dxf",
+          "dxf_sha256": "0926b8acbbee57bdb1501c1ab0e7ca7fb7acee8c7b128d54f1ef236a217c80ad",
+          "preview_sha256": "543a19a448e1b9fda03554803eaddf0616d7f46d90d607c9b33d25d04ebad843",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "terminal block 79 50.5 10",
+        "Kasuga IDEC terminal block dimensions"
+      ],
+      "document_urls": [
+        "https://www.otax-en.com/wp-content/uploads/2026/02/20260213-KASUGA-Terminal-Block-aggregated-brochure-R01.pdf",
+        "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/7466/EP1147-0Terminalblock_070308.pdf"
+      ],
+      "reference_admitted": false,
+      "conclusion": "identity_unresolved",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Dãy 10 vị trí vít, bước hình học 6 mm; bao CAD 79 × 50,5. Catalogue Kasuga/IDEC có nhiều dãy cầu đấu nhưng chưa khớp đồng thời đế kẹp ba vít, bước và bao hình. Không có logo hay mã thân để chốt hãng.",
+      "missing_evidence": [
+        "Ảnh hoặc nhãn hãng trên thân cầu đấu",
+        "Mã từng phiến và đế chặn"
+      ],
+      "update": {}
+    },
+    {
+      "n": 6,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_1aac9b8bab7c8e30/thong_tin_thiet_bi.json",
+      "source_name": "8AOOO",
+      "views": [
+        {
+          "id": "REV20261118-42F2E",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_1aac9b8bab7c8e30/CadDon/REV20261118-42F2E/ban_ve.dxf",
+          "dxf_sha256": "c188b54fa557e61d6d4fc4662c38ebf272d73b700459afa756d738e02c810bec",
+          "preview_sha256": "2c1062a9265f19aabfbdf395b0d58ee046fa2c8786bc03038c6a6f29963fff12",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "8AO Trend module",
+        "8AO 16 DDC module Honeywell"
+      ],
+      "document_urls": [
+        "https://prod-edam.honeywell.com/content/dam/honeywell-edam/hbt/en-us/documents/manuals-and-guides/installation-guides/trends-110725/hon-ba-bms-en-tg201342-uk8pr0923k.pdf",
+        "https://prod-edam.honeywell.com/content/dam/honeywell-edam/hbt/en-us/documents/literature-and-specs/datasheets/IO-Modules-Product-Datasheet-31-00588-03.pdf?download=false"
+      ],
+      "reference_admitted": true,
+      "conclusion": "candidate_brand_or_family",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Nhãn 8AO, cọc 1–16, bốn biểu tượng nguồn/watchdog/I-O bus/service và bao CAD khoảng 70,22 × 116 khớp họ nhỏ IQ4/IO trong tài liệu Trend TG201342 trang 1, 10. Nhận diện tương đối IQ4/IO/8AO; chưa có nhãn hãng/mã đầy đủ trên CAD, chưa chốt phiên bản, phụ kiện hoặc cấu hình điện.",
+      "missing_evidence": [
+        "Tem Trend và mã đầy đủ của mô-đun",
+        "Phiên bản và điều kiện cấp nguồn"
+      ],
+      "update": {
+        "brand": "Trend",
+        "model": "IQ4/IO/8AO · họ ứng viên",
+        "display": "Mô-đun Trend IQ4/IO/8AO · ứng viên từ CAD"
+      }
+    },
+    {
+      "n": 7,
+      "profile": "ThietBiDoLuongHienThi/ThietBi/SOURCE_687d0ffae33b3d88/thong_tin_thiet_bi.json",
+      "source_name": "Volt-Meter-front",
+      "views": [
+        {
+          "id": "REV20261118-42FC9",
+          "path": "ThietBiDoLuongHienThi/ThietBi/SOURCE_687d0ffae33b3d88/CadDon/REV20261118-42FC9/ban_ve.dxf",
+          "dxf_sha256": "2df5828177ce2248b274e34771ec39afa263269ee5c02a2f61a34ef509edb8c1",
+          "preview_sha256": "edafcdc8090b8841ab897c14689627a6e0d0a98130aa0b944017ba8ac150359f",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "96 voltmeter 500 front Schneider PowerLogic",
+        "Morele V-96x96"
+      ],
+      "document_urls": [
+        "https://iportal.se.com/Contents/docs/ELECTRICAL%20NETWORK%20MANAGEMENT_CATALOG.PDF"
+      ],
+      "reference_admitted": false,
+      "conclusion": "identity_unresolved",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Vôn kế CAD 96 × 96, nhãn V/0/500. Nhiều hãng có đồng hồ cùng kích thước và thang đo. Chú thích Schneider thuộc vùng đồng hồ khác; chưa có logo/mã gắn trực tiếp với mẫu này. Không gán 16075 chỉ từ kích thước.",
+      "missing_evidence": [
+        "Logo hoặc tem mặt đồng hồ",
+        "Mã và kiểu đo trực tiếp/qua biến áp"
+      ],
+      "update": {}
+    },
+    {
+      "n": 10,
+      "profile": "ThietBiDoLuongHienThi/ThietBi/SOURCE_15546ba3c5e81c06/thong_tin_thiet_bi.json",
+      "source_name": "Ampere-Meter-front",
+      "views": [
+        {
+          "id": "REV20261118-A7F5A",
+          "path": "ThietBiDoLuongHienThi/ThietBi/SOURCE_15546ba3c5e81c06/CadDon/REV20261118-A7F5A/ban_ve.dxf",
+          "dxf_sha256": "42b7aa576544c0edf762dcd9cb19b70f92e6e30111052d41746fbeb4ef72f870",
+          "preview_sha256": "3a0f1d30327b8dbe2a96d4d879cea235d342632829cebe28aa0074455a0d6b26",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "96 ammeter front 500 Schneider PowerLogic",
+        "Morele AC-96x96"
+      ],
+      "document_urls": [
+        "https://iportal.se.com/Contents/docs/ELECTRICAL%20NETWORK%20MANAGEMENT_CATALOG.PDF"
+      ],
+      "reference_admitted": false,
+      "conclusion": "identity_unresolved",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Ampe kế CAD 96 × 96, nhãn A/0/500. Tài liệu PowerLogic và các dòng đồng hồ 96 mm không đủ phân biệt mẫu CAD không logo. Không suy 500/5 A, loại thang hoặc gán hãng theo chữ Schneider ở vùng lân cận.",
+      "missing_evidence": [
+        "Logo hoặc tem mặt đồng hồ",
+        "Mã cơ cấu đo, thang và tỷ số CT"
+      ],
+      "update": {}
+    },
+    {
+      "n": 22,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_27839662a1588af7/thong_tin_thiet_bi.json",
+      "source_name": "RELAY ĐẢO CHIỀU",
+      "views": [
+        {
+          "id": "REV20261118-AD8FA",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_27839662a1588af7/CadDon/REV20261118-AD8FA/ban_ve.dxf",
+          "dxf_sha256": "f28380bd3fd8acebdb1c11d4763937b3281b4c4e5acf5ffa0421606a202fbd14",
+          "preview_sha256": "26b8bf36a56070b7dd63073b466bfa3145a59e2fc1d7851fe883794056145c5b",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "DH48S-S manufacturer",
+        "DH48S-S site:timer-switch.com",
+        "DH48S-S site:lorentzzi.com"
+      ],
+      "document_urls": [
+        "https://www.timer-switch.com/twin-time-dh48s-s.html",
+        "https://lorentzzi.com/products/timer-switch-and-counter/time-delay-relay/dh48s-s-programmable-repeating-cycle-time-delay-relay/"
+      ],
+      "reference_admitted": false,
+      "conclusion": "identity_unresolved",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Đã xác minh DH48S-S là tên họ timer lặp hai khoảng T1/T2 qua tài liệu chính chủ Any Electronics và Lorentzzi. Hai nhà sản xuất cùng công bố mã này, CAD không có logo. Chốt tên họ DH48S-S, giữ hãng chưa xác định; không suy nguồn nuôi hay số tiếp điểm.",
+      "missing_evidence": [
+        "Tem hãng trên mặt hoặc vỏ",
+        "Hậu tố 1Z/2Z và điện áp"
+      ],
+      "update": {
+        "model": "DH48S-S · họ đa hãng"
+      }
+    },
+    {
+      "n": 43,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_7cb774e43a30f0de/thong_tin_thiet_bi.json",
+      "source_name": "Swith",
+      "views": [
+        {
+          "id": "REV20261118-FADD2",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_7cb774e43a30f0de/CadDon/REV20261118-FADD2/ban_ve.dxf",
+          "dxf_sha256": "031bb3eff788e8a1159af61544e196b6109a4b84ea3b7090798511cbc67e90b7",
+          "preview_sha256": "06c0943ea820e0f01bd5f276d9864f9470d1e915a69769899dbe912914bf2e0c",
+          "face": "Mặt trước"
+        },
+        {
+          "id": "REV20261118-4B4F47",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_7cb774e43a30f0de/CadDon/REV20261118-4B4F47/ban_ve.dxf",
+          "dxf_sha256": "b7ada38cea679abe08c49ed7b884d933a6a757078f5f8fcc758070c81708d930",
+          "preview_sha256": "0cfc5ded1da34be2ca169ed808106f8c77e2a1e66ca2ca7c856f79444c93c0f0",
+          "face": "Mặt bên"
+        }
+      ],
+      "checked_queries": [
+        "voltmeter selector 64 78",
+        "CA10 64 78 voltmeter selector manufacturer"
+      ],
+      "document_urls": [
+        "https://flippingbook.krausnaimer.com/Control_Load_Switch_Catalogue/",
+        "https://sigmaelektrik.com/img/Order_Catalogue_02_06_2025_web.pdf"
+      ],
+      "reference_admitted": false,
+      "conclusion": "identity_unresolved",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Có 7 vị trí 0/RS/ST/TR/RN/SN/TN và hai mặt CAD; bao mặt 64 × 78. Kraus & Naimer có mặt S1 gần kích thước, Sigma có cùng nhóm ký hiệu nhưng kích thước khác. Các đặc trưng chưa xác định duy nhất hãng/mã hoặc sơ đồ cam, nên giữ chưa xác định.",
+      "missing_evidence": [
+        "Logo và mã thân chuyển mạch",
+        "Sơ đồ tiếp điểm/cam và kiểu gá"
+      ],
+      "update": {}
+    },
+    {
+      "n": 46,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_fb0f88f07ea922b0/thong_tin_thiet_bi.json",
+      "source_name": "Đế đèn",
+      "views": [
+        {
+          "id": "REV20261118-10B64E",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_fb0f88f07ea922b0/CadDon/REV20261118-10B64E/ban_ve.dxf",
+          "dxf_sha256": "7490f9fefa87741ac2f7726fc930cf09b6a4bc5b16e5f9076b55cd780f9b4966",
+          "preview_sha256": "0477fe413275de00dfa97a3cc4701af05e7119c5b41c213154616eeade2a6220",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "đui đèn 60 63 Vinakip",
+        "đui đèn E27 site:rangdong.com.vn"
+      ],
+      "document_urls": [
+        "https://sieuthi.rangdong.com.vn/dui-den-chong-tham-nuoc-e27-ip65"
+      ],
+      "reference_admitted": false,
+      "conclusion": "identity_unresolved",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "CAD thể hiện đế nghiêng, hai vị trí gá cách nhau 50 theo tọa độ nguồn, không có ký hiệu ren hoặc logo. Tài liệu đui E27 chỉ là mẫu đối chiếu, chưa đủ xác nhận chuẩn đui, hãng hay mã; không gán Rạng Đông/Vinakip từ hình dáng.",
+      "missing_evidence": [
+        "Ký hiệu loại đui/ren và tem hãng",
+        "Ảnh cạnh hoặc nhãn mã"
+      ],
+      "update": {}
+    },
+    {
+      "n": 49,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_25a9667f2ff5f861/thong_tin_thiet_bi.json",
+      "source_name": "Quả cầu chữa cháy 6KG",
+      "views": [
+        {
+          "id": "REV20261118-148310",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_25a9667f2ff5f861/CadDon/REV20261118-148310/ban_ve.dxf",
+          "dxf_sha256": "788222c5ec57620b0c7e601bd04b8cc4be031d67c2c88474ba6b61a4dce15e09",
+          "preview_sha256": "21619a1e873b2f296475ce9c08c0600bfc7da262d96f9e72de026e9a7cdd4ebe",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "6kg 270 automatic extinguisher manufacturer",
+        "6kg auto fire extinguisher cylinder"
+      ],
+      "document_urls": [
+        "https://www.donganfirefighting.com/product/automatic-fire-extinguisher/6kg-automatic-hanging-abc-dry-powder-fire-extinguisher.html",
+        "https://www.xlfireextinguisher.com/fire-extinguisher-cylinder/automatic-fire-extinguisher-cylinder/6kg-auto-fire-extinguisher-cylinder.html"
+      ],
+      "reference_admitted": false,
+      "conclusion": "identity_unresolved",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Đối chiếu bình treo tự động Dongan và Xingli đều có cỡ 6 kg/đường kính 270; vì có nhiều nguồn cùng cỡ, CAD chỉ ghi 6 KG không đủ chốt hãng/model. Giữ đúng loại bình treo có đầu phun, không xác nhận chất chữa cháy, nhiệt kích hoạt hay chứng nhận.",
+      "missing_evidence": [
+        "Nhãn nhà sản xuất và model bình",
+        "Nhãn đầu phun và hồ sơ sản phẩm"
+      ],
+      "update": {}
+    },
+    {
+      "n": 52,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_e2fb705f3f4cea2c/thong_tin_thiet_bi.json",
+      "source_name": "NKG-5",
+      "views": [
+        {
+          "id": "REV20261118-31DFDA",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_e2fb705f3f4cea2c/CadDon/REV20261118-31DFDA/ban_ve.dxf",
+          "dxf_sha256": "22aad2614d39d2b110758636c02e0fa7223a6c8677220ddaed4ce8892c621761",
+          "preview_sha256": "7a012ebc3e102c568d9706a204256cfea8c1b0ba0743f7205c69f78a042df21b",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "NKG-5 manufacturer timer",
+        "NKG-5 site:chintglobal.com",
+        "NKG5 NAKO"
+      ],
+      "document_urls": [
+        "https://wzazure.en.made-in-china.com/product/TOytALrEJIkb/China-Nkg-5-Dual-Circuit-Time-Controller-Microcomputer-Time-Controlled-Switch-Street-Lamp-Controller.html",
+        "https://senyiele.en.made-in-china.com/product-group/GbzAoqclYDkf/NKG5-1.html"
+      ],
+      "reference_admitted": false,
+      "conclusion": "identity_unresolved",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "NKG-5 là mã được nhiều nhà sản xuất/OEM công bố (Weilan, Senyi); CAD 36 × 82 chỉ có NKG-5/AUTO/LOCK. Chưa tìm được căn cứ chính chủ CHINT gắn với mẫu nguồn. Giữ mã NKG-5, hãng chưa xác định; không suy số kênh hay điện áp.",
+      "missing_evidence": [
+        "Tem hãng và mã phiên bản",
+        "Sơ đồ chân đúng mẫu"
+      ],
+      "update": {}
+    },
+    {
+      "n": 54,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_cab7339c6b178443/thong_tin_thiet_bi.json",
+      "source_name": "A$Cf470d8ba",
+      "views": [
+        {
+          "id": "REV20261118-32CB40",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_cab7339c6b178443/CadDon/REV20261118-32CB40/ban_ve.dxf",
+          "dxf_sha256": "63e0cb46a06f3d72f4e071c469d664bec1e6dceda897179e4cd216510e095e05",
+          "preview_sha256": "1217b5157ce08b4f19431ede65f5221746d44e9f876f0f57bad84957fc6937c2",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "E426UEST2/T site:se.com",
+        "Clipsal 72 114 universal socket"
+      ],
+      "document_urls": [
+        "https://www.se.com/th/en/product/E426UEST2%252FT/s-classic-16a-250v-3pin-duplex-universal-socket-outlet/"
+      ],
+      "reference_admitted": true,
+      "conclusion": "candidate_brand_or_family",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Đối chiếu tọa độ DWG: mẫu A$Cf470d8ba nằm trực tiếp phía trên chữ CLIPSAL, tách khỏi cột CHENG LI. Trang chính chủ Schneider xác nhận họ ổ cắm đôi universal E426UEST2/T; mặt nguồn phù hợp dạng này nhưng chưa đủ chốt mã đặt hàng hoặc dòng định mức. Lưu hãng/họ ứng viên, không xác nhận biến thể.",
+      "missing_evidence": [
+        "Tem mặt sau và mã đặt hàng",
+        "Dữ liệu cơ khí đúng biến thể"
+      ],
+      "update": {
+        "brand": "Clipsal",
+        "model": "Ổ cắm đôi · ứng viên họ E426UEST2/T",
+        "display": "Ổ cắm đôi Clipsal · ứng viên họ S-Classic"
+      }
+    },
+    {
+      "n": 55,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_9419a75300dea78a/thong_tin_thiet_bi.json",
+      "source_name": "A$Cb343c03b",
+      "views": [
+        {
+          "id": "REV20261118-32CB5A",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_9419a75300dea78a/CadDon/REV20261118-32CB5A/ban_ve.dxf",
+          "dxf_sha256": "043609cf89e2330fc6b9c62eab5659d21f0ec8ac7ab804f71913be3d16645632",
+          "preview_sha256": "a89e0591dfd088063244c2bcdcc9c225526fb9e82c19bf6a78bc538ccc3edd72",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "CHENG LI ổ cắm đôi model",
+        "CHENG LI công tắc ổ cắm Thành Lợi"
+      ],
+      "document_urls": [],
+      "reference_admitted": true,
+      "conclusion": "candidate_brand_or_family",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Đối chiếu tọa độ và hai cột trong DWG: A$Cb343c03b nằm phía trên chữ CHENG LI, còn mẫu bên trái thuộc CLIPSAL. Xác định nhãn hãng ứng viên từ chính nguồn CAD; chưa có catalogue chính chủ khớp mặt 76 × 118 hoặc mã sản phẩm. Không gán pháp nhân hay mã Clipsal cho mẫu này.",
+      "missing_evidence": [
+        "Tem CHENG LI và mã trên thân",
+        "Catalogue gốc đúng mẫu"
+      ],
+      "update": {
+        "brand": "CHENG LI",
+        "model": "Ổ cắm đôi · nhãn CHENG LI nguồn",
+        "display": "Ổ cắm đôi CHENG LI · nhãn nguồn"
+      }
+    },
+    {
+      "n": 63,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_e5f1f151582069f0/thong_tin_thiet_bi.json",
+      "source_name": "BGVFG Block",
+      "views": [
+        {
+          "id": "REV20261118-3956BB",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_e5f1f151582069f0/CadDon/REV20261118-3956BB/ban_ve.dxf",
+          "dxf_sha256": "75b86b398444c96baab01f02583f8bdee02690e9dfd87a1811c078c81b525b96",
+          "preview_sha256": "c3650b6207cc9f60c7b02c315445e81951b37d5017383cffc73b9681660b369d",
+          "face": "Chưa xác định hướng nhìn"
+        }
+      ],
+      "checked_queries": [
+        "BGVFG Block reactor",
+        "cuộn kháng Haveco 7.5kW"
+      ],
+      "document_urls": [],
+      "reference_admitted": false,
+      "conclusion": "identity_unresolved",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Tên BGVFG không phải mã đặt hàng đủ nhận diện. Hình giống cụm lõi/cuộn kháng; chú thích Cuộn kháng/Have co/7.5kW nằm ở các vị trí khác nhau, không có dây dẫn nhãn hoặc logo nối riêng mẫu này. Giữ chưa xác định hãng/model; không chuyển 7,5 kW thành công suất đã chọn.",
+      "missing_evidence": [
+        "Tem cuộn kháng và mã đặt hàng",
+        "Tài liệu hoặc chú thích gốc xác định quan hệ nhãn–hình"
+      ],
+      "update": {}
+    },
+    {
+      "n": 64,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_80fc40b8c309a4e2/thong_tin_thiet_bi.json",
+      "source_name": "CML250A",
+      "views": [
+        {
+          "id": "REV20261118-39C7D8",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_80fc40b8c309a4e2/CadDon/REV20261118-39C7D8/ban_ve.dxf",
+          "dxf_sha256": "9d12fc37149cadeb54eec244f19d9721d3a00e4a0739daebafa90fe3108eafa9",
+          "preview_sha256": "bd44543a2a05f12b8cc99f3115152cb99a9859364fe2057bf3739ece111abf50",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "CML biến dòng catalogue",
+        "CML RCT current transformer manufacturer",
+        "RCT catalogue CML ILEC"
+      ],
+      "document_urls": [
+        "https://vanvh.com/upload/files/BG2021morele1.pdf",
+        "https://www.ple.vn/images/virtuemart/datasheet-2/ilec-rct-cate.pdf"
+      ],
+      "reference_admitted": true,
+      "conclusion": "candidate_brand_or_family",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Đọc trực tiếp nhãn CML 250/5A trên CAD và phân biệt với hàng EMIC phía trên. CML được lưu như nhãn/ứng viên thương hiệu, chưa xác định pháp nhân nhà sản xuất. Catalogue mang tiêu đề CML trên Scribd thực tế là iLEC: đã loại làm bằng chứng hãng, không đổi mẫu thành iLEC/EMIC hoặc tự chọn mã RCT. Tỷ số trong nhãn nguồn chưa phải cấu hình điện được duyệt.",
+      "missing_evidence": [
+        "Catalogue hoặc tem gốc xác định nhà sản xuất CML",
+        "Mã thân, tỷ số và thông số đúng biến thể"
+      ],
+      "update": {
+        "brand": "CML",
+        "model": "CML · nhãn 250/5A",
+        "display": "Biến dòng nhãn CML · 250/5A"
+      }
+    },
+    {
+      "n": 65,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_329cca0810475ebd/thong_tin_thiet_bi.json",
+      "source_name": "CML400A-600A",
+      "views": [
+        {
+          "id": "REV20261118-39C814",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_329cca0810475ebd/CadDon/REV20261118-39C814/ban_ve.dxf",
+          "dxf_sha256": "59156e83dc8379791d5683de562448e15ca3ef33a6596dfb516fe4fcf069d664",
+          "preview_sha256": "537fc2f3801b60c4fe795916280cef77df31c4b449e40441ef5d84f708e8ccef",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "CML biến dòng catalogue",
+        "CML RCT current transformer manufacturer",
+        "RCT catalogue CML ILEC"
+      ],
+      "document_urls": [
+        "https://vanvh.com/upload/files/BG2021morele1.pdf",
+        "https://www.ple.vn/images/virtuemart/datasheet-2/ilec-rct-cate.pdf"
+      ],
+      "reference_admitted": true,
+      "conclusion": "candidate_brand_or_family",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Đọc trực tiếp nhãn CML 400/5A · chú thích 400/600 trên CAD và phân biệt với hàng EMIC phía trên. CML được lưu như nhãn/ứng viên thương hiệu, chưa xác định pháp nhân nhà sản xuất. Catalogue mang tiêu đề CML trên Scribd thực tế là iLEC: đã loại làm bằng chứng hãng, không đổi mẫu thành iLEC/EMIC hoặc tự chọn mã RCT. Tỷ số trong nhãn nguồn chưa phải cấu hình điện được duyệt.",
+      "missing_evidence": [
+        "Catalogue hoặc tem gốc xác định nhà sản xuất CML",
+        "Mã thân, tỷ số và thông số đúng biến thể"
+      ],
+      "update": {
+        "brand": "CML",
+        "model": "CML · nhãn 400/5A · chú thích 400/600",
+        "display": "Biến dòng nhãn CML · 400/5A · chú thích 400/600"
+      }
+    },
+    {
+      "n": 66,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_9fc82a5ff94b36b4/thong_tin_thiet_bi.json",
+      "source_name": "CML500A",
+      "views": [
+        {
+          "id": "REV20261118-3A3682",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_9fc82a5ff94b36b4/CadDon/REV20261118-3A3682/ban_ve.dxf",
+          "dxf_sha256": "784027693b7605923743aa251a220e332be053f6a09ab8418022374fa71e87a5",
+          "preview_sha256": "300ec0f2e85389b2aa927f913bbf6765525973a6299a22ed4b8d3f7685c55143",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "CML biến dòng catalogue",
+        "CML RCT current transformer manufacturer",
+        "RCT catalogue CML ILEC"
+      ],
+      "document_urls": [
+        "https://vanvh.com/upload/files/BG2021morele1.pdf",
+        "https://www.ple.vn/images/virtuemart/datasheet-2/ilec-rct-cate.pdf"
+      ],
+      "reference_admitted": true,
+      "conclusion": "candidate_brand_or_family",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Đọc trực tiếp nhãn CML 500/5A trên CAD và phân biệt với hàng EMIC phía trên. CML được lưu như nhãn/ứng viên thương hiệu, chưa xác định pháp nhân nhà sản xuất. Catalogue mang tiêu đề CML trên Scribd thực tế là iLEC: đã loại làm bằng chứng hãng, không đổi mẫu thành iLEC/EMIC hoặc tự chọn mã RCT. Tỷ số trong nhãn nguồn chưa phải cấu hình điện được duyệt.",
+      "missing_evidence": [
+        "Catalogue hoặc tem gốc xác định nhà sản xuất CML",
+        "Mã thân, tỷ số và thông số đúng biến thể"
+      ],
+      "update": {
+        "brand": "CML",
+        "model": "CML · nhãn 500/5A",
+        "display": "Biến dòng nhãn CML · 500/5A"
+      }
+    },
+    {
+      "n": 67,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_ab89114a360b7857/thong_tin_thiet_bi.json",
+      "source_name": "CML800A-2000A",
+      "views": [
+        {
+          "id": "REV20261118-3A36BA",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_ab89114a360b7857/CadDon/REV20261118-3A36BA/ban_ve.dxf",
+          "dxf_sha256": "28fb0c9ee89cb0bf2fd7a0e1e0659cb855f8da8802aa677826dcd41262822ea8",
+          "preview_sha256": "1a94ecc3a728cf4602bcce3555d38b2a851bb5154531ed3ed2ada7922168e58b",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "CML biến dòng catalogue",
+        "CML RCT current transformer manufacturer",
+        "RCT catalogue CML ILEC"
+      ],
+      "document_urls": [
+        "https://vanvh.com/upload/files/BG2021morele1.pdf",
+        "https://www.ple.vn/images/virtuemart/datasheet-2/ilec-rct-cate.pdf"
+      ],
+      "reference_admitted": true,
+      "conclusion": "candidate_brand_or_family",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Đọc trực tiếp nhãn CML 800/5A · chú thích 800/2000 trên CAD và phân biệt với hàng EMIC phía trên. CML được lưu như nhãn/ứng viên thương hiệu, chưa xác định pháp nhân nhà sản xuất. Catalogue mang tiêu đề CML trên Scribd thực tế là iLEC: đã loại làm bằng chứng hãng, không đổi mẫu thành iLEC/EMIC hoặc tự chọn mã RCT. Tỷ số trong nhãn nguồn chưa phải cấu hình điện được duyệt.",
+      "missing_evidence": [
+        "Catalogue hoặc tem gốc xác định nhà sản xuất CML",
+        "Mã thân, tỷ số và thông số đúng biến thể"
+      ],
+      "update": {
+        "brand": "CML",
+        "model": "CML · nhãn 800/5A · chú thích 800/2000",
+        "display": "Biến dòng nhãn CML · 800/5A · chú thích 800/2000"
+      }
+    },
+    {
+      "n": 68,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_2843e35f52e3b5d6/thong_tin_thiet_bi.json",
+      "source_name": "CML3200A",
+      "views": [
+        {
+          "id": "REV20261118-3A379C",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_2843e35f52e3b5d6/CadDon/REV20261118-3A379C/ban_ve.dxf",
+          "dxf_sha256": "0805a727c9aa62b69ce4ae7ffadf88536adb6f44b7d3985e5b318db883f12310",
+          "preview_sha256": "05b45c1622ab052afc3e1186c1b3597b208f872c77116d1a5f6b0a7678d6db5d",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "CML biến dòng catalogue",
+        "CML RCT current transformer manufacturer",
+        "RCT catalogue CML ILEC"
+      ],
+      "document_urls": [
+        "https://vanvh.com/upload/files/BG2021morele1.pdf",
+        "https://www.ple.vn/images/virtuemart/datasheet-2/ilec-rct-cate.pdf"
+      ],
+      "reference_admitted": true,
+      "conclusion": "candidate_brand_or_family",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Đọc trực tiếp nhãn CML 3200/5A trên CAD và phân biệt với hàng EMIC phía trên. CML được lưu như nhãn/ứng viên thương hiệu, chưa xác định pháp nhân nhà sản xuất. Catalogue mang tiêu đề CML trên Scribd thực tế là iLEC: đã loại làm bằng chứng hãng, không đổi mẫu thành iLEC/EMIC hoặc tự chọn mã RCT. Tỷ số trong nhãn nguồn chưa phải cấu hình điện được duyệt.",
+      "missing_evidence": [
+        "Catalogue hoặc tem gốc xác định nhà sản xuất CML",
+        "Mã thân, tỷ số và thông số đúng biến thể"
+      ],
+      "update": {
+        "brand": "CML",
+        "model": "CML · nhãn 3200/5A",
+        "display": "Biến dòng nhãn CML · 3200/5A"
+      }
+    },
+    {
+      "n": 75,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_0b4737d2f5c1107d/thong_tin_thiet_bi.json",
+      "source_name": "Auto Start V1.0",
+      "views": [
+        {
+          "id": "REV20261118-3AA541",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_0b4737d2f5c1107d/CadDon/REV20261118-3AA541/ban_ve.dxf",
+          "dxf_sha256": "8cbdf654a2831ae560a5a7dc66d93affc6a29f835b46281bd071f8967c6ab11a",
+          "preview_sha256": "fe1c4d92afb702d8174a1b6836523b1bba6becda5111e703bb3b45df567a2ea0",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "Auto Start V1.0 GTpro",
+        "site:dientugtpro.com V1.0",
+        "sơ đồ đấu nối auto start GTPRO"
+      ],
+      "document_urls": [
+        "https://dientugtpro.com/bo-dieu-khien-auto-star-v1-1/",
+        "https://www.scribd.com/document/462297413/s%C6%A1-%C4%91%E1%BB%93-%C4%91%E1%BA%A5u-n%E1%BB%91i-auto-start"
+      ],
+      "reference_admitted": true,
+      "conclusion": "candidate_brand_or_family",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Trang chính chủ GTpro nêu V1.1 phát triển từ Auto Start V1.0. Sơ đồ mang nhãn GTPRO/AUTO START V1.0 đối chiếu đủ 11 cọc: 1 B+, 2 B−, 3 Heater, 4 Crank, 5 Fuel, 6 Stop, 7 Remote, 8 Water, 9 Oil, 10 Gens(N), 11 Gens(L), phù hợp CAD. Nhận diện tương đối GTpro V1.0, không đổi thành V1.1 hoặc chốt điện áp/firmware.",
+      "missing_evidence": [
+        "Tem GTpro trên bo gốc",
+        "Phiên bản phần cứng/firmware và tài liệu đúng bo"
+      ],
+      "update": {
+        "brand": "GTpro",
+        "model": "Auto Start V1.0 · ứng viên GTpro",
+        "display": "Bo điều khiển GTpro Auto Start V1.0 · ứng viên"
+      }
+    },
+    {
+      "n": 76,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_6e972540eac9dc60/thong_tin_thiet_bi.json",
+      "source_name": "Đồng hồ cơ loại nhỏ",
+      "views": [
+        {
+          "id": "REV20261118-3AB633",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_6e972540eac9dc60/CadDon/REV20261118-3AB633/ban_ve.dxf",
+          "dxf_sha256": "17950ad29936d696e20dc848adb2e299368bef036c7a59b39189ad55b48f4637",
+          "preview_sha256": "d97d538b3060eb0f7cd7da1a81574f67973e38c93cea122c4d5ebde62fa2e8eb",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "analog panel meter 81 81",
+        "DE-80 analog meter manufacturer"
+      ],
+      "document_urls": [
+        "https://www.deree.com.tw/de-80.html",
+        "https://www.mph-elec.co.il/GenericHendler/GetFile.ashx?DG=3635"
+      ],
+      "reference_admitted": false,
+      "conclusion": "identity_unresolved",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Bao CAD 81 × 81, vòng tròn Ø65 và bốn lỗ gá gần góc phù hợp họ DE-80. DER EE và catalogue Dixsen đều công bố DE-80; không thể chọn một hãng từ cùng hình học. Nhiều nét chồng ở phần dưới nên vẫn giữ mặt nguồn tham khảo, chưa coi là mặt lắp đã xác minh.",
+      "missing_evidence": [
+        "Logo hoặc tem hãng",
+        "Phân biệt mặt thân với phần hình chồng, mã và thang đo"
+      ],
+      "update": {
+        "model": "DE-80 · họ hình học ứng viên đa hãng"
+      }
+    },
+    {
+      "n": 113,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_324ff19f99703065/thong_tin_thiet_bi.json",
+      "source_name": "front-1000va",
+      "views": [
+        {
+          "id": "REV20261118-431D48",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_324ff19f99703065/CadDon/REV20261118-431D48/ban_ve.dxf",
+          "dxf_sha256": "392afd5eb1a0c61f52520a43df3b149d596926fff61f556c58c25998885118ef",
+          "preview_sha256": "06b2cb9b367025c0e53d5045268d7e8db9a49453f753f67333a208954f059d41",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "1000VA control transformer 176 170",
+        "JBK3-1000 dimensions manufacturer"
+      ],
+      "document_urls": [
+        "https://www.zx-ele.com/power-supply-transformer/",
+        "https://www.cncele.com/uploads/JBK-%E6%A0%B7%E6%9C%AC-23.11.181.pdf"
+      ],
+      "reference_admitted": false,
+      "conclusion": "identity_unresolved",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Mặt trước biến áp nguồn 1000VA không có tem. Đã đối chiếu JBK3/JBK5 của Zhengxi và CNC: chưa khớp đồng thời bao CAD khoảng 176,04 × 170,35, hai dãy cọc và gá. Không gán Omron từ bộ nguồn S8FS ở ô gần bên, không coi công suất trong tên file là thông số đã duyệt.",
+      "missing_evidence": [
+        "Tem hãng và mã biến áp",
+        "Điện áp từng cuộn và bản vẽ gá đúng mã"
+      ],
+      "update": {}
+    },
+    {
+      "n": 114,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_6455eeb8e19c388a/thong_tin_thiet_bi.json",
+      "source_name": "side-1000va",
+      "views": [
+        {
+          "id": "REV20261118-431D4A",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_6455eeb8e19c388a/CadDon/REV20261118-431D4A/ban_ve.dxf",
+          "dxf_sha256": "f8186248031843c5de2dbffe0e74a2599ec9212a65385ecc75aaa002a3a89b1b",
+          "preview_sha256": "d0305a62cd04b6f4820b1c7b6a374ffb4200e7941299c739cd8ec623246f5357",
+          "face": "Mặt bên"
+        }
+      ],
+      "checked_queries": [
+        "1000VA control transformer side dimensions",
+        "JBK3-1000 176 transformer"
+      ],
+      "document_urls": [
+        "https://www.zx-ele.com/power-supply-transformer/",
+        "https://www.cncele.com/uploads/JBK-%E6%A0%B7%E6%9C%AC-23.11.181.pdf"
+      ],
+      "reference_admitted": false,
+      "conclusion": "identity_unresolved",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Mặt bên nguồn side-1000va không có tem; đối chiếu họ JBK phổ biến chưa xác định duy nhất hãng/mã. Chỉ cùng hậu tố 1000va không đủ ghép chắc chắn với front-1000va, vì chưa có mốc và dữ liệu đồng nhất giữa hai hình.",
+      "missing_evidence": [
+        "Tem mã hoặc liên kết mặt gốc",
+        "Bản vẽ đúng mã cho mặt trước và mặt bên"
+      ],
+      "update": {}
+    },
+    {
+      "n": 115,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_3216076d52e8bee4/thong_tin_thiet_bi.json",
+      "source_name": "front-500va",
+      "views": [
+        {
+          "id": "REV20261118-431D4C",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_3216076d52e8bee4/CadDon/REV20261118-431D4C/ban_ve.dxf",
+          "dxf_sha256": "e1b9277b985276edec8934bb76ca5f25023fa6a03e8ca02989aed0486955405d",
+          "preview_sha256": "8a4f87c37c7adce8d0e495b49cc9565fb02c7adf19707e14c2cda37341380c8e",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "500VA control transformer 147 155",
+        "JBK5-500 dimensions transformer"
+      ],
+      "document_urls": [
+        "https://www.zx-ele.com/power-supply-transformer/",
+        "https://www.cncele.com/uploads/JBK-%E6%A0%B7%E6%9C%AC-23.11.181.pdf"
+      ],
+      "reference_admitted": false,
+      "conclusion": "identity_unresolved",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Mặt trước nguồn 500VA không có logo hoặc cọc được ghi điện áp. Tài liệu JBK/BK không đủ khớp riêng hình 147,54 × 155,44; giữ loại biến áp tham khảo, chưa xác định hãng/model và không gán nhãn Omron của bộ nguồn ở gần.",
+      "missing_evidence": [
+        "Tem hãng và mã biến áp",
+        "Điện áp cuộn dây, công suất và gá đúng mã"
+      ],
+      "update": {}
+    },
+    {
+      "n": 129,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_c96899fb8ff806d8/thong_tin_thiet_bi.json",
+      "source_name": "Cầu đấu 20A",
+      "views": [
+        {
+          "id": "REV20261118-59F7EE",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_c96899fb8ff806d8/CadDon/REV20261118-59F7EE/ban_ve.dxf",
+          "dxf_sha256": "b1f11ca33669022ea595c2e2f9e8cc38d5bbf8257e37ca7774f242d40dda0701",
+          "preview_sha256": "d27e2ae6638f3021c9b6bf1bbfb17c98ae004c04fcdaa274a6d6f77027ed2a5f",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "terminal block 74.5 50.5",
+        "20A 5 poles terminal block IDEC Kasuga"
+      ],
+      "document_urls": [
+        "https://www.otax-en.com/wp-content/uploads/2026/02/20260213-KASUGA-Terminal-Block-aggregated-brochure-R01.pdf",
+        "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/7466/EP1147-0Terminalblock_070308.pdf"
+      ],
+      "reference_admitted": false,
+      "conclusion": "identity_unresolved",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "CAD có 5 cặp vít làm việc và hai đế kẹp, nhãn 20A*5; bao 74,5 × 50,5, bước vít theo CAD khoảng 11,1. Đối chiếu Kasuga/IDEC chưa có mã khớp đầy đủ đế, bước và kích thước; không nâng nhãn 20A thành định mức đã xác minh hoặc gán hãng.",
+      "missing_evidence": [
+        "Logo và mã phiến cầu đấu/đế chặn",
+        "Catalogue đúng tổ hợp 5 vị trí"
+      ],
+      "update": {}
+    },
+    {
+      "n": 150,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_a9900a4f5c38cfb5/thong_tin_thiet_bi.json",
+      "source_name": "v.Fuse1P.0",
+      "views": [
+        {
+          "id": "REV20261118-7D9177",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_a9900a4f5c38cfb5/CadDon/REV20261118-7D9177/ban_ve.dxf",
+          "dxf_sha256": "000220f13f03a0bcb3dcb6de7660fa6c3f432b9790eea69869651a096d634504",
+          "preview_sha256": "1940957c35cb4443aa75127fdd3718db037d1d27e9316abe1c214c291e7726c5",
+          "face": "Mặt trước"
+        }
+      ],
+      "checked_queries": [
+        "phase protector 17.5 90 three LED",
+        "ANLY APR-3 dimensions",
+        "Multispan VPR-17 dimensions"
+      ],
+      "document_urls": [
+        "https://anly.com.tw/downloadfile.php?file=APR_WA.pdf",
+        "https://multispanindia.com/varient.php/voltage-protection-relay-3-knob"
+      ],
+      "reference_admitted": false,
+      "conclusion": "identity_unresolved",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Mặt ghi PHASE PROTECTOR, bao 17,5 × 90 và ba vòng đèn; không phải cầu chì. ANLY APR-3 là kiểu đế/chân và bao khác; Multispan VPR-17 cùng cỡ nhưng có núm chỉnh, không giống CAD. Đã loại các gán hãng này, chưa tìm được model duy nhất.",
+      "missing_evidence": [
+        "Tem hãng/model và sơ đồ cọc",
+        "Mặt cạnh hoặc ảnh đủ đọc đèn/núm"
+      ],
+      "update": {}
+    },
+    {
+      "n": 152,
+      "profile": "Phụ kiện tủ điện/ThietBi/REV20261118_47fa991cb3061a93/thong_tin_thiet_bi.json",
+      "source_name": "Fan 200 x200",
+      "views": [
+        {
+          "id": "REV20261118-7D93AA",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_47fa991cb3061a93/CadDon/REV20261118-7D93AA/ban_ve.dxf",
+          "dxf_sha256": "5f0e28880f1cdc4998a76bbf56a30c8ca32860ec6c3912619375e0451a0ebb8e",
+          "preview_sha256": "85af11419289835b27ef8922c6198bd724498ffd713695498899a35af71abe6d",
+          "face": "Mặt trước"
+        },
+        {
+          "id": "REV20261118-7D93AD",
+          "path": "Phụ kiện tủ điện/ThietBi/REV20261118_47fa991cb3061a93/CadDon/REV20261118-7D93AD/ban_ve.dxf",
+          "dxf_sha256": "c33002f31f8ddeefcdc07549774cd38bfb431d69834fb15d60fb7668cf92b285",
+          "preview_sha256": "ea3f1e71ac17bb13a1fd2eb30b02ce66bf0b41ab3329d33e6de6704e00f0507a",
+          "face": "Mặt bên"
+        }
+      ],
+      "checked_queries": [
+        "200 200 61 AC axial fan manufacturer",
+        "SUNON 200 200 60 fan datasheet"
+      ],
+      "document_urls": [
+        "https://www.sunon.com.cn/MANAGE/Docs/PRODUCT/313/359/SUNON%20AC%20Fan_%28257-C%29.pdf",
+        "https://wolunele.en.made-in-china.com/product/SKgEVrflgHUj/China-200-200-61-Mini-AC-Axial-Cooling-Fan-Exhaust-Fan.html"
+      ],
+      "reference_admitted": false,
+      "conclusion": "identity_unresolved",
+      "manufacturer_confirmed": false,
+      "exact_ordering_code_verified": false,
+      "electrical_configuration_verified": false,
+      "note": "Nguồn có mặt cánh 200 × 200 và mặt bên dày 61. Nhà sản xuất Wolun có họ 20060 cùng cỡ; catalogue SUNON và chú thích Morele/Sunon gần đó chưa đủ buộc một nhãn vào mẫu này. Giữ chưa xác định hãng, mã 20060/20061 chỉ là gợi ý tìm theo cỡ; không xác nhận nguồn AC, lưu lượng hoặc vòng bi.",
+      "missing_evidence": [
+        "Tem trên tâm quạt và mã đầy đủ",
+        "Điện áp, dây/cọc và bản vẽ lỗ gá đúng mã"
+      ],
+      "update": {
+        "model": "20060/20061 · cỡ hình học tham khảo"
+      }
+    }
+  ]
+}

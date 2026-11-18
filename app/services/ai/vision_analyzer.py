@@ -103,8 +103,16 @@ def normalize_antigravity_model(model: str) -> str:
 
 
 def antigravity_thinking_config(model: str) -> Dict[str, Any]:
-    """Translate the catalog tier into Gemini's internal reasoning budget."""
+    """Use the lowest supported extraction setting without changing the model ID."""
     clean = (model or "").lower().strip()
+    if re.search(r'gemini-3\.8',clean):
+        return {'thinkingLevel':'low','includeThoughts':False}
+    if re.search(r'gemini-3\.(?:6|5|1)-flash|gemini-3-flash',clean):
+        return {'thinkingLevel':'minimal','includeThoughts':False}
+    if re.search(r'gemini-3',clean):
+        return {'thinkingLevel':'low','includeThoughts':False}
+    if re.search(r'gemini-2\.5.*flash',clean):
+        return {'thinkingBudget':0,'includeThoughts':False}
     if re.search(r"(?:-|tiered\()high\)?$", clean):
         return {"thinkingBudget": 8192}
     if re.search(r"(?:-|tiered\()low\)?$", clean):

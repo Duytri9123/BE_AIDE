@@ -48,7 +48,7 @@ class EvidenceCompletionTests(unittest.IsolatedAsyncioTestCase):
   d=ExtractedDeviceSchema(category='MCB',name='MCB',spec='',tag='L4',connected_load='Chiếu sáng')
   call=AsyncMock(return_value=json.dumps({'boxes':[]}))
   result=await complete_evidence(Image.new('RGB',(100,100)),'source.png',[d],{'boxes':[]},call)
-  self.assertEqual(call.await_count,2)
+  self.assertEqual(call.await_count,1)  # Identical missing evidence must not trigger the same reread again.
   self.assertEqual(len(evidence_gaps(d,None)),3)
   self.assertEqual(result['boxes'],[])
 

@@ -2,6 +2,12 @@
 import re
 
 
+def is_direct_starter_label(row):
+    label = str(row.get('observed_text') or row.get('spec') or '').strip()
+    return bool(re.fullmatch(r'D\.?\s*O\.?\s*L\.?', label, re.I) or
+                re.search(r'khởi động trực tiếp|direct.on.line', str(row.get('name') or ''), re.I))
+
+
 def enrich_motor_starters(devices):
     for device in devices:
         identity = ' '.join(str(device.get(k) or '') for k in ('category', 'name', 'spec', 'electrical_function'))

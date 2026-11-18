@@ -70,6 +70,8 @@ def apply_verified_boxes(devices: List[ExtractedDeviceSchema], payload: Any, req
             device.evidence_region.update(tag_verified=matches[0].get('tag_matches') is True)
             device.evidence_region.update(status='verified',reason='Đã đối chiếu ký hiệu và nhãn trên vùng ảnh nguồn.')
             device.evidence_region.update(coordinate_space='normalized_1000', box_2d=list(device.box_2d))
+            device.evidence_region.update(source_overlap=matches[0].get('source_overlap') is True,
+                identity_unambiguous=matches[0].get('identity_unambiguous') is True)
             if matches[0].get('shared_label') is True:
                 device.evidence_region.update(shared_label=True, shared_label_verified=True,
                     shared_label_relationship=matches[0].get('relationship_evidence'))

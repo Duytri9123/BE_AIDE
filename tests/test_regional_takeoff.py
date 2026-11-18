@@ -2,14 +2,34 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from unittest.mock import AsyncMock
+from unittest.mock import AsyncMock, patch
 
 from PIL import Image
 from app.services.ai.regional_takeoff import extract_regions, map_box, deduplicate_parts
 from app.services.ai.motor_starter_context import enrich_motor_starters
 
 
+async def keep_disputes(image, regions, parts, issues, call_image, **kwargs):
+    return issues, []
+
+
 class RegionalTests(unittest.IsolatedAsyncioTestCase):
+    def test_explicit_source_type_survives_a_vietnamese_breaker_category(self):
+        from app.services.ai.scoped_takeoff import normalize_scoped_row
+        row = normalize_scoped_row({'category': 'Aptomat chống dòng rò', 'name': 'Aptomat',
+                                   'spec': '2P 20A 6kA', 'observed_text': 'RCBO 2P 20A 6KA'})
+        self.assertEqual(row['category'], 'RCBO')
+
+    async def test_dol_assembly_is_retained_when_provider_calls_it_a_functional_block(self):
+        call = AsyncMock(side_effect=[json.dumps(v) for v in (
+            {'regions': []}, {'devices': [{'name': 'DOL', 'spec': 'DOL', 'observed_text': 'DOL',
+                'record_kind': 'functional_block', 'quantity': 1}]}, {'issues': []})])
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder)/'source.png'; Image.new('RGB', (100, 100)).save(path)
+            result = await extract_regions(path, 'Read', call)
+        self.assertEqual(result['devices'][0]['record_kind'], 'assembly')
+        self.assertEqual(result['devices'][0]['quantity'], 1)
+
     def test_inverse_quarter_turn_and_crop_mapping(self):
         self.assertEqual(map_box([100, 200, 300, 400], [200, 400, 800, 1000]), [260, 520, 380, 640])
         self.assertEqual(map_box([100, 200, 300, 400], [0, 0, 1000, 1000], 90), [600, 100, 800, 300])
@@ -18,6 +38,7 @@ class RegionalTests(unittest.IsolatedAsyncioTestCase):
             rotated = map_box(original, [0, 0, 1000, 1000], angle)
             self.assertEqual(map_box(rotated, [0, 0, 1000, 1000], 360-angle), original)
 
+    @patch('app.services.ai.source_issue_review.adjudicate_issues', new=keep_disputes)
     async def test_quantity_recovery_preserves_notes_and_maps_ids(self):
         scan = {'regions': [{'box_2d': [500, 0, 1000, 1000]}], 'inventory': [{'name': 'PSU', 'quantity': 6}]}
         first = {'devices': [{'name': 'PSU', 'quantity': 1}, {'name': 'BMS', 'record_kind': 'external_interface'}, {'name': 'Vỏ tủ điện', 'category': 'ENCLOSURE'}],
@@ -38,6 +59,7 @@ class RegionalTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(obs['panel_notes'][0]['name'], 'BMS')
         self.assertEqual(call.await_count, 5)
 
+    @patch('app.services.ai.source_issue_review.adjudicate_issues', new=keep_disputes)
     async def test_failed_repair_retains_read_rows_and_unresolved_state(self):
         call = AsyncMock(side_effect=[json.dumps(v) for v in (
             {'regions': []}, {'devices': [{'name': 'DOL', 'quantity': 1}]},

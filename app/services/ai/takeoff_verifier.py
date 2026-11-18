@@ -25,6 +25,23 @@ Trả JSON {"passed":true/false,"feedback":"sai lệch cụ thể theo tủ/lộ
 """
 
 
+def source_interpretation(row):
+    """Carry compact checked source facts between audits, never embedded images."""
+    observations = row.get('source_observations')
+    if not isinstance(observations, dict):
+        return {}
+    result = {}
+    for key in ('group_annotation', 'linked_device'):
+        fact = observations.get(key)
+        if isinstance(fact, dict):
+            result[key] = {k: fact[k] for k in ('kind', 'basis', 'branch_tags', 'observed') if k in fact}
+    checks = observations.get('source_checks')
+    if isinstance(checks, list):
+        result['source_checks'] = [{k:c[k] for k in ('observed_text','field','value','verification_status') if k in c}
+                                  for c in checks if isinstance(c, dict) and c.get('verification_status') == 'verified']
+    return result
+
+
 def engineering_review(payload):
     """Symbol/group counts are not blockers for engineering material quantities."""
     if not isinstance(payload, dict) or not isinstance(payload.get('issues'), list):
@@ -37,7 +54,22 @@ def engineering_review(payload):
     return {'passed': not blocking, 'feedback': '\n'.join(str(i.get('detail') or i['code']) for i in blocking)}
 
 
-async def verify_takeoff(db, files, devices, message, observations, *, engineering_quantities=False):
+async def verify_takeoff(db, files, devices, message, observations, *, engineering_quantities=False, scoped_validation=None):
+    from app.services.ai.scoped_validation import ScopedValidation, source_revision
+    for file in files:
+        revisions={(r.get('source_observations') or {}).get('source_revision') for r in devices if r.get('source_file_id') == file.id}
+        revisions.discard(None)
+        if revisions:
+            current=await asyncio.to_thread(source_revision,file.file_path)
+            if revisions != {current}:
+                return {'passed':False,'feedback':'File nguồn đã thay đổi trong khi đọc; cần đọc lại vùng đã chọn.','code':'source_changed'}
+    if isinstance(scoped_validation, ScopedValidation):
+        try:
+            reusable = await asyncio.to_thread(scoped_validation.matches, files, devices, observations)
+        except OSError:
+            reusable = False
+        if reusable:
+            return {'passed': True, 'feedback': '', 'validation_basis': 'completed_scoped_coverage_and_crop_checks'}
     connections = await ConnectionPoolService.get_ordered_connections(db)
     if not connections:
         return {'passed': False, 'feedback': 'Chưa có model để kiểm chứng bản vẽ; chưa lưu kết quả.'}
@@ -53,7 +85,10 @@ async def verify_takeoff(db, files, devices, message, observations, *, engineeri
             audit_rows = [{key: value for key, value in row.items() if key in {
                 'name', 'category', 'tag', 'spec', 'quantity', 'unit', 'panel_code', 'location',
                 'notes', 'evidence', 'observed_text', 'evidence_region', 'source_page',
-                'source_file_id', 'source_filename', 'poles', 'in_a', 'icu_ka'}} for row in rows]
+                'source_file_id', 'source_filename', 'poles', 'in_a', 'icu_ka', 'quantity_basis', 'drawing_quantity'}} for row in rows]
+            for source, audit_row in zip(rows, audit_rows):
+                facts = source_interpretation(source)
+                if facts:audit_row['source_interpretation'] = facts
             path = Path(file.file_path)
             images = []
             scoped_zoom = next((o.get('arguments') for o in reversed(observations)
@@ -152,6 +187,11 @@ async def verify_takeoff(db, files, devices, message, observations, *, engineeri
                             'Thiếu/sai số lượng thực theo ký hiệu lặp hoặc hệ số nguồn là wrong_quantity; '
                             'phân biệt với khác cách biểu diễn một cụm nhiều pha. BMS/tín hiệu ngoài và '
                             'ghi chú lắp đặt không mặc định là thiết bị mua rời. '
+                            'Đối chiếu thêm source_interpretation: đường ngang dẫn nhãn chung có thể đi qua '
+                            'nhiều nhánh, không tự coi nó là liên động các cực của một thiết bị. So mẫu lặp '
+                            'trong cùng nguồn. Giữ số ghi chú số lượng nguyên văn đã đọc rõ; khối mạch chưa rõ '
+                            'phần cứng không phải một thiết bị mua rời. Cho phép vị trí/chữ/ký hiệu chồng nhau '
+                            'như nguồn, kiểm đúng định danh thay vì yêu cầu tách ảnh. '
                             'Nếu chỉ khác cách biểu diễn số lượng thì issues rỗng.\n' + json.dumps({
                                 'request': message, 'source_page': page, 'source_region': region,
                                 'source_inventory': inventory, 'candidate': audit_rows}, ensure_ascii=False)))

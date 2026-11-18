@@ -1,5 +1,7 @@
 # Regional takeoff validation — 18 November 2026
 
+Update: see [source overlap and EL validation](source-overlap-and-el-validation-20261118.md) for the subsequent P19/P20 resolution, verified source notes, overlap handling and EL performance work. The failed audits below remain historical measurements.
+
 Confirmed-panel extraction now discovers up to six image regions before reading them, with at most two concurrent region reads per request. Each crop keeps its actual pixel bounds and quarter-turn transform; evidence coordinates are mapped back to the selected panel image before auditing. The independent coverage review checks omitted controls and real quantity discrepancies. At most two flagged regions are reread. Unresolved results remain visible with a review status.
 
 No local OCR model is loaded by default. The legacy image pipeline can opt in with `AI_LOCAL_OCR_ENABLED=true`. This is a per-request concurrency bound, not a measured system-wide throughput guarantee. Vision HTTP calls and Celery generation tasks retain their existing unlimited generation timeout.

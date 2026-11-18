@@ -14,7 +14,7 @@ from app.services.ai.response_parser import ResponseParserService
 from app.services.ai.el_progress import run_step
 
 
-async def audit_device_previews(image, call_image, devices, payload, *, concurrency=1):
+async def audit_device_previews(image, call_image, devices, payload, *, concurrency=1, cache_scope=None, batch_size=3):
     proposals = [r for r in payload.get('boxes', []) if isinstance(r, dict)]
     counts = Counter(str(r.get('device_id')) for r in proposals)
     rows = {}
@@ -42,7 +42,16 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                 and other.get('symbol_box_2d') != row.get('symbol_box_2d')
                 for other_id, other in rows.items()):
             row['shared_label'] = True
-    identities = [identity for identity, row in rows.items() if row.get('verified') is True]
+    from app.services.ai.audit_checkpoint import AuditCheckpoint
+    checkpoint = AuditCheckpoint(image, cache_scope)
+    identities = []
+    for identity, row in rows.items():
+        if row.get('verified') is True:
+            cached = await checkpoint.get(identity, devices[int(identity)], row)
+            if cached is not None:
+                rows[identity] = cached
+            else:
+                identities.append(identity)
     semaphore = asyncio.Semaphore(max(1, min(concurrency, 2)))
 
     async def audit_batch(batch):
@@ -103,6 +112,7 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                 device = devices[int(identity)]
                 requests.append({'device_id': identity, 'shared_label': row.get('shared_label') is True, 'name': device.name, 'tag': device.tag, 'spec': device.spec, 'quantity': device.quantity, 'unit': device.unit, 'drawing_quantity': getattr(device,'drawing_quantity',None), 'quantity_basis': getattr(device,'quantity_basis',None), 'connected_load': device.connected_load, 'load_label': row.get('load_label'), 'relationship_evidence': row.get('relationship_evidence')})
                 requests[-1]['exported_parts'] = exported_parts
+                requests[-1]['linked_device'] = (getattr(device,'source_observations',None) or {}).get('linked_device')
                 requests[-1]['source_annotation'] = row.get('source_annotation')
                 row['verified'] = False
             if not requests:
@@ -121,8 +131,14 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                     'chứa các nhánh bên cạnh và lặp lại cùng ký hiệu từ ảnh chi tiết. Không đếm ảnh lặp '
                     'cùng vị trí thành thiết bị khác; không bác isolated chỉ vì ảnh CONTEXT có nhánh khác. '
                     'symbol_complete kiểm ảnh ký hiệu DEVICE_PART; ảnh nhãn/tag riêng không cần có ký hiệu. '
-                    'So ký hiệu trái với đúng ký hiệu trong NGUỒN bên phải; không bắt nó có thêm nét/cực '
-                    'theo kiến thức catalog mà chính nguồn không vẽ. Không tin danh mục ứng viên. Mỗi ID: ảnh trái phải có '
+                    'So ký hiệu trái với đúng ký hiệu trong NGUỒN bên phải; chỉ yêu cầu các nét nguồn thực vẽ. '
+                    'Ảnh nguồn có thể có chữ/ký hiệu/vị trí chồng lên nhau. Không yêu cầu tách chúng '
+                    'hoặc bác ảnh chỉ vì có chữ/thiết bị khác đè vào. Khi chồng lấn thực sự có trên '
+                    'nguồn, source_overlap=true; identity_unambiguous=true chỉ khi vẫn xác định rõ '
+                    'đúng thiết bị, đủ nét/nhãn và đúng tag/dây, không mượn thông số của nhánh khác. '
+                    'isolated không phải điều kiện bắt buộc: vùng chứng minh có thể chứa chữ/ký hiệu '
+                    'ngay bên cạnh hoặc dùng chung, miễn identity_unambiguous=true. '
+                    'Không suy thêm cực theo catalog. Không tin danh mục ứng viên. Mỗi ID: ảnh trái phải có '
                     'đủ ký hiệu điện thực và nhãn của đúng thiết bị, đúng nhánh. Cho phép nhãn và ký hiệu '
                     'của CHÍNH thiết bị cùng nằm trong ảnh; isolated=false chỉ khi lẫn thiết bị/nhãn khác '
                     'gây nhầm nhận diện. Nếu nguồn thực sự không có nhãn/thông số riêng và dòng không khẳng định '
@@ -130,6 +146,9 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                     'chỉ kiểm phần nguồn/danh mục thực sự khẳng định, không bắt có chữ nguồn vốn không ghi. '
                     'Trong sơ đồ một sợi, một ký hiệu CB có thể đại diện thiết bị nhiều cực (2P/3P/4P); '
                     'kiểm nét ký hiệu so với NGUỒN, không yêu cầu sơ đồ phải vẽ riêng từng cực của thiết bị. '
+                    'Với linked_device: các phần tử là cực có liên động của CÙNG thiết bị, quantity=1 '
+                    'và drawing_quantity đếm các ký hiệu cực. Kiểm đủ toàn cụm liên động trong ảnh ký hiệu, '
+                    'và kiểm mọi branch_tags trong ảnh nhãn; không coi hai nhãn tải là hai thiết bị riêng. '
                     'Với source_annotation=shared_rating, ảnh nguồn tham chiếu giữa cột phải cho thấy '
                     'cùng kiểu đường ngang/mũi tên chạy qua nhiều nhánh hơn số cực ghi trên nhãn. '
                     'So mẫu dùng nhãn chung này trước khi kết luận đường ngang là liên động cơ khí. '
@@ -156,7 +175,7 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                     'Không bác chỉ vì tiêu đề có nhiều nhánh dùng chung, nhưng shared_label_matches chỉ true '
                     'khi đã chứng minh quan hệ đó, không chỉ vì gần nhau. '
                     '{"checks":[{"device_id":"0","matches":true,"symbol_complete":true,'
-                    '"label_complete":true,"isolated":true,"shared_label_matches":true,"tag_matches":true,"load_matches":true,"relationship_verified":true,"observed":"chữ/hình thực thấy",'
+                    '"label_complete":true,"isolated":true,"source_overlap":false,"identity_unambiguous":true,"shared_label_matches":true,"tag_matches":true,"load_matches":true,"relationship_verified":true,"observed":"chữ/hình thực thấy",'
                     '"reason":"lỗi cụ thể nếu có"}]}.\n' + json.dumps(requests, ensure_ascii=False)))
                 blocks = ResponseParserService.extract_json_blocks(raw)
                 checks = next((b['checks'] for b in blocks if isinstance(b, dict) and isinstance(b.get('checks'), list)), [])
@@ -165,23 +184,30 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                     if len(matches) != 1:
                         continue
                     check = matches[0]
+                    source_overlap = check.get('source_overlap') is True
+                    clear_identity = check.get('identity_unambiguous') is True
+                    identity_checked = clear_identity if 'identity_unambiguous' in check else check.get('isolated') is True
                     rows[identity]['verified'] = all(check.get(k) is True
-                        for k in ('matches', 'symbol_complete', 'label_complete', 'isolated'))
+                        for k in ('matches', 'symbol_complete', 'label_complete')) and identity_checked
+                    rows[identity].update(source_overlap=source_overlap, identity_unambiguous=clear_identity)
                     device = devices[int(identity)]
                     if rows[identity].get('shared_label') is True and (check.get('shared_label_matches') is not True or not rows[identity].get('relationship_evidence')):
                         rows[identity]['verified'] = False
                     rows[identity]['tag_matches'] = check.get('tag_matches') is True
-                    if device.tag and (not rows[identity].get('tag_box_2d') or check.get('tag_matches') is not True):
+                    branch_tags = ((getattr(device,'source_observations',None) or {}).get('linked_device') or {}).get('branch_tags')
+                    if (device.tag or branch_tags) and (not rows[identity].get('tag_box_2d') or check.get('tag_matches') is not True):
                         rows[identity]['verified'] = False
                     rows[identity]['load_verified'] = bool(rows[identity].get('load_box_2d') and
                         rows[identity].get('relationship_evidence') and check.get('load_matches') is True and
                         check.get('relationship_verified') is True)
                     rows[identity]['audit_observed'] = str(check.get('observed') or '')
                     rows[identity]['audit_reason'] = str(check.get('reason') or '')
+                    await checkpoint.save(identity, device, rows[identity])
             finally:
                 os.remove(path)
 
-    tasks=[asyncio.create_task(audit_batch(identities[start:start+2])) for start in range(0,len(identities),2)]
+    batch_size=max(1,min(3,int(batch_size)))
+    tasks=[asyncio.create_task(audit_batch(identities[start:start+batch_size])) for start in range(0,len(identities),batch_size)]
     try:
         await asyncio.gather(*tasks)
     except BaseException:

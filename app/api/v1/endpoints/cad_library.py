@@ -26,6 +26,8 @@ def catalog_tb_manifest():
         return items, views
     for profile_path in sorted(CATALOG_TB.rglob('thong_tin_thiet_bi.json')):
         profile = json.loads(profile_path.read_text(encoding='utf-8-sig'))
+        if profile.get('browser_hidden'):
+            continue
         if not profile.get('cad_don'):
             continue
         profile_id = hashlib.sha1(profile_path.relative_to(CATALOG_TB).as_posix().encode()).hexdigest()[:16]
@@ -88,6 +90,22 @@ def list_catalog_tb(q: str = ''):
     rules_path = CATALOG_TB / 'ai_selection_rules.json'
     return {'total': len(items), 'items': items,
             'selection_rules': json.loads(rules_path.read_text(encoding='utf-8')) if rules_path.is_file() else {}}
+
+
+@router.get('/reviewed-sources')
+def reviewed_sources(q: str = '', status: str = ''):
+    from app.services.reviewed_source_library import list_references
+    return list_references(q, status)
+
+
+@router.get('/reviewed-sources/{reference_id}/views/{view_id}/preview')
+def reviewed_source_preview(reference_id: str, view_id: str):
+    from app.services.reviewed_source_library import reference_preview
+    try:
+        path = reference_preview(reference_id, view_id)
+    except ValueError as exc:
+        raise HTTPException(404, str(exc)) from exc
+    return FileResponse(path, media_type='image/svg+xml')
 
 
 @router.get('/catalog-tb/view/{view_id}/preview')

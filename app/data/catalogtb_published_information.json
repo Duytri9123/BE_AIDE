@@ -63302,7 +63302,7 @@
       "catalog_information_type": "FUSE_HOLDER"
     },
     "TB-34714e8a11fd336c": {
-      "ten_san_pham": "Công tắc chọn · AUTO",
+      "ten_san_pham": "Công tắc chọn IDEC · AUTO",
       "catalog_tham_khao": {
         "category": "SELECTOR_SWITCH",
         "options": [
@@ -63329,7 +63329,8 @@
           }
         ]
       },
-      "catalog_information_type": "SELECTOR_SWITCH"
+      "catalog_information_type": "SELECTOR_SWITCH",
+      "ma_dong_san_pham": "AUTO"
     },
     "TB-31890542d588af87": {
       "ten_san_pham": "Đế cầu chì · Cầu chì · cụm đầy đủ",
@@ -69190,7 +69191,7 @@
       }
     },
     "TB-4e23ffa2136e6caf": {
-      "ten_san_pham": "Khóa tay nắm âm AB301-1-1",
+      "ten_san_pham": "Khóa tay nắm âm AB-301-1-1",
       "catalog_tham_khao": {
         "category": "Khóa tay nắm âm",
         "options": [
@@ -69208,10 +69209,12 @@
             "basis": "product_reference"
           }
         ]
-      }
+      },
+      "ma_dong_san_pham": "AB-301-1-1",
+      "catalog_information_type": "khóa cửa"
     },
     "TB-b6df5404b4c838b3": {
-      "ten_san_pham": "Khóa tay nắm âm AB301-2-1",
+      "ten_san_pham": "Khóa tay nắm âm · AB301-2-1",
       "catalog_tham_khao": {
         "category": "Khóa tay nắm âm",
         "options": [
@@ -69229,10 +69232,12 @@
             "basis": "product_reference"
           }
         ]
-      }
+      },
+      "ma_dong_san_pham": "AB301-2-1",
+      "catalog_information_type": "khóa cửa"
     },
     "TB-59d38955a177c6f2": {
-      "ten_san_pham": "Khóa tay nắm âm AB301-3-1",
+      "ten_san_pham": "Khóa tay nắm âm · AB301-3-1",
       "catalog_tham_khao": {
         "category": "Khóa tay nắm âm",
         "options": [
@@ -69250,7 +69255,9 @@
             "basis": "product_reference"
           }
         ]
-      }
+      },
+      "ma_dong_san_pham": "AB301-3-1",
+      "catalog_information_type": "khóa cửa"
     },
     "TB-aff198a78bb9d890": {
       "ten_san_pham": "Khóa tay nắm âm C45-72",
@@ -175683,7 +175690,7 @@
       "catalog_information_type": "METER"
     },
     "TB-1776e6d655f2c019": {
-      "ten_san_pham": "Đồng hồ đo điện · Ampere-Meter-front",
+      "ten_san_pham": "Ampe kế kim · Ampere-Meter-front",
       "catalog_tham_khao": {
         "category": "METER",
         "options": [
@@ -175755,7 +175762,8 @@
           }
         ]
       },
-      "catalog_information_type": "METER"
+      "catalog_information_type": "METER",
+      "ma_dong_san_pham": "Ampere-Meter-front"
     },
     "TB-3e3603f43ff92d2c": {
       "ten_san_pham": "Đồng hồ đo điện · Mẫu thiết bị 554",
@@ -175981,7 +175989,7 @@
       "catalog_information_type": "METER"
     },
     "TB-0aae1a4a8dd4f94a": {
-      "ten_san_pham": "Chuyển mạch đo · CM ON-OFF",
+      "ten_san_pham": "Công tắc xoay SUNGHO · ON/OFF",
       "catalog_tham_khao": {
         "category": "SELECTOR_METER",
         "options": [
@@ -176011,7 +176019,8 @@
           }
         ]
       },
-      "catalog_information_type": "SELECTOR_METER"
+      "catalog_information_type": "SELECTOR_SWITCH",
+      "ma_dong_san_pham": "CM ON-OFF"
     },
     "TB-84e1f568156bc37a": {
       "ten_san_pham": "Đồng hồ đo điện · KWh · HOLLEY GROUP CO., LTD · HOLLEY-TMS · cụm đầy đủ",
@@ -176370,7 +176379,7 @@
       "catalog_information_type": "METER"
     },
     "TB-73af6dfa37613d1b": {
-      "ten_san_pham": "Đồng hồ đo điện · Volt-Meter-front",
+      "ten_san_pham": "Vôn kế kim · Volt-Meter-front",
       "catalog_tham_khao": {
         "category": "METER",
         "options": [
@@ -176442,7 +176451,8 @@
           }
         ]
       },
-      "catalog_information_type": "METER"
+      "catalog_information_type": "METER",
+      "ma_dong_san_pham": "Volt-Meter-front"
     },
     "TB-784c3a380df0bb68": {
       "ten_san_pham": "Đồng hồ đo điện · Mẫu thiết bị 559",
@@ -177727,7 +177737,7 @@
       "catalog_information_type": "METER"
     },
     "TB-2e1e984cfccd8e20": {
-      "ten_san_pham": "Đồng hồ đo điện · Schneider — Đồng hồ đa năng PM2220",
+      "ten_san_pham": "Đồng hồ đa năng Schneider PM2220",
       "catalog_tham_khao": {
         "category": "METER",
         "options": [
@@ -177744,7 +177754,8 @@
           }
         ]
       },
-      "catalog_information_type": "METER"
+      "catalog_information_type": "METER",
+      "ma_dong_san_pham": "PM2220"
     },
     "TB-28db8b37444fac9e": {
       "ten_san_pham": "Đồng hồ đo điện · Bố trí công tơ và thiết bị 63 A — HDK",
@@ -189830,6 +189841,751 @@
         "source_row_scope": "explicit_only",
         "row_links_reviewed": true
       }
+    },
+    "TB-65646aa6cd28dea1": {
+      "ten_san_pham": "Công tơ EMIC ME-41",
+      "ma_dong_san_pham": "ME-41",
+      "catalog_information_type": "METER"
+    },
+    "TB-451f7cc86db8722c": {
+      "ten_san_pham": "Thanh đấu nối N/PE · TC_NE-15~40",
+      "ma_dong_san_pham": "TC_NE-15~40",
+      "catalog_information_type": "thanh đấu nối"
+    },
+    "TB-4e693ee322dea290": {
+      "ten_san_pham": "Cụm đèn báo ba pha · hw_PhaseIndicator",
+      "ma_dong_san_pham": "hw_PhaseIndicator",
+      "catalog_information_type": "LIGHT_ASSEMBLY"
+    },
+    "TB-0f5581e444224c21": {
+      "ten_san_pham": "Dãy cầu đấu · TEMINAL-BLOCK",
+      "ma_dong_san_pham": "TEMINAL-BLOCK",
+      "catalog_information_type": "TERMINAL"
+    },
+    "TB-58becb7fe4d3b002": {
+      "ten_san_pham": "Mô-đun Trend IQ4/IO/8AO · ứng viên từ CAD",
+      "ma_dong_san_pham": "IQ4/IO/8AO · họ ứng viên",
+      "catalog_information_type": "IO_MODULE"
+    },
+    "TB-4b0f2d6720161ea2": {
+      "ten_san_pham": "Biến tần LS Electric M100",
+      "ma_dong_san_pham": "M100",
+      "catalog_information_type": "VFD"
+    },
+    "TB-8e44417b06565776": {
+      "ten_san_pham": "Công tơ EMIC CE-18G",
+      "ma_dong_san_pham": "CE-18G",
+      "catalog_information_type": "METER"
+    },
+    "TB-ab78f8fa305fa50a": {
+      "ten_san_pham": "Móc cẩu có ren · Moccauf10",
+      "ma_dong_san_pham": "Moccauf10",
+      "catalog_information_type": "điểm nâng"
+    },
+    "TB-83b610ab9c23e199": {
+      "ten_san_pham": "Nút dừng khẩn · Emergency Switch",
+      "ma_dong_san_pham": "Emergency Switch",
+      "catalog_information_type": "PUSHBUTTON"
+    },
+    "TB-43976f723c49e58e": {
+      "ten_san_pham": "Khóa móc cửa tủ TV-KBR",
+      "ma_dong_san_pham": "TV-KBR",
+      "catalog_information_type": "khóa móc"
+    },
+    "TB-c8ab7963fed0450c": {
+      "ten_san_pham": "Lưới thông gió · nguồn FAN",
+      "ma_dong_san_pham": "FAN",
+      "catalog_information_type": "lưới thông gió"
+    },
+    "TB-1cdeacd7a6829663": {
+      "ten_san_pham": "Rơ-le Selec · nhãn 600PSR/600ST",
+      "ma_dong_san_pham": "600PSR / 600ST-240",
+      "catalog_information_type": "PHASE_RELAY"
+    },
+    "TB-b04801e8502ac050": {
+      "ten_san_pham": "Cụm nút nhấn, đèn và chuyển mạch",
+      "ma_dong_san_pham": "NÚT BẤM 1",
+      "catalog_information_type": "CONTROL_ASSEMBLY"
+    },
+    "TB-0607e02393b47346": {
+      "ten_san_pham": "Cụm chống sét Himel HDY3 · nguồn 80/120G",
+      "ma_dong_san_pham": "HDY3-80 / HDY3-120G",
+      "catalog_information_type": "SPD"
+    },
+    "TB-0107552716b455d3": {
+      "ten_san_pham": "Công tơ cơ EMIC · họ CV/MV",
+      "ma_dong_san_pham": "CV / MV",
+      "catalog_information_type": "METER"
+    },
+    "TB-b3debc32d59dcd71": {
+      "ten_san_pham": "Bộ điều khiển ATS OSEMCO ACD-III",
+      "ma_dong_san_pham": "ACD-III",
+      "catalog_information_type": "ATS_CONTROLLER"
+    },
+    "TB-d430a1e65d864743": {
+      "ten_san_pham": "Thanh đấu nối tiếp địa · nguồn",
+      "ma_dong_san_pham": "CẦU TIẾP ĐỊA",
+      "catalog_information_type": "thanh đấu nối"
+    },
+    "TB-6a56f8236a0f488d": {
+      "ten_san_pham": "Rơ-le thời gian hai khoảng · DH48S-S",
+      "ma_dong_san_pham": "DH48S-S · họ đa hãng",
+      "catalog_information_type": "TIMER"
+    },
+    "TB-fa4dd109dfb49518": {
+      "ten_san_pham": "Tụ bù Nuintek PowerSH · TỤ NUINTEK 10KVA",
+      "ma_dong_san_pham": "PowerSH",
+      "catalog_information_type": "CAPACITOR"
+    },
+    "TB-5a9fb71b19e62cd1": {
+      "ten_san_pham": "Tụ bù Nuintek PowerSH · TỤ KHÔ 15KVA",
+      "ma_dong_san_pham": "PowerSH",
+      "catalog_information_type": "CAPACITOR"
+    },
+    "TB-79770b0f5de42c3d": {
+      "ten_san_pham": "Tụ bù Nuintek PowerSH · TỤ KHÔ 20KVA",
+      "ma_dong_san_pham": "PowerSH",
+      "catalog_information_type": "CAPACITOR"
+    },
+    "TB-db6480a37875e201": {
+      "ten_san_pham": "Tụ bù Nuintek PowerSH · TỤ KHÔ 25KVA",
+      "ma_dong_san_pham": "PowerSH",
+      "catalog_information_type": "CAPACITOR"
+    },
+    "TB-ce6d4960bade28f2": {
+      "ten_san_pham": "Tụ bù Nuintek PowerSH · TỤ KHÔ 30KVA",
+      "ma_dong_san_pham": "PowerSH",
+      "catalog_information_type": "CAPACITOR"
+    },
+    "TB-96a82eefbd10713b": {
+      "ten_san_pham": "Tụ bù Nuintek PowerSH · TỤ KHÔ 40KVA",
+      "ma_dong_san_pham": "PowerSH",
+      "catalog_information_type": "CAPACITOR"
+    },
+    "TB-6b1dd36ec98ed306": {
+      "ten_san_pham": "Tụ bù Nuintek PowerSH · TỤ DẦU 415V-25KVA",
+      "ma_dong_san_pham": "PowerSH",
+      "catalog_information_type": "CAPACITOR"
+    },
+    "TB-d5b15814cf509132": {
+      "ten_san_pham": "Tụ bù Nuintek PowerSH · TỤ DAAUFV-30KVA",
+      "ma_dong_san_pham": "PowerSH",
+      "catalog_information_type": "CAPACITOR"
+    },
+    "TB-b5992a24f1559e9c": {
+      "ten_san_pham": "Tụ bù Nuintek · mặt đầu TỤ DẦU 415V-40KVA",
+      "ma_dong_san_pham": "PowerSH",
+      "catalog_information_type": "CAPACITOR"
+    },
+    "TB-fdf7864432d3b2a8": {
+      "ten_san_pham": "Tụ bù Nuintek · mặt đầu TỤ DẦU 415V-50KVA",
+      "ma_dong_san_pham": "PowerSH",
+      "catalog_information_type": "CAPACITOR"
+    },
+    "TB-cce144575ee29a93": {
+      "ten_san_pham": "Tụ bù Nuintek · mặt đầu TỤ DẦU 440V-50KVA",
+      "ma_dong_san_pham": "PowerSH",
+      "catalog_information_type": "CAPACITOR"
+    },
+    "TB-47acbd7a84d44678": {
+      "ten_san_pham": "Bản lề lá · Banlela-4",
+      "ma_dong_san_pham": "Banlela-4",
+      "catalog_information_type": "bản lề"
+    },
+    "TB-a45e92a2033b72bd": {
+      "ten_san_pham": "Bản lề BL036 · mặt bên",
+      "ma_dong_san_pham": "BL036",
+      "catalog_information_type": "bản lề"
+    },
+    "TB-df4ca602eef0f1ab": {
+      "ten_san_pham": "Tay nắm cửa tủ · nguồn NC",
+      "ma_dong_san_pham": "NC",
+      "catalog_information_type": "tay nắm"
+    },
+    "TB-74274d9e2a2505b0": {
+      "ten_san_pham": "Ổn áp ROBOT AP15 · nhãn 350VA",
+      "ma_dong_san_pham": "AP15 · 350VA",
+      "catalog_information_type": "VOLTAGE_STABILIZER"
+    },
+    "TB-f6d25f64c8d95806": {
+      "ten_san_pham": "Rơ-le điện áp Mikro MX200A",
+      "ma_dong_san_pham": "MX200A",
+      "catalog_information_type": "VOLTAGE_RELAY"
+    },
+    "TB-d4ae810db5c601e3": {
+      "ten_san_pham": "Timer sao–tam giác Selec 800SD",
+      "ma_dong_san_pham": "800SD",
+      "catalog_information_type": "TIMER"
+    },
+    "TB-79253a925e6d96e7": {
+      "ten_san_pham": "Bộ điều khiển ATS CHINT · hình nguồn",
+      "ma_dong_san_pham": "Bộ điều khiển ATS Chint",
+      "catalog_information_type": "ATS_CONTROLLER"
+    },
+    "TB-f68ed8fc7342ffeb": {
+      "ten_san_pham": "Chuyển mạch vôn kế · nguồn Swith",
+      "ma_dong_san_pham": "Swith",
+      "catalog_information_type": "SELECTOR_METER"
+    },
+    "TB-5b4646cca67f3c85": {
+      "ten_san_pham": "Vôn kế kim · nhãn Omega BE-96",
+      "ma_dong_san_pham": "BE-96",
+      "catalog_information_type": "METER"
+    },
+    "TB-27a8db403a4d8d67": {
+      "ten_san_pham": "Công tơ A1700 · họ Elster/Honeywell",
+      "ma_dong_san_pham": "A1700",
+      "catalog_information_type": "METER"
+    },
+    "TB-386e78cbabf284dd": {
+      "ten_san_pham": "Đế đèn · hình nguồn",
+      "ma_dong_san_pham": "Đế đèn",
+      "catalog_information_type": "LAMP_HOLDER"
+    },
+    "TB-c99e4c4e66e78a8b": {
+      "ten_san_pham": "Công tắc Vinakip · ON/OFF",
+      "ma_dong_san_pham": "Công tắc Vinakip",
+      "catalog_information_type": "SWITCH"
+    },
+    "TB-be259f09a5ad6d6c": {
+      "ten_san_pham": "Ổn áp ROBOT AP15 · nhãn 600VA",
+      "ma_dong_san_pham": "AP15 · 600VA",
+      "catalog_information_type": "VOLTAGE_STABILIZER"
+    },
+    "TB-74bc6f4bb3e4c14c": {
+      "ten_san_pham": "Bình chữa cháy dạng cầu · nhãn 6KG",
+      "ma_dong_san_pham": "Quả cầu chữa cháy 6KG",
+      "catalog_information_type": "FIRE_EXTINGUISHER"
+    },
+    "TB-93b11fc3fde3a0f4": {
+      "ten_san_pham": "Biến tần Schneider ATV320D11N4B",
+      "ma_dong_san_pham": "ATV320D11N4B",
+      "catalog_information_type": "VFD"
+    },
+    "TB-dd3917f7a5d58a67": {
+      "ten_san_pham": "Cụm ba đèn báo pha · nhãn R-PHASE",
+      "ma_dong_san_pham": "ĐÈN BÁO PHA",
+      "catalog_information_type": "LIGHT_ASSEMBLY"
+    },
+    "TB-4037947bf38c1991": {
+      "ten_san_pham": "Công tắc hẹn giờ NKG-5",
+      "ma_dong_san_pham": "NKG-5",
+      "catalog_information_type": "TIME_SWITCH"
+    },
+    "TB-48b1d889818efbf3": {
+      "ten_san_pham": "Rơ-le rò đất Mikro DIN310",
+      "ma_dong_san_pham": "DIN310",
+      "catalog_information_type": "EARTH_LEAKAGE_RELAY"
+    },
+    "TB-21b8f4642d14bc97": {
+      "ten_san_pham": "Ổ cắm đôi Clipsal · ứng viên họ S-Classic",
+      "ma_dong_san_pham": "Ổ cắm đôi · ứng viên họ E426UEST2/T",
+      "catalog_information_type": "SOCKET"
+    },
+    "TB-fc91d165f4b7b6d9": {
+      "ten_san_pham": "Ổ cắm đôi CHENG LI · nhãn nguồn",
+      "ma_dong_san_pham": "Ổ cắm đôi · nhãn CHENG LI nguồn",
+      "catalog_information_type": "SOCKET"
+    },
+    "TB-a18766d6e1a5d43c": {
+      "ten_san_pham": "Rơ-le thời gian · nhãn CKC",
+      "ma_dong_san_pham": "CKC S M H",
+      "catalog_information_type": "TIMER"
+    },
+    "TB-1f03e08e12ad7f82": {
+      "ten_san_pham": "Mặt hộp điều khiển HR-BX2 · hai vị trí lắp",
+      "ma_dong_san_pham": "HR-BX2",
+      "catalog_information_type": "bản mã"
+    },
+    "TB-e1315cb501eeb518": {
+      "ten_san_pham": "Biến tần SUMO SU200 · nhãn 1R5G-1",
+      "ma_dong_san_pham": "SU200-1R5G-1",
+      "catalog_information_type": "VFD"
+    },
+    "TB-baa9659ce9aa1039": {
+      "ten_san_pham": "Trụ đỡ cách điện GZ500",
+      "ma_dong_san_pham": "GZ500",
+      "catalog_information_type": "trụ đỡ cách điện"
+    },
+    "TB-7c5a2d2ff5ddee72": {
+      "ten_san_pham": "Quạt/lọc gió Leipole FKL6621.230 · mặt lưới",
+      "ma_dong_san_pham": "FKL6621.230",
+      "catalog_information_type": "FAN"
+    },
+    "TB-497adac5ddd555c9": {
+      "ten_san_pham": "Lưới lọc gió Leipole FKL6622.300",
+      "ma_dong_san_pham": "FKL6622.300",
+      "catalog_information_type": "FILTER"
+    },
+    "TB-c87dfa4db11b300a": {
+      "ten_san_pham": "Lưới lọc gió Leipole FKL6623.300",
+      "ma_dong_san_pham": "FKL6623.300",
+      "catalog_information_type": "FILTER"
+    },
+    "TB-2806f7a830e9dbdb": {
+      "ten_san_pham": "Cuộn kháng · mẫu nguồn BGVFG",
+      "ma_dong_san_pham": "BGVFG Block",
+      "catalog_information_type": "REACTOR"
+    },
+    "TB-59ab9c2a9adb46c8": {
+      "ten_san_pham": "Biến dòng nhãn CML · 250/5A",
+      "ma_dong_san_pham": "CML · nhãn 250/5A",
+      "catalog_information_type": "CT"
+    },
+    "TB-ef5fd67ef512368c": {
+      "ten_san_pham": "Biến dòng nhãn CML · 400/5A · chú thích 400/600",
+      "ma_dong_san_pham": "CML · nhãn 400/5A · chú thích 400/600",
+      "catalog_information_type": "CT"
+    },
+    "TB-96012f4d2d74053d": {
+      "ten_san_pham": "Biến dòng nhãn CML · 500/5A",
+      "ma_dong_san_pham": "CML · nhãn 500/5A",
+      "catalog_information_type": "CT"
+    },
+    "TB-1aa58c887bf572c7": {
+      "ten_san_pham": "Biến dòng nhãn CML · 800/5A · chú thích 800/2000",
+      "ma_dong_san_pham": "CML · nhãn 800/5A · chú thích 800/2000",
+      "catalog_information_type": "CT"
+    },
+    "TB-3d3944b58798ae7c": {
+      "ten_san_pham": "Biến dòng nhãn CML · 3200/5A",
+      "ma_dong_san_pham": "CML · nhãn 3200/5A",
+      "catalog_information_type": "CT"
+    },
+    "TB-b65556202ef6be3e": {
+      "ten_san_pham": "Biến dòng Morele MSQ-30",
+      "ma_dong_san_pham": "MSQ-30",
+      "catalog_information_type": "CT"
+    },
+    "TB-312a278dcdf1365e": {
+      "ten_san_pham": "Biến dòng Morele MSQ-125",
+      "ma_dong_san_pham": "MSQ-125",
+      "catalog_information_type": "CT"
+    },
+    "TB-5adb1451f23f58b9": {
+      "ten_san_pham": "Biến dòng thứ tự không Mikro ZCT40S",
+      "ma_dong_san_pham": "ZCT40S",
+      "catalog_information_type": "ZCT"
+    },
+    "TB-e503f05412ff07ad": {
+      "ten_san_pham": "Biến dòng thứ tự không Mikro ZCT60S",
+      "ma_dong_san_pham": "ZCT60S",
+      "catalog_information_type": "ZCT"
+    },
+    "TB-4ceb113ee084be35": {
+      "ten_san_pham": "Biến dòng thứ tự không Mikro ZCT80S",
+      "ma_dong_san_pham": "ZCT80S",
+      "catalog_information_type": "ZCT"
+    },
+    "TB-101a33d41154be2e": {
+      "ten_san_pham": "Biến dòng thứ tự không Mikro ZCT120S",
+      "ma_dong_san_pham": "ZCT120S",
+      "catalog_information_type": "ZCT"
+    },
+    "TB-1992d1ef242fdde0": {
+      "ten_san_pham": "Bo điều khiển GTpro Auto Start V1.0 · ứng viên",
+      "ma_dong_san_pham": "Auto Start V1.0 · ứng viên GTpro",
+      "catalog_information_type": "GENERATOR_CONTROLLER"
+    },
+    "TB-2ee58c32ae0a88c1": {
+      "ten_san_pham": "Vôn kế kim nhỏ · hình nguồn",
+      "ma_dong_san_pham": "DE-80 · họ hình học ứng viên đa hãng",
+      "catalog_information_type": "METER"
+    },
+    "TB-caa6a076d12cf243": {
+      "ten_san_pham": "Bản mã nhiều lỗ · nguồn ti99",
+      "ma_dong_san_pham": "ti99",
+      "catalog_information_type": "bản mã"
+    },
+    "TB-68e16fe9d7ac9aa5": {
+      "ten_san_pham": "Bộ điều khiển mức Omron 61F-G",
+      "ma_dong_san_pham": "61F-G",
+      "catalog_information_type": "LEVEL_CONTROLLER"
+    },
+    "TB-79ad8dd2dd63f978": {
+      "ten_san_pham": "Bộ điều khiển mức Omron 61F-G2",
+      "ma_dong_san_pham": "61F-G2",
+      "catalog_information_type": "LEVEL_CONTROLLER"
+    },
+    "TB-609f0cfff1048a30": {
+      "ten_san_pham": "Bộ điều khiển mức Omron 61F-G3",
+      "ma_dong_san_pham": "61F-G3",
+      "catalog_information_type": "LEVEL_CONTROLLER"
+    },
+    "TB-e334b8a73248cdca": {
+      "ten_san_pham": "Bộ điều khiển mức Omron 61F-G4",
+      "ma_dong_san_pham": "61F-G4",
+      "catalog_information_type": "LEVEL_CONTROLLER"
+    },
+    "TB-43bc48410d1b1dd1": {
+      "ten_san_pham": "Bộ điều khiển mức Omron 61F-GP-N",
+      "ma_dong_san_pham": "61F-GP-N",
+      "catalog_information_type": "LEVEL_CONTROLLER"
+    },
+    "TB-89a011395c02dfc6": {
+      "ten_san_pham": "Bộ điều khiển mức Omron 61F-GP-N8",
+      "ma_dong_san_pham": "61F-GP-N8",
+      "catalog_information_type": "LEVEL_CONTROLLER"
+    },
+    "TB-25057d0f9ec83b9f": {
+      "ten_san_pham": "Công tơ EMIC ME-41mG · mặt bên",
+      "ma_dong_san_pham": "ME-41mG",
+      "catalog_information_type": "METER"
+    },
+    "TB-18be5c59ace6af2a": {
+      "ten_san_pham": "Công tơ EMIC ME-40mG",
+      "ma_dong_san_pham": "ME-40mG",
+      "catalog_information_type": "METER"
+    },
+    "TB-c91afef71d4d5e40": {
+      "ten_san_pham": "Phụ kiện cơ khí MCCB Hyundai · nguồn 630S",
+      "ma_dong_san_pham": "630S · phụ kiện",
+      "catalog_information_type": "MCCB_OPERATING_ACCESSORY"
+    },
+    "TB-7d1a1981e288cff3": {
+      "ten_san_pham": "Phụ kiện cơ khí MCCB Hyundai · nguồn 1000S",
+      "ma_dong_san_pham": "1000S · phụ kiện",
+      "catalog_information_type": "MCCB_OPERATING_ACCESSORY"
+    },
+    "TB-90d1ef517772cd77": {
+      "ten_san_pham": "Cụm rơ-le/đế Omron MY4N-GS · nhãn AC",
+      "ma_dong_san_pham": "MY4N-GS",
+      "catalog_information_type": "RELAY_ASSEMBLY"
+    },
+    "TB-e111558e7dc4b562": {
+      "ten_san_pham": "Cụm rơ-le/đế · nhãn Omron MY4N-GS DC",
+      "ma_dong_san_pham": "MY4N-GS",
+      "catalog_information_type": "RELAY_ASSEMBLY"
+    },
+    "TB-caaf71e22a359499": {
+      "ten_san_pham": "Cụm ba đế cầu chì Morele RT18-32X",
+      "ma_dong_san_pham": "RT18-32X",
+      "catalog_information_type": "FUSE_HOLDER"
+    },
+    "TB-57fc3feb56d4e9c2": {
+      "ten_san_pham": "Cụm rơ-le/đế IDEC RU4S-A220",
+      "ma_dong_san_pham": "RU4S-A220",
+      "catalog_information_type": "RELAY_ASSEMBLY"
+    },
+    "TB-968f11dcc9a69ea8": {
+      "ten_san_pham": "Bộ mẫu ampe kế, vôn kế và chuyển mạch BEW96",
+      "ma_dong_san_pham": "BEW96",
+      "catalog_information_type": "METER_ASSEMBLY"
+    },
+    "TB-88e5d498e35aaf98": {
+      "ten_san_pham": "Cụm biến dòng ba cửa sổ LightStar KBF-42/43",
+      "ma_dong_san_pham": "KBF-42/43",
+      "catalog_information_type": "CT_ASSEMBLY"
+    },
+    "TB-7d3299444def9c16": {
+      "ten_san_pham": "Cụm biến dòng ba cửa sổ LightStar KBF-62/63",
+      "ma_dong_san_pham": "KBF-62/63",
+      "catalog_information_type": "CT_ASSEMBLY"
+    },
+    "TB-a75ce301795a12f4": {
+      "ten_san_pham": "Cụm biến dòng ba cửa sổ LightStar KBF-22/23",
+      "ma_dong_san_pham": "KBF-22/23",
+      "catalog_information_type": "CT_ASSEMBLY"
+    },
+    "TB-efbaad83cc0b7297": {
+      "ten_san_pham": "Đầu cốt cáp · nguồn cos300",
+      "ma_dong_san_pham": "cos300",
+      "catalog_information_type": "đầu cốt cáp"
+    },
+    "TB-22e9cb3ad48389f2": {
+      "ten_san_pham": "Tay thao tác xoay · nguồn 1500",
+      "ma_dong_san_pham": "1500",
+      "catalog_information_type": "tay nắm"
+    },
+    "TB-b77c5afe17e81579": {
+      "ten_san_pham": "Biến dòng EMIC EM4H14",
+      "ma_dong_san_pham": "EM4H14",
+      "catalog_information_type": "CT"
+    },
+    "TB-bd319f74151419fd": {
+      "ten_san_pham": "Biến dòng EMIC EM4H15",
+      "ma_dong_san_pham": "EM4H15",
+      "catalog_information_type": "CT"
+    },
+    "TB-956916f6fa684608": {
+      "ten_san_pham": "Biến dòng EMIC EM4H16",
+      "ma_dong_san_pham": "EM4H16",
+      "catalog_information_type": "CT"
+    },
+    "TB-5535797495be728a": {
+      "ten_san_pham": "Biến dòng EMIC EM4H17",
+      "ma_dong_san_pham": "EM4H17",
+      "catalog_information_type": "CT"
+    },
+    "TB-290b8c4945c834ba": {
+      "ten_san_pham": "Biến dòng EMIC EM4H18",
+      "ma_dong_san_pham": "EM4H18",
+      "catalog_information_type": "CT"
+    },
+    "TB-95c3c6f39622a5b1": {
+      "ten_san_pham": "Biến dòng EMIC EM4H02",
+      "ma_dong_san_pham": "EM4H02",
+      "catalog_information_type": "CT"
+    },
+    "TB-28e156d0551407ab": {
+      "ten_san_pham": "Biến dòng EMIC EM4H01",
+      "ma_dong_san_pham": "EM4H01",
+      "catalog_information_type": "CT"
+    },
+    "TB-b6bb3b5e552f5579": {
+      "ten_san_pham": "Công tơ EMIC · nguồn CE-18/CE-14",
+      "ma_dong_san_pham": "CE-18 / CE-14",
+      "catalog_information_type": "METER"
+    },
+    "TB-feb77e04d8a7fcd2": {
+      "ten_san_pham": "Cụm thanh đấu nối · nhãn 150A",
+      "ma_dong_san_pham": "Cầu đấu 150A",
+      "catalog_information_type": "thanh đấu nối"
+    },
+    "TB-c9c37fbfb296016c": {
+      "ten_san_pham": "Biến dòng · ứng viên EMIC EM4H05",
+      "ma_dong_san_pham": "EM4H05 · ứng viên",
+      "catalog_information_type": "CT"
+    },
+    "TB-cfb572dcb2e9e43f": {
+      "ten_san_pham": "Đèn báo IDEC · các trạng thái màu nguồn",
+      "ma_dong_san_pham": "IDEC Light",
+      "catalog_information_type": "LIGHT"
+    },
+    "TB-2b71076e852ad919": {
+      "ten_san_pham": "Bộ điều khiển máy phát DSE8610",
+      "ma_dong_san_pham": "DSE8610",
+      "catalog_information_type": "GENERATOR_CONTROLLER"
+    },
+    "TB-116dcbc6c8b2a599": {
+      "ten_san_pham": "Ổ cắm DIN ba chấu CHINT · nguồn",
+      "ma_dong_san_pham": "Ổ cắm ba chấu CHINT",
+      "catalog_information_type": "SOCKET"
+    },
+    "TB-1c87110aeeeebd43": {
+      "ten_san_pham": "Biến dòng Morele MSQ-60",
+      "ma_dong_san_pham": "MSQ-60",
+      "catalog_information_type": "CT"
+    },
+    "TB-31f26b6b7d05ce1d": {
+      "ten_san_pham": "Bản mã có rãnh · nguồn C125",
+      "ma_dong_san_pham": "C125",
+      "catalog_information_type": "bản mã"
+    },
+    "TB-d2406acb65519d51": {
+      "ten_san_pham": "Biến áp điều khiển · nguồn 1000VA",
+      "ma_dong_san_pham": "front-1000va",
+      "catalog_information_type": "TRANSFORMER"
+    },
+    "TB-059ffb2a479e2a01": {
+      "ten_san_pham": "Biến áp điều khiển · nguồn 1000VA",
+      "ma_dong_san_pham": "side-1000va",
+      "catalog_information_type": "TRANSFORMER"
+    },
+    "TB-bc39b558c90cbd3f": {
+      "ten_san_pham": "Biến áp điều khiển · nguồn 500VA",
+      "ma_dong_san_pham": "front-500va",
+      "catalog_information_type": "TRANSFORMER"
+    },
+    "TB-1d1bbb4a2a2dc7e2": {
+      "ten_san_pham": "Nguồn Omron S8FS-C050 · họ 50W",
+      "ma_dong_san_pham": "S8FS-C050 · nguồn C5024",
+      "catalog_information_type": "POWER_SUPPLY"
+    },
+    "TB-3a756d630a0f6aae": {
+      "ten_san_pham": "Biến tần INVT GD20",
+      "ma_dong_san_pham": "GD20",
+      "catalog_information_type": "VFD"
+    },
+    "TB-1a8daff4c106c081": {
+      "ten_san_pham": "Cụm chống sét VITZRO · hình nguồn",
+      "ma_dong_san_pham": "CHONG SET VITZRO",
+      "catalog_information_type": "SPD"
+    },
+    "TB-510c1d1ef6c61e73": {
+      "ten_san_pham": "Nguồn Delta PMT-24V100W2BA",
+      "ma_dong_san_pham": "PMT-24V100W2BA",
+      "catalog_information_type": "POWER_SUPPLY"
+    },
+    "TB-7bc8762216c36055": {
+      "ten_san_pham": "Khởi động mềm CHINT NJR2-D · khung 90–185",
+      "ma_dong_san_pham": "NJR2-90D~185D",
+      "catalog_information_type": "SOFT_STARTER"
+    },
+    "TB-3f8b3f885ffe35e4": {
+      "ten_san_pham": "Nguồn Delta PMT-24V50W2BA",
+      "ma_dong_san_pham": "PMT-24V50W2BA",
+      "catalog_information_type": "POWER_SUPPLY"
+    },
+    "TB-8b6d26342161f75f": {
+      "ten_san_pham": "Biến dòng LightStar KBM-12",
+      "ma_dong_san_pham": "KBM-12",
+      "catalog_information_type": "CT"
+    },
+    "TB-734106302ca488a8": {
+      "ten_san_pham": "Đồng hồ BEW/Bau San · nguồn BEW96, mặt sau",
+      "ma_dong_san_pham": "BEW96 · ứng viên BE-96",
+      "catalog_information_type": "METER"
+    },
+    "TB-5bc35565d0096d60": {
+      "ten_san_pham": "Bao hình UPS · nguồn 500VA 300W",
+      "ma_dong_san_pham": "Bộ lưu điện UPS 500VA 300W",
+      "catalog_information_type": "UPS_ENVELOPE"
+    },
+    "TB-8eacb99f11eb296a": {
+      "ten_san_pham": "Biến dòng Mun Hean · MT5 1 5 0200~0400 Munhean",
+      "ma_dong_san_pham": "MT5 1 5 0200~0400 Munhean",
+      "catalog_information_type": "CT"
+    },
+    "TB-0dc6753047feda2b": {
+      "ten_san_pham": "Biến dòng Mun Hean · MT5 1 5 0060~0100 Munhean",
+      "ma_dong_san_pham": "MT5 1 5 0060~0100 Munhean",
+      "catalog_information_type": "CT"
+    },
+    "TB-f6543f9d702a837a": {
+      "ten_san_pham": "Biến dòng Mun Hean · MT5 1 5 0150 Munhean",
+      "ma_dong_san_pham": "MT5 1 5 0150 Munhean",
+      "catalog_information_type": "CT"
+    },
+    "TB-e24d29690428606b": {
+      "ten_san_pham": "Bộ điều khiển ATS VITZRO VITAC 200",
+      "ma_dong_san_pham": "VITAC 200",
+      "catalog_information_type": "ATS_CONTROLLER"
+    },
+    "TB-48fae30b7c911bbc": {
+      "ten_san_pham": "Dãy cầu đấu · nguồn 20A",
+      "ma_dong_san_pham": "Cầu đấu 20A",
+      "catalog_information_type": "TERMINAL"
+    },
+    "TB-ce8d9de9db9a41e3": {
+      "ten_san_pham": "Công tơ EMIC CE-38",
+      "ma_dong_san_pham": "CE-38",
+      "catalog_information_type": "METER"
+    },
+    "TB-833ce47ebe60e8ec": {
+      "ten_san_pham": "Bản liên kết có phần ren · nguồn NMHB",
+      "ma_dong_san_pham": "NMHB",
+      "catalog_information_type": "chi tiết liên kết cơ khí"
+    },
+    "TB-986c3474ad50fbbb": {
+      "ten_san_pham": "Tai liên kết có lỗ dạng D · nguồn NHBN",
+      "ma_dong_san_pham": "NHBN",
+      "catalog_information_type": "chi tiết liên kết cơ khí"
+    },
+    "TB-a76a9a323807d7f9": {
+      "ten_san_pham": "Tai liên kết có lỗ tròn · nguồn NG",
+      "ma_dong_san_pham": "NG",
+      "catalog_information_type": "chi tiết liên kết cơ khí"
+    },
+    "TB-571199d1a46279f0": {
+      "ten_san_pham": "Cụm khóa cửa tủ MSH-01 · mặt cơ cấu",
+      "ma_dong_san_pham": "MSH-01",
+      "catalog_information_type": "khóa cửa"
+    },
+    "TB-dbf4407c7132c064": {
+      "ten_san_pham": "Thanh đỡ cách điện · EL210-3-11",
+      "ma_dong_san_pham": "EL210-3-11",
+      "catalog_information_type": "thanh đỡ cách điện"
+    },
+    "TB-dea38169031e16bb": {
+      "ten_san_pham": "Chân đỡ dạng bậc · nguồn n cn",
+      "ma_dong_san_pham": "n cn",
+      "catalog_information_type": "chi tiết liên kết cơ khí"
+    },
+    "TB-d7db9f502ea1daf1": {
+      "ten_san_pham": "Chi tiết chân đỡ · nguồn BC N",
+      "ma_dong_san_pham": "BC N",
+      "catalog_information_type": "chi tiết liên kết cơ khí"
+    },
+    "TB-3b477e7fee4a900a": {
+      "ten_san_pham": "Giá đỡ chữ U · nguồn cgn bh",
+      "ma_dong_san_pham": "cgn bh",
+      "catalog_information_type": "chi tiết liên kết cơ khí"
+    },
+    "TB-1402eb0aed2c9daa": {
+      "ten_san_pham": "Thanh đỡ cách điện · EL180-3-6",
+      "ma_dong_san_pham": "EL180-3-6",
+      "catalog_information_type": "thanh đỡ cách điện"
+    },
+    "TB-36d1d33a931835ad": {
+      "ten_san_pham": "Cụm cầu đấu Linkwell J-LUK2.5B",
+      "ma_dong_san_pham": "J-LUK2.5B",
+      "catalog_information_type": "TERMINAL"
+    },
+    "TB-bbd0514ddb223574": {
+      "ten_san_pham": "Đồ họa nhãn SEIKI",
+      "ma_dong_san_pham": "SEIKI",
+      "catalog_information_type": "BRAND_MARK"
+    },
+    "TB-66c893515c98d557": {
+      "ten_san_pham": "Biến dòng LightStar KBM-36",
+      "ma_dong_san_pham": "KBM-36",
+      "catalog_information_type": "CT"
+    },
+    "TB-5efc4634f3aea30d": {
+      "ten_san_pham": "Biến dòng LightStar KBM-34",
+      "ma_dong_san_pham": "KBM-34",
+      "catalog_information_type": "CT"
+    },
+    "TB-eea5a43707168c38": {
+      "ten_san_pham": "Biến dòng LightStar KBM-05",
+      "ma_dong_san_pham": "KBM-05",
+      "catalog_information_type": "CT"
+    },
+    "TB-5cf2adeec3a130b8": {
+      "ten_san_pham": "Ổ cắm MDCE MD1132 · ứng viên theo nguồn",
+      "ma_dong_san_pham": "MD1132",
+      "catalog_information_type": "SOCKET"
+    },
+    "TB-ed1529932a660b5c": {
+      "ten_san_pham": "Nút nhấn IDEC · các trạng thái mặt nguồn",
+      "ma_dong_san_pham": "02_IDEC Push Button",
+      "catalog_information_type": "PUSHBUTTON"
+    },
+    "TB-e502ae5cdf9b8a38": {
+      "ten_san_pham": "Rơ-le chạm đất Mikro MK231A",
+      "ma_dong_san_pham": "MK231A",
+      "catalog_information_type": "EARTH_FAULT_RELAY"
+    },
+    "TB-af184dac96678770": {
+      "ten_san_pham": "Bảo vệ pha · nguồn v.Fuse1P.0",
+      "ma_dong_san_pham": "v.Fuse1P.0",
+      "catalog_information_type": "PHASE_RELAY"
+    },
+    "TB-5ad7f165ef6ac58c": {
+      "ten_san_pham": "Mẫu cụm khởi động · nguồn KM+OL6-18A",
+      "ma_dong_san_pham": "Layout KM+OL6-18A",
+      "catalog_information_type": "CONTACTOR_OVERLOAD_ASSEMBLY"
+    },
+    "TB-f0f634c1f526cff0": {
+      "ten_san_pham": "Quạt vuông · nguồn 200×200",
+      "ma_dong_san_pham": "20060/20061 · cỡ hình học tham khảo",
+      "catalog_information_type": "FAN"
+    },
+    "TB-52c6663551015b9c": {
+      "ten_san_pham": "Lưới bảo vệ quạt · nguồn D200",
+      "ma_dong_san_pham": "Lo khoet quat D200",
+      "catalog_information_type": "tấm che bảo vệ quạt"
+    },
+    "TB-4e1d2043b36a34ad": {
+      "ten_san_pham": "Bản mã có cửa sổ · nguồn CJ19-95A",
+      "ma_dong_san_pham": "CJ19-95A",
+      "catalog_information_type": "bản mã"
+    },
+    "TB-602875c67ddcdfec": {
+      "ten_san_pham": "Thermostat · họ STEGO KTS 011 NO",
+      "ma_dong_san_pham": "KTS 011 (NO)",
+      "catalog_information_type": "THERMOSTAT"
+    },
+    "TB-5d209abf1cacc192": {
+      "ten_san_pham": "Chống sét Himel HDY3406 · hình nguồn",
+      "ma_dong_san_pham": "HDY3406",
+      "catalog_information_type": "SPD"
+    },
+    "TB-e805c6a5f4efe37d": {
+      "ten_san_pham": "Cụm ba đế cầu chì ESYS EF-ST-32",
+      "ma_dong_san_pham": "EF-ST-32",
+      "catalog_information_type": "FUSE_HOLDER"
     }
   }
 }

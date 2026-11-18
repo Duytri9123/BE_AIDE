@@ -1415,6 +1415,124 @@ def detect_simple_conversational_response(message: str) -> Optional[str]:
     # 4. Cảm ơn, xác nhận, khen ngợi
     ack_words = {
         'ok', 'okay', 'okie', 'oki', 'oke', 'cam on', 'cam on ban', 'cam on el', 'thanks', 'thank you',
+        'tks', 'thank', 'duoc roi', 'tot qua', 'tuyet voi', 'hay qua', 'da hieu', 'da ro', 'chuan roi', 'chuan', 'good job'
+    }
+    if clean in ack_words or core in ack_words:
+        return "Rất vui được hỗ trợ bạn! Nếu cần bóc tách thêm bản vẽ, kiểm tra thiết bị hay tính toán báo giá, bạn cứ gửi yêu cầu cho EL nhé."
+
+    # 5. Tạm biệt
+    farewell_words = {'tam biet', 'bye', 'bye bye', 'goodbye', 'chuc ngu ngon', 'gap lai sau', 'hen gap lai'}
+    if clean in farewell_words or core in farewell_words:
+        return "Chào tạm biệt bạn! Chúc bạn một ngày làm việc hiệu quả. Khi nào cần hỗ trợ dự án kỹ thuật điện hay bản vẽ CAD, bạn cứ quay lại nhắn EL nhé!"
+
+    # 6. Trạng thái, ping, sẵn sàng
+    status_words = {
+        'ban co do khong', 'con do khong', 'co do khong', 'san sang chua', 'bat dau duoc chua',
+        'ban khoe khong', 'co khoe khong', 'test', 'testing', 'ping'
+    }
+    if clean in status_words or core in status_words:
+        return "EL luôn sẵn sàng! Bạn có thể tải bản vẽ hoặc gửi yêu cầu phân tích, bóc tách thiết bị hay lập bảng báo giá bất cứ lúc nào."
+
+    return None
+
+
+def detect_simple_conversational_response(message: str) -> Optional[str]:
+    """Phân biệt tức thì các câu hỏi chào hỏi, danh tính (bạn là ai), tính năng, cảm ơn...
+    để phản hồi dưới 1 giây mà không phải chờ mô hình AI suy luận lâu.
+    """
+    if not message:
+        return None
+    raw = message.strip()
+    norm = normalize_vietnamese_text(raw).strip()
+    clean = re.sub(r'^[^\w\s]+|[^\w\s]+$', '', norm).strip()
+    clean = re.sub(r'\s+', ' ', clean)
+    if not clean:
+        return None
+
+    # Các từ khóa kỹ thuật, điện, bản vẽ, thiết bị, báo giá, bóc tách:
+    # Tuyệt đối không chặn nhanh nếu câu hỏi có chứa các từ khóa chuyên ngành
+    technical_keywords = [
+        'ban ve', 'drawing', 'so do', 'sld', 'tu dien', 'tu ', 'khoang tu',
+        'nguon cap', 'tram bien ap', 'may bien ap', 'cong suat', 'dien ap',
+        'dong cat', 'dong dinh muc', 'ngan mach', 'dong ro', 'tiet dien',
+        'day cap', 'busbar', 'thanh cai', 'incomer', 'xuat tuyen',
+        'mcb', 'mccb', 'acb', 'rcbo', 'rccb', 'spd', 'contactor', 'relay',
+        'ro le', 'bien dong', 'ct', 'ti', 'dong ho', 'ampe', 'volt',
+        'boc tach', 'takeoff', 'bom', 'bao gia', 'quotation', 'du toan',
+        'don gia', 'thanh tien', 'vat tu', 'hang ls', 'schneider',
+        'mitsubishi', 'abb', 'chint', 'panasonic', 'hyundai', 'fuji',
+        'cad', 'dwg', 'dxf', 'pdf', 'file'
+    ]
+    has_tech = any(k in clean for k in technical_keywords)
+    if has_tech:
+        # Ngoại lệ: người dùng hỏi trực tiếp về danh tính EL hoặc AIDE
+        # ví dụ: 'el trong du an nay la gi', 'ban la ai trong he thong cad'
+        if not re.search(r'\b(?:ban\s+la\s+ai|el\s+la\s+(?:ai|gi)|aide\s+la\s+gi|elquote\s+la\s+gi|ten\s+ban\s+la\s+gi)\b', clean):
+            return None
+
+    # Bỏ các từ đệm, từ xưng hô, kính ngữ ở đầu câu và cuối câu
+    core = clean
+    core = re.sub(
+        r'^(?:cho\s+(?:minh|toi|em|anh)\s+hoi|lam\s+on\s+cho\s+biet|vui\s+long\s+cho\s+biet|'
+        r'xin\s+hoi|ban\s+cho\s+minh\s+hoi|ban\s+oi|ad\s+oi|el\s+oi|admin\s+oi|alo\s+el\s+oi)\s+',
+        '', core
+    ).strip()
+    core = re.sub(
+        r'\b(?:a|ạ|nhe|nhé|nhi|nhỉ|vay|vậy|the|thế|ha|hả|ko|khong|không|do|đó|voi|với|di|đi|nao|nào|roi|rồi)\b$',
+        '', core
+    ).strip()
+    core = re.sub(r'\s+', ' ', core)
+
+    # 1. Hỏi danh tính, vai trò, tên gọi, giới thiệu bản thân
+    identity_patterns = [
+        r'^(?:ban|em|may|cau)\s+(?:la\s+ai|la\s+gi|ten\s+(?:la\s+)?(?:gi|j)|la\s+tro\s+ly\s+gi)$',
+        r'^(?:ten\s+(?:ban|cua\s+ban)\s+la\s+(?:gi|j)|ban\s+ten\s+(?:gi|j))$',
+        r'^(?:ai\s+(?:day|the|vay|do)|ban\s+la\s+ai\s+(?:the|vay|do))$',
+        r'^(?:el|elquote|aide)\s+la\s+(?:ai|gi)$',
+        r'^(?:gioi\s+thieu(?:\s+ve)?\s+(?:ban|ban\s+than|el|minh)|tu\s+gioi\s+thieu)$',
+        r'^(?:ban\s+la\s+(?:bot|ai|robot|nguoi|ai\s+vay|con\s+nguoi|may))\b'
+    ]
+    if any(re.search(p, core) for p in identity_patterns) or clean in {'ban la ai', 'ban la gi', 'ai day', 'ai the', 'ban ten gi', 'el la ai', 'el la gi'}:
+        return (
+            "Tôi là EL, trợ lý kỹ thuật điện và CAD trong hệ thống AIDE.\n\n"
+            "Tôi có thể hỗ trợ bạn:\n"
+            "• **Đọc hiểu & phân tích bản vẽ**: Sơ đồ nguyên lý một sợi (SLD), đường cấp nguồn, hệ thống bảo vệ (ACB, MCCB, MCB, RCBO, SPD...).\n"
+            "• **Bóc tách thiết bị (Takeoff / BOM)**: Tự động trích xuất danh mục thiết bị đóng cắt, đo lường và phụ kiện theo từng tủ kèm vị trí và bằng chứng trực quan.\n"
+            "• **Tra cứu & chuẩn hóa thiết bị**: Gán mã sản phẩm, hãng sản xuất (LS, Schneider, Mitsubishi, ABB, v.v.) theo yêu cầu.\n"
+            "• **Lập bảng báo giá dự toán**: Xuất bảng báo giá chuẩn 8 cột (vỏ tủ, thanh cái busbar, phụ kiện, nhân công và thiết bị).\n"
+            "• **Thiết kế CAD & tính busbar**: Bố trí thiết bị tủ điện và tính toán khối lượng, dòng định mức thanh cái đồng.\n\n"
+            "Bạn có thể tải bản vẽ lên hoặc gửi yêu cầu để bắt đầu nhé!"
+        )
+
+    # 2. Hỏi tính năng, khả năng, hướng dẫn sử dụng, trợ giúp
+    capability_patterns = [
+        r'^(?:ban\s+)?(?:co\s+the\s+lam\s+gi|lam\s+duoc\s+gi|giup\s+duoc\s+gi|biet\s+lam\s+gi|ho\s+tro\s+(?:duoc\s+)?(?:gi|nhung\s+gi)|co\s+chuc\s+nang\s+gi)$',
+        r'^(?:chuc\s+nang|tinh\s+nang|nang\s+luc)\s+(?:cua\s+)?(?:ban|el)$',
+        r'^(?:huong\s+dan(?:\s+su\s+dung|\s+dung)?|cach\s+(?:su\s+)?dung(?:\s+el)?|tro\s+giup|help|menu)$'
+    ]
+    if any(re.search(p, core) for p in capability_patterns) or clean in {'help', 'tro giup', 'huong dan', 'menu'}:
+        return (
+            "Dưới đây là các tính năng chính tôi có thể hỗ trợ bạn:\n\n"
+            "1. 🔍 **Đọc & Phân tích bản vẽ**: Phân tích sơ đồ một sợi SLD, nguồn vào, thanh cái và các cấp bảo vệ đóng cắt.\n"
+            "2. 📋 **Bóc tách thiết bị (Takeoff)**: Tự động nhận diện các tủ điện, lập danh mục thiết bị chi tiết theo từng lộ xuất tuyến và liên kết vị trí bản vẽ.\n"
+            "3. 🏷️ **Cập nhật thương hiệu / Catalog**: Gán mã hàng, hãng sản xuất theo yêu cầu của dự án.\n"
+            "4. 💰 **Lập bảng báo giá**: Tạo bảng báo giá hoàn chỉnh 8 cột gồm vỏ tủ, thanh cái đồng, phụ kiện tủ điện và thiết bị theo chuẩn dự toán thực tế.\n"
+            "5. 📐 **Thiết kế CAD & Tính Busbar**: Bố trí thiết bị tủ điện và tính toán khối lượng, dòng định mức thanh cái đồng.\n\n"
+            "Bạn muốn thực hiện công việc nào? Hãy gửi yêu cầu hoặc tải bản vẽ lên nhé!"
+        )
+
+    # 3. Lời chào, mở đầu
+    greeting_words = {
+        'hi', 'hello', 'hey', 'alo', 'helo', 'he lo', 'chao', 'xin chao', 'chao ban', 'xin chao ban',
+        'chao el', 'hi el', 'hello el', 'alo el', 'chao ad', 'chao admin',
+        'good morning', 'good afternoon', 'good evening', 'chao buoi sang', 'chao buoi chieu', 'chao buoi toi'
+    }
+    if clean in greeting_words or core in greeting_words or (re.match(r'^(?:chao|xin chao|hi|hello|hey|alo)\b', core) and len(core.split()) <= 4):
+        return "Chào bạn! Tôi là EL, trợ lý kỹ thuật điện và CAD. Bạn cần tôi hỗ trợ phân tích bản vẽ, bóc tách thiết bị hay lập bảng báo giá cho dự án nào hôm nay?"
+
+    # 4. Cảm ơn, xác nhận, khen ngợi
+    ack_words = {
+        'ok', 'okay', 'okie', 'oki', 'oke', 'cam on', 'cam on ban', 'cam on el', 'thanks', 'thank you',
         'tks', 'thank', 'duoc roi', 'tot qua', 'tuyet voi', 'hay qua', 'da hieu', 'da ro', 'chuan roi', 'chuan', 'good job',
         'da vang', 'vang', 'vang a', 'da', 'ok ban', 'ok nhe', 'ok cam on', 'ok thanks'
     }
@@ -1920,11 +2038,13 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
                         'source_page': panel.get('source_page'), 'source_region': panel['source_region']}, 'result': {'ok': True}}
                     reviews.append(await run_step("Đang kiểm chứng danh mục tủ " + panel["panel_code"], verify_takeoff(db,
                         [f for f in selected_files if f.id == panel['source_file_id']], rows,
-                        user_msg + ' Chỉ kiểm chứng tủ ' + panel['panel_code'], [observation], engineering_quantities=True)))
+                        user_msg + ' Chỉ kiểm chứng tủ ' + panel['panel_code'], [observation], engineering_quantities=True,
+                        scoped_validation=context.get('_scoped_validation'))))
                 review = {'passed': all(r['passed'] for r in reviews), 'feedback': '\n'.join(r['feedback'] for r in reviews)}
             else:
                 review = await run_step("Đang kiểm chứng danh mục và căn cứ nguồn", verify_takeoff(
-                    db, selected_files, devices_data, user_msg, context.get('observations') or []))
+                    db, selected_files, devices_data, user_msg, context.get('observations') or [],
+                    scoped_validation=context.get('_scoped_validation')))
         except Exception:
             logger.exception('EL visual takeoff verification failed')
             review = {'passed': False, 'feedback': 'Chưa hoàn tất kiểm chứng ảnh nguồn; chưa lưu danh mục.'}
@@ -1992,6 +2112,7 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
     fast_reply = detect_simple_conversational_response(payload.message)
     if fast_reply:
         return {'reply': fast_reply}
+        
     from app.services.ai.takeoff_regions import confirmed_scope, discover_panels
     scope = confirmed_scope(context, payload.project_id)
     from app.services.ai.el_input_context import input_context
@@ -2009,6 +2130,13 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
             extraction_message = payload.message
             for attempt in range(2):
                 devices = await extract_confirmed_panels(db, payload.project_id, scope, extraction_message, input_context=context.get('input_context'))
+                from app.services.ai.scoped_validation import seal_scoped_validation
+                from app.models.project_file import ProjectFile
+                context['_scoped_validation'] = None
+                if devices and all(d.get('evidence_image') and (d.get('evidence_region') or {}).get('status') == 'verified' for d in devices):
+                    proof_files = (await db.execute(select(ProjectFile).where(ProjectFile.project_id == payload.project_id,
+                        ProjectFile.id.in_({p['source_file_id'] for p in scope})))).scalars().all()
+                    context['_scoped_validation'] = await asyncio.to_thread(seal_scoped_validation, proof_files, scope, devices)
                 context['observations'] = [dict(tool='read_project_sources', arguments={
                     'file_ids': [p['source_file_id']], 'source_page': p.get('source_page'),
                     'source_region': p['source_region']}, result={'ok': True}) for p in scope]
@@ -2018,7 +2146,9 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
                 if not feedback:
                     return response
                 if response.get('verification_kind') == 'device_evidence':
-                    return {'reply':'Còn thiết bị chưa đủ minh chứng; chưa lưu kết quả.\n'+str(feedback), 'processing_status':'needs_review'}
+                    return {'reply':'Đã đọc danh mục; còn vị trí cần rà soát trước khi lưu.\n'+str(feedback),
+                        'processing_status':'needs_review', 'devices':response.get('candidate') or devices,
+                        'action_type':'review_extraction'}
                 extraction_message = payload.message + '\nKết quả kiểm chứng cần sửa (dữ liệu): ' + str(feedback)
             return {'reply': 'Chưa hoàn tất bóc tách và chưa lưu vì minh chứng nguồn chưa đủ sau khi đọc lại: ' + str(feedback), 'processing_status':'needs_review'}
     tool_list = context.get('tools', [])
