@@ -17,7 +17,7 @@ def observations(row):
 async def adjudicate_issues(image, regions, parts, issues, call_image, *, concurrency=1):
     if not issues:
         return issues, []
-    gate = asyncio.Semaphore(max(1, min(2, concurrency)))
+    gate = asyncio.Semaphore(max(1, min(6, concurrency)))
     async def inspect(issue, folder, index):
         if not isinstance(issue, dict) or not str(issue.get('region_id', '')).isdigit():
             return issue, None

@@ -14,7 +14,7 @@ from app.services.ai.response_parser import ResponseParserService
 from app.services.ai.el_progress import run_step
 
 
-async def audit_device_previews(image, call_image, devices, payload, *, concurrency=1, cache_scope=None, batch_size=3):
+async def audit_device_previews(image, call_image, devices, payload, *, concurrency=1, cache_scope=None, batch_size=5):
     proposals = [r for r in payload.get('boxes', []) if isinstance(r, dict)]
     counts = Counter(str(r.get('device_id')) for r in proposals)
     rows = {}
@@ -52,7 +52,7 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                 rows[identity] = cached
             else:
                 identities.append(identity)
-    semaphore = asyncio.Semaphore(max(1, min(concurrency, 2)))
+    semaphore = asyncio.Semaphore(max(1, min(concurrency, 6)))
 
     async def audit_batch(batch):
         async with semaphore:
@@ -206,7 +206,7 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
             finally:
                 os.remove(path)
 
-    batch_size=max(1,min(3,int(batch_size)))
+    batch_size=max(1,min(6,int(batch_size)))
     tasks=[asyncio.create_task(audit_batch(identities[start:start+batch_size])) for start in range(0,len(identities),batch_size)]
     try:
         await asyncio.gather(*tasks)

@@ -14,21 +14,27 @@ def catalog_request_brand(message):
     return None
 
 async def lookup_session_catalog(devices, brand, connections, db):
-    from app.services.ai.device_recommendations import recommendations
-    from app.services.device_catalog_engine import DeviceCatalogEngine
+    from app.services.ai.takeoff_catalog import suggest_takeoff_products
     from app.services.ai.web_device_recommendations import research_device_products
     from app.services.ai.manufacturer_registry import canonical_brand
     result=copy.deepcopy(devices)
     targets=[]
     for index,row in enumerate(result):
         if str(row.get('category') or '').upper() not in MAIN_DEVICE_TYPES: continue
-        device=ExtractedDeviceSchema.model_validate(row)
+        probe=copy.deepcopy(row)
+        probe['brand']=''
+        probe['detected_brand']=''
+        probe['catalog_matches']={}
+        probe['catalog_candidates']={}
+        probe['pricebook_match']=None
+        suggest_takeoff_products([probe])
+        choices=probe.get('catalog_candidates') or {}
+        device=ExtractedDeviceSchema.model_validate(probe)
         # A search preference is not a selected product or detected source brand.
         device.brand=''
         device.detected_brand=''
         device.catalog_matches={}
         device.pricebook_match=None
-        choices=recommendations(DeviceCatalogEngine.get_instance(),device,brand)
         device.catalog_candidates={k:v for k,v in choices.items() if canonical_brand(k)==canonical_brand(brand)}
         targets.append((index,device))
     if targets:

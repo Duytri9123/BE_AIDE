@@ -1,56 +1,222 @@
-"""Local, cited catalog proposals kept separate from source identity.
+"""Local, cited pricebook proposals kept separate from source identity.
 
 Search priority: supplier_pricebooks (bảng giá, có liên kết) thay vì
 library_catalog_information (thư viện thiết bị, chậm hơn và thiếu liên kết giá).
 """
 import re
+import unicodedata
 from functools import lru_cache
+from pathlib import Path
 from app.schemas.ai import ExtractedDeviceSchema
+
+
+def _strip_accents(text):
+    norm = unicodedata.normalize('NFD', str(text or ''))
+    return ''.join(c for c in norm if unicodedata.category(c) != 'Mn').replace('đ', 'd').replace('Đ', 'D')
+
+
+# ---------------------------------------------------------------------------
+# Parse rating numbers (hỗ trợ danh sách rời như "6,10,16" & số thập phân "0,5")
+# ---------------------------------------------------------------------------
+
+def _split_rating_list(text):
+    def _expand(match):
+        tokens = match.group(0).split(',')
+        if len(tokens) > 2 or all(float(t) >= 10 for t in tokens):
+            return ' '.join(tokens)
+        return match.group(0)
+    return re.sub(r'\d+(?:,\d+)+', _expand, str(text or ''))
+
+
+def _numbers(value):
+    if value is None:
+        return set()
+    cleaned = re.sub(r'\([^)]*\)', '', str(value))
+    cleaned = _split_rating_list(cleaned)
+    return {float(n.replace(',', '.')) for n in re.findall(r'\d+(?:[.,]\d+)?', cleaned)}
+
+
+def _rating(spec, terms):
+    return next(
+        (v for k, v in spec.items()
+         if any(term in _strip_accents(k).lower() for term in terms)),
+        None,
+    )
+
+
+def _extract_row_currents(row):
+    spec = row.get('specifications') or {}
+    raw = _rating(spec, ['in (a)', 'dinh muc in', 'dong dinh muc (a)', 'dong dinh muc', 'rated current'])
+    nums = _numbers(raw)
+    if nums:
+        return nums
+    name = str(row.get('item_name') or row.get('name') or '')
+    return {float(v.replace(',', '.')) for v in re.findall(r'(?<![\w-])(\d+(?:[.,]\d+)?)\s*A\b', name, re.I)}
+
+
+def _extract_row_icu(row):
+    spec = row.get('specifications') or {}
+    raw = _rating(spec, ['icu', 'icn', 'kha nang cat'])
+    if raw is None:
+        return set()
+    text = str(raw)
+    ka = {float(v.replace(',', '.')) for v in re.findall(r'(\d+(?:[.,]\d+)?)\s*kA', text, re.I)}
+    if ka:
+        return ka
+    if re.fullmatch(r'\s*\d+(?:[.,]\d+)?(?:\s*[/,-]\s*\d+(?:[.,]\d+)?)*\s*', text):
+        return _numbers(text)
+    return set()
+
+
+def _extract_row_poles(row):
+    from app.services.catalog_family_matching import row_poles
+    pol = row_poles(row)
+    if pol:
+        return pol
+    text = f"{row.get('item_name') or ''} {row.get('group') or ''}"
+    m = re.search(r'(?<!\w)([1-4])\s*(?:P|POLES?)\b', text, re.I)
+    return f'{m[1]}P' if m else ''
+
+
+def _prepare_entry(row):
+    return (
+        row,
+        _extract_row_currents(row),
+        _extract_row_icu(row),
+    )
 
 
 # ---------------------------------------------------------------------------
 # Index bảng giá để tìm kiếm nhanh O(1) thay vì linear scan O(n)
 # ---------------------------------------------------------------------------
 
-@lru_cache(maxsize=1)
-def _pricebook_index(revision):
-    """Build (category, poles) → [rows] index từ supplier_pricebooks."""
-    from app.services.device_catalog_browser import load_supplier_items
-    from app.services.catalog_family_matching import category_key, row_poles
-
-    rows = load_supplier_items()
+def _build_index(rows):
+    from app.services.catalog_family_matching import category_key
     index = {}
+    by_cat = {}
     for row in rows:
         cat = category_key(row.get('category') or '')
-        pol = row_poles(row)                    # e.g. "1P", "3P", ""
-        key = (cat, pol)
-        index.setdefault(key, []).append(row)
-    return index
+        pol = _extract_row_poles(row)
+        entry = _prepare_entry(row)
+        index.setdefault((cat, pol), []).append(entry)
+        by_cat.setdefault(cat, []).append(entry)
+    return index, by_cat
+
+
+@lru_cache(maxsize=1)
+def _pricebook_index(revision):
+    """Build (category, poles) -> [(row, currents, icus)] index từ supplier_pricebooks."""
+    from app.services.device_catalog_browser import load_supplier_items
+    return _build_index(load_supplier_items())
 
 
 def pricebook_index():
-    """Trả về index được cache; tự invalidate khi file thay đổi."""
-    from pathlib import Path
+    """Trả về index được cache; tự invalidate khi file bảng giá thay đổi."""
+    p = Path(__file__).resolve().parents[2] / 'data' / 'supplier_pricebooks.json'
+    revision = (str(p), p.stat().st_mtime_ns, p.stat().st_size) if p.exists() else ()
+    return _pricebook_index((revision,))[0]
+
+
+def _pricebook_indices():
     p = Path(__file__).resolve().parents[2] / 'data' / 'supplier_pricebooks.json'
     revision = (str(p), p.stat().st_mtime_ns, p.stat().st_size) if p.exists() else ()
     return _pricebook_index((revision,))
 
 
 # ---------------------------------------------------------------------------
-# Helper
+# Category normalization & matching
 # ---------------------------------------------------------------------------
 
-def _numbers(value):
-    return {float(n.replace(',', '.')) for n in re.findall(r'\d+(?:[.,]\d+)?', str(value))}
+GENERIC_BREAKER_CATEGORIES = {
+    'APTOMAT', 'APTOMAT TEP', 'APTOMAT KHOI', 'BREAKER', 'CB',
+    'CIRCUIT_BREAKER', 'CIRCUIT BREAKER', 'THIET BI DONG CAT', 'THIET BI BAO VE',
+}
+BREAKER_CATEGORIES = {'MCB', 'MCCB', 'ACB', 'RCBO', 'RCCB', 'ELCB'}
+RATED_CATEGORIES = BREAKER_CATEGORIES | {'CONTACTOR', 'OVERLOAD', 'THERMAL_RELAY'}
+AUXILIARY_PRICEBOOK_CATEGORIES = {'METER', 'SELECTOR_SWITCH', 'LIGHT', 'PILOT_LIGHT', 'INDICATOR_LIGHT', 'CT', 'SPD', 'RELAY'}
 
 
-def _rating(spec, terms):
-    from app.services.device_catalog_engine import strip_accents
-    return next(
-        (v for k, v in spec.items()
-         if any(term in strip_accents(k).lower() for term in terms)),
-        None,
-    )
+def _normalize_device_category(device):
+    raw_cat = _strip_accents(str(device.category or '')).upper().strip()
+    if raw_cat in {'PILOT_LIGHT', 'INDICATOR_LIGHT', 'DEN BAO', 'DEN BAO PHA'}:
+        return 'LIGHT'
+    if raw_cat in {'CHUYEN MACH', 'CONG TAC CHUYEN MACH'}:
+        return 'SELECTOR_SWITCH'
+    if raw_cat in {'DONG HO', 'DONG HO DO', 'AMMETER', 'VOLTMETER'}:
+        return 'METER'
+    if raw_cat in {'BIEN DONG'}:
+        return 'CT'
+    if raw_cat in {'PHU KIEN TU DIEN', 'ACCESSORY', ''}:
+        text = _strip_accents(f"{device.name or ''} {device.spec or ''}").upper()
+        if any(k in text for k in ('DEN BAO', 'R, Y, B', 'R,Y,B', 'PILOT', 'LAMP')):
+            return 'LIGHT'
+        if any(k in text for k in ('CHUYEN MACH', 'SELECTOR', 'VS ', 'AS ')):
+            return 'SELECTOR_SWITCH'
+        if any(k in text for k in ('DONG HO', 'VOLT', 'AMPE', 'METER', '0-600V', '0-500V')):
+            return 'METER'
+    if raw_cat in GENERIC_BREAKER_CATEGORIES or raw_cat.startswith(('APTOMAT', 'CIRCUIT')):
+        spec_upper = _strip_accents(f"{device.name or ''} {device.spec or ''}").upper()
+        for explicit in ('MCCB', 'RCBO', 'RCCB', 'ELCB', 'ACB', 'MCB'):
+            if re.search(rf'\b{explicit}\b', spec_upper):
+                return explicit
+        return 'CB'
+    return raw_cat
+
+
+def _lookup_categories(norm_cat, in_a, icu_ka):
+    if norm_cat == 'CB':
+        if (in_a and in_a > 63) or (icu_ka and icu_ka > 10):
+            return ['MCCB', 'CB', 'MCB']
+        return ['MCB', 'CB', 'MCCB']
+    if norm_cat == 'OVERLOAD':
+        return ['THERMAL_RELAY', 'OVERLOAD']
+    return [norm_cat]
+
+
+def _match_auxiliary_row(norm_cat, device, row):
+    dev_text = _strip_accents(f"{device.name or ''} {device.spec or ''}").lower()
+    row_text = _strip_accents(
+        f"{row.get('item_name') or ''} {row.get('group') or ''} {row.get('specifications') or ''}"
+    ).lower()
+    if norm_cat == 'METER':
+        wants_volt = any(k in dev_text for k in ('volt', 'von', 'dien ap', '600v', '500v'))
+        wants_amp = any(k in dev_text for k in ('ampe', 'amp', 'dong dien', '/5a'))
+        if wants_volt and not wants_amp:
+            return any(k in row_text for k in ('volt', 'von', 'dien ap', ' v ', '500v', '600v'))
+        if wants_amp and not wants_volt:
+            return any(k in row_text for k in ('ampe', 'amp', 'dong dien', '/5a'))
+        return True
+    if norm_cat == 'SELECTOR_SWITCH':
+        wants_volt = any(k in dev_text for k in ('volt', 'von', 'dien ap', 'vs'))
+        wants_amp = any(k in dev_text for k in ('ampe', 'amp', 'dong', 'as'))
+        if wants_volt and not wants_amp:
+            return any(k in row_text for k in ('volt', 'von', 'vs', 'dien ap'))
+        if wants_amp and not wants_volt:
+            return any(k in row_text for k in ('ampe', 'amp', 'as', 'dong'))
+        return True
+    if norm_cat == 'LIGHT':
+        return any(k in row_text for k in ('den bao', 'pilot', 'lamp', 'led', 'phi 22', 'd22', '220v')) or True
+    if norm_cat == 'CT':
+        ratio = re.search(r'(\d+)\s*/\s*5', dev_text)
+        if ratio:
+            return f"{ratio[1]}/5" in row_text or f"{ratio[1]} / 5" in row_text
+        return False
+    return True
+
+
+def _candidate_dict(candidate, reason):
+    return {
+        'sku':                   candidate['sku'],
+        'name':                  candidate.get('item_name') or candidate.get('name'),
+        'source':                candidate.get('source_url') or '',
+        'source_page':           candidate.get('source_page'),
+        'price':                 candidate.get('price'),
+        'price_row_id':          candidate.get('id'),
+        'auto_selectable':       False,
+        'requires_confirmation': True,
+        'match_kind':            'pricebook_proposal',
+        'reason':                reason,
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -58,25 +224,20 @@ def _rating(spec, terms):
 # ---------------------------------------------------------------------------
 
 def suggest_takeoff_products(devices, engine=None, catalog_rows=None):
-    from app.services.device_catalog_engine import DeviceCatalogEngine
-    from app.services.ai.device_recommendations import recommendations
-    from app.services.catalog_family_matching import category_key, row_poles
+    from app.services.catalog_family_matching import category_key
     from app.services.ai.manufacturer_registry import canonical_brand
 
-    engine = engine or DeviceCatalogEngine.get_instance()
+    # Chỉ dùng index bảng giá (supplier_pricebooks); không khởi tạo DeviceCatalogEngine nặng
+    # trừ khi caller truyền vào engine đã có brand_index (giữ tương thích test/override).
+    use_engine = engine is not None and bool(getattr(engine, 'brand_index', None))
+    recommendations = None
+    if use_engine:
+        from app.services.ai.device_recommendations import recommendations
 
-    # Dùng index bảng giá thay vì source_rows() từ thư viện thiết bị
-    # catalog_rows vẫn được nhận làm override khi caller truyền vào
-    use_index = catalog_rows is None
-    if use_index:
-        idx = pricebook_index()
+    if catalog_rows is None:
+        idx, by_cat = _pricebook_indices()
     else:
-        # Fallback: build index tạm từ danh sách được truyền vào
-        idx = {}
-        for row in catalog_rows:
-            cat = category_key(row.get('category') or '')
-            pol = row_poles(row)
-            idx.setdefault((cat, pol), []).append(row)
+        idx, by_cat = _build_index(catalog_rows)
 
     for row in devices:
         if row.get('catalog_candidates'):
@@ -90,64 +251,73 @@ def suggest_takeoff_products(devices, engine=None, catalog_rows=None):
             ('poles',  r'\b([1-4])\s*P\b'),
             ('icu_ka', r'(?<![\d.])([\d]+(?:[.,]\d+)?)\s*kA\b'),
         ]:
-            m = re.search(pattern, device.spec, re.I)
+            m = re.search(pattern, device.spec or '', re.I)
             if not getattr(device, field) and m:
-                setattr(device, field,
-                        int(m[1]) if field == 'poles'
-                        else float(m[1].replace(',', '.')))
+                setattr(
+                    device,
+                    field,
+                    int(m[1]) if field == 'poles' else float(m[1].replace(',', '.')),
+                )
 
-        if (device.category not in
-                {'MCB', 'MCCB', 'ACB', 'RCBO', 'RCCB', 'CONTACTOR', 'OVERLOAD'}
-                or not device.in_a or not device.poles):
-            row['selection_analysis'] = {
-                'status': 'insufficient_source_specs',
-                'reason': 'Chưa đủ loại thiết bị, số cực hoặc dòng định mức để gợi ý mã có căn cứ.',
-            }
-            continue
+        norm_cat = _normalize_device_category(device)
+        choices = recommendations(engine, device, device.brand) if use_engine else {}
 
-        choices = recommendations(engine, device, device.brand)
-
-        # Tra cứu nhanh theo (category, poles) trong bảng giá
-        cat_key = category_key(device.category)
-        pol_key = str(device.poles) + 'P'
-        candidates = idx.get((cat_key, pol_key), [])
-
-        for candidate in candidates:
-            spec = candidate.get('specifications') or {}
-            current  = _rating(spec, ['in (a)', 'dinh muc in', 'dong dinh muc (a)', 'dong dinh muc'])
-            breaking = _rating(spec, ['icu', 'icn', 'kha nang cat'])
-
-            if device.in_a not in _numbers(current):
-                continue
-            if device.icu_ka and (
-                not _numbers(breaking)
-                or min(_numbers(breaking)) < device.icu_ka
+        # Nhánh 1: Thiết bị đo lường / đèn báo / chuyển mạch / CT / SPD trong bảng giá
+        if norm_cat in AUXILIARY_PRICEBOOK_CATEGORIES:
+            cat_key = category_key(norm_cat)
+            seen_skus = set()
+            for candidate, _, _ in by_cat.get(cat_key, []):
+                sku = candidate.get('sku')
+                source = candidate.get('source_url') or ''
+                if not sku or not source or sku in seen_skus:
+                    continue
+                if not _match_auxiliary_row(norm_cat, device, candidate):
+                    continue
+                seen_skus.add(sku)
+                brand = canonical_brand(candidate.get('brand'))
+                choices.setdefault(brand, []).append(_candidate_dict(
+                    candidate,
+                    'Bảng giá ghi cùng loại thiết bị/chức năng; cần đối chiếu điện áp, kích thước lỗ khoét và mã đặt hàng trước khi chọn.',
+                ))
+        else:
+            # Nhánh 2: Thiết bị đóng cắt / bảo vệ (MCB, MCCB, CB/APTOMAT, ACB, RCBO, RCCB, ELCB, CONTACTOR, OVERLOAD)
+            needs_poles = norm_cat in (BREAKER_CATEGORIES | {'CB'})
+            if (
+                norm_cat not in (RATED_CATEGORIES | {'CB'})
+                or not device.in_a
+                or (needs_poles and not device.poles)
             ):
+                row['selection_analysis'] = {
+                    'status': 'insufficient_source_specs',
+                    'reason': 'Chưa đủ loại thiết bị, số cực hoặc dòng định mức để gợi ý mã có căn cứ.',
+                }
                 continue
 
-            # Chấp nhận cả URL nội bộ (/device-catalog/...) và URL ngoài (https://...)
-            source = candidate.get('source_url') or ''
-            has_source = bool(source)   # bảng giá luôn có source_url
+            pol_key = f'{device.poles}P' if device.poles else ''
+            search_cats = _lookup_categories(norm_cat, device.in_a, device.icu_ka)
+            seen_skus = set()
 
-            if not candidate.get('sku') or not has_source:
-                continue
+            for target_cat in search_cats:
+                cat_key = category_key(target_cat)
+                bucket = idx.get((cat_key, pol_key), []) if pol_key else by_cat.get(cat_key, [])
+                for candidate, currents, icus in bucket:
+                    if device.in_a not in currents:
+                        continue
+                    if device.icu_ka and (not icus or max(icus) < device.icu_ka):
+                        continue
 
-            brand = canonical_brand(candidate.get('brand'))
-            choices.setdefault(brand, []).append({
-                'sku':                 candidate['sku'],
-                'name':                candidate.get('item_name') or candidate.get('name'),
-                'source':              source,
-                'source_page':         candidate.get('source_page'),
-                'price':               candidate.get('price'),
-                'price_row_id':        candidate.get('id'),
-                'auto_selectable':     False,
-                'requires_confirmation': True,
-                'match_kind':          'pricebook_proposal',
-                'reason':              (
-                    'Bảng giá ghi cùng loại, số cực, dòng và khả năng cắt; '
-                    'cần đối chiếu điện áp, đặc tính và mã đặt hàng/biến thể trước khi chọn.'
-                ),
-            })
+                    sku = candidate.get('sku')
+                    source = candidate.get('source_url') or ''
+                    if not sku or not source or sku in seen_skus:
+                        continue
+
+                    seen_skus.add(sku)
+                    brand = canonical_brand(candidate.get('brand'))
+                    choices.setdefault(brand, []).append(_candidate_dict(
+                        candidate,
+                        'Bảng giá ghi cùng loại, số cực, dòng và khả năng cắt; '
+                        'cần đối chiếu điện áp, đặc tính và mã đặt hàng/biến thể trước khi chọn.',
+                    ))
 
         cited = {
             brand: [c for c in cands if c.get('sku') and c.get('source')][:3]

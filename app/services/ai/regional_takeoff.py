@@ -141,7 +141,7 @@ async def extract_regions(image_path, prompt, call_image, *, concurrency=1):
     if not regions:
         # A malformed discovery response must not discard the original source.
         regions = [{'box_2d': [0, 0, 1000, 1000], 'rotation_degrees': 0, 'label': 'Toàn vùng tủ'}]
-    gate = asyncio.Semaphore(max(1, min(concurrency, 2)))
+    gate = asyncio.Semaphore(max(1, min(concurrency, 6)))
     with Image.open(image_path) as source:
         image = source.convert('RGB')
     with tempfile.TemporaryDirectory(prefix='aide_regions_') as folder:
