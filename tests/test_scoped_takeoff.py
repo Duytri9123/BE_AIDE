@@ -15,6 +15,16 @@ from app.services.ai.takeoff_verifier import engineering_review
 
 
 class ScopedTakeoffTests(unittest.IsolatedAsyncioTestCase):
+    def test_unit_strings_do_not_reject_a_whole_panel(self):
+        from app.services.ai.scoped_takeoff import normalize_scoped_row
+        from app.schemas.ai import ExtractedDeviceSchema
+        row = normalize_scoped_row({'category': 'Thiết bị đóng cắt', 'name': 'Aptomat',
+            'observed_text': 'RCBO 2P 25A 6kA', 'spec': '2P25A6kA',
+            'in_a': '25A', 'icu_ka': '6kA', 'poles': '2P'})
+        device = ExtractedDeviceSchema.model_validate(row)
+        self.assertEqual((device.category, device.in_a, device.icu_ka, device.poles), ('RCBO', 25, 6, 2))
+        self.assertEqual(device.source_observations['raw_numeric_fields']['poles'], '2P')
+
     def test_text_source_observations_preserve_the_model_evidence(self):
         from app.services.ai.scoped_takeoff import normalize_scoped_row
         from app.schemas.ai import ExtractedDeviceSchema
@@ -88,15 +98,15 @@ class ScopedTakeoffTests(unittest.IsolatedAsyncioTestCase):
                      for i in range(2)]
             checks = [{'device_id': str(i), 'matches': i == 0, 'symbol_complete': True,
                        'label_complete': True, 'isolated': True, 'tag_matches': True, 'observed': 'Q1 20A'} for i in range(2)]
-            calls = AsyncMock(side_effect=[(json.dumps({'devices': rows, 'boxes': boxes}), None),
-                                          (json.dumps({'checks': checks}), None),
+            calls = AsyncMock(side_effect=[(json.dumps({'checks': checks}), None),
                                           (json.dumps({'boxes': []}), None), (json.dumps({'boxes': []}), None)])
             with patch('app.services.ai.scoped_takeoff.render_panel', AsyncMock(return_value=(str(image_path), 'Q1 20A'))), \
+                 patch('app.services.ai.regional_takeoff.extract_regions', AsyncMock(return_value={'devices': rows, 'boxes': boxes})), \
                  patch('app.services.ai.scoped_takeoff.ConnectionPoolService.get_ordered_connections', AsyncMock(return_value=[object()])), \
                  patch('app.services.ai.scoped_takeoff.ConnectionPoolService.call_with_fallback', calls):
                 result = await extract_confirmed_panels(db, 1, [{'source_file_id': 7,
                     'source_page': None, 'panel_code': 'P1', 'source_region': [.1, .1, .5, .5]}], 'Extract P1')
-            self.assertEqual(calls.await_count, 4)  # Extraction + audit + two bounded recovery reads.
+            self.assertEqual(calls.await_count, 3)  # Regional extraction mocked; audit + two recovery reads.
             self.assertTrue(result[0]['evidence_image'])
             self.assertEqual(result[0]['evidence'], 'Q1 20A')
             self.assertFalse(result[1]['evidence_image'])

@@ -4,14 +4,13 @@ import json
 import tempfile
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageOps
 from fastapi import HTTPException
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 from app.models.project_file import ProjectFile
 from app.schemas.ai import ExtractedDeviceSchema
 from app.services.ai.connection_pool import ConnectionPoolService
-from app.services.ai.response_parser import ResponseParserService
 from app.services.ai.vision_analyzer import VisionAnalyzerService
 
 
@@ -38,6 +37,7 @@ async def render_panel(file, panel, output):
         text = await asyncio.to_thread(render_pdf_page, path, panel['source_page'], output, region)
         return str(output), text
     with Image.open(path) as source:
+        source = ImageOps.exif_transpose(source)
         w, h = source.size
         source.crop((round(region[0]*w), round(region[1]*h),
                      round(region[2]*w), round(region[3]*h))).convert('RGB').save(output)
@@ -49,16 +49,40 @@ def normalize_scoped_row(row):
     import re
     result = dict(row)
     result['spec'] = str(result.get('spec') or '')
+    # Providers sometimes return unit-bearing strings despite the numeric contract.
+    # Keep their original value in observations; do not lose a whole panel to one field.
+    numeric_issues = {}
+    for key, unit in (('in_a', 'A'), ('icu_ka', 'kA'), ('poles', 'P')):
+        value = result.get(key)
+        if isinstance(value, str):
+            match = re.fullmatch(r'\s*(\d+(?:[.,]\d+)?)\s*(?:' + unit + r')?\s*', value, re.I)
+            if not match:
+                match = re.fullmatch(r'\s*(\d+(?:[.,]\d+)?)\s*', value)
+            number = float(match[1].replace(',', '.')) if match else None
+            result[key] = int(number) if key == 'poles' and number is not None and number.is_integer() else number if key != 'poles' else None
+            numeric_issues[key] = value
     # Canonicalize type from an explicit source label, not a generic breaker name.
     source_text = ' '.join(str(result.get(k) or '') for k in ('observed_text', 'evidence', 'spec'))
     breaker = re.search(r'\b(MCCB|MCB|RCBO|RCCB|ACB)\b', source_text, re.I)
     aliases = {'BIẾN DÒNG': 'CT', 'CẦU CHÌ': 'FUSE', 'ĐỒNG HỒ': 'METER',
-               'CHUYỂN MẠCH': 'SELECTOR_SWITCH', 'ĐÈN BÁO': 'LIGHT'}
+               'CHUYỂN MẠCH': 'SELECTOR_SWITCH', 'ĐÈN BÁO': 'LIGHT', 'ĐỒNG HỒ ĐO': 'METER'}
     category = str(result.get('category') or '').upper()
-    result['category'] = breaker[1].upper() if breaker else aliases.get(category, category)
+    breaker_category = category in {'', 'APTOMAT', 'APTOMAT TÉP', 'APTOMAT KHỐI', 'BREAKER', 'CB', 'PROTECTION', 'THIẾT BỊ ĐÓNG CẮT', 'THIẾT BỊ BẢO VỆ', 'CIRCUIT_BREAKER', 'MCB', 'MCCB', 'RCBO', 'RCCB', 'ACB'}
+    result['category'] = breaker[1].upper() if breaker and breaker_category else aliases.get(category, category)
+    if isinstance(result.get('quantity'), str):
+        quantity = re.fullmatch(r'\s*(\d+)\s*(?:cái|bộ|cụm|pcs?)?\s*', result['quantity'], re.I)
+        result['quantity'] = int(quantity[1]) if quantity else None
+    if result.get('quantity') is None:
+        result.update(quantity=1, unit='Cụm', quantity_review={
+            'status': 'needs_review', 'blocking': True,
+            'verification_note': 'Chưa xác định số vật tư; một cụm ghi nhận không phải số lượng mua đã xác nhận.'})
     observations = result.get('source_observations')
     if isinstance(observations, str):
         result['source_observations'] = {'description': observations} if observations.strip() else None
+    elif observations is not None and not isinstance(observations, dict):
+        result['source_observations'] = {'raw_observations': observations}
+    if numeric_issues:
+        result['source_observations'] = {**(result.get('source_observations') or {}), 'raw_numeric_fields': numeric_issues}
     return result
 
 
@@ -87,7 +111,7 @@ def scoped_candidate_key(project_id,file,panel,message,model):
     import hashlib
     revision=hashlib.sha256(Path(file.file_path).read_bytes()).hexdigest()
     identity=[project_id,file.id,panel['source_region'],panel.get('source_page'),message,model,revision]
-    return 'elquote:scoped-candidate:v1:'+hashlib.sha256(json.dumps(identity,sort_keys=True).encode()).hexdigest()
+    return 'elquote:scoped-candidate:v2:'+hashlib.sha256(json.dumps(identity,sort_keys=True).encode()).hexdigest()
 
 
 def trace_scoped(stage, project_id, panel, payload):
@@ -183,10 +207,12 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                     try:payload=json.loads(payload)
                     except (ValueError,TypeError):payload=None
                 if not payload:
-                    raw = await run_step('Đang đọc ký hiệu, thông số và các nhánh', call_image(image_path, prompt))
-                    payload = next((b for b in ResponseParserService.extract_json_blocks(raw)
-                                if isinstance(b, dict) and isinstance(b.get('devices'), list)), None)
-                    if candidate_key and payload and payload.get('devices'):
+                    from app.services.ai.regional_takeoff import extract_regions
+                    payload = await run_step('Đang chia vùng, đọc từng vùng và đối chiếu toàn sơ đồ',
+                        extract_regions(image_path, prompt, call_image, concurrency=2 if session_factory else 1))
+                    if candidate_key and payload and payload.get('devices') and all(
+                            (r.get('source_observations') or {}).get('coverage_review', {}).get('status') == 'passed'
+                            for r in payload['devices']):
                         await cache_service.set(candidate_key,json.dumps(payload,ensure_ascii=False),expire=3600)
                 else:
                     await run_step('Đang dùng lại danh mục nguồn đã đọc, kiểm chứng lại vùng ảnh',asyncio.sleep(0))
@@ -249,4 +275,6 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
             analysis = await asyncio.to_thread(CadParserService.prepare_analysis_path, file.file_path)
             evidence = await asyncio.to_thread(cad_evidence, analysis, panel['source_region'])
             enrich_circuit_context([d for d in result if d['source_file_id']==file.id and d['panel_code']==panel['panel_code']], evidence)
+    from app.services.ai.motor_starter_context import enrich_motor_starters
+    enrich_motor_starters(result)
     return result

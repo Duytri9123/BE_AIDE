@@ -29,7 +29,7 @@ def engineering_review(payload):
     """Symbol/group counts are not blockers for engineering material quantities."""
     if not isinstance(payload, dict) or not isinstance(payload.get('issues'), list):
         return {'passed': False, 'feedback': 'Chưa kiểm chứng được nội dung thiết bị trên nguồn.'}
-    blocking_codes = {'wrong_device', 'wrong_rating', 'wrong_panel', 'missing_device'}
+    blocking_codes = {'wrong_device', 'wrong_rating', 'wrong_panel', 'missing_device', 'wrong_quantity'}
     allowed_codes = blocking_codes | {'quantity_representation', 'quantity_inference'}
     if any(not isinstance(i, dict) or i.get('code') not in allowed_codes for i in payload['issues']):
         return {'passed': False, 'feedback': 'Kết quả kiểm chứng thiết bị chưa hợp lệ.'}
@@ -146,8 +146,12 @@ async def verify_takeoff(db, files, devices, message, observations, *, engineeri
                             'vật lý. Không báo lỗi/không yêu cầu xử lý lại chỉ vì lệch số cụm đèn, số glyph '
                             'hay số pha với số vật tư. Không yêu cầu thêm vỏ tủ/cáp/thanh cái/catalog. '
                             'Trả JSON {"issues":[]}; chỉ nêu vấn đề cần sửa: '
-                            '{"code":"wrong_device|wrong_rating|wrong_panel|missing_device",'
+                            '{"code":"wrong_device|wrong_rating|wrong_panel|missing_device|wrong_quantity",'
                             '"detail":"vấn đề cụ thể có căn cứ trên ảnh"}. '
+                            'Quét thêm DOL, contactor, timer/24H và bộ nguồn DC, nhất là vùng dưới nhánh. '
+                            'Thiếu/sai số lượng thực theo ký hiệu lặp hoặc hệ số nguồn là wrong_quantity; '
+                            'phân biệt với khác cách biểu diễn một cụm nhiều pha. BMS/tín hiệu ngoài và '
+                            'ghi chú lắp đặt không mặc định là thiết bị mua rời. '
                             'Nếu chỉ khác cách biểu diễn số lượng thì issues rỗng.\n' + json.dumps({
                                 'request': message, 'source_page': page, 'source_region': region,
                                 'source_inventory': inventory, 'candidate': audit_rows}, ensure_ascii=False)))

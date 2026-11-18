@@ -67,6 +67,8 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
         raw = [dict(d) for p in (panels or []) for d in (p.get('devices') or [])]
     from app.services.ai.device_facts import enrich_device_facts
     raw = [enrich_device_facts(d) for d in raw]
+    from app.services.ai.motor_starter_context import enrich_motor_starters
+    enrich_motor_starters(raw)
     if refresh_prices:
         from app.services.ai.takeoff_pricebook import link_devices
         link_devices(raw)
@@ -115,6 +117,12 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
             if not price or price <= 0:
                 price = None
             qty = d.get('procurement_quantity') or d.get('quantity') or 1
+            quantity_review = d.get('quantity_review') or {}
+            if quantity_review.get('status') == 'needs_review' and quantity_review.get('blocking') is True:
+                qty = None
+                price = None
+            if ((d.get('source_observations') or {}).get('coverage_review') or {}).get('status') == 'needs_review':
+                price = None
             identity = f'{code}-device-{i}'
             selected_spec = effective_spec(d)
             if selected_spec != (d.get('spec') or ''):
@@ -131,11 +139,13 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                 short_name += ' dự phòng'
             result.append(dict(id=identity,row_type='item',commercial_display=True,tt='+',name=short_name,category=d.get('category'),
                 spec=selected_spec,original_spec=d.get('original_spec') or d.get('spec'),
-                sku=sku,origin=d.get('brand') or '',unit='Cái',quantity=qty,
+                sku=sku,origin=d.get('brand') or '',unit=d.get('unit') or 'Cái',quantity=qty,
                 unit_price=price,line_total=qty*price if price else None,
                 price_status='confirmed' if price else 'pending',
                 price_row_id=match.get('price_row_id') if price else None,
                 pricebook_match=match,
+                source_observations=d.get('source_observations'),
+                quantity_review=d.get('quantity_review'),
                 equipment_catalog_id=linked_row.get('equipment_catalog_id') if linked_row and price else None,
                 vat_status=linked_row.get('vat_status') if linked_row and price else None,
                 effective_date=linked_row.get('effective_date') if linked_row and price else None,

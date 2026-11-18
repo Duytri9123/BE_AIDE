@@ -29,6 +29,8 @@ async def complete_evidence(image, image_path, devices, audited, call_image, *, 
             'Đọc LẠI ảnh nguồn để hoàn thiện minh chứng bị thiếu. Không sửa danh mục, không tự '
             'suy tag hoặc công năng từ tên lộ. Tìm đủ ký hiệu, nhãn thông số, nhãn tag riêng; '
             'với connected_load phải đọc nhãn tải và lần đúng dây nối từ thiết bị đến tải. '
+            'Nếu nhánh dùng tiêu đề thông số chung, xuất text_box_2d riêng cho tiêu đề, '
+            'shared_label=true và relationship_evidence chứng minh nhánh thuộc nhóm đó. '
             'Giữ device_id. Tọa độ [ymin,xmin,ymax,xmax] 0..1000 theo CHÍNH ảnh đầu vào. '
             'Không thấy thì verified=false và ghi reason cụ thể. Trả JSON '
             '{"boxes":[{"device_id":"0","verified":true,"symbol_verified":true,'

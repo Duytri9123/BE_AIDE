@@ -77,6 +77,19 @@ def _device_preview(image, region, *, tight=False):
 
 def device_preview(image, region, *, tight=False):
     images = _device_preview(image, region, tight=tight)
+    shared_relation = region.get('shared_label_relationship') or region.get('relationship_evidence')
+    if region.get('shared_label') is True and shared_relation and region.get('symbol_box_2d') and region.get('text_box_2d'):
+        boxes = [region['symbol_box_2d'], region['text_box_2d']]
+        strip = [min(b[0] for b in boxes), min(b[1] for b in boxes), max(b[2] for b in boxes), max(b[3] for b in boxes)]
+        from app.services.ai.evidence_crops import evidence_crop_pixels
+        pixels = evidence_crop_pixels(strip, *image.size)
+        if pixels:
+            crop = image.crop(pixels).convert('RGB')
+            crop.thumbnail((1800, 1000), Image.Resampling.LANCZOS)
+            output = io.BytesIO(); crop.save(output, format='PNG')
+            images.append({'kind': 'relationship', 'label': 'Tiêu đề thông số chung và nhóm nhánh',
+                'relationship_evidence': shared_relation,
+                'evidence_image': 'data:image/png;base64,' + base64.b64encode(output.getvalue()).decode()})
     if region.get('load_verified') is True and region.get('load_box_2d') and region.get('relationship_evidence'):
         load = _device_preview(image, {'text_box_2d': region['load_box_2d']}, tight=tight)
         images.extend({**item, 'kind': 'load', 'label': 'Nhãn phụ tải: ' + str(region.get('load_label') or ''),

@@ -627,8 +627,10 @@ class AnalysisPipelineService:
                         )
                         from app.services.ai.source_image_evidence import oriented_source, verify_image_inventory, count_source_tiles, refine_locations, audit_crops
                         source_image = oriented_source(file_path)
-                        from app.services.ai.ocr_source_evidence import observations, grounded_boxes, supplement_selectors, reread_measurement_cluster
-                        ocr_rows, circles, markers = await asyncio.to_thread(observations, source_image)
+                        ocr_rows, circles, markers = [], [], []
+                        if settings.AI_LOCAL_OCR_ENABLED:
+                            from app.services.ai.ocr_source_evidence import observations, grounded_boxes, supplement_selectors, reread_measurement_cluster
+                            ocr_rows, circles, markers = await asyncio.to_thread(observations, source_image)
                         async def verify_source_image(prompt):
                             response, _ = await ConnectionPoolService.call_with_fallback(
                                 db=db, connections=all_connections,
@@ -661,12 +663,14 @@ class AnalysisPipelineService:
                         async def tile_count(prompt):
                             return await count_source_tiles(source_image, call_detail_image, prompt)
                         async def supplement_source(devices, counts):
+                            if not settings.AI_LOCAL_OCR_ENABLED:
+                                return devices
                             devices = await reread_measurement_cluster(source_image, call_detail_image, devices, counts, ocr_rows)
                             return await supplement_selectors(source_image, call_detail_image, devices, counts, markers)
                         async def locate_detail(devices, payload):
                             log_event(stage='source_evidence', title='Đang đối chiếu ký hiệu và thông số nguồn',
                                 detail='Kiểm tra từng nhóm ký hiệu, vị trí lộ và ảnh đối chiếu trước khi hoàn tất.', status='running')
-                            grounded = grounded_boxes(source_image, devices, ocr_rows, circles, markers)
+                            grounded = grounded_boxes(source_image, devices, ocr_rows, circles, markers) if settings.AI_LOCAL_OCR_ENABLED else {'boxes': []}
                             grounded_ids = {str(row['device_id']) for row in grounded['boxes']}
                             if len(grounded_ids) == len(devices):
                                 refined = grounded

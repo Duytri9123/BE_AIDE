@@ -18,9 +18,17 @@ def apply_verified_boxes(devices: List[ExtractedDeviceSchema], payload: Any, req
             device.evidence_image = None
             device.evidence_images = []
             pcode = getattr(device, 'panel_code', None) or ''
+            proposal = matches[0] if len(matches) == 1 else {}
+            candidate = {}
+            for key in ('symbol_box_2d', 'text_box_2d', 'tag_box_2d', 'load_box_2d'):
+                try:
+                    candidate[key] = ExtractedDeviceSchema.normalize_evidence_box(proposal.get(key))
+                except (TypeError, ValueError, OverflowError):
+                    candidate[key] = None
             device.evidence_region = {'status': 'unverified',
+                'candidate_region': candidate,
                 'verification_status': 'needs_review',
-                'reason': (matches[0].get('audit_reason') if len(matches) == 1 else None) or f'Đọc danh mục từ sơ đồ tủ {pcode}; chưa xác minh được ký hiệu và nhãn riêng.' if pcode else 'Đọc danh mục từ ảnh tủ; chưa xác minh được vùng ký hiệu và nhãn của riêng thiết bị.'}
+                'reason': proposal.get('audit_reason') or (f'Đọc danh mục từ sơ đồ tủ {pcode}; chưa xác minh được ký hiệu và nhãn riêng.' if pcode else 'Đọc danh mục từ ảnh tủ; chưa xác minh được vùng ký hiệu và nhãn của riêng thiết bị.')}
             continue
         device.box_2d = None
         device.evidence_image = None
@@ -62,6 +70,9 @@ def apply_verified_boxes(devices: List[ExtractedDeviceSchema], payload: Any, req
             device.evidence_region.update(tag_verified=matches[0].get('tag_matches') is True)
             device.evidence_region.update(status='verified',reason='Đã đối chiếu ký hiệu và nhãn trên vùng ảnh nguồn.')
             device.evidence_region.update(coordinate_space='normalized_1000', box_2d=list(device.box_2d))
+            if matches[0].get('shared_label') is True:
+                device.evidence_region.update(shared_label=True, shared_label_verified=True,
+                    shared_label_relationship=matches[0].get('relationship_evidence'))
             for key in ('symbol_box_2d','text_box_2d','tag_box_2d'):
                 device.evidence_region[key] = ExtractedDeviceSchema.normalize_evidence_box(matches[0].get(key))
             if matches[0].get('neighbor_symbol_boxes_2d'):

@@ -47,6 +47,7 @@ def seed_vertical_branch_boxes(path, region, devices, proposals):
                'load_box_2d':normalized(lb),'load_label':label['text'],
                'relationship_evidence':'Đối chiếu ký hiệu nhánh với đường dây và nhãn CAD '+label['text'],
                'geometry_source':'native_cad_block_and_rotated_text'}
+        entry['shared_label'] = not (symbol[2][0] <= heading['x'] <= symbol[2][2])
         if tag:entry['tag_box_2d']=normalized(lb)
         by_id[str(index)]=entry;seeded.append(str(index))
     # Nearby labels stay separate if their union would include another branch's symbol.
