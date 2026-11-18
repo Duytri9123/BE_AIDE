@@ -20,6 +20,7 @@ def seed_vertical_branch_boxes(path, region, devices, proposals):
                 min(1000,(top-y1)/(top-bottom)*1000),min(1000,(x2-left)/(right-left)*1000)]
     def union(parts):return [min(p[0] for p in parts),min(p[1] for p in parts),max(p[2] for p in parts),max(p[3] for p in parts)]
     by_id={str(p.get('device_id')):p for p in proposals if isinstance(p,dict)}
+    heading_groups={}
     seeded=[]
     for index,device in enumerate(devices):
         kind=str(device.get('category') or '').upper()
@@ -48,9 +49,51 @@ def seed_vertical_branch_boxes(path, region, devices, proposals):
                'relationship_evidence':'Đối chiếu ký hiệu nhánh với đường dây và nhãn CAD '+label['text'],
                'geometry_source':'native_cad_block_and_rotated_text'}
         entry['shared_label'] = not (symbol[2][0] <= heading['x'] <= symbol[2][2])
+        heading_groups.setdefault(heading['id'],[]).append(str(index))
         if tag:entry['tag_box_2d']=normalized(lb)
         by_id[str(index)]=entry;seeded.append(str(index))
     # Nearby labels stay separate if their union would include another branch's symbol.
     for identity in seeded:
         by_id[identity]['neighbor_symbol_boxes_2d']=[by_id[peer]['symbol_box_2d'] for peer in seeded if peer!=identity]
+    for members in heading_groups.values():
+        parts=[by_id[i][k] for i in members for k in ('symbol_box_2d','text_box_2d')]
+        # A separate continuous view proves which branches the header spans.
+        reference=[min(p[0] for p in parts),min(p[1] for p in parts),max(p[2] for p in parts),max(p[3] for p in parts)]
+        for identity in members:
+            by_id[identity]['group_reference_box_2d']=reference
     return list(by_id.values())
+
+
+def seed_control_label_boxes(path, region, devices, proposals):
+    """Use complete native control rectangles; adjacent functions retain separate crops."""
+    import ezdxf
+    from app.services.ingestion.cad_source_evidence import cad_evidence,plain
+    evidence=cad_evidence(path,region);left,bottom,right,top=evidence['view_bounds']
+    labels=evidence['labels'];rectangles=[]
+    for entity in ezdxf.readfile(path).modelspace().query('LWPOLYLINE'):
+        if not entity.closed:continue
+        points=list(entity.get_points('xy'))
+        if len(points)!=4:continue
+        xs=[p[0] for p in points];ys=[p[1] for p in points]
+        box=[min(xs),min(ys),max(xs),max(ys)]
+        if left<=box[0]<box[2]<=right and bottom<=box[1]<box[3]<=top:rectangles.append(box)
+    def normalize(b):return [(top-b[3])/(top-bottom)*1000,(b[0]-left)/(right-left)*1000,(top-b[1])/(top-bottom)*1000,(b[2]-left)/(right-left)*1000]
+    rows={str(b['device_id']):dict(b) for b in proposals}
+    for i,device in enumerate(devices):
+        identity=' '.join(str(device.get(k) or '') for k in ('name','category','observed_text'))
+        pattern=r'^CONTACTOR$' if 'CONTACTOR' in plain(identity) else r'^24\s*H$' if re.search(r'24\s*H',identity,re.I) else None
+        if not pattern:continue
+        matches=[l for l in labels if re.fullmatch(pattern,plain(l['text']).strip()) and l.get('bounds')]
+        if len(matches)!=1:continue
+        label=matches[0];lb=label['bounds'];cx=(lb[0]+lb[2])/2;cy=(lb[1]+lb[3])/2
+        candidates=[b for b in rectangles if b[0]<=cx<=b[2] and b[1]-label['height']*.1<=cy<=b[3]+label['height']*.1 and b[3]-b[1]<label['height']*4]
+        if not candidates:continue
+        box=min(candidates,key=lambda b:(b[2]-b[0])*(b[3]-b[1]))
+        adjacent=[b for b in rectangles if abs(b[1]-box[1])<label['height']*.1 and abs(b[3]-box[3])<label['height']*.1 and min(abs(b[0]-box[2]),abs(b[2]-box[0]))<label['height']*.1]
+        union=[min([box[0],lb[0]]+[b[0] for b in adjacent]),min(box[1],lb[1]),max([box[2],lb[2]]+[b[2] for b in adjacent]),max(box[3],lb[3])]
+        full=[min(box[0],lb[0]),min(box[1],lb[1]),max(box[2],lb[2]),max(box[3],lb[3])]
+        rows[str(i)]={**rows.get(str(i),{}),'device_id':str(i),'verified':True,'symbol_verified':True,
+            'symbol_box_2d':normalize(full),'text_box_2d':normalize(full),
+            'group_reference_box_2d':normalize(union),'source_annotation':'adjacent_control_functions',
+            'geometry_source':'native_cad_control_rectangle'}
+    return list(rows.values())

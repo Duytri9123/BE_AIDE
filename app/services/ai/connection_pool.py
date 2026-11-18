@@ -189,9 +189,6 @@ class ConnectionPoolService:
             provider_base_url = prov_obj.base_url if prov_obj else None
 
             candidate_models = [configured_model]
-            base_model = re.sub(r"-(?:high|medium|low)$|-tiered\([a-z]+\)$", "", configured_model)
-            if base_model and base_model != configured_model and base_model not in candidate_models:
-                candidate_models.append(base_model)
 
             disabled_account_ids: set[int] = set()
             failed_base_models: set[str] = set()
@@ -219,7 +216,9 @@ class ConnectionPoolService:
                         f"[{provider_conn_idx+1}/{len(provider_accounts)}] {conn.name} "
                         f"({provider}/{model_to_use}, Priority={conn.priority})"
                     )
-                    max_attempts = 2
+                    import os
+                    try:max_attempts = max(3,min(8,int(os.environ.get('ELQUOTE_CAPACITY_RETRIES','3'))))
+                    except ValueError:max_attempts = 3
                     for attempt in range(1, max_attempts + 1):
                         try:
                             logger.info("ConnectionPool: Đang thử %s (Lần thử %s/%s)", conn_label, attempt, max_attempts)
@@ -268,8 +267,9 @@ class ConnectionPoolService:
                                 logger.exception("ConnectionPool: Lỗi không thể retry tại %s", conn_label)
                                 raise
                             if is_503 and attempt < max_attempts:
-                                logger.warning("ConnectionPool: %s gặp 503 High Demand, chờ 1.5s thử lại lần %s...", conn_label, attempt + 1)
-                                await asyncio.sleep(1.5)
+                                delay = min(60,15*attempt) if max_attempts>3 else 3*attempt
+                                logger.warning("ConnectionPool: %s gặp 503 High Demand, chờ %ss thử lại cùng model lần %s...", conn_label, delay, attempt + 1)
+                                await asyncio.sleep(delay)
                                 continue
                             error_msg = f"{type(e).__name__}: {e}"
                             errors_log.append(f"{conn_label} -> {error_msg}")

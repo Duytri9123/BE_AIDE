@@ -88,7 +88,8 @@ async def discover_panels(db, project_id, file_ids):
         stat = path.stat()
         fingerprints.append((file.id, str(path.resolve()), stat.st_size, stat.st_mtime_ns))
     cache_key = (project_id, tuple(sorted(fingerprints)))
-    cached = _DISCOVERY_CACHE.get(cache_key)
+    from app.services.ai.cache_policy import ai_cache_enabled
+    cached = _DISCOVERY_CACHE.get(cache_key) if ai_cache_enabled() else None
     if cached and time.monotonic() - cached[0] < 600:
         return discovery_response(cached[1], project_id)
     connections = await ConnectionPoolService.get_ordered_connections(db)

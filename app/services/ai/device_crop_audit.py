@@ -24,7 +24,7 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
             continue
         row = dict(row)
         try:
-            for key in ('symbol_box_2d', 'text_box_2d', 'tag_box_2d', 'load_box_2d'):
+            for key in ('symbol_box_2d', 'text_box_2d', 'tag_box_2d', 'load_box_2d', 'group_reference_box_2d'):
                 row[key] = ExtractedDeviceSchema.normalize_evidence_box(row.get(key))
         except (ValueError, TypeError, OverflowError):
             continue
@@ -87,7 +87,7 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                 near_pixels = evidence_crop_pixels(near, *image.size)
                 if near_pixels:
                     closeup = image.crop(near_pixels)
-                    detail = ImageOps.contain(closeup, (820, 410), Image.Resampling.LANCZOS)
+                    detail = ImageOps.contain(closeup, (820, 220 if row.get('group_reference_box_2d') else 410), Image.Resampling.LANCZOS)
                     sx, sy = detail.width/closeup.width, detail.height/closeup.height
                     outline = [(symbol[1]*image.width/1000-near_pixels[0])*sx,
                                (symbol[0]*image.height/1000-near_pixels[1])*sy,
@@ -95,9 +95,15 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                                (symbol[2]*image.height/1000-near_pixels[1])*sy]
                     ImageDraw.Draw(detail).rectangle(outline, outline='red', width=2)
                     sheet.paste(detail, (1570, local*900+35))
+                if row.get('group_reference_box_2d'):
+                    reference = evidence_crop_pixels(row['group_reference_box_2d'], *image.size)
+                    if reference:
+                        detail = ImageOps.contain(image.crop(reference), (820, 190), Image.Resampling.LANCZOS)
+                        sheet.paste(detail, (1570, local*900+270))
                 device = devices[int(identity)]
                 requests.append({'device_id': identity, 'shared_label': row.get('shared_label') is True, 'name': device.name, 'tag': device.tag, 'spec': device.spec, 'quantity': device.quantity, 'unit': device.unit, 'drawing_quantity': getattr(device,'drawing_quantity',None), 'quantity_basis': getattr(device,'quantity_basis',None), 'connected_load': device.connected_load, 'load_label': row.get('load_label'), 'relationship_evidence': row.get('relationship_evidence')})
                 requests[-1]['exported_parts'] = exported_parts
+                requests[-1]['source_annotation'] = row.get('source_annotation')
                 row['verified'] = False
             if not requests:
                 return
@@ -124,7 +130,13 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                     'chỉ kiểm phần nguồn/danh mục thực sự khẳng định, không bắt có chữ nguồn vốn không ghi. '
                     'Trong sơ đồ một sợi, một ký hiệu CB có thể đại diện thiết bị nhiều cực (2P/3P/4P); '
                     'kiểm nét ký hiệu so với NGUỒN, không yêu cầu sơ đồ phải vẽ riêng từng cực của thiết bị. '
+                    'Với source_annotation=shared_rating, ảnh nguồn tham chiếu giữa cột phải cho thấy '
+                    'cùng kiểu đường ngang/mũi tên chạy qua nhiều nhánh hơn số cực ghi trên nhãn. '
+                    'So mẫu dùng nhãn chung này trước khi kết luận đường ngang là liên động cơ khí. '
                     'Vẫn bác bỏ ký hiệu bị cắt so với nguồn hoặc thông số tự thêm. Với dòng có quantity>1, ảnh có thể bao đúng nhóm thiết bị cùng loại '
+                    'Với source_annotation=adjacent_control_functions, Contactor và 24H có hai ô khung kề nhau: '
+                    'kiểm đủ khung và chữ của chính ô ứng viên, dùng ảnh tham chiếu để hiểu quan hệ; '
+                    'không buộc ảnh ô 24H chứa cả chữ Contactor của ô bên cạnh hoặc ngược lại. '
                     'theo số lượng đã khai báo (ví dụ ba ampe kế); không bác bỏ chỉ vì có nhiều phần tử '
                     'của CHÍNH dòng đó. Phải kiểm tra nhóm khớp số lượng/nhãn, không chấp nhận ảnh một '
                     'phần tử để chứng minh cả nhóm nếu nguồn không ghi hệ số và cũng không có căn cứ logic mạch. '
@@ -169,6 +181,11 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
             finally:
                 os.remove(path)
 
-    await asyncio.gather(*(audit_batch(identities[start:start+2])
-                           for start in range(0, len(identities), 2)))
+    tasks=[asyncio.create_task(audit_batch(identities[start:start+2])) for start in range(0,len(identities),2)]
+    try:
+        await asyncio.gather(*tasks)
+    except BaseException:
+        for task in tasks:task.cancel()
+        await asyncio.gather(*tasks,return_exceptions=True)
+        raise
     return {'boxes': list(rows.values())}

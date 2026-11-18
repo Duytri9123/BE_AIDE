@@ -166,7 +166,15 @@ async def extract_regions(image_path, prompt, call_image, *, concurrency=1):
                     boxes.append(box)
             return {'devices': rows, 'boxes': boxes, 'notes': notes, 'read_failed': not bool(payload)}
 
-        parts = await asyncio.gather(*(read(i) for i in range(len(regions))))
+        tasks = [asyncio.create_task(read(i)) for i in range(len(regions))]
+        try:
+            parts = await asyncio.gather(*tasks)
+        except BaseException:
+            # Join siblings before the temporary crop files are removed.
+            for task in tasks:
+                task.cancel()
+            await asyncio.gather(*tasks, return_exceptions=True)
+            raise
         deduplicate_parts(parts)
 
         async def review():

@@ -139,6 +139,8 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
     if not connections:
         raise HTTPException(503, 'Chưa có kết nối AI để đọc bản vẽ.')
     session_factory = async_sessionmaker(bind=db.bind, expire_on_commit=False) if isinstance(db, AsyncSession) else None
+    from app.services.ai.cache_policy import takeoff_concurrency
+    concurrency = takeoff_concurrency() if session_factory else 1
 
     async def call_image(image_path, prompt):
         if session_factory:
@@ -201,7 +203,8 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                     + json.dumps({'panel_code': panel['panel_code'], 'request': message,
                                   'source_labels': labels, 'conversation_reference': input_context}, ensure_ascii=False))
                 from app.services.cache_service import cache_service
-                candidate_key=scoped_candidate_key(project_id,file,panel,message,connections[0].selected_model) if session_factory else None
+                from app.services.ai.cache_policy import ai_cache_enabled
+                candidate_key=scoped_candidate_key(project_id,file,panel,message,connections[0].selected_model) if session_factory and ai_cache_enabled() else None
                 payload=await cache_service.get(candidate_key) if candidate_key and 'Kết quả kiểm chứng cần sửa' not in message else None
                 if isinstance(payload,str):
                     try:payload=json.loads(payload)
@@ -209,7 +212,7 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                 if not payload:
                     from app.services.ai.regional_takeoff import extract_regions
                     payload = await run_step('Đang chia vùng, đọc từng vùng và đối chiếu toàn sơ đồ',
-                        extract_regions(image_path, prompt, call_image, concurrency=2 if session_factory else 1))
+                        extract_regions(image_path, prompt, call_image, concurrency=concurrency))
                     if candidate_key and payload and payload.get('devices') and all(
                             (r.get('source_observations') or {}).get('coverage_review', {}).get('status') == 'passed'
                             for r in payload['devices']):
@@ -227,19 +230,20 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                     native_labels=(await asyncio.to_thread(cad_evidence,native_path,panel['source_region'])).get('labels',[])
                 original = [ground_scoped_identity(normalize_scoped_row(row),native_labels) for row in payload['devices']]
                 if native_labels:
-                    from app.services.ai.cad_branch_evidence import seed_vertical_branch_boxes
+                    from app.services.ai.cad_branch_evidence import seed_vertical_branch_boxes, seed_control_label_boxes
                     payload['boxes']=await run_step('Đang đối chiếu vùng cắt với nhãn và block CAD gốc',
                         asyncio.to_thread(seed_vertical_branch_boxes,native_path,panel['source_region'],original,payload.get('boxes') or []))
+                    payload['boxes']=await asyncio.to_thread(seed_control_label_boxes,native_path,panel['source_region'],original,payload['boxes'])
                 devices = [ExtractedDeviceSchema.model_validate({**row, 'spec': str(row.get('spec') or '')})
                            for row in original]
                 with Image.open(image_path) as source:
                     image = source.convert('RGB')
                 # Check the actual cropped pixels independently of the extraction.
                 audited = await run_step(f'Đang kiểm ảnh vị trí của {len(devices)} dòng thiết bị', audit_device_previews(image, call_image, devices,
-                    {'boxes': payload.get('boxes') or []}, concurrency=2 if session_factory else 1))
+                    {'boxes': payload.get('boxes') or []}, concurrency=concurrency))
                 from app.services.ai.takeoff_evidence_completion import complete_evidence, evidence_gaps
                 audited = await complete_evidence(image, image_path, devices, audited, call_image,
-                    concurrency=2 if session_factory else 1)
+                    concurrency=concurrency)
                 trace_scoped('audit',project_id,panel,{'devices':original,'boxes':audited.get('boxes')})
                 apply_verified_boxes(devices, audited, require_symbols=True)
                 for device in devices:

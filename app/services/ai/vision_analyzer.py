@@ -11,6 +11,7 @@ from typing import Optional, Dict, Any, List
 
 from app.core.config import settings
 from app.services.cache_service import cache_service
+from app.services.ai.cache_policy import ai_cache_enabled
 from app.services.ai.token_refresh_service import TokenRefreshService
 from app.core.exceptions import (
     AIVisionError,
@@ -156,7 +157,7 @@ class VisionAnalyzerService:
 
             # Kiểm tra cache trước khi gọi API
             try:
-                cached_res = await cache_service.get(cache_key)
+                cached_res = await cache_service.get(cache_key) if ai_cache_enabled() else None
                 if cached_res:
                     logger.info(f"[VisionAnalyzerService] Cache HIT cho {image_path} ({provider}/{model}). Trả về ngay lập tức.")
                     return cached_res
@@ -214,7 +215,7 @@ class VisionAnalyzerService:
                 )
 
             # Lưu vào cache (TTL 7 ngày = 604800s)
-            if result and len(result) > 20:
+            if ai_cache_enabled() and result and len(result) > 20:
                 try:
                     await cache_service.set(cache_key, result, expire=604800)
                 except Exception as se:
@@ -246,7 +247,7 @@ class VisionAnalyzerService:
         cache_key = f"ai_text_source_v3:{prov}:{model.lower()}:{prompt_hash}:{enable_web_search}"
 
         try:
-            cached_res = await cache_service.get(cache_key)
+            cached_res = await cache_service.get(cache_key) if ai_cache_enabled() else None
             if cached_res:
                 logger.info(f"[VisionAnalyzerService] Cache HIT cho text prompt ({provider}/{model}). Trả về ngay lập tức.")
                 return cached_res
@@ -297,7 +298,7 @@ class VisionAnalyzerService:
                 {"provider": provider, "supported": ["antigravity", "codex", "openai", "anthropic", "gemini", "google", "openrouter", "groq", "xai", "mistral", "ollama"]}
             )
 
-        if result and len(result) > 20:
+        if ai_cache_enabled() and result and len(result) > 20:
             try:
                 await cache_service.set(cache_key, result, expire=604800)
             except Exception:

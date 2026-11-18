@@ -96,7 +96,7 @@ def device_preview(image, region, *, tight=False):
                        'relationship_evidence': region['relationship_evidence']} for item in load)
         # Keep a continuous source strip so the user can inspect the actual wire,
         # in addition to the readable close-ups of symbol/tag and load label.
-        boxes = [region[k] for k in ('symbol_box_2d', 'text_box_2d', 'tag_box_2d', 'load_box_2d') if region.get(k)]
+        boxes = [region[k] for k in ('symbol_box_2d', 'text_box_2d', 'tag_box_2d', 'load_box_2d', 'group_reference_box_2d') if region.get(k)]
         strip = [min(b[0] for b in boxes), min(b[1] for b in boxes), max(b[2] for b in boxes), max(b[3] for b in boxes)]
         from app.services.ai.evidence_crops import evidence_crop_pixels
         pixels = evidence_crop_pixels(strip, *image.size)
