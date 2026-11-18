@@ -168,8 +168,11 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
     native_contexts = {}
     cache_scope = [project_id, [(getattr(c, 'id', None), getattr(c, 'provider', None),
         getattr(c, 'selected_model', None), getattr(c, 'quotas', None)) for c in connections]] if session_factory else None
-    with tempfile.TemporaryDirectory(prefix='aide_selected_') as temporary:
-        for index, panel in enumerate(panels):
+    panel_gate = asyncio.Semaphore(max(1, min(3, concurrency)))
+
+    async def process_panel(index, panel, temporary):
+        async with panel_gate:
+            panel_result = []
             file = by_id[panel['source_file_id']]
             with progress_scope(f"Tủ {panel['panel_code']} · {file.filename}"):
                 native_context = {}
@@ -277,7 +280,7 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                     checked = next((b for b in audited['boxes'] if str(b.get('device_id')) == str(device_index)), {})
                     if region.get('status') == 'verified':
                         region['observed'] = checked.get('audit_observed') or ''
-                    result.append({**row, 'spec': device.spec, 'category': device.category,
+                    panel_result.append({**row, 'spec': device.spec, 'category': device.category,
                         'poles': device.poles, 'in_a': device.in_a, 'icu_ka': device.icu_ka,
                         'source_file_id': file.id, 'source_filename': file.filename,
                         'source_page': panel.get('source_page'), 'source_type': Path(file.filename).suffix.lstrip('.'),
@@ -292,6 +295,16 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                         'evidence_region': region, 'box_2d': device.box_2d,
                         'evidence_image': device.evidence_image, 'evidence_images': device.evidence_images,
                         'panel_evidence_image': None})
+            return panel_result
+
+    with tempfile.TemporaryDirectory(prefix='aide_selected_') as temporary:
+        if session_factory and len(panels) > 1:
+            panel_batches = await asyncio.gather(*(process_panel(i, p, temporary) for i, p in enumerate(panels)))
+            for batch in panel_batches:
+                result.extend(batch)
+        else:
+            for index, panel in enumerate(panels):
+                result.extend(await process_panel(index, panel, temporary))
     for index, panel in enumerate(panels):
         file = by_id[panel['source_file_id']]
         if Path(file.file_path).suffix.lower() in ('.dwg', '.dxf'):

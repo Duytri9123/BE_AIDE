@@ -95,13 +95,77 @@ async def discover_panels(db, project_id, file_ids):
     connections = await ConnectionPoolService.get_ordered_connections(db)
     if not connections:
         raise HTTPException(503, 'Chưa có kết nối AI để xác định vùng tủ.')
+    from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
+    from app.services.ai.cache_policy import takeoff_concurrency
+    session_factory = async_sessionmaker(bind=db.bind, expire_on_commit=False) if isinstance(db, AsyncSession) else None
+    gate = asyncio.Semaphore(max(1, min(takeoff_concurrency(), 6)))
+
+    async def analyze_page(file, image, number, viewport, cad_bounds):
+        prompt = (
+            'Chỉ xác định CÁC VÙNG SƠ ĐỒ TỦ ĐIỆN trong ảnh. Chưa bóc thiết bị, chưa tra bảng giá. '
+            'Mỗi tủ: mã đọc được, tên và source_region=[trái,trên,phải,dưới] chuẩn hóa 0..1 bao trọn sơ đồ tủ, gồm đầu vào/đo lường/mọi lộ ra. '
+            'Không dùng khung tên, bảng tải, mặt bằng làm tủ. Nếu tên không đọc rõ dùng VUNG-1... và ghi chưa rõ. '
+            'Không gộp các sơ đồ tầng khác nhau. Trả JSON {"panels":[{"panel_code":"...","panel_name":"...","source_region":[0,0,1,1],"position":"vị trí trên trang"}]}.'
+        )
+        async with gate:
+            if session_factory:
+                async with session_factory() as local_db:
+                    local_conns = await ConnectionPoolService.get_ordered_connections(local_db)
+                    raw, _ = await run_step(
+                        f'Đang nhận diện vùng tủ: {file.filename}' + (f' · Trang {number}' if number else ''),
+                        ConnectionPoolService.call_with_fallback(
+                            db=local_db, connections=local_conns, call_fn=VisionAnalyzerService.analyze_image,
+                            image_path=str(image), prompt=prompt,
+                        ),
+                    )
+            else:
+                raw, _ = await run_step(
+                    f'Đang nhận diện vùng tủ: {file.filename}' + (f' · Trang {number}' if number else ''),
+                    ConnectionPoolService.call_with_fallback(
+                        db=db, connections=connections, call_fn=VisionAnalyzerService.analyze_image,
+                        image_path=str(image), prompt=prompt,
+                    ),
+                )
+        obj = next((v for v in ResponseParserService.extract_json_blocks(raw) if isinstance(v, dict) and isinstance(v.get('panels'), list)), {})
+        found = []
+        for item in obj.get('panels', [])[:64]:
+            try:
+                local_region = validate_region(item.get('source_region'))
+                if local_region is None:
+                    continue
+                parent = viewport or [0, 0, 1, 1]
+                region = [parent[0]+local_region[0]*(parent[2]-parent[0]), parent[1]+local_region[1]*(parent[3]-parent[1]),
+                          parent[0]+local_region[2]*(parent[2]-parent[0]), parent[1]+local_region[3]*(parent[3]-parent[1])]
+                code = str(item['panel_code']).strip()[:100]
+                if not code:
+                    continue
+            except (ValueError, KeyError, TypeError):
+                continue
+            panel = dict(panel_code=code, panel_name=str(item.get('panel_name') or code)[:200],
+                source_file_id=file.id, file_name=file.filename, source_page=number,
+                source_region=region, position=str(item.get('position') or '')[:300])
+            if cad_bounds:
+                from app.services.ingestion.cad_source_evidence import region_world
+                x1, y1, x2, y2 = region_world(cad_bounds, region)
+                panel['cad_bounds'] = {'x_min': x1, 'y_min': y1, 'x_max': x2, 'y_max': y2, 'coordinate_space': 'cad_world'}
+            with Image.open(image) as original:
+                preview = original.convert('RGB'); preview.thumbnail((1400, 1400))
+                w, h = preview.size
+                ImageDraw.Draw(preview).rectangle((local_region[0]*w, local_region[1]*h, local_region[2]*w, local_region[3]*h), outline='red', width=4)
+                import io
+                buf = io.BytesIO(); preview.save(buf, format='JPEG', quality=82)
+                panel['preview_image'] = 'data:image/jpeg;base64,' + base64.b64encode(buf.getvalue()).decode()
+            panel['scope_token'] = sign_scope(panel, project_id)
+            found.append(panel)
+        return found
+
     panels = []
     with tempfile.TemporaryDirectory(prefix='aide_scope_') as tmp:
+        work_items = []
         for file in files:
             path = Path(file.file_path)
             if not path.is_file():
                 raise HTTPException(404, 'Không tìm thấy file nguồn: ' + file.filename)
-            pages = []
             cad_bounds = None
             if path.suffix.lower() == '.pdf':
                 with pymupdf.open(path) as pdf:
@@ -111,7 +175,7 @@ async def discover_panels(db, project_id, file_ids):
                 for n in range(1, count + 1):
                     image = Path(tmp) / f'{file.id}-{n}.png'
                     await asyncio.to_thread(render_pdf_page, path, n, image)
-                    pages.append((image, n, None))
+                    work_items.append((file, image, n, None, None))
             elif path.suffix.lower() in ('.dwg', '.dxf'):
                 from app.services.ingestion.cad_source_evidence import cad_evidence
                 analysis = await asyncio.to_thread(CadParserService.prepare_analysis_path, str(path))
@@ -122,46 +186,17 @@ async def discover_panels(db, project_id, file_ids):
                     image = await run_step('Đang dựng vùng sơ đồ trong ' + file.filename,
                         asyncio.to_thread(render_schematic_source, analysis, viewport))
                     if image:
-                        pages.append((Path(image), None, viewport))
+                        work_items.append((file, Path(image), None, viewport, cad_bounds))
             elif path.suffix.lower() in ('.png', '.jpg', '.jpeg', '.webp'):
-                pages.append((path, 1, None))
-            for image, number, viewport in pages:
-                raw, _ = await run_step(f'Đang nhận diện vùng tủ: {file.filename}' + (f' · Trang {number}' if number else ''), ConnectionPoolService.call_with_fallback(
-                    db=db, connections=connections, call_fn=VisionAnalyzerService.analyze_image,
-                    image_path=str(image), prompt='Chỉ xác định CÁC VÙNG SƠ ĐỒ TỦ ĐIỆN trong ảnh. Chưa bóc thiết bị, chưa tra bảng giá. '
-                    'Mỗi tủ: mã đọc được, tên và source_region=[trái,trên,phải,dưới] chuẩn hóa 0..1 bao trọn sơ đồ tủ, gồm đầu vào/đo lường/mọi lộ ra. '
-                    'Không dùng khung tên, bảng tải, mặt bằng làm tủ. Nếu tên không đọc rõ dùng VUNG-1... và ghi chưa rõ. '
-                    'Không gộp các sơ đồ tầng khác nhau. Trả JSON {"panels":[{"panel_code":"...","panel_name":"...","source_region":[0,0,1,1],"position":"vị trí trên trang"}]}.'))
-                obj = next((v for v in ResponseParserService.extract_json_blocks(raw) if isinstance(v, dict) and isinstance(v.get('panels'), list)), {})
-                for item in obj.get('panels', [])[:64]:
-                    try:
-                        local_region = validate_region(item.get('source_region'))
-                        if local_region is None:
-                            continue
-                        parent = viewport or [0,0,1,1]
-                        region = [parent[0]+local_region[0]*(parent[2]-parent[0]), parent[1]+local_region[1]*(parent[3]-parent[1]),
-                                  parent[0]+local_region[2]*(parent[2]-parent[0]), parent[1]+local_region[3]*(parent[3]-parent[1])]
-                        code = str(item['panel_code']).strip()[:100]
-                        if not code:
-                            continue
-                    except (ValueError, KeyError, TypeError):
-                        continue
-                    panel = dict(panel_code=code, panel_name=str(item.get('panel_name') or code)[:200],
-                        source_file_id=file.id, file_name=file.filename, source_page=number,
-                        source_region=region, position=str(item.get('position') or '')[:300])
-                    if cad_bounds:
-                        from app.services.ingestion.cad_source_evidence import region_world
-                        x1,y1,x2,y2 = region_world(cad_bounds, region)
-                        panel['cad_bounds'] = {'x_min':x1,'y_min':y1,'x_max':x2,'y_max':y2,'coordinate_space':'cad_world'}
-                    with Image.open(image) as original:
-                        preview = original.convert('RGB'); preview.thumbnail((1400, 1400))
-                        w, h = preview.size
-                        ImageDraw.Draw(preview).rectangle((local_region[0]*w,local_region[1]*h,local_region[2]*w,local_region[3]*h), outline='red', width=4)
-                        import io
-                        buf=io.BytesIO();preview.save(buf,format='JPEG',quality=82)
-                        panel['preview_image']='data:image/jpeg;base64,'+base64.b64encode(buf.getvalue()).decode()
-                    panel['scope_token']=sign_scope(panel, project_id)
-                    panels.append(panel)
+                work_items.append((file, path, 1, None, None))
+        if work_items:
+            if session_factory and len(work_items) > 1:
+                batches = await asyncio.gather(*(analyze_page(*item) for item in work_items))
+                for batch in batches:
+                    panels.extend(batch)
+            else:
+                for item in work_items:
+                    panels.extend(await analyze_page(*item))
     if panels:
         if len(_DISCOVERY_CACHE) >= 8:
             _DISCOVERY_CACHE.pop(next(iter(_DISCOVERY_CACHE)))

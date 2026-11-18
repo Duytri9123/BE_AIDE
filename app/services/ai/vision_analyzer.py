@@ -698,7 +698,7 @@ class VisionAnalyzerService:
 
         timeout = float(settings.AI_VISION_TIMEOUT)
         try:
-            async with httpx.AsyncClient(timeout=None) as client:
+            async with httpx.AsyncClient(timeout=httpx.Timeout(timeout, connect=15.0)) as client:
                 resp = await client.post(url, headers=headers, json=payload)
                 if resp.status_code == 401:
                     raise AIAuthenticationError(
@@ -816,7 +816,7 @@ class VisionAnalyzerService:
         
         timeout = float(settings.AI_VISION_TIMEOUT)
         try:
-            async with httpx.AsyncClient(timeout=None) as client:
+            async with httpx.AsyncClient(timeout=httpx.Timeout(timeout, connect=15.0)) as client:
                 resp = await client.post(url, headers=headers, json=payload)
                 
                 if resp.status_code == 401:

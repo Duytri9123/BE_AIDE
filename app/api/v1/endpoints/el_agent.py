@@ -1919,6 +1919,8 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
             if '|' in reply_text:
                 return {'verification_feedback': 'Trả lại bảng vừa lập dưới dạng mảng devices có name, tag, spec, quantity, unit, brand, notes và panel_code. Không dùng danh mục cố định; theo đúng yêu cầu hiện tại.', 'candidate': []}
             return {'reply': reply_text}
+        from app.services.ai.takeoff_catalog import suggest_takeoff_products
+        proposed = await asyncio.to_thread(suggest_takeoff_products, proposed)
         summary = f"Đã lưu {len(proposed)} dòng thiết bị đề xuất theo yêu cầu vào phiên riêng."
         iteration_id, proposed = await save_takeoff_iteration(
             db, payload.project_id, user.id, payload.message, summary, proposed, [], proposal=True)
@@ -2056,7 +2058,7 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
                 device['source_filename'] = source_files[source_id]
         context['takeoff_review'] = {**review, 'input_context': context.get('input_context')}
 
-    if confirmed and devices_data:
+    if devices_data:
         from app.services.ai.takeoff_catalog import suggest_takeoff_products
         devices_data = await asyncio.to_thread(suggest_takeoff_products, devices_data)
     iteration_id = None
