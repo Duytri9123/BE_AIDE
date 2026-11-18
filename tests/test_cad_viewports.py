@@ -52,6 +52,9 @@ class DiscoveryCoordinateTests(unittest.IsolatedAsyncioTestCase):
         from unittest.mock import patch,AsyncMock
         from PIL import Image
         from app.services.ai import takeoff_regions as regions
+        # Import before patching cad_evidence: the renderer keeps its own alias.
+        # Otherwise lazy import captures the mock and leaks it into later render tests.
+        from app.services.ingestion import cad_visual_source
         with tempfile.TemporaryDirectory() as folder:
             path=Path(folder)/'drawing.dwg';path.write_bytes(b'fixture')
             image=Path(folder)/'frame.png';Image.new('RGB',(200,200),'white').save(image)

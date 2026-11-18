@@ -20,6 +20,9 @@ class EvidenceCompletionTests(unittest.IsolatedAsyncioTestCase):
          'tag_matches':True,'load_matches':True,'relationship_verified':True,'observed':'L4 MCB 1P 10A 6kA'}
   call=AsyncMock(side_effect=[json.dumps({'boxes':[box]}),json.dumps({'checks':[check]})])
   image=Image.new('RGB',(1000,1000),'white')
+  # Distinct source ink is needed: identical blank crops are intentionally deduplicated.
+  image.paste('black',(110,110,140,140))
+  image.paste('blue',(110,410,140,440))
   result=await complete_evidence(image,'source.png',[d],{'boxes':[]},call)
   self.assertEqual(call.await_count,2)
   self.assertEqual(evidence_gaps(d,result['boxes'][0]),[])

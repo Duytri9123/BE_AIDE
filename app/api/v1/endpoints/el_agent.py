@@ -2012,7 +2012,7 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
                 context['observations'] = [dict(tool='read_project_sources', arguments={
                     'file_ids': [p['source_file_id']], 'source_page': p.get('source_page'),
                     'source_region': p['source_region']}, result={'ok': True}) for p in scope]
-                response = await run_step("Đang đối chiếu và hoàn tất kết quả bóc tách", format_reply_response(db, payload, user, context,
+                response = await run_step("Đang kiểm tra điều kiện lưu kết quả bóc tách", format_reply_response(db, payload, user, context,
                     'Đã đọc các vùng tủ đã xác nhận.', {'devices': devices}))
                 feedback = response.get('verification_feedback')
                 if not feedback:
