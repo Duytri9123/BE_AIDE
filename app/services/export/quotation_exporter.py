@@ -514,96 +514,38 @@ class QuotationExporterService:
     @staticmethod
     def match_devices_multi_brand(devices: list, default_brand: str = "Theo thiết kế") -> list:
         """Đối chiếu các thiết bị bóc tách với tất cả các hãng trong Catalog DB."""
-        from app.services.device_catalog_engine import DeviceCatalogEngine
-        eng = DeviceCatalogEngine()
+        from app.services.ai.quotation_selection import select_quotation_devices
+        from app.services.ai.takeoff_pricebook import match_device, published_rows
+        from app.services.ai.manufacturer_registry import canonical_brand
+        from app.services.library_review_scope import MAIN_DEVICE_TYPES
 
-        # Gộp các thiết bị trùng lặp trước khi đối chiếu catalog
-        devices = DynamicGroupingEngine.merge_duplicates(devices)
-
+        price_rows = published_rows()
+        selected = select_quotation_devices(devices, default_brand, price_rows)
         matched_items = []
-        for idx, dev in enumerate(devices, 1):
-            cat = str(dev.get("category") or "Thiết bị").strip()
-            name = str(dev.get("name") or "Thiết bị").strip()
-            spec = str(dev.get("spec") or "").strip()
-            poles = dev.get("poles")
-            in_a = dev.get("in_a")
-            qty = int(dev.get("quantity") or 1)
-
-            # Build brand options by querying DeviceCatalogEngine
+        for idx, dev in enumerate(DynamicGroupingEngine.merge_duplicates(selected), 1):
+            match = match_device(dev, price_rows)
+            product = match.get('row') if match['status'] == 'matched' else None
+            cat = str(dev.get('category') or '').upper()
+            spec = str(dev.get('spec') or '').strip()
+            name = ' · '.join(filter(None, [cat, spec])) if cat in MAIN_DEVICE_TYPES else str(dev.get('name') or 'Thiết bị').splitlines()[0]
+            qty = dev.get('procurement_quantity') if dev.get('procurement_quantity') is not None else dev.get('quantity', 1)
+            price = product.get('price') if product else None
             brand_options = {}
-            for b_key, catalog_items in eng.brand_index.items():
-                display_name = str(catalog_items[0].get("brand_display") or b_key).strip()
-                matches = eng.filter_devices(
-                    brand=b_key,
-                    device_type=cat,
-                    poles=poles,
-                    in_current=in_a,
-                    limit=1
-                )
-                if matches:
-                    m = matches[0]
-                    p_val = int(m.get("g") or m.get("price") or 0)
-                    brand_options[display_name] = {
-                        "sku": m.get("ma") or m.get("sku") or "",
-                        "name": m.get("n") or m.get("name") or name,
-                        "price": p_val
-                    }
-
-            # Check if device already has a brand from drawing
-            dev_b = str(dev.get("brand") or "").strip()
-            dev_matched_brand = None
-            for b_name in brand_options.keys():
-                if dev_b and (b_name.lower() in dev_b.lower() or dev_b.lower() in b_name.lower()):
-                    dev_matched_brand = b_name
-                    break
-
-            if not brand_options:
-                matched_items.append({
-                    "id": idx, "name": name, "category": cat, "spec": spec,
-                    "poles": poles, "in_a": in_a, "quantity": qty, "unit": "Cái",
-                    "selected_brand": dev_b, "sku": "", "description": name,
-                    "unit_price": 0, "discount_percent": 0, "line_total": 0,
-                    "brand_options": {}, "catalog_matched": False,
-                })
-                continue
-
-            # Only select a catalog brand when the user or source drawing identifies it.
-            if default_brand and default_brand not in ["Theo thiết kế", "Gốc", "all", ""]:
-                active_brand = default_brand if default_brand in brand_options else dev_matched_brand
-            else:
-                active_brand = dev_matched_brand
-
-            if not active_brand:
-                matched_items.append({
-                    "id": idx, "name": name, "category": cat, "spec": spec,
-                    "poles": poles, "in_a": in_a, "quantity": qty, "unit": "Cái",
-                    "selected_brand": dev_b, "sku": dev.get("part_number") or "",
-                    "description": name, "unit_price": 0, "discount_percent": 0,
-                    "line_total": 0, "brand_options": brand_options,
-                    "catalog_matched": False,
-                })
-                continue
-
-            selected_opt = brand_options.get(active_brand) or list(brand_options.values())[0]
-            final_sku = dev.get("part_number") or selected_opt["sku"]
-
+            for maker in dict.fromkeys(row.get('brand') for row in price_rows if row.get('brand')):
+                trial = {**dev, 'brand': maker, 'detected_brand': '', 'part_number': '',
+                         'selection_source': 'default_brand', 'selected_product': None}
+                options = match_device(trial, price_rows)['candidates']
+                if options:
+                    brand_options[canonical_brand(maker)] = options[0]
             matched_items.append({
-                "id": idx,
-                "name": name,
-                "category": cat,
-                "spec": spec,
-                "poles": poles,
-                "in_a": in_a,
-                "quantity": qty,
-                "unit": "Bộ" if "ACB" in cat or "Tủ" in cat else "Cái",
-                "selected_brand": dev_b if (default_brand in ["Theo thiết kế", "Gốc", ""] and dev_b) else active_brand,
-                "sku": final_sku,
-                "description": selected_opt["name"],
-                "unit_price": selected_opt["price"],
-                "discount_percent": 0,
-                "line_total": qty * selected_opt["price"],
-                "brand_options": brand_options
-                ,"catalog_matched": True
+                **dev, 'id': idx, 'name': name, 'description': name,
+                'selected_brand': dev.get('brand') or dev.get('detected_brand') or '',
+                'sku': product['sku'] if product else dev.get('part_number') or '',
+                'quantity': qty, 'unit': dev.get('unit') or 'Cái',
+                'unit_price': price, 'line_total': qty * price if qty is not None and price is not None else None,
+                'price_status': 'confirmed' if price is not None else 'pending',
+                'discount_percent': 0, 'brand_options': brand_options,
+                'catalog_matched': product is not None, 'pricebook_match': match,
+                'notes': '',
             })
-
         return matched_items

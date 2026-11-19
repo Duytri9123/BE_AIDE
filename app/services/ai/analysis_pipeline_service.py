@@ -3988,6 +3988,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
             user_prompt, DeviceCatalogEngine.get_instance())
         if requested_design_brand and requested_preference.casefold() in {'', 'theo thiết kế', 'theo thiet ke', 'default', 'auto'}:
             resolved_brand_pref = requested_design_brand
+        from app.services.ai.quotation_selection import select_quotation_devices
+        devices = select_quotation_devices(devices, resolved_brand_pref)
         from app.services.cad.catalogtb_assets import assets as live_cad_assets
         live_cad_assets(refresh=True)
         devices = expand_devices(devices)
