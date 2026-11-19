@@ -1,5 +1,7 @@
 """Read critical labels from close-ups; preserve disagreement as uncertainty."""
+import asyncio
 import json
+import logging
 import re
 from pathlib import Path
 from collections import Counter
@@ -7,6 +9,8 @@ from PIL import Image
 from app.services.ai.connection_pool import ConnectionPoolService
 from app.services.ai.vision_analyzer import VisionAnalyzerService
 from app.services.ingestion.cad_source_evidence import validate_region
+
+logger = logging.getLogger(__name__)
 
 DIMENSION_POLICY = ('Không dùng kích thước, khoảng cách, tỷ lệ hình học, chiều dày vỏ tủ để kết luận chính xác; '
                     'chúng chỉ tương đối. Tọa độ chỉ để định vị/crop. Chỉ kiểm chứng thông số điện ghi thành nhãn.')
@@ -50,6 +54,7 @@ Không liệt kê kích thước cơ khí. Không đoán nhãn, không dùng mã
         return {'information': information, 'numeric_checks': []}
     labels = sorted([r for r in (obj.get('critical_labels') or []) if isinstance(r, dict)],
                     key=lambda r: 0 if r.get('kind') == 'voltage_range' else 1)[:4]
+    deadline = asyncio.get_running_loop().time() + 60
     for index, item in enumerate(labels):
         observed = str(item.get('text') or '')
         try:
@@ -72,12 +77,20 @@ Không liệt kê kích thước cơ khí. Không đoán nhãn, không dùng mã
             patch.save(target)
         votes = [normalized_label(observed)]; readings = [observed]
         for attempt in (1, 2):
-            response, _ = await ConnectionPoolService.call_with_fallback(
-                db, connections, VisionAnalyzerService.analyze_image, image_path=str(target),
-                prompt='Chép nguyên văn nhãn điện trong ảnh cận cảnh. Không suy theo danh mục. Đọc kỹ hình dạng từng chữ số và đơn vị. '
-                       'Nếu không rõ hoặc thiếu nhãn, legible=false, không đoán. '
-                       'Trả JSON {"text":"nhãn nguyên văn","legible":true/false}. '
-                       + json.dumps({'source': label, 'independent_read': attempt}, ensure_ascii=False))
+            remaining = deadline - asyncio.get_running_loop().time()
+            if remaining <= 0:
+                break
+            try:
+                response, _ = await asyncio.wait_for(ConnectionPoolService.call_with_fallback(
+                    db, connections, VisionAnalyzerService.analyze_image, image_path=str(target),
+                    prompt='Chép nguyên văn nhãn điện trong ảnh cận cảnh. Không suy theo danh mục. Đọc kỹ hình dạng từng chữ số và đơn vị. '
+                           'Nếu không rõ hoặc thiếu nhãn, legible=false, không đoán. '
+                           'Trả JSON {"text":"nhãn nguyên văn","legible":true/false}. '
+                           + json.dumps({'source': label, 'independent_read': attempt}, ensure_ascii=False)),
+                    timeout=min(25, remaining))
+            except Exception as exc:
+                logger.warning('Optional label verification failed for %s: %s', label, type(exc).__name__)
+                continue
             reading = json_object(response) or {}
             value = str(reading.get('text') or '') if reading.get('legible') is True else ''
             readings.append(value)
@@ -88,7 +101,7 @@ Không liệt kê kích thước cơ khí. Không đoán nhãn, không dùng mã
                 break
         winner, count = Counter(votes).most_common(1)[0]
         confirmed = next((v for v in readings if normalized_label(v) == winner), '') if count >= 2 else ''
-        information = replace_label(information, observed, confirmed or 'chưa xác nhận nhãn số (cần đọc lại)')
+        information = replace_label(information, observed, confirmed or f'{observed} (đọc sơ bộ, cần đối chiếu)')
         checks.append({'initial': observed, 'readings': readings, 'confirmed_text': confirmed,
                        'status': 'confirmed' if confirmed else 'uncertain', 'box': box, 'kind': item.get('kind')})
     return {'information': information, 'numeric_checks': checks}

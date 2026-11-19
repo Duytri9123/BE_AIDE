@@ -627,10 +627,6 @@ class AnalysisPipelineService:
                         )
                         from app.services.ai.source_image_evidence import oriented_source, verify_image_inventory, count_source_tiles, refine_locations, audit_crops
                         source_image = oriented_source(file_path)
-                        ocr_rows, circles, markers = [], [], []
-                        if settings.AI_LOCAL_OCR_ENABLED:
-                            from app.services.ai.ocr_source_evidence import observations, grounded_boxes, supplement_selectors, reread_measurement_cluster
-                            ocr_rows, circles, markers = await asyncio.to_thread(observations, source_image)
                         async def verify_source_image(prompt):
                             response, _ = await ConnectionPoolService.call_with_fallback(
                                 db=db, connections=all_connections,
@@ -662,21 +658,10 @@ class AnalysisPipelineService:
                             return response
                         async def tile_count(prompt):
                             return await count_source_tiles(source_image, call_detail_image, prompt)
-                        async def supplement_source(devices, counts):
-                            if not settings.AI_LOCAL_OCR_ENABLED:
-                                return devices
-                            devices = await reread_measurement_cluster(source_image, call_detail_image, devices, counts, ocr_rows)
-                            return await supplement_selectors(source_image, call_detail_image, devices, counts, markers)
                         async def locate_detail(devices, payload):
                             log_event(stage='source_evidence', title='Đang đối chiếu ký hiệu và thông số nguồn',
                                 detail='Kiểm tra từng nhóm ký hiệu, vị trí lộ và ảnh đối chiếu trước khi hoàn tất.', status='running')
-                            grounded = grounded_boxes(source_image, devices, ocr_rows, circles, markers) if settings.AI_LOCAL_OCR_ENABLED else {'boxes': []}
-                            grounded_ids = {str(row['device_id']) for row in grounded['boxes']}
-                            if len(grounded_ids) == len(devices):
-                                refined = grounded
-                            else:
-                                refined = await refine_locations(source_image, call_detail_image, devices, payload)
-                                refined['boxes'] = [row for row in refined['boxes'] if str(row.get('device_id')) not in grounded_ids] + grounded['boxes']
+                            refined = await refine_locations(source_image, call_detail_image, devices, payload)
                             audited = await audit_crops(source_image, call_detail_image, devices, refined)
                             failures = [{'tag':devices[int(row['device_id'])].tag,'observed':row.get('audit_observed')}
                                         for row in audited['boxes'] if row.get('verified') is not True]
@@ -691,8 +676,16 @@ class AnalysisPipelineService:
                                 data={'verified_count': verified_count, 'devices_count': len(devices)},
                             )
                             return audited
-                        parsed_devs, location_payload = await verify_image_inventory(
-                            verify_source_image, vision_prompt, parsed_devs, source_image.size, verify_source_detail, tile_count, locate_detail, supplement_source)
+                        try:
+                            parsed_devs, location_payload = await verify_image_inventory(
+                                verify_source_image, vision_prompt, parsed_devs, source_image.size,
+                                verify_source_detail, tile_count, locate_detail)
+                        except Exception:
+                            if not parsed_devs:
+                                raise
+                            logger.warning('Image evidence verification failed: %s', pfile.filename, exc_info=True)
+                            location_payload = {'boxes': []}
+                            warnings.append('Đã giữ kết quả đọc sơ bộ. Lượt đối chiếu ảnh chưa hoàn tất.')
                         AnalysisPipelineService._apply_verified_boxes(parsed_devs, location_payload, require_symbols=True)
                         unverified = [d for d in parsed_devs if not d.box_2d]
                         if unverified:
@@ -3174,14 +3167,11 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     from app.services.ingestion.drawing_reader import read_pdf_page, evidence_context
                     try:
                         source_evidence = await asyncio.to_thread(
-                            read_pdf_page, file_path, page_num,
-                            include_ocr=pdf_context['source'] != 'pdf_text_layer')
+                            read_pdf_page, file_path, page_num)
                         pdf_context['content'] += '\nPYMUPDF SOURCE DATA:\n' + evidence_context(source_evidence, 7000)
-                        if source_evidence.get('ocr'):
-                            pdf_context['content'] += '\nPADDLEOCR SOURCE DATA (unverified):\n' + evidence_context(source_evidence['ocr'], 10000)
                     except Exception as source_error:
                         logger.warning('Drawing reader failed on PDF page %s: %s', page_num, source_error)
-                        pdf_context['content'] += '\nText/OCR reader unavailable; verify labels directly on source image.'
+                        pdf_context['content'] += '\nPDF source metadata unavailable; verify directly on the rendered page.'
                     vision_prompt = extraction_prompt(vision_prompt, pdf_context)
                     if progress_callback:
                         event = progress_callback({'type':'log','stage':'pdf_context','status':'success','visibility':'internal',
@@ -3952,7 +3942,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                       'cad_file': next((r['cad_file'] for r in results if r.get('cad_file')), None),
                       'cad_files': [r['cad_file'] for r in results if r.get('cad_file')],
                       'panel_designs': results, 'quotation_file': None,
-                      'quotation_rows': [row for r in results for row in r.get('quotation_rows', [])] if ready else [],
+                      'quotation_rows': [row for r in results for row in r.get('quotation_rows', [])],
                       'devices': [row for r in results for row in r.get('devices', [])]}
             if latest:
                 conf = dict(latest.confidence_scores or {})
@@ -3989,17 +3979,14 @@ Chỉ trả một JSON hợp lệ, không markdown:
         if requested_design_brand and requested_preference.casefold() in {'', 'theo thiết kế', 'theo thiet ke', 'default', 'auto'}:
             resolved_brand_pref = requested_design_brand
         from app.services.ai.quotation_selection import select_quotation_devices
-        devices = select_quotation_devices(devices, resolved_brand_pref)
+        selection_brand = requested_design_brand if requested_preference.casefold() in {
+            '', 'theo thiết kế', 'theo thiet ke', 'default', 'auto'} else requested_preference
+        devices = select_quotation_devices(devices, selection_brand or brand_preference)
         from app.services.cad.catalogtb_assets import assets as live_cad_assets
         live_cad_assets(refresh=True)
         devices = expand_devices(devices)
         await emit_progress('cad_selection', 8, 'Đang chọn CAD và các mặt phù hợp với từng thiết bị')
         from app.services.cad.automatic_selection import select_device_geometry
-        for row in devices:
-            if str(row.get('brand') or '').strip().casefold() in {'', 'asian', 'asia', 'oem'}:
-                row['brand'] = resolved_brand_pref
-                row['detected_brand'] = ''
-                row['selection_source'] = 'user_request' if requested_design_brand else 'default_brand'
         from app.services.cad.catalogtb_assets import selection_snapshot
         with selection_snapshot():
             devices = [select_device_geometry(d, allow_unverified_electrical=True) for d in devices]
@@ -4032,12 +4019,7 @@ Chỉ trả một JSON hợp lệ, không markdown:
                     quantity_basis=d.get("quantity_basis"),
                     quantity_confidence=d.get("quantity_confidence"),
                     quantity_review=d.get('quantity_review'),
-                    brand=(
-                        resolved_brand_pref
-                        if explicit_brand_preference
-                        else d.get("brand")
-                        or resolved_brand_pref
-                    ),
+                    brand=d.get("brand"),
                     detected_brand=d.get("detected_brand"),
                     selection_source=d.get("selection_source"),
                     catalog_matches=d.get("catalog_matches"),
@@ -4516,12 +4498,13 @@ Chỉ trả một JSON hợp lệ, không markdown:
         design_result = output_status(cad_file, None, cad_layout, layout_conflicts,
                                       devices=[d.model_dump() for d in extracted_devices])
         if not design_result['success']:
-            # Failed/review-only CAD cannot publish a quote with guessed shell
-            # sizes or materials. Device price research remains internal.
-            quotation_rows = []
+            # A device quote can still be reviewed while fabrication is pending.
+            for row in quotation_rows:
+                if row.get('commercial_package'):
+                    row.update(unit_price=None, line_total=None, price_status='pending')
         await emit_progress('quotation', 88,
                             'Thiết kế hoàn tất; đã mở phần báo giá' if design_result['success']
-                            else 'Thiết kế chưa hoàn tất; chưa mở phần báo giá')
+                            else 'Đã lập báo giá thiết bị nháp; chi phí chế tạo đang chờ xác nhận')
 
         technical_audit = AnalysisPipelineService._build_technical_audit(
             extracted_devices=extracted_devices,

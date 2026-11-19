@@ -1,14 +1,13 @@
 """Apply an explicit procurement brand during takeoff, preserving source facts."""
 from copy import deepcopy
 from app.services.ai.manufacturer_registry import canonical_brand
-from app.services.library_review_scope import MAIN_DEVICE_TYPES, DEPENDENT_ACCESSORY_TYPES
+from app.services.library_review_scope import MAIN_DEVICE_TYPES
 
 
 def requested_brand_applies(device):
     get = device.get if isinstance(device, dict) else lambda key, default=None: getattr(device, key, default)
     kind = str(get('category') or '').upper().replace(' ', '_')
-    return kind in MAIN_DEVICE_TYPES | DEPENDENT_ACCESSORY_TYPES or bool(
-        get('requires_same_brand', False))
+    return kind in MAIN_DEVICE_TYPES
 
 
 def apply_takeoff_brand(device, brand):

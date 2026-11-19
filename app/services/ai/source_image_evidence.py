@@ -176,17 +176,6 @@ async def verify_pdf_measurement_crops(image, call_image, devices, *, all_device
     audited = await audit_crops(image, call_image, selected, refined)
     if on_progress:await on_progress('Rà soát các vị trí chưa rõ',len(selected))
     audited = await retry_unverified_evidence(image, call_image, selected, audited)
-    if all_devices:
-        by_id={str(row.get('device_id')):row for row in audited.get('boxes',[])}
-        if any(by_id.get(str(i),{}).get('verified') is not True for i in range(len(selected))):
-            from app.services.ai.row_evidence import measure_horizontal_rows
-            measured=measure_horizontal_rows(image,selected)
-            measured['boxes']=[row for row in measured['boxes'] if by_id.get(str(row['device_id']),{}).get('verified') is not True]
-            if measured['boxes']:
-                checked=await audit_crops(image,call_image,selected,measured)
-                for row in checked['boxes']:
-                    if row.get('verified') is True:by_id[str(row['device_id'])]=row
-                audited={'boxes':list(by_id.values())}
     from app.services.ai.analysis_pipeline_service import AnalysisPipelineService
     AnalysisPipelineService._apply_verified_boxes(selected, audited, require_symbols=True)
     return [device for device in selected if not device.box_2d]

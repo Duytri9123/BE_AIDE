@@ -33,25 +33,15 @@ class DocumentContextService:
     @staticmethod
     def _read_pdf(path: Path) -> str:
         import pymupdf
-        from app.services.ingestion.drawing_reader import read_pdf_page, evidence_context
 
         parts: List[str] = []
-        scanned_pages = 0
         with pymupdf.open(str(path)) as document:
             for index, page in enumerate(document):
                 text = page.get_text(sort=True).strip()
                 if text:
                     parts.append(f"[Trang {index + 1}; PyMuPDF text layer; chưa xác minh hình ảnh]\n{text}")
-                elif scanned_pages < 3:
-                    scanned_pages += 1
-                    try:
-                        evidence = read_pdf_page(path, index + 1, include_ocr=True)
-                        parts.append(f"[Trang {index + 1}; OCR chưa xác minh hình ảnh]\n" + evidence_context(evidence['ocr'], 3500))
-                    except Exception as exc:
-                        parts.append(f"[Trang {index + 1}: OCR unavailable; cần đọc ảnh trực tiếp. {str(exc)[:250]}]")
                 else:
-                    parts.append(f"[Trang {index + 1} trở đi chưa OCR trong context tham chiếu; cần đọc từng trang theo phạm vi yêu cầu.]")
-                    break
+                    parts.append(f"[Trang {index + 1}; cần đọc trực tiếp ảnh trang.]")
                 if sum(len(part) for part in parts) >= DocumentContextService.MAX_FILE_CHARS:
                     parts.append('[Context bị giới hạn độ dài; chưa đọc hết tài liệu.]')
                     break
@@ -214,8 +204,7 @@ class DocumentContextService:
             if ext == "pdf":
                 text = DocumentContextService._read_pdf(path)
             elif ext in {"png", "jpg", "jpeg", "webp", "bmp", "tif", "tiff"}:
-                from app.services.ingestion.drawing_reader import read_image, evidence_context
-                text = 'PaddleOCR — dữ liệu nguồn chưa xác minh hình ảnh:\n' + evidence_context(read_image(path), 11000)
+                text = "Nguồn hình ảnh; cần đọc trực tiếp bằng Agent."
             elif ext in {"dxf", "dwg"}:
                 from app.services.ingestion.cad_parser import CadParserService
                 analysis_path = Path(CadParserService.prepare_analysis_path(str(path)))

@@ -17,6 +17,8 @@ from app.services.ai.source_numeric_checks import read_image_checked, DIMENSION_
 
 SOURCE_INSTRUCTION = DIMENSION_POLICY + '\n' + '''Bạn là agent PHÂN TÍCH YÊU CẦU, đọc nguồn theo yêu cầu của người dùng.
 Chỉ lấy thông tin liên quan đến yêu cầu, giải thích và nhận xét dựa trên nội dung thật đọc được.
+Đọc rộng theo câu hỏi: đối chiếu chú giải, bảng kê, ký hiệu, kết nối, tên tải, ghi chú và nhãn giữa các vùng liên quan.
+Nếu các nguồn mâu thuẫn, nêu phần khớp và phần còn mâu thuẫn. Giữ các quan sát đã đọc được khi một mục thiếu minh chứng.
 Nếu được hỏi nguyên lý: mô tả phần tử, đường cấp điện, liên kết và trình tự hoạt động có bằng chứng.
 Giữ nguyên nhãn, thông số, đơn vị; không đoán phần mờ, không tự hoàn thiện thông số còn thiếu.
 Ghi tên file và trang cho các thông tin quan trọng; phân biệt quan sát trực tiếp và suy luận.
@@ -119,7 +121,13 @@ async def analyze_requirements(db, connections, project_id, message, context):
                     for number in selected:
                         image = Path(temporary) / f'{file.id}-{number}.png'
                         native = await asyncio.to_thread(render_pdf_page, path, number, image, region)
-                        observations.append(await call_image(image, f'{file.filename} / trang {number}' + (f' / vùng {region}' if region else ''), native))
+                        page_label = f'{file.filename} / trang {number}' + (f' / vùng {region}' if region else '')
+                        try:
+                            observations.append(await call_image(image, page_label, native))
+                        except Exception:
+                            if native.strip():
+                                observations.append({'source': page_label, 'native_text': native})
+                            limits.append(f'{page_label}: lượt đối chiếu hình ảnh chưa thành công.')
                 elif extension in {'.png', '.jpg', '.jpeg', '.bmp', '.webp', '.tif', '.tiff'}:
                     observations.append(await call_image(path, file.filename))
                 elif extension in {'.dwg', '.dxf'}:

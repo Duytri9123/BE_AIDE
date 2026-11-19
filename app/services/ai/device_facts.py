@@ -33,6 +33,8 @@ def enrich_device_facts(source):
         existing = text(row.get(field))
         if existing:
             evidence[field] = {'status':'retained','source_field':field}
+        elif field == 'part_number' and row.get('selection_source') == 'default_brand':
+            evidence[field] = {'status':'missing'}
         elif required and available:
             unique = {value.casefold() for _,value in available}
             if len(unique) == 1:
@@ -70,7 +72,9 @@ def enrich_quotation_facts(rows, devices=()):
             (facts[0].get('brand'),facts[0].get('part_number'),facts[0].get('category')) for d in facts) else None
         if fact:
             if not text(row.get('origin')) and text(fact.get('brand')):row['origin']=fact['brand']
-            if not text(row.get('sku')) and text(fact.get('part_number')):row['sku']=fact['part_number']
+            if (row.get('selection_source') != 'default_brand'
+                    and not text(row.get('sku')) and text(fact.get('part_number'))):
+                row['sku']=fact['part_number']
             row.setdefault('category',fact.get('category'))
             row['installation_review']=deepcopy(fact['installation_review'])
             if fact.get('installation_observation'):

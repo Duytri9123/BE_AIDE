@@ -291,7 +291,11 @@ class QuotationExporterService:
             labor_cost = int(float(labor_calc.get("T_total_hours", 0)) * hourly_rate)
             write_item("Nhân công lắp ráp, đấu nối & kiểm tra xuất xưởng (QC)", "QC-LABOR", "VN", "Tủ", 1.0, labor_cost)
 
-            for sec_name, dev_list in sections_map.items():
+            from app.services.ai.procurement_review import quotation_section
+            sections = sorted(sections_map, key=lambda name: {'Đầu vào': 0, 'Đầu ra': 1}.get(
+                quotation_section({'section': name}), 2))
+            for sec_name in sections:
+                dev_list = sections_map[sec_name]
                 write_section(sec_name)
                 merged_list = DynamicGroupingEngine.merge_duplicates(dev_list)
                 for d in merged_list:
@@ -514,12 +518,15 @@ class QuotationExporterService:
     @staticmethod
     def match_devices_multi_brand(devices: list, default_brand: str = "Theo thiết kế") -> list:
         """Đối chiếu các thiết bị bóc tách với tất cả các hãng trong Catalog DB."""
-        from app.services.ai.quotation_selection import select_quotation_devices
+        from app.services.ai.quotation_selection import replacement_candidates, select_quotation_devices
         from app.services.ai.takeoff_pricebook import match_device, published_rows
         from app.services.ai.manufacturer_registry import canonical_brand
         from app.services.library_review_scope import MAIN_DEVICE_TYPES
 
         price_rows = published_rows()
+        rows_by_brand = {}
+        for row in price_rows:
+            rows_by_brand.setdefault(canonical_brand(row.get('brand')), []).append(row)
         selected = select_quotation_devices(devices, default_brand, price_rows)
         matched_items = []
         for idx, dev in enumerate(DynamicGroupingEngine.merge_duplicates(selected), 1):
@@ -531,14 +538,16 @@ class QuotationExporterService:
             qty = dev.get('procurement_quantity') if dev.get('procurement_quantity') is not None else dev.get('quantity', 1)
             price = product.get('price') if product else None
             brand_options = {}
-            for maker in dict.fromkeys(row.get('brand') for row in price_rows if row.get('brand')):
-                trial = {**dev, 'brand': maker, 'detected_brand': '', 'part_number': '',
+            for maker, maker_rows in rows_by_brand.items() if cat in MAIN_DEVICE_TYPES else ():
+                trial = {**dev, 'brand': maker, 'detected_brand': '', 'part_number': '', 'sku': '',
                          'selection_source': 'default_brand', 'selected_product': None}
-                options = match_device(trial, price_rows)['candidates']
+                options = match_device(trial, maker_rows)['candidates'] or replacement_candidates(trial, maker_rows)
                 if options:
-                    brand_options[canonical_brand(maker)] = options[0]
+                    brand_options[maker] = options[0]
+            replacement = (dev.get('source_observations') or {}).get('quotation_replacement') or {}
+            description = f"{name} => {replacement['proposed_spec']}" if replacement else name
             matched_items.append({
-                **dev, 'id': idx, 'name': name, 'description': name,
+                **dev, 'id': idx, 'name': name, 'description': description, 'brand_switchable': cat in MAIN_DEVICE_TYPES,
                 'selected_brand': dev.get('brand') or dev.get('detected_brand') or '',
                 'sku': product['sku'] if product else dev.get('part_number') or '',
                 'quantity': qty, 'unit': dev.get('unit') or 'Cái',
@@ -546,6 +555,6 @@ class QuotationExporterService:
                 'price_status': 'confirmed' if price is not None else 'pending',
                 'discount_percent': 0, 'brand_options': brand_options,
                 'catalog_matched': product is not None, 'pricebook_match': match,
-                'notes': '',
+                'notes': replacement.get('reason', ''),
             })
         return matched_items

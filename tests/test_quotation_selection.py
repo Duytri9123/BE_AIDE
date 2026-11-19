@@ -36,7 +36,35 @@ def test_missing_same_brand_product_does_not_choose_other_brand_or_stale_price()
 
 def test_explicit_row_choice_survives_common_default():
     source = device(brand='ABB', part_number='ABB16', selection_source='user_selected')
-    assert select_quotation_devices([source], 'LS', [price_row()])[0] == source
+    assert select_quotation_devices([source], 'Theo thiết kế', [price_row()])[0] == source
+
+
+def test_explicit_brand_changes_main_devices_only_and_keeps_proposal_unpriced():
+    from app.services.ai.procurement_review import build_quotation_rows
+
+    breaker = {**device(brand='ABB', part_number='OLD', selection_source='user_selected'),
+               'in_a': 30, 'spec': '30A 1P 6kA', 'section': 'Đầu ra'}
+    accessory = dict(category='LIGHT', brand='Mikro', name='Đèn báo', quantity=1, section='Đầu vào')
+    selected = select_quotation_devices([breaker, accessory], 'LS', [price_row(current=32, icu=6)])
+    assert selected[0]['brand'] == 'LS Electric'
+    assert selected[0]['in_a'] == 30
+    assert selected[0]['part_number'] == ''
+    assert selected[1] == accessory
+    rows = build_quotation_rows(selected, {}, refresh_prices=False)
+    assert [row['name'] for row in rows if row['row_type'] == 'section_header'] == [
+        'Vỏ tủ + phụ kiện', 'Đầu vào', 'Đầu ra']
+    proposed = next(row for row in rows if row.get('category') == 'MCB')
+    assert proposed['spec'] == '30A 1P 6kA => 32A 1P 6kA'
+    assert proposed['unit_price'] is None
+    assert 'LS16' in proposed['notes']
+
+
+def test_exact_current_wins_and_lower_breaking_capacity_cannot_be_proposed():
+    source = {**device(brand='ABB'), 'in_a': 30, 'spec': '30A 1P 6kA'}
+    rows = [price_row(sku='LS30', current=30, icu=6), price_row(sku='LS32', current=32, icu=6)]
+    assert select_quotation_devices([source], 'LS', rows)[0]['part_number'] == 'LS30'
+    selected = select_quotation_devices([source], 'LS', [price_row(current=32, icu=4)])[0]
+    assert not selected['catalog_candidates']
 
 
 def test_wrong_rating_is_never_automatically_substituted():

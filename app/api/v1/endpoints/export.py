@@ -1,3 +1,4 @@
+import asyncio
 import os
 from pathlib import Path
 from typing import List, Optional, Annotated
@@ -64,6 +65,7 @@ class MatchQuotationRequest(BaseModel):
     project_id: int
     default_brand: Optional[str] = None
     devices: Optional[List[dict]] = None
+    preserve_rows: bool = False
 
 @router.post("/match-quotation")
 async def match_quotation(
@@ -74,6 +76,10 @@ async def match_quotation(
     """Đối chiếu thiết bị bóc tách với dữ liệu Catalog các hãng."""
     devices = payload.devices or []
     if not devices:
+        owned = await db.scalar(select(Project.id).where(
+            Project.id == payload.project_id, Project.user_id == current_user.id))
+        if owned is None:
+            raise HTTPException(status_code=404, detail="Không tìm thấy dự án")
         sess_stmt = select(ConversationSession).where(
             ConversationSession.project_id == payload.project_id
         ).order_by(ConversationSession.created_at.desc())
@@ -88,7 +94,12 @@ async def match_quotation(
             if latest_iter and latest_iter.ai_parsed_devices:
                 devices = latest_iter.ai_parsed_devices
 
-    items = QuotationExporterService.match_devices_multi_brand(
+    if payload.preserve_rows:
+        from app.services.ai.quotation_selection import select_quotation_devices
+        items = await asyncio.to_thread(select_quotation_devices, devices, payload.default_brand)
+        return {"items": items}
+
+    items = await asyncio.to_thread(QuotationExporterService.match_devices_multi_brand,
         devices=devices,
         default_brand=payload.default_brand or settings.DEFAULT_BRAND
     )

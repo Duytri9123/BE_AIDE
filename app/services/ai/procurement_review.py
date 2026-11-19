@@ -137,6 +137,11 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                           'METER':'Đồng hồ đa năng','AMMETER':'Ampe kế','VOLTMETER':'Vôn kế'}.get(str(d.get('category') or '').upper(),d.get('name') or 'Thiết bị')
             if short_name in {'CB','MCCB','MCB','RCBO','RCCB'} and not selected_spec:
                 short_name += ' dự phòng'
+            replacement = (d.get('source_observations') or {}).get('quotation_replacement') or {}
+            replacement_note = ''
+            if not linked_row and replacement.get('proposed_spec'):
+                selected_spec = f"{selected_spec} => {replacement['proposed_spec']}"
+                replacement_note = f"Dòng hoặc mã đề xuất {replacement['sku']}. {replacement['reason']}"
             result.append(dict(id=identity,row_type='item',commercial_display=True,tt='+',name=short_name,category=d.get('category'),
                 spec=selected_spec,original_spec=d.get('original_spec') or d.get('spec'),
                 sku=sku,origin=d.get('brand') or '',unit=d.get('unit') or 'Cái',quantity=qty,
@@ -144,12 +149,12 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                 price_status='confirmed' if price else 'pending',
                 price_row_id=match.get('price_row_id') if price else None,
                 pricebook_match=match,
-                source_observations=d.get('source_observations'),
+                source_observations=d.get('source_observations'),selection_source=d.get('selection_source'),
                 quantity_review=d.get('quantity_review'),
                 equipment_catalog_id=linked_row.get('equipment_catalog_id') if linked_row and price else None,
                 vat_status=linked_row.get('vat_status') if linked_row and price else None,
                 effective_date=linked_row.get('effective_date') if linked_row and price else None,
-                notes='',design_notes=d.get('notes') or '',source_tags=[d.get('tag')] if d.get('tag') else [],
+                notes=replacement_note,design_notes=d.get('notes') or '',source_tags=[d.get('tag')] if d.get('tag') else [],
                 compatible_proposal=d.get('compatible_proposal'),
                 is_alternative_recommended=d.get('is_alternative_recommended') or False))
             for j,a in enumerate(d.get('accompanying_accessories') or []):
@@ -202,6 +207,8 @@ def compact_commercial_sections(rows):
 def commercial_breaker_spec(row):
     """Normalize notation only; retain every rating and unrecognized qualifier."""
     spec=str(row.get('spec') or '').strip()
+    if '=>' in spec:
+        return spec
     category=str(row.get('category') or '').upper()
     if category not in {'CB','MCCB','MCB','RCBO','RCCB','ACB'}:
         return spec
