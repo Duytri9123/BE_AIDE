@@ -14,6 +14,147 @@ async def keep_disputes(image, regions, parts, issues, call_image, **kwargs):
 
 
 class RegionalTests(unittest.IsolatedAsyncioTestCase):
+    async def test_provider_outage_keeps_read_regions_and_skips_further_ai_calls(self):
+        from app.core.exceptions import AITimeoutError
+        call=AsyncMock(side_effect=[json.dumps({'regions':[
+            {'box_2d':[0,0,500,1000]}, {'box_2d':[500,0,1000,1000]}]}),
+            json.dumps({'devices':[{'name':'MCB','quantity':1}]}),AITimeoutError('provider timeout')])
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'source.png';Image.new('RGB',(1000,1000)).save(path)
+            result=await extract_regions(path,'Read',call,concurrency=2)
+        self.assertEqual(call.await_count,3)
+        self.assertTrue(result['processing_interrupted'])
+        self.assertEqual(len(result['devices']),1)
+        review=result['devices'][0]['source_observations']['coverage_review']
+        self.assertEqual(review['status'],'needs_review')
+        self.assertTrue(review['read_failed'])
+        self.assertIn('Máy chủ AI',review['issues'][0]['reason'])
+
+    async def test_provider_outage_during_review_preserves_inventory_without_retry(self):
+        from app.core.exceptions import AIVisionError
+        call=AsyncMock(side_effect=[json.dumps({'regions':[]}),
+            json.dumps({'devices':[{'name':'MCB','quantity':1}]}),AIVisionError('provider disconnected')])
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'source.png';Image.new('RGB',(1000,1000)).save(path)
+            result=await extract_regions(path,'Read',call)
+        self.assertEqual(call.await_count,3)
+        self.assertTrue(result['processing_interrupted'])
+        self.assertEqual(result['devices'][0]['source_observations']['coverage_review']['status'],'needs_review')
+
+    def test_overlap_read_without_tag_is_merged_only_at_same_source_geometry(self):
+        parts=[{'devices':[{'name':'Contactor','category':'CONTACTOR','spec':'2P16A','tag':'P1','quantity':1}],
+                'boxes':[{'device_id':'0','symbol_box_2d':[100,100,150,140]}]},
+               {'devices':[{'name':'Khởi động từ','category':'Điều khiển','spec':'2P16A','tag':None,'quantity':1},
+                           {'name':'Contactor','category':'CONTACTOR','spec':'2P16A','quantity':1}],
+                'boxes':[{'device_id':'0','symbol_box_2d':[101,100,151,140]},
+                         {'device_id':'1','symbol_box_2d':[200,100,250,140]}]}]
+        deduplicate_parts(parts)
+        self.assertEqual(sum(len(p['devices']) for p in parts),2)
+        self.assertEqual(parts[1]['boxes'][0]['symbol_box_2d'],[200,100,250,140])
+
+    def test_coverage_retains_source_claims_without_repeated_images_or_diagnostics(self):
+        from app.services.ai.regional_takeoff import coverage_claim
+        row={'name':'MCB','tag':'P1','spec':'16A','quantity':1,'connected_load':'Bơm',
+             'evidence_image':'data:image/png;base64,large','technical_analysis':'repeated explanation',
+             'source_observations':{'panel_notes':['repeated note']*100,'circuit':{'power_w':100},
+                 'source_checks':[{'field':'quantity','value':1,'observed_text':'1 cái',
+                     'verification_status':'verified','evidence_image':'large','reason':'diagnostic'}]}}
+        result=coverage_claim(row)
+        for key in ('name','tag','spec','quantity','connected_load'):self.assertEqual(result[key],row[key])
+        self.assertEqual(result['source_observations']['source_checks'][0]['observed_text'],'1 cái')
+        self.assertNotIn('base64',json.dumps(result))
+        self.assertNotIn('panel_notes',json.dumps(result))
+        self.assertNotIn('technical_analysis',result)
+
+    async def test_overlapping_table_bands_read_full_symbol_but_count_it_once(self):
+        import numpy as np
+        scan={'layout_kind':'horizontal_circuit_table','regions':[
+            {'box_2d':[0,0,500,500]},{'box_2d':[500,0,1000,500]},
+            {'box_2d':[0,500,500,1000]}]}
+        reads=[]
+        async def call(path,prompt):
+            if 'Nhận diện vùng trước' in prompt:return json.dumps(scan)
+            if 'Kiểm kê ĐỘC LẬP' in prompt:return json.dumps({'issues':[]})
+            with Image.open(path) as crop:
+                ink=np.asarray(crop)[:,:,0]<100
+                ys,xs=np.where(ink)
+                if not len(xs):return json.dumps({'devices':[]})
+                reads.append((int(ys.max()-ys.min()+1),crop.height))
+                box=[int(ys.min()/crop.height*1000),int(xs.min()/crop.width*1000),
+                     round((ys.max()+1)/crop.height*1000),round((xs.max()+1)/crop.width*1000)]
+            return json.dumps({'devices':[{'name':'MCB','tag':'P1','category':'MCB','spec':'16A','quantity':1}],
+                'boxes':[{'device_id':'0','symbol_box_2d':box,'text_box_2d':box}]})
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'source.png';image=Image.new('RGB',(1000,1000),'white')
+            image.paste('black',(200,225,220,235));image.save(path)
+            result=await extract_regions(path,'Read',call,concurrency=6)
+        self.assertGreaterEqual(len(reads),2)
+        self.assertTrue(all(height==10 for height,_ in reads))
+        self.assertEqual(len(result['devices']),1)
+        self.assertEqual(result['devices'][0]['tag'],'P1')
+
+    async def test_dense_table_columns_become_bounded_horizontal_bands(self):
+        scan={'layout_kind':'horizontal_circuit_table','regions':[
+            {'box_2d':box} for box in ([50,40,350,400],[360,200,650,430],[650,220,950,430],[100,520,370,998])],
+            'inventory':[{'quantity':37}]}
+        sizes=[]
+        async def call(path,prompt):
+            with Image.open(path) as source:sizes.append(source.size)
+            return json.dumps(scan if len(sizes)==1 else {'issues':[]} if 'Kiểm kê ĐỘC LẬP' in prompt else {'devices':[]})
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'source.png';Image.new('RGB',(1000,1000)).save(path)
+            await extract_regions(path,'Read',call,concurrency=6)
+        self.assertEqual(len(sizes),8)  # Scan, six bounded bands, independent coverage.
+        self.assertTrue(all(w==1000 and h<=270 for w,h in sizes[1:-1]))
+        self.assertGreaterEqual(sum(h for _,h in sizes[1:-1]),1000)
+
+    async def test_rotated_table_keeps_source_rows_along_the_rotated_axis(self):
+        sizes=[]
+        async def call(path,prompt):
+            with Image.open(path) as source:sizes.append(source.size)
+            return json.dumps({'layout_kind':'horizontal_circuit_table','regions':[
+                {'box_2d':[100,200,500,300],'rotation_degrees':90}]} if len(sizes)==1
+                else {'issues':[]} if 'Kiểm kê ĐỘC LẬP' in prompt else {'devices':[]})
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'source.png';Image.new('RGB',(1000,1000)).save(path)
+            await extract_regions(path,'Read',call)
+        self.assertEqual(sizes[1],(1000,116))
+
+    async def test_native_schedule_partition_skips_model_discovery_and_keeps_whole_canvas(self):
+        labels=[];rows=[]
+        for i,y in enumerate(range(800,0,-100)):
+            labels.extend([{'id':f't{i}','text':f'L{i}','x':500,'y':y,'height':10},
+                           {'id':f'r{i}','text':'MCB-1P-10A-6kA','x':200,'y':y,'height':10}])
+            rows.append({'id':f't{i}','rating_id':f'r{i}','tag':f'L{i}','rating':'MCB-1P-10A-6kA'})
+        native={'view_bounds':[0,0,1000,1000],'labels':labels,'rows':rows}
+        captured=[]
+        async def call(path,prompt):
+            with Image.open(path) as source:captured.append(source.size)
+            return json.dumps({'issues':[]} if 'Kiểm kê ĐỘC LẬP' in prompt else {'devices':[]})
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'source.png';Image.new('RGB',(1000,1000)).save(path)
+            await extract_regions(path,'Read',call,preserve_row_context=True,native_evidence=native)
+        self.assertEqual(len(captured),3)  # Two source bands plus independent coverage.
+        self.assertEqual(captured[-1],(1000,1000))
+        self.assertEqual(captured[0][0],1000)
+        self.assertGreaterEqual(captured[0][1]+captured[1][1],1000)
+
+    async def test_circuit_table_regions_keep_tag_and_load_columns_in_source_frame(self):
+        calls = []
+        async def call(path, prompt):
+            with Image.open(path) as source:
+                calls.append(source.size)
+            return json.dumps(({'layout_kind':'horizontal_circuit_table','regions':[{'box_2d':[200,150,400,330]}]},
+                {'devices':[{'name':'MCB','tag':'L1'}], 'boxes':[
+                    {'device_id':'0','symbol_box_2d':[100,200,200,300]}]},
+                {'issues':[]})[len(calls)-1])
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'source.png'
+            Image.new('RGB',(1000,1000),'white').save(path)
+            result=await extract_regions(path,'Read',call)
+        self.assertEqual(calls[1],(1000,1000))
+        self.assertEqual(result['boxes'][0]['symbol_box_2d'],[100,200,200,300])
+
     def test_explicit_source_type_survives_a_vietnamese_breaker_category(self):
         from app.services.ai.scoped_takeoff import normalize_scoped_row
         row = normalize_scoped_row({'category': 'Aptomat chống dòng rò', 'name': 'Aptomat',

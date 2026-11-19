@@ -15,6 +15,35 @@ from app.services.ai.takeoff_verifier import engineering_review
 
 
 class ScopedTakeoffTests(unittest.IsolatedAsyncioTestCase):
+    async def test_failed_inventory_coverage_defers_costly_device_crop_audit(self):
+        with tempfile.TemporaryDirectory() as folder:
+            image_path=Path(folder)/'source.png';Image.new('RGB',(100,100),'white').save(image_path)
+            file=SimpleNamespace(id=7,filename='source.png',file_path=str(image_path))
+            db=SimpleNamespace(execute=AsyncMock(return_value=SimpleNamespace(
+                scalars=lambda:SimpleNamespace(all=lambda:[file]))))
+            row={'name':'MCB','category':'MCB','spec':'16A','quantity':1,
+                 'source_observations':{'coverage_review':{'status':'needs_review',
+                    'issues':[{'reason':'Duplicated branch P1'}]}}}
+            box={'device_id':'0','verified':True,'symbol_verified':True,
+                 'symbol_box_2d':[100,100,200,200],'text_box_2d':[100,100,200,200]}
+            payload={'devices':[row],'boxes':[box]}
+            with patch('app.services.ai.scoped_takeoff.render_panel',AsyncMock(return_value=(str(image_path),''))), \
+                 patch('app.services.ai.regional_takeoff.extract_regions',AsyncMock(return_value=payload)), \
+                 patch('app.services.ai.scoped_takeoff.ConnectionPoolService.get_ordered_connections',AsyncMock(return_value=[object()])), \
+                 patch('app.services.ai.device_crop_audit.audit_device_previews',AsyncMock()) as audit, \
+                 patch('app.services.ai.takeoff_evidence_completion.complete_evidence',AsyncMock()) as repair:
+                result=await extract_confirmed_panels(db,1,[{'source_file_id':7,'panel_code':'P1',
+                    'source_page':None,'source_region':[0,0,1,1]}],'Bóc tách P1')
+                payload['processing_interrupted']=True
+                interrupted=await extract_confirmed_panels(db,1,[{'source_file_id':7,'panel_code':'P1',
+                    'source_page':None,'source_region':[0,0,1,1]}],'Bóc tách P1')
+                self.assertIn('Máy chủ AI',interrupted[0]['evidence_region']['reason'])
+            audit.assert_not_awaited();repair.assert_not_awaited()
+            self.assertEqual(len(result),1)
+            self.assertEqual(result[0]['source_observations']['coverage_review']['status'],'needs_review')
+            self.assertFalse(result[0]['evidence_image'])
+            self.assertEqual(result[0]['evidence_region']['status'],'unverified')
+
     def test_unit_strings_do_not_reject_a_whole_panel(self):
         from app.services.ai.scoped_takeoff import normalize_scoped_row
         from app.schemas.ai import ExtractedDeviceSchema

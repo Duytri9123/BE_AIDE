@@ -51,12 +51,23 @@ def normalize_scoped_row(row):
     import re
     result = dict(row)
     result['spec'] = str(result.get('spec') or '')
+    analysis=str(result.get('technical_analysis') or '')
+    if re.search(r'mép.*ảnh|ngoài khung|đoạn biên|vùng cắt|cắt.*khung',analysis,re.I):
+        observations=result.get('source_observations')
+        observations=dict(observations) if isinstance(observations,dict) else {}
+        observations['image_processing_notes']=[analysis]
+        result['source_observations']=observations
+        result['technical_analysis']=result.get('electrical_function') or ''
     # Providers sometimes return unit-bearing strings despite the numeric contract.
     # Keep their original value in observations; do not lose a whole panel to one field.
     numeric_issues = {}
     for key, unit in (('in_a', 'A'), ('icu_ka', 'kA'), ('poles', 'P')):
         value = result.get(key)
         if isinstance(value, str):
+            if key == 'poles' and re.fullmatch(r'\s*1\s*P\s*\+\s*N\s*', value, re.I):
+                result[key] = 2
+                numeric_issues[key] = value
+                continue
             match = re.fullmatch(r'\s*(\d+(?:[.,]\d+)?)\s*(?:' + unit + r')?\s*', value, re.I)
             if not match:
                 match = re.fullmatch(r'\s*(\d+(?:[.,]\d+)?)\s*', value)
@@ -64,14 +75,21 @@ def normalize_scoped_row(row):
             result[key] = int(number) if key == 'poles' and number is not None and number.is_integer() else number if key != 'poles' else None
             numeric_issues[key] = value
     # Canonicalize type from an explicit source label, not a generic breaker name.
-    source_text = ' '.join(str(result.get(k) or '') for k in ('observed_text', 'evidence', 'spec'))
+    source_text = ' '.join(str(result.get(k) or '') for k in ('observed_text', 'evidence', 'spec', 'name'))
     breaker = re.search(r'\b(MCCB|MCB|RCBO|RCCB|ACB)\b', source_text, re.I)
     aliases = {'BIẾN DÒNG': 'CT', 'CẦU CHÌ': 'FUSE', 'ĐỒNG HỒ': 'METER',
                'CHUYỂN MẠCH': 'SELECTOR_SWITCH', 'ĐÈN BÁO': 'LIGHT', 'ĐỒNG HỒ ĐO': 'METER'}
     category = str(result.get('category') or '').upper()
     breaker_category = category in {'', 'APTOMAT', 'APTOMAT TÉP', 'APTOMAT KHỐI', 'BREAKER', 'CB', 'PROTECTION', 'THIẾT BỊ ĐÓNG CẮT', 'THIẾT BỊ BẢO VỆ', 'CIRCUIT_BREAKER', 'MCB', 'MCCB', 'RCBO', 'RCCB', 'ACB'}
-    breaker_category = breaker_category or bool(re.match(r'^(?:APTOMAT|CẦU DAO|CIRCUIT.?BREAKER)(?:\b|_)', category))
+    breaker_category = breaker_category or category == 'PROTECTIVE' or bool(re.match(r'^(?:APTOMAT|CẦU DAO|CIRCUIT.?BREAKER)(?:\b|_)', category))
     result['category'] = breaker[1].upper() if breaker and breaker_category else aliases.get(category, category)
+    if category in {'MEASURING', 'PROTECTIVE', 'PHỤ KIỆN TỦ ĐIỆN'} and not (breaker and breaker_category):
+        name = str(result.get('name') or '').upper()
+        for label, canonical in (('BIẾN DÒNG', 'CT'), ('CẦU CHÌ', 'FUSE'),
+                                  ('ĐỒNG HỒ', 'METER'), ('ĐÈN BÁO', 'LIGHT')):
+            if label in name:
+                result['category'] = canonical
+                break
     if isinstance(result.get('quantity'), str):
         quantity = re.fullmatch(r'\s*(\d+)\s*(?:cái|bộ|cụm|pcs?)?\s*', result['quantity'], re.I)
         result['quantity'] = int(quantity[1]) if quantity else None
@@ -86,6 +104,15 @@ def normalize_scoped_row(row):
         result['source_observations'] = {'raw_observations': observations}
     if numeric_issues:
         result['source_observations'] = {**(result.get('source_observations') or {}), 'raw_numeric_fields': numeric_issues}
+    observations=result.get('source_observations') or {}
+    circuit=observations.get('circuit')
+    if isinstance(circuit,dict) and re.fullmatch(r'\s*[1-4]\s*P(?:\s*\+\s*N)?\s*',str(circuit.get('phase') or ''),re.I):
+        observations={**observations,'raw_phase_field':circuit['phase'],'circuit':{**circuit,'phase':None}}
+        result['source_observations']=observations
+    if result['category'] in {'METER','AMMETER','VOLTMETER','LIGHT','PILOT_LIGHT'} and re.fullmatch(
+            r'\s*(?:chỉ thị kim/số\s*\([av]\)|[av]\s*kế|ampe kế|vôn kế|đèn báo pha|[RYB](?:\s*[,/ ]\s*[RYB]){2})\s*',result['spec'],re.I):
+        result['source_observations']={**(result.get('source_observations') or {}),'symbol_marking':result['spec']}
+        result['spec']=''
     return result
 
 
@@ -95,9 +122,13 @@ def ground_scoped_identity(row, source_labels):
     from app.services.ingestion.cad_source_evidence import plain
     row=dict(row)
     tag=str(row.get('tag') or '').strip()
-    generic={'MCB','MCCB','RCBO','RCCB','ACB','CB','CT','FUSE','PL','LIGHT','METER','V','A'}
+    generic={'MCB','MCCB','RCBO','RCCB','ACB','CB','CT','FUSE','PL','LIGHT','METER','V','A','C','CONTACTOR','TIMER'}
     labels=source_labels or []
     load=str(row.get('connected_load') or '').strip()
+    if plain(load).strip() in {'DU PHONG','SPARE'}:
+        row['electrical_function'] = row.get('electrical_function') or 'Nhánh dự phòng'
+        row['connected_load'] = None
+        load = ''
     matches=[r for r in labels if load and plain(r['text']).strip()==plain(load).strip()]
     if tag.upper() in generic:
         row['tag']=None
@@ -107,6 +138,17 @@ def ground_scoped_identity(row, source_labels):
     if labels and load and not matches and str(row.get('category') or '').upper() in {'CT','FUSE','LIGHT','PILOT_LIGHT','METER','AMMETER','VOLTMETER','SELECTOR_SWITCH'}:
         row['electrical_function']=row.get('electrical_function') or load
         row['connected_load']=None
+    if labels and row.get('category') in {'LIGHT','PILOT_LIGHT','METER','AMMETER','VOLTMETER','SELECTOR_SWITCH'}:
+        from app.services.ingestion.cad_source_evidence import signature
+        source_voltages = set().union(*(signature(label['text']).get('V', set()) for label in labels))
+        spec = str(row.get('spec') or '')
+        unsupported = signature(spec).get('V', set()) - source_voltages
+        if unsupported:
+            observations = dict(row.get('source_observations') or {})
+            observations['unverified_claims'] = [*(observations.get('unverified_claims') or []),
+                {'field':'spec','value':spec,'reason':'Điện áp ứng viên không có trên nhãn CAD trong vùng tủ; chưa xác nhận từ nguồn.'}]
+            row['source_observations'] = observations
+            row['spec'] = re.sub(r'\d+(?:[.,]\d+)?\s*V(?:AC|DC)?\b', '', spec, flags=re.I).strip(' ,;-()')
     return row
 
 
@@ -114,7 +156,8 @@ def scoped_candidate_key(project_id,file,panel,message,model,*,prompt=None):
     import hashlib
     revision=hashlib.sha256(Path(file.file_path).read_bytes()).hexdigest()
     rules=hashlib.sha256()
-    for name in ('scoped_takeoff.py','regional_takeoff.py','source_issue_review.py','motor_starter_context.py'):
+    for name in ('scoped_takeoff.py','regional_takeoff.py','source_issue_review.py','motor_starter_context.py',
+                 'cad_branch_evidence.py','cad_symbol_seeds.py'):
         rules.update(Path(__file__).with_name(name).read_bytes())
     identity=[project_id,file.id,panel['source_region'],panel.get('source_page'),panel.get('panel_code'),message,model,revision,prompt,rules.hexdigest()]
     return 'elquote:scoped-candidate:v5:'+hashlib.sha256(json.dumps(identity,sort_keys=True,default=str).encode()).hexdigest()
@@ -151,6 +194,9 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
     concurrency = takeoff_concurrency() if session_factory else 1
 
     async def call_image(image_path, prompt):
+        with Image.open(image_path) as request_image:
+            trace_scoped('image-request', project_id, {'panel_code':'request'},
+                         {'image_size':request_image.size, 'prompt_chars':len(prompt), 'prompt':prompt})
         if session_factory:
             # Independent crop checks may run together; never share AsyncSession.
             async with session_factory() as local_db:
@@ -186,6 +232,14 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                     'và đèn theo hình ký hiệu và dây nối thực tế; không coi các điểm/tiếp điểm mang '
                     'chữ R,Y,B là đèn chỉ vì có chữ pha. Ghi đủ bộ phận và thông tin liên quan; '
                     'chuyển mạch thực sự có trên mạch phải có dòng riêng hoặc phụ kiện rõ ràng. '
+                    'Khi đồng hồ V và chuyển mạch là HAI ký hiệu riêng, tách HAI dòng thiết bị; không gộp thành một đồng hồ tích hợp. '
+                    'spec chỉ chứa định mức/thông số thực ghi: A, V trong vòng tròn là ký hiệu loại đồng hồ, '
+                    'R/Y/B là nhãn pha, tên lộ/tải và chức năng không phải thông số. Các nội dung ấy '
+                    'đặt ở observed_text, tag, connected_load, electrical_function hoặc technical_analysis. '
+                    'location ghi vị trí/lộ thực trên mạch; technical_analysis giải thích chức năng và quan hệ điện. '
+                    'Không đưa mô tả mép ảnh, vùng cắt hay trạng thái xử lý ảnh vào hai trường này. '
+                    'Không tự thêm 220V cho đèn, 5A cho đồng hồ, kiểu kim/số, cấp chính xác, '
+                    'thang đo hoặc phụ kiện tích hợp khi nhãn không ghi. '
                     'Không thêm vỏ tủ/cáp/thanh cái/catalog. Không suy loại đồng hồ hoặc thông số '
                     'không thấy. quantity là số vật tư theo logic và quan hệ mạch; drawing_quantity là số '
                     'ký hiệu/cụm nhìn thấy. Một ký hiệu có thể đại diện ba đèn pha/biến dòng/cầu chì; '
@@ -217,7 +271,8 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                     'bao ký hiệu thực và nhãn riêng, không bao toàn tủ/nhánh kế bên. Không thấy thì '
                     'verified=false; không đoán tọa độ. Không tự thêm dòng không có trên ảnh.\n'
                     + json.dumps({'panel_code': panel['panel_code'], 'request': message,
-                                  'source_labels': labels, 'conversation_reference': {k:v for k,v in (input_context or {}).items() if k != 'recent_conversation'}}, ensure_ascii=False))
+                                  'source_labels': '' if native_context.get('evidence') else labels,
+                                  'conversation_reference': {k:v for k,v in (input_context or {}).items() if k != 'recent_conversation'}}, ensure_ascii=False))
                 from app.services.cache_service import cache_service
                 from app.services.ai.cache_policy import ai_cache_enabled
                 candidate_key=await asyncio.to_thread(scoped_candidate_key, project_id, file, panel, message, cache_scope, prompt=prompt) if session_factory and ai_cache_enabled() else None
@@ -227,8 +282,12 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                     except (ValueError,TypeError):payload=None
                 if not payload:
                     from app.services.ai.regional_takeoff import extract_regions
+                    source_evidence = native_context.get('evidence') or {}
+                    from app.services.ai.cad_branch_evidence import horizontal_schedule_rows
+                    horizontal_rows = len(horizontal_schedule_rows(source_evidence)) >= 4
                     payload = await run_step('Đang chia vùng, đọc từng vùng và đối chiếu toàn sơ đồ',
-                        extract_regions(image_path, prompt, call_image, concurrency=concurrency))
+                        extract_regions(image_path, prompt, call_image, concurrency=concurrency,
+                                        preserve_row_context=horizontal_rows, native_evidence=source_evidence))
                     if candidate_key and payload and payload.get('devices') and all(
                             (r.get('source_observations') or {}).get('coverage_review', {}).get('status') == 'passed'
                             for r in payload['devices']):
@@ -250,10 +309,24 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                     native_labels=native_evidence.get('labels',[])
                 original = [ground_scoped_identity(normalize_scoped_row(row),native_labels) for row in payload['devices']]
                 if native_labels:
+                    from app.services.ai.cad_branch_evidence import bind_horizontal_rows
+                    original, payload['boxes'] = bind_horizontal_rows(native_evidence, original, payload.get('boxes') or [])
+                    from app.services.ai.circuit_context import enrich_circuit_context
+                    enrich_circuit_context(original,native_evidence)
+                    for row in original:
+                        load = (row.get('circuit_context') or {}).get('supply_location')
+                        if row.get('tag') and not row.get('connected_load') and load:
+                            from app.services.ingestion.cad_source_evidence import plain
+                            if plain(load).strip() not in {'DU PHONG','SPARE'}:
+                                row['connected_load'] = load
                     from app.services.ai.cad_branch_evidence import seed_vertical_branch_boxes, seed_control_label_boxes
                     payload['boxes']=await run_step('Đang đối chiếu vùng cắt với nhãn và block CAD gốc',
                         asyncio.to_thread(seed_vertical_branch_boxes,native_path,panel['source_region'],original,payload.get('boxes') or []))
                     payload['boxes']=await asyncio.to_thread(seed_control_label_boxes,native_path,panel['source_region'],original,payload['boxes'])
+                    from app.services.ai.cad_branch_evidence import seed_horizontal_row_boxes
+                    payload['boxes']=seed_horizontal_row_boxes(native_evidence,original,payload['boxes'])
+                    from app.services.ai.cad_symbol_seeds import seed_named_symbols
+                    payload['boxes']=await asyncio.to_thread(seed_named_symbols,native_path,native_evidence,original,payload['boxes'])
                 with Image.open(image_path) as source:
                     image = source.convert('RGB')
                 if native_labels:
@@ -263,11 +336,24 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                 devices = [ExtractedDeviceSchema.model_validate({**row, 'spec': str(row.get('spec') or '')})
                            for row in original]
                 # Check the actual cropped pixels independently of the extraction.
-                audited = await run_step(f'Đang kiểm ảnh vị trí của {len(devices)} dòng thiết bị', audit_device_previews(image, call_image, devices,
-                    {'boxes': payload.get('boxes') or []}, concurrency=concurrency, cache_scope=cache_scope))
                 from app.services.ai.takeoff_evidence_completion import complete_evidence, evidence_gaps
-                audited = await complete_evidence(image, image_path, devices, audited, call_image,
-                    concurrency=concurrency, cache_scope=cache_scope)
+                coverage_failed=payload.get('processing_interrupted') or any((row.get('source_observations') or {}).get('coverage_review',{}).get('status')=='needs_review'
+                                    for row in original)
+                if coverage_failed:
+                    # Known missing/duplicate rows must be repaired before
+                    # spending another per-device audit and recovery cycle.
+                    deferred_reason=('Máy chủ AI gián đoạn hoặc hết thời gian chờ; Agent chưa đọc và đối chiếu xong vùng tủ.'
+                        if payload.get('processing_interrupted') else
+                        'Agent chưa chốt được danh mục trên nguồn; cần sửa thiếu/trùng thiết bị trước khi định vị ảnh.')
+                    audited={'boxes':[{**box,'verified':False,
+                        'audit_reason':deferred_reason}
+                        for box in payload.get('boxes') or []]}
+                    await run_step(deferred_reason,asyncio.sleep(0))
+                else:
+                    audited = await run_step(f'Đang kiểm ảnh vị trí của {len(devices)} dòng thiết bị', audit_device_previews(image, call_image, devices,
+                        {'boxes': payload.get('boxes') or []}, concurrency=concurrency, cache_scope=cache_scope))
+                    audited = await complete_evidence(image, image_path, devices, audited, call_image,
+                        concurrency=concurrency, cache_scope=cache_scope)
                 trace_scoped('audit',project_id,panel,{'devices':original,'boxes':audited.get('boxes')})
                 apply_verified_boxes(devices, audited, require_symbols=True)
                 for device in devices:

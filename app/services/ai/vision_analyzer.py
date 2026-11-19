@@ -817,8 +817,20 @@ class VisionAnalyzerService:
         timeout = float(settings.AI_VISION_TIMEOUT)
         try:
             async with httpx.AsyncClient(timeout=httpx.Timeout(timeout, connect=15.0)) as client:
-                resp = await client.post(url, headers=headers, json=payload)
-                
+                deadline=time.monotonic()+timeout
+                for network_attempt in range(2):
+                    try:
+                        # httpx read timeout restarts on each received chunk.
+                        # Bound total wall time, including the transport retry.
+                        resp = await asyncio.wait_for(client.post(url, headers=headers, json=payload),
+                            timeout=max(0,deadline-time.monotonic()))
+                        break
+                    except (httpx.ReadError,httpx.RemoteProtocolError,httpx.ConnectError):
+                        if network_attempt:
+                            raise
+                        logger.warning('Antigravity connection interrupted; repeating the same read request once.')
+                        await asyncio.sleep(.3)
+
                 if resp.status_code == 401:
                     raise AIAuthenticationError(
                         "Antigravity OAuth token không hợp lệ hoặc đã hết hạn",
@@ -845,7 +857,7 @@ class VisionAnalyzerService:
                 logger.info('ai_response native_model=%s status=%s model_version=%s', mapped_model, resp.status_code, data.get('response', data).get('modelVersion'))
                 return extract_antigravity_output(data)
                 
-        except httpx.TimeoutException as e:
+        except (httpx.TimeoutException,TimeoutError) as e:
             logger.error(f"Antigravity timeout sau {int(timeout)}s: {str(e)}")
             raise AITimeoutError(
                 f"Hết thời gian chờ {int(timeout)}s khi gọi Antigravity API",

@@ -3,6 +3,120 @@ Native coordinates are proposals only: the exported pixels still require visual 
 """
 import re
 
+def horizontal_schedule_rows(evidence):
+    labels={r['id']:r for r in evidence.get('labels', [])}
+    return [r for r in evidence.get('rows', []) if r.get('tag') and r['id'] in labels and r['rating_id'] in labels
+            and labels[r['id']]['x'] > labels[r['rating_id']]['x']
+            and abs(labels[r['id']]['y']-labels[r['rating_id']]['y'])
+                <= max(labels[r['id']]['height'],labels[r['rating_id']]['height'])*2]
+
+def bind_horizontal_rows(evidence, devices, proposals):
+    """Bind a rating to one native table row and merge overlap reads of that row.
+
+    Repeated DP tags at different CAD labels remain distinct. A matching rating
+    alone is insufficient: its text crop must overlap that exact native label.
+    """
+    from app.services.ingestion.cad_source_evidence import plain, signature
+    bounds = evidence.get('view_bounds')
+    if not bounds:
+        return devices, proposals
+    left, bottom, right, top = bounds
+    labels = {r['id']:r for r in evidence.get('labels', [])}
+    by_id = {}
+    for box in proposals:
+        by_id.setdefault(str(box.get('device_id')), []).append(box)
+    seen, result, boxes = set(), [], []
+    for index, device in enumerate(devices):
+        candidates = by_id.get(str(index), [])
+        matches = []
+        if len(candidates) == 1 and device.get('category') in {'MCB','MCCB','RCBO','RCCB','ACB'}:
+            text_box = candidates[0].get('text_box_2d') or candidates[0].get('symbol_box_2d')
+            if text_box:
+                for row in evidence.get('rows', []):
+                    tag, rating = labels.get(row['id']), labels.get(row['rating_id'])
+                    if not tag or not rating or not rating.get('bounds'):
+                        continue
+                    if abs(tag['y']-rating['y']) > max(tag['height'], rating['height'])*2:
+                        continue
+                    if device.get('tag') and plain(device['tag']) != plain(row['tag']):
+                        continue
+                    if signature(device.get('spec') or '') != signature(row['rating']):
+                        continue
+                    native = rating['bounds']
+                    crop = [left+text_box[1]/1000*(right-left), top-text_box[2]/1000*(top-bottom),
+                            left+text_box[3]/1000*(right-left), top-text_box[0]/1000*(top-bottom)]
+                    overlap = min(crop[2], native[2])-max(crop[0], native[0])
+                    symbol_box = candidates[0].get('symbol_box_2d')
+                    symbol_match = False
+                    if symbol_box:
+                        sx1, sx2 = left+symbol_box[1]/1000*(right-left), left+symbol_box[3]/1000*(right-left)
+                        sy = top-(symbol_box[0]+symbol_box[2])/2000*(top-bottom)
+                        symbol_match = min(sx2,native[2]) > max(sx1,native[0]) and 0 <= (native[1]+native[3])/2-sy <= rating['height']*3
+                    if (overlap > 0 and abs((crop[1]+crop[3])/2-(native[1]+native[3])/2) <= rating['height']*1.5) or symbol_match:
+                        matches.append(row)
+        if len(matches) == 1:
+            row = matches[0]
+            identity = (row['rating_id'], device.get('category'), device.get('quantity',1))
+            if identity in seen:
+                continue
+            seen.add(identity)
+            device = {**device, 'tag':row['tag'] or None,
+                      'source_evidence_ids':[row['id'],row['rating_id']]}
+            if row['tag']:
+                device['location']='Lộ '+row['tag']
+        new_id = str(len(result))
+        result.append(device)
+        boxes.extend({**box,'device_id':new_id} for box in candidates)
+    return result, boxes
+
+def seed_horizontal_row_boxes(evidence, devices, proposals):
+    """Repair text anchors using a unique CAD table row, before the pixel audit.
+
+    Region discovery can cut off the load column. Native label bounds refer to
+    the whole selected panel, so a clipped region must not be reused as a label.
+    Symbol positions remain proposals and are still independently checked.
+    """
+    from app.services.ingestion.cad_source_evidence import plain, signature
+    bounds = evidence.get('view_bounds')
+    if not bounds:
+        return proposals
+    left, bottom, right, top = bounds
+    labels = evidence.get('labels') or []
+    by_label = {label['id']: label for label in labels}
+    by_id = {str(p.get('device_id')): dict(p) for p in proposals if isinstance(p, dict)}
+    def normalized(box):
+        return [max(0, (top-box[3])/(top-bottom)*1000), max(0, (box[0]-left)/(right-left)*1000),
+                min(1000, (top-box[1])/(top-bottom)*1000), min(1000, (box[2]-left)/(right-left)*1000)]
+    for index, device in enumerate(devices):
+        proposal = by_id.get(str(index))
+        if not proposal or not proposal.get('symbol_box_2d'):
+            continue
+        ids=set(device.get('source_evidence_ids') or [])
+        matches = [row for row in evidence.get('rows', [])
+                   if (row['rating_id'] in ids or device.get('tag') and plain(row['tag']) == plain(device['tag']))
+                   and signature(row['rating']) == signature(device.get('spec') or '')]
+        if len(matches) != 1:
+            continue
+        row = matches[0]
+        tag, rating = by_label.get(row['id']), by_label.get(row['rating_id'])
+        if not tag or not rating or not tag.get('bounds') or not rating.get('bounds'):
+            continue
+        tb = tag['bounds']
+        if tb[3]-tb[1] > (tb[2]-tb[0])*2:
+            continue  # Vertical circuits use their separate native seeder.
+        proposal.update(text_box_2d=normalized(rating['bounds']),verified=True,symbol_verified=True)
+        if device.get('tag'):
+            proposal['tag_box_2d']=normalized(tb)
+        load = device.get('connected_load')
+        candidates = [label for label in labels if load and label.get('bounds')
+                      and plain(label['text']).strip() == plain(load).strip()
+                      and abs(label['y']-tag['y']) <= max(label['height'], tag['height'])*1.5]
+        if len(candidates) == 1:
+            label = candidates[0]
+            proposal.update(load_box_2d=normalized(label['bounds']), load_label=label['text'],
+                relationship_evidence='Nhãn tải và nhãn lộ cùng hàng mạch CAD; kiểm lại đường nối trên ảnh nguồn.')
+    return list(by_id.values())
+
 def seed_vertical_branch_boxes(path, region, devices, proposals):
     import ezdxf
     from ezdxf import bbox

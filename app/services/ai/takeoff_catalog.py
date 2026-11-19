@@ -78,6 +78,15 @@ def _extract_row_poles(row):
     return f'{m[1]}P' if m else ''
 
 
+def _residual_currents(text, spec=None):
+    values={float(v.replace(',', '.')) for v in re.findall(r'(\d+(?:[.,]\d+)?)\s*mA\b',str(text),re.I)}
+    for key,value in (spec or {}).items():
+        label=_strip_accents(key).lower()
+        if 'ma' in label and any(term in label for term in ('idn','iδn','i∆n','dong ro','residual')):
+            values.update(_numbers(value))
+    return values
+
+
 def _prepare_entry(row):
     return (
         row,
@@ -133,11 +142,14 @@ GENERIC_BREAKER_CATEGORIES = {
 }
 BREAKER_CATEGORIES = {'MCB', 'MCCB', 'ACB', 'RCBO', 'RCCB', 'ELCB'}
 RATED_CATEGORIES = BREAKER_CATEGORIES | {'CONTACTOR', 'OVERLOAD', 'THERMAL_RELAY'}
-AUXILIARY_PRICEBOOK_CATEGORIES = {'METER', 'SELECTOR_SWITCH', 'LIGHT', 'PILOT_LIGHT', 'INDICATOR_LIGHT', 'CT', 'SPD', 'RELAY'}
+AUXILIARY_PRICEBOOK_CATEGORIES = {'METER', 'SELECTOR_SWITCH', 'LIGHT', 'PILOT_LIGHT', 'INDICATOR_LIGHT', 'CT', 'SPD', 'RELAY', 'FUSE'}
 
 
 def _normalize_device_category(device):
     raw_cat = _strip_accents(str(device.category or '')).upper().strip()
+    if raw_cat in {'PROTECTIVE', 'MEASURING'}:
+        from app.services.ai.scoped_takeoff import normalize_scoped_row
+        raw_cat = _strip_accents(normalize_scoped_row(device.model_dump())['category']).upper().strip()
     if raw_cat in {'PILOT_LIGHT', 'INDICATOR_LIGHT', 'DEN BAO', 'DEN BAO PHA'}:
         return 'LIGHT'
     if raw_cat in {'CHUYEN MACH', 'CONG TAC CHUYEN MACH'}:
@@ -201,6 +213,9 @@ def _match_auxiliary_row(norm_cat, device, row):
         if ratio:
             return f"{ratio[1]}/5" in row_text or f"{ratio[1]} / 5" in row_text
         return False
+    if norm_cat == 'FUSE':
+        currents = _extract_row_currents(row)
+        return bool(device.in_a and device.in_a in currents)
     return True
 
 
@@ -266,15 +281,7 @@ def suggest_takeoff_products(devices, engine=None, catalog_rows=None):
                         field,
                         int(m[1]) if field == 'poles' else float(m[1].replace(',', '.')),
                     )
-        # Bổ sung poles từ "X pha" (tiếng Việt) nếu chưa có
-        if not device.poles:
-            m_pha = re.search(r'\b([1-4])\s*pha\b', combined_text, re.I)
-            if m_pha:
-                device.poles = int(m_pha.group(1))
-            elif re.search(r'\b(ba|three|3)\s*pha\b', combined_text, re.I):
-                device.poles = 3
-            elif re.search(r'\b(hai|two|2)\s*pha\b', combined_text, re.I):
-                device.poles = 2
+        # Phase count is circuit information; it does not establish pole count.
 
         norm_cat = _normalize_device_category(device)
         choices = recommendations(engine, device, device.brand) if use_engine else {}
@@ -299,18 +306,19 @@ def suggest_takeoff_products(devices, engine=None, catalog_rows=None):
         else:
             # Nhánh 2: Thiết bị đóng cắt / bảo vệ (MCB, MCCB, CB/APTOMAT, ACB, RCBO, RCCB, ELCB, CONTACTOR, OVERLOAD)
             needs_poles = norm_cat in (BREAKER_CATEGORIES | {'CB'})
-            if (
-                norm_cat not in (RATED_CATEGORIES | {'CB'})
-                or not device.in_a
-                or (needs_poles and not device.poles)
-            ):
+            if norm_cat not in (RATED_CATEGORIES | {'CB'}):
+                row['selection_analysis'] = {'status':'no_verified_catalog_match',
+                    'reason':'Chưa có mã bảng giá được đối chiếu đúng loại và chức năng của thiết bị này.'}
+                continue
+            if not device.in_a or (needs_poles and not device.poles):
                 row['selection_analysis'] = {
                     'status': 'insufficient_source_specs',
                     'reason': 'Chưa đủ loại thiết bị, số cực hoặc dòng định mức để gợi ý mã có căn cứ.',
                 }
                 continue
 
-            pol_key = f'{device.poles}P' if device.poles else ''
+            from app.services.catalog_family_matching import poles as source_poles
+            pol_key = source_poles(combined_text) or (f'{device.poles}P' if device.poles else '')
             search_cats = _lookup_categories(norm_cat, device.in_a, device.icu_ka)
             seen_skus = set()
 
@@ -321,6 +329,10 @@ def suggest_takeoff_products(devices, engine=None, catalog_rows=None):
                     if device.in_a not in currents:
                         continue
                     if device.icu_ka and (not icus or max(icus) < device.icu_ka):
+                        continue
+                    residual = _residual_currents(combined_text)
+                    if residual and not residual.issubset(_residual_currents(
+                            candidate.get('item_name') or candidate.get('name') or '',candidate.get('specifications'))):
                         continue
 
                     sku = candidate.get('sku')

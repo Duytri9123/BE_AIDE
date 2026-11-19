@@ -12,9 +12,10 @@ from app.services.ai.evidence_crops import evidence_crop_pixels
 from app.services.ai.evidence_preview import device_preview
 from app.services.ai.response_parser import ResponseParserService
 from app.services.ai.el_progress import run_step
+from app.core.exceptions import AIVisionError
 
 
-async def audit_device_previews(image, call_image, devices, payload, *, concurrency=1, cache_scope=None, batch_size=5):
+async def audit_device_previews(image, call_image, devices, payload, *, concurrency=1, cache_scope=None, batch_size=3):
     proposals = [r for r in payload.get('boxes', []) if isinstance(r, dict)]
     counts = Counter(str(r.get('device_id')) for r in proposals)
     rows = {}
@@ -28,11 +29,14 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                 row[key] = ExtractedDeviceSchema.normalize_evidence_box(row.get(key))
         except (ValueError, TypeError, OverflowError):
             continue
-        if row.get('verified') is not True or row.get('symbol_verified') is not True or not row.get('symbol_box_2d') or not row.get('text_box_2d'):
+        # Missing proposal flags must not prevent an independent pixel check.
+        # An explicit rejection still requires relocation before checking again.
+        if row.get('verified') is False or row.get('symbol_verified') is False or not row.get('symbol_box_2d') or not row.get('text_box_2d'):
             row['verified'] = False
             row['audit_reason'] = row.get('reason') or 'Vị trí đề xuất chưa đủ ký hiệu và nhãn để kiểm chứng.'
             rows[identity] = row
             continue
+        row.update(verified=True, symbol_verified=True)
         rows[identity] = row
     # Reused text coordinates are shared-header claims even if the model omitted
     # the flag. They still need an independent branch/group relationship check.
@@ -53,8 +57,10 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
             else:
                 identities.append(identity)
     semaphore = asyncio.Semaphore(max(1, min(concurrency, 6)))
+    interrupted = False
 
     async def audit_batch(batch):
+        nonlocal interrupted
         async with semaphore:
             sheet = Image.new('RGB', (2400, 900*len(batch)), 'white')
             draw = ImageDraw.Draw(sheet)
@@ -110,7 +116,7 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                         detail = ImageOps.contain(image.crop(reference), (820, 190), Image.Resampling.LANCZOS)
                         sheet.paste(detail, (1570, local*900+270))
                 device = devices[int(identity)]
-                requests.append({'device_id': identity, 'shared_label': row.get('shared_label') is True, 'name': device.name, 'tag': device.tag, 'spec': device.spec, 'quantity': device.quantity, 'unit': device.unit, 'drawing_quantity': getattr(device,'drawing_quantity',None), 'quantity_basis': getattr(device,'quantity_basis',None), 'connected_load': device.connected_load, 'load_label': row.get('load_label'), 'relationship_evidence': row.get('relationship_evidence')})
+                requests.append({'device_id': identity, 'shared_label': row.get('shared_label') is True, 'name': device.name, 'tag': device.tag, 'spec': device.spec, 'in_a':getattr(device,'in_a',None),'poles':getattr(device,'poles',None),'icu_ka':getattr(device,'icu_ka',None), 'quantity': device.quantity, 'unit': device.unit, 'drawing_quantity': getattr(device,'drawing_quantity',None), 'quantity_basis': getattr(device,'quantity_basis',None), 'connected_load': device.connected_load, 'load_label': row.get('load_label'), 'relationship_evidence': row.get('relationship_evidence')})
                 requests[-1]['exported_parts'] = exported_parts
                 requests[-1]['linked_device'] = (getattr(device,'source_observations',None) or {}).get('linked_device')
                 requests[-1]['source_annotation'] = row.get('source_annotation')
@@ -170,12 +176,17 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                     'Nếu có tải, kiểm tra nhãn tải và quan hệ dây nối trong ảnh ngữ cảnh bên phải; '
                     'load_matches và relationship_verified chỉ true khi thấy đúng nhãn và lần được dây. '
                     'Không sửa danh mục, không tự điền thông số không thấy. Trả JSON '
+                    'Phân biệt thông số với ký hiệu và suy luận: A/V trong vòng tròn chỉ loại đo, '
+                    'R/Y/B chỉ nhãn pha, tên tải và chức năng không phải định mức. Không xác nhận '
+                    '220V của đèn, kiểu kim/số hay thang 5A của đồng hồ nếu nguồn không ghi. '
+                    'unsupported_claims liệt kê mọi định mức/cấu tạo ứng viên khẳng định nhưng không thấy '
+                    'trên nhãn nguồn; không có thì []. '
                     'Với shared_label=true, nhãn thông số là tiêu đề dùng chung phải xuất ở ảnh trái riêng; '
                     'kiểm thêm dây/ranh giới nhóm bên phải để chứng minh tiêu đề áp dụng cho đúng ký hiệu này. '
                     'Không bác chỉ vì tiêu đề có nhiều nhánh dùng chung, nhưng shared_label_matches chỉ true '
                     'khi đã chứng minh quan hệ đó, không chỉ vì gần nhau. '
                     '{"checks":[{"device_id":"0","matches":true,"symbol_complete":true,'
-                    '"label_complete":true,"isolated":true,"source_overlap":false,"identity_unambiguous":true,"shared_label_matches":true,"tag_matches":true,"load_matches":true,"relationship_verified":true,"observed":"chữ/hình thực thấy",'
+                    '"label_complete":true,"unsupported_claims":[],"isolated":true,"source_overlap":false,"identity_unambiguous":true,"shared_label_matches":true,"tag_matches":true,"load_matches":true,"relationship_verified":true,"observed":"chữ/hình thực thấy",'
                     '"reason":"lỗi cụ thể nếu có"}]}.\n' + json.dumps(requests, ensure_ascii=False)))
                 blocks = ResponseParserService.extract_json_blocks(raw)
                 checks = next((b['checks'] for b in blocks if isinstance(b, dict) and isinstance(b.get('checks'), list)), [])
@@ -189,6 +200,9 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                     identity_checked = clear_identity if 'identity_unambiguous' in check else check.get('isolated') is True
                     rows[identity]['verified'] = all(check.get(k) is True
                         for k in ('matches', 'symbol_complete', 'label_complete')) and identity_checked
+                    if check.get('unsupported_claims'):
+                        rows[identity]['verified'] = False
+                        check['reason'] = '; '.join(map(str,check['unsupported_claims']))
                     rows[identity].update(source_overlap=source_overlap, identity_unambiguous=clear_identity)
                     device = devices[int(identity)]
                     if rows[identity].get('shared_label') is True and (check.get('shared_label_matches') is not True or not rows[identity].get('relationship_evidence')):
@@ -203,6 +217,11 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                     rows[identity]['audit_observed'] = str(check.get('observed') or '')
                     rows[identity]['audit_reason'] = str(check.get('reason') or '')
                     await checkpoint.save(identity, device, rows[identity])
+            except AIVisionError:
+                interrupted = True
+                for identity in batch:
+                    rows[identity].update(verified=False, processing_interrupted=True,
+                        audit_reason='Máy chủ AI gián đoạn hoặc hết thời gian chờ khi kiểm ảnh; Agent chưa kiểm xong vị trí này.')
             finally:
                 os.remove(path)
 
@@ -214,4 +233,4 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
         for task in tasks:task.cancel()
         await asyncio.gather(*tasks,return_exceptions=True)
         raise
-    return {'boxes': list(rows.values())}
+    return {'boxes': list(rows.values()), 'processing_interrupted': interrupted}

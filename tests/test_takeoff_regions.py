@@ -1,5 +1,8 @@
 import unittest
-from unittest.mock import patch
+import json,tempfile
+from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import patch,AsyncMock,MagicMock
 from fastapi import HTTPException
 from app.services.ai.takeoff_regions import sign_scope, confirmed_scope
 from app.services.ingestion.cad_source_evidence import audit_cad_ratings
@@ -40,3 +43,34 @@ class ScopeConfirmationTests(unittest.TestCase):
 
 
 if __name__=='__main__': unittest.main()
+
+
+class DiscoveryPageCoverageTests(unittest.IsolatedAsyncioTestCase):
+    async def discover(self,responses):
+        from PIL import Image
+        from app.services.ai.takeoff_regions import discover_panels
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'source.png';Image.new('RGB',(100,100)).save(path)
+            file=SimpleNamespace(id=7,filename='source.png',file_path=str(path))
+            result=MagicMock();result.scalars.return_value.all.return_value=[file]
+            db=SimpleNamespace(execute=AsyncMock(return_value=result))
+            call=AsyncMock(side_effect=[(json.dumps(r),None) for r in responses])
+            with patch('app.services.ai.takeoff_regions.ConnectionPoolService.get_ordered_connections',AsyncMock(return_value=[object()])), \
+                 patch('app.services.ai.takeoff_regions.ConnectionPoolService.call_with_fallback',call), \
+                 patch('app.services.ai.cache_policy.ai_cache_enabled',return_value=False):
+                response=await discover_panels(db,991,[7])
+            return response,call.await_count
+
+    async def test_empty_page_is_read_again_before_omitting_it(self):
+        response,calls=await self.discover([{'panels':[]},{'panels':[
+            {'panel_code':'P1','source_region':[0,0,1,1]}]}])
+        self.assertEqual(calls,2)
+        self.assertEqual(response['detected_panels'][0]['panel_code'],'P1')
+        self.assertNotIn('unresolved_pages',response)
+
+    async def test_unread_page_is_reported_instead_of_silently_dropped(self):
+        response,calls=await self.discover([{}, {'panels':[]}])
+        self.assertEqual(calls,2)
+        self.assertEqual(response['unresolved_pages'][0]['source_page'],1)
+        self.assertEqual(response['detected_panels'],[])
+        self.assertIn('chưa được đưa vào phạm vi',response['reply'])

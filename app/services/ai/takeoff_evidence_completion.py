@@ -1,9 +1,11 @@
 """Bounded recovery of missing device, branch tag and connected-load evidence."""
 import json
+import asyncio
 import tempfile
 from pathlib import Path
 from app.services.ai.response_parser import ResponseParserService
 from app.services.ai.el_progress import run_step
+from app.core.exceptions import AIVisionError
 
 
 def evidence_gaps(device, box):
@@ -20,10 +22,43 @@ def evidence_gaps(device, box):
 
 async def complete_evidence(image, image_path, devices, audited, call_image, *, concurrency=1, attempts=2, cache_scope=None):
     from app.services.ai.device_crop_audit import audit_device_previews
+    # A provider outage is not missing source content. Keep successful checks
+    # and do not turn the failed batch into another expensive recovery cycle.
+    if audited.get('processing_interrupted'):
+        return audited
     boxes = {str(box['device_id']): box for box in audited.get('boxes', [])}
+    missing_ids=[str(i) for i,d in enumerate(devices) if evidence_gaps(d,boxes.get(str(i)))]
+    if len(missing_ids)>4:
+        # Bound each repair to nearby source rows. A single whole-panel request
+        # for dozens of missing parts repeatedly produces tiny, inaccurate boxes.
+        groups={}
+        for identity in missing_ids:
+            observed=devices[int(identity)].source_observations or {}
+            region=(observed.get('coverage_review') or {}).get('region') or {}
+            groups.setdefault(json.dumps(region,sort_keys=True),[]).append(identity)
+        gate=asyncio.Semaphore(max(1,min(concurrency,4)))
+        async def repair(identities):
+            async with gate:
+                # Keep request-local IDs stable without rechecking completed rows.
+                subset=[devices[int(identity)] for identity in identities]
+                local={'boxes':[{**boxes[identity],'device_id':str(i)} for i,identity in enumerate(identities) if identity in boxes]}
+                checked=await complete_evidence(image,image_path,subset,local,call_image,
+                    concurrency=concurrency,attempts=attempts,cache_scope=cache_scope)
+                return {**checked,'boxes':[{**box,'device_id':identities[int(box['device_id'])]} for box in checked['boxes']]}
+        tasks=[asyncio.create_task(repair(ids[start:start+4])) for ids in groups.values() for start in range(0,len(ids),4)]
+        try:
+            results=await asyncio.gather(*tasks)
+        except BaseException:
+            for task in tasks:task.cancel()
+            await asyncio.gather(*tasks,return_exceptions=True)
+            raise
+        for result in results:
+            boxes.update({str(box['device_id']):box for box in result['boxes']})
+        return {'boxes':list(boxes.values()), 'processing_interrupted':any(r.get('processing_interrupted') for r in results)}
     attempted=set()
     for attempt in range(attempts):
         missing = [{'device_id': str(i), 'name': d.name, 'tag': d.tag, 'spec': d.spec,
+                    'source_region':((d.source_observations or {}).get('coverage_review') or {}).get('region'),
                     'connected_load': d.connected_load, 'missing': evidence_gaps(d, boxes.get(str(i))),
                     'previous_error': (boxes.get(str(i)) or {}).get('audit_reason')}
                    for i, d in enumerate(devices) if evidence_gaps(d, boxes.get(str(i)))]
@@ -41,15 +76,35 @@ async def complete_evidence(image, image_path, devices, audited, call_image, *, 
             '"symbol_box_2d":[],"text_box_2d":[],"tag_box_2d":[],"load_box_2d":[], '
             '"load_label":"nhãn tải nguyên văn","relationship_evidence":"dây nối quan sát được"}]}.'
             'Chữ/ký hiệu có thể đè nhau như nguồn; không cắt bớt nét để tránh nhánh khác. '
-            '\nCác dòng cần đọc lại: ' + json.dumps(missing, ensure_ascii=False))
+            '\nCác dòng cần đọc lại: ' + json.dumps(
+                [{key:value for key,value in row.items() if key!='source_region'} for row in missing],ensure_ascii=False))
         frame = None
         with tempfile.TemporaryDirectory(prefix='aide_evidence_detail_') as folder:
             read_path = image_path
+            region_boxes=[(r.get('source_region') or {}).get('box_2d') for r in missing]
+            source_window=None
+            if attempt==0 and region_boxes and all(b and b==region_boxes[0] for b in region_boxes):
+                from app.schemas.ai import ExtractedDeviceSchema
+                try:
+                    source_window=ExtractedDeviceSchema.normalize_evidence_box(region_boxes[0])
+                except (ValueError,TypeError,OverflowError):
+                    source_window=None
+                if source_window:
+                    source_window=[max(0,source_window[0]-50),max(0,source_window[1]-40),
+                                   min(1000,source_window[2]+50),min(1000,source_window[3]+40)]
             anchors = [(boxes.get(r['device_id']) or {}).get('symbol_box_2d') for r in missing]
-            if attempt == 0 and all(anchors):
-                window = [max(0,min(b[0] for b in anchors)-80), max(0,min(b[1] for b in anchors)-80),
+            anchored_parts = all(
+                (not devices[int(r['device_id'])].connected_load or (boxes.get(r['device_id']) or {}).get('load_box_2d'))
+                and (not devices[int(r['device_id'])].tag or (boxes.get(r['device_id']) or {}).get('tag_box_2d'))
+                for r in missing)
+            if source_window or attempt == 0 and all(anchors) and anchored_parts:
+                # Include distant rating/tag/load parts that the repair must read.
+                # A symbol-only crop cannot repair a load column outside it.
+                anchors += [b for r in missing for key in ('text_box_2d','tag_box_2d','load_box_2d')
+                            if (b := (boxes.get(r['device_id']) or {}).get(key))]
+                window = source_window or [max(0,min(b[0] for b in anchors)-80), max(0,min(b[1] for b in anchors)-80),
                           min(1000,max(b[2] for b in anchors)+80), min(1000,max(b[3] for b in anchors)+80)]
-                if window[2]-window[0] <= 600 and window[3]-window[1] <= 600:
+                if source_window or window[2]-window[0] <= 600 and window[3]-window[1] <= 600:
                     left, top = int(window[1]*image.width/1000), int(window[0]*image.height/1000)
                     right, bottom = round(window[3]*image.width/1000), round(window[2]*image.height/1000)
                     if right > left and bottom > top:
@@ -59,8 +114,16 @@ async def complete_evidence(image, image_path, devices, audited, call_image, *, 
             signature=json.dumps({'missing':missing,'frame':frame},ensure_ascii=False,sort_keys=True)
             if signature in attempted:break
             attempted.add(signature)
-            raw = await run_step('Đang bổ sung minh chứng: ' + ', '.join(str(r['tag'] or r['name']) for r in missing),
-                call_image(read_path,prompt), detail=f"{len(missing)} dòng còn thiếu · Lần đọc lại {attempt+1}")
+            try:
+                raw = await run_step('Đang xử lý lại vị trí ảnh: ' + ', '.join(str(r['tag'] or r['name']) for r in missing),
+                    call_image(read_path,prompt), detail=f"{len(missing)} dòng còn thiếu · Lần đọc lại {attempt+1}")
+            except AIVisionError:
+                for row in missing:
+                    identity=row['device_id']
+                    boxes[identity]={**(boxes.get(identity) or {}),'device_id':identity,
+                        'processing_interrupted':True,
+                        'audit_reason':'Máy chủ AI gián đoạn hoặc hết thời gian chờ khi định vị ảnh; Agent chưa xử lý xong.'}
+                return {'boxes':list(boxes.values()),'processing_interrupted':True}
         payload = next((b for b in ResponseParserService.extract_json_blocks(raw)
                         if isinstance(b, dict) and isinstance(b.get('boxes'), list)), {})
         allowed = {row['device_id'] for row in missing}
@@ -91,4 +154,6 @@ async def complete_evidence(image, image_path, devices, audited, call_image, *, 
                     'symbol_box_2d','text_box_2d','tag_box_2d','load_box_2d') if old.get(key) and not box.get(key)}}
             if box.get('verified') is True or not old or old.get('verified') is not True:
                 boxes[identity] = box
+        if checked.get('processing_interrupted'):
+            return {'boxes':list(boxes.values()),'processing_interrupted':True}
     return {'boxes': list(boxes.values())}

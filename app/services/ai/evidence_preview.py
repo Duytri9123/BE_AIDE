@@ -1,6 +1,7 @@
 """Compose checked source regions with whitespace-snapped continuity."""
 import base64
 import io
+import math
 from PIL import Image
 
 
@@ -18,8 +19,9 @@ def _device_preview(image, region, *, tight=False):
         # Dense CAD circuits have neighbouring symbols only a few pixels away.
         # Following wire ink into whitespace or enforcing a minimum crop size
         # can pull an entire measurement cluster into one device's thumbnail.
-        left, top = max(0, int(x1*image.width/1000)-2), max(0, int(y1*image.height/1000)-2)
-        right, bottom = min(image.width, int(x2*image.width/1000)+3), min(image.height, int(y2*image.height/1000)+3)
+        pad = 2 if str(region.get('geometry_source') or '').startswith('native_') else max(3,min(12,round(min(image.size)*.004)))
+        left, top = max(0, int(x1*image.width/1000)-pad), max(0, int(y1*image.height/1000)-pad)
+        right, bottom = min(image.width, math.ceil(x2*image.width/1000)+pad+1), min(image.height, math.ceil(y2*image.height/1000)+pad+1)
         # Source symbols/text may overlap. A neighbour is not a clipping boundary.
         return (left,top,right,bottom) if right>left and bottom>top else None
 

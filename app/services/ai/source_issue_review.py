@@ -39,7 +39,7 @@ async def adjudicate_issues(image, regions, parts, issues, call_image, *, concur
                         min(image.width, round(x2*image.width/1000)+16), min(image.height, round(y2*image.height/1000)+16))
         target = Path(folder)/f'{index}.png'; image.crop(pixel_bounds).save(target)
         rows = parts[region_id]['devices']
-        claims = [{**{k:r.get(k) for k in ('name', 'spec', 'quantity', 'observed_text', 'record_kind')},
+        claims = [{**{k:r.get(k) for k in ('name', 'spec', 'quantity', 'observed_text', 'record_kind','tag','connected_load')},
                    'device_index': i} for i, r in enumerate(rows)]
         note_claims = [{'note_index': i, 'record_kind': n.get('record_kind'), 'name': n.get('name'),
                         'spec': n.get('spec'), 'observed_text': n.get('observed_text') or observations(n).get('observed_text')}
@@ -52,7 +52,7 @@ async def adjudicate_issues(image, regions, parts, issues, call_image, *, concur
                 'Tiêu đề cột/bảng chỉ mô tả các thiết bị vẽ riêng bên dưới là source_metadata, '
                 'không được tính thêm một thiết bị từ chính chữ tiêu đề. '
                 'Nếu ứng viên đúng, phải trích chữ thực thấy và xác nhận ít nhất một giá trị cụ thể '
-                'qua confirmed_values {device_index,field:quantity|spec|observed_text,value} cho từng dòng đang bị nghi vấn. '
+                'qua confirmed_values {device_index,field:quantity|spec|observed_text|tag|connected_load,value} cho từng dòng đang bị nghi vấn. '
                 'Nếu một dòng chỉ là khối chức năng/giao diện/ghi chú, chỉ rõ classification '
                 '{device_index,record_kind:functional_block|external_interface|installation_requirement|source_metadata|note}. '
                 'Nếu đang kiểm một ghi chú trong notes, dùng confirmed_notes [{note_index,record_kind}] '
@@ -82,6 +82,8 @@ async def adjudicate_issues(image, regions, parts, issues, call_image, *, concur
                 if not isinstance(check, dict) or type(check.get('device_index')) is not int:
                     continue
                 i = check['device_index']; field = check.get('field')
+                if issue.get('field') in {'tag','connected_load'} and field != issue['field']:
+                    continue
                 if re.search(r'số lượng|quantity', str(issue.get('reason') or ''), re.I) and field != 'quantity':
                     continue
                 requested = issue.get('device_indices')
@@ -89,7 +91,7 @@ async def adjudicate_issues(image, regions, parts, issues, call_image, *, concur
                     continue
                 if field == 'quantity' and not re.search(r'(?<!\d)'+re.escape(str(check.get('value')))+r'(?!\d)', answer['observed_text']):
                     continue
-                if 0 <= i < len(rows) and field in {'quantity', 'spec', 'observed_text'} and rows[i].get(field) is not None and check.get('value') == rows[i][field]:
+                if 0 <= i < len(rows) and field in {'quantity', 'spec', 'observed_text','tag','connected_load'} and rows[i].get(field) is not None and check.get('value') == rows[i][field]:
                     valid.append(check)
             requested = issue.get('device_indices') or []
             if valid and set(requested).issubset({c['device_index'] for c in valid}):

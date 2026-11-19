@@ -262,16 +262,8 @@ def clean_devices_list(devices: list, project_id: int, cad_file=None, pdf_file=N
            any(k in spec_upper for k in ('NHÂN CÔNG LẮP RÁP', 'VỎ TỦ ĐIỆN', 'THANH CÁI ĐỒNG')):
             continue
 
-        # Quy tắc: Đèn báo pha chỉ chuẩn hóa khi chính nó là đèn báo pha, không ghi đè các thiết bị đóng cắt hay đo lường
-        name_lower = name.lower()
-        is_breaker_or_instrument = any(k in name_lower for k in ('mccb', 'mcb', 'acb', 'rcbo', 'rccb', 'elcb', 'spd', 'biến dòng', 'ti', 'ct', 'đồng hồ', 'meter', 'contactor', 'relay', 'cầu chì', 'fuse', 'aptomat'))
-        if not is_breaker_or_instrument and any(k in name_lower for k in ('đèn báo', 'báo pha', 'pilot light', 'indicator')):
-            name = 'Đèn báo pha'
-            spec = 'Đèn báo pha' if (not spec or any(w in spec.lower() for w in ('đề xuất', 'căn cứ', 'giả định', 'màu theo', 'không lấy dòng'))) else spec
-            category = 'Phụ kiện tủ điện'
-            d['technical_analysis'] = 'Đèn báo pha'
-            d['selection_analysis'] = None
-            d['notes'] = ''
+        # Keep checked source fields intact. A device name/function is not a
+        # missing rating, and persistence must not erase the completed analysis.
 
         # Chống trùng lặp thiết bị
         dedup_key = (d.get('source_file_id'), d.get('source_filename'), d.get('source_page'), panel.lower(), (tag or '').lower(), name.lower(), spec.lower())
@@ -335,9 +327,9 @@ def clean_devices_list(devices: list, project_id: int, cad_file=None, pdf_file=N
             'panel_code': panel,
             'category': category,
             'section': section,
-            'notes': '' if 'đèn báo' in name.lower() else (d.get('notes') or ''),
-            'technical_analysis': 'Đèn báo pha' if 'đèn báo' in name.lower() else (d.get('technical_analysis') or ''),
-            'selection_analysis': None if 'đèn báo' in name.lower() else d.get('selection_analysis'),
+            'notes': d.get('notes') or '',
+            'technical_analysis': d.get('technical_analysis') or '',
+            'selection_analysis': d.get('selection_analysis'),
             'source_type': source_type,
             'source_filename': source_filename,
             'source_page': d.get('source_page'),
@@ -2109,11 +2101,18 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
 
     if iteration_id:
         reply_text = f'Đã lưu {len(devices_data)} dòng thiết bị vào phiên bóc tách riêng.'
+        pending = sum((d.get('evidence_region') or {}).get('status') != 'verified' for d in devices_data)
+        if pending:
+            reply_text += f' Agent còn {pending} dòng chưa hoàn tất định vị ảnh hoặc đối chiếu logic mạch; các dòng này được lưu để rà soát.'
+        elif (context.get('takeoff_review') or {}).get('passed') is False:
+            reply_text += ' Agent chưa hoàn tất đối chiếu danh mục theo nguồn; bản này cần xử lý tiếp.'
     result_payload = {'reply': reply_text}
     if iteration_id:
         result_payload['iteration_id'] = iteration_id
         result_payload['devices'] = devices_data
         result_payload['action_type'] = 'update_devices'
+        if pending or (context.get('takeoff_review') or {}).get('passed') is False:
+            result_payload['processing_status']='saved_needs_review'
     elif devices_data:
         result_payload['devices'] = devices_data
         result_payload['action_type'] = 'update_devices'

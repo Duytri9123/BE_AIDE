@@ -83,6 +83,9 @@ def apply_verified_boxes(devices: List[ExtractedDeviceSchema], payload: Any, req
                 device.evidence_region['group_reference_box_2d'] = ExtractedDeviceSchema.normalize_evidence_box(matches[0]['group_reference_box_2d'])
             if matches[0].get('source_annotation'):
                 device.evidence_region['source_annotation'] = matches[0]['source_annotation']
+            for key in ('geometry_source','source_symbol_handles'):
+                if matches[0].get(key):
+                    device.evidence_region[key]=matches[0][key]
             quad = matches[0].get('branch_quad')
             if isinstance(quad, list) and len(quad) == 4 and all(
                 isinstance(pt, list) and len(pt) == 2 and all(isinstance(v, (int, float)) and 0 <= v <= 1000 for v in pt)

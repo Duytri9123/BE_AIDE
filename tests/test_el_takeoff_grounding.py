@@ -66,6 +66,14 @@ class TakeoffGroundingTests(unittest.TestCase):
         for key, value in fields.items():
             self.assertEqual(result[key], value)
 
+    def test_persistence_does_not_turn_lamp_function_into_a_rating_or_erase_analysis(self):
+        device={'name':'Đèn báo pha','category':'LIGHT','spec':'','quantity':3,
+                'technical_analysis':'Ba đèn thể hiện trạng thái các pha R, Y, B.',
+                'selection_analysis':{'status':'no_verified_catalog_match'},'notes':'Nguồn không ghi điện áp.'}
+        result=NAMESPACE['clean_devices_list']([device],1)[0]
+        for key in ('category','spec','technical_analysis','selection_analysis','notes'):
+            self.assertEqual(result[key],device[key])
+
     def test_normalizer_preserves_group_unit(self):
         row = self.device(unit='Cụm')
         self.assertEqual(NAMESPACE['clean_devices_list']([row], 1)[0]['unit'], 'Cụm')
