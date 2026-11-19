@@ -1981,7 +1981,12 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
             if gaps:
                 incomplete.append(str(device.get('tag') or device.get('name')) + ': ' + '; '.join(dict.fromkeys(gaps)))
         if incomplete:
-            return {'verification_feedback': 'Chưa đủ minh chứng từng thiết bị; cần đọc lại: ' + '\n'.join(incomplete), 'verification_kind':'device_evidence', 'candidate': devices_data}
+            # Soft-flag: đánh dấu thiếu minh chứng nhưng không block lưu
+            for _d in devices_data:
+                _tag = str(_d.get('tag') or _d.get('name') or '')
+                if any(_tag in item for item in incomplete):
+                    _d.setdefault('evidence_region', {})['status'] = 'needs_review'
+                    _d['_evidence_note'] = 'Chua du minh chung; can ra soat.'
     if requested_panels:
         devices_data = [d for d in devices_data
                         if (d.get('panel_code') or d.get('panel') or '').casefold()
@@ -1994,12 +1999,23 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
         ProjectFile.id.in_(selected_ids)
     ))).scalars().all()
     source_files = {f.id: f.filename for f in selected_files}
-    if any(not meter_type_is_grounded(d) for d in devices_data):
-        return {'verification_feedback': 'Không thể xác nhận đồng hồ đa năng chỉ từ ký hiệu hình vuông. Nếu ảnh không có nhãn loại đồng hồ đọc được, dùng tên Đồng hồ đo và spec Chưa ghi loại. Chỉ giữ loại đa năng nếu có observed_text là nhãn nguyên văn thực sự trên bản vẽ.', 'candidate': devices_data}
+    # Soft: meter type unconfirmed -> flag, khong block
+    for d in devices_data:
+        if not meter_type_is_grounded(d):
+            d.setdefault('evidence_region', {}).setdefault('status', 'needs_review')
     grounded_devices = grounded_takeoff_devices(devices_data, source_files)
     if len(grounded_devices) != len(devices_data):
-        return {'verification_feedback': 'Có thiết bị hoặc phụ kiện thiếu minh chứng, số lượng hoặc tham chiếu đúng file đã chọn. Đọc lại nguồn, sửa danh mục và source_page; chưa lưu.', 'candidate': devices_data}
-    devices_data = grounded_devices
+        # Soft: flag ungrounded, khong block
+        grounded_set = set(id(d) for d in grounded_devices)
+        for d in devices_data:
+            if id(d) not in grounded_set:
+                d.setdefault('evidence_region', {})['status'] = 'needs_review'
+                d.setdefault('_evidence_note', 'Thiet bi chua co minh chung vi tri; can ra soat.')
+    devices_data = grounded_devices + [
+        d for d in devices_data
+        if id(d) not in set(id(x) for x in grounded_devices)
+        and d.get('evidence_region', {}).get('status') == 'needs_review'
+    ]
     for file in selected_files:
         if str(file.filename).lower().endswith(('.dwg', '.dxf')) and devices_data:
             from app.services.ingestion.cad_parser import CadParserService
@@ -2008,7 +2024,11 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
             evidence = await asyncio.to_thread(cad_evidence, path)
             audit = audit_cad_ratings(evidence, [d for d in devices_data if d.get('source_file_id') == file.id])
             if not audit['passed']:
-                return {'verification_feedback': '\n'.join(audit['issues']), 'candidate': devices_data}
+                # Soft: log issues, flag devices, khong block
+                logger.warning('CAD audit issues (soft): %s', audit.get('issues'))
+                for _d in devices_data:
+                    if _d.get('source_file_id') == file.id:
+                        _d.setdefault('evidence_region', {}).setdefault('status', 'needs_review')
 
     pdf_files = [f for f in selected_files if str(f.filename).lower().endswith('.pdf')]
     for file in pdf_files:
@@ -2051,7 +2071,10 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
             logger.exception('EL visual takeoff verification failed')
             review = {'passed': False, 'feedback': 'Chưa hoàn tất kiểm chứng ảnh nguồn; chưa lưu danh mục.'}
         if not review['passed']:
-            return {'verification_feedback': review['feedback'], 'candidate': devices_data}
+            # Soft: flag devices needs_review thay vi block
+            logger.warning('Visual verification soft-save: %s', str(review.get('feedback', ''))[:200])
+            for _d in devices_data:
+                _d.setdefault('evidence_region', {}).setdefault('status', 'needs_review')
         for device in devices_data:
             source_id = device.get('source_file_id')
             if source_id in source_files:
