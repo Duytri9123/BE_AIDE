@@ -146,15 +146,13 @@ def _normalize_device_category(device):
         return 'METER'
     if raw_cat in {'BIEN DONG'}:
         return 'CT'
-    if raw_cat in {'PHU KIEN TU DIEN', 'ACCESSORY', 'DO LUONG & GIAM SAT', 'THIET BI DO LUONG', ''}:
+    if raw_cat in {'PHU KIEN TU DIEN', 'ACCESSORY', ''}:
         text = _strip_accents(f"{device.name or ''} {device.spec or ''}").upper()
-        if re.search(r'\b\d+\s*/\s*5\s*A?\b', text) or any(k in text for k in ('BIEN DONG', ' TI ', 'CT ')):
-            return 'CT'
         if any(k in text for k in ('DEN BAO', 'R, Y, B', 'R,Y,B', 'PILOT', 'LAMP')):
             return 'LIGHT'
         if any(k in text for k in ('CHUYEN MACH', 'SELECTOR', 'VS ', 'AS ')):
             return 'SELECTOR_SWITCH'
-        if any(k in text for k in ('DONG HO', 'VOLT', 'AMPE', 'METER', '0-600V', '0-500V', 'DA NANG')):
+        if any(k in text for k in ('DONG HO', 'VOLT', 'AMPE', 'METER', '0-600V', '0-500V')):
             return 'METER'
     if raw_cat in GENERIC_BREAKER_CATEGORIES or raw_cat.startswith(('APTOMAT', 'CIRCUIT')):
         spec_upper = _strip_accents(f"{device.name or ''} {device.spec or ''}").upper()
@@ -247,12 +245,18 @@ def suggest_takeoff_products(devices, engine=None, catalog_rows=None):
 
         device = ExtractedDeviceSchema.model_validate(row)
 
-        # Bổ sung thông số thiếu từ cả trường spec và name
+        # Bổ sung thông số thiếu: parse từ cả name + spec + rated_current
         combined_text = f"{device.name or ''} {device.spec or ''}"
+        # Hỗ trợ rated_current field (AI có thể gửi thay cho in_a)
+        if not device.in_a and row.get('rated_current'):
+            try:
+                device.in_a = float(str(row['rated_current']).replace(',', '.').split()[0])
+            except (ValueError, TypeError):
+                pass
         for field, pattern in [
-            ('in_a',   r'(?<![\d.])([\d]+(?:[.,]\d+)?)\s*A\b'),
-            ('poles',  r'\b([1-4])\s*P\b'),
-            ('icu_ka', r'(?<![\d.])([\d]+(?:[.,]\d+)?)\s*kA\b'),
+            ('in_a',   r'(?<![\d.])(\d+(?:[.,]\d+)?)\s*A\b'),
+            ('poles',  r'\b([1-4])\s*[Pp]\b'),
+            ('icu_ka', r'(?<![\d.])(\d+(?:[.,]\d+)?)\s*kA\b'),
         ]:
             if not getattr(device, field):
                 m = re.search(pattern, combined_text, re.I)
@@ -262,7 +266,6 @@ def suggest_takeoff_products(devices, engine=None, catalog_rows=None):
                         field,
                         int(m[1]) if field == 'poles' else float(m[1].replace(',', '.')),
                     )
-
         norm_cat = _normalize_device_category(device)
         choices = recommendations(engine, device, device.brand) if use_engine else {}
 
