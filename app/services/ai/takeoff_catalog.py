@@ -266,6 +266,16 @@ def suggest_takeoff_products(devices, engine=None, catalog_rows=None):
                         field,
                         int(m[1]) if field == 'poles' else float(m[1].replace(',', '.')),
                     )
+        # Bổ sung poles từ "X pha" (tiếng Việt) nếu chưa có
+        if not device.poles:
+            m_pha = re.search(r'\b([1-4])\s*pha\b', combined_text, re.I)
+            if m_pha:
+                device.poles = int(m_pha.group(1))
+            elif re.search(r'\b(ba|three|3)\s*pha\b', combined_text, re.I):
+                device.poles = 3
+            elif re.search(r'\b(hai|two|2)\s*pha\b', combined_text, re.I):
+                device.poles = 2
+
         norm_cat = _normalize_device_category(device)
         choices = recommendations(engine, device, device.brand) if use_engine else {}
 
