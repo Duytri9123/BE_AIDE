@@ -24,6 +24,15 @@ EL chọn một tool hoặc trả lời trực tiếp. Khi gọi tool, frontend 
 lượt được giới hạn 18 lần gọi; không có danh sách công đoạn hoặc phần trăm giả.
 Các lời gọi tool không phải nội dung suy nghĩ nội bộ của model.
 
+Trước khi chọn công cụ, `POST /api/v1/chat/el/resolve` nối câu mới với tối đa
+20 tin nhắn trước đó, gồm nguồn, kết quả và trạng thái từng lượt. Yêu cầu đã nối
+ngữ cảnh được dùng thống nhất cho bộ lọc công cụ trên browser, quyết định backend,
+đọc nguồn và thực thi công cụ trong cả lượt. Backend `/next` cũng nối ngữ cảnh
+khi client chưa thực hiện bước này. Câu hỏi bổ sung giữ đối tượng đang trao đổi;
+thông tin mới được ưu tiên, còn đổi chủ đề hoặc hủy không tiếp tục lệnh cũ.
+Không có bước đang chờ rõ ràng thì EL cần hỏi lại thay vì tự chạy lại việc đã xong.
+Việc hiểu ngữ cảnh dùng mô hình AI, nên các lượt nối tiếp có thêm một lời gọi AI.
+
 Hoạt động được lưu cùng phản hồi trong lịch sử chat trên trình duyệt, theo user
 và project. Khi có file kết quả, UI cung cấp nút tải có xác thực. API thay đổi
 dữ liệu thành công sẽ yêu cầu workspace tải lại file, phiên và thông tin dự án.

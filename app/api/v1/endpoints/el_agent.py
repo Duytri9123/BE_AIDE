@@ -1407,124 +1407,6 @@ def detect_simple_conversational_response(message: str) -> Optional[str]:
     # 4. Cảm ơn, xác nhận, khen ngợi
     ack_words = {
         'ok', 'okay', 'okie', 'oki', 'oke', 'cam on', 'cam on ban', 'cam on el', 'thanks', 'thank you',
-        'tks', 'thank', 'duoc roi', 'tot qua', 'tuyet voi', 'hay qua', 'da hieu', 'da ro', 'chuan roi', 'chuan', 'good job'
-    }
-    if clean in ack_words or core in ack_words:
-        return "Rất vui được hỗ trợ bạn! Nếu cần bóc tách thêm bản vẽ, kiểm tra thiết bị hay tính toán báo giá, bạn cứ gửi yêu cầu cho EL nhé."
-
-    # 5. Tạm biệt
-    farewell_words = {'tam biet', 'bye', 'bye bye', 'goodbye', 'chuc ngu ngon', 'gap lai sau', 'hen gap lai'}
-    if clean in farewell_words or core in farewell_words:
-        return "Chào tạm biệt bạn! Chúc bạn một ngày làm việc hiệu quả. Khi nào cần hỗ trợ dự án kỹ thuật điện hay bản vẽ CAD, bạn cứ quay lại nhắn EL nhé!"
-
-    # 6. Trạng thái, ping, sẵn sàng
-    status_words = {
-        'ban co do khong', 'con do khong', 'co do khong', 'san sang chua', 'bat dau duoc chua',
-        'ban khoe khong', 'co khoe khong', 'test', 'testing', 'ping'
-    }
-    if clean in status_words or core in status_words:
-        return "EL luôn sẵn sàng! Bạn có thể tải bản vẽ hoặc gửi yêu cầu phân tích, bóc tách thiết bị hay lập bảng báo giá bất cứ lúc nào."
-
-    return None
-
-
-def detect_simple_conversational_response(message: str) -> Optional[str]:
-    """Phân biệt tức thì các câu hỏi chào hỏi, danh tính (bạn là ai), tính năng, cảm ơn...
-    để phản hồi dưới 1 giây mà không phải chờ mô hình AI suy luận lâu.
-    """
-    if not message:
-        return None
-    raw = message.strip()
-    norm = normalize_vietnamese_text(raw).strip()
-    clean = re.sub(r'^[^\w\s]+|[^\w\s]+$', '', norm).strip()
-    clean = re.sub(r'\s+', ' ', clean)
-    if not clean:
-        return None
-
-    # Các từ khóa kỹ thuật, điện, bản vẽ, thiết bị, báo giá, bóc tách:
-    # Tuyệt đối không chặn nhanh nếu câu hỏi có chứa các từ khóa chuyên ngành
-    technical_keywords = [
-        'ban ve', 'drawing', 'so do', 'sld', 'tu dien', 'tu ', 'khoang tu',
-        'nguon cap', 'tram bien ap', 'may bien ap', 'cong suat', 'dien ap',
-        'dong cat', 'dong dinh muc', 'ngan mach', 'dong ro', 'tiet dien',
-        'day cap', 'busbar', 'thanh cai', 'incomer', 'xuat tuyen',
-        'mcb', 'mccb', 'acb', 'rcbo', 'rccb', 'spd', 'contactor', 'relay',
-        'ro le', 'bien dong', 'ct', 'ti', 'dong ho', 'ampe', 'volt',
-        'boc tach', 'takeoff', 'bom', 'bao gia', 'quotation', 'du toan',
-        'don gia', 'thanh tien', 'vat tu', 'hang ls', 'schneider',
-        'mitsubishi', 'abb', 'chint', 'panasonic', 'hyundai', 'fuji',
-        'cad', 'dwg', 'dxf', 'pdf', 'file'
-    ]
-    has_tech = any(k in clean for k in technical_keywords)
-    if has_tech:
-        # Ngoại lệ: người dùng hỏi trực tiếp về danh tính EL hoặc AIDE
-        # ví dụ: 'el trong du an nay la gi', 'ban la ai trong he thong cad'
-        if not re.search(r'\b(?:ban\s+la\s+ai|el\s+la\s+(?:ai|gi)|aide\s+la\s+gi|elquote\s+la\s+gi|ten\s+ban\s+la\s+gi)\b', clean):
-            return None
-
-    # Bỏ các từ đệm, từ xưng hô, kính ngữ ở đầu câu và cuối câu
-    core = clean
-    core = re.sub(
-        r'^(?:cho\s+(?:minh|toi|em|anh)\s+hoi|lam\s+on\s+cho\s+biet|vui\s+long\s+cho\s+biet|'
-        r'xin\s+hoi|ban\s+cho\s+minh\s+hoi|ban\s+oi|ad\s+oi|el\s+oi|admin\s+oi|alo\s+el\s+oi)\s+',
-        '', core
-    ).strip()
-    core = re.sub(
-        r'\b(?:a|ạ|nhe|nhé|nhi|nhỉ|vay|vậy|the|thế|ha|hả|ko|khong|không|do|đó|voi|với|di|đi|nao|nào|roi|rồi)\b$',
-        '', core
-    ).strip()
-    core = re.sub(r'\s+', ' ', core)
-
-    # 1. Hỏi danh tính, vai trò, tên gọi, giới thiệu bản thân
-    identity_patterns = [
-        r'^(?:ban|em|may|cau)\s+(?:la\s+ai|la\s+gi|ten\s+(?:la\s+)?(?:gi|j)|la\s+tro\s+ly\s+gi)$',
-        r'^(?:ten\s+(?:ban|cua\s+ban)\s+la\s+(?:gi|j)|ban\s+ten\s+(?:gi|j))$',
-        r'^(?:ai\s+(?:day|the|vay|do)|ban\s+la\s+ai\s+(?:the|vay|do))$',
-        r'^(?:el|elquote|aide)\s+la\s+(?:ai|gi)$',
-        r'^(?:gioi\s+thieu(?:\s+ve)?\s+(?:ban|ban\s+than|el|minh)|tu\s+gioi\s+thieu)$',
-        r'^(?:ban\s+la\s+(?:bot|ai|robot|nguoi|ai\s+vay|con\s+nguoi|may))\b'
-    ]
-    if any(re.search(p, core) for p in identity_patterns) or clean in {'ban la ai', 'ban la gi', 'ai day', 'ai the', 'ban ten gi', 'el la ai', 'el la gi'}:
-        return (
-            "Tôi là EL, trợ lý kỹ thuật điện và CAD trong hệ thống AIDE.\n\n"
-            "Tôi có thể hỗ trợ bạn:\n"
-            "• **Đọc hiểu & phân tích bản vẽ**: Sơ đồ nguyên lý một sợi (SLD), đường cấp nguồn, hệ thống bảo vệ (ACB, MCCB, MCB, RCBO, SPD...).\n"
-            "• **Bóc tách thiết bị (Takeoff / BOM)**: Tự động trích xuất danh mục thiết bị đóng cắt, đo lường và phụ kiện theo từng tủ kèm vị trí và bằng chứng trực quan.\n"
-            "• **Tra cứu & chuẩn hóa thiết bị**: Gán mã sản phẩm, hãng sản xuất (LS, Schneider, Mitsubishi, ABB, v.v.) theo yêu cầu.\n"
-            "• **Lập bảng báo giá dự toán**: Xuất bảng báo giá chuẩn 8 cột (vỏ tủ, thanh cái busbar, phụ kiện, nhân công và thiết bị).\n"
-            "• **Thiết kế CAD & tính busbar**: Bố trí thiết bị tủ điện và tính toán khối lượng, dòng định mức thanh cái đồng.\n\n"
-            "Bạn có thể tải bản vẽ lên hoặc gửi yêu cầu để bắt đầu nhé!"
-        )
-
-    # 2. Hỏi tính năng, khả năng, hướng dẫn sử dụng, trợ giúp
-    capability_patterns = [
-        r'^(?:ban\s+)?(?:co\s+the\s+lam\s+gi|lam\s+duoc\s+gi|giup\s+duoc\s+gi|biet\s+lam\s+gi|ho\s+tro\s+(?:duoc\s+)?(?:gi|nhung\s+gi)|co\s+chuc\s+nang\s+gi)$',
-        r'^(?:chuc\s+nang|tinh\s+nang|nang\s+luc)\s+(?:cua\s+)?(?:ban|el)$',
-        r'^(?:huong\s+dan(?:\s+su\s+dung|\s+dung)?|cach\s+(?:su\s+)?dung(?:\s+el)?|tro\s+giup|help|menu)$'
-    ]
-    if any(re.search(p, core) for p in capability_patterns) or clean in {'help', 'tro giup', 'huong dan', 'menu'}:
-        return (
-            "Dưới đây là các tính năng chính tôi có thể hỗ trợ bạn:\n\n"
-            "1. 🔍 **Đọc & Phân tích bản vẽ**: Phân tích sơ đồ một sợi SLD, nguồn vào, thanh cái và các cấp bảo vệ đóng cắt.\n"
-            "2. 📋 **Bóc tách thiết bị (Takeoff)**: Tự động nhận diện các tủ điện, lập danh mục thiết bị chi tiết theo từng lộ xuất tuyến và liên kết vị trí bản vẽ.\n"
-            "3. 🏷️ **Cập nhật thương hiệu / Catalog**: Gán mã hàng, hãng sản xuất theo yêu cầu của dự án.\n"
-            "4. 💰 **Lập bảng báo giá**: Tạo bảng báo giá hoàn chỉnh 8 cột gồm vỏ tủ, thanh cái đồng, phụ kiện tủ điện và thiết bị theo chuẩn dự toán thực tế.\n"
-            "5. 📐 **Thiết kế CAD & Tính Busbar**: Bố trí thiết bị tủ điện và tính toán khối lượng, dòng định mức thanh cái đồng.\n\n"
-            "Bạn muốn thực hiện công việc nào? Hãy gửi yêu cầu hoặc tải bản vẽ lên nhé!"
-        )
-
-    # 3. Lời chào, mở đầu
-    greeting_words = {
-        'hi', 'hello', 'hey', 'alo', 'helo', 'he lo', 'chao', 'xin chao', 'chao ban', 'xin chao ban',
-        'chao el', 'hi el', 'hello el', 'alo el', 'chao ad', 'chao admin',
-        'good morning', 'good afternoon', 'good evening', 'chao buoi sang', 'chao buoi chieu', 'chao buoi toi'
-    }
-    if clean in greeting_words or core in greeting_words or (re.match(r'^(?:chao|xin chao|hi|hello|hey|alo)\b', core) and len(core.split()) <= 4):
-        return "Chào bạn! Tôi là EL, trợ lý kỹ thuật điện và CAD. Bạn cần tôi hỗ trợ phân tích bản vẽ, bóc tách thiết bị hay lập bảng báo giá cho dự án nào hôm nay?"
-
-    # 4. Cảm ơn, xác nhận, khen ngợi
-    ack_words = {
-        'ok', 'okay', 'okie', 'oki', 'oke', 'cam on', 'cam on ban', 'cam on el', 'thanks', 'thank you',
         'tks', 'thank', 'duoc roi', 'tot qua', 'tuyet voi', 'hay qua', 'da hieu', 'da ro', 'chuan roi', 'chuan', 'good job',
         'da vang', 'vang', 'vang a', 'da', 'ok ban', 'ok nhe', 'ok cam on', 'ok thanks'
     }
@@ -1748,10 +1630,12 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
     reply_text = sanitize_user_reply(reply_raw)
     devices_data = decision.get('devices')
     user_msg = payload.message or ''
-    is_takeoff = is_explicit_takeoff_request(user_msg)
+    resolved_intent = (context.get('resolved_request') or {}).get('intent')
+    is_takeoff = resolved_intent == 'takeoff' if resolved_intent else is_explicit_takeoff_request(user_msg)
     from app.services.ai.el_tools import permits_write
-    is_brand_update = (not is_takeoff and permits_write(user_msg)
-                       and is_brand_or_catalog_update_request(user_msg))
+    is_brand_update = (resolved_intent == 'catalog_update' if resolved_intent else
+                       (not is_takeoff and not is_quotation_request(user_msg) and permits_write(user_msg)
+                        and is_brand_or_catalog_update_request(user_msg)))
     # Scope panel discovery to this round, not a cached project-wide drawing.
     detected_panels = extract_detected_panels_from_text(reply_text, payload.project_id)
 
@@ -1789,7 +1673,8 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
         return resp
 
     # 2. Trường hợp người dùng yêu cầu tạo bảng báo giá / dự toán báo giá
-    is_quotation = is_quotation_request(user_msg) or bool(re.search(r'\|\s*(?:đơn giá|thành tiền|quy cách|hãng sx)\s*\|', reply_text, re.IGNORECASE))
+    is_quotation = (resolved_intent == 'quotation' if resolved_intent else
+                    is_quotation_request(user_msg) or bool(re.search(r'\|\s*(?:đơn giá|thành tiền|quy cách|hãng sx)\s*\|', reply_text, re.IGNORECASE)))
     if is_quotation:
         clean_reply, quotation_rows = standardize_quotation_table_and_rows(reply_text)
 
@@ -2131,25 +2016,32 @@ async def tools(project_id: int, request: Request, db=Depends(get_db), user=Depe
 async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db), user=Depends(get_current_active_user)):
     await owned_project(db, user, payload.project_id)
     context = payload.context or {}
+    from app.services.ai.el_conversation import resolve_request
+    resolution = await resolve_request(db, payload.message, context)
+    context = {**context, 'resolved_request': resolution}
+    payload = ChatRequest(project_id=payload.project_id, message=resolution['effective'], context=context)
     # Xử lý tức thì các câu chào hỏi, hỏi danh tính ("bạn là ai"), tính năng, cảm ơn, v.v.
     # Phản hồi dưới 1 giây mà không phải gọi mô hình AI hay chạy worker cồng kềnh.
-    fast_reply = detect_simple_conversational_response(payload.message)
+    from app.services.ai.el_conversation import conversation_history
+    has_conversation = any(m['role'] == 'assistant'
+                           for m in conversation_history(context, resolution['original']))
+    fast_reply = None if has_conversation else detect_simple_conversational_response(payload.message)
     if fast_reply:
         return {'reply': fast_reply}
         
     from app.services.ai.takeoff_regions import confirmed_scope, discover_panels
     scope = confirmed_scope(context, payload.project_id)
     from app.services.ai.el_input_context import input_context
-    intent = ('takeoff' if is_explicit_takeoff_request(payload.message) else
+    intent = resolution.get('intent') or ('takeoff' if is_explicit_takeoff_request(payload.message) else
               'quotation' if is_quotation_request(payload.message) else
               'catalog_update' if is_brand_or_catalog_update_request(payload.message) else 'conversation')
     context = {**context, 'input_context': input_context(payload.message, context, intent, scope)}
     context_brief = {k: v for k, v in context['input_context'].items() if k != 'recent_conversation'}
-    if is_explicit_takeoff_request(payload.message) and context.get('file_ids') and not scope:
+    if intent == 'takeoff' and context.get('file_ids') and not scope:
         return await run_step("Đang đọc nguồn để xác định các vùng tủ", discover_panels(db, payload.project_id, context['file_ids']))
     if scope:
         context = {**context, 'confirmed_panels': scope}
-        if is_explicit_takeoff_request(payload.message) and not context.get('observations'):
+        if intent == 'takeoff' and not context.get('observations'):
             from app.services.ai.scoped_takeoff import extract_confirmed_panels
             extraction_message = payload.message
             for attempt in range(2):
@@ -2190,18 +2082,18 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
         elif tool['name'] != 'read_project_sources' and not tool['name'].startswith('cad_'):
             continue
         all_candidate_tools.append(tool)
-        if permits_tool(tool, payload.message):
+        if permits_tool(tool, payload.message) and not (resolution.get('intent') == 'conversation' and tool.get('writes')):
             normalized.append(tool)
     tool_list = normalized
     # Reading the explicitly selected drawing is mandatory for a new takeoff;
     # asking a model to choose that same first step adds an avoidable round trip.
     if (not observations and context.get('file_ids')
-            and is_explicit_takeoff_request(payload.message)
+            and (intent == 'takeoff')
             and any(tool['name'] == 'read_project_sources' for tool in tool_list)):
         return {'tool': 'read_project_sources',
                 'arguments': {'file_ids': context['file_ids']},
                 'activity': 'Đọc bản vẽ đã chọn để bóc tách thiết bị'}
-    if scope and is_explicit_takeoff_request(payload.message):
+    if scope and intent == 'takeoff':
         # A continuation must read each selected region, never the entire drawing.
         for panel in scope:
             arguments = {'file_ids': [panel['source_file_id']],
@@ -2210,9 +2102,7 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
                        for o in observations):
                 return {'tool': 'read_project_sources', 'arguments': arguments,
                         'activity': 'Đọc vùng tủ ' + panel['panel_code']}
-    history = context.get('messages', [])
-    history = [{'role': item.get('role'), 'content': str(item.get('content', ''))[:4000]}
-               for item in (history[-12:] if isinstance(history, list) else []) if isinstance(item, dict)]
+    history = conversation_history(context, resolution['original'])
     prompt = '''Bạn là EL - Trợ lý Kỹ thuật Điện & CAD thông minh trong dự án đang mở.
 QUY TẮC BẮT BUỘC:
 0. XỬ LÝ ĐÚNG PHẠM VI:
@@ -2347,9 +2237,7 @@ DỮ LIỆU:
     # Ordinary questions do not need the quotation/BOM/CAD production manual.
     # Keep source tools and observations so source-dependent questions still read
     # the selected drawing instead of inventing an answer from chat history.
-    if (not is_explicit_takeoff_request(payload.message)
-            and not is_quotation_request(payload.message)
-            and not is_brand_or_catalog_update_request(payload.message)):
+    if intent not in ('takeoff', 'quotation', 'catalog_update'):
         prompt = '''Bạn là EL, trợ lý kỹ thuật điện và CAD. Trả lời tiếng Việt, ngắn gọn đúng câu hỏi.
 Chỉ làm đúng phạm vi yêu cầu hiện tại; lịch sử giúp hiểu câu nối tiếp, không phải lệnh mới.
 Với câu hỏi thông thường, trả lời ngay nếu đủ dữ liệu. Không bắt buộc gọi tool.
@@ -2428,7 +2316,7 @@ DỮ LIỆU:
         if not tool:
             candidate = resolve_tool_match(chosen_tool_name, all_candidate_tools)
             if candidate:
-                if permits_tool(candidate, payload.message):
+                if permits_tool(candidate, payload.message) and not (resolution.get('intent') == 'conversation' and candidate.get('writes')):
                     tool = candidate
                 else:
                     return {
@@ -2444,6 +2332,13 @@ DỮ LIỆU:
         return {'tool': canonical_name, 'arguments': decision.get('arguments') or {},
                 'activity': str(decision.get('activity') or tool.get('label') or canonical_name)[:300]}
     return await format_reply_response(db, payload, user, context, str(decision['reply'])[:20000], decision)
+
+
+@router.post('/resolve')
+async def resolve_turn(payload: ChatRequest, db=Depends(get_db), user=Depends(get_current_active_user)):
+    await owned_project(db, user, payload.project_id)
+    from app.services.ai.el_conversation import resolve_request
+    return await resolve_request(db, payload.message, payload.context or {})
 
 
 class ToolRequest(BaseModel):
