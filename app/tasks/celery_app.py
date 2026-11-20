@@ -9,7 +9,7 @@ celery_app = Celery(
     "aide_worker",
     broker=CELERY_BROKER_URL,
     backend=CELERY_RESULT_BACKEND,
-    include=["app.tasks.worker_tasks"]
+    include=["app.tasks.worker_tasks", "app.tasks.el_tasks"]
 )
 
 celery_app.conf.update(

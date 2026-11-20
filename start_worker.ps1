@@ -51,6 +51,7 @@ if (-not $ready) {
     throw "CAD analysis worker did not become ready within 180 seconds. Check logs in $runtimeDir"
 }
 Write-Output "Windows solo worker ready: $($workerProcess.Id). Logs: $runtimeDir"
+& (Join-Path $workerRoot 'start_el_worker.ps1')
 } finally {
     Pop-Location
 }

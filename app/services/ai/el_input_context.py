@@ -2,6 +2,8 @@
 def input_context(message, context, intent, scope):
     messages = context.get('messages') or []
     return {'intent': intent, 'current_request': message,
+        'execution_mode': context.get('execution_mode', 'browser'),
+        'browser_cad_available': context.get('execution_mode') != 'server_background',
         'original_request': (context.get('resolved_request') or {}).get('original', message),
         'source_mode': 'selected_regions' if scope else 'selected_files' if context.get('file_ids') else 'conversation',
         'selected_file_ids': context.get('file_ids') or [],

@@ -2334,6 +2334,61 @@ DỮ LIỆU:
     return await format_reply_response(db, payload, user, context, str(decision['reply'])[:20000], decision)
 
 
+@router.post('/runs')
+async def start_run(payload: ChatRequest, db=Depends(get_db), user=Depends(get_current_active_user)):
+    await owned_project(db, user, payload.project_id)
+    from app.services.el_run_store import RunStore, public_run
+    from app.services.ai.el_background import dispatch
+    # The browser can retry this request without creating another job.
+    if not payload.request_id:
+        raise HTTPException(422, 'Lượt EL cần request_id để tránh chạy trùng.')
+    from app.services.ai.takeoff_regions import confirmed_scope
+    job_payload = payload.model_dump(mode='json')
+    job_context = dict(payload.context or {})
+    # Validate while the user's scope token is fresh. A long pause must not
+    # invalidate scope that was already accepted by the server.
+    job_context['_background_confirmed_scope'] = confirmed_scope(job_context, payload.project_id)
+    job_payload['context'] = job_context
+    row, created = await asyncio.to_thread(RunStore().create, user.id, payload.project_id,
+                                         str(payload.request_id), job_payload)
+    if created:
+        try:
+            await dispatch(row['id'])
+        except Exception as exc:
+            raise HTTPException(503, 'Chưa gửi được tác vụ EL đến worker. Tiến độ đã được lưu.') from exc
+    return public_run(row)
+
+
+@router.get('/runs/latest')
+async def latest_run(project_id: int, db=Depends(get_db), user=Depends(get_current_active_user)):
+    await owned_project(db, user, project_id)
+    from app.services.el_run_store import RunStore, public_run
+    return public_run(await asyncio.to_thread(RunStore().latest, user.id, project_id))
+
+
+@router.get('/runs/{run_id}')
+async def get_run(run_id: str, project_id: int, db=Depends(get_db), user=Depends(get_current_active_user)):
+    await owned_project(db, user, project_id)
+    from app.services.el_run_store import RunStore, public_run
+    return public_run(await asyncio.to_thread(RunStore().get, run_id, user.id, project_id))
+
+
+@router.post('/runs/{run_id}/{action}')
+async def control_run(run_id: str, action: str, project_id: int, db=Depends(get_db), user=Depends(get_current_active_user)):
+    await owned_project(db, user, project_id)
+    if action not in ('pause', 'resume'):
+        raise HTTPException(404, 'Thao tác không tồn tại.')
+    from app.services.el_run_store import RunStore, public_run
+    from app.services.ai.el_background import dispatch
+    row, needs_dispatch = await asyncio.to_thread(RunStore().control, run_id, user.id, project_id, action)
+    if needs_dispatch:
+        try:
+            await dispatch(run_id)
+        except Exception as exc:
+            raise HTTPException(503, 'Chưa tiếp tục được tác vụ. Tiến độ đã được lưu.') from exc
+    return public_run(row)
+
+
 @router.post('/resolve')
 async def resolve_turn(payload: ChatRequest, db=Depends(get_db), user=Depends(get_current_active_user)):
     await owned_project(db, user, payload.project_id)
