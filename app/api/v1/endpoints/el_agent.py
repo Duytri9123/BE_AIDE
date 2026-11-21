@@ -72,6 +72,38 @@ def resolve_tool_match(chosen_name: str, candidate_tools: list) -> dict | None:
     return None
 
 
+def clean_latex_and_technical_text(text: str) -> str:
+    """Loại bỏ cú pháp LaTeX toán học, chuẩn hóa text kỹ thuật điện tiếng Việt và ký tự Unicode."""
+    if not text or not isinstance(text, str):
+        return ""
+    import re
+    s = text
+    # 1. LaTeX \text{...} -> văn bản bên trong
+    s = re.sub(r'\\text\{([^}]*)\}', r' \1 ', s)
+    # 2. Toán tử và ký hiệu kỹ thuật
+    s = re.sub(r'\\times(?![a-zA-Z])', 'x', s)
+    s = re.sub(r'\\ge\b|\\geq\b', '≥', s)
+    s = re.sub(r'\\le\b|\\leq\b', '≤', s)
+    s = re.sub(r'\\pm\b', '±', s)
+    s = re.sub(r'\\approx\b', '≈', s)
+    s = re.sub(r'\\Omega\b', 'Ω', s)
+    s = re.sub(r'\\mu\b', 'µ', s)
+    s = re.sub(r'\\Delta\b', 'Δ', s)
+    s = re.sub(r'\^2(?!\d)', '²', s)
+    s = re.sub(r'\^3(?!\d)', '³', s)
+    # 3. Ký hiệu chỉ số dưới điện: I_n -> In, P_d -> Pd, P_{tt} -> Ptt, K_{đt} -> Kđt, I_{cu} -> Icu
+    s = re.sub(r'([A-Za-z])_\{?([A-Za-z0-9đĐ]+)\}?', r'\1\2', s)
+    # 4. Gỡ bỏ dấu $ kẹp công thức
+    s = s.replace('$', '')
+    # 5. Dọn dẹp khoảng trắng dư và chuẩn hóa dấu câu
+    s = re.sub(r'[ \t]+', ' ', s)
+    s = re.sub(r'\s+([²³])', r'\1', s)
+    s = re.sub(r'\s+([,.:;?!])', r'\1', s)
+    s = re.sub(r'\(\s+', '(', s)
+    s = re.sub(r'\s+\)', ')', s)
+    return s.strip()
+
+
 def sanitize_user_reply(text: str) -> str:
     if not text or not isinstance(text, str):
         return ""
@@ -92,6 +124,8 @@ def sanitize_user_reply(text: str) -> str:
                     cleaned = f"Đang tiến hành: {parsed.get('activity')}"
         except Exception:
             pass
+    # Dọn dẹp cú pháp LaTeX và chuẩn hóa văn bản kỹ thuật điện
+    cleaned = clean_latex_and_technical_text(cleaned)
     # Bảo mật tuyệt đối: Không để lộ tên API nội bộ, endpoint kỹ thuật
     cleaned = re.sub(r'\bapi_[a-zA-Z0-9_]+\b', 'chức năng hệ thống', cleaned)
     cleaned = re.sub(r'/api/v1/[a-zA-Z0-9_/-]+', 'hệ thống', cleaned)
@@ -835,21 +869,56 @@ def format_vnd_currency(amount):
     return f"{int(amount):,}".replace(',', '.')
 
 
-def clean_device_name(raw_name: str, raw_spec: str = "") -> str:
+def clean_device_name(raw_name: str, raw_spec: str = "", raw_notes: str = "", context_text: str = "") -> str:
     import re
     name = (raw_name or "").strip()
     spec = (raw_spec or "").strip()
-    combined = f"{name} {spec}".strip()
+    notes = (raw_notes or "").strip()
+    combined = f"{name} {spec} {notes}".strip()
     norm = normalize_vietnamese_text(combined)
 
-    if any(k in norm for k in ('vo tu dien', 'vo tu', 'enclosure')):
-        dims_match = re.search(r'([hH]\s*\d+\s*[xX*]\s*[wW]\s*\d+\s*[xX*]\s*[dD]\s*\d+(?:\s*[xX*]\s*[tT]\s*\d+(?:\.\d+)?)?(?:\s*mm)?)', combined)
-        dims = dims_match.group(1).upper().replace(' ', '') if dims_match else "H2300xW1000xD250xT2.0mm"
-        if 'T' not in dims:
-            dims += "xT2.0mm"
-        if not dims.endswith('mm'):
-            dims += "mm"
-        return f"Vỏ tủ điện trong nhà 2 lớp cánh, sơn tĩnh điện.<br>+ KT : {dims}<br>+ Có chân đế cao 100mm"
+    if any(k in norm for k in ('vo tu dien', 'vo tu', 'enclosure', 'tu dien am tuong', 'tu dien treo tuong')):
+        combined_all = f"{combined} {context_text}"
+        norm_all = normalize_vietnamese_text(combined_all)
+
+        # 1. Tìm kích thước H...xW...xD...: ưu tiên từ notes và phân tích kỹ thuật (context_text)
+        dims_match = re.search(r'([hH]\s*\d+\s*[xX*]\s*[wW]\s*\d+\s*[xX*]\s*[dD]\s*\d+(?:\s*[xX*]\s*[tT]\s*\d+(?:\.\d+)?)?(?:\s*mm)?)', notes)
+        if not dims_match:
+            dims_match = re.search(r'([hH]\s*\d+\s*[xX*]\s*[wW]\s*\d+\s*[xX*]\s*[dD]\s*\d+(?:\s*[xX*]\s*[tT]\s*\d+(?:\.\d+)?)?(?:\s*mm)?)', context_text)
+        if not dims_match:
+            dims_match = re.search(r'([hH]\s*\d+\s*[xX*]\s*[wW]\s*\d+\s*[xX*]\s*[dD]\s*\d+(?:\s*[xX*]\s*[tT]\s*\d+(?:\.\d+)?)?(?:\s*mm)?)', f"{name} {spec}")
+
+        dims = ""
+        if dims_match:
+            dims = dims_match.group(1).upper().replace(' ', '')
+            if not dims.lower().endswith('mm'):
+                dims += "mm"
+            dims = re.sub(r'([Xx])', 'x', dims).replace('MM', 'mm')
+
+        # 2. Xác định chủng loại tủ dựa trên phân tích kỹ thuật
+        is_am_tuong = any(k in norm_all for k in ('am tuong', 'de am', 'chong chay', 'abs', 'module', 'tep', 'can ho'))
+        is_treo_tuong = any(k in norm_all for k in ('treo tuong', 'wall mounted'))
+        is_dat_san = any(k in norm_all for k in ('dat san', 'floor', 'chan de', 'msb', 'tong'))
+
+        height = 0
+        if dims:
+            h_m = re.search(r'H(\d+)', dims)
+            if h_m:
+                height = int(h_m.group(1))
+
+        if is_am_tuong or (height > 0 and height <= 600 and not is_dat_san):
+            dims_str = f" - KT: {dims}" if dims else ""
+            return f"Vỏ tủ điện âm tường (mặt nhựa ABS / khung thép sơn tĩnh điện){dims_str}"
+        elif is_treo_tuong or (height > 0 and height < 1200 and not is_dat_san):
+            dims_str = f" - KT: {dims}" if dims else ""
+            return f"Vỏ tủ điện treo tường 1 lớp cánh, sơn tĩnh điện{dims_str}"
+        else:
+            dims_default = dims or "H2300xW1000xD250xT2.0mm"
+            if 'T' not in dims_default:
+                dims_default = dims_default.replace('mm', '').replace('MM', '') + "xT2.0mm"
+            if not dims_default.lower().endswith('mm'):
+                dims_default += "mm"
+            return f"Vỏ tủ điện trong nhà 2 lớp cánh, sơn tĩnh điện - KT: {dims_default} + Có chân đế cao 100mm"
 
     if any(k in norm for k in ('thanh cai', 'busbar', 'dong do', 'dong thanh cai')):
         return "Đồng thanh cái mạ thiếc bọc co nhiệt"
@@ -1031,7 +1100,7 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
             active_section = None
             continue
 
-        name = clean_device_name(raw_name, raw_sku)
+        name = clean_device_name(raw_name, raw_sku, raw_notes, raw_markdown)
         sku, notes = extract_clean_sku(raw_sku, name, raw_sku, raw_notes)
         cat = categorize_quotation_item(name, sku, notes)
         if cat == 'outgoing' and active_section in {'incomer', 'outgoing', 'control'}:
@@ -1059,6 +1128,16 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
 
         qty, _ = extract_qty_unit(raw_qty, name)
         unit_price = parse_col_num(raw_price)
+
+        # Đảm bảo mức sàn kỹ thuật nhân công (>= 500k) và vật tư phụ (>= 300k)
+        norm_n = normalize_vietnamese_text(name)
+        if any(k in norm_n for k in ('nhan cong', 'lap rap va kiem tra', 'nhan cong lap rap')):
+            if unit_price < 500000:
+                unit_price = 500000
+        elif any(k in norm_n for k in ('vat tu phu', 'phu kien tu', 'dau cos', 'phu kien lap rap')):
+            if unit_price < 300000:
+                unit_price = 300000
+
         line_total = qty * unit_price
 
         parsed_items.append({
@@ -1138,10 +1217,12 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
                                         name=sec_title, sku='', origin='', unit='', quantity=0,
                                         unit_price=0, line_total=0, notes=''))
             for item in items_in_sec:
+                display_md_name = item['name'].replace('\n', '<br>')
+                clean_row_name = item['name'].replace('<br>', '\n')
                 out_md.append(
-                    f"| + | {item['name']} | {item['sku']} | {item['brand']} | {item['unit']} | {item['quantity']:.2f} | {format_vnd_currency(item['unit_price'])} | {format_vnd_currency(item['line_total'])} | {item['notes']} |"
+                    f"| + | {display_md_name} | {item['sku']} | {item['brand']} | {item['unit']} | {item['quantity']:.2f} | {format_vnd_currency(item['unit_price'])} | {format_vnd_currency(item['line_total'])} | {item['notes']} |"
                 )
-                structured_rows.append({**item, 'id': f'item-{stt_item}', 'tt': '+',
+                structured_rows.append({**item, 'name': clean_row_name, 'id': f'item-{stt_item}', 'tt': '+',
                                         'section': sec_title, 'panel_id': code, 'panel_code': code})
                 stt_item += 1
 
@@ -2073,9 +2154,12 @@ QUY TẮC BẮT BUỘC:
 
    - KHI NGƯỜI DÙNG YÊU CẦU ĐỌC SƠ ĐỒ NGUYÊN LÝ MỘT SỢI (SLD), PHÂN TÍCH ĐƯỜNG CẤP NGUỒN VÀ THIẾT BỊ BẢO VỆ (hoặc phân tích kỹ thuật, đọc hiểu sơ đồ, kiểm tra tải, đánh giá an toàn):
      + BẠN PHẢI ĐÓNG VAI KỸ SƯ TRƯỞNG ĐIỆN, phân tích kỹ thuật chuyên sâu theo nội dung sơ đồ một sợi SLD trong bản vẽ:
-       1. Phân tích đường cấp nguồn: Nguồn cấp từ đâu (lưới điện, máy biến áp, tủ MSB...), lộ cáp nguồn Cu/XLPE/PVC, tiết diện dây/cáp, hệ thống thanh cái (busbar) và dòng định mức nếu có.
+       1. Phân tích đường cấp nguồn: Nguồn cấp từ đâu (lưới điện, máy biến áp, tủ MSB...), lộ cáp nguồn Cu/XLPE/PVC, tiết diện dây/cáp, hệ thống thanh cái (busbar) hoặc thanh lược đồng và dòng định mức nếu có.
        2. Phân tích thiết bị bảo vệ: Thiết bị bảo vệ đầu vào chính (ACB/MCCB: dòng định mức In, dòng cắt ngắn mạch kA, bảo vệ quá tải/ngắn mạch), các cấp bảo vệ nhánh xuất tuyến (MCCB/MCB phân phối), bảo vệ dòng rò chống giật (RCBO/RCCB 30mA), thiết bị chống sét lan truyền SPD.
        3. Đánh giá tính phối hợp chọn lọc và cấu trúc phân phối giữa các tủ điện.
+     + ĐỊNH DẠNG VĂN BẢN (TUYỆT ĐỐI KHÔNG DÙNG CÚ PHÁP LATEX TOÁN HỌC):
+       * Viết ký hiệu kỹ thuật, công suất, dòng điện bằng văn bản tiếng Việt tự nhiên và Unicode chuẩn (ví dụ: In = 50A, Pđ = 15 kW, Ptt = 7.5 kW, Kđt = 0.5, T = 1.0 mm, Cu/PVC 1x6 mm², 10 mm² - 16 mm², 63A - 80A, Icu ≥ 4.5 kA).
+       * TUYỆT ĐỐI KHÔNG dùng cú pháp LaTeX toán học ($...$, \\text{}, \\times, \\ge, \\le...) hoặc chèn thẻ <br> trong văn bản.
      + TUYỆT ĐỐI KHÔNG dùng từ "Dưới đây là kết quả bóc tách thiết bị điện...".
      + TUYỆT ĐỐI KHÔNG tự động chuyển thành bóc tách BOM hay xuất mảng `devices` khi người dùng chỉ yêu cầu đọc / phân tích sơ đồ.
      Chỉ trả lời JSON: {"reply": "Nội dung phân tích kỹ thuật chuyên sâu sơ đồ SLD, đường cấp nguồn và thiết bị bảo vệ bằng Markdown rõ ràng"}
@@ -2104,10 +2188,16 @@ QUY TẮC BẮT BUỘC:
        * Đồng hồ ampe qua TI dùng ngõ vào theo dòng thứ cấp và thang hiển thị đến dòng sơ cấp của TI thuộc đúng mạch. Nếu quan hệ nối còn thiếu, ghi đề xuất có điều kiện. Khi thiếu dữ kiện, để trống thông số chưa rõ và không tự gán mã hàng.
      + THỨ TỰ PHÂN NHÓM CHUẨN KỸ THUẬT CHO MỖI TỦ (TRÊN CÙNG BẮT BUỘC LÀ VỎ TỦ + PHỤ KIỆN):
        * Dòng nhóm: | **\\*** | **Vỏ tủ + phụ kiện** | | | | | | | |
-         1. Vỏ tủ điện trong nhà 2 lớp cánh, sơn tĩnh điện.<br>+ KT : H...xW...xD...xT...mm<br>+ Có chân đế cao 100mm (Mã hàng: Sơn tĩnh điện, Xuất xứ: VN, ĐVT: Cái, SL: 1.00)
-         2. Đồng thanh cái mạ thiếc bọc co nhiệt (Mã hàng: 1mm=2A, N=50%, E=25%, Xuất xứ: VN, ĐVT: Tủ, SL: 1.00)
-         3. Vật tư phụ ( đầu cos, dây điều khiển, sứ ...) (Xuất xứ: VN, ĐVT: Tủ, SL: 1.00)
-         4. Nhân công lắp ráp tủ (Xuất xứ: VN, ĐVT: Tủ, SL: 1.00)
+         1. Dòng Vỏ tủ: KÍCH THƯỚC VÀ CHỦNG LOẠI VỎ TỦ PHẢI ĐỒNG BỘ 100% VỚI PHẦN PHÂN TÍCH KỸ THUẬT VỎ TỦ Ở TRÊN:
+            - Nếu phân tích là tủ âm tường (như 14-16 module căn hộ): ghi "Vỏ tủ điện âm tường (mặt nhựa ABS / khung thép sơn tĩnh điện) - KT: H...xW...xD...mm" (ĐVT: Cái, SL: 1.00). TUYỆT ĐỐI KHÔNG dùng mẫu tủ 2 lớp cánh chân đế 100mm cho tủ âm tường!
+            - Nếu phân tích là tủ treo tường: ghi "Vỏ tủ điện treo tường 1 lớp cánh, sơn tĩnh điện - KT: H...xW...xD...mm" (ĐVT: Cái, SL: 1.00).
+            - Nếu phân tích là tủ đặt sàn công nghiệp (cao >= 1200mm): ghi "Vỏ tủ điện trong nhà 2 lớp cánh, sơn tĩnh điện - KT: H...xW...xD...xT...mm + Có chân đế cao 100mm" (ĐVT: Cái, SL: 1.00).
+            - Kích thước (KT) trong báo giá BẮT BUỘC phải khớp hoàn toàn với kích thước đã xác định ở phần phân tích kỹ thuật.
+         2. Đồng thanh cái mạ thiếc bọc co nhiệt (Mã hàng: 1mm=2A, N=50%, E=25%, Xuất xứ: VN, ĐVT: Tủ, SL: 1.00) (hoặc Thanh lược đồng nếu là tủ tép âm tường).
+         3. Vật tư phụ (đầu cos, dây điều khiển, thanh lược/sứ, ống co nhiệt...) (Xuất xứ: VN, ĐVT: Tủ, SL: 1.00):
+            - ĐƠN GIÁ VẬT TƯ PHỤ TỐI THIỂU TỪ 300.000 VNĐ TRỞ LÊN tùy phân tích tủ (tủ nhỏ căn hộ: 300.000đ - 500.000đ; tủ trung bình: 500.000đ - 1.000.000đ; tủ lớn: 1.000.000đ - 2.500.000đ+). TUYỆT ĐỐI KHÔNG báo giá dưới 300.000 VNĐ.
+         4. Nhân công lắp ráp tủ (Xuất xứ: VN, ĐVT: Tủ, SL: 1.00):
+            - ĐƠN GIÁ NHÂN CÔNG TỐI THIỂU TỪ 500.000 VNĐ TRỞ LÊN tùy phân tích tủ (tủ nhỏ căn hộ: 500.000đ - 800.000đ; tủ treo tường DB: 800.000đ - 1.500.000đ; tủ công nghiệp đặt sàn: 1.800.000đ - 4.000.000đ+). TUYỆT ĐỐI KHÔNG báo giá dưới 500.000 VNĐ.
        * Dòng nhóm: | **\\*** | **Đầu vào** | | | | | | | |
          - Aptomat tổng (MCCB/MCB tổng), cuộn cắt Shunt trip (nếu có, đặt ngay dưới MCCB)
          - Đèn báo pha (đỏ-vàng-xanh)

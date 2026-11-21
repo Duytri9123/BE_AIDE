@@ -69,6 +69,12 @@ def normalize_quotation_layout(rows):
                 if len(parts) == 1:
                     item = {**parts[0], 'name': parts[0]['name'] if code == 'ENCLOSURE' else name,
                             'commercial_package': True, 'package_code': code}
+                    if code == 'LABOR' and item.get('unit_price') is not None and float(item['unit_price']) < 500000:
+                        item['unit_price'] = 500000
+                        item['line_total'] = float(item.get('quantity') or 1) * 500000
+                    elif code == 'MATERIALS' and item.get('unit_price') is not None and float(item['unit_price']) < 300000:
+                        item['unit_price'] = 300000
+                        item['line_total'] = float(item.get('quantity') or 1) * 300000
                     if code != 'ENCLOSURE':
                         item.update(package_spec=item.get('package_spec') or item.get('spec') or '', spec='',
                                     sku=(parts[0].get('sku') or parts[0].get('spec') or '') if code == 'BUSBAR' else '')
@@ -77,6 +83,10 @@ def normalize_quotation_layout(rows):
                 priced = bool(parts) and all(r.get('unit_price') is not None and r.get('quantity') is not None
                                             and r.get('inclusion_status') != 'needs_confirmation' for r in parts)
                 price = sum(float(r['unit_price']) * float(r['quantity']) for r in parts) if priced else None
+                if code == 'LABOR' and price is not None and price < 500000:
+                    price = 500000
+                elif code == 'MATERIALS' and price is not None and price < 300000:
+                    price = 300000
                 description = '\n'.join('\n'.join(str(r.get(k) or '') for k in ('name', 'spec')).strip() for r in parts)
                 item = dict(id=f'{panel_id}-assembly-{code}', row_type='item', tt='+',
                     name=description if code == 'ENCLOSURE' and parts else name,
