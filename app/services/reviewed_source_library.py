@@ -57,9 +57,9 @@ def reference_preview(reference_id, view_id):
 def list_references(query='', status=''):
     from .catalogtb_browser import catalog_query_matches
     items = []
-    statuses = {'publish_reference': 'Tham khảo thiết bị', 'identity_partial': 'Cần xác định hãng/model',
+    statuses = {'publish_reference': 'Sản phẩm tham khảo', 'identity_partial': 'Cần xác định hãng/model',
         'design_reference': 'Mẫu bố trí', 'envelope_only': 'Bao hình tham khảo',
-        'graphic_reference': 'Đồ họa nguồn'}
+        'graphic_reference': 'Đồ họa chi tiết'}
     for row in review_data()['items']:
         if status and row['mode'] != status:
             continue
@@ -81,10 +81,13 @@ def list_references(query='', status=''):
                 'preview': f'/cad-library/reviewed-sources/{identifier}/views/{view["id"]}/preview',
                 'revision': view['preview_sha256'][:16], 'role': entry.get('asset_role') or 'source_reference'})
         items.append({'id': identifier, 'name': row['display'], 'source_name': row['source_name'],
-            'category': row['category'], 'brand': row['brand'],
+            'category': profile.get('nhom') or row['category'], 'brand': profile.get('hang_xac_nhan') or row['brand'],
+            'model': profile.get('ma_dong_san_pham') or row.get('model', ''),
+            'specifications': profile.get('thong_so', {}),
             'brand_is_candidate': row['brand_candidate_only'],
-            'status': row['mode'], 'status_label': statuses[row['mode']],
-            'note': row['note'], 'documents': row['documents'], 'views': views,
+            'status': row['mode'], 'status_label': statuses.get(row['mode'], row['mode']),
+            'note': profile.get('cong_dung') or row['note'], 'documents': row['documents'], 'views': views,
+            'observed_texts': row.get('observed_texts', []),
             'in_device_library': not profile.get('browser_hidden', False),
             'can_auto_select': False, 'reviewed_on': '2026-11-18'})
     return {'items': items, 'total': len(items), 'reviewed_on': '2026-11-18'}
