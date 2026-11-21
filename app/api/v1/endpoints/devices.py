@@ -131,7 +131,7 @@ async def get_series(
     series = result.scalars().all()
     return series
 
-def _build_model_response(m: DeviceModel, assets=None) -> DeviceModelResponse:
+def _build_model_response(m: DeviceModel, assets=()) -> DeviceModelResponse:
     params = m.parameters or {}
     series = getattr(m, "series", None)
     brand = getattr(series, "brand", None) if series else None
@@ -161,7 +161,7 @@ def _build_model_response(m: DeviceModel, assets=None) -> DeviceModelResponse:
 
     from app.services.cad.mounting_profile import mounting_profile
     from app.api.v1.endpoints.cad_library import resolve_model_asset
-    asset = resolve_model_asset(m.sku, params, assets)
+    asset = resolve_model_asset(m.sku, params, assets) if assets else None
     recognition = asset.get('recognition') if asset else None
     return DeviceModelResponse(
         id=m.id,
@@ -193,6 +193,7 @@ async def get_models(
     category_id: Optional[int] = None,
     series_id: Optional[int] = None,
     q: Optional[str] = None,
+    include_cad: bool = False,
     poles: Optional[int] = None,
     min_in: Optional[float] = None,
     max_in: Optional[float] = None,
@@ -255,7 +256,9 @@ async def get_models(
     def build_responses():
         # Filter by JSON parameters if specified (poles, in, icu)
         from app.api.v1.endpoints.cad_library import manifest, resolve_model_asset
-        assets = manifest()["items"]
+        assets = manifest()["items"] if include_cad and any(
+            ((m.parameters or {}).get("cad") or {}).get("catalog_id") for m in models
+        ) else []
         filtered = []
         for m in models:
             params = m.parameters or {}
@@ -272,7 +275,7 @@ async def get_models(
             if min_icu is not None and (m_icu is None or m_icu < min_icu):
                 continue
             response = _build_model_response(m, assets)
-            asset = resolve_model_asset(m.sku, m.parameters, assets)
+            asset = resolve_model_asset(m.sku, m.parameters, assets) if include_cad and assets else None
             from app.services.cad.library_taxonomy import classify
             classification = classify(m.name, response.category_name or '')
             response.parameters = {**(response.parameters or {}),

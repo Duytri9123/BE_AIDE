@@ -188,10 +188,10 @@ def _manifest_cached(signature, evidence_stamp=0):
 
 def resolve_model_asset(sku, parameters, items=None):
     """Insert only a 2026 catalog record with exact-model CAD."""
-    items = items if items is not None else manifest()["items"]
     asset_id = ((parameters or {}).get('cad') or {}).get('catalog_id')
     if not asset_id:
         return None
+    items = items if items is not None else manifest()["items"]
     asset = next((item for item in items if item['catalog_id'] == asset_id), None)
     if asset and (SOURCE_ROOT / asset['filename']).is_file():
         return asset

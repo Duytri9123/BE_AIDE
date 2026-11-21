@@ -9,7 +9,7 @@ from fastapi import HTTPException
 from sqlalchemy import select
 
 READ_PREFIXES = ('equipment-library', 'cad-library', 'cabinet-templates', 'curated-library',
-                 'device-catalog', 'device-library', 'catalog-prices', 'user-library')
+                 'devices', 'device-catalog', 'device-library', 'catalog-prices', 'user-library')
 ANALYSIS_READS = ('device-details', 'device-recommendations', 'manufacturer-information')
 
 
@@ -24,9 +24,28 @@ def permits_write(message, label=''):
     return bool(re.search(r'\b(?:ve|tao|xuat|luu|boc tach|boc|tach|cap nhat|chinh sua|sua lai|sua|doi ten|tinh|lap bao gia|bao gia|chen|di chuyen|xoay|sao chep|them)\b', text))
 
 
+def requests_design(message):
+    text = plain(message)
+    if re.search(r'\b(?:khong|chua|dung)\s+(?:(?:can|tu dong)\s+)?(?:thiet ke|ve|tim cad|tra cad)\b|\bchi\s+(?:text|van ban|tra ma|tra cuu|phan tich)\b', text):
+        return False
+    return bool(re.search(r'\b(?:thiet ke|ve cad|ve tu|ve ban ve|dung ban ve|tao cad|tao dxf|chen|di chuyen|xoay)\b', text))
+
+
+def requires_cad(tool):
+    path = tool.get('path', '').removeprefix('/api/v1/').strip('/')
+    root = path.split('/')[0]
+    return (tool.get('kind') == 'cad' or tool.get('name', '').startswith('cad_')
+            or root in {'cad-library', 'cabinet-templates', 'curated-library', 'equipment-library'}
+            or path.startswith('devices/browse') or path.endswith('/detail') and root == 'device-catalog'
+            or 'generate-quotation-cad' in path
+            or bool(re.search(r'(?:^|/)(?:preview|insert-dxf|dxf|svg|cad)(?:/|$)', path)))
+
+
 def permits_tool(tool, message):
     text = plain(message)
     path = tool.get('path', '')
+    if requires_cad(tool) and not requests_design(message):
+        return False
     if any('/' + prefix in path for prefix in READ_PREFIXES) or 'search_aide_device_catalog' in tool.get('name', ''):
         if re.search(r'\b(?:khong|chua|dung)\s+(?:can\s+)?(?:doi chieu|tra cuu|so sanh|tim|dung\s+thu\s+vien|xem\s+catalog)', text):
             return False

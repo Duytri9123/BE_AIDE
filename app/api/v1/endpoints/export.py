@@ -95,8 +95,8 @@ async def match_quotation(
                 devices = latest_iter.ai_parsed_devices
 
     if payload.preserve_rows:
-        from app.services.ai.quotation_selection import select_quotation_devices
-        items = await asyncio.to_thread(select_quotation_devices, devices, payload.default_brand)
+        from app.services.ai.compatible_brand_selection import compatible_brand_replacements
+        items, _ = await asyncio.to_thread(compatible_brand_replacements, devices, payload.default_brand)
         return {"items": items}
 
     items = await asyncio.to_thread(QuotationExporterService.match_devices_multi_brand,

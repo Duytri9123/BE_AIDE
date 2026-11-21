@@ -550,9 +550,12 @@ async def save_takeoff_iteration(db, project_id: int, user_id: int, message: str
 
 
 async def update_takeoff_brand_iteration(db, project_id, user_id, message, reply, iteration_id):
+    from copy import deepcopy
     from app.models.analysis_iteration import AnalysisIteration
+    from app.services.ai.manufacturer_registry import canonical_brand
+    from app.services.ai.compatible_brand_selection import compatible_brand_replacements
     from app.services.project_conversation import project_session
-    from app.services.ai.el_conversation import previous_brand, requested_brand, replace_brand_requested
+    from app.services.ai.el_conversation import previous_brand, requested_brand
 
     target_brand = requested_brand(message)
     if not target_brand or not iteration_id:
@@ -576,28 +579,21 @@ async def update_takeoff_brand_iteration(db, project_id, user_id, message, reply
     named = {row['name'] for row in previous if not tagged and mentioned(row.get('name'))}
     if named:
         named = {name for name in named if not any(name != other and name in other for other in named)}
-    replace_brand = replace_brand_requested(message)
     old_brand_filter = previous_brand(message)
-    changed = []
-    rows = []
-    for original in previous:
-        row = dict(original)
+    eligible = []
+    indices = []
+    rows = deepcopy(previous)
+    for index, row in enumerate(previous):
         if ((not tagged or row.get('tag') in tagged) and (not panels or row.get('panel_code') in panels)
-                and (not named or row.get('name') in named)):
-            old = row.get('brand')
-            if old_brand_filter and str(old or '').casefold() != old_brand_filter:
-                rows.append(row)
-                continue
-            if str(old or '').casefold() != target_brand.casefold() and (
-                    replace_brand or old in (None, '', '-', 'Thiết bị điện', 'Chưa chọn', 'Thiết bị')):
-                row['brand'] = target_brand
-                for key in ('catalog_candidates', 'suggested_brands', 'selection_analysis'):
-                    row.pop(key, None)
-                if row.pop('catalog_source', None):
-                    row['part_number'] = None
-                changed.append(row)
-        rows.append(row)
-    if not changed:
+                and (not named or row.get('name') in named)
+                and (not old_brand_filter or canonical_brand(row.get('brand')) == canonical_brand(old_brand_filter))):
+            eligible.append(row)
+            indices.append(index)
+    # Text pricebook matching only. A missing or conditional match preserves the whole row.
+    replacements, changed_count = await asyncio.to_thread(compatible_brand_replacements, eligible, target_brand)
+    for index, row in zip(indices, replacements):
+        rows[index] = row
+    if not changed_count:
         return iteration.id, rows, 0
 
     scores = dict(iteration.confidence_scores or {})
@@ -614,7 +610,7 @@ async def update_takeoff_brand_iteration(db, project_id, user_id, message, reply
     iteration.user_corrections = {**(iteration.user_corrections or {}), 'reply': reply,
                                   'last_brand_update': message}
     await db.commit()
-    return iteration.id, rows, len(changed)
+    return iteration.id, rows, changed_count
 
 
 def is_brand_or_catalog_update_request(message: str) -> bool:
@@ -1578,8 +1574,8 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
             db, payload.project_id, user.id, user_msg, reply_text, context.get('iteration_id'))
         if not iteration_id:
             return {'reply': 'Hãy mở kết quả bóc tách cần đổi hãng trong dự án này rồi gửi lại yêu cầu.'}
-        brand_reply = (f'Đã cập nhật hãng **{target_brand}** cho {changed_count} dòng thiết bị.' if changed_count
-                       else f'Không có dòng thiết bị nào cần cập nhật sang hãng **{target_brand}**.')
+        brand_reply = (f'Đã đổi {changed_count} dòng sang **{target_brand}** có mã catalog phù hợp thông số. Các dòng chưa có mã phù hợp được giữ nguyên.' if changed_count
+                       else f'Chưa có thiết bị **{target_brand}** phù hợp để thay thế; đã giữ nguyên hãng, mã và thông số hiện tại.')
         return {'reply': brand_reply,
                 'iteration_id': iteration_id, 'devices': devices_data, 'action_type': 'update_devices'}
 
@@ -1916,6 +1912,11 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
     fast_reply = None if has_conversation else detect_simple_conversational_response(payload.message)
     if fast_reply:
         return {'reply': fast_reply}
+
+    if resolution.get('intent') == 'catalog_update':
+        from app.services.ai.el_conversation import requested_brand
+        if requested_brand(payload.message):
+            return await format_reply_response(db, payload, user, context, payload.message, {})
         
     from app.services.ai.takeoff_regions import confirmed_scope, discover_panels
     scope = confirmed_scope(context, payload.project_id)
@@ -1925,10 +1926,6 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
               'catalog_update' if is_brand_or_catalog_update_request(payload.message) else 'conversation')
     context = {**context, 'input_context': input_context(payload.message, context, intent, scope)}
     context_brief = {k: v for k, v in context['input_context'].items() if k != 'recent_conversation'}
-    if resolution.get('intent') == 'catalog_update':
-        from app.services.ai.el_conversation import requested_brand, replace_brand_requested
-        if requested_brand(payload.message) and replace_brand_requested(payload.message):
-            return await format_reply_response(db, payload, user, context, payload.message, {})
     if intent == 'takeoff' and context.get('file_ids') and not scope:
         return await run_step("Đang đọc nguồn để xác định các vùng tủ", discover_panels(db, payload.project_id, context['file_ids']))
     if scope:
@@ -2339,6 +2336,14 @@ async def execute(payload: ToolRequest, request: Request, db=Depends(get_db), us
             raise
         except Exception as exc:
             raise HTTPException(503, 'Chưa thể ghi nhận thao tác EL; chưa gửi tool thay đổi dữ liệu.') from exc
+    from app.services.ai.el_tools import requests_design
+    if not requests_design(payload.user_message):
+        payload.arguments = {**payload.arguments, 'query': {**(payload.arguments.get('query') or {})}}
+        query = payload.arguments['query']
+        if tool['path'].rstrip('/').endswith('/devices/models'):
+            query['include_cad'] = False
+        if query.get('equipment_catalog_id'):
+            raise HTTPException(409, 'Tra cứu văn bản không sử dụng liên kết thư viện CAD.')
     result = await run_step(tool.get("label") or payload.tool, execute_api_tool(request.app, db, user.id, payload.project_id, tool, payload.arguments, headers))
     if receipt_key:
         with job_queue.sync_client() as cache:
