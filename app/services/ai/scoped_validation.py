@@ -60,13 +60,16 @@ def seal_scoped_validation(files, panels, rows):
         scope=(row.get('source_file_id'),row.get('source_page'),row.get('panel_code'))
         panel=allowed.get(scope);region=row.get('evidence_region') or {};observed=row.get('source_observations') or {}
         coverage=observed.get('coverage_review') or {}
-        if panel is None or region.get('status') != 'verified' or not row.get('evidence_image'):
+        panel_checked = coverage.get('method') == 'whole_panel' and region.get('status') == 'panel_checked'
+        if panel is None or not (panel_checked or region.get('status') == 'verified' and row.get('evidence_image')):
             return None
         if region.get('frame') != 'selected_panel' or region.get('source_region') != panel['source_region']:
             return None
         if coverage.get('status') != 'passed' or coverage.get('issues') != [] or coverage.get('read_failed') is not False:
             return None
-        if observed.get('evidence_gaps') != [] or row.get('tag') and region.get('tag_verified') is not True or row.get('connected_load') and region.get('load_verified') is not True:
+        if observed.get('evidence_gaps') != [] or not panel_checked and (
+                row.get('tag') and region.get('tag_verified') is not True
+                or row.get('connected_load') and region.get('load_verified') is not True):
             return None
         file=by_id.get(scope[0]);revision=observed.get('source_revision')
         if file is None or not revision:return None

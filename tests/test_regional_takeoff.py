@@ -14,11 +14,173 @@ async def keep_disputes(image, regions, parts, issues, call_image, **kwargs):
 
 
 class RegionalTests(unittest.IsolatedAsyncioTestCase):
+    def test_cad_branch_tag_in_load_does_not_duplicate_the_native_breaker(self):
+        from app.services.ai.cad_branch_evidence import merge_vertical_candidates
+        image_row = {'category': 'MCB', 'connected_load': 'L1. Chiếu sáng'}
+        native_row = {'tag': 'L1', 'category': 'MCB', 'connected_load': 'CHIẾU SÁNG',
+                      'spec': '1P 16A 6kA', 'source_observations': {}}
+        part = {'devices': [image_row], 'boxes': []}
+        merge_vertical_candidates([part], [{'box_2d': [0, 0, 1000, 1000]}], {
+            'devices': [native_row], 'boxes': [{'load_box_2d': [200, 500, 300, 900]}],
+        })
+        self.assertEqual(part['devices'], [native_row])
+
+    async def test_whole_panel_uses_the_same_frame_for_read_and_review(self):
+        call = AsyncMock(side_effect=[json.dumps({'devices': [['MCB', 'MCB', 'Q1', '2P 20A', 1, 'Cái',
+                                                             None, 'MCB 2P 20A']]}),
+                                     json.dumps({'issues': []})])
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / 'panel.png'
+            Image.new('RGB', (1200, 900)).save(path)
+            result = await extract_regions(path, 'Bóc tách tủ', call, whole_panel=True)
+            self.assertEqual([Path(event.args[0]) for event in call.await_args_list], [path, path])
+        review = result['devices'][0]['source_observations']['coverage_review']
+        self.assertEqual((review['status'], review['method']), ('passed', 'whole_panel'))
+        self.assertEqual((result['devices'][0]['tag'], result['devices'][0]['poles']), ('Q1', 2))
+
+    async def test_overlap_needs_checked_source_geometry_before_removing_a_repeated_spare(self):
+        import copy
+        from app.services.ai.regional_takeoff import check_overlap_geometry
+        row={'name':'MCB','category':'MCB','quantity':1,'spec':'1P 16A 10kA',
+             'in_a':16,'poles':1,'icu_ka':10,'observed_text':'MCB-1P 16A-10kA'}
+        source=[{'devices':[dict(row),dict(row)],'boxes':[
+            {'device_id':'0','symbol_box_2d':[802,129,822,166]},
+            {'device_id':'1','symbol_box_2d':[851,126,872,166]}]},
+            {'devices':[dict(row)],'boxes':[{'device_id':'0','symbol_box_2d':[841,114,857,158]}]}]
+        issues=[{'region_id':'1','device_indices':[0],'field':'quantity','reason':'Trùng/thừa một MCB dự phòng'}]
+        regions=[{'box_2d':[655,0,895,1000]},{'box_2d':[805,0,1000,1000]}]
+        async def keep(image,path,devices,audited,*args,**kwargs):return audited
+        for verified in (False,True):
+            parts=copy.deepcopy(source)
+            checked={'boxes':[{'device_id':str(i),'verified':verified,'symbol_verified':verified,
+                'symbol_box_2d':[851,126,872,166],'text_box_2d':[830,120,850,175]} for i in range(2)]}
+            audit=AsyncMock(return_value=checked)
+            with patch('app.services.ai.device_crop_audit.audit_device_previews',audit), \
+                 patch('app.services.ai.takeoff_evidence_completion.complete_evidence',keep):
+                await check_overlap_geometry(Image.new('RGB',(1000,1000)),'source.png',regions,parts,issues,AsyncMock())
+            self.assertEqual(len(audit.await_args.args[2]),2)
+            deduplicate_parts(parts)
+            self.assertEqual([len(p['devices']) for p in parts],[2,0] if verified else [2,1])
+            self.assertEqual(parts[0]['boxes'][0]['symbol_box_2d'],[802,129,822,166])
+
+    async def test_explicit_locator_load_is_canonicalized_without_marking_it_verified(self):
+        call=AsyncMock(side_effect=[json.dumps({'regions':[]}),
+            json.dumps({'devices':[{'name':'MCB','category':'MCB','quantity':1}],
+                'boxes':[{'device_id':'0','load_box_2d':[200,800,220,950],
+                    'load_label':'VAN ĐIỆN TỪ 02','relationship_evidence':'Dây của nhánh này đến van 02'}]}),
+            json.dumps({'issues':[]})])
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'source.png';Image.new('RGB',(1000,1000)).save(path)
+            result=await extract_regions(path,'Read',call)
+        self.assertEqual(result['devices'][0]['connected_load'],'VAN ĐIỆN TỪ 02')
+        self.assertNotIn('load_verified',result['boxes'][0])
+
+    async def test_isolated_coverage_timeout_retries_once_after_completed_reads(self):
+        from app.core.exceptions import AIVisionError
+        call=AsyncMock(side_effect=[json.dumps({'regions':[]}),
+            json.dumps({'devices':[{'name':'MCB','quantity':1}]}),
+            AIVisionError('Hết thời gian chờ',{'last_error_type':'AITimeoutError'}),
+            json.dumps({'issues':[]})])
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'source.png';Image.new('RGB',(1000,1000)).save(path)
+            result=await extract_regions(path,'Read',call)
+        self.assertEqual(call.await_count,4)
+        self.assertFalse(result['processing_interrupted'])
+        self.assertEqual(result['devices'][0]['source_observations']['coverage_review']['status'],'passed')
+
+    def test_common_branch_tag_is_only_proposed_from_an_unambiguous_printed_anchor(self):
+        from app.services.ai.table_image_context import propose_branch_tags
+        parts=[{'devices':[{'tag':'P4','connected_load':'Bơm 04'},
+                           {'category':'POWER_SUPPLY','connected_load':'Bơm 04'},
+                           {'tag':'P5','connected_load':'Bơm chung'},
+                           {'tag':'P6','connected_load':'Bơm chung'},
+                           {'category':'CONTACTOR','connected_load':'Bơm chung'}],
+                'boxes':[{'device_id':str(i),'tag_box_2d':[i,1,i+1,2]} for i in range(5)]}]
+        propose_branch_tags(parts)
+        self.assertEqual(parts[0]['devices'][1]['tag'],'P4')
+        self.assertEqual(parts[0]['boxes'][1]['tag_box_2d'],[0,1,1,2])
+        self.assertNotIn('tag',parts[0]['devices'][4])
+        self.assertNotIn('verified',parts[0]['boxes'][1])
+
+    async def test_malformed_coverage_retries_once_with_the_same_schema(self):
+        calls=[]
+        async def call(path,prompt,**kwargs):
+            calls.append(kwargs)
+            if len(calls)==1:return json.dumps({'regions':[{'box_2d':[0,0,1000,1000]}]})
+            if len(calls)==2:return json.dumps({'devices':[],'boxes':[]})
+            if len(calls)==3:return '{"issues":[{"device_indices": [0], 1, 2]}'
+            return '{"issues":[]}'
+        call.supports_json_schema=True
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'source.png';Image.new('RGB',(100,100)).save(path)
+            result=await extract_regions(path,'Read',call)
+        from app.services.ai.regional_takeoff import COVERAGE_SCHEMA, REGION_SCHEMA
+        self.assertEqual(len(calls),4)
+        self.assertEqual(calls[1],{'response_schema':REGION_SCHEMA})
+        self.assertTrue({'tag_box_2d','load_box_2d','relationship_evidence'}.issubset(
+            REGION_SCHEMA['properties']['boxes']['items']['required']))
+        self.assertEqual(calls[2],{'response_schema':COVERAGE_SCHEMA})
+        self.assertEqual(calls[2],calls[3])
+
+    def test_row_bands_use_each_wire_angle_when_a_photo_has_no_single_global_slope(self):
+        from PIL import ImageDraw
+        from app.services.ai.table_image_context import row_slope,circuit_bands,owns_symbol
+        source=Image.new('RGB',(1000,1000),'white');draw=ImageDraw.Draw(source)
+        for i,y in enumerate(range(100,800,100)):
+            slope=.1-i/30
+            draw.line((50,round(y+slope*(50-250)),950,round(y+slope*(950-250))),fill='black',width=2)
+        self.assertIsNone(row_slope(source))
+        bands=circuit_bands(source,None)
+        self.assertGreaterEqual(len(bands),3)
+        for i,y in enumerate(range(100,800,100)):
+            slope=.1-i/30;cy=y+slope*(800-250)
+            self.assertEqual(sum(owns_symbol([cy-2,798,cy+2,802],b['ownership_y'],None) for b in bands),1)
+
+    def test_photographed_row_ownership_projects_load_side_symbols_along_source_wires(self):
+        from PIL import ImageDraw
+        from app.services.ai.table_image_context import row_slope,owns_symbol
+        source=Image.new('RGB',(1000,1000),'white');draw=ImageDraw.Draw(source)
+        for y in range(100,800,100):draw.line((50,y,950,y+54),fill='black',width=2)
+        slope=row_slope(source)
+        self.assertIsNotNone(slope);self.assertAlmostEqual(slope,.06,delta=.01)
+        breaker=[195,195,205,205];supply=[231,795,241,805]
+        for box in (breaker,supply):
+            self.assertTrue(owns_symbol(box,[150,230],slope))
+            self.assertFalse(owns_symbol(box,[230,310],slope))
+
+    def test_shared_voltage_reference_only_applies_to_the_bound_source_column(self):
+        from app.services.ai.table_image_context import shared_source_references
+        parts=[{'devices':[{'name':'Bộ nguồn','category':'POWER_SUPPLY','spec':''},
+                           {'name':'Bộ nguồn','category':'POWER_SUPPLY','spec':''}],
+                'boxes':[{'device_id':'0','symbol_box_2d':[200,800,230,830]},
+                         {'device_id':'1','symbol_box_2d':[200,300,230,330]}]}]
+        ref={'category':'POWER_SUPPLY','text':'BỘ ĐỔI NGUỒN CHO BƠM 220/24V','spec':'220/24V',
+             'box_2d':[100,780,120,930],'applies_to_box_2d':[150,790,450,840]}
+        shared_source_references(parts,[{**ref,'spec':'220/48V'}])
+        self.assertEqual(parts[0]['devices'][0]['spec'],'')
+        shared_source_references(parts,[ref])
+        self.assertEqual(parts[0]['devices'][0]['spec'],'220/24V')
+        self.assertEqual(parts[0]['devices'][1]['spec'],'')
+        self.assertEqual(parts[0]['boxes'][0]['text_box_2d'],ref['box_2d'])
+        self.assertNotIn('audit_observed',parts[0]['boxes'][0])
+
+    def test_overlap_containment_joins_partial_rating_but_keeps_conflicting_current(self):
+        partial={'name':'MCB','category':'MCB','tag':'P1','quantity':1,
+                 'spec':'16A-10kA','in_a':16,'poles':1}
+        complete={**partial,'spec':'MCB-1P-16A-10kA','connected_load':'Bơm 01'}
+        parts=[{'devices':[partial],'boxes':[{'device_id':'0','symbol_box_2d':[100,100,120,160]}]},
+               {'devices':[complete,{**complete,'spec':'1P20A10kA','in_a':20}],
+                'boxes':[{'device_id':str(i),'symbol_box_2d':[103,110,117,150]} for i in range(2)]}]
+        deduplicate_parts(parts)
+        self.assertEqual([len(p['devices']) for p in parts],[1,1])
+        self.assertEqual(parts[0]['devices'][0]['connected_load'],'Bơm 01')
+        self.assertEqual(parts[1]['devices'][0]['in_a'],20)
+
     async def test_provider_outage_keeps_read_regions_and_skips_further_ai_calls(self):
-        from app.core.exceptions import AITimeoutError
+        from app.core.exceptions import AIVisionError
         call=AsyncMock(side_effect=[json.dumps({'regions':[
             {'box_2d':[0,0,500,1000]}, {'box_2d':[500,0,1000,1000]}]}),
-            json.dumps({'devices':[{'name':'MCB','quantity':1}]}),AITimeoutError('provider timeout')])
+            json.dumps({'devices':[{'name':'MCB','quantity':1}]}),AIVisionError('provider unavailable')])
         with tempfile.TemporaryDirectory() as folder:
             path=Path(folder)/'source.png';Image.new('RGB',(1000,1000)).save(path)
             result=await extract_regions(path,'Read',call,concurrency=2)
@@ -29,6 +191,36 @@ class RegionalTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(review['status'],'needs_review')
         self.assertTrue(review['read_failed'])
         self.assertIn('Máy chủ AI',review['issues'][0]['reason'])
+
+    async def test_isolated_region_timeout_retries_only_the_failed_read_once(self):
+        from app.core.exceptions import AIVisionError
+        call=AsyncMock(side_effect=[json.dumps({'regions':[
+            {'box_2d':[0,0,500,1000]},{'box_2d':[500,0,1000,1000]}]}),
+            json.dumps({'devices':[{'name':'MCB','quantity':1}]}),AIVisionError('Máy chủ gián đoạn',
+                {'last_error':'Hết thời gian chờ 60s','last_error_type':'AITimeoutError','retryable_transport':True}),
+            json.dumps({'devices':[{'name':'TIMER','quantity':1}]}),json.dumps({'issues':[]})])
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'source.png';Image.new('RGB',(1000,1000)).save(path)
+            result=await extract_regions(path,'Read',call,concurrency=2)
+        self.assertEqual(call.await_count,5)
+        self.assertEqual([r['name'] for r in result['devices']],['MCB','TIMER'])
+        self.assertFalse(result['processing_interrupted'])
+
+    async def test_partial_timeout_recovers_three_failed_regions_without_rereading_success(self):
+        from app.core.exceptions import AITimeoutError
+
+        layout = {'regions': [{'box_2d': [250*i, 0, 250*(i+1), 1000]} for i in range(4)]}
+        first = {'devices': [{'name': 'MCB', 'quantity': 1}]}
+        call = AsyncMock(side_effect=[json.dumps(layout), json.dumps(first),
+                                     *(AITimeoutError('timeout') for _ in range(3)),
+                                     *[json.dumps({'devices': []})]*3, json.dumps({'issues': []})])
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / 'source.png'
+            Image.new('RGB', (1000, 1000)).save(path)
+            result = await extract_regions(path, 'Read', call, concurrency=2)
+        self.assertEqual(call.await_count, 9)
+        self.assertEqual([r['name'] for r in result['devices']], ['MCB'])
+        self.assertFalse(result['processing_interrupted'])
 
     async def test_provider_outage_during_review_preserves_inventory_without_retry(self):
         from app.core.exceptions import AIVisionError
@@ -66,6 +258,29 @@ class RegionalTests(unittest.IsolatedAsyncioTestCase):
         self.assertNotIn('panel_notes',json.dumps(result))
         self.assertNotIn('technical_analysis',result)
 
+    def test_omitted_device_repair_uses_the_source_region_that_contains_it(self):
+        from app.services.ai.regional_takeoff import review_issue_region
+        regions = [{'box_2d': [0, 0, 289, 1000]}, {'box_2d': [199, 0, 507, 1000]}]
+        issue = {'region_id': '0', 'field': 'devices', 'device_indices': [], 'box_2d': [303, 50, 336, 98]}
+        self.assertEqual(review_issue_region(issue, regions), 1)
+        self.assertEqual(review_issue_region({**issue, 'device_indices': [0]}, regions), 0)
+
+    def test_spare_overlap_with_same_rating_and_load_labels_counts_once(self):
+        row = {'category': 'MCB', 'spec': '16A-10kA', 'quantity': 1}
+        parts = [
+            {'devices': [{**row, 'observed_text': 'MCB-1P 16A-10kA DỰ PHÒNG'}],
+             'boxes': [{'device_id': '0', 'symbol_box_2d': [855, 134, 874, 163],
+                        'text_box_2d': [824, 118, 854, 180], 'load_box_2d': [838, 804, 857, 885]}]},
+            {'devices': [{**row, 'observed_text': 'MCB-1P 16A-10kA'}, row.copy()],
+             'boxes': [{'device_id': '0', 'symbol_box_2d': [842, 131, 872, 161],
+                        'text_box_2d': [824, 117, 857, 180], 'load_box_2d': [838, 804, 856, 886]},
+                       {'device_id': '1', 'symbol_box_2d': [795, 135, 813, 163],
+                        'text_box_2d': [765, 119, 794, 181], 'load_box_2d': [783, 804, 800, 885]}]}
+        ]
+        deduplicate_parts(parts)
+        self.assertEqual([len(part['devices']) for part in parts], [1, 1])
+        self.assertEqual(parts[1]['boxes'][0]['symbol_box_2d'], [795, 135, 813, 163])
+
     async def test_overlapping_table_bands_read_full_symbol_but_count_it_once(self):
         import numpy as np
         scan={'layout_kind':'horizontal_circuit_table','regions':[
@@ -74,7 +289,13 @@ class RegionalTests(unittest.IsolatedAsyncioTestCase):
         reads=[]
         async def call(path,prompt):
             if 'Nhận diện vùng trước' in prompt:return json.dumps(scan)
-            if 'Kiểm kê ĐỘC LẬP' in prompt:return json.dumps({'issues':[]})
+            if 'Kiểm kê ĐỘC LẬP' in prompt:
+                request = json.loads(prompt.rsplit('\n', 1)[-1])
+                rows = [dict(zip(request['device_columns'], values))
+                        for region in request['regions'] for values in region['devices']]
+                self.assertEqual([(row['tag'], row['spec'], row['quantity']) for row in rows],
+                                 [('P1', '16A', 1)])
+                return json.dumps({'issues': []})
             with Image.open(path) as crop:
                 ink=np.asarray(crop)[:,:,0]<100
                 ys,xs=np.where(ink)
@@ -126,7 +347,7 @@ class RegionalTests(unittest.IsolatedAsyncioTestCase):
             labels.extend([{'id':f't{i}','text':f'L{i}','x':500,'y':y,'height':10},
                            {'id':f'r{i}','text':'MCB-1P-10A-6kA','x':200,'y':y,'height':10}])
             rows.append({'id':f't{i}','rating_id':f'r{i}','tag':f'L{i}','rating':'MCB-1P-10A-6kA'})
-        native={'view_bounds':[0,0,1000,1000],'labels':labels,'rows':rows}
+        native={'view_bounds':[0,-400,1000,1000],'labels':labels,'rows':rows}
         captured=[]
         async def call(path,prompt):
             with Image.open(path) as source:captured.append(source.size)
@@ -134,10 +355,10 @@ class RegionalTests(unittest.IsolatedAsyncioTestCase):
         with tempfile.TemporaryDirectory() as folder:
             path=Path(folder)/'source.png';Image.new('RGB',(1000,1000)).save(path)
             await extract_regions(path,'Read',call,preserve_row_context=True,native_evidence=native)
-        self.assertEqual(len(captured),3)  # Two source bands plus independent coverage.
+        self.assertEqual(len(captured),4)  # Two branch bands, metering tail and coverage.
         self.assertEqual(captured[-1],(1000,1000))
         self.assertEqual(captured[0][0],1000)
-        self.assertGreaterEqual(captured[0][1]+captured[1][1],1000)
+        self.assertGreaterEqual(sum(h for _,h in captured[:-1]),1000)
 
     async def test_circuit_table_regions_keep_tag_and_load_columns_in_source_frame(self):
         calls = []

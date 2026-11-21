@@ -15,7 +15,7 @@ def audit_revision():
     folder = Path(__file__).parent
     digest = hashlib.sha256()
     for name in ('audit_checkpoint.py', 'device_crop_audit.py', 'evidence_preview.py',
-                 'evidence_crops.py', 'takeoff_evidence_completion.py'):
+                 'evidence_crops.py', 'takeoff_evidence_completion.py','material_note_evidence.py','source_crop_repair.py'):
         digest.update((folder / name).read_bytes())
     return digest.hexdigest()
 

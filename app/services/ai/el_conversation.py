@@ -1,11 +1,34 @@
 """Resolve a conversation turn before routing, permissions and tool selection."""
 import json
+import re
+import unicodedata
 
 from fastapi import HTTPException
 
 from app.services.ai.connection_pool import ConnectionPoolService
 from app.services.ai.response_parser import ResponseParserService
 from app.services.ai.vision_analyzer import VisionAnalyzerService
+
+
+_BRANDS = ('LS', 'Schneider', 'Mitsubishi', 'ABB', 'Chint', 'Panasonic', 'Hyundai', 'Fuji', 'Legrand')
+_BRAND_PATTERN = re.compile(r'\b(?:' + '|'.join(_BRANDS) + r')\b', re.I)
+
+
+def requested_brand(message):
+    replacement = re.search(r'\b(?:sang|thành)\s+(?:hãng\s+)?(' + '|'.join(_BRANDS) + r')\b', message, re.I)
+    matches = _BRAND_PATTERN.findall(message)
+    target = replacement[1] if replacement else matches[-1] if matches else ''
+    return next((brand for brand in _BRANDS if brand.casefold() == target.casefold()), None)
+
+
+def previous_brand(message):
+    match = re.search(r'\btừ\s+(?:hãng\s+)?(' + '|'.join(_BRANDS) + r')\s+(?:sang|thành)\b', message, re.I)
+    return match[1].casefold() if match else None
+
+
+def replace_brand_requested(message):
+    normalized = ''.join(c for c in unicodedata.normalize('NFD', message.lower()) if not unicodedata.combining(c))
+    return bool(re.search(r'\b(?:doi|thay|chuyen)\b', normalized.replace('đ', 'd')))
 
 
 def conversation_history(context, message):
@@ -16,7 +39,14 @@ def conversation_history(context, message):
     # The UI already appended this turn. It must not appear twice in the history.
     if history and history[-1] == {'role': 'user', 'content': message[:8000]}:
         history.pop()
-    return history
+    bounded = []
+    remaining = 24000
+    for item in reversed(history):
+        if remaining <= 0:
+            break
+        bounded.append({**item, 'content': item['content'][:remaining]})
+        remaining -= len(bounded[-1]['content'])
+    return list(reversed(bounded))
 
 
 async def resolve_request(db, message, context):
@@ -44,11 +74,13 @@ takeoff (thực hiện bóc tách), quotation (tạo/sửa báo giá), catalog_u
 hãng/mã danh mục bóc tách), cad (thực hiện chỉnh sửa bản vẽ). Nhắc đến báo giá hay
 bóc tách trong một câu hỏi giải thích không phải lệnh tạo/sửa; chọn conversation.
 Chỉ trả JSON {"effective_request":"yêu cầu đầy đủ bằng tiếng Việt, tối đa 10000 ký tự",
-"intent":"conversation|takeoff|quotation|catalog_update|cad"}.
+"intent":"conversation|takeoff|quotation|catalog_update|cad", "new_quotation":false}.
+Chỉ đặt new_quotation=true khi người dùng yêu cầu một báo giá mới độc lập với bảng đang trao đổi.
 DỮ LIỆU:
 ''' + json.dumps({'history': history, 'current_request': message,
                   'selected_file_ids': context.get('file_ids') or [],
-                  'active_iteration_id': context.get('iteration_id')}, ensure_ascii=False)
+                  'active_iteration_id': context.get('iteration_id'),
+                  'active_quotation_id': context.get('quotation_iteration_id')}, ensure_ascii=False)
     connections = await ConnectionPoolService.get_ordered_connections(db)
     if not connections:
         raise HTTPException(503, 'Chưa có kết nối AI khả dụng cho EL.')
@@ -56,10 +88,12 @@ DỮ LIỆU:
         db=db, connections=connections, call_fn=VisionAnalyzerService.analyze_text, prompt=prompt)
     for block in ResponseParserService.extract_json_blocks(response):
         effective = block.get('effective_request') if isinstance(block, dict) else None
-        if isinstance(effective, str) and 0 < len(effective.strip()) <= 10000:
-            result = {'original': message, 'effective': effective.strip()}
-            if block.get('intent') in ('conversation', 'takeoff', 'quotation', 'catalog_update', 'cad'):
-                result['intent'] = block['intent']
+        intent = block.get('intent') if isinstance(block, dict) else None
+        if (isinstance(effective, str) and 0 < len(effective.strip()) <= 10000
+                and intent in ('conversation', 'takeoff', 'quotation', 'catalog_update', 'cad')):
+            result = {'original': message, 'effective': effective.strip(), 'intent': intent}
+            if intent == 'quotation' and block.get('new_quotation') is True:
+                result['new_quotation'] = True
             return result
     # Do not execute a detached request if contextualization failed.
     raise HTTPException(502, 'EL chưa nối được ngữ cảnh hội thoại. Bạn vui lòng thử lại.')

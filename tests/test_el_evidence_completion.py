@@ -11,6 +11,145 @@ from app.services.ai.takeoff_catalog import suggest_takeoff_products
 from app.services.ai.el_input_context import input_context
 
 class EvidenceCompletionTests(unittest.IsolatedAsyncioTestCase):
+ def test_remote_tag_does_not_shrink_a_small_control_block_in_one_large_crop(self):
+  parts=device_preview(Image.new('RGB',(1000,1000),'white'),{
+      'symbol_box_2d':[709,666,715,680],'text_box_2d':[709,666,715,680],
+      'tag_box_2d':[733,669,857,677]},tight=True)
+  self.assertEqual([p['source_parts'] for p in parts],
+      [['symbol_box_2d'],['tag_box_2d']])
+
+ def test_rotated_native_label_trims_blank_borders_and_retains_text_marks(self):
+  from PIL import ImageDraw
+  from app.services.ai.evidence_preview import trim_native_text
+  source=Image.new('RGB',(30,300),'white');draw=ImageDraw.Draw(source)
+  draw.line((1,0,1,299),fill='black');draw.line((0,1,29,1),fill='black')
+  draw.rectangle((8,240,20,280),fill='red');draw.rectangle((10,230,12,232),fill='blue')
+  trimmed=trim_native_text(source)
+  self.assertLess(trimmed.height,100)
+  colors=set(trimmed.get_flattened_data())
+  self.assertIn((255,0,0),colors);self.assertIn((0,0,255),colors)
+
+ async def test_unclaimed_stale_tag_geometry_is_not_exported_as_a_device_part(self):
+  from app.services.ai.device_crop_audit import audit_device_previews
+  d=ExtractedDeviceSchema(name='Contactor',category='CONTACTOR',spec='')
+  async def call(path,prompt):
+   request=json.loads(prompt.rsplit('\n',1)[-1])[0]
+   self.assertEqual([p['role'] for p in request['exported_parts']],['LABELED_BLOCK'])
+   return json.dumps({'checks':[{'device_id':'0','matches':True,'symbol_complete':True,
+       'label_complete':True,'identity_unambiguous':True}]})
+  result=await audit_device_previews(Image.new('RGB',(1000,1000)),call,[d],{'boxes':[{
+      'device_id':'0','symbol_box_2d':[100,100,120,200],'text_box_2d':[100,100,120,200],
+      'tag_box_2d':[600,100,700,150],'source_annotation':'adjacent_control_functions'}]})
+  self.assertTrue(result['boxes'][0]['verified']);self.assertIsNone(result['boxes'][0]['tag_box_2d'])
+
+ def test_nearby_shared_header_stays_separate_from_the_target_source_symbol(self):
+  source=Image.new('RGB',(1000,1000),'white')
+  region={'symbol_box_2d':[100,300,140,330],'text_box_2d':[100,100,140,150],
+      'shared_label':True,'relationship_evidence':'Shared heading group'}
+  parts=device_preview(source,region,tight=True)
+  devices=[p for p in parts if p['kind']=='device']
+  self.assertEqual([p['source_parts'] for p in devices],[['symbol_box_2d'],['text_box_2d']])
+  self.assertTrue(any(p['kind']=='relationship' for p in parts))
+
+ async def test_isolated_audit_timeout_retries_only_failed_batch_once(self):
+  from app.core.exceptions import AITimeoutError
+  from app.services.ai.device_crop_audit import audit_device_previews
+  devices=[ExtractedDeviceSchema(name='MCB',category='MCB',spec='') for _ in range(2)]
+  boxes=[{'device_id':str(i),'symbol_box_2d':[100+i*200,100,200+i*200,200],
+      'text_box_2d':[80+i*200,100,100+i*200,200]} for i in range(2)]
+  seen=[]
+  async def call(path,prompt):
+   identity=json.loads(prompt.rsplit('\n',1)[-1])[0]['device_id'];seen.append(identity)
+   if identity=='0' and seen.count('0')==1:raise AITimeoutError('network timeout')
+   return json.dumps({'checks':[{'device_id':identity,'matches':True,
+      'symbol_complete':True,'label_complete':True,'identity_unambiguous':True}]})
+  result=await audit_device_previews(Image.new('RGB',(1000,1000),'white'),call,
+      devices,{'boxes':boxes},batch_size=1,concurrency=2)
+  self.assertEqual(seen.count('0'),2);self.assertEqual(seen.count('1'),1)
+  self.assertFalse(result['processing_interrupted'])
+  self.assertTrue(all(b['verified'] for b in result['boxes']))
+
+ def test_source_template_repairs_geometry_without_copying_reference_device_ratings(self):
+  from PIL import ImageDraw
+  from app.services.ai.source_crop_repair import local_source_repairs
+  source=Image.new('RGB',(1000,1000),'white');draw=ImageDraw.Draw(source)
+  for cy in (200,400):
+   draw.line((180,cy,200,cy),fill='black',width=2)
+   draw.ellipse((198,cy-3,204,cy+3),outline='black',width=2)
+   draw.line((204,cy,222,cy-12),fill='black',width=2)
+   draw.ellipse((220,cy-3,226,cy+3),outline='black',width=2)
+   draw.line((226,cy,246,cy),fill='black',width=2)
+  devices=[ExtractedDeviceSchema(name='MCB',category='MCB',spec=spec,quantity=1,
+      source_observations={'coverage_review':{'region':{'wire_band':True}}})
+      for spec in ('1P 10A 6kA','1P 16A 6kA')]
+  audited={'boxes':[{'device_id':'0','verified':True,'symbol_box_2d':[185,178,205,248]},
+      {'device_id':'1','verified':False,'symbol_box_2d':[396,210,403,225],
+       'text_box_2d':[370,180,389,260]}]}
+  proposals=local_source_repairs(source,devices,audited)
+  self.assertEqual(len(proposals),1)
+  self.assertEqual(proposals[0]['device_id'],'1')
+  box=proposals[0]['symbol_box_2d']
+  self.assertLess(box[0],390);self.assertGreater(box[2],403)
+  self.assertLess(box[1],198);self.assertGreater(box[3],226)
+  self.assertEqual(devices[1].spec,'1P 16A 6kA')
+  self.assertNotIn('audit_observed',proposals[0])
+  self.assertEqual(local_source_repairs(Image.new('RGB',(1000,1000),'white'),devices,audited),[])
+
+ def test_compact_breaker_label_and_full_quantity_annotation_remain_separate_fields(self):
+  from app.services.ai.scoped_takeoff import normalize_scoped_row
+  row=normalize_scoped_row({'category':'CIRCUIT_BREAKER','name':'Aptomat tép','quantity':1,
+      'observed_text':'MCB1P 16A-10kA','spec':'16A-10kA'})
+  self.assertEqual(row['category'],'MCB')
+  note='MỖI LỘ 1 NÚT ẤN ĐIỀU KHIỂN (9 NÚT ẤN)'
+  row=normalize_scoped_row({'category':'CONTROL_COMPONENT','name':'Nút ấn điều khiển',
+      'quantity':9,'spec':note,'observed_text':note})
+  self.assertEqual((row['category'],row['spec'],row['quantity_basis']),('BUTTON','',note))
+
+ def test_dol_label_does_not_inherit_the_upstream_breaker_rating(self):
+  from app.services.ai.scoped_takeoff import normalize_scoped_row
+  row=normalize_scoped_row({'category':'CONTACTOR','name':'DOL','observed_text':'DOL',
+      'spec':'DOL 3P 25A 6kA','in_a':'25A','poles':'3P','icu_ka':'6kA','quantity':1})
+  self.assertEqual((row['category'],row['spec'],row['unit']),('DOL','DOL','Bộ'))
+  self.assertTrue(all(row[k] is None for k in ('in_a','poles','icu_ka')))
+  self.assertEqual(len(row['source_observations']['unverified_claims']),3)
+
+ def test_material_note_distinguishes_total_quantity_from_per_branch_factor(self):
+  from app.services.ai.material_note_evidence import material_annotation
+  row={'name':'Nút ấn điều khiển','category':'BUTTON','quantity':9,
+       'observed_text':'MỖI LỘ 1 NÚT ẤN ĐIỀU KHIỂN (9 NÚT ẤN)'}
+  self.assertEqual(material_annotation(row)['quantity'],9)
+  self.assertIsNone(material_annotation({**row,'quantity':1}))
+
+ async def test_material_note_requires_independent_text_and_quantity_checks_without_claiming_a_symbol(self):
+  from app.services.ai.device_crop_audit import audit_device_previews
+  from app.services.ai.material_note_evidence import material_annotation
+  note=material_annotation({'category':'BUTTON','name':'Nút ấn','quantity':9,'observed_text':'9 NÚT ẤN'})
+  d=ExtractedDeviceSchema(name='Nút ấn',category='BUTTON',quantity=9,spec='',
+      source_observations={'material_annotation':note})
+  box={'device_id':'0','text_box_2d':[100,100,130,300]}
+  for quantity_ok in (False,True):
+   call=AsyncMock(return_value=json.dumps({'checks':[{'device_id':'0','matches':False,
+      'symbol_complete':False,'label_complete':True,'note_complete':True,'note_matches':True,
+      'quantity_matches':quantity_ok,'observed':'9 NÚT ẤN'}]}))
+   result=await audit_device_previews(Image.new('RGB',(1000,1000),'white'),call,[d],{'boxes':[box]})
+   self.assertEqual(result['boxes'][0]['verified'],quantity_ok)
+   apply_verified_boxes([d],result,require_symbols=True)
+   self.assertEqual(d.evidence_region['status']=='verified',quantity_ok)
+   if quantity_ok:
+    self.assertFalse(result['boxes'][0]['symbol_verified'])
+    self.assertEqual(d.evidence_region['evidence_kind'],'material_note')
+    self.assertIn('Ghi chú',device_preview(Image.new('RGB',(1000,1000)),d.evidence_region,tight=True)[0]['label'])
+
+ def test_measurement_and_indicator_functions_are_not_source_ratings(self):
+  from app.services.ai.scoped_takeoff import normalize_scoped_row
+  for category,spec in [('METER','Đo dòng điện'),('METER','Đo điện áp'),
+      ('LIGHT','Đèn báo trạng thái pha'),('SELECTOR_SWITCH','Chuyển mạch đo vôn')]:
+   row=normalize_scoped_row({'name':category,'category':category,'spec':spec,'quantity':1})
+   self.assertEqual(row['spec'],'')
+   self.assertEqual(row['electrical_function'],spec)
+   self.assertEqual(row['source_observations']['function_in_spec'],spec)
+  self.assertEqual(normalize_scoped_row({'category':'METER','spec':'0-500V','quantity':1})['spec'],'0-500V')
+
  async def test_audit_provider_failure_preserves_other_batches_without_recovery(self):
   from app.core.exceptions import AITimeoutError
   from app.services.ai.device_crop_audit import audit_device_previews

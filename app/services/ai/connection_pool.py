@@ -6,6 +6,9 @@ Khi connection chính bị lỗi (429, 401, timeout, 503), tự động chuyển
 import logging
 import asyncio
 import re
+import os
+import hashlib
+import weakref
 from typing import List, Tuple, Callable, Any, Optional
 from datetime import datetime, timezone
 
@@ -26,6 +29,56 @@ from app.services.ai.token_refresh_service import TokenRefreshService
 from app.services.ai.el_progress import run_step
 
 logger = logging.getLogger(__name__)
+_request_gates=weakref.WeakKeyDictionary()
+
+
+def transient_transport_failure(error):
+    """Keep retry classification when the pool wraps a localized error."""
+    seen=set()
+    while error is not None and id(error) not in seen:
+        seen.add(id(error))
+        if isinstance(error,AITimeoutError) or type(error).__name__ in {
+                'ReadError','RemoteProtocolError','ConnectError'}:
+            return True
+        details=getattr(error,'details',{}) or {}
+        if details.get('retryable_transport') is True:
+            return True
+        if details.get('last_error_type') in {'AITimeoutError','ReadError','RemoteProtocolError','ConnectError'}:
+            return True
+        error=error.__cause__ or error.__context__
+    return False
+
+
+def connection_request_gate(connection):
+    loop=asyncio.get_running_loop()
+    try:limit=max(1,min(8,int(os.environ.get('AI_CONNECTION_CONCURRENCY','2'))))
+    except ValueError:limit=2
+    account=(str(connection.provider).strip().lower(),hashlib.sha256(str(connection.api_key).encode()).hexdigest(),limit)
+    gates=_request_gates.setdefault(loop,{})
+    return gates.setdefault(account,asyncio.Semaphore(limit))
+
+
+async def call_connection_request(call_fn, connection, model, call_args):
+    """Bound queue time separately from authentication and inference."""
+    from app.core.config import settings
+    timeout=float(settings.AI_VISION_TIMEOUT)
+    gate = connection_request_gate(connection)
+    try:
+        async with asyncio.timeout(timeout):
+            await gate.acquire()
+    except TimeoutError as exc:
+        raise AITimeoutError(f'Hết thời gian chờ {timeout:g}s để bắt đầu yêu cầu AI.',
+                             {'timeout': timeout, 'stage': 'account_queue'}) from exc
+    try:
+        async with asyncio.timeout(timeout):
+            active_token=await TokenRefreshService.get_active_token(connection.api_key)
+            return await call_fn(provider=connection.provider,api_key=active_token,
+                                 model=model,**call_args)
+    except TimeoutError as exc:
+        raise AITimeoutError(f'Hết thời gian chờ {timeout:g}s khi kết nối máy chủ AI.',
+                             {'timeout':timeout,'stage':'connection_and_model'}) from exc
+    finally:
+        gate.release()
 
 # Các exception cho phép fallback sang connection tiếp theo
 RETRYABLE_EXCEPTIONS = (
@@ -228,13 +281,9 @@ class ConnectionPoolService:
                             if eff_base_url and "base_url" not in call_args:
                                 call_args["base_url"] = eff_base_url
                             
-                            active_api_key = await TokenRefreshService.get_active_token(conn.api_key)
-                            result = await run_step("Đang chờ phản hồi model", call_fn(
-                                provider=provider,
-                                api_key=active_api_key,
-                                model=model_to_use,
-                                **call_args,
-                            ), detail=f"{model_to_use} · Lần gọi {attempt}", tool='model_request')
+                            result = await run_step("Đang chờ phản hồi model", call_connection_request(
+                                call_fn,conn,model_to_use,call_args),
+                                detail=f"{model_to_use} · Lần gọi {attempt}", tool='model_request')
                             logger.info("ConnectionPool: Thành công với %s", conn_label)
                             setattr(conn, "actual_model", model_to_use)
                             return result, conn
@@ -305,7 +354,7 @@ class ConnectionPoolService:
             user_msg = "Hệ thống AI đang tiếp nhận nhiều yêu cầu cùng lúc. Bạn vui lòng đợi ít giây rồi thử lại."
         elif "401" in last_err_str or "AUTH" in last_err_upper:
             user_msg = "Kết nối máy chủ AI tạm thời bị gián đoạn xác thực. Vui lòng thử lại sau."
-        elif "timeout" in last_err_str.lower():
+        elif isinstance(last_error,AITimeoutError) or "timeout" in last_err_str.lower():
             user_msg = "Thời gian phản hồi từ máy chủ AI bị quá hạn. Bạn vui lòng thử lại."
         else:
             user_msg = "Hệ thống máy chủ AI tạm thời gián đoạn kết nối. Bạn vui lòng thử lại sau giây lát."
@@ -316,5 +365,7 @@ class ConnectionPoolService:
                 "total_connections": len(connections),
                 "errors": errors_log,
                 "last_error": str(last_error),
+                "last_error_type": type(last_error).__name__,
+                "retryable_transport": transient_transport_failure(last_error),
             }
         )

@@ -15,6 +15,97 @@ from app.services.ai.takeoff_verifier import engineering_review
 
 
 class ScopedTakeoffTests(unittest.IsolatedAsyncioTestCase):
+    def test_preserves_a_printed_branch_code_reported_as_location(self):
+        from app.services.ai.scoped_takeoff import ground_scoped_identity
+        row = {'name': 'MCB', 'category': 'MCB', 'location': 'Nhánh P7', 'connected_load': 'BƠM PHUN SƯƠNG 07'}
+        self.assertEqual(ground_scoped_identity(row, [])['tag'], 'P7')
+        self.assertEqual(ground_scoped_identity({**row, 'location': 'P7'}, [])['tag'], 'P7')
+        self.assertIsNone(ground_scoped_identity({**row, 'location': 'Nhánh 7'}, []).get('tag'))
+
+    def test_contactor_ratings_are_populated_from_the_printed_contactor_label(self):
+        from app.services.ai.scoped_takeoff import normalize_scoped_row
+        row = normalize_scoped_row({'name': 'Contactor', 'category': 'CONTACTOR', 'spec': '2P-16A',
+                                    'observed_text': '2P-16A C'})
+        self.assertEqual((row['poles'], row['in_a']), (2, 16))
+        self.assertIsNone(row.get('icu_ka'))
+
+    def test_missing_breaker_numbers_are_read_from_the_literal_source_quote(self):
+        from app.services.ai.scoped_takeoff import normalize_scoped_row
+        row = {'category': 'MCB', 'observed_text': 'MCB-1P\n16A-10kA', 'spec': '16A-10kA'}
+        result = normalize_scoped_row(row)
+        self.assertEqual((result['poles'], result['in_a'], result['icu_ka']), (1, 16, 10))
+        conflicting = normalize_scoped_row({**row, 'spec': '20A-6kA'})
+        self.assertIsNone(conflicting.get('in_a'))
+        self.assertIsNone(conflicting.get('icu_ka'))
+
+    def test_literal_24h_control_block_has_a_canonical_timer_type(self):
+        from app.services.ai.scoped_takeoff import normalize_scoped_row
+        row=normalize_scoped_row({'name':'24H','category':'Bộ điều khiển thời gian','spec':'24H'})
+        self.assertEqual(row['category'],'TIMER');self.assertEqual(row['spec'],'24H')
+        timer = normalize_scoped_row({'name': 'Timer', 'observed_text': '24H', 'spec': ''})
+        self.assertEqual(timer['spec'], '24H')
+        unknown = normalize_scoped_row({'name': 'Timer 24H', 'spec': 'Chưa xác định'})
+        self.assertEqual(unknown['spec'], '')
+
+    def test_unknown_cluster_count_does_not_confirm_an_inferred_physical_quantity(self):
+        from app.services.ai.scoped_takeoff import normalize_scoped_row
+        row={'name':'Biến dòng','category':'CT','quantity':3,'drawing_quantity':1,'unit':'Cụm',
+             'observed_text':'Ký hiệu CT đo 3 pha','source_observations':'Chưa ghi tỷ số'}
+        result=normalize_scoped_row(row)
+        self.assertEqual((result['quantity'],result['unit']),(1,'Cụm'))
+        self.assertTrue(result['quantity_review']['blocking'])
+        self.assertEqual(result['source_observations']['unverified_physical_quantity'],3)
+        self.assertEqual(normalize_scoped_row({**row,'observed_text':'3xTI 80/5A'})['quantity'],3)
+
+    def test_auxiliary_types_are_canonical_before_native_load_grounding(self):
+        from app.services.ai.scoped_takeoff import normalize_scoped_row,ground_scoped_identity
+        for category,name,kind in [('CURRENT_TRANSFORMER','Biến dòng','CT'),
+                ('INDICATOR_LIGHT','Đèn báo pha','LIGHT'),('Thiết bị điều khiển','Khởi động từ','CONTACTOR')]:
+            row=normalize_scoped_row({'category':category,'name':name,'connected_load':'Nguồn pha R,Y,B'})
+            self.assertEqual(row['category'],kind)
+            if kind in {'CT','LIGHT'}:
+                self.assertIsNone(ground_scoped_identity(row,[{'text':'80/5A'}])['connected_load'])
+
+    def test_native_tag_must_occur_in_source_before_the_whole_image_review(self):
+        from app.services.ai.scoped_takeoff import ground_scoped_identity
+        labels=[{'text':'L14. Chiếu sáng'},{'text':'MCB-1P 16A-6kA'},{'text':'L1. Logo'}]
+        self.assertEqual(ground_scoped_identity({'tag':'L1'},labels)['tag'],'L1')
+        self.assertEqual(ground_scoped_identity({'tag':'L14'},labels)['tag'],'L14')
+        self.assertIsNone(ground_scoped_identity({'tag':'L4'},labels)['tag'])
+        row=ground_scoped_identity({'tag':'VS'},labels)
+        self.assertIsNone(row['tag']);self.assertEqual(row['source_observations']['unverified_tag']['value'],'VS')
+        self.assertEqual(ground_scoped_identity({'tag':'VS'},labels+[{'text':'VS'}])['tag'],'VS')
+
+    def test_type_and_pole_designations_are_not_branch_tags_or_named_loads(self):
+        from app.services.ai.scoped_takeoff import ground_scoped_identity
+        for tag in ('MCB-1P','MCB 2P','RCBO-1P+N','C'):
+            row=ground_scoped_identity({'tag':tag,'connected_load':'Điều khiển các lộ bơm'},[])
+            self.assertIsNone(row['tag']);self.assertIsNone(row['connected_load'])
+            self.assertEqual(row['source_observations']['function_in_load'],'Điều khiển các lộ bơm')
+        for tag in ('MCB-1','P6','MDK'):
+            self.assertEqual(ground_scoped_identity({'tag':tag},[])['tag'],tag)
+
+    def test_nested_source_load_claim_is_preserved_before_independent_review(self):
+        from app.services.ai.scoped_takeoff import normalize_scoped_row
+        row={'name':'MCB','source_observations':{'connected_load':'VAN ĐIỆN TỪ 02'}}
+        self.assertEqual(normalize_scoped_row(row)['connected_load'],'VAN ĐIỆN TỪ 02')
+        self.assertEqual(normalize_scoped_row({**row,'connected_load':'Bơm 01'})['connected_load'],'Bơm 01')
+        self.assertNotIn('verified',normalize_scoped_row(row))
+
+    def test_final_crop_relocation_does_not_count_one_verified_spare_twice(self):
+        from app.services.ai.scoped_takeoff import deduplicate_checked_rows
+        row={'name':'MCB','category':'MCB','spec':'1P 16A 10kA','quantity':1,
+             'observed_text':'MCB-1P 16A-10kA','connected_load':None}
+        original=[dict(row) for _ in range(3)]
+        boxes=[{'device_id':str(i),'verified':True,'symbol_box_2d':box} for i,box in enumerate(
+            ([794,130,814,166],[854,131,873,166],[803,131,818,177]))]
+        remaining,devices,audited=deduplicate_checked_rows(original,['first','second','duplicate'],{'boxes':boxes})
+        self.assertEqual(len(remaining),2)
+        self.assertEqual(devices,['first','second'])
+        self.assertEqual([b['device_id'] for b in audited['boxes']],['0','1'])
+        boxes[2]['verified']=False
+        self.assertEqual(len(deduplicate_checked_rows(original,[1,2,3],{'boxes':boxes})[0]),3)
+
     async def test_failed_inventory_coverage_defers_costly_device_crop_audit(self):
         with tempfile.TemporaryDirectory() as folder:
             image_path=Path(folder)/'source.png';Image.new('RGB',(100,100),'white').save(image_path)
@@ -134,7 +225,7 @@ class ScopedTakeoffTests(unittest.IsolatedAsyncioTestCase):
                  patch('app.services.ai.scoped_takeoff.ConnectionPoolService.get_ordered_connections', AsyncMock(return_value=[object()])), \
                  patch('app.services.ai.scoped_takeoff.ConnectionPoolService.call_with_fallback', calls):
                 result = await extract_confirmed_panels(db, 1, [{'source_file_id': 7,
-                    'source_page': None, 'panel_code': 'P1', 'source_region': [.1, .1, .5, .5]}], 'Extract P1')
+                    'source_page': None, 'panel_code': 'P1', 'source_region': [.1, .1, .5, .5]}], 'Extract P1', whole_panel=False)
             self.assertEqual(calls.await_count, 3)  # Regional extraction mocked; audit + two recovery reads.
             self.assertTrue(result[0]['evidence_image'])
             self.assertEqual(result[0]['evidence'], 'Q1 20A')

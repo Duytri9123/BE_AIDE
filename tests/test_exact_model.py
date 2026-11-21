@@ -9,6 +9,81 @@ from app.core.exceptions import AIVisionError, AIRateLimitError
 from app.core.exceptions import AITimeoutError
 
 class ExactModelTests(unittest.IsolatedAsyncioTestCase):
+    async def test_queued_request_gets_its_own_model_deadline(self):
+        from app.services.ai.connection_pool import call_connection_request, connection_request_gate
+
+        connection = SimpleNamespace(provider='antigravity', api_key='queue-test')
+        with patch.dict('os.environ', {'AI_CONNECTION_CONCURRENCY': '1'}), \
+             patch('app.core.config.settings.AI_VISION_TIMEOUT', .4), \
+             patch('app.services.ai.connection_pool.TokenRefreshService.get_active_token', AsyncMock(return_value='test-token')):
+            async def call(**kwargs):
+                await asyncio.sleep(.25)
+                return 'ok'
+
+            async with connection_request_gate(connection):
+                request = asyncio.create_task(call_connection_request(call, connection, 'test-model', {}))
+                await asyncio.sleep(.25)
+            self.assertEqual(await request, 'ok')
+
+    async def test_pool_preserves_timeout_type_after_localizing_the_message(self):
+        from app.services.ai.connection_pool import transient_transport_failure
+        model='ag/gemini-3.8-flash-high'
+        connection=SimpleNamespace(id=1,provider='antigravity',selected_model=model,
+            name='test',priority=1,quotas={},api_key='test-token')
+        db=MagicMock();result=MagicMock();result.scalars.return_value.all.return_value=[]
+        db.execute=AsyncMock(return_value=result)
+        with patch.object(ConnectionPoolService,'_record_connection_error',AsyncMock()), \
+             patch('app.services.ai.connection_pool.TokenRefreshService.get_active_token',AsyncMock(return_value='test-token')):
+            with self.assertRaises(AIVisionError) as captured:
+                await ConnectionPoolService.call_with_fallback(db,[connection],
+                    AsyncMock(side_effect=AITimeoutError('Hết thời gian chờ 60s')))
+        self.assertEqual(captured.exception.details['last_error_type'],'AITimeoutError')
+        self.assertTrue(transient_transport_failure(captured.exception))
+        self.assertFalse(transient_transport_failure(AIRateLimitError('429')))
+
+    async def test_same_account_requests_are_bounded_across_copied_connections(self):
+        from app.services.ai.connection_pool import call_connection_request
+        running=0;peak=0
+        async def call(**kwargs):
+            nonlocal running,peak
+            running+=1;peak=max(peak,running)
+            await asyncio.sleep(.01);running-=1
+            return 'ok'
+        connections=[SimpleNamespace(provider='antigravity',api_key='same-test-token') for _ in range(6)]
+        with patch.dict('os.environ',{'AI_CONNECTION_CONCURRENCY':'2'}), \
+             patch('app.services.ai.connection_pool.TokenRefreshService.get_active_token',AsyncMock(return_value='active-test-token')):
+            result=await asyncio.gather(*(call_connection_request(call,c,'ag/gemini-3.8-flash-high',{}) for c in connections))
+        self.assertEqual(result,['ok']*6);self.assertEqual(peak,2)
+
+    async def test_connection_deadline_includes_stalled_token_renewal(self):
+        from app.services.ai.connection_pool import call_connection_request
+        cancelled=asyncio.Event()
+        async def refresh(token):
+            try:await asyncio.Event().wait()
+            finally:cancelled.set()
+        call=AsyncMock()
+        connection=SimpleNamespace(provider='antigravity',api_key='test-token')
+        with patch('app.services.ai.connection_pool.TokenRefreshService.get_active_token',new=refresh), \
+             patch('app.core.config.settings.AI_VISION_TIMEOUT',.02):
+            with self.assertRaises(AITimeoutError):
+                await call_connection_request(call,connection,'ag/gemini-3.8-flash-high',{})
+        self.assertTrue(cancelled.is_set());call.assert_not_awaited()
+
+    async def test_structured_extraction_enables_json_without_changing_native_model(self):
+        from app.services.ai.regional_takeoff import COVERAGE_SCHEMA
+        response=httpx.Response(200,json={'candidates':[{'content':{'parts':[{'text':'{"checks":[]}'}]}}]},
+            request=httpx.Request('POST','https://example.test'))
+        client=AsyncMock();client.post.return_value=response
+        with patch('app.services.ai.vision_analyzer.httpx.AsyncClient') as factory:
+            factory.return_value.__aenter__.return_value=client
+            await VisionAnalyzerService._call_antigravity('', 'test', 'test-token',
+                'ag/gemini-3.8-flash-high',project_id='test-project',json_mode=True,response_schema=COVERAGE_SCHEMA)
+        payload=client.post.call_args.kwargs['json']
+        self.assertEqual(payload['model'],'gemini-3.8-flash-high')
+        self.assertEqual(payload['request']['generationConfig']['responseMimeType'],'application/json')
+        self.assertEqual(payload['request']['generationConfig']['responseSchema'],COVERAGE_SCHEMA)
+        self.assertNotIn('temperature',payload['request']['generationConfig'])
+
     async def test_wall_time_deadline_cancels_a_stalled_request(self):
         cancelled=asyncio.Event()
         async def stalled(*args,**kwargs):

@@ -29,6 +29,9 @@ def apply_verified_boxes(devices: List[ExtractedDeviceSchema], payload: Any, req
                 'candidate_region': candidate,
                 'verification_status': 'needs_review',
                 'reason': proposal.get('audit_reason') or (f'Đọc danh mục từ sơ đồ tủ {pcode}; chưa xác minh được ký hiệu và nhãn riêng.' if pcode else 'Đọc danh mục từ ảnh tủ; chưa xác minh được vùng ký hiệu và nhãn của riêng thiết bị.')}
+            if (device.source_observations or {}).get('material_annotation'):
+                device.evidence_region.update(evidence_kind='material_note',
+                    reason=proposal.get('audit_reason') or 'Agent chưa hoàn tất đối chiếu ghi chú vật tư và số lượng trên nguồn.')
             continue
         device.box_2d = None
         device.evidence_image = None
@@ -36,11 +39,12 @@ def apply_verified_boxes(devices: List[ExtractedDeviceSchema], payload: Any, req
         device.evidence_region = {'status':'unverified',
             'reason':'Đọc danh mục từ ảnh tủ; chưa xác minh được vùng ký hiệu và nhãn của riêng thiết bị.'}
         box = matches[0].get("box_2d")
-        if require_symbols and (matches[0].get('symbol_verified') is not True or not matches[0].get('symbol_box_2d')):
+        note=matches[0].get('evidence_kind')=='material_note' and matches[0].get('note_verified') is True
+        if require_symbols and not note and (matches[0].get('symbol_verified') is not True or not matches[0].get('symbol_box_2d')):
             continue
         if require_symbols and not matches[0].get('text_box_2d') and not matches[0].get('audit_observed'):
             continue
-        if matches[0].get('symbol_verified') is False:
+        if matches[0].get('symbol_verified') is False and not note:
             continue
         if str(device.category).upper() == 'LIGHT' and device.quantity == 1:
             duplicate = any(other is not device and str(other.category).upper() == 'LIGHT'
@@ -69,6 +73,9 @@ def apply_verified_boxes(devices: List[ExtractedDeviceSchema], payload: Any, req
             if not device.box_2d:continue
             device.evidence_region.update(tag_verified=matches[0].get('tag_matches') is True)
             device.evidence_region.update(status='verified',reason='Đã đối chiếu ký hiệu và nhãn trên vùng ảnh nguồn.')
+            if note:
+                device.evidence_region.update(evidence_kind='material_note',note_verified=True,
+                    reason='Đã đối chiếu nguyên văn ghi chú vật tư và số lượng trên nguồn.')
             device.evidence_region.update(coordinate_space='normalized_1000', box_2d=list(device.box_2d))
             device.evidence_region.update(source_overlap=matches[0].get('source_overlap') is True,
                 identity_unambiguous=matches[0].get('identity_unambiguous') is True)

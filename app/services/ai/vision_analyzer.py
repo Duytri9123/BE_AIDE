@@ -5,6 +5,7 @@ import httpx
 import logging
 import asyncio
 import re
+import json
 import hashlib
 from pathlib import Path
 from typing import Optional, Dict, Any, List
@@ -131,6 +132,8 @@ class VisionAnalyzerService:
         base_url: Optional[str] = None,
         enable_web_search: bool = False,
         project_id: Optional[str] = None,
+        json_mode: bool = False,
+        response_schema: Optional[Dict[str, Any]] = None,
     ) -> str:
         """Gọi API AI Vision (Gemini/OpenAI/Claude/Antigravity/Codex/OpenRouter/Groq/etc.) để phân tích hình ảnh."""
         try:
@@ -161,7 +164,8 @@ class VisionAnalyzerService:
             prov = (provider or "").lower().strip()
             img_hash = hashlib.sha256(img_bytes).hexdigest()
             prompt_hash = hashlib.sha256(prompt.encode("utf-8")).hexdigest()[:16]
-            cache_key = f"ai_vision_source_v3:{img_hash}:{prov}:{model.lower()}:{prompt_hash}:{enable_web_search}"
+            contract_hash=hashlib.sha256(json.dumps(response_schema,sort_keys=True).encode()).hexdigest()[:16]
+            cache_key = f"ai_vision_source_v5:{img_hash}:{prov}:{model.lower()}:{prompt_hash}:{enable_web_search}:{json_mode}:{contract_hash}"
 
             # Kiểm tra cache trước khi gọi API
             try:
@@ -186,11 +190,11 @@ class VisionAnalyzerService:
                     if not cleaned_model or "gemini" not in cleaned_model.lower():
                         cleaned_model = "gemini-2.5-flash"
                     result = await VisionAnalyzerService._call_google_genai(
-                        img_b64, prompt, api_key, cleaned_model, provider_name="Google", enable_web_search=enable_web_search
+                        img_b64, prompt, api_key, cleaned_model, provider_name="Google", enable_web_search=enable_web_search, json_mode=json_mode, response_schema=response_schema
                     )
                 else:
                     result = await VisionAnalyzerService._call_antigravity(
-                        img_b64, prompt, api_key, model, enable_web_search=enable_web_search, project_id=project_id
+                        img_b64, prompt, api_key, model, enable_web_search=enable_web_search, project_id=project_id, json_mode=json_mode, response_schema=response_schema
                     )
             elif prov == "codex":
                 result = await VisionAnalyzerService._call_codex(
@@ -205,7 +209,7 @@ class VisionAnalyzerService:
                 if cleaned_model.startswith("ag/"):
                     cleaned_model = cleaned_model[3:]
                 result = await VisionAnalyzerService._call_google_genai(
-                    img_b64, prompt, api_key, cleaned_model, provider_name="Google", enable_web_search=enable_web_search
+                    img_b64, prompt, api_key, cleaned_model, provider_name="Google", enable_web_search=enable_web_search, json_mode=json_mode, response_schema=response_schema
                 )
             elif prov == "openai":
                 result = await VisionAnalyzerService._call_openai(
@@ -752,7 +756,9 @@ class VisionAnalyzerService:
         token: str,
         model: str,
         enable_web_search: bool = False,
-        project_id: Optional[str] = None
+        project_id: Optional[str] = None,
+        json_mode: bool = False,
+        response_schema: Optional[Dict[str, Any]] = None
     ) -> str:
         """Call Antigravity API với OAuth token (chuẩn 9router: User-Agent 2.11.0, requestId, anti-ban)."""
         clean_token = token.strip()
@@ -813,6 +819,11 @@ class VisionAnalyzerService:
         }
         if tools:
             payload["request"]["tools"] = tools
+        if re.search(r'gemini-3\.8',mapped_model,re.I):
+            payload['request']['generationConfig'].pop('temperature',None)
+        if (json_mode or response_schema) and 'gemini' in mapped_model.lower() and not tools:
+            payload['request']['generationConfig']['responseMimeType'] = 'application/json'
+            if response_schema:payload['request']['generationConfig']['responseSchema']=response_schema
         
         timeout = float(settings.AI_VISION_TIMEOUT)
         try:
@@ -854,7 +865,12 @@ class VisionAnalyzerService:
                 
                 resp.raise_for_status()
                 data = resp.json()
-                logger.info('ai_response native_model=%s status=%s model_version=%s', mapped_model, resp.status_code, data.get('response', data).get('modelVersion'))
+                result=data.get('response',data)
+                usage=result.get('usageMetadata') or {}
+                candidates=result.get('candidates') or [{}]
+                logger.info('ai_response native_model=%s status=%s model_version=%s prompt_tokens=%s output_tokens=%s thinking_tokens=%s finish_reason=%s',
+                    mapped_model,resp.status_code,result.get('modelVersion'),usage.get('promptTokenCount'),
+                    usage.get('candidatesTokenCount'),usage.get('thoughtsTokenCount'),candidates[0].get('finishReason'))
                 return extract_antigravity_output(data)
                 
         except (httpx.TimeoutException,TimeoutError) as e:
@@ -880,6 +896,8 @@ class VisionAnalyzerService:
         target_model: str,
         provider_name: str = "Google",
         enable_web_search: bool = False,
+        json_mode: bool = False,
+        response_schema: Optional[Dict[str, Any]] = None,
     ) -> str:
         """Call Google Generative AI API (Google API key) — chỉ dùng model được chỉ định, không tự ý fallback sang model khác."""
         clean_model_name = (
@@ -916,6 +934,12 @@ class VisionAnalyzerService:
             "maxOutputTokens": settings.AI_MAX_OUTPUT_TOKENS,
             "temperature": 0.1,
         }
+        if (json_mode or response_schema) and not enable_web_search:
+            generation_config['responseMimeType'] = 'application/json'
+            if response_schema:generation_config['responseSchema']=response_schema
+        if re.search(r'gemini-3\.8',clean_model_name,re.I):
+            generation_config.pop('temperature',None)
+            generation_config['thinkingConfig']=antigravity_thinking_config(clean_model_name)
 
         payload: Dict[str, Any] = {
             "contents": [{

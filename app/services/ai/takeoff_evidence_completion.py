@@ -11,7 +11,8 @@ from app.core.exceptions import AIVisionError
 def evidence_gaps(device, box):
     gaps = []
     if not box or box.get('verified') is not True:
-        gaps.append('ký hiệu và nhãn thiết bị')
+        note=(device.source_observations or {}).get('material_annotation') or (box or {}).get('evidence_kind')=='material_note'
+        gaps.append('ghi chú vật tư và số lượng' if note else 'ký hiệu và nhãn thiết bị')
     branch_tags = ((device.source_observations or {}).get('linked_device') or {}).get('branch_tags')
     if (device.tag or branch_tags) and (not box or not box.get('tag_box_2d') or box.get('tag_matches') is not True):
         gaps.append('nhãn lộ ' + (device.tag or ' / '.join(branch_tags)))
@@ -20,13 +21,24 @@ def evidence_gaps(device, box):
     return gaps
 
 
-async def complete_evidence(image, image_path, devices, audited, call_image, *, concurrency=1, attempts=2, cache_scope=None):
+async def complete_evidence(image, image_path, devices, audited, call_image, *, concurrency=1, attempts=2, cache_scope=None, local_recovery=True):
     from app.services.ai.device_crop_audit import audit_device_previews
     # A provider outage is not missing source content. Keep successful checks
     # and do not turn the failed batch into another expensive recovery cycle.
     if audited.get('processing_interrupted'):
         return audited
     boxes = {str(box['device_id']): box for box in audited.get('boxes', [])}
+    if local_recovery and attempts:
+        from app.services.ai.source_crop_repair import local_source_repairs
+        proposals=await asyncio.to_thread(local_source_repairs,image,devices,audited)
+        if proposals:
+            checked=await audit_device_previews(image,call_image,devices,{'boxes':proposals},
+                concurrency=concurrency,cache_scope=cache_scope)
+            for box in checked.get('boxes',[]):
+                identity=str(box['device_id']);device=devices[int(identity)]
+                if len(evidence_gaps(device,box))<len(evidence_gaps(device,boxes.get(identity))):boxes[identity]=box
+            if checked.get('processing_interrupted'):
+                return {'boxes':list(boxes.values()),'processing_interrupted':True}
     missing_ids=[str(i) for i,d in enumerate(devices) if evidence_gaps(d,boxes.get(str(i)))]
     if len(missing_ids)>4:
         # Bound each repair to nearby source rows. A single whole-panel request
@@ -43,7 +55,7 @@ async def complete_evidence(image, image_path, devices, audited, call_image, *, 
                 subset=[devices[int(identity)] for identity in identities]
                 local={'boxes':[{**boxes[identity],'device_id':str(i)} for i,identity in enumerate(identities) if identity in boxes]}
                 checked=await complete_evidence(image,image_path,subset,local,call_image,
-                    concurrency=concurrency,attempts=attempts,cache_scope=cache_scope)
+                    concurrency=concurrency,attempts=attempts,cache_scope=cache_scope,local_recovery=False)
                 return {**checked,'boxes':[{**box,'device_id':identities[int(box['device_id'])]} for box in checked['boxes']]}
         tasks=[asyncio.create_task(repair(ids[start:start+4])) for ids in groups.values() for start in range(0,len(ids),4)]
         try:

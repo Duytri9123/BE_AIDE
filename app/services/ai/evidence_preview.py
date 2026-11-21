@@ -5,6 +5,22 @@ import math
 from PIL import Image
 
 
+def trim_native_text(crop):
+    """Remove empty caption margins without painting over any source pixels."""
+    if crop.height<=crop.width*4:return crop
+    import cv2
+    import numpy as np
+    ink=(np.asarray(crop.convert('L'))<240).astype('uint8')*255
+    borders=cv2.bitwise_or(cv2.morphologyEx(ink,cv2.MORPH_OPEN,np.ones((max(9,round(crop.height*.7)),1),'uint8')),
+        cv2.morphologyEx(ink,cv2.MORPH_OPEN,np.ones((1,max(7,round(crop.width*.9))),'uint8')))
+    ys,xs=np.nonzero(cv2.bitwise_and(ink,cv2.bitwise_not(borders)))
+    if not len(xs):return crop
+    pad=max(3,round(crop.width*.3))
+    bounds=(max(0,int(xs.min())-pad),max(0,int(ys.min())-pad),
+            min(crop.width,int(xs.max())+pad+1),min(crop.height,int(ys.max())+pad+1))
+    return crop.crop(bounds) if bounds[3]-bounds[1]<crop.height*.8 else crop
+
+
 def _device_preview(image, region, *, tight=False):
     from app.services.ai.evidence_crops import evidence_crop_pixels
 
@@ -29,12 +45,14 @@ def _device_preview(image, region, *, tight=False):
     box_labels = []
     labels_by_key = {'symbol_box_2d': 'Ký hiệu thiết bị', 'text_box_2d': 'Nhãn và thông số', 'tag_box_2d': 'Ký hiệu lộ'}
     seen = set()
+    box_keys=[]
     for key in ('symbol_box_2d', 'text_box_2d', 'tag_box_2d'):
         box = region.get(key)
         if not box or len(box) != 4 or tuple(box) in seen:
             continue
         seen.add(tuple(box))
         valid_boxes.append(box)
+        box_keys.append(key)
         box_labels.append(labels_by_key[key])
 
     if not valid_boxes:
@@ -43,16 +61,20 @@ def _device_preview(image, region, *, tight=False):
     # Group nearby source parts even when another part (e.g. the tag) is distant.
     # A horizontal breaker and its adjacent rating stay one continuous source crop.
     groups = []
-    for box, label in zip(valid_boxes, box_labels):
-        for group in groups:
+    for box, label, key in zip(valid_boxes, box_labels,box_keys):
+        for group in ([] if region.get('shared_label') is True else groups):
             merged = [min(group['box'][0], box[0]), min(group['box'][1], box[1]),
                       max(group['box'][2], box[2]), max(group['box'][3], box[3])]
-            if merged[2]-merged[0] <= 240 and merged[3]-merged[1] <= 220:
+            gap_x=max(0,box[1]-group['box'][3],group['box'][1]-box[3])
+            gap_y=max(0,box[0]-group['box'][2],group['box'][0]-box[2])
+            near=max(6,min(box[2]-box[0],group['box'][2]-group['box'][0])*2)
+            if merged[2]-merged[0] <= 240 and merged[3]-merged[1] <= 220 and max(gap_x,gap_y)<=near:
                 group['box'] = merged
                 group['labels'].append(label)
+                group['keys'].append(key)
                 break
         else:
-            groups.append({'box': list(box), 'labels': [label]})
+            groups.append({'box': list(box), 'labels': [label],'keys':[key]})
 
     images = []
     for group in groups:
@@ -60,11 +82,14 @@ def _device_preview(image, region, *, tight=False):
         if not pixels:
             continue
         crop = image.crop(pixels).convert('RGB')
+        if ('symbol_box_2d' not in group['keys'] and str(region.get('geometry_source') or '').startswith('native_')):
+            crop=trim_native_text(crop)
         crop.thumbnail((1200, 900), Image.Resampling.LANCZOS)
         output = io.BytesIO()
         crop.save(output, format='PNG')
-        label = 'Ký hiệu và thông số trên sơ đồ gốc' if len(group['labels']) > 1 else group['labels'][0]
-        images.append({'kind': 'device', 'label': label,
+        label = ('Ghi chú vật tư và số lượng trên nguồn' if region.get('evidence_kind')=='material_note'
+                 else 'Ký hiệu và thông số trên sơ đồ gốc' if len(group['labels']) > 1 else group['labels'][0])
+        images.append({'kind': 'device', 'label': label,'source_parts':group['keys'],
             'evidence_image': 'data:image/png;base64,' + base64.b64encode(output.getvalue()).decode()})
 
     return images
@@ -87,7 +112,8 @@ def device_preview(image, region, *, tight=False):
                 'relationship_evidence': shared_relation,
                 'evidence_image': 'data:image/png;base64,' + base64.b64encode(output.getvalue()).decode()})
     if region.get('load_verified') is True and region.get('load_box_2d') and region.get('relationship_evidence'):
-        load = _device_preview(image, {'text_box_2d': region['load_box_2d']}, tight=tight)
+        load = _device_preview(image, {'text_box_2d': region['load_box_2d'],
+            'geometry_source':region.get('geometry_source')}, tight=tight)
         images.extend({**item, 'kind': 'load', 'label': 'Nhãn phụ tải: ' + str(region.get('load_label') or ''),
                        'relationship_evidence': region['relationship_evidence']} for item in load)
         # Keep a continuous source strip so the user can inspect the actual wire,

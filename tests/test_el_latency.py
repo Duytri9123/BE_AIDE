@@ -12,6 +12,26 @@ from app.services.ai import requirement_analysis
 
 
 class RoutingTests(unittest.IsolatedAsyncioTestCase):
+    async def test_follow_up_question_cannot_save_a_quote_even_if_the_reply_contains_a_table(self):
+        payload = SimpleNamespace(project_id=1, message='Vì sao chọn LS cho Q1?')
+        context = {'resolved_request': {'intent': 'conversation'}}
+        with patch.object(el_agent, 'save_quotation_iteration', AsyncMock()) as save, \
+             patch.object(el_agent, 'update_takeoff_brand_iteration', AsyncMock()) as brand:
+            result = await el_agent.format_reply_response(None, payload, None, context,
+                'Q1 dùng cho bảo vệ nguồn.\n| đơn giá | thành tiền |\n| - | - |', {})
+        self.assertIn('Q1', result['reply'])
+        save.assert_not_awaited()
+        brand.assert_not_awaited()
+
+    async def test_quote_parser_preserves_only_requested_items_and_recalculates_totals(self):
+        _, rows = el_agent.standardize_quotation_table_and_rows(
+            '| TT | MÔ TẢ CHI TIẾT | MÃ HÀNG | XUẤT XỨ | ĐƠN VỊ | SỐ LƯỢNG | ĐƠN GIÁ | THÀNH TIỀN | GHI CHÚ |\n'
+            '| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n'
+            '| 1 | MCB | | ABB | Cái | 2 | 120,000 | 99,000 | Q1 |')
+        items = [row for row in rows if row['row_type'] == 'item']
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]['line_total'], 240000)
+
     async def test_greetings_do_not_invoke_model_or_discover_sources(self):
         durations = []
         with patch.object(el_agent, 'owned_project', AsyncMock()), patch.object(el_agent.ConnectionPoolService, 'call_with_fallback', AsyncMock()) as model, patch('app.services.ai.takeoff_regions.discover_panels', AsyncMock()) as discovery:
@@ -42,8 +62,10 @@ class RoutingTests(unittest.IsolatedAsyncioTestCase):
         payload = SimpleNamespace(project_id=1, message='Bóc tách tủ đã xác nhận P1', context={
             'file_ids': [7], 'takeoff_scope': [{'scope_token': sign_scope(panel, 1)}]})
         rows = [{'name': 'MCB', 'panel_code': 'P1'}]
+        db = AsyncMock()
+        db.execute.return_value = MagicMock()
         with patch.object(el_agent, 'owned_project', AsyncMock()), patch('app.services.ai.scoped_takeoff.extract_confirmed_panels', AsyncMock(return_value=rows)) as extractor, patch.object(el_agent, 'format_reply_response', AsyncMock(return_value={'reply': 'saved'})) as formatter, patch.object(el_agent.ConnectionPoolService, 'call_with_fallback', AsyncMock()) as planner:
-            result = await el_agent.next_action(payload, SimpleNamespace(app=None), None, None)
+            result = await el_agent.next_action(payload, SimpleNamespace(app=None), db, None)
         self.assertEqual(result['reply'], 'saved')
         self.assertEqual(extractor.await_args.args[2][0]['source_region'], panel['source_region'])
         self.assertEqual(formatter.await_args.args[3]['observations'][0]['arguments']['source_region'], panel['source_region'])

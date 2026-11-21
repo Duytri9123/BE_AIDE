@@ -3,8 +3,8 @@ import re
 
 
 def is_direct_starter_label(row):
-    label = str(row.get('observed_text') or row.get('spec') or '').strip()
-    return bool(re.fullmatch(r'D\.?\s*O\.?\s*L\.?', label, re.I) or
+    labels = (str(row.get(field) or '').strip() for field in ('observed_text', 'spec'))
+    return bool(any(re.fullmatch(r'D\.?\s*O\.?\s*L\.?', label, re.I) for label in labels) or
                 re.search(r'khởi động trực tiếp|direct.on.line', str(row.get('name') or ''), re.I))
 
 

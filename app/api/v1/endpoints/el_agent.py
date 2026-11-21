@@ -549,85 +549,72 @@ async def save_takeoff_iteration(db, project_id: int, user_id: int, message: str
     return iteration.id, clean_devices
 
 
-async def update_takeoff_brand_iteration(db, project_id: int, user_id: int, message: str, reply: str, devices: list, file_ids: list) -> tuple:
-    from app.services.project_conversation import project_session
+async def update_takeoff_brand_iteration(db, project_id, user_id, message, reply, iteration_id):
     from app.models.analysis_iteration import AnalysisIteration
-    from app.models.project_file import ProjectFile
-    import logging
-    logger = logging.getLogger(__name__)
+    from app.services.project_conversation import project_session
+    from app.services.ai.el_conversation import previous_brand, requested_brand, replace_brand_requested
 
+    target_brand = requested_brand(message)
+    if not target_brand or not iteration_id:
+        return None, [], 0
     session = await project_session(db, project_id, user_id)
-    existing_iter = (await db.execute(
-        select(AnalysisIteration)
-        .where(AnalysisIteration.session_id == session.id)
-        .order_by(AnalysisIteration.iteration_number.desc())
-    )).scalars().first()
+    iteration = (await db.execute(select(AnalysisIteration).where(
+        AnalysisIteration.session_id == session.id, AnalysisIteration.id == iteration_id,
+    ))).scalar_one_or_none()
+    if not iteration:
+        return None, [], 0
+    previous = iteration.devices_after_validation or iteration.ai_parsed_devices or []
+    if not isinstance(previous, list) or not previous:
+        return None, [], 0
 
-    project_files = (await db.execute(select(ProjectFile).where(ProjectFile.project_id == project_id, ProjectFile.id.in_(file_ids)))).scalars().all()
-    cad_file = next((f for f in project_files if f.filename and f.filename.lower().endswith(('.dwg', '.dxf'))), None)
-    pdf_file = next((f for f in project_files if f.filename and f.filename.lower().endswith('.pdf')), None)
+    import re
+    def mentioned(value):
+        return bool(value and re.search(r'(?<![\w-])' + re.escape(str(value)) + r'(?![\w-])', message, re.I))
 
-    if not existing_iter:
-        return await save_takeoff_iteration(db, project_id, user_id, message, reply, devices or [], file_ids)
+    tagged = {row['tag'] for row in previous if mentioned(row.get('tag'))}
+    panels = {row['panel_code'] for row in previous if mentioned(row.get('panel_code'))}
+    named = {row['name'] for row in previous if not tagged and mentioned(row.get('name'))}
+    if named:
+        named = {name for name in named if not any(name != other and name in other for other in named)}
+    replace_brand = replace_brand_requested(message)
+    old_brand_filter = previous_brand(message)
+    changed = []
+    rows = []
+    for original in previous:
+        row = dict(original)
+        if ((not tagged or row.get('tag') in tagged) and (not panels or row.get('panel_code') in panels)
+                and (not named or row.get('name') in named)):
+            old = row.get('brand')
+            if old_brand_filter and str(old or '').casefold() != old_brand_filter:
+                rows.append(row)
+                continue
+            if str(old or '').casefold() != target_brand.casefold() and (
+                    replace_brand or old in (None, '', '-', 'Thiết bị điện', 'Chưa chọn', 'Thiết bị')):
+                row['brand'] = target_brand
+                for key in ('catalog_candidates', 'suggested_brands', 'selection_analysis'):
+                    row.pop(key, None)
+                if row.pop('catalog_source', None):
+                    row['part_number'] = None
+                changed.append(row)
+        rows.append(row)
+    if not changed:
+        return iteration.id, rows, 0
 
-    # Đã có phiên bóc tách trước đó: CẬP NHẬT TRỰC TIẾP phiên này, tuyệt đối không tạo thêm phiên trùng lặp
-    clean_devices = []
-    if devices and isinstance(devices, list) and len(devices) > 0:
-        clean_devices = clean_devices_list(devices, project_id, cad_file, pdf_file)
-    else:
-        clean_devices = list(existing_iter.devices_after_validation or existing_iter.ai_parsed_devices or [])
-
-    user_msg_lower = message.lower()
-    target_brand = None
-    for b in ('LS', 'Schneider', 'Mitsubishi', 'ABB', 'Chint', 'Panasonic', 'Hyundai', 'Fuji', 'Legrand'):
-        if b.lower() in user_msg_lower:
-            target_brand = b
-            break
-    if not target_brand and 'ls' in user_msg_lower:
-        target_brand = 'LS'
-
-    if target_brand:
-        for d in clean_devices:
-            if not d.get('brand') or d.get('brand') in ('Thiết bị điện', 'Chưa chọn', '-', 'Thiết bị') or 'ls' in user_msg_lower:
-                d['brand'] = target_brand
-
-    file_names = [f.filename for f in project_files if f.id in file_ids] if file_ids else []
-    if not file_names and cad_file:
-        file_names = [cad_file.filename]
-    elif not file_names and pdf_file:
-        file_names = [pdf_file.filename]
-
-    scores = dict(existing_iter.confidence_scores or {})
+    scores = dict(iteration.confidence_scores or {})
     panel_groups = {}
-    for d in clean_devices:
-        pcode = d.get('panel_code') or 'Tủ điện'
-        if pcode not in panel_groups:
-            panel_groups[pcode] = {
-                'panel_code': pcode,
-                'panel_name': d.get('panel_name') or f"Tủ {pcode}",
-                'devices': []
-            }
-        panel_groups[pcode]['devices'].append(d)
+    for row in rows:
+        code = row.get('panel_code') or 'Tủ điện'
+        panel_groups.setdefault(code, {
+            'panel_code': code, 'panel_name': row.get('panel_name') or f'Tủ {code}', 'devices': []
+        })['devices'].append(row)
     scores['panels'] = list(panel_groups.values())
-    if cad_file and not scores.get('panel_images'):
-        scores['panel_images'] = generate_cad_previews(project_id)
-
-    existing_iter.confidence_scores = scores
-    existing_iter.ai_parsed_devices = clean_devices
-    existing_iter.devices_after_validation = clean_devices
-    existing_iter.user_corrections = {
-        "reply": reply,
-        "file_ids": file_ids,
-        "last_brand_update": message
-    }
-    existing_iter.files_analyzed = {
-        "file_ids": file_ids,
-        "file_names": file_names
-    }
+    iteration.confidence_scores = scores
+    iteration.ai_parsed_devices = rows
+    iteration.devices_after_validation = rows
+    iteration.user_corrections = {**(iteration.user_corrections or {}), 'reply': reply,
+                                  'last_brand_update': message}
     await db.commit()
-    await db.refresh(existing_iter)
-    logger.info("Updated existing takeoff AnalysisIteration #%d with brand %s for project %d", existing_iter.id, target_brand, project_id)
-    return existing_iter.id, clean_devices
+    return iteration.id, rows, len(changed)
 
 
 def is_brand_or_catalog_update_request(message: str) -> bool:
@@ -906,7 +893,6 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
     col_unit_idx = 4
     col_qty_idx = 5
     col_price_idx = 6
-    col_total_idx = 7
     col_notes_idx = 8 if len(headers) >= 9 else -1
 
     for idx, nh in enumerate(norm_headers):
@@ -922,8 +908,6 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
             col_qty_idx = idx
         elif 'don gia' in nh:
             col_price_idx = idx
-        elif 'thanh tien' in nh:
-            col_total_idx = idx
         elif any(k in nh for k in ('ghi chu', 'note', 'vi tri')):
             col_notes_idx = idx
 
@@ -971,7 +955,6 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
         raw_unit = cols[col_unit_idx] if col_unit_idx < len(cols) else "Cái"
         raw_qty = cols[col_qty_idx] if col_qty_idx < len(cols) else "1"
         raw_price = cols[col_price_idx] if col_price_idx < len(cols) else "0"
-        raw_total = cols[col_total_idx] if col_total_idx < len(cols) else "0"
         raw_notes = cols[col_notes_idx] if 0 <= col_notes_idx < len(cols) else ""
 
         if not raw_name or raw_name in ('—', '-', ''):
@@ -986,7 +969,7 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
             brand = 'VN'
         else:
             b_clean = raw_brand.strip()
-            brand = b_clean.upper() if b_clean.upper() in ('SCHNEIDER', 'LS', 'CHINT', 'MITSUBISHI', 'VN', 'ABB', 'HAGER') else (b_clean or 'VN')
+            brand = b_clean.upper() if b_clean.upper() in ('SCHNEIDER', 'LS', 'CHINT', 'MITSUBISHI', 'VN', 'ABB', 'HAGER') else b_clean
 
         # Unit
         if any(k in normalize_vietnamese_text(name) for k in ('vo tu', 'enclosure')):
@@ -998,7 +981,7 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
 
         qty, _ = extract_qty_unit(raw_qty, name)
         unit_price = parse_col_num(raw_price)
-        line_total = parse_col_num(raw_total) or (qty * unit_price)
+        line_total = qty * unit_price
 
         parsed_items.append({
             'name': name,
@@ -1013,64 +996,8 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
             'category': cat
         })
 
-    # Ensure all 4 enclosure & accessories rows exist
-    has_vo_tu = any('vo tu' in normalize_vietnamese_text(it['name']) for it in parsed_items)
-    has_busbar = any(any(k in normalize_vietnamese_text(it['name']) for k in ('thanh cai', 'dong do', 'busbar')) for it in parsed_items)
-    has_acc = any(any(k in normalize_vietnamese_text(it['name']) for k in ('vat tu phu', 'phu kien')) for it in parsed_items)
-    has_labor = any(any(k in normalize_vietnamese_text(it['name']) for k in ('nhan cong', 'lap rap')) for it in parsed_items)
-
-    if not has_vo_tu:
-        parsed_items.insert(0, {
-            'name': 'Vỏ tủ điện trong nhà 2 lớp cánh, sơn tĩnh điện.<br>+ KT : H2300xW1000xD250xT2.0mm<br>+ Có chân đế cao 100mm',
-            'spec': 'H2300xW1000xD250xT2.0mm',
-            'sku': 'Sơn tĩnh điện',
-            'brand': 'VN',
-            'unit': 'Cái',
-            'quantity': 1.0,
-            'unit_price': 3500000,
-            'line_total': 3500000,
-            'notes': '',
-            'category': 'enclosure_accessories'
-        })
-    if not has_busbar:
-        parsed_items.insert(1, {
-            'name': 'Đồng thanh cái mạ thiếc bọc co nhiệt',
-            'spec': '1mm=2A, N=50%, E=25%',
-            'sku': '1mm=2A, N=50%, E=25%',
-            'brand': 'VN',
-            'unit': 'Tủ',
-            'quantity': 1.0,
-            'unit_price': 1800000,
-            'line_total': 1800000,
-            'notes': '',
-            'category': 'enclosure_accessories'
-        })
-    if not has_acc:
-        parsed_items.insert(2, {
-            'name': 'Vật tư phụ ( đầu cos, dây điều khiển, sứ ...)',
-            'spec': '',
-            'sku': '',
-            'brand': 'VN',
-            'unit': 'Tủ',
-            'quantity': 1.0,
-            'unit_price': 850000,
-            'line_total': 850000,
-            'notes': '',
-            'category': 'enclosure_accessories'
-        })
-    if not has_labor:
-        parsed_items.insert(3, {
-            'name': 'Nhân công lắp ráp tủ',
-            'spec': '',
-            'sku': '',
-            'brand': 'VN',
-            'unit': 'Tủ',
-            'quantity': 1.0,
-            'unit_price': 1500000,
-            'line_total': 1500000,
-            'notes': '',
-            'category': 'enclosure_accessories'
-        })
+    if not parsed_items:
+        return raw_markdown, []
 
     sections = [
         ('enclosure_accessories', '*', 'Vỏ tủ + phụ kiện'),
@@ -1197,7 +1124,7 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
     return "\n".join(out_md), structured_rows
 
 
-async def save_quotation_iteration(db, project_id: int, user_id: int, message: str, reply: str, quotation_rows: list, file_ids: list) -> tuple:
+async def save_quotation_iteration(db, project_id: int, user_id: int, message: str, reply: str, quotation_rows: list, file_ids: list, iteration_id=None) -> tuple:
     from app.services.project_conversation import project_session
     from app.models.analysis_iteration import AnalysisIteration
     from app.models.project_file import ProjectFile
@@ -1206,11 +1133,13 @@ async def save_quotation_iteration(db, project_id: int, user_id: int, message: s
     logger = logging.getLogger(__name__)
 
     session = await project_session(db, project_id, user_id)
-    existing_iter = (await db.execute(
-        select(AnalysisIteration)
-        .where(AnalysisIteration.session_id == session.id)
-        .order_by(AnalysisIteration.iteration_number.desc())
-    )).scalars().first()
+    existing_iter = None
+    if iteration_id:
+        existing_iter = (await db.execute(select(AnalysisIteration).where(
+            AnalysisIteration.session_id == session.id, AnalysisIteration.id == iteration_id,
+        ))).scalar_one_or_none()
+        if not existing_iter:
+            raise HTTPException(404, 'Không tìm thấy kết quả báo giá đang trao đổi trong dự án này.')
 
     project_files = (await db.execute(select(ProjectFile).where(ProjectFile.project_id == project_id, ProjectFile.id.in_(file_ids)))).scalars().all()
     file_names = [f.filename for f in project_files if f.id in file_ids] if file_ids else []
@@ -1641,36 +1570,18 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
 
     # 1. Trường hợp người dùng yêu cầu bổ sung hãng / cập nhật mã / thương hiệu
     if is_brand_update:
-        target_brand = 'LS'
-        for b in ('LS', 'Schneider', 'Mitsubishi', 'ABB', 'Chint', 'Panasonic', 'Hyundai', 'Fuji', 'Legrand'):
-            if b.lower() in user_msg.lower():
-                target_brand = b
-                break
-        iteration_id = None
-        try:
-            iteration_id, clean_devices = await update_takeoff_brand_iteration(
-                db=db,
-                project_id=payload.project_id,
-                user_id=user.id,
-                message=payload.message,
-                reply=reply_text,
-                devices=None,
-                file_ids=context.get('file_ids', [])
-            )
-            devices_data = clean_devices
-        except Exception as e:
-            logger.warning("Could not update brand iteration: %s", e)
-
-        brand_reply = f"Đã cập nhật thương hiệu **{target_brand}** cho toàn bộ {len(devices_data or [])} thiết bị trong phiên bóc tách hiện tại. Bảng tổng hợp thiết bị và dữ liệu xuất báo giá đã được cập nhật đồng bộ."
-        resp = {
-            'reply': brand_reply,
-            'iteration_id': iteration_id,
-            'devices': devices_data,
-            'action_type': 'update_devices'
-        }
-        if detected_panels:
-            resp['detected_panels'] = detected_panels
-        return resp
+        from app.services.ai.el_conversation import requested_brand
+        target_brand = requested_brand(user_msg)
+        if not target_brand:
+            return {'reply': reply_text}
+        iteration_id, devices_data, changed_count = await update_takeoff_brand_iteration(
+            db, payload.project_id, user.id, user_msg, reply_text, context.get('iteration_id'))
+        if not iteration_id:
+            return {'reply': 'Hãy mở kết quả bóc tách cần đổi hãng trong dự án này rồi gửi lại yêu cầu.'}
+        brand_reply = (f'Đã cập nhật hãng **{target_brand}** cho {changed_count} dòng thiết bị.' if changed_count
+                       else f'Không có dòng thiết bị nào cần cập nhật sang hãng **{target_brand}**.')
+        return {'reply': brand_reply,
+                'iteration_id': iteration_id, 'devices': devices_data, 'action_type': 'update_devices'}
 
     # 2. Trường hợp người dùng yêu cầu tạo bảng báo giá / dự toán báo giá
     is_quotation = (resolved_intent == 'quotation' if resolved_intent else
@@ -1678,92 +1589,13 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
     if is_quotation:
         clean_reply, quotation_rows = standardize_quotation_table_and_rows(reply_text)
 
-        # Nếu LLM chưa tạo bảng hoặc bảng bị thiếu, tự động lập báo giá từ danh sách thiết bị đã bóc tách của dự án
         if not quotation_rows:
-            try:
-                import sqlite3, json
-                conn = sqlite3.connect('webbaogia.db')
-                c = conn.cursor()
-                c.execute('''
-                    SELECT devices_after_validation FROM analysis_iterations
-                    WHERE session_id IN (SELECT id FROM conversation_sessions WHERE project_id = ?)
-                    ORDER BY id DESC LIMIT 1
-                ''', (payload.project_id,))
-                row = c.fetchone()
-                if row and row[0]:
-                    exist_devs = json.loads(row[0])
-                    if isinstance(exist_devs, list) and exist_devs:
-                        # Build standard 9-column markdown table from devices
-                        panel_code = "TĐ-T"
-                        for d in exist_devs:
-                            if d.get('panel_code'):
-                                panel_code = str(d.get('panel_code')).strip()
-                                break
-
-                        raw_table_lines = [
-                            f"Dưới đây là bảng báo giá dự toán chi tiết cho TỦ ĐIỆN {panel_code} theo tiêu chuẩn ngành tủ điện Việt Nam:",
-                            "",
-                            "| TT | MÔ TẢ CHI TIẾT | MÃ HÀNG | XUẤT XỨ | ĐƠN VỊ | SỐ LƯỢNG | ĐƠN GIÁ | THÀNH TIỀN | GHI CHÚ |",
-                            "|:---:|:---|:---:|:---:|:---:|:---:|---:|---:|:---|",
-                            f"| **1** | **TỦ ĐIỆN {panel_code}** | | **VN** | **Tủ** | **1.00** | | | |",
-                            "| **\\*** | **Vỏ tủ + phụ kiện** | | | | | | | |",
-                            "| + | Vỏ tủ điện trong nhà 2 lớp cánh, sơn tĩnh điện.<br>+ KT : H2300xW1000xD250xT2.0mm<br>+ Có chân đế cao 100mm | Sơn tĩnh điện | VN | Cái | 1.00 | 3,500,000 | 3,500,000 | |",
-                            "| + | Đồng thanh cái mạ thiếc bọc co nhiệt | 1mm=2A, N=50%, E=25% | VN | Tủ | 1.00 | 1,800,000 | 1,800,000 | |",
-                            "| + | Vật tư phụ ( đầu cos, dây điều khiển, sứ ...) | | VN | Tủ | 1.00 | 850,000 | 850,000 | |",
-                            "| + | Nhân công lắp ráp tủ | | VN | Tủ | 1.00 | 1,500,000 | 1,500,000 | |"
-                        ]
-
-                        incomer_devs = []
-                        outgoing_devs = []
-                        for d in exist_devs:
-                            d_name = str(d.get('name') or d.get('device_type') or d.get('category') or '')
-                            d_sec = str(d.get('section') or '').lower()
-                            if any(k in d_sec for k in ('dau vao', 'incom', 'main', 'tong')) or any(k in d_name.upper() for k in ('MCCB', 'ACB', 'DEN BAO', 'CAU CHI', 'BIEN DONG', 'DONG HO', 'CHUYEN MACH', 'CONG TO')):
-                                incomer_devs.append(d)
-                            else:
-                                outgoing_devs.append(d)
-
-                        if incomer_devs:
-                            raw_table_lines.append("| **\\*** | **Đầu vào** | | | | | | | |")
-                            for d in incomer_devs:
-                                d_name = clean_device_name(str(d.get('name') or ''), str(d.get('spec') or ''))
-                                d_sku, d_notes = extract_clean_sku(str(d.get('part_number') or d.get('sku') or ''), d_name, str(d.get('spec') or ''))
-                                d_brand = str(d.get('brand') or 'SCHNEIDER').upper()
-                                d_qty = float(d.get('quantity') or 1.0)
-                                d_price = 5030800 if 'MCCB' in d_name else (38200 if 'Đèn báo' in d_name else 150000)
-                                d_total = int(d_qty * d_price)
-                                raw_table_lines.append(f"| + | {d_name} | {d_sku} | {d_brand} | Cái | {d_qty:.2f} | {d_price:,} | {d_total:,} | {d_notes} |")
-
-                        if outgoing_devs:
-                            raw_table_lines.append("| **\\*** | **Đầu ra** | | | | | | | |")
-                            for d in outgoing_devs:
-                                d_name = clean_device_name(str(d.get('name') or ''), str(d.get('spec') or ''))
-                                d_sku, d_notes = extract_clean_sku(str(d.get('part_number') or d.get('sku') or ''), d_name, str(d.get('spec') or ''))
-                                d_brand = str(d.get('brand') or 'SCHNEIDER').upper()
-                                d_qty = float(d.get('quantity') or 1.0)
-                                d_price = 1261000 if 'RCBO' in d_name else (87300 if '1P' in d_name else 1482800)
-                                d_total = int(d_qty * d_price)
-                                raw_table_lines.append(f"| + | {d_name} | {d_sku} | {d_brand} | Cái | {d_qty:.2f} | {d_price:,} | {d_total:,} | {d_notes} |")
-
-                        clean_reply, quotation_rows = standardize_quotation_table_and_rows("\n".join(raw_table_lines), panel_info_default=f"TỦ ĐIỆN {panel_code}")
-                conn.close()
-            except Exception as ex:
-                logger.warning("Could not auto-generate quotation: %s", ex)
-
-        iteration_id = None
-        if quotation_rows:
-            try:
-                iteration_id, quotation_rows = await save_quotation_iteration(
-                    db=db,
-                    project_id=payload.project_id,
-                    user_id=user.id,
-                    message=payload.message,
-                    reply=clean_reply,
-                    quotation_rows=quotation_rows,
-                    file_ids=context.get('file_ids', [])
-                )
-            except Exception as e:
-                logger.warning("Could not save quotation iteration: %s", e)
+            return {'reply': clean_reply or 'EL cần thêm thông tin để hoàn tất bảng báo giá.'}
+        iteration_id, quotation_rows = await save_quotation_iteration(
+            db=db, project_id=payload.project_id, user_id=user.id, message=user_msg, reply=clean_reply,
+            quotation_rows=quotation_rows, file_ids=context.get('file_ids', []),
+            iteration_id=(None if (context.get('resolved_request') or {}).get('new_quotation') else
+                          context.get('quotation_iteration_id') or context.get('iteration_id')))
 
         resp = {
             'reply': clean_reply,
@@ -1833,6 +1665,9 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
     devices_data = devices_data if isinstance(devices_data, list) else []
     devices_data = [d for d in devices_data if isinstance(d, dict)]
     confirmed = context.get('confirmed_panels') or []
+    coverage_reports = [(device.get('source_observations') or {}).get('coverage_review') or {} for device in devices_data]
+    whole_panel_unfinished = bool(confirmed and any(report.get('method') == 'whole_panel'
+        and report.get('status') != 'passed' for report in coverage_reports))
     if confirmed:
         allowed = {(p['source_file_id'], p.get('source_page'), p['panel_code'].casefold()): p for p in confirmed}
         for device in devices_data:
@@ -1846,8 +1681,12 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
                 device['notes'] = (str(device.get('notes') or '') + ' Chỉ xác định vùng tủ; chưa có vùng riêng cho thiết bị.').strip()
     if confirmed:
         incomplete = []
+        from app.services.ai.scoped_validation import ScopedValidation
+        scoped_proof = context.get('_scoped_validation')
         for device in devices_data:
             region = device.get('evidence_region') or {}
+            if isinstance(scoped_proof, ScopedValidation) and region.get('status') == 'panel_checked':
+                continue
             gaps = list((device.get('source_observations') or {}).get('evidence_gaps') or [])
             if region.get('status') != 'verified' or not device.get('evidence_image'):
                 gaps.append('ảnh ký hiệu và nhãn chưa được xác minh')
@@ -1863,7 +1702,7 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
                 _tag = str(_d.get('tag') or _d.get('name') or '')
                 if any(_tag in item for item in incomplete):
                     _d.setdefault('evidence_region', {})['status'] = 'needs_review'
-                    _d['_evidence_note'] = 'Chua du minh chung; can ra soat.'
+                    _d['_evidence_note'] = 'Agent chưa hoàn tất định vị ảnh hoặc đối chiếu nhãn và dây nối; cần xử lý tiếp.'
     if requested_panels:
         devices_data = [d for d in devices_data
                         if (d.get('panel_code') or d.get('panel') or '').casefold()
@@ -1887,7 +1726,7 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
         for d in devices_data:
             if id(d) not in grounded_set:
                 d.setdefault('evidence_region', {})['status'] = 'needs_review'
-                d.setdefault('_evidence_note', 'Thiet bi chua co minh chung vi tri; can ra soat.')
+                d.setdefault('_evidence_note', 'Agent chưa xác minh xong vị trí thiết bị trên ảnh nguồn; cần xử lý tiếp.')
     devices_data = grounded_devices + [
         d for d in devices_data
         if id(d) not in set(id(x) for x in grounded_devices)
@@ -1926,7 +1765,9 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
     if devices_data:
         from app.services.ai.takeoff_verifier import verify_takeoff
         try:
-            if confirmed:
+            if whole_panel_unfinished:
+                review = {'passed': False, 'feedback': 'Chưa hoàn tất đối chiếu danh mục trên sơ đồ toàn tủ.'}
+            elif confirmed:
                 reviews = []
                 for panel in confirmed:
                     rows = [d for d in devices_data if d.get('source_file_id') == panel['source_file_id']
@@ -1986,8 +1827,10 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
 
     if iteration_id:
         reply_text = f'Đã lưu {len(devices_data)} dòng thiết bị vào phiên bóc tách riêng.'
-        pending = sum((d.get('evidence_region') or {}).get('status') != 'verified' for d in devices_data)
-        if pending:
+        pending = sum((d.get('evidence_region') or {}).get('status') not in {'verified', 'panel_checked'} for d in devices_data)
+        if whole_panel_unfinished:
+            reply_text += ' Agent chưa hoàn tất đối chiếu danh mục toàn tủ. Kết quả này cần rà soát trước khi dùng.'
+        elif pending:
             reply_text += f' Agent còn {pending} dòng chưa hoàn tất định vị ảnh hoặc đối chiếu logic mạch; các dòng này được lưu để rà soát.'
         elif (context.get('takeoff_review') or {}).get('passed') is False:
             reply_text += ' Agent chưa hoàn tất đối chiếu danh mục theo nguồn; bản này cần xử lý tiếp.'
@@ -2037,6 +1880,10 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
               'catalog_update' if is_brand_or_catalog_update_request(payload.message) else 'conversation')
     context = {**context, 'input_context': input_context(payload.message, context, intent, scope)}
     context_brief = {k: v for k, v in context['input_context'].items() if k != 'recent_conversation'}
+    if resolution.get('intent') == 'catalog_update':
+        from app.services.ai.el_conversation import requested_brand, replace_brand_requested
+        if requested_brand(payload.message) and replace_brand_requested(payload.message):
+            return await format_reply_response(db, payload, user, context, payload.message, {})
     if intent == 'takeoff' and context.get('file_ids') and not scope:
         return await run_step("Đang đọc nguồn để xác định các vùng tủ", discover_panels(db, payload.project_id, context['file_ids']))
     if scope:
@@ -2049,7 +1896,7 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
                 from app.services.ai.scoped_validation import seal_scoped_validation
                 from app.models.project_file import ProjectFile
                 context['_scoped_validation'] = None
-                if devices and all(d.get('evidence_image') and (d.get('evidence_region') or {}).get('status') == 'verified' for d in devices):
+                if devices:
                     proof_files = (await db.execute(select(ProjectFile).where(ProjectFile.project_id == payload.project_id,
                         ProjectFile.id.in_({p['source_file_id'] for p in scope})))).scalars().all()
                     context['_scoped_validation'] = await asyncio.to_thread(seal_scoped_validation, proof_files, scope, devices)
@@ -2066,7 +1913,7 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
                         'processing_status':'needs_review', 'devices':response.get('candidate') or devices,
                         'action_type':'review_extraction'}
                 extraction_message = payload.message + '\nKết quả kiểm chứng cần sửa (dữ liệu): ' + str(feedback)
-            return {'reply': 'Chưa hoàn tất bóc tách và chưa lưu vì minh chứng nguồn chưa đủ sau khi đọc lại: ' + str(feedback), 'processing_status':'needs_review'}
+            return {'reply': 'Agent chưa hoàn tất đối chiếu ảnh và logic mạch sau khi đọc lại; chưa lưu kết quả: ' + str(feedback), 'processing_status':'needs_review'}
     tool_list = context.get('tools', [])
     observations = context.get('observations', [])
     if not isinstance(tool_list, list) or len(tool_list) > 250 or not isinstance(observations, list) or len(observations) > 18:
@@ -2103,12 +1950,27 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
                 return {'tool': 'read_project_sources', 'arguments': arguments,
                         'activity': 'Đọc vùng tủ ' + panel['panel_code']}
     history = conversation_history(context, resolution['original'])
+    if intent == 'quotation' and not resolution.get('new_quotation'):
+        from app.models.analysis_iteration import AnalysisIteration
+        from app.models.conversation_session import ConversationSession
+        quote_id = context.get('quotation_iteration_id') or context.get('iteration_id')
+        if quote_id:
+            target = (await db.execute(select(AnalysisIteration.confidence_scores)
+                .join(ConversationSession, ConversationSession.id == AnalysisIteration.session_id)
+                .where(ConversationSession.project_id == payload.project_id, AnalysisIteration.id == quote_id)
+            )).first()
+            if not target:
+                raise HTTPException(404, 'Không tìm thấy kết quả đang trao đổi trong dự án này.')
+            context_brief['previous_quotation_rows'] = (target[0] or {}).get('quotation_rows') or []
     prompt = '''Bạn là EL - Trợ lý Kỹ thuật Điện & CAD thông minh trong dự án đang mở.
 QUY TẮC BẮT BUỘC:
 0. XỬ LÝ ĐÚNG PHẠM VI:
    Chọn bước cần thiết ngắn nhất theo yêu cầu hiện tại:
    - Ý định cốt lõi của người dùng là gì? (Tạo bảng báo giá / Bóc tách khối lượng thiết bị / Cập nhật hãng sản xuất / Hỏi kỹ thuật).
-   - Nếu là BÁO GIÁ: Phải tạo ngay bảng báo giá dự toán 8 cột chuẩn ngành tủ điện, trên cùng là vỏ tủ + thanh cái + phụ kiện.
+   - Nếu là BÁO GIÁ MỚI: Lập bảng theo phạm vi và dữ liệu được cung cấp.
+   - Nếu SỬA BÁO GIÁ: Dùng bảng báo giá đang trao đổi, sửa đúng các dòng người dùng chỉ định,
+     giữ lại các dòng và đơn giá khác. Tính lại các thành tiền và tổng liên quan; không tự đặt giá.
+     Trả về toàn bộ bảng đã sửa, hoặc hỏi lại khi thiếu dữ liệu cần thiết.
    - Nếu là BÓC TÁCH: Đọc đầy đủ phạm vi nguồn đã chọn; chỉ ghi thiết bị có bằng chứng, công khai phần chưa đọc được.
 1. TRẢ LỜI 100% BẰNG TIẾNG VIỆT rõ ràng, mạch lạc, dễ hiểu.
    Khi yêu cầu bóc tách không có file_ids: lập danh mục ĐỀ XUẤT theo đúng mạch và thông số người dùng yêu cầu, trả mảng devices có name, tag, spec, quantity, unit, brand, notes, panel_code; trường chưa biết để null. Không dùng một danh mục cố định cho mọi yêu cầu. Không tự lấy kết quả phiên cũ. reply chỉ tóm tắt ngắn, không chào hỏi hay mở đầu bằng đoạn chưa có file CAD/PDF. Không khẳng định đây là dữ liệu đã đọc từ bản vẽ.
