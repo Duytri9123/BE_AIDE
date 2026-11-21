@@ -279,22 +279,31 @@ def clean_devices_list(devices: list, project_id: int, cad_file=None, pdf_file=N
 
         # Phân loại section (khu vực chức năng trong tủ điện)
         section = d.get('section')
-        if not section or section in ('Thiết bị chính', 'Khác'):
+        section = {'incomer': 'Đầu vào', 'incoming': 'Đầu vào', 'đầu vào tổng': 'Đầu vào',
+                   'outgoing': 'Đầu ra', 'feeder': 'Đầu ra', 'nhánh ra': 'Đầu ra',
+                   'đo lường': 'Đo lường & Giám sát', 'điều khiển': 'Điều khiển & Chiếu sáng'}.get(
+                       str(section or '').strip().casefold(), section)
+        if not section or section in ('Thiết bị chính', 'Khác', 'Chưa xác định'):
             tag_upper = (tag or '').upper()
             name_upper = name.upper()
             cat_upper = category.upper()
             spec_upper = spec.upper()
             notes_upper = str(d.get('notes') or '').upper()
-            combined_upper = f"{name_upper} {cat_upper} {spec_upper} {tag_upper} {notes_upper}"
+            role_upper = ' '.join(str(d.get(k) or '').upper() for k in ('location', 'position', 'electrical_function'))
+            if (evidence_region or {}).get('status') == 'verified':
+                role_upper += ' ' + str((d.get('device_assessment') or {}).get('function') or '').upper()
+            combined_upper = f"{name_upper} {cat_upper} {spec_upper} {tag_upper} {notes_upper} {role_upper}"
 
-            if any(k in combined_upper for k in ('INCOM', 'TỔNG', 'TONG', 'MAIN', 'NGUỒN TỔNG', 'NGUON TONG', 'ĐẦU VÀO', 'DAU VAO')) or d.get('is_incomer'):
-                section = 'Đầu vào'
-            elif any(k in combined_upper for k in ('CT', 'LIGHT', 'DEN BAO', 'ĐÈN BÁO', 'BAO PHA', 'BÁO PHA', 'FUSE', 'CAU CHI', 'CẦU CHÌ', 'METER', 'DONG HO', 'ĐỒNG HỒ', 'SELECTOR', 'CHUYEN MACH', 'CHUYỂN MẠCH', 'VOLT', 'AMPE', 'PHỤ KIỆN', 'TI')):
+            if cat_upper in {'CT', 'METER', 'AMMETER', 'VOLTMETER', 'LIGHT', 'PILOT_LIGHT', 'INDICATOR_LIGHT', 'SELECTOR_SWITCH'}:
                 section = 'Đo lường & Giám sát'
-            elif any(k in combined_upper for k in ('CONTACTOR', 'KHOI DONG TU', 'KHỞI ĐỘNG TỪ', 'RELAY', 'RO LE', 'RƠ LE', 'TIMER', 'BUTTON', 'NUT AN', 'NÚT ẤN', 'ĐIỀU KHIỂN', 'DIEU KHIEN')):
+            elif cat_upper == 'ATS' or any(k in combined_upper for k in ('INCOM', 'TỔNG', 'TONG', 'MAIN', 'NGUỒN TỔNG', 'NGUON TONG', 'ĐẦU VÀO', 'DAU VAO')) or d.get('is_incomer'):
+                section = 'Đầu vào'
+            elif cat_upper in {'CONTACTOR', 'RELAY', 'TIMER', 'BUTTON', 'DOL', 'POWER_SUPPLY', 'OVERLOAD', 'THERMAL_RELAY'}:
                 section = 'Điều khiển & Chiếu sáng'
+            elif cat_upper == 'FUSE':
+                section = 'Đo lường & Giám sát'
             else:
-                section = 'Đầu ra'
+                section = 'Đầu ra' if d.get('connected_load') or tag or 'NHÁNH' in role_upper or 'ĐẦU RA' in role_upper else 'Chưa xác định'
 
         loc_text = d.get('location') or d.get('position') or ''
 
@@ -312,7 +321,7 @@ def clean_devices_list(devices: list, project_id: int, cad_file=None, pdf_file=N
                 'in_a', 'poles', 'icu_ka', 'detected_brand', 'source_observations', 'connected_load', 'circuit_context', 'information_fields', 'additional_information',
                 'electrical_function', 'upstream_device', 'downstream_device', 'quantity_confidence',
                 'quantity_review', 'suggested_brands', 'catalog_candidates', 'catalog_matches',
-                'selected_product', 'pricebook_match', 'web_research', 'technical_match_note',
+                'selected_product', 'pricebook_match', 'web_research', 'technical_match_note', 'device_assessment',
                 'suggested_alternatives', 'selection_source', 'compatible_proposal', 'inferred_components') if key in d},
             'name': name,
             'tag': tag,
@@ -327,6 +336,7 @@ def clean_devices_list(devices: list, project_id: int, cad_file=None, pdf_file=N
             'panel_code': panel,
             'category': category,
             'section': section,
+            'is_incomer': section == 'Đầu vào',
             'notes': d.get('notes') or '',
             'technical_analysis': d.get('technical_analysis') or '',
             'selection_analysis': d.get('selection_analysis'),
@@ -539,7 +549,9 @@ async def save_takeoff_iteration(db, project_id: int, user_id: int, message: str
         ai_parsed_devices=clean_devices,
         devices_after_validation=clean_devices,
         confidence_scores=confidence_scores,
-        status="completed"
+        status="needs_review" if not proposal and (
+            any((d.get('evidence_region') or {}).get('status') != 'verified' or not d.get('technical_analysis') for d in clean_devices)
+            or (visual_review or {}).get('passed') is False) else "completed"
     )
     db.add(iteration)
     session.total_iterations = latest_number + 1
@@ -1644,12 +1656,9 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
                 device['notes'] = (str(device.get('notes') or '') + ' Chỉ xác định vùng tủ; chưa có vùng riêng cho thiết bị.').strip()
     if confirmed:
         incomplete = []
-        from app.services.ai.scoped_validation import ScopedValidation
-        scoped_proof = context.get('_scoped_validation')
-        for device in devices_data:
+        incomplete_indices = set()
+        for device_index, device in enumerate(devices_data):
             region = device.get('evidence_region') or {}
-            if isinstance(scoped_proof, ScopedValidation) and region.get('status') == 'panel_checked':
-                continue
             gaps = list((device.get('source_observations') or {}).get('evidence_gaps') or [])
             if region.get('status') != 'verified' or not device.get('evidence_image'):
                 gaps.append('ảnh ký hiệu và nhãn chưa được xác minh')
@@ -1658,12 +1667,12 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
             if device.get('connected_load') and region.get('load_verified') is not True:
                 gaps.append('chưa chứng minh quan hệ phụ tải ' + str(device['connected_load']))
             if gaps:
+                incomplete_indices.add(device_index)
                 incomplete.append(str(device.get('tag') or device.get('name')) + ': ' + '; '.join(dict.fromkeys(gaps)))
         if incomplete:
             # Soft-flag: đánh dấu thiếu minh chứng nhưng không block lưu
-            for _d in devices_data:
-                _tag = str(_d.get('tag') or _d.get('name') or '')
-                if any(_tag in item for item in incomplete):
+            for device_index, _d in enumerate(devices_data):
+                if device_index in incomplete_indices:
                     _d.setdefault('evidence_region', {})['status'] = 'needs_review'
                     _d['_evidence_note'] = 'Agent chưa hoàn tất định vị ảnh hoặc đối chiếu nhãn và dây nối; cần xử lý tiếp.'
     if requested_panels:
@@ -1790,11 +1799,11 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
 
     if iteration_id:
         reply_text = f'Đã lưu {len(devices_data)} dòng thiết bị vào phiên bóc tách riêng.'
-        pending = sum((d.get('evidence_region') or {}).get('status') not in {'verified', 'panel_checked'} for d in devices_data)
+        pending = sum((d.get('evidence_region') or {}).get('status') != 'verified' or not d.get('technical_analysis') for d in devices_data)
         if whole_panel_unfinished:
             reply_text += ' Agent chưa hoàn tất đối chiếu danh mục toàn tủ. Kết quả này cần rà soát trước khi dùng.'
         elif pending:
-            reply_text += f' Agent còn {pending} dòng chưa hoàn tất định vị ảnh hoặc đối chiếu logic mạch; các dòng này được lưu để rà soát.'
+            reply_text += f' Agent còn {pending} dòng chưa hoàn tất định vị ảnh, phân tích hoặc đối chiếu logic mạch; các dòng này được lưu để rà soát.'
         elif (context.get('takeoff_review') or {}).get('passed') is False:
             reply_text += ' Agent chưa hoàn tất đối chiếu danh mục theo nguồn; bản này cần xử lý tiếp.'
     result_payload = {'reply': reply_text}

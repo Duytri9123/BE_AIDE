@@ -14,6 +14,49 @@ exec(compile(ast.Module(body=[n for n in TREE.body if isinstance(n, ast.Function
 
 
 class TakeoffGroundingTests(unittest.TestCase):
+    def test_proposed_and_cached_skus_carry_their_own_manufacturer(self):
+        from app.services.ai.takeoff_catalog import _candidate_dict, suggest_takeoff_products
+        self.assertEqual(_candidate_dict({'sku': 'SAMPLE-20', 'brand': 'ABB'}, 'Source')['brand'], 'ABB')
+        row = {'name': 'MCB', 'category': 'MCB', 'spec': '20A',
+               'catalog_candidates': {'ABB': [{'sku': 'SAMPLE-20'}]}}
+        result = suggest_takeoff_products([row], catalog_rows=[])[0]
+        self.assertEqual(result['catalog_candidates']['ABB'][0]['brand'], 'ABB')
+        self.assertNotIn('brand', result)
+
+    def test_source_function_is_retained_as_analysis_and_ats_is_not_mccb(self):
+        from app.services.ai.scoped_takeoff import normalize_scoped_row
+        row = normalize_scoped_row({'name': 'Bộ chuyển nguồn tự động', 'category': 'MCCB',
+            'spec': '', 'observed_text': 'ATS', 'electrical_function': 'Chuyển giữa hai nguồn cấp.'})
+        self.assertEqual(row['category'], 'ATS')
+        self.assertEqual(row['technical_analysis'], row['electrical_function'])
+
+    def test_whole_panel_review_cannot_replace_individual_device_images(self):
+        import tempfile
+        from types import SimpleNamespace
+        from app.services.ai.scoped_validation import seal_scoped_validation, source_revision
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / 'source.png'; path.write_bytes(b'source')
+            panel = {'source_file_id': 7, 'source_page': 1, 'panel_code': 'MDB', 'source_region': [0, 0, 1, 1]}
+            row = {'source_file_id': 7, 'source_page': 1, 'panel_code': 'MDB',
+                'evidence_region': {'status': 'panel_checked', 'frame': 'selected_panel', 'source_region': [0, 0, 1, 1]},
+                'source_observations': {'evidence_gaps': [], 'source_revision': source_revision(path),
+                    'coverage_review': {'status': 'passed', 'issues': [], 'read_failed': False, 'method': 'whole_panel'}}}
+            self.assertIsNone(seal_scoped_validation([SimpleNamespace(id=7, file_path=str(path))], [panel], [row]))
+
+    def test_roles_use_local_source_position_and_equipment_type(self):
+        rows = [
+            dict(name='Aptomat tép', category='MCB', location='Đầu vào tổng', spec='3P 40A', quantity=1),
+            dict(name='Biến dòng tổng', category='CT', location='Mạch đo dòng tổng', spec='', quantity=3),
+            dict(name='Khởi động từ', category='CONTACTOR', spec='', quantity=1),
+            dict(name='Aptomat', category='MCB', tag='L1', connected_load='Chiếu sáng', spec='', quantity=1),
+            dict(name='Thiết bị', category='OTHER', spec='', quantity=1),
+            dict(name='Aptomat khối', category='MCCB', section='Chưa xác định', spec='3P 80A', quantity=1,
+                 evidence_region={'status': 'verified'}, device_assessment={'function': 'Đóng cắt tổng và bảo vệ thanh cái tủ điện.'}),
+        ]
+        result = NAMESPACE['clean_devices_list'](rows, 1)
+        self.assertEqual([r['section'] for r in result], [
+            'Đầu vào', 'Đo lường & Giám sát', 'Điều khiển & Chiếu sáng', 'Đầu ra', 'Chưa xác định', 'Đầu vào'])
+
     def test_no_brand_request_is_a_new_takeoff(self):
         request = 'Bóc tách CHỈ 2 MCB và 1 nút STOP. Không chọn hãng.'
         self.assertFalse(NAMESPACE['is_brand_or_catalog_update_request'](request))
@@ -61,7 +104,8 @@ class TakeoffGroundingTests(unittest.TestCase):
     def test_normalizer_retains_load_reasoning_and_catalog_proposals(self):
         fields = {'source_observations': {'relationship_evidence': 'L4 nối tải Chiếu sáng'},
                   'connected_load': 'Chiếu sáng', 'catalog_candidates': {'ABB': [{'sku': 'ACTUAL'}]},
-                  'suggested_brands': ['ABB'], 'selection_analysis': {'reason': 'Catalog source'}}
+                  'suggested_brands': ['ABB'], 'selection_analysis': {'reason': 'Catalog source'},
+                  'device_assessment': {'function': 'Đóng cắt nhánh động cơ.'}}
         result = NAMESPACE['clean_devices_list']([self.device(**fields)], 1)[0]
         for key, value in fields.items():
             self.assertEqual(result[key], value)

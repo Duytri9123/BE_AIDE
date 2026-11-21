@@ -69,6 +69,18 @@ def resolve_confirmed_takeoff(message, context, panels):
 
 
 async def resolve_request(db, message, context):
+    # A complete, simple brand command already identifies the open result.
+    # Match the entire turn so questions, negations and extra scope still use
+    # contextual resolution rather than accidentally changing every row.
+    normalized = ''.join(c for c in unicodedata.normalize('NFD', message.lower().replace('đ', 'd'))
+                         if not unicodedata.combining(c)).strip(' .!')
+    brand = requested_brand(message)
+    if context.get('iteration_id') and brand and re.fullmatch(
+            r'(?:(?:toi muon|toi can|hay|vui long|giup toi)\s+)?'
+            r'(?:dung|su dung|chon|doi|thay|chuyen|cap nhat)\s+'
+            r'(?:(?:sang|thanh|qua)\s+)?(?:hang\s+)?' + re.escape(brand.lower()) +
+            r'(?:\s+(?:cho\s+)?(?:tat ca|toan bo)(?:\s+thiet bi)?)?', normalized):
+        return {'original': message, 'effective': message, 'intent': 'catalog_update', 'direct_brand_update': True}
     cached = context.get('resolved_request') or {}
     if isinstance(cached, dict) and cached.get('effective') == message:
         return cached

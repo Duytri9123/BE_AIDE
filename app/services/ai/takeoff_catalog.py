@@ -220,8 +220,10 @@ def _match_auxiliary_row(norm_cat, device, row):
 
 
 def _candidate_dict(candidate, reason):
+    from app.services.ai.manufacturer_registry import canonical_brand
     return {
         'sku':                   candidate['sku'],
+        'brand':                 canonical_brand(candidate.get('brand')),
         'name':                  candidate.get('item_name') or candidate.get('name'),
         'source':                candidate.get('source_url') or '',
         'source_page':           candidate.get('source_page'),
@@ -311,6 +313,13 @@ def refresh_meter_catalog(devices):
 def suggest_takeoff_products(devices, engine=None, catalog_rows=None):
     from app.services.catalog_family_matching import category_key
     from app.services.ai.manufacturer_registry import canonical_brand
+
+    # Cached proposals carry their manufacturer on each SKU as well as the group.
+    for row in devices:
+        for brand, candidates in (row.get('catalog_candidates') or {}).items():
+            for candidate in candidates:
+                if isinstance(candidate, dict):
+                    candidate['brand'] = canonical_brand(candidate.get('brand') or brand)
 
     # Chỉ dùng index bảng giá (supplier_pricebooks); không khởi tạo DeviceCatalogEngine nặng
     # trừ khi caller truyền vào engine đã có brand_index (giữ tương thích test/override).

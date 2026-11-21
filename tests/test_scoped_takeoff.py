@@ -116,7 +116,7 @@ class ScopedTakeoffTests(unittest.IsolatedAsyncioTestCase):
         boxes[2]['verified']=False
         self.assertEqual(len(deduplicate_checked_rows(original,[1,2,3],{'boxes':boxes})[0]),3)
 
-    async def test_failed_inventory_coverage_defers_costly_device_crop_audit(self):
+    async def test_inventory_dispute_retains_checked_crops_but_provider_outage_defers_audit(self):
         with tempfile.TemporaryDirectory() as folder:
             image_path=Path(folder)/'source.png';Image.new('RGB',(100,100),'white').save(image_path)
             file=SimpleNamespace(id=7,filename='source.png',file_path=str(image_path))
@@ -131,19 +131,20 @@ class ScopedTakeoffTests(unittest.IsolatedAsyncioTestCase):
             with patch('app.services.ai.scoped_takeoff.render_panel',AsyncMock(return_value=(str(image_path),''))), \
                  patch('app.services.ai.regional_takeoff.extract_regions',AsyncMock(return_value=payload)), \
                  patch('app.services.ai.scoped_takeoff.ConnectionPoolService.get_ordered_connections',AsyncMock(return_value=[object()])), \
-                 patch('app.services.ai.device_crop_audit.audit_device_previews',AsyncMock()) as audit, \
-                 patch('app.services.ai.takeoff_evidence_completion.complete_evidence',AsyncMock()) as repair:
+                 patch('app.services.ai.takeoff_device_assessment.assess_takeoff_devices',AsyncMock()), \
+                 patch('app.services.ai.device_crop_audit.audit_device_previews',AsyncMock(return_value={'boxes':[box]})) as audit, \
+                 patch('app.services.ai.takeoff_evidence_completion.complete_evidence',AsyncMock(return_value={'boxes':[box]})) as repair:
                 result=await extract_confirmed_panels(db,1,[{'source_file_id':7,'panel_code':'P1',
                     'source_page':None,'source_region':[0,0,1,1]}],'Bóc tách P1')
                 payload['processing_interrupted']=True
                 interrupted=await extract_confirmed_panels(db,1,[{'source_file_id':7,'panel_code':'P1',
                     'source_page':None,'source_region':[0,0,1,1]}],'Bóc tách P1')
                 self.assertIn('Máy chủ AI',interrupted[0]['evidence_region']['reason'])
-            audit.assert_not_awaited();repair.assert_not_awaited()
+            audit.assert_awaited_once();repair.assert_awaited_once()
             self.assertEqual(len(result),1)
             self.assertEqual(result[0]['source_observations']['coverage_review']['status'],'needs_review')
-            self.assertFalse(result[0]['evidence_image'])
-            self.assertEqual(result[0]['evidence_region']['status'],'unverified')
+            self.assertTrue(result[0]['evidence_image'])
+            self.assertEqual(result[0]['evidence_region']['status'],'verified')
 
     def test_unit_strings_do_not_reject_a_whole_panel(self):
         from app.services.ai.scoped_takeoff import normalize_scoped_row
@@ -231,11 +232,12 @@ class ScopedTakeoffTests(unittest.IsolatedAsyncioTestCase):
             calls = AsyncMock(side_effect=[(json.dumps({'checks': checks}), None),
                                           (json.dumps({'boxes': []}), None), (json.dumps({'boxes': []}), None)])
             with patch('app.services.ai.scoped_takeoff.render_panel', AsyncMock(return_value=(str(image_path), 'Q1 20A'))), \
+                 patch('app.services.ai.takeoff_device_assessment.assess_takeoff_devices', AsyncMock()), \
                  patch('app.services.ai.regional_takeoff.extract_regions', AsyncMock(return_value={'devices': rows, 'boxes': boxes})), \
                  patch('app.services.ai.scoped_takeoff.ConnectionPoolService.get_ordered_connections', AsyncMock(return_value=[object()])), \
                  patch('app.services.ai.scoped_takeoff.ConnectionPoolService.call_with_fallback', calls):
                 result = await extract_confirmed_panels(db, 1, [{'source_file_id': 7,
-                    'source_page': None, 'panel_code': 'P1', 'source_region': [.1, .1, .5, .5]}], 'Extract P1', whole_panel=False)
+                    'source_page': None, 'panel_code': 'P1', 'source_region': [.1, .1, .5, .5]}], 'Extract P1')
             self.assertEqual(calls.await_count, 3)  # Regional extraction mocked; audit + two recovery reads.
             self.assertTrue(result[0]['evidence_image'])
             self.assertEqual(result[0]['evidence'], 'Q1 20A')

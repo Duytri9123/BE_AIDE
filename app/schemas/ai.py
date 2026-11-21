@@ -85,6 +85,7 @@ class ExtractedDeviceSchema(BaseModel):
     selection_source: Optional[str] = None
     part_number: Optional[str] = None
     section: Optional[str] = None
+    is_incomer: Optional[bool] = None
     location: Optional[str] = None
     panel_code: Optional[str] = None
     panel_name: Optional[str] = None

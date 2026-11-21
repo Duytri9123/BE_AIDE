@@ -97,6 +97,8 @@ def normalize_scoped_row(row):
     breaker_category = category in {'', 'APTOMAT', 'APTOMAT TÉP', 'APTOMAT KHỐI', 'BREAKER', 'CB', 'PROTECTION', 'THIẾT BỊ ĐÓNG CẮT', 'THIẾT BỊ BẢO VỆ', 'CIRCUIT_BREAKER', 'MCB', 'MCCB', 'RCBO', 'RCCB', 'ACB'}
     breaker_category = breaker_category or category == 'PROTECTIVE' or bool(re.match(r'^(?:APTOMAT|CẦU DAO|CIRCUIT.?BREAKER)(?:\b|_)', category))
     result['category'] = breaker[1].upper() if breaker and breaker_category else aliases.get(category, category)
+    if re.fullmatch(r'\s*ATS\s*', str(result.get('observed_text') or ''), re.I):
+        result['category'] = 'ATS'
     known= {'MCB','MCCB','ACB','RCBO','RCCB','CT','FUSE','METER','AMMETER','VOLTMETER',
             'LIGHT','SELECTOR_SWITCH','CONTACTOR','POWER_SUPPLY','TIMER','BUTTON','DOL','FAN'}
     if result['category'] not in known:
@@ -217,6 +219,8 @@ def normalize_scoped_row(row):
         result['source_observations']={**(result.get('source_observations') or {}),
             'function_in_spec':result['spec']}
         result['spec']=''
+    if not result.get('technical_analysis') and result.get('electrical_function'):
+        result['technical_analysis'] = result['electrical_function']
     return result
 
 
@@ -319,7 +323,7 @@ def deduplicate_checked_rows(original,devices,audited):
              for box in audited.get('boxes',[]) if str(box['device_id']) in remap]})
 
 
-async def extract_confirmed_panels(db, project_id, panels, message, *, input_context=None, whole_panel=True):
+async def extract_confirmed_panels(db, project_id, panels, message, *, input_context=None, whole_panel=False):
     from app.services.ai.evidence_crops import apply_verified_boxes
     from app.services.ai.evidence_preview import device_preview
     from app.services.ai.device_crop_audit import audit_device_previews
@@ -385,6 +389,10 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                     'R/Y/B là nhãn pha, tên lộ/tải và chức năng không phải thông số. Các nội dung ấy '
                     'đặt ở observed_text, tag, connected_load, electrical_function hoặc technical_analysis. '
                     'location ghi vị trí/lộ thực trên mạch; technical_analysis giải thích chức năng và quan hệ điện. '
+                    'Mỗi dòng phải có section: Đầu vào, Đầu ra, Đo lường & Giám sát hoặc Điều khiển & Chiếu sáng '
+                    'theo đúng dây nối; chưa xác định thì ghi Chưa xác định. ATS là thiết bị chuyển nguồn, không phải MCCB. '
+                    'Mỗi dòng phải có technical_analysis ngắn, nêu chức năng và căn cứ từ nhãn/vị trí/dây nối; '
+                    'đánh dấu quan hệ chưa đọc được, không tự bịa đầu nguồn hay tải. '
                     'Không đưa mô tả mép ảnh, vùng cắt hay trạng thái xử lý ảnh vào hai trường này. '
                     'Không tự thêm 220V cho đèn, 5A cho đồng hồ, kiểu kim/số, cấp chính xác, '
                     'thang đo hoặc phụ kiện tích hợp khi nhãn không ghi. '
@@ -494,9 +502,8 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                         payload['boxes']=seed_horizontal_row_boxes(native_evidence,original,payload['boxes'])
                         from app.services.ai.cad_symbol_seeds import seed_named_symbols
                         payload['boxes']=await asyncio.to_thread(seed_named_symbols,native_path,native_evidence,original,payload['boxes'])
-                if not whole_panel:
-                    with Image.open(image_path) as source:
-                        image = source.convert('RGB')
+                with Image.open(image_path) as source:
+                    image = source.convert('RGB')
                 if native_labels and not whole_panel:
                     from app.services.ai.cad_linked_devices import resolve_linked_devices
                     original, payload['boxes'] = await run_step('Đang kiểm tra các cực và nhánh có liên động trên CAD',
@@ -505,24 +512,14 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                            for row in original]
                 # Check the actual cropped pixels independently of the extraction.
                 from app.services.ai.takeoff_evidence_completion import complete_evidence, evidence_gaps
-                reviews = [(row.get('source_observations') or {}).get('coverage_review') or {} for row in original]
-                whole_review_passed = whole_panel and bool(reviews) and all(
-                    review.get('status') == 'passed' and review.get('method') == 'whole_panel' and not review.get('issues')
-                    for review in reviews)
-                coverage_failed = (payload.get('processing_interrupted') or (whole_panel and not whole_review_passed)
-                                   or any(review.get('status') == 'needs_review' for review in reviews))
-                if coverage_failed:
-                    # Known missing/duplicate rows must be repaired before
-                    # spending another per-device audit and recovery cycle.
-                    deferred_reason=('Máy chủ AI gián đoạn hoặc hết thời gian chờ; Agent chưa đọc và đối chiếu xong vùng tủ.'
-                        if payload.get('processing_interrupted') else
-                        'Agent chưa chốt được danh mục toàn tủ vì còn điểm cần đối chiếu với sơ đồ.')
+                if payload.get('processing_interrupted'):
+                    # An outage stops further requests. Inventory disputes remain
+                    # separate from valid per-device image/location evidence.
+                    deferred_reason='Máy chủ AI gián đoạn hoặc hết thời gian chờ; Agent chưa đọc và đối chiếu xong vùng tủ.'
                     audited={'boxes':[{**box,'verified':False,
                         'audit_reason':deferred_reason}
                         for box in payload.get('boxes') or []]}
                     await run_step(deferred_reason,asyncio.sleep(0))
-                elif whole_panel:
-                    audited={'boxes':[{**box, 'verified':False} for box in payload.get('boxes') or []]}
                 else:
                     audited = await run_step(f'Đang kiểm ảnh vị trí của {len(devices)} dòng thiết bị', audit_device_previews(image, call_image, devices,
                         {'boxes': payload.get('boxes') or []}, concurrency=concurrency, cache_scope=cache_scope))
@@ -538,9 +535,6 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                 for device_index, (device, row) in enumerate(zip(devices, original)):
                     region = device.evidence_region or {}
                     region.update(source_region=panel['source_region'], frame='selected_panel')
-                    if whole_panel and not coverage_failed:
-                        region = {'status': 'panel_checked', 'scope': 'panel', 'frame': 'selected_panel',
-                                  'source_region': panel['source_region']}
                     checked = next((b for b in audited['boxes'] if str(b.get('device_id')) == str(device_index)), {})
                     if region.get('status') == 'verified':
                         region['observed'] = checked.get('audit_observed') or ''
@@ -553,7 +547,7 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                         'source_observations': {**(row.get('source_observations') or {}),
                             'source_revision': source_revisions[file.id],
                             'observed_text': row.get('observed_text'), 'audit_observed': checked.get('audit_observed'),
-                            'evidence_gaps': [] if whole_panel and not coverage_failed else evidence_gaps(device, checked)},
+                            'evidence_gaps': evidence_gaps(device, checked)},
                         'connected_load': device.connected_load,
                         'technical_analysis': device.technical_analysis,
                         'evidence_region': region, 'box_2d': device.box_2d,
@@ -585,4 +579,25 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
             enrich_circuit_context([d for d in result if d['source_file_id']==file.id and d['panel_code']==panel['panel_code']], evidence)
     from app.services.ai.motor_starter_context import enrich_motor_starters
     enrich_motor_starters(result)
+    if any(not row.get('technical_analysis') for row in result):
+        from app.services.ai.takeoff_device_assessment import assess_takeoff_devices
+        assessed = [ExtractedDeviceSchema.model_validate(row) for row in result]
+        try:
+            await run_step('Đang phân tích chức năng và thông số từng thiết bị',
+                           assess_takeoff_devices(assessed, connections, db, message))
+        except Exception:
+            import logging
+            logging.getLogger(__name__).exception('Device analysis incomplete; retaining source extraction')
+        for row, device in zip(result, assessed):
+            if device.device_assessment:
+                row['device_assessment'] = device.device_assessment
+                analysis = ' '.join(str(device.device_assessment.get(key) or '')
+                                    for key in ('function', 'assessment')).strip()
+                if analysis:
+                    row['source_observations'] = {**(row.get('source_observations') or {}),
+                        'extraction_analysis': row.get('technical_analysis')}
+                    row['technical_analysis'] = analysis
+            if not row.get('technical_analysis'):
+                row['source_observations'] = {**(row.get('source_observations') or {}),
+                    'analysis_review': {'status': 'needs_review', 'reason': 'Chưa hoàn tất phân tích chức năng và quan hệ mạch.'}}
     return result

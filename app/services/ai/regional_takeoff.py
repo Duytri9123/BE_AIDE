@@ -762,6 +762,8 @@ async def extract_regions(image_path, prompt, call_image, *, concurrency=1, pres
                 'Kiểm số lượng thực, nhãn/tag/thông số theo đúng dây; không chỉ kiểm những dòng đã có. '
                 'Nhiều nhánh có thể mang cùng tên tải nguyên văn; không đánh lại số thứ tự theo tag '
                 'hay theo nhánh kế bên. Chữ/tên tải lặp không chứng minh thiết bị bị đếm lặp. '
+                'Mã lộ in trên nguồn cũng có thể lặp ở các nhánh khác nhau; giữ nguyên mã nguồn, '
+                'phân biệt bằng vị trí, dây và tải. Không báo lỗi chỉ vì tag trùng khi hai ký hiệu vật lý riêng. '
                 'original_cad_labels là chữ gốc trích trực tiếp từ file CAD [id,x,y,text], '
                 'không phải lời ứng viên; đối chiếu vị trí với ảnh để đọc đúng chữ nhỏ, vẫn phải kiểm đủ ký hiệu và dây. '
                 'Thứ tự phần tử trong JSON không phải vị trí trên sơ đồ. Vùng đọc có chồng lấn; '
