@@ -9,6 +9,19 @@ from app.services.pricebook_library_links import load_links, load_price_options
 
 router = APIRouter()
 
+
+@router.get('/rows/{price_row_id}/design-projections')
+async def design_projections(price_row_id: str, current_user=Depends(get_current_active_user)):
+    def read():
+        from app.services.library_catalog_information import source_rows
+        from app.services.catalogtb_browser import browser_data
+        from app.services.cad.price_device_projection import price_device_projections
+        try:
+            return price_device_projections(price_row_id, source_rows(), browser_data()['items'])
+        except ValueError as exc:
+            raise HTTPException(404, str(exc)) from exc
+    return await run_in_threadpool(read)
+
 @router.get('/rows/{price_row_id}/detail')
 async def row_detail(price_row_id:str,current_user=Depends(get_current_active_user)):
     def read():

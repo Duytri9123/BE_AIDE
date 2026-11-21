@@ -171,3 +171,12 @@ def preview_cabinet_3d(template_id: str,
         width: float | None = Query(default=None, gt=100, le=10000, allow_inf_nan=False),
         depth: float | None = Query(default=None, gt=100, le=10000, allow_inf_nan=False)):
     return cabinet_templates.preview_3d(template_id, height, width, depth)
+
+
+@router.get('/cabinet-templates/{template_id}/mechanics')
+def cabinet_mechanics(template_id: str):
+    from app.services.cad.cabinet_source_supports import source_supports
+    try:
+        return source_supports(template_id)
+    except (ValueError, OSError, KeyError, StopIteration):
+        return {'items': [], 'provenance': {}, 'warnings': ['Chưa có dữ liệu đố gốc cho mẫu này. Có thể thêm đố theo thiết bị.']}

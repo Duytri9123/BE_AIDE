@@ -92,6 +92,40 @@ async def get_project_or_404(project_id: int, db: AsyncSession, current_user: Us
         raise HTTPException(status_code=404, detail="Project not found")
     return project
 
+
+class CabinetDesignsRequest(BaseModel):
+    designs: list[dict]
+    revision: str = ''
+
+
+def _design_file(project_id):
+    return Path(__file__).resolve().parents[4] / 'storage' / 'cabinet-designs' / f'{int(project_id)}.json'
+
+
+@router.get('/{project_id}/cabinet-designs')
+async def read_cabinet_designs(project_id: int, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_active_user)):
+    await get_project_or_404(project_id, db, current_user)
+    import json
+    path = _design_file(project_id)
+    return json.loads(path.read_text(encoding='utf8')) if path.is_file() else {'designs': [], 'revision': ''}
+
+
+@router.put('/{project_id}/cabinet-designs')
+async def save_cabinet_designs(project_id: int, body: CabinetDesignsRequest, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_active_user)):
+    await get_project_or_404(project_id, db, current_user)
+    from app.services.cad.project_design_store import save_designs
+    if len(body.designs) > 100 or any(not isinstance(d.get('id'), str) or not isinstance(d.get('name'), str) or len(d['name']) > 120 for d in body.designs):
+        raise HTTPException(422, 'Danh sách tủ thiết kế không hợp lệ.')
+    try:
+        return save_designs(_design_file(project_id), body.designs, body.revision)
+    except ValueError as exc:
+        raise HTTPException(409, str(exc)) from exc
+    except OverflowError as exc:
+        raise HTTPException(413, str(exc)) from exc
+    except TimeoutError as exc:
+        raise HTTPException(503, str(exc)) from exc
+
+
 @router.get("", response_model=List[ProjectResponse])
 async def list_projects(
     skip: Annotated[int, Query(ge=0)] = 0,
