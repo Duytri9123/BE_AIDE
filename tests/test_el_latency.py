@@ -12,6 +12,16 @@ from app.services.ai import requirement_analysis
 
 
 class RoutingTests(unittest.IsolatedAsyncioTestCase):
+    def test_panel_confirmation_retains_takeoff_requirements_without_model_routing(self):
+        from app.services.ai.el_conversation import resolve_confirmed_takeoff
+        message = ('Bóc tách các tủ đã xác nhận: P1. Giữ vị trí/lộ của từng thiết bị '
+                   'và chỉ bóc trong các vùng đã chọn.')
+        context = {'messages': [{'role': 'user', 'content': 'Bóc tách P1, giữ đúng các nhánh dự phòng.'}]}
+        result = resolve_confirmed_takeoff(message, context, [{'panel_code': 'P1'}])
+        self.assertEqual(result['intent'], 'takeoff')
+        self.assertIn('giữ đúng các nhánh dự phòng', result['effective'])
+        self.assertIsNone(resolve_confirmed_takeoff(message, context, [{'panel_code': 'P2'}]))
+
     async def test_follow_up_question_cannot_save_a_quote_even_if_the_reply_contains_a_table(self):
         payload = SimpleNamespace(project_id=1, message='Vì sao chọn LS cho Q1?')
         context = {'resolved_request': {'intent': 'conversation'}}

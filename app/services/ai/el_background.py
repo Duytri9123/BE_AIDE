@@ -27,7 +27,7 @@ async def run(run_id, store=None):
     from app.tasks.worker_tasks import _project_user
     from app.main import app
     from app.schemas.ai import ChatRequest
-    from app.services.ai.el_conversation import resolve_request
+    from app.services.ai.el_conversation import resolve_confirmed_takeoff, resolve_request
     from app.services.ai.el_progress import _sink, public_activity
     from app.core.security import create_access_token
 
@@ -67,7 +67,9 @@ async def run(run_id, store=None):
                 context['takeoff_scope'] = [{'scope_token': sign_scope(panel, row['project'])} for panel in accepted_scope]
             message = row['payload']['message']
             if not state.get('resolution'):
-                state['resolution'] = await resolve_request(db, message, context)
+                state['resolution'] = resolve_confirmed_takeoff(message, context, accepted_scope)
+                if not state['resolution']:
+                    state['resolution'] = await resolve_request(db, message, context)
                 store.save(run_id, lease, state)
             message = state['resolution']['effective']
             context.update(resolved_request=state['resolution'], run_id=run_id, execution_mode='server_background')

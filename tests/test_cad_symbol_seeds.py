@@ -6,6 +6,26 @@ from app.services.ai.cad_symbol_seeds import seed_named_symbols
 
 
 class NativeSymbolSeedTests(unittest.TestCase):
+    def test_a_printed_selector_restores_only_a_missing_labeled_symbol(self):
+        from app.services.ai.cad_symbol_seeds import printed_meter_selectors, restore_meter_selectors
+        doc = ezdxf.new()
+        space = doc.modelspace()
+        space.add_circle((100, 100), 10)
+        space.add_line((93, 107), (107, 93))
+        space.add_circle((155, 100), 10)
+        evidence = {'labels': [{'id':'as','text':'AS','x':112,'y':93,'height':8},
+                               {'id':'cv','text':'CV','x':167,'y':93,'height':8}]}
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / 'selectors.dxf'
+            doc.saveas(path)
+            rows = printed_meter_selectors(path, evidence)
+        self.assertEqual([row['observed_text'] for row in rows], ['AS'])
+        devices = [{'category':'SELECTOR_SWITCH','observed_text':'CV'}]
+        part = {'devices':devices,'read_failed':False}
+        restore_meter_selectors([part], rows)
+        restore_meter_selectors([part], rows)
+        self.assertEqual([row['observed_text'] for row in devices], ['CV', 'AS'])
+
     def test_unlabeled_ct_requires_a_winding_connected_to_the_as_circuit(self):
         from app.services.ai.cad_symbol_seeds import unlabeled_ct_cluster
         doc = ezdxf.new()

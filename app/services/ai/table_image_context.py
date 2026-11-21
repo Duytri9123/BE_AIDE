@@ -2,6 +2,71 @@
 import re
 
 
+def read_panel_text(image):
+    """A single local OCR call over the same complete image used by vision."""
+    import numpy as np
+    from rapidocr_onnxruntime import RapidOCR
+    engine = RapidOCR(intra_op_num_threads=1, inter_op_num_threads=1)
+    rows, _ = engine(np.asarray(image), use_cls=False)
+    return rows or [], row_slope(image)
+
+
+def ground_printed_branch_tags(parts, text_rows, slope, image_size):
+    """Bind a unique printed tag to its literal load in the same table row."""
+    from app.services.ingestion.cad_source_evidence import plain
+    from statistics import median
+
+    width, height = image_size
+    def load_key(value):
+        key = re.sub(r'[^A-Z0-9]', '', plain(value or ''))
+        return re.sub(r'O(?=\d+$)', '0', key)
+
+    entries = []
+    for polygon, text, confidence in text_rows:
+        if float(confidence) < .6 or not polygon:
+            continue
+        x = sum(point[0] for point in polygon) / len(polygon) / width
+        y = sum(point[1] for point in polygon) / len(polygon) / height
+        entries.append((plain(text).strip(), x, y - (slope or 0) * x))
+    tags = [(text, x, y) for text, x, y in entries if re.fullmatch(r'[A-Z]{1,3}\d{1,3}', text)]
+    assignments = []
+    tag_loads = {}
+    for part in parts:
+        for row in part['devices']:
+            if row.get('tag') and row.get('connected_load'):
+                tag_loads.setdefault(row['tag'], set()).add(load_key(row['connected_load']))
+            if row.get('tag') or not row.get('connected_load'):
+                continue
+            load = load_key(row['connected_load'])
+            labels = [(text, x, y) for text, x, y in entries if len(load) >= 6 and load_key(text) == load]
+            if len(labels) != 1:
+                continue
+            text, x, y = labels[0]
+            column = [(tag, tag_x, tag_y) for tag, tag_x, tag_y in tags if x - tag_x > .18]
+            if len(column) < 2:
+                continue
+            center = median(tag_x for _, tag_x, _ in column)
+            column = sorted([(tag, tag_y) for tag, tag_x, tag_y in column if abs(tag_x - center) < .018],
+                            key=lambda item: item[1])
+            gaps = [b[1] - a[1] for a, b in zip(column, column[1:]) if b[1] > a[1]]
+            if not gaps:
+                continue
+            candidates = [tag for tag, tag_y in column if abs(y - tag_y) < min(.036, median(gaps) * .49)]
+            if len(candidates) != 1:
+                continue
+            tag = candidates[0]
+            tag_loads.setdefault(tag, set()).add(load)
+            assignments.append((row, tag, text))
+    for row, tag, text in assignments:
+        if len(tag_loads[tag]) != 1:
+            continue
+        row['tag'] = tag
+        row['location'] = row.get('location') or 'Lộ ' + tag
+        observed = row.get('source_observations') or {}
+        row['source_observations'] = {**observed, 'source_checks': [*(observed.get('source_checks') or []),
+            {'field': 'tag', 'value': tag, 'observed_text': text, 'verification_status': 'ocr_same_row'}]}
+
+
 def row_slope(image):
     """Project long, near-horizontal source wires into normalized coordinates."""
     import cv2

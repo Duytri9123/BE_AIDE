@@ -15,6 +15,16 @@ from app.services.ai.takeoff_verifier import engineering_review
 
 
 class ScopedTakeoffTests(unittest.IsolatedAsyncioTestCase):
+    def test_literal_fuse_group_phase_marking_and_timer_alias(self):
+        from app.services.ai.scoped_takeoff import normalize_scoped_row
+        fuse = normalize_scoped_row({'category': 'FUSE', 'name': 'Cầu chì', 'quantity': 1, 'unit': 'Bộ',
+                                     'spec': '3x2A', 'observed_text': '3x2A'})
+        self.assertEqual((fuse['quantity'], fuse['unit'], fuse['spec']), (3, 'Cái', '3x2A'))
+        light = normalize_scoped_row({'category': 'LIGHT', 'name': 'Đèn báo pha', 'spec': 'R', 'observed_text': 'R'})
+        self.assertEqual(light['spec'], '')
+        self.assertEqual(light['source_observations']['symbol_marking'], 'R')
+        self.assertEqual(normalize_scoped_row({'category': 'RO LE THOI GIAN', 'spec': '24H'})['category'], 'TIMER')
+
     def test_preserves_a_printed_branch_code_reported_as_location(self):
         from app.services.ai.scoped_takeoff import ground_scoped_identity
         row = {'name': 'MCB', 'category': 'MCB', 'location': 'Nhánh P7', 'connected_load': 'BƠM PHUN SƯƠNG 07'}

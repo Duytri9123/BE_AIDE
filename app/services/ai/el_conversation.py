@@ -49,6 +49,25 @@ def conversation_history(context, message):
     return list(reversed(bounded))
 
 
+def resolve_confirmed_takeoff(message, context, panels):
+    """A validated confirmation click already identifies the intent and scope."""
+    if not panels:
+        return None
+    codes = ', '.join(panel['panel_code'] for panel in panels)
+    confirmation = (f'Bóc tách các tủ đã xác nhận: {codes}. Giữ vị trí/lộ của từng thiết bị '
+                    'và chỉ bóc trong các vùng đã chọn.')
+    if message != confirmation:
+        return None
+    history = conversation_history(context, message)
+    prior = next((turn['content'] for turn in reversed(history) if turn['role'] == 'user'), '')
+    if prior:
+        from app.api.v1.endpoints.el_agent import is_explicit_takeoff_request
+        if is_explicit_takeoff_request(prior):
+            prior = prior.split('\nNguồn của lượt này:', 1)[0]
+            message += '\nGiữ các yêu cầu phù hợp trong phạm vi tủ đã xác nhận từ lượt trước: ' + prior[:3500]
+    return {'original': confirmation, 'effective': message, 'intent': 'takeoff'}
+
+
 async def resolve_request(db, message, context):
     cached = context.get('resolved_request') or {}
     if isinstance(cached, dict) and cached.get('effective') == message:

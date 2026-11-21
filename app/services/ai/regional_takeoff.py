@@ -22,6 +22,7 @@ COVERAGE_SCHEMA = {'type':'OBJECT','required':['issues'],'properties':{
         'required':['region_id','field','reason','device_indices'],
         'properties':{
             'region_id':{'type':'STRING'},'field':{'type':'STRING'},'reason':{'type':'STRING'},
+            'source_value':{'type':'STRING'},'source_text':{'type':'STRING'},
             'box_2d':{'type':'ARRAY','items':{'type':'NUMBER'}},
             'device_indices':{'type':'ARRAY','items':{'type':'INTEGER'}},
             'note_indices':{'type':'ARRAY','items':{'type':'INTEGER'}},
@@ -124,6 +125,40 @@ COVERAGE = (
 def parse(raw, key):
     return next((b for b in ResponseParserService.extract_json_blocks(raw)
                  if isinstance(b, dict) and isinstance(b.get(key), list)), {})
+
+
+def apply_panel_label_corrections(parts, issues):
+    """Use the independent whole-panel read to fill a missing literal label."""
+    from app.services.ingestion.cad_source_evidence import plain
+
+    unresolved = []
+    for issue in issues:
+        if not isinstance(issue, dict) or issue.get('field') not in {'tag', 'connected_load'}:
+            unresolved.append(issue)
+            continue
+        region = str(issue.get('region_id', ''))
+        indices = issue.get('device_indices')
+        value = str(issue.get('source_value') or '').strip()
+        quote = str(issue.get('source_text') or '').strip()
+        if (not region.isdigit() or int(region) >= len(parts) or not isinstance(indices, list)
+                or len(indices) != 1 or type(indices[0]) is not int or not value or not quote
+                or plain(value) != plain(quote) or issue.get('verification_only')):
+            unresolved.append(issue)
+            continue
+        rows = parts[int(region)]['devices']
+        field = issue['field']
+        index = indices[0]
+        if (not 0 <= index < len(rows) or rows[index].get(field)
+                or field == 'tag' and not re.fullmatch(r'[A-Z]{1,5}\d{1,4}[A-Z]?', value, re.I)
+                or field == 'connected_load' and plain(value) in {'DU PHONG', 'SPARE', 'KHONG TAI'}):
+            unresolved.append(issue)
+            continue
+        row = rows[index]
+        row[field] = value.upper() if field == 'tag' else value
+        observed = row.get('source_observations') or {}
+        row['source_observations'] = {**observed, 'source_checks': [*(observed.get('source_checks') or []),
+            {'field': field, 'value': row[field], 'observed_text': quote, 'verification_status': 'whole_panel'}]}
+    return unresolved
 
 
 def enrich_native_parts(parts, evidence):
@@ -348,7 +383,8 @@ async def check_overlap_geometry(image,image_path,regions,parts,issues,call_imag
                             for b in parts[pi]['boxes']]
 
 
-async def extract_regions(image_path, prompt, call_image, *, concurrency=1, preserve_row_context=False, native_evidence=None,native_path=None, whole_panel=False):
+async def extract_regions(image_path, prompt, call_image, *, concurrency=1, preserve_row_context=False,
+                          native_evidence=None, native_path=None, whole_panel=False, pdf_labels=False):
     """Discover first, independently compare inventory, reread at most two regions."""
     scan = {'regions': [{'box_2d': [0, 0, 1000, 1000], 'rotation_degrees': 0,
                          'label': 'Toàn vùng tủ'}]} if whole_panel else None
@@ -469,9 +505,13 @@ async def extract_regions(image_path, prompt, call_image, *, concurrency=1, pres
         from app.services.ai.cad_branch_evidence import native_vertical_candidates,merge_vertical_candidates
         vertical=await asyncio.to_thread(native_vertical_candidates,native_path,native_evidence) if native_path and native_evidence else {'devices':[],'boxes':[]}
         native_ct = None
+        native_selectors = []
         if whole_panel and native_path and native_evidence:
-            from app.services.ai.cad_symbol_seeds import unlabeled_ct_cluster
-            native_ct = await asyncio.to_thread(unlabeled_ct_cluster, native_path, native_evidence)
+            from app.services.ai.cad_symbol_seeds import printed_meter_selectors, restore_meter_selectors, unlabeled_ct_cluster
+            native_ct, native_selectors = await asyncio.gather(
+                asyncio.to_thread(unlabeled_ct_cluster, native_path, native_evidence),
+                asyncio.to_thread(printed_meter_selectors, native_path, native_evidence),
+            )
         native_candidates=native_schedule_candidates(native_evidence or {}) if preserve_row_context else {'devices':[],'boxes':[]}
         if len(native_candidates['devices'])!=len(horizontal_schedule_rows(native_evidence or {})):
             native_candidates={'devices':[],'boxes':[]}  # Unsupported native rows need the normal image read.
@@ -651,14 +691,28 @@ async def extract_regions(image_path, prompt, call_image, *, concurrency=1, pres
                         'retryable_interruption':transient_transport_failure(exc)}
 
         tasks = [asyncio.create_task(read_available(i)) for i in range(len(regions))]
+        panel_text = None
+        if whole_panel and pdf_labels:
+            from app.services.ai.table_image_context import read_panel_text
+            panel_text = asyncio.create_task(asyncio.to_thread(read_panel_text, image))
         try:
             parts = await asyncio.gather(*tasks)
         except BaseException:
             # Join siblings before the temporary crop files are removed.
             for task in tasks:
                 task.cancel()
+            if panel_text:
+                panel_text.cancel()
+                tasks.append(panel_text)
             await asyncio.gather(*tasks, return_exceptions=True)
             raise
+        text_rows, text_slope = [], None
+        if panel_text:
+            try:
+                text_rows, text_slope = await panel_text
+            except Exception:
+                import logging
+                logging.getLogger(__name__).warning('Could not read local PDF labels for EL', exc_info=True)
         failed=[i for i,p in enumerate(parts) if p.get('retryable_interruption')]
         if failed and (len(failed) <= 2 or any(not part['read_failed'] for part in parts)):
             # Retry only isolated failed reads once, after sibling requests have
@@ -671,10 +725,15 @@ async def extract_regions(image_path, prompt, call_image, *, concurrency=1, pres
         if vertical['devices']:merge_vertical_candidates(parts,regions,vertical)
         if native_ct and not parts[0]['read_failed'] and not any(row.get('category') == 'CT' for row in parts[0]['devices']):
             parts[0]['devices'].append(dict(native_ct))
+        if native_selectors:
+            restore_meter_selectors(parts, native_selectors)
         shared_source_references(parts,scan.get('shared_references') or [])
         if table_layout and not native_evidence:
             from app.services.ai.table_image_context import propose_branch_tags
             propose_branch_tags(parts)
+        if text_rows:
+            from app.services.ai.table_image_context import ground_printed_branch_tags
+            ground_printed_branch_tags(parts, text_rows, text_slope, image.size)
         enrich_native_parts(parts,native_evidence)
         deduplicate_parts(parts, native_evidence)
 
@@ -718,6 +777,10 @@ async def extract_regions(image_path, prompt, call_image, *, concurrency=1, pres
                 'Mỗi phần tử devices là một dòng, theo thứ tự trường trong device_columns. '
                 'device_indices là chỉ số dòng trong devices của chính vùng đó liên quan trực tiếp đến lỗi; '
                 'thiếu dòng thì để rỗng. JSON {"issues":[{"region_id":"0","field":"spec","reason":"lỗi cụ thể","box_2d":[],"device_indices":[]}]}.\n' +
+                ('Nếu một dòng chỉ thiếu mã lộ hoặc tên tải, chỉ rõ đúng một device_indices và thêm source_value, '
+                 'source_text: cả hai là cùng một nhãn nguyên văn trên ảnh, sau khi lần dây đến đúng dòng. '
+                 'Không điền nếu nhãn hoặc dây không rõ. Không đưa lỗi định dạng, phỏng đoán hay giá trị đã đúng vào issues.\n'
+                 if whole_panel else '') +
                 json.dumps({'device_columns': device_columns, 'original_cad_labels':source_labels,
                             'regions': inventory}, ensure_ascii=False, separators=(',', ':')))
             contract = {'response_schema':COVERAGE_SCHEMA} if getattr(call_image,'supports_json_schema',False) is True else {}
@@ -735,6 +798,8 @@ async def extract_regions(image_path, prompt, call_image, *, concurrency=1, pres
                 issues = [issue for issue in issues if not repeated_note_reference(issue, parts)]
                 from app.services.ai.source_issue_review import source_function_issues
                 issues=source_function_issues(parts,issues)
+                if whole_panel:
+                    issues = apply_panel_label_corrections(parts, issues)
             if issues is not None and not whole_panel:
                 for region_id, part in enumerate(parts):
                     for i, row in enumerate(part['devices']):
@@ -802,9 +867,13 @@ async def extract_regions(image_path, prompt, call_image, *, concurrency=1, pres
             if vertical['devices']:merge_vertical_candidates(parts,regions,vertical)
             if native_ct and not parts[0]['read_failed'] and not any(row.get('category') == 'CT' for row in parts[0]['devices']):
                 parts[0]['devices'].append(dict(native_ct))
+            if native_selectors:
+                restore_meter_selectors(parts, native_selectors)
             shared_source_references(parts,scan.get('shared_references') or [])
             if table_layout and not native_evidence:
                 propose_branch_tags(parts)
+            if text_rows:
+                ground_printed_branch_tags(parts, text_rows, text_slope, image.size)
             enrich_native_parts(parts,native_evidence)
             deduplicate_parts(parts, native_evidence)
             issues = await review()

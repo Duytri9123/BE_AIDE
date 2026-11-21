@@ -14,6 +14,31 @@ async def keep_disputes(image, regions, parts, issues, call_image, **kwargs):
 
 
 class RegionalTests(unittest.IsolatedAsyncioTestCase):
+    def test_pdf_ocr_copies_only_a_tag_aligned_with_the_literal_load(self):
+        from app.services.ai.table_image_context import ground_printed_branch_tags
+        def token(text, x, y):
+            return ([[x, y], [x+10, y], [x+10, y+8], [x, y+8]], text, .95)
+
+        tokens = [token('P7', 200, 300), token('P8', 200, 360), token('BOMPHUNSUONGO7', 700, 325),
+                  token('VAN DIEN TU 08', 700, 430)]
+        devices = [{'connected_load': 'BƠM PHUN SƯƠNG 07'}, {'connected_load': 'VAN ĐIỆN TỪ 08'}]
+        ground_printed_branch_tags([{'devices': devices}], tokens, .05, (1000, 1000))
+        self.assertEqual(devices[0]['tag'], 'P7')
+        self.assertNotIn('tag', devices[1])
+
+    async def test_whole_panel_fills_an_independently_read_missing_tag_without_another_read(self):
+        call = AsyncMock(side_effect=[json.dumps({'devices': [['MCB', 'MCB', None, '2P 20A', 1,
+                                                             'Cái', None, 'MCB 2P 20A']]}),
+            json.dumps({'issues': [{'region_id': '0', 'field': 'tag', 'device_indices': [0],
+                                    'source_value': 'Q1', 'source_text': 'Q1', 'reason': 'Thiếu mã lộ Q1'}]})])
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / 'panel.png'
+            Image.new('RGB', (1200, 900)).save(path)
+            result = await extract_regions(path, 'Bóc tách tủ', call, whole_panel=True)
+        self.assertEqual(call.await_count, 2)
+        self.assertEqual(result['devices'][0]['tag'], 'Q1')
+        self.assertEqual(result['devices'][0]['source_observations']['coverage_review']['status'], 'passed')
+
     def test_cad_branch_tag_in_load_does_not_duplicate_the_native_breaker(self):
         from app.services.ai.cad_branch_evidence import merge_vertical_candidates
         image_row = {'category': 'MCB', 'connected_load': 'L1. Chiếu sáng'}

@@ -50,6 +50,61 @@ def unlabeled_ct_cluster(path, evidence):
             'source_observations': {'extraction_method': 'native_current_transformer_winding'}}
 
 
+def printed_meter_selectors(path, evidence):
+    """Recognize a labeled selector only where the CAD contains its diagonal-in-circle symbol."""
+    import ezdxf
+    from app.services.ingestion.cad_source_evidence import plain
+
+    labels = [label for label in evidence.get('labels', []) if plain(label['text']).strip() in {'AS', 'CV', 'VS'}]
+    if not labels:
+        return []
+    space = ezdxf.readfile(path).modelspace()
+    circles = list(space.query('CIRCLE'))
+    diagonals = [line for line in space.query('LINE') if line.dxf.start.x != line.dxf.end.x
+                 and line.dxf.start.y != line.dxf.end.y]
+    rows = []
+    for label in labels:
+        matches = []
+        for circle in circles:
+            center, radius = circle.dxf.center, circle.dxf.radius
+            if radius <= 0 or abs(center.x - label['x']) > 2.5*label['height'] or abs(center.y - label['y']) > 2.5*label['height']:
+                continue
+            for line in diagonals:
+                a, b = line.dxf.start, line.dxf.end
+                if (.77*radius <= a.distance(center) <= 1.18*radius and .77*radius <= b.distance(center) <= 1.18*radius
+                        and ((a+b)/2).distance(center) <= .18*radius):
+                    matches.append((circle.dxf.handle, line.dxf.handle))
+        if len(matches) != 1:
+            continue
+        mark = plain(label['text']).strip()
+        rows.append({'category':'SELECTOR_SWITCH', 'name':'Chuyển mạch Ampe' if mark == 'AS' else 'Chuyển mạch Volt',
+                     'quantity':1, 'unit':'Cái', 'spec':'', 'observed_text':mark, 'section':'Đo lường',
+                     'source_evidence_ids':[label['id'], *matches[0]],
+                     'source_observations':{'extraction_method':'native_meter_selector_symbol'}})
+    return rows
+
+
+def restore_meter_selectors(parts, native_rows):
+    from app.services.ingestion.cad_source_evidence import plain
+    for part in parts:
+        if part['read_failed']:
+            continue
+        selectors = [row for row in part['devices'] if row.get('category') == 'SELECTOR_SWITCH']
+        existing = set()
+        for row in selectors:
+            description = plain(' '.join(str(row.get(key) or '') for key in ('tag','observed_text','name')))
+            if re.search(r'\bAS\b|AMPE|DONG DIEN', description):
+                existing.add('AS')
+            elif re.search(r'\b(?:VS|CV)\b|VOLT|VON|DIEN AP', description):
+                existing.update({'CV','VS'})
+            else:
+                break  # An unidentified existing selector might be this one.
+        else:
+            for row in native_rows:
+                if row['observed_text'] not in existing:
+                    part['devices'].append(dict(row))
+
+
 def ground_ct_clusters(evidence,parts):
     """Generic AS and three phases do not identify a physical CT count."""
     from app.services.ingestion.cad_source_evidence import plain

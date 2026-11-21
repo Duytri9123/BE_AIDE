@@ -46,12 +46,12 @@ if __name__=='__main__': unittest.main()
 
 
 class DiscoveryPageCoverageTests(unittest.IsolatedAsyncioTestCase):
-    async def discover(self,responses):
+    async def discover(self,responses, extension='png'):
         from PIL import Image
         from app.services.ai.takeoff_regions import discover_panels
         with tempfile.TemporaryDirectory() as folder:
-            path=Path(folder)/'source.png';Image.new('RGB',(100,100)).save(path)
-            file=SimpleNamespace(id=7,filename='source.png',file_path=str(path))
+            path=Path(folder)/f'source.{extension}';Image.new('RGB',(100,100),'white').save(path)
+            file=SimpleNamespace(id=7,filename=path.name,file_path=str(path))
             result=MagicMock();result.scalars.return_value.all.return_value=[file]
             db=SimpleNamespace(execute=AsyncMock(return_value=result))
             call=AsyncMock(side_effect=[(json.dumps(r),None) for r in responses])
@@ -60,6 +60,15 @@ class DiscoveryPageCoverageTests(unittest.IsolatedAsyncioTestCase):
                  patch('app.services.ai.cache_policy.ai_cache_enabled',return_value=False):
                 response=await discover_panels(db,991,[7])
             return response,call.await_count
+
+    async def test_single_pdf_title_strip_confirms_the_complete_page(self):
+        response, calls = await self.discover([{'panels': [
+            {'panel_code': 'PX2', 'source_region': [.16, .85, .76, .88]},
+        ]}], extension='pdf')
+        self.assertEqual(calls, 1)
+        panel = response['detected_panels'][0]
+        self.assertEqual(panel['source_region'], [0, 0, 1, 1])
+        self.assertEqual(panel['source_page'], 1)
 
     async def test_empty_page_is_read_again_before_omitting_it(self):
         response,calls=await self.discover([{'panels':[]},{'panels':[

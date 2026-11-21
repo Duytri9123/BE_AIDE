@@ -91,7 +91,8 @@ def normalize_scoped_row(row):
                'CHUYỂN MẠCH': 'SELECTOR_SWITCH', 'ĐÈN BÁO': 'LIGHT', 'ĐỒNG HỒ ĐO': 'METER',
                'BỘ NGUỒN':'POWER_SUPPLY','BỘ ĐỔI NGUỒN':'POWER_SUPPLY','KHỞI ĐỘNG TỪ':'CONTACTOR',
                'BỘ ĐỊNH THỜI':'TIMER','BỘ ĐIỀU KHIỂN THỜI GIAN':'TIMER','BỘ HẸN GIỜ':'TIMER','NÚT ẤN':'BUTTON','NÚT NHẤN':'BUTTON',
-               'CURRENT_TRANSFORMER':'CT','INDICATOR_LIGHT':'LIGHT','PILOT_LIGHT':'LIGHT','POWER SUPPLY':'POWER_SUPPLY'}
+               'CURRENT_TRANSFORMER':'CT','INDICATOR_LIGHT':'LIGHT','PILOT_LIGHT':'LIGHT','POWER SUPPLY':'POWER_SUPPLY',
+               'RO LE THOI GIAN':'TIMER','RƠ LE THỜI GIAN':'TIMER','RƠ-LE THỜI GIAN':'TIMER'}
     category = str(result.get('category') or '').upper()
     breaker_category = category in {'', 'APTOMAT', 'APTOMAT TÉP', 'APTOMAT KHỐI', 'BREAKER', 'CB', 'PROTECTION', 'THIẾT BỊ ĐÓNG CẮT', 'THIẾT BỊ BẢO VỆ', 'CIRCUIT_BREAKER', 'MCB', 'MCCB', 'RCBO', 'RCCB', 'ACB'}
     breaker_category = breaker_category or category == 'PROTECTIVE' or bool(re.match(r'^(?:APTOMAT|CẦU DAO|CIRCUIT.?BREAKER)(?:\b|_)', category))
@@ -158,6 +159,11 @@ def normalize_scoped_row(row):
         result.update(quantity=1, unit='Cụm', quantity_review={
             'status': 'needs_review', 'blocking': True,
             'verification_note': 'Chưa xác định số vật tư; một cụm ghi nhận không phải số lượng mua đã xác nhận.'})
+    if result['category'] == 'FUSE':
+        label = str(result.get('observed_text') or '').strip()
+        group = re.fullmatch(r'(\d{1,2})\s*[x×]\s*\d+(?:[.,]\d+)?\s*A', label, re.I)
+        if group and 1 < int(group[1]) <= 64:
+            result.update(quantity=int(group[1]), unit='Cái', quantity_basis=label)
     if (str(result.get('unit') or '').strip().casefold()=='cụm'
             and isinstance(result.get('quantity'),int) and isinstance(result.get('drawing_quantity'),int)
             and 0<result['drawing_quantity']<result['quantity']
@@ -186,6 +192,12 @@ def normalize_scoped_row(row):
         result['source_observations']={**(result.get('source_observations') or {}),'symbol_marking':result['spec']}
         result['spec']=''
     from app.services.ingestion.cad_source_evidence import plain
+    if result['category'] == 'LIGHT':
+        phase = str(result.get('observed_text') or '').strip()
+        marking = re.fullmatch(r'[RYB]', phase, re.I)
+        if marking and plain(result['spec']) in {phase.upper(), 'DO', 'VANG', 'XANH', 'XANH LA', 'XANH DUONG'}:
+            result['source_observations'] = {**(result.get('source_observations') or {}), 'symbol_marking': phase}
+            result['spec'] = ''
     if result['category'] in {'BUTTON','FAN'}:
         from app.services.ai.material_note_evidence import material_annotation
         annotation=material_annotation({**result,'observed_text':result['spec']})
@@ -440,7 +452,8 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                     payload = await run_step(activity,
                         extract_regions(image_path, prompt, call_image, concurrency=concurrency,
                                         preserve_row_context=horizontal_rows, native_evidence=source_evidence,
-                                        native_path=native_context.get('analysis'), whole_panel=whole_panel))
+                                        native_path=native_context.get('analysis'), whole_panel=whole_panel,
+                                        pdf_labels=Path(file.file_path).suffix.lower() == '.pdf'))
                     if candidate_key and payload and payload.get('devices') and all(
                             (r.get('source_observations') or {}).get('coverage_review', {}).get('status') == 'passed'
                             for r in payload['devices']):
@@ -550,8 +563,11 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
 
     with tempfile.TemporaryDirectory(prefix='aide_selected_') as temporary:
         if session_factory and len(panels) > 1:
-            panel_batches = await asyncio.gather(*(process_panel(i, p, temporary) for i, p in enumerate(panels)))
+            panel_batches = await asyncio.gather(*(process_panel(i, p, temporary) for i, p in enumerate(panels)),
+                                                  return_exceptions=True)
             for batch in panel_batches:
+                if isinstance(batch, BaseException):
+                    raise batch
                 result.extend(batch)
         else:
             for index, panel in enumerate(panels):
