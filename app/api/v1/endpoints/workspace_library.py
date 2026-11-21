@@ -180,3 +180,214 @@ def cabinet_mechanics(template_id: str):
         return source_supports(template_id)
     except (ValueError, OSError, KeyError, StopIteration):
         return {'items': [], 'provenance': {}, 'warnings': ['Chưa có dữ liệu đố gốc cho mẫu này. Có thể thêm đố theo thiết bị.']}
+
+
+class CabinetAgentRequest(BaseModel):
+    project_id: int
+    message: str = Field(min_length=1, max_length=1500)
+    cabinet_name: str = Field(default='', max_length=120)
+    template: dict | None = None
+    placed_devices: list[dict] = Field(default_factory=list)
+    history: list[dict] = Field(default_factory=list)
+
+
+@router.post('/cabinet-agent/consult')
+async def cabinet_agent_consult(
+    payload: CabinetAgentRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_active_user)
+):
+    stmt = select(Project).where(
+        Project.id == payload.project_id,
+        Project.user_id == current_user.id,
+        Project.deleted_at.is_(None)
+    )
+    project = (await db.execute(stmt)).scalar_one_or_none()
+    if not project:
+        raise HTTPException(404, 'Dự án không tồn tại.')
+
+    template = payload.template or {}
+    dims = template.get('dimensions') or {'height': 700, 'width': 500, 'depth': 250}
+    w = float(dims.get('width', 500))
+    h = float(dims.get('height', 700))
+    d = float(dims.get('depth', 250))
+    desc = template.get('description', 'Tủ điện tiêu chuẩn')
+
+    w_plate = max(50.0, w - 80.0)
+    h_plate = max(50.0, h - 100.0)
+    plate_area = w_plate * h_plate
+
+    placed = payload.placed_devices or []
+    device_count = len(placed)
+    total_device_area = 0.0
+    collisions = []
+
+    for i, dev in enumerate(placed):
+        dw = float(dev.get('width', 0) or 0)
+        dh = float(dev.get('height', 0) or 0)
+        dd = float(dev.get('depth', 0) or 0)
+        dx = float(dev.get('x', 0) or 0)
+        dy = float(dev.get('y', 0) or 0)
+        d_name = dev.get('name') or dev.get('id') or f'Thiết bị #{i+1}'
+        standoff = float(dev.get('standoff', 20) or 20)
+        owner = dev.get('owner', 'mounting_plate')
+
+        total_device_area += dw * dh
+
+        if (dd + standoff) > (d + 2.0):
+            collisions.append(f"{d_name}: Vượt chiều sâu tủ ({dd + standoff:.0f}mm > {d:.0f}mm)")
+
+        if owner == 'mounting_plate':
+            if dx < 0 or (dx + dw) > (w_plate + 5.0):
+                collisions.append(f"{d_name}: Tràn mép ngang tấm lắp ({dx:.0f}..{dx+dw:.0f}mm / {w_plate:.0f}mm)")
+            if dy < 0 or (dy + dh) > (h_plate + 5.0):
+                collisions.append(f"{d_name}: Tràn mép đứng tấm lắp ({dy:.0f}..{dy+dh:.0f}mm / {h_plate:.0f}mm)")
+
+        for j in range(i + 1, len(placed)):
+            other = placed[j]
+            if other.get('owner', 'mounting_plate') != owner:
+                continue
+            ox = float(other.get('x', 0) or 0)
+            oy = float(other.get('y', 0) or 0)
+            ow = float(other.get('width', 0) or 0)
+            oh = float(other.get('height', 0) or 0)
+            o_name = other.get('name') or other.get('id') or f'Thiết bị #{j+1}'
+
+            if dx < (ox + ow - 2) and (dx + dw) > (ox + 2) and dy < (oy + oh - 2) and (dy + dh) > (oy + 2):
+                collisions.append(f"Va chạm: {d_name} ↔ {o_name}")
+
+    fill_ratio = round((total_device_area / plate_area) * 100, 1) if plate_area > 0 else 0.0
+
+    msg_lower = payload.message.lower()
+    from app.services.device_catalog_browser import customer_catalog_page, build_catalog_page, load_catalog_items, load_supplier_items, load_web_offers
+    from app.services.ai.device_price_resolver import CustomPriceStore
+
+    suggested_devices = []
+    search_terms = []
+    for kw in ['mcb', 'mccb', 'acb', 'contactor', 'relay', 'rơ le', 'biến tần', 'vfd', 'ats', 'chống sét', 'spd', 'đồng hồ']:
+        if kw in msg_lower:
+            search_terms.append(kw)
+    for brand_kw in ['schneider', 'abb', 'mitsubishi', 'ls', 'chint', 'panasonic', 'siemens', 'fuji']:
+        if brand_kw in msg_lower:
+            search_terms.append(brand_kw)
+
+    query_term = ' '.join(search_terms) if search_terms else ('mcb' if 'thiết bị' in msg_lower or 'nhỏ hơn' in msg_lower else payload.message[:30])
+
+    try:
+        catalog_res = customer_catalog_page(build_catalog_page(
+            [], CustomPriceStore.list_all(),
+            web_offers=load_web_offers(),
+            supplier_items=load_supplier_items(),
+            catalog_items=load_catalog_items(),
+            documents=[],
+            library_links={},
+            q=query_term,
+            limit=8
+        ))
+        items = catalog_res.get('items', [])
+        for it in items[:6]:
+            it_name = it.get('sku') or it.get('item_name') or it.get('name', 'Thiết bị')
+            it_brand = it.get('brand') or 'Tiêu chuẩn'
+            it_price = it.get('price') or 0
+            spec = it.get('spec') or it.get('description') or ''
+            dw = float(it.get('width') or (54.0 if 'mcb' in it_name.lower() else (105.0 if 'mccb' in it_name.lower() else 75.0)))
+            dh = float(it.get('height') or (85.0 if 'mcb' in it_name.lower() else (165.0 if 'mccb' in it_name.lower() else 90.0)))
+            dd = float(it.get('depth') or (70.0 if 'mcb' in it_name.lower() else (86.0 if 'mccb' in it_name.lower() else 65.0)))
+            suggested_devices.append({
+                'id': str(it.get('id', '')),
+                'name': it_name,
+                'brand': it_brand,
+                'spec': spec,
+                'price': it_price,
+                'width': dw,
+                'height': dh,
+                'depth': dd,
+                'reason': f"Phù hợp kích thước tủ {w:.0f}×{h:.0f}mm · {it_brand}"
+            })
+    except Exception:
+        pass
+
+    llm_reply = None
+    try:
+        import asyncio
+        import json
+        from app.services.ai.connection_pool import ConnectionPoolService
+        from app.services.ai.vision_analyzer import VisionAnalyzerService
+        connections = await ConnectionPoolService.get_ordered_connections(db)
+        if connections:
+            prompt = f"""Bạn là Kỹ sư Trưởng Thiết kế Tủ Điện AIDE (Cabinet Design AI Agent).
+Nhiệm vụ: Phân tích bố trí tủ điện 2D/3D, kiểm tra va chạm, tính toán tỷ lệ lắp đặt (fill ratio), khoảng cách an toàn điện theo TCVN / IEC 61439, và tư vấn tìm kiếm / điều chỉnh / thay thế thiết bị phù hợp.
+
+THÔNG TIN TỦ ĐIỆN HIỆN TẠI:
+- Tên tủ: {payload.cabinet_name or 'Tủ thiết kế'}
+- Kích thước vỏ tủ: W={w}mm × H={h}mm × D={d}mm ({desc})
+- Kích thước tấm lắp thiết bị: {w_plate}mm × {h_plate}mm (Diện tích: {plate_area/1e6:.3f} m²)
+- Số lượng thiết bị hiện tại: {device_count} thiết bị
+- Tỷ lệ diện tích chiếm dụng (Fill Ratio): {fill_ratio}% (Khuyến nghị chuẩn IEC 61439: 45% - 70%)
+- Cảnh báo va chạm / tràn mép: {', '.join(collisions) if collisions else 'Không phát hiện va chạm nào'}
+
+DANH SÁCH THIẾT BỊ ĐÃ BỐ TRÍ:
+{json.dumps([{'name': d.get('name'), 'w': d.get('width'), 'h': d.get('height'), 'd': d.get('depth'), 'x': d.get('x'), 'y': d.get('y'), 'owner': d.get('owner')} for d in placed], ensure_ascii=False, indent=2)}
+
+YÊU CẦU CỦA NGƯỜI DÙNG:
+"{payload.message}"
+
+HƯỚNG DẪN TRẢ LỜI:
+1. Đánh giá nhanh: Tỷ lệ chiếm dụng không gian ({fill_ratio}%), cảnh báo va chạm/khoảng hở tản nhiệt (nếu có).
+2. Phân tích & Tư vấn thiết bị: Trả lời đúng trọng tâm câu hỏi của người dùng (nếu hỏi tìm/đổi thiết bị, đưa ra gợi ý cụ thể về kích thước, thông số, hãng).
+3. Hướng dẫn thao tác: Nhắc người dùng có thể bấm nút "Thêm vào tủ" ở danh sách gợi ý bên dưới hoặc kéo thả trực tiếp từ tab Thiết bị.
+Trả lời bằng tiếng Việt, định dạng Markdown rõ ràng, chuyên nghiệp."""
+            raw, _ = await asyncio.wait_for(
+                ConnectionPoolService.call_with_fallback(
+                    db=db, connections=connections, call_fn=VisionAnalyzerService.analyze_text, prompt=prompt
+                ),
+                timeout=25
+            )
+            if raw and len(raw.strip()) > 30:
+                llm_reply = raw.strip()
+    except Exception:
+        pass
+
+    if not llm_reply:
+        status_line = "🟢 **Bố trí hợp lý & an toàn**" if not collisions and 30 <= fill_ratio <= 75 else (
+            "🔴 **Phát hiện va chạm / tràn kích thước**" if collisions else "🟡 **Cần lưu ý mật độ lắp đặt**"
+        )
+        collision_text = "\n".join([f"- ⚠️ {c}" for c in collisions]) if collisions else "- ✅ Không có va chạm giữa các thiết bị hoặc tràn mép tấm lắp."
+        density_advice = (
+            f"Tỷ lệ chiếm chỗ hiện tại đạt **{fill_ratio}%**. Mật độ bố trí ở mức lý tưởng (khuyến nghị 45–70% theo IEC 61439 để đảm bảo tản nhiệt tự nhiên và dự phòng mở rộng 20%)."
+            if 35 <= fill_ratio <= 70 else (
+                f"Tỷ lệ chiếm chỗ đạt **{fill_ratio}%**. Tủ còn nhiều không gian trống (dưới 35%), bạn có thể bổ sung thêm thiết bị bảo vệ, thanh cái trung tính/PE hoặc chọn form tủ kích thước nhỏ hơn để tiết kiệm chi phí."
+                if fill_ratio < 35 else
+                f"Tỷ lệ chiếm chỗ đạt **{fill_ratio}%**. Mật độ thiết bị khá dày đặc (> 70%), cần lưu ý khe hở tản nhiệt giữa các thiết bị đóng cắt (tối thiểu 10–15mm) và bố trí quạt tản nhiệt hoặc lỗ thông gió cánh tủ."
+            )
+        )
+
+        llm_reply = f"""### {status_line}
+
+**1. Phân tích không gian & kích thước vỏ tủ:**
+- Vỏ tủ: **{w:.0f} × {h:.0f} × {d:.0f} mm** ({desc})
+- Tấm lắp hữu dụng: **{w_plate:.0f} × {h_plate:.0f} mm**
+- Số lượng thiết bị: **{device_count}** thiết bị
+- Tỷ lệ diện tích chiếm dụng: **{fill_ratio}%**
+
+**2. Đánh giá an toàn & va chạm:**
+{collision_text}
+- {density_advice}
+
+**3. Đề xuất & Tìm kiếm thiết bị:**
+Dưới đây là các thiết bị phù hợp trong catalog mà bạn có thể cân nhắc bổ sung hoặc thay thế. Bạn có thể bấm **"Thêm vào tủ"** trên từng thẻ gợi ý bên dưới để tự động đưa vào bản vẽ 3D.
+"""
+
+    return {
+        'reply': llm_reply,
+        'metrics': {
+            'fill_ratio': fill_ratio,
+            'device_count': device_count,
+            'collisions_count': len(collisions),
+            'collisions': collisions,
+            'cabinet_dimensions': {'width': w, 'height': h, 'depth': d},
+            'plate_dimensions': {'width': w_plate, 'height': h_plate},
+            'status': 'error' if collisions else ('warning' if fill_ratio > 75 else 'optimal')
+        },
+        'suggested_devices': suggested_devices
+    }
