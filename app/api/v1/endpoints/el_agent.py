@@ -474,44 +474,69 @@ def build_circuit_takeoff_analysis_summary(devices_data: list, panel_desc: str =
         return "Chưa ghi nhận thiết bị nào từ sơ đồ nguyên lý mạch."
 
     panels = sorted({str(d.get('panel_code') or '').strip() for d in devices_data if d.get('panel_code') and d.get('panel_code') != 'CHUA_XAC_DINH'})
-    title = f"tủ điện **{panel_desc}**" if panel_desc else (f"tủ **{', '.join(panels)}**" if panels else "sơ đồ nguyên lý mạch")
+    title = f"tủ **{panel_desc}**" if panel_desc else (f"tủ **{', '.join(panels)}**" if panels else "tủ điện")
 
-    # Tìm thiết bị đóng cắt tổng (Incomer)
+    # 1. Nguồn cấp & đóng cắt tổng (Incomer)
     breakers = [d for d in devices_data if str(d.get('category', '')).upper() in ('ACB', 'MCCB', 'MCB')]
     incomer = None
     if breakers:
-        incomer = next((d for d in breakers if any(k in str(d.get('tag', '')).upper() for k in ('0', 'MAIN', 'TONG', 'TỔNG', 'IN'))), None)
+        incomer = next((d for d in breakers if any(k in str(d.get('tag', '')).upper() for k in ('0', 'MAIN', 'TONG', 'TỔNG', 'IN', 'MCCB0', 'MCB0', 'ACB0'))), None)
         if not incomer:
-            incomer = max(breakers, key=lambda d: (d.get('in_a') or 0, d.get('poles') or 0))
+            incomer = max(breakers, key=lambda d: (float(d.get('in_a') or 0), int(d.get('poles') or 0)))
 
-    from collections import Counter
-    cat_counts = Counter(str(d.get('category', '')).upper() or 'THIẾT BỊ' for d in devices_data)
+    # 2. Mạch phân phối & xuất tuyến (Feeders)
+    feeder_counts = {}
+    for d in devices_data:
+        if d is incomer:
+            continue
+        cat = str(d.get('category', '')).upper()
+        name = str(d.get('name', '')).lower()
+        load = str(d.get('connected_load', '')).lower()
+        spec = str(d.get('spec', '')).lower()
+        info = f"{name} {load} {spec}"
+
+        if any(w in info for w in ('động cơ', 'bơm', 'quạt', 'motor', 'pump', 'fan', 'dol', 'star', 'tam giác')):
+            group = 'động cơ'
+        elif any(w in info for w in ('chiếu sáng', 'đèn', 'light')):
+            group = 'chiếu sáng'
+        elif any(w in info for w in ('ổ cắm', 'socket')):
+            group = 'ổ cắm'
+        elif any(w in info for w in ('điều hòa', 'lạnh', 'ahu', 'fcu', 'hvac', 'ac')):
+            group = 'điều hòa/HVAC'
+        elif cat in ('MCB', 'MCCB', 'RCBO', 'RCCB'):
+            group = 'phân phối khác'
+        else:
+            continue
+        feeder_counts[group] = feeder_counts.get(group, 0) + 1
+
+    feeder_parts = [f"{cnt} lộ {grp}" for grp, cnt in feeder_counts.items()]
+    feeder_text = ", ".join(feeder_parts) if feeder_parts else "Các nhánh phân phối phụ tải"
+
+    # 3. Mạch điều khiển & bảo vệ phụ trợ
+    aux_items = [d for d in devices_data if any(k in str(d.get('category', '')).upper() for k in ('METER', 'CONTACTOR', 'RELAY', 'TIMER', 'SPD', 'SURGE', 'ĐO LƯỜNG', 'ĐÈN', 'NÚT', 'TI', 'BIẾN DÒNG'))]
+    aux_counts = {}
+    for d in aux_items:
+        c = str(d.get('category') or d.get('name') or 'Phụ trợ').upper()
+        aux_counts[c] = aux_counts.get(c, 0) + 1
+    aux_text = ", ".join(f"{cnt} {k}" for k, cnt in list(aux_counts.items())[:4]) if aux_counts else "Không có thiết bị phụ trợ riêng"
+
+    # 4. Khối lượng bóc tách
+    total_qty = sum(max(int(float(d.get('quantity') or 1)), 1) for d in devices_data)
 
     lines = [
-        f"**Phân tích sơ đồ nguyên lý mạch & kết quả bóc tách {title}**:",
+        f"**Bản tổng hợp phân tích kỹ thuật mạch sơ đồ nguyên lý cho {title}**:",
     ]
     if incomer:
         tag_part = f" ({incomer.get('tag')})" if incomer.get('tag') else ""
         spec_part = f" {incomer.get('spec')}" if incomer.get('spec') else ""
-        lines.append(f"- **Nguồn cấp & đóng cắt tổng**: Sử dụng {incomer.get('category')}{tag_part}{spec_part} làm áptômát đầu vào cấp nguồn cho toàn bộ thanh cái phân phối.")
+        lines.append(f"- **Nguồn cấp & đóng cắt tổng (Incomer)**: Xác định át tổng {incomer.get('category')}{tag_part}{spec_part} cấp nguồn cho thanh cái phân phối.")
+    else:
+        lines.append("- **Nguồn cấp & đóng cắt tổng (Incomer)**: Cấp nguồn trực tiếp hoặc át tổng theo xuất tuyến tủ thượng nguồn.")
 
-    # Các lộ nhánh phụ tải
-    branch_items = []
-    for cat, count in cat_counts.most_common():
-        if cat in ('ACB', 'MCCB') and incomer and count == 1:
-            continue
-        branch_items.append(f"{count} {cat}")
+    lines.append(f"- **Mạch phân phối & xuất tuyến (Feeders)**: Thống kê các lộ nhánh ({feeder_text}).")
+    lines.append(f"- **Mạch điều khiển & bảo vệ phụ trợ**: Nhận diện {len(aux_items)} phần tử ({aux_text}).")
+    lines.append(f"- **Khối lượng bóc tách**: Trích xuất chi tiết **{len(devices_data)} dòng thiết bị** (tổng **{total_qty} cái**) vào phiên bóc tách.")
 
-    if branch_items:
-        lines.append(f"- **Mạch phân phối & xuất tuyến**: Gồm {', '.join(branch_items[:4])}{' và các lộ phụ tải khác' if len(branch_items) > 4 else ''} cấp nguồn tới các tải tiêu thụ.")
-
-    # Thiết bị phụ trợ / đo lường / điều khiển nếu có
-    ctrl_meas = [d for d in devices_data if any(k in str(d.get('category', '')).upper() for k in ('METER', 'CONTACTOR', 'RELAY', 'TIMER', 'SPD', 'SURGE', 'ĐO LƯỜNG', 'ĐÈN', 'NÚT', 'TI', 'BIẾN DÒNG'))]
-    if ctrl_meas:
-        aux_types = sorted({str(d.get('category')) for d in ctrl_meas})
-        lines.append(f"- **Mạch điều khiển & bảo vệ phụ trợ**: Bố trí {len(ctrl_meas)} thiết bị ({', '.join(aux_types[:3])}).")
-
-    lines.append(f"- **Khối lượng bóc tách**: Đã phân tích toàn bộ logic mạch và trích xuất chi tiết **{len(devices_data)} thiết bị** vào phiên bóc tách.")
     return "\n".join(lines)
 
 
