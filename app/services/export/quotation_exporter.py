@@ -191,6 +191,9 @@ class QuotationExporterService:
                     specification = str(r.get("spec") or "").strip()
                     if specification and specification not in name:
                         name += (" " if r.get('commercial_display') and not r.get('commercial_package') else "\n") + specification
+                    proposal = r.get('selection_analysis') or {}
+                    if proposal.get('meter_kind') == 'AMMETER' and proposal.get('ct_ratio') and proposal.get('proposed_spec'):
+                        name += "\nĐề xuất · " + proposal['proposed_spec']
                     sku = str(r.get("sku") or "")
                     origin = str(r.get("origin") or "")
                     unit = str(r.get("unit") or "Cái")

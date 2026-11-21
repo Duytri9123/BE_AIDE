@@ -1,30 +1,49 @@
 """Explicit assembly scope; unknown quantities and prices are never fabricated."""
 from collections import defaultdict
 from app.services.cad.design_labels import effective_spec
-import unicodedata
+from app.services.export.quotation_layout import plain
 import re
+
+
+SECTION_ORDER = ('Vỏ tủ + phụ kiện', 'Đầu vào', 'Đo lường & Giám sát', 'Điều khiển & Chiếu sáng', 'Đầu ra')
+
+
+def commercial_notes(value):
+    """Keep sales remarks and drop standalone circuit/location descriptions."""
+    segments = re.split(r'[·;\n]+', str(value or ''))
+    return ' · '.join(segment.strip() for segment in segments if segment.strip() not in {'', '-', '—'}
+                      and not re.match(r'^(?:lo|xuat tuyen|nhanh|vi tri|phu tai)\b', plain(segment))
+                      and not re.fullmatch(r'[a-z]{1,4}\d+(?:\s*[,/]\s*[a-z]{1,4}\d+)*', plain(segment)))
 
 
 def quotation_section(device):
     """Use the observed function, never the current rating, to group devices."""
-    def plain(value):
-        return ''.join(c for c in unicodedata.normalize('NFD', str(value or '').lower().replace('đ', 'd'))
-                       if not unicodedata.combining(c))
+    from app.services.ai.metering_selection import metering_kind
+
     section = str(device.get('section') or '').strip()
     text = plain(section)
+    category = metering_kind(device)
+    name = plain(device.get('name'))
+    location = plain(device.get('location'))
     if device.get('is_enclosure') or text in {'vo tu', 'vo tu + phu kien', 'vo tu & phu kien'}:
         return 'Vỏ tủ + phụ kiện'
-    if device.get('is_incomer') or text in {'main','incoming','input','main circuit','incoming devices'} or any(term in text for term in ('dau vao', 'incomer', 'nguon tong')):
+    if any(term in text for term in ('do luong', 'giam sat', 'metering')) or category in {
+        'CT', 'LIGHT', 'INDICATOR', 'PILOTLIGHT', 'PILOT_LIGHT', 'METER', 'MULTIMETER',
+        'VOLTMETER', 'AMMETER', 'ENERGY_METER', 'SELECTOR', 'SELECTOR_SWITCH'
+    } or re.search(r'dong ho|ampe ke|von ke|bien dong|den bao pha|chuyen mach (?:von|ampe)|cau chi.*do luong', name):
+        return 'Đo lường & Giám sát'
+    if any(term in text for term in ('dieu khien', 'control')) or category in {'CONTACTOR', 'TIMER', 'RELAY'}:
+        return 'Điều khiển & Chiếu sáng'
+    source_role = ' '.join(plain(device.get(key)) for key in ('location', 'tag', 'electrical_function', 'name'))
+    if (device.get('is_incomer') or text in {'main', 'incoming', 'input', 'main circuit', 'incoming devices'}
+            or any(term in text for term in ('dau vao', 'incomer', 'nguon tong'))
+            or re.search(r'\b(?:lo tong|dau vao tong|nguon tong|incomer|mccb tong|mcb tong|cb tong|aptomat tong)\b', source_role)
+            or location == 'dau vao'):
         return 'Đầu vào'
     if text in {'output','out','branch'} or any(term in text for term in ('dau ra', 'feeder', 'outgoing')):
         return 'Đầu ra'
-    name = plain(device.get('name'))
-    if not section and any(term in name for term in ('mccb tong', 'cb tong', 'aptomat tong')):
-        return 'Đầu vào'
     if not section and any(term in name for term in ('nhanh', 'du phong', 'lo ra', 'feeder')):
         return 'Đầu ra'
-    if str(device.get('category') or '').upper() in {'CT', 'LIGHT', 'INDICATOR', 'PILOTLIGHT', 'PILOT_LIGHT', 'FUSE', 'METER', 'VOLTMETER', 'AMMETER', 'SELECTOR'}:
-        return 'Đầu vào'
     return section or 'Thiết bị cần phân nhóm'
 
 
@@ -61,12 +80,14 @@ def assembly_requirements(devices, include_cad_references=True):
 
 def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_name=None, *, refresh_prices=True):
     from app.services.export.quotation_names import quotation_name
+    from app.services.ai.metering_selection import enrich_metering_selection
     groups = defaultdict(list)
     raw = [d.model_dump() if hasattr(d,'model_dump') else dict(d) for d in devices]
     if not raw:
         raw = [dict(d) for p in (panels or []) for d in (p.get('devices') or [])]
     from app.services.ai.device_facts import enrich_device_facts
-    raw = [enrich_device_facts(d) for d in raw]
+    raw = enrich_metering_selection([enrich_device_facts({**d, 'panel_code': d.get('panel_code') or panel_code})
+                                    for d in raw])
     from app.services.ai.motor_starter_context import enrich_motor_starters
     enrich_motor_starters(raw)
     if refresh_prices:
@@ -99,9 +120,7 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
             if str(d.get('category') or '').upper() in {'ENCLOSURE','DIN_RAIL','DUCT','WIRE','CABLE','LUGS','FIXINGS','TERMINAL_BLOCK','PE_BAR','N_BAR'}:
                 continue  # These source parts remain in the design BOM and package scope.
             sections[quotation_section(d)].append((i, d))
-        ordered_sections = sorted(sections, key=lambda s: (
-            {'Vỏ tủ + phụ kiện': 0, 'Đầu vào': 1, 'Đầu ra': 2}.get(s, 3),
-            list(sections).index(s)))
+        ordered_sections = sorted(sections, key=lambda s: SECTION_ORDER.index(s) if s in SECTION_ORDER else len(SECTION_ORDER))
         ordered_members = []
         for section in ordered_sections:
             ordered_members.extend((section, i, d) for i, d in sections[section])
@@ -149,6 +168,7 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                 price_status='confirmed' if price else 'pending',
                 price_row_id=match.get('price_row_id') if price else None,
                 pricebook_match=match,
+                selection_analysis=d.get('selection_analysis'),
                 source_observations=d.get('source_observations'),selection_source=d.get('selection_source'),
                 quantity_review=d.get('quantity_review'),
                 equipment_catalog_id=linked_row.get('equipment_catalog_id') if linked_row and price else None,
@@ -177,13 +197,13 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
 
 def compact_commercial_sections(rows):
     """Normalize generated quotation drafts, including already saved drafts."""
-    if not any(row.get('commercial_display') for row in rows) or not any(row.get('row_type')=='panel_header' for row in rows) or not any(row.get('row_type')=='section_header' for row in rows):
+    if not rows or rows[0].get('row_type') != 'panel_header' or not any(row.get('row_type')=='section_header' for row in rows):
         return rows
-    result=[];panel=None;groups={};headers={};active='Vỏ tủ + phụ kiện'
+    result=[];panel=None;groups={};headers={};item_sections={};active='Vỏ tủ + phụ kiện'
     def flush():
         if panel is None:return
         result.append(panel)
-        order=[name for name in ('Vỏ tủ + phụ kiện','Đầu vào','Đầu ra') if name in groups]
+        order=[name for name in SECTION_ORDER if name in groups]
         order.extend(name for name in groups if name not in order)
         for index,name in enumerate(order):
             panel_id=panel.get('id') or panel.get('panel_code') or panel.get('name') or 'panel'
@@ -192,14 +212,19 @@ def compact_commercial_sections(rows):
     for row in rows:
         kind=row.get('row_type')
         if kind=='panel_header':
-            flush();panel=row;groups={};headers={};active='Vỏ tủ + phụ kiện'
+            flush();panel=row;groups={};headers={};item_sections={};active='Vỏ tủ + phụ kiện'
         elif kind=='section_header':
             active=row.get('name') or ''
             headers.setdefault(quotation_section({'section':active}),row)
         else:
             if row.get('commercial_display') and str(row.get('category') or '').upper() in {'ENCLOSURE','DIN_RAIL','DUCT','WIRE','CABLE','LUGS','FIXINGS','TERMINAL_BLOCK','PE_BAR','N_BAR'}:continue
-            section='Vỏ tủ + phụ kiện' if row.get('commercial_package') else quotation_section({**row,'section':active})
+            parent_section = item_sections.get(row.get('parent_id'))
+            section = parent_section or (active if row.get('commercial_package') or plain(active).startswith('vo tu')
+                                         else quotation_section({**row, 'section': active,
+                                                                 'location': row.get('location') or row.get('notes')}))
             groups.setdefault(section,[]).append(row)
+            if row.get('id'):
+                item_sections[row['id']] = section
     flush()
     return result
 
@@ -224,15 +249,21 @@ def merge_commercial_rows(rows):
     """Merge equal sale items only within the same panel and section."""
     from copy import deepcopy
     result=[]; seen={}
+    parent_ids = {row.get('parent_id') for row in rows if row.get('parent_id')}
     for source in rows:
         row=deepcopy(source)
         if row.get('row_type') in {'panel_header','section_header'}:
             seen={};result.append(row);continue
-        if row.get('row_type')!='item' or row.get('commercial_package'):
+        if row.get('row_type') in {'item','accessory'} and row.get('notes'):
+            row['notes'] = commercial_notes(row['notes'])
+        if (row.get('row_type') != 'item' or row.get('commercial_package') or row.get('id') in parent_ids
+                or row.get('quantity') is None or not (row.get('spec') or row.get('sku'))):
             result.append(row);continue
         if row.get('commercial_display'):
             row['spec']=commercial_breaker_spec(row)
-        key=tuple(row.get(field) for field in ('category','name','spec','sku','origin','unit','unit_price','price_row_id'))
+        key=tuple(row.get(field) or '' if field != 'unit_price' else row.get(field)
+                  for field in ('category','name','spec','sku','origin','unit','unit_price','price_row_id','notes','price_status'))
+        key += ((row.get('selection_analysis') or {}).get('proposed_spec'),)
         if key in seen:
             previous=seen[key]
             previous['quantity']+=row['quantity']

@@ -52,7 +52,7 @@ def test_explicit_brand_changes_main_devices_only_and_keeps_proposal_unpriced():
     assert selected[1] == accessory
     rows = build_quotation_rows(selected, {}, refresh_prices=False)
     assert [row['name'] for row in rows if row['row_type'] == 'section_header'] == [
-        'Vỏ tủ + phụ kiện', 'Đầu vào', 'Đầu ra']
+        'Vỏ tủ + phụ kiện', 'Đo lường & Giám sát', 'Đầu ra']
     proposed = next(row for row in rows if row.get('category') == 'MCB')
     assert proposed['spec'] == '30A 1P 6kA => 32A 1P 6kA'
     assert proposed['unit_price'] is None

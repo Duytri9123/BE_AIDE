@@ -25,13 +25,18 @@ def _build_analysis_result_schema(
 
     from app.services.ai.auxiliary_devices import expand_devices
     from app.services.ai.metering_selection import enrich_metering_selection
-    for d in enrich_metering_selection(expand_devices(raw_devices)):
+    from app.services.ai.takeoff_catalog import refresh_meter_catalog
+    from app.services.ai.procurement_review import SECTION_ORDER, quotation_section
+    for d in refresh_meter_catalog(enrich_metering_selection(expand_devices(raw_devices))):
         payload = dict(d) if isinstance(d, dict) else (d.model_dump() if hasattr(d, "model_dump") else dict(d))
         payload.setdefault("category", "Thiết bị")
         payload.setdefault("name", "Thiết bị")
         payload['spec'] = str(payload.get('spec') or '')
         payload.setdefault("quantity", 1)
         payload.setdefault("confidence", 0.95)
+        section = quotation_section(payload)
+        if section in SECTION_ORDER:
+            payload['section'] = section
 
         # Deduplicate massive base64 panel_evidence_image to keep payload light
         p_img = payload.get("panel_evidence_image")

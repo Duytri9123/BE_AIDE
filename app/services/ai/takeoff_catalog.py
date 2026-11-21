@@ -234,6 +234,76 @@ def _candidate_dict(candidate, reason):
     }
 
 
+def apply_meter_catalog(row, meter_rows):
+    from app.services.ai.manufacturer_registry import canonical_brand
+    from app.services.ai.metering_selection import ct_ratios, display_limits, metering_kind
+
+    kind = metering_kind(row)
+    analysis = row['selection_analysis']
+    wanted_ratio = ct_ratios(analysis.get('ct_ratio'), unit_optional=True)
+    wanted_volts = set((analysis.get('display_range_v') or [])[1:])
+    matched, references, seen = {}, {}, set()
+    for candidate, _, _ in meter_rows:
+        sku = candidate.get('sku')
+        brand = canonical_brand(candidate.get('brand'))
+        if not sku or not candidate.get('source_url') or (brand, sku) in seen:
+            continue
+        label = _strip_accents(f"{candidate.get('item_name') or ''} {candidate.get('group') or ''}").lower()
+        specs = ' '.join(str(value) for value in (candidate.get('specifications') or {}).values())
+        if re.search(r'\b(?:selector|chuyen mach|cong tac)\b', label):
+            continue
+        if kind == 'AMMETER':
+            if not re.search(r'ampe|ammeter|dong ho.*dong dien', label):
+                continue
+            published = ct_ratios(' '.join((label, specs)))
+            exact = bool(wanted_ratio and published == wanted_ratio
+                         and not re.search(r'cac loai|variants|tuy chon', label))
+            if wanted_ratio and len(published) == 1 and published != wanted_ratio:
+                continue
+            if wanted_ratio and len(published) > 1 and wanted_ratio.isdisjoint(published):
+                primary, secondary = next(iter(wanted_ratio))
+                supported = [p for p, s in published if s == secondary]
+                if not supported or not min(supported) <= primary <= max(supported):
+                    continue
+        else:
+            if not re.search(r'volt|\bvon\b|dong ho.*dien ap', label):
+                continue
+            published = display_limits(' '.join((label, specs)), 'V')
+            exact = bool(wanted_volts and published == wanted_volts)
+            mode_pattern = r'\d\s*V\s*(AC|DC)\b'
+            required_mode = set(re.findall(mode_pattern, (analysis.get('source_spec') or '').upper()))
+            offered_mode = set(re.findall(mode_pattern, f'{label} {specs}'.upper()))
+            exact = exact and required_mode.issubset(offered_mode)
+            if required_mode and offered_mode and required_mode.isdisjoint(offered_mode):
+                continue
+            if wanted_volts and published and wanted_volts.isdisjoint(published):
+                continue
+
+        seen.add((brand, sku))
+        choices = matched if exact else references
+        reason = ('Bảng giá công bố đúng thang đo yêu cầu. Xác nhận kiểu đấu và kích thước lỗ khoét trước khi đặt.'
+                  if exact else 'Mã tham khảo cùng chức năng. Cần xác nhận ngõ vào, thang đo và biến thể đặt hàng.')
+        option = _candidate_dict(candidate, reason)
+        option['match_kind'] = 'meter_spec_match' if exact else 'meter_reference'
+        choices.setdefault(brand, []).append(option)
+    options = matched or references
+    row['catalog_candidates'] = {brand: items[:3] for brand, items in options.items()}
+    row['suggested_brands'] = list(row['catalog_candidates'])
+    analysis['reason'] = ('Chưa có mã được công bố đúng thông số đề xuất; xác nhận thang đo trước khi chọn.'
+                          if wanted_ratio or wanted_volts else analysis['reasoning'])
+
+
+def refresh_meter_catalog(devices):
+    """Refresh stored ammeter and voltmeter candidates from their current panel context."""
+    from app.services.ai.metering_selection import metering_kind
+    meters = [row for row in devices if metering_kind(row) in {'AMMETER', 'VOLTMETER'}]
+    if meters:
+        _, by_category = _pricebook_indices()
+        for row in meters:
+            apply_meter_catalog(row, by_category.get('METER', []) + by_category.get(metering_kind(row), []))
+    return devices
+
+
 # ---------------------------------------------------------------------------
 # Main function
 # ---------------------------------------------------------------------------
@@ -254,8 +324,15 @@ def suggest_takeoff_products(devices, engine=None, catalog_rows=None):
     else:
         idx, by_cat = _build_index(catalog_rows)
 
+    from app.services.ai.metering_selection import enrich_metering_selection, metering_kind
+    if any(metering_kind(row) in {'AMMETER', 'VOLTMETER'} for row in devices):
+        for row, enriched in zip(devices, enrich_metering_selection(devices)):
+            if metering_kind(row) in {'AMMETER', 'VOLTMETER'}:
+                row['selection_analysis'] = enriched['selection_analysis']
+                apply_meter_catalog(row, by_cat.get('METER', []) + by_cat.get(metering_kind(row), []))
+
     for row in devices:
-        if row.get('catalog_candidates'):
+        if metering_kind(row) in {'AMMETER', 'VOLTMETER'} or row.get('catalog_candidates'):
             continue
 
         device = ExtractedDeviceSchema.model_validate(row)
