@@ -703,8 +703,16 @@ async def get_project_sessions(
             panel_code = conf["panel_info"].get("panel_code")
             panel_name = conf["panel_info"].get("panel_name")
         if not panel_code and raw_devs:
-            panel_code = raw_devs[0].get("panel_code")
-            panel_name = raw_devs[0].get("panel_name")
+            for d in raw_devs:
+                c = str(d.get("panel_code") or "").strip()
+                if c and c != "CHUA_XAC_DINH":
+                    panel_code = c
+                    panel_name = str(d.get("panel_name") or "").strip()
+                    break
+        if not panel_code and it.user_message:
+            m = re.search(r'(?:Tủ|Bóc tách)[:\s]+([A-Z0-9\.\-_]+)', it.user_message, re.I)
+            if m:
+                panel_code = m.group(1).strip()
 
         panels_by_key = {}
         for device in raw_devs:
