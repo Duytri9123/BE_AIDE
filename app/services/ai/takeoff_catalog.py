@@ -342,11 +342,14 @@ def suggest_takeoff_products(devices, engine=None, catalog_rows=None):
 
                     seen_skus.add(sku)
                     brand = canonical_brand(candidate.get('brand'))
-                    choices.setdefault(brand, []).append(_candidate_dict(
+                    option = _candidate_dict(
                         candidate,
                         'Bảng giá ghi cùng loại, số cực, dòng và khả năng cắt; '
                         'cần đối chiếu điện áp, đặc tính và mã đặt hàng/biến thể trước khi chọn.',
-                    ))
+                    )
+                    if len(icus) == 1:
+                        option['catalog_icu_ka'] = next(iter(icus))
+                    choices.setdefault(brand, []).append(option)
 
         cited = {
             brand: [c for c in cands if c.get('sku') and c.get('source')][:3]

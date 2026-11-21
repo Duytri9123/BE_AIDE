@@ -1849,6 +1849,51 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
     return result_payload
 
 
+@router.get('/iterations/{iteration_id}/panel-preview')
+async def takeoff_panel_preview(iteration_id: int, project_id: int, file_id: int, panel_code: str,
+                                page: int | None = None, db=Depends(get_db), user=Depends(get_current_active_user)):
+    from io import BytesIO
+    from PIL import Image
+    from fastapi.responses import Response
+    from pathlib import Path
+    from tempfile import TemporaryDirectory
+    from app.models.analysis_iteration import AnalysisIteration
+    from app.models.conversation_session import ConversationSession
+    from app.models.project_file import ProjectFile
+    from app.services.ai.scoped_takeoff import render_panel
+    from app.services.ai.scoped_validation import source_revision
+
+    await owned_project(db, user, project_id)
+    iteration = (await db.execute(select(AnalysisIteration).join(ConversationSession)
+        .where(AnalysisIteration.id == iteration_id, ConversationSession.project_id == project_id))).scalar_one_or_none()
+    rows = (iteration.devices_after_validation or iteration.ai_parsed_devices or []) if iteration else []
+    row = next((item for item in rows if item.get('source_file_id') == file_id
+                and item.get('panel_code') == panel_code and item.get('source_page') == page
+                and (item.get('evidence_region') or {}).get('frame') == 'selected_panel'
+                and (item.get('evidence_region') or {}).get('source_region')), None)
+    file = (await db.execute(select(ProjectFile).where(ProjectFile.id == file_id,
+        ProjectFile.project_id == project_id))).scalar_one_or_none()
+    if not row or not file or not Path(file.file_path).is_file():
+        raise HTTPException(404, 'Không tìm thấy sơ đồ nguồn của tủ này.')
+    revision = (row.get('source_observations') or {}).get('source_revision')
+    if revision and revision != await asyncio.to_thread(source_revision, file.file_path):
+        raise HTTPException(409, 'Bản vẽ nguồn đã thay đổi sau khi bóc tách.')
+
+    def encode(path):
+        with Image.open(path) as original:
+            preview = original.convert('RGB')
+            preview.thumbnail((2400, 2400))
+            output = BytesIO()
+            preview.save(output, 'JPEG', quality=90)
+            return output.getvalue()
+
+    with TemporaryDirectory(prefix='el_panel_preview_') as directory:
+        image, _ = await render_panel(file, {'source_page': page,
+            'source_region': row['evidence_region']['source_region']}, Path(directory) / 'source.png')
+        data = await asyncio.to_thread(encode, image)
+    return Response(data, media_type='image/jpeg', headers={'Cache-Control': 'private, max-age=300', 'Vary': 'Authorization'})
+
+
 @router.get('/tools')
 async def tools(project_id: int, request: Request, db=Depends(get_db), user=Depends(get_current_active_user)):
     await owned_project(db, user, project_id)
