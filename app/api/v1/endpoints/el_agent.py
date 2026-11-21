@@ -469,6 +469,52 @@ def build_cad_takeoff_markdown_summary(cad_devices: list[dict], requested_panels
     return "\n".join(lines)
 
 
+def build_circuit_takeoff_analysis_summary(devices_data: list, panel_desc: str = "") -> str:
+    if not devices_data:
+        return "Chưa ghi nhận thiết bị nào từ sơ đồ nguyên lý mạch."
+
+    panels = sorted({str(d.get('panel_code') or '').strip() for d in devices_data if d.get('panel_code') and d.get('panel_code') != 'CHUA_XAC_DINH'})
+    title = f"tủ điện **{panel_desc}**" if panel_desc else (f"tủ **{', '.join(panels)}**" if panels else "sơ đồ nguyên lý mạch")
+
+    # Tìm thiết bị đóng cắt tổng (Incomer)
+    breakers = [d for d in devices_data if str(d.get('category', '')).upper() in ('ACB', 'MCCB', 'MCB')]
+    incomer = None
+    if breakers:
+        incomer = next((d for d in breakers if any(k in str(d.get('tag', '')).upper() for k in ('0', 'MAIN', 'TONG', 'TỔNG', 'IN'))), None)
+        if not incomer:
+            incomer = max(breakers, key=lambda d: (d.get('in_a') or 0, d.get('poles') or 0))
+
+    from collections import Counter
+    cat_counts = Counter(str(d.get('category', '')).upper() or 'THIẾT BỊ' for d in devices_data)
+
+    lines = [
+        f"**Phân tích sơ đồ nguyên lý mạch & kết quả bóc tách {title}**:",
+    ]
+    if incomer:
+        tag_part = f" ({incomer.get('tag')})" if incomer.get('tag') else ""
+        spec_part = f" {incomer.get('spec')}" if incomer.get('spec') else ""
+        lines.append(f"- **Nguồn cấp & đóng cắt tổng**: Sử dụng {incomer.get('category')}{tag_part}{spec_part} làm áptômát đầu vào cấp nguồn cho toàn bộ thanh cái phân phối.")
+
+    # Các lộ nhánh phụ tải
+    branch_items = []
+    for cat, count in cat_counts.most_common():
+        if cat in ('ACB', 'MCCB') and incomer and count == 1:
+            continue
+        branch_items.append(f"{count} {cat}")
+
+    if branch_items:
+        lines.append(f"- **Mạch phân phối & xuất tuyến**: Gồm {', '.join(branch_items[:4])}{' và các lộ phụ tải khác' if len(branch_items) > 4 else ''} cấp nguồn tới các tải tiêu thụ.")
+
+    # Thiết bị phụ trợ / đo lường / điều khiển nếu có
+    ctrl_meas = [d for d in devices_data if any(k in str(d.get('category', '')).upper() for k in ('METER', 'CONTACTOR', 'RELAY', 'TIMER', 'SPD', 'SURGE', 'ĐO LƯỜNG', 'ĐÈN', 'NÚT', 'TI', 'BIẾN DÒNG'))]
+    if ctrl_meas:
+        aux_types = sorted({str(d.get('category')) for d in ctrl_meas})
+        lines.append(f"- **Mạch điều khiển & bảo vệ phụ trợ**: Bố trí {len(ctrl_meas)} thiết bị ({', '.join(aux_types[:3])}).")
+
+    lines.append(f"- **Khối lượng bóc tách**: Đã phân tích toàn bộ logic mạch và trích xuất chi tiết **{len(devices_data)} thiết bị** vào phiên bóc tách.")
+    return "\n".join(lines)
+
+
 @progress_step("Đang lưu phiên bóc tách và các ảnh minh chứng")
 async def save_takeoff_iteration(db, project_id: int, user_id: int, message: str, reply: str, devices: list, file_ids: list, visual_review=None, proposal=False) -> tuple:
     from app.services.project_conversation import project_session
@@ -1605,7 +1651,7 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
             return {'reply': reply_text}
         from app.services.ai.takeoff_catalog import suggest_takeoff_products
         proposed = await asyncio.to_thread(suggest_takeoff_products, proposed)
-        summary = f"Đã lưu {len(proposed)} dòng thiết bị đề xuất theo yêu cầu vào phiên riêng."
+        summary = build_circuit_takeoff_analysis_summary(proposed)
         iteration_id, proposed = await save_takeoff_iteration(
             db, payload.project_id, user.id, payload.message, summary, proposed, [], proposal=True)
         return {'reply': summary, 'iteration_id': iteration_id, 'devices': proposed, 'action_type': 'update_devices'}
@@ -1798,14 +1844,15 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
         reply_text = f"Đã hoàn thành bóc tách chi tiết khối lượng vật tư và thiết bị cho tủ điện **{selected_desc}** ({len(devices_data)} thiết bị).\n\n" + re.sub(r'^(?:dưới đây là |đây là )?kết quả bóc tách [^\n]+\n*', '', reply_text, flags=re.IGNORECASE)
 
     if iteration_id:
-        reply_text = f'Đã lưu {len(devices_data)} dòng thiết bị vào phiên bóc tách riêng.'
+        panel_label = selected_desc if (requested_panels and detected_panels and len(requested_panels) < len(detected_panels)) else ", ".join(sorted({str(d.get('panel_code') or '').strip() for d in devices_data if d.get('panel_code') and d.get('panel_code') != 'CHUA_XAC_DINH'}))
+        reply_text = build_circuit_takeoff_analysis_summary(devices_data, panel_label)
         pending = sum((d.get('evidence_region') or {}).get('status') != 'verified' or not d.get('technical_analysis') for d in devices_data)
         if whole_panel_unfinished:
-            reply_text += ' Agent chưa hoàn tất đối chiếu danh mục toàn tủ. Kết quả này cần rà soát trước khi dùng.'
+            reply_text += '\n\n*Lưu ý: Agent chưa hoàn tất đối chiếu danh mục toàn tủ. Kết quả này cần rà soát trước khi dùng.*'
         elif pending:
-            reply_text += f' Agent còn {pending} dòng chưa hoàn tất định vị ảnh, phân tích hoặc đối chiếu logic mạch; các dòng này được lưu để rà soát.'
+            reply_text += f'\n\n*Lưu ý: Còn {pending} dòng chưa hoàn tất định vị ảnh hoặc logic mạch; đã lưu để rà soát.*'
         elif (context.get('takeoff_review') or {}).get('passed') is False:
-            reply_text += ' Agent chưa hoàn tất đối chiếu danh mục theo nguồn; bản này cần xử lý tiếp.'
+            reply_text += '\n\n*Lưu ý: Chưa hoàn tất đối chiếu danh mục theo nguồn; bản này cần xử lý tiếp.*'
     result_payload = {'reply': reply_text}
     if iteration_id:
         result_payload['iteration_id'] = iteration_id
