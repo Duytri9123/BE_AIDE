@@ -126,12 +126,14 @@ def review_system(devices):
             for child in d.get("inferred_components") or []:
                 if isinstance(child, dict):
                     pending.append(child)
-            if children or pending or " với " in text or " và " in text:
+            compound_keywords = ("kèm contactor", "kèm rơ le", "kèm nút nhấn", "bộ liên động", "tổ hợp contactor")
+            is_compound = any(kw in text for kw in compound_keywords)
+            if children or pending or is_compound:
                 clusters.append(dict(panel_code=panel, parent_tag=tag, name=d.get("name"),
                                      observed_components=observed, review_components=pending,
                                      status="needs_review" if pending or not observed else "source_evidence_present"))
             if pending:
-                issue(panel, tag, "Thành phần cụm chưa có bằng chứng", "Xác nhận thành phần và số lượng trên bản vẽ; chưa tự cộng các đề xuất vào BOM.")
+                issue(panel, tag, "Thành phần cụm thiếu thông tin", "Cần bổ sung thông tin thành phần và số lượng trên bản vẽ; chưa tự cộng các đề xuất vào BOM.")
             if ("ampe" in text and ("as" in text or "chuyển mạch" in text)) or ("volt" in text and ("vs" in text or "chuyển mạch" in text)):
                 if not observed:
                     issue(panel, tag, "Đồng hồ và chuyển mạch đang gộp", "Cần xác định mã, số lượng và phạm vi bộ; tách đồng hồ/chuyển mạch thành vật tư riêng nếu mua rời.")
@@ -168,7 +170,7 @@ def review_system(devices):
                 # Require an actual connection, not a relay somewhere in the cabinet.
                 connected = [x for x in members if x.get("upstream_device") == d.get("tag") or x.get("tag") == d.get("upstream_device")]
                 if not any(str(x.get("category") or "").upper() in {"OVERLOAD", "THERMAL_RELAY", "MPCB", "MOTOR_PROTECTION"} for x in connected):
-                    issue(panel, tag, "Kiểm tra bảo vệ quá tải của cụm contactor", "Chưa có bằng chứng về bảo vệ quá tải liên kết với cụm. Kiểm tra sơ đồ động lực/điều khiển trước khi đề xuất bổ sung.")
+                    issue(panel, tag, "Kiểm tra bảo vệ quá tải của cụm contactor", "Chưa đủ thông tin về bảo vệ quá tải trên sơ đồ. Kiểm tra sơ đồ động lực/điều khiển trước khi đề xuất bổ sung.")
             if not d.get("source_filename"):
                 issue(panel, tag, "Thiếu tham chiếu nguồn", "Chưa truy được tệp gốc của thiết bị; yêu cầu nhập bằng văn bản cần xác nhận riêng.")
     return dict(status="needs_review", issues=issues, clusters=clusters,
