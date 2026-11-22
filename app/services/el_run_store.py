@@ -32,6 +32,7 @@ class RunStore:
             payload TEXT NOT NULL, checkpoint TEXT NOT NULL, result TEXT, error TEXT,
             lease TEXT, lease_until REAL NOT NULL DEFAULT 0, created REAL NOT NULL, updated REAL NOT NULL,
             UNIQUE(owner, project, request_id))''')
+        db.execute('CREATE INDEX IF NOT EXISTS idx_el_runs_owner_proj_created ON el_runs(owner, project, created DESC)')
         try:
             with db:
                 yield db
