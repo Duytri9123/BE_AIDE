@@ -681,7 +681,7 @@ async def update_takeoff_brand_iteration(db, project_id, user_id, message, reply
     from copy import deepcopy
     from app.models.analysis_iteration import AnalysisIteration
     from app.services.ai.manufacturer_registry import canonical_brand
-    from app.services.ai.compatible_brand_selection import compatible_brand_replacements
+    from app.services.ai.compatible_brand_selection import research_brand_replacements
     from app.services.project_conversation import project_session
     from app.services.ai.el_conversation import previous_brand, requested_brand
 
@@ -717,8 +717,8 @@ async def update_takeoff_brand_iteration(db, project_id, user_id, message, reply
                 and (not old_brand_filter or canonical_brand(row.get('brand')) == canonical_brand(old_brand_filter))):
             eligible.append(row)
             indices.append(index)
-    # Text pricebook matching only. A missing or conditional match preserves the whole row.
-    replacements, changed_count = await asyncio.to_thread(compatible_brand_replacements, eligible, target_brand)
+    # Missing or conditional matches preserve the whole row, including its old SKU.
+    replacements, changed_count = await research_brand_replacements(eligible, target_brand, db)
     for index, row in zip(indices, replacements):
         rows[index] = row
     if not changed_count:

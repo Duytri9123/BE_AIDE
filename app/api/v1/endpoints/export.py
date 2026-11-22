@@ -95,9 +95,13 @@ async def match_quotation(
                 devices = latest_iter.ai_parsed_devices
 
     if payload.preserve_rows:
-        from app.services.ai.compatible_brand_selection import compatible_brand_replacements
-        items, _ = await asyncio.to_thread(compatible_brand_replacements, devices, payload.default_brand)
-        return {"items": items}
+        owned = await db.scalar(select(Project.id).where(
+            Project.id == payload.project_id, Project.user_id == current_user.id))
+        if owned is None:
+            raise HTTPException(status_code=404, detail="Không tìm thấy dự án")
+        from app.services.ai.compatible_brand_selection import research_brand_replacements
+        items, changed = await research_brand_replacements(devices, payload.default_brand, db)
+        return {"items": items, "changed_count": changed}
 
     items = await asyncio.to_thread(QuotationExporterService.match_devices_multi_brand,
         devices=devices,

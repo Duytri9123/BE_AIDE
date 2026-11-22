@@ -308,7 +308,8 @@ def _has_internal_products(device):
                for rows in (device.catalog_candidates or {}).values() for row in rows)
 
 
-async def research_device_products(devices, connections, db=None, preferred_brand=None, progress_callback=None):
+async def research_device_products(devices, connections, db=None, preferred_brand=None, progress_callback=None,
+                                   requested_brand_only=False):
     """Resolve the whole takeoff from internal data, then one grounded web batch."""
     from app.services.ai.progress_delivery import deliver
     from app.services.library_review_scope import preferred_brand_for_device
@@ -316,7 +317,7 @@ async def research_device_products(devices, connections, db=None, preferred_bran
     internal_count = cached_count = 0
     for device in devices:
         device.category = inventory_kind(device.category, device.name, device.spec)
-        preferred = preferred_brand_for_device(device, preferred_brand)
+        preferred = canonical_brand(preferred_brand) if requested_brand_only else preferred_brand_for_device(device, preferred_brand)
         if _has_internal_products(device):
             internal_count += 1
             device.web_research = {'status': 'internal_catalog', 'requested_brand': preferred,
@@ -368,6 +369,9 @@ async def research_device_products(devices, connections, db=None, preferred_bran
         'segment là high, medium, low hoặc null; reason tiếng Việt. '
         'Trả JSON theo schema: ' + json.dumps(schema, ensure_ascii=False))
     query = instructions + '\nDANH SÁCH YÊU CẦU: ' + json.dumps(requests, ensure_ascii=False)
+    if requested_brand_only:
+        query += ('\nChỉ tìm sản phẩm đúng hãng yêu cầu. Không có sản phẩm phù hợp thì trả candidates=[]. '
+                  'Chứng minh đủ thông số bằng nguồn nhà sản xuất; không suy đoán mã hay tự đổi thông số nguồn.')
     search_connections = [c for c in connections if str(c.provider).lower() in SUPPORTED and c.api_key]
     base_urls = {}
     if db is not None and search_connections:
@@ -430,6 +434,9 @@ async def research_device_products(devices, connections, db=None, preferred_bran
         device = group['rows'][0]
         rows = responses.get(identity, [])
         candidates = normalize_candidates(rows[0], search, device) if search and len(rows) == 1 else []
+        if requested_brand_only:
+            candidates = [candidate for candidate in candidates
+                          if canonical_brand(candidate.get('brand')) == canonical_brand(preferred_brand)]
         choices = {}
         for candidate in candidates:
             choices.setdefault(candidate['brand'], []).append(candidate)

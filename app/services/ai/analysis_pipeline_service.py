@@ -1396,13 +1396,6 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                 dev.catalog_candidates = recommendations(catalog_engine, dev, requested_brand)
                 if applied_brand:
                     dev.catalog_candidates = requested_brand_candidates(dev.catalog_candidates, requested_brand)
-                    b_cands = dev.catalog_candidates.get(requested_brand) or dev.catalog_candidates.get(requested_brand.replace(' Electric', '').strip()) or []
-                    if b_cands and not getattr(dev, 'selected_product', None):
-                        best = b_cands[0]
-                        dev.selected_product = best
-                        dev.part_number = best.get('sku') or best.get('catalog_id') or dev.part_number
-                        dev.brand = requested_brand
-                        dev.selection_source = 'user_request'
                 else:
                     dev.technical_match_note = 'Gợi ý catalog theo thông số; chọn mã trong bảng thiết bị trước khi lập báo giá.'
                 continue
