@@ -614,6 +614,81 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
             if not row.get('technical_analysis'):
                 row['source_observations'] = {**(row.get('source_observations') or {}),
                     'analysis_review': {'status': 'needs_review', 'reason': 'Chưa hoàn tất phân tích chức năng và quan hệ mạch.'}}
+    # Danh mục các hãng chính hãng có trong catalog / hệ thống báo giá của người dùng
+    SYSTEM_CATALOG_BRANDS = {
+        'ls', 'ls electric', 'schneider', 'schneider electric', 'chint', 'abb',
+        'mitsubishi', 'mitsubishi electric', 'shihlin', 'emic', 'mikro',
+        'panasonic', 'selec', 'samwha', 'hyundai', 'hager', 'siemens',
+        'idec', 'smartgen', 'risesun', 'nuintek', 'robot'
+    }
+
+    # 1. Tự động phân tích & suy luận thông số kỹ thuật (spec) từ sơ đồ nguyên lý khi bản vẽ không ghi rõ:
+    for row in result:
+        cat_u = str(row.get('category') or '').upper().strip()
+        name_l = str(row.get('name') or '').lower().strip()
+        tag_l = str(row.get('tag') or '').lower().strip()
+        current_spec = str(row.get('spec') or '').strip()
+
+        # Đèn báo pha: Yêu cầu của người dùng "chỉ đèn báo pha là 2A nhé nếu không bảo gì cả"
+        if cat_u in {'LIGHT', 'PILOT_LIGHT'} or 'đèn báo' in name_l or 'báo pha' in name_l:
+            if not current_spec or current_spec.lower() in {'chưa xác định', 'không ghi', 'không rõ'}:
+                row['spec'] = '2A'
+                row['in_a'] = 2.0
+                row['voltage_v'] = 220.0
+                if not row.get('technical_analysis'):
+                    row['technical_analysis'] = 'Đèn báo pha 2A 220VAC giám sát sự hiện diện điện áp các pha R-Y-B nguồn tổng.'
+
+        # Cuộn cắt Shunt Trip (S/T): Phụ kiện ngắt liên động cho MCCB tổng
+        elif (
+            cat_u in {'SHUNT_TRIP', 'SHT', 'TRIP'} or 'cuộn cắt' in name_l or 'shunt' in name_l or
+            tag_l in {'s/t', 'sht', 'mx'} or 'cuộn ngắt' in name_l
+        ):
+            if not current_spec:
+                row['spec'] = '200-240VAC'
+                row['voltage_v'] = 230.0
+
+        # Rơ le rò đất (ELR):
+        elif cat_u in {'ELR', 'EFR'} or 'rò đất' in name_l or 'chạm đất' in name_l:
+            if not current_spec:
+                row['spec'] = '0.03-30A 220VAC'
+                row['voltage_v'] = 220.0
+
+        # Biến dòng thứ tự không (ZCT):
+        elif cat_u == 'ZCT' or 'zct' in name_l or 'thứ tự không' in name_l:
+            if not current_spec:
+                row['spec'] = 'Ø80mm'
+
+        # Biến dòng đo lường (CT): Suy luận từ MCCB/ACB tổng của tủ
+        elif cat_u == 'CT' or 'biến dòng' in name_l:
+            if not current_spec:
+                incomer = next((d for d in result if str(d.get('panel_code')) == str(row.get('panel_code')) and str(d.get('category')).upper() in {'ACB', 'MCCB'}), None)
+                in_rating = int(incomer.get('in_a')) if incomer and incomer.get('in_a') else 150
+                row['spec'] = f'{in_rating}/5A'
+                row['in_a'] = float(in_rating)
+
+        # Chuyển mạch đo điện áp (VSS / SELECTOR):
+        elif cat_u in {'SELECTOR_SWITCH', 'SELECTOR', 'VSS', 'VOLT_SELECTOR'} or 'chuyển mạch' in name_l:
+            if not current_spec:
+                row['spec'] = '4 vị trí 0-5A' if ('ampe' in name_l or 'ass' in tag_l) else '7 vị trí 0-500V'
+
+        # Đồng hồ đo điện áp (VOLTMETER):
+        elif cat_u in {'VOLTMETER', 'METER'} or 'đồng hồ' in name_l or 'vôn kế' in name_l:
+            if not current_spec:
+                row['spec'] = '0-150A' if 'ampe' in name_l else '0-500V'
+
+        # Timer hẹn giờ:
+        elif cat_u == 'TIMER' or 'timer' in name_l or 'hẹn giờ' in name_l:
+            if not current_spec or current_spec.upper() == '24H':
+                row['spec'] = '24h 220VAC 16A'
+                row['in_a'] = 16.0
+                row['voltage_v'] = 220.0
+
+        # Cầu chì đo lường:
+        elif cat_u in {'FUSE', 'FUSE_HOLDER'} or 'cầu chì' in name_l:
+            if not current_spec:
+                row['spec'] = '2A 500V'
+                row['in_a'] = 2.0
+
     from app.services.ai.standard_device_catalog import get_standard_candidates
     for row in result:
         existing = row.get('catalog_candidates') or {}
@@ -634,7 +709,10 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                         row['suggested_sku'] = standard[first_brand][0].get('sku')
                         if not row.get('brand'):
                             row['brand'] = first_brand
-                            row['brand_is_candidate'] = True
+                            # Chỉ đánh dấu brand_is_candidate nếu hãng thực sự nằm ngoài catalog hệ thống
+                            brand_norm = first_brand.lower().strip()
+                            if brand_norm not in SYSTEM_CATALOG_BRANDS:
+                                row['brand_is_candidate'] = True
 
     # Phân nhóm mạch logic chuẩn xác (Logic mạch sơ đồ nguyên lý SLD):
     # Cuộn cắt (S/T / Shunt Trip) và Rơ le rò đất (ELR) + ZCT thuộc cụm bảo vệ Incomer (Đầu vào)

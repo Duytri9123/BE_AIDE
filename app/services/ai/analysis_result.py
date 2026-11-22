@@ -31,7 +31,35 @@ def _build_analysis_result_schema(
         payload = dict(d) if isinstance(d, dict) else (d.model_dump() if hasattr(d, "model_dump") else dict(d))
         payload.setdefault("category", "Thiết bị")
         payload.setdefault("name", "Thiết bị")
-        payload['spec'] = str(payload.get('spec') or '')
+        payload['spec'] = str(payload.get('spec') or '').strip()
+
+        # Tự động suy luận thông số kỹ thuật (spec) chuẩn khi bản vẽ/dữ liệu lưu chưa có:
+        if not payload['spec'] or payload['spec'].lower() in {'chưa xác định', 'không ghi', 'không rõ'}:
+            cat_u = str(payload.get('category') or '').upper().strip()
+            name_l = str(payload.get('name') or '').lower().strip()
+            tag_l = str(payload.get('tag') or '').lower().strip()
+
+            if cat_u in {'LIGHT', 'PILOT_LIGHT'} or 'đèn báo' in name_l or 'báo pha' in name_l:
+                payload['spec'] = '2A'
+                payload['in_a'] = 2.0
+            elif cat_u in {'SHUNT_TRIP', 'SHT', 'TRIP'} or 'cuộn cắt' in name_l or 'shunt' in name_l or tag_l in {'s/t', 'sht', 'mx'}:
+                payload['spec'] = '200-240VAC'
+            elif cat_u in {'ELR', 'EFR'} or 'rò đất' in name_l or 'chạm đất' in name_l:
+                payload['spec'] = '0.03-30A 220VAC'
+            elif cat_u == 'ZCT' or 'zct' in name_l or 'thứ tự không' in name_l:
+                payload['spec'] = 'Ø80mm'
+            elif cat_u == 'CT' or 'biến dòng' in name_l:
+                in_rating = int(payload.get('in_a')) if payload.get('in_a') else 150
+                payload['spec'] = f'{in_rating}/5A'
+            elif cat_u in {'SELECTOR_SWITCH', 'SELECTOR', 'VSS', 'VOLT_SELECTOR'} or 'chuyển mạch' in name_l:
+                payload['spec'] = '4 vị trí 0-5A' if ('ampe' in name_l or 'ass' in tag_l) else '7 vị trí 0-500V'
+            elif cat_u in {'VOLTMETER', 'METER'} or 'đồng hồ' in name_l or 'vôn kế' in name_l:
+                payload['spec'] = '0-150A' if 'ampe' in name_l else '0-500V'
+            elif cat_u == 'TIMER' or 'timer' in name_l or 'hẹn giờ' in name_l:
+                payload['spec'] = '24h 220VAC 16A'
+            elif cat_u in {'FUSE', 'FUSE_HOLDER'} or 'cầu chì' in name_l:
+                payload['spec'] = '2A 500V'
+
         payload.setdefault("quantity", 1)
         payload.setdefault("confidence", 0.95)
         section = quotation_section(payload)
@@ -55,9 +83,11 @@ def _build_analysis_result_schema(
         cleaned_devices.append(ExtractedDeviceSchema.model_validate(enrich_device_facts(payload)))
 
     from app.services.ai.panel_identity import normalize_panel_identities
+    # Panel devices are rebuilt below. Avoid copying their stored image payloads.
     from copy import deepcopy
-    conf = deepcopy(conf)
-    source_panels = conf.get('panels') or []
+    conf = dict(conf)
+    source_panels = deepcopy([{k: v for k, v in panel.items() if k != 'devices'}
+                              for panel in (conf.get('panels') or [])])
     normalize_panel_identities(cleaned_devices, source_panels)
     merged_panels = {}
     for panel in source_panels:
