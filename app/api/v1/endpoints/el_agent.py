@@ -508,7 +508,14 @@ def build_circuit_takeoff_analysis_summary(devices_data: list, panel_desc: str =
         return "Chưa ghi nhận thiết bị nào từ sơ đồ nguyên lý mạch."
 
     panels = sorted({str(d.get('panel_code') or '').strip() for d in devices_data if d.get('panel_code') and d.get('panel_code') != 'CHUA_XAC_DINH'})
-    title = f"tủ **{panel_desc}**" if panel_desc else (f"tủ **{', '.join(panels)}**" if panels else "tủ điện")
+    if panel_desc:
+        title = f"tủ **{panel_desc}**"
+    elif len(panels) > 5:
+        title = f"**Toàn bộ {len(panels)} tủ điện** ({', '.join(panels[:3])}... +{len(panels)-3} tủ)"
+    elif panels:
+        title = f"tủ **{', '.join(panels)}**"
+    else:
+        title = "tủ điện"
 
     # 1. Nguồn cấp & đóng cắt tổng (Incomer)
     breakers = [d for d in devices_data if str(d.get('category', '')).upper() in ('ACB', 'MCCB', 'MCB')]
@@ -1647,7 +1654,12 @@ def extract_requested_panel_codes(user_msg: str, detected_panels: list[dict]) ->
     norm_msg = normalize_vietnamese_text(user_msg)
 
     # Kiểm tra yêu cầu bóc toàn bộ
-    all_triggers = ['toan bo', 'boc het', 'tat ca', 'ca 3 tu', 'tat ca cac tu', 'boc ca', 'toan bo tat ca']
+    all_triggers = [
+        'toan bo', 'boc het', 'tat ca', 'tat ca cac tu', 'boc ca',
+        'toan bo tat ca', 'boc full', 'full', 'toan bo cac tu',
+        'boc toan bo', 'boc tat ca', 'tat ca tu', 'het cac tu',
+        'tat ca 70 tu', 'toan bo 70 tu', '70 tu'
+    ]
     if any(t in norm_msg for t in all_triggers):
         return [p['panel_code'] for p in detected_panels]
 
@@ -1944,13 +1956,20 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
             logger.exception('Could not save verified EL extraction')
             raise HTTPException(503, 'Đã kiểm chứng nhưng chưa lưu được kết quả bóc tách; không xác nhận hoàn tất.') from e
 
-    # Nếu chỉ bóc một số tủ, cập nhật lời giải thích cho rõ ràng
+    # Cập nhật lời giải thích theo phạm vi tủ bóc tách
+    all_panels_in_takeoff = sorted({str(d.get('panel_code') or '').strip() for d in devices_data if d.get('panel_code') and d.get('panel_code') != 'CHUA_XAC_DINH'})
     if requested_panels and detected_panels and len(requested_panels) < len(detected_panels):
-        selected_desc = ", ".join(requested_panels)
+        selected_desc = ", ".join(requested_panels) if len(requested_panels) <= 4 else f"{', '.join(requested_panels[:3])} (+{len(requested_panels)-3} tủ)"
         reply_text = f"Đã hoàn thành bóc tách chi tiết khối lượng vật tư và thiết bị cho tủ điện **{selected_desc}** ({len(devices_data)} thiết bị).\n\n" + re.sub(r'^(?:dưới đây là |đây là )?kết quả bóc tách [^\n]+\n*', '', reply_text, flags=re.IGNORECASE)
+    elif requested_panels or len(all_panels_in_takeoff) > 1:
+        count = len(requested_panels) if requested_panels else len(all_panels_in_takeoff)
+        selected_desc = f"Toàn bộ {count} tủ điện" if count > 4 else ", ".join(all_panels_in_takeoff)
+        reply_text = f"Đã hoàn thành bóc tách chi tiết khối lượng cho **toàn bộ {count} tủ điện** ({len(devices_data)} thiết bị).\n\n" + re.sub(r'^(?:dưới đây là |đây là )?kết quả bóc tách [^\n]+\n*', '', reply_text, flags=re.IGNORECASE)
+    else:
+        selected_desc = ", ".join(all_panels_in_takeoff)
 
     if iteration_id:
-        panel_label = selected_desc if (requested_panels and detected_panels and len(requested_panels) < len(detected_panels)) else ", ".join(sorted({str(d.get('panel_code') or '').strip() for d in devices_data if d.get('panel_code') and d.get('panel_code') != 'CHUA_XAC_DINH'}))
+        panel_label = selected_desc if selected_desc else (f"Toàn bộ {len(all_panels_in_takeoff)} tủ điện" if len(all_panels_in_takeoff) > 4 else ", ".join(all_panels_in_takeoff))
         reply_text = build_circuit_takeoff_analysis_summary(devices_data, panel_label)
         pending = sum((d.get('evidence_region') or {}).get('status') != 'verified' or not d.get('technical_analysis') for d in devices_data)
         if whole_panel_unfinished:

@@ -366,7 +366,8 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
     native_contexts = {}
     cache_scope = [project_id, [(getattr(c, 'id', None), getattr(c, 'provider', None),
         getattr(c, 'selected_model', None), getattr(c, 'quotas', None)) for c in connections]] if session_factory else None
-    panel_gate = asyncio.Semaphore(max(1, min(3, concurrency)))
+    max_panel_concurrency = 5 if len(panels) >= 10 else 3
+    panel_gate = asyncio.Semaphore(max(2, min(max_panel_concurrency, concurrency)))
 
     async def process_panel(index, panel, temporary):
         async with panel_gate:
@@ -559,13 +560,26 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
         if session_factory and len(panels) > 1:
             panel_batches = await asyncio.gather(*(process_panel(i, p, temporary) for i, p in enumerate(panels)),
                                                   return_exceptions=True)
-            for batch in panel_batches:
+            failed_panels = []
+            for i, batch in enumerate(panel_batches):
                 if isinstance(batch, BaseException):
-                    raise batch
-                result.extend(batch)
+                    p_code = panels[i].get('panel_code', f'Tủ {i}')
+                    import logging
+                    logging.getLogger(__name__).warning("Lỗi bóc tách tủ %s: %s", p_code, batch)
+                    failed_panels.append(p_code)
+                elif isinstance(batch, list):
+                    result.extend(batch)
+            if not result and failed_panels:
+                raise HTTPException(422, f"Không đọc được danh mục các tủ: {', '.join(failed_panels[:5])}")
         else:
             for index, panel in enumerate(panels):
-                result.extend(await process_panel(index, panel, temporary))
+                try:
+                    result.extend(await process_panel(index, panel, temporary))
+                except Exception as exc:
+                    if len(panels) == 1:
+                        raise
+                    import logging
+                    logging.getLogger(__name__).warning("Lỗi bóc tách tủ %s: %s", panel.get('panel_code'), exc)
     for index, panel in enumerate(panels):
         file = by_id[panel['source_file_id']]
         if Path(file.file_path).suffix.lower() in ('.dwg', '.dxf'):
