@@ -342,7 +342,7 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
         raise HTTPException(503, 'Chưa có kết nối AI để đọc bản vẽ.')
     session_factory = async_sessionmaker(bind=db.bind, expire_on_commit=False) if isinstance(db, AsyncSession) else None
     from app.services.ai.cache_policy import takeoff_concurrency
-    concurrency = takeoff_concurrency() if session_factory else 1
+    concurrency = max(3, takeoff_concurrency()) if session_factory else 3
 
     async def call_image(image_path, prompt, *, response_schema=None):
         with Image.open(image_path) as request_image:
@@ -600,4 +600,22 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
             if not row.get('technical_analysis'):
                 row['source_observations'] = {**(row.get('source_observations') or {}),
                     'analysis_review': {'status': 'needs_review', 'reason': 'Chưa hoàn tất phân tích chức năng và quan hệ mạch.'}}
+    from app.services.ai.standard_device_catalog import get_standard_candidates
+    for row in result:
+        existing = row.get('catalog_candidates') or {}
+        if not existing or not any(existing.values()):
+            standard = get_standard_candidates(
+                row.get('category'),
+                row.get('spec'),
+                row.get('name'),
+                row.get('poles'),
+                row.get('in_a'),
+                row.get('icu_ka')
+            )
+            if standard:
+                row['catalog_candidates'] = standard
+                if not row.get('suggested_sku'):
+                    first_brand = next(iter(standard.keys()), None)
+                    if first_brand and standard[first_brand]:
+                        row['suggested_sku'] = standard[first_brand][0].get('sku')
     return result
