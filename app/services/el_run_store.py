@@ -59,6 +59,32 @@ class RunStore:
         with self.connect() as db:
             return self.decode(db.execute('SELECT * FROM el_runs WHERE owner=? AND project=? ORDER BY created DESC LIMIT 1', (owner, project)).fetchone())
 
+    def active_runs_for_projects(self, project_ids, owner=None):
+        if not project_ids:
+            return {}
+        with self.connect() as db:
+            placeholders = ','.join('?' for _ in project_ids)
+            sql = f"""SELECT id, owner, project, request_id, status, pause, payload, checkpoint, lease_until, updated
+                      FROM el_runs WHERE project IN ({placeholders}) AND status NOT IN ('COMPLETED', 'FAILED')
+                      ORDER BY updated DESC"""
+            params = list(project_ids)
+            if owner is not None:
+                sql = f"""SELECT id, owner, project, request_id, status, pause, payload, checkpoint, lease_until, updated
+                          FROM el_runs WHERE project IN ({placeholders}) AND owner = ? AND status NOT IN ('COMPLETED', 'FAILED')
+                          ORDER BY updated DESC"""
+                params.append(owner)
+            rows = db.execute(sql, tuple(params)).fetchall()
+            result = {}
+            now = time.time()
+            for row in rows:
+                r = self.decode(row)
+                pid = r['project']
+                if pid not in result:
+                    if r['status'] == 'RUNNING' and r.get('lease_until') and (r['lease_until'] < now - 180):
+                        continue
+                    result[pid] = r
+            return result
+
     def create(self, owner, project, request_id, payload):
         with self.connect() as db:
             db.execute('BEGIN IMMEDIATE')

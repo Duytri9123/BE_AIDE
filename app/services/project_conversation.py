@@ -8,8 +8,8 @@ from app.models.analysis_iteration import AnalysisIteration
 
 
 async def project_session(db, project_id, user_id, provider=None, model_key=None):
-    # Serialize first-use consolidation and concurrent chat/worker saves.
-    await db.execute(update(Project).where(Project.id == project_id).values(updated_at=Project.updated_at))
+    # Serialize first-use consolidation and concurrent chat/worker saves; touch updated_at
+    await db.execute(update(Project).where(Project.id == project_id).values(updated_at=datetime.now(timezone.utc)))
     sessions = list((await db.execute(select(ConversationSession).where(
         ConversationSession.project_id == project_id).options(load_only(
             ConversationSession.id, ConversationSession.user_id, ConversationSession.status,

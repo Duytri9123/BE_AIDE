@@ -16,7 +16,7 @@ from app.core.exceptions import AIVisionError
 from app.services.ai.material_note_evidence import material_annotation
 
 
-async def audit_device_previews(image, call_image, devices, payload, *, concurrency=1, cache_scope=None, batch_size=4):
+async def audit_device_previews(image, call_image, devices, payload, *, concurrency=3, cache_scope=None, batch_size=4):
     proposals = [r for r in payload.get('boxes', []) if isinstance(r, dict)]
     counts = Counter(str(r.get('device_id')) for r in proposals)
     rows = {}
@@ -68,7 +68,7 @@ async def audit_device_previews(image, call_image, devices, payload, *, concurre
                 rows[identity] = cached
             else:
                 identities.append(identity)
-    semaphore = asyncio.Semaphore(max(1, min(concurrency, 6)))
+    semaphore = asyncio.Semaphore(max(3, min(concurrency, 6)))
     retryable_batches = []
 
     async def audit_batch(batch, *, retry=False):

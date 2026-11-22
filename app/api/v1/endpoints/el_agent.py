@@ -667,6 +667,10 @@ async def save_takeoff_iteration(db, project_id: int, user_id: int, message: str
     )
     db.add(iteration)
     session.total_iterations = latest_number + 1
+    from datetime import datetime, timezone
+    from app.models.project import Project
+    from sqlalchemy import update
+    await db.execute(update(Project).where(Project.id == project_id).values(updated_at=datetime.now(timezone.utc)))
     await db.commit()
     await db.refresh(iteration)
     logger.info("Created takeoff AnalysisIteration #%d with %d devices for project %d", iteration.id, len(clean_devices), project_id)
@@ -733,6 +737,10 @@ async def update_takeoff_brand_iteration(db, project_id, user_id, message, reply
     iteration.devices_after_validation = rows
     iteration.user_corrections = {**(iteration.user_corrections or {}), 'reply': reply,
                                   'last_brand_update': message}
+    from datetime import datetime, timezone
+    from app.models.project import Project
+    from sqlalchemy import update
+    await db.execute(update(Project).where(Project.id == project_id).values(updated_at=datetime.now(timezone.utc)))
     await db.commit()
     return iteration.id, rows, changed_count
 
@@ -1314,6 +1322,10 @@ async def save_quotation_iteration(db, project_id: int, user_id: int, message: s
         )
         db.add(iteration)
         session.total_iterations = latest_number + 1
+        from datetime import datetime, timezone
+        from app.models.project import Project
+        from sqlalchemy import update
+        await db.execute(update(Project).where(Project.id == project_id).values(updated_at=datetime.now(timezone.utc)))
         await db.commit()
         await db.refresh(iteration)
         logger.info("Created new quotation AnalysisIteration #%d with %d rows", iteration.id, len(quotation_rows))
@@ -2398,7 +2410,11 @@ DỮ LIỆU:
 
 @router.post('/runs')
 async def start_run(payload: ChatRequest, db=Depends(get_db), user=Depends(get_current_active_user)):
-    await owned_project(db, user, payload.project_id)
+    proj = await owned_project(db, user, payload.project_id)
+    from datetime import datetime, timezone
+    proj.updated_at = datetime.now(timezone.utc)
+    db.add(proj)
+    await db.commit()
     from app.services.el_run_store import RunStore, public_run
     from app.services.ai.el_background import dispatch
     # The browser can retry this request without creating another job.

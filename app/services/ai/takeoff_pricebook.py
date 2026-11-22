@@ -72,6 +72,9 @@ def match_device(device, rows, *, candidate_limit=30):
     brand = preferred_brand_for_device(device, brand) or ''
     known_brand = brand.casefold() not in {'', 'asian', 'asia', 'oem', '-', '---', 'chưa xác định'}
     code = _norm(device.get('part_number') or device.get('sku'))
+    raw_subs = [c.strip() for c in code.split('/') if c.strip()] if '/' in code else ([code] if code else [])
+    generic_tokens = {'MCCB', 'MCB', 'ACB', 'RCBO', 'RCCB', 'CB', 'THIẾT BỊ', 'THIET BI', '—', '-', '---'}
+    sub_codes = [c for c in raw_subs if c not in generic_tokens]
     category = _norm(device.get('category'))
     kinds = {'MCB','MCCB','ACB','RCBO','RCCB'} if category == 'CB' else {category}
     selected = device.get('selected_product') or {}
@@ -81,59 +84,60 @@ def match_device(device, rows, *, candidate_limit=30):
         if row.get('category') not in kinds or (known_brand and canonical_brand(row['brand']) != canonical_brand(brand)):
             continue
         label, sku = _norm(row.get('item_name')), _norm(row.get('sku'))
-        exact = bool(code and code in {label, sku})
-        model_match = bool(code and re.match(re.escape(code)+r'(?=\s|$)', label))
+        exact = bool(sub_codes and any(c in {label, sku} for c in sub_codes))
+        model_match = bool(sub_codes and any(re.match(re.escape(c)+r'(?=\s|$)', label) for c in sub_codes))
+        row_family = (row.get('specifications') or {}).get('Họ thiết bị')
         # Reviewed ABB pricebooks distinguish the CAD frame (A1/A2/A3)
         # from ordering series (A1A/A1B/A1C/A1N). Frame matches are choices,
         # never an automatically approved order code.
         family_match = bool(known_brand and canonical_brand(brand) == 'ABB'
-                            and (row.get('specifications') or {}).get('Họ thiết bị') == code
-                            and ((category == 'MCCB' and code in {'A1', 'A2', 'A3'}
-                                  and re.match(re.escape(code)+r'[A-Z](?=\s|$)', label))
-                                 or (category == 'MCB' and code in {'S200', 'SH200'}
+                            and any(c == row_family for c in sub_codes)
+                            and ((category == 'MCCB' and any(c in {'A1', 'A2', 'A3'} for c in sub_codes)
+                                  and any(re.match(re.escape(c)+r'[A-Z](?=\s|$)', label) for c in sub_codes))
+                                 or (category == 'MCB' and any(c in {'S200', 'SH200'} for c in sub_codes)
                                      and re.match(r'(?:SH|S)20[1-4][LM]?-C\d+\b', label))))
         family_match = family_match or bool(known_brand and canonical_brand(brand)=='ABB'
-            and category=='MCCB' and code in {'XT1','XT2','XT3','XT4'}
-            and (row.get('specifications') or {}).get('Họ thiết bị')==code
-            and re.match(re.escape(code)+r'[BCNSHL](?=\s|$)',label))
+            and category=='MCCB' and any(c in {'XT1','XT2','XT3','XT4'} for c in sub_codes)
+            and any(c == row_family for c in sub_codes)
+            and any(re.match(re.escape(c)+r'[BCNSHL](?=\s|$)',label) for c in sub_codes))
         body_match = bool(known_brand and canonical_brand(brand) == 'ABB'
                           and category == 'CONTACTOR'
-                          and re.fullmatch(r'AX\d+-\d+-\d+', code)
-                          and (row.get('specifications') or {}).get('Mã thân') == code
-                          and re.match(re.escape(code)+r'-\d+(?=\s|$)', label))
+                          and any(re.fullmatch(r'AX\d+-\d+-\d+', c) for c in sub_codes)
+                          and any(c == (row.get('specifications') or {}).get('Mã thân') for c in sub_codes)
+                          and any(re.match(re.escape(c)+r'-\d+(?=\s|$)', label) for c in sub_codes))
         body_match = body_match or bool(known_brand and canonical_brand(brand)=='Schneider Electric'
-            and category=='CONTACTOR' and re.fullmatch(r'LC1D(?:09|12|18|25|32|38|098|128)',code)
-            and (row.get('specifications') or {}).get('Mã thân')==code
-            and sku==code+'B7')
+            and category=='CONTACTOR' and any(re.fullmatch(r'LC1D(?:09|12|18|25|32|38|098|128)',c) for c in sub_codes)
+            and any(c == (row.get('specifications') or {}).get('Mã thân') for c in sub_codes)
+            and any(sku == c+'B7' for c in sub_codes))
         reviewed_family_match = bool(known_brand
-            and (row.get('specifications') or {}).get('Họ thiết bị') == code
+            and any(c == row_family for c in sub_codes)
             and ((canonical_brand(brand) == 'Shihlin' and category == 'MCCB'
-                  and re.fullmatch(r'BM\d+', code) and re.match(re.escape(code)+r'-[A-Z]', label))
+                  and any(re.fullmatch(r'BM\d+', c) for c in sub_codes) and any(re.match(re.escape(c)+r'-[A-Z]', label) for c in sub_codes))
                  or (canonical_brand(brand) == 'ABB' and category == 'THERMAL_RELAY'
-                     and re.fullmatch(r'TA\d+DU',code) and re.match(re.escape(code)+r'-[\d.]',label))
+                     and any(re.fullmatch(r'TA\d+DU',c) for c in sub_codes) and any(re.match(re.escape(c)+r'-[\d.]',label) for c in sub_codes))
                  or (canonical_brand(brand) == 'CHINT' and category == 'PUSHBUTTON'
-                     and code == 'NP2' and re.match(r'NP2-EA\d+(?=\s|$)',label))
+                     and 'NP2' in sub_codes and re.match(r'NP2-EA\d+(?=\s|$)',label))
                  or (canonical_brand(brand) == 'Schneider Electric' and category == 'MCB'
-                     and code == 'IC60' and re.match(r'IC60N(?=\s|$)',label))
+                     and 'IC60' in sub_codes and re.match(r'IC60N(?=\s|$)',label))
                  or (canonical_brand(brand)=='Schneider Electric' and category=='MCB'
-                     and code=='C120' and re.match(r'C120[NH](?=\s|$)',label))
+                     and 'C120' in sub_codes and re.match(r'C120[NH](?=\s|$)',label))
                  or (canonical_brand(brand)=='Schneider Electric' and category=='MCCB'
-                     and re.fullmatch(r'CVS(?:100|160|250|400|630)',code)
-                     and re.match(re.escape(code)+r'[BFN](?=\s|$)',label))
+                     and any(re.fullmatch(r'CVS(?:100|160|250|400|630)',c) for c in sub_codes)
+                     and any(re.match(re.escape(c)+r'[BFN](?=\s|$)',label) for c in sub_codes))
                  or (canonical_brand(brand) == 'LS Electric' and category == 'MCCB'
-                     and re.fullmatch(r'(?:TD|TS)(?:100|160|250|400|630|800|1000|1250|1600)',code)
-                     and re.match(re.escape(code)+r'[NHL](?=\s|$)',label))
+                     and any(re.fullmatch(r'(?:TD|TS)(?:100|160|250|400|630|800|1000|1250|1600)',c) for c in sub_codes)
+                     and any(re.match(re.escape(c)+r'[NHL](?=\s|$)',label) for c in sub_codes))
                  or (canonical_brand(brand) == 'Schneider Electric' and category == 'MCCB'
-                     and re.fullmatch(r'EZC(?:100|250|400)',code)
-                     and re.fullmatch(re.escape(code)+r'[BFHN][1-4]\d{3}N?',sku))
+                     and any(re.fullmatch(r'EZC(?:100|250|400)',c) for c in sub_codes)
+                     and any(re.fullmatch(re.escape(c)+r'[BFHN][1-4]\d{3}N?',sku) for c in sub_codes))
                  or (canonical_brand(brand) == 'Mikro' and category in {'PHASE_RELAY', 'VOLTAGE_RELAY', 'POWER_FACTOR_CONTROLLER'}
-                     and re.fullmatch(r'(?:MX|PFR)\d+[A-Z]*', code) and re.match(re.escape(code)+r'-', label))
+                     and any(re.fullmatch(r'(?:MX|PFR)\d+[A-Z]*', c) for c in sub_codes) and any(re.match(re.escape(c)+r'-', label) for c in sub_codes))
                  or (canonical_brand(brand)=='Mikro' and category=='EARTH_LEAKAGE_RELAY'
-                     and code=='DIN310' and sku=='DIN310-230A')))
+                     and 'DIN310' in sub_codes and sku=='DIN310-230A')))
         if selected_id:
             if public_id(row) != selected_id or not exact:
                 continue
-        elif code and not (exact or model_match or family_match or body_match or reviewed_family_match):
+        elif sub_codes and not (exact or model_match or family_match or body_match or reviewed_family_match):
             continue
         current_range = re.fullmatch(r'(\d+(?:\.\d+)?)–(\d+(?:\.\d+)?)',
                                     str((row.get('specifications') or {}).get('Dải chỉnh định (A)') or '')) if category == 'THERMAL_RELAY' else None
@@ -175,7 +179,7 @@ def match_device(device, rows, *, candidate_limit=30):
         if device.get('icu_ka') and (not _values(row,'icu') or min(_values(row,'icu')) < float(device['icu_ka'])):
             continue
         # A frame name needs its electrical configuration; a complete SKU can identify one row.
-        automatic = known_brand and bool(code) and not (row.get('specifications') or {}).get('Phạm vi giá') and (exact or (model_match and device.get('poles') and device.get('in_a')))
+        automatic = known_brand and bool(sub_codes) and not (row.get('specifications') or {}).get('Phạm vi giá') and (exact or (model_match and device.get('poles') and device.get('in_a')))
         if category == 'CT' and not residual and not ct_ratio_verified:
             automatic = False
         matches.append((row, automatic))
@@ -189,7 +193,7 @@ def match_device(device, rows, *, candidate_limit=30):
         choices.append({'price_row_id':public_id(row), 'catalog_id':public_id(row),
                         'sku':row.get('sku') or row['item_name'], 'name':row['item_name'],
                         'brand':row['brand'], 'price':row['price'], 'price_source':'published_pricebook',
-                        'specifications':row.get('specifications') or {}, 'auto_selectable':matched,
+                        'specifications':row.get('specifications') or {}, 'auto_selectable':matched or bool(exact),
                         'equipment_catalog_id':row.get('equipment_catalog_id'),
                         'cad_price_option_id':options.get(row['id']),
                         'vat_status':row.get('vat_status'), 'effective_date':row.get('effective_date'),
@@ -217,6 +221,16 @@ def link_devices(devices, rows=None):
             if not any(c.get('price_row_id')==choice['price_row_id'] for c in bucket):
                 bucket.insert(0,choice)
         updates = {'pricebook_match':match, 'catalog_candidates':grouped}
+
+        # Cập nhật mã thiết bị là tên hàng trong bảng giá khi có kết quả khớp
+        current_pn = str(data.get('part_number') or '').strip()
+        generic_names = {'', '—', '-', '---', 'MCCB', 'MCB', 'ACB', 'RCBO', 'RCCB', 'CB', 'THIẾT BỊ', 'THIET BI'}
+        if match['candidates'] and (not current_pn or '/' in current_pn or current_pn.upper() in generic_names):
+            best = match['candidates'][0]
+            updates['part_number'] = best['sku']
+            updates['sku'] = best['sku']
+            if not data.get('selected_product'):
+                updates['selected_product'] = best
         if isinstance(device,dict):
             device.update(updates)
         else:

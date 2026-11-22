@@ -113,6 +113,11 @@ async def run(run_id, store=None):
                         return
                     continue
                 if decision.get('reply'):
+                    from datetime import datetime, timezone
+                    from sqlalchemy import update
+                    from app.models.project import Project
+                    await db.execute(update(Project).where(Project.id == row['project']).values(updated_at=datetime.now(timezone.utc)))
+                    await db.commit()
                     store.save(run_id, lease, state, 'COMPLETED', result={**decision, 'artifacts': state.get('artifacts', []), 'outputs': state.get('outputs', [])})
                     return
                 name, args = decision.get('tool'), decision.get('arguments') or {}
@@ -149,6 +154,11 @@ async def run(run_id, store=None):
                 state['observations'] = state['observations'][-18:]
                 if tool.get('writes'):
                     state['completed_writes'].append(signature)
+                    from datetime import datetime, timezone
+                    from sqlalchemy import update
+                    from app.models.project import Project
+                    await db.execute(update(Project).where(Project.id == row['project']).values(updated_at=datetime.now(timezone.utc)))
+                    await db.commit()
                 state['pending'] = None
                 state['phase'] = 'ready'
                 activity({'activity': {**event, 'state': 'error' if result.get('ok') is False else 'success'}})

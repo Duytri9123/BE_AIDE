@@ -32,6 +32,7 @@ class ProjectResponse(BaseModel):
     device_count: int = 0
     total_value: float = 0
     processing_task: Optional[dict] = None
+    el_task: Optional[dict] = None
     
     @field_serializer('created_at', 'updated_at', mode='plain')
     def serialize_dt(self, v: Optional[datetime]) -> Optional[str]:
@@ -115,13 +116,17 @@ async def read_cabinet_designs(project_id: int, db: AsyncSession = Depends(get_d
 
 @router.put('/{project_id}/cabinet-designs')
 async def save_cabinet_designs(project_id: int, body: CabinetDesignsRequest, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_active_user)):
-    await get_project_or_404(project_id, db, current_user)
+    project = await get_project_or_404(project_id, db, current_user)
     from app.services.cad.project_design_store import save_designs
     if len(body.designs) > 100 or any(not isinstance(d.get('id'), str) or not isinstance(d.get('name'), str) or len(d['name']) > 120 for d in body.designs):
         raise HTTPException(422, 'Danh sách tủ thiết kế không hợp lệ.')
     try:
         import asyncio
-        return await asyncio.to_thread(save_designs, _design_file(project_id), body.designs, body.revision)
+        res = await asyncio.to_thread(save_designs, _design_file(project_id), body.designs, body.revision)
+        project.updated_at = datetime.now(timezone.utc)
+        db.add(project)
+        await db.commit()
+        return res
     except ValueError as exc:
         raise HTTPException(409, str(exc)) from exc
     except OverflowError as exc:
@@ -155,12 +160,36 @@ async def list_projects(
     file_counts = dict(counts)
     from app.services.job_queue import project_activity
     activity = await project_activity(project_ids)
+    from app.services.el_run_store import RunStore
+    el_active_runs = await asyncio.to_thread(
+        RunStore().active_runs_for_projects,
+        project_ids,
+        None if current_user.is_superuser else current_user.id
+    ) if project_ids else {}
     
-    # Enrich with counts
+    # Enrich with counts and processing tasks
     enriched_projects = []
     for project in projects:
         # Count files
-        file_count = file_counts.get(project.id,0)
+        file_count = file_counts.get(project.id, 0)
+        el_run = el_active_runs.get(project.id)
+        el_task = None
+        if el_run:
+            checkpoint = el_run.get('checkpoint') or {}
+            activities = checkpoint.get('activities') or []
+            latest_label = activities[-1].get('label') if activities else None
+            paused = bool(el_run.get('pause')) or el_run.get('status') == 'PAUSED'
+            el_task = {
+                'task_id': el_run['id'],
+                'status': el_run['status'],
+                'kind': 'el',
+                'message': latest_label or 'EL đang xử lý',
+                'paused': paused,
+                'is_el': True
+            }
+
+        cad_task = activity.get(project.id)
+        chosen_task = el_task if (el_task and not el_task['paused']) else (cad_task or el_task)
         
         project_dict = {
             "id": project.id,
@@ -172,7 +201,8 @@ async def list_projects(
             "file_count": file_count,
             "device_count": 0,
             "total_value": 0.0,
-            "processing_task": activity.get(project.id),
+            "processing_task": chosen_task,
+            "el_task": el_task,
         }
         enriched_projects.append(ProjectResponse(**project_dict))
     

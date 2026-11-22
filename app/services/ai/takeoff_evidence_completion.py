@@ -21,7 +21,7 @@ def evidence_gaps(device, box):
     return gaps
 
 
-async def complete_evidence(image, image_path, devices, audited, call_image, *, concurrency=1, attempts=2, cache_scope=None, local_recovery=True):
+async def complete_evidence(image, image_path, devices, audited, call_image, *, concurrency=3, attempts=1, cache_scope=None, local_recovery=True):
     from app.services.ai.device_crop_audit import audit_device_previews
     # A provider outage is not missing source content. Keep successful checks
     # and do not turn the failed batch into another expensive recovery cycle.
@@ -48,7 +48,7 @@ async def complete_evidence(image, image_path, devices, audited, call_image, *, 
             observed=devices[int(identity)].source_observations or {}
             region=(observed.get('coverage_review') or {}).get('region') or {}
             groups.setdefault(json.dumps(region,sort_keys=True),[]).append(identity)
-        gate=asyncio.Semaphore(max(1,min(concurrency,4)))
+        gate=asyncio.Semaphore(max(3,min(concurrency,4)))
         async def repair(identities):
             async with gate:
                 # Keep request-local IDs stable without rechecking completed rows.

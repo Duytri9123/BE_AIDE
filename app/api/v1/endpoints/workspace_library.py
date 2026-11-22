@@ -308,14 +308,25 @@ async def cabinet_agent_consult(
         pass
 
     action_type = None
-    if any(k in msg_lower for k in ['đèn báo pha', 'đèn pha', '3 đèn báo', 'đèn báo']):
+    actions = []
+    if any(k in msg_lower for k in ['vào giữa', 'căn giữa', 'ra giữa', 'giữa cánh']):
+        action_type = 'center_door'
+        lights = [d['id'] for d in placed if any(w in str(d.get('name', '') + d.get('id', '')).lower() for w in ['đèn', 'hl', 'pilot', 'light'])]
+        target_ids = lights if lights else [d['id'] for d in placed]
+        if target_ids:
+            actions = [{'action': 'center-door', 'ids': target_ids, 'gap': 30}]
+    elif any(k in msg_lower for k in ['đèn báo pha', 'đèn pha', '3 đèn báo', 'đèn báo']):
         action_type = 'add_phase_lights'
     elif any(k in msg_lower for k in ['đồng hồ', 'vôn kế', 'ampe kế', 'volt', 'ampe']):
         action_type = 'add_meter'
     elif any(k in msg_lower for k in ['sắp xếp', 'căn chỉnh', 'thẳng hàng', 'auto arrange']):
         action_type = 'auto_arrange'
-    elif any(k in msg_lower for k in ['xoay thiết bị', 'xoay 90']):
+        if placed:
+            actions = [{'action': 'arrange-group', 'ids': [d['id'] for d in placed], 'gap': 15}]
+    elif any(k in msg_lower for k in ['xoay thiết bị', 'xoay 90', 'xoay']):
         action_type = 'rotate_device'
+        if placed:
+            actions = [{'action': 'rotate-group', 'ids': [d['id'] for d in placed], 'rotation': 90}]
     elif any(k in msg_lower for k in ['xóa thiết bị', 'bỏ thiết bị']):
         action_type = 'remove_device'
 
@@ -379,7 +390,9 @@ HƯỚNG DẪN TRẢ LỜI:
         pass
 
     if not llm_reply:
-        if action_type == 'add_phase_lights':
+        if action_type == 'center_door':
+            llm_reply = "✅ **Đã căn giữa phụ kiện cánh tủ:** Các đèn / thiết bị cánh đã được căn đều chính giữa theo phương ngang ở hàng trên theo tiêu chuẩn kỹ thuật."
+        elif action_type == 'add_phase_lights':
             llm_reply = """✅ **Đã thêm 3 đèn báo pha (Đỏ - Vàng - Xanh) lên cánh tủ:**
 - 🔴 **HL1 (Pha R / L1)**: Đèn đỏ, khoét lỗ tròn Ø22 mm
 - 🟡 **HL2 (Pha S / L2)**: Đèn vàng, khoét lỗ tròn Ø22 mm
@@ -422,6 +435,7 @@ Dưới đây là các thiết bị phù hợp trong catalog mà bạn có thể
     return {
         'reply': llm_reply,
         'action': action_type,
+        'actions': actions,
         'metrics': {
             'fill_ratio': fill_ratio,
             'device_count': device_count,
