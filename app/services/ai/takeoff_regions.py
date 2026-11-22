@@ -5,6 +5,7 @@ import base64
 import hashlib
 import hmac
 import json
+import re
 import tempfile
 import time
 from pathlib import Path
@@ -67,7 +68,98 @@ def confirmed_scope(context, project_id):
     return panels
 
 
-async def discover_panels(db, project_id, file_ids):
+def extract_requested_pages(message: str, max_count: int = 100):
+    if not message:
+        return None
+    found = []
+    for m in re.finditer(r'(?:trang|page|p\.)\s*(\d+)(?:\s*(?:đến|-)\s*(\d+))?', message, re.IGNORECASE):
+        start = int(m.group(1))
+        end = int(m.group(2)) if m.group(2) else start
+        for p in range(start, min(end + 1, max_count + 1)):
+            if 1 <= p <= max_count:
+                found.append(p)
+    return sorted(list(set(found))) if found else None
+
+
+def detect_schematic_pdf_pages(pdf, requested_pages=None, max_pages=2):
+    """
+    Find relevant electrical schematic / panel pages in a PDF document.
+    Returns list of 1-based page numbers.
+    """
+    count = len(pdf)
+    if requested_pages:
+        valid = [p for p in requested_pages if 1 <= p <= count]
+        if valid:
+            return sorted(list(set(valid)))
+
+    if count <= 4:
+        return list(range(1, count + 1))
+
+    scores = []
+    primary_kws = [
+        'sơ đồ nguyên lý', 'single line diagram', 'single line', 'sld',
+        'nguyên lý cấp điện', 'sơ đồ 1 sợi', 'sơ đồ một sợi', 'bus bar'
+    ]
+    equip_keywords = [
+        'mccb', 'mcb', 'acb', 'rcbo', 'rccb', 'aptomat',
+        'contactor', 'khởi động từ', 'biến dòng', 'timer', 'tủ điện'
+    ]
+
+    for idx in range(count):
+        page = pdf[idx]
+        text = (page.get_text() or '').lower()
+        if not text.strip():
+            continue
+
+        # Must have at least one schematic or panel indicator to even be considered
+        has_schematic = any(kw in text for kw in primary_kws)
+        has_equip = any(kw in text for kw in equip_keywords)
+        if not (has_schematic or (has_equip and 'tủ' in text)):
+            continue
+
+        score = 0
+        for kw in primary_kws:
+            cnt = text.count(kw)
+            if cnt > 0:
+                score += min(cnt, 3) * 40
+
+        circuits = len(re.findall(r'\b[lsp]\d+\b', text))
+        if circuits > 2:
+            score += min(circuits, 20) * 3
+
+        cables = len(re.findall(r'\b(?:cv|cu/xlpe|pvc|conduit|d\d+\b)', text))
+        if cables > 2:
+            score += min(cables, 20) * 2
+
+        for kw in equip_keywords:
+            cnt = text.count(kw)
+            if cnt > 0:
+                score += min(cnt, 5) * 4
+
+        # Strong bonus for combination of schematic + circuit breakers / busbar (actual SLD)
+        if has_schematic and any(k in text for k in ['bus bar', 'mcb', 'mccb', 'rcbo']):
+            score += 80
+
+        if re.search(r'\bele[-_]?\d+', text):
+            score += 20
+
+        if any(k in text for k in ['danh sách bản vẽ', 'mục lục bản vẽ', 'drawing list', 'sheet list', 'bảng kê bản vẽ']):
+            score -= 200
+        if any(k in text for k in ['symbols and legends', 'lv components symbols', 'bảng ký hiệu']):
+            score -= 150
+
+        if score > 50:
+            scores.append((idx + 1, score))
+
+    if scores:
+        scores.sort(key=lambda x: x[1], reverse=True)
+        top_score = scores[0][1]
+        filtered = [p for p, s in scores if s >= top_score * 0.6]
+        return sorted(filtered[:max_pages])
+    return []
+
+
+async def discover_panels(db, project_id, file_ids, user_message=None):
     from app.services.ai.requirement_analysis import render_pdf_page
     from app.services.ingestion.cad_parser import CadParserService
     from app.services.ingestion.cad_visual_source import render_schematic_source
@@ -87,7 +179,7 @@ async def discover_panels(db, project_id, file_ids):
             raise HTTPException(404, 'Không tìm thấy file nguồn: ' + file.filename)
         stat = path.stat()
         fingerprints.append((file.id, str(path.resolve()), stat.st_size, stat.st_mtime_ns))
-    cache_key = (project_id, tuple(sorted(fingerprints)))
+    cache_key = (project_id, tuple(sorted(fingerprints)), user_message or '')
     from app.services.ai.cache_policy import ai_cache_enabled
     cached = _DISCOVERY_CACHE.get(cache_key) if ai_cache_enabled() else None
     if cached and time.monotonic() - cached[0] < 600:
@@ -187,10 +279,21 @@ async def discover_panels(db, project_id, file_ids):
             cad_bounds = None
             if path.suffix.lower() == '.pdf':
                 with pymupdf.open(path) as pdf:
-                    if len(pdf) > 8:
-                        raise HTTPException(422, 'PDF trên 8 trang: hãy chọn phạm vi trang hoặc tách phần bản vẽ cần bóc.')
                     count = len(pdf)
-                for n in range(1, count + 1):
+                    req_pages = extract_requested_pages(user_message, count)
+                    target_pages = detect_schematic_pdf_pages(pdf, requested_pages=req_pages, max_pages=4)
+                    if not target_pages:
+                        if count > 8:
+                            unresolved.append({
+                                'source_file_id': file.id,
+                                'source_page': None,
+                                'filename': file.filename,
+                                'detail': f'Bản vẽ {file.filename} gồm {count} trang dạng ảnh scan hoặc không có lớp text nhận diện tủ điện. Vui lòng ghi rõ số trang (ví dụ: "bóc tách trang 11") hoặc tải lên trang sơ đồ nguyên lý.'
+                            })
+                            continue
+                        else:
+                            target_pages = list(range(1, count + 1))
+                for n in target_pages:
                     image = Path(tmp) / f'{file.id}-{n}.png'
                     await asyncio.to_thread(render_pdf_page, path, n, image)
                     work_items.append((file, image, n, None, None))
@@ -219,9 +322,13 @@ async def discover_panels(db, project_id, file_ids):
         if len(_DISCOVERY_CACHE) >= 8:
             _DISCOVERY_CACHE.pop(next(iter(_DISCOVERY_CACHE)))
         _DISCOVERY_CACHE[cache_key] = (time.monotonic(), panels)
-    response=discovery_response(panels, project_id)
+    response = discovery_response(panels, project_id)
     if unresolved:
-        response['unresolved_pages']=unresolved
-        response['reply']+=' Chưa xác định được vùng sơ đồ trên: '+', '.join(
-            r['filename']+(f" · Trang {r['source_page']}" if r['source_page'] else '') for r in unresolved)+'. Các phần này chưa được đưa vào phạm vi bóc tách.'
+        response['unresolved_pages'] = unresolved
+        details = [r['detail'] for r in unresolved if r.get('detail')]
+        if details and not panels:
+            response['reply'] = ' '.join(details)
+        else:
+            response['reply'] += ' Chưa xác định được vùng sơ đồ trên: ' + ', '.join(
+                r['filename'] + (f" · Trang {r['source_page']}" if r.get('source_page') else '') for r in unresolved) + '. Các phần này chưa được đưa vào phạm vi bóc tách.'
     return response

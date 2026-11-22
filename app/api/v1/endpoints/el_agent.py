@@ -2056,7 +2056,7 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
     context = {**context, 'input_context': input_context(payload.message, context, intent, scope)}
     context_brief = {k: v for k, v in context['input_context'].items() if k != 'recent_conversation'}
     if intent == 'takeoff' and context.get('file_ids') and not scope:
-        return await run_step("Đang đọc nguồn để xác định các vùng tủ", discover_panels(db, payload.project_id, context['file_ids']))
+        return await run_step("Đang đọc nguồn để xác định các vùng tủ", discover_panels(db, payload.project_id, context['file_ids'], user_message=payload.message))
     if scope:
         context = {**context, 'confirmed_panels': scope}
         if intent == 'takeoff' and not context.get('observations'):
