@@ -98,7 +98,7 @@ class Settings(BaseSettings):
     
     # AI Vision Settings
     # Timeout 120s đảm bảo AI Vision có đủ thời gian đọc bản vẽ sơ đồ 1 sợi và sinh JSON chi tiết
-    AI_VISION_TIMEOUT: int = 120  # seconds
+    AI_VISION_TIMEOUT: int = 240  # seconds - allows large electrical takeoff to extract 40+ devices
     AI_LOCAL_OCR_ENABLED: bool = False  # optional native image grounding; Vision is the default
     AI_VISION_MAX_RETRIES: int = 3
     AI_VISION_RETRY_BACKOFF: int = 2  # seconds
