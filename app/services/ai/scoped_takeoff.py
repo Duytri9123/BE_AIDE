@@ -632,4 +632,41 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                     first_brand = next(iter(standard.keys()), None)
                     if first_brand and standard[first_brand]:
                         row['suggested_sku'] = standard[first_brand][0].get('sku')
+                        if not row.get('brand'):
+                            row['brand'] = first_brand
+                            row['brand_is_candidate'] = True
+
+    # Phân nhóm mạch logic chuẩn xác (Logic mạch sơ đồ nguyên lý SLD):
+    # Cuộn cắt (S/T / Shunt Trip) và Rơ le rò đất (ELR) + ZCT thuộc cụm bảo vệ Incomer (Đầu vào)
+    for row in result:
+        name_l = str(row.get('name') or '').lower()
+        cat_u = str(row.get('category') or '').upper()
+        tag_l = str(row.get('tag') or '').lower()
+        spec_l = str(row.get('spec') or '').lower()
+        if (
+            'cuộn cắt' in name_l or 'shunt trip' in name_l or 'cuộn ngắt' in name_l or
+            'cuộn cắt' in spec_l or 'shunt' in spec_l or
+            cat_u in {'SHUNT_TRIP', 'SHT', 'TRIP'} or tag_l in {'s/t', 'sht', 'mx'} or
+            'rò đất' in name_l or 'chạm đất' in name_l or cat_u in {'ELR', 'EFR', 'ZCT'} or
+            'zct' in name_l or 'rò đất' in spec_l
+        ):
+            row['section'] = 'Đầu vào'
+            incomer = next((d for d in result if str(d.get('panel_code')) == str(row.get('panel_code')) and str(d.get('category')).upper() in {'ACB', 'MCCB'}), None)
+            if 'cuộn cắt' in name_l or 'shunt' in name_l or tag_l in {'s/t', 'sht', 'mx'} or 'cuộn cắt' in spec_l:
+                if incomer:
+                    row['upstream_device'] = incomer.get('tag') or incomer.get('name')
+                    row['parent_tag'] = incomer.get('tag')
+                    row['technical_analysis'] = f"Cuộn cắt (Shunt Trip S/T) lắp phụ kiện ngắt liên động cho át tổng {incomer.get('name')} {incomer.get('spec') or ''} khi có sự cố hoặc dừng khẩn."
+                else:
+                    row['technical_analysis'] = "Cuộn cắt (Shunt Trip S/T) điều khiển ngắt liên động từ xa cho thiết bị đóng cắt nguồn tổng."
+            elif 'rò đất' in name_l or 'chạm đất' in name_l or cat_u in {'ELR', 'EFR'}:
+                row['technical_analysis'] = "Rơ le bảo vệ rò đất (ELR) phối hợp biến dòng ZCT đo dòng thứ tự không trên nguồn tổng và xuất tín hiệu ngắt cuộn S/T."
+            elif 'zct' in name_l or cat_u == 'ZCT':
+                row['technical_analysis'] = "Biến dòng thứ tự không (ZCT) luồn qua cáp nguồn tổng để phát hiện dòng rò truyền về rơ le rò đất ELR."
+        elif cat_u in {'TIMER'} or 'timer' in name_l:
+            row['section'] = 'Điều khiển & Chiếu sáng'
+            if not row.get('technical_analysis'):
+                row['technical_analysis'] = f"Timer 24h hẹn giờ tự động đóng ngắt cho mạch chiếu sáng / biển hiệu ({row.get('tag') or 'chiếu sáng'})."
+        elif any(k in name_l for k in ('đo lường', 'đồng hồ', 'biến dòng', 'đèn báo', 'chuyển mạch', 'cầu chì')) or cat_u in {'CT', 'METER', 'VOLTMETER', 'AMMETER', 'FUSE', 'LIGHT'}:
+            row['section'] = 'Đo lường & Giám sát'
     return result

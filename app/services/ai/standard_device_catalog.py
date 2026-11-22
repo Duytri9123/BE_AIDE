@@ -324,6 +324,121 @@ def get_standard_candidates(category: str, spec: str = "", name: str = "", poles
                 "reason": f"MCB 1P {amps}A 6kA LS BKN chuẩn kinh tế."
             }]
 
+    # 8. Cầu chì đo lường (FUSE 2A / 500V)
+    elif "CẦU CHÌ" in full_text or cat in ("FUSE", "FUSE_BASE", "FUSE_LINK"):
+        candidates["Chint"] = [{
+            "sku": "RT28-32 2A",
+            "name": "Cầu chì hạ thế Chint RT28-32 (vỏ + ruột chì ống 10x38 2A)",
+            "brand": "Chint",
+            "price": 25000,
+            "source": "standard_catalog",
+            "rating_complete": True,
+            "auto_selectable": True,
+            "reason": "Cầu chì bảo vệ mạch đo lường volt/đèn báo pha tủ điện."
+        }]
+        candidates["Schneider"] = [{
+            "sku": "DF2BN02",
+            "name": "Cầu chì tép Schneider TeSys DF 10x38mm 2A",
+            "brand": "Schneider",
+            "price": 95000,
+            "source": "standard_catalog",
+            "rating_complete": True,
+            "auto_selectable": True,
+            "reason": "Cầu chì bảo vệ mạch điều khiển & đo lường Schneider cao cấp."
+        }]
+
+    # 9. Đèn báo pha (INDICATOR LIGHT LED 220V)
+    elif "ĐÈN BÁO" in full_text or "BÁO PHA" in full_text or cat in ("LIGHT", "PILOT_LIGHT", "INDICATOR"):
+        candidates["Chint"] = [{
+            "sku": "ND16-22D 220VAC",
+            "name": "Đèn báo pha LED Chint ND16-22D phi 22 220VAC (Đỏ/Vàng/Xanh)",
+            "brand": "Chint",
+            "price": 22000,
+            "source": "standard_catalog",
+            "rating_complete": True,
+            "auto_selectable": True,
+            "reason": "Đèn báo pha LED 220V mặt cánh tủ hạ thế."
+        }]
+        candidates["Schneider"] = [{
+            "sku": "XB7EV08MP",
+            "name": "Đèn báo pha Schneider Harmony Easy XA2 phi 22 220VAC LED",
+            "brand": "Schneider",
+            "price": 85000,
+            "source": "standard_catalog",
+            "rating_complete": True,
+            "auto_selectable": True,
+            "reason": "Đèn báo pha Schneider chuẩn công nghiệp độ bền cao."
+        }]
+
+    # 10. Chuyển mạch đo điện áp (VOLT SELECTOR SWITCH)
+    elif "CHUYỂN MẠCH" in full_text or cat in ("SELECTOR", "VOLT_SELECTOR", "CAM_SWITCH"):
+        candidates["Chint"] = [{
+            "sku": "LW26-20/3",
+            "name": "Chuyển mạch đo điện áp Chint LW26-20 (7 vị trí đo pha & dây)",
+            "brand": "Chint",
+            "price": 95000,
+            "source": "standard_catalog",
+            "rating_complete": True,
+            "auto_selectable": True,
+            "reason": "Chuyển mạch Volt 7 vị trí đo điện áp dây (RS, ST, TR) và điện áp pha (RN, SN, TN, 0)."
+        }]
+        candidates["Schneider"] = [{
+            "sku": "K1F003NLH",
+            "name": "Chuyển mạch điện áp Schneider Harmony K 7 vị trí 3 pha + trung tính",
+            "brand": "Schneider",
+            "price": 480000,
+            "source": "standard_catalog",
+            "rating_complete": True,
+            "auto_selectable": True,
+            "reason": "Chuyển mạch chọn vôn Schneider Harmony K cao cấp."
+        }]
+
+    # 11. Đồng hồ đo điện áp (VOLTMETER 0-500V)
+    elif "ĐỒNG HỒ" in full_text and ("VOLT" in full_text or "ĐIỆN ÁP" in full_text or cat in ("VOLTMETER", "METER")):
+        candidates["Emic"] = [{
+            "sku": "V96 0-500V",
+            "name": "Đồng hồ đo điện áp kim Emic V96 dải đo 0-500V AC (kích thước 96x96)",
+            "brand": "Emic",
+            "price": 180000,
+            "source": "standard_catalog",
+            "rating_complete": True,
+            "auto_selectable": True,
+            "reason": "Đồng hồ Volt kim 0-500V Emic gắn mặt cánh tủ phổ biến."
+        }]
+        candidates["Mikro"] = [{
+            "sku": "MVM-500",
+            "name": "Đồng hồ đo vôn điện tử Mikro MVM-500 dải đo 0-500V",
+            "brand": "Mikro",
+            "price": 450000,
+            "source": "standard_catalog",
+            "rating_complete": True,
+            "auto_selectable": True,
+            "reason": "Đồng hồ Volt hiển thị LED kỹ thuật số chính xác."
+        }]
+
+    # 12. Biến dòng đo lường (CT - Current Transformer)
+    elif "BIẾN DÒNG" in full_text or cat in ("CT", "CURRENT_TRANSFORMER"):
+        candidates["Emic"] = [{
+            "sku": "CT-150/5A",
+            "name": "Biến dòng hạ thế Emic tròn luồn cáp tỷ số 150/5A 5VA Cấp 0.5",
+            "brand": "Emic",
+            "price": 160000,
+            "source": "standard_catalog",
+            "rating_complete": True,
+            "auto_selectable": True,
+            "reason": "Biến dòng đo lường tỷ số 150/5A đồng bộ với ampe kế và MCCB 150A."
+        }]
+        candidates["Mikro"] = [{
+            "sku": "MS-30 150/5A",
+            "name": "Biến dòng đo lường Mikro MS-30 tỷ số 150/5A Cấp 1.0",
+            "brand": "Mikro",
+            "price": 220000,
+            "source": "standard_catalog",
+            "rating_complete": True,
+            "auto_selectable": True,
+            "reason": "Biến dòng đo lường Mikro dạng khối nhỏ gọn."
+        }]
+
     return candidates
 
 
