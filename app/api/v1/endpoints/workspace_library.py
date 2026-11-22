@@ -307,6 +307,18 @@ async def cabinet_agent_consult(
     except Exception:
         pass
 
+    action_type = None
+    if any(k in msg_lower for k in ['đèn báo pha', 'đèn pha', '3 đèn báo', 'đèn báo']):
+        action_type = 'add_phase_lights'
+    elif any(k in msg_lower for k in ['đồng hồ', 'vôn kế', 'ampe kế', 'volt', 'ampe']):
+        action_type = 'add_meter'
+    elif any(k in msg_lower for k in ['sắp xếp', 'căn chỉnh', 'thẳng hàng', 'auto arrange']):
+        action_type = 'auto_arrange'
+    elif any(k in msg_lower for k in ['xoay thiết bị', 'xoay 90']):
+        action_type = 'rotate_device'
+    elif any(k in msg_lower for k in ['xóa thiết bị', 'bỏ thiết bị']):
+        action_type = 'remove_device'
+
     llm_reply = None
     try:
         import asyncio
@@ -315,28 +327,46 @@ async def cabinet_agent_consult(
         from app.services.ai.vision_analyzer import VisionAnalyzerService
         connections = await ConnectionPoolService.get_ordered_connections(db)
         if connections:
-            prompt = f"""Bạn là Kỹ sư Trưởng Thiết kế Tủ Điện AIDE (Cabinet Design AI Agent).
-Nhiệm vụ: Phân tích bố trí tủ điện 2D/3D, kiểm tra va chạm, tính toán tỷ lệ lắp đặt (fill ratio), khoảng cách an toàn điện theo TCVN / IEC 61439, và tư vấn tìm kiếm / điều chỉnh / thay thế thiết bị phù hợp.
+            if action_type == 'add_phase_lights':
+                prompt = f"""Bạn là Kỹ sư Trưởng Thiết kế Tủ Điện AIDE (Cabinet Design AI Agent).
+Người dùng vừa ra lệnh: "{payload.message}".
+Hệ thống đã THỰC HIỆN NGAY: Tự động bố trí 3 Đèn Báo Pha (HL1 - Đỏ / Pha L1, HL2 - Vàng / Pha L2, HL3 - Xanh / Pha L3) lên cánh tủ, tạo lỗ khoét tròn Ø22 mm, căn thẳng hàng ngang tại vị trí chuẩn.
+
+YÊU CẦU:
+- Bắt đầu bằng xác nhận: "✅ **Đã thêm 3 đèn báo pha (Đỏ - Vàng - Xanh) lên cánh tủ:**"
+- Liệt kê 3 đèn:
+  * 🔴 **HL1 (Pha R / L1)**: Đèn đỏ, khoét lỗ Ø22 mm
+  * 🟡 **HL2 (Pha S / L2)**: Đèn vàng, khoét lỗ Ø22 mm
+  * 🟢 **HL3 (Pha T / L3)**: Đèn xanh, khoét lỗ Ø22 mm
+- Xác nhận vị trí đã được căn thẳng hàng và mở lỗ khoét trên cánh tủ.
+- TUYỆT ĐỐI KHÔNG thuyết trình lý thuyết hay hướng dẫn thao tác thủ công, chỉ trả lời 3-4 dòng ngắn gọn."""
+            elif action_type == 'add_meter':
+                prompt = f"""Bạn là Kỹ sư Trưởng Thiết kế Tủ Điện AIDE.
+Người dùng vừa ra lệnh: "{payload.message}".
+Hệ thống đã THỰC HIỆN NGAY: Bổ sung đồng hồ đo Volt/Ampe kích thước 72×72 mm lên cánh tủ, mở lỗ khoét vuông 68×68 mm.
+Trả lời ngắn gọn (dưới 4 dòng) xác nhận đồng hồ đã được gắn lên cánh tủ."""
+            elif action_type == 'auto_arrange':
+                prompt = f"""Bạn là Kỹ sư Trưởng Thiết kế Tủ Điện AIDE.
+Người dùng vừa ra lệnh: "{payload.message}".
+Hệ thống đã THỰC HIỆN NGAY: Tự động căn chỉnh và sắp xếp lại các thiết bị trên tấm lắp thẳng hàng, đảm bảo khoảng cách an toàn và khe đi máng dây theo chuẩn IEC 61439.
+Trả lời ngắn gọn (dưới 4 dòng) xác nhận đã căn chỉnh xong."""
+            else:
+                prompt = f"""Bạn là Kỹ sư Trưởng Thiết kế Tủ Điện AIDE (Cabinet Design AI Agent).
+Nhiệm vụ: Phân tích nhanh bố trí tủ điện 2D/3D và hỗ trợ kỹ sư điều chỉnh thiết bị.
 
 THÔNG TIN TỦ ĐIỆN HIỆN TẠI:
-- Tên tủ: {payload.cabinet_name or 'Tủ thiết kế'}
 - Kích thước vỏ tủ: W={w}mm × H={h}mm × D={d}mm ({desc})
-- Kích thước tấm lắp thiết bị: {w_plate}mm × {h_plate}mm (Diện tích: {plate_area/1e6:.3f} m²)
-- Số lượng thiết bị hiện tại: {device_count} thiết bị
-- Tỷ lệ diện tích chiếm dụng (Fill Ratio): {fill_ratio}% (Khuyến nghị chuẩn IEC 61439: 45% - 70%)
+- Kích thước tấm lắp: {w_plate}mm × {h_plate}mm
+- Số lượng thiết bị: {device_count} cái | Tỷ lệ chiếm dụng (Fill Ratio): {fill_ratio}%
 - Cảnh báo va chạm / tràn mép: {', '.join(collisions) if collisions else 'Không phát hiện va chạm nào'}
 
-DANH SÁCH THIẾT BỊ ĐÃ BỐ TRÍ:
-{json.dumps([{'name': d.get('name'), 'w': d.get('width'), 'h': d.get('height'), 'd': d.get('depth'), 'x': d.get('x'), 'y': d.get('y'), 'owner': d.get('owner')} for d in placed], ensure_ascii=False, indent=2)}
-
-YÊU CẦU CỦA NGƯỜI DÙNG:
+YÊU CẦU CỦA KỸ SƯ:
 "{payload.message}"
 
 HƯỚNG DẪN TRẢ LỜI:
-1. Đánh giá nhanh: Tỷ lệ chiếm dụng không gian ({fill_ratio}%), cảnh báo va chạm/khoảng hở tản nhiệt (nếu có).
-2. Phân tích & Tư vấn thiết bị: Trả lời đúng trọng tâm câu hỏi của người dùng (nếu hỏi tìm/đổi thiết bị, đưa ra gợi ý cụ thể về kích thước, thông số, hãng).
-3. Hướng dẫn thao tác: Nhắc người dùng có thể bấm nút "Thêm vào tủ" ở danh sách gợi ý bên dưới hoặc kéo thả trực tiếp từ tab Thiết bị.
-Trình bày bằng tiếng Việt, định dạng Markdown rõ ràng, chuyên nghiệp. Tuyệt đối không dùng ký hiệu toán học LaTeX dạng $...$ hay \text{...}, mà dùng số và đơn vị mm tự nhiên (ví dụ: 30 - 50 mm, 40 × 60 mm)."""
+- Trả lời đúng trọng tâm câu hỏi hoặc yêu cầu điều chỉnh.
+- Trả lời ngắn gọn, thực tế, súc tích (dưới 5-7 dòng). Tuyệt đối không viết văn chương dài dòng lý thuyết.
+- Không dùng ký hiệu LaTeX math $...$, dùng số tự nhiên và đơn vị mm."""
             raw, _ = await asyncio.wait_for(
                 ConnectionPoolService.call_with_fallback(
                     db=db, connections=connections, call_fn=VisionAnalyzerService.analyze_text, prompt=prompt
@@ -349,20 +379,32 @@ Trình bày bằng tiếng Việt, định dạng Markdown rõ ràng, chuyên ng
         pass
 
     if not llm_reply:
-        status_line = "🟢 **Bố trí hợp lý & an toàn**" if not collisions and 30 <= fill_ratio <= 75 else (
-            "🔴 **Phát hiện va chạm / tràn kích thước**" if collisions else "🟡 **Cần lưu ý mật độ lắp đặt**"
-        )
-        collision_text = "\n".join([f"- ⚠️ {c}" for c in collisions]) if collisions else "- ✅ Không có va chạm giữa các thiết bị hoặc tràn mép tấm lắp."
-        density_advice = (
-            f"Tỷ lệ chiếm chỗ hiện tại đạt **{fill_ratio}%**. Mật độ bố trí ở mức lý tưởng (khuyến nghị 45–70% theo IEC 61439 để đảm bảo tản nhiệt tự nhiên và dự phòng mở rộng 20%)."
-            if 35 <= fill_ratio <= 70 else (
-                f"Tỷ lệ chiếm chỗ đạt **{fill_ratio}%**. Tủ còn nhiều không gian trống (dưới 35%), bạn có thể bổ sung thêm thiết bị bảo vệ, thanh cái trung tính/PE hoặc chọn form tủ kích thước nhỏ hơn để tiết kiệm chi phí."
-                if fill_ratio < 35 else
-                f"Tỷ lệ chiếm chỗ đạt **{fill_ratio}%**. Mật độ thiết bị khá dày đặc (> 70%), cần lưu ý khe hở tản nhiệt giữa các thiết bị đóng cắt (tối thiểu 10–15mm) và bố trí quạt tản nhiệt hoặc lỗ thông gió cánh tủ."
-            )
-        )
+        if action_type == 'add_phase_lights':
+            llm_reply = """✅ **Đã thêm 3 đèn báo pha (Đỏ - Vàng - Xanh) lên cánh tủ:**
+- 🔴 **HL1 (Pha R / L1)**: Đèn đỏ, khoét lỗ tròn Ø22 mm
+- 🟡 **HL2 (Pha S / L2)**: Đèn vàng, khoét lỗ tròn Ø22 mm
+- 🟢 **HL3 (Pha T / L3)**: Đèn xanh, khoét lỗ tròn Ø22 mm
 
-        llm_reply = f"""### {status_line}
+Các đèn đã được căn thẳng hàng ngang tại nửa trên cánh tủ và mở lỗ khoét tiêu chuẩn."""
+        elif action_type == 'add_meter':
+            llm_reply = "✅ **Đã thêm đồng hồ Volt/Ampe 72×72 mm lên cánh tủ:** Đã tạo lỗ khoét vuông 68×68 mm và căn giữa."
+        elif action_type == 'auto_arrange':
+            llm_reply = "✅ **Đã tự động căn chỉnh thiết bị:** Các thiết bị trên tấm lắp đã được gióng thẳng hàng và chừa khoảng hở máng dây theo chuẩn IEC 61439."
+        else:
+            status_line = "🟢 **Bố trí hợp lý & an toàn**" if not collisions and 30 <= fill_ratio <= 75 else (
+                "🔴 **Phát hiện va chạm / tràn kích thước**" if collisions else "🟡 **Cần lưu ý mật độ lắp đặt**"
+            )
+            collision_text = "\n".join([f"- ⚠️ {c}" for c in collisions]) if collisions else "- ✅ Không có va chạm giữa các thiết bị hoặc tràn mép tấm lắp."
+            density_advice = (
+                f"Tỷ lệ chiếm chỗ hiện tại đạt **{fill_ratio}%**. Mật độ bố trí ở mức lý tưởng (khuyến nghị 45–70% theo IEC 61439 để đảm bảo tản nhiệt tự nhiên và dự phòng mở rộng 20%)."
+                if 35 <= fill_ratio <= 70 else (
+                    f"Tỷ lệ chiếm chỗ đạt **{fill_ratio}%**. Tủ còn nhiều không gian trống (dưới 35%), bạn có thể bổ sung thêm thiết bị bảo vệ, thanh cái trung tính/PE hoặc chọn form tủ kích thước nhỏ hơn để tiết kiệm chi phí."
+                    if fill_ratio < 35 else
+                    f"Tỷ lệ chiếm chỗ đạt **{fill_ratio}%**. Mật độ thiết bị khá dày đặc (> 70%), cần lưu ý khe hở tản nhiệt giữa các thiết bị đóng cắt (tối thiểu 10–15mm) và bố trí quạt tản nhiệt hoặc lỗ thông gió cánh tủ."
+                )
+            )
+
+            llm_reply = f"""### {status_line}
 
 **1. Phân tích không gian & kích thước vỏ tủ:**
 - Vỏ tủ: **{w:.0f} × {h:.0f} × {d:.0f} mm** ({desc})
@@ -375,11 +417,11 @@ Trình bày bằng tiếng Việt, định dạng Markdown rõ ràng, chuyên ng
 - {density_advice}
 
 **3. Đề xuất & Tìm kiếm thiết bị:**
-Dưới đây là các thiết bị phù hợp trong catalog mà bạn có thể cân nhắc bổ sung hoặc thay thế. Bạn có thể bấm **"Thêm vào tủ"** trên từng thẻ gợi ý bên dưới để tự động đưa vào bản vẽ 3D.
-"""
+Dưới đây là các thiết bị phù hợp trong catalog mà bạn có thể cân nhắc bổ sung hoặc thay thế. Bạn có thể bấm **"Thêm vào tủ"** trên từng thẻ gợi ý bên dưới để tự động đưa vào bản vẽ 3D."""
 
     return {
         'reply': llm_reply,
+        'action': action_type,
         'metrics': {
             'fill_ratio': fill_ratio,
             'device_count': device_count,
