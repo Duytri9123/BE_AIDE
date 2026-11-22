@@ -1,6 +1,7 @@
 """One active project conversation; immutable result IDs retain every run."""
 from sqlalchemy import select, update, case
 from sqlalchemy.orm import load_only
+from datetime import datetime, timezone
 from app.models.project import Project
 from app.models.conversation_session import ConversationSession
 from app.models.analysis_iteration import AnalysisIteration
@@ -28,9 +29,20 @@ async def project_session(db, project_id, user_id, provider=None, model_key=None
         .order_by(AnalysisIteration.created_at, AnalysisIteration.id))).all())
     if any(row.session_id != session.id for row in runs):
         numbers = {row.id:index+1 for index,row in enumerate(runs)}
+        revision_time = datetime.now(timezone.utc)
         await db.execute(update(AnalysisIteration).where(AnalysisIteration.id.in_(numbers)).values(
-            session_id=session.id, iteration_number=case(numbers, value=AnalysisIteration.id))
+            session_id=session.id, iteration_number=case(numbers, value=AnalysisIteration.id),
+            updated_at=revision_time)
             .execution_options(synchronize_session=False))
+        # Bulk updates bypass mapper events; keep the compact read model aligned.
+        from app.models.analysis_summary import AnalysisSummary
+        await db.execute(update(AnalysisSummary).where(AnalysisSummary.id.in_(numbers)).values(
+            session_id=session.id, iteration_number=case(numbers, value=AnalysisSummary.id),
+            updated_at=revision_time)
+            .execution_options(synchronize_session=False))
+        from app.models.analysis_payload import AnalysisPayload
+        await db.execute(update(AnalysisPayload).where(AnalysisPayload.id.in_(numbers))
+            .values(updated_at=revision_time).execution_options(synchronize_session=False))
     session.total_tokens_used = sum(s.total_tokens_used or 0 for s in sessions)
     for old in sessions[1:]:
         old.status = 'archived'

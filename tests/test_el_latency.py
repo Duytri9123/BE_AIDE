@@ -63,7 +63,7 @@ class RoutingTests(unittest.IsolatedAsyncioTestCase):
         with patch.object(el_agent, 'owned_project', AsyncMock()), patch('app.services.ai.takeoff_regions.discover_panels', AsyncMock(return_value={'requires_confirmation': True})) as discovery, patch('app.services.ai.scoped_takeoff.extract_confirmed_panels', AsyncMock()) as extractor:
             result = await el_agent.next_action(payload, SimpleNamespace(app=None), None, None)
         self.assertTrue(result['requires_confirmation'])
-        discovery.assert_awaited_once_with(None, 1, [7])
+        discovery.assert_awaited_once_with(None, 1, [7], user_message=payload.message)
         extractor.assert_not_awaited()
 
     async def test_confirmed_takeoff_uses_direct_scoped_extractor(self):

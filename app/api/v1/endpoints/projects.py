@@ -107,7 +107,10 @@ async def read_cabinet_designs(project_id: int, db: AsyncSession = Depends(get_d
     await get_project_or_404(project_id, db, current_user)
     import json
     path = _design_file(project_id)
-    return json.loads(path.read_text(encoding='utf8')) if path.is_file() else {'designs': [], 'revision': ''}
+    import asyncio
+    def read():
+        return json.loads(path.read_text(encoding='utf8')) if path.is_file() else {'designs': [], 'revision': ''}
+    return await asyncio.to_thread(read)
 
 
 @router.put('/{project_id}/cabinet-designs')
@@ -117,7 +120,8 @@ async def save_cabinet_designs(project_id: int, body: CabinetDesignsRequest, db:
     if len(body.designs) > 100 or any(not isinstance(d.get('id'), str) or not isinstance(d.get('name'), str) or len(d['name']) > 120 for d in body.designs):
         raise HTTPException(422, 'Danh sách tủ thiết kế không hợp lệ.')
     try:
-        return save_designs(_design_file(project_id), body.designs, body.revision)
+        import asyncio
+        return await asyncio.to_thread(save_designs, _design_file(project_id), body.designs, body.revision)
     except ValueError as exc:
         raise HTTPException(409, str(exc)) from exc
     except OverflowError as exc:

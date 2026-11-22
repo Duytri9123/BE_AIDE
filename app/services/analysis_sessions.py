@@ -13,21 +13,16 @@ from app.services.analysis_reads import require_project
 
 
 async def iteration_detail(db, iteration_id, user):
-    row = (await db.execute(
-        select(AnalysisIteration, ConversationSession.project_id)
-        .join(ConversationSession, AnalysisIteration.session_id == ConversationSession.id)
-        .where(AnalysisIteration.id == iteration_id)
-        .options(load_only(
-            AnalysisIteration.id, AnalysisIteration.session_id,
-            AnalysisIteration.iteration_number, AnalysisIteration.ai_parsed_devices,
-            AnalysisIteration.devices_after_validation,
-            AnalysisIteration.confidence_scores,
-        ))
-    )).first()
-    if row is None:
+    project_id = (await db.execute(select(ConversationSession.project_id)
+        .join(AnalysisIteration, AnalysisIteration.session_id == ConversationSession.id)
+        .where(AnalysisIteration.id == iteration_id))).scalar_one_or_none()
+    if project_id is None:
         raise HTTPException(404, 'Không tìm thấy phiên bóc tách')
-    iteration, project_id = row
     await require_project(db, project_id, user)
+    from app.services.analysis_payloads import saved_iteration
+    iteration = await saved_iteration(db, iteration_id)
+    if iteration is None:
+        raise HTTPException(404, 'Không tìm thấy phiên bóc tách')
     cad = (await db.execute(
         select(ProjectFile)
         .where(ProjectFile.project_id == project_id,

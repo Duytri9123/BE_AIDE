@@ -26,7 +26,12 @@ from .article import Article
 from .activity_log import ActivityLog
 from .conversation_session import ConversationSession
 from .analysis_iteration import AnalysisIteration
+from .analysis_summary import AnalysisSummary
+from .analysis_payload import AnalysisPayload
 from .ad_view_log import AdViewLog
+
+from app.services.analysis_summary_store import install_summary_events
+install_summary_events()
 
 __all__ = [
     "Base",

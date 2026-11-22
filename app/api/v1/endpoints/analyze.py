@@ -599,10 +599,10 @@ async def get_latest_project_analysis(
         "file_size": cad_file.file_size
     } if cad_file else None
 
-    return _build_analysis_result_schema(
+    return await asyncio.to_thread(_build_analysis_result_schema,
         session_id=session_id,
         iteration_number=latest_iter.iteration_number,
-        raw_devices=latest_iter.ai_parsed_devices or [],
+        raw_devices=latest_iter.devices_after_validation or latest_iter.ai_parsed_devices or [],
         conf_scores=latest_iter.confidence_scores or {},
         iteration_id=latest_iter.id,
         cad_file_info=cad_file_info,
@@ -669,16 +669,19 @@ async def get_project_sessions(
     from app.models.project_file import ProjectFile
     import re
 
-    gen_files_res = await db.execute(
-        select(ProjectFile).where(
-            ProjectFile.project_id == project_id,
-            ProjectFile.is_generated == True
-        ).order_by(ProjectFile.created_at.desc(), ProjectFile.id.desc())
-    )
-    generated_files = gen_files_res.scalars().all()
+    rows, total = await session_page(db, project_id, current_user, skip, limit)
+    generated_ids = {conf[key] for it, _ in rows for conf in [it.confidence_scores or {}]
+                     for key in ('quotation_file_id', 'report_file_id') if conf.get(key)}
+    generated_files = []
+    if generated_ids:
+        from sqlalchemy.orm import load_only
+        generated_files = (await db.execute(select(ProjectFile).where(
+            ProjectFile.project_id == project_id, ProjectFile.is_generated == True,
+            ProjectFile.id.in_(generated_ids)).options(load_only(
+                ProjectFile.id, ProjectFile.filename, ProjectFile.file_size,
+                ProjectFile.created_at)))).scalars().all()
     file_by_id = {f.id: f for f in generated_files}
 
-    rows, total = await session_page(db, project_id, current_user, skip, limit)
     items = []
     for it, s in rows:
         raw_devs = it.devices_after_validation or it.ai_parsed_devices or []
@@ -753,7 +756,7 @@ async def get_project_sessions(
             }
 
         user_msg = (it.user_message or "").lower()
-        if it.trigger_type == "quotation" or (len(quotation_rows) > 0 and len(raw_devs) == 0) or bool(re.search(r'báo\s*giá|quotation', user_msg)):
+        if it.trigger_type == "quotation" or (conf.get("quotation_count", len(quotation_rows)) > 0 and len(raw_devs) == 0) or bool(re.search(r'báo\s*giá|quotation', user_msg)):
             run_type = "quotation"
         elif it.trigger_type == "report" or bool(re.search(r'báo\s*cáo|report', user_msg)):
             run_type = "report"
@@ -772,12 +775,13 @@ async def get_project_sessions(
             "session_id": str(s.id),
             "iteration_number": it.iteration_number,
             "trigger_type": it.trigger_type,
+            "status": it.status,
             "run_type": run_type,
             "user_message": it.user_message,
             "devices_count": len(raw_devs),
             "device_count": len(raw_devs),
             "total_device_count": total_device_count,
-            "quotation_count": len(quotation_rows),
+            "quotation_count": conf.get("quotation_count", len(quotation_rows)),
             "quotation_file": quotation_file,
             "report_file": report_file,
             "panel_code": panel_code or "",
@@ -791,6 +795,29 @@ async def get_project_sessions(
 
     return {"sessions": items, "total": total, "skip": skip, "limit": limit,
             "has_more": skip + len(items) < total}
+
+
+@router.get('/iteration/{iteration_id}/devices')
+async def get_iteration_devices(
+    iteration_id: int,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_active_user),
+):
+    """Chat tables use saved text data without downloading evidence images."""
+    from app.models.analysis_summary import AnalysisSummary
+    from app.services.analysis_reads import require_project
+    row = (await db.execute(select(AnalysisSummary.display_devices,
+        AnalysisSummary.session_id, AnalysisSummary.iteration_number,
+        ConversationSession.project_id)
+        .join(ConversationSession, AnalysisSummary.session_id == ConversationSession.id)
+        .where(AnalysisSummary.id == iteration_id))).first()
+    if row is None:
+        raise HTTPException(404, 'Không tìm thấy phiên bóc tách')
+    await require_project(db, row.project_id, current_user)
+    result = await asyncio.to_thread(_build_analysis_result_schema,
+        session_id=row.session_id, iteration_number=row.iteration_number,
+        raw_devices=row.display_devices, iteration_id=iteration_id)
+    return {'devices': result.model_dump(mode='json', include={'devices'})['devices']}
 
 
 @router.get("/iteration/{iteration_id}", response_model=Optional[AnalysisResultSchema])
@@ -816,7 +843,7 @@ async def get_iteration_analysis(
         "file_size": quotation_file.file_size
     } if quotation_file else None
 
-    return _build_analysis_result_schema(
+    return await asyncio.to_thread(_build_analysis_result_schema,
         session_id=it.session_id,
         iteration_number=it.iteration_number,
         raw_devices=it.devices_after_validation or it.ai_parsed_devices or [],
