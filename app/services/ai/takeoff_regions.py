@@ -281,7 +281,7 @@ async def discover_panels(db, project_id, file_ids, user_message=None):
                 with pymupdf.open(path) as pdf:
                     count = len(pdf)
                     req_pages = extract_requested_pages(user_message, count)
-                    target_pages = detect_schematic_pdf_pages(pdf, requested_pages=req_pages, max_pages=4)
+                    target_pages = detect_schematic_pdf_pages(pdf, requested_pages=req_pages, max_pages=2)
                     if not target_pages:
                         if count > 8:
                             unresolved.append({
