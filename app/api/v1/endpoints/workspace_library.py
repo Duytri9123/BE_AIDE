@@ -336,7 +336,7 @@ HƯỚNG DẪN TRẢ LỜI:
 1. Đánh giá nhanh: Tỷ lệ chiếm dụng không gian ({fill_ratio}%), cảnh báo va chạm/khoảng hở tản nhiệt (nếu có).
 2. Phân tích & Tư vấn thiết bị: Trả lời đúng trọng tâm câu hỏi của người dùng (nếu hỏi tìm/đổi thiết bị, đưa ra gợi ý cụ thể về kích thước, thông số, hãng).
 3. Hướng dẫn thao tác: Nhắc người dùng có thể bấm nút "Thêm vào tủ" ở danh sách gợi ý bên dưới hoặc kéo thả trực tiếp từ tab Thiết bị.
-Trả lời bằng tiếng Việt, định dạng Markdown rõ ràng, chuyên nghiệp."""
+Trình bày bằng tiếng Việt, định dạng Markdown rõ ràng, chuyên nghiệp. Tuyệt đối không dùng ký hiệu toán học LaTeX dạng $...$ hay \text{...}, mà dùng số và đơn vị mm tự nhiên (ví dụ: 30 - 50 mm, 40 × 60 mm)."""
             raw, _ = await asyncio.wait_for(
                 ConnectionPoolService.call_with_fallback(
                     db=db, connections=connections, call_fn=VisionAnalyzerService.analyze_text, prompt=prompt
