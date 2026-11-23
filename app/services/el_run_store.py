@@ -45,7 +45,8 @@ class RunStore:
             return None
         row = dict(row)
         for key in ('payload', 'checkpoint', 'result'):
-            row[key] = json.loads(row[key]) if row[key] else None
+            if key in row:
+                row[key] = json.loads(row[key]) if row[key] else None
         return row
 
     def get(self, run_id, owner=None, project=None):
