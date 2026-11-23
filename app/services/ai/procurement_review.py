@@ -90,6 +90,8 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                                     for d in raw])
     from app.services.ai.motor_starter_context import enrich_motor_starters
     enrich_motor_starters(raw)
+    from app.services.ai.assembly_accessory_selection import materialize_selected_accessories
+    materialize_selected_accessories(raw)
     if refresh_prices:
         from app.services.ai.takeoff_pricebook import link_devices
         link_devices(raw)
@@ -161,11 +163,20 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
             if not linked_row and replacement.get('proposed_spec'):
                 selected_spec = f"{selected_spec} => {replacement['proposed_spec']}"
                 replacement_note = f"Dòng hoặc mã đề xuất {replacement['sku']}. {replacement['reason']}"
+            component_pricing = any(a.get('assembly_component_key') and a.get('use_in_quotation') is True
+                                    for a in d.get('accompanying_accessories') or [] if isinstance(a, dict))
+            component_price_snapshot = dict(unit_price=price, line_total=qty*price if price else None,
+                price_status='confirmed' if price else 'pending', notes=replacement_note) if component_pricing else None
+            if component_pricing:
+                price = 0
+                replacement_note = 'Giá tính theo các thiết bị thành phần đã chọn bên dưới.'
             result.append(dict(id=identity,row_type='item',commercial_display=True,tt='+',name=short_name,category=d.get('category'),
                 spec=selected_spec,original_spec=d.get('original_spec') or d.get('spec'),
                 sku=sku,origin=d.get('brand') or '',unit=d.get('unit') or 'Cái',quantity=qty,
-                unit_price=price,line_total=qty*price if price else None,
-                price_status='confirmed' if price else 'pending',
+                unit_price=price,line_total=0 if component_pricing else qty*price if price else None,
+                price_status='components' if component_pricing else 'confirmed' if price else 'pending',
+                pricing_basis='selected_components' if component_pricing else None,
+                assembly_component_price_snapshot=component_price_snapshot,
                 price_row_id=match.get('price_row_id') if price else None,
                 pricebook_match=match,
                 selection_analysis=d.get('selection_analysis'),
@@ -181,15 +192,20 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                 if not isinstance(a,dict):
                     continue
                 evidence = a.get('evidence') or a.get('source_reference') or a.get('sld_evidence')
+                opted_in = bool(a.get('assembly_proposal_key') and a.get('use_in_quotation') is True)
                 accessory_match = a.get('pricebook_match') or {}
                 ap = (accessory_match.get('row') or {}).get('price') if accessory_match.get('status')=='matched' else None
-                aq = a.get('quantity') or 1
+                aq = a.get('quantity') if opted_in else a.get('quantity') or 1
+                if aq is None:
+                    ap = None
                 result.append(dict(id=f'{identity}-accessory-{j}',parent_id=identity,row_type='accessory',
                     is_accessory=True,tt='↳',name=quotation_name(a),category=a.get('category'),spec=a.get('spec') or '',sku=a.get('sku') or '',
-                    origin=a.get('origin') or '',unit=a.get('unit') or 'Cái',quantity=aq,
+                    origin=a.get('origin') or a.get('brand') or '',unit=a.get('unit') or 'Cái',quantity=aq,
                     unit_price=ap,line_total=aq*ap if ap else None,price_status='confirmed' if ap else 'pending',
                     price_row_id=accessory_match.get('price_row_id') if ap else None,pricebook_match=accessory_match,
-                    inclusion_status='observed' if evidence else 'needs_confirmation',notes='',
+                    inclusion_status='user_selected' if opted_in else 'observed' if evidence else 'needs_confirmation',notes='',
+                    assembly_proposal_key=a.get('assembly_proposal_key'),
+                    assembly_component_key=a.get('assembly_component_key'),
                     design_notes=a.get('notes') or ('Chưa có bằng chứng phụ kiện; cần xác nhận trước khi mua.' if not evidence else '')))
     from app.services.ai.device_facts import enrich_quotation_facts
     return merge_commercial_rows(enrich_quotation_facts(result, raw))

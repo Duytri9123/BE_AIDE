@@ -31,7 +31,9 @@ class AccompanyingEquipmentService:
             )
             # Safety boundary: an accessory must be traceable to the supplied
             # schematic. Functional convention alone is not enough evidence.
-            if not str(evidence or "").strip():
+            opted_in = (bool(acc.get('assembly_proposal_key')) and acc.get('use_in_quotation') is True
+                        and acc.get('basis') == 'user_request')
+            if not str(evidence or "").strip() and not opted_in:
                 continue
             name = acc.get("name") or "Phụ kiện đi kèm"
             if not name.startswith("↳") and "[Thiết bị đi kèm]" not in name:
@@ -62,13 +64,13 @@ class AccompanyingEquipmentService:
                 "sku": acc.get("sku") or "-",
                 "origin": acc.get("origin") or "",
                 "unit": acc.get("unit") or "Bộ",
-                "quantity": int(acc.get("quantity") or 1),
+                "quantity": acc.get('quantity') if opted_in else int(acc.get("quantity") or 1),
                 "unit_price": int(acc.get("unit_price") or 0),
                 # Keep the AI's engineering explanation so the UI can show
                 # why this accessory belongs to its parent device.
                 "notes": acc.get("notes") or acc.get("technical_reason") or acc.get("reason") or "",
                 "technical_reason": acc.get("technical_reason") or acc.get("reason") or acc.get("notes") or "",
-                "evidence": str(evidence).strip()
+                "evidence": str(evidence or '').strip()
             })
         return formatted
 

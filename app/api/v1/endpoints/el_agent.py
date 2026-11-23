@@ -26,9 +26,11 @@ logger = logging.getLogger(__name__)
 
 
 async def owned_project(db, user, project_id):
-    if (await db.execute(select(Project.id).where(Project.id == project_id,
-        Project.user_id == user.id, Project.deleted_at.is_(None)))).scalar_one_or_none() is None:
+    project = (await db.execute(select(Project).where(Project.id == project_id,
+        Project.user_id == user.id, Project.deleted_at.is_(None)))).scalar_one_or_none()
+    if project is None:
         raise HTTPException(404, 'Dự án không tồn tại.')
+    return project
 
 
 def resolve_tool_match(chosen_name: str, candidate_tools: list) -> dict | None:

@@ -3967,6 +3967,8 @@ Chỉ trả một JSON hợp lệ, không markdown:
         )
 
         from app.services.ai.auxiliary_devices import expand_devices
+        from app.services.ai.assembly_accessory_selection import materialize_selected_accessories
+        devices = materialize_selected_accessories([d if isinstance(d, dict) else d.model_dump() for d in devices])
         requested_design_brand = AnalysisPipelineService._detect_requested_brand(
             user_prompt, DeviceCatalogEngine.get_instance())
         if requested_design_brand and requested_preference.casefold() in {'', 'theo thiết kế', 'theo thiet ke', 'default', 'auto'}:

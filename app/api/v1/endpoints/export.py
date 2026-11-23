@@ -67,6 +67,45 @@ class MatchQuotationRequest(BaseModel):
     devices: Optional[List[dict]] = None
     preserve_rows: bool = False
 
+
+class AssemblyAccessoryOptionsRequest(BaseModel):
+    project_id: int
+    accessory: dict
+    brand: str = ''
+
+
+class AssemblyAccessoryQuotationRequest(BaseModel):
+    project_id: int
+    devices: List[dict]
+    quotation_rows: List[dict] = Field(default_factory=list)
+
+
+@router.post('/assembly-accessory-quotation')
+async def assembly_accessory_quotation(payload: AssemblyAccessoryQuotationRequest,
+                                      db: AsyncSession = Depends(get_db),
+                                      current_user: User = Depends(get_current_active_user)):
+    owned = await db.scalar(select(Project.id).where(
+        Project.id == payload.project_id, Project.user_id == current_user.id))
+    if owned is None:
+        raise HTTPException(status_code=404, detail='Không tìm thấy dự án')
+    from app.services.ai.assembly_accessory_quotation import sync_accessory_quotation
+    rows = await asyncio.to_thread(sync_accessory_quotation, payload.devices, payload.quotation_rows)
+    return {'quotation_rows': rows}
+
+
+@router.post('/assembly-accessory-options')
+async def assembly_accessory_options(payload: AssemblyAccessoryOptionsRequest,
+                                     db: AsyncSession = Depends(get_db),
+                                     current_user: User = Depends(get_current_active_user)):
+    owned = await db.scalar(select(Project.id).where(
+        Project.id == payload.project_id, Project.user_id == current_user.id))
+    if owned is None:
+        raise HTTPException(status_code=404, detail='Không tìm thấy dự án')
+    from app.services.ai.takeoff_pricebook import published_rows
+    from app.services.ai.assembly_accessory_catalog import accessory_catalog_options
+    choices = await asyncio.to_thread(accessory_catalog_options, payload.accessory, payload.brand, published_rows())
+    return {'items': choices}
+
 @router.post("/match-quotation")
 async def match_quotation(
     payload: MatchQuotationRequest,
