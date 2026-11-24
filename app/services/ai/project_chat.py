@@ -192,6 +192,8 @@ def apply_plan(devices: list[dict], plan: ChatPlan) -> list[dict]:
                     for key in PRODUCT_FIELDS:
                         part.pop(key, None)
                 part.update(changes)
+                if 'brand' in changes or 'part_number' in changes:
+                    part['selection_source'] = 'user_selected'
                 part.update(basis='user_request', quantity_basis='user_chat')
             continue
         if operation.component_index is not None:
@@ -237,6 +239,8 @@ def apply_plan(devices: list[dict], plan: ChatPlan) -> list[dict]:
             observations['circuit'] = circuit
             device['circuit_context'] = copy.deepcopy(circuit)
         device.update(changes)
+        if 'brand' in changes or 'part_number' in changes:
+            device['selection_source'] = 'user_selected'
         ExtractedDeviceSchema.model_validate(device)
         updates[index] = device
     for index, device in nested.items():

@@ -69,6 +69,23 @@ def test_power_update_is_saved_in_circuit_context_without_altering_count():
     assert edited['circuit_context']['power_w'] == 2200 and edited['connected_load'] == 'Bơm 1'
 
 
+def test_chat_brand_code_replacement_prices_new_maker_while_retaining_detected_source():
+    from app.services.ai.procurement_review import build_quotation_rows
+    source = {**source_device(), 'brand':'Schneider', 'detected_brand':'Schneider',
+        'part_number':'A9F74220', 'in_a':20, 'poles':2, 'icu_ka':None, 'spec':'MCB 2P 20A'}
+    plan = parse_plan('{"reply":"Đổi sang LS", "operations":[{"op":"update","index":0,"changes":{"brand":"LS Electric","part_number":"LA63N 2P"}}]}')
+    edited, = apply_plan([source],plan)
+    assert edited['quantity'] == source['quantity'] and edited['detected_brand'] == 'Schneider'
+    assert edited['selection_source'] == 'user_selected'
+    catalog = [dict(id='LS-LA63N-2P',brand='LS Electric',sku='LA63N 2P',category='MCB',
+        item_name='LA63N 2P',price=268000,specifications={'Số cực':'2P','In (A)':'6-10-16-20-25-32A','Icu(KA)':'6KA'})]
+    with patch('app.services.ai.takeoff_pricebook.published_rows',return_value=catalog):
+        rows = build_quotation_rows([edited],{},refresh_prices=True)
+    row = next(r for r in rows if r.get('source_tags') == ['Q1'])
+    assert row['sku'] == 'LA63N 2P' and row['unit_price'] == 268000
+    assert row['quantity'] == 2 and row['line_total'] == 536000
+
+
 def test_explicit_package_price_is_preserved_by_export_normalization():
     from app.services.export.quotation_layout import normalize_quotation_layout
     rows = [dict(row_type='panel_header', id='P1', name='P1'),
