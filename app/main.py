@@ -52,6 +52,10 @@ _admin_static = os.path.join(os.path.dirname(__file__), "admin", "static")
 if os.path.isdir(_admin_static):
     app.mount("/admin/static", StaticFiles(directory=_admin_static), name="admin-static")
 
+_catalog_static = os.path.join(os.path.dirname(os.path.dirname(__file__)), "storage", "catalog-images")
+if os.path.isdir(_catalog_static):
+    app.mount("/catalog-images", StaticFiles(directory=_catalog_static), name="catalog-images")
+
 admin = create_admin(app, engine)
 
 app.include_router(api_router, prefix=settings.API_V1_STR)

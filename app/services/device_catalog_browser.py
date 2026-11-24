@@ -66,7 +66,7 @@ def customer_catalog_page(payload):
                         for maker in payload['brands']]
     fields = ('sku','item_name','name','brand','category','group','price','columns','cells',
               'specifications','model_key','effective_date','edition','vat_status','updated_at',
-              'checked_at','product_line','line_label','equipment_catalog_id')
+              'checked_at','product_line','line_label','equipment_catalog_id','image_url')
     public['items'] = []
     for row in payload['items']:
         from .customer_equipment_information import customer_information_rows
@@ -122,7 +122,7 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
         rows[('web',offer['id'])]['updated_at']=offer['checked_at']
     for item in supplier_items:
         if item.get('currency')!='VND' or not item.get('item_name') or not item.get('checked_at'):continue
-        rows[('supplier',item['id'])]={k:item.get(k) for k in ('id','sku','item_name','name','brand','category','price','source_label','source_url','source_sha256','checked_at','source_kind','price_note','effective_date','edition','vat_status','vat_rate_percent','vat_rate_evidence','source_page','specifications','columns','cells','group','product_line','line_label')}
+        rows[('supplier',item['id'])]={k:item.get(k) for k in ('id','sku','item_name','name','brand','category','price','source_label','source_url','source_sha256','checked_at','source_kind','price_note','effective_date','edition','vat_status','vat_rate_percent','vat_rate_evidence','source_page','specifications','columns','cells','group','product_line','line_label','image_url')}
         rows[('supplier',item['id'])]['updated_at']=item['checked_at']
     for item in catalog_items:
         if not item.get('sku') or not item.get('brand'):continue

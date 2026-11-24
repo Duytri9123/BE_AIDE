@@ -63,6 +63,10 @@ async def catalog(q: str='', brand: str='', category: str='', product_line: str=
 
 @router.get('/documents/{document_id}')
 async def source_pricebook(document_id:str,current_user=Depends(get_current_admin_user)):
+    if document_id == 'hyundai-user-2026':
+        path=Path(__file__).resolve().parents[4]/'storage/catalog-pricebooks/hyundai-user-2026.xlsx'
+        if not path.is_file():raise HTTPException(404,'Chưa có tài liệu nguồn trên máy chủ này.')
+        return FileResponse(path,media_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',filename='Bang-gia-Hyundai-2026.xlsx')
     if document_id not in {'ls-2026-10-01','chint-2026','chint-dika-2026-06'}:raise HTTPException(404,'Không tìm thấy tài liệu.')
     path=Path(__file__).resolve().parents[4]/'storage/catalog-pricebooks'/f'{document_id}.pdf'
     if not path.is_file():raise HTTPException(404,'Chưa có tài liệu nguồn trên máy chủ này.')

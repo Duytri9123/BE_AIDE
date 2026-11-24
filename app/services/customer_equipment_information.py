@@ -164,7 +164,7 @@ def customer_information_rows(rows,device):
         row=net_price_row(row)
         if str(row.get('sku') or '').startswith('*'):continue
         if maker and canonical_brand(row.get('brand'))!=maker:continue
-        item={k:row[k] for k in ('id','book_key','sku','item_name','name','brand','category','group','price','columns','cells','edition','vat_status','information_kind','compatibility_note') if k in row}
+        item={k:row[k] for k in ('id','book_key','sku','item_name','name','brand','category','group','price','columns','cells','edition','vat_status','information_kind','compatibility_note','image_url') if k in row}
         item['specifications']=product_specs(row.get('specifications'))
         from .customer_technical_specs import qualified_breaking_specs
         qualified=qualified_breaking_specs(row.get('brand'),row.get('sku'))
