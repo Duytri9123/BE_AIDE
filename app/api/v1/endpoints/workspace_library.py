@@ -457,24 +457,6 @@ HƯỚNG DẪN TRẢ LỜI CỦA EL THIẾT KẾ:
 **1. Phân tích không gian & kích thước vỏ tủ:**
 - Vỏ tủ: **{w:.0f} × {h:.0f} × {d:.0f} mm** ({desc})
 - Tấm lắp hữu dụng: **{w_plate:.0f} × {h_plate:.0f} mm**
-- Số lượng thiết bị: **{device_count}** thiết bị | Tỷ lệ chiếm dụng: **{fill_ratio}%**
-
-**2. Đánh giá an toàn & va chạm:**
-{collision_text}
-- {density_advice}
-
-**3. Đề xuất vị trí & phụ kiện đi kèm khi bổ sung:**
-- Khi thêm thiết bị đóng cắt (MCB/Contactor/Relay): Cần gá trên **thanh ray DIN 35×7.5 mm** và chừa khoảng hở **máng nhựa 40×60 mm** để tản nhiệt và luồn dây.
-- Khi thêm phụ kiện cánh (Đèn báo/Đồng hồ): Cần mở **lỗ khoét CNC Ø22 mm** hoặc **68×68 mm**, giữ khoảng cách an toàn với tay khóa và thanh đố cánh."""
-                    f"Tỷ lệ chiếm chỗ đạt **{fill_ratio}%**. Mật độ thiết bị khá dày đặc (> 70%), cần lưu ý khe hở tản nhiệt giữa các thiết bị đóng cắt (tối thiểu 10–15mm) và bố trí quạt tản nhiệt hoặc lỗ thông gió cánh tủ."
-                )
-            )
-
-            llm_reply = f"""### {status_line}
-
-**1. Phân tích không gian & kích thước vỏ tủ:**
-- Vỏ tủ: **{w:.0f} × {h:.0f} × {d:.0f} mm** ({desc})
-- Tấm lắp hữu dụng: **{w_plate:.0f} × {h_plate:.0f} mm**
 - Số lượng thiết bị: **{device_count}** thiết bị
 - Tỷ lệ diện tích chiếm dụng: **{fill_ratio}%**
 
