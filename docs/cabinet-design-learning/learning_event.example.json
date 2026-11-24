@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "event_id": "illustration-event-001",
+  "idempotency_key": "illustration-save-r2",
+  "created_at": "2026-11-24T09:00:00+07:00",
+  "tenant_id": "illustration-tenant",
+  "project_id": "illustration-project",
+  "cabinet_id": "illustration-cabinet",
+  "actor_id": "illustration-designer",
+  "base_revision": "illustration-r1",
+  "result_revision": "illustration-r2",
+  "commit_status": "committed",
+  "event_type": "constraint_fix",
+  "is_synthetic": true,
+  "context": {
+    "requirements_revision": "illustration-requirements-r1",
+    "catalog_version": "illustration-catalog-v1",
+    "policy_version": "illustration-policy-v1",
+    "model_version": "illustration-model-v1",
+    "index_version": "illustration-index-v1",
+    "source_group_id": "illustration-source-group",
+    "units": "mm"
+  },
+  "changes": [
+    {
+      "component_id": "illustration-QF1-body",
+      "field": "/placement/y_mm",
+      "before": 400,
+      "after": 380,
+      "reason_code": "terminal_lug_roof_conflict",
+      "reason": "Ví dụ giả lập: dịch xuống 20 mm để đề xuất thêm khoảng đầu cos; chưa có bằng chứng hay kết quả kiểm tra thực."
+    }
+  ],
+  "evidence": [],
+  "checks": [
+    {
+      "check_id": "illustration-cable-envelope",
+      "scope": "layout",
+      "status": "unknown",
+      "required_for_task": true,
+      "method": "requires_model_bound_geometry",
+      "input_revision": "illustration-r2",
+      "evidence_ids": [],
+      "reason": "Chưa có tài liệu model, tuyến cáp và đầu cos thực tế."
+    }
+  ],
+  "review": {
+    "status": "pending",
+    "reviewer_id": null,
+    "reviewer_role": null,
+    "scope": "layout",
+    "verified_fields": [],
+    "reason": "Ví dụ định dạng, không có quyết định duyệt thật."
+  },
+  "learning": {
+    "training_eligible": false,
+    "task": "placement",
+    "sharing_scope": "personal",
+    "permission_reference": null,
+    "exclusion_reasons": ["synthetic_illustration", "missing_evidence", "pending_review", "unknown_required_check"]
+  }
+}

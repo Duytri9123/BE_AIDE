@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-11-23T17:19:02.272466+00:00",
+  "scope": "metadata_and_file_integrity_not_visual_or_engineering_approval",
+  "source_manifests": [
+    {
+      "path": "E:\\duytristool\\AIDE_website\\BE_AIDE\\data\\CatalogTB\\Form tủ\\catalog.json",
+      "sha256": "aacc21d9dd336bdaafbfaf889b050acc9905a07a90173726531222a728772bbd"
+    },
+    {
+      "path": "E:\\duytristool\\AIDE_website\\BE_AIDE\\data\\CatalogTB\\Form tủ\\resize_profiles.json",
+      "sha256": "758f2dad6d4d34ff7a28a724e60da4a1333fbfd60001ee879b4a0a6e6071d2cd"
+    },
+    {
+      "path": "E:\\duytristool\\AIDE_website\\BE_AIDE\\data\\device_layouts\\formtu\\manifest.json",
+      "sha256": "2b5369f70c29d89862659370e9b204052d0e70cf8b9b889af195c36b4c47f55a"
+    },
+    {
+      "path": "D:\\data\\cabinet_templates\\formtu\\manifest.json",
+      "sha256": "3bf13e12967846b6a4044cf0978e388678dc55d1701bec16941fb0ad2d3e96bf"
+    }
+  ],
+  "legacy_manifest_available": true,
+  "counts": {
+    "project_shell": 108,
+    "legacy_formtu_shell": 297,
+    "formtu_block": 265,
+    "excluded_project_shell": 2
+  },
+  "total_records": 672,
+  "missing_files": [],
+  "active_shells_auto_select_true": 0,
+  "active_shells_verified_form": 0,
+  "active_shells_with_resize_profile": 96,
+  "shells_with_unidentified_geometry": 105,
+  "block_unit_labels": {
+    "inch (theo file)": 265
+  },
+  "blocks_model_verified": 0,
+  "blocks_missing_mm_dimensions": 265,
+  "legacy_kind_labels": {
+    "indoor": 133,
+    "unknown": 67,
+    "outdoor": 97
+  },
+  "review_only": true,
+  "training_eligible_records": 0
+}

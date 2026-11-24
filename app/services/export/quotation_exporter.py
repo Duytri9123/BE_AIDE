@@ -106,7 +106,7 @@ class QuotationExporterService:
             ws.row_dimensions[current_row].height = 16
             current_row += 1
 
-        def write_item(name: str, sku: str, origin: str, unit: str, qty: float, price: int, notes: str = "", tt: str = "+"):
+        def write_item(name: str, sku: str, origin: str, unit: str, qty: float, price: int, notes: str = "", tt: str = "+", assembly_heading: bool = False):
             nonlocal current_row, has_pending_items
             has_pending_items = has_pending_items or price is None or not isinstance(qty, (int, float))
             discount = discounts.get(origin.strip().casefold(), 0)
@@ -126,7 +126,7 @@ class QuotationExporterService:
             ]
             for col_idx, (val, al, is_b) in enumerate(item_cells, 1):
                 cell = ws.cell(row=current_row, column=col_idx, value=val)
-                cell.font = font_data_bold if is_b else font_data
+                cell.font = font_data_bold if is_b or assembly_heading else font_data
                 cell.alignment = al
                 cell.border = border_all
                 if col_idx in (7, 8):
@@ -203,7 +203,7 @@ class QuotationExporterService:
                     price = None if pending else int(r.get('unit_price') or 0)
                     notes = str(r.get("notes") or "")
                     tt = str(r.get("tt") or ("↳" if r_type == "accessory" or r.get("is_accessory") else "+"))
-                    write_item(name, sku, origin, unit, qty, price, notes, tt=tt)
+                    write_item(name, sku, origin, unit, qty, price, notes, tt=tt, assembly_heading=bool(r.get('assembly_heading')))
         else:
             # Write Main Panel Row
             panel_cells = [

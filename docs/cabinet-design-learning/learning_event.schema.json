@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aide:cabinet-learning-event:v1",
+  "title": "Cabinet design feedback event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "event_id", "idempotency_key", "created_at", "tenant_id", "project_id", "cabinet_id", "actor_id", "base_revision", "result_revision", "commit_status", "event_type", "is_synthetic", "context", "changes", "evidence", "checks", "review", "learning"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "event_id": {"type": "string", "minLength": 1},
+    "idempotency_key": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "format": "date-time"},
+    "tenant_id": {"type": "string", "minLength": 1},
+    "project_id": {"type": "string", "minLength": 1},
+    "cabinet_id": {"type": "string", "minLength": 1},
+    "actor_id": {"type": "string", "minLength": 1},
+    "base_revision": {"type": "string", "minLength": 1},
+    "result_revision": {"type": "string", "minLength": 1},
+    "commit_status": {"enum": ["pending", "committed", "rejected"]},
+    "event_type": {"enum": ["correctness_fix", "constraint_fix", "preference_change", "requirement_change", "exploration", "fabrication_feedback"]},
+    "is_synthetic": {"type": "boolean"},
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requirements_revision", "catalog_version", "policy_version", "model_version", "index_version", "source_group_id", "units"],
+      "properties": {
+        "requirements_revision": {"type": "string", "minLength": 1},
+        "catalog_version": {"type": "string", "minLength": 1},
+        "policy_version": {"type": "string", "minLength": 1},
+        "model_version": {"type": "string", "minLength": 1},
+        "index_version": {"type": "string", "minLength": 1},
+        "source_group_id": {"type": "string", "minLength": 1},
+        "units": {"const": "mm"}
+      }
+    },
+    "changes": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["component_id", "field", "before", "after", "reason_code", "reason"],
+        "properties": {
+          "component_id": {"type": "string", "minLength": 1},
+          "field": {"type": "string", "pattern": "^/"},
+          "before": {},
+          "after": {},
+          "reason_code": {"type": "string", "minLength": 1},
+          "reason": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["artifact_id", "sha256", "locator", "verified_fields"],
+        "properties": {
+          "artifact_id": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "locator": {"type": "string", "minLength": 1},
+          "verified_fields": {"type": "array", "items": {"type": "string"}, "minItems": 1, "uniqueItems": true}
+        }
+      }
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["check_id", "scope", "status", "required_for_task", "method", "input_revision", "evidence_ids", "reason"],
+        "properties": {
+          "check_id": {"type": "string", "minLength": 1},
+          "scope": {"type": "string", "minLength": 1},
+          "status": {"enum": ["pass", "fail", "unknown", "not_applicable"]},
+          "required_for_task": {"type": "boolean"},
+          "method": {"type": "string", "minLength": 1},
+          "input_revision": {"type": "string", "minLength": 1},
+          "evidence_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "reason": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "review": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "reviewer_id", "reviewer_role", "scope", "verified_fields", "reason"],
+      "properties": {
+        "status": {"enum": ["pending", "approved", "rejected", "revoked"]},
+        "reviewer_id": {"type": ["string", "null"]},
+        "reviewer_role": {"type": ["string", "null"]},
+        "scope": {"enum": ["preference_only", "device_identity", "layout", "electrical", "thermal", "fabrication"]},
+        "verified_fields": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "reason": {"type": "string", "minLength": 1}
+      }
+    },
+    "learning": {
+      "type": "object", "additionalProperties": false,
+      "required": ["training_eligible", "task", "sharing_scope", "permission_reference", "exclusion_reasons"],
+      "properties": {
+        "training_eligible": {"type": "boolean"},
+        "task": {"enum": ["device_matching", "shell_selection", "placement", "ranking_preference", "defect_detection"]},
+        "sharing_scope": {"enum": ["personal", "tenant", "shared_curated"]},
+        "permission_reference": {"type": ["string", "null"]},
+        "exclusion_reasons": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"is_synthetic": {"const": true}}},
+      "then": {"properties": {"learning": {"properties": {"training_eligible": {"const": false}}}}}
+    },
+    {
+      "if": {"properties": {"learning": {"properties": {"training_eligible": {"const": true}}}}},
+      "then": {
+        "properties": {
+          "is_synthetic": {"const": false},
+          "commit_status": {"const": "committed"},
+          "event_type": {"enum": ["correctness_fix", "constraint_fix", "preference_change", "fabrication_feedback"]},
+          "evidence": {"minItems": 1},
+          "checks": {"minItems": 1, "items": {
+            "if": {"properties": {"required_for_task": {"const": true}}},
+            "then": {"properties": {"status": {"enum": ["pass", "not_applicable"]}}}
+          }},
+          "review": {"properties": {
+            "status": {"const": "approved"},
+            "reviewer_id": {"type": "string", "minLength": 1},
+            "reviewer_role": {"type": "string", "minLength": 1},
+            "verified_fields": {"minItems": 1}
+          }},
+          "learning": {"properties": {
+            "permission_reference": {"type": "string", "minLength": 1},
+            "exclusion_reasons": {"maxItems": 0}
+          }}
+        }
+      }
+    }
+  ]
+}

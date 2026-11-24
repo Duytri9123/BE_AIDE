@@ -38,16 +38,7 @@ def _locked(path):
                 fcntl.flock(stream.fileno(), fcntl.LOCK_UN)
 
 
-def save_designs(path, designs, revision):
+def save_designs(path, designs, revision, *, owner_id=0, actor_id=0):
     with _locked(path):
-        previous = json.loads(path.read_text(encoding='utf8')) if path.is_file() else {'revision': ''}
-        if revision != previous.get('revision', ''):
-            raise ValueError('Thiết kế đã đổi ở cửa sổ khác. Tải lại trước khi lưu.')
-        result = {'schema_version': 1, 'revision': uuid4().hex, 'designs': designs}
-        content = json.dumps(result, ensure_ascii=False, allow_nan=False)
-        if len(content.encode('utf8')) > 20_000_000:
-            raise OverflowError('Dữ liệu thiết kế vượt 20 MB.')
-        temporary = path.with_suffix('.'+uuid4().hex+'.tmp')
-        temporary.write_text(content, encoding='utf8')
-        temporary.replace(path)
-        return {'revision': result['revision']}
+        from .design_learning import save_snapshot
+        return save_snapshot(path, designs, revision, owner_id=owner_id, actor_id=actor_id)

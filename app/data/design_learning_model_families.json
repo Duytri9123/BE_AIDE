@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-11-24",
+  "scope": "manufacturer_model_to_family_reference_only",
+  "links": [
+    {
+      "brand": "Schneider Electric",
+      "model": "A9F74220",
+      "category": "MCB",
+      "poles": 2,
+      "current_a": 20,
+      "family": "Acti9 iC60N",
+      "profile_id": "TB-e1e255d56a1c0054",
+      "source_url": "https://www.se.com/vn/en/product/A9F74220/ic60n-miniature-circuit-breaker-2p-20a-c-curve/",
+      "source_fact": "Manufacturer identifies A9F74220 as iC60N, 2P, 20A, C curve.",
+      "exact_variant_geometry_verified": false,
+      "geometry_note": "Existing iC60 2P CAD is a family reference. Source front and side heights differ; installation geometry and terminals need review."
+    },
+    {
+      "brand": "Schneider Electric",
+      "model": "LV510302",
+      "category": "MCCB",
+      "poles": 3,
+      "current_a": 32,
+      "family": "EasyPact CVS100B",
+      "profile_id": "TB-caf9059b74d15cc8",
+      "source_url": "https://www.se.com/lv/lv/product/LV510302/autom%C4%81tsl%C4%93dzis-easypact-cvs100b-25ka-pie-415v-ac-32a-tmd-atvieno%C5%A1anas-bloks-3p3d/",
+      "source_fact": "Manufacturer identifies LV510302 as EasyPact CVS100B, 32A, TM-D, 3P3d.",
+      "exact_variant_geometry_verified": false,
+      "geometry_note": "Existing CVS100/160/250 3P CAD is a family envelope reference, not verified installation geometry for LV510302."
+    }
+  ]
+}

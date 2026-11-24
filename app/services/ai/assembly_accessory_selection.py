@@ -46,7 +46,10 @@ def materialize_selected_accessories(devices):
             if not selected_component and proposal.get('use_in_quotation') is not True:
                 continue
             per_set = positive(proposal.get('quantity'))
-            sets = positive(device.get('quantity', 1))
+            sets = positive(device.get('procurement_quantity', device.get('quantity', 1)))
+            review = device.get('quantity_review') or {}
+            if review.get('blocking') is True and review.get('status') == 'needs_review':
+                sets = None
             quantity = per_set * sets if per_set is not None and sets is not None else None
             product = proposal.get('selected_product') or {}
             accessories.append({**proposal, 'assembly_proposal_key': f'component:{component_key}' if component_key else str(proposal.get('category')),

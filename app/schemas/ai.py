@@ -84,6 +84,7 @@ class ExtractedDeviceSchema(BaseModel):
     detected_brand: Optional[str] = None
     selection_source: Optional[str] = None
     part_number: Optional[str] = None
+    sku: Optional[str] = None
     section: Optional[str] = None
     is_incomer: Optional[bool] = None
     location: Optional[str] = None
@@ -100,6 +101,13 @@ class ExtractedDeviceSchema(BaseModel):
     upstream_device: Optional[str] = None
     downstream_device: Optional[str] = None
     connected_load: Optional[str] = None
+    circuit_context: Optional[dict] = None
+    power_w: Optional[float] = None
+    motor_power_kw: Optional[float] = None
+    motor_power_hp: Optional[float] = None
+    motor_power_cv: Optional[float] = None
+    power_value: Optional[float] = None
+    power_unit: Optional[str] = None
     physical_location: Optional[dict] = None
     confidence: float = 0.0
     box_2d: Optional[List[int]] = None

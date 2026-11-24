@@ -20,6 +20,10 @@ def quotation_section(device):
     """Use the observed function, never the current rating, to group devices."""
     from app.services.ai.metering_selection import metering_kind
 
+    from app.services.ai.motor_starter_context import classify_motor_starter_type
+    if classify_motor_starter_type(' '.join(str(device.get(k) or '') for k in ('name', 'category', 'spec'))):
+        return 'Đầu ra'
+
     section = str(device.get('section') or '').strip()
     text = plain(section)
     category = metering_kind(device)
@@ -158,6 +162,11 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                           'METER':'Đồng hồ đa năng','AMMETER':'Ampe kế','VOLTMETER':'Vôn kế'}.get(str(d.get('category') or '').upper(),d.get('name') or 'Thiết bị')
             if short_name in {'CB','MCCB','MCB','RCBO','RCCB'} and not selected_spec:
                 short_name += ' dự phòng'
+            starter = (d.get('source_observations') or {}).get('motor_starter') or {}
+            if starter:
+                from app.services.ai.motor_starter_context import starter_quotation_name
+                short_name = starter_quotation_name(d)
+                selected_spec = ''
             replacement = (d.get('source_observations') or {}).get('quotation_replacement') or {}
             replacement_note = ''
             if not linked_row and replacement.get('proposed_spec'):
@@ -171,8 +180,9 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                 price = 0
                 replacement_note = 'Giá tính theo các thiết bị thành phần đã chọn bên dưới.'
             result.append(dict(id=identity,row_type='item',commercial_display=True,tt='+',name=short_name,category=d.get('category'),
+                assembly_heading=bool(starter),
                 spec=selected_spec,original_spec=d.get('original_spec') or d.get('spec'),
-                sku=sku,origin=d.get('brand') or '',unit=d.get('unit') or 'Cái',quantity=qty,
+                sku=sku,origin=d.get('brand') or '',unit='Bộ' if starter else d.get('unit') or 'Cái',quantity=qty,
                 unit_price=price,line_total=0 if component_pricing else qty*price if price else None,
                 price_status='components' if component_pricing else 'confirmed' if price else 'pending',
                 pricing_basis='selected_components' if component_pricing else None,

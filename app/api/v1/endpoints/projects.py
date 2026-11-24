@@ -7,7 +7,7 @@ from app.models.user import User
 from app.models.project import Project
 from app.models.project_file import ProjectFile
 from app.api.deps import get_current_active_user
-from pydantic import BaseModel, field_serializer
+from pydantic import BaseModel, Field, field_serializer
 from typing import List, Optional
 from datetime import datetime, timezone
 import os
@@ -111,7 +111,8 @@ async def read_cabinet_designs(project_id: int, db: AsyncSession = Depends(get_d
     path = _design_file(project_id)
     import asyncio
     def read():
-        return json.loads(path.read_text(encoding='utf8')) if path.is_file() else {'designs': [], 'revision': ''}
+        from app.services.cad.design_learning import read_snapshot
+        return read_snapshot(path)
     return await asyncio.to_thread(read)
 
 
@@ -123,7 +124,8 @@ async def save_cabinet_designs(project_id: int, body: CabinetDesignsRequest, db:
         raise HTTPException(422, 'Danh sách tủ thiết kế không hợp lệ.')
     try:
         import asyncio
-        res = await asyncio.to_thread(save_designs, _design_file(project_id), body.designs, body.revision)
+        res = await asyncio.to_thread(save_designs, _design_file(project_id), body.designs, body.revision,
+                                      owner_id=project.user_id, actor_id=current_user.id)
         project.updated_at = datetime.now(timezone.utc)
         db.add(project)
         await db.commit()
@@ -134,6 +136,78 @@ async def save_cabinet_designs(project_id: int, body: CabinetDesignsRequest, db:
         raise HTTPException(413, str(exc)) from exc
     except TimeoutError as exc:
         raise HTTPException(503, str(exc)) from exc
+
+
+class DesignLearningApproval(BaseModel):
+    revision: str = Field(min_length=1, max_length=100)
+    design_id: str = Field(min_length=1, max_length=150)
+    scope: str = Field(pattern='^(device_selection|layout|assembly_layout)$')
+    reason: str = Field(min_length=3, max_length=1500)
+    component_ids: list[str] | None = Field(default=None, max_length=200)
+
+
+class DesignLearningMatch(BaseModel):
+    devices: list[dict] = Field(max_length=200)
+
+
+class DesignLearningLayoutRequest(BaseModel):
+    revision: str = Field(min_length=1, max_length=100)
+    design_id: str = Field(min_length=1, max_length=150)
+
+
+async def learning_projects(db, owner_id):
+    ids = (await db.execute(select(Project.id).where(Project.user_id == owner_id,
+                                                    Project.deleted_at.is_(None)))).scalars().all()
+    return [_design_file(i) for i in ids]
+
+
+@router.get('/{project_id}/design-learning')
+async def design_learning_status(project_id: int, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_active_user)):
+    project = await get_project_or_404(project_id, db, current_user)
+    from app.services.cad.design_learning import overview
+    allowed = await learning_projects(db, project.user_id)
+    return await asyncio.to_thread(overview, _design_file(project_id), project.user_id, allowed)
+
+
+@router.post('/{project_id}/design-learning/approve')
+async def approve_design_learning(project_id: int, body: DesignLearningApproval, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_active_user)):
+    project = await get_project_or_404(project_id, db, current_user)
+    from app.services.cad.design_learning import approve
+    try:
+        return await asyncio.to_thread(approve, _design_file(project_id), project.user_id,
+                                      current_user.id, body.revision, body.design_id, body.scope, body.reason.strip(), body.component_ids)
+    except ValueError as exc:
+        raise HTTPException(409, str(exc)) from exc
+
+
+@router.post('/{project_id}/design-learning/match-devices')
+async def match_learning_devices(project_id: int, body: DesignLearningMatch, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_active_user)):
+    project = await get_project_or_404(project_id, db, current_user)
+    from app.services.cad.design_learning import recommendations
+    allowed = await learning_projects(db, project.user_id)
+    return await asyncio.to_thread(recommendations, _design_file(project_id), project.user_id, body.devices, allowed)
+
+
+@router.post('/{project_id}/design-learning/reviews/{review_id}/revoke')
+async def revoke_design_learning(project_id: int, review_id: str, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_active_user)):
+    project = await get_project_or_404(project_id, db, current_user)
+    from app.services.cad.design_learning import revoke
+    try:
+        return await asyncio.to_thread(revoke, _design_file(project_id), project.user_id, review_id)
+    except ValueError as exc:
+        raise HTTPException(404, str(exc)) from exc
+
+
+@router.post('/{project_id}/design-learning/layout-suggestion')
+async def suggest_learning_layout(project_id: int, body: DesignLearningLayoutRequest, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_active_user)):
+    project = await get_project_or_404(project_id, db, current_user)
+    from app.services.cad.design_learning import layout_suggestion
+    allowed = await learning_projects(db, project.user_id)
+    try:
+        return await asyncio.to_thread(layout_suggestion, _design_file(project_id), project.user_id,
+                                      body.revision, body.design_id, allowed)
+    except ValueError as exc:
+        raise HTTPException(409, str(exc)) from exc
 
 
 @router.get("", response_model=List[ProjectResponse])

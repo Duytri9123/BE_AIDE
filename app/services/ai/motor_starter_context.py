@@ -3,31 +3,80 @@ import re
 import math
 
 
-def load_power_w(device):
+POWER_FACTORS = {'w': 1, 'kw': 1000, 'hp': 745.699872, 'cv': 735.49875}
+
+
+def load_power_details(device):
+    """Resolve explicit load power within this circuit, retaining its input unit."""
     observations = device.get('source_observations') or {}
     circuit = {**(observations.get('circuit') or {}), **(device.get('circuit_context') or {})}
 
-    def number(value):
+    def record(value, unit, source):
         if isinstance(value, bool) or not isinstance(value, (int, float, str)):
             return None
         try:
-            result = float(str(value).replace(',', '.'))
-            return result if math.isfinite(result) and result >= 0 else None
+            number = float(str(value).replace(',', '.'))
         except ValueError:
             return None
+        unit = str(unit).strip().lower()
+        if not math.isfinite(number) or number <= 0 or unit not in POWER_FACTORS:
+            return None
+        return dict(value=number, unit=unit.upper() if unit != 'kw' else 'kW',
+                    watts=number * POWER_FACTORS[unit], source=source)
 
-    for candidate in (device.get('power_w'), circuit.get('power_w')):
-        value = number(candidate)
-        if value is not None:
-            return value
-    value = number(device.get('motor_power_kw', circuit.get('motor_power_kw')))
-    if value is not None:
-        return value * 1000
-    value = number(circuit.get('power_value'))
-    unit = str(circuit.get('power_unit') or '').strip().lower()
-    if value is not None and unit in {'w', 'kw'}:
-        return value * (1000 if unit == 'kw' else 1)
-    return None
+    for scope, values in (('device', device), ('circuit', circuit)):
+        original = record(values.get('power_value'), values.get('power_unit'), f'{scope}.power_value')
+        if original:
+            return original
+        for field, unit in (('power_w', 'w'), ('motor_power_kw', 'kw'),
+                            ('motor_power_hp', 'hp'), ('motor_power_cv', 'cv')):
+            power = record(values.get(field), unit, f'{scope}.{field}')
+            if power:
+                return power
+        power = record(values.get('power_value'), values.get('power_unit'), f'{scope}.power_value')
+        if power:
+            return power
+    # Never inspect panel-wide notes or other circuits: their ratings may belong
+    # to a different motor. Ambiguous alternatives require clarification.
+    found = []
+    for scope, values, fields in (
+        ('circuit', circuit, ('connected_load', 'supply_location', 'motor_power', 'power')),
+        ('device', device, ('connected_load', 'name', 'spec', 'observed_text')),
+    ):
+        for field in fields:
+            text = str(values.get(field) or '')
+            for match in re.finditer(r'(?<![\w.,/–−-])(\d+(?:[.,]\d+)?)\s*(kW|HP|CV|W)\b', text, re.I):
+                # Do not turn a range (2–4 HP) into a single rated value.
+                if re.search(r'\d\s*[-–/−]\s*$', text[:match.start()]):
+                    return None
+                power = record(match[1], match[2], f'{scope}.{field}')
+                if power:
+                    found.append(power)
+    if not found or any(abs(p['watts'] - found[0]['watts']) > max(1, found[0]['watts'] * .02) for p in found):
+        return None
+    return found[0]
+
+
+def load_power_w(device):
+    power = load_power_details(device)
+    return power['watts'] if power else None
+
+
+def starter_quotation_name(device):
+    observations = device.get('source_observations') or {}
+    assembly = observations.get('motor_starter') or {}
+    kind = assembly.get('type') or classify_motor_starter_type(' '.join(str(device.get(k) or '') for k in ('name', 'category', 'spec')))
+    if not kind:
+        return device.get('name') or 'Thiết bị'
+    name = {'DOL': 'Khởi động DOL', 'STAR_DELTA': 'Khởi động sao – tam giác',
+            'REVERSING': 'Khởi động đảo chiều', 'SOFT_STARTER': 'Khởi động mềm', 'VFD': 'Biến tần'}.get(kind, device.get('name') or kind)
+    power = load_power_details(device)
+    if power:
+        unit, value = power['unit'], power['value']
+        if unit == 'W' and value >= 1000:
+            value, unit = value / 1000, 'kW'
+        name += f" {value:g}{unit}"
+    return name
 
 
 def classify_motor_starter_type(identity: str) -> str | None:
@@ -69,7 +118,8 @@ def enrich_motor_starters(devices):
         observations = device.get('source_observations')
         observations = dict(observations) if isinstance(observations, dict) else {}
         circuit = {**(observations.get('circuit') or {}), **(device.get('circuit_context') or {})}
-        power_w = load_power_w(device)
+        power_input = load_power_details(device)
+        power_w = power_input['watts'] if power_input else None
         if is_ats and not starter_type:
             current = observations.get('assembly') or {}
             components = current.get('components') or []
@@ -171,11 +221,31 @@ def enrich_motor_starters(devices):
         for index, component in enumerate(resolved):
             component.setdefault('component_key', f'{component.get("category")}:{component.get("name")}:{index}')
 
+        selection_context = {key: circuit[key] for key in
+            ('motor_rated_current_a', 'motor_voltage_v', 'control_voltage_v', 'phase')
+            if circuit.get(key) not in (None, '')}
+        if power_input:
+            selection_context['power_input'] = power_input
+        for component in resolved:
+            component['selection_context'] = selection_context
+            requirements = []
+            if power_input:
+                requirements.append(f"Phụ tải {power_input['value']:g} {power_input['unit']} = {power_w / 1000:.3f} kW")
+            current = circuit.get('motor_rated_current_a')
+            if current and component.get('category') == 'CONTACTOR':
+                requirements.append(f"Chọn dòng AC-3 không nhỏ hơn dòng động cơ {current} A tại điện áp làm việc")
+            elif current and component.get('category') == 'OVERLOAD_PROTECTION':
+                requirements.append(f"Dải chỉnh định phải bao phủ dòng động cơ {current} A; đối chiếu vị trí lắp rơ le")
+            for key, label in (('motor_voltage_v', 'Điện áp động cơ'), ('control_voltage_v', 'Điện áp điều khiển')):
+                if circuit.get(key):
+                    requirements.append(f"{label}: {circuit[key]} V")
+            component['selection_requirements'] = requirements
+
         assembly = {
             'configuration_authoritative': authoritative,
             'type': starter_type, 'basis': 'assembly_function', 'status': 'needs_engineering_selection',
             'load': device.get('connected_load') or circuit.get('supply_location'),
-            'load_power_w': power_w, 'upstream_reference': reference or None,
+            'load_power_w': power_w, 'power_input': power_input, 'upstream_reference': reference or None,
             'upstream_status': ('verified' if relationship_verified else 'candidate') if upstream else 'needs_review',
             'upstream': {k: upstream.get(k) for k in ('tag', 'name', 'spec', 'in_a', 'poles', 'icu_ka')} if upstream else None,
             'missing_inputs': missing,

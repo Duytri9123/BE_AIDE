@@ -49,9 +49,13 @@ def enrich_circuit_context(devices, evidence):
         if candidates:
             n,h = min(candidates,key=lambda pair:abs(pair[0]['x']-pair[1]['x']))
             unit_text = ' '.join(r['text'] for r in labels if abs(r['x']-h['x']) < h['height']*12 and abs(r['y']-h['y']) < h['height']*5)
-            unit = 'kW' if re.search(r'\bKW\b', plain(unit_text)) else 'W' if re.search(r'\bW\b', plain(unit_text)) else None
+            units = set(re.findall(r'\b(KW|HP|CV|W)\b', plain(unit_text)))
+            unit = next(iter(units)) if len(units) == 1 else None
+            unit = 'kW' if unit == 'KW' else unit
             context.update(power_value=float(n['text'].replace(',','.')),power_unit=unit)
-            if unit: context['power_w'] = context['power_value']*(1000 if unit=='kW' else 1)
+            if unit:
+                from app.services.ai.motor_starter_context import POWER_FACTORS
+                context['power_w'] = context['power_value'] * POWER_FACTORS[unit.lower()]
             context['evidence_ids'].append(n['id'])
         if len(context) > 3:
             device['circuit_context'] = context

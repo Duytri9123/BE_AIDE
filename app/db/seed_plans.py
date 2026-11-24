@@ -1,9 +1,13 @@
 """
 Hàm seed các gói cước mặc định cho hệ thống
 """
+import logging
+
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.plan import Plan
+
+logger = logging.getLogger(__name__)
 
 DEFAULT_PLANS = [
     {
@@ -41,4 +45,4 @@ async def seed_default_plans(db: AsyncSession) -> None:
             plan = Plan(**item)
             db.add(plan)
         await db.commit()
-        print("✅ Đã khởi tạo các gói cước mặc định thành công!")
+        logger.info("Default plans initialized")
