@@ -52,7 +52,26 @@ def load_power_details(device):
                 power = record(match[1], match[2], f'{scope}.{field}')
                 if power:
                     found.append(power)
-    if not found or any(abs(p['watts'] - found[0]['watts']) > max(1, found[0]['watts'] * .02) for p in found):
+    if not found:
+        # Hỗ trợ nhận diện số công suất thuần không kèm đơn vị (ví dụ: 3000, 1500, 3.0)
+        for scope, values in (('circuit', circuit), ('device', device)):
+            for field in ('power', 'motor_power', 'power_w', 'p_w', 'connected_load'):
+                val = values.get(field)
+                if val is not None and not isinstance(val, bool):
+                    text = str(val).strip()
+                    m = re.search(r'(?<![\w.,/–−-])(\d+(?:[.,]\d+)?)(?!\s*[A-Za-z0-9])', text)
+                    if m:
+                        try:
+                            num = float(m.group(1).replace(',', '.'))
+                            if num > 0:
+                                unit = 'w' if num >= 100 else 'kw'
+                                power = record(num, unit, f'{scope}.{field}_inferred')
+                                if power:
+                                    return power
+                        except ValueError:
+                            pass
+        return None
+    if any(abs(p['watts'] - found[0]['watts']) > max(1, found[0]['watts'] * .02) for p in found):
         return None
     return found[0]
 
@@ -106,6 +125,39 @@ def is_motor_starter_label(row):
     return bool(classify_motor_starter_type(identity))
 
 
+def select_contactor_spec(current_a, voltage_v=380, power_w=None):
+    """Tính chọn dòng định mức contactor động lực AC-3."""
+    if not current_a and power_w:
+        current_a = power_w / (math.sqrt(3) * voltage_v * 0.72) if voltage_v >= 380 else power_w / (voltage_v * 0.72)
+    current_a = current_a or 9
+    required_a = current_a * 1.25
+    standards = [9, 12, 18, 22, 32, 40, 50, 65, 75, 85, 100, 125, 150, 185, 225, 300]
+    chosen = standards[-1]
+    for std in standards:
+        if std >= required_a:
+            chosen = std
+            break
+    poles = 3 if voltage_v >= 380 else 1
+    return f"{poles}P {chosen}A 220VAC", chosen
+
+
+def select_tor_spec(current_a, power_w=None, voltage_v=380):
+    """Tính chọn dải chỉnh định rơ le nhiệt bảo vệ quá tải."""
+    if not current_a and power_w:
+        current_a = power_w / (math.sqrt(3) * voltage_v * 0.72) if voltage_v >= 380 else power_w / (voltage_v * 0.72)
+    current_a = current_a or 6.5
+    ranges = [
+        (0.63, 1.0), (1.0, 1.6), (1.6, 2.5), (2.5, 4.0), (4.0, 6.0),
+        (5.0, 8.0), (6.0, 9.0), (7.0, 10.0), (9.0, 13.0), (12.0, 18.0),
+        (16.0, 22.0), (18.0, 26.0), (24.0, 36.0), (28.0, 40.0),
+        (34.0, 50.0), (45.0, 65.0), (54.0, 75.0), (63.0, 85.0), (70.0, 95.0)
+    ]
+    for low, high in ranges:
+        if low <= current_a <= high:
+            return f"Dải {low:g}-{high:g}A", f"{low:g}-{high:g}A"
+    return f"Dải {current_a*0.8:.1f}-{current_a*1.2:.1f}A", f"{current_a:.1f}A"
+
+
 def enrich_motor_starters(devices):
     from app.services.ai.assembly_accessories import propose_assembly_accessories, SOURCES
     from app.services.ai.assembly_accessory_selection import merge_proposal_choices
@@ -148,76 +200,87 @@ def enrich_motor_starters(devices):
             upstream = matches[0] if len(matches) == 1 else None
         relationship_verified = bool(upstream and (device.get('evidence_region') or {}).get('load_verified') is True
                                      and (upstream.get('evidence_region') or {}).get('load_verified') is True)
-        required = {
-            'motor_rated_current_a': 'Dòng định mức động cơ (A)',
-            'motor_power_kw': 'Công suất động cơ (kW)',
-            'motor_voltage_v': 'Điện áp động cơ (V)',
-            'control_voltage_v': 'Điện áp điều khiển/cuộn hút (V)',
-        }
-        missing = [label for key, label in required.items() if circuit.get(key) in (None, '')]
-        if power_w is not None:
-            missing = [label for label in missing if label != required['motor_power_kw']]
+
+        # Nhận diện quy cách cáp để xác định pha và điện áp
+        cable_spec = str(circuit.get('cable_spec') or circuit.get('cable') or device.get('cable_spec') or '')
+        if re.search(r'\b(?:3|4)\s*[xX]\s*(\d+(?:[.,]\d+)?)', cable_spec):
+            circuit.setdefault('phase', '3P')
+            circuit.setdefault('motor_voltage_v', 380)
+            circuit.setdefault('control_voltage_v', 220)
+        elif re.search(r'\b(?:1|2)\s*[xX]\s*(\d+(?:[.,]\d+)?)', cable_spec):
+            circuit.setdefault('phase', '1P')
+            circuit.setdefault('motor_voltage_v', 220)
+            circuit.setdefault('control_voltage_v', 220)
+
+        motor_voltage = circuit.get('motor_voltage_v') or (380 if circuit.get('phase') in ('3P', '3 pha', '3') else 220)
+        circuit['motor_voltage_v'] = motor_voltage
+        circuit.setdefault('control_voltage_v', 220)
+
+        motor_current = circuit.get('motor_rated_current_a')
+        if not motor_current and power_w:
+            if motor_voltage >= 380:
+                motor_current = round(power_w / (math.sqrt(3) * motor_voltage * 0.85 * 0.85), 1)
+            else:
+                motor_current = round(power_w / (motor_voltage * 0.85 * 0.85), 1)
+            circuit['motor_rated_current_a'] = motor_current
+
+        if power_input and not device.get('spec'):
+            device['spec'] = f"{power_input['value']:g}{power_input['unit']} {motor_voltage}V"
+
+        missing = []
 
         if starter_type == 'STAR_DELTA':
+            km_main_spec, km_main_a = select_contactor_spec(motor_current * 0.58 if motor_current else None, motor_voltage, power_w)
+            tor_spec, _ = select_tor_spec(motor_current * 0.58 if motor_current else None, power_w, motor_voltage)
             components = [
-                {'category': 'CONTACTOR', 'name': 'Contactor chính KM-Main', 'quantity': 1, 'reason': 'Đóng cắt cấp nguồn chính cho động cơ.'},
-                {'category': 'CONTACTOR', 'name': 'Contactor tam giác KM-Delta', 'quantity': 1, 'reason': 'Đóng mạch chạy chế độ tam giác.'},
-                {'category': 'CONTACTOR', 'name': 'Contactor sao KM-Star', 'quantity': 1, 'reason': 'Đóng điểm sao khởi động ban đầu.'},
-                {'category': 'OVERLOAD_PROTECTION', 'name': 'Rơ le nhiệt (TOR) bảo vệ quá tải', 'quantity': 1, 'reason': 'Bảo vệ quá tải nhiệt động cơ.'},
-                {'category': 'TIMER', 'name': 'Rơ le thời gian Sao - Tam giác', 'quantity': 1, 'reason': 'Chuyển mạch từ cấp sao sang tam giác sau thời gian cài đặt.'},
-                {'category': 'PUSH_BUTTON_ON', 'name': 'Nút nhấn ON', 'quantity': None, 'reason': 'Số lượng theo mạch điều khiển thực tế.'},
-                {'category': 'PUSH_BUTTON_OFF', 'name': 'Nút nhấn OFF', 'quantity': None, 'reason': 'Số lượng theo mạch điều khiển thực tế.'},
+                {'category': 'CONTACTOR', 'name': 'Contactor chính KM-Main', 'spec': km_main_spec, 'quantity': 1, 'in_a': km_main_a, 'reason': 'Đóng cắt cấp nguồn chính cho động cơ.'},
+                {'category': 'CONTACTOR', 'name': 'Contactor tam giác KM-Delta', 'spec': km_main_spec, 'quantity': 1, 'in_a': km_main_a, 'reason': 'Đóng mạch chạy chế độ tam giác.'},
+                {'category': 'CONTACTOR', 'name': 'Contactor sao KM-Star', 'spec': select_contactor_spec(motor_current * 0.33 if motor_current else None, motor_voltage, power_w)[0], 'quantity': 1, 'reason': 'Đóng điểm sao khởi động ban đầu.'},
+                {'category': 'OVERLOAD_PROTECTION', 'name': 'Rơ le nhiệt (TOR) bảo vệ quá tải', 'spec': tor_spec, 'quantity': 1, 'reason': 'Bảo vệ quá tải nhiệt động cơ.'},
+                {'category': 'TIMER', 'name': 'Rơ le thời gian Sao - Tam giác', 'spec': '220VAC 0-30s', 'quantity': 1, 'reason': 'Chuyển mạch từ cấp sao sang tam giác.'},
             ]
         elif starter_type == 'REVERSING':
+            km_spec, km_a = select_contactor_spec(motor_current, motor_voltage, power_w)
+            tor_spec, _ = select_tor_spec(motor_current, power_w, motor_voltage)
             components = [
-                {'category': 'CONTACTOR', 'name': 'Contactor quay thuận KM-Forward', 'quantity': 1, 'reason': 'Đóng mạch quay chiều thuận.'},
-                {'category': 'CONTACTOR', 'name': 'Contactor quay nghịch KM-Reverse', 'quantity': 1, 'reason': 'Đóng mạch quay chiều nghịch (liên động cơ - điện).'},
-                {'category': 'OVERLOAD_PROTECTION', 'name': 'Rơ le nhiệt (TOR) bảo vệ quá tải', 'quantity': 1, 'reason': 'Bảo vệ quá tải nhiệt động cơ.'},
-                {'category': 'PUSH_BUTTON_FORWARD', 'name': 'Nút nhấn chạy thuận', 'quantity': None, 'reason': 'Theo phương thức điều khiển chiều thuận.'},
-                {'category': 'PUSH_BUTTON_REVERSE', 'name': 'Nút nhấn chạy nghịch', 'quantity': None, 'reason': 'Theo phương thức điều khiển chiều nghịch.'},
-                {'category': 'PUSH_BUTTON_OFF', 'name': 'Nút nhấn OFF', 'quantity': None, 'reason': 'Theo mạch dừng thực tế.'},
+                {'category': 'CONTACTOR', 'name': 'Contactor quay thuận KM-Forward', 'spec': km_spec, 'quantity': 1, 'in_a': km_a, 'reason': 'Đóng mạch quay chiều thuận.'},
+                {'category': 'CONTACTOR', 'name': 'Contactor quay nghịch KM-Reverse', 'spec': km_spec, 'quantity': 1, 'in_a': km_a, 'reason': 'Đóng mạch quay chiều nghịch.'},
+                {'category': 'OVERLOAD_PROTECTION', 'name': 'Rơ le nhiệt (TOR) bảo vệ quá tải', 'spec': tor_spec, 'quantity': 1, 'reason': 'Bảo vệ quá tải nhiệt động cơ.'},
             ]
         elif starter_type == 'SOFT_STARTER':
             components = [
-                {'category': 'SOFT_STARTER', 'name': 'Bộ khởi động mềm (Soft Starter)', 'quantity': 1, 'reason': 'Điều khiển khởi động êm giảm dòng mở máy.'},
-                {'category': 'PUSH_BUTTON_ON', 'name': 'Nút nhấn RUN', 'quantity': None, 'reason': 'Chọn theo chế độ điều khiển của bộ khởi động mềm.'},
-                {'category': 'PUSH_BUTTON_OFF', 'name': 'Nút nhấn STOP', 'quantity': None, 'reason': 'Chọn theo chế độ điều khiển của bộ khởi động mềm.'},
+                {'category': 'SOFT_STARTER', 'name': 'Bộ khởi động mềm (Soft Starter)', 'spec': f"{power_input['value']:g}{power_input['unit']} {motor_voltage}V" if power_input else None, 'quantity': 1, 'reason': 'Điều khiển khởi động êm giảm dòng mở máy.'},
             ]
         elif starter_type == 'VFD':
             components = [
-                {'category': 'VFD', 'name': 'Biến tần (Inverter/VFD)', 'quantity': 1, 'reason': 'Điều khiển tốc độ vô cấp và khởi động động cơ.'},
-                {'category': 'CONTACTOR', 'name': 'Contactor cấp nguồn đầu vào', 'quantity': 1, 'reason': 'Đóng cắt cấp nguồn cho biến tần.'},
-                {'category': 'PUSH_BUTTON_ON', 'name': 'Nút nhấn RUN', 'quantity': None, 'reason': 'Nếu mạch dùng nút rời thay vì bàn phím hoặc điều khiển ngoài.'},
-                {'category': 'PUSH_BUTTON_OFF', 'name': 'Nút nhấn STOP', 'quantity': None, 'reason': 'Nếu mạch dùng nút rời; theo cấu hình ngõ vào điều khiển.'},
+                {'category': 'VFD', 'name': 'Biến tần (Inverter/VFD)', 'spec': f"{power_input['value']:g}{power_input['unit']} {motor_voltage}V" if power_input else None, 'quantity': 1, 'reason': 'Điều khiển tốc độ vô cấp và khởi động động cơ.'},
             ]
         else: # DOL
+            contactor_spec, contactor_a = select_contactor_spec(motor_current, motor_voltage, power_w)
+            tor_spec, _ = select_tor_spec(motor_current, power_w, motor_voltage)
+            power_desc = f"{power_input['value']:g} {power_input['unit']}" if power_input else ""
             components = [
-                {'category': 'CONTACTOR', 'name': 'Contactor động lực', 'quantity': 1,
-                 'reason': 'Chọn theo dòng/công suất động cơ, điện áp, chế độ sử dụng và phối hợp bảo vệ.'},
-                {'category': 'OVERLOAD_PROTECTION', 'name': 'Rơ le nhiệt / bảo vệ quá tải động cơ', 'quantity': 1,
-                 'reason': 'Xác định rơ le quá tải hoặc chức năng bảo vệ đã tích hợp; không lấy dòng aptomat làm dải chỉnh định.'},
-                {'category': 'PUSH_BUTTON_ON', 'name': 'Nút nhấn ON', 'quantity': None,
-                 'reason': 'Số lượng theo đầu vào và phương thức điều khiển của từng bộ.'},
-                {'category': 'PUSH_BUTTON_OFF', 'name': 'Nút nhấn OFF', 'quantity': None,
-                 'reason': 'Số lượng theo đầu vào và phương thức điều khiển của từng bộ.'},
-                {'category': 'SELECTOR_SWITCH_3_POSITION', 'name': 'Công tắc chuyển mạch 3 vị trí', 'quantity': None,
-                 'reason': 'Xác định số lượng và chế độ chuyển mạch theo yêu cầu đầu vào.'},
+                {'category': 'CONTACTOR', 'name': 'Contactor động lực', 'spec': contactor_spec, 'quantity': 1,
+                 'in_a': contactor_a, 'poles': 3 if motor_voltage >= 380 else 1,
+                 'reason': f'Contactor {contactor_spec} cho tải {power_desc} (Iđm ~{motor_current}A)' if motor_current else 'Contactor động lực mạch khởi động trực tiếp.'},
+                {'category': 'OVERLOAD_PROTECTION', 'name': 'Rơ le nhiệt / bảo vệ quá tải động cơ', 'spec': tor_spec, 'quantity': 1,
+                 'reason': f'Rơ le nhiệt {tor_spec} bảo vệ quá tải (chỉnh định tại ~{motor_current}A)' if motor_current else 'Rơ le nhiệt bảo vệ quá tải động cơ.'},
             ]
 
-        # Keep explicit per-assembly inputs when enrichment runs again. These
-        # describe the assembly; they are not additional priced BOM lines.
+        # Keep explicit per-assembly inputs when enrichment runs again.
         existing = (observations.get('motor_starter') or {}).get('components') or []
+        # Nếu các thành phần cũ là placeholder rỗng (không có spec hoặc thiếu số lượng), loại bỏ để tính lại từ đầu
+        if any(c.get('spec') is None or c.get('quantity') is None for c in existing if isinstance(c, dict)):
+            existing = []
         explicit = [c for c in existing if isinstance(c, dict) and
                     (c.get('basis') in {'source', 'user_request'} or c.get('status') == 'confirmed')]
-        # An explicit configuration is authoritative. Do not fill it with a
-        # fixed checklist (e.g. add ON/OFF operators to a remote-controlled set).
         authoritative = (observations.get('motor_starter') or {}).get('configuration_authoritative') is True
         chosen_configuration = authoritative or any(isinstance(c, dict) and 'use_in_quotation' in c for c in existing)
         if chosen_configuration:
             explicit = [c for c in existing if isinstance(c, dict)]
         resolved = ([{**c, 'included_in_total': True} for c in explicit] if explicit or authoritative else
                     [{**c, 'basis': 'assembly_function', 'status': 'proposal',
-                      'included_in_total': False, 'spec': None, 'part_number': None} for c in components])
+                      'included_in_total': False, 'spec': c.get('spec'), 'part_number': c.get('part_number')} for c in components])
         for index, component in enumerate(resolved):
             component.setdefault('component_key', f'{component.get("category")}:{component.get("name")}:{index}')
 

@@ -64,7 +64,8 @@ def resolve_confirmed_takeoff(message, context, panels):
         from app.api.v1.endpoints.el_agent import is_explicit_takeoff_request
         if is_explicit_takeoff_request(prior):
             prior = prior.split('\nNguồn của lượt này:', 1)[0]
-            message += '\nGiữ các yêu cầu phù hợp trong phạm vi tủ đã xác nhận từ lượt trước: ' + prior[:3500]
+            if not re.search(r'\b(?:boc\s*moi|lam\s*moi|khong\s*(?:su\s*)?dung\s*(?:lai)?\s*cu)\b', prior, re.I):
+                message += '\nGiữ các yêu cầu phù hợp trong phạm vi tủ đã xác nhận từ lượt trước: ' + prior[:3500]
     return {'original': confirmation, 'effective': message, 'intent': 'takeoff'}
 
 
@@ -74,6 +75,21 @@ async def resolve_request(db, message, context):
     # contextual resolution rather than accidentally changing every row.
     normalized = ''.join(c for c in unicodedata.normalize('NFD', message.lower().replace('đ', 'd'))
                          if not unicodedata.combining(c)).strip(' .!')
+
+    # Bóc tách mới / không sử dụng lại dữ liệu cũ: xóa bỏ iteration_id và observations cũ để bóc tách tươi mới hoàn toàn
+    if re.search(r'\b(?:boc\s*tach\s*moi|boc\s*moi|lam\s*moi|chay\s*lai|fresh\s*takeoff)\b', normalized) or \
+       re.search(r'\b(?:khong\s*(?:su\s*)?dung|bo\s*qua|xoa)\s*(?:lai\s*)?(?:du\s*lieu|ket\s*qua|thong\s*tin)?\s*cu\b', normalized):
+        context.pop('iteration_id', None)
+        context.pop('quotation_iteration_id', None)
+        context.pop('observations', None)
+        return {
+            'original': message,
+            'effective': message,
+            'intent': 'takeoff',
+            'fresh_takeoff': True,
+            'new_quotation': True
+        }
+
     brand = requested_brand(message)
     if context.get('iteration_id') and brand and re.fullmatch(
             r'(?:(?:toi muon|toi can|hay|vui long|giup toi)\s+)?'

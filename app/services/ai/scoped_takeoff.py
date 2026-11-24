@@ -450,11 +450,9 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                                            ensure_ascii=False))
                 from app.services.cache_service import cache_service
                 from app.services.ai.cache_policy import ai_cache_enabled
-                candidate_key=await asyncio.to_thread(scoped_candidate_key, project_id, file, panel, message, cache_scope, prompt=f'{whole_panel}\n{prompt}') if session_factory and ai_cache_enabled() else None
-                payload=await cache_service.get(candidate_key) if candidate_key and 'Kết quả kiểm chứng cần sửa' not in message else None
-                if isinstance(payload,str):
-                    try:payload=json.loads(payload)
-                    except (ValueError,TypeError):payload=None
+                # Bóc tách mới trực tiếp từ bản vẽ, không sử dụng lại kết quả cũ trong cache
+                candidate_key = None
+                payload = None
                 if not payload:
                     from app.services.ai.regional_takeoff import extract_regions
                     source_evidence = native_context.get('evidence') or {}
