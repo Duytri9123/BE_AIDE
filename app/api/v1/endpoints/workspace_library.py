@@ -309,26 +309,50 @@ async def cabinet_agent_consult(
 
     action_type = None
     actions = []
-    if any(k in msg_lower for k in ['vào giữa', 'căn giữa', 'ra giữa', 'giữa cánh']):
+    door_owner = 'outer_door' if any(f.get('kind') == 'outer_door' for f in template.get('faces', [])) else 'inner_door'
+
+    if any(k in msg_lower for k in ['vào giữa', 'căn giữa', 'ra giữa', 'giữa cánh', 'chính giữa']):
         action_type = 'center_door'
-        lights = [d['id'] for d in placed if any(w in str(d.get('name', '') + d.get('id', '')).lower() for w in ['đèn', 'hl', 'pilot', 'light'])]
+        lights = [d['id'] for d in placed if any(w in str(d.get('name', '') + d.get('id', '')).lower() for w in ['đèn', 'hl', 'pilot', 'light', 'đồng hồ', 'meter', 'nút', 'button'])]
         target_ids = lights if lights else [d['id'] for d in placed]
         if target_ids:
             actions = [{'action': 'center-door', 'ids': target_ids, 'gap': 30}]
-    elif any(k in msg_lower for k in ['đèn báo pha', 'đèn pha', '3 đèn báo', 'đèn báo']):
+    elif any(k in msg_lower for k in ['đèn báo pha', 'đèn pha', '3 đèn báo', 'đèn báo', 'pilot light', 'pha r', 'pha s', 'pha t']):
         action_type = 'add_phase_lights'
-    elif any(k in msg_lower for k in ['đồng hồ', 'vôn kế', 'ampe kế', 'volt', 'ampe']):
+        y_pos = int(h - 110)
+        start_x = int(max(20, (w - 150) / 2))
+        actions = [{'action': 'add-phase-lights', 'options': {'owner': door_owner, 'y': y_pos, 'startX': start_x}}]
+    elif any(k in msg_lower for k in ['đồng hồ', 'vôn kế', 'ampe kế', 'volt', 'ampe', 'meter']):
         action_type = 'add_meter'
-    elif any(k in msg_lower for k in ['sắp xếp', 'căn chỉnh', 'thẳng hàng', 'auto arrange']):
+        has_lights = any('hl' in str(d.get('id', '')).lower() or 'đèn' in str(d.get('name', '')).lower() for d in placed)
+        y_pos = int(h - 220) if has_lights else int(h - 140)
+        x_pos = int(max(20, (w - 72) / 2))
+        actions = [{'action': 'add-meter', 'options': {'owner': door_owner, 'y': y_pos, 'x': x_pos}}]
+    elif any(k in msg_lower for k in ['thanh din', 'ray din', 'thanh ray', 'ray nhôm', 'thanh gá']):
+        action_type = 'add_din'
+        din_w = max(100, int(w_plate - 40))
+        y_pos = int(h_plate * 0.5)
+        actions = [{'action': 'add-din', 'width': din_w, 'height': 35, 'depth': 7.5, 'x': 20, 'y': y_pos}]
+    elif any(k in msg_lower for k in ['sắp xếp', 'căn chỉnh', 'thẳng hàng', 'auto arrange', 'gióng hàng']):
         action_type = 'auto_arrange'
-        if placed:
-            actions = [{'action': 'arrange-group', 'ids': [d['id'] for d in placed], 'gap': 15}]
+        actions = [{'action': 'auto-arrange'}]
     elif any(k in msg_lower for k in ['xoay thiết bị', 'xoay 90', 'xoay']):
         action_type = 'rotate_device'
         if placed:
             actions = [{'action': 'rotate-group', 'ids': [d['id'] for d in placed], 'rotation': 90}]
-    elif any(k in msg_lower for k in ['xóa thiết bị', 'bỏ thiết bị']):
+    elif any(k in msg_lower for k in ['xóa thiết bị', 'bỏ thiết bị', 'xóa hết']):
         action_type = 'remove_device'
+    elif any(k in msg_lower for k in ['sang phải', 'sang trái', 'lên trên', 'xuống dưới', 'dịch']):
+        action_type = 'nudge'
+        step = 10
+        for part in msg_lower.split():
+            if part.isdigit():
+                step = int(part)
+                break
+        dx = step if 'sang phải' in msg_lower else (-step if 'sang trái' in msg_lower else 0)
+        dy = step if 'lên trên' in msg_lower or 'lên' in msg_lower else (-step if 'xuống dưới' in msg_lower or 'xuống' in msg_lower else 0)
+        if placed:
+            actions = [{'action': 'nudge', 'ids': [placed[-1]['id']], 'dx': dx, 'dy': dy}]
 
     llm_reply = None
     try:
@@ -339,44 +363,52 @@ async def cabinet_agent_consult(
         connections = await ConnectionPoolService.get_ordered_connections(db)
         if connections:
             if action_type == 'add_phase_lights':
-                prompt = f"""Bạn là Kỹ sư Trưởng Thiết kế Tủ Điện AIDE (Cabinet Design AI Agent).
+                prompt = f"""Bạn là Kỹ sư Trưởng Thiết kế Tủ Điện AIDE (EL thiết kế).
 Người dùng vừa ra lệnh: "{payload.message}".
-Hệ thống đã THỰC HIỆN NGAY: Tự động bố trí 3 Đèn Báo Pha (HL1 - Đỏ / Pha L1, HL2 - Vàng / Pha L2, HL3 - Xanh / Pha L3) lên cánh tủ, tạo lỗ khoét tròn Ø22 mm, căn thẳng hàng ngang tại vị trí chuẩn.
+Thông tin tủ hiện tại: Vỏ {w:.0f}×{h:.0f}×{d:.0f} mm, tấm lắp {w_plate:.0f}×{h_plate:.0f} mm.
+Hệ thống đã THỰC HIỆN: Bố trí 3 Đèn Báo Pha (HL1 - Đỏ / Pha L1, HL2 - Vàng / Pha L2, HL3 - Xanh / Pha L3) lên mặt cánh tủ.
 
-YÊU CẦU:
-- Bắt đầu bằng xác nhận: "✅ **Đã thêm 3 đèn báo pha (Đỏ - Vàng - Xanh) lên cánh tủ:**"
-- Liệt kê 3 đèn:
-  * 🔴 **HL1 (Pha R / L1)**: Đèn đỏ, khoét lỗ Ø22 mm
-  * 🟡 **HL2 (Pha S / L2)**: Đèn vàng, khoét lỗ Ø22 mm
-  * 🟢 **HL3 (Pha T / L3)**: Đèn xanh, khoét lỗ Ø22 mm
-- Xác nhận vị trí đã được căn thẳng hàng và mở lỗ khoét trên cánh tủ.
-- TUYỆT ĐỐI KHÔNG thuyết trình lý thuyết hay hướng dẫn thao tác thủ công, chỉ trả lời 3-4 dòng ngắn gọn."""
+YÊU CẦU TRẢ LỜI RÕ RÀNG (4-5 DÒNG):
+1. Vị trí bố trí (WHERE): Mặt cánh tủ, hàng 1 trên cùng (Y={int(h-110)} mm), căn đều chính giữa theo phương ngang, tránh hoàn toàn vùng tay khóa và bản lề.
+2. Vật tư & Phụ kiện đi kèm cần thiết (WHAT ELSE): Tạo 3 lỗ khoét tròn CNC Ø22 mm, kiểm tra chiều sâu đuôi đèn 40 mm đảm bảo an toàn khoảng cách với tấm lắp.
+- TUYỆT ĐỐI KHÔNG viết văn chương dài dòng lý thuyết, không dùng công thức math KaTeX, chỉ trả lời thực tế chuẩn kỹ sư thi công."""
             elif action_type == 'add_meter':
-                prompt = f"""Bạn là Kỹ sư Trưởng Thiết kế Tủ Điện AIDE.
+                prompt = f"""Bạn là Kỹ sư Trưởng Thiết kế Tủ Điện AIDE (EL thiết kế).
 Người dùng vừa ra lệnh: "{payload.message}".
-Hệ thống đã THỰC HIỆN NGAY: Bổ sung đồng hồ đo Volt/Ampe kích thước 72×72 mm lên cánh tủ, mở lỗ khoét vuông 68×68 mm.
-Trả lời ngắn gọn (dưới 4 dòng) xác nhận đồng hồ đã được gắn lên cánh tủ."""
-            elif action_type == 'auto_arrange':
-                prompt = f"""Bạn là Kỹ sư Trưởng Thiết kế Tủ Điện AIDE.
-Người dùng vừa ra lệnh: "{payload.message}".
-Hệ thống đã THỰC HIỆN NGAY: Tự động căn chỉnh và sắp xếp lại các thiết bị trên tấm lắp thẳng hàng, đảm bảo khoảng cách an toàn và khe đi máng dây theo chuẩn IEC 61439.
-Trả lời ngắn gọn (dưới 4 dòng) xác nhận đã căn chỉnh xong."""
-            else:
-                prompt = f"""Bạn là Kỹ sư Trưởng Thiết kế Tủ Điện AIDE (Cabinet Design AI Agent).
-Nhiệm vụ: Phân tích nhanh bố trí tủ điện 2D/3D và hỗ trợ kỹ sư điều chỉnh thiết bị.
+Hệ thống đã THỰC HIỆN: Bổ sung đồng hồ đo Volt/Ampe kích thước 72×72 mm lên cánh tủ.
 
-THÔNG TIN TỦ ĐIỆN HIỆN TẠI:
-- Kích thước vỏ tủ: W={w}mm × H={h}mm × D={d}mm ({desc})
-- Kích thước tấm lắp: {w_plate}mm × {h_plate}mm
-- Số lượng thiết bị: {device_count} cái | Tỷ lệ chiếm dụng (Fill Ratio): {fill_ratio}%
+YÊU CẦU TRẢ LỜI RÕ RÀNG (4-5 DÒNG):
+1. Vị trí bố trí (WHERE): Mặt cánh tủ, hàng thứ 2 ngay dưới hàng đèn báo (Y={int(h-210)} mm), căn giữa theo phương ngang ngang tầm mắt quan sát.
+2. Vật tư & Phụ kiện đi kèm cần thiết (WHAT ELSE): Tạo lỗ khoét vuông 68×68 mm, chốt gá khóa góc, kiểm tra khoảng hở chiều sâu sau cánh 45 mm không cấn thiết bị đóng cắt trên tấm lắp."""
+            elif action_type == 'add_din':
+                prompt = f"""Bạn là Kỹ sư Trưởng Thiết kế Tủ Điện AIDE (EL thiết kế).
+Người dùng vừa ra lệnh: "{payload.message}".
+Hệ thống đã THỰC HIỆN: Bổ sung thanh ray DIN 35×7.5 mm lên tấm lắp tủ điện.
+
+YÊU CẦU TRẢ LỜI RÕ RÀNG (4-5 DÒNG):
+1. Vị trí bố trí (WHERE): Tấm lắp hữu dụng ({w_plate:.0f}×{h_plate:.0f} mm), hàng giữa tại cao độ Y={int(h_plate*0.5)} mm.
+2. Vật tư & Phụ kiện đi kèm cần thiết (WHAT ELSE): Thanh ray nhôm DIN 35mm chiều dài {int(w_plate-40)} mm, máng nhựa lược đi dây (wiring duct) 40×60 mm chạy song song và 2 đầu chặn ray DIN (end-stop)."""
+            elif action_type == 'auto_arrange':
+                prompt = f"""Bạn là Kỹ sư Trưởng Thiết kế Tủ Điện AIDE (EL thiết kế).
+Người dùng vừa ra lệnh: "{payload.message}".
+Hệ thống đã THỰC HIỆN: Tự động căn chỉnh và phân bổ không gian toàn tủ theo chuẩn IEC 61439.
+Trả lời ngắn gọn (dưới 4 dòng) xác nhận vị trí các hàng thiết bị trên tấm lắp và mặt cánh tủ đã được gióng thẳng, chừa hành lang máng dây tản nhiệt."""
+            else:
+                prompt = f"""Bạn là Kỹ sư Trưởng Thiết kế Tủ Điện AIDE (EL thiết kế).
+Nhiệm vụ: Phân tích kỹ thuật bố trí tủ điện 2D/3D và hỗ trợ kỹ sư điều chỉnh thiết bị.
+
+THÔNG TIN TỦ ĐIỆN HIỆN TẠI ĐÃ ĐỌC:
+- Kích thước vỏ tủ: W={w:.0f} mm × H={h:.0f} mm × D={d:.0f} mm ({desc})
+- Kích thước tấm lắp: {w_plate:.0f} mm × {h_plate:.0f} mm
+- Số lượng thiết bị: {device_count} cái | Tỷ lệ chiếm dụng: {fill_ratio}%
 - Cảnh báo va chạm / tràn mép: {', '.join(collisions) if collisions else 'Không phát hiện va chạm nào'}
 
 YÊU CẦU CỦA KỸ SƯ:
 "{payload.message}"
 
-HƯỚNG DẪN TRẢ LỜI:
-- Trả lời đúng trọng tâm câu hỏi hoặc yêu cầu điều chỉnh.
-- Trả lời ngắn gọn, thực tế, súc tích (dưới 5-7 dòng). Tuyệt đối không viết văn chương dài dòng lý thuyết.
+HƯỚNG DẪN TRẢ LỜI CỦA EL THIẾT KẾ:
+- Trước khi thêm hoặc điều chỉnh, phải chỉ rõ VỊ TRÍ PHÙ HỢP Ở ĐÂU (Mặt cánh tủ hay Tấm lắp, cao độ Y, hàng mấy, tránh mép/bản lề) và CẦN THÊM CÁI GÌ VÀO NỮA (Lỗ khoét Ø22 hoặc 68×68, thanh ray DIN 35mm, máng nhựa đi dây, chặn ray DIN).
+- Trả lời đúng trọng tâm, thực tế, chuẩn công nghiệp (dưới 6 dòng). Không viết văn chương dài dòng lý thuyết.
 - Không dùng ký hiệu LaTeX math $...$, dùng số tự nhiên và đơn vị mm."""
             raw, _ = await asyncio.wait_for(
                 ConnectionPoolService.call_with_fallback(
@@ -391,18 +423,21 @@ HƯỚNG DẪN TRẢ LỜI:
 
     if not llm_reply:
         if action_type == 'center_door':
-            llm_reply = "✅ **Đã căn giữa phụ kiện cánh tủ:** Các đèn / thiết bị cánh đã được căn đều chính giữa theo phương ngang ở hàng trên theo tiêu chuẩn kỹ thuật."
+            llm_reply = "✅ **Đã căn giữa phụ kiện cánh tủ:** Các đèn và thiết bị cánh đã được căn đều chính giữa theo phương ngang ở hàng trên theo tiêu chuẩn kỹ thuật."
         elif action_type == 'add_phase_lights':
-            llm_reply = """✅ **Đã thêm 3 đèn báo pha (Đỏ - Vàng - Xanh) lên cánh tủ:**
-- 🔴 **HL1 (Pha R / L1)**: Đèn đỏ, khoét lỗ tròn Ø22 mm
-- 🟡 **HL2 (Pha S / L2)**: Đèn vàng, khoét lỗ tròn Ø22 mm
-- 🟢 **HL3 (Pha T / L3)**: Đèn xanh, khoét lỗ tròn Ø22 mm
-
-Các đèn đã được căn thẳng hàng ngang tại nửa trên cánh tủ và mở lỗ khoét tiêu chuẩn."""
+            llm_reply = f"""✅ **Đã đọc thông số tủ và xác định phương án bố trí 3 đèn báo pha:**
+- **Vị trí bố trí (Mặt cánh tủ):** Đặt tại hàng trên cùng (Y = {int(h-110)} mm), căn đều chính giữa theo phương ngang, tránh hoàn toàn vùng tay khóa cửa và bản lề.
+- **Phụ kiện & vật tư đi kèm:** Đã tạo 3 lỗ khoét tròn CNC Ø22 mm tiêu chuẩn công nghiệp (🔴 HL1 Pha R, 🟡 HL2 Pha S, 🟢 HL3 Pha T), chiều sâu đuôi đèn 40 mm trong giới hạn an toàn lòng tủ."""
         elif action_type == 'add_meter':
-            llm_reply = "✅ **Đã thêm đồng hồ Volt/Ampe 72×72 mm lên cánh tủ:** Đã tạo lỗ khoét vuông 68×68 mm và căn giữa."
+            llm_reply = f"""✅ **Đã đọc thông số tủ và xác định vị trí gắn đồng hồ đo:**
+- **Vị trí bố trí (Mặt cánh tủ):** Đặt tại hàng 2 dưới đèn báo pha (Y = {int(h-210)} mm), căn giữa theo phương ngang, ngang tầm quan sát của kỹ sư vận hành.
+- **Phụ kiện & vật tư đi kèm:** Đã tạo lỗ khoét vuông 68×68 mm cho đồng hồ 72×72 mm, chiều sâu thân 45 mm, khoảng cách an toàn với thiết bị đóng cắt tấm lắp > 150 mm."""
+        elif action_type == 'add_din':
+            llm_reply = f"""✅ **Đã đọc thông số tấm lắp và bổ sung thanh ray DIN:**
+- **Vị trí bố trí (Tấm lắp):** Gá tại cao độ Y = {int(h_plate*0.5)} mm, chiều dài thanh ray {int(w_plate-40)} mm, cách mép tấm lắp 20 mm.
+- **Phụ kiện & vật tư đi kèm:** Thanh ray nhôm DIN 35×7.5 mm chuẩn IEC 60715, máng nhựa lược đi dây 40×60 mm chạy song song và 2 đầu chặn ray DIN."""
         elif action_type == 'auto_arrange':
-            llm_reply = "✅ **Đã tự động căn chỉnh thiết bị:** Các thiết bị trên tấm lắp đã được gióng thẳng hàng và chừa khoảng hở máng dây theo chuẩn IEC 61439."
+            llm_reply = f"✅ **Đã tự động tính toán lại toàn bộ không gian tủ theo IEC 61439:** Đã gióng thẳng hàng các thiết bị trên tấm lắp ({w_plate:.0f} × {h_plate:.0f} mm), chừa khe tản nhiệt 15 mm và hành lang đi máng dây an toàn."
         else:
             status_line = "🟢 **Bố trí hợp lý & an toàn**" if not collisions and 30 <= fill_ratio <= 75 else (
                 "🔴 **Phát hiện va chạm / tràn kích thước**" if collisions else "🟡 **Cần lưu ý mật độ lắp đặt**"
@@ -413,6 +448,24 @@ Các đèn đã được căn thẳng hàng ngang tại nửa trên cánh tủ v
                 if 35 <= fill_ratio <= 70 else (
                     f"Tỷ lệ chiếm chỗ đạt **{fill_ratio}%**. Tủ còn nhiều không gian trống (dưới 35%), bạn có thể bổ sung thêm thiết bị bảo vệ, thanh cái trung tính/PE hoặc chọn form tủ kích thước nhỏ hơn để tiết kiệm chi phí."
                     if fill_ratio < 35 else
+                    f"Tỷ lệ chiếm chỗ đạt **{fill_ratio}%**. Mật độ thiết bị khá dày đặc (> 70%), cần lưu ý khe hở tản nhiệt giữa các thiết bị đóng cắt (tối thiểu 10–15mm) và bố trí quạt tản nhiệt hoặc lỗ thông gió cánh tủ."
+                )
+            )
+
+            llm_reply = f"""### {status_line}
+
+**1. Phân tích không gian & kích thước vỏ tủ:**
+- Vỏ tủ: **{w:.0f} × {h:.0f} × {d:.0f} mm** ({desc})
+- Tấm lắp hữu dụng: **{w_plate:.0f} × {h_plate:.0f} mm**
+- Số lượng thiết bị: **{device_count}** thiết bị | Tỷ lệ chiếm dụng: **{fill_ratio}%**
+
+**2. Đánh giá an toàn & va chạm:**
+{collision_text}
+- {density_advice}
+
+**3. Đề xuất vị trí & phụ kiện đi kèm khi bổ sung:**
+- Khi thêm thiết bị đóng cắt (MCB/Contactor/Relay): Cần gá trên **thanh ray DIN 35×7.5 mm** và chừa khoảng hở **máng nhựa 40×60 mm** để tản nhiệt và luồn dây.
+- Khi thêm phụ kiện cánh (Đèn báo/Đồng hồ): Cần mở **lỗ khoét CNC Ø22 mm** hoặc **68×68 mm**, giữ khoảng cách an toàn với tay khóa và thanh đố cánh."""
                     f"Tỷ lệ chiếm chỗ đạt **{fill_ratio}%**. Mật độ thiết bị khá dày đặc (> 70%), cần lưu ý khe hở tản nhiệt giữa các thiết bị đóng cắt (tối thiểu 10–15mm) và bố trí quạt tản nhiệt hoặc lỗ thông gió cánh tủ."
                 )
             )
