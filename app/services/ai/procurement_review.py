@@ -5,7 +5,7 @@ from app.services.export.quotation_layout import plain
 import re
 
 
-SECTION_ORDER = ('Vỏ tủ + phụ kiện', 'Đầu vào', 'Đo lường & Giám sát', 'Điều khiển & Chiếu sáng', 'Đầu ra')
+SECTION_ORDER = ('Vỏ tủ + phụ kiện', 'Đầu vào', 'Khởi động DOL', 'Đầu ra', 'Đo lường & Giám sát', 'Điều khiển & Chiếu sáng')
 
 
 def commercial_notes(value):
@@ -19,36 +19,55 @@ def commercial_notes(value):
 def quotation_section(device):
     """Use the observed function, never the current rating, to group devices."""
     from app.services.ai.metering_selection import metering_kind
-
     from app.services.ai.motor_starter_context import classify_motor_starter_type
-    if classify_motor_starter_type(' '.join(str(device.get(k) or '') for k in ('name', 'category', 'spec'))):
-        return 'Đầu ra'
 
     section = str(device.get('section') or '').strip()
     text = plain(section)
-    category = metering_kind(device)
+    category = str(device.get('category') or '').upper()
     name = plain(device.get('name'))
     location = plain(device.get('location'))
+
     if device.get('is_enclosure') or text in {'vo tu', 'vo tu + phu kien', 'vo tu & phu kien'}:
         return 'Vỏ tủ + phụ kiện'
-    if any(term in text for term in ('do luong', 'giam sat', 'metering')) or category in {
-        'CT', 'LIGHT', 'INDICATOR', 'PILOTLIGHT', 'PILOT_LIGHT', 'METER', 'MULTIMETER',
-        'VOLTMETER', 'AMMETER', 'ENERGY_METER', 'SELECTOR', 'SELECTOR_SWITCH'
-    } or re.search(r'dong ho|ampe ke|von ke|bien dong|den bao pha|chuyen mach (?:von|ampe)|cau chi.*do luong', name):
-        return 'Đo lường & Giám sát'
-    if any(term in text for term in ('dieu khien', 'control')) or category in {'CONTACTOR', 'TIMER', 'RELAY'}:
-        return 'Điều khiển & Chiếu sáng'
-    source_role = ' '.join(plain(device.get(key)) for key in ('location', 'tag', 'electrical_function', 'name'))
+
+    # 1. DOL Motor Starter - Cụm khởi động trực tiếp nằm ngang hàng với Đầu vào / Đầu ra
+    starter_type = classify_motor_starter_type(' '.join(str(device.get(k) or '') for k in ('name', 'category', 'spec', 'observed_text')))
+    is_starter_comp = category in {'CONTACTOR', 'OVERLOAD_PROTECTION', 'THERMAL_RELAY', 'DOL'} or any(
+        k in name for k in ('khoi dong dol', 'bo khoi dong dol', 'khoi dong truc tiep', 'contactor', 'ro le nhiet', 'khoi dong tu')
+    )
+    if starter_type == 'DOL' or is_starter_comp or 'dol' in text:
+        return 'Khởi động DOL'
+
+    # 2. Incomer - Thiết bị đầu vào tổng tủ
+    source_role = ' '.join(plain(device.get(key)) for key in ('location', 'tag', 'electrical_function', 'name', 'notes'))
     if (device.get('is_incomer') or text in {'main', 'incoming', 'input', 'main circuit', 'incoming devices'}
             or any(term in text for term in ('dau vao', 'incomer', 'nguon tong'))
             or re.search(r'\b(?:lo tong|dau vao tong|nguon tong|incomer|mccb tong|mcb tong|cb tong|aptomat tong)\b', source_role)
             or location == 'dau vao'):
         return 'Đầu vào'
+
+    # 3. Tất cả các Aptomat đóng cắt nhánh xuất tuyến (MCB 1P, 2P, 3P, RCBO, MCCB...) BẮT BUỘC ở Đầu ra
+    # Kể cả lộ điều khiển L3 hay lộ dự phòng DP, không để văng lên Điều khiển & Chiếu sáng
+    if any(cb in category for cb in ('MCB', 'MCCB', 'RCBO', 'RCCB', 'CB', 'APTOMAT')) or any(
+        cb in name for cb in ('mcb', 'mccb', 'rcbo', 'rccb', 'aptomat')
+    ):
+        return 'Đầu ra'
+
+    # 4. Đo lường & Giám sát
+    meter_cat = metering_kind(device)
+    if any(term in text for term in ('do luong', 'giam sat', 'metering')) or meter_cat in {
+        'CT', 'LIGHT', 'INDICATOR', 'PILOTLIGHT', 'PILOT_LIGHT', 'METER', 'MULTIMETER',
+        'VOLTMETER', 'AMMETER', 'ENERGY_METER', 'SELECTOR', 'SELECTOR_SWITCH'
+    } or re.search(r'dong ho|ampe ke|von ke|bien dong|den bao pha|chuyen mach (?:von|ampe)|cau chi.*do luong', name):
+        return 'Đo lường & Giám sát'
+
     if text in {'output','out','branch'} or any(term in text for term in ('dau ra', 'feeder', 'outgoing')):
         return 'Đầu ra'
     if not section and any(term in name for term in ('nhanh', 'du phong', 'lo ra', 'feeder')):
         return 'Đầu ra'
-    return section or 'Thiết bị cần phân nhóm'
+    if any(term in text for term in ('dieu khien', 'control')) or category in {'TIMER', 'RELAY'}:
+        return 'Điều khiển & Chiếu sáng'
+    return section or 'Đầu ra'
 
 
 def assembly_requirements(devices, include_cad_references=True):

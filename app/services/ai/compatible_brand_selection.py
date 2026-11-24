@@ -35,7 +35,7 @@ def compatible_brand_replacements(devices, brand, rows=None):
     for original, proposal in zip(devices, proposals):
         product = proposal.get('selected_product') or {}
         match = proposal.get('pricebook_match') or {}
-        verified = (product.get('sku') and match.get('status') == 'matched'
+        verified = (product.get('sku') and match.get('status') in ('matched', 'needs_selection')
                     and canonical_brand(product.get('brand')) == canonical_brand(brand)
                     and not product.get('requires_confirmation')
                     and product.get('match_kind') != 'conditional_alternative')

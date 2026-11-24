@@ -61,6 +61,18 @@ async def chat_with_cad_agent(request: ChatRequest, db: AsyncSession = Depends(g
     base_id = (request.context or {}).get("iteration_id")
     if base_id is not None and (type(base_id) is not int or base_id <= 0):
         raise HTTPException(422, "Phiên thiết bị không hợp lệ.")
+
+    import unicodedata
+    import re
+    from app.api.v1.endpoints.el_agent import is_explicit_takeoff_request
+    norm_msg = ''.join(c for c in unicodedata.normalize('NFD', request.message.lower().replace('đ', 'd')) if not unicodedata.combining(c))
+    is_takeoff = is_explicit_takeoff_request(request.message)
+    is_fresh = bool(re.search(r'\b(?:boc\s*tach\s*(?:moi|lai)|boc\s*(?:moi|lai)|lam\s*moi|chay\s*lai|quet\s*lai|doc\s*lai|fresh\s*takeoff|re[-_ ]?takeoff)\b', norm_msg)) or \
+               bool(re.search(r'\b(?:khong\s*(?:su\s*)?dung|bo\s*qua|xoa)\s*(?:lai\s*)?(?:du\s*lieu|ket\s*qua|thong\s*tin)?\s*cu\b', norm_msg))
+
+    if is_fresh:
+        base_id = None
+
     statement = select(AnalysisIteration).join(ConversationSession,
         AnalysisIteration.session_id == ConversationSession.id).where(
             ConversationSession.project_id == project.id,
@@ -72,12 +84,17 @@ async def chat_with_cad_agent(request: ChatRequest, db: AsyncSession = Depends(g
         AnalysisIteration.id.desc()).limit(1))).scalar_one_or_none()
     if base_id is not None and source is None:
         raise HTTPException(404, "Phiên thiết bị không thuộc dự án này.")
-    devices = deepcopy(request.current_devices if request.current_devices is not None
-                       else (source.ai_parsed_devices if source else []) or [])
+
+    if is_fresh:
+        source = None
+        devices = []
+    else:
+        devices = deepcopy(request.current_devices if request.current_devices is not None
+                           else (source.ai_parsed_devices if source else []) or [])
     if len(devices) > 5000:
         raise HTTPException(413, "Danh sách thiết bị quá lớn cho một lượt chat.")
     from app.services.ai.session_catalog_chat import catalog_request_brand
-    if source is not None and (request.context or {}).get('mode') != 'requirements' and not catalog_request_brand(request.message):
+    if source is not None and not is_takeoff and not is_fresh and (request.context or {}).get('mode') != 'requirements' and not catalog_request_brand(request.message):
         from app.services.ai.analysis_revision import revise_existing_analysis
         result = await revise_existing_analysis(db, project.id, current_user.id, source.id,
             request.message, {**(request.context or {}), 'request_id': str(request.request_id) if request.request_id else None})

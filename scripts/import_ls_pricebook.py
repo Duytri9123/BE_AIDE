@@ -68,9 +68,14 @@ def parse_book(source):
                     if len(cells)>2 and cells[1] and re.search(r'\bfor\b',cells[1],re.I):
                         sku=cells[1];cells=[sku,cells[0],cells[-1]];headers=['Tên hàng','Loại phụ kiện','Giá bán'];current_category='ACCESSORY'
                     params={h:v for h,v in zip(headers[1:-1],cells[1:-1]) if v and h}
+                    cat = item_category(sku,current_category if current_category!='ACCESSORY' else category_for(group))
+                    if cat == 'RCBO':
+                        params.setdefault('Dòng rò', '30mA')
+                        if 'Icn(KA)' in params and 'Icu(KA)' not in params:
+                            params['Icu(KA)'] = params['Icn(KA)']
                     fingerprint=hashlib.sha1((str(number)+group+json.dumps(cells,ensure_ascii=False)).encode()).hexdigest()[:16]
                     items.append({'id':'ls-pdf:'+fingerprint,'sku':sku,'item_name':sku,'name':sku,'brand':'LS Electric',
-                        'category':item_category(sku,current_category if current_category!='ACCESSORY' else category_for(group)),'group':group,'price':int(cells[-1].replace(',','')),
+                        'category':cat,'group':group,'price':int(cells[-1].replace(',','')),
                         'currency':'VND','specifications':params,'columns':headers,'cells':cells,
                         'source_kind':'supplier_pricebook','source_label':'Bảng giá LS 01/10/2026',
                         'source_url':'/device-catalog/documents/ls-2026-10-01','source_page':number,

@@ -37,6 +37,28 @@ CATEGORY_LABELS = {
     'CONTROLLER':'Bộ điều khiển',
 }
 
+CATEGORY_SYNONYMS = {
+    'RCBO': ['rcbo', 'aptomat chong ro', 'at chong ro', 'cau dao chong ro', 'cb chong ro', 'chong ro', 'chong dong ro', 'chong giat', 'cb chong giat', 'at chong giat', 'bao ve qua tai va chong ro', 'elcb', 'rccb'],
+    'RCCB': ['rccb', 'aptomat chong ro', 'at chong ro', 'cau dao chong ro', 'cb chong ro', 'chong ro', 'chong dong ro', 'chong giat', 'cb chong giat', 'at chong giat', 'rcbo', 'elcb'],
+    'ELCB': ['elcb', 'aptomat chong ro', 'at chong ro', 'cau dao chong ro', 'cb chong ro', 'chong ro', 'chong dong ro', 'chong giat', 'cb chong giat', 'at chong giat', 'rcbo', 'rccb'],
+    'MCB': ['mcb', 'aptomat tep', 'at tep', 'cau dao tu dong tep', 'cau dao tep', 'cb tep', 'aptomat'],
+    'MCCB': ['mccb', 'aptomat khoi', 'at khoi', 'cau dao tu dong khoi', 'cau dao khoi', 'cb khoi', 'aptomat'],
+    'ACB': ['acb', 'may cat khong khi', 'cau dao khong khi', 'may cat ha the'],
+    'CONTACTOR': ['contactor', 'khoi dong tu', 'cong tac to', 'khoi'],
+    'THERMAL_RELAY': ['thermal relay', 'ro le nhiet', 'relay nhiet', 'bao ve qua tai', 'overload relay', 'ro le qua tai'],
+    'RELAY': ['relay', 'ro le', 'ro le trung gian', 'relay trung gian', 'intermediate relay'],
+    'SPD': ['spd', 'chong set', 'chong set lan truyen', 'thiet bi chong set', 'surge protector', 'surge protection'],
+    'VFD': ['vfd', 'bien tan', 'inverter'],
+    'ATS': ['ats', 'chuyen nguon', 'bo chuyen nguon tu dong', 'automatic transfer switch'],
+    'METER': ['meter', 'dong ho', 'dong ho do', 'dong ho da nang', 'cong to', 'multimeter', 'mfm', 'ampe ke', 'von ke'],
+    'CT': ['ct', 'bien dong', 'bien dong do luong', 'current transformer', 'ti do luong'],
+    'FUSE': ['fuse', 'cau chi', 'ruot chi'],
+    'LIGHT': ['light', 'den bao', 'den bao pha', 'pilot light', 'indicator'],
+    'PUSHBUTTON': ['pushbutton', 'nut nhan', 'nut an', 'push button'],
+    'SELECTOR_SWITCH': ['selector switch', 'chuyen mach', 'cong tac chuyen mach', 'khoa chuyen mach'],
+    'MOTOR_PROTECTION': ['motor protection', 'bao ve dong co', 'manual motor starter', 'mms'],
+}
+
 def label(code):
     return CATEGORY_LABELS.get(code, code.replace('_', ' '))
 
@@ -122,7 +144,7 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
         rows[('web',offer['id'])]['updated_at']=offer['checked_at']
     for item in supplier_items:
         if item.get('currency')!='VND' or not item.get('item_name') or not item.get('checked_at'):continue
-        rows[('supplier',item['id'])]={k:item.get(k) for k in ('id','sku','item_name','name','brand','category','price','source_label','source_url','source_sha256','checked_at','source_kind','price_note','effective_date','edition','vat_status','vat_rate_percent','vat_rate_evidence','source_page','specifications','columns','cells','group','product_line','line_label','image_url')}
+        rows[('supplier',item['id'])]={k:item.get(k) for k in ('id','sku','item_name','name','brand','category','price','source_label','source_url','source_sha256','checked_at','source_kind','price_note','effective_date','edition','vat_status','vat_rate_percent','vat_rate_evidence','source_page','specifications','columns','cells','group','product_line','line_label','image_url','equipment_catalog_id','has_cad')}
         rows[('supplier',item['id'])]['updated_at']=item['checked_at']
     for item in catalog_items:
         if not item.get('sku') or not item.get('brand'):continue
@@ -140,7 +162,9 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
         row['brand']=canonical_brand(row['brand'])
         row['item_name']=row.get('item_name') or row['sku'] or row['name']
         row['model_key']=row['brand']+'::'+row['item_name']
-        row['equipment_catalog_id']=(library_links or {}).get(row['id'])
+        row['equipment_catalog_id']=(library_links or {}).get(row['id']) or row.get('equipment_catalog_id')
+        if row.get('equipment_catalog_id'):
+            row['has_cad'] = True
         row.setdefault('group',label(row['category']))
         if not row.get('columns'):row['columns']=['Tên hàng','Thông tin','Giá bán']
         if not row.get('cells'):row['cells']=[row['item_name'],row.get('name') or row['item_name'],str(row['price']) if row['price'] is not None else '']
@@ -173,12 +197,34 @@ def build_catalog_page(priced_items, custom_prices, *, web_offers=(), supplier_i
     categories = sorted({i['category'] for i in items})
     normalize = lambda text: strip_accents(str(text)).casefold()
     query = normalize(q.strip())
+
+    def category_filter_matches(req_cat, row_cat):
+        if not req_cat:
+            return True
+        if row_cat == req_cat:
+            return True
+        # Cross-match earth leakage breakers if brand uses ELCB/RCCB for RCBO
+        if req_cat == 'RCBO' and row_cat in {'ELCB', 'RCCB'}:
+            return True
+        if req_cat == 'ELCB' and row_cat in {'RCBO', 'RCCB'}:
+            return True
+        if req_cat in {'CB', 'APTOMAT'} and row_cat in {'MCB', 'MCCB', 'ACB', 'RCBO', 'RCCB', 'ELCB'}:
+            return True
+        return False
+
+    def row_search_text(row):
+        cat = row.get('category') or ''
+        syns = ' '.join(CATEGORY_SYNONYMS.get(cat, []))
+        lbl = label(cat)
+        raw = ' '.join(str(row.get(k) or '') for k in ('sku','item_name','name','brand','category','group','specifications'))
+        return normalize(f"{raw} {lbl} {syns}")
+
     filtered = [i for i in items if (not brand or i['brand']==canonical_brand(brand))
-                and (not category or i['category']==category)
+                and category_filter_matches(category, i.get('category'))
                 and (not product_line or i.get('product_line')==product_line)
                 and (not equipment_catalog_id or i.get('equipment_catalog_id')==equipment_catalog_id)
                 and (not price_row_id or hashlib.sha256(i['id'].encode()).hexdigest()[:24]==price_row_id)
-                and (not query or query in normalize(' '.join(str(i.get(k) or '') for k in ('sku','item_name','name','brand','category','group','specifications'))))]
+                and (not query or query in row_search_text(i))]
     filtered.sort(key=lambda row:(row['brand'],row.get('source_kind')!='supplier_pricebook',row.get('source_page') or 0))
     return {'brands':sorted(makers.values(),key=lambda m:m['name']),
             'categories':[{'code':c,'label':label(c)} for c in categories],

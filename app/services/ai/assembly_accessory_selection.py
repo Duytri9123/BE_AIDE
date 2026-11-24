@@ -40,13 +40,16 @@ def materialize_selected_accessories(devices):
         for proposal, component_key in proposed:
             if not isinstance(proposal, dict):
                 continue
+            # Thành phần của cụm khởi động (Contactor, Rơ le nhiệt) luôn được đưa vào báo giá trong cụm DOL
+            is_starter_comp = bool(component_key) or proposal.get('category') in {'CONTACTOR', 'OVERLOAD_PROTECTION', 'THERMAL_RELAY'}
             selected_component = bool(component_key and (
                 proposal.get('selection_source') == 'user_selected' or proposal.get('use_in_quotation') is True
-                or proposal.get('basis') in {'source', 'user_request'} or proposal.get('status') == 'confirmed'))
+                or proposal.get('basis') in {'source', 'user_request'} or proposal.get('status') == 'confirmed'
+                or is_starter_comp))
             if not selected_component and proposal.get('use_in_quotation') is not True:
                 continue
-            per_set = positive(proposal.get('quantity'))
-            sets = positive(device.get('procurement_quantity', device.get('quantity', 1)))
+            per_set = positive(proposal.get('quantity')) or 1
+            sets = positive(device.get('procurement_quantity', device.get('quantity', 1))) or 1
             review = device.get('quantity_review') or {}
             if review.get('blocking') is True and review.get('status') == 'needs_review':
                 sets = None
@@ -58,10 +61,9 @@ def materialize_selected_accessories(devices):
                 'basis': 'user_request', 'included_in_total': True, 'inclusion_status': 'user_selected',
                 'category': product.get('category') or proposal.get('category'),
                 'quantity_per_assembly': per_set, 'quantity': quantity,
-                'brand': proposal.get('brand') or product.get('brand') or '',
+                'brand': proposal.get('brand') or product.get('brand') or device.get('brand') or '',
                 'sku': proposal.get('part_number') or proposal.get('sku') or product.get('sku') or '',
                 'part_number': proposal.get('part_number') or proposal.get('sku') or product.get('sku') or '',
-                'notes': 'Thiết bị thành phần đã được người dùng chọn sử dụng.' if component_key else
-                         'Phụ kiện đề xuất đã được người dùng chọn sử dụng.'})
+                'notes': proposal.get('reason') or ('Thiết bị thành phần cụm khởi động DOL.' if component_key else '')})
         device['accompanying_accessories'] = accessories
     return devices

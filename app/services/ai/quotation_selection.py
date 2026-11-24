@@ -89,12 +89,15 @@ def select_quotation_devices(devices, preferred_brand=None, rows=None):
         for candidate in match['candidates']:
             trial = {**device, 'part_number': candidate['sku']}
             verified = match_device(trial, maker_rows)
-            if verified['status'] != 'matched':
+            chosen_row = verified['row'] if verified['status'] == 'matched' else (verified['candidates'][0] if verified['candidates'] else candidate)
+            if not chosen_row:
                 continue
             if kind in {'CB', 'MCB', 'MCCB', 'ACB', 'RCBO', 'RCCB'} and not all(
                     device.get(key) for key in ('poles', 'in_a', 'icu_ka')):
                 continue
-            device.update(part_number=candidate['sku'], selected_product=candidate,
+            device.update(part_number=chosen_row['sku'], sku=chosen_row['sku'],
+                          selected_product=chosen_row, unit_price=chosen_row.get('price'),
+                          price=chosen_row.get('price'),
                           pricebook_match=verified, selection_source='default_brand')
             break
     return result

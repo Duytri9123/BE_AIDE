@@ -261,9 +261,9 @@ def enrich_motor_starters(devices):
             power_desc = f"{power_input['value']:g} {power_input['unit']}" if power_input else ""
             components = [
                 {'category': 'CONTACTOR', 'name': 'Contactor động lực', 'spec': contactor_spec, 'quantity': 1,
-                 'in_a': contactor_a, 'poles': 3 if motor_voltage >= 380 else 1,
+                 'in_a': contactor_a, 'poles': 3 if motor_voltage >= 380 else 1, 'use_in_quotation': True,
                  'reason': f'Contactor {contactor_spec} cho tải {power_desc} (Iđm ~{motor_current}A)' if motor_current else 'Contactor động lực mạch khởi động trực tiếp.'},
-                {'category': 'OVERLOAD_PROTECTION', 'name': 'Rơ le nhiệt / bảo vệ quá tải động cơ', 'spec': tor_spec, 'quantity': 1,
+                {'category': 'OVERLOAD_PROTECTION', 'name': 'Rơ le nhiệt bảo vệ quá tải động cơ', 'spec': tor_spec, 'quantity': 1, 'use_in_quotation': True,
                  'reason': f'Rơ le nhiệt {tor_spec} bảo vệ quá tải (chỉnh định tại ~{motor_current}A)' if motor_current else 'Rơ le nhiệt bảo vệ quá tải động cơ.'},
             ]
 
@@ -278,9 +278,11 @@ def enrich_motor_starters(devices):
         chosen_configuration = authoritative or any(isinstance(c, dict) and 'use_in_quotation' in c for c in existing)
         if chosen_configuration:
             explicit = [c for c in existing if isinstance(c, dict)]
-        resolved = ([{**c, 'included_in_total': True} for c in explicit] if explicit or authoritative else
-                    [{**c, 'basis': 'assembly_function', 'status': 'proposal',
-                      'included_in_total': False, 'spec': c.get('spec'), 'part_number': c.get('part_number')} for c in components])
+        resolved = ([{**c, 'included_in_total': True, 'use_in_quotation': True} for c in explicit] if explicit or authoritative else
+                    [{**c, 'basis': 'assembly_function', 'status': 'confirmed' if starter_type == 'DOL' else 'proposal',
+                      'included_in_total': True if starter_type == 'DOL' else False,
+                      'use_in_quotation': True if starter_type == 'DOL' else False,
+                      'spec': c.get('spec'), 'part_number': c.get('part_number')} for c in components])
         for index, component in enumerate(resolved):
             component.setdefault('component_key', f'{component.get("category")}:{component.get("name")}:{index}')
 
@@ -315,10 +317,7 @@ def enrich_motor_starters(devices):
             'selection_note': 'Aptomat đầu nguồn là ràng buộc phối hợp bảo vệ; dòng aptomat không phải dòng định mức động cơ.',
             'pricing_basis': 'selected_components' if any(c.get('use_in_quotation') is True for c in resolved) else 'assembly_only',
             'components': resolved,
-            'accessory_proposals': merge_proposal_choices(
-                propose_assembly_accessories(starter_type, circuit, resolved + [a for a in device.get('accompanying_accessories') or []
-                    if isinstance(a, dict) and not a.get('assembly_proposal_key')], power_w, device.get('connected_load')),
-                (observations.get('motor_starter') or {}).get('accessory_proposals')),
+            'accessory_proposals': [],
             'recommendation_sources': SOURCES,
         }
         device['source_observations'] = {**observations, 'motor_starter': assembly}

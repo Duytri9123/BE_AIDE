@@ -777,6 +777,11 @@ def is_quotation_request(message: str) -> bool:
     norm = unicodedata.normalize('NFD', message.lower())
     norm = ''.join(c for c in norm if unicodedata.category(c) != 'Mn')
     norm = norm.replace('đ', 'd')
+
+    # Nếu người dùng yêu cầu sửa/thêm vào bóc tách -> Ưu tiên bóc tách, KHÔNG phải báo giá
+    if any(k in norm for k in ('trong boc tach', 'vao boc tach', 'them vao boc tach', 'bo sung vao boc tach', 'sua boc tach', 'boc tach thiet bi')):
+        return False
+
     triggers = [
         'bao gia', 'bang bao gia', 'lap bao gia', 'du toan bao gia', 'tinh gia',
         'bao gia tu', 'bao gia vat tu', 'gia tu dien', 'bang gia', 'bang du toan',
@@ -833,13 +838,23 @@ def categorize_quotation_item(name: str, spec: str = "", notes: str = "") -> str
                             'nhan cong', 'lap rap', 'dau noi', 'kiem tra', 'thi nghiem', 'hoan thien tu')):
         return 'enclosure_accessories'
 
-    if re.search(r'\b(?:den bao|indicator|pilot|bao pha|cau chi|fuse|bien dong|ct|ti|dong ho|meter|volt|ampe|von ke|cong to|chuyen mach|selector)\b', n):
-        return 'metering'
-    if re.search(r'\b(?:nguon 24v|nguon 12v|ro le|relay|contactor|timer)\b', n):
-        return 'control'
+    # Nhóm Cụm Khởi động DOL: Ngang cấp với Đầu vào / Đầu ra, bao gồm các thiết bị cụm DOL (Contactor, Rơ le nhiệt...)
+    if any(k in n for k in ('dol', 'khoi dong truc tiep', 'khoi dong dol', 'contactor', 'ro le nhiet', 'khoi dong tu', 'overload')):
+        return 'dol'
+
     role = normalize_vietnamese_text(f'{name} {notes}')
     if re.search(r'\b(?:tong|incomer|main|nguon vao|dau vao|shunt trip)\b', role):
         return 'incomer'
+
+    # Tất cả các aptomat phân phối nhánh xuất tuyến (MCB 1P, 2P, 3P, RCBO, MCCB nhánh...) đều thuộc Đầu ra
+    # Không để aptomat mạch điều khiển L3 hay dự phòng văng lên phần Điều khiển
+    if re.search(r'\b(?:mcb|rcbo|mccb|rccb|cb|aptomat)\b', n):
+        return 'outgoing'
+
+    if re.search(r'\b(?:den bao|indicator|pilot|bao pha|cau chi|fuse|bien dong|ct|ti|dong ho|meter|volt|ampe|von ke|cong to|chuyen mach|selector)\b', n):
+        return 'metering'
+    if re.search(r'\b(?:nguon 24v|nguon 12v|timer)\b', n):
+        return 'control'
 
     # Nhóm 3: Đầu ra (Các thiết bị đóng cắt nhánh phụ tải, MCB 1P, MCB 2P, MCB 3P, RCBO, MCCB nhánh, tải, dự phòng...)
     return 'outgoing'
@@ -880,9 +895,18 @@ def quotation_item_sort_key(item: dict) -> tuple:
         if any(k in n for k in ('chuyen mach volt', 'chuyen mach v')):
             return (2, 9)
         return (2, 10)
+    elif cat == 'dol':
+        # Cụm khởi động DOL: Bộ khởi động DOL -> Contactor -> Rơ le nhiệt
+        if 'dol' in n or 'khoi dong truc tiep' in n:
+            return (3, 1)
+        if 'contactor' in n or 'khoi dong tu' in n:
+            return (3, 2)
+        if 'ro le nhiet' in n or 'overload' in n:
+            return (3, 3)
+        return (3, 4)
     else:
         # Đầu ra: MCB/RCBO...
-        return (3, 1)
+        return (4, 1)
 
 
 def format_vnd_currency(amount):
@@ -1183,9 +1207,10 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
     sections = [
         ('enclosure_accessories', '*', 'Vỏ tủ + phụ kiện'),
         ('incomer', '*', 'Đầu vào'),
+        ('dol', '*', 'Khởi động DOL'),
+        ('outgoing', '*', 'Đầu ra'),
         ('metering', '*', 'Đo lường & Giám sát'),
-        ('control', '*', 'Điều khiển & Chiếu sáng'),
-        ('outgoing', '*', 'Đầu ra')
+        ('control', '*', 'Điều khiển & Chiếu sáng')
     ]
 
     out_md = []
@@ -1380,7 +1405,10 @@ def is_explicit_takeoff_request(message: str) -> bool:
         'xuat bom', 'lap bom', 'bang bom', 'lap danh muc', 'takeoff', 'boc ca tu',
         'boc het', 'boc toan bo', 'tien hanh boc', 'boc sld', 'boc tu',
         'boc file', 'boc ban ve', 'boc', 'trich xuat', 'trich xuat thiet bi',
-        'liet ke thiet bi', 'lay danh sach thiet bi', 'doc va boc', 'boc thiet bi dien', 'boc so do'
+        'liet ke thiet bi', 'lay danh sach thiet bi', 'doc va boc', 'boc thiet bi dien', 'boc so do',
+        'boc lai', 'boc tach lai', 'quet lai', 'doc lai', 'chay lai boc tach', 're-takeoff',
+        'them vao boc tach', 'vao boc tach', 'trong boc tach', 'day ra', 'day file', 'day ket qua',
+        'cac muc da tao', 'file chinh la cac muc', 'mo bang boc tach', 'phan boc tach da boc'
     ]
     has_takeoff = any(k in norm for k in takeoff_triggers)
 
@@ -2111,6 +2139,35 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
         target = (context.get('quotation_iteration_id') or context.get('iteration_id')) if edit_quote else context.get('iteration_id')
         return await run_step('Đang cập nhật kết quả hiện có và báo giá', revise_existing_analysis(
             db, payload.project_id, user.id, target, payload.message, context))
+
+    # Yêu cầu đẩy kết quả bóc tách / các mục đã tạo ra giao diện
+    norm_req = ''.join(c for c in unicodedata.normalize('NFD', payload.message.lower().replace('đ', 'd'))
+                       if not unicodedata.combining(c)).strip()
+    if re.search(r'\b(?:day\s*(?:ra|file|ket\s*qua)|cac\s*muc\s*da\s*tao|file\s*chinh\s*la\s*cac\s*muc|lay\s*lai\s*file|mo\s*bang\s*boc\s*tach|day\s*file\s*boc|phan\s*boc\s*tach\s*da\s*boc)\b', norm_req):
+        from app.models.analysis_iteration import AnalysisIteration
+        from app.models.conversation_session import ConversationSession
+        iter_id = context.get('iteration_id')
+        iteration = None
+        if iter_id:
+            iteration = (await db.execute(select(AnalysisIteration).where(AnalysisIteration.id == iter_id))).scalar_one_or_none()
+        if not iteration:
+            sess_stmt = select(ConversationSession).where(ConversationSession.project_id == payload.project_id).order_by(ConversationSession.created_at.desc())
+            sess_res = await db.execute(sess_stmt)
+            latest_sess = sess_res.scalars().first()
+            if latest_sess:
+                iter_stmt = select(AnalysisIteration).where(AnalysisIteration.session_id == latest_sess.id).order_by(AnalysisIteration.iteration_number.desc())
+                iteration = (await db.execute(iter_stmt)).scalars().first()
+        if iteration and (iteration.ai_parsed_devices or iteration.devices_after_validation):
+            devs = iteration.devices_after_validation or iteration.ai_parsed_devices or []
+            panels = list({d.get('panel_code') or d.get('panel') for d in devs if d.get('panel_code') or d.get('panel')})
+            p_name = ', '.join(panels) if panels else 'tủ điện'
+            return {
+                'reply': f'Dưới đây là kết quả bóc tách và các tệp liên quan của **{p_name}** (#{iteration.id}) gồm {len(devs)} thiết bị:\n\nBạn có thể nhấn vào thẻ kết quả bên dưới để mở bảng bóc tách chi tiết hoặc tải các tệp liên quan.',
+                'action_type': 'update_devices',
+                'iteration_id': iteration.id,
+                'devices': devs,
+                'updated_in_place': True
+            }
         
     from app.services.ai.takeoff_regions import confirmed_scope, discover_panels
     scope = confirmed_scope(context, payload.project_id)
@@ -2269,10 +2326,12 @@ QUY TẮC BẮT BUỘC:
          - Cầu chì điều khiển 2A
          - Biến dòng đo lường CT
          - Đồng hồ Ampe, Đồng hồ Volt, Công tắc chuyển mạch Ampe/Volt
-         - Nguồn 24VDC, Rơ le trung gian (nếu có)
+       * Dòng nhóm: | **\\*** | **Khởi động DOL** | | | | | | | |
+         - Cụm khởi động trực tiếp động cơ (DOL) nằm ngang hàng với Đầu vào và Đầu ra.
+         - Trong DOL phải liệt kê đầy đủ các thiết bị của cụm khởi động: Contactor động lực, Rơ le nhiệt bảo vệ quá tải động cơ.
        * Dòng nhóm: | **\\*** | **Đầu ra** | | | | | | | |
-         - Các Aptomat phân phối nhánh (MCB 1P, MCB 2P, MCB 3P, RCBO, MCCB nhánh...) cấp ra phụ tải
-         - Tra lộ xuất tuyến và phụ tải trong danh sách bóc tách. Tách phần Đầu vào, Đo lường & Giám sát, Điều khiển & Chiếu sáng và Đầu ra.
+         - Toàn bộ các Aptomat phân phối nhánh xuất tuyến (MCB 1P, MCB 2P, MCB 3P, RCBO, MCCB nhánh...) cấp ra phụ tải.
+         - BẮT BUỘC giữ các aptomat lộ điều khiển (ví dụ Lộ L3: MCB 1P 16A) và lộ dự phòng (DP) trong phần Đầu ra, TUYỆT ĐỐI KHÔNG tách riêng hay đẩy lên phần Điều khiển làm rời rạc danh mục thiết bị đóng cắt đầu ra.
      + PHẦN TỔNG KẾT TÀI CHÍNH CUỐI BẢNG BẮT BUỘC ĐẦY ĐỦ 3 DÒNG (9 CỘT):
        | | **CỘNG (Chưa bao gồm VAT 10%)** | | | | | | **[Tổng tiền]** | |
        | | **THUẾ GIÁ TRỊ GIA TĂNG (VAT 10%)** | | | | | | **[Tiền thuế 10%]** | |

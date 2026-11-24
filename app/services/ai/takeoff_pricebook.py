@@ -33,12 +33,18 @@ def _norm(value):
 
 def _values(row, field):
     spec = row.get('specifications') or {}
-    keys = {'poles':('Số cực', 'Poles', 'so_cuc'), 'current':('In (A)', 'Dòng định mức (A)', 'Dòng định mức', 'Rated current (A)'),
-            'icu':('Icu(KA)', 'Icu (kA)', 'Khả năng cắt và điện áp')}[field]
+    keys = {'poles':('Số cực', 'Poles', 'so_cuc', 'Số pha'),
+            'current':('In (A)', 'Dòng định mức (A)', 'Dòng định mức', 'Rated current (A)', 'Dòng định mức / dải dòng (A)', 'Dải dòng (A)'),
+            'icu':('Icu(KA)', 'Icu (kA)', 'Icu (KA)', 'Icn(KA)', 'Icn (kA)', 'Icn', 'Inc(KA)', 'Khả năng cắt và điện áp', 'Khả năng cắt danh mục tại 230 V AC (kA)', 'Khả năng cắt danh mục tại 400 V AC (kA)', 'Khả năng cắt')}[field]
     text = ' '.join(str(spec.get(k) or '') for k in keys)
     if field == 'poles':
         text += ' ' + str(row.get('item_name') or '') + ' ' + str(row.get('group') or '')
-        return [float(v) for v in re.findall(r'(?<!\w)(\d+)\s*(?:P|POLES?)\b', text, re.I)]
+        vals = [float(v) for v in re.findall(r'(?<!\w)(\d+)\s*(?:P|POLES?)\b', text, re.I)]
+        if re.search(r'1\s*P\s*\+\s*N', text, re.I):
+            vals.extend([1.0, 2.0])
+        elif re.search(r'3\s*P\s*\+\s*N', text, re.I):
+            vals.extend([3.0, 4.0])
+        return list(dict.fromkeys(vals))
     if field == 'current':
         text = re.sub(r'\([^)]*\)', '', text)
         # Published frame rows list discrete ratings as "160,200,250" or
@@ -57,6 +63,21 @@ def _values(row, field):
     return [float(v.replace(',', '.')) for v in re.findall(r'\d+(?:[.,]\d+)?', text)]
 
 
+GENERIC_DESIGNATIONS = {
+    'MCCB', 'MCB', 'ACB', 'RCBO', 'RCCB', 'ELCB', 'CB', 'THIẾT BỊ', 'THIET BI', '—', '-', '---',
+    'APTOMAT', 'CẦU DAO', 'CAU DAO', 'AT TEP', 'AT KHOI'
+}
+
+
+def is_generic_code(c: str) -> bool:
+    cl = re.sub(r'[\s_-]+', '', str(c or '')).upper()
+    if cl in GENERIC_DESIGNATIONS:
+        return True
+    if re.fullmatch(r'(?:RCBO|RCCB|MCB|MCCB|ACB|ELCB|SPD|CB|AT|APTOMAT|CONTACTOR|RELAY)(?:[1-4]P(?:\+N)?|[1-4]PHA|[1-4]CUC)?(?:\d+(?:\.\d+)?A)?(?:\d+KA)?(?:\d+MA)?', cl):
+        return True
+    return False
+
+
 def match_device(device, rows, *, candidate_limit=30):
     device = dict(device)
     source_spec = str(device.get('spec') or '')
@@ -73,10 +94,32 @@ def match_device(device, rows, *, candidate_limit=30):
     known_brand = brand.casefold() not in {'', 'asian', 'asia', 'oem', '-', '---', 'chưa xác định'}
     code = _norm(device.get('part_number') or device.get('sku'))
     raw_subs = [c.strip() for c in code.split('/') if c.strip()] if '/' in code else ([code] if code else [])
-    generic_tokens = {'MCCB', 'MCB', 'ACB', 'RCBO', 'RCCB', 'CB', 'THIẾT BỊ', 'THIET BI', '—', '-', '---'}
-    sub_codes = [c for c in raw_subs if c not in generic_tokens]
+    sub_codes = [c for c in raw_subs if not is_generic_code(c)]
     category = _norm(device.get('category'))
-    kinds = {'MCB','MCCB','ACB','RCBO','RCCB'} if category == 'CB' else {category}
+    cat_upper = category.upper()
+    if any(k in cat_upper for k in ('RCBO', 'CHỐNG RÒ', 'CHONG RO', 'CHỐNG DÒ', 'CHONG DO', 'CHỐNG GIẬT', 'CHONG GIAT')):
+        category = 'RCBO'
+    elif any(k in cat_upper for k in ('MCB', 'TÉP', 'TEP')):
+        category = 'MCB'
+    elif any(k in cat_upper for k in ('MCCB', 'KHỐI', 'KHOI')):
+        category = 'MCCB'
+    elif any(k in cat_upper for k in ('ACB', 'KHÔNG KHÍ', 'KHONG KHI')):
+        category = 'ACB'
+    elif any(k in cat_upper for k in ('CONTACTOR', 'KHỞI ĐỘNG TỪ', 'KHOI DONG TU')):
+        category = 'CONTACTOR'
+    elif any(k in cat_upper for k in ('THERMAL', 'RƠ LE NHIỆT', 'RO LE NHIET', 'RELAY NHIET')):
+        category = 'THERMAL_RELAY'
+
+    if category == 'RCBO':
+        kinds = {'RCBO', 'ELCB', 'RCCB'}
+    elif category == 'ELCB':
+        kinds = {'ELCB', 'RCBO', 'RCCB'}
+    elif category == 'RCCB':
+        kinds = {'RCCB', 'RCBO', 'ELCB'}
+    elif category in {'CB', 'APTOMAT'}:
+        kinds = {'MCB', 'MCCB', 'ACB', 'RCBO', 'RCCB', 'ELCB'}
+    else:
+        kinds = {category}
     selected = device.get('selected_product') or {}
     selected_id = selected.get('price_row_id') if device.get('selection_source')=='user_selected' else None
     matches = []
@@ -173,31 +216,41 @@ def match_device(device, rows, *, candidate_limit=30):
         signal_pattern = r'(?<![\w.])(\d+(?:[.,]\d+)?)\s*(mA|V|Hz)\s*(AC|DC)?\b'
         requirements = [(number.replace(',', '.'),unit.upper(),kind.upper()) for number,unit,kind in re.findall(signal_pattern,source_spec,re.I)]
         published = {(number.replace(',', '.'),unit.upper(),kind.upper()) for number,unit,kind in re.findall(signal_pattern,row_text,re.I)}
-        if any(not any(number==n and unit==u and (not kind or kind==k) for n,u,k in published)
-               for number,unit,kind in requirements):
+        def sig_satisfied(req_num, req_unit, req_kind):
+            if any(req_num==n and req_unit==u and (not req_kind or req_kind==k) for n,u,k in published):
+                return True
+            # Standard 30mA residential/personal protection sensitivity for RCBO/RCCB/ELCB
+            if req_unit == 'MA' and float(req_num) == 30.0 and category in {'RCBO', 'RCCB', 'ELCB'}:
+                diff_ma = [pn for pn, pu, _ in published if pu == 'MA' and float(pn) != 30.0]
+                return not diff_ma
+            return False
+        if any(not sig_satisfied(number, unit, kind) for number,unit,kind in requirements):
             continue
-        if device.get('icu_ka') and (not _values(row,'icu') or min(_values(row,'icu')) < float(device['icu_ka'])):
+        if category != 'RCCB' and device.get('icu_ka') and (not _values(row,'icu') or min(_values(row,'icu')) < float(device['icu_ka'])):
             continue
-        # A frame name needs its electrical configuration; a complete SKU can identify one row.
-        automatic = known_brand and bool(sub_codes) and not (row.get('specifications') or {}).get('Phạm vi giá') and (exact or (model_match and device.get('poles') and device.get('in_a')))
+        # A frame name needs its electrical configuration; a complete SKU or rating parameters can identify one row.
+        automatic = known_brand and not (row.get('specifications') or {}).get('Phạm vi giá') and (
+            exact or (model_match and device.get('poles') and device.get('in_a')) or
+            (not sub_codes and device.get('poles') and device.get('in_a'))
+        )
         if category == 'CT' and not residual and not ct_ratio_verified:
             automatic = False
         matches.append((row, automatic))
     matches.sort(key=lambda match: (not isinstance(match[0].get('price'), (int, float)) or match[0]['price'] <= 0,
                                     match[0].get('price') if isinstance(match[0].get('price'), (int, float)) else float('inf'),
                                     match[0]['id']))
-    matched = len(matches)==1 and bool(matches[0][1])
+    matched = (len(matches)==1 and bool(matches[0][1])) or (bool(matches) and bool(matches[0][1]) and bool(exact))
     options = load_price_options()
     choices = []
-    for row, _ in matches[:candidate_limit]:
+    for row, auto in matches[:candidate_limit]:
         choices.append({'price_row_id':public_id(row), 'catalog_id':public_id(row),
                         'sku':row.get('sku') or row['item_name'], 'name':row['item_name'],
                         'brand':row['brand'], 'price':row['price'], 'price_source':'published_pricebook',
-                        'specifications':row.get('specifications') or {}, 'auto_selectable':matched or bool(exact),
+                        'specifications':row.get('specifications') or {}, 'auto_selectable':matched or bool(exact) or (bool(matches) and bool(row==matches[0][0])),
                         'equipment_catalog_id':row.get('equipment_catalog_id'),
                         'cad_price_option_id':options.get(row['id']),
                         'vat_status':row.get('vat_status'), 'effective_date':row.get('effective_date'),
-                        'reason':'Dòng giá đã công bố; đối chiếu mã và cấu hình thiết bị.'})
+                        'reason':f"Mã tương ứng hãng {row['brand']}: {row.get('sku') or row['item_name']}."})
     from app.services.library_review_scope import exact_price_required
     required=exact_price_required({'type':category})
     note='Đã liên kết dòng bảng giá.' if matched else 'Cần chọn mã và cấu hình trong bảng giá.' if matches else 'Chưa có dòng giá phù hợp; cần bổ sung mã hoặc dữ liệu giá.'
@@ -206,7 +259,7 @@ def match_device(device, rows, *, candidate_limit=30):
     return {'status':'matched' if matched else 'needs_selection' if matches else 'not_found',
             'exact_price_required':required,
             'price_row_id':public_id(matches[0][0]) if matched else None,
-            'row':choices[0] if matched else None, 'candidate_count':len(matches), 'candidates':choices,
+            'row':choices[0] if (matched and choices) else None, 'candidate_count':len(matches), 'candidates':choices,
             'note':note}
 
 
@@ -224,12 +277,15 @@ def link_devices(devices, rows=None):
 
         # Cập nhật mã thiết bị là tên hàng trong bảng giá khi có kết quả khớp
         current_pn = str(data.get('part_number') or '').strip()
-        generic_names = {'', '—', '-', '---', 'MCCB', 'MCB', 'ACB', 'RCBO', 'RCCB', 'CB', 'THIẾT BỊ', 'THIET BI'}
-        if match['candidates'] and (not current_pn or '/' in current_pn or current_pn.upper() in generic_names):
+        is_generic = not current_pn or '/' in current_pn or is_generic_code(current_pn)
+        data_brand = str(data.get('brand') or '').strip()
+        is_known = data_brand.casefold() not in {'', 'asian', 'asia', 'oem', '-', '---', 'chưa xác định'}
+        different_brand = (is_known and canonical_brand(data_brand) != canonical_brand(match['candidates'][0]['brand'])) if (match['candidates'] and data_brand) else False
+        if match['candidates'] and (is_generic or different_brand):
             best = match['candidates'][0]
             updates['part_number'] = best['sku']
             updates['sku'] = best['sku']
-            if not data.get('selected_product'):
+            if not data.get('selected_product') or data.get('selection_source') != 'user_selected':
                 updates['selected_product'] = best
         if isinstance(device,dict):
             device.update(updates)
