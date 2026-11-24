@@ -50,20 +50,21 @@ def test_component_choices_survive_refresh_and_have_correct_prices_and_counts():
     assert parent['assembly_component_price_snapshot']['unit_price'] == 1000
 
 
-def test_three_contactors_remain_independent_and_unchecking_removes_only_one():
+def test_three_contactors_remain_independent_and_analysis_removes_only_one():
     source = device([picked('CONTACTOR', 'KM-Main', 'KM1'), picked('CONTACTOR', 'KM-Delta', 'KM2'),
                      picked('CONTACTOR', 'KM-Star', 'KM3')], category='STAR_DELTA')
     rows = build([source])
     chosen = [r for r in rows if r.get('assembly_component_key')]
     assert len({r['assembly_component_key'] for r in chosen}) == 3
     assert [r['line_total'] for r in chosen] == [200, 400, 600]
-    source['source_observations']['motor_starter']['components'][1]['use_in_quotation'] = False
+    source['source_observations']['motor_starter']['components'].pop(1)
+    source['source_observations']['motor_starter']['configuration_authoritative'] = True
     with patch('app.services.ai.takeoff_pricebook.published_rows', return_value=prices()):
         updated = sync_accessory_quotation([source], rows)
     assert [r['sku'] for r in updated if r.get('assembly_component_key')] == ['KM1', 'KM3']
 
 
-def test_live_quote_splits_merged_sets_and_restores_whole_set_price_when_unchecked():
+def test_live_quote_splits_merged_sets_and_restores_whole_set_price_after_analysis_removal():
     first = device([picked('CONTACTOR', 'Contactor', 'KM1')], count=1)
     second = device([], tag='L2', count=1)
     old = [dict(row_type='panel_header', id='panel-P1', name='P1'),
@@ -73,7 +74,8 @@ def test_live_quote_splits_merged_sets_and_restores_whole_set_price_when_uncheck
         rows = sync_accessory_quotation([first, second], old)
         parents = [r for r in rows if r.get('row_type') == 'item']
         assert [(r['source_tags'], r['unit_price']) for r in parents] == [(['L1'], 0), (['L2'], 1000)]
-        first['source_observations']['motor_starter']['components'][0]['use_in_quotation'] = False
+        first['source_observations']['motor_starter']['components'] = []
+        first['source_observations']['motor_starter']['configuration_authoritative'] = True
         restored = sync_accessory_quotation([first, second], rows)
     assert not any(r.get('assembly_component_key') for r in restored)
     assert sum(r.get('line_total') or 0 for r in restored) == 2000

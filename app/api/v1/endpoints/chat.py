@@ -65,7 +65,7 @@ async def chat_with_cad_agent(request: ChatRequest, db: AsyncSession = Depends(g
         AnalysisIteration.session_id == ConversationSession.id).where(
             ConversationSession.project_id == project.id,
             ConversationSession.user_id == current_user.id,
-            AnalysisIteration.status == "completed")
+            AnalysisIteration.status.in_(['completed', 'needs_review']))
     if base_id is not None:
         statement = statement.where(AnalysisIteration.id == base_id)
     source = (await db.execute(statement.order_by(AnalysisIteration.created_at.desc(),
@@ -76,6 +76,12 @@ async def chat_with_cad_agent(request: ChatRequest, db: AsyncSession = Depends(g
                        else (source.ai_parsed_devices if source else []) or [])
     if len(devices) > 5000:
         raise HTTPException(413, "Danh sách thiết bị quá lớn cho một lượt chat.")
+    from app.services.ai.session_catalog_chat import catalog_request_brand
+    if source is not None and (request.context or {}).get('mode') != 'requirements' and not catalog_request_brand(request.message):
+        from app.services.ai.analysis_revision import revise_existing_analysis
+        result = await revise_existing_analysis(db, project.id, current_user.id, source.id,
+            request.message, {**(request.context or {}), 'request_id': str(request.request_id) if request.request_id else None})
+        return ChatResponse(**result)
     prompt = conversation_prompt(request.message, devices, request.context)
     requirements_only = (request.context or {}).get('mode') == 'requirements'
     if len(prompt) > 600000:
@@ -130,6 +136,30 @@ async def chat_with_cad_agent(request: ChatRequest, db: AsyncSession = Depends(g
     previous = await replay(db, project.id, request.request_id)
     if previous:
         return saved_response(previous, project.id)
+    if source is not None:
+        from app.services.ai.analysis_revision import quotation_after_device_edit, refresh_linked_quotation_file
+        scores = deepcopy(source.confidence_scores or {})
+        old_rows = scores.get('quotation_rows') or []
+        quote = await asyncio.to_thread(quotation_after_device_edit, devices, edited, old_rows, scores.get('panels'))
+        scores['quotation_rows'] = quote
+        source.ai_parsed_devices = edited
+        source.devices_after_validation = edited
+        source.confidence_scores = scores
+        source.user_corrections = {**(source.user_corrections or {}), 'reply': plan.reply,
+            'last_catalog_update': request.message}
+        backup = None
+        try:
+            backup = await refresh_linked_quotation_file(db, project.id, scores, quote)
+            await db.commit()
+        except Exception:
+            await db.rollback()
+            if backup and backup[1] is not None:
+                backup[0].write_bytes(backup[1])
+            raise
+        return ChatResponse(reply=plan.reply, action_type='update_devices', catalog_only=True,
+            updated_in_place=True, project_id=project.id, base_iteration_id=base_id,
+            iteration_id=source.id, iteration_number=source.iteration_number,
+            session_id=source.session_id, devices=edited, quotation_rows=quote)
     from app.services.project_conversation import project_session
     session = await project_session(db, project.id, current_user.id)
     latest_number = (await db.execute(select(func.max(AnalysisIteration.iteration_number))

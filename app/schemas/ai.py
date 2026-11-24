@@ -292,6 +292,7 @@ class ChatRequest(BaseModel):
 
 class ChatResponse(BaseModel):
     catalog_only: bool = False
+    updated_in_place: bool = False
     project_id: Optional[int] = None
     base_iteration_id: Optional[int] = None
     iteration_id: Optional[int] = None

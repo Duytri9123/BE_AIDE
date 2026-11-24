@@ -76,6 +76,7 @@ class AssemblyAccessoryOptionsRequest(BaseModel):
 
 class AssemblyAccessoryQuotationRequest(BaseModel):
     project_id: int
+    iteration_id: Optional[int] = None
     devices: List[dict]
     quotation_rows: List[dict] = Field(default_factory=list)
 
@@ -90,6 +91,17 @@ async def assembly_accessory_quotation(payload: AssemblyAccessoryQuotationReques
         raise HTTPException(status_code=404, detail='Không tìm thấy dự án')
     from app.services.ai.assembly_accessory_quotation import sync_accessory_quotation
     rows = await asyncio.to_thread(sync_accessory_quotation, payload.devices, payload.quotation_rows)
+    if payload.iteration_id is not None:
+        iteration = (await db.execute(select(AnalysisIteration).join(ConversationSession,
+            ConversationSession.id == AnalysisIteration.session_id).where(
+            AnalysisIteration.id == payload.iteration_id, ConversationSession.project_id == payload.project_id,
+            ConversationSession.user_id == current_user.id))).scalar_one_or_none()
+        if iteration is None:
+            raise HTTPException(404, 'Không tìm thấy kết quả đang chỉnh sửa trong dự án.')
+        iteration.ai_parsed_devices = payload.devices
+        iteration.devices_after_validation = payload.devices
+        iteration.confidence_scores = {**(iteration.confidence_scores or {}), 'quotation_rows': rows}
+        await db.commit()
     return {'quotation_rows': rows}
 
 

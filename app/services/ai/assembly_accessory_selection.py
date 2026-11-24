@@ -38,7 +38,12 @@ def materialize_selected_accessories(devices):
                 key = str(component.get('component_key') or f'{component.get("category")}:{component.get("name")}:{index}')
                 proposed.append((component, key))
         for proposal, component_key in proposed:
-            if not isinstance(proposal, dict) or proposal.get('use_in_quotation') is not True:
+            if not isinstance(proposal, dict):
+                continue
+            selected_component = bool(component_key and (
+                proposal.get('selection_source') == 'user_selected' or proposal.get('use_in_quotation') is True
+                or proposal.get('basis') in {'source', 'user_request'} or proposal.get('status') == 'confirmed'))
+            if not selected_component and proposal.get('use_in_quotation') is not True:
                 continue
             per_set = positive(proposal.get('quantity'))
             sets = positive(device.get('quantity', 1))
@@ -46,6 +51,7 @@ def materialize_selected_accessories(devices):
             product = proposal.get('selected_product') or {}
             accessories.append({**proposal, 'assembly_proposal_key': f'component:{component_key}' if component_key else str(proposal.get('category')),
                 'assembly_component_key': component_key,
+                'use_in_quotation': True,
                 'basis': 'user_request', 'included_in_total': True, 'inclusion_status': 'user_selected',
                 'category': product.get('category') or proposal.get('category'),
                 'quantity_per_assembly': per_set, 'quantity': quantity,

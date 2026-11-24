@@ -734,6 +734,11 @@ async def update_takeoff_brand_iteration(db, project_id, user_id, message, reply
             'panel_code': code, 'panel_name': row.get('panel_name') or f'Tủ {code}', 'devices': []
         })['devices'].append(row)
     scores['panels'] = list(panel_groups.values())
+    if scores.get('quotation_rows'):
+        from app.services.ai.analysis_revision import quotation_after_device_edit, refresh_linked_quotation_file
+        scores['quotation_rows'] = await asyncio.to_thread(quotation_after_device_edit,
+            previous, rows, scores['quotation_rows'], scores.get('panels'))
+        await refresh_linked_quotation_file(db, project_id, scores, scores['quotation_rows'])
     iteration.confidence_scores = scores
     iteration.ai_parsed_devices = rows
     iteration.devices_after_validation = rows
@@ -1296,7 +1301,16 @@ async def save_quotation_iteration(db, project_id: int, user_id: int, message: s
         corrections['quotation_rows'] = quotation_rows
         corrections['reply'] = reply
         existing_iter.user_corrections = corrections
-        await db.commit()
+        from app.services.ai.analysis_revision import refresh_linked_quotation_file
+        backup = None
+        try:
+            backup = await refresh_linked_quotation_file(db, project_id, conf, quotation_rows)
+            await db.commit()
+        except Exception:
+            await db.rollback()
+            if backup and backup[1] is not None:
+                backup[0].write_bytes(backup[1])
+            raise
         await db.refresh(existing_iter)
         logger.info("Updated quotation_rows (%d rows) for AnalysisIteration #%d", len(quotation_rows), existing_iter.id)
         return existing_iter.id, quotation_rows
@@ -1733,8 +1747,17 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
             return {'reply': 'Hãy mở kết quả bóc tách cần đổi hãng trong dự án này rồi gửi lại yêu cầu.'}
         brand_reply = (f'Đã đổi {changed_count} dòng sang **{target_brand}** có mã catalog phù hợp thông số. Các dòng chưa có mã phù hợp được giữ nguyên.' if changed_count
                        else f'Chưa có thiết bị **{target_brand}** phù hợp để thay thế; đã giữ nguyên hãng, mã và thông số hiện tại.')
-        return {'reply': brand_reply,
-                'iteration_id': iteration_id, 'devices': devices_data, 'action_type': 'update_devices'}
+        response = {'reply': brand_reply, 'catalog_only': True,
+                    'iteration_id': iteration_id, 'devices': devices_data, 'action_type': 'update_devices'}
+        if db is not None and iteration_id:
+            from app.models.analysis_iteration import AnalysisIteration
+            saved = (await db.execute(select(AnalysisIteration).where(AnalysisIteration.id == iteration_id))).scalar_one_or_none()
+            if saved is not None:
+                response.update(updated_in_place=True, project_id=payload.project_id,
+                    base_iteration_id=context.get('iteration_id'), session_id=str(saved.session_id),
+                    iteration_number=saved.iteration_number,
+                    quotation_rows=(saved.confidence_scores or {}).get('quotation_rows') or [])
+        return response
 
     # 2. Trường hợp người dùng yêu cầu tạo bảng báo giá / dự toán báo giá
     is_quotation = (resolved_intent == 'quotation' if resolved_intent else
@@ -2079,6 +2102,15 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
         from app.services.ai.el_conversation import requested_brand
         if requested_brand(payload.message):
             return await format_reply_response(db, payload, user, context, payload.message, {})
+
+    from app.services.ai.el_tools import plain
+    edit_quote = (resolution.get('intent') == 'quotation' and not resolution.get('new_quotation')
+                  and re.search(r'\b(?:sua|cap nhat|dieu chinh|them|bo|xoa|doi)\b', plain(payload.message)))
+    if resolution.get('intent') == 'takeoff_update' or edit_quote:
+        from app.services.ai.analysis_revision import revise_existing_analysis
+        target = (context.get('quotation_iteration_id') or context.get('iteration_id')) if edit_quote else context.get('iteration_id')
+        return await run_step('Đang cập nhật kết quả hiện có và báo giá', revise_existing_analysis(
+            db, payload.project_id, user.id, target, payload.message, context))
         
     from app.services.ai.takeoff_regions import confirmed_scope, discover_panels
     scope = confirmed_scope(context, payload.project_id)

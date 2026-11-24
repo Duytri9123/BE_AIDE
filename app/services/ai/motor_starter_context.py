@@ -161,16 +161,18 @@ def enrich_motor_starters(devices):
                     (c.get('basis') in {'source', 'user_request'} or c.get('status') == 'confirmed')]
         # An explicit configuration is authoritative. Do not fill it with a
         # fixed checklist (e.g. add ON/OFF operators to a remote-controlled set).
-        chosen_configuration = any(isinstance(c, dict) and 'use_in_quotation' in c for c in existing)
+        authoritative = (observations.get('motor_starter') or {}).get('configuration_authoritative') is True
+        chosen_configuration = authoritative or any(isinstance(c, dict) and 'use_in_quotation' in c for c in existing)
         if chosen_configuration:
             explicit = [c for c in existing if isinstance(c, dict)]
-        resolved = ([{**c, 'included_in_total': c.get('use_in_quotation') is True} for c in explicit] if explicit else
+        resolved = ([{**c, 'included_in_total': True} for c in explicit] if explicit or authoritative else
                     [{**c, 'basis': 'assembly_function', 'status': 'proposal',
                       'included_in_total': False, 'spec': None, 'part_number': None} for c in components])
         for index, component in enumerate(resolved):
             component.setdefault('component_key', f'{component.get("category")}:{component.get("name")}:{index}')
 
         assembly = {
+            'configuration_authoritative': authoritative,
             'type': starter_type, 'basis': 'assembly_function', 'status': 'needs_engineering_selection',
             'load': device.get('connected_load') or circuit.get('supply_location'),
             'load_power_w': power_w, 'upstream_reference': reference or None,
