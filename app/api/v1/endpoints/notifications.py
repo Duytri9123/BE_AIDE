@@ -1,13 +1,38 @@
 """Authenticated notification inbox; every operation is scoped to its owner."""
+import asyncio
+import json
 from datetime import timezone
-from fastapi import APIRouter,Depends,HTTPException,Query
+from fastapi import APIRouter,Depends,HTTPException,Query,Request
+from fastapi.responses import StreamingResponse
 from sqlalchemy import select,func,update
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import get_current_active_user
 from app.db.session import get_db
 from app.models.notification import Notification
+from app.services.notification_realtime import subscribe, unsubscribe
 
 router=APIRouter()
+
+
+@router.get('/stream')
+async def stream(request:Request,user=Depends(get_current_active_user)):
+    queue=subscribe(user.id)
+    async def events():
+        try:
+            yield ': connected\n\n'
+            while True:
+                if await request.is_disconnected():
+                    break
+                try:
+                    payload=await asyncio.wait_for(queue.get(),timeout=25.0)
+                    yield f'event: notification\ndata: {json.dumps(payload,ensure_ascii=False)}\n\n'
+                except asyncio.TimeoutError:
+                    yield ': ping\n\n'
+        finally:
+            unsubscribe(user.id,queue)
+    return StreamingResponse(events(),media_type='text/event-stream',headers={
+        'Cache-Control':'no-cache','Connection':'keep-alive','X-Accel-Buffering':'no'
+    })
 
 
 @router.get('')

@@ -74,6 +74,14 @@ async def log_activity(
         await db.commit()
         await db.refresh(log_entry)
 
+        if create_notification and notif is not None:
+            try:
+                await db.refresh(notif)
+                from app.services.notification_realtime import publish_notification, serialize_notification
+                publish_notification(notif.user_id, serialize_notification(notif))
+            except Exception as re_err:
+                logger.warning(f"Lỗi đẩy realtime SSE notification: {re_err}")
+
         # 3. Gửi Realtime Notification qua Pusher
         if notify_pusher:
             try:

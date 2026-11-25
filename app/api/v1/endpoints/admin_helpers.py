@@ -1482,15 +1482,24 @@ async def send_system_notification(
     if not target_ids:
         raise HTTPException(status_code=404, detail="Không tìm thấy người dùng hợp lệ để gửi.")
 
+    created_notifs = []
     for uid in target_ids:
-        db.add(Notification(
+        n = Notification(
             user_id=uid,
             title=title,
             body=body,
             type="system",
             link=link,
             is_read=False
-        ))
+        )
+        db.add(n)
+        created_notifs.append(n)
     await db.commit()
+
+    from app.services.notification_realtime import publish_notification, serialize_notification
+    for n in created_notifs:
+        await db.refresh(n)
+        publish_notification(n.user_id, serialize_notification(n))
+
     return {"success": True, "sent_count": len(target_ids)}
 
