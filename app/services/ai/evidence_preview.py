@@ -35,9 +35,11 @@ def _device_preview(image, region, *, tight=False):
         # Dense CAD circuits have neighbouring symbols only a few pixels away.
         # Following wire ink into whitespace or enforcing a minimum crop size
         # can pull an entire measurement cluster into one device's thumbnail.
-        pad = 2 if str(region.get('geometry_source') or '').startswith('native_') else max(3,min(12,round(min(image.size)*.004)))
-        left, top = max(0, int(x1*image.width/1000)-pad), max(0, int(y1*image.height/1000)-pad)
-        right, bottom = min(image.width, math.ceil(x2*image.width/1000)+pad+1), min(image.height, math.ceil(y2*image.height/1000)+pad+1)
+        is_native = str(region.get('geometry_source') or '').startswith('native_')
+        pad_x = 2 if is_native else max(14, min(42, round(image.width * .015)))
+        pad_y = 2 if is_native else max(8, min(24, round(image.height * .010)))
+        left, top = max(0, int(x1*image.width/1000)-pad_x), max(0, int(y1*image.height/1000)-pad_y)
+        right, bottom = min(image.width, math.ceil(x2*image.width/1000)+pad_x+1), min(image.height, math.ceil(y2*image.height/1000)+pad_y+1)
         # Source symbols/text may overlap. A neighbour is not a clipping boundary.
         return (left,top,right,bottom) if right>left and bottom>top else None
 
