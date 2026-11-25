@@ -85,6 +85,20 @@
   'xai': 'xAI'
   } %}
 
+  <!-- Tóm tắt cơ chế ưu tiên & phân tích trạng thái -->
+  <div class="alert alert-light border d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3 py-2 px-3"
+    style="border-radius:10px;background:#f8fafc;border-color:#e2e8f0 !important;font-size:12px;">
+    <div class="d-flex align-items-center gap-2 flex-wrap">
+      <span class="badge bg-primary-subtle text-primary fw-semibold px-2 py-1" style="font-size:11px;">
+        <i class="fa-solid fa-layer-group me-1"></i>Cơ chế xoay vòng tự động
+      </span>
+      <span class="text-secondary">
+        Thẻ đứng đầu (<strong>Ưu tiên 1</strong>) luôn là kết nối chính được gọi trước; khi quá tải/lỗi (429/503) hệ thống tự chuyển sang <strong>Ưu tiên 2, 3...</strong> Bấm <strong>↑ / ↓</strong> để đổi thứ tự.
+      </span>
+    </div>
+    <div id="conn-reorder-toast" class="text-success fw-semibold" style="display:none;font-size:11.5px;"></div>
+  </div>
+
   <div class="row g-3" id="connections-grid">
     {% for row in pagination.rows %}
     {% set prov_title = provider_names.get(row.provider, row.provider|upper) %}
@@ -126,9 +140,9 @@
                 </button>
               </div>
               <span class="badge fw-semibold flex-shrink-0 conn-priority-badge"
-                style="background:#e0e7ff;color:#3730a3;border-radius:6px;padding:3px 7px;font-size:10.5px;"
+                style="background:{% if loop.first %}#dbeafe{% else %}#f1f5f9{% endif %};color:{% if loop.first %}#1d4ed8{% else %}#475569{% endif %};border-radius:6px;padding:3px 7px;font-size:10.5px;"
                 title="Thứ tự xoay ưu tiên: đứng đầu là Ưu tiên 1">
-                <i class="fa-solid fa-arrow-down-1-9 me-1" style="font-size:9px;"></i><span class="conn-priority-text">Ưu tiên {{ loop.index }}</span>
+                <i class="fa-solid fa-arrow-down-1-9 me-1" style="font-size:9px;"></i><span class="conn-priority-text">Ưu tiên {{ loop.index }}{% if loop.first %} (Chính){% else %} (Dự phòng){% endif %}</span>
               </span>
               <!-- Nút bật/tắt (Toggle Switch) thay chỗ 'Đang dùng' -->
               <div class="form-check form-switch m-0 d-flex align-items-center gap-1.5"
@@ -157,10 +171,28 @@
             </div>
           </div>
 
-          <!-- Phạm vi mô hình hỗ trợ -->
-          <div class="d-flex align-items-center justify-content-between mb-2 text-muted" style="font-size:11.5px;">
-            <span><i class="fa-solid fa-microchip me-1 text-secondary"></i>Mô hình:</span>
-            <span class="badge bg-light text-secondary border fw-normal" style="font-size:10.5px;">Hỗ trợ tất cả mô hình của hãng</span>
+          <!-- Phân tích chi tiết kết nối: Model + Vai trò + Trạng thái -->
+          <div class="d-flex flex-column gap-1 mb-2 p-2 rounded-2" style="background:#f8fafc;border:1px solid #edf2f7;font-size:11.5px;">
+            <div class="d-flex align-items-center justify-content-between gap-2">
+              <span class="text-muted"><i class="fa-solid fa-microchip me-1 text-secondary"></i>Model đang gán:</span>
+              <code class="fw-semibold text-primary text-truncate" style="font-size:11px;max-width:65%;" title="{{ row.selected_model or 'Theo cấu hình mặc định hãng' }}">{{ row.selected_model or 'Mặc định theo hãng' }}</code>
+            </div>
+            <div class="d-flex align-items-center justify-content-between gap-2">
+              <span class="text-muted"><i class="fa-solid fa-route me-1 text-secondary"></i>Vai trò:</span>
+              <span class="conn-role-text fw-medium {% if loop.first %}text-primary{% else %}text-secondary{% endif %}" style="font-size:11px;">
+                {% if loop.first %}Gọi chính đầu tiên (#1){% else %}Dự phòng xoay vòng (#{{ loop.index }}){% endif %}
+              </span>
+            </div>
+            <div class="d-flex align-items-center justify-content-between gap-2">
+              <span class="text-muted"><i class="fa-solid fa-heart-pulse me-1 text-secondary"></i>Tình trạng:</span>
+              {% if not row.is_active %}
+                <span class="badge bg-secondary-subtle text-secondary fw-normal" style="font-size:10px;">Đang tắt</span>
+              {% elif row.last_error_message %}
+                <span class="badge bg-warning-subtle text-warning-emphasis fw-normal text-truncate" style="font-size:10px;max-width:65%;" title="{{ row.last_error_message }}">Cảnh báo: {{ row.last_error_message[:35] }}</span>
+              {% else %}
+                <span class="badge bg-success-subtle text-success fw-medium" style="font-size:10px;">Sẵn sàng hoạt động</span>
+              {% endif %}
+            </div>
           </div>
 
           <!-- Test Result Box (hiển thị TRÊN ô API KEY) -->
@@ -671,8 +703,18 @@
     const updatedItems = Array.from(grid.querySelectorAll('.conn-grid-item'));
     const orderedIds = updatedItems.map((el, i) => {
       const rank = i + 1;
+      const badge = el.querySelector('.conn-priority-badge');
       const badgeText = el.querySelector('.conn-priority-text');
-      if (badgeText) badgeText.textContent = `Ưu tiên ${rank}`;
+      const roleText = el.querySelector('.conn-role-text');
+      if (badgeText) badgeText.textContent = rank === 1 ? 'Ưu tiên 1 (Chính)' : `Ưu tiên ${rank} (Dự phòng)`;
+      if (badge) {
+        badge.style.background = rank === 1 ? '#dbeafe' : '#f1f5f9';
+        badge.style.color = rank === 1 ? '#1d4ed8' : '#475569';
+      }
+      if (roleText) {
+        roleText.textContent = rank === 1 ? 'Gọi chính đầu tiên (#1)' : `Dự phòng xoay vòng (#${rank})`;
+        roleText.className = `conn-role-text fw-medium ${rank === 1 ? 'text-primary' : 'text-secondary'}`;
+      }
       const upBtn = el.querySelector('.btn-move-up');
       const downBtn = el.querySelector('.btn-move-down');
       if (upBtn) upBtn.disabled = (i === 0);
@@ -687,6 +729,12 @@
         body: JSON.stringify({ordered_ids: orderedIds})
       });
       if (!resp.ok) throw new Error('Không lưu được thứ tự ưu tiên');
+      const toastEl = document.getElementById('conn-reorder-toast');
+      if (toastEl) {
+        toastEl.innerHTML = '<i class="fa-solid fa-circle-check me-1"></i>Đã lưu thứ tự ưu tiên mới!';
+        toastEl.style.display = 'block';
+        setTimeout(() => { toastEl.style.display = 'none'; }, 2500);
+      }
     } catch (e) {
       alert('Lỗi cập nhật thứ tự ưu tiên: ' + e.message);
       window.location.reload();
