@@ -1,10 +1,169 @@
 {% extends "sqladmin/list.html" %}
 
-{% block model_menu_bar %}
-  <div class="d-flex align-items-center gap-2">
-    <button class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1.5 fw-semibold px-3 py-1.5" style="border-radius: 8px; font-size: 12.5px;" onclick="window.markAllNotificationsRead ? window.markAllNotificationsRead(event) : null">
-      <i class="fa-solid fa-check-double"></i> Đánh dấu đã đọc tất cả
-    </button>
-    {{ super() }}
+{% block content %}
+<div class="container-fluid p-0 mb-3">
+  <div class="card modern-admin-card shadow-sm border-0" style="border-radius:12px;">
+    <div class="card-header bg-transparent d-flex align-items-center justify-content-between py-3 px-4 border-bottom">
+      <div class="d-flex align-items-center gap-2">
+        <span class="badge bg-primary-subtle text-primary p-2 rounded-2"><i class="fa-solid fa-bullhorn"></i></span>
+        <div>
+          <h5 class="fw-bold m-0 text-dark" style="font-size:1rem;">Gửi Thông báo Hệ thống</h5>
+          <small class="text-muted">Gửi thông báo trực tiếp tới toàn bộ người dùng hoặc các tài khoản chỉ định</small>
+        </div>
+      </div>
+    </div>
+    <div class="card-body px-4 py-3">
+      <form id="system-notify-form" onsubmit="submitSystemNotification(event)">
+        <div class="row g-3">
+          <div class="col-md-5">
+            <label class="form-label fw-semibold" style="font-size:12.5px;">Tiêu đề thông báo <span class="text-danger">*</span></label>
+            <input type="text" id="sys-notif-title" class="form-control form-control-sm" placeholder="VD: Cập nhật tính năng bóc tách mới" required maxlength="255">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold" style="font-size:12.5px;">Đường dẫn điều hướng khi bấm vào</label>
+            <select id="sys-notif-link-preset" class="form-select form-select-sm mb-1" onchange="onLinkPresetChange(this.value)">
+              <option value="/projects">Danh sách dự án (/projects)</option>
+              <option value="/pricing">Gói dịch vụ (/pricing)</option>
+              <option value="/device-catalog">Bảng giá thiết bị (/device-catalog)</option>
+              <option value="/library">Thư viện thiết bị (/library)</option>
+              <option value="/settings">Cài đặt tài khoản (/settings)</option>
+              <option value="__custom__">Nhập đường dẫn khác…</option>
+              <option value="">Không điều hướng</option>
+            </select>
+            <input type="text" id="sys-notif-link" class="form-control form-control-sm" value="/projects" placeholder="/projects hoặc https://..." style="display:none;">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label fw-semibold" style="font-size:12.5px;">Đối tượng nhận</label>
+            <div class="d-flex gap-3 pt-1">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="sysNotifTarget" id="target-all" value="all" checked onchange="toggleTargetUsers()">
+                <label class="form-check-label" for="target-all" style="font-size:12.5px;">Toàn bộ user</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="sysNotifTarget" id="target-selected" value="selected" onchange="toggleTargetUsers()">
+                <label class="form-check-label" for="target-selected" style="font-size:12.5px;">User chỉ định</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <label class="form-label fw-semibold" style="font-size:12.5px;">Nội dung thông báo <span class="text-danger">*</span></label>
+            <textarea id="sys-notif-body" class="form-control form-control-sm" rows="2" placeholder="Nhập nội dung thông báo hệ thống..." required maxlength="1000"></textarea>
+          </div>
+          <div class="col-12" id="sys-notif-users-wrap" style="display:none;">
+            <label class="form-label fw-semibold d-flex align-items-center justify-content-between" style="font-size:12.5px;">
+              <span>Chọn người dùng nhận thông báo</span>
+              <input type="text" id="sys-notif-user-search" class="form-control form-control-sm w-auto" style="min-width:220px;" placeholder="Tìm theo tên hoặc email..." oninput="filterTargetUsers(this.value)">
+            </label>
+            <div id="sys-notif-users-list" class="border rounded-2 p-2 bg-light" style="max-height:160px;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:6px;">
+              <span class="text-muted small">Đang tải danh sách người dùng...</span>
+            </div>
+          </div>
+          <div class="col-12 d-flex align-items-center justify-content-between">
+            <div id="sys-notif-status" class="small fw-semibold"></div>
+            <button type="submit" id="btn-send-sys-notif" class="btn btn-sm btn-primary fw-semibold px-3">
+              <i class="fa-solid fa-paper-plane me-1"></i> Gửi thông báo
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
+</div>
+
+{{ super() }}
+
+<script>
+  let _targetUsersCache = [];
+
+  function onLinkPresetChange(val) {
+    const customInput = document.getElementById('sys-notif-link');
+    if (val === '__custom__') {
+      customInput.style.display = 'block';
+      customInput.value = '';
+      customInput.focus();
+    } else {
+      customInput.style.display = 'none';
+      customInput.value = val;
+    }
+  }
+
+  async function toggleTargetUsers() {
+    const isSelected = document.getElementById('target-selected').checked;
+    const wrap = document.getElementById('sys-notif-users-wrap');
+    wrap.style.display = isSelected ? 'block' : 'none';
+    if (isSelected && !_targetUsersCache.length) {
+      try {
+        const resp = await fetch('/api/v1/admin-api/notifications/users');
+        _targetUsersCache = await resp.json();
+        renderTargetUsers(_targetUsersCache);
+      } catch (e) {
+        document.getElementById('sys-notif-users-list').innerHTML = '<span class="text-danger small">Không tải được danh sách user.</span>';
+      }
+    }
+  }
+
+  function renderTargetUsers(users) {
+    const box = document.getElementById('sys-notif-users-list');
+    if (!users.length) {
+      box.innerHTML = '<span class="text-muted small">Không có người dùng phù hợp.</span>';
+      return;
+    }
+    box.innerHTML = users.map(u => `
+      <label class="d-flex align-items-center gap-2 p-1.5 bg-white rounded border cursor-pointer m-0" style="font-size:12px;">
+        <input type="checkbox" class="form-check-input m-0 sys-notif-user-cb" value="${u.id}">
+        <span class="text-truncate" title="${u.email}"><strong>${u.name || u.email}</strong> <small class="text-muted">(${u.email})</small></span>
+      </label>
+    `).join('');
+  }
+
+  function filterTargetUsers(query) {
+    const q = (query || '').trim().toLowerCase();
+    const filtered = !q ? _targetUsersCache : _targetUsersCache.filter(u =>
+      (u.name || '').toLowerCase().includes(q) || (u.email || '').toLowerCase().includes(q)
+    );
+    renderTargetUsers(filtered);
+  }
+
+  async function submitSystemNotification(event) {
+    event.preventDefault();
+    const btn = document.getElementById('btn-send-sys-notif');
+    const statusEl = document.getElementById('sys-notif-status');
+    const target = document.getElementById('target-selected').checked ? 'selected' : 'all';
+    const userIds = Array.from(document.querySelectorAll('.sys-notif-user-cb:checked')).map(cb => Number(cb.value));
+
+    if (target === 'selected' && !userIds.length) {
+      statusEl.className = 'small fw-semibold text-danger';
+      statusEl.textContent = 'Vui lòng chọn ít nhất 1 người dùng nhận thông báo.';
+      return;
+    }
+
+    btn.disabled = true;
+    statusEl.className = 'small fw-semibold text-muted';
+    statusEl.textContent = 'Đang gửi thông báo...';
+
+    try {
+      const resp = await fetch('/api/v1/admin-api/notifications/send', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          target,
+          user_ids: userIds,
+          title: document.getElementById('sys-notif-title').value.trim(),
+          body: document.getElementById('sys-notif-body').value.trim(),
+          link: document.getElementById('sys-notif-link').value.trim() || null
+        })
+      });
+      const data = await resp.json();
+      if (!resp.ok) throw new Error(data.detail || 'Gửi thất bại');
+      statusEl.className = 'small fw-semibold text-success';
+      statusEl.innerHTML = `<i class="fa-solid fa-circle-check me-1"></i>Đã gửi thông báo thành công tới ${data.sent_count} người dùng!`;
+      setTimeout(() => window.location.reload(), 900);
+    } catch (e) {
+      statusEl.className = 'small fw-semibold text-danger';
+      statusEl.textContent = e.message;
+    } finally {
+      btn.disabled = false;
+    }
+  }
+</script>
 {% endblock %}

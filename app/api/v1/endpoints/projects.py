@@ -354,9 +354,9 @@ async def create_project(
             details={"project_name": new_project.name, "category": new_project.category or "Tủ điện"},
             create_notification=True,
             notification_title="Dự án mới được tạo",
-            notification_body=f"Dự án '{new_project.name}' vừa được tạo bởi {current_user.name or current_user.email}",
+            notification_body=f"Dự án '{new_project.name}' vừa được tạo",
             notification_type="new-project",
-            notification_link="/admin/project/list"
+            notification_link=f"/workspace/{new_project.id}"
         )
     except Exception as e:
         logger.warning(f"Lỗi log hoạt động tạo dự án: {e}")
@@ -493,9 +493,9 @@ async def upload_project_file(
             details={"filename": project_file.filename, "file_size": file_size, "project_name": project.name},
             create_notification=True,
             notification_title="Tập tin bản vẽ mới",
-            notification_body=f"Bản vẽ '{project_file.filename}' tải lên dự án '{project.name}' bởi {current_user.name or current_user.email}",
+            notification_body=f"Bản vẽ '{project_file.filename}' đã được tải lên dự án '{project.name}'",
             notification_type="file-uploaded",
-            notification_link="/admin/project-file/list"
+            notification_link=f"/workspace/{project.id}"
         )
     except Exception as e:
         logger.warning(f"Lỗi log upload file: {e}")

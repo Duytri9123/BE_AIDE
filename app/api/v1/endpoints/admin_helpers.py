@@ -1436,3 +1436,61 @@ async def reorder_connections(
     await db.commit()
     return {"success": True, "count": rank - 1}
 
+
+@router.get("/notifications/users")
+async def list_notification_target_users(db: AsyncSession = Depends(get_db)):
+    """Danh sách user hoạt động để Admin chọn gửi thông báo hệ thống."""
+    users = (await db.execute(
+        select(User.id, User.name, User.email)
+        .where(User.is_active.is_(True))
+        .order_by(User.id.asc())
+    )).all()
+    return [{"id": u.id, "name": u.name or "", "email": u.email} for u in users]
+
+
+class SendSystemNotificationRequest(BaseModel):
+    target: str = "all"  # 'all' | 'selected'
+    user_ids: List[int] = Field(default_factory=list)
+    title: str
+    body: str
+    link: Optional[str] = None
+
+
+@router.post("/notifications/send")
+async def send_system_notification(
+    req: SendSystemNotificationRequest,
+    db: AsyncSession = Depends(get_db)
+):
+    """Gửi thông báo hệ thống cho toàn bộ người dùng hoặc danh sách user chỉ định."""
+    from app.models.notification import Notification
+
+    title = req.title.strip()
+    body = req.body.strip()
+    link = (req.link or "").strip() or None
+    if not title or not body:
+        raise HTTPException(status_code=400, detail="Vui lòng nhập đầy đủ tiêu đề và nội dung thông báo.")
+
+    if req.target == "all":
+        target_ids = (await db.execute(select(User.id).where(User.is_active.is_(True)))).scalars().all()
+    else:
+        if not req.user_ids:
+            raise HTTPException(status_code=400, detail="Vui lòng chọn ít nhất 1 người dùng nhận thông báo.")
+        target_ids = (await db.execute(
+            select(User.id).where(User.id.in_(req.user_ids), User.is_active.is_(True))
+        )).scalars().all()
+
+    if not target_ids:
+        raise HTTPException(status_code=404, detail="Không tìm thấy người dùng hợp lệ để gửi.")
+
+    for uid in target_ids:
+        db.add(Notification(
+            user_id=uid,
+            title=title,
+            body=body,
+            type="system",
+            link=link,
+            is_read=False
+        ))
+    await db.commit()
+    return {"success": True, "sent_count": len(target_ids)}
+

@@ -35,11 +35,12 @@ class SystemSettingAdmin(ModelView, model=SystemSetting):
     can_export = True
 
 class NotificationAdmin(ModelView, model=Notification):
-    name = "Thông báo"
-    name_plural = "Thông báo"
+    name = "Thông báo hệ thống"
+    name_plural = "Thông báo & Gửi thông báo hệ thống"
     icon = "fa-solid fa-bell"
     category = "Cài đặt Hệ thống"
-    list_template = "system/activity_logs_list.html"
+    list_template = "system/notifications_list.html"
+    column_default_sort = [(Notification.created_at, True)]
     
     column_list = [Notification.id, Notification.user_id, Notification.title, Notification.is_read, Notification.created_at]
     column_labels = {
