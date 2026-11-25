@@ -415,17 +415,17 @@ async def test_ai_connection(
 
     if not model:
         fallback_models = {
-            "antigravity": "ag/gemini-4-hydrogen-sonar",
-            "google": "gemini-2.5-flash",
-            "codex": "gpt-5.6-sol",
+            "antigravity": "ag/gemini-3.8-flash-high",
+            "google": "gemini-3.8-flash",
+            "codex": "gpt-6.2-sol",
             "deepseek": "deepseek-chat",
-            "openai": "gpt-4o",
-            "anthropic": "claude-3-5-sonnet-20241022",
-            "groq": "llama-3.3-70b-versatile",
-            "openrouter": "google/gemini-2.5-flash",
+            "openai": "gpt-6.2-sol",
+            "anthropic": "claude-sonnet-5-5",
+            "groq": "meta-llama/llama-4-maverick-17b-128e-instruct",
+            "openrouter": "google/gemini-3.8-flash",
             "ollama": "llama3.2",
             "mistral": "mistral-large-latest",
-            "xai": "grok-2-latest",
+            "xai": "grok-4.7",
         }
         if provider_id:
             m_res = await db.execute(
@@ -792,7 +792,7 @@ async def detect_ai_key(req: DetectKeyRequest):
             provider_name="Antigravity",
             auth_type="bearer_token",
             format_name="Google Cloud Code / Antigravity OAuth Bearer Token",
-            suggested_model="ag/gemini-4-hydrogen-sonar",
+            suggested_model="ag/gemini-3.8-flash-high",
             base_url="https://daily-cloudcode-pa.googleapis.com",
             note="Token Bearer chuẩn Antigravity (hiệu lực ~1 giờ). Tự động gắn User-Agent 2.11.0."
         )
@@ -805,7 +805,7 @@ async def detect_ai_key(req: DetectKeyRequest):
             provider_name="Antigravity",
             auth_type="oauth2",
             format_name="Google OAuth 2.0 Refresh Token (Tự Động Gia Hạn Vĩnh Viễn)",
-            suggested_model="ag/gemini-4-hydrogen-sonar",
+            suggested_model="ag/gemini-3.8-flash-high",
             base_url="https://daily-cloudcode-pa.googleapis.com",
             note="Refresh Token chuẩn! Hệ thống sẽ tự động đổi lấy Access Token mới mỗi khi hết hạn."
         )
@@ -818,9 +818,9 @@ async def detect_ai_key(req: DetectKeyRequest):
             provider_name="Google Gemini",
             auth_type="api_key",
             format_name="Google Gemini Developer API Key (Google AI Studio)",
-            suggested_model="gemini-2.5-flash",
+            suggested_model="gemini-3.8-flash",
             base_url="https://generativelanguage.googleapis.com",
-            note="Khóa API chính thức của Google AI Studio (hỗ trợ cả Gemini 2.5 Flash, 2.5 Pro)."
+            note="Khóa API chính thức của Google AI Studio (hỗ trợ Gemini 4 Hydrogen/Argon, Gemini 3.8 Flash)."
         )
 
     # 4. Anthropic Claude API Key
@@ -831,9 +831,9 @@ async def detect_ai_key(req: DetectKeyRequest):
             provider_name="Anthropic Claude",
             auth_type="api_key",
             format_name="Anthropic Claude Secret API Key",
-            suggested_model="claude-3-5-sonnet-20241022",
+            suggested_model="claude-sonnet-5-5",
             base_url="https://api.anthropic.com/v1",
-            note="Khóa Claude chính hãng từ Anthropic Console (hỗ trợ Vision và bóc tách tài liệu)."
+            note="Khóa Claude chính hãng từ Anthropic Console (hỗ trợ Claude 5.5 Sonnet/Opus, Vision và bóc tách tài liệu)."
         )
 
     # 5. Groq LPU API Key
@@ -844,9 +844,9 @@ async def detect_ai_key(req: DetectKeyRequest):
             provider_name="Groq",
             auth_type="api_key",
             format_name="Groq LPU Inference API Key",
-            suggested_model="llama-3.3-70b-versatile",
+            suggested_model="meta-llama/llama-4-maverick-17b-128e-instruct",
             base_url="https://api.groq.com/openai/v1",
-            note="Tốc độ suy luận siêu tốc (LPU). Thích hợp bóc tách và phản hồi cực nhanh."
+            note="Tốc độ suy luận siêu tốc (LPU) với Llama 4 Maverick / Llama 3.3. Thích hợp bóc tách và phản hồi cực nhanh."
         )
 
     # 6. OpenRouter API Key
@@ -857,9 +857,9 @@ async def detect_ai_key(req: DetectKeyRequest):
             provider_name="OpenRouter",
             auth_type="api_key",
             format_name="OpenRouter Unified API Key",
-            suggested_model="google/gemini-2.0-flash-001",
+            suggested_model="google/gemini-3.8-flash",
             base_url="https://openrouter.ai/api/v1",
-            note="Cổng kết nối đa mô hình OpenRouter (gọi Claude, GPT, DeepSeek, Llama... qua 1 key)."
+            note="Cổng kết nối đa mô hình OpenRouter (gọi Gemini 3.8/4, Claude 5.5, GPT-6.2, DeepSeek... qua 1 key)."
         )
 
     # 7. xAI (Grok) API Key
@@ -870,9 +870,9 @@ async def detect_ai_key(req: DetectKeyRequest):
             provider_name="xAI (Grok)",
             auth_type="api_key",
             format_name="xAI Grok API Key",
-            suggested_model="grok-2-vision-1212",
+            suggested_model="grok-4.7",
             base_url="https://api.x.ai/v1",
-            note="Mô hình đa phương thức Grok từ xAI (Elon Musk)."
+            note="Mô hình đa phương thức Grok 4 từ xAI (Elon Musk)."
         )
 
     # 8. OpenAI Project / Standard Key
@@ -883,7 +883,7 @@ async def detect_ai_key(req: DetectKeyRequest):
             provider_name="OpenAI",
             auth_type="api_key",
             format_name="OpenAI Project API Key",
-            suggested_model="gpt-6-astra",
+            suggested_model="gpt-6.2-astra",
             base_url="https://api.openai.com/v1",
             note="Khóa Project chính thức từ OpenAI Platform."
         )
@@ -896,7 +896,7 @@ async def detect_ai_key(req: DetectKeyRequest):
             provider_name="Codex / OpenAI API",
             auth_type="bearer_token",
             format_name="OpenAI / ChatGPT OAuth Bearer Token (Codex Responses API)",
-            suggested_model="gpt-5.6-terra",
+            suggested_model="gpt-6.2-sol",
             base_url="https://chatgpt.com/backend-api/codex/responses",
             note="Token phiên ChatGPT tương tự cơ chế 9router."
         )
@@ -1090,7 +1090,7 @@ async def exchange_antigravity_code(
             name=f"Antigravity OAuth ({email})",
             email=email,
             api_key=refresh_token,
-            selected_model="ag/gemini-4-hydrogen-sonar",
+            selected_model="ag/gemini-3.8-flash-high",
             is_active=True,
             status="active",
             tag="Google OAuth Direct",
@@ -1165,7 +1165,7 @@ async def antigravity_oauth_callback(
                 name=f"Antigravity OAuth ({email})",
                 email=email,
                 api_key=refresh_token,
-                selected_model="ag/gemini-4-hydrogen-sonar",
+                selected_model="ag/gemini-3.8-flash-high",
                 is_active=True,
                 status="active",
                 tag="Google OAuth Direct",

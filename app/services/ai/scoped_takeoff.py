@@ -366,7 +366,7 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
     native_contexts = {}
     cache_scope = [project_id, [(getattr(c, 'id', None), getattr(c, 'provider', None),
         getattr(c, 'selected_model', None), getattr(c, 'quotas', None)) for c in connections]] if session_factory else None
-    max_panel_concurrency = 5 if len(panels) >= 10 else 3
+    max_panel_concurrency = 5 if len(panels) >= 4 else 3
     panel_gate = asyncio.Semaphore(max(2, min(max_panel_concurrency, concurrency)))
 
     async def process_panel(index, panel, temporary):

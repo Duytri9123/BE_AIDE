@@ -9,5 +9,5 @@ def ai_cache_enabled():
 
 
 def takeoff_concurrency():
-    try:return max(3,min(8,int(os.environ.get('ELQUOTE_TAKEOFF_CONCURRENCY','3'))))
-    except ValueError:return 3
+    try:return max(3,min(8,int(os.environ.get('ELQUOTE_TAKEOFF_CONCURRENCY','5'))))
+    except ValueError:return 5

@@ -53,8 +53,8 @@ def transient_transport_failure(error):
 
 def connection_request_gate(connection):
     loop=asyncio.get_running_loop()
-    try:limit=max(1,min(8,int(os.environ.get('AI_CONNECTION_CONCURRENCY','4'))))
-    except ValueError:limit=4
+    try:limit=max(1,min(8,int(os.environ.get('AI_CONNECTION_CONCURRENCY','6'))))
+    except ValueError:limit=6
     account=(str(connection.provider).strip().lower(),hashlib.sha256(str(connection.api_key).encode()).hexdigest(),limit)
     gates=_request_gates.setdefault(loop,{})
     return gates.setdefault(account,asyncio.Semaphore(limit))
