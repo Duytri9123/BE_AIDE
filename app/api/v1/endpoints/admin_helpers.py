@@ -7,7 +7,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, update
 from sqlalchemy.orm import raiseload
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Optional, List
 import httpx
 import time
@@ -124,7 +124,7 @@ async def _call_antigravity(api_key: str, model: str, prompt: str) -> dict:
     target_model = normalize_antigravity_model(model)
     target_model = re.sub(r"-tiered\([a-z]+\)", "", target_model)
     if not target_model or "3.6" in target_model or target_model.startswith("ag/"):
-        target_model = "gemini-2.5-flash"
+        target_model = "gemini-3.8-flash"
 
     url = "https://daily-cloudcode-pa.googleapis.com/v1internal:generateContent"
     headers = {
@@ -1450,7 +1450,7 @@ async def list_notification_target_users(db: AsyncSession = Depends(get_db)):
 
 class SendSystemNotificationRequest(BaseModel):
     target: str = "all"  # 'all' | 'selected'
-    user_ids: List[int] = Field(default_factory=list)
+    user_ids: List[int] = []
     title: str
     body: str
     link: Optional[str] = None
