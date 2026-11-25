@@ -280,9 +280,18 @@ def link_devices(devices, rows=None):
         is_generic = not current_pn or '/' in current_pn or is_generic_code(current_pn)
         data_brand = str(data.get('brand') or '').strip()
         is_known = data_brand.casefold() not in {'', 'asian', 'asia', 'oem', '-', '---', 'chưa xác định'}
-        different_brand = (is_known and canonical_brand(data_brand) != canonical_brand(match['candidates'][0]['brand'])) if (match['candidates'] and data_brand) else False
-        if match['candidates'] and (is_generic or different_brand):
-            best = match['candidates'][0]
+        candidates = match['candidates']
+        if candidates and (is_generic or is_known):
+            # Ưu tiên ứng viên cùng hãng với thiết bị chính; nếu không có mới chuyển qua hãng khác
+            matching_brand = [c for c in candidates if is_known and canonical_brand(c.get('brand')) == canonical_brand(data_brand)]
+            if matching_brand:
+                best = matching_brand[0]
+            elif is_known and not matching_brand:
+                # Nếu hãng yêu cầu không có trong catalog, chuyển sang hãng khác có sẵn
+                best = candidates[0]
+                updates['brand'] = best['brand']
+            else:
+                best = candidates[0]
             updates['part_number'] = best['sku']
             updates['sku'] = best['sku']
             if not data.get('selected_product') or data.get('selection_source') != 'user_selected':

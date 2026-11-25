@@ -53,7 +53,15 @@ def quotation_section(device):
         load_str = f" ({load})" if load else ""
         return f"Khởi động DOL{tag_str}{load_str}"
 
-    # 2. Incomer - Thiết bị đầu vào tổng tủ
+    # 2. Đo lường & Giám sát (kể cả đèn báo pha, đồng hồ, biến dòng gắn ở đầu vào)
+    meter_cat = metering_kind(device)
+    if any(term in text for term in ('do luong', 'giam sat', 'metering')) or meter_cat in {
+        'CT', 'LIGHT', 'INDICATOR', 'PILOTLIGHT', 'PILOT_LIGHT', 'METER', 'MULTIMETER',
+        'VOLTMETER', 'AMMETER', 'ENERGY_METER', 'SELECTOR', 'SELECTOR_SWITCH', 'FUSE', 'FUSE_HOLDER'
+    } or re.search(r'dong ho|ampe ke|von ke|bien dong|den bao|bao pha|chuyen mach (?:von|ampe)|cau chi', name):
+        return 'Đo lường & Giám sát'
+
+    # 3. Incomer - Thiết bị đầu vào tổng tủ
     source_role = ' '.join(plain(device.get(key)) for key in ('location', 'tag', 'electrical_function', 'name', 'notes'))
     if (device.get('is_incomer') or text in {'main', 'incoming', 'input', 'main circuit', 'incoming devices'}
             or any(term in text for term in ('dau vao', 'incomer', 'nguon tong'))
@@ -61,20 +69,12 @@ def quotation_section(device):
             or location == 'dau vao'):
         return 'Đầu vào'
 
-    # 3. Tất cả các Aptomat đóng cắt nhánh xuất tuyến (MCB 1P, 2P, 3P, RCBO, MCCB...) BẮT BUỘC ở Đầu ra
+    # 4. Tất cả các Aptomat đóng cắt nhánh xuất tuyến (MCB 1P, 2P, 3P, RCBO, MCCB...) BẮT BUỘC ở Đầu ra
     # Kể cả lộ điều khiển L3 hay lộ dự phòng DP, không để văng lên Điều khiển & Chiếu sáng
     if any(cb in category for cb in ('MCB', 'MCCB', 'RCBO', 'RCCB', 'CB', 'APTOMAT')) or any(
         cb in name for cb in ('mcb', 'mccb', 'rcbo', 'rccb', 'aptomat')
     ):
         return 'Đầu ra'
-
-    # 4. Đo lường & Giám sát
-    meter_cat = metering_kind(device)
-    if any(term in text for term in ('do luong', 'giam sat', 'metering')) or meter_cat in {
-        'CT', 'LIGHT', 'INDICATOR', 'PILOTLIGHT', 'PILOT_LIGHT', 'METER', 'MULTIMETER',
-        'VOLTMETER', 'AMMETER', 'ENERGY_METER', 'SELECTOR', 'SELECTOR_SWITCH', 'FUSE', 'FUSE_HOLDER'
-    } or re.search(r'dong ho|ampe ke|von ke|bien dong|den bao|bao pha|chuyen mach (?:von|ampe)|cau chi', name):
-        return 'Đo lường & Giám sát'
 
     if text in {'output','out','branch'} or any(term in text for term in ('dau ra', 'feeder', 'outgoing')):
         return 'Đầu ra'
