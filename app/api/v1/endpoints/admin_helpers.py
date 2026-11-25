@@ -415,7 +415,7 @@ async def test_ai_connection(
 
     if not model:
         fallback_models = {
-            "antigravity": "ag/gemini-3.8-flash-high",
+            "antigravity": "ag/gemini-4-hydrogen-sonar",
             "google": "gemini-2.5-flash",
             "codex": "gpt-5.6-sol",
             "deepseek": "deepseek-chat",
@@ -792,7 +792,7 @@ async def detect_ai_key(req: DetectKeyRequest):
             provider_name="Antigravity",
             auth_type="bearer_token",
             format_name="Google Cloud Code / Antigravity OAuth Bearer Token",
-            suggested_model="ag/gemini-3.8-flash-high",
+            suggested_model="ag/gemini-4-hydrogen-sonar",
             base_url="https://daily-cloudcode-pa.googleapis.com",
             note="Token Bearer chuẩn Antigravity (hiệu lực ~1 giờ). Tự động gắn User-Agent 2.11.0."
         )
@@ -805,7 +805,7 @@ async def detect_ai_key(req: DetectKeyRequest):
             provider_name="Antigravity",
             auth_type="oauth2",
             format_name="Google OAuth 2.0 Refresh Token (Tự Động Gia Hạn Vĩnh Viễn)",
-            suggested_model="ag/gemini-3.8-flash-high",
+            suggested_model="ag/gemini-4-hydrogen-sonar",
             base_url="https://daily-cloudcode-pa.googleapis.com",
             note="Refresh Token chuẩn! Hệ thống sẽ tự động đổi lấy Access Token mới mỗi khi hết hạn."
         )
@@ -1089,7 +1089,7 @@ async def exchange_antigravity_code(
             name=f"Antigravity OAuth ({email})",
             email=email,
             api_key=refresh_token,
-            selected_model="ag/gemini-3.8-flash-high",
+            selected_model="ag/gemini-4-hydrogen-sonar",
             is_active=True,
             status="active",
             tag="Google OAuth Direct",
@@ -1163,7 +1163,7 @@ async def antigravity_oauth_callback(
                 name=f"Antigravity OAuth ({email})",
                 email=email,
                 api_key=refresh_token,
-                selected_model="ag/gemini-3.8-flash-high",
+                selected_model="ag/gemini-4-hydrogen-sonar",
                 is_active=True,
                 status="active",
                 tag="Google OAuth Direct",

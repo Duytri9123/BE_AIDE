@@ -14,7 +14,7 @@ def section_rank(name):
     if 'dau vao' in plain_name or 'incomer' in plain_name: return 1
     if 'do luong' in plain_name or 'giam sat' in plain_name: return 2
     if 'dieu khien' in plain_name or 'chieu sang' in plain_name: return 3
-    if 'khoi dong' in plain_name or 'dol' in plain_name or 'starter' in plain_name: return 4
+    if any(k in plain_name for k in ('khoi dong', 'dol', 'starter', 'sao', 'tam giac', 'dao chieu', 'bien tan', 'vfd')): return 4
     if 'dau ra' in plain_name or 'feeder' in plain_name: return 5
     return 6
 
@@ -41,17 +41,26 @@ def quotation_section(device):
     if device.get('is_enclosure') or text in {'vo tu', 'vo tu + phu kien', 'vo tu & phu kien'}:
         return 'Vỏ tủ + phụ kiện'
 
-    # 1. DOL Motor Starter - Mỗi cụm khởi động là 1 phần độc lập theo từng lộ phụ tải
+    # 1. Bộ khởi động động cơ (DOL, Sao-Tam giác, Đảo chiều, Khởi động mềm, Biến tần) - Mỗi bộ là 1 phần độc lập
     starter_type = classify_motor_starter_type(' '.join(str(device.get(k) or '') for k in ('name', 'category', 'spec', 'observed_text')))
-    is_starter_comp = category in {'CONTACTOR', 'OVERLOAD_PROTECTION', 'THERMAL_RELAY', 'DOL'} or any(
-        k in name for k in ('khoi dong dol', 'bo khoi dong dol', 'khoi dong truc tiep', 'contactor', 'ro le nhiet', 'khoi dong tu')
-    )
-    if starter_type == 'DOL' or is_starter_comp or 'dol' in text or category == 'DOL':
+    if not starter_type and (category in {'CONTACTOR', 'OVERLOAD_PROTECTION', 'THERMAL_RELAY', 'DOL', 'STAR_DELTA', 'REVERSING', 'SOFT_STARTER', 'VFD'}
+                             or any(k in name for k in ('khoi dong dol', 'bo khoi dong dol', 'khoi dong truc tiep', 'contactor', 'ro le nhiet', 'khoi dong tu'))):
+        starter_type = 'DOL'
+    elif not starter_type and 'dol' in text:
+        starter_type = 'DOL'
+    if starter_type:
+        starter_titles = {
+            'DOL': 'Khởi động DOL',
+            'STAR_DELTA': 'Khởi động sao – tam giác',
+            'REVERSING': 'Khởi động đảo chiều',
+            'SOFT_STARTER': 'Khởi động mềm',
+            'VFD': 'Biến tần',
+        }
         tag = str(device.get('tag') or '').strip()
         load = str(device.get('connected_load') or '').strip()
         tag_str = f" - {tag}" if tag else ""
         load_str = f" ({load})" if load else ""
-        return f"Khởi động DOL{tag_str}{load_str}"
+        return f"{starter_titles.get(starter_type, 'Khởi động động cơ')}{tag_str}{load_str}"
 
     # 2. Đo lường & Giám sát (kể cả đèn báo pha, đồng hồ, biến dòng gắn ở đầu vào)
     meter_cat = metering_kind(device)
@@ -198,22 +207,23 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                 short_name += ' dự phòng'
             starter = (d.get('source_observations') or {}).get('motor_starter') or {}
             accessories = d.get('accompanying_accessories') or []
-            starter_categories = {'CONTACTOR', 'OVERLOAD_PROTECTION', 'THERMAL_RELAY', 'SELECTOR', 'PUSH_BUTTON', 'INDICATOR', 'RELAY'}
+            starter_categories = {'CONTACTOR', 'OVERLOAD_PROTECTION', 'THERMAL_RELAY', 'SELECTOR', 'PUSH_BUTTON', 'INDICATOR', 'RELAY', 'TIMER', 'SOFT_STARTER', 'VFD'}
             starter_components = [a for a in accessories if isinstance(a, dict) and (a.get('assembly_component_key') or a.get('category') in starter_categories)]
 
             if starter and starter_components:
-                # Mỗi bộ DOL là một phần riêng, 7 thiết bị thành phần chuẩn hiển thị rõ ràng cùng hãng
+                # Mỗi bộ khởi động là một phần riêng, thiết bị thành phần hiển thị rõ ràng
                 for j, a in enumerate(starter_components):
                     accessory_match = a.get('pricebook_match') or {}
                     ap = (accessory_match.get('row') or {}).get('price') if accessory_match.get('status') == 'matched' else None
                     c_name = str(a.get('name') or '').lower()
-                    if not ap or ap <= 0:
+                    c_cat = str(a.get('category') or '').upper()
+                    if (not ap or ap <= 0) and c_cat not in {'SOFT_STARTER', 'VFD'}:
                         if 'contactor' in c_name: ap = 490000
                         elif 'nhiệt' in c_name or 'tor' in c_name: ap = 450000
                         elif 'chuyển mạch' in c_name: ap = 120000
                         elif 'nút nhấn' in c_name: ap = 85000
                         elif 'đèn báo' in c_name: ap = 45000
-                        elif 'trung gian' in c_name or 'relay' in c_name: ap = 140000
+                        elif 'trung gian' in c_name or 'relay' in c_name or 'thời gian' in c_name or c_cat == 'TIMER': ap = 140000
                         else: ap = 150000
                     aq = a.get('quantity') or 1
                     brand_name = a.get('brand') or d.get('brand') or 'Schneider'

@@ -100,12 +100,16 @@ def normalize_antigravity_model(model: str) -> str:
     native = (model or '').strip().removeprefix('ag/').removeprefix('models/')
     if not native:
         raise AIVisionError('Chưa chọn model cho kết nối AI.', {'hint': 'missing_selected_model'})
+    if native.lower() in {'gemini-4-hydrogen-medium', 'gemini-4-hydrogen'}:
+        return 'gemini-4-hydrogen-sonar'
     return native
 
 
 def antigravity_thinking_config(model: str) -> Dict[str, Any]:
     """Use the lowest supported extraction setting without changing the model ID."""
     clean = (model or "").lower().strip()
+    if re.search(r'gemini-4-hydrogen', clean):
+        return {'thinkingLevel': 'medium', 'includeThoughts': False}
     if re.search(r'gemini-3\.8',clean):
         return {'thinkingLevel':'low','includeThoughts':False}
     if re.search(r'gemini-3\.(?:6|5|1)-flash|gemini-3-flash',clean):
@@ -819,7 +823,7 @@ class VisionAnalyzerService:
         }
         if tools:
             payload["request"]["tools"] = tools
-        if re.search(r'gemini-3\.8',mapped_model,re.I):
+        if re.search(r'gemini-3\.8|gemini-4-hydrogen',mapped_model,re.I):
             payload['request']['generationConfig'].pop('temperature',None)
         if (json_mode or response_schema) and 'gemini' in mapped_model.lower() and not tools:
             payload['request']['generationConfig']['responseMimeType'] = 'application/json'
