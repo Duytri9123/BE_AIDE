@@ -595,6 +595,8 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
             enrich_circuit_context([d for d in result if d['source_file_id']==file.id and d['panel_code']==panel['panel_code']], evidence)
     from app.services.ai.motor_starter_context import enrich_motor_starters
     enrich_motor_starters(result)
+    from app.services.ai.metering_pilot_lights import split_and_normalize_metering_pilot_lights
+    result = split_and_normalize_metering_pilot_lights(result)
     if any(not row.get('technical_analysis') for row in result):
         from app.services.ai.takeoff_device_assessment import assess_takeoff_devices
         assessed = [ExtractedDeviceSchema.model_validate(row) for row in result]
