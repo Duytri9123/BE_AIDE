@@ -1083,6 +1083,7 @@ async def exchange_antigravity_code(
 
     from datetime import datetime, timezone
     if not conn:
+        max_prio = (await db.scalar(select(func.coalesce(func.max(AiConnection.priority), 0)))) or 0
         conn = AiConnection(
             provider="antigravity",
             auth_type="oauth2",
@@ -1093,7 +1094,7 @@ async def exchange_antigravity_code(
             is_active=True,
             status="active",
             tag="Google OAuth Direct",
-            priority=1,
+            priority=max_prio + 1,
             quotas={"project_id": project_id},
             updated_at=datetime.now(timezone.utc)
         )
@@ -1157,6 +1158,7 @@ async def antigravity_oauth_callback(
 
         from datetime import datetime, timezone
         if not conn:
+            max_prio = (await db.scalar(select(func.coalesce(func.max(AiConnection.priority), 0)))) or 0
             conn = AiConnection(
                 provider="antigravity",
                 auth_type="oauth2",
@@ -1167,7 +1169,7 @@ async def antigravity_oauth_callback(
                 is_active=True,
                 status="active",
                 tag="Google OAuth Direct",
-                priority=1,
+                priority=max_prio + 1,
                 quotas={"project_id": project_id},
                 updated_at=datetime.now(timezone.utc)
             )
@@ -1393,4 +1395,44 @@ async def assign_user_plan_endpoint(
         "ends_at": ends_at.strftime("%d/%m/%Y"),
         "user_tokens": user.tokens
     }
+
+
+class ReorderConnectionsRequest(BaseModel):
+    ordered_ids: List[str]
+
+
+@router.post("/connections/reorder")
+async def reorder_connections(
+    req: ReorderConnectionsRequest,
+    db: AsyncSession = Depends(get_db)
+):
+    """Cập nhật thứ tự ưu tiên duy nhất (1, 2, 3...) theo vị trí các kết nối."""
+    from uuid import UUID
+    ordered_uuids = []
+    for raw_id in req.ordered_ids:
+        try:
+            ordered_uuids.append(UUID(str(raw_id)))
+        except ValueError:
+            continue
+
+    conns = (await db.execute(
+        select(AiConnection).order_by(AiConnection.priority.asc(), AiConnection.created_at.asc())
+    )).scalars().all()
+    by_id = {c.id: c for c in conns}
+
+    rank = 1
+    seen = set()
+    for cid in ordered_uuids:
+        conn = by_id.get(cid)
+        if conn and cid not in seen:
+            conn.priority = rank
+            seen.add(cid)
+            rank += 1
+    for conn in conns:
+        if conn.id not in seen:
+            conn.priority = rank
+            rank += 1
+
+    await db.commit()
+    return {"success": True, "count": rank - 1}
 
