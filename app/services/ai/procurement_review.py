@@ -13,8 +13,11 @@ def section_rank(name):
     if 'vo tu' in plain_name: return 0
     if 'dau vao' in plain_name or 'incomer' in plain_name: return 1
     if 'do luong' in plain_name or 'giam sat' in plain_name: return 2
-    if 'dieu khien' in plain_name or 'chieu sang' in plain_name: return 3
-    if any(k in plain_name for k in ('khoi dong', 'dol', 'starter', 'sao', 'tam giac', 'dao chieu', 'bien tan', 'vfd')): return 4
+    if 'dieu khien' in plain_name or 'chieu sang' in plain_name:
+        if 'tu dong' in plain_name or 'hen gio' in plain_name:
+            return 4
+        return 3
+    if any(k in plain_name for k in ('khoi dong', 'dol', 'starter', 'sao', 'tam giac', 'dao chieu', 'bien tan', 'vfd', 'chuyen nguon', 'ats', 'tu bu', 'apfc', 'cum ')): return 4
     if 'dau ra' in plain_name or 'feeder' in plain_name: return 5
     return 6
 
@@ -30,7 +33,7 @@ def commercial_notes(value):
 def quotation_section(device):
     """Use the observed function, never the current rating, to group devices."""
     from app.services.ai.metering_selection import metering_kind
-    from app.services.ai.motor_starter_context import classify_motor_starter_type
+    from app.services.ai.motor_starter_context import classify_assembly_type, classify_motor_starter_type
 
     section = str(device.get('section') or '').strip()
     text = plain(section)
@@ -41,13 +44,18 @@ def quotation_section(device):
     if device.get('is_enclosure') or text in {'vo tu', 'vo tu + phu kien', 'vo tu & phu kien'}:
         return 'Vỏ tủ + phụ kiện'
 
-    # 1. Bộ khởi động động cơ (DOL, Sao-Tam giác, Đảo chiều, Khởi động mềm, Biến tần) - Mỗi bộ là 1 phần độc lập
-    starter_type = classify_motor_starter_type(' '.join(str(device.get(k) or '') for k in ('name', 'category', 'spec', 'observed_text')))
+    # 1. Mọi cụm/mạch chức năng (DOL, Sao-Tam giác, Đảo chiều, Khởi động mềm, Biến tần, ATS, Tụ bù, Chiếu sáng, hoặc cụm AI bóc tách)
+    observations = device.get('source_observations') or {}
+    assembly_obs = observations.get('motor_starter') or observations.get('assembly') or {}
+    assembly_identity = ' '.join(str(device.get(k) or '') for k in ('name', 'category', 'spec', 'observed_text'))
+    starter_type = classify_motor_starter_type(assembly_identity) or classify_assembly_type(assembly_identity) or assembly_obs.get('type')
     if not starter_type and (category in {'CONTACTOR', 'OVERLOAD_PROTECTION', 'THERMAL_RELAY', 'DOL', 'STAR_DELTA', 'REVERSING', 'SOFT_STARTER', 'VFD'}
                              or any(k in name for k in ('khoi dong dol', 'bo khoi dong dol', 'khoi dong truc tiep', 'contactor', 'ro le nhiet', 'khoi dong tu'))):
         starter_type = 'DOL'
     elif not starter_type and 'dol' in text:
         starter_type = 'DOL'
+    elif not starter_type and (assembly_obs.get('components') or device.get('record_kind') == 'assembly'):
+        starter_type = 'CUSTOM_ASSEMBLY'
     if starter_type:
         starter_titles = {
             'DOL': 'Khởi động DOL',
@@ -55,12 +63,16 @@ def quotation_section(device):
             'REVERSING': 'Khởi động đảo chiều',
             'SOFT_STARTER': 'Khởi động mềm',
             'VFD': 'Biến tần',
+            'ATS': 'Chuyển nguồn tự động ATS',
+            'CAPACITOR_BANK': 'Tụ bù công suất (APFC)',
+            'LIGHTING_CONTROL': 'Mạch chiếu sáng tự động',
+            'CUSTOM_ASSEMBLY': str(device.get('name') or 'Cụm thiết bị').strip(),
         }
         tag = str(device.get('tag') or '').strip()
         load = str(device.get('connected_load') or '').strip()
         tag_str = f" - {tag}" if tag else ""
         load_str = f" ({load})" if load else ""
-        return f"{starter_titles.get(starter_type, 'Khởi động động cơ')}{tag_str}{load_str}"
+        return f"{starter_titles.get(starter_type, 'Cụm mạch')}{tag_str}{load_str}"
 
     # 2. Đo lường & Giám sát (kể cả đèn báo pha, đồng hồ, biến dòng gắn ở đầu vào)
     meter_cat = metering_kind(device)
@@ -205,19 +217,19 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                           'METER':'Đồng hồ đa năng','AMMETER':'Ampe kế','VOLTMETER':'Vôn kế'}.get(str(d.get('category') or '').upper(),d.get('name') or 'Thiết bị')
             if short_name in {'CB','MCCB','MCB','RCBO','RCCB'} and not selected_spec:
                 short_name += ' dự phòng'
-            starter = (d.get('source_observations') or {}).get('motor_starter') or {}
+            starter = (d.get('source_observations') or {}).get('motor_starter') or (d.get('source_observations') or {}).get('assembly') or {}
             accessories = d.get('accompanying_accessories') or []
-            starter_categories = {'CONTACTOR', 'OVERLOAD_PROTECTION', 'THERMAL_RELAY', 'SELECTOR', 'PUSH_BUTTON', 'INDICATOR', 'RELAY', 'TIMER', 'SOFT_STARTER', 'VFD'}
+            starter_categories = {'CONTACTOR', 'OVERLOAD_PROTECTION', 'THERMAL_RELAY', 'SELECTOR', 'PUSH_BUTTON', 'INDICATOR', 'RELAY', 'TIMER', 'SOFT_STARTER', 'VFD', 'ATS', 'CAPACITOR', 'POWER_FACTOR_CONTROLLER', 'PHASE_RELAY'}
             starter_components = [a for a in accessories if isinstance(a, dict) and (a.get('assembly_component_key') or a.get('category') in starter_categories)]
 
             if starter and starter_components:
-                # Mỗi bộ khởi động là một phần riêng, thiết bị thành phần hiển thị rõ ràng
+                # Mỗi bộ/cụm mạch là một phần riêng, thiết bị thành phần hiển thị rõ ràng
                 for j, a in enumerate(starter_components):
                     accessory_match = a.get('pricebook_match') or {}
                     ap = (accessory_match.get('row') or {}).get('price') if accessory_match.get('status') == 'matched' else None
                     c_name = str(a.get('name') or '').lower()
                     c_cat = str(a.get('category') or '').upper()
-                    if (not ap or ap <= 0) and c_cat not in {'SOFT_STARTER', 'VFD'}:
+                    if (not ap or ap <= 0) and c_cat not in {'SOFT_STARTER', 'VFD', 'ATS', 'CAPACITOR', 'POWER_FACTOR_CONTROLLER'}:
                         if 'contactor' in c_name: ap = 490000
                         elif 'nhiệt' in c_name or 'tor' in c_name: ap = 450000
                         elif 'chuyển mạch' in c_name: ap = 120000

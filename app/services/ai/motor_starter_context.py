@@ -162,32 +162,37 @@ def select_tor_spec(current_a, power_w=None, voltage_v=380):
     return f"Dải {current_a*0.8:.1f}-{current_a*1.2:.1f}A", f"{current_a:.1f}A"
 
 
+def classify_assembly_type(identity: str) -> str | None:
+    starter = classify_motor_starter_type(identity)
+    if starter:
+        return starter
+    if re.search(r'\bATS\b|bộ chuyển nguồn|chuyển nguồn tự động', identity, re.I):
+        return 'ATS'
+    if re.search(r'tụ bù|bù công suất|\bAPFC\b|\bkVAr\b|capacitor\s*bank', identity, re.I):
+        return 'CAPACITOR_BANK'
+    if re.search(r'chiếu sáng.*(?:tự động|hẹn giờ|timer|contactor)|(?:hẹn giờ|timer).*chiếu sáng', identity, re.I):
+        return 'LIGHTING_CONTROL'
+    return None
+
+
 def enrich_motor_starters(devices):
     from app.services.ai.assembly_accessories import propose_assembly_accessories, SOURCES
     from app.services.ai.assembly_accessory_selection import merge_proposal_choices
     for device in devices:
         identity = ' '.join(str(device.get(k) or '') for k in ('category', 'name', 'spec', 'electrical_function', 'observed_text'))
-        starter_type = classify_motor_starter_type(identity)
-        is_ats = bool(re.search(r'\bATS\b|bộ chuyển nguồn', identity, re.I))
-        if not starter_type and not is_ats:
-            continue
         observations = device.get('source_observations')
         observations = dict(observations) if isinstance(observations, dict) else {}
+        existing_assembly = observations.get('motor_starter') or observations.get('assembly') or {}
+        starter_type = classify_motor_starter_type(identity)
+        assembly_type = starter_type or classify_assembly_type(identity) or existing_assembly.get('type')
+        has_custom_assembly = bool(existing_assembly.get('components')) or device.get('record_kind') == 'assembly'
+        if not assembly_type and not has_custom_assembly:
+            continue
+        if not assembly_type and has_custom_assembly:
+            assembly_type = 'CUSTOM_ASSEMBLY'
         circuit = {**(observations.get('circuit') or {}), **(device.get('circuit_context') or {})}
         power_input = load_power_details(device)
         power_w = power_input['watts'] if power_input else None
-        if is_ats and not starter_type:
-            current = observations.get('assembly') or {}
-            components = current.get('components') or []
-            device['source_observations'] = {**observations, 'assembly': {
-                **current, 'type': 'ATS', 'components': components,
-                'load': device.get('connected_load'), 'load_power_w': power_w,
-                'accessory_proposals': merge_proposal_choices(
-                    propose_assembly_accessories('ATS', circuit, components, power_w, device.get('connected_load')),
-                    current.get('accessory_proposals')),
-                'recommendation_sources': SOURCES,
-            }}
-            continue
         reference = str(device.get('upstream_device') or '').strip()
         canonical = lambda value: re.sub(r'[^\w]', '', str(value or '')).casefold()
         matches = [d for d in devices if d is not device and reference and
@@ -407,6 +412,64 @@ def enrich_motor_starters(devices):
                  'reason': f'Điều khiển tốc độ vô cấp và bảo vệ động cơ {power_label} ({motor_voltage}V).'},
                 *_control_components(),
             ]
+        elif assembly_type == 'ATS':
+            ats_amps = device.get('in_a') or int(max(63, motor_current or 63))
+            ats_poles = device.get('poles') or 4
+            components = [
+                {'category': 'ATS', 'name': f'Bộ chuyển nguồn tự động ATS {ats_poles}P {ats_amps}A', 'spec': device.get('spec') or f'{ats_poles}P {ats_amps}A',
+                 'part_number': device.get('part_number') or '', 'sku': device.get('sku') or '', 'quantity': 1, 'unit': 'Bộ', 'in_a': ats_amps, 'poles': ats_poles,
+                 'use_in_quotation': True, 'brand': brand, 'requires_same_brand': True, 'status': 'confirmed', 'basis': 'assembly_function',
+                 'reason': 'Đóng cắt chuyển đổi tự động giữa nguồn lưới và nguồn dự phòng.'},
+                {'category': 'PHASE_RELAY', 'name': 'Rơ le bảo vệ mất pha / thấp áp', 'spec': '3P 380VAC',
+                 'part_number': '', 'sku': '', 'quantity': 1, 'unit': 'Cái',
+                 'use_in_quotation': True, 'brand': brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
+                 'reason': 'Giám sát chất lượng điện áp nguồn lưới/máy phát.'},
+                {'category': 'SELECTOR', 'name': 'Công tắc chuyển mạch 3 vị trí', 'spec': 'Tay - 0 - Tự động',
+                 'part_number': pilot_skus['selector'], 'sku': pilot_skus['selector'], 'quantity': 1, 'unit': 'Cái',
+                 'use_in_quotation': True, 'brand': brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
+                 'reason': 'Chọn chế độ vận hành Tay - 0 - Tự động.'},
+                {'category': 'INDICATOR', 'name': 'Đèn báo nguồn A / Nguồn B / Tải', 'spec': 'Đèn báo trạng thái',
+                 'part_number': pilot_skus['tripLight'], 'sku': pilot_skus['tripLight'], 'quantity': 3, 'unit': 'Cái',
+                 'use_in_quotation': True, 'brand': brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
+                 'reason': 'Hiển thị trạng thái có điện các nguồn và đóng tải.'},
+            ]
+        elif assembly_type == 'CAPACITOR_BANK':
+            kvar_match = re.search(r'(\d+(?:[.,]\d+)?)\s*kVAr', identity, re.I)
+            kvar_val = kvar_match.group(1) if kvar_match else '50'
+            components = [
+                {'category': 'POWER_FACTOR_CONTROLLER', 'name': 'Bộ điều khiển tụ bù tự động (APFC)', 'spec': '6-12 cấp 220/380VAC',
+                 'part_number': '', 'sku': '', 'quantity': 1, 'unit': 'Bộ',
+                 'use_in_quotation': True, 'brand': brand, 'requires_same_brand': True, 'status': 'confirmed', 'basis': 'assembly_function',
+                 'reason': f'Điều khiển đóng cắt các cấp tụ bù hệ số công suất ({kvar_val}kVAr).'},
+                {'category': 'CONTACTOR', 'name': 'Contactor đóng cắt tụ bù', 'spec': '3P chuyên dụng tụ bù',
+                 'part_number': '', 'sku': '', 'quantity': 1, 'unit': 'Cái',
+                 'use_in_quotation': True, 'brand': brand, 'requires_same_brand': True, 'status': 'confirmed', 'basis': 'assembly_function',
+                 'reason': 'Đóng cắt cấp tụ bù có điện trở hạn dòng khởi động.'},
+                {'category': 'CAPACITOR', 'name': f'Tụ bù hạ thế {kvar_val}kVAr', 'spec': f'3P {kvar_val}kVAr 440V',
+                 'part_number': '', 'sku': '', 'quantity': 1, 'unit': 'Bộ',
+                 'use_in_quotation': True, 'brand': brand, 'requires_same_brand': True, 'status': 'confirmed', 'basis': 'assembly_function',
+                 'reason': f'Bù công suất phản kháng tổng {kvar_val}kVAr.'},
+                {'category': 'SELECTOR', 'name': 'Công tắc chuyển mạch 3 vị trí', 'spec': 'Tay - 0 - Tự động',
+                 'part_number': pilot_skus['selector'], 'sku': pilot_skus['selector'], 'quantity': 1, 'unit': 'Cái',
+                 'use_in_quotation': True, 'brand': brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
+                 'reason': 'Chọn chế độ đóng cắt tụ Tay - 0 - Tự động.'},
+            ]
+        elif assembly_type == 'LIGHTING_CONTROL':
+            km_spec, km_a = select_contactor_spec(motor_current, motor_voltage, power_w)
+            km_sku = _contactor_sku(brand_key, km_a)
+            components = [
+                {'category': 'CONTACTOR', 'name': f'Contactor chiếu sáng {poles_count}P {km_a}A', 'spec': km_spec,
+                 'part_number': km_sku, 'sku': km_sku, 'quantity': 1, 'unit': 'Cái', 'in_a': km_a, 'poles': poles_count,
+                 'use_in_quotation': True, 'brand': brand, 'requires_same_brand': True, 'status': 'confirmed', 'basis': 'assembly_function',
+                 'reason': 'Đóng cắt mạch chiếu sáng tự động/từ xa.'},
+                {'category': 'TIMER', 'name': 'Rơ le thời gian 24h (Timer)', 'spec': '220VAC lập trình theo giờ',
+                 'part_number': pilot_skus['timer'], 'sku': pilot_skus['timer'], 'quantity': 1, 'unit': 'Cái',
+                 'use_in_quotation': True, 'brand': brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
+                 'reason': 'Hẹn giờ bật/tắt hệ thống chiếu sáng tự động.'},
+                *_control_components(),
+            ]
+        elif assembly_type == 'CUSTOM_ASSEMBLY':
+            components = list(existing_assembly.get('components') or [])
         else: # DOL
             contactor_spec, contactor_a = select_contactor_spec(motor_current, motor_voltage, power_w)
             _, tor_range = select_tor_spec(motor_current, power_w, motor_voltage)
@@ -428,23 +491,34 @@ def enrich_motor_starters(devices):
             ]
 
         # Keep explicit per-assembly inputs when enrichment runs again.
-        existing = (observations.get('motor_starter') or {}).get('components') or []
-        # Nếu các thành phần cũ không đủ 7 thiết bị chuẩn hoặc có placeholder rỗng, tính lại toàn bộ
-        if len(existing) < 7 or any(c.get('spec') is None or c.get('spec') == 'Chưa xác định thông số' or c.get('quantity') is None for c in existing if isinstance(c, dict)):
+        existing = (existing_assembly.get('components') or [])
+        if assembly_type != 'CUSTOM_ASSEMBLY' and (
+            len(existing) < 4 or any(c.get('spec') is None or c.get('spec') == 'Chưa xác định thông số' or c.get('quantity') is None for c in existing if isinstance(c, dict))
+        ):
             existing = []
         explicit = [c for c in existing if isinstance(c, dict) and
-                    (c.get('basis') in {'source', 'user_request'} or c.get('status') == 'confirmed')
-                    and c.get('spec') and c.get('spec') != 'Chưa xác định thông số']
-        authoritative = (observations.get('motor_starter') or {}).get('configuration_authoritative') is True
-        chosen_configuration = authoritative or any(isinstance(c, dict) and 'use_in_quotation' in c for c in explicit)
-        if chosen_configuration and len(explicit) >= 7:
-            resolved = [{**c, 'included_in_total': True, 'use_in_quotation': True} for c in explicit]
+                    (c.get('basis') in {'source', 'user_request'} or c.get('status') == 'confirmed' or assembly_type == 'CUSTOM_ASSEMBLY')
+                    and c.get('name')]
+        authoritative = existing_assembly.get('configuration_authoritative') is True
+        chosen_configuration = authoritative or assembly_type == 'CUSTOM_ASSEMBLY' or any(isinstance(c, dict) and 'use_in_quotation' in c for c in explicit)
+        if chosen_configuration and len(explicit) >= 1:
+            resolved = [{**c, 'included_in_total': True, 'use_in_quotation': True,
+                         'brand': c.get('brand') or brand,
+                         'quantity': c.get('quantity') or 1,
+                         'unit': c.get('unit') or 'Cái'} for c in explicit]
         else:
             resolved = [{**c, 'basis': 'assembly_function', 'status': 'confirmed',
                          'included_in_total': True,
                          'use_in_quotation': True,
                          'brand': c.get('brand') or brand,
-                         'spec': c.get('spec'), 'part_number': c.get('part_number')} for c in components]
+                         'spec': c.get('spec') or '', 'part_number': c.get('part_number') or ''} for c in components]
+        # Đồng bộ hãng bắt buộc cho cặp Contactor & Rơ le nhiệt nếu cùng xuất hiện trong mạch
+        km_brand = next((c.get('brand') for c in resolved if str(c.get('category') or '').upper() == 'CONTACTOR' and c.get('brand')), None)
+        if km_brand:
+            for c in resolved:
+                if str(c.get('category') or '').upper() in {'OVERLOAD_PROTECTION', 'THERMAL_RELAY'}:
+                    c['brand'] = km_brand
+                    c['requires_same_brand'] = True
         for index, component in enumerate(resolved):
             component.setdefault('component_key', f'{component.get("category")}:{component.get("name")}:{index}')
 
@@ -470,7 +544,7 @@ def enrich_motor_starters(devices):
 
         assembly = {
             'configuration_authoritative': authoritative,
-            'type': starter_type, 'basis': 'assembly_function', 'status': 'needs_engineering_selection',
+            'type': assembly_type, 'basis': 'assembly_function', 'status': 'needs_engineering_selection',
             'load': device.get('connected_load') or circuit.get('supply_location'),
             'load_power_w': power_w, 'power_input': power_input, 'upstream_reference': reference or None,
             'upstream_status': ('verified' if relationship_verified else 'candidate') if upstream else 'needs_review',
