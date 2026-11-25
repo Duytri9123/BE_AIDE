@@ -7,6 +7,7 @@ import logging
 import asyncio
 import re
 import os
+import time
 import hashlib
 import weakref
 from typing import List, Tuple, Callable, Any, Optional
@@ -30,6 +31,7 @@ from app.services.ai.el_progress import run_step
 
 logger = logging.getLogger(__name__)
 _request_gates=weakref.WeakKeyDictionary()
+_rate_limited_until: dict[tuple[str, str], float] = {}
 
 
 def transient_transport_failure(error):
@@ -51,8 +53,8 @@ def transient_transport_failure(error):
 
 def connection_request_gate(connection):
     loop=asyncio.get_running_loop()
-    try:limit=max(1,min(8,int(os.environ.get('AI_CONNECTION_CONCURRENCY','2'))))
-    except ValueError:limit=2
+    try:limit=max(1,min(8,int(os.environ.get('AI_CONNECTION_CONCURRENCY','4'))))
+    except ValueError:limit=4
     account=(str(connection.provider).strip().lower(),hashlib.sha256(str(connection.api_key).encode()).hexdigest(),limit)
     gates=_request_gates.setdefault(loop,{})
     return gates.setdefault(account,asyncio.Semaphore(limit))
@@ -260,13 +262,22 @@ class ConnectionPoolService:
                     )
                     continue
 
+                now_mono = time.monotonic()
+                ordered_accounts = [
+                    c for c in provider_accounts
+                    if c.id not in disabled_account_ids
+                    and _rate_limited_until.get((str(c.id), model_to_use), 0.0) <= now_mono
+                ]
+                if not ordered_accounts:
+                    ordered_accounts = [c for c in provider_accounts if c.id not in disabled_account_ids]
+
                 attempted_accounts = 0
-                for provider_conn_idx, conn in enumerate(provider_accounts):
+                for provider_conn_idx, conn in enumerate(ordered_accounts):
                     if conn.id in disabled_account_ids:
                         continue
                     attempted_accounts += 1
                     conn_label = (
-                        f"[{provider_conn_idx+1}/{len(provider_accounts)}] {conn.name} "
+                        f"[{provider_conn_idx+1}/{len(ordered_accounts)}] {conn.name} "
                         f"({provider}/{model_to_use}, Priority={conn.priority})"
                     )
                     import os
@@ -321,6 +332,8 @@ class ConnectionPoolService:
                                 await asyncio.sleep(delay)
                                 continue
                             error_msg = f"{type(e).__name__}: {e}"
+                            if isinstance(e, AIRateLimitError) or "429" in err_str:
+                                _rate_limited_until[(str(conn.id), model_to_use)] = time.monotonic() + 45.0
                             errors_log.append(f"{conn_label} -> {error_msg}")
                             last_error = e
                             await ConnectionPoolService._record_connection_error(db, conn, error_msg)
