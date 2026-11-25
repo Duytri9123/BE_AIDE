@@ -134,13 +134,28 @@ async def run(run_id, store=None):
                     ids = args.get('file_ids') or context.get('file_ids') or []
                     if context.get('file_ids') and any(i not in context['file_ids'] for i in ids):
                         raise ValueError('File đọc nằm ngoài nguồn đã chọn.')
-                    connections = await el_agent.ConnectionPoolService.get_ordered_connections(db)
-                    plan = await analyze_requirements(db, connections, row['project'], message, {
-                        **context, 'file_ids': ids, 'source_page': args.get('source_page'), 'source_region': args.get('source_region')})
-                    result = {'information': plan.reply}
+                    async def _run_source_tool():
+                        connections = await el_agent.ConnectionPoolService.get_ordered_connections(db)
+                        plan = await analyze_requirements(db, connections, row['project'], message, {
+                            **context, 'file_ids': ids, 'source_page': args.get('source_page'), 'source_region': args.get('source_region')})
+                        return {'information': plan.reply}
+                    tool_task = asyncio.create_task(_run_source_tool())
                 else:
-                    result = await el_agent.execute(el_agent.ToolRequest(project_id=row['project'], tool=name, arguments=args,
-                                                                         user_message=message, run_id=run_id), request, db, user)
+                    tool_task = asyncio.create_task(el_agent.execute(
+                        el_agent.ToolRequest(project_id=row['project'], tool=name, arguments=args,
+                                             user_message=message, run_id=run_id), request, db, user))
+
+                while not tool_task.done():
+                    done, _ = await asyncio.wait({tool_task}, timeout=0.5)
+                    if done:
+                        break
+                    if (store.get(run_id) or {}).get('pause'):
+                        tool_task.cancel()
+                        await asyncio.gather(tool_task, return_exceptions=True)
+                        activity({'activity': {**event, 'state': 'error', 'detail': 'Đã tạm dừng theo yêu cầu.'}})
+                        store.save(run_id, lease, state, 'PAUSED')
+                        return
+                result = await tool_task
                 data = result.get('data') if isinstance(result.get('data'), dict) else result
                 artifact_url = result.get('artifact_url') or data.get('download_url')
                 if isinstance(artifact_url, str) and artifact_url.startswith('/api/v1/'):

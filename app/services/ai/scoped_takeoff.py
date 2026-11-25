@@ -531,7 +531,7 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                     audited = await run_step(f'Đang kiểm ảnh vị trí của {len(devices)} dòng thiết bị', audit_device_previews(image, call_image, devices,
                         {'boxes': payload.get('boxes') or []}, concurrency=concurrency, cache_scope=cache_scope))
                     audited = await complete_evidence(image, image_path, devices, audited, call_image,
-                        concurrency=concurrency, attempts=2, cache_scope=cache_scope)
+                        concurrency=concurrency, attempts=1, cache_scope=cache_scope)
                 trace_scoped('audit',project_id,panel,{'devices':original,'boxes':audited.get('boxes')})
                 original,devices,audited=deduplicate_checked_rows(original,devices,audited)
                 apply_verified_boxes(devices, audited, require_symbols=True)
