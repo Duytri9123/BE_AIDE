@@ -36,8 +36,8 @@ def _device_preview(image, region, *, tight=False):
         # Following wire ink into whitespace or enforcing a minimum crop size
         # can pull an entire measurement cluster into one device's thumbnail.
         is_native = str(region.get('geometry_source') or '').startswith('native_')
-        pad_x = 2 if is_native else max(14, min(42, round(image.width * .015)))
-        pad_y = 2 if is_native else max(8, min(24, round(image.height * .010)))
+        pad_x = 2 if is_native else max(28, min(72, round(image.width * .030)))
+        pad_y = 2 if is_native else max(10, min(28, round(image.height * .014)))
         left, top = max(0, int(x1*image.width/1000)-pad_x), max(0, int(y1*image.height/1000)-pad_y)
         right, bottom = min(image.width, math.ceil(x2*image.width/1000)+pad_x+1), min(image.height, math.ceil(y2*image.height/1000)+pad_y+1)
         # Source symbols/text may overlap. A neighbour is not a clipping boundary.

@@ -540,7 +540,7 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                     if region.get("status") == "verified":
                         device.evidence_images = device_preview(image, region, tight=True)
                     elif isinstance(region.get("candidate_region"), dict) and any(
-                        region["candidate_region"].get(k) for k in ("symbol_box_2d", "text_box_2d", "tag_box_2d")
+                        region["candidate_region"].get(k) for k in ("symbol_box_2d", "text_box_2d", "tag_box_2d", "load_box_2d")
                     ):
                         # Giữ ảnh cắt vùng đề xuất để người dùng đối chiếu khi chưa verify đủ 100% nhãn/ký hiệu
                         device.evidence_images = device_preview(image, region["candidate_region"], tight=True)
