@@ -531,14 +531,20 @@ async def extract_confirmed_panels(db, project_id, panels, message, *, input_con
                     audited = await run_step(f'Đang kiểm ảnh vị trí của {len(devices)} dòng thiết bị', audit_device_previews(image, call_image, devices,
                         {'boxes': payload.get('boxes') or []}, concurrency=concurrency, cache_scope=cache_scope))
                     audited = await complete_evidence(image, image_path, devices, audited, call_image,
-                        concurrency=concurrency, attempts=1, cache_scope=cache_scope)
+                        concurrency=concurrency, attempts=2, cache_scope=cache_scope)
                 trace_scoped('audit',project_id,panel,{'devices':original,'boxes':audited.get('boxes')})
                 original,devices,audited=deduplicate_checked_rows(original,devices,audited)
                 apply_verified_boxes(devices, audited, require_symbols=True)
                 for device in devices:
-                    if (device.evidence_region or {}).get("status") == "verified":
-                        device.evidence_images = device_preview(image, device.evidence_region, tight=True)
-                        device.evidence_image = next((i["evidence_image"] for i in device.evidence_images), None)
+                    region = device.evidence_region or {}
+                    if region.get("status") == "verified":
+                        device.evidence_images = device_preview(image, region, tight=True)
+                    elif isinstance(region.get("candidate_region"), dict) and any(
+                        region["candidate_region"].get(k) for k in ("symbol_box_2d", "text_box_2d", "tag_box_2d")
+                    ):
+                        # Giữ ảnh cắt vùng đề xuất để người dùng đối chiếu khi chưa verify đủ 100% nhãn/ký hiệu
+                        device.evidence_images = device_preview(image, region["candidate_region"], tight=True)
+                    device.evidence_image = next((i["evidence_image"] for i in (device.evidence_images or [])), None)
                 for device_index, (device, row) in enumerate(zip(devices, original)):
                     region = device.evidence_region or {}
                     region.update(source_region=panel['source_region'], frame='selected_panel')
