@@ -69,10 +69,10 @@ Quy tắc bóc tách bắt buộc:
      + Đồng hồ Ampe, Đồng hồ Vôn, Chuyển mạch AS, VS -> quantity: 1 mỗi loại.
    - `accompanying_accessories` CHỈ dùng cho các phụ kiện cơ khí gắn bên trong aptomat (tiếp điểm phụ AX/AL, cuộn shunt trip gắn trong, khóa liên động, tay quay ngoài).
 11. TÁCH BIỆT HOÀN TOÀN CẦU CHÌ VÀ ĐÈN BÁO PHA (FUSE & PILOT LIGHT):
-   - Cầu chì (FUSE / ký hiệu hình chữ nhật có đường gạch hoặc chữ FUSE, FU, 1x6A) và Đèn báo pha (LIGHT / ký hiệu tròn dấu chéo ⊗ hoặc chữ R, S, T, Đèn báo) là HAI THIẾT BỊ VẬT LÝ HOÀN TOÀN ĐỘC LẬP.
-   - TUYỆT ĐỐI KHÔNG GỘP thành một dòng như "Cầu chì & Đèn báo pha". BẮT BUỘC TÁCH THÀNH 2 DÒNG THIẾT BỊ RIÊNG BIỆT:
-     + Dòng 1: tag 'FU1' (hoặc 'FU'), category: 'FUSE', name: 'Cầu chì bảo vệ tín hiệu' (hoặc 'Cầu chì 1x6A'), spec: '1x6A', quantity theo vật tư thực tế: 3 nếu bảo vệ mạch đo/báo điện áp ba pha R-S-T, ngược lại 1; section: 'Đo lường & Giám sát', box_2d: bao quanh đúng ký hiệu cầu chì và chữ FUSE/1x6A.
-     + Dòng 2: tag 'HL1' (hoặc 'R'), category: 'LIGHT', name: 'Đèn báo pha', spec: 'Đèn báo pha', quantity: 3, section: 'Đo lường & Giám sát', box_2d: bao quanh đúng ký hiệu hình tròn ⊗ và nhãn R. QUY TẮC: Đèn báo pha thì chỉ cần biết là đèn báo pha thôi, không cần ghi thông tin nhiều hay thông số rườm rà.
+   - Cầu chì (FUSE / ký hiệu hình chữ nhật có đường gạch hoặc chữ FUSE, FU, 3x2A, 1x6A) và Đèn báo pha (LIGHT / ký hiệu tròn dấu chéo ⊗ hoặc chữ Đ-V-X, R, S, T, Đèn báo) là HAI THIẾT BỊ VẬT LÝ HOÀN TOÀN ĐỘC LẬP.
+   - TUYỆT ĐỐI KHÔNG GỘP thành một dòng như "Cầu chì & Đèn báo pha" hoặc "Bộ hiển thị đo lường và đèn báo pha". BẮT BUỘC TÁCH THÀNH 2 DÒNG THIẾT BỊ RIÊNG BIỆT:
+     + Dòng 1: tag 'FU' (hoặc 'FU1'), category: 'FUSE', name: 'Cầu chì bảo vệ', spec: đọc đúng thông số trên bản vẽ (ví dụ: '2A-250V', '6A', '10A'...), quantity: 3 nếu bảo vệ mạch 3 pha (ví dụ 3x2A, Đ-V-X, R-S-T), ngược lại 1; section: 'Đo lường & Giám sát', box_2d: bao quanh đúng ký hiệu cầu chì và nhãn trị số.
+     + Dòng 2: tag 'HL' (hoặc 'HL1'), category: 'LIGHT', name: 'Đèn báo pha', spec: 'Đèn báo pha', quantity: 3 nếu 3 pha (Đ-V-X, R-S-T), ngược lại 1; section: 'Đo lường & Giám sát', box_2d: bao quanh đúng ký hiệu hình tròn ⊗. QUY TẮC: Đèn báo pha thì chỉ cần biết là đèn báo pha thôi, không cần ghi thông tin nhiều hay thông số rườm rà.
    - TUYỆT ĐỐI KHÔNG lấy vùng dẫn chứng box_2d của Cầu chì hoặc Đèn báo pha đặt lên đoạn cáp nguồn cấp (Cu/PVC...) ở phía trên!
 12. SUY LUẬN NỘI BỘ: Dùng reasoning/thinking nội bộ để kiểm tra tính đầy đủ, số lượng vật tư, quan hệ và bằng chứng trước khi trả lời. Không xuất chuỗi suy nghĩ hoặc thẻ <thinking>/<thought>/<think>; chỉ trả JSON kết quả cuối.
 

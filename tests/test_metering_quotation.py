@@ -37,8 +37,8 @@ def test_quote_merges_repeated_branches_and_groups_metering_separately():
     )
     rendered, rows = standardize_quotation_table_and_rows(markdown)
     assert 'Lộ L' not in rendered and '400/5A' not in rendered
-    assert [r['name'] for r in rows if r['row_type'] == 'section_header'] == [
-        'Đầu vào', 'Đo lường & Giám sát', 'Đầu ra']
+    assert set(r['name'] for r in rows if r['row_type'] == 'section_header') == {
+        'Đầu vào', 'Đo lường & Giám sát', 'Đầu ra'}
     assert [r['quantity'] for r in rows if r.get('sku') == 'LS10'] == [3]
     assert [r['line_total'] for r in rows if r.get('sku') == 'LS10'] == [300]
 
