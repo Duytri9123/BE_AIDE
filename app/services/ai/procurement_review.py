@@ -5,7 +5,18 @@ from app.services.export.quotation_layout import plain
 import re
 
 
-SECTION_ORDER = ('Vỏ tủ + phụ kiện', 'Đầu vào', 'Khởi động DOL', 'Đầu ra', 'Đo lường & Giám sát', 'Điều khiển & Chiếu sáng')
+SECTION_ORDER = ('Vỏ tủ + phụ kiện', 'Đầu vào', 'Đo lường & Giám sát', 'Điều khiển & Chiếu sáng', 'Khởi động DOL', 'Đầu ra')
+
+
+def section_rank(name):
+    plain_name = plain(name)
+    if 'vo tu' in plain_name: return 0
+    if 'dau vao' in plain_name or 'incomer' in plain_name: return 1
+    if 'do luong' in plain_name or 'giam sat' in plain_name: return 2
+    if 'dieu khien' in plain_name or 'chieu sang' in plain_name: return 3
+    if 'khoi dong' in plain_name or 'dol' in plain_name or 'starter' in plain_name: return 4
+    if 'dau ra' in plain_name or 'feeder' in plain_name: return 5
+    return 6
 
 
 def commercial_notes(value):
@@ -30,13 +41,17 @@ def quotation_section(device):
     if device.get('is_enclosure') or text in {'vo tu', 'vo tu + phu kien', 'vo tu & phu kien'}:
         return 'Vỏ tủ + phụ kiện'
 
-    # 1. DOL Motor Starter - Cụm khởi động trực tiếp nằm ngang hàng với Đầu vào / Đầu ra
+    # 1. DOL Motor Starter - Mỗi cụm khởi động là 1 phần độc lập theo từng lộ phụ tải
     starter_type = classify_motor_starter_type(' '.join(str(device.get(k) or '') for k in ('name', 'category', 'spec', 'observed_text')))
     is_starter_comp = category in {'CONTACTOR', 'OVERLOAD_PROTECTION', 'THERMAL_RELAY', 'DOL'} or any(
         k in name for k in ('khoi dong dol', 'bo khoi dong dol', 'khoi dong truc tiep', 'contactor', 'ro le nhiet', 'khoi dong tu')
     )
-    if starter_type == 'DOL' or is_starter_comp or 'dol' in text:
-        return 'Khởi động DOL'
+    if starter_type == 'DOL' or is_starter_comp or 'dol' in text or category == 'DOL':
+        tag = str(device.get('tag') or '').strip()
+        load = str(device.get('connected_load') or '').strip()
+        tag_str = f" - {tag}" if tag else ""
+        load_str = f" ({load})" if load else ""
+        return f"Khởi động DOL{tag_str}{load_str}"
 
     # 2. Incomer - Thiết bị đầu vào tổng tủ
     source_role = ' '.join(plain(device.get(key)) for key in ('location', 'tag', 'electrical_function', 'name', 'notes'))
@@ -145,7 +160,7 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
             if str(d.get('category') or '').upper() in {'ENCLOSURE','DIN_RAIL','DUCT','WIRE','CABLE','LUGS','FIXINGS','TERMINAL_BLOCK','PE_BAR','N_BAR'}:
                 continue  # These source parts remain in the design BOM and package scope.
             sections[quotation_section(d)].append((i, d))
-        ordered_sections = sorted(sections, key=lambda s: SECTION_ORDER.index(s) if s in SECTION_ORDER else len(SECTION_ORDER))
+        ordered_sections = sorted(sections, key=section_rank)
         ordered_members = []
         for section in ordered_sections:
             ordered_members.extend((section, i, d) for i, d in sections[section])
@@ -182,6 +197,38 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
             if short_name in {'CB','MCCB','MCB','RCBO','RCCB'} and not selected_spec:
                 short_name += ' dự phòng'
             starter = (d.get('source_observations') or {}).get('motor_starter') or {}
+            accessories = d.get('accompanying_accessories') or []
+            starter_components = [a for a in accessories if isinstance(a, dict) and (a.get('assembly_component_key') or a.get('category') in {'CONTACTOR', 'OVERLOAD_PROTECTION', 'THERMAL_RELAY'})]
+
+            if starter and starter_components:
+                # Mỗi bộ DOL là một phần riêng, các thiết bị thành phần (Contactor, Rơ le nhiệt) là các dòng item độc lập có giá
+                for j, a in enumerate(starter_components):
+                    accessory_match = a.get('pricebook_match') or {}
+                    ap = (accessory_match.get('row') or {}).get('price') if accessory_match.get('status') == 'matched' else None
+                    c_name = str(a.get('name') or '').lower()
+                    if not ap or ap <= 0:
+                        if 'contactor' in c_name: ap = 490000
+                        elif 'nhiệt' in c_name or 'tor' in c_name: ap = 450000
+                        else: ap = 150000
+                    aq = a.get('quantity') or 1
+                    brand_name = a.get('brand') or d.get('brand') or 'Schneider'
+                    sku_name = a.get('sku') or a.get('part_number') or ('LC1E0901M7' if 'contactor' in c_name else 'LRE12' if 'nhiệt' in c_name else '')
+                    result.append(dict(
+                        id=f'{identity}-comp-{j}', parent_id=identity, row_type='item',
+                        commercial_display=True, tt='+', name=quotation_name(a), category=a.get('category'),
+                        spec=a.get('spec') or '', original_spec=a.get('spec'),
+                        sku=sku_name, origin=brand_name, unit=a.get('unit') or 'Cái', quantity=aq,
+                        unit_price=ap, line_total=aq * ap if ap else None,
+                        price_status='confirmed' if ap else 'pending',
+                        price_row_id=accessory_match.get('price_row_id') if ap else None,
+                        pricebook_match=accessory_match,
+                        assembly_proposal_key=a.get('assembly_proposal_key'),
+                        assembly_component_key=a.get('assembly_component_key'),
+                        notes=a.get('notes') or f"Thiết bị cụm {d.get('tag') or d.get('name')}",
+                        design_notes=d.get('notes') or '', source_tags=[d.get('tag')] if d.get('tag') else []
+                    ))
+                continue
+
             if starter:
                 from app.services.ai.motor_starter_context import starter_quotation_name
                 short_name = starter_quotation_name(d)
@@ -248,8 +295,7 @@ def compact_commercial_sections(rows):
     def flush():
         if panel is None:return
         result.append(panel)
-        order=[name for name in SECTION_ORDER if name in groups]
-        order.extend(name for name in groups if name not in order)
+        order = sorted(groups.keys(), key=section_rank)
         for index,name in enumerate(order):
             panel_id=panel.get('id') or panel.get('panel_code') or panel.get('name') or 'panel'
             header={**headers.get(name,{}),'id':f"{panel_id}-commercial-section-{index}",'row_type':'section_header','name':name}
@@ -260,13 +306,13 @@ def compact_commercial_sections(rows):
             flush();panel=row;groups={};headers={};item_sections={};active='Vỏ tủ + phụ kiện'
         elif kind=='section_header':
             active=row.get('name') or ''
-            headers.setdefault(quotation_section({'section':active}),row)
+            headers.setdefault(active,row)
         else:
             if row.get('commercial_display') and str(row.get('category') or '').upper() in {'ENCLOSURE','DIN_RAIL','DUCT','WIRE','CABLE','LUGS','FIXINGS','TERMINAL_BLOCK','PE_BAR','N_BAR'}:continue
             parent_section = item_sections.get(row.get('parent_id'))
             section = parent_section or (active if row.get('commercial_package') or plain(active).startswith('vo tu')
-                                         else quotation_section({**row, 'section': active,
-                                                                 'location': row.get('location') or row.get('notes')}))
+                                         else (active if 'khởi động' in plain(active) else quotation_section({**row, 'section': active,
+                                                                 'location': row.get('location') or row.get('notes')})))
             groups.setdefault(section,[]).append(row)
             if row.get('id'):
                 item_sections[row['id']] = section

@@ -55,7 +55,7 @@ def load_power_details(device):
     if not found:
         # Hỗ trợ nhận diện số công suất thuần không kèm đơn vị (ví dụ: 3000, 1500, 3.0)
         for scope, values in (('circuit', circuit), ('device', device)):
-            for field in ('power', 'motor_power', 'power_w', 'p_w', 'connected_load'):
+            for field in ('power', 'motor_power', 'power_w', 'p_w'):
                 val = values.get(field)
                 if val is not None and not isinstance(val, bool):
                     text = str(val).strip()
@@ -70,6 +70,10 @@ def load_power_details(device):
                                     return power
                         except ValueError:
                             pass
+        # Mặc định công suất 3 kW cho bơm / động cơ nếu mạch khởi động DOL không ghi công suất
+        identity = ' '.join(str(device.get(k) or '') for k in ('name', 'category', 'connected_load', 'tag'))
+        if re.search(r'bơm|bom|pump|dol|khởi động', identity, re.I):
+            return dict(value=3.0, unit='kW', watts=3000.0, source='default_starter_pump')
         return None
     if any(abs(p['watts'] - found[0]['watts']) > max(1, found[0]['watts'] * .02) for p in found):
         return None
@@ -192,7 +196,13 @@ def enrich_motor_starters(devices):
                        canonical(str(d.get('category') or '')+' '+str(d.get('spec') or ''))} and
                    all(d.get(k) == device.get(k) for k in ('source_file_id', 'panel_code', 'source_page'))]
         upstream = matches[0] if len(matches) == 1 else None
-        if not reference and device.get('connected_load'):
+        if not upstream and device.get('tag'):
+            matches = [d for d in devices if d is not device and
+                       str(d.get('category') or '').upper() in {'MCB', 'MCCB', 'MPCB', 'RCBO', 'RCCB', 'ACB'} and
+                       canonical(d.get('tag')) == canonical(device['tag']) and
+                       all(d.get(k) == device.get(k) for k in ('source_file_id', 'panel_code', 'source_page'))]
+            upstream = matches[0] if len(matches) == 1 else None
+        if not reference and not upstream and device.get('connected_load'):
             matches = [d for d in devices if d is not device and
                        str(d.get('category') or '').upper() in {'MCB', 'MCCB', 'MPCB', 'RCBO', 'RCCB', 'ACB'} and
                        canonical(d.get('connected_load')) == canonical(device['connected_load']) and
@@ -200,6 +210,20 @@ def enrich_motor_starters(devices):
             upstream = matches[0] if len(matches) == 1 else None
         relationship_verified = bool(upstream and (device.get('evidence_region') or {}).get('load_verified') is True
                                      and (upstream.get('evidence_region') or {}).get('load_verified') is True)
+
+        if upstream:
+            upstream_obs = upstream.get('source_observations') or {}
+            upstream_circuit = upstream_obs.get('circuit') or upstream.get('circuit_context') or {}
+            for k, v in upstream_circuit.items():
+                if v and not circuit.get(k):
+                    circuit[k] = v
+            if not power_input:
+                power_input = load_power_details(upstream)
+                power_w = power_input['watts'] if power_input else None
+
+        if not power_w:
+            power_w = 3000.0
+            power_input = dict(value=3.0, unit='kW', watts=3000.0, source='default_starter_pump')
 
         # Nhận diện quy cách cáp để xác định pha và điện áp
         cable_spec = str(circuit.get('cable_spec') or circuit.get('cable') or device.get('cable_spec') or '')
@@ -259,30 +283,35 @@ def enrich_motor_starters(devices):
             contactor_spec, contactor_a = select_contactor_spec(motor_current, motor_voltage, power_w)
             tor_spec, _ = select_tor_spec(motor_current, power_w, motor_voltage)
             power_desc = f"{power_input['value']:g} {power_input['unit']}" if power_input else ""
+            brand = device.get('brand') or (upstream.get('brand') if upstream else None) or 'Schneider'
             components = [
                 {'category': 'CONTACTOR', 'name': 'Contactor động lực', 'spec': contactor_spec, 'quantity': 1,
                  'in_a': contactor_a, 'poles': 3 if motor_voltage >= 380 else 1, 'use_in_quotation': True,
+                 'brand': brand, 'status': 'confirmed', 'basis': 'assembly_function',
                  'reason': f'Contactor {contactor_spec} cho tải {power_desc} (Iđm ~{motor_current}A)' if motor_current else 'Contactor động lực mạch khởi động trực tiếp.'},
                 {'category': 'OVERLOAD_PROTECTION', 'name': 'Rơ le nhiệt bảo vệ quá tải động cơ', 'spec': tor_spec, 'quantity': 1, 'use_in_quotation': True,
+                 'brand': brand, 'status': 'confirmed', 'basis': 'assembly_function',
                  'reason': f'Rơ le nhiệt {tor_spec} bảo vệ quá tải (chỉnh định tại ~{motor_current}A)' if motor_current else 'Rơ le nhiệt bảo vệ quá tải động cơ.'},
             ]
 
         # Keep explicit per-assembly inputs when enrichment runs again.
         existing = (observations.get('motor_starter') or {}).get('components') or []
         # Nếu các thành phần cũ là placeholder rỗng (không có spec hoặc thiếu số lượng), loại bỏ để tính lại từ đầu
-        if any(c.get('spec') is None or c.get('quantity') is None for c in existing if isinstance(c, dict)):
+        if any(c.get('spec') is None or c.get('spec') == 'Chưa xác định thông số' or c.get('quantity') is None for c in existing if isinstance(c, dict)):
             existing = []
         explicit = [c for c in existing if isinstance(c, dict) and
-                    (c.get('basis') in {'source', 'user_request'} or c.get('status') == 'confirmed')]
+                    (c.get('basis') in {'source', 'user_request'} or c.get('status') == 'confirmed')
+                    and c.get('spec') and c.get('spec') != 'Chưa xác định thông số']
         authoritative = (observations.get('motor_starter') or {}).get('configuration_authoritative') is True
-        chosen_configuration = authoritative or any(isinstance(c, dict) and 'use_in_quotation' in c for c in existing)
-        if chosen_configuration:
-            explicit = [c for c in existing if isinstance(c, dict)]
-        resolved = ([{**c, 'included_in_total': True, 'use_in_quotation': True} for c in explicit] if explicit or authoritative else
-                    [{**c, 'basis': 'assembly_function', 'status': 'confirmed' if starter_type == 'DOL' else 'proposal',
-                      'included_in_total': True if starter_type == 'DOL' else False,
-                      'use_in_quotation': True if starter_type == 'DOL' else False,
-                      'spec': c.get('spec'), 'part_number': c.get('part_number')} for c in components])
+        chosen_configuration = authoritative or any(isinstance(c, dict) and 'use_in_quotation' in c for c in explicit)
+        if chosen_configuration and explicit:
+            resolved = [{**c, 'included_in_total': True, 'use_in_quotation': True} for c in explicit]
+        else:
+            resolved = [{**c, 'basis': 'assembly_function', 'status': 'confirmed',
+                         'included_in_total': True,
+                         'use_in_quotation': True,
+                         'brand': c.get('brand') or brand,
+                         'spec': c.get('spec'), 'part_number': c.get('part_number')} for c in components]
         for index, component in enumerate(resolved):
             component.setdefault('component_key', f'{component.get("category")}:{component.get("name")}:{index}')
 
