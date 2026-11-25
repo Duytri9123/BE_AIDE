@@ -57,8 +57,8 @@ def quotation_section(device):
     meter_cat = metering_kind(device)
     if any(term in text for term in ('do luong', 'giam sat', 'metering')) or meter_cat in {
         'CT', 'LIGHT', 'INDICATOR', 'PILOTLIGHT', 'PILOT_LIGHT', 'METER', 'MULTIMETER',
-        'VOLTMETER', 'AMMETER', 'ENERGY_METER', 'SELECTOR', 'SELECTOR_SWITCH'
-    } or re.search(r'dong ho|ampe ke|von ke|bien dong|den bao pha|chuyen mach (?:von|ampe)|cau chi.*do luong', name):
+        'VOLTMETER', 'AMMETER', 'ENERGY_METER', 'SELECTOR', 'SELECTOR_SWITCH', 'FUSE', 'FUSE_HOLDER'
+    } or re.search(r'dong ho|ampe ke|von ke|bien dong|den bao|bao pha|chuyen mach (?:von|ampe)|cau chi', name):
         return 'Đo lường & Giám sát'
 
     if text in {'output','out','branch'} or any(term in text for term in ('dau ra', 'feeder', 'outgoing')):
