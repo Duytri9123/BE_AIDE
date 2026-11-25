@@ -763,7 +763,10 @@ async def get_project_sessions(
         elif it.trigger_type == "el_proposal":
             run_type = "proposal"
         elif it.trigger_type in ("cad_generation", "design") or bool(conf.get("design_result")):
-            run_type = "cad"
+            if len(raw_devs) > 0 or it.trigger_type == "el_takeoff":
+                run_type = "takeoff"
+            else:
+                run_type = "cad"
         elif str(it.trigger_type or "").startswith("chat_"):
             run_type = "chat"
         else:
