@@ -281,30 +281,75 @@ def enrich_motor_starters(devices):
             ]
         else: # DOL
             contactor_spec, contactor_a = select_contactor_spec(motor_current, motor_voltage, power_w)
-            tor_spec, _ = select_tor_spec(motor_current, power_w, motor_voltage)
-            power_desc = f"{power_input['value']:g} {power_input['unit']}" if power_input else ""
+            tor_spec, tor_range = select_tor_spec(motor_current, power_w, motor_voltage)
             brand = device.get('brand') or (upstream.get('brand') if upstream else None) or 'Schneider'
+            brand_key = 'LS' if 'LS' in brand else 'Chint' if 'Chint' in brand else 'Schneider'
+
+            skus = {
+                'Schneider': {
+                    'contactor': 'LC1E0901M7' if contactor_a <= 9 else 'LC1E1201M7' if contactor_a <= 12 else 'LC1E1801M7',
+                    'tor': 'LRE12', 'selector': 'XB5AD33', 'buttonOn': 'XB5AW33B5', 'buttonOff': 'XB5AW34B5',
+                    'tripLight': 'XB5AVM5', 'relay': 'RXM2AB2P7'
+                },
+                'LS': {
+                    'contactor': 'MC-9b' if contactor_a <= 9 else 'MC-12b' if contactor_a <= 12 else 'MC-18b',
+                    'tor': 'MT-32/3K', 'selector': 'NP2-BD33', 'buttonOn': 'NP2-BW33', 'buttonOff': 'NP2-BW34',
+                    'tripLight': 'ND16-22D Vàng', 'relay': 'MY2N-GS 220VAC'
+                },
+                'Chint': {
+                    'contactor': 'NC1-0901' if contactor_a <= 9 else 'NC1-1201' if contactor_a <= 12 else 'NC1-1801',
+                    'tor': 'NR2-25', 'selector': 'NP2-BD33', 'buttonOn': 'NP2-BW33', 'buttonOff': 'NP2-BW34',
+                    'tripLight': 'ND16-22D Vàng', 'relay': 'JQX-13F 220V'
+                }
+            }
+            sku_set = skus.get(brand_key, skus['Schneider'])
+
+            c_spec_short = f"3P {contactor_a}A"
+            t_spec_short = tor_range
+
             components = [
-                {'category': 'CONTACTOR', 'name': 'Contactor động lực', 'spec': contactor_spec, 'quantity': 1,
+                {'category': 'CONTACTOR', 'name': f'Contactor {c_spec_short}', 'spec': f'{c_spec_short} 220VAC',
+                 'part_number': sku_set['contactor'], 'sku': sku_set['contactor'], 'quantity': 1, 'unit': 'Cái',
                  'in_a': contactor_a, 'poles': 3 if motor_voltage >= 380 else 1, 'use_in_quotation': True,
                  'brand': brand, 'status': 'confirmed', 'basis': 'assembly_function',
-                 'reason': f'Contactor {contactor_spec} cho tải {power_desc} (Iđm ~{motor_current}A)' if motor_current else 'Contactor động lực mạch khởi động trực tiếp.'},
-                {'category': 'OVERLOAD_PROTECTION', 'name': 'Rơ le nhiệt bảo vệ quá tải động cơ', 'spec': tor_spec, 'quantity': 1, 'use_in_quotation': True,
-                 'brand': brand, 'status': 'confirmed', 'basis': 'assembly_function',
-                 'reason': f'Rơ le nhiệt {tor_spec} bảo vệ quá tải (chỉnh định tại ~{motor_current}A)' if motor_current else 'Rơ le nhiệt bảo vệ quá tải động cơ.'},
+                 'reason': f'Contactor {c_spec_short} đóng cắt nguồn động lực cho tải (Iđm ~{motor_current}A)'},
+                {'category': 'OVERLOAD_PROTECTION', 'name': f'Rơ le nhiệt {t_spec_short}', 'spec': f'Dải {t_spec_short}',
+                 'part_number': sku_set['tor'], 'sku': sku_set['tor'], 'quantity': 1, 'unit': 'Cái',
+                 'use_in_quotation': True, 'brand': brand, 'status': 'confirmed', 'basis': 'assembly_function',
+                 'reason': f'Rơ le nhiệt bảo vệ quá tải động cơ (chỉnh định tại ~{motor_current}A)'},
+                {'category': 'SELECTOR', 'name': 'Công tắc chuyển mạch 3 vị trí', 'spec': 'Tay - 0 - Tự động',
+                 'part_number': sku_set['selector'], 'sku': sku_set['selector'], 'quantity': 1, 'unit': 'Cái',
+                 'use_in_quotation': True, 'brand': brand, 'status': 'confirmed', 'basis': 'assembly_function',
+                 'reason': 'Chọn chế độ vận hành Tay - 0 - Tự động (MAN-OFF-AUTO)'},
+                {'category': 'PUSH_BUTTON', 'name': 'Nút nhấn ON có đèn (Xanh)', 'spec': 'Nút nhấn nhả có đèn (Xanh)',
+                 'part_number': sku_set['buttonOn'], 'sku': sku_set['buttonOn'], 'quantity': 1, 'unit': 'Cái',
+                 'use_in_quotation': True, 'brand': brand, 'status': 'confirmed', 'basis': 'assembly_function',
+                 'reason': 'Khởi động chạy tay và tích hợp đèn báo trạng thái CHẠY'},
+                {'category': 'PUSH_BUTTON', 'name': 'Nút nhấn OFF có đèn (Đỏ)', 'spec': 'Nút nhấn nhả có đèn (Đỏ)',
+                 'part_number': sku_set['buttonOff'], 'sku': sku_set['buttonOff'], 'quantity': 1, 'unit': 'Cái',
+                 'use_in_quotation': True, 'brand': brand, 'status': 'confirmed', 'basis': 'assembly_function',
+                 'reason': 'Dừng chạy tay và tích hợp đèn báo trạng thái DỪNG'},
+                {'category': 'INDICATOR', 'name': 'Đèn báo sự cố (TRIP - Vàng)', 'spec': 'Đèn báo sự cố (Vàng)',
+                 'part_number': sku_set['tripLight'], 'sku': sku_set['tripLight'], 'quantity': 1, 'unit': 'Cái',
+                 'use_in_quotation': True, 'brand': brand, 'status': 'confirmed', 'basis': 'assembly_function',
+                 'reason': 'Báo lỗi sự cố quá tải khi rơ le nhiệt nhảy'},
+                {'category': 'RELAY', 'name': 'Rơ le trung gian (Kèm đế)', 'spec': '8 chân dẹp 220VAC kèm đế ray',
+                 'part_number': sku_set['relay'], 'sku': sku_set['relay'], 'quantity': 1, 'unit': 'Bộ',
+                 'use_in_quotation': True, 'brand': brand, 'status': 'confirmed', 'basis': 'assembly_function',
+                 'reason': 'Tự giữ mạch điều khiển, liên động phao / mức nước / BMS'},
             ]
 
         # Keep explicit per-assembly inputs when enrichment runs again.
         existing = (observations.get('motor_starter') or {}).get('components') or []
-        # Nếu các thành phần cũ là placeholder rỗng (không có spec hoặc thiếu số lượng), loại bỏ để tính lại từ đầu
-        if any(c.get('spec') is None or c.get('spec') == 'Chưa xác định thông số' or c.get('quantity') is None for c in existing if isinstance(c, dict)):
+        # Nếu các thành phần cũ không đủ 7 thiết bị chuẩn hoặc có placeholder rỗng, tính lại toàn bộ
+        if len(existing) < 7 or any(c.get('spec') is None or c.get('spec') == 'Chưa xác định thông số' or c.get('quantity') is None for c in existing if isinstance(c, dict)):
             existing = []
         explicit = [c for c in existing if isinstance(c, dict) and
                     (c.get('basis') in {'source', 'user_request'} or c.get('status') == 'confirmed')
                     and c.get('spec') and c.get('spec') != 'Chưa xác định thông số']
         authoritative = (observations.get('motor_starter') or {}).get('configuration_authoritative') is True
         chosen_configuration = authoritative or any(isinstance(c, dict) and 'use_in_quotation' in c for c in explicit)
-        if chosen_configuration and explicit:
+        if chosen_configuration and len(explicit) >= 7:
             resolved = [{**c, 'included_in_total': True, 'use_in_quotation': True} for c in explicit]
         else:
             resolved = [{**c, 'basis': 'assembly_function', 'status': 'confirmed',

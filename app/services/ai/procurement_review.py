@@ -191,17 +191,18 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                 match = {**match,'status':'needs_selection','price_row_id':None,'row':None,
                          'note':'Thông số đã thay đổi; cần chọn lại dòng giá.'}
             short_name = {'MCCB':'MCCB','MCB':'MCB','CB':'CB','RCBO':'RCBO','RCCB':'RCCB',
-                          'CT':'Biến dòng hạ thế','LIGHT':'Đèn báo pha (đỏ-vàng-xanh)',
-                          'INDICATOR':'Đèn báo pha (đỏ-vàng-xanh)','FUSE':'Cầu chì điều khiển',
+                          'CT':'Biến dòng hạ thế','LIGHT':'Đèn báo pha',
+                          'INDICATOR':'Đèn báo pha','FUSE':'Cầu chì điều khiển',
                           'METER':'Đồng hồ đa năng','AMMETER':'Ampe kế','VOLTMETER':'Vôn kế'}.get(str(d.get('category') or '').upper(),d.get('name') or 'Thiết bị')
             if short_name in {'CB','MCCB','MCB','RCBO','RCCB'} and not selected_spec:
                 short_name += ' dự phòng'
             starter = (d.get('source_observations') or {}).get('motor_starter') or {}
             accessories = d.get('accompanying_accessories') or []
-            starter_components = [a for a in accessories if isinstance(a, dict) and (a.get('assembly_component_key') or a.get('category') in {'CONTACTOR', 'OVERLOAD_PROTECTION', 'THERMAL_RELAY'})]
+            starter_categories = {'CONTACTOR', 'OVERLOAD_PROTECTION', 'THERMAL_RELAY', 'SELECTOR', 'PUSH_BUTTON', 'INDICATOR', 'RELAY'}
+            starter_components = [a for a in accessories if isinstance(a, dict) and (a.get('assembly_component_key') or a.get('category') in starter_categories)]
 
             if starter and starter_components:
-                # Mỗi bộ DOL là một phần riêng, các thiết bị thành phần (Contactor, Rơ le nhiệt) là các dòng item độc lập có giá
+                # Mỗi bộ DOL là một phần riêng, 7 thiết bị thành phần chuẩn hiển thị rõ ràng cùng hãng
                 for j, a in enumerate(starter_components):
                     accessory_match = a.get('pricebook_match') or {}
                     ap = (accessory_match.get('row') or {}).get('price') if accessory_match.get('status') == 'matched' else None
@@ -209,10 +210,14 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                     if not ap or ap <= 0:
                         if 'contactor' in c_name: ap = 490000
                         elif 'nhiệt' in c_name or 'tor' in c_name: ap = 450000
+                        elif 'chuyển mạch' in c_name: ap = 120000
+                        elif 'nút nhấn' in c_name: ap = 85000
+                        elif 'đèn báo' in c_name: ap = 45000
+                        elif 'trung gian' in c_name or 'relay' in c_name: ap = 140000
                         else: ap = 150000
                     aq = a.get('quantity') or 1
                     brand_name = a.get('brand') or d.get('brand') or 'Schneider'
-                    sku_name = a.get('sku') or a.get('part_number') or ('LC1E0901M7' if 'contactor' in c_name else 'LRE12' if 'nhiệt' in c_name else '')
+                    sku_name = a.get('sku') or a.get('part_number') or ''
                     result.append(dict(
                         id=f'{identity}-comp-{j}', parent_id=identity, row_type='item',
                         commercial_display=True, tt='+', name=quotation_name(a), category=a.get('category'),
