@@ -22,6 +22,8 @@ class DeviceChanges(BaseModel):
     panel_code: str | None = Field(default=None, max_length=150)
     panel_name: str | None = Field(default=None, max_length=300)
     tag: str | None = Field(default=None, max_length=150)
+    section: str | None = Field(default=None, max_length=150)
+    unit: str | None = Field(default=None, max_length=50)
     notes: str | None = Field(default=None, max_length=2000)
     connected_load: str | None = Field(default=None, max_length=500)
     power_w: float | None = Field(default=None, ge=0, le=1e12, allow_inf_nan=False)
@@ -129,7 +131,7 @@ Chỉ trả một JSON object (không markdown):
 {"reply":"Câu trả lời hoặc mô tả chỉnh sửa", "operations":[{"op":"update", "index":0, "changes":{"brand":"LS"}}]}
 Ví dụ thêm: {"reply":"Thêm 1 MCCB 100A", "operations":[{"op":"add","changes":{"category":"MCCB","name":"MCCB 100A","spec":"100A","in_a":100,"quantity":1}}]}
 Operations hợp lệ: add (không index), update/remove (có index); remove không có changes.
-Changes chỉ gồm category,name,spec,brand,part_number,quantity,in_a,icu_ka,poles,panel_code,panel_name,tag,notes,
+Changes chỉ gồm category,name,spec,brand,part_number,quantity,in_a,icu_ka,poles,panel_code,panel_name,tag,section,unit,notes,
 connected_load,power_w,motor_rated_current_a,motor_voltage_v,control_voltage_v.
 power_w là công suất phụ tải tính bằng W, quy đổi từ kW/W/HP/CV đã ghi rõ trong đầu vào (1 HP = 745.699872 W; 1 CV = 735.49875 W), không suy từ dòng aptomat.
 Sửa thiết bị TRONG MỘT BỘ: giữ index của thiết bị cha, thêm collection="components" hoặc "accessory_proposals",
