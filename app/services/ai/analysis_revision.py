@@ -115,34 +115,76 @@ def quotation_after_device_edit(before, after, previous, panels=None):
 
 
 async def refresh_linked_quotation_file(db, project_id, scores, rows):
-    """Replace an owned generated workbook in place, retaining its file identity."""
+    """Replace an owned generated workbook in place, retaining its file identity, or generate a new file."""
     reference = scores.get('quotation_file') or (scores.get('design_result') or {}).get('quotation_file') or {}
     file_id = scores.get('quotation_file_id') or (reference.get('id') if isinstance(reference, dict) else None)
-    if not file_id:
-        return None
-    file = (await db.execute(select(ProjectFile).where(ProjectFile.id == file_id,
-        ProjectFile.project_id == project_id, ProjectFile.is_generated.is_(True)))).scalar_one_or_none()
-    if file is None or Path(file.filename).suffix.lower() != '.xlsx':
-        raise HTTPException(409, 'File báo giá đã liên kết không còn khả dụng để cập nhật.')
+    file = None
+    if file_id:
+        file = (await db.execute(select(ProjectFile).where(ProjectFile.id == file_id,
+            ProjectFile.project_id == project_id, ProjectFile.is_generated.is_(True)))).scalar_one_or_none()
+
     from app.services.export.quotation_exporter import QuotationExporterService
-    target = Path(file.file_path).resolve()
-    original = target.read_bytes() if target.exists() else None
-    generated = await asyncio.to_thread(QuotationExporterService.export, devices=rows,
-        project_name=target.stem, brand_preference='Theo lựa chọn thiết bị')
-    generated = Path(generated).resolve()
-    staged = None
-    try:
-        with tempfile.NamedTemporaryFile(dir=target.parent, suffix='.xlsx', delete=False) as temp:
-            staged = Path(temp.name)
-        shutil.copyfile(generated, staged)
-        os.replace(staged, target)
-        file.file_size = target.stat().st_size
-    finally:
-        if staged and staged.exists():
-            staged.unlink()
-        if generated != target and generated.exists():
-            generated.unlink()
-    return target, original
+    project_name = getattr(file, 'filename', None)
+    if project_name:
+        project_name = Path(project_name).stem
+    else:
+        project_name = f'Du_an_{project_id}'
+
+    if file and Path(file.filename).suffix.lower() == '.xlsx' and getattr(file, 'file_path', None) and os.path.exists(file.file_path):
+        target = Path(file.file_path).resolve()
+        original = target.read_bytes() if target.exists() else None
+        generated = await asyncio.to_thread(QuotationExporterService.export, devices=rows,
+            project_name=target.stem, brand_preference='Theo lựa chọn thiết bị')
+        generated = Path(generated).resolve()
+        staged = None
+        try:
+            with tempfile.NamedTemporaryFile(dir=target.parent, suffix='.xlsx', delete=False) as temp:
+                staged = Path(temp.name)
+            shutil.copyfile(generated, staged)
+            os.replace(staged, target)
+            file.file_size = target.stat().st_size
+        finally:
+            if staged and staged.exists():
+                staged.unlink()
+            if generated != target and generated.exists():
+                generated.unlink()
+        file_info = {
+            'id': file.id,
+            'filename': file.filename,
+            'file_size': file.file_size,
+            'created_at': file.created_at.isoformat() if getattr(file, 'created_at', None) else None,
+            'download_url': f'/api/v1/projects/{project_id}/files/{file.id}/download'
+        }
+        scores['quotation_file'] = file_info
+        scores['quotation_file_id'] = file.id
+        return target, original
+    elif rows and hasattr(db, 'add'):
+        file_path = await asyncio.to_thread(QuotationExporterService.export, devices=rows,
+            project_name=project_name, brand_preference='Theo lựa chọn thiết bị')
+        filename = os.path.basename(file_path)
+        file_size = os.path.getsize(file_path)
+        new_file = ProjectFile(
+            project_id=project_id,
+            filename=filename,
+            file_path=file_path,
+            file_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            file_size=file_size,
+            is_generated=True
+        )
+        db.add(new_file)
+        if hasattr(db, 'flush'):
+            await db.flush()
+        file_info = {
+            'id': getattr(new_file, 'id', None),
+            'filename': filename,
+            'file_size': file_size,
+            'created_at': getattr(new_file, 'created_at', None).isoformat() if getattr(new_file, 'created_at', None) else None,
+            'download_url': f'/api/v1/projects/{project_id}/files/{getattr(new_file, "id", "")}/download'
+        }
+        scores['quotation_file'] = file_info
+        scores['quotation_file_id'] = getattr(new_file, 'id', None)
+        return None
+    return None
 
 
 def _fingerprint(iteration):
@@ -193,6 +235,8 @@ async def revise_existing_analysis(db, project_id, user_id, iteration_id, messag
     if changed:
         from app.services.ai.motor_starter_context import enrich_motor_starters
         enrich_motor_starters(after)
+        from app.services.ai.metering_pilot_lights import split_and_normalize_metering_pilot_lights
+        after = split_and_normalize_metering_pilot_lights(after)
         quote = await asyncio.to_thread(quotation_after_device_edit, before, after, quote, scores.get('panels'))
     # Lock and re-read after the model call, so a stale chat cannot overwrite another edit.
     if getattr(getattr(db, 'bind', None), 'dialect', None) is not None and db.bind.dialect.name == 'sqlite':
@@ -231,8 +275,10 @@ async def revise_existing_analysis(db, project_id, user_id, iteration_id, messag
             elif backup[0].exists():
                 backup[0].unlink()
         raise
-    return {'reply': plan.reply + '\n\nĐã cập nhật trực tiếp kết quả hiện có và bảng báo giá.',
+    file_info = scores.get('quotation_file')
+    file_note = f"\n\n📄 **File báo giá đã được cập nhật và xuất ra:** [{file_info['filename']}](/api/v1/projects/{project_id}/files/{file_info['id']}/download)" if file_info and file_info.get('id') else ""
+    return {'reply': plan.reply + '\n\nĐã cập nhật trực tiếp kết quả hiện có và bảng báo giá.' + file_note,
         'action_type': 'update_devices' if changed else 'update_quotation', 'updated_in_place': True,
         'project_id': project_id, 'base_iteration_id': iteration_id, 'iteration_id': current.id,
         'iteration_number': current.iteration_number, 'session_id': str(current.session_id),
-        'devices': after, 'quotation_rows': quote}
+        'devices': after, 'quotation_rows': quote, 'quotation_file': file_info}

@@ -109,19 +109,22 @@ def split_and_normalize_metering_pilot_lights(devices: list[dict]) -> list[dict]
             res.append(row)
 
     if lamps_to_combine:
-        base = lamps_to_combine[0]
-        combined_lamp = deepcopy(base)
-        combined_lamp.update({
-            'name': 'Đèn báo pha (Đỏ, Vàng, Xanh)',
-            'device_type': 'Đèn báo pha',
-            'category': 'PILOT_LIGHT',
-            'spec': '220V/250V',
-            'quantity': sum(l.get('quantity') or 1 for l in lamps_to_combine),
-            'unit': 'Cái',
-            'tag': 'HL',
-            'section': 'Đo lường & Giám sát',
-            'technical_analysis': '03 Đèn báo pha (Đỏ, Vàng, Xanh) 220VAC giám sát sự hiện diện điện áp 3 pha nguồn tổng.'
-        })
-        res.append(combined_lamp)
+        # Nếu chưa có đèn báo pha nào trong res thì mới gộp thêm vào
+        has_pilot_light = any(r.get('category') in {'PILOT_LIGHT', 'LIGHT'} for r in res)
+        if not has_pilot_light:
+            base = lamps_to_combine[0]
+            combined_lamp = deepcopy(base)
+            combined_lamp.update({
+                'name': 'Đèn báo pha (Đỏ, Vàng, Xanh)',
+                'device_type': 'Đèn báo pha',
+                'category': 'PILOT_LIGHT',
+                'spec': '220V/250V',
+                'quantity': max(3, sum(l.get('quantity') or 1 for l in lamps_to_combine)),
+                'unit': 'Cái',
+                'tag': 'HL',
+                'section': 'Đo lường & Giám sát',
+                'technical_analysis': '03 Đèn báo pha (Đỏ, Vàng, Xanh) 220VAC giám sát sự hiện diện điện áp 3 pha nguồn tổng.'
+            })
+            res.append(combined_lamp)
 
     return res

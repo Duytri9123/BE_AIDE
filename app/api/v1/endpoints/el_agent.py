@@ -2137,8 +2137,19 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
     if resolution.get('intent') == 'takeoff_update' or edit_quote:
         from app.services.ai.analysis_revision import revise_existing_analysis
         target = (context.get('quotation_iteration_id') or context.get('iteration_id')) if edit_quote else context.get('iteration_id')
-        return await run_step('Đang cập nhật kết quả hiện có và báo giá', revise_existing_analysis(
-            db, payload.project_id, user.id, target, payload.message, context))
+        if not target:
+            from app.models.analysis_iteration import AnalysisIteration
+            from app.models.conversation_session import ConversationSession
+            sess_stmt = select(ConversationSession).where(ConversationSession.project_id == payload.project_id).order_by(ConversationSession.created_at.desc())
+            latest_sess = (await db.execute(sess_stmt)).scalars().first()
+            if latest_sess:
+                iter_stmt = select(AnalysisIteration).where(AnalysisIteration.session_id == latest_sess.id).order_by(AnalysisIteration.iteration_number.desc())
+                latest_iter = (await db.execute(iter_stmt)).scalars().first()
+                if latest_iter:
+                    target = latest_iter.id
+        if target:
+            return await run_step('Đang cập nhật kết quả hiện có và báo giá', revise_existing_analysis(
+                db, payload.project_id, user.id, target, payload.message, context))
 
     # Yêu cầu đẩy kết quả bóc tách / các mục đã tạo ra giao diện
     norm_req = ''.join(c for c in unicodedata.normalize('NFD', payload.message.lower().replace('đ', 'd'))

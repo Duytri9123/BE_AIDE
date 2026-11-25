@@ -90,9 +90,26 @@ async def resolve_request(db, message, context):
             'new_quotation': True
         }
 
-    # Thêm vào trong bóc tách / sửa trong bóc tách: Ưu tiên tuyệt đối intent là takeoff_update, không chuyển thành báo giá
-    if re.search(r'\b(?:them|bo\s*sung|sua|cap\s*nhat|xoa)\s*(?:vao\s*)?(?:trong\s*)?boc\s*tach\b', normalized) or \
-       'trong boc tach' in normalized or 'vao boc tach' in normalized:
+    history = conversation_history(context, message)
+    last_assistant = next((m['content'] for m in reversed(history) if m.get('role') == 'assistant'), '')
+
+    # Phát hiện phản hồi xác nhận của người dùng khi trợ lý hỏi có cập nhật không ('có', 'đồng ý', 'ừ', 'cập nhật đi', 'cập nhật nữa', 'làm đi')
+    is_confirmation = bool(re.search(
+        r'^(?:co|co chu|dong y|ok|oke|duoc|lam di|thuc hien di|cap nhat|cap nhat di|cap nhat nua|them di|sua di|xoa di|xac nhan|tien hanh|yes|yep)\b',
+        normalized
+    ))
+    if is_confirmation and last_assistant:
+        effective_text = f'Xác nhận từ người dùng: Đồng ý thực hiện cập nhật thiết bị và báo giá theo nội dung đã trao đổi: {last_assistant[:3000]}'
+        return {
+            'original': message,
+            'effective': effective_text,
+            'intent': 'takeoff_update'
+        }
+
+    # Thêm vào trong bóc tách / sửa trong bóc tách / cập nhật CRUD: Ưu tiên tuyệt đối intent là takeoff_update
+    if re.search(r'\b(?:them|bo\s*sung|sua|cap\s*nhat|xoa|tao\s*moi)\s*(?:vao\s*)?(?:trong\s*)?boc\s*tach\b', normalized) or \
+       'trong boc tach' in normalized or 'vao boc tach' in normalized or \
+       re.search(r'\b(?:cap\s*nhat\s*nua|cap\s*nhat\s*(?:them|sua|xoa|tao\s*moi)|them\s*sua\s*xoa)\b', normalized):
         return {
             'original': message,
             'effective': message,
