@@ -324,7 +324,7 @@ def enrich_motor_starters(devices):
         brand = device.get('brand') or (upstream.get('brand') if upstream else None) or cat_brands.get('BREAKER') or cat_brands.get('CONTACTOR') or file_default_brand or settings.DEFAULT_BRAND
         brand_key = 'LS' if 'ls' in brand.lower() else 'Chint' if 'chint' in brand.lower() else 'Schneider'
         control_brand = cat_brands.get('INDICATOR') or cat_brands.get('PUSH_BUTTON') or cat_brands.get('SELECTOR') or brand
-        control_brand_key = 'LS' if 'ls' in control_brand.lower() else 'Chint' if 'chint' in control_brand.lower() else 'Schneider'
+        control_brand_key = 'LS' if 'ls' in control_brand.lower() else 'Chint' if 'chint' in control_brand.lower() else 'Morele' if 'morele' in control_brand.lower() else 'Schneider'
 
         def _contactor_sku(b_key, amps):
             if b_key == 'LS':
@@ -369,6 +369,7 @@ def enrich_motor_starters(devices):
             'Schneider': {'selector': 'XB5AD33', 'buttonOn': 'XB5AW33B5', 'buttonOff': 'XB5AW34B5', 'tripLight': 'XB5AVM5', 'relay': 'RXM2AB2P7', 'timer': 'RE17RMMU'},
             'LS': {'selector': 'NP2-BD33', 'buttonOn': 'NP2-BW33', 'buttonOff': 'NP2-BW34', 'tripLight': 'ND16-22D Vàng', 'relay': 'MY2N-GS 220VAC', 'timer': 'AT8N 220VAC'},
             'Chint': {'selector': 'NP2-BD33', 'buttonOn': 'NP2-BW33', 'buttonOff': 'NP2-BW34', 'tripLight': 'ND16-22D Vàng', 'relay': 'JQX-13F 220V', 'timer': 'JSZ3A-A'},
+            'Morele': {'selector': 'ML-11X', 'buttonOn': 'ML-11D', 'buttonOff': 'ML-11D', 'tripLight': 'Đèn báo Ф22 Vàng', 'relay': 'MY2N-GS 220VAC', 'timer': 'AT8N 220VAC'},
         }
         ctrl_skus = pilot_skus[control_brand_key]
         pwr_skus = pilot_skus[brand_key]
