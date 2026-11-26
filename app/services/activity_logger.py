@@ -166,17 +166,6 @@ async def sync_initial_activities_and_notifications(db: AsyncSession):
             )
             db.add(log_p)
 
-            notif_p = Notification(
-                user_id=admin_id,
-                title="Dự án mới được tạo",
-                body=f"Dự án '{p.name}' đã được khởi tạo và sẵn sàng bóc tách",
-                type="new-project",
-                link="/admin/project/list",
-                is_read=False,
-                created_at=time_created
-            )
-            db.add(notif_p)
-
         # 3. Đồng bộ tập tin bản vẽ thật (lấy 20 tập tin gần nhất)
         files = (await db.execute(
             select(ProjectFile).order_by(ProjectFile.created_at.asc()).limit(20)
@@ -196,17 +185,6 @@ async def sync_initial_activities_and_notifications(db: AsyncSession):
                 created_at=time_created
             )
             db.add(log_f)
-
-            notif_f = Notification(
-                user_id=admin_id,
-                title="Tập tin bản vẽ mới",
-                body=f"Bản vẽ '{f.filename}' được tải lên dự án '{p_name}'",
-                type="file-uploaded",
-                link="/admin/project-file/list",
-                is_read=False,
-                created_at=time_created
-            )
-            db.add(notif_f)
 
         # 4. Đồng bộ phiên bóc tách AI
         sessions = (await db.execute(

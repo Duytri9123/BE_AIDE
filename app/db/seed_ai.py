@@ -29,9 +29,8 @@ DEFAULT_PROVIDERS = [
             {"model_key": "ag/gemini-3.6-flash-medium", "label": "Gemini 3.6 Flash Medium", "sort_order": 8},
             {"model_key": "ag/gemini-3.5-flash", "label": "Gemini 3.5 Flash", "sort_order": 9},
             {"model_key": "claude-sonnet-4-6", "label": "Claude Sonnet 4.6 (Độ chính xác cao)", "sort_order": 10},
-            {"model_key": "gpt-oss-120b-medium", "label": "GPT-OSS 120B Medium", "sort_order": 11},
-            {"model_key": "gemini-2.5-flash", "label": "Gemini 2.5 Flash", "sort_order": 12},
-            {"model_key": "gemini-2.5-pro", "label": "Gemini 2.5 Pro", "sort_order": 13},
+            {"model_key": "claude-opus-4-6", "label": "Claude Opus 4.6 (Suy luận sâu)", "sort_order": 11},
+            {"model_key": "gpt-oss-120b-medium", "label": "GPT-OSS 120B Medium", "sort_order": 12},
         ]
     },
     {
@@ -45,11 +44,12 @@ DEFAULT_PROVIDERS = [
         "is_active": True,
         "sort_order": 1,
         "models": [
-            {"model_key": "gpt-6-astra", "label": "GPT-6 Astra", "sort_order": 1},
-            {"model_key": "gpt-5.6-sol", "label": "GPT-5.6 Sol", "sort_order": 2},
-            {"model_key": "gpt-5.6-terra", "label": "GPT-5.6 Terra", "sort_order": 3},
-            {"model_key": "gpt-5.6-luna", "label": "GPT-5.6 Luna", "sort_order": 4},
-            {"model_key": "gpt-5.5", "label": "GPT-5.5", "sort_order": 5},
+            {"model_key": "gpt-6.2-astra", "label": "GPT-6.2 Astra (Mới nhất)", "sort_order": 1},
+            {"model_key": "gpt-6.2-sol", "label": "GPT-6.2 Sol (Khuyên dùng)", "sort_order": 2},
+            {"model_key": "gpt-6-astra", "label": "GPT-6 Astra", "sort_order": 3},
+            {"model_key": "gpt-6.1-terra", "label": "GPT-6.1 Terra", "sort_order": 4},
+            {"model_key": "gpt-5.6-sol", "label": "GPT-5.6 Sol", "sort_order": 5},
+            {"model_key": "gpt-5.6-terra", "label": "GPT-5.6 Terra", "sort_order": 6},
         ]
     },
     {
@@ -63,11 +63,12 @@ DEFAULT_PROVIDERS = [
         "is_active": True,
         "sort_order": 2,
         "models": [
-            {"model_key": "gpt-6-astra", "label": "GPT-6 Astra", "sort_order": 1},
-            {"model_key": "gpt-5.6-sol", "label": "GPT-5.6 Sol", "sort_order": 2},
-            {"model_key": "gpt-5.6-terra", "label": "GPT-5.6 Terra", "sort_order": 3},
-            {"model_key": "gpt-5.6-luna", "label": "GPT-5.6 Luna", "sort_order": 4},
-            {"model_key": "gpt-5.5", "label": "GPT-5.5", "sort_order": 5},
+            {"model_key": "gpt-6.2-astra", "label": "GPT-6.2 Astra (Mới nhất)", "sort_order": 1},
+            {"model_key": "gpt-6.2-sol", "label": "GPT-6.2 Sol (Khuyên dùng)", "sort_order": 2},
+            {"model_key": "gpt-6-astra", "label": "GPT-6 Astra", "sort_order": 3},
+            {"model_key": "gpt-6.1-terra", "label": "GPT-6.1 Terra", "sort_order": 4},
+            {"model_key": "gpt-5.6-sol", "label": "GPT-5.6 Sol", "sort_order": 5},
+            {"model_key": "gpt-5.6-terra", "label": "GPT-5.6 Terra", "sort_order": 6},
         ]
     },
     {
@@ -76,14 +77,15 @@ DEFAULT_PROVIDERS = [
         "slug": "anthropic",
         "api_type": "anthropic",
         "base_url": "https://api.anthropic.com/v1",
-        "description": "Claude 3.5 Sonnet & Haiku — Đọc hiểu sơ đồ phức tạp và tài liệu kỹ thuật dài",
+        "description": "Claude 5.5 Sonnet, Opus & Haiku — Đọc hiểu sơ đồ phức tạp và tài liệu kỹ thuật dài",
         "icon": "/admin/static/providers/anthropic.png",
         "is_active": True,
         "sort_order": 3,
         "models": [
-            {"model_key": "claude-3-5-sonnet-20241022", "label": "Claude 3.5 Sonnet (Độ chính xác cao nhất)", "sort_order": 1},
-            {"model_key": "claude-3-5-haiku-20241022", "label": "Claude 3.5 Haiku", "sort_order": 2},
-            {"model_key": "claude-3-opus-20240229", "label": "Claude 3 Opus", "sort_order": 3},
+            {"model_key": "claude-sonnet-5-5", "label": "Claude Sonnet 5.5 (Khuyên dùng)", "sort_order": 1},
+            {"model_key": "claude-opus-5-5", "label": "Claude Opus 5.5 (Suy luận chuyên sâu)", "sort_order": 2},
+            {"model_key": "claude-haiku-5-5", "label": "Claude Haiku 5.5 (Tốc độ cao)", "sort_order": 3},
+            {"model_key": "claude-sonnet-4-6", "label": "Claude Sonnet 4.6", "sort_order": 4},
         ]
     },
     {
@@ -112,9 +114,10 @@ DEFAULT_PROVIDERS = [
         "is_active": True,
         "sort_order": 0,
         "models": [
-            {"model_key": "gemini-2.5-flash", "label": "Gemini 2.5 Flash (Khuyên dùng)", "sort_order": 1},
-            {"model_key": "gemini-2.5-pro", "label": "Gemini 2.5 Pro (Suy luận sâu)", "sort_order": 2},
-            {"model_key": "gemini-2.0-flash", "label": "Gemini 2.0 Flash (Tốc độ cao)", "sort_order": 3},
+            {"model_key": "gemini-4-hydrogen", "label": "Gemini 4 Hydrogen (Mới nhất)", "sort_order": 1},
+            {"model_key": "gemini-4-argon", "label": "Gemini 4 Argon (Suy luận & Agentic)", "sort_order": 2},
+            {"model_key": "gemini-3.8-flash", "label": "Gemini 3.8 Flash (Khuyên dùng)", "sort_order": 3},
+            {"model_key": "gemini-3.5-flash", "label": "Gemini 3.5 Flash (Tốc độ cao)", "sort_order": 4},
         ]
     },
     {
@@ -123,14 +126,14 @@ DEFAULT_PROVIDERS = [
         "slug": "openrouter",
         "api_type": "openai_compatible",
         "base_url": "https://openrouter.ai/api/v1",
-        "description": "Cổng kết nối đa mô hình: Gemini, Claude, GPT, Llama, Qwen",
+        "description": "Cổng kết nối đa mô hình: Gemini 4/3.8, Claude 5.5, GPT-6.2, DeepSeek, Llama",
         "icon": "/admin/static/providers/openrouter.png",
         "is_active": True,
         "sort_order": 5,
         "models": [
-            {"model_key": "google/gemini-2.0-flash-001", "label": "Gemini 2.0 Flash (qua OpenRouter)", "sort_order": 1},
-            {"model_key": "anthropic/claude-3.5-sonnet", "label": "Claude 3.5 Sonnet (qua OpenRouter)", "sort_order": 2},
-            {"model_key": "openai/gpt-4o", "label": "GPT-4o (qua OpenRouter)", "sort_order": 3},
+            {"model_key": "google/gemini-3.8-flash", "label": "Gemini 3.8 Flash (qua OpenRouter)", "sort_order": 1},
+            {"model_key": "anthropic/claude-sonnet-5-5", "label": "Claude Sonnet 5.5 (qua OpenRouter)", "sort_order": 2},
+            {"model_key": "openai/gpt-6.2-sol", "label": "GPT-6.2 Sol (qua OpenRouter)", "sort_order": 3},
             {"model_key": "deepseek/deepseek-chat", "label": "DeepSeek-V3 (qua OpenRouter)", "sort_order": 4},
         ]
     },
@@ -140,14 +143,15 @@ DEFAULT_PROVIDERS = [
         "slug": "groq",
         "api_type": "openai_compatible",
         "base_url": "https://api.groq.com/openai/v1",
-        "description": "Groq LPU — Tốc độ suy luận cực nhanh, phù hợp phân tích realtime",
+        "description": "Groq LPU — Tốc độ suy luận cực nhanh với Llama 4 & Llama 3.3",
         "icon": "/admin/static/providers/groq.png",
         "is_active": True,
         "sort_order": 6,
         "models": [
-            {"model_key": "llama-3.3-70b-versatile", "label": "Llama 3.3 70B (Groq)", "sort_order": 1},
-            {"model_key": "llama-3.1-8b-instant", "label": "Llama 3.1 8B Instant (Groq)", "sort_order": 2},
-            {"model_key": "mixtral-8x7b-32768", "label": "Mixtral 8x7B (Groq)", "sort_order": 3},
+            {"model_key": "meta-llama/llama-4-maverick-17b-128e-instruct", "label": "Llama 4 Maverick 17B (Groq)", "sort_order": 1},
+            {"model_key": "meta-llama/llama-4-scout-17b-16e-instruct", "label": "Llama 4 Scout 17B (Groq)", "sort_order": 2},
+            {"model_key": "llama-3.3-70b-versatile", "label": "Llama 3.3 70B (Groq)", "sort_order": 3},
+            {"model_key": "llama-3.1-8b-instant", "label": "Llama 3.1 8B Instant (Groq)", "sort_order": 4},
         ]
     },
     {
@@ -177,7 +181,7 @@ DEFAULT_PROVIDERS = [
         "is_active": True,
         "sort_order": 8,
         "models": [
-            {"model_key": "llama3.1:8b", "label": "Llama 3.1 8B (Local)", "sort_order": 1},
+            {"model_key": "llama3.2", "label": "Llama 3.2 (Local)", "sort_order": 1},
             {"model_key": "qwen2.5:7b", "label": "Qwen 2.5 7B (Local)", "sort_order": 2},
             {"model_key": "mistral:7b", "label": "Mistral 7B (Local)", "sort_order": 3},
         ]
@@ -188,13 +192,13 @@ DEFAULT_PROVIDERS = [
         "slug": "xai",
         "api_type": "openai_compatible",
         "base_url": "https://api.x.ai/v1",
-        "description": "Grok 2 / Grok Vision — Mô hình đa phương thức mạnh mẽ từ xAI (Elon Musk)",
+        "description": "Grok 4 — Mô hình đa phương thức mạnh mẽ từ xAI (Elon Musk)",
         "icon": "/admin/static/providers/xai.png",
         "is_active": True,
         "sort_order": 9,
         "models": [
-            {"model_key": "grok-2-vision-1212", "label": "Grok 2 Vision (Multi-modal)", "sort_order": 1},
-            {"model_key": "grok-2-1212", "label": "Grok 2 (Text)", "sort_order": 2},
+            {"model_key": "grok-4.7", "label": "Grok 4.7 (Flagship Multi-modal)", "sort_order": 1},
+            {"model_key": "grok-4.20-reasoning", "label": "Grok 4.20 Reasoning (Suy luận sâu)", "sort_order": 2},
         ]
     },
 ]
@@ -221,6 +225,16 @@ async def update_provider_icons():
                 provider.icon = p_data["icon"]
                 provider.description = p_data.get("description", provider.description)
                 print(f"[UPDATE] Provider: {provider.name} -> icon set")
+
+            # Vô hiệu hóa các model cũ không còn trong danh sách mặc định
+            active_keys = {m["model_key"] for m in models_data}
+            existing_all = (await session.execute(
+                select(AiProviderModel).where(AiProviderModel.provider_id == provider.id)
+            )).scalars().all()
+            for existing_m in existing_all:
+                if existing_m.model_key not in active_keys and existing_m.is_active:
+                    existing_m.is_active = False
+                    print(f"  [DISABLE] Legacy model: {existing_m.model_key}")
 
             # Thêm model mới và đồng bộ lại nhãn/thứ tự cho model đã tồn tại.
             for m in models_data:

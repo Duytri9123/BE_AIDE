@@ -83,7 +83,7 @@ class AiConnectionAdmin(ModelView, model=AiConnection):
             "label": "Nhà cung cấp AI (Provider)",
             "choices": [
                 ("google", "Google Gemini (Gemini 2.5 / 2.0 / Pro)"),
-                ("openai", "OpenAI (GPT-4o, o3, o1)"),
+                ("openai", "OpenAI (GPT-6.2, GPT-6, GPT-5.6)"),
                 ("anthropic", "Anthropic Claude (Claude 3.7 / 3.5 Sonnet)"),
                 ("deepseek", "DeepSeek (DeepSeek V3 / R1)"),
                 ("openrouter", "OpenRouter"),
@@ -110,7 +110,7 @@ class AiConnectionAdmin(ModelView, model=AiConnection):
         },
         "selected_model": {
             "label": "Tên Model chỉ định",
-            "description": "Tên Model chỉ định (vd: ag/gemini-3.7-flash-high, gemini-2.5-flash, gpt-4o)"
+            "description": "Tên Model chỉ định (vd: ag/gemini-4-hydrogen-sonar, gemini-3.8-flash, gpt-6.2-sol)"
         }
     }
 

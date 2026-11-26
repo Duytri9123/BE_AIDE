@@ -6,6 +6,7 @@ import hashlib
 import logging
 import re
 import time
+import unicodedata
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel, Field
@@ -2457,7 +2458,6 @@ DỮ LIỆU:
     decision = next((item for item in ResponseParserService.extract_json_blocks(response)
                      if isinstance(item, dict) and (item.get('reply') or item.get('tool'))), None)
     if not decision:
-        import re
         cleaned = re.sub(r'<(?:thinking|thought|think)>[\s\S]*?</(?:thinking|thought|think)>', '', response or '', flags=re.IGNORECASE).strip()
         if cleaned:
             # Thử bóc tách JSON con nếu có

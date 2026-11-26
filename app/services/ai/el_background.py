@@ -10,6 +10,23 @@ from app.services.el_run_store import RunStore
 
 logger = logging.getLogger(__name__)
 
+# ---------------------------------------------------------------------------
+# Transient-error retry helper
+# ---------------------------------------------------------------------------
+_TRANSIENT_KEYWORDS = ('429', '503', 'rate', 'capacity', 'resource_exhausted',
+                       'temporarily unavailable', 'high demand', 'overloaded')
+_MAX_EL_RETRIES = 4          # up to 4 retries per failing step
+_BASE_BACKOFF_SECS = 20      # first wait 20s, then 40s, 60s, 80s
+
+
+def _is_transient(exc: Exception) -> bool:
+    """Return True when *exc* looks like a temporary provider issue."""
+    from app.services.ai.connection_pool import transient_transport_failure
+    if transient_transport_failure(exc):
+        return True
+    msg = str(exc).lower()
+    return any(kw in msg for kw in _TRANSIENT_KEYWORDS)
+
 
 async def dispatch(run_id):
     from app.tasks.celery_app import celery_app
@@ -69,7 +86,19 @@ async def run(run_id, store=None):
             if not state.get('resolution'):
                 state['resolution'] = resolve_confirmed_takeoff(message, context, accepted_scope)
                 if not state['resolution']:
-                    state['resolution'] = await resolve_request(db, message, context)
+                    # Retry resolve_request on transient errors (429/503)
+                    for _res_attempt in range(_MAX_EL_RETRIES + 1):
+                        try:
+                            state['resolution'] = await resolve_request(db, message, context)
+                            break
+                        except Exception as _res_err:
+                            if _res_attempt < _MAX_EL_RETRIES and _is_transient(_res_err):
+                                delay = _BASE_BACKOFF_SECS * (_res_attempt + 1)
+                                logger.warning('EL resolve_request transient error (attempt %s/%s), retrying in %ss: %s',
+                                               _res_attempt + 1, _MAX_EL_RETRIES + 1, delay, _res_err)
+                                await asyncio.sleep(delay)
+                                continue
+                            raise
                 store.save(run_id, lease, state)
             message = state['resolution']['effective']
             context.update(resolved_request=state['resolution'], run_id=run_id, execution_mode='server_background')
@@ -96,7 +125,19 @@ async def run(run_id, store=None):
                 if not decision:
                     state['phase'] = 'planning'
                     store.save(run_id, lease, state)
-                    decision = await el_agent.next_action(ChatRequest(project_id=row['project'], message=message, context=context), request, db, user)
+                    # Retry next_action on transient errors (429/503)
+                    for _plan_attempt in range(_MAX_EL_RETRIES + 1):
+                        try:
+                            decision = await el_agent.next_action(ChatRequest(project_id=row['project'], message=message, context=context), request, db, user)
+                            break
+                        except Exception as _plan_err:
+                            if _plan_attempt < _MAX_EL_RETRIES and _is_transient(_plan_err):
+                                delay = _BASE_BACKOFF_SECS * (_plan_attempt + 1)
+                                logger.warning('EL next_action transient error (attempt %s/%s), retrying in %ss: %s',
+                                               _plan_attempt + 1, _MAX_EL_RETRIES + 1, delay, _plan_err)
+                                await asyncio.sleep(delay)
+                                continue
+                            raise
                     state['phase'] = 'ready'
                     state['pending'] = decision
                     store.save(run_id, lease, state)
@@ -129,33 +170,46 @@ async def run(run_id, store=None):
                     raise ValueError('Thao tác đã thực hiện. Tiến độ được giữ để kiểm tra, không tự chạy lại.')
                 event = {'id': uuid.uuid4().hex, 'tool': name, 'label': decision.get('activity') or tool['label'], 'state': 'running', 'changesProject': bool(tool.get('writes'))}
                 activity({'activity': event})
-                if name == 'read_project_sources':
-                    from app.services.ai.requirement_analysis import analyze_requirements
-                    ids = args.get('file_ids') or context.get('file_ids') or []
-                    if context.get('file_ids') and any(i not in context['file_ids'] for i in ids):
-                        raise ValueError('File đọc nằm ngoài nguồn đã chọn.')
-                    async def _run_source_tool():
-                        connections = await el_agent.ConnectionPoolService.get_ordered_connections(db)
-                        plan = await analyze_requirements(db, connections, row['project'], message, {
-                            **context, 'file_ids': ids, 'source_page': args.get('source_page'), 'source_region': args.get('source_region')})
-                        return {'information': plan.reply}
-                    tool_task = asyncio.create_task(_run_source_tool())
-                else:
-                    tool_task = asyncio.create_task(el_agent.execute(
-                        el_agent.ToolRequest(project_id=row['project'], tool=name, arguments=args,
-                                             user_message=message, run_id=run_id), request, db, user))
 
-                while not tool_task.done():
-                    done, _ = await asyncio.wait({tool_task}, timeout=0.5)
-                    if done:
-                        break
-                    if (store.get(run_id) or {}).get('pause'):
-                        tool_task.cancel()
-                        await asyncio.gather(tool_task, return_exceptions=True)
-                        activity({'activity': {**event, 'state': 'error', 'detail': 'Đã tạm dừng theo yêu cầu.'}})
-                        store.save(run_id, lease, state, 'PAUSED')
-                        return
-                result = await tool_task
+                # --- Tool execution with transient-error retry ---
+                for _tool_attempt in range(_MAX_EL_RETRIES + 1):
+                    try:
+                        if name == 'read_project_sources':
+                            from app.services.ai.requirement_analysis import analyze_requirements
+                            ids = args.get('file_ids') or context.get('file_ids') or []
+                            if context.get('file_ids') and any(i not in context['file_ids'] for i in ids):
+                                raise ValueError('File đọc nằm ngoài nguồn đã chọn.')
+                            async def _run_source_tool():
+                                connections = await el_agent.ConnectionPoolService.get_ordered_connections(db)
+                                plan = await analyze_requirements(db, connections, row['project'], message, {
+                                    **context, 'file_ids': ids, 'source_page': args.get('source_page'), 'source_region': args.get('source_region')})
+                                return {'information': plan.reply}
+                            tool_task = asyncio.create_task(_run_source_tool())
+                        else:
+                            tool_task = asyncio.create_task(el_agent.execute(
+                                el_agent.ToolRequest(project_id=row['project'], tool=name, arguments=args,
+                                                     user_message=message, run_id=run_id), request, db, user))
+
+                        while not tool_task.done():
+                            done, _ = await asyncio.wait({tool_task}, timeout=0.5)
+                            if done:
+                                break
+                            if (store.get(run_id) or {}).get('pause'):
+                                tool_task.cancel()
+                                await asyncio.gather(tool_task, return_exceptions=True)
+                                activity({'activity': {**event, 'state': 'error', 'detail': 'Đã tạm dừng theo yêu cầu.'}})
+                                store.save(run_id, lease, state, 'PAUSED')
+                                return
+                        result = await tool_task
+                        break  # success → exit retry loop
+                    except Exception as _tool_err:
+                        if _tool_attempt < _MAX_EL_RETRIES and _is_transient(_tool_err):
+                            delay = _BASE_BACKOFF_SECS * (_tool_attempt + 1)
+                            logger.warning('EL tool %s transient error (attempt %s/%s), retrying in %ss: %s',
+                                           name, _tool_attempt + 1, _MAX_EL_RETRIES + 1, delay, _tool_err)
+                            await asyncio.sleep(delay)
+                            continue
+                        raise
                 data = result.get('data') if isinstance(result.get('data'), dict) else result
                 artifact_url = result.get('artifact_url') or data.get('download_url')
                 if isinstance(artifact_url, str) and artifact_url.startswith('/api/v1/'):
@@ -178,13 +232,18 @@ async def run(run_id, store=None):
                 state['phase'] = 'ready'
                 activity({'activity': {**event, 'state': 'error' if result.get('ok') is False else 'success'}})
                 store.save(run_id, lease, state)
-    except Exception:
+    except Exception as exc:
         logger.exception('EL background run failed: %s', run_id)
         # Retain checkpoints, but keep provider diagnostics out of the customer UI.
         for item in state.get('activities', []):
             if item.get('state') == 'running':
                 item['state'] = 'error'
-        store.save(run_id, lease, state, 'FAILED', error='EL gặp gián đoạn khi xử lý. Tiến độ đã lưu; bạn có thể tiếp tục.')
+        # Include the exception class name so admins can diagnose the issue
+        # without exposing internal API details to end users.
+        exc_type = type(exc).__name__
+        exc_brief = str(exc)[:300]
+        logger.error('EL background exception type=%s detail=%s', exc_type, exc_brief)
+        store.save(run_id, lease, state, 'FAILED', error=f'EL gặp gián đoạn khi xử lý ({exc_type}). Tiến độ đã lưu; bạn có thể tiếp tục.')
     finally:
         _sink.reset(token)
         pulse.cancel()

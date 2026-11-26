@@ -192,7 +192,7 @@ class VisionAnalyzerService:
                     logger.info("[VisionAnalyzerService] Phát hiện API Key Google Studio (AIza) trong cấu hình Antigravity -> Tự động chuyển hướng sang Google Gemini API an toàn.")
                     cleaned_model = model.removeprefix("ag/") if model.startswith("ag/") else model
                     if not cleaned_model or "gemini" not in cleaned_model.lower():
-                        cleaned_model = "gemini-2.5-flash"
+                        cleaned_model = "gemini-3.8-flash"
                     result = await VisionAnalyzerService._call_google_genai(
                         img_b64, prompt, api_key, cleaned_model, provider_name="Google", enable_web_search=enable_web_search, json_mode=json_mode, response_schema=response_schema
                     )
@@ -276,7 +276,7 @@ class VisionAnalyzerService:
                 logger.info("[VisionAnalyzerService] Phát hiện API Key Google Studio (AIza) trong cấu hình Antigravity -> Tự động chuyển hướng sang Google Gemini API an toàn.")
                 cleaned_model = model.removeprefix("ag/") if model.startswith("ag/") else model
                 if not cleaned_model or "gemini" not in cleaned_model.lower():
-                    cleaned_model = "gemini-2.5-flash"
+                    cleaned_model = "gemini-3.8-flash"
                 result = await VisionAnalyzerService._call_google_genai(
                     "", prompt, api_key, cleaned_model, provider_name="Google", enable_web_search=enable_web_search
                 )
@@ -924,7 +924,7 @@ class VisionAnalyzerService:
             raise AIVisionError(
                 f"Model '{clean_model_name}' không tương thích với Google API Key. "
                 "Vui lòng kiểm tra lại cấu hình provider và model trong Admin → Kết nối AI. "
-                "Chỉ sử dụng API Key này với các model Gemini (ví dụ: gemini-2.5-flash, gemini-2.5-pro).",
+                "Chỉ sử dụng API Key này với các model Gemini (ví dụ: gemini-3.8-flash, gemini-4-hydrogen).",
                 {"model": clean_model_name, "provider": provider_name, "hint": "use_gemini_model"}
             )
 

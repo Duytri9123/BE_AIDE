@@ -187,7 +187,7 @@ class WebSearchService:
         else:
             active_token = clean_token
         auth_header = active_token if active_token.lower().startswith("bearer ") else f"Bearer {active_token}"
-        target_model = normalize_antigravity_model(model or "gemini-2.5-flash")
+        target_model = normalize_antigravity_model(model or "gemini-4-hydrogen-sonar")
         pid = project_id or "aicode-consumers"
 
         url = "https://daily-cloudcode-pa.googleapis.com/v1internal:generateContent"
@@ -319,7 +319,7 @@ class WebSearchService:
         Tool: google_search
         """
         clean_key = api_key.strip()
-        target_model = (model or "gemini-2.5-flash").strip()
+        target_model = (model or "gemini-3.8-flash").strip()
         if target_model.startswith("ag/"):
             target_model = target_model[3:]
         target_model = re.sub(r"-(tiered\(.*?\)|high|medium|low)", "", target_model)
@@ -390,7 +390,7 @@ class WebSearchService:
         base_url: Optional[str] = None
     ) -> Dict[str, Any]:
         """Gọi OpenAI với tool web_search để lấy câu trả lời và trích dẫn."""
-        target_model = model or "gpt-4o"
+        target_model = model or "gpt-6.2-sol"
         target_base = (base_url or "https://api.openai.com/v1").rstrip("/")
         url = f"{target_base}/chat/completions"
         headers = {

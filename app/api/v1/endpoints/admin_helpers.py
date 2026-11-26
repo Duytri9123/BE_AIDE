@@ -1442,7 +1442,7 @@ async def list_notification_target_users(db: AsyncSession = Depends(get_db)):
     """Danh sách user hoạt động để Admin chọn gửi thông báo hệ thống."""
     users = (await db.execute(
         select(User.id, User.name, User.email)
-        .where(User.is_active.is_(True))
+        .where(User.status == "active")
         .order_by(User.id.asc())
     )).all()
     return [{"id": u.id, "name": u.name or "", "email": u.email} for u in users]
@@ -1471,12 +1471,12 @@ async def send_system_notification(
         raise HTTPException(status_code=400, detail="Vui lòng nhập đầy đủ tiêu đề và nội dung thông báo.")
 
     if req.target == "all":
-        target_ids = (await db.execute(select(User.id).where(User.is_active.is_(True)))).scalars().all()
+        target_ids = (await db.execute(select(User.id).where(User.status == "active"))).scalars().all()
     else:
         if not req.user_ids:
             raise HTTPException(status_code=400, detail="Vui lòng chọn ít nhất 1 người dùng nhận thông báo.")
         target_ids = (await db.execute(
-            select(User.id).where(User.id.in_(req.user_ids), User.is_active.is_(True))
+            select(User.id).where(User.id.in_(req.user_ids), User.status == "active")
         )).scalars().all()
 
     if not target_ids:
