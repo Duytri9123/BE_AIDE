@@ -2173,8 +2173,15 @@ async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db)
             return await format_reply_response(db, payload, user, context, payload.message, {})
 
     from app.services.ai.el_tools import plain
-    edit_quote = (resolution.get('intent') == 'quotation' and not resolution.get('new_quotation')
-                  and re.search(r'\b(?:sua|cap nhat|dieu chinh|them|bo|xoa|doi)\b', plain(payload.message)))
+    norm_msg = plain(payload.message)
+    is_quote_param_edit = bool(
+        (context.get('quotation_iteration_id') or context.get('quotation_rows') or context.get('iteration_id'))
+        and re.search(r'\b(?:vat|thue|chiet khau|giam gia|don gia|bao gia)\b', norm_msg)
+        and re.search(r'\b(?:sua|cap nhat|dieu chinh|doi|thanh|la|dat|chinh)\b|\d+\s*%', norm_msg)
+    )
+    edit_quote = ((resolution.get('intent') == 'quotation' and not resolution.get('new_quotation')
+                   and re.search(r'\b(?:sua|cap nhat|dieu chinh|them|bo|xoa|doi)\b', norm_msg))
+                  or is_quote_param_edit)
     if resolution.get('intent') == 'takeoff_update' or edit_quote:
         from app.services.ai.analysis_revision import revise_existing_analysis
         target = (context.get('quotation_iteration_id') or context.get('iteration_id')) if edit_quote else context.get('iteration_id')

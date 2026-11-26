@@ -124,7 +124,7 @@ QUY TẮC HIỂU NGỮ CẢNH VÀ ĐIỀU HƯỚNG Ý ĐỊNH (INTENT):
 
 4. CÁC Ý ĐỊNH KHÁC:
    - "takeoff": Khi người dùng yêu cầu bóc tách MỚI hoặc bóc tách lại từ file nguồn bản vẽ.
-   - "quotation": Khi người dùng yêu cầu lập bảng báo giá dự toán hoặc chỉnh sửa giá.
+   - "quotation": Khi người dùng yêu cầu lập bảng báo giá dự toán hoặc chỉnh sửa giá, thuế VAT, chiết khấu.
    - "catalog_update": Khi người dùng yêu cầu đổi hãng/chọn catalog cho thiết bị.
    - "cad": Khi người dùng yêu cầu thao tác trực tiếp trên bản vẽ CAD.
    - "conversation": Khi người dùng chỉ chào hỏi, hỏi giải thích kỹ thuật, hỏi câu hỏi thông tin về bản vẽ/tủ điện mà không yêu cầu thay đổi hay xuất kết quả.

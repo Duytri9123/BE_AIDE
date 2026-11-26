@@ -6,6 +6,7 @@ from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
 import os
+import re
 import shutil
 import tempfile
 
@@ -229,8 +230,11 @@ async def revise_existing_analysis(db, project_id, user_id, iteration_id, messag
         quote = apply_quotation_plan(previous_rows, plan)
     except (ValueError, TypeError, KeyError, IndexError) as error:
         raise HTTPException(502, 'AI trả về chỉnh sửa chưa hợp lệ; kết quả hiện tại được giữ nguyên.') from error
+    from app.services.ai.el_tools import plain
+    vat_match = re.search(r'\b(?:vat|thue(?:\s+gtgt)?)\b[^0-9]{0,20}(\d+(?:[.,]\d+)?)\s*%?', plain(message))
+    vat_pct = max(0.0, min(100.0, float(vat_match[1].replace(',', '.')))) if vat_match else None
     changed = after != before
-    if not changed and quote == previous_rows:
+    if not changed and quote == previous_rows and vat_pct is None:
         return {'reply': plan.reply, 'action_type': 'general_chat'}
     if changed:
         from app.services.ai.motor_starter_context import enrich_motor_starters
@@ -253,6 +257,8 @@ async def revise_existing_analysis(db, project_id, user_id, iteration_id, messag
     if linked_quote and 'quotation_file' not in new_scores:
         new_scores['quotation_file'] = deepcopy(linked_quote)
     new_scores['quotation_rows'] = quote
+    if vat_pct is not None:
+        new_scores['quotation_vat_percent'] = vat_pct
     current.ai_parsed_devices = after
     current.devices_after_validation = after
     current.confidence_scores = new_scores
@@ -281,4 +287,5 @@ async def revise_existing_analysis(db, project_id, user_id, iteration_id, messag
         'action_type': 'update_devices' if changed else 'update_quotation', 'updated_in_place': True,
         'project_id': project_id, 'base_iteration_id': iteration_id, 'iteration_id': current.id,
         'iteration_number': current.iteration_number, 'session_id': str(current.session_id),
-        'devices': after, 'quotation_rows': quote, 'quotation_file': file_info}
+        'devices': after, 'quotation_rows': quote, 'quotation_file': file_info,
+        'vat_percent': vat_pct if vat_pct is not None else new_scores.get('quotation_vat_percent')}
