@@ -171,6 +171,7 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                     ('LABOR','Nhân công lắp ráp tủ','Tủ')]
         for package_code, package_name, unit in packages:
             source_dimension = panel_metadata.get('dimension') or panel_metadata.get('dimensions')
+            from app.core.config import settings
             busbar_note = f"Giá đồng: {int(settings.BUSBAR_PRICE_PER_KG):,} đ/kg".replace(",", ".") if package_code == 'BUSBAR' else ''
             result.append(dict(id=f'{code}-assembly-{package_code}',row_type='item',tt='+',
                 commercial_package=True,commercial_display=True,package_code=package_code,name=package_name,
