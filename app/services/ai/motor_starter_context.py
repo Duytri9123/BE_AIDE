@@ -136,8 +136,9 @@ def _collect_category_brands(devices):
                 cgrp = _norm_cat_group(comp.get('category'))
                 if cgrp:
                     cat_counts.setdefault(cgrp, Counter())[cb] += 1
+    from app.core.config import settings
     cat_brand = {grp: cnt.most_common(1)[0][0] for grp, cnt in cat_counts.items() if cnt}
-    default_brand = overall.most_common(1)[0][0] if overall else 'Schneider'
+    default_brand = overall.most_common(1)[0][0] if overall else settings.DEFAULT_BRAND
     return cat_brand, default_brand
 
 
@@ -319,7 +320,8 @@ def enrich_motor_starters(devices):
             device['spec'] = f"{power_input['value']:g}{power_input['unit']} {motor_voltage}V"
 
         missing = []
-        brand = device.get('brand') or (upstream.get('brand') if upstream else None) or cat_brands.get('BREAKER') or cat_brands.get('CONTACTOR') or file_default_brand or 'Schneider'
+        from app.core.config import settings
+        brand = device.get('brand') or (upstream.get('brand') if upstream else None) or cat_brands.get('BREAKER') or cat_brands.get('CONTACTOR') or file_default_brand or settings.DEFAULT_BRAND
         brand_key = 'LS' if 'ls' in brand.lower() else 'Chint' if 'chint' in brand.lower() else 'Schneider'
         control_brand = cat_brands.get('INDICATOR') or cat_brands.get('PUSH_BUTTON') or cat_brands.get('SELECTOR') or brand
         control_brand_key = 'LS' if 'ls' in control_brand.lower() else 'Chint' if 'chint' in control_brand.lower() else 'Schneider'

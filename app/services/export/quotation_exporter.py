@@ -283,7 +283,7 @@ class QuotationExporterService:
                     "Hệ",
                     1.0,
                     busbar_calc.get("unit_price", 0),
-                    f"Gia công uốn đột CNC, bọc co nhiệt (Cu {busbar_calc.get('mass_Cu_kg')}kg)"
+                    f"Giá đồng: {int(settings.BUSBAR_PRICE_PER_KG):,} đ/kg · KL ~{busbar_calc.get('mass_Cu_kg')}kg".replace(",", ".")
                 )
             
             acc_total = sum(float(a.get("quantity", 1)) * float(a.get("unit_price", 0)) for a in bom_calc.accessories)

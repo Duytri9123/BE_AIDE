@@ -80,7 +80,7 @@ class Settings(BaseSettings):
     DEFAULT_BRAND: str = "LS"  # Hãng ưu tiên khi bản vẽ và người dùng không chỉ định
 
     # Busbar & Enclosure Engineering Pricing Defaults
-    BUSBAR_PRICE_PER_KG: float = 280000.0  # VNĐ / kg đồng mạ thiếc co nhiệt gia công
+    BUSBAR_PRICE_PER_KG: float = 400000.0  # VNĐ / kg đồng mạ thiếc co nhiệt gia công mặc định
     BUSBAR_MIN_PRICE: int = 800000         # VNĐ tối thiểu cho hệ thanh cái
     ENCLOSURE_MIN_PRICE: int = 1200000     # VNĐ tối thiểu cho vỏ tủ
     ENCLOSURE_TOLE_PRICE_PER_KG: float = 45000.0  # VNĐ / kg tole sơn tĩnh điện

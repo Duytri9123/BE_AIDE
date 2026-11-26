@@ -1166,9 +1166,16 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
 
         name = clean_device_name(raw_name, raw_sku, raw_notes, raw_markdown)
         sku, notes = extract_clean_sku(raw_sku, name, raw_sku, raw_notes)
+        norm_name_clean = normalize_vietnamese_text(name)
         norm_notes = normalize_vietnamese_text(notes)
-        if any(k in normalize_vietnamese_text(name) for k in ('vo tu', 'enclosure')):
+        if any(k in norm_name_clean for k in ('vo tu', 'enclosure')):
             notes = notes if 'tham khao' in norm_notes else 'Kích thước tủ tham khảo'
+        elif any(k in norm_name_clean for k in ('thanh cai', 'busbar', 'dong thanh cai')):
+            from app.core.config import settings
+            if 'gia dong' not in norm_notes and 'kg' not in norm_notes:
+                notes = f"Giá đồng: {int(settings.BUSBAR_PRICE_PER_KG):,} đ/kg".replace(",", ".")
+            elif 'gia dong' not in norm_notes:
+                notes = f"Giá đồng: {int(settings.BUSBAR_PRICE_PER_KG):,} đ/kg · {notes}".replace(",", ".")
         elif not any(k in norm_notes for k in ('tham khao', 'du kien', 'tam tinh', 'de xuat', 'co dieu kien', 'du phong', 'chua xac dinh')):
             notes = ''
         if active_section == 'dol' and active_section_title:
