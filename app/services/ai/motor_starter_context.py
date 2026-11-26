@@ -100,7 +100,9 @@ def _is_spare_device(device, upstream=None):
 
 def _norm_cat_group(category: str) -> str:
     cat = str(category or '').strip().upper()
-    if cat in {'INDICATOR', 'PILOT_LIGHT', 'LAMP'}:
+    if cat in {'CB', 'MCB', 'MCCB', 'ACB', 'RCBO', 'RCCB'}:
+        return 'BREAKER'
+    if cat in {'LIGHT', 'INDICATOR', 'PILOT_LIGHT', 'LAMP'}:
         return 'INDICATOR'
     if cat in {'PUSH_BUTTON', 'PUSHBUTTON', 'BUTTON'}:
         return 'PUSH_BUTTON'
@@ -317,8 +319,10 @@ def enrich_motor_starters(devices):
             device['spec'] = f"{power_input['value']:g}{power_input['unit']} {motor_voltage}V"
 
         missing = []
-        brand = device.get('brand') or (upstream.get('brand') if upstream else None) or file_default_brand or 'Schneider'
-        brand_key = 'LS' if 'LS' in brand else 'Chint' if 'Chint' in brand else 'Schneider'
+        brand = device.get('brand') or (upstream.get('brand') if upstream else None) or cat_brands.get('BREAKER') or cat_brands.get('CONTACTOR') or file_default_brand or 'Schneider'
+        brand_key = 'LS' if 'ls' in brand.lower() else 'Chint' if 'chint' in brand.lower() else 'Schneider'
+        control_brand = cat_brands.get('INDICATOR') or cat_brands.get('PUSH_BUTTON') or cat_brands.get('SELECTOR') or brand
+        control_brand_key = 'LS' if 'ls' in control_brand.lower() else 'Chint' if 'chint' in control_brand.lower() else 'Schneider'
 
         def _contactor_sku(b_key, amps):
             if b_key == 'LS':
@@ -363,39 +367,43 @@ def enrich_motor_starters(devices):
             'Schneider': {'selector': 'XB5AD33', 'buttonOn': 'XB5AW33B5', 'buttonOff': 'XB5AW34B5', 'tripLight': 'XB5AVM5', 'relay': 'RXM2AB2P7', 'timer': 'RE17RMMU'},
             'LS': {'selector': 'NP2-BD33', 'buttonOn': 'NP2-BW33', 'buttonOff': 'NP2-BW34', 'tripLight': 'ND16-22D Vàng', 'relay': 'MY2N-GS 220VAC', 'timer': 'AT8N 220VAC'},
             'Chint': {'selector': 'NP2-BD33', 'buttonOn': 'NP2-BW33', 'buttonOff': 'NP2-BW34', 'tripLight': 'ND16-22D Vàng', 'relay': 'JQX-13F 220V', 'timer': 'JSZ3A-A'},
-        }[brand_key]
+        }
+        ctrl_skus = pilot_skus[control_brand_key]
+        pwr_skus = pilot_skus[brand_key]
+        pilot_skus = {**pwr_skus, 'selector': ctrl_skus['selector'], 'buttonOn': ctrl_skus['buttonOn'],
+                      'buttonOff': ctrl_skus['buttonOff'], 'tripLight': ctrl_skus['tripLight']}
 
         def _control_components(reversing=False):
             buttons = (
                 [
                     {'category': 'PUSH_BUTTON', 'name': 'Nút nhấn ON Thuận có đèn (Xanh)', 'spec': 'Nút nhấn nhả có đèn (Xanh)',
                      'part_number': pilot_skus['buttonOn'], 'sku': pilot_skus['buttonOn'], 'quantity': 1, 'unit': 'Cái',
-                     'use_in_quotation': True, 'brand': brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
+                     'use_in_quotation': True, 'brand': control_brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
                      'reason': 'Khởi động chạy thuận và báo trạng thái CHẠY THUẬN'},
                     {'category': 'PUSH_BUTTON', 'name': 'Nút nhấn ON Nghịch có đèn (Xanh)', 'spec': 'Nút nhấn nhả có đèn (Xanh)',
                      'part_number': pilot_skus['buttonOn'], 'sku': pilot_skus['buttonOn'], 'quantity': 1, 'unit': 'Cái',
-                     'use_in_quotation': True, 'brand': brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
+                     'use_in_quotation': True, 'brand': control_brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
                      'reason': 'Khởi động chạy nghịch và báo trạng thái CHẠY NGHỊCH'},
                 ] if reversing else [
                     {'category': 'PUSH_BUTTON', 'name': 'Nút nhấn ON có đèn (Xanh)', 'spec': 'Nút nhấn nhả có đèn (Xanh)',
                      'part_number': pilot_skus['buttonOn'], 'sku': pilot_skus['buttonOn'], 'quantity': 1, 'unit': 'Cái',
-                     'use_in_quotation': True, 'brand': brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
+                     'use_in_quotation': True, 'brand': control_brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
                      'reason': 'Khởi động chạy tay và tích hợp đèn báo trạng thái CHẠY'},
                 ]
             )
             return [
                 {'category': 'SELECTOR', 'name': 'Công tắc chuyển mạch 3 vị trí', 'spec': 'Tay - 0 - Tự động',
                  'part_number': pilot_skus['selector'], 'sku': pilot_skus['selector'], 'quantity': 1, 'unit': 'Cái',
-                 'use_in_quotation': True, 'brand': brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
+                 'use_in_quotation': True, 'brand': control_brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
                  'reason': 'Chọn chế độ vận hành Tay - 0 - Tự động (MAN-OFF-AUTO)'},
                 *buttons,
                 {'category': 'PUSH_BUTTON', 'name': 'Nút nhấn OFF có đèn (Đỏ)', 'spec': 'Nút nhấn nhả có đèn (Đỏ)',
                  'part_number': pilot_skus['buttonOff'], 'sku': pilot_skus['buttonOff'], 'quantity': 1, 'unit': 'Cái',
-                 'use_in_quotation': True, 'brand': brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
+                 'use_in_quotation': True, 'brand': control_brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
                  'reason': 'Dừng chạy tay và tích hợp đèn báo trạng thái DỪNG'},
                 {'category': 'INDICATOR', 'name': 'Đèn báo sự cố (TRIP - Vàng)', 'spec': 'Đèn báo sự cố (Vàng)',
                  'part_number': pilot_skus['tripLight'], 'sku': pilot_skus['tripLight'], 'quantity': 1, 'unit': 'Cái',
-                 'use_in_quotation': True, 'brand': brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
+                 'use_in_quotation': True, 'brand': control_brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
                  'reason': 'Báo lỗi sự cố quá tải / trip thiết bị'},
                 {'category': 'RELAY', 'name': 'Rơ le trung gian (Kèm đế)',
                  'spec': (
