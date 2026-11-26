@@ -43,12 +43,18 @@ class NotificationAdmin(ModelView, model=Notification):
     column_default_sort = [(Notification.created_at, True)]
     
     column_list = [Notification.id, Notification.user_id, Notification.title, Notification.is_read, Notification.created_at]
+    form_columns = [Notification.user, Notification.title, Notification.body, Notification.type, Notification.link, Notification.is_read]
     column_labels = {
         Notification.id: "ID",
+        Notification.user: "Người nhận",
         Notification.user_id: "Người dùng ID",
         Notification.title: "Tiêu đề thông báo",
-        Notification.is_read: "Trạng thái",
-        Notification.created_at: "Thời gian gửi"
+        Notification.body: "Nội dung thông báo",
+        Notification.type: "Loại thông báo",
+        Notification.link: "Đường dẫn điều hướng",
+        Notification.is_read: "Đã đọc",
+        Notification.created_at: "Thời gian gửi",
+        Notification.updated_at: "Cập nhật lúc"
     }
     column_formatters = {
         Notification.is_read: lambda m, a: Markup(f'<span class="badge bg-{"success-soft text-success" if m.is_read else "warning-soft text-warning"} fw-bold">{"Đã đọc" if m.is_read else "Chưa đọc"}</span>'),

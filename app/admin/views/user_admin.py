@@ -162,8 +162,8 @@ class UserAdmin(ModelView, model=User):
     page_size = 20
     page_size_options = [10, 20, 50, 100]
 
-    async def scaffold_form(self) -> type:
-        form_class = await super().scaffold_form()
+    async def scaffold_form(self, form_rules=None) -> type:
+        form_class = await super().scaffold_form(form_rules)
         if hasattr(form_class, "hashed_password"):
             unbound = getattr(form_class, "hashed_password")
             from wtforms.validators import InputRequired, DataRequired, Optional

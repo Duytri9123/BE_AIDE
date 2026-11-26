@@ -12,8 +12,9 @@ if (Test-Path -LiteralPath $elPidPath) {
     }
 }
 # A dedicated queue lets EL wait for CAD/analysis jobs without blocking their worker.
+# threads pool with concurrency=2 allows 2 EL sessions to run concurrently on Windows.
 $elProcess = Start-Process -FilePath (Join-Path $elRoot 'venv\Scripts\python.exe') -WorkingDirectory $elRoot -WindowStyle Hidden -PassThru -ArgumentList @(
-    '-m','celery','-A','app.tasks.celery_app','worker','--pool=solo','--concurrency=1',
+    '-m','celery','-A','app.tasks.celery_app','worker','--pool=threads','--concurrency=2',
     '--queues=aide_el','--hostname=el@%h','--loglevel=INFO','--without-gossip','--without-mingle'
 ) -RedirectStandardOutput (Join-Path $elRuntime 'el-worker.stdout.log') -RedirectStandardError (Join-Path $elRuntime 'el-worker.stderr.log')
 Set-Content -LiteralPath $elPidPath -Value $elProcess.Id

@@ -272,36 +272,45 @@ class EnclosureCadGeneratorService:
             Kết quả chỉ dùng để tính kích thước tủ sơ bộ.
             """
             cat = str(device.get('category') or '').upper()
-            in_a = float(device.get('in_a') or 0)
-            poles = int(device.get('poles') or 3)
-            if 'ACB' in cat:
+            ident = f"{cat} {device.get('name') or ''} {device.get('spec') or ''}".upper()
+            try:
+                in_a = float(device.get('in_a') or 0)
+            except (TypeError, ValueError):
+                in_a = 0.0
+            try:
+                poles = int(str(device.get('poles') or 3).rstrip('Pp'))
+            except (TypeError, ValueError):
+                poles = 3
+            if 'ACB' in ident:
                 if in_a <= 630:  return (210.0, 300.0, 220.0)
                 if in_a <= 1000: return (255.0, 350.0, 260.0)
                 if in_a <= 1600: return (305.0, 420.0, 300.0)
                 return (355.0, 500.0, 320.0)
-            if 'MCCB' in cat:
+            if 'MCCB' in ident:
                 if in_a <= 100:  return (round(70 * poles / 3, 1), 130.0, 70.0)
                 if in_a <= 250:  return (round(105 * poles / 3, 1), 155.0, 85.0)
                 if in_a <= 630:  return (round(140 * poles / 3, 1), 200.0, 105.0)
                 return (round(210 * poles / 3, 1), 260.0, 120.0)
-            if cat in ('MCB', 'RCBO', 'RCCB', 'ELCB'):
+            if cat in ('MCB', 'RCBO', 'RCCB', 'ELCB', 'CB', 'BREAKER') or any(k in ident for k in ('MCB', 'RCBO', 'RCCB', 'ELCB', 'APTOMAT', 'APTÔMAT')):
                 return (18.0 * poles, 85.0, 65.0)
-            if 'CONTACTOR' in cat:
+            if 'DOL' in ident or 'KHỞI ĐỘNG' in ident or 'STARTER' in ident:
+                return (65.0, 145.0, 105.0)
+            if 'CONTACTOR' in ident or 'KHỞI ĐỘNG TỪ' in ident:
                 if in_a <= 18:  return (45.0, 77.0, 85.0)
                 if in_a <= 50:  return (55.0, 95.0, 110.0)
                 if in_a <= 95:  return (70.0, 120.0, 130.0)
                 return (95.0, 150.0, 160.0)
-            if any(k in cat for k in ('VFD', 'INVERTER', 'SOFT_STARTER')):
+            if any(k in ident for k in ('VFD', 'INVERTER', 'BIẾN TẦN', 'SOFT_STARTER')):
                 kw = float(device.get('power_kw') or in_a * 0.38)
                 if kw <= 2.2:  return (140.0, 200.0, 160.0)
                 if kw <= 7.5:  return (180.0, 310.0, 200.0)
                 if kw <= 22:   return (220.0, 400.0, 230.0)
                 return (280.0, 520.0, 280.0)
-            if any(k in cat for k in ('RELAY', 'TIMER', 'POWER_SUPPLY')):
+            if any(k in ident for k in ('RELAY', 'RƠ LE', 'TIMER', 'POWER_SUPPLY', 'NGUỒN')):
                 return (22.0, 90.0, 65.0)
-            if any(k in cat for k in ('METER', 'LIGHT', 'BUTTON', 'SELECTOR', 'HMI')):
+            if any(k in ident for k in ('METER', 'INDICATOR', 'LIGHT', 'ĐÈN', 'BUTTON', 'NÚT', 'SELECTOR', 'CHUYỂN MẠCH', 'HMI', 'ĐỒNG HỒ')):
                 return (72.0, 72.0, 60.0)
-            if any(k in cat for k in ('SPD', 'FUSE')):
+            if any(k in ident for k in ('SPD', 'CHỐNG SÉT', 'FUSE', 'CẦU CHÌ')):
                 return (18.0 * poles, 90.0, 55.0)
             return None
 

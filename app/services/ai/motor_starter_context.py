@@ -85,12 +85,69 @@ def load_power_w(device):
     return power['watts'] if power else None
 
 
+def _is_spare_device(device, upstream=None):
+    """Return True when the device or its upstream feeder is marked spare/backup."""
+    for item in (device, upstream):
+        if not isinstance(item, dict):
+            continue
+        text = ' '.join(str(item.get(k) or '') for k in ('name', 'spec', 'connected_load', 'electrical_function', 'observed_text')).lower()
+        if re.search(r'dự\s*phòng|du\s*phong|\bspare\b|\bbackup\b|\breserve\b', text, re.I):
+            return True
+        if str(item.get('tag') or '').strip().upper() in {'DP', 'SPARE'}:
+            return True
+    return False
+
+
+def _norm_cat_group(category: str) -> str:
+    cat = str(category or '').strip().upper()
+    if cat in {'INDICATOR', 'PILOT_LIGHT', 'LAMP'}:
+        return 'INDICATOR'
+    if cat in {'PUSH_BUTTON', 'PUSHBUTTON', 'BUTTON'}:
+        return 'PUSH_BUTTON'
+    if cat in {'SELECTOR', 'SELECTOR_SWITCH', 'SWITCH'}:
+        return 'SELECTOR'
+    return cat
+
+
+def _collect_category_brands(devices):
+    """Find dominant explicit brand per device category and overall across the file."""
+    from collections import Counter
+    cat_counts = {}
+    overall = Counter()
+    ignored = {'', 'asian', 'asia', 'oem', '-', '---', 'chưa xác định', 'đang đối chiếu...', 'chọn hãng'}
+    for d in devices:
+        if not isinstance(d, dict):
+            continue
+        b = str(d.get('brand') or '').strip()
+        if b.casefold() in ignored:
+            continue
+        grp = _norm_cat_group(d.get('category'))
+        if grp:
+            cat_counts.setdefault(grp, Counter())[b] += 1
+        overall[b] += 1
+        ms = (d.get('source_observations') or {}).get('motor_starter') or {}
+        for comp in (ms.get('components') or []):
+            if not isinstance(comp, dict):
+                continue
+            cb = str(comp.get('brand') or '').strip()
+            if cb.casefold() not in ignored:
+                cgrp = _norm_cat_group(comp.get('category'))
+                if cgrp:
+                    cat_counts.setdefault(cgrp, Counter())[cb] += 1
+    cat_brand = {grp: cnt.most_common(1)[0][0] for grp, cnt in cat_counts.items() if cnt}
+    default_brand = overall.most_common(1)[0][0] if overall else 'Schneider'
+    return cat_brand, default_brand
+
+
 def starter_quotation_name(device):
     observations = device.get('source_observations') or {}
     assembly = observations.get('motor_starter') or {}
     kind = assembly.get('type') or classify_motor_starter_type(' '.join(str(device.get(k) or '') for k in ('name', 'category', 'spec')))
     if not kind:
-        return device.get('name') or 'Thiết bị'
+        name = device.get('name') or 'Thiết bị'
+        if _is_spare_device(device) and 'dự phòng' not in name.lower():
+            name += ' (Dự phòng)'
+        return name
     name = {'DOL': 'Khởi động DOL', 'STAR_DELTA': 'Khởi động sao – tam giác',
             'REVERSING': 'Khởi động đảo chiều', 'SOFT_STARTER': 'Khởi động mềm', 'VFD': 'Biến tần'}.get(kind, device.get('name') or kind)
     power = load_power_details(device)
@@ -99,6 +156,8 @@ def starter_quotation_name(device):
         if unit == 'W' and value >= 1000:
             value, unit = value / 1000, 'kW'
         name += f" {value:g}{unit}"
+    if (_is_spare_device(device) or assembly.get('is_spare')) and 'dự phòng' not in name.lower():
+        name += ' (Dự phòng)'
     return name
 
 
@@ -178,6 +237,7 @@ def classify_assembly_type(identity: str) -> str | None:
 def enrich_motor_starters(devices):
     from app.services.ai.assembly_accessories import propose_assembly_accessories, SOURCES
     from app.services.ai.assembly_accessory_selection import merge_proposal_choices
+    cat_brands, file_default_brand = _collect_category_brands(devices)
     for device in devices:
         identity = ' '.join(str(device.get(k) or '') for k in ('category', 'name', 'spec', 'electrical_function', 'observed_text'))
         observations = device.get('source_observations')
@@ -257,7 +317,7 @@ def enrich_motor_starters(devices):
             device['spec'] = f"{power_input['value']:g}{power_input['unit']} {motor_voltage}V"
 
         missing = []
-        brand = device.get('brand') or (upstream.get('brand') if upstream else None) or 'Schneider'
+        brand = device.get('brand') or (upstream.get('brand') if upstream else None) or file_default_brand or 'Schneider'
         brand_key = 'LS' if 'LS' in brand else 'Chint' if 'Chint' in brand else 'Schneider'
 
         def _contactor_sku(b_key, amps):
@@ -337,10 +397,15 @@ def enrich_motor_starters(devices):
                  'part_number': pilot_skus['tripLight'], 'sku': pilot_skus['tripLight'], 'quantity': 1, 'unit': 'Cái',
                  'use_in_quotation': True, 'brand': brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
                  'reason': 'Báo lỗi sự cố quá tải / trip thiết bị'},
-                {'category': 'RELAY', 'name': 'Rơ le trung gian (Kèm đế)', 'spec': '8 chân dẹp 220VAC kèm đế ray',
+                {'category': 'RELAY', 'name': 'Rơ le trung gian (Kèm đế)',
+                 'spec': (
+                     '8 chân dẹp (2CO) 220VAC kèm đế ray' if re.search(r'RXM2|MY2|2Z|2CO', str(pilot_skus.get('relay') or ''), re.I)
+                     else ('14 chân dẹp (4CO) 220VAC kèm đế ray' if re.search(r'RXM4|MY4|4Z|4CO', str(pilot_skus.get('relay') or ''), re.I)
+                           else '220VAC kèm đế ray (số chân theo sơ đồ mạch)')
+                 ),
                  'part_number': pilot_skus['relay'], 'sku': pilot_skus['relay'], 'quantity': 1, 'unit': 'Bộ',
                  'use_in_quotation': True, 'brand': brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
-                 'reason': 'Tự giữ mạch điều khiển, liên động phao / mức nước / BMS'},
+                 'reason': 'Tự giữ mạch điều khiển, liên động phao / mức nước / BMS (số chân khớp theo mã rơ le 2CO/4CO)'},
             ]
 
         poles_count = 3 if motor_voltage >= 380 else 1
@@ -512,13 +577,27 @@ def enrich_motor_starters(devices):
                          'use_in_quotation': True,
                          'brand': c.get('brand') or brand,
                          'spec': c.get('spec') or '', 'part_number': c.get('part_number') or ''} for c in components]
-        # Đồng bộ hãng bắt buộc cho cặp Contactor & Rơ le nhiệt nếu cùng xuất hiện trong mạch
+        # Đồng bộ hãng bắt buộc cho cặp Contactor & Rơ le nhiệt, và đồng bộ hãng theo từng nhóm thiết bị (đèn, nút nhấn, chuyển mạch...) trong cùng file
         km_brand = next((c.get('brand') for c in resolved if str(c.get('category') or '').upper() == 'CONTACTOR' and c.get('brand')), None)
-        if km_brand:
-            for c in resolved:
-                if str(c.get('category') or '').upper() in {'OVERLOAD_PROTECTION', 'THERMAL_RELAY'}:
-                    c['brand'] = km_brand
-                    c['requires_same_brand'] = True
+        for c in resolved:
+            c_cat = str(c.get('category') or '').upper()
+            c_grp = _norm_cat_group(c_cat)
+            if km_brand and c_cat in {'OVERLOAD_PROTECTION', 'THERMAL_RELAY'}:
+                c['brand'] = km_brand
+                c['requires_same_brand'] = True
+            elif c_grp in {'INDICATOR', 'PUSH_BUTTON', 'SELECTOR', 'RELAY', 'TIMER'} and cat_brands.get(c_grp):
+                c['brand'] = cat_brands[c_grp]
+                c['requires_same_brand'] = True
+        is_spare = _is_spare_device(device, upstream)
+        if is_spare:
+            cur_name = str(device.get('name') or '').strip()
+            if cur_name and 'dự phòng' not in cur_name.lower():
+                device['name'] = f"{cur_name} (Dự phòng)"
+            cur_fn = str(device.get('electrical_function') or '').strip()
+            if cur_fn and 'dự phòng' not in cur_fn.lower():
+                device['electrical_function'] = f"{cur_fn} (Dự phòng)"
+            elif not cur_fn:
+                device['electrical_function'] = 'Dự phòng'
         for index, component in enumerate(resolved):
             component.setdefault('component_key', f'{component.get("category")}:{component.get("name")}:{index}')
 
@@ -527,24 +606,41 @@ def enrich_motor_starters(devices):
             if circuit.get(key) not in (None, '')}
         if power_input:
             selection_context['power_input'] = power_input
+        upstream_in_a = upstream.get('in_a') if isinstance(upstream, dict) else None
+        upstream_spec = (upstream.get('spec') or upstream.get('name') or f"{upstream_in_a}A") if isinstance(upstream, dict) else None
         for component in resolved:
             component['selection_context'] = selection_context
+            cat = str(component.get('category') or '').upper()
             requirements = []
-            if power_input:
-                requirements.append(f"Phụ tải {power_input['value']:g} {power_input['unit']} = {power_w / 1000:.3f} kW")
-            current = circuit.get('motor_rated_current_a')
-            if current and component.get('category') == 'CONTACTOR':
-                requirements.append(f"Chọn dòng AC-3 không nhỏ hơn dòng động cơ {current} A tại điện áp làm việc")
-            elif current and component.get('category') == 'OVERLOAD_PROTECTION':
-                requirements.append(f"Dải chỉnh định phải bao phủ dòng động cơ {current} A; đối chiếu vị trí lắp rơ le")
-            for key, label in (('motor_voltage_v', 'Điện áp động cơ'), ('control_voltage_v', 'Điện áp điều khiển')):
-                if circuit.get(key):
-                    requirements.append(f"{label}: {circuit[key]} V")
+            if cat in {'CONTACTOR', 'OVERLOAD_PROTECTION', 'THERMAL_RELAY', 'SOFT_STARTER', 'VFD'}:
+                if power_input:
+                    unit_str = str(power_input.get('unit') or '').strip()
+                    if unit_str.lower() == 'kw':
+                        requirements.append(f"Phụ tải DOL: {power_input['value']:g} kW")
+                    else:
+                        requirements.append(f"Phụ tải DOL: {power_input['value']:g} {unit_str} ({power_w / 1000:.2f} kW)")
+                current = circuit.get('motor_rated_current_a')
+                in_a = component.get('in_a')
+                if current and cat == 'CONTACTOR':
+                    req_a = round(float(current) * 1.25, 1)
+                    if in_a:
+                        requirements.append(f"Chọn {in_a}A AC-3: Iđm động cơ {current} A × 1.25 = {req_a:g} A → lấy cấp chuẩn gần nhất {in_a}A (tránh dư cấp).")
+                    else:
+                        requirements.append(f"Chọn dòng AC-3 không nhỏ hơn dòng động cơ {current} A tại điện áp làm việc")
+                    if upstream_in_a:
+                        requirements.append(f"Phối hợp Aptomat nguồn ({upstream_spec}): MCB {upstream_in_a}A gánh dòng khởi động 5–7×Iđm; contactor chọn theo tải {current} A (có thể nâng 12A–18A nếu cần phối hợp Type 2).")
+                elif current and cat in {'OVERLOAD_PROTECTION', 'THERMAL_RELAY'}:
+                    requirements.append(f"Rơ le nhiệt chỉnh định quanh dòng động cơ {current} A; lắp trực tiếp dưới contactor.")
+                if circuit.get('motor_voltage_v') or circuit.get('control_voltage_v'):
+                    mv = circuit.get('motor_voltage_v') or 380
+                    cv = circuit.get('control_voltage_v') or 220
+                    requirements.append(f"Điện áp động lực {mv}V · Cuộn hút điều khiển {cv}V")
             component['selection_requirements'] = requirements
 
         assembly = {
             'configuration_authoritative': authoritative,
             'type': assembly_type, 'basis': 'assembly_function', 'status': 'needs_engineering_selection',
+            'is_spare': is_spare,
             'load': device.get('connected_load') or circuit.get('supply_location'),
             'load_power_w': power_w, 'power_input': power_input, 'upstream_reference': reference or None,
             'upstream_status': ('verified' if relationship_verified else 'candidate') if upstream else 'needs_review',

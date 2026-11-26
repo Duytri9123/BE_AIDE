@@ -1,6 +1,6 @@
 from typing import Union
 from uuid import UUID
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
@@ -25,10 +25,13 @@ router = APIRouter()
 @router.post("/calculate", response_model=BomCalculationResponse)
 async def calculate_bom(request: BomCalculateRequest):
     """Tính toán toàn bộ BOM tủ điện (vỏ tủ, thanh cái đồng, phụ kiện và nhân công)."""
-    raw_res = BomOrchestratorService.calculate_full_bom(
-        project_id=str(request.project_id),
-        devices=request.devices
-    )
+    try:
+        raw_res = BomOrchestratorService.calculate_full_bom(
+            project_id=str(request.project_id),
+            devices=request.devices
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
     enc = raw_res.enclosure
     enc_price = float(enc.get("estimated_price", 0))

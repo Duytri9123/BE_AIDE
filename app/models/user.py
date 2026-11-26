@@ -38,4 +38,7 @@ class User(Base, TimestampMixin, SoftDeleteMixin):
     conversation_sessions: Mapped[List["ConversationSession"]] = relationship("ConversationSession", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
 
     def __str__(self) -> str:
+        return f"{self.name} ({self.email})" if getattr(self, "name", None) else str(self.email or f"User #{self.id}")
+
+    def __repr__(self) -> str:
         return f"<User(id={self.id}, email='{self.email}')>"

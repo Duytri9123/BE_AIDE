@@ -232,19 +232,19 @@
                 </p>
 
                 <!-- Price Section -->
-                <div class="plan-price-block py-2.5 px-3.5 rounded-3 mb-3 {% if is_free %}price-block-free{% elif is_enterprise %}price-block-enterprise{% else %}price-block-pro{% endif %}">
+                <div class="plan-price-block rounded-3 mb-3 {% if is_free %}price-block-free{% elif is_enterprise %}price-block-enterprise{% else %}price-block-pro{% endif %}">
                   {% if is_free %}
-                    <div class="d-flex align-items-baseline gap-1.5">
+                    <div class="d-flex align-items-baseline gap-2 flex-wrap">
                       <span class="price-number text-success">Miễn phí</span>
                       <span class="price-period text-muted">/ Trọn đời</span>
                     </div>
                   {% else %}
-                    <div class="d-flex align-items-baseline gap-1">
+                    <div class="d-flex align-items-baseline gap-1 flex-wrap">
                       <span class="price-number {% if is_enterprise %}text-purple{% else %}text-primary{% endif %}">
                         {{ "{:,.0f}".format(plan.price) }}
                       </span>
                       <span class="price-currency {% if is_enterprise %}text-purple{% else %}text-primary{% endif %}">₫</span>
-                      <span class="price-period text-muted">/ {{ plan.duration_months or 1 }} tháng</span>
+                      <span class="price-period text-muted ms-1">/ {{ plan.duration_months or 1 }} tháng</span>
                     </div>
                   {% endif %}
                 </div>
@@ -668,6 +668,7 @@
     background: var(--admin-border-subtle, #f8fafc);
     border: 1px solid rgba(226, 232, 240, 0.85);
     border-radius: 10px;
+    padding: 12px 16px;
     transition: all 0.2s ease;
   }
   .price-block-free {
@@ -683,10 +684,10 @@
     border-color: rgba(139, 92, 246, 0.22) !important;
   }
   .price-number {
-    font-size: 1.85rem;
+    font-size: 1.75rem;
     font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
   }
   .price-currency {
     font-size: 1.25rem;

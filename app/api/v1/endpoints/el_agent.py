@@ -831,16 +831,19 @@ def extract_qty_unit(val_str: str, item_name: str = ""):
 
 
 def categorize_quotation_item(name: str, spec: str = "", notes: str = "") -> str:
+    n_name = normalize_vietnamese_text(name)
     n = normalize_vietnamese_text(name + " " + spec)
     # Nhóm 1: Vỏ tủ + phụ kiện (TRÊN CÙNG của tủ trong file báo giá)
-    if any(k in n for k in ('vo tu', 'enclosure', 'tu dien trong nha', 'tu treo tuong', 'tole', 'son tinh dien', 'canh', 'chan de',
-                            'thanh cai', 'dong do', 'busbar', 'dong thanh cai', 'su cach dien', 'co nhiet', 'cap luc',
-                            'vat tu phu', 'phu kien', 'mang day', 'thanh din', 'dau cos', 'nhan ten', 'khoa', 'ban le', 'tai treo',
-                            'nhan cong', 'lap rap', 'dau noi', 'kiem tra', 'thi nghiem', 'hoan thien tu')):
+    if any(k in n_name for k in ('vo tu', 'enclosure', 'tu dien trong nha', 'tu treo tuong',
+                                 'thanh cai', 'busbar', 'dong thanh cai', 'su cach dien',
+                                 'vat tu phu', 'phu kien tu', 'mang day', 'thanh din', 'dau cos',
+                                 'nhan cong', 'lap rap tu', 'hoan thien tu')):
         return 'enclosure_accessories'
 
-    # Nhóm Cụm Khởi động DOL: Ngang cấp với Đầu vào / Đầu ra, bao gồm các thiết bị cụm DOL (Contactor, Rơ le nhiệt...)
-    if any(k in n for k in ('dol', 'khoi dong truc tiep', 'khoi dong dol', 'contactor', 'ro le nhiet', 'khoi dong tu', 'overload')):
+    # Nhóm Cụm Khởi động DOL: Ngang cấp với Đầu vào / Đầu ra, bao gồm toàn bộ thiết bị cụm DOL
+    if any(k in n for k in ('dol', 'khoi dong truc tiep', 'khoi dong dol', 'contactor', 'ro le nhiet',
+                            'khoi dong tu', 'overload', 'chuyen mach 3 vi tri', 'man - off - auto',
+                            'nut nhan', 'den bao su co', 'trip', 'ro le trung gian')):
         return 'dol'
 
     role = normalize_vietnamese_text(f'{name} {notes}')
@@ -921,7 +924,7 @@ def clean_device_name(raw_name: str, raw_spec: str = "", raw_notes: str = "", co
     name = (raw_name or "").strip()
     spec = (raw_spec or "").strip()
     notes = (raw_notes or "").strip()
-    combined = f"{name} {spec} {notes}".strip()
+    combined = f"{name} {spec}".strip()
     norm = normalize_vietnamese_text(combined)
 
     if any(k in norm for k in ('vo tu dien', 'vo tu', 'enclosure', 'tu dien am tuong', 'tu dien treo tuong')):
@@ -967,24 +970,25 @@ def clean_device_name(raw_name: str, raw_spec: str = "", raw_notes: str = "", co
                 dims_default += "mm"
             return f"Vỏ tủ điện trong nhà 2 lớp cánh, sơn tĩnh điện - KT: {dims_default} + Có chân đế cao 100mm"
 
-    if any(k in norm for k in ('thanh cai', 'busbar', 'dong do', 'dong thanh cai')):
+    if re.search(r'\b(?:thanh cai|busbar|dong thanh cai)\b', norm):
         return "Đồng thanh cái mạ thiếc bọc co nhiệt"
 
-    if any(k in norm for k in ('vat tu phu', 'phu kien', 'dau cos')):
+    if any(k in norm for k in ('vat tu phu', 'phu kien tu', 'dau cos')):
         return "Vật tư phụ ( đầu cos, dây điều khiển, sứ ...)"
 
-    if any(k in norm for k in ('nhan cong', 'lap rap', 'hoan thien tu')):
+    if any(k in norm for k in ('nhan cong', 'lap rap tu', 'hoan thien tu')):
         return "Nhân công lắp ráp tủ"
 
     if 'shunt trip' in norm or 'sht' in norm:
         return "Cuộn cắt Shunt trip (SHT)"
 
-    if any(k in norm for k in ('den bao pha', 'bao pha', '3 den', 'den led phi 22', 'den bao')):
-        return "Đèn báo pha (đỏ-vàng-xanh)"
-
     if any(k in norm for k in ('cau chi', 'fuse', 'rt18')):
         current = re.search(r'(?<![\d.,])(\d+(?:[.,]\d+)?)\s*A\b', combined, re.I)
         return f"Cầu chì {current[1]}A" if current else "Cầu chì"
+
+    if any(k in norm for k in ('den bao pha', 'bao pha', '3 den', 'den led phi 22')) and not any(
+            k in norm for k in ('su co', 'trip', 'nut nhan', 'chay', 'dung')):
+        return "Đèn báo pha (đỏ-vàng-xanh)"
 
     from app.services.ai.metering_selection import ct_ratios, display_limits
     ratios = ct_ratios(combined)
@@ -1092,8 +1096,10 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
 
     parsed_items = []
     active_section = None
+    active_section_title = None
     active_panel = None
     section_keys = {'dau vao': 'incomer', 'dau ra': 'outgoing',
+                    'khoi dong dol': 'dol', 'khoi dong': 'dol', 'cum khoi dong': 'dol',
                     'do luong & giam sat': 'metering', 'dieu khien & chieu sang': 'control',
                     'vo tu + phu kien': 'enclosure_accessories', 'vo tu va phu kien': 'enclosure_accessories'}
 
@@ -1113,18 +1119,26 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
         joined_text = " ".join(cols)
         norm_joined = normalize_vietnamese_text(joined_text)
 
-        # Check summary lines
+        # Check summary / tax / total lines
         if any(k in norm_joined for k in (
-            'cong (chua bao gom vat', 'tong cong chua vat', 'thue vat', 'vat (10%)',
-            'tong cong', 'thanh toan', 'cong tien hang', 'chua bao gom vat', 'da bao gom vat'
-        )):
+            'cong (chua bao gom vat', 'tong cong chua vat', 'thue vat', 'thue gia tri gia tang',
+            '(vat', 'vat (10%)', 'tong cong', 'thanh toan', 'cong tien hang',
+            'chua bao gom vat', 'da bao gom vat'
+        )) or re.search(r'\bthue\b|\bvat\b', norm_joined):
             continue
 
         # Check section headers
-        heading = normalize_vietnamese_text(cols[col_name_idx]).replace('*', '').strip() if col_name_idx < len(cols) else ''
-        if heading in section_keys and not any(cols[col_name_idx+1:]):
-            active_section = section_keys[heading]
-            continue
+        raw_heading = cols[col_name_idx].replace('*', '').strip() if col_name_idx < len(cols) else ''
+        heading = normalize_vietnamese_text(raw_heading)
+        if not any(cols[col_name_idx+1:]):
+            if heading in section_keys:
+                active_section = section_keys[heading]
+                active_section_title = raw_heading if active_section == 'dol' else None
+                continue
+            if any(heading.startswith(prefix) for prefix in ('khoi dong', 'cum khoi dong', 'tu bu')):
+                active_section = 'dol'
+                active_section_title = raw_heading
+                continue
 
         if re.match(r'^(?:[IVXLCDM]+|\d+\.)$', first_col, re.IGNORECASE) and not any(cols[3:]):
             continue
@@ -1149,9 +1163,18 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
 
         name = clean_device_name(raw_name, raw_sku, raw_notes, raw_markdown)
         sku, notes = extract_clean_sku(raw_sku, name, raw_sku, raw_notes)
-        cat = categorize_quotation_item(name, sku, notes)
-        if cat == 'outgoing' and active_section in {'incomer', 'outgoing', 'control'}:
-            cat = active_section
+        norm_notes = normalize_vietnamese_text(notes)
+        if any(k in normalize_vietnamese_text(name) for k in ('vo tu', 'enclosure')):
+            notes = notes if 'tham khao' in norm_notes else 'Kích thước tủ tham khảo'
+        elif not any(k in norm_notes for k in ('tham khao', 'du kien', 'tam tinh', 'de xuat', 'co dieu kien', 'du phong', 'chua xac dinh')):
+            notes = ''
+        if active_section == 'dol' and active_section_title:
+            cat = 'dol'
+        else:
+            cat = categorize_quotation_item(name, sku, notes)
+            if cat == 'outgoing' and active_section in {'incomer', 'outgoing', 'control'}:
+                cat = active_section
+        section_title = active_section_title if (cat == 'dol' and active_section == 'dol' and active_section_title) else ('Khởi động DOL' if cat == 'dol' else '')
         spec = raw_sku if sku else ''
         if not spec and all(re.search(pattern, name, re.I) for pattern in (
             r'\b[1-4]\s*P', r'\b\d+(?:[.,]\d+)?\s*A\b', r'\b\d+(?:[.,]\d+)?\s*kA\b',
@@ -1199,7 +1222,8 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
             'unit_price': unit_price,
             'line_total': line_total if line_total else (qty * unit_price),
             'notes': notes,
-            'category': cat
+            'category': cat,
+            'section_title': section_title,
         })
 
     if not parsed_items:
@@ -1208,10 +1232,10 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
     sections = [
         ('enclosure_accessories', '*', 'Vỏ tủ + phụ kiện'),
         ('incomer', '*', 'Đầu vào'),
-        ('dol', '*', 'Khởi động DOL'),
-        ('outgoing', '*', 'Đầu ra'),
         ('metering', '*', 'Đo lường & Giám sát'),
-        ('control', '*', 'Điều khiển & Chiếu sáng')
+        ('control', '*', 'Điều khiển & Chiếu sáng'),
+        ('dol', '*', 'Khởi động DOL'),
+        ('outgoing', '*', 'Đầu ra')
     ]
 
     out_md = []
@@ -1256,23 +1280,34 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
                                     tt=str(index), name=f'TỦ ĐIỆN {code}', sku='', origin='VN',
                                     unit='Tủ', quantity=1.0, unit_price=subtotal, line_total=subtotal, notes=''))
         for cat_key, sec_num, sec_title in sections:
-            items_in_sec = merge_commercial_rows([item for item in members if item['category'] == cat_key])
-            if not items_in_sec:
+            cat_members = [item for item in members if item['category'] == cat_key]
+            if not cat_members:
                 continue
-            items_in_sec.sort(key=quotation_item_sort_key)
-            out_md.append(f"| **\\*** | **{sec_title}** | | | | | | | |")
-            structured_rows.append(dict(id=f'sec-{code}-{cat_key}', row_type='section_header', tt=sec_num,
-                                        name=sec_title, sku='', origin='', unit='', quantity=0,
-                                        unit_price=0, line_total=0, notes=''))
-            for item in items_in_sec:
-                display_md_name = item['name'].replace('\n', '<br>')
-                clean_row_name = item['name'].replace('<br>', '\n')
-                out_md.append(
-                    f"| + | {display_md_name} | {item['sku']} | {item['brand']} | {item['unit']} | {item['quantity']:.2f} | {format_vnd_currency(item['unit_price'])} | {format_vnd_currency(item['line_total'])} | {item['notes']} |"
-                )
-                structured_rows.append({**item, 'name': clean_row_name, 'id': f'item-{stt_item}', 'tt': '+',
-                                        'section': sec_title, 'panel_id': code, 'panel_code': code})
-                stt_item += 1
+            if cat_key == 'dol':
+                dol_groups = {}
+                for item in cat_members:
+                    dol_groups.setdefault(item.get('section_title') or sec_title, []).append(item)
+                sub_sections = [(f'{cat_key}-{i}', title, grp) for i, (title, grp) in enumerate(dol_groups.items(), 1)]
+            else:
+                sub_sections = [(cat_key, sec_title, cat_members)]
+            for sub_key, sub_title, sub_members in sub_sections:
+                items_in_sec = merge_commercial_rows(sub_members)
+                if not items_in_sec:
+                    continue
+                items_in_sec.sort(key=quotation_item_sort_key)
+                out_md.append(f"| **\\*** | **{sub_title}** | | | | | | | |")
+                structured_rows.append(dict(id=f'sec-{code}-{sub_key}', row_type='section_header', tt=sec_num,
+                                            name=sub_title, sku='', origin='', unit='', quantity=0,
+                                            unit_price=0, line_total=0, notes=''))
+                for item in items_in_sec:
+                    display_md_name = item['name'].replace('\n', '<br>')
+                    clean_row_name = item['name'].replace('<br>', '\n')
+                    out_md.append(
+                        f"| + | {display_md_name} | {item['sku']} | {item['brand']} | {item['unit']} | {item['quantity']:.2f} | {format_vnd_currency(item['unit_price'])} | {format_vnd_currency(item['line_total'])} | {item['notes']} |"
+                    )
+                    structured_rows.append({**item, 'name': clean_row_name, 'id': f'item-{stt_item}', 'tt': '+',
+                                            'section': sub_title, 'panel_id': code, 'panel_code': code})
+                    stt_item += 1
 
     vat_amount = int(round(total_material * 0.10))
     grand_total = total_material + vat_amount
@@ -1880,7 +1915,8 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
             panel = allowed.get(key)
             if panel is None or (panel.get('source_page') and device.get('source_page') != panel['source_page']):
                 return {'verification_feedback': 'Thiết bị nằm ngoài tủ/file/trang đã được xác nhận. Chỉ trả thiết bị thuộc confirmed_panels.', 'candidate': devices_data}
-            device.setdefault('location', device.get('tag') or 'Chưa ghi vị trí/lộ')
+            if device.get('tag'):
+                device.setdefault('location', device.get('tag'))
             if not device.get('evidence_region'):
                 device['evidence_region'] = {'status': 'unverified', 'scope': 'panel'}
                 device['notes'] = (str(device.get('notes') or '') + ' Chỉ xác định vùng tủ; chưa có vùng riêng cho thiết bị.').strip()
@@ -2114,9 +2150,13 @@ async def tools(project_id: int, request: Request, db=Depends(get_db), user=Depe
 async def next_action(payload: ChatRequest, request: Request, db=Depends(get_db), user=Depends(get_current_active_user)):
     await owned_project(db, user, payload.project_id)
     context = payload.context or {}
-    from app.services.ai.el_conversation import resolve_request
-    resolution = await resolve_request(db, payload.message, context)
-    context = {**context, 'resolved_request': resolution}
+    existing_res = context.get('resolved_request')
+    if isinstance(existing_res, dict) and existing_res.get('effective'):
+        resolution = existing_res
+    else:
+        from app.services.ai.el_conversation import resolve_request
+        resolution = await resolve_request(db, payload.message, context)
+        context = {**context, 'resolved_request': resolution}
     payload = ChatRequest(project_id=payload.project_id, message=resolution['effective'], context=context)
     # Xử lý tức thì các câu chào hỏi, hỏi danh tính ("bạn là ai"), tính năng, cảm ơn, v.v.
     # Phản hồi dưới 1 giây mà không phải gọi mô hình AI hay chạy worker cồng kềnh.
@@ -2321,7 +2361,7 @@ QUY TẮC BẮT BUỘC:
          - TUYỆT ĐỐI KHÔNG điền tên lộ, công suất tải hay vị trí (như "Lộ L2...", "Tầng tum...") vào cột MÃ HÀNG.
        * Cột XUẤT XỨ: Vỏ tủ, Đồng, Phụ kiện, Nhân công ghi "VN". Thiết bị ghi Hãng SX (ví dụ: SCHNEIDER, LS, CHINT...).
        * Cột ĐƠN VỊ: Vỏ tủ ghi "Cái", Đồng ghi "Tủ", Vật tư phụ ghi "Tủ", Nhân công ghi "Tủ", Thiết bị ghi "Cái".
-       * Cột GHI CHÚ: Chỉ ghi điều kiện báo giá hoặc khối lượng có căn cứ. Bỏ tên lộ, phụ tải và vị trí. Gộp trong từng tủ và phần khi cùng loại, đầy đủ thông số, cùng hãng, mã hàng, đơn vị và đơn giá.
+       * Cột GHI CHÚ: Để trống với thiết bị đã xác định rõ theo bóc tách. Chỉ ghi ngắn gọn các mục mang tính tham khảo/ước tính/đề xuất (ví dụ: "Kích thước tủ tham khảo", "Ước tính tham khảo", "Đề xuất có điều kiện"). KHÔNG ghi mô tả chức năng hay giải thích dài dòng. Gộp trong từng tủ và phần khi cùng loại, đầy đủ thông số, cùng hãng, mã hàng, đơn vị và đơn giá.
        * Đồng hồ ampe qua TI dùng ngõ vào theo dòng thứ cấp và thang hiển thị đến dòng sơ cấp của TI thuộc đúng mạch. Nếu quan hệ nối còn thiếu, ghi đề xuất có điều kiện. Khi thiếu dữ kiện, để trống thông số chưa rõ và không tự gán mã hàng.
      + THỨ TỰ PHÂN NHÓM CHUẨN KỸ THUẬT CHO MỖI TỦ (TRÊN CÙNG BẮT BUỘC LÀ VỎ TỦ + PHỤ KIỆN):
        * Dòng nhóm: | **\\*** | **Vỏ tủ + phụ kiện** | | | | | | | |
@@ -2342,7 +2382,7 @@ QUY TẮC BẮT BUỘC:
          - Biến dòng đo lường CT
          - Đồng hồ Ampe, Đồng hồ Volt, Công tắc chuyển mạch Ampe/Volt
        * Dòng nhóm: | **\\*** | **Khởi động DOL** | | | | | | | |
-         - Cụm khởi động trực tiếp động cơ (DOL) nằm ngang hàng với Đầu vào và Đầu ra.
+         - MỖI bộ khởi động phải giữ thành MỘT NHÓM RIÊNG theo đúng tên lộ/mạch từ bóc tách (ví dụ: "Khởi động DOL - L1", "Khởi động DOL - L2"...); TUYỆT ĐỐI KHÔNG gộp các bộ khởi động khác lộ thành một nhóm "Khởi động DOL" chung.
          - Trong DOL phải liệt kê đầy đủ các thiết bị của cụm khởi động: Contactor động lực, Rơ le nhiệt bảo vệ quá tải động cơ.
        * Dòng nhóm: | **\\*** | **Đầu ra** | | | | | | | |
          - Toàn bộ các Aptomat phân phối nhánh xuất tuyến (MCB 1P, MCB 2P, MCB 3P, RCBO, MCCB nhánh...) cấp ra phụ tải.

@@ -16,7 +16,7 @@ from app.core.exceptions import AIVisionError
 from app.services.ai.material_note_evidence import material_annotation
 
 
-async def audit_device_previews(image, call_image, devices, payload, *, concurrency=3, cache_scope=None, batch_size=4):
+async def audit_device_previews(image, call_image, devices, payload, *, concurrency=4, cache_scope=None, batch_size=6):
     proposals = [r for r in payload.get('boxes', []) if isinstance(r, dict)]
     counts = Counter(str(r.get('device_id')) for r in proposals)
     rows = {}
