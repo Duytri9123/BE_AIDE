@@ -6,7 +6,6 @@ from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
 import os
-import re
 import shutil
 import tempfile
 
@@ -230,9 +229,7 @@ async def revise_existing_analysis(db, project_id, user_id, iteration_id, messag
         quote = apply_quotation_plan(previous_rows, plan)
     except (ValueError, TypeError, KeyError, IndexError) as error:
         raise HTTPException(502, 'AI trả về chỉnh sửa chưa hợp lệ; kết quả hiện tại được giữ nguyên.') from error
-    from app.services.ai.el_tools import plain
-    vat_match = re.search(r'\b(?:vat|thue(?:\s+gtgt)?)\b[^0-9]{0,20}(\d+(?:[.,]\d+)?)\s*%?', plain(message))
-    vat_pct = max(0.0, min(100.0, float(vat_match[1].replace(',', '.')))) if vat_match else None
+    vat_pct = plan.vat_percent
     changed = after != before
     if not changed and quote == previous_rows and vat_pct is None:
         return {'reply': plan.reply, 'action_type': 'general_chat'}
