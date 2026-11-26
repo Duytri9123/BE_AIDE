@@ -240,7 +240,8 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                         elif 'trung gian' in c_name or 'relay' in c_name or 'thời gian' in c_name or c_cat == 'TIMER': ap = 140000
                         else: ap = 150000
                     aq = a.get('quantity') or 1
-                    brand_name = a.get('brand') or d.get('brand') or 'Schneider'
+                    from app.core.config import settings
+                    brand_name = a.get('brand') or d.get('brand') or settings.DEFAULT_BRAND
                     sku_name = a.get('sku') or a.get('part_number') or ''
                     result.append(dict(
                         id=f'{identity}-comp-{j}', parent_id=identity, row_type='item',

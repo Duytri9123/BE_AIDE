@@ -1281,7 +1281,7 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
     if m_p:
         panel_code = m_p.group(1).strip()
     elif "tủ" in intro_text.lower():
-        m_p2 = re.search(r'tủ\s+([A-Za-z0-9\-._]+)', intro_text, re.IGNORECASE)
+        m_p2 = re.search(r'tủ\s+(?:điện\s+)?([A-Z0-9][A-Z0-9\-._]*)\b', intro_text)
         if m_p2:
             panel_code = m_p2.group(1).strip()
 
@@ -1845,13 +1845,74 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
     is_quotation = (resolved_intent == 'quotation' if resolved_intent else
                     is_quotation_request(user_msg) or bool(re.search(r'\|\s*(?:đơn giá|thành tiền|quy cách|hãng sx)\s*\|', reply_text, re.IGNORECASE)))
     if is_quotation:
-        clean_reply, quotation_rows = standardize_quotation_table_and_rows(reply_text)
+        from app.core.config import settings
+        from app.models.analysis_iteration import AnalysisIteration
+        from app.services.project_conversation import project_session
+        session_obj = await project_session(db, payload.project_id, user.id)
+        takeoff_iter = None
+        if context.get('iteration_id'):
+            takeoff_iter = (await db.execute(select(AnalysisIteration).where(
+                AnalysisIteration.session_id == session_obj.id,
+                AnalysisIteration.id == context['iteration_id'],
+            ))).scalar_one_or_none()
+        if not takeoff_iter or not (takeoff_iter.devices_after_validation or takeoff_iter.ai_parsed_devices):
+            all_iters = (await db.execute(select(AnalysisIteration).where(
+                AnalysisIteration.session_id == session_obj.id,
+            ).order_by(AnalysisIteration.iteration_number.desc()))).scalars().all()
+            takeoff_iter = next((it for it in all_iters if (it.devices_after_validation or it.ai_parsed_devices)), takeoff_iter)
+
+        effective_file_ids = list(context.get('file_ids') or [])
+        if not effective_file_ids and takeoff_iter and isinstance(takeoff_iter.files_analyzed, dict):
+            effective_file_ids = list(takeoff_iter.files_analyzed.get('file_ids') or [])
+
+        takeoff_devices = (takeoff_iter.devices_after_validation or takeoff_iter.ai_parsed_devices or []) if takeoff_iter else []
+        if takeoff_devices:
+            from app.services.ai.procurement_review import build_quotation_rows, compact_commercial_sections
+            from app.services.export.quotation_layout import normalize_quotation_layout
+            panels_meta = (takeoff_iter.confidence_scores or {}).get('panels') if takeoff_iter else None
+            built_rows = await asyncio.to_thread(build_quotation_rows, takeoff_devices, {}, panels_meta, True)
+            quotation_rows = normalize_quotation_layout(compact_commercial_sections(built_rows))
+            vat_pct = round(settings.DEFAULT_VAT_RATE * 100, 2)
+            vat_label = f"{vat_pct:g}%"
+            md_lines = [
+                "Dưới đây là bảng báo giá dự toán chi tiết được tổng hợp trực tiếp từ danh mục bóc tách kỹ thuật:",
+                "",
+                "| TT | MÔ TẢ CHI TIẾT | MÃ HÀNG | XUẤT XỨ | ĐƠN VỊ | SỐ LƯỢNG | ĐƠN GIÁ | THÀNH TIỀN | GHI CHÚ |",
+                "|:---:|:---|:---:|:---:|:---:|:---:|---:|---:|:---|",
+            ]
+            total_mat = 0
+            for r in quotation_rows:
+                rt = r.get('row_type')
+                if rt == 'panel_header':
+                    md_lines.append(f"| **{r.get('tt') or '1'}** | **TỦ ĐIỆN {r.get('panel_code') or r.get('name')}** | | **VN** | **Tủ** | **1.00** | | | |")
+                elif rt == 'section_header':
+                    md_lines.append(f"| **\\*** | **{r.get('name')}** | | | | | | | |")
+                elif rt in ('item', 'accessory'):
+                    lt = float(r.get('line_total') or 0)
+                    total_mat += lt
+                    q_val = r.get('quantity')
+                    q_str = f"{float(q_val):.2f}" if q_val is not None else "—"
+                    up_val = r.get('unit_price')
+                    up_str = format_vnd_currency(up_val) if up_val is not None else "—"
+                    lt_str = format_vnd_currency(lt) if up_val is not None else "—"
+                    d_name = str(r.get('name') or '').replace('\n', '<br>')
+                    spec_txt = str(r.get('spec') or '').strip()
+                    if spec_txt and spec_txt not in d_name and not r.get('commercial_package'):
+                        d_name = f"{d_name} {spec_txt}"
+                    md_lines.append(f"| {r.get('tt') or '+'} | {d_name} | {r.get('sku') or ''} | {r.get('origin') or ''} | {r.get('unit') or 'Cái'} | {q_str} | {up_str} | {lt_str} | {r.get('notes') or ''} |")
+            vat_amt = int(round(total_mat * (vat_pct / 100.0)))
+            md_lines.append(f"| | **CỘNG (Chưa bao gồm VAT {vat_label})** | | | | | | **{format_vnd_currency(total_mat)}** | |")
+            md_lines.append(f"| | **THUẾ GIÁ TRỊ GIA TĂNG (VAT {vat_label})** | | | | | | **{format_vnd_currency(vat_amt)}** | |")
+            md_lines.append(f"| | **TỔNG CỘNG TIỀN THANH TOÁN (ĐÃ BAO GỒM VAT)** | | | | | | **{format_vnd_currency(total_mat + vat_amt)}** | |")
+            clean_reply = "\n".join(md_lines)
+        else:
+            clean_reply, quotation_rows = standardize_quotation_table_and_rows(reply_text)
 
         if not quotation_rows:
             return {'reply': clean_reply or 'EL cần thêm thông tin để hoàn tất bảng báo giá.'}
         iteration_id, quotation_rows = await save_quotation_iteration(
             db=db, project_id=payload.project_id, user_id=user.id, message=user_msg, reply=clean_reply,
-            quotation_rows=quotation_rows, file_ids=context.get('file_ids', []),
+            quotation_rows=quotation_rows, file_ids=effective_file_ids,
             iteration_id=(None if (context.get('resolved_request') or {}).get('new_quotation') else
                           context.get('quotation_iteration_id') or context.get('iteration_id')))
 
