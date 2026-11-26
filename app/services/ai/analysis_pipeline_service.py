@@ -1621,6 +1621,13 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
                     )
                 device_price_map[dev.part_number or dev.name] = 0
 
+        from app.services.ai.motor_starter_context import enrich_motor_starters
+        dev_dicts = [d.model_dump() for d in extracted_devices]
+        enrich_motor_starters(dev_dicts)
+        for d_obj, d_dict in zip(extracted_devices, dev_dicts):
+            if d_dict.get('source_observations'):
+                d_obj.source_observations = d_dict['source_observations']
+
         log_event(stage="web_product_research", title="Đang đối chiếu catalog hệ thống",
                   detail="Tìm sản phẩm khớp loại thiết bị, số cực, dòng định mức và khả năng cắt.", status="running")
         from app.services.ai.takeoff_pricebook import link_devices

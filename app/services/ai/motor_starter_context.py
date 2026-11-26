@@ -595,7 +595,10 @@ def enrich_motor_starters(devices):
             if km_brand and c_cat in {'OVERLOAD_PROTECTION', 'THERMAL_RELAY'}:
                 c['brand'] = km_brand
                 c['requires_same_brand'] = True
-            elif c_grp in {'INDICATOR', 'PUSH_BUTTON', 'SELECTOR', 'RELAY', 'TIMER'} and cat_brands.get(c_grp):
+            elif c_grp in {'INDICATOR', 'PUSH_BUTTON', 'SELECTOR'} and c.get('selection_source') != 'user_selected':
+                c['brand'] = control_brand
+                c['requires_same_brand'] = True
+            elif c_grp in {'RELAY', 'TIMER'} and cat_brands.get(c_grp) and c.get('selection_source') != 'user_selected':
                 c['brand'] = cat_brands[c_grp]
                 c['requires_same_brand'] = True
         is_spare = _is_spare_device(device, upstream)
