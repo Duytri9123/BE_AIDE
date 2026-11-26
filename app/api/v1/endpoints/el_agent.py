@@ -1847,21 +1847,90 @@ async def format_reply_response(db, payload, user, context, reply_raw: str, deci
     if is_quotation:
         from app.core.config import settings
         from app.models.analysis_iteration import AnalysisIteration
+        from app.models.project_file import ProjectFile
         from app.services.project_conversation import project_session
         session_obj = await project_session(db, payload.project_id, user.id)
-        takeoff_iter = None
-        if context.get('iteration_id'):
-            takeoff_iter = (await db.execute(select(AnalysisIteration).where(
-                AnalysisIteration.session_id == session_obj.id,
-                AnalysisIteration.id == context['iteration_id'],
-            ))).scalar_one_or_none()
-        if not takeoff_iter or not (takeoff_iter.devices_after_validation or takeoff_iter.ai_parsed_devices):
-            all_iters = (await db.execute(select(AnalysisIteration).where(
-                AnalysisIteration.session_id == session_obj.id,
-            ).order_by(AnalysisIteration.iteration_number.desc()))).scalars().all()
-            takeoff_iter = next((it for it in all_iters if (it.devices_after_validation or it.ai_parsed_devices)), takeoff_iter)
+        all_iters = (await db.execute(select(AnalysisIteration).where(
+            AnalysisIteration.session_id == session_obj.id,
+        ).order_by(AnalysisIteration.iteration_number.desc()))).scalars().all()
+        candidate_takeoffs = [it for it in all_iters if (it.devices_after_validation or it.ai_parsed_devices)]
 
-        effective_file_ids = list(context.get('file_ids') or [])
+        requested_file_ids = list(context.get('file_ids') or [])
+        takeoff_iter = None
+        ambiguous_reason = None
+
+        if requested_file_ids:
+            req_set = set(requested_file_ids)
+            matching = [
+                it for it in candidate_takeoffs
+                if req_set & set((it.files_analyzed or {}).get('file_ids') or [])
+            ]
+            if matching:
+                takeoff_iter = matching[0]
+            else:
+                ambiguous_reason = 'missing_takeoff_for_requested_files'
+        elif context.get('iteration_id'):
+            takeoff_iter = next((it for it in candidate_takeoffs if it.id == context['iteration_id']), None)
+        else:
+            distinct_sources = {
+                tuple(sorted((it.files_analyzed or {}).get('file_ids') or []))
+                for it in candidate_takeoffs
+            }
+            if len(distinct_sources) > 1:
+                ambiguous_reason = 'multiple_takeoff_files'
+            elif candidate_takeoffs:
+                takeoff_iter = candidate_takeoffs[0]
+
+        if ambiguous_reason:
+            req_files = []
+            if requested_file_ids:
+                pf_rows = (await db.execute(select(ProjectFile).where(
+                    ProjectFile.project_id == payload.project_id,
+                    ProjectFile.id.in_(requested_file_ids),
+                ))).scalars().all()
+                req_files = [{'id': f.id, 'filename': f.filename} for f in pf_rows]
+            available_takeoffs = []
+            seen_sources = set()
+            for it in candidate_takeoffs:
+                fa = it.files_analyzed or {}
+                src_key = tuple(sorted(fa.get('file_ids') or []))
+                if src_key in seen_sources:
+                    continue
+                seen_sources.add(src_key)
+                devs = it.devices_after_validation or it.ai_parsed_devices or []
+                panels_found = sorted({str(d.get('panel_code') or d.get('panel') or '') for d in devs if d.get('panel_code') or d.get('panel')})
+                available_takeoffs.append({
+                    'iteration_id': it.id,
+                    'iteration_number': it.iteration_number,
+                    'file_ids': fa.get('file_ids') or [],
+                    'file_names': fa.get('file_names') or [],
+                    'panels': panels_found,
+                    'device_count': len(devs),
+                })
+            from app.services.ai.connection_pool import ConnectionPoolService
+            from app.services.ai.vision_analyzer import VisionAnalyzerService
+            clarify_prompt = (
+                "Bạn là trợ lý kỹ thuật điện. Người dùng đang yêu cầu lập báo giá nhưng ngữ cảnh nguồn bóc tách chưa rõ ràng.\n"
+                "Dựa vào dữ liệu JSON thực tế dưới đây, hãy trả lời ngắn gọn, tự nhiên bằng tiếng Việt để:\n"
+                "- Nếu trạng thái là 'missing_takeoff_for_requested_files': thông báo các file được chọn chưa có kết quả bóc tách và hỏi xác nhận xem người dùng có muốn hệ thống bóc tách các file đó trước rồi mới lập báo giá không.\n"
+                "- Nếu trạng thái là 'multiple_takeoff_files': liệt kê ngắn gọn các phiên/file đã bóc tách hiện có (tên file, mã tủ, số thiết bị) và hỏi người dùng muốn lập báo giá cho file/tủ nào (hoặc tất cả).\n"
+                "KHÔNG tự bịa bảng báo giá hay tự chọn thay người dùng.\n"
+                + json.dumps({
+                    'reason': ambiguous_reason,
+                    'user_message': user_msg,
+                    'requested_files': req_files,
+                    'available_takeoffs': available_takeoffs,
+                }, ensure_ascii=False)
+            )
+            conns = await ConnectionPoolService.get_ordered_connections(db)
+            if conns:
+                ai_clarify, _ = await ConnectionPoolService.call_with_fallback(
+                    db=db, connections=conns, call_fn=VisionAnalyzerService.analyze_text, prompt=clarify_prompt
+                )
+                return {'reply': ai_clarify.strip(), 'needs_confirmation': True}
+            return {'reply': reply_text, 'needs_confirmation': True}
+
+        effective_file_ids = list(requested_file_ids)
         if not effective_file_ids and takeoff_iter and isinstance(takeoff_iter.files_analyzed, dict):
             effective_file_ids = list(takeoff_iter.files_analyzed.get('file_ids') or [])
 
