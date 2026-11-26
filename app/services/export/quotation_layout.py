@@ -69,12 +69,13 @@ def normalize_quotation_layout(rows):
                 if len(parts) == 1:
                     item = {**parts[0], 'name': parts[0]['name'] if code == 'ENCLOSURE' else name,
                             'commercial_package': True, 'package_code': code}
-                    if item.get('price_status') != 'user_provided' and code == 'LABOR' and item.get('unit_price') is not None and float(item['unit_price']) < 500000:
-                        item['unit_price'] = 500000
-                        item['line_total'] = float(item.get('quantity') or 1) * 500000
-                    elif item.get('price_status') != 'user_provided' and code == 'MATERIALS' and item.get('unit_price') is not None and float(item['unit_price']) < 300000:
-                        item['unit_price'] = 300000
-                        item['line_total'] = float(item.get('quantity') or 1) * 300000
+                    from app.core.config import settings
+                    if item.get('price_status') != 'user_provided' and code == 'LABOR' and item.get('unit_price') is not None and float(item['unit_price']) < settings.LABOR_MIN_COST:
+                        item['unit_price'] = settings.LABOR_MIN_COST
+                        item['line_total'] = float(item.get('quantity') or 1) * settings.LABOR_MIN_COST
+                    elif item.get('price_status') != 'user_provided' and code == 'MATERIALS' and item.get('unit_price') is not None and float(item['unit_price']) < settings.MATERIALS_MIN_COST:
+                        item['unit_price'] = settings.MATERIALS_MIN_COST
+                        item['line_total'] = float(item.get('quantity') or 1) * settings.MATERIALS_MIN_COST
                     if code != 'ENCLOSURE':
                         item.update(package_spec=item.get('package_spec') or item.get('spec') or '', spec='',
                                     sku=(parts[0].get('sku') or parts[0].get('spec') or '') if code == 'BUSBAR' else '')
@@ -83,10 +84,11 @@ def normalize_quotation_layout(rows):
                 priced = bool(parts) and all(r.get('unit_price') is not None and r.get('quantity') is not None
                                             and r.get('inclusion_status') != 'needs_confirmation' for r in parts)
                 price = sum(float(r['unit_price']) * float(r['quantity']) for r in parts) if priced else None
-                if not any(r.get('price_status') == 'user_provided' for r in parts) and code == 'LABOR' and price is not None and price < 500000:
-                    price = 500000
-                elif not any(r.get('price_status') == 'user_provided' for r in parts) and code == 'MATERIALS' and price is not None and price < 300000:
-                    price = 300000
+                from app.core.config import settings
+                if not any(r.get('price_status') == 'user_provided' for r in parts) and code == 'LABOR' and price is not None and price < settings.LABOR_MIN_COST:
+                    price = settings.LABOR_MIN_COST
+                elif not any(r.get('price_status') == 'user_provided' for r in parts) and code == 'MATERIALS' and price is not None and price < settings.MATERIALS_MIN_COST:
+                    price = settings.MATERIALS_MIN_COST
                 description = '\n'.join('\n'.join(str(r.get(k) or '') for k in ('name', 'spec')).strip() for r in parts)
                 item = dict(id=f'{panel_id}-assembly-{code}', row_type='item', tt='+',
                     name=description if code == 'ENCLOSURE' and parts else name,

@@ -1061,9 +1061,16 @@ def extract_clean_sku(raw_sku: str, raw_name: str = "", raw_spec: str = "", raw_
     return sku, notes
 
 
-def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: str = "TỦ ĐIỆN TỔNG (TĐ-T)") -> tuple[str, list[dict]]:
+def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: str = "TỦ ĐIỆN TỔNG (TĐ-T)", vat_percent: float | None = None) -> tuple[str, list[dict]]:
     import re
+    from app.core.config import settings
     from app.services.ai.procurement_review import merge_commercial_rows
+    if vat_percent is None:
+        m_vat = re.search(r'\bVAT\s*(\d+(?:[.,]\d+)?)\s*%', raw_markdown, re.IGNORECASE)
+        vat_pct = float(m_vat.group(1).replace(',', '.')) if m_vat else round(settings.DEFAULT_VAT_RATE * 100, 2)
+    else:
+        vat_pct = float(vat_percent)
+    vat_pct = max(0.0, min(100.0, vat_pct))
     lines = raw_markdown.strip().splitlines()
     table_lines = [line.strip() for line in lines if line.strip().startswith('|') and line.strip().endswith('|')]
 
@@ -1209,14 +1216,14 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
         qty, _ = extract_qty_unit(raw_qty, name)
         unit_price = parse_col_num(raw_price)
 
-        # Đảm bảo mức sàn kỹ thuật nhân công (>= 500k) và vật tư phụ (>= 300k)
+        # Đảm bảo mức sàn kỹ thuật nhân công và vật tư phụ theo cấu hình hệ thống
         norm_n = normalize_vietnamese_text(name)
         if any(k in norm_n for k in ('nhan cong', 'lap rap va kiem tra', 'nhan cong lap rap')):
-            if unit_price < 500000:
-                unit_price = 500000
+            if unit_price < settings.LABOR_MIN_COST:
+                unit_price = settings.LABOR_MIN_COST
         elif any(k in norm_n for k in ('vat tu phu', 'phu kien tu', 'dau cos', 'phu kien lap rap')):
-            if unit_price < 300000:
-                unit_price = 300000
+            if unit_price < settings.MATERIALS_MIN_COST:
+                unit_price = settings.MATERIALS_MIN_COST
 
         line_total = qty * unit_price
 
@@ -1319,11 +1326,12 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
                                             'section': sub_title, 'panel_id': code, 'panel_code': code})
                     stt_item += 1
 
-    vat_amount = int(round(total_material * 0.10))
+    vat_amount = int(round(total_material * (vat_pct / 100.0)))
     grand_total = total_material + vat_amount
+    vat_label = f"{vat_pct:g}%"
 
-    out_md.append(f"| | **CỘNG (Chưa bao gồm VAT 10%)** | | | | | | **{format_vnd_currency(total_material)}** | |")
-    out_md.append(f"| | **THUẾ GIÁ TRỊ GIA TĂNG (VAT 10%)** | | | | | | **{format_vnd_currency(vat_amount)}** | |")
+    out_md.append(f"| | **CỘNG (Chưa bao gồm VAT {vat_label})** | | | | | | **{format_vnd_currency(total_material)}** | |")
+    out_md.append(f"| | **THUẾ GIÁ TRỊ GIA TĂNG (VAT {vat_label})** | | | | | | **{format_vnd_currency(vat_amount)}** | |")
     out_md.append(f"| | **TỔNG CỘNG TIỀN THANH TOÁN (ĐÃ BAO GỒM VAT)** | | | | | | **{format_vnd_currency(grand_total)}** | |")
 
     trailing = []

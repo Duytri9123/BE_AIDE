@@ -89,6 +89,8 @@ class Settings(BaseSettings):
     ACCESSORY_NON_BUSBAR_DEFAULT_PRICE: int = 0 # Vật tư phụ tủ nhỏ không thanh cái
     LABOR_BUSBAR_DEFAULT_COST: int = 0         # Nhân công tủ có thanh cái (0: ưu tiên tính theo định mức kỹ thuật)
     LABOR_NON_BUSBAR_DEFAULT_COST: int = 0      # Nhân công tủ nhỏ không thanh cái
+    LABOR_MIN_COST: int = 500000               # Sàn nhân công lắp ráp tối thiểu (VNĐ)
+    MATERIALS_MIN_COST: int = 300000           # Sàn vật tư phụ tối thiểu (VNĐ)
     
     # BOM Extraction Settings
     # Supported file formats
