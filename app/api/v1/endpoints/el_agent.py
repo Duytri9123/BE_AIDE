@@ -843,11 +843,13 @@ def categorize_quotation_item(name: str, spec: str = "", notes: str = "") -> str
     # Nhóm Cụm Khởi động DOL: Ngang cấp với Đầu vào / Đầu ra, bao gồm toàn bộ thiết bị cụm DOL
     if any(k in n for k in ('dol', 'khoi dong truc tiep', 'khoi dong dol', 'contactor', 'ro le nhiet',
                             'khoi dong tu', 'overload', 'chuyen mach 3 vi tri', 'man - off - auto',
-                            'nut nhan', 'den bao su co', 'trip', 'ro le trung gian')):
+                            'nut nhan', 'den bao su co', 'bao trip', 'den trip', 'ro le trung gian')) and 'shunt trip' not in n:
         return 'dol'
 
     role = normalize_vietnamese_text(f'{name} {notes}')
-    if re.search(r'\b(?:tong|incomer|main|nguon vao|dau vao|shunt trip)\b', role):
+    if re.search(r'\b(?:shunt trip|sht)\b', n) or (
+            re.search(r'\b(?:mccb|acb|mcb|isolator|cau dao|aptomat)\b', n)
+            and re.search(r'\b(?:tong|incomer|main|nguon vao|dau vao)\b', role)):
         return 'incomer'
 
     # Tất cả các aptomat phân phối nhánh xuất tuyến (MCB 1P, 2P, 3P, RCBO, MCCB nhánh...) đều thuộc Đầu ra
@@ -1124,7 +1126,7 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
             'cong (chua bao gom vat', 'tong cong chua vat', 'thue vat', 'thue gia tri gia tang',
             '(vat', 'vat (10%)', 'tong cong', 'thanh toan', 'cong tien hang',
             'chua bao gom vat', 'da bao gom vat'
-        )) or re.search(r'\bthue\b|\bvat\b', norm_joined):
+        )) or re.search(r'\bthue\b', norm_joined) or (re.search(r'\bvat\b', norm_joined) and 'vat tu' not in norm_joined):
             continue
 
         # Check section headers
