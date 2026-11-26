@@ -623,28 +623,30 @@ def enrich_motor_starters(devices):
             cat = str(component.get('category') or '').upper()
             requirements = []
             if cat in {'CONTACTOR', 'OVERLOAD_PROTECTION', 'THERMAL_RELAY', 'SOFT_STARTER', 'VFD'}:
+                load_lbl = ''
                 if power_input:
                     unit_str = str(power_input.get('unit') or '').strip()
-                    if unit_str.lower() == 'kw':
-                        requirements.append(f"Phụ tải DOL: {power_input['value']:g} kW")
-                    else:
-                        requirements.append(f"Phụ tải DOL: {power_input['value']:g} {unit_str} ({power_w / 1000:.2f} kW)")
+                    load_lbl = f"{power_input['value']:g}kW" if unit_str.lower() == 'kw' else f"{power_input['value']:g}{unit_str}"
                 current = circuit.get('motor_rated_current_a')
                 in_a = component.get('in_a')
-                if current and cat == 'CONTACTOR':
-                    req_a = round(float(current) * 1.25, 1)
-                    if in_a:
-                        requirements.append(f"Chọn {in_a}A AC-3: Iđm động cơ {current} A × 1.25 = {req_a:g} A → lấy cấp chuẩn gần nhất {in_a}A (tránh dư cấp).")
-                    else:
-                        requirements.append(f"Chọn dòng AC-3 không nhỏ hơn dòng động cơ {current} A tại điện áp làm việc")
-                    if upstream_in_a:
-                        requirements.append(f"Phối hợp Aptomat nguồn ({upstream_spec}): MCB {upstream_in_a}A gánh dòng khởi động 5–7×Iđm; contactor chọn theo tải {current} A (có thể nâng 12A–18A nếu cần phối hợp Type 2).")
-                elif current and cat in {'OVERLOAD_PROTECTION', 'THERMAL_RELAY'}:
-                    requirements.append(f"Rơ le nhiệt chỉnh định quanh dòng động cơ {current} A; lắp trực tiếp dưới contactor.")
-                if circuit.get('motor_voltage_v') or circuit.get('control_voltage_v'):
-                    mv = circuit.get('motor_voltage_v') or 380
-                    cv = circuit.get('control_voltage_v') or 220
-                    requirements.append(f"Điện áp động lực {mv}V · Cuộn hút điều khiển {cv}V")
+                mv = circuit.get('motor_voltage_v') or 380
+                cv = circuit.get('control_voltage_v') or 220
+                if cat == 'CONTACTOR':
+                    parts = [p for p in (
+                        f"Tải {load_lbl}" if load_lbl else "",
+                        f"Iđm ~{current}A → {in_a}A AC-3" if (current and in_a) else (f"Iđm ~{current}A" if current else ""),
+                        f"{mv}V / Cuộn hút {cv}V",
+                    ) if p]
+                    requirements.append(" · ".join(parts))
+                elif cat in {'OVERLOAD_PROTECTION', 'THERMAL_RELAY'}:
+                    parts = [p for p in (
+                        f"Tải {load_lbl}" if load_lbl else "",
+                        f"Chỉnh định ~{current}A" if current else "",
+                        "Lắp dưới contactor",
+                    ) if p]
+                    requirements.append(" · ".join(parts))
+                elif load_lbl:
+                    requirements.append(f"Tải {load_lbl} · {mv}V")
             component['selection_requirements'] = requirements
 
         assembly = {

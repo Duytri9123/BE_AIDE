@@ -1536,16 +1536,20 @@ Dữ liệu đã đọc:\n""" + str(source_file_contexts)
 
             dev.detected_brand = dev_raw_brand if has_explicit_brand else ""
 
+            from app.services.ai.manufacturer_registry import canonical_brand
+            req_match = next((b for b in pool if requested_brand and canonical_brand(b) == canonical_brand(requested_brand)), None)
+            pref_match = next((b for b in pool if preferred_brand and canonical_brand(b) == canonical_brand(preferred_brand)), None)
+
             # 1. Ưu tiên yêu cầu người dùng nếu có chỉ định hãng
-            if requested_brand and requested_brand in pool:
-                chosen_brand = preferred_brand
+            if req_match:
+                chosen_brand = req_match
                 dev.selection_source = "user_request"
             # 2. Ưu tiên hãng tự nhiên do AI trích xuất được từ bản vẽ (Selec, Mikro, Emic, Mitsubishi, Schneider...)
             elif has_explicit_brand:
                 chosen_brand = dev_raw_brand
                 dev.selection_source = "drawing"
-            elif preferred_brand and preferred_brand in pool:
-                chosen_brand = preferred_brand
+            elif pref_match:
+                chosen_brand = pref_match
                 dev.selection_source = "catalog_auto"
             # 3. Tự động chọn nhà cung cấp có model catalog khớp kỹ thuật nhất.
             elif pool:
