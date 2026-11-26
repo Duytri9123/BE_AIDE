@@ -841,9 +841,10 @@ def categorize_quotation_item(name: str, spec: str = "", notes: str = "") -> str
         return 'enclosure_accessories'
 
     # Nhóm Cụm Khởi động DOL: Ngang cấp với Đầu vào / Đầu ra, bao gồm toàn bộ thiết bị cụm DOL
-    if any(k in n for k in ('dol', 'khoi dong truc tiep', 'khoi dong dol', 'contactor', 'ro le nhiet',
-                            'khoi dong tu', 'overload', 'chuyen mach 3 vi tri', 'man - off - auto',
-                            'nut nhan', 'den bao su co', 'bao trip', 'den trip', 'ro le trung gian')) and 'shunt trip' not in n:
+    if (any(k in n for k in ('dol', 'khoi dong truc tiep', 'khoi dong dol', 'contactor', 'ro le nhiet',
+                             'khoi dong tu', 'overload', 'chuyen mach 3 vi tri', 'man - off - auto',
+                             'nut nhan', 'den bao su co', 'ro le trung gian'))
+            or re.search(r'\btrip\b', n)) and 'shunt trip' not in n:
         return 'dol'
 
     role = normalize_vietnamese_text(f'{name} {notes}')
