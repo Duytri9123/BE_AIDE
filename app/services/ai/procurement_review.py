@@ -338,7 +338,7 @@ def compact_commercial_sections(rows):
             if row.get('commercial_display') and str(row.get('category') or '').upper() in {'ENCLOSURE','DIN_RAIL','DUCT','WIRE','CABLE','LUGS','FIXINGS','TERMINAL_BLOCK','PE_BAR','N_BAR'}:continue
             parent_section = item_sections.get(row.get('parent_id'))
             section = parent_section or (active if row.get('commercial_package') or plain(active).startswith('vo tu')
-                                         else (active if 'khởi động' in plain(active) else quotation_section({**row, 'section': active,
+                                         else (active if 'khoi dong' in plain(active) else quotation_section({**row, 'section': active,
                                                                  'location': row.get('location') or row.get('notes')})))
             groups.setdefault(section,[]).append(row)
             if row.get('id'):

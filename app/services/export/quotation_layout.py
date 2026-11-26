@@ -97,7 +97,7 @@ def normalize_quotation_layout(rows):
                 if code != 'ENCLOSURE':
                     item['package_spec'] = ''
                 result.append(item)
-        for name in sorted(groups, key=lambda n: 0 if n == 'Đầu vào' else 1 if n == 'Đo lường & Giám sát' else 2 if n == 'Điều khiển & Chiếu sáng' else 3 if ('khởi động' in plain(n) or 'dol' in plain(n)) else 4 if n == 'Đầu ra' else 5):
+        for name in sorted(groups, key=lambda n: 0 if n == 'Đầu vào' else 1 if n == 'Đo lường & Giám sát' else 2 if n == 'Điều khiển & Chiếu sáng' else 3 if ('khoi dong' in plain(n) or 'dol' in plain(n)) else 4 if n == 'Đầu ra' else 5):
             result.append({**headers.get(name, {}), 'id': headers.get(name, {}).get('id') or f'{panel_id}-{name}',
                            'row_type': 'section_header', 'name': name, 'tt': '*'})
             result.extend(groups[name])
