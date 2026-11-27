@@ -1188,7 +1188,7 @@ def standardize_quotation_table_and_rows(raw_markdown: str, panel_info_default: 
         if active_section == 'dol' and active_section_title:
             cat = 'dol'
         else:
-            cat = categorize_quotation_item(name, sku, notes)
+            cat = categorize_quotation_item(name, sku, raw_notes or notes)
             if cat == 'outgoing' and active_section in {'incomer', 'outgoing', 'control'}:
                 cat = active_section
         section_title = active_section_title if (cat == 'dol' and active_section == 'dol' and active_section_title) else ('Khởi động DOL' if cat == 'dol' else '')

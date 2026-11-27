@@ -40,16 +40,11 @@ def materialize_selected_accessories(devices):
         for proposal, component_key in proposed:
             if not isinstance(proposal, dict):
                 continue
-            # Thành phần của cụm khởi động (Contactor, Rơ le nhiệt) luôn được đưa vào báo giá trong cụm DOL
-            is_starter_comp = bool(component_key) or proposal.get('category') in {'CONTACTOR', 'OVERLOAD_PROTECTION', 'THERMAL_RELAY'}
-            selected_component = bool(component_key and (
-                proposal.get('selection_source') == 'user_selected' or proposal.get('use_in_quotation') is True
-                or proposal.get('basis') in {'source', 'user_request'} or proposal.get('status') == 'confirmed'
-                or is_starter_comp))
-            if not selected_component and proposal.get('use_in_quotation') is not True:
+            selected_source = bool(component_key and proposal.get('basis') in {'source', 'user_request'})
+            if proposal.get('use_in_quotation') is not True and not selected_source:
                 continue
-            per_set = positive(proposal.get('quantity')) or 1
-            sets = positive(device.get('procurement_quantity', device.get('quantity', 1))) or 1
+            per_set = positive(proposal.get('quantity'))
+            sets = positive(device.get('procurement_quantity', device.get('quantity', 1)))
             review = device.get('quantity_review') or {}
             if review.get('blocking') is True and review.get('status') == 'needs_review':
                 sets = None

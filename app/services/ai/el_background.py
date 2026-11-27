@@ -28,6 +28,39 @@ def _is_transient(exc: Exception) -> bool:
     return any(kw in msg for kw in _TRANSIENT_KEYWORDS)
 
 
+async def _deduct_el_usage(db, user, project_id: int, ai_usage: dict) -> tuple[int, int]:
+    """Deduct actual AI tokens consumed by an EL run from user balance and log credits."""
+    from sqlalchemy import select, update
+    from app.core.token_estimator import usage_credits
+    from app.models.conversation_session import ConversationSession
+    from app.models.token_log import TokenLog
+    from app.models.user import User
+
+    consumed = max(0, int((ai_usage or {}).get('total_tokens') or 0))
+    if consumed <= 0 or not getattr(user, 'id', None):
+        return 0, 0
+    credits_used = usage_credits(consumed)
+    current_tokens = (await db.execute(select(User.tokens).where(User.id == user.id))).scalar_one_or_none()
+    if current_tokens is not None:
+        new_balance = max(0, int(current_tokens) - consumed)
+        await db.execute(update(User).where(User.id == user.id).values(tokens=new_balance))
+    db.add(TokenLog(
+        user_id=user.id,
+        amount_changed=-consumed,
+        type='el_usage',
+        description=f"EL xử lý (-{credits_used} credit / {consumed:,} tokens)",
+    ))
+    session = (await db.execute(
+        select(ConversationSession)
+        .where(ConversationSession.project_id == project_id, ConversationSession.user_id == user.id, ConversationSession.status == 'active')
+        .order_by(ConversationSession.updated_at.desc())
+        .limit(1)
+    )).scalar_one_or_none()
+    if session is not None:
+        session.total_tokens_used = int(session.total_tokens_used or 0) + consumed
+    return consumed, credits_used
+
+
 async def dispatch(run_id):
     from app.tasks.celery_app import celery_app
     try:
@@ -74,33 +107,38 @@ async def run(run_id, store=None):
         store.save(run_id, lease, state)
 
     token = _sink.set(activity)
-    try:
-        async with AsyncSessionLocal() as db:
-            _, user = await _project_user(db, row['project'], row['owner'])
-            context = dict(row['payload'].get('context') or {})
-            from app.services.ai.takeoff_regions import sign_scope
-            accepted_scope = context.pop('_background_confirmed_scope', [])
-            if accepted_scope:
-                context['takeoff_scope'] = [{'scope_token': sign_scope(panel, row['project'])} for panel in accepted_scope]
-            message = row['payload']['message']
-            if not state.get('resolution'):
-                state['resolution'] = resolve_confirmed_takeoff(message, context, accepted_scope)
-                if not state['resolution']:
-                    # Retry resolve_request on transient errors (429/503)
-                    for _res_attempt in range(_MAX_EL_RETRIES + 1):
-                        try:
-                            state['resolution'] = await resolve_request(db, message, context)
-                            break
-                        except Exception as _res_err:
-                            if _res_attempt < _MAX_EL_RETRIES and _is_transient(_res_err):
-                                delay = _BASE_BACKOFF_SECS * (_res_attempt + 1)
-                                logger.warning('EL resolve_request transient error (attempt %s/%s), retrying in %ss: %s',
-                                               _res_attempt + 1, _MAX_EL_RETRIES + 1, delay, _res_err)
-                                await asyncio.sleep(delay)
-                                continue
-                            raise
-                store.save(run_id, lease, state)
-            message = state['resolution']['effective']
+    from app.core.token_estimator import TOKENS_PER_CREDIT, tracked_ai_usage
+    with tracked_ai_usage() as ai_usage:
+        try:
+            async with AsyncSessionLocal() as db:
+                _, user = await _project_user(db, row['project'], row['owner'])
+                context = dict(row['payload'].get('context') or {})
+                from app.services.ai.takeoff_regions import sign_scope
+                accepted_scope = context.pop('_background_confirmed_scope', [])
+                if accepted_scope:
+                    context['takeoff_scope'] = [{'scope_token': sign_scope(panel, row['project'])} for panel in accepted_scope]
+                message = row['payload']['message']
+                if not state.get('resolution'):
+                    state['resolution'] = resolve_confirmed_takeoff(message, context, accepted_scope)
+                    if not state['resolution']:
+                        # Retry resolve_request on transient errors (429/503)
+                        for _res_attempt in range(_MAX_EL_RETRIES + 1):
+                            try:
+                                state['resolution'] = await resolve_request(db, message, context)
+                                break
+                            except Exception as _res_err:
+                                if _res_attempt < _MAX_EL_RETRIES and _is_transient(_res_err):
+                                    delay = _BASE_BACKOFF_SECS * (_res_attempt + 1)
+                                    logger.warning('EL resolve_request transient error (attempt %s/%s), retrying in %ss: %s',
+                                                   _res_attempt + 1, _MAX_EL_RETRIES + 1, delay, _res_err)
+                                    await asyncio.sleep(delay)
+                                    continue
+                                raise
+                    store.save(run_id, lease, state)
+                if state['resolution'].get('intent') in {'takeoff', 'quotation'} and isinstance(getattr(user, 'tokens', None), int) and user.tokens < TOKENS_PER_CREDIT:
+                    store.save(run_id, lease, state, 'FAILED', error='Tài khoản đã hết credit (0 credit). Vui lòng nạp thêm hoặc nâng cấp gói dịch vụ.')
+                    return
+                message = state['resolution']['effective']
             context.update(resolved_request=state['resolution'], run_id=run_id, execution_mode='server_background')
             registered = el_agent.api_tools(app)
             source_tool = {'name': 'read_project_sources', 'label': 'Đọc nguồn dự án', 'kind': 'source', 'writes': False,
@@ -157,9 +195,16 @@ async def run(run_id, store=None):
                     from datetime import datetime, timezone
                     from sqlalchemy import update
                     from app.models.project import Project
+                    consumed_tokens, credits_used = await _deduct_el_usage(db, user, row['project'], ai_usage)
                     await db.execute(update(Project).where(Project.id == row['project']).values(updated_at=datetime.now(timezone.utc)))
                     await db.commit()
-                    store.save(run_id, lease, state, 'COMPLETED', result={**decision, 'artifacts': state.get('artifacts', []), 'outputs': state.get('outputs', [])})
+                    store.save(run_id, lease, state, 'COMPLETED', result={
+                        **decision,
+                        'artifacts': state.get('artifacts', []),
+                        'outputs': state.get('outputs', []),
+                        'tokens_used': consumed_tokens,
+                        'credits_used': credits_used,
+                    })
                     return
                 name, args = decision.get('tool'), decision.get('arguments') or {}
                 tool = source_tool if name == source_tool['name'] else registered.get(name)
@@ -232,19 +277,19 @@ async def run(run_id, store=None):
                 state['phase'] = 'ready'
                 activity({'activity': {**event, 'state': 'error' if result.get('ok') is False else 'success'}})
                 store.save(run_id, lease, state)
-    except Exception as exc:
-        logger.exception('EL background run failed: %s', run_id)
-        # Retain checkpoints, but keep provider diagnostics out of the customer UI.
-        for item in state.get('activities', []):
-            if item.get('state') == 'running':
-                item['state'] = 'error'
-        # Include the exception class name so admins can diagnose the issue
-        # without exposing internal API details to end users.
-        exc_type = type(exc).__name__
-        exc_brief = str(exc)[:300]
-        logger.error('EL background exception type=%s detail=%s', exc_type, exc_brief)
-        store.save(run_id, lease, state, 'FAILED', error=f'EL gặp gián đoạn khi xử lý ({exc_type}). Tiến độ đã lưu; bạn có thể tiếp tục.')
-    finally:
-        _sink.reset(token)
-        pulse.cancel()
-        await asyncio.gather(pulse, return_exceptions=True)
+        except Exception as exc:
+            logger.exception('EL background run failed: %s', run_id)
+            # Retain checkpoints, but keep provider diagnostics out of the customer UI.
+            for item in state.get('activities', []):
+                if item.get('state') == 'running':
+                    item['state'] = 'error'
+            # Include the exception class name so admins can diagnose the issue
+            # without exposing internal API details to end users.
+            exc_type = type(exc).__name__
+            exc_brief = str(exc)[:300]
+            logger.error('EL background exception type=%s detail=%s', exc_type, exc_brief)
+            store.save(run_id, lease, state, 'FAILED', error=f'EL gặp gián đoạn khi xử lý ({exc_type}). Tiến độ đã lưu; bạn có thể tiếp tục.')
+        finally:
+            _sink.reset(token)
+            pulse.cancel()
+            await asyncio.gather(pulse, return_exceptions=True)

@@ -1,12 +1,58 @@
 """
 Token estimation utilities cho AI API calls
 """
+import contextlib
+import contextvars
 import logging
+import math
 from typing import Optional
 
 from app.core.config import settings
 
 logger = logging.getLogger(__name__)
+
+TOKENS_PER_CREDIT = 1000
+_ai_usage_tracker: contextvars.ContextVar[Optional[dict]] = contextvars.ContextVar("ai_usage_tracker", default=None)
+
+
+def tokens_to_credits(tokens: Optional[int]) -> int:
+    """Convert raw token balance to integer credits (1 credit = 1,000 tokens)."""
+    if tokens is None or isinstance(tokens, bool):
+        return 0
+    return max(0, int(tokens) // TOKENS_PER_CREDIT)
+
+
+def usage_credits(tokens: Optional[int]) -> int:
+    """Convert consumed tokens into billed credits (rounded up, min 1 when > 0)."""
+    if tokens is None or isinstance(tokens, bool) or int(tokens) <= 0:
+        return 0
+    return math.ceil(int(tokens) / TOKENS_PER_CREDIT)
+
+
+def record_ai_usage(prompt_tokens=0, output_tokens=0, thinking_tokens=0) -> None:
+    """Accumulate AI token usage into the active tracked_ai_usage scope."""
+    tracker = _ai_usage_tracker.get()
+    if tracker is None:
+        return
+    pt = int(prompt_tokens or 0) if str(prompt_tokens or "").isdigit() or isinstance(prompt_tokens, (int, float)) else 0
+    ot = int(output_tokens or 0) if str(output_tokens or "").isdigit() or isinstance(output_tokens, (int, float)) else 0
+    tt = int(thinking_tokens or 0) if str(thinking_tokens or "").isdigit() or isinstance(thinking_tokens, (int, float)) else 0
+    tracker["prompt_tokens"] += max(0, pt)
+    tracker["output_tokens"] += max(0, ot)
+    tracker["thinking_tokens"] += max(0, tt)
+    tracker["total_tokens"] += max(0, pt) + max(0, ot) + max(0, tt)
+    tracker["calls"] += 1
+
+
+@contextlib.contextmanager
+def tracked_ai_usage():
+    """Collect total AI usage across nested async/task calls without changing return types."""
+    bucket = {"prompt_tokens": 0, "output_tokens": 0, "thinking_tokens": 0, "total_tokens": 0, "calls": 0}
+    token = _ai_usage_tracker.set(bucket)
+    try:
+        yield bucket
+    finally:
+        _ai_usage_tracker.reset(token)
 
 
 class TokenEstimator:

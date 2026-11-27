@@ -125,7 +125,7 @@ async def save_cabinet_designs(project_id: int, body: CabinetDesignsRequest, db:
     try:
         import asyncio
         res = await asyncio.to_thread(save_designs, _design_file(project_id), body.designs, body.revision,
-                                      owner_id=project.user_id, actor_id=current_user.id)
+                                      owner_id=project.user_id, actor_id=getattr(current_user, 'id', None))
         project.updated_at = datetime.now(timezone.utc)
         db.add(project)
         await db.commit()

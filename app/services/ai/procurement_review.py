@@ -220,44 +220,6 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
             if short_name in {'CB','MCCB','MCB','RCBO','RCCB'} and not selected_spec:
                 short_name += ' dự phòng'
             starter = (d.get('source_observations') or {}).get('motor_starter') or (d.get('source_observations') or {}).get('assembly') or {}
-            accessories = d.get('accompanying_accessories') or []
-            starter_categories = {'CONTACTOR', 'OVERLOAD_PROTECTION', 'THERMAL_RELAY', 'SELECTOR', 'PUSH_BUTTON', 'INDICATOR', 'RELAY', 'TIMER', 'SOFT_STARTER', 'VFD', 'ATS', 'CAPACITOR', 'POWER_FACTOR_CONTROLLER', 'PHASE_RELAY'}
-            starter_components = [a for a in accessories if isinstance(a, dict) and (a.get('assembly_component_key') or a.get('category') in starter_categories)]
-
-            if starter and starter_components:
-                # Mỗi bộ/cụm mạch là một phần riêng, thiết bị thành phần hiển thị rõ ràng
-                for j, a in enumerate(starter_components):
-                    accessory_match = a.get('pricebook_match') or {}
-                    ap = (accessory_match.get('row') or {}).get('price') if accessory_match.get('status') == 'matched' else None
-                    c_name = str(a.get('name') or '').lower()
-                    c_cat = str(a.get('category') or '').upper()
-                    if (not ap or ap <= 0) and c_cat not in {'SOFT_STARTER', 'VFD', 'ATS', 'CAPACITOR', 'POWER_FACTOR_CONTROLLER'}:
-                        if 'contactor' in c_name: ap = 490000
-                        elif 'nhiệt' in c_name or 'tor' in c_name: ap = 450000
-                        elif 'chuyển mạch' in c_name: ap = 120000
-                        elif 'nút nhấn' in c_name: ap = 85000
-                        elif 'đèn báo' in c_name: ap = 45000
-                        elif 'trung gian' in c_name or 'relay' in c_name or 'thời gian' in c_name or c_cat == 'TIMER': ap = 140000
-                        else: ap = 150000
-                    aq = a.get('quantity') or 1
-                    from app.core.config import settings
-                    brand_name = a.get('brand') or d.get('brand') or settings.DEFAULT_BRAND
-                    sku_name = a.get('sku') or a.get('part_number') or ''
-                    result.append(dict(
-                        id=f'{identity}-comp-{j}', parent_id=identity, row_type='item',
-                        commercial_display=True, tt='+', name=quotation_name(a), category=a.get('category'),
-                        spec=a.get('spec') or '', original_spec=a.get('spec'),
-                        sku=sku_name, origin=brand_name, unit=a.get('unit') or 'Cái', quantity=aq,
-                        unit_price=ap, line_total=aq * ap if ap else None,
-                        price_status='confirmed' if ap else 'pending',
-                        price_row_id=accessory_match.get('price_row_id') if ap else None,
-                        pricebook_match=accessory_match,
-                        assembly_proposal_key=a.get('assembly_proposal_key'),
-                        assembly_component_key=a.get('assembly_component_key'),
-                        notes=a.get('notes') or f"Thiết bị cụm {d.get('tag') or d.get('name')}",
-                        design_notes=d.get('notes') or '', source_tags=[d.get('tag')] if d.get('tag') else []
-                    ))
-                continue
 
             if starter:
                 from app.services.ai.motor_starter_context import starter_quotation_name
@@ -304,9 +266,15 @@ def build_quotation_rows(devices, prices, panels=None, panel_code=None, panel_na
                 aq = a.get('quantity') if opted_in else a.get('quantity') or 1
                 if aq is None:
                     ap = None
+                acc_cat = str(a.get('category') or '').upper()
+                same_brand_cat = a.get('requires_same_brand') or acc_cat in {
+                    'SHUNT_TRIP', 'UNDERVOLTAGE_RELEASE', 'AUX_CONTACT', 'ALARM_CONTACT',
+                    'ROTARY_HANDLE', 'MOTOR_OPERATOR', 'INTERLOCK', 'MECHANICAL_INTERLOCK', 'TERMINAL_SHIELD'
+                }
+                acc_origin = a.get('origin') or a.get('brand') or (d.get('brand') if same_brand_cat else '') or ''
                 result.append(dict(id=f'{identity}-accessory-{j}',parent_id=identity,row_type='accessory',
-                    is_accessory=True,tt='↳',name=quotation_name(a),category=a.get('category'),spec=a.get('spec') or '',sku=a.get('sku') or '',
-                    origin=a.get('origin') or a.get('brand') or '',unit=a.get('unit') or 'Cái',quantity=aq,
+                    is_accessory=True,tt='↳',name=quotation_name(a),category=a.get('category'),spec=a.get('spec') or '',sku=a.get('sku') or a.get('part_number') or '',
+                    origin=acc_origin,unit=a.get('unit') or 'Cái',quantity=aq,
                     unit_price=ap,line_total=aq*ap if ap else None,price_status='confirmed' if ap else 'pending',
                     price_row_id=accessory_match.get('price_row_id') if ap else None,pricebook_match=accessory_match,
                     inclusion_status='user_selected' if opted_in else 'observed' if evidence else 'needs_confirmation',notes='',

@@ -45,6 +45,15 @@ _ROW_FIELDS['source_observations']={'type':'OBJECT','properties':{
         'power_w':{'type':'NUMBER'}}},
     'additional_information':{'type':'ARRAY','items':{'type':'OBJECT','properties':{
         key:{'type':'STRING'} for key in ('label','value','unit')}}}}}
+_ACCESSORY_FIELDS={
+    'name':{'type':'STRING'},'category':{'type':'STRING'},'spec':{'type':'STRING'},
+    'quantity':{'type':'INTEGER'},'unit':{'type':'STRING'},'location':{'type':'STRING'},
+    'evidence':{'type':'STRING'},'technical_reason':{'type':'STRING'},
+    'requires_same_brand':{'type':'BOOLEAN'},
+    'box_2d':{'type':'ARRAY','items':{'type':'NUMBER'}}}
+_ROW_FIELDS['accompanying_accessories']={
+    'type':'ARRAY',
+    'items':{'type':'OBJECT','required':['name','category','quantity','evidence'],'properties':_ACCESSORY_FIELDS}}
 _BOX_FIELDS={key:{'type':'ARRAY','items':{'type':'NUMBER'}} for key in (*BOX_KEYS,'group_reference_box_2d')}
 _BOX_FIELDS.update({key:{'type':'STRING'} for key in ('device_id','load_label','relationship_evidence','source_annotation')})
 _BOX_FIELDS.update({key:{'type':'BOOLEAN'} for key in ('verified','symbol_verified','shared_label')})
@@ -64,6 +73,11 @@ def coverage_claim(row):
             'record_kind','observed_text','connected_load','electrical_function','upstream_device',
             'poles','in_a','icu_ka','notes','text','description','value')
     result={key:row[key] for key in fields if row.get(key) is not None}
+    if isinstance(row.get('accompanying_accessories'),list) and row['accompanying_accessories']:
+        accs=[{k:a[k] for k in ('name','category','spec','quantity','evidence') if a.get(k) is not None}
+              for a in row['accompanying_accessories'] if isinstance(a,dict)]
+        if accs:
+            result['accompanying_accessories']=accs
     from app.services.ingestion.cad_source_evidence import plain
     if 'electrical_function' in result and not re.search(r'DU PHONG|SPARE',plain(result['electrical_function'])):
         result.pop('electrical_function')
@@ -118,6 +132,11 @@ COVERAGE = (
     'Nếu ghi chú và số nhánh mâu thuẫn, giữ cả hai căn cứ và yêu cầu rà soát, không tự sửa chữ/số nguồn. '
     'BMS/ON/OFF/TRIP, tín hiệu liên động và ghi chú tiếp địa là giao diện/yêu cầu, '
     'không tự biến thành một thiết bị mua rời. '
+    'Nếu trên sơ đồ mạch có thiết bị phụ hoặc phụ kiện gắn kèm trực tiếp với một thiết bị chính '
+    '(như cuộn cắt S/T-MX, cuộn thấp áp UVR/MN, tiếp điểm phụ OF/SD/NO-NC, tay xoay mở rộng, '
+    'bộ truyền động motor, khóa liên động cơ khí, bộ dập xung, đế rơ le/đế cầu chì) mà chưa tách '
+    'thành dòng độc lập, ghi vào accompanying_accessories của đúng thiết bị cha kèm evidence nguyên văn '
+    'trên ảnh; không tự suy đoán khi sơ đồ không thể hiện và không lặp lại thiết bị đã có dòng riêng. '
     'Tiêu đề cột mô tả thiết bị được vẽ riêng ở các nhánh không phải thêm một thiết bị. '
 )
 
@@ -318,6 +337,18 @@ def deduplicate_parts(parts, native_evidence=None, *, verified_geometry=False):
                     # independent inventory/crop checks still validate it later.
                     for field in ('tag','spec','observed_text','connected_load','quantity_basis','poles','in_a','icu_ka'):
                         if not previous_row.get(field) and row.get(field):previous_row[field]=row[field]
+                    if row.get('accompanying_accessories'):
+                        existing_accs=list(previous_row.get('accompanying_accessories') or [])
+                        seen_acc={(plain(a.get('category')),plain(a.get('name')),plain(a.get('evidence')))
+                                  for a in existing_accs if isinstance(a,dict)}
+                        for acc in row['accompanying_accessories']:
+                            if isinstance(acc,dict):
+                                acc_key=(plain(acc.get('category')),plain(acc.get('name')),plain(acc.get('evidence')))
+                                if acc_key not in seen_acc:
+                                    seen_acc.add(acc_key)
+                                    existing_accs.append(acc)
+                        if existing_accs:
+                            previous_row['accompanying_accessories']=existing_accs
                     break
             if duplicate:
                 continue
@@ -594,7 +625,11 @@ async def extract_regions(image_path, prompt, call_image, *, concurrency=1, pres
                     'connected_load chỉ là tên tải thực ghi; chức năng như cấp nguồn/điều khiển các lộ không phải tên tải. '
                     'Không có mã lộ/tên tải trên nguồn thì tag/connected_load là chuỗi rỗng. '
                     'Có tag/tải đọc được thì định vị nhãn và dây ngay trên ảnh này. '
-                    'Chỉ dùng [] hoặc chuỗi rỗng khi nguồn không thể hiện; không bỏ các key này.')
+                    'Chỉ dùng [] hoặc chuỗi rỗng khi nguồn không thể hiện; không bỏ các key này. '
+                    'Nếu thiết bị trong vùng này có thiết bị phụ/phụ kiện gắn kèm vẽ hoặc ghi ngay trên mạch của chính nó '
+                    '(như cuộn cắt S/T-MX, thấp áp UVR/MN, tiếp điểm phụ OF/SD/NO-NC, tay xoay mở rộng, motor, khóa liên động cơ khí, '
+                    'bộ dập xung, đế rơ le/đế cầu chì...) mà chưa tách dòng riêng, ghi vào accompanying_accessories của đúng '
+                    'thiết bị cha kèm evidence nguyên văn và box_2d theo chính ảnh đầu vào này.')
                 if whole_panel:
                     region_prompt = (prompt + '\n' + COVERAGE +
                         'Đọc nguyên ảnh, lần dây đến đúng tải. Mỗi thiết bị/lộ vật lý một dòng, kể cả lộ dự phòng. '
@@ -602,7 +637,7 @@ async def extract_regions(image_path, prompt, call_image, *, concurrency=1, pres
                         'Trả JSON gọn {"devices":[["MCB","Aptomat tép","Q1","3P 20A 6kA",1,"Cái",null,"MCB 3P 20A 6kA"]],'
                         '"notes":[],"boxes":[]}. Mỗi hàng là mảng đúng thứ tự: ' + ', '.join(PANEL_ROW_FIELDS) + '. '
                         'Dùng null tại ô chưa biết; có thể thêm object thứ 9 chứa location, electrical_function, '
-                        'record_kind, upstream_device hoặc source_observations nếu cần. Ví dụ chỉ mô tả định dạng. '
+                        'record_kind, upstream_device, accompanying_accessories hoặc source_observations nếu cần. Ví dụ chỉ mô tả định dạng. '
                         'Chép mã in trong cột TÊN LỘ vào tag, giữ cả tag và tên tải khi nguồn có hai cột riêng. '
                         'Giữ tên dự phòng trong tag hoặc electrical_function, tải để trống. '
                         'MDK chỉ là tên khối mạch điều khiển khi nguồn không ghi phần cứng cụ thể; không tính là một thiết bị rời. '
@@ -645,6 +680,19 @@ async def extract_regions(image_path, prompt, call_image, *, concurrency=1, pres
                 # A spare circuit has no connected consumer to prove.
                 from app.services.ai.scoped_takeoff import ground_scoped_identity, normalize_scoped_row
                 row = ground_scoped_identity(normalize_scoped_row(row), [])
+                if isinstance(row.get('accompanying_accessories'), list):
+                    mapped_accs = []
+                    for acc in row['accompanying_accessories']:
+                        if not isinstance(acc, dict):
+                            continue
+                        mapped_acc = dict(acc)
+                        if mapped_acc.get('box_2d'):
+                            try:
+                                mapped_acc['box_2d'] = map_box(mapped_acc.get('box_2d'), bounds, rotation)
+                            except (ValueError, TypeError, OverflowError):
+                                mapped_acc['box_2d'] = None
+                        mapped_accs.append(mapped_acc)
+                    row['accompanying_accessories'] = mapped_accs
                 if region.get('native_branch_tags') and row.get('tag') and re.fullmatch(r'(?:P|L|QF|Q|S|BT)\d+[A-Z]?',str(row['tag']),re.I):
                     if str(row['tag']).upper() not in region['native_branch_tags']:continue
                 from app.services.ai.motor_starter_context import is_direct_starter_label
@@ -769,6 +817,9 @@ async def extract_regions(image_path, prompt, call_image, *, concurrency=1, pres
                 'Thứ tự phần tử trong JSON không phải vị trí trên sơ đồ. Vùng đọc có chồng lấn; '
                 'không báo lỗi chỉ vì thứ tự liệt kê hoặc một dòng được đọc ở vùng kề bên. '
                 'Chỉ báo sai khi thiết bị thực bị thiếu/thừa/trùng hoặc nhãn, số lượng, định mức, tải bị gán sai. '
+                'Cũng kiểm tra accompanying_accessories: nếu trên sơ đồ có phụ kiện gắn kèm rõ ràng trên thiết bị chính '
+                '(S/T, UVR, OF/SD, tay xoay, interlock, đế...) mà bị sót, hoặc có phụ kiện suy đoán không có bằng chứng/trùng dòng '
+                'độc lập, báo lỗi kèm region_id cần đọc lại. '
                 'Mã lộ và tên tải đọc rõ trên nguồn nhưng bị bỏ trống/gán sai ở ứng viên là lỗi cần sửa, '
                 'Đọc riêng cột TÊN LỘ, trường location và tag; không bỏ qua mã lộ chỉ vì tên tải có số. '
                 'không được coi là đạt chỉ vì số lượng và định mức đúng. Với lỗi này ghi field=tag hoặc connected_load. '

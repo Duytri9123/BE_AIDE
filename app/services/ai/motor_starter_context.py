@@ -70,10 +70,6 @@ def load_power_details(device):
                                     return power
                         except ValueError:
                             pass
-        # Mặc định công suất 3 kW cho bơm / động cơ nếu mạch khởi động DOL không ghi công suất
-        identity = ' '.join(str(device.get(k) or '') for k in ('name', 'category', 'connected_load', 'tag'))
-        if re.search(r'bơm|bom|pump|dol|khởi động', identity, re.I):
-            return dict(value=3.0, unit='kW', watts=3000.0, source='default_starter_pump')
         return None
     if any(abs(p['watts'] - found[0]['watts']) > max(1, found[0]['watts'] * .02) for p in found):
         return None
@@ -195,7 +191,8 @@ def select_contactor_spec(current_a, voltage_v=380, power_w=None):
     """Tính chọn dòng định mức contactor động lực AC-3."""
     if not current_a and power_w:
         current_a = power_w / (math.sqrt(3) * voltage_v * 0.72) if voltage_v >= 380 else power_w / (voltage_v * 0.72)
-    current_a = current_a or 9
+    if not current_a:
+        return None, None
     required_a = current_a * 1.25
     standards = [9, 12, 18, 22, 32, 40, 50, 65, 75, 85, 100, 125, 150, 185, 225, 300]
     chosen = standards[-1]
@@ -211,7 +208,8 @@ def select_tor_spec(current_a, power_w=None, voltage_v=380):
     """Tính chọn dải chỉnh định rơ le nhiệt bảo vệ quá tải."""
     if not current_a and power_w:
         current_a = power_w / (math.sqrt(3) * voltage_v * 0.72) if voltage_v >= 380 else power_w / (voltage_v * 0.72)
-    current_a = current_a or 6.5
+    if not current_a:
+        return None, None
     ranges = [
         (0.63, 1.0), (1.0, 1.6), (1.6, 2.5), (2.5, 4.0), (4.0, 6.0),
         (5.0, 8.0), (6.0, 9.0), (7.0, 10.0), (9.0, 13.0), (12.0, 18.0),
@@ -289,9 +287,15 @@ def enrich_motor_starters(devices):
                 power_input = load_power_details(upstream)
                 power_w = power_input['watts'] if power_input else None
 
+        missing = []
         if not power_w:
-            power_w = 3000.0
-            power_input = dict(value=3.0, unit='kW', watts=3000.0, source='default_starter_pump')
+            missing.append('Công suất động cơ (kW)')
+        if not circuit.get('motor_rated_current_a'):
+            missing.append('Dòng định mức động cơ (A)')
+        if not circuit.get('motor_voltage_v'):
+            missing.append('Điện áp động cơ (V)')
+        if not circuit.get('control_voltage_v'):
+            missing.append('Điện áp cuộn hút (V)')
 
         # Nhận diện quy cách cáp để xác định pha và điện áp (mạch khởi động động cơ mặc định 3P 380V nếu không ghi 1P)
         cable_spec = str(circuit.get('cable_spec') or circuit.get('cable') or device.get('cable_spec') or '')
@@ -319,7 +323,6 @@ def enrich_motor_starters(devices):
         if power_input and not device.get('spec'):
             device['spec'] = f"{power_input['value']:g}{power_input['unit']} {motor_voltage}V"
 
-        missing = []
         from app.core.config import settings
         brand = device.get('brand') or (upstream.get('brand') if upstream else None) or cat_brands.get('BREAKER') or cat_brands.get('CONTACTOR') or file_default_brand or settings.DEFAULT_BRAND
         brand_key = 'LS' if 'ls' in brand.lower() else 'Chint' if 'chint' in brand.lower() else 'Schneider'
@@ -327,6 +330,8 @@ def enrich_motor_starters(devices):
         control_brand_key = 'LS' if 'ls' in control_brand.lower() else 'Chint' if 'chint' in control_brand.lower() else 'Morele' if 'morele' in control_brand.lower() else 'Schneider'
 
         def _contactor_sku(b_key, amps):
+            if not amps:
+                return ''
             if b_key == 'LS':
                 if amps <= 9: return 'MC-9b'
                 if amps <= 12: return 'MC-12b'
@@ -359,6 +364,8 @@ def enrich_motor_starters(devices):
             return f'LC1E{amps}M7'
 
         def _tor_sku(b_key, amps):
+            if not amps:
+                return ''
             if b_key == 'LS':
                 return 'MT-32/3K' if amps <= 32 else 'MT-63/3K' if amps <= 63 else 'MT-95/3K'
             if b_key == 'Chint':
@@ -377,72 +384,80 @@ def enrich_motor_starters(devices):
                       'buttonOff': ctrl_skus['buttonOff'], 'tripLight': ctrl_skus['tripLight']}
 
         def _control_components(reversing=False):
+            has_ctrl_spec = bool(power_w or motor_current)
             buttons = (
                 [
-                    {'category': 'PUSH_BUTTON', 'name': 'Nút nhấn ON Thuận có đèn (Xanh)', 'spec': 'Nút nhấn nhả có đèn (Xanh)',
-                     'part_number': pilot_skus['buttonOn'], 'sku': pilot_skus['buttonOn'], 'quantity': 1, 'unit': 'Cái',
-                     'use_in_quotation': True, 'brand': control_brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
+                    {'category': 'PUSH_BUTTON_ON', 'name': 'Nút nhấn ON Thuận có đèn (Xanh)', 'spec': 'Nút nhấn nhả có đèn (Xanh)' if has_ctrl_spec else None,
+                     'part_number': pilot_skus['buttonOn'], 'sku': pilot_skus['buttonOn'], 'quantity': None, 'unit': 'Cái',
+                     'use_in_quotation': False, 'included_in_total': False, 'brand': control_brand, 'requires_same_brand': False,
+                     'status': 'proposal', 'basis': 'engineering_recommendation',
                      'reason': 'Khởi động chạy thuận và báo trạng thái CHẠY THUẬN'},
-                    {'category': 'PUSH_BUTTON', 'name': 'Nút nhấn ON Nghịch có đèn (Xanh)', 'spec': 'Nút nhấn nhả có đèn (Xanh)',
-                     'part_number': pilot_skus['buttonOn'], 'sku': pilot_skus['buttonOn'], 'quantity': 1, 'unit': 'Cái',
-                     'use_in_quotation': True, 'brand': control_brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
+                    {'category': 'PUSH_BUTTON_ON', 'name': 'Nút nhấn ON Nghịch có đèn (Xanh)', 'spec': 'Nút nhấn nhả có đèn (Xanh)' if has_ctrl_spec else None,
+                     'part_number': pilot_skus['buttonOn'], 'sku': pilot_skus['buttonOn'], 'quantity': None, 'unit': 'Cái',
+                     'use_in_quotation': False, 'included_in_total': False, 'brand': control_brand, 'requires_same_brand': False,
+                     'status': 'proposal', 'basis': 'engineering_recommendation',
                      'reason': 'Khởi động chạy nghịch và báo trạng thái CHẠY NGHỊCH'},
                 ] if reversing else [
-                    {'category': 'PUSH_BUTTON', 'name': 'Nút nhấn ON có đèn (Xanh)', 'spec': 'Nút nhấn nhả có đèn (Xanh)',
-                     'part_number': pilot_skus['buttonOn'], 'sku': pilot_skus['buttonOn'], 'quantity': 1, 'unit': 'Cái',
-                     'use_in_quotation': True, 'brand': control_brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
+                    {'category': 'PUSH_BUTTON_ON', 'name': 'Nút nhấn ON có đèn (Xanh)', 'spec': 'Nút nhấn nhả có đèn (Xanh)' if has_ctrl_spec else None,
+                     'part_number': pilot_skus['buttonOn'], 'sku': pilot_skus['buttonOn'], 'quantity': None, 'unit': 'Cái',
+                     'use_in_quotation': False, 'included_in_total': False, 'brand': control_brand, 'requires_same_brand': False,
+                     'status': 'proposal', 'basis': 'engineering_recommendation',
                      'reason': 'Khởi động chạy tay và tích hợp đèn báo trạng thái CHẠY'},
                 ]
             )
             return [
-                {'category': 'SELECTOR', 'name': 'Công tắc chuyển mạch 3 vị trí', 'spec': 'Tay - 0 - Tự động',
-                 'part_number': pilot_skus['selector'], 'sku': pilot_skus['selector'], 'quantity': 1, 'unit': 'Cái',
-                 'use_in_quotation': True, 'brand': control_brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
+                {'category': 'SELECTOR_SWITCH_3_POSITION', 'name': 'Công tắc chuyển mạch 3 vị trí', 'spec': 'Tay - 0 - Tự động' if has_ctrl_spec else None,
+                 'part_number': pilot_skus['selector'], 'sku': pilot_skus['selector'], 'quantity': None, 'unit': 'Cái',
+                 'use_in_quotation': False, 'included_in_total': False, 'brand': control_brand, 'requires_same_brand': False,
+                 'status': 'proposal', 'basis': 'engineering_recommendation',
                  'reason': 'Chọn chế độ vận hành Tay - 0 - Tự động (MAN-OFF-AUTO)'},
                 *buttons,
-                {'category': 'PUSH_BUTTON', 'name': 'Nút nhấn OFF có đèn (Đỏ)', 'spec': 'Nút nhấn nhả có đèn (Đỏ)',
-                 'part_number': pilot_skus['buttonOff'], 'sku': pilot_skus['buttonOff'], 'quantity': 1, 'unit': 'Cái',
-                 'use_in_quotation': True, 'brand': control_brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
+                {'category': 'PUSH_BUTTON_OFF', 'name': 'Nút nhấn OFF có đèn (Đỏ)', 'spec': 'Nút nhấn nhả có đèn (Đỏ)' if has_ctrl_spec else None,
+                 'part_number': pilot_skus['buttonOff'], 'sku': pilot_skus['buttonOff'], 'quantity': None, 'unit': 'Cái',
+                 'use_in_quotation': False, 'included_in_total': False, 'brand': control_brand, 'requires_same_brand': False,
+                 'status': 'proposal', 'basis': 'engineering_recommendation',
                  'reason': 'Dừng chạy tay và tích hợp đèn báo trạng thái DỪNG'},
-                {'category': 'INDICATOR', 'name': 'Đèn báo sự cố (TRIP - Vàng)', 'spec': 'Đèn báo sự cố (Vàng)',
-                 'part_number': pilot_skus['tripLight'], 'sku': pilot_skus['tripLight'], 'quantity': 1, 'unit': 'Cái',
-                 'use_in_quotation': True, 'brand': control_brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
+                {'category': 'INDICATOR', 'name': 'Đèn báo sự cố (TRIP - Vàng)', 'spec': 'Đèn báo sự cố (Vàng)' if has_ctrl_spec else None,
+                 'part_number': pilot_skus['tripLight'], 'sku': pilot_skus['tripLight'], 'quantity': None, 'unit': 'Cái',
+                 'use_in_quotation': False, 'included_in_total': False, 'brand': control_brand, 'requires_same_brand': False,
+                 'status': 'proposal', 'basis': 'engineering_recommendation',
                  'reason': 'Báo lỗi sự cố quá tải / trip thiết bị'},
                 {'category': 'RELAY', 'name': 'Rơ le trung gian (Kèm đế)',
                  'spec': (
                      '8 chân dẹp (2CO) 220VAC kèm đế ray' if re.search(r'RXM2|MY2|2Z|2CO', str(pilot_skus.get('relay') or ''), re.I)
                      else ('14 chân dẹp (4CO) 220VAC kèm đế ray' if re.search(r'RXM4|MY4|4Z|4CO', str(pilot_skus.get('relay') or ''), re.I)
                            else '220VAC kèm đế ray (số chân theo sơ đồ mạch)')
-                 ),
-                 'part_number': pilot_skus['relay'], 'sku': pilot_skus['relay'], 'quantity': 1, 'unit': 'Bộ',
-                 'use_in_quotation': True, 'brand': brand, 'requires_same_brand': False, 'status': 'confirmed', 'basis': 'assembly_function',
+                 ) if has_ctrl_spec else None,
+                 'part_number': pilot_skus['relay'], 'sku': pilot_skus['relay'], 'quantity': None, 'unit': 'Bộ',
+                 'use_in_quotation': False, 'included_in_total': False, 'brand': brand, 'requires_same_brand': False,
+                 'status': 'proposal', 'basis': 'engineering_recommendation',
                  'reason': 'Tự giữ mạch điều khiển, liên động phao / mức nước / BMS (số chân khớp theo mã rơ le 2CO/4CO)'},
             ]
 
         poles_count = 3 if motor_voltage >= 380 else 1
-        power_label = f"{power_input['value']:g}{power_input['unit']}" if power_input else '3kW'
+        power_label = f"{power_input['value']:g}{power_input['unit']}" if power_input else ''
 
         if starter_type == 'STAR_DELTA':
             km_main_spec, km_main_a = select_contactor_spec(motor_current * 0.58 if motor_current else None, motor_voltage, power_w)
             km_star_spec, km_star_a = select_contactor_spec(motor_current * 0.33 if motor_current else None, motor_voltage, power_w)
-            _, tor_range = select_tor_spec(motor_current * 0.58 if motor_current else None, power_w, motor_voltage)
+            tor_spec_full, tor_range = select_tor_spec(motor_current * 0.58 if motor_current else None, power_w, motor_voltage)
             km_main_sku = _contactor_sku(brand_key, km_main_a)
             km_star_sku = _contactor_sku(brand_key, km_star_a)
-            tor_sku = _tor_sku(brand_key, motor_current * 0.58 if motor_current else 12)
+            tor_sku = _tor_sku(brand_key, motor_current * 0.58 if motor_current else None)
             components = [
-                {'category': 'CONTACTOR', 'name': f'Contactor chính {poles_count}P {km_main_a}A (KM-Main)', 'spec': km_main_spec,
+                {'category': 'CONTACTOR', 'name': f'Contactor chính {poles_count}P {km_main_a}A (KM-Main)' if km_main_a else 'Contactor chính (KM-Main)', 'spec': km_main_spec,
                  'part_number': km_main_sku, 'sku': km_main_sku, 'quantity': 1, 'unit': 'Cái', 'in_a': km_main_a, 'poles': poles_count,
                  'use_in_quotation': True, 'brand': brand, 'requires_same_brand': True, 'status': 'confirmed', 'basis': 'assembly_function',
-                 'reason': f'Đóng cắt nguồn chính (0.58×Iđm ≈ {round((motor_current or 0)*0.58, 1)}A).'},
-                {'category': 'CONTACTOR', 'name': f'Contactor tam giác {poles_count}P {km_main_a}A (KM-Delta)', 'spec': km_main_spec,
+                 'reason': f'Đóng cắt nguồn chính (0.58×Iđm ≈ {round(motor_current * 0.58, 1)}A).' if motor_current else 'Chưa có công suất động cơ để chọn dòng contactor.'},
+                {'category': 'CONTACTOR', 'name': f'Contactor tam giác {poles_count}P {km_main_a}A (KM-Delta)' if km_main_a else 'Contactor tam giác (KM-Delta)', 'spec': km_main_spec,
                  'part_number': km_main_sku, 'sku': km_main_sku, 'quantity': 1, 'unit': 'Cái', 'in_a': km_main_a, 'poles': poles_count,
                  'use_in_quotation': True, 'brand': brand, 'requires_same_brand': True, 'status': 'confirmed', 'basis': 'assembly_function',
                  'reason': 'Đóng mạch chạy chế độ tam giác.'},
-                {'category': 'CONTACTOR', 'name': f'Contactor sao {poles_count}P {km_star_a}A (KM-Star)', 'spec': km_star_spec,
+                {'category': 'CONTACTOR', 'name': f'Contactor sao {poles_count}P {km_star_a}A (KM-Star)' if km_star_a else 'Contactor sao (KM-Star)', 'spec': km_star_spec,
                  'part_number': km_star_sku, 'sku': km_star_sku, 'quantity': 1, 'unit': 'Cái', 'in_a': km_star_a, 'poles': poles_count,
                  'use_in_quotation': True, 'brand': brand, 'requires_same_brand': True, 'status': 'confirmed', 'basis': 'assembly_function',
-                 'reason': f'Đóng điểm sao khởi động ban đầu (0.33×Iđm ≈ {round((motor_current or 0)*0.33, 1)}A).'},
-                {'category': 'OVERLOAD_PROTECTION', 'name': f'Rơ le nhiệt {tor_range}', 'spec': f'Dải {tor_range}',
+                 'reason': f'Đóng điểm sao khởi động ban đầu (0.33×Iđm ≈ {round(motor_current * 0.33, 1)}A).' if motor_current else 'Chưa có công suất động cơ để chọn dòng contactor.'},
+                {'category': 'OVERLOAD_PROTECTION', 'name': f'Rơ le nhiệt {tor_range}' if tor_range else 'Rơ le nhiệt', 'spec': tor_spec_full,
                  'part_number': tor_sku, 'sku': tor_sku, 'quantity': 1, 'unit': 'Cái',
                  'use_in_quotation': True, 'brand': brand, 'requires_same_brand': True, 'status': 'confirmed', 'basis': 'assembly_function',
                  'reason': 'Bảo vệ quá tải nhiệt động cơ (gắn sau contactor chính, cùng hãng).'},
@@ -454,45 +469,49 @@ def enrich_motor_starters(devices):
             ]
         elif starter_type == 'REVERSING':
             km_spec, km_a = select_contactor_spec(motor_current, motor_voltage, power_w)
-            _, tor_range = select_tor_spec(motor_current, power_w, motor_voltage)
+            tor_spec_full, tor_range = select_tor_spec(motor_current, power_w, motor_voltage)
             km_sku = _contactor_sku(brand_key, km_a)
-            tor_sku = _tor_sku(brand_key, motor_current or 12)
+            tor_sku = _tor_sku(brand_key, motor_current)
             components = [
-                {'category': 'CONTACTOR', 'name': f'Contactor quay thuận {poles_count}P {km_a}A (KM-Forward)', 'spec': km_spec,
+                {'category': 'CONTACTOR', 'name': f'Contactor quay thuận {poles_count}P {km_a}A (KM-Forward)' if km_a else 'Contactor quay thuận (KM-Forward)', 'spec': km_spec,
                  'part_number': km_sku, 'sku': km_sku, 'quantity': 1, 'unit': 'Cái', 'in_a': km_a, 'poles': poles_count,
                  'use_in_quotation': True, 'brand': brand, 'requires_same_brand': True, 'status': 'confirmed', 'basis': 'assembly_function',
-                 'reason': f'Đóng mạch quay chiều thuận (Iđm ~{motor_current}A).'},
-                {'category': 'CONTACTOR', 'name': f'Contactor quay nghịch {poles_count}P {km_a}A (KM-Reverse)', 'spec': km_spec,
+                 'reason': f'Đóng mạch quay chiều thuận (Iđm ~{motor_current}A).' if motor_current else 'Chưa có công suất động cơ để chọn dòng contactor.'},
+                {'category': 'CONTACTOR', 'name': f'Contactor quay nghịch {poles_count}P {km_a}A (KM-Reverse)' if km_a else 'Contactor quay nghịch (KM-Reverse)', 'spec': km_spec,
                  'part_number': km_sku, 'sku': km_sku, 'quantity': 1, 'unit': 'Cái', 'in_a': km_a, 'poles': poles_count,
                  'use_in_quotation': True, 'brand': brand, 'requires_same_brand': True, 'status': 'confirmed', 'basis': 'assembly_function',
                  'reason': 'Đóng mạch quay chiều nghịch (khóa chéo liên động cơ/điện).'},
-                {'category': 'OVERLOAD_PROTECTION', 'name': f'Rơ le nhiệt {tor_range}', 'spec': f'Dải {tor_range}',
+                {'category': 'OVERLOAD_PROTECTION', 'name': f'Rơ le nhiệt {tor_range}' if tor_range else 'Rơ le nhiệt', 'spec': tor_spec_full,
                  'part_number': tor_sku, 'sku': tor_sku, 'quantity': 1, 'unit': 'Cái',
                  'use_in_quotation': True, 'brand': brand, 'requires_same_brand': True, 'status': 'confirmed', 'basis': 'assembly_function',
-                 'reason': f'Bảo vệ quá tải nhiệt động cơ (chỉnh định tại ~{motor_current}A, cùng hãng contactor).'},
+                 'reason': f'Bảo vệ quá tải nhiệt động cơ (chỉnh định tại ~{motor_current}A, cùng hãng contactor).' if motor_current else 'Chưa có công suất động cơ để chọn dải rơ le nhiệt.'},
                 *_control_components(reversing=True),
             ]
         elif starter_type == 'SOFT_STARTER':
             components = [
-                {'category': 'SOFT_STARTER', 'name': f'Bộ khởi động mềm {power_label}', 'spec': f'{poles_count}P {power_label} {motor_voltage}V (~{motor_current}A)',
+                {'category': 'SOFT_STARTER', 'name': f'Bộ khởi động mềm {power_label}' if power_label else 'Bộ khởi động mềm',
+                 'spec': f'{poles_count}P {power_label} {motor_voltage}V (~{motor_current}A)' if (power_label and motor_current) else None,
                  'part_number': '', 'sku': '', 'quantity': 1, 'unit': 'Bộ', 'in_a': motor_current, 'poles': poles_count,
                  'use_in_quotation': True, 'brand': brand, 'requires_same_brand': True, 'status': 'confirmed', 'basis': 'assembly_function',
-                 'reason': f'Điều khiển khởi động êm giảm dòng mở máy cho tải {power_label} ({motor_voltage}V).'},
+                 'reason': f'Điều khiển khởi động êm giảm dòng mở máy cho tải {power_label} ({motor_voltage}V).' if power_label else 'Chưa có công suất động cơ để chọn bộ khởi động mềm.'},
                 *_control_components(),
             ]
         elif starter_type == 'VFD':
             components = [
-                {'category': 'VFD', 'name': f'Biến tần {power_label}', 'spec': f'{poles_count}P {power_label} {motor_voltage}V (~{motor_current}A)',
+                {'category': 'VFD', 'name': f'Biến tần {power_label}' if power_label else 'Biến tần',
+                 'spec': f'{poles_count}P {power_label} {motor_voltage}V (~{motor_current}A)' if (power_label and motor_current) else None,
                  'part_number': '', 'sku': '', 'quantity': 1, 'unit': 'Bộ', 'in_a': motor_current, 'poles': poles_count,
                  'use_in_quotation': True, 'brand': brand, 'requires_same_brand': True, 'status': 'confirmed', 'basis': 'assembly_function',
-                 'reason': f'Điều khiển tốc độ vô cấp và bảo vệ động cơ {power_label} ({motor_voltage}V).'},
+                 'reason': f'Điều khiển tốc độ vô cấp và bảo vệ động cơ {power_label} ({motor_voltage}V).' if power_label else 'Chưa có công suất động cơ để chọn biến tần.'},
                 *_control_components(),
             ]
         elif assembly_type == 'ATS':
-            ats_amps = device.get('in_a') or int(max(63, motor_current or 63))
+            ats_amps = device.get('in_a') or motor_current
             ats_poles = device.get('poles') or 4
+            ats_spec = device.get('spec') or (f'{ats_poles}P {ats_amps}A' if ats_amps else None)
+            ats_name = f'Bộ chuyển nguồn tự động ATS {ats_poles}P {ats_amps}A' if ats_amps else f'Bộ chuyển nguồn tự động ATS {ats_poles}P'
             components = [
-                {'category': 'ATS', 'name': f'Bộ chuyển nguồn tự động ATS {ats_poles}P {ats_amps}A', 'spec': device.get('spec') or f'{ats_poles}P {ats_amps}A',
+                {'category': 'ATS', 'name': ats_name, 'spec': ats_spec,
                  'part_number': device.get('part_number') or '', 'sku': device.get('sku') or '', 'quantity': 1, 'unit': 'Bộ', 'in_a': ats_amps, 'poles': ats_poles,
                  'use_in_quotation': True, 'brand': brand, 'requires_same_brand': True, 'status': 'confirmed', 'basis': 'assembly_function',
                  'reason': 'Đóng cắt chuyển đổi tự động giữa nguồn lưới và nguồn dự phòng.'},
@@ -534,7 +553,7 @@ def enrich_motor_starters(devices):
             km_spec, km_a = select_contactor_spec(motor_current, motor_voltage, power_w)
             km_sku = _contactor_sku(brand_key, km_a)
             components = [
-                {'category': 'CONTACTOR', 'name': f'Contactor chiếu sáng {poles_count}P {km_a}A', 'spec': km_spec,
+                {'category': 'CONTACTOR', 'name': f'Contactor chiếu sáng {poles_count}P {km_a}A' if km_a else 'Contactor chiếu sáng', 'spec': km_spec,
                  'part_number': km_sku, 'sku': km_sku, 'quantity': 1, 'unit': 'Cái', 'in_a': km_a, 'poles': poles_count,
                  'use_in_quotation': True, 'brand': brand, 'requires_same_brand': True, 'status': 'confirmed', 'basis': 'assembly_function',
                  'reason': 'Đóng cắt mạch chiếu sáng tự động/từ xa.'},
@@ -548,46 +567,45 @@ def enrich_motor_starters(devices):
             components = list(existing_assembly.get('components') or [])
         else: # DOL
             contactor_spec, contactor_a = select_contactor_spec(motor_current, motor_voltage, power_w)
-            _, tor_range = select_tor_spec(motor_current, power_w, motor_voltage)
+            tor_spec_full, tor_range = select_tor_spec(motor_current, power_w, motor_voltage)
             km_sku = _contactor_sku(brand_key, contactor_a)
-            tor_sku = _tor_sku(brand_key, motor_current or 9)
-            c_spec_short = f"{poles_count}P {contactor_a}A"
+            tor_sku = _tor_sku(brand_key, motor_current)
+            c_spec_short = f"{poles_count}P {contactor_a}A" if contactor_a else ''
 
             components = [
-                {'category': 'CONTACTOR', 'name': f'Contactor {c_spec_short}', 'spec': f'{c_spec_short} 220VAC',
+                {'category': 'CONTACTOR', 'name': f'Contactor {c_spec_short}' if c_spec_short else 'Contactor',
+                 'spec': f'{c_spec_short} 220VAC' if c_spec_short else contactor_spec,
                  'part_number': km_sku, 'sku': km_sku, 'quantity': 1, 'unit': 'Cái',
                  'in_a': contactor_a, 'poles': poles_count, 'use_in_quotation': True,
                  'brand': brand, 'requires_same_brand': True, 'status': 'confirmed', 'basis': 'assembly_function',
-                 'reason': f'Contactor {c_spec_short} đóng cắt nguồn động lực cho tải (Iđm ~{motor_current}A)'},
-                {'category': 'OVERLOAD_PROTECTION', 'name': f'Rơ le nhiệt {tor_range}', 'spec': f'Dải {tor_range}',
+                 'reason': f'Contactor {c_spec_short} đóng cắt nguồn động lực cho tải (Iđm ~{motor_current}A)' if c_spec_short else 'Chưa có công suất động cơ để chọn dòng contactor.'},
+                {'category': 'OVERLOAD_PROTECTION', 'name': f'Rơ le nhiệt {tor_range}' if tor_range else 'Rơ le nhiệt', 'spec': tor_spec_full,
                  'part_number': tor_sku, 'sku': tor_sku, 'quantity': 1, 'unit': 'Cái',
                  'use_in_quotation': True, 'brand': brand, 'requires_same_brand': True, 'status': 'confirmed', 'basis': 'assembly_function',
-                 'reason': f'Rơ le nhiệt bảo vệ quá tải động cơ (chỉnh định tại ~{motor_current}A)'},
+                 'reason': f'Rơ le nhiệt bảo vệ quá tải động cơ (chỉnh định tại ~{motor_current}A)' if motor_current else 'Chưa có công suất động cơ để chọn dải rơ le nhiệt.'},
                 *_control_components(),
             ]
 
         # Keep explicit per-assembly inputs when enrichment runs again.
-        existing = (existing_assembly.get('components') or [])
-        if assembly_type != 'CUSTOM_ASSEMBLY' and (
-            len(existing) < 4 or any(c.get('spec') is None or c.get('spec') == 'Chưa xác định thông số' or c.get('quantity') is None for c in existing if isinstance(c, dict))
-        ):
-            existing = []
-        explicit = [c for c in existing if isinstance(c, dict) and
-                    (c.get('basis') in {'source', 'user_request'} or c.get('status') == 'confirmed' or assembly_type == 'CUSTOM_ASSEMBLY')
-                    and c.get('name')]
+        existing = [c for c in (existing_assembly.get('components') or []) if isinstance(c, dict) and (c.get('name') or c.get('category'))]
+        explicit = [c for c in existing if
+                    c.get('basis') in {'source', 'user_request'} or c.get('selection_source') == 'user_selected'
+                    or c.get('use_in_quotation') is True or assembly_type == 'CUSTOM_ASSEMBLY']
         authoritative = existing_assembly.get('configuration_authoritative') is True
-        chosen_configuration = authoritative or assembly_type == 'CUSTOM_ASSEMBLY' or any(isinstance(c, dict) and 'use_in_quotation' in c for c in explicit)
-        if chosen_configuration and len(explicit) >= 1:
-            resolved = [{**c, 'included_in_total': True, 'use_in_quotation': True,
+        if authoritative or explicit or assembly_type == 'CUSTOM_ASSEMBLY':
+            resolved = [{**c,
+                         'included_in_total': c.get('use_in_quotation') is True or c.get('basis') in {'source', 'user_request'},
+                         'use_in_quotation': c.get('use_in_quotation') is True or c.get('basis') in {'source', 'user_request'},
                          'brand': c.get('brand') or brand,
-                         'quantity': c.get('quantity') or 1,
-                         'unit': c.get('unit') or 'Cái'} for c in explicit]
+                         'unit': c.get('unit') or 'Cái'} for c in (existing if authoritative else explicit)]
         else:
-            resolved = [{**c, 'basis': 'assembly_function', 'status': 'confirmed',
-                         'included_in_total': True,
-                         'use_in_quotation': True,
+            resolved = [{**c,
+                         'basis': c.get('basis') or 'engineering_recommendation',
+                         'status': c.get('status') or 'proposal',
+                         'included_in_total': False,
+                         'use_in_quotation': False,
                          'brand': c.get('brand') or brand,
-                         'spec': c.get('spec') or '', 'part_number': c.get('part_number') or ''} for c in components]
+                         'spec': c.get('spec'), 'part_number': c.get('part_number') or ''} for c in components]
         # Đồng bộ hãng bắt buộc cho cặp Contactor & Rơ le nhiệt, và đồng bộ hãng theo từng nhóm thiết bị (đèn, nút nhấn, chuyển mạch...) trong cùng file
         km_brand = next((c.get('brand') for c in resolved if str(c.get('category') or '').upper() == 'CONTACTOR' and c.get('brand')), None)
         for c in resolved:
@@ -638,7 +656,7 @@ def enrich_motor_starters(devices):
                 if cat == 'CONTACTOR':
                     parts = [p for p in (
                         f"Tải {load_lbl}" if load_lbl else "",
-                        f"Iđm ~{current}A → {in_a}A AC-3" if (current and in_a) else (f"Iđm ~{current}A" if current else ""),
+                        f"Iđm ~{current} A → {in_a} A AC-3" if (current and in_a) else (f"Iđm ~{current} A" if current else ""),
                         f"{mv}V / Cuộn hút {cv}V",
                     ) if p]
                     requirements.append(" · ".join(parts))
@@ -653,6 +671,11 @@ def enrich_motor_starters(devices):
                     requirements.append(f"Tải {load_lbl} · {mv}V")
             component['selection_requirements'] = requirements
 
+        proposals = propose_assembly_accessories(
+            assembly_type, circuit, resolved, power_w,
+            device.get('connected_load') or circuit.get('supply_location'),
+        )
+        proposals = merge_proposal_choices(proposals, existing_assembly.get('accessory_proposals'))
         assembly = {
             'configuration_authoritative': authoritative,
             'type': assembly_type, 'basis': 'assembly_function', 'status': 'needs_engineering_selection',
@@ -665,8 +688,9 @@ def enrich_motor_starters(devices):
             'selection_note': 'Aptomat đầu nguồn là ràng buộc phối hợp bảo vệ; dòng aptomat không phải dòng định mức động cơ.',
             'pricing_basis': 'selected_components' if any(c.get('use_in_quotation') is True for c in resolved) else 'assembly_only',
             'components': resolved,
-            'accessory_proposals': [],
+            'accessory_proposals': proposals,
             'recommendation_sources': SOURCES,
         }
-        device['source_observations'] = {**observations, 'motor_starter': assembly}
+        obs_key = 'motor_starter' if starter_type else 'assembly'
+        device['source_observations'] = {**observations, obs_key: assembly}
     return devices

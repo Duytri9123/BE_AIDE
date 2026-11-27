@@ -262,5 +262,93 @@ class ScopedCandidateCacheTests(unittest.TestCase):
             path.write_bytes(b'source revision 2')
             self.assertNotEqual(key,scoped_candidate_key(1,file,panel,'bóc toàn bộ','model-a'))
 
+class AccompanyingAccessoryTests(unittest.IsolatedAsyncioTestCase):
+    def test_normalize_and_reconcile_accompanying_accessories(self):
+        from app.services.ai.scoped_takeoff import normalize_scoped_row, reconcile_panel_accompanying_accessories
+        row = normalize_scoped_row({
+            'name': 'MCCB tổng 3P 150A 36kA',
+            'category': 'MCCB',
+            'tag': 'QM1',
+            'spec': '3P 150A 36kA',
+            'brand': 'Schneider',
+            'quantity': 1,
+            'accompanying_accessories': [
+                {'name': 'Cuộn cắt Shunt Trip S/T', 'category': 'ACCESSORY', 'quantity': '1 cái', 'evidence': 'Ký hiệu S/T gắn cạnh QM1'},
+                {'name': 'Tiếp điểm phụ OF/SD', 'category': 'Phụ kiện', 'quantity': 2, 'evidence': 'Chú thích OF+SD trên QM1'},
+                {'name': 'Cầu chì bảo vệ mạch', 'category': 'FUSE', 'quantity': 3, 'evidence': '3x2A FU trên nguồn tổng'},
+                {'name': 'Phụ kiện tự suy diễn', 'category': 'AUX_CONTACT', 'quantity': 1, 'evidence': ''},
+            ],
+        })
+        accs = row['accompanying_accessories']
+        self.assertEqual(len(accs), 3)
+        self.assertEqual([a['category'] for a in accs], ['SHUNT_TRIP', 'AUX_CONTACT', 'FUSE'])
+        self.assertEqual([a['quantity'] for a in accs], [1, 2, 3])
+        self.assertTrue(accs[0]['requires_same_brand'])
+        self.assertTrue(accs[1]['requires_same_brand'])
+        self.assertFalse(accs[2]['requires_same_brand'])
+
+        # If FUSE is already extracted as an independent standalone row in the same panel,
+        # reconcile_panel_accompanying_accessories drops it to prevent double counting.
+        panel_devices = [
+            {**row, 'source_file_id': 7, 'panel_code': 'MDB'},
+            {'name': 'Cầu chì 2A', 'category': 'FUSE', 'quantity': 3, 'source_file_id': 7, 'panel_code': 'MDB'},
+        ]
+        reconcile_panel_accompanying_accessories(panel_devices)
+        remaining = panel_devices[0]['accompanying_accessories']
+        self.assertEqual([a['category'] for a in remaining], ['SHUNT_TRIP', 'AUX_CONTACT'])
+        self.assertEqual(remaining[0]['upstream_device'], 'QM1')
+        self.assertEqual(remaining[0]['brand'], 'Schneider')
+
+    async def test_extract_confirmed_panels_preserves_evidenced_accessory_crops_and_quotation(self):
+        from app.services.ai.regional_takeoff import REGION_SCHEMA, coverage_claim
+        from app.services.ai.procurement_review import build_quotation_rows
+
+        self.assertIn('accompanying_accessories', REGION_SCHEMA['properties']['devices']['items']['properties'])
+        claim = coverage_claim({'name': 'MCCB', 'accompanying_accessories': [{'name': 'Shunt Trip', 'category': 'SHUNT_TRIP', 'quantity': 1, 'evidence': 'S/T on QM'}]})
+        self.assertEqual(len(claim['accompanying_accessories']), 1)
+
+        with tempfile.TemporaryDirectory() as folder:
+            image_path = Path(folder) / 'drawing.png'
+            image = Image.new('RGB', (1000, 1000), 'white')
+            image.paste('blue', (100, 100, 200, 200))
+            image.paste('green', (220, 120, 260, 160))
+            image.save(image_path)
+            file = SimpleNamespace(id=7, filename='drawing.png', file_path=str(image_path))
+            query = SimpleNamespace(scalars=lambda: SimpleNamespace(all=lambda: [file]))
+            db = SimpleNamespace(execute=AsyncMock(return_value=query))
+            rows = [{
+                'name': 'MCCB 3P 150A 36kA', 'category': 'MCCB', 'spec': '3P 150A 36kA',
+                'quantity': 1, 'tag': 'QM1', 'brand': 'Schneider', 'in_a': 150, 'poles': 3, 'icu_ka': 36,
+                'accompanying_accessories': [
+                    {'name': 'Cuộn cắt Shunt Trip S/T', 'category': 'SHUNT_TRIP', 'spec': '200-240VAC', 'quantity': 1,
+                     'evidence': 'S/T nối cuộn ngắt gắn cạnh QM1', 'box_2d': [120, 220, 160, 260]},
+                    {'name': 'Đoán bừa không bằng chứng', 'category': 'ROTARY_HANDLE', 'quantity': 1, 'evidence': ''},
+                ],
+            }]
+            boxes = [{'device_id': '0', 'verified': True, 'symbol_verified': True,
+                      'symbol_box_2d': [100, 100, 200, 200], 'text_box_2d': [100, 100, 200, 200], 'tag_box_2d': [100, 100, 200, 200]}]
+            with patch('app.services.ai.scoped_takeoff.render_panel', AsyncMock(return_value=(str(image_path), 'QM1 3P 150A'))), \
+                 patch('app.services.ai.takeoff_device_assessment.assess_takeoff_devices', AsyncMock()), \
+                 patch('app.services.ai.regional_takeoff.extract_regions', AsyncMock(return_value={'devices': rows, 'boxes': boxes})), \
+                 patch('app.services.ai.scoped_takeoff.ConnectionPoolService.get_ordered_connections', AsyncMock(return_value=[object()])), \
+                 patch('app.services.ai.device_crop_audit.audit_device_previews', AsyncMock(return_value={'boxes': boxes})), \
+                 patch('app.services.ai.takeoff_evidence_completion.complete_evidence', AsyncMock(return_value={'boxes': boxes})):
+                result = await extract_confirmed_panels(db, 1, [{'source_file_id': 7,
+                    'source_page': None, 'panel_code': 'MDB', 'source_region': [0, 0, 1, 1]}], 'Extract MDB')
+            self.assertEqual(len(result), 1)
+            accs = result[0].get('accompanying_accessories') or []
+            self.assertEqual(len(accs), 1)
+            self.assertEqual(accs[0]['category'], 'SHUNT_TRIP')
+            self.assertEqual(accs[0]['brand'], 'Schneider')
+            self.assertTrue(accs[0].get('evidence_image'))
+            self.assertIn('Schneider', accs[0].get('catalog_candidates') or {})
+
+            quote_rows = build_quotation_rows(result, {}, refresh_prices=False)
+            acc_quote_rows = [r for r in quote_rows if r.get('row_type') == 'accessory']
+            self.assertEqual(len(acc_quote_rows), 1)
+            self.assertEqual(acc_quote_rows[0]['origin'], 'Schneider')
+            self.assertEqual(acc_quote_rows[0]['inclusion_status'], 'observed')
+
+
 if __name__ == '__main__':
     unittest.main()

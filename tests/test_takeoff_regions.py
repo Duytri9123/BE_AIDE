@@ -83,3 +83,14 @@ class DiscoveryPageCoverageTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(response['unresolved_pages'][0]['source_page'],1)
         self.assertEqual(response['detected_panels'],[])
         self.assertIn('chưa được đưa vào phạm vi',response['reply'])
+
+    async def test_partial_single_panel_discovery_retries_and_recovers_stacked_panel(self):
+        response, calls = await self.discover([
+            {'panels': [{'panel_code': 'TĐ.2', 'source_region': [0.04, 0.57, 0.82, 0.89]}]},
+            {'panels': [
+                {'panel_code': 'TĐ.1', 'source_region': [0.03, 0.12, 0.82, 0.50]},
+                {'panel_code': 'TĐ.2', 'source_region': [0.04, 0.57, 0.82, 0.89]},
+            ]},
+        ])
+        self.assertEqual(calls, 2)
+        self.assertEqual([p['panel_code'] for p in response['detected_panels']], ['TĐ.1', 'TĐ.2'])

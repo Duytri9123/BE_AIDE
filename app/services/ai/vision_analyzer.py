@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Optional, Dict, Any, List
 
 from app.core.config import settings
+from app.core.token_estimator import record_ai_usage
 from app.services.cache_service import cache_service
 from app.services.ai.cache_policy import ai_cache_enabled
 from app.services.ai.token_refresh_service import TokenRefreshService
@@ -516,6 +517,8 @@ class VisionAnalyzerService:
 
                 resp.raise_for_status()
                 data = resp.json()
+                usage = data.get("usage") or {}
+                record_ai_usage(usage.get("prompt_tokens"), usage.get("completion_tokens"))
                 choices = data.get("choices", [])
                 if not choices:
                     raise AIVisionError(
@@ -726,6 +729,8 @@ class VisionAnalyzerService:
 
                 resp.raise_for_status()
                 data = resp.json()
+                usage = data.get("usage") or {}
+                record_ai_usage(usage.get("input_tokens"), usage.get("output_tokens"))
                 content = data.get("content", [])
                 text_parts = [p.get("text", "") for p in content if p.get("type") == "text"]
                 result = "".join(text_parts).strip()
@@ -872,6 +877,7 @@ class VisionAnalyzerService:
                 result=data.get('response',data)
                 usage=result.get('usageMetadata') or {}
                 candidates=result.get('candidates') or [{}]
+                record_ai_usage(usage.get('promptTokenCount'), usage.get('candidatesTokenCount'), usage.get('thoughtsTokenCount'))
                 logger.info('ai_response native_model=%s status=%s model_version=%s prompt_tokens=%s output_tokens=%s thinking_tokens=%s finish_reason=%s',
                     mapped_model,resp.status_code,result.get('modelVersion'),usage.get('promptTokenCount'),
                     usage.get('candidatesTokenCount'),usage.get('thoughtsTokenCount'),candidates[0].get('finishReason'))
@@ -959,6 +965,8 @@ class VisionAnalyzerService:
                 resp = await client.post(url, json=payload)
                 if resp.status_code == 200:
                     data = resp.json()
+                    usage = data.get("usageMetadata") or {}
+                    record_ai_usage(usage.get("promptTokenCount"), usage.get("candidatesTokenCount"), usage.get("thoughtsTokenCount"))
                     if "candidates" in data and len(data["candidates"]) > 0:
                         content = data["candidates"][0].get("content", {})
                         parts = content.get("parts", [])
