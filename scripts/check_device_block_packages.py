@@ -14,6 +14,13 @@ def check():
     assert draft['dimensions_verified'] is False
     assert {v['face'] for v in draft['projections']}=={'front','side','top','back','bottom','left'}
     assert block_package(product,[])['candidates'][0]['price_row_id']=='abc'
+    for candidate in [
+        {'depth': 0, 'front': {}, 'side': {}},
+        {'depth': 75, 'front': {'height': 85}, 'side': {'height': 120}},
+        {'depth': 75, 'front': {'height': 85, 'variant_id': 'A'}, 'side': {'height': 85, 'variant_id': 'B'}},
+    ]:
+        reviewed = block_package(product, [candidate])['candidates'][0]
+        assert reviewed['depth'] == 0 and reviewed['projectionOnly'] is True
     views=[{'id':face,'name':face,'dxf':{'path':face}} for face in ['front','side','top','back','bottom']]
     record={'cad':{'views':views}}
     from app.services.customer_equipment_information import public_view_id

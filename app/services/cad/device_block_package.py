@@ -1,5 +1,6 @@
 """Shared insertable JSON contract; missing source geometry stays explicitly draft."""
 import hashlib
+import math
 
 # Editable layout envelopes, never manufacturer dimensions or certified cutouts.
 ENVELOPES = {
@@ -53,12 +54,18 @@ def block_package(product, candidates):
     native = bool(candidates)
     prepared=[]
     for candidate in candidates:
-        if not candidate.get('depth'):
-            candidate={**candidate, 'depth':draft_block(product)['depth'],
-                       'projectionOnly':False, 'depth_source':'category_envelope',
+        front, side = candidate.get('front') or {}, candidate.get('side') or {}
+        positive = lambda v: isinstance(v, (int, float)) and not isinstance(v, bool) and math.isfinite(v) and v > 0
+        height_matches = (positive(front.get('height')) and
+                          positive(side.get('height')) and
+                          abs(front['height'] - side['height']) <= max(2, front['height'] * .05))
+        same_variant = front.get('variant_id') == side.get('variant_id')
+        if not positive(candidate.get('depth')) or not height_matches or not same_variant:
+            candidate={**candidate, 'depth':0,
+                       'projectionOnly':True,
                        'dimensions_verified':False,
                        'warnings':[*candidate.get('warnings',[]),
-                                   'Chiều sâu dựng 3D là tham khảo theo nhóm; cần đối chiếu mã thực tế.']}
+                                   'Chưa xác nhận chiều sâu theo model; giữ hình chiếu 2D.']}
         prepared.append(candidate)
     return dict(schema_version=2, contract='aide.cad-device-block', units='mm',
                 product=product, geometry_status='source_cad' if native else 'parametric_unverified',
